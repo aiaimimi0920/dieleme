@@ -1,0 +1,37 @@
+[
+    {
+        "id": 43999113583,
+        "市场评估价": 155500,
+        "起拍价格": 99600,
+        "成交价格": 99600,
+        "交易时间": "2015-03-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43999113583.htm?track_id=cc2d15a2-4b52-4007-a67d-ffc900cdde92",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 徐州市 鼓楼区",
+        "所属小区": "千禧龙小区",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "鼓楼区",
+        "最靠近商圈": "鼓楼商圈",
+        "建筑面积": 33.05,
+        "单价": 3013.87,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "44048056691",
+        "url": "https://sf-item.taobao.com/sf_item/44048056691.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
+        "end": 1427248800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "44048412831",
+        "url": "https://sf-item.taobao.com/sf_item/44048412831.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
+        "end": 1427249756000,
+        "status": "done",
+        "is_processed": false
+    }
+]

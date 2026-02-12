@@ -1,0 +1,37 @@
+[
+    {
+        "id": 45722043146,
+        "市场评估价": 2052200,
+        "起拍价格": 1300000,
+        "成交价格": 1550000,
+        "交易时间": "2015-06-23 10:16:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45722043146.htm?track_id=1dff6e37-2a25-4a4b-bf74-7f8993bda084",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 24,
+        "地点": "宁波市北仑区小港渡口路242号6幢242号",
+        "所属小区": "一品江南",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "小港",
+        "建筑面积": 74.89,
+        "单价": 20715.31,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "45823556896",
+        "url": "https://sf-item.taobao.com/sf_item/45823556896.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
+        "end": 1435024863000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "45775514269",
+        "url": "https://sf-item.taobao.com/sf_item/45775514269.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1435024800000,
+        "status": "done",
+        "is_processed": false
+    }
+]

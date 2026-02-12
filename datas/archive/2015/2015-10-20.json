@@ -1,0 +1,44 @@
+[
+    {
+        "id": 523027427467,
+        "市场评估价": null,
+        "起拍价格": 260000,
+        "成交价格": 320000,
+        "交易时间": "2015/10/20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523027427467.htm?track_id=c383bb05-bf64-4c7c-93e8-13fad7f281aa",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 31,
+        "地点": "苏州市石路29号8单元406室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "石路商圈",
+        "建筑面积": 47.37,
+        "单价": 6756.13,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "522666299658",
+        "url": "https://sf-item.taobao.com/sf_item/522666299658.htm?track_id=137a4dca-e387-408f-a8bf-387cec33a923",
+        "end": 1445307000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "522652643001",
+        "url": "https://sf-item.taobao.com/sf_item/522652643001.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
+        "end": 1445308842000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "522682992355",
+        "url": "https://sf-item.taobao.com/sf_item/522682992355.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
+        "end": 1445306400000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,100 @@
+[
+    {
+        "id": 525001111064,
+        "市场评估价": 720000,
+        "起拍价格": 460800,
+        "成交价格": 564800,
+        "交易时间": "2015-12-25 10:14:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525001111064.htm?track_id=c9718d79-f97c-46d6-a01f-88ca46294519",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 50,
+        "地点": "浙江省 宁波市 北仑区 柴桥沃家全兴里8号",
+        "所属小区": "沃家全兴里",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "柴桥",
+        "建筑面积": 142.87,
+        "单价": 3953.49,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 523906428919,
+        "市场评估价": 388000,
+        "起拍价格": 310400,
+        "成交价格": 340400,
+        "交易时间": "2015-12-25 10:07:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523906428919.htm?track_id=f5e81640-179c-437b-ab4c-a5b53dc42bdc",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 16,
+        "地点": "浙江省宁波市北仑区大榭开发区海城花园3号楼103室",
+        "所属小区": "海城花园",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "大榭开发区",
+        "建筑面积": 95.3,
+        "单价": 3570.56,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 523357194769,
+        "市场评估价": 0,
+        "起拍价格": 858100,
+        "成交价格": 858006,
+        "交易时间": "2015/12/25 20:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523357194769.htm?track_id=bb14b61f-f76a-4f24-8ddb-deb1f6094121",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省周口市郸城县新华路南商贸城百货1区3号",
+        "所属小区": "新华路南商贸城",
+        "省份": "河南省",
+        "城市": "周口市",
+        "区": "郸城县",
+        "最靠近商圈": "商贸城",
+        "建筑面积": 102.2,
+        "单价": 8396.34,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "525072987805",
+        "url": "https://sf-item.taobao.com/sf_item/525072987805.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
+        "end": 1451052000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525054396181",
+        "url": "https://sf-item.taobao.com/sf_item/525054396181.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
+        "end": 1451018165000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525038572348",
+        "url": "https://sf-item.taobao.com/sf_item/525038572348.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
+        "end": 1451009030000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525032209334",
+        "url": "https://sf-item.taobao.com/sf_item/525032209334.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1451008800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525039880524",
+        "url": "https://sf-item.taobao.com/sf_item/525039880524.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1451008801000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,44 @@
+[
+    {
+        "id": 520633058545,
+        "市场评估价": 3802600,
+        "起拍价格": 2433680,
+        "成交价格": 2433680,
+        "交易时间": "2015-07-30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520633058545.htm?track_id=5754b18d-ec32-4421-8962-bfecfc974a26",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 1,
+        "地点": "江苏省 徐州市 泉山区",
+        "所属小区": "东坡花园",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "泰山路商圈",
+        "建筑面积": 413.33,
+        "单价": 5888.88,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "520642143836",
+        "url": "https://sf-item.taobao.com/sf_item/520642143836.htm?track_id=260a9d3f-8c3f-4758-b6e0-eb9e92a8298e",
+        "end": 1438224962000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520646450171",
+        "url": "https://sf-item.taobao.com/sf_item/520646450171.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
+        "end": 1438223226000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520547718770",
+        "url": "https://sf-item.taobao.com/sf_item/520547718770.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1438221600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

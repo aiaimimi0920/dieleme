@@ -1,0 +1,93 @@
+[
+    {
+        "id": 539845819170,
+        "市场评估价": null,
+        "起拍价格": 900000,
+        "成交价格": 1060000,
+        "交易时间": "2016-10-21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539845819170.htm?track_id=16f915b7-82fe-4dae-92c6-42c19aa1feac",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河北省廊坊市香河县香河开发区",
+        "所属小区": "京津花园二期",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": null,
+        "建筑面积": 91.17,
+        "单价": 11626.81,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "539363723928",
+        "url": "https://sf-item.taobao.com/sf_item/539363723928.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
+        "end": 1477015200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539365879522",
+        "url": "https://sf-item.taobao.com/sf_item/539365879522.htm?track_id=0c00c899-c0ca-4cde-9de0-12bba8db97b1",
+        "end": 1477019566000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539368622550",
+        "url": "https://sf-item.taobao.com/sf_item/539368622550.htm?track_id=0c00c899-c0ca-4cde-9de0-12bba8db97b1",
+        "end": 1477016430000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539365783171",
+        "url": "https://sf-item.taobao.com/sf_item/539365783171.htm?track_id=0c00c899-c0ca-4cde-9de0-12bba8db97b1",
+        "end": 1477019185000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539368041595",
+        "url": "https://sf-item.taobao.com/sf_item/539368041595.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "end": 1477019778000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539366831276",
+        "url": "https://sf-item.taobao.com/sf_item/539366831276.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
+        "end": 1477019954000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539366295652",
+        "url": "https://sf-item.taobao.com/sf_item/539366295652.htm?track_id=e0094841-bb62-45c7-9b58-c8edf58d1a71",
+        "end": 1477019592000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540051391630",
+        "url": "https://sf-item.taobao.com/sf_item/540051391630.htm?track_id=fb36ca66-519f-47e0-8cf2-d020609c405d",
+        "end": 1477017001000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539956356066",
+        "url": "https://sf-item.taobao.com/sf_item/539956356066.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
+        "end": 1477015478000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539957436899",
+        "url": "https://sf-item.taobao.com/sf_item/539957436899.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
+        "end": 1477015200000,
+        "status": "done",
+        "is_processed": false
+    }
+]

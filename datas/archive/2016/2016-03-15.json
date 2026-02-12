@@ -1,0 +1,93 @@
+[
+    {
+        "id": 527354817443,
+        "市场评估价": 1065900,
+        "起拍价格": 546400,
+        "成交价格": 611400,
+        "交易时间": "2016-03-15 10:10:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527354817443.htm?track_id=0a6bf7f5-4689-4c4a-bbb6-5eee68b926af",
+        "是否成交": true,
+        "竞拍人数": 4,
+        "出价人数": 14,
+        "地点": "浙江省宁波市北仑区新碶明州路932号2幢932号",
+        "所属小区": "吉利花苑",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "明州路商圈",
+        "建筑面积": 140.63,
+        "单价": 4348.37,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 526572668253,
+        "市场评估价": null,
+        "起拍价格": 5071038,
+        "成交价格": 7561038,
+        "交易时间": "2016/03/15 10:42:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526572668253.htm?track_id=f7b7f397-482e-4d64-a9e4-6e1e0e0afac1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市 东城区",
+        "所属小区": "广渠门南小街",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "广渠门",
+        "建筑面积": 133.21,
+        "单价": 56776.44,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 527418844714,
+        "市场评估价": null,
+        "起拍价格": 404343,
+        "成交价格": 445343,
+        "交易时间": "2016-03-15 10:15:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527418844714.htm?track_id=0427dbd5-046d-4bb1-9e5d-8a90899b4f44",
+        "是否成交": true,
+        "竞拍人数": 23,
+        "出价人数": 4,
+        "地点": "河南省 三门峡市 卢氏县",
+        "所属小区": "金色花园",
+        "省份": "河南省",
+        "城市": "三门峡市",
+        "区": "卢氏县",
+        "最靠近商圈": "卢氏县中心",
+        "建筑面积": 131.44,
+        "单价": 3386.59,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "527415890152",
+        "url": "https://sf-item.taobao.com/sf_item/527415890152.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "end": 1458013362000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527555933743",
+        "url": "https://sf-item.taobao.com/sf_item/527555933743.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "end": 1458054305000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527388391312",
+        "url": "https://sf-item.taobao.com/sf_item/527388391312.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
+        "end": 1458008509000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527341361051",
+        "url": "https://sf-item.taobao.com/sf_item/527341361051.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1458007200000,
+        "status": "done",
+        "is_processed": false
+    }
+]

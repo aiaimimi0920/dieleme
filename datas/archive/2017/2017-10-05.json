@@ -1,0 +1,44 @@
+[
+    {
+        "id": 558914607954,
+        "市场评估价": 2104600,
+        "起拍价格": 1683680,
+        "成交价格": 2563680,
+        "交易时间": "2017-10-05 11:10:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558914607954.htm?track_id=2deb6d2a-bd12-4864-a0b3-c05389481829",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 75,
+        "地点": "四川省 成都市 武侯区 新光路7号11栋1单元4层16号",
+        "所属小区": "风华苑",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "武侯区",
+        "最靠近商圈": "桐梓林商圈",
+        "建筑面积": 152.62,
+        "单价": 16793.35,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "557975652078",
+        "url": "https://sf-item.taobao.com/sf_item/557975652078.htm?track_id=9662dc8a-155d-4344-9d83-8dbab508b9f6",
+        "end": 1507171830000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558176095150",
+        "url": "https://sf-item.taobao.com/sf_item/558176095150.htm?track_id=9662dc8a-155d-4344-9d83-8dbab508b9f6",
+        "end": 1507174098000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558846358656",
+        "url": "https://sf-item.taobao.com/sf_item/558846358656.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
+        "end": 1507168800000,
+        "status": "done",
+        "is_processed": false
+    }
+]

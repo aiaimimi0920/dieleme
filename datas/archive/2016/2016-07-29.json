@@ -1,0 +1,51 @@
+[
+    {
+        "id": 535610577279,
+        "市场评估价": 3036000,
+        "起拍价格": 1943200,
+        "成交价格": 2233200,
+        "交易时间": "2016/07/29 10:27:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535610577279.htm?track_id=ccfbbe39-9712-4aaf-89d3-967b0f824419",
+        "是否成交": true,
+        "竞拍人数": 4,
+        "出价人数": 30,
+        "地点": "浙江省 宁波市 北仑区",
+        "所属小区": "里仁花园",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "银泰城",
+        "建筑面积": 268.78,
+        "单价": 8308.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "535503723743",
+        "url": "https://sf-item.taobao.com/sf_item/535503723743.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
+        "end": 1469801015000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535586173489",
+        "url": "https://sf-item.taobao.com/sf_item/535586173489.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
+        "end": 1469761385000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535526963401",
+        "url": "https://sf-item.taobao.com/sf_item/535526963401.htm?track_id=645fbace-2a78-4783-9257-833921945028",
+        "end": 1469759360000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535573230365",
+        "url": "https://sf-item.taobao.com/sf_item/535573230365.htm?track_id=9d62b742-b4d8-4891-b062-beb125515e21",
+        "end": 1469758267000,
+        "status": "done",
+        "is_processed": false
+    }
+]

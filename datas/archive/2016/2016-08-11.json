@@ -1,0 +1,73 @@
+[
+    {
+        "id": 536608958728,
+        "市场评估价": null,
+        "起拍价格": 1660000,
+        "成交价格": 2085000,
+        "交易时间": "2016-08-11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536608958728.htm",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 66,
+        "地点": "江苏省 苏州市 姑苏区 宝带西路1088号12幢304室",
+        "所属小区": "万佳花苑",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "吴中商圈",
+        "建筑面积": 96.2,
+        "单价": 21673.6,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 536610078393,
+        "市场评估价": null,
+        "起拍价格": 1370000,
+        "成交价格": 1370000,
+        "交易时间": "2016/08/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536610078393.htm",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省苏州市相城区黄埭镇裴阳路50号丽水花园8幢505室",
+        "所属小区": "丽水花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "黄埭镇",
+        "建筑面积": 126.56,
+        "单价": 10824.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "536078263988",
+        "url": "https://sf-item.taobao.com/sf_item/536078263988.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "end": 1470883727000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536188505536",
+        "url": "https://sf-item.taobao.com/sf_item/536188505536.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
+        "end": 1470880800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536515457382",
+        "url": "https://sf-item.taobao.com/sf_item/536515457382.htm?track_id=3da5f1bb-5176-482b-b9da-2470b0a42f6d",
+        "end": 1470881065000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536210758683",
+        "url": "https://sf-item.taobao.com/sf_item/536210758683.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
+        "end": 1470882144000,
+        "status": "done",
+        "is_processed": false
+    }
+]

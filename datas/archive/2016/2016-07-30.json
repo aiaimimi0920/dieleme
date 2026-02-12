@@ -1,0 +1,44 @@
+[
+    {
+        "id": 535713192827,
+        "市场评估价": 601005,
+        "起拍价格": 480804,
+        "成交价格": 480804,
+        "交易时间": "2016/07/30 10:04:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535713192827.htm?track_id=07e933be-503b-4759-bb88-9488e739aeed",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 1,
+        "地点": "增城市永宁街荔湖城环山路1号10幢2703房",
+        "所属小区": "金地公园上城",
+        "省份": "广东省",
+        "城市": "广州市",
+        "区": "增城区",
+        "最靠近商圈": "荔湖城",
+        "建筑面积": 78.81,
+        "单价": 6097.86,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "535728456700",
+        "url": "https://sf-item.taobao.com/sf_item/535728456700.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "end": 1469844000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535502063720",
+        "url": "https://sf-item.taobao.com/sf_item/535502063720.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
+        "end": 1469889255000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535732396536",
+        "url": "https://sf-item.taobao.com/sf_item/535732396536.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
+        "end": 1469887710000,
+        "status": "done",
+        "is_processed": false
+    }
+]

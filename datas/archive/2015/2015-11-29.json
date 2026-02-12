@@ -1,0 +1,72 @@
+[
+    {
+        "id": 524222433146,
+        "市场评估价": 1088050,
+        "起拍价格": 879070,
+        "成交价格": 984670,
+        "交易时间": "2015/11/29 10:23:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524222433146.htm?track_id=32958a91-2917-4f1c-bd40-2c5f953fc250",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 13,
+        "地点": "江苏省 徐州市 泉山区",
+        "所属小区": "富丽花园",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "淮海西路商圈",
+        "建筑面积": 130.34,
+        "单价": 7555.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 524194499107,
+        "市场评估价": null,
+        "起拍价格": 545040,
+        "成交价格": 550540,
+        "交易时间": "2015/11/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524194499107.htm?track_id=cc2d15a2-4b52-4007-a67d-ffc900cdde92",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "江苏省徐州市鼓楼区九里峰景B11幢2单元1201室",
+        "所属小区": "九里峰景",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "鼓楼区",
+        "最靠近商圈": "九里商圈",
+        "建筑面积": 103.7,
+        "单价": 5308.97,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "524191866936",
+        "url": "https://sf-item.taobao.com/sf_item/524191866936.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
+        "end": 1448807374000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524243129477",
+        "url": "https://sf-item.taobao.com/sf_item/524243129477.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
+        "end": 1448806301000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524250745091",
+        "url": "https://sf-item.taobao.com/sf_item/524250745091.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
+        "end": 1448805985000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524250809230",
+        "url": "https://sf-item.taobao.com/sf_item/524250809230.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
+        "end": 1448805600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

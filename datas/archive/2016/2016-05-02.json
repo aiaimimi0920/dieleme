@@ -1,0 +1,37 @@
+[
+    {
+        "id": 530613689679,
+        "市场评估价": 1195400,
+        "起拍价格": 770000,
+        "成交价格": 775000,
+        "交易时间": "2016/05/02 15:57:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530613689679.htm?track_id=d9ec48aa-4074-4753-b388-923573bde11a",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 2,
+        "地点": "江苏省苏州市沧浪区苏州新湘苑19幢108室",
+        "所属小区": "苏州新湘苑",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "沧浪区",
+        "最靠近商圈": "东环商圈",
+        "建筑面积": 79.56,
+        "单价": 9739.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "530150011553",
+        "url": "https://sf-item.taobao.com/sf_item/530150011553.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
+        "end": 1462155999000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530266168732",
+        "url": "https://sf-item.taobao.com/sf_item/530266168732.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
+        "end": 1462155472000,
+        "status": "done",
+        "is_processed": false
+    }
+]

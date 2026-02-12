@@ -1,0 +1,37 @@
+[
+    {
+        "id": 539101113174,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 935000,
+        "交易时间": "2016/10/05 10:26:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539101113174.htm?track_id=82ed24c0-12c4-4936-97b4-3549c577b13b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 35,
+        "地点": "江苏省苏州市吴中区苏州吴中经济开发区桂苑二区1幢603室",
+        "所属小区": "桂苑二区",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "吴中经济开发区",
+        "建筑面积": 83.98,
+        "单价": 11133.6,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "538632259419",
+        "url": "https://sf-item.taobao.com/sf_item/538632259419.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
+        "end": 1475635076000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538789176801",
+        "url": "https://sf-item.taobao.com/sf_item/538789176801.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "end": 1475634127000,
+        "status": "done",
+        "is_processed": false
+    }
+]

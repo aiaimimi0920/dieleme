@@ -1,0 +1,65 @@
+[
+    {
+        "id": 580235879980,
+        "市场评估价": 2281000,
+        "起拍价格": 1551080,
+        "成交价格": 1976080,
+        "交易时间": "2018/11/05 15:46:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/580235879980.htm?track_id=a2374299-f165-4934-a458-2f36cfa5575e",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 67,
+        "地点": "四川省 成都市 双流区 成都市华阳镇华府大道一段6号10栋2单元4楼6号房屋一套",
+        "所属小区": "华府春天",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "双流区",
+        "最靠近商圈": "华阳",
+        "建筑面积": 140.48,
+        "单价": 14068.02,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "578503111647",
+        "url": "https://sf-item.taobao.com/sf_item/578503111647.htm?track_id=be4791d9-4192-47ad-a814-1baf514b1a3e",
+        "end": 1541383200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578895948100",
+        "url": "https://sf-item.taobao.com/sf_item/578895948100.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
+        "end": 1541383212000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579979234528",
+        "url": "https://sf-item.taobao.com/sf_item/579979234528.htm?track_id=5e6c2db1-e58c-4261-9130-fede5b693e40",
+        "end": 1541385851000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579935673184",
+        "url": "https://sf-item.taobao.com/sf_item/579935673184.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
+        "end": 1541383714000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579790044147",
+        "url": "https://sf-item.taobao.com/sf_item/579790044147.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
+        "end": 1541384294000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579788834968",
+        "url": "https://sf-item.taobao.com/sf_item/579788834968.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
+        "end": 1541385244000,
+        "status": "done",
+        "is_processed": false
+    }
+]

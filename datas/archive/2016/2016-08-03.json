@@ -1,0 +1,45 @@
+[
+    {
+        "id": 535884322283,
+        "市场评估价": null,
+        "起拍价格": 1000000,
+        "成交价格": 1000000,
+        "交易时间": "2016/08/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535884322283.htm?track_id=baf037df-79df-4838-ab6e-17fab48cb942",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "浙江省 衢州市 常山县 天马街道人民路27号店面",
+        "所属小区": "天马街道人民路27号",
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "常山县",
+        "最靠近商圈": "常山县城中心商圈",
+        "建筑面积": 50.05,
+        "单价": 19980.02,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "535834486048",
+        "url": "https://sf-item.taobao.com/sf_item/535834486048.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1470189860000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535895888113",
+        "url": "https://sf-item.taobao.com/sf_item/535895888113.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
+        "end": 1470191136000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536427740232",
+        "url": "https://sf-item.taobao.com/sf_item/536427740232.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
+        "end": 1470189600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,67 @@
+[
+    {
+        "id": 44975265154,
+        "市场评估价": 833500,
+        "起拍价格": 630000,
+        "成交价格": 749000,
+        "交易时间": "2015/05/08 10:08:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44975265154.htm?track_id=002ceada-553d-423a-92e1-42578cce34d9",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 17,
+        "地点": "江苏省 徐州市 泉山区",
+        "所属小区": "南山庭院",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": null,
+        "建筑面积": 140.48,
+        "单价": 5331.72,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 44929642154,
+        "市场评估价": 227400,
+        "起拍价格": 181920,
+        "成交价格": 181920,
+        "交易时间": "2015/05/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44929642154.htm?track_id=7167f5e1-ed4f-4e83-bb79-fe3489893ab1",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 1,
+        "地点": "徐州市矿山路41号1#-1-401室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "人民广场商圈",
+        "建筑面积": 54.4,
+        "单价": 3344.12,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "44866257805",
+        "url": "https://sf-item.taobao.com/sf_item/44866257805.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "end": 1431050606000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "44962320780",
+        "url": "https://sf-item.taobao.com/sf_item/44962320780.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "end": 1431053793000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "45028656061",
+        "url": "https://sf-item.taobao.com/sf_item/45028656061.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1431050400000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,38 @@
+[
+    {
+        "id": 44555806132,
+        "市场评估价": 132122000,
+        "起拍价格": 79055822,
+        "成交价格": 79055822,
+        "交易时间": "2015-08-21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44555806132.htm?track_id=80f93dd7-d895-4e89-9177-162ae2c4265b",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 1,
+        "地点": "宁波保税区扬子江路8号0307-1地块",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "北仑区中心商圈",
+        "建筑面积": 28416.35,
+        "单价": 2782.05,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "521075569395",
+        "url": "https://sf-item.taobao.com/sf_item/521075569395.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "end": 1440124747000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "521038532182",
+        "url": "https://sf-item.taobao.com/sf_item/521038532182.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
+        "end": 1440122975000,
+        "status": "done",
+        "is_processed": false
+    }
+]

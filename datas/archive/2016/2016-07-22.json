@@ -1,0 +1,121 @@
+[
+    {
+        "id": 529342765669,
+        "市场评估价": null,
+        "起拍价格": 630000,
+        "成交价格": 702000,
+        "交易时间": "2016-07-22T10:14:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/529342765669.htm?track_id=5b480f08-1750-40fd-90ad-f8bb854524a7",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": 40,
+        "地点": "江苏省 徐州市 鼓楼区",
+        "所属小区": "提香湾",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "鼓楼区",
+        "最靠近商圈": "乔湖",
+        "建筑面积": 137.93,
+        "单价": 5093.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 535770112033,
+        "市场评估价": null,
+        "起拍价格": 1920000,
+        "成交价格": 2470000,
+        "交易时间": "2016-07-22T10:23:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535770112033.htm",
+        "是否成交": true,
+        "竞拍人数": 36,
+        "出价人数": null,
+        "地点": "江苏省 苏州市 吴中区",
+        "所属小区": "家天下花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "城南街道",
+        "建筑面积": 138.23,
+        "单价": 17864.18,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 534903405378,
+        "市场评估价": 0,
+        "起拍价格": 437677,
+        "成交价格": 577677,
+        "交易时间": "2016/07/22 10:04:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534903405378.htm?track_id=dcfaf760-6a1f-4a91-9531-0526ff8c8ea5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 15,
+        "地点": "苏州市吴中区临湖镇东泰花园30幢502室",
+        "所属小区": "东泰花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "临湖镇",
+        "建筑面积": 62.26,
+        "单价": 9279.81,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "535023025238",
+        "url": "https://sf-item.taobao.com/sf_item/535023025238.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
+        "end": 1469152800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534873319908",
+        "url": "https://sf-item.taobao.com/sf_item/534873319908.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "end": 1469153571000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534971581234",
+        "url": "https://sf-item.taobao.com/sf_item/534971581234.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "end": 1469155992000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535002313919",
+        "url": "https://sf-item.taobao.com/sf_item/535002313919.htm?track_id=4ad87b93-3084-4bc2-9259-b6b0538f1145",
+        "end": 1469153186000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534920597220",
+        "url": "https://sf-item.taobao.com/sf_item/534920597220.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
+        "end": 1469155155000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534819599719",
+        "url": "https://sf-item.taobao.com/sf_item/534819599719.htm?track_id=f0ab8160-a6c9-4731-aa8f-79271cd5c413",
+        "end": 1469155505000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535698114436",
+        "url": "https://sf-item.taobao.com/sf_item/535698114436.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
+        "end": 1469153931000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534819431232",
+        "url": "https://sf-item.taobao.com/sf_item/534819431232.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
+        "end": 1469152800000,
+        "status": "done",
+        "is_processed": false
+    }
+]

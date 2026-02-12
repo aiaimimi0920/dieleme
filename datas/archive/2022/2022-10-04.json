@@ -1,0 +1,73 @@
+[
+    {
+        "id": 682228979830,
+        "市场评估价": 1058270.5,
+        "起拍价格": 1,
+        "成交价格": 904001,
+        "交易时间": "2022/10/04 10:48:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/682228979830.htm?track_id=9605d7b1-8127-4275-af74-b669210bbe5a",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 1371,
+        "地点": "广州市南沙区万顷沙镇锦澜二街1号2808房",
+        "所属小区": "恒大锦澜湾",
+        "省份": "广东省",
+        "城市": "广州市",
+        "区": "南沙区",
+        "最靠近商圈": "万顷沙",
+        "建筑面积": 72.05,
+        "单价": 12542.83,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 681506022360,
+        "市场评估价": null,
+        "起拍价格": 674002,
+        "成交价格": 774002,
+        "交易时间": "2022/10/04 10:52:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/681506022360.htm?track_id=85008781-981a-4f51-86b8-c789cad6b95b",
+        "是否成交": true,
+        "竞拍人数": 20,
+        "出价人数": 21,
+        "地点": "江苏省淮安市淮安区府前路11号国际花园8号楼2602室",
+        "所属小区": "国际花园",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区府前路商圈",
+        "建筑面积": 97.13,
+        "单价": 7968.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "683307531203",
+        "url": "https://sf-item.taobao.com/sf_item/683307531203.htm?track_id=3acac2e5-4046-49d7-a750-fe434029436a",
+        "end": 1664848800000,
+        "status": "done",
+        "is_processed": false,
+        "原始网站": "https://sf-item.taobao.com/sf_item/683307531203.htm"
+    },
+    {
+        "id": "682998474392",
+        "url": "https://sf-item.taobao.com/sf_item/682998474392.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "end": 1664850474000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683205055447",
+        "url": "https://sf-item.taobao.com/sf_item/683205055447.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
+        "end": 1664852053000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "682329500727",
+        "url": "https://sf-item.taobao.com/sf_item/682329500727.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
+        "end": 1664848807000,
+        "status": "done",
+        "is_processed": false
+    }
+]

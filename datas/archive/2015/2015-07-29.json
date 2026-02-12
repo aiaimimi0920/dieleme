@@ -1,0 +1,31 @@
+[
+    {
+        "id": 520629616448,
+        "市场评估价": 334600,
+        "起拍价格": 214144,
+        "成交价格": 214144,
+        "交易时间": "2015-07-29 10:00:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520629616448.htm?track_id=5754b18d-ec32-4421-8962-bfecfc974a26",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 1,
+        "地点": "江苏省徐州市泉山区",
+        "所属小区": "袁桥小区",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": null,
+        "建筑面积": 73.9,
+        "单价": 2897.75,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "520630823342",
+        "url": "https://sf-item.taobao.com/sf_item/520630823342.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
+        "end": 1438135637000,
+        "status": "done",
+        "is_processed": false
+    }
+]

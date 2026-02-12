@@ -1,0 +1,34 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Data & Storage
+*.db
+auth.json
+secrets.json
+tb_monitor_data.jsonl
+*.html
+*.processing
+*.failed
+
+# Browser profiles
+chrome_user_data/
+temp_chrome_profile/
+
+# Logs
+*.log
+install_log.txt
+
+# IDE
+.vscode/
+.idea/
+
+# Ignore temporary data folders
+datas/html/
+datas/retry/
+
+# Excel Reports & Temp Files
+*.xlsx
+~$*.xlsx

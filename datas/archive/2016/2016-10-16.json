@@ -1,0 +1,38 @@
+[
+    {
+        "id": 538290424242,
+        "市场评估价": null,
+        "起拍价格": 179584,
+        "成交价格": 263584,
+        "交易时间": "2016/10/16 10:14:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538290424242.htm?track_id=a4e88109-cb6f-4405-8451-81f0802ca03c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 4,
+        "地点": "江苏省徐州市鼓楼区",
+        "所属小区": "前蟠桃社区",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "鼓楼区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "539376233616",
+        "url": "https://sf-item.taobao.com/sf_item/539376233616.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
+        "end": 1476583202000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539424631724",
+        "url": "https://sf-item.taobao.com/sf_item/539424631724.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "end": 1476590349000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,44 @@
+[
+    {
+        "id": 524729295836,
+        "市场评估价": null,
+        "起拍价格": 5051520,
+        "成交价格": 6331520,
+        "交易时间": "2015-12-17T10:28:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524729295836.htm?track_id=a84fcd06-fa3b-45e2-ac04-449e8b51da89",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 31,
+        "地点": "江苏省 苏州市 吴中区 胥口镇黄金水岸花园31-1幢",
+        "所属小区": "黄金水岸花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "胥口",
+        "建筑面积": 465.74,
+        "单价": 13598.11,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "524752375138",
+        "url": "https://sf-item.taobao.com/sf_item/524752375138.htm?track_id=645fbace-2a78-4783-9257-833921945028",
+        "end": 1450320511000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524799884015",
+        "url": "https://sf-item.taobao.com/sf_item/524799884015.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
+        "end": 1450317600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524714296477",
+        "url": "https://sf-item.taobao.com/sf_item/524714296477.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1450317600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

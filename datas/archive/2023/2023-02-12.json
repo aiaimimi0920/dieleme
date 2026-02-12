@@ -1,0 +1,51 @@
+[
+    {
+        "id": 696812541455,
+        "市场评估价": 3636700,
+        "起拍价格": 2545690,
+        "成交价格": 3145690,
+        "交易时间": "2023/02/12 12:50:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696812541455.htm?track_id=05096155-51c4-413a-ad96-a5cbb2c4bea5",
+        "是否成交": true,
+        "竞拍人数": 61,
+        "出价人数": 61,
+        "地点": "江苏省 苏州市 姑苏区 金门路",
+        "所属小区": "北兵营小区",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "金门路商圈",
+        "建筑面积": 137.17,
+        "单价": 22934.14,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "696221238672",
+        "url": "https://sf-item.taobao.com/sf_item/696221238672.htm?track_id=40b8eaf8-22dd-4b93-a4cf-079a9760fb3d",
+        "end": 1676167200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697607375987",
+        "url": "https://sf-item.taobao.com/sf_item/697607375987.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
+        "end": 1676169329000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697966282788",
+        "url": "https://sf-item.taobao.com/sf_item/697966282788.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
+        "end": 1676167200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697057214121",
+        "url": "https://sf-item.taobao.com/sf_item/697057214121.htm?track_id=2b62575d-0413-4703-92f3-5a18bf4482ae",
+        "end": 1676168759000,
+        "status": "done",
+        "is_processed": false
+    }
+]

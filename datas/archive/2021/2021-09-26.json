@@ -1,0 +1,93 @@
+[
+    {
+        "id": 653654821576,
+        "市场评估价": 921000,
+        "起拍价格": 645000,
+        "成交价格": 870000,
+        "交易时间": "2021/09/26 10:33:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/653654821576.htm?track_id=78fa6853-8b72-4997-a88a-61f6d8a97745",
+        "是否成交": true,
+        "竞拍人数": 6,
+        "出价人数": 44,
+        "地点": "四川省 成都市 武侯区 火车南站东路10号2栋1单元2层201号房屋",
+        "所属小区": "中成嘉苑",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "武侯区",
+        "最靠近商圈": "火车南站",
+        "建筑面积": 54.44,
+        "单价": 15980.75,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 653146384732,
+        "市场评估价": 2136300,
+        "起拍价格": 1495410,
+        "成交价格": 1600410,
+        "交易时间": "2021/09/26 10:13:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/653146384732.htm?track_id=1c506517-7a8e-4231-88bd-50287ed3bffe",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 21,
+        "地点": "重庆 重庆市 石柱土家族自治县 新开路观音巷52号",
+        "所属小区": null,
+        "省份": "重庆",
+        "城市": "重庆市",
+        "区": "石柱土家族自治县",
+        "最靠近商圈": "南宾",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 655302266612,
+        "市场评估价": null,
+        "起拍价格": 559911,
+        "成交价格": 559911,
+        "交易时间": "2021-09-26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/655302266612.htm?track_id=c4438a2d-6d3c-4374-8c59-9fb2c216b230",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "湖北省 十堰市 茅箭区 五堰街办山西路10号7幢1-12-1号房产",
+        "所属小区": null,
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": null,
+        "建筑面积": 88.02,
+        "单价": 6359.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "654945657765",
+        "url": "https://sf-item.taobao.com/sf_item/654945657765.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
+        "end": 1632621600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655320854077",
+        "url": "https://sf-item.taobao.com/sf_item/655320854077.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
+        "end": 1632621600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "653998898985",
+        "url": "https://sf-item.taobao.com/sf_item/653998898985.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "end": 1632623507000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655324598524",
+        "url": "https://sf-item.taobao.com/sf_item/655324598524.htm?track_id=6e2f85f4-a431-4d2a-afe1-a8628010aed9",
+        "end": 1632621600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

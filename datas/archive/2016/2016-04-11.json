@@ -1,0 +1,79 @@
+[
+    {
+        "id": 528750511123,
+        "市场评估价": 0,
+        "起拍价格": 2154448,
+        "成交价格": 2155448,
+        "交易时间": "2016/04/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528750511123.htm?track_id=f9571476-6337-4681-bca2-b221af2b49f5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 2,
+        "地点": "内蒙古自治区 阿拉善盟 额济纳旗",
+        "所属小区": "蒙元文化街",
+        "省份": "内蒙古自治区",
+        "城市": "阿拉善盟",
+        "区": "额济纳旗",
+        "最靠近商圈": "蒙元文化街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 529327366492,
+        "市场评估价": null,
+        "起拍价格": 6214000,
+        "成交价格": 6824000,
+        "交易时间": "2016/04/11 11:14:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/529327366492.htm?track_id=05096155-51c4-413a-ad96-a5cbb2c4bea5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省苏州市姑苏区南环东路855号鼎盛花园4幢105室",
+        "所属小区": "鼎盛花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "南环东路",
+        "建筑面积": 363.24,
+        "单价": 18786.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "528781499403",
+        "url": "https://sf-item.taobao.com/sf_item/528781499403.htm?track_id=3da5f1bb-5176-482b-b9da-2470b0a42f6d",
+        "end": 1460383200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528781643454",
+        "url": "https://sf-item.taobao.com/sf_item/528781643454.htm?track_id=3da5f1bb-5176-482b-b9da-2470b0a42f6d",
+        "end": 1460383200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528830342943",
+        "url": "https://sf-item.taobao.com/sf_item/528830342943.htm?track_id=3da5f1bb-5176-482b-b9da-2470b0a42f6d",
+        "end": 1460383200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528830402451",
+        "url": "https://sf-item.taobao.com/sf_item/528830402451.htm?track_id=3da5f1bb-5176-482b-b9da-2470b0a42f6d",
+        "end": 1460383200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528866636587",
+        "url": "https://sf-item.taobao.com/sf_item/528866636587.htm?track_id=3da5f1bb-5176-482b-b9da-2470b0a42f6d",
+        "end": 1460383200000,
+        "status": "done",
+        "is_processed": false
+    }
+]

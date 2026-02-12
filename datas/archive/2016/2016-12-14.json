@@ -1,0 +1,37 @@
+[
+    {
+        "id": 542521841894,
+        "市场评估价": 3012200,
+        "起拍价格": 2176315,
+        "成交价格": 2186315,
+        "交易时间": "2016-12-14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542521841894.htm?track_id=6c74169a-d12d-40e6-8070-3ff292c51c85",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "四川省 成都市 新津区",
+        "所属小区": "长桥郡",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "新津区",
+        "最靠近商圈": "牧马山",
+        "建筑面积": 371.42,
+        "单价": 5885.34,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "542486181120",
+        "url": "https://sf-item.taobao.com/sf_item/542486181120.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
+        "end": 1481724000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542501475813",
+        "url": "https://sf-item.taobao.com/sf_item/542501475813.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
+        "end": 1481724000000,
+        "status": "done",
+        "is_processed": false
+    }
+]

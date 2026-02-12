@@ -1,0 +1,100 @@
+[
+    {
+        "id": 684667350041,
+        "市场评估价": null,
+        "起拍价格": 97161.17,
+        "成交价格": 175461.17,
+        "交易时间": "2022-10-23T10:50:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684667350041.htm?track_id=180ff25a-e8bd-4c39-94ff-b7e39ee7f91a",
+        "是否成交": true,
+        "竞拍人数": 88,
+        "出价人数": null,
+        "地点": "云南省 曲靖市 麒麟区 曲靖市开发区翠峰西路锦华山水缘小区西11幢第1层101号车库",
+        "所属小区": "锦华山水缘",
+        "省份": "云南省",
+        "城市": "曲靖市",
+        "区": "麒麟区",
+        "最靠近商圈": "翠峰商圈",
+        "建筑面积": 27,
+        "单价": 6498.56,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 683912267891,
+        "市场评估价": 426759,
+        "起拍价格": 320000,
+        "成交价格": 320000,
+        "交易时间": "2022/10/23 10:18:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/683912267891.htm?track_id=b6bdf5cc-6080-40ac-8694-db3636acfad5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔西南布依族苗族自治州 兴义市 兴天路银桥?比弗利山庄D4幢",
+        "所属小区": "比弗利山庄",
+        "省份": "贵州省",
+        "城市": "黔西南布依族苗族自治州",
+        "区": "兴义市",
+        "最靠近商圈": "兴义市中心商圈",
+        "建筑面积": 135.35,
+        "单价": 2365.15,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 684868359932,
+        "市场评估价": 4509560,
+        "起拍价格": 3200000,
+        "成交价格": 3792000,
+        "交易时间": "2022-10-22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684868359932.htm?track_id=08ed6b40-0488-4643-ba64-a26d81d14c31",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": 33,
+        "地点": "江苏省 苏州市 虎丘区 苏州市虎丘区名馨花园25幢402室",
+        "所属小区": "名馨花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "虎丘区",
+        "最靠近商圈": null,
+        "建筑面积": 130.2,
+        "单价": 29125.19,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "680906570531",
+        "url": "https://sf-item.taobao.com/sf_item/680906570531.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
+        "end": 1666516202000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683877841600",
+        "url": "https://sf-item.taobao.com/sf_item/683877841600.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "end": 1666490400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684651246220",
+        "url": "https://sf-item.taobao.com/sf_item/684651246220.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "end": 1666503623000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684016924811",
+        "url": "https://sf-item.taobao.com/sf_item/684016924811.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
+        "end": 1666492805000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684358345195",
+        "url": "https://sf-item.taobao.com/sf_item/684358345195.htm?track_id=6e2f85f4-a431-4d2a-afe1-a8628010aed9",
+        "end": 1666490400000,
+        "status": "done",
+        "is_processed": false
+    }
+]

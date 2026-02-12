@@ -1,0 +1,73 @@
+[
+    {
+        "id": 694235720603,
+        "市场评估价": 72900,
+        "起拍价格": 40824,
+        "成交价格": 40824,
+        "交易时间": "2023/01/23 14:05:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/694235720603.htm?track_id=68859409-e42d-417b-9adc-093d5cfd0cf5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 成都市 温江区 花季街8号“尚西花郡”8栋-1层269号",
+        "所属小区": "尚西花郡",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "温江区",
+        "最靠近商圈": "温江城区",
+        "建筑面积": 32.21,
+        "单价": 1267.65,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "697032371249",
+        "url": "https://sf-item.taobao.com/sf_item/697032371249.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
+        "end": 1674454680000,
+        "status": "done",
+        "is_processed": false,
+        "原始网站": "https://sf-item.taobao.com/sf_item/697032371249.htm"
+    },
+    {
+        "id": 696490873119,
+        "市场评估价": null,
+        "起拍价格": 1362895.69,
+        "成交价格": 1362895.69,
+        "交易时间": "2023/01/23 10:03:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696490873119.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 包头市市府东路以西华悦府4-607房产",
+        "所属小区": "华悦府",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "昆都仑区政府",
+        "建筑面积": 120.15,
+        "单价": 11339.52,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "696167290736",
+        "url": "https://sf-item.taobao.com/sf_item/696167290736.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
+        "end": 1674439200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696524573676",
+        "url": "https://sf-item.taobao.com/sf_item/696524573676.htm?track_id=12fa5130-966a-4767-9eab-5085df986259",
+        "end": 1674439200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696770482154",
+        "url": "https://sf-item.taobao.com/sf_item/696770482154.htm?track_id=12fa5130-966a-4767-9eab-5085df986259",
+        "end": 1674439200000,
+        "status": "done",
+        "is_processed": false
+    }
+]

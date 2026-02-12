@@ -1,0 +1,31 @@
+[
+    {
+        "id": 537144751478,
+        "市场评估价": null,
+        "起拍价格": 480000,
+        "成交价格": 630000,
+        "交易时间": "2016-09-04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537144751478.htm?track_id=b3312d22-0e57-4d0a-bb54-4f8b2e36bbeb",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省徐州市泉山区",
+        "所属小区": "嘉和雅苑",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": null,
+        "建筑面积": 84.74,
+        "单价": 7434.51,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "537332677132",
+        "url": "https://sf-item.taobao.com/sf_item/537332677132.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "end": 1472954400000,
+        "status": "done",
+        "is_processed": false
+    }
+]

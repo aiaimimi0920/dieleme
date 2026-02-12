@@ -1,0 +1,79 @@
+[
+    {
+        "id": 537475570575,
+        "市场评估价": 5079700,
+        "起拍价格": 2592000,
+        "成交价格": 2592000,
+        "交易时间": "2016-09-09T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537475570575.htm?track_id=80f93dd7-d895-4e89-9177-162ae2c4265b",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 1,
+        "地点": "浙江省宁波市北仑区渡口南路31号5幢31号、渡口南路33号5幢33号、渡口南路35号5幢35号",
+        "所属小区": "兴业城市嘉苑",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "高河塘",
+        "建筑面积": 389.37,
+        "单价": 6658.07,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 537475646413,
+        "市场评估价": null,
+        "起拍价格": 252000,
+        "成交价格": 362000,
+        "交易时间": "2016-09-09 10:14:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537475646413.htm?track_id=bef8b094-1f22-4a16-9125-5fc5d479b490",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": 4,
+        "地点": "江苏省 淮安市 淮安区国际商城步行街4幢东路268号",
+        "所属小区": "国际商城",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "国际商城步行街",
+        "建筑面积": 89.55,
+        "单价": 4043.27,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "537066831429",
+        "url": "https://sf-item.taobao.com/sf_item/537066831429.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "end": 1473387064000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537054543357",
+        "url": "https://sf-item.taobao.com/sf_item/537054543357.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "end": 1473389050000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537505662048",
+        "url": "https://sf-item.taobao.com/sf_item/537505662048.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "end": 1473387759000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537476382727",
+        "url": "https://sf-item.taobao.com/sf_item/537476382727.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
+        "end": 1473386844000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537085393636",
+        "url": "https://sf-item.taobao.com/sf_item/537085393636.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
+        "end": 1473390076000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,86 @@
+[
+    {
+        "id": 779441795693,
+        "市场评估价": 1474963,
+        "起拍价格": 1032475,
+        "成交价格": 1062475,
+        "交易时间": "2024/05/04 10:01:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/779441795693.htm",
+        "是否成交": true,
+        "竞拍人数": 7,
+        "出价人数": 7,
+        "地点": "成都市武侯区佳灵路20号2栋1单元16楼5号",
+        "所属小区": "蓝光金悦天骄",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "武侯区",
+        "最靠近商圈": "红牌楼商圈",
+        "建筑面积": 81.14,
+        "单价": 13095.21,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 772464449919,
+        "市场评估价": 413032,
+        "起拍价格": 264340.48,
+        "成交价格": 264340.48,
+        "交易时间": "2024/05/05 07:58:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/772464449919.htm?track_id=406f939a-b46d-438f-ae00-880f89dd0f3d",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "宁夏回族自治区 石嘴山市 大武口区 大武口区永康南路永康花园A11幢6单元401号及地下室",
+        "所属小区": "永康花园",
+        "省份": "宁夏回族自治区",
+        "城市": "石嘴山市",
+        "区": "大武口区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "768001836666",
+        "url": "https://sf-item.taobao.com/sf_item/768001836666.htm?track_id=8963a4ff-117a-47cb-978d-72821f2bb90b",
+        "end": 1714863881000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "784915991455",
+        "url": "https://sf-item.taobao.com/sf_item/784915991455.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
+        "end": 1714788000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "784952630805",
+        "url": "https://sf-item.taobao.com/sf_item/784952630805.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
+        "end": 1714788000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "785009852618",
+        "url": "https://sf-item.taobao.com/sf_item/785009852618.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
+        "end": 1714788000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "785024041512",
+        "url": "https://sf-item.taobao.com/sf_item/785024041512.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
+        "end": 1714788000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "779535369998",
+        "url": "https://sf-item.taobao.com/sf_item/779535369998.htm?track_id=6e2f85f4-a431-4d2a-afe1-a8628010aed9",
+        "end": 1714788000000,
+        "status": "done",
+        "is_processed": false
+    }
+]

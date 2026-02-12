@@ -1,0 +1,58 @@
+[
+    {
+        "id": 527386049039,
+        "市场评估价": 15985441,
+        "起拍价格": 12790000,
+        "成交价格": 15640000,
+        "交易时间": "2016-03-18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527386049039.htm",
+        "是否成交": true,
+        "竞拍人数": 47,
+        "出价人数": 7,
+        "地点": "江苏省苏州市吴中区金鸡湖路88号1幢101室",
+        "所属小区": "湖东天城",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "湖东CBD",
+        "建筑面积": 214.96,
+        "单价": 72786.07,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "527642498494",
+        "url": "https://sf-item.taobao.com/sf_item/527642498494.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
+        "end": 1458266650000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527614575287",
+        "url": "https://sf-item.taobao.com/sf_item/527614575287.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1458266400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527668953617",
+        "url": "https://sf-item.taobao.com/sf_item/527668953617.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1458266400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527579467106",
+        "url": "https://sf-item.taobao.com/sf_item/527579467106.htm?track_id=645fbace-2a78-4783-9257-833921945028",
+        "end": 1458266897000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528345200830",
+        "url": "https://sf-item.taobao.com/sf_item/528345200830.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
+        "end": 1458266400000,
+        "status": "done",
+        "is_processed": false
+    }
+]

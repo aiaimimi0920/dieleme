@@ -1,0 +1,86 @@
+[
+    {
+        "id": 747729267063,
+        "市场评估价": 434392,
+        "起拍价格": 304075,
+        "成交价格": 523075,
+        "交易时间": "2023/12/10 10:53:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/747729267063.htm?track_id=634f966b-985a-476f-9a51-0623d935a532",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 51,
+        "地点": "江苏省 徐州市 泉山区 三环南路30号云泰悦府17号楼1-106室房产",
+        "所属小区": "云泰悦府",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "三环南路",
+        "建筑面积": 52.33,
+        "单价": 9995.7,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 750622999738,
+        "市场评估价": 3772443,
+        "起拍价格": 2112568,
+        "成交价格": 2711068,
+        "交易时间": "2023/12/10 10:29:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/750622999738.htm?track_id=76cbebc1-0bc7-4ab0-846a-37d8a61eef1b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 36,
+        "地点": "江苏省苏州市相城区苏州市相城区水漾花城花苑16幢102室",
+        "所属小区": "水漾花城",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "活力岛",
+        "建筑面积": 188.77,
+        "单价": 14366.0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "747670483499",
+        "url": "https://sf-item.taobao.com/sf_item/747670483499.htm?track_id=851581af-a6c5-4cfc-a0ec-51191b76b75c",
+        "end": 1702188586000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "745702944300",
+        "url": "https://sf-item.taobao.com/sf_item/745702944300.htm?track_id=b5067d3b-a8a7-456b-852f-55dbd2272063",
+        "end": 1702223595000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747350004554",
+        "url": "https://sf-item.taobao.com/sf_item/747350004554.htm?track_id=75efc7d9-1c15-436a-a771-a5622ac43bf7",
+        "end": 1702175940000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "750675520556",
+        "url": "https://sf-item.taobao.com/sf_item/750675520556.htm?track_id=9e33301f-30c6-457a-a6fc-ef33c49611ec",
+        "end": 1702210401000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747433944652",
+        "url": "https://sf-item.taobao.com/sf_item/747433944652.htm?track_id=6b420920-de29-4df5-8b8e-ab244cccd0e8",
+        "end": 1702173600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "746248225269",
+        "url": "https://sf-item.taobao.com/sf_item/746248225269.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
+        "end": 1702173823000,
+        "status": "done",
+        "is_processed": false
+    }
+]

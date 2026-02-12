@@ -1,0 +1,72 @@
+[
+    {
+        "id": 610799452636,
+        "市场评估价": 2948600,
+        "起拍价格": 1651216,
+        "成交价格": 1651216,
+        "交易时间": "2020-03-08 10:46:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610799452636.htm?track_id=9f2ac8ac-df79-46c2-abf9-755d6c4bfee0",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 成都市 金牛区 蜀西路9号1栋8楼801号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "金牛区",
+        "最靠近商圈": "蜀西路",
+        "建筑面积": 268.79,
+        "单价": 6141.5,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 612008026450,
+        "市场评估价": 3000000,
+        "起拍价格": 3000000,
+        "成交价格": 4615000,
+        "交易时间": "2020-03-08 12:12:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/612008026450.htm?track_id=eec11ae3-943e-44de-ac1f-8291692e9321",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": 72,
+        "地点": "四川省 成都市 双流区 成都市天府新区正兴镇田家寺5组302号3栋1单元10层1002号住宅",
+        "所属小区": "蔚蓝卡地亚花园城蔚蓝阁A区",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "双流区",
+        "最靠近商圈": "天府新区正兴商圈",
+        "建筑面积": 190.95,
+        "单价": 24168.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "612530406214",
+        "url": "https://sf-item.taobao.com/sf_item/612530406214.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
+        "end": 1583634079000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "612483394822",
+        "url": "https://sf-item.taobao.com/sf_item/612483394822.htm?track_id=73d5d661-0377-4d54-9279-7921cdef3c5e",
+        "end": 1583633974000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "612220897460",
+        "url": "https://sf-item.taobao.com/sf_item/612220897460.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
+        "end": 1583633464000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611969308594",
+        "url": "https://sf-item.taobao.com/sf_item/611969308594.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
+        "end": 1583635190000,
+        "status": "done",
+        "is_processed": false
+    }
+]

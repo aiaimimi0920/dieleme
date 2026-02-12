@@ -1,0 +1,67 @@
+[
+    {
+        "id": 531496145655,
+        "市场评估价": 17299500,
+        "起拍价格": 12489700,
+        "成交价格": 12689700,
+        "交易时间": "2016-05-27 10:06:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531496145655.htm?track_id=9f5db99b-103a-4321-b9c4-363b35a392cb",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 2,
+        "地点": "浙江省宁波市北仑区",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "北仑银泰城商圈",
+        "建筑面积": 7940.92,
+        "单价": 1598.01,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 531974383766,
+        "市场评估价": 1580000,
+        "起拍价格": 1580000,
+        "成交价格": 1770000,
+        "交易时间": "2016-05-27T10:24:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531974383766.htm?track_id=c383bb05-bf64-4c7c-93e8-13fad7f281aa",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 32,
+        "地点": "江苏省 苏州市 姑苏区",
+        "所属小区": "闻钟苑",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": null,
+        "建筑面积": 127.38,
+        "单价": 13895.43,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "531564669199",
+        "url": "https://sf-item.taobao.com/sf_item/531564669199.htm?track_id=a698a9e5-cfa5-48e0-86bd-280315dc7c24",
+        "end": 1464317054000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531599880223",
+        "url": "https://sf-item.taobao.com/sf_item/531599880223.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1464314400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531131139527",
+        "url": "https://sf-item.taobao.com/sf_item/531131139527.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
+        "end": 1464315410000,
+        "status": "done",
+        "is_processed": false
+    }
+]

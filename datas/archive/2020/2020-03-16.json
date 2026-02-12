@@ -1,0 +1,72 @@
+[
+    {
+        "id": 613259239729,
+        "市场评估价": 1500000,
+        "起拍价格": 1200000,
+        "成交价格": 1200000,
+        "交易时间": "2020/03/16 10:00:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/613259239729.htm?track_id=cf7b2ea6-1c7b-49b0-bc92-07cfd5e03870",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 成都市 成华区 望平街133号B栋5单元4楼401号",
+        "所属小区": "望平街133号",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "成华区",
+        "最靠近商圈": "猛追湾",
+        "建筑面积": 183.25,
+        "单价": 6547.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 612483504800,
+        "市场评估价": 2350000,
+        "起拍价格": 1320000,
+        "成交价格": 1584000,
+        "交易时间": "2020/03/16 11:59:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/612483504800.htm?track_id=5e7118ba-c2df-408e-a7ff-f739a6c9bcba",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 45,
+        "地点": "江苏省苏州市吴中区城南街道宝怡大厦2508室",
+        "所属小区": "宝怡大厦",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "城南商圈",
+        "建筑面积": 92.83,
+        "单价": 17058.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "611732496503",
+        "url": "https://sf-item.taobao.com/sf_item/611732496503.htm?track_id=8b62a118-5217-4938-94e5-3f574e023c8a",
+        "end": 1584324609000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613113839895",
+        "url": "https://sf-item.taobao.com/sf_item/613113839895.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
+        "end": 1584325637000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "612872582617",
+        "url": "https://sf-item.taobao.com/sf_item/612872582617.htm?track_id=7b04b434-ceff-470a-aefa-d328aa1bebd6",
+        "end": 1584325994000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613262139373",
+        "url": "https://sf-item.taobao.com/sf_item/613262139373.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "end": 1584326586000,
+        "status": "done",
+        "is_processed": false
+    }
+]

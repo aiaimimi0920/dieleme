@@ -1,0 +1,37 @@
+[
+    {
+        "id": 538706761201,
+        "市场评估价": 5147873,
+        "起拍价格": 5147873,
+        "成交价格": 5147873,
+        "交易时间": "2016/10/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538706761201.htm?track_id=0fe1d1e5-ed7e-449b-af21-af132a0dcd32",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 1,
+        "地点": "广东省广州市天河区五山路141号206房（尚德大厦）",
+        "所属小区": "尚德大厦",
+        "省份": "广东省",
+        "城市": "广州市",
+        "区": "天河区",
+        "最靠近商圈": "五山",
+        "建筑面积": 237.81,
+        "单价": 21647.0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "538953089000",
+        "url": "https://sf-item.taobao.com/sf_item/538953089000.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "end": 1475892000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538791292312",
+        "url": "https://sf-item.taobao.com/sf_item/538791292312.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
+        "end": 1475936842000,
+        "status": "done",
+        "is_processed": false
+    }
+]

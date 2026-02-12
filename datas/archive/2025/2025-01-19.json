@@ -1,0 +1,93 @@
+[
+    {
+        "id": 863666875105,
+        "市场评估价": 1780000,
+        "起拍价格": 1250000,
+        "成交价格": 1250000,
+        "交易时间": "2025-01-19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/863666875105.htm?track_id=8aeef043-df37-44d0-9ecf-2b6decd262b7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 苏州市 相城区 元和街道御苑家园48幢306室",
+        "所属小区": "御苑家园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "活力岛",
+        "建筑面积": 114.23,
+        "单价": 10945.51,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "871046963464",
+        "url": "https://sf-item.taobao.com/sf_item/871046963464.htm?track_id=5f2f7b24-55f0-472d-89a7-52767b724665",
+        "end": 1737253271000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "864132315936",
+        "url": "https://sf-item.taobao.com/sf_item/864132315936.htm?track_id=592f94fa-d93e-488c-a277-64ba249fba39",
+        "end": 1737252000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "862224561598",
+        "url": "https://sf-item.taobao.com/sf_item/862224561598.htm?track_id=15d3c34d-ea18-4beb-8082-c657542c2f90",
+        "end": 1737252527000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "862494244693",
+        "url": "https://sf-item.taobao.com/sf_item/862494244693.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
+        "end": 1737262399000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "862224085986",
+        "url": "https://sf-item.taobao.com/sf_item/862224085986.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
+        "end": 1737256800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "871211526216",
+        "url": "https://sf-item.taobao.com/sf_item/871211526216.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
+        "end": 1737252000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "871850900119",
+        "url": "https://sf-item.taobao.com/sf_item/871850900119.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
+        "end": 1737252000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "864133227263",
+        "url": "https://sf-item.taobao.com/sf_item/864133227263.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
+        "end": 1737253187000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "870921439381",
+        "url": "https://sf-item.taobao.com/sf_item/870921439381.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "end": 1737252628000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "870927927654",
+        "url": "https://sf-item.taobao.com/sf_item/870927927654.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "end": 1737252000000,
+        "status": "done",
+        "is_processed": false
+    }
+]

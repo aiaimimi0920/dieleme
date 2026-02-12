@@ -1,0 +1,1802 @@
+// ==UserScript==
+// @name         法拍房全能助手 (Fapaifang Unified Tool)
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  集成了嗅探、检阅（快/慢）和详情助手功能的统一脚本
+// @author       Antigravity
+// @match        https://sf.taobao.com/*
+// @match        https://sf-item.taobao.com/*
+// @match        https://susong-item.taobao.com/*
+// @match        https://paimai.taobao.com/pmp_item/*
+// @match        https://login.taobao.com/*
+// @match        https://sec.taobao.com/*
+// @connect      127.0.0.1
+// @connect      localhost
+// @connect      sf.taobao.com
+// @connect      sf-item.taobao.com
+// @connect      susong-item.taobao.com
+// @connect      detail-ext.taobao.com
+// @connect      itemcdn.tmall.com
+// @grant        GM_xmlhttpRequest
+// @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_listValues
+// @grant        GM_deleteValue
+// @grant        GM_addValueChangeListener
+// @grant        GM_openInTab
+// @grant        GM_registerMenuCommand
+// @run-at       document-idle
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // const API_BASE = "http://127.0.0.1:8001/api";
+    // Make Port Dynamic
+    const initialUrlParams = new URLSearchParams(window.location.search);
+    const urlPort = initialUrlParams.get('uni_port');
+    
+    // Priority: URL Param > Config > Default
+    const API_PORT = urlPort || GM_getValue('uni_api_port', '8001');
+    const API_BASE = `http://127.0.0.1:${API_PORT}/api`;
+    
+    log(`[Init] Using API Port: ${API_PORT} ${urlPort ? '(from URL)' : '(from Config)'}`, 'info');
+
+
+    // --- API Helper ---
+    function fetchApi(endpoint, data = {}, callback = null, errorCallback = null) {
+        const method = Object.keys(data).length > 0 ? "POST" : "GET";
+        GM_xmlhttpRequest({
+            method: method,
+            url: API_BASE + endpoint,
+            headers: { "Content-Type": "application/json" },
+            data: method === "POST" ? JSON.stringify(data) : null,
+            onload: function(response) {
+                if (response.status === 200) {
+                    try {
+                        const json = JSON.parse(response.responseText);
+                        if (callback) callback(json);
+                    } catch (e) { 
+                        log("API Parse Error", 'error'); 
+                        if (errorCallback) errorCallback();
+                    }
+                } else {
+                    log(`API Error: ${response.status} ${response.responseText}`, 'error');
+                    if (errorCallback) errorCallback();
+                }
+            },
+            onerror: function(err) { 
+                log("API Connection Fail", 'error'); 
+                if (errorCallback) errorCallback();
+            }
+        });
+    }
+
+    // ==========================================
+    // MODULE 1: SNIFFING (Master Page)
+    // ==========================================
+    let sniffState = {
+        maxSlots: 3, // Concurrency for sniffing (3 tabs)
+        interval: 3000,
+        running: false,
+        workerMode: false,
+        currSessionIdx: 0
+    };
+
+    // Use multiple sessions to maximize distribution across locations
+    let sniffSessions = [];
+    try {
+        const stored = sessionStorage.getItem('sniff_sessions_list');
+        if (stored) sniffSessions = JSON.parse(stored);
+    } catch(e) {}
+
+    if (!sniffSessions || sniffSessions.length < sniffState.maxSlots) {
+        sniffSessions = [];
+        for (let i = 0; i < sniffState.maxSlots; i++) {
+            sniffSessions.push('sniff_s' + i + '_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5));
+        }
+        sessionStorage.setItem('sniff_sessions_list', JSON.stringify(sniffSessions));
+    }
+    
+    // Auto-resume sniffing if reloading (Master only)
+    if (sessionStorage.getItem("uni_is_sniffing") === "true") {
+        window.addEventListener('load', () => {
+             setTimeout(() => {
+                 if (document.getElementById('uni-mode-select')) {
+                     document.getElementById('uni-mode-select').value = 'SNIFF';
+                     currentMode = 'SNIFF';
+                     GM_setValue('unified_mode', 'SNIFF'); // Sync
+                     toggleRunState(); // Auto-start
+                 }
+             }, 1000);
+        });
+    }
+
+    // --- Optimization: No-Image Mode (for Sniffing/Review) ---
+    function injectOptimization() {
+        const style = document.createElement('style');
+        style.textContent = `
+            img, [style*="background-image"], .lazyload, .lazy-img, 
+            .item-img, .item-pic, .image-gallery, .J_ItemPic,
+            video, iframe[src*="video"], .video-container,
+            #J_Map, .show-amap, iframe[src*="gaode"], iframe[src*="amap"],
+            #J_SiteFooter, .tb-footer, #sf-foot-2014, .sf-foot-2014,
+            .pm-main-l, #J_UlThumb, .J_HeadImageWrap,
+            #J_SiteNav, .site-nav, #sf-head-2014, .sf-head-2014, .nav-con {
+                visibility: hidden !important;
+                height: 0 !important;
+                min-height: 0 !important;
+                max-height: 0 !important;
+                overflow: hidden !important;
+            }
+        `;
+        document.head.appendChild(style);
+
+        const imgObserver = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                for (const node of mutation.addedNodes) {
+                    if (node.tagName === 'IMG') {
+                        node.src = '';
+                        node.srcset = '';
+                        node.loading = 'lazy';
+                    }
+                }
+            }
+        });
+        imgObserver.observe(document.documentElement, { childList: true, subtree: true });
+        log('[Optimization] No-Image Mode Active', 'info');
+    }
+
+    // Determine current mode early
+    const modeParam = initialUrlParams.get('uni_mode');
+
+    // Auto-Run Workers (Sniff Worker)
+    if (modeParam === 'SNIFF_WORKER') {
+        injectOptimization();
+        window.addEventListener('load', () => {
+            setTimeout(startSniffWorker, 1000);
+        });
+    }
+
+    function startSniffing() {
+        if (modeParam === 'SNIFF_WORKER') {
+            startSniffWorker();
+        } else {
+            startSniffMaster();
+        }
+    }
+    
+    function startSniffMaster() {
+        log('启动嗅探主控 (Master)...', 'info');
+        sessionStorage.setItem("uni_is_sniffing", "true");
+        sniffState.running = true;
+        sniffMasterLoop();
+    }
+    
+    function stopSniffing() {
+        sessionStorage.setItem("uni_is_sniffing", "false");
+        sniffState.running = false;
+    }
+    
+    function sniffMasterLoop() {
+        if (!isRunning || currentMode !== 'SNIFF' || !sniffState.running) return;
+
+        // Count active slots
+        const openTabs = getActiveSlots('sniff_tab_');
+        const status = document.getElementById('uni-stats-text');
+        if (status) status.innerText = `Sniffing: ${openTabs.length}/${sniffState.maxSlots} Tabs`;
+
+        if (openTabs.length < sniffState.maxSlots) {
+             // Rotate session to distribute load across locations
+             const sessionId = sniffSessions[sniffState.currSessionIdx % sniffSessions.length];
+             sniffState.currSessionIdx++;
+
+             fetchApi('/get_or_create_sniff_task?session_id=' + encodeURIComponent(sessionId), {}, (res) => {
+                if (res.task && res.task.url) {
+                    log(`分配任务: ${res.task.desc || res.task.url}`, 'success');
+                    
+                    const workerUrl = new URL(res.task.url);
+                    workerUrl.searchParams.set('uni_mode', 'SNIFF_WORKER');
+                    
+                    const tabName = 'sniff_tab_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+                    GM_setValue(tabName, Date.now()); 
+                    
+                    GM_openInTab(workerUrl.toString(), { active: false, insert: true });
+                } else {
+                    // No task?
+                }
+                setTimeout(sniffMasterLoop, sniffState.interval);
+             }, () => setTimeout(sniffMasterLoop, sniffState.interval));
+        } else {
+             setTimeout(sniffMasterLoop, 1000);
+        }
+    }
+
+    function getActiveSlots(prefix) {
+        const now = Date.now();
+        const keys = GM_listValues();
+        let active = [];
+        for (let key of keys) {
+            if (key.startsWith(prefix)) {
+                const ts = GM_getValue(key);
+                if (now - ts < 90000) { 
+                    active.push(key);
+                } else {
+                    GM_deleteValue(key);
+                }
+            }
+        }
+        return active;
+    }
+
+    function startSniffWorker() {
+        log('启动嗅探工作者 (Worker)...', 'info');
+        sniffLoopLocal();
+    }
+    
+    function sniffLoopLocal() {
+        log("开始滚动页面 (模拟人类操作)...", 'info');
+        let steps = 0;
+        const maxSteps = 50;
+        
+        const randomScroll = () => {
+             const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+             const currentPos = window.scrollY + window.innerHeight;
+             
+             if (currentPos >= scrollHeight - 100 || steps > maxSteps) {
+                 log("滚动完成，开始解析数据...", 'success');
+                 scrapeAndSave((hasZeroBid) => {
+                     checkForNextPageAndReport(hasZeroBid);
+                     log('任务完成，关闭标签页...', 'success');
+                     setTimeout(() => window.close(), 1000);
+                 });
+                 return;
+             }
+             
+             steps++;
+             const distance = Math.floor(Math.random() * 300) + 150;
+             window.scrollBy({ top: distance, behavior: 'smooth' });
+             setTimeout(randomScroll, Math.floor(Math.random() * 500) + 300);
+        };
+        randomScroll();
+    }
+
+    // Placeholder for fetchNextSniffTask since it was removed
+    function fetchNextSniffTask() {}
+    
+    function checkForNextPageAndReport(hasZeroBid = false) {
+        // Logic to determine if there is a next page based on URL and DOM
+        // This is simplified for brevity; full logic mirrors taobao_monitor
+        let pageNum = 1;
+        const url = new URL(window.location.href);
+        const p = url.searchParams.get('page');
+        if (p) pageNum = parseInt(p);
+        
+        const items = document.querySelectorAll('.sf-item-list li, .pai-item');
+        const hasItems = items.length > 0;
+        let hasNext = hasItems && !hasZeroBid; 
+        
+        // Report status to backend (to update JobManager)
+        fetchApi('/report_sniff_status', {
+            url: window.location.href,
+            has_next: hasNext,
+            is_empty: !hasNext,
+            page_num: pageNum,
+            zero_bid_detected: hasZeroBid
+        });
+    }
+    
+    function scrapeAndSave(onDone) {
+        const scriptData = document.getElementById('sf-item-list-data');
+        if (scriptData) {
+            try {
+                const json = JSON.parse(scriptData.innerText);
+                if (json.data && Array.isArray(json.data)) {
+                        const totalRaw = json.data.length;
+                        
+                        // Check for zero-bid items
+                        const hasZeroBidItem = json.data.some(item => item.bidCount === 0);
+                        if (hasZeroBidItem) {
+                            log(`[剪枝] 发现0出价物品`, 'warning');
+                        }
+                        
+                        // Filter: status == 'done' AND bidCount >= 1
+                        const items = json.data
+                        .filter(item => item.status === 'done' && item.bidCount >= 1)
+                        .map(item => ({
+                            id: item.id,
+                            title: item.title,
+                            currentPrice: item.currentPrice,
+                            initialPrice: item.initialPrice,
+                            auction_date: new Date(item.end).toISOString().replace('T', ' ').split('.')[0],
+                            end: item.end, 
+                            url: item.itemUrl ? "https:" + item.itemUrl : "",
+                            status: item.status,
+                            bidCount: item.bidCount,
+                            applyCount: item.applyCount,
+                            is_processed: false 
+                        }));
+                        
+                        if (items.length > 0) {
+                            log(`发现 ${items.length} 个有效(已成交)物品，保存中...`, 'success');
+                            fetchApi('/save', { items: items }, (res) => {
+                                log(`[Sniff] 保存成功: ${res.new} 新增`, 'success');
+                                // Auto-resume server if it was paused (User solved captcha manually)
+                                resumeServer(true);
+                                if (onDone) onDone(hasZeroBidItem);
+                            }, () => {
+                                log("保存失败!", 'error');
+                                if (onDone) onDone(hasZeroBidItem);
+                            });
+                        } else {
+                            log("本页无有效成交物品", 'info');
+                            if (onDone) onDone(hasZeroBidItem);
+                        }
+                } else {
+                    if (onDone) onDone(false);
+                }
+            } catch (e) { 
+                log("JSON解析失败", 'error'); 
+                if (onDone) onDone(false);
+            }
+        } else {
+             log("未找到数据脚本 (sf-item-list-data)", 'error');
+             if (onDone) onDone(false);
+        }
+    }
+    
+    // --- State Management ---
+    // Mode: 'IDLE' | 'SNIFF' | 'REVIEW_FAST' | 'REVIEW_SLOW'
+    let currentMode = GM_getValue('unified_mode', 'IDLE'); 
+    let isRunning = false; 
+    let dashboardPanel = null;
+    
+    // Page Type Detection
+    const isMaster = window.location.hostname === "sf.taobao.com";
+    const isDetail = window.location.hostname.includes("item.taobao.com") || window.location.hostname.includes("paimai.taobao.com");
+    const isLoginOrSec = window.location.hostname.includes("login.taobao.com") || window.location.hostname.includes("sec.taobao.com");
+
+    const urlParams = initialUrlParams; // Reuse parsed params
+    const autoWorkerMode = urlParams.get('auto_worker'); // 1 = enabled
+
+    // --- Worker Logging Helper ---
+    function logToMaster(msg, type = 'info') {
+        // Logs locally
+        console.log(`[Worker] ${msg}`);
+        // Sends to Master via shared storage
+        GM_setValue('uni_worker_log', {
+            ts: Date.now(),
+            msg: `[Worker] ${msg}`,
+            type: type
+        });
+    }
+
+    // --- Logger ---
+    function log(msg, type = 'info') {
+        const time = new Date().toLocaleTimeString();
+        console.log(`[Unified] [${type.toUpperCase()}] ${msg}`);
+        
+        // Update Dashboard Log if exists
+        const logEl = document.getElementById('uni-log-content');
+        if (logEl) {
+            const line = document.createElement('div');
+            line.style.borderBottom = '1px solid #333';
+            line.style.padding = '2px 0';
+            line.style.color = type === 'error' ? '#ff6b6b' : (type === 'success' ? '#51cf66' : '#ddd');
+            line.textContent = `[${time}] ${msg}`;
+            logEl.appendChild(line);
+            logEl.scrollTop = logEl.scrollHeight;
+            
+            // Limit log lines
+            if (logEl.children.length > 50) logEl.removeChild(logEl.firstChild);
+        }
+    }
+
+    // --- Dashboard UI (Only on Master Page) ---
+    function createDashboard() {
+        if (!isMaster || dashboardPanel) return;
+        if (modeParam === 'SNIFF_WORKER') return; // Hide dashboard in worker tabs
+
+        dashboardPanel = document.createElement('div');
+        Object.assign(dashboardPanel.style, {
+            position: 'fixed', top: '10px', right: '10px', width: '300px',
+            backgroundColor: 'rgba(0, 0, 0, 0.85)', color: 'white',
+            borderRadius: '8px', padding: '15px', zIndex: 999999,
+            fontFamily: 'Segoe UI, sans-serif', fontSize: '14px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.5)', border: '1px solid #444'
+        });
+
+        const render = () => {
+            const modeOptions = [
+                { val: 'IDLE', label: '🛑 空闲 (Idle)' },
+                { val: 'SNIFF', label: '🕵️ 嗅探模式 (Sniffing)' },
+                { val: 'REVIEW_FAST', label: '⚡ 快速检阅 (Fast API)' },
+                { val: 'REVIEW_SLOW', label: '🐢 慢速检阅 (Slow Tab)' }
+            ];
+            
+            let optionsHtml = modeOptions.map(opt => 
+                `<option value="${opt.val}" ${currentMode === opt.val ? 'selected' : ''}>${opt.label}</option>`
+            ).join('');
+
+            dashboardPanel.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid #555; padding-bottom:8px;">
+                    <strong style="font-size:16px; color:#4dabf7;">🛠️ 法拍房全能助手</strong>
+                    <span style="font-size:12px; color:#888;">v1.0</span>
+                </div>
+                
+                <div style="margin-bottom:12px;">
+                    <label style="display:block; margin-bottom:5px; color:#ccc;">工作模式:</label>
+                    <select id="uni-mode-select" style="width:100%; padding:6px; background:#333; color:white; border:1px solid #555; border-radius:4px;">
+                        ${optionsHtml}
+                    </select>
+                </div>
+
+                <div style="display:flex; gap:10px; margin-bottom:15px;">
+                    <button id="uni-btn-start" style="flex:1; padding:8px; background:${isRunning ? '#f03e3e' : '#2f9e44'}; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">
+                        ${isRunning ? '⏹️ 停止工作' : '▶️ 开始工作'}
+                    </button>
+                    <button id="uni-btn-resume" style="display:none; flex:1; padding:8px; background:#e67700; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; animation: pulse 2s infinite;">
+                        ⚠️ 恢复服务 (Resume)
+                    </button>
+                    ${currentMode === 'REVIEW_SLOW' || currentMode === 'SNIFF' ? 
+                        `<button id="uni-btn-window" style="padding:8px; background:#1c7ed6; color:white; border:none; border-radius:4px; cursor:pointer;" title="打开新窗口">🪟</button>` 
+                        : ''}
+                </div>
+
+                <div id="uni-stats-area" style="margin-bottom:10px; font-size:12px; color:#aaa; line-height:1.5;">
+                    <div>状态: <span id="uni-status-text" style="color:${isRunning ? '#51cf66' : '#ffd43b'}">${isRunning ? '运行中' : '已就绪'}</span></div>
+                    <div>统计: <span id="uni-stats-text">0 成功 | 0 失败</span></div>
+                    <div id="uni-global-stats" style="margin-top:4px; border-top:1px dashed #444; padding-top:4px; color:#8ce99a;">📊 初始化统计...</div>
+                </div>
+
+                <div style="background:#222; border:1px solid #444; border-radius:4px; padding:5px;">
+                    <div id="uni-log-content" style="height:120px; overflow-y:auto; font-family:monospace; font-size:11px; white-space:pre-wrap;"></div>
+                </div>
+                
+                <div style="margin-top:5px; font-size:10px; color:#666; text-align:right;">
+                    API Port: <select id="uni-port-select" style="background:#333; color:#aaa; border:none;">
+                        <option value="8001">8001 (Server)</option>
+                        <option value="5001">5001 (Fixer)</option>
+                    </select>
+                </div>
+
+                <style>
+                @keyframes pulse {
+                    0% { opacity: 1; transform: scale(1); }
+                    50% { opacity: 0.8; transform: scale(0.98); }
+                    100% { opacity: 1; transform: scale(1); }
+                }
+                </style>
+            `;
+            
+            // Bind Events
+            const portSelect = document.getElementById('uni-port-select');
+            if (portSelect) {
+                // Restore saved port
+                const savedPort = GM_getValue('uni_api_port', '8001');
+                portSelect.value = savedPort;
+                // Update global constant-like variable (we need to change how API_BASE is used)
+                // Since API_BASE is const, we need to refactor it to be dynamic or just reload
+                portSelect.onchange = (e) => {
+                    const newPort = e.target.value;
+                    GM_setValue('uni_api_port', newPort);
+                    log(`端口已切换至 ${newPort}，即将刷新页面...`, 'warning');
+                    setTimeout(() => location.reload(), 1000);
+                };
+            }
+            
+            // Bind Events
+            document.getElementById('uni-mode-select').onchange = (e) => {
+                if (isRunning) {
+                    alert('请先停止当前任务再切换模式');
+                    e.target.value = currentMode;
+                    return;
+                }
+                currentMode = e.target.value;
+                GM_setValue('unified_mode', currentMode);
+                render(); // Re-render to update UI context
+            };
+
+            document.getElementById('uni-btn-start').onclick = () => {
+                toggleRunState();
+            };
+            
+            document.getElementById('uni-btn-resume').onclick = () => {
+                resumeServer(false);
+            };
+            
+            function resumeServer(isAuto) {
+                fetchApi('/resume', {}, (res) => {
+                     if (!isAuto) {
+                         log('✅ 服务已恢复 (Resumed)', 'success');
+                         refreshGlobalStats();
+                     } else {
+                         // Silent resume for auto-mode, just refresh stats to update UI
+                         refreshGlobalStats();
+                     }
+                });
+            }
+            
+            const winBtn = document.getElementById('uni-btn-window');
+            if (winBtn) winBtn.onclick = () => window.open(window.location.href, '_blank');
+        };
+
+        document.body.appendChild(dashboardPanel);
+        render();
+        log('面板已加载，等待指令...');
+        
+        // Listen for Worker Logs
+        GM_addValueChangeListener('uni_worker_log', (name, oldVal, newVal, remote) => {
+            if (remote && newVal) {
+                log(newVal.msg, newVal.type);
+            }
+        });
+
+        // Auto Refresh Global Stats
+        function refreshGlobalStats() {
+            fetchApi('/status', {}, (res) => {
+                const el = document.getElementById('uni-global-stats');
+                const statusEl = document.getElementById('uni-status-text');
+                const startBtn = document.getElementById('uni-btn-start');
+                const resumeBtn = document.getElementById('uni-btn-resume');
+
+                if (res.paused) {
+                    if(statusEl) {
+                        statusEl.textContent = '🛑 服务暂停 (无需验证码)';
+                        statusEl.style.color = '#ff6b6b';
+                    }
+                    if(resumeBtn) resumeBtn.style.display = 'block';
+                    if(startBtn) startBtn.style.display = 'none';
+                } else {
+                    if(statusEl) {
+                        // Check if we should update text (don't overwrite 'Stopped')
+                        if (statusEl.innerText.includes("暂停") || statusEl.innerText.includes("Running")) {
+                             statusEl.textContent = isRunning ? '运行中...' : '已就绪';
+                             statusEl.style.color = isRunning ? '#51cf66' : '#ffd43b';
+                        }
+                    }
+                    if(resumeBtn) resumeBtn.style.display = 'none';
+                    if(startBtn) startBtn.style.display = 'block';
+                    
+                    // Clear captcha cooldown if we are getting tasks
+                    GM_deleteValue('last_captcha_global_time');
+                    GM_deleteValue('captcha_solving_tab_id');
+                    GM_deleteValue('captcha_solving_tab_id');
+                }
+                
+                if (el) {
+                    el.innerHTML = `📊 总量: <span style="color:white">${res.total_ids || 0}</span> | 📝 已探测: <span style="color:#ffec99">${res.captured_count || 0}</span> | 🤖 AI定稿: <span style="color:#63e6be">${res.ai_finalized_count || 0}</span>`;
+                }
+            }, (err) => {
+                 // Squelch errors for stats to avoid log spam
+            });
+        }
+        setInterval(refreshGlobalStats, 5000);
+        refreshGlobalStats();
+    }
+
+    function toggleRunState() {
+        isRunning = !isRunning;
+        const btn = document.getElementById('uni-btn-start');
+        const status = document.getElementById('uni-status-text');
+        
+        if (btn && status) {
+            btn.textContent = isRunning ? '⏹️ 停止工作' : '▶️ 开始工作';
+            btn.style.background = isRunning ? '#f03e3e' : '#2f9e44';
+            status.textContent = isRunning ? '运行中...' : '已停止';
+            status.style.color = isRunning ? '#51cf66' : '#ffd43b';
+        }
+
+        if (isRunning) {
+            log(`启动模式: ${currentMode}...`, 'success');
+            startLogic();
+        } else {
+            log('正在停止...', 'info');
+            stopLogic();
+        }
+    }
+
+    // --- Logic Dispatcher ---
+    function startLogic() {
+        switch (currentMode) {
+            case 'SNIFF':
+                startSniffing();
+                break;
+            case 'REVIEW_FAST':
+                startFastReview();
+                break;
+            case 'REVIEW_SLOW':
+                startSlowReview();
+                break;
+            case 'IDLE':
+            default:
+                log('空闲模式，无操作');
+                isRunning = false; // Reset
+                break;
+        }
+    }
+
+    function stopLogic() {
+        // Stop signals for all modes
+        // sniffState.active = false;
+        // fastReviewState.active = false;
+        // slowReviewState.active = false;
+    }
+
+    // ==========================================
+    // MODULE 1: SNIFFING (Master Page)
+    // ==========================================
+    // Logic is implemented at the top of the file.
+
+
+    // ==========================================
+    // MODULE 2: FAST REVIEW (Master Page - No Tabs)
+    // ==========================================
+    let fastReviewState = { 
+        activeCount: 0, 
+        stats: { fetched: 0, success: 0, failed: 0 },
+        concurrency: 120,    // High concurrency for 5 accounts x 3 models x 10 threads
+        batchSize: 200,      // Larger refill size
+        taskQueue: [],       // Local buffer
+        fetching: false,     // Refill lock
+        pulseTimer: null,
+        captchaMode: false
+    };
+
+    function startFastReview() {
+        log('启动快速检阅 (流水线模式)...', 'info');
+        fastReviewState.stats = { fetched: 0, success: 0, failed: 0 };
+        fastReviewState.activeCount = 0;
+        fastReviewState.taskQueue = [];
+        fastReviewState.fetching = false;
+        fastReviewState.captchaMode = false;
+        if (fastReviewState.pulseTimer) clearInterval(fastReviewState.pulseTimer);
+        fastReviewState.pulseTimer = null;
+        
+        fastReviewLoop();
+    }
+    
+    // --- Pipeline Logic ---
+    
+    function fastReviewLoop() {
+        // This is now the entry point for the pipeline
+        if (!isRunning || currentMode !== 'REVIEW_FAST') return;
+        
+        // 1. Start the Pulse (Launcher)
+        if (!fastReviewState.pulseTimer) {
+             fastReviewState.pulseTimer = setInterval(pipelinePulse, 30);
+        }
+        
+        // 2. Start initial fetch
+        refillTaskQueue();
+    }
+    
+    // The heartbeat of the pipeline
+    function pipelinePulse() {
+        if (!isRunning || currentMode !== 'REVIEW_FAST') {
+            clearInterval(fastReviewState.pulseTimer);
+            fastReviewState.pulseTimer = null;
+            return;
+        }
+        
+        if (fastReviewState.captchaMode) return; // Paused for captcha
+
+        // Update UI
+        const status = document.getElementById('uni-stats-text');
+        if (status) {
+            status.innerText = `Pipeline: ${fastReviewState.taskQueue.length} queued | Active: ${fastReviewState.activeCount}/${fastReviewState.concurrency} | ${fastReviewState.stats.success} OK`;
+        }
+
+        // Refill trigger (Aggressive)
+        if (fastReviewState.taskQueue.length < 50 && !fastReviewState.fetching) {
+            refillTaskQueue();
+        }
+
+        // Launch trigger
+        while (fastReviewState.activeCount < fastReviewState.concurrency && fastReviewState.taskQueue.length > 0) {
+            const task = fastReviewState.taskQueue.shift();
+            fastReviewState.activeCount++;
+            processItemFast(task);
+        }
+    }
+
+    function refillTaskQueue() {
+        if (fastReviewState.fetching) return;
+        fastReviewState.fetching = true;
+        
+        log("流水线: 补充任务中...", 'info');
+        fetchApi('/get_tasks', {}, (res) => {
+            fastReviewState.fetching = false;
+            if (fastReviewState.captchaMode) return;
+            
+            const tasks = res.tasks || [];
+            if (tasks.length > 0) {
+                // Deduplicate? Maybe not needed if backend is good.
+                // Just push.
+                for (let t of tasks) {
+                    fastReviewState.taskQueue.push(t);
+                }
+                log(`流水线: +${tasks.length} 任务 (池剩余: ${fastReviewState.taskQueue.length})`, 'success');
+            } else {
+                // Backoff if no tasks
+                log("流水线: 无新任务，稍后重试", 'info');
+                // Pulse will try again later because queue is low
+                // But we should add a small cooldown to avoid spamming /get_tasks
+                // Let's set fetching=true for a few seconds? 
+                // Better: explicit retry timer.
+                fastReviewState.fetching = true; 
+                setTimeout(() => { fastReviewState.fetching = false; }, 3000);
+            }
+        }, (err) => {
+            fastReviewState.fetching = false;
+            log("补充任务失败", 'error');
+            setTimeout(() => { fastReviewState.fetching = false; }, 5000); // Retry delay
+        });
+    }
+    
+    function processItemFast(task) {
+        fastReviewState.stats.fetched++;
+        
+        // Step 1: Fetch Detail Page HTML
+        // Use sf-item sub-domain often avoids some main-site captchas
+        const detailUrl = task.url.includes('sf-item') ? task.url : `https://sf-item.taobao.com/sf_item/${task.id}.htm`;
+        
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: detailUrl,
+            headers: { "Referer": "https://sf.taobao.com/", "User-Agent": navigator.userAgent },
+            onload: function(resp) {
+                if (resp.status === 200 && resp.responseText.length > 100) {
+                    // Captcha check
+                    if (resp.responseText.indexOf('RGV587_ERROR') !== -1) {
+                        log(`[${task.id}] 触发验证码!`, 'error');
+                        handleFastCaptcha();
+                        fastReviewState.activeCount--;
+                        return;
+                    }
+                    
+                    // Extract project_id
+                    const projectMatch = resp.responseText.match(/project_id=(\d+)/);
+                    if (projectMatch) {
+                        const projectId = projectMatch[1];
+                        // Step 2: Fetch Notice Detail API
+                        fetchNoticeDetail(projectId, task.id, (noticeData) => {
+                            // Step 3: Build & Submit
+                            // TODO: Full extraction logic here? For speed we might just send raw or minified.
+                            // Reusing logic from taobao_fast_worker: we build HTML combined with notice.
+                            const content = buildContent(task.id, detailUrl, resp.responseText, noticeData);
+                            submitItemResult(task.id, content);
+                        });
+                    } else {
+                         log(`[${task.id}] 未找到 project_id`, 'warning');
+                         handleFastCaptcha(detailUrl);
+                         fastReviewState.activeCount--;
+                         fastReviewState.stats.failed++;
+                    }
+                } else {
+                    log(`[${task.id}] 页面获取失败: ${resp.status}`, 'error');
+                    fastReviewState.activeCount--;
+                    fastReviewState.stats.failed++;
+                }
+            },
+            onerror: function() {
+                log(`[${task.id}] 网络错误`, 'error');
+                fastReviewState.activeCount--;
+                fastReviewState.stats.failed++;
+            }
+        });
+    }
+    
+    function fetchNoticeDetail(projectId, itemId, callback) {
+        const url = `https://detail-ext.taobao.com/json/get_project_desc_content.do?project_id=${projectId}&id=${itemId}`;
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: url,
+            headers: { "Referer": "https://sf.taobao.com/" },
+            onload: function(resp) {
+                try {
+                    const data = JSON.parse(resp.responseText);
+                    callback(data);
+                } catch(e) {
+                    callback({});
+                }
+            },
+            onerror: () => callback({})
+        });
+    }
+    
+    function buildContent(itemId, itemUrl, pageHtml, noticeData) {
+    
+        // Robust Reconstruct: Do NOT strip scripts/styles blindly as they contain critical data (g_config, etc.)
+        let content = pageHtml || '';
+        
+        // Inject Notice if available
+        if (noticeData && noticeData.content) {
+             // Try to inject into J_NoticeDetail, or append if not found
+             if (content.indexOf('id="J_NoticeDetail"') !== -1) {
+                 content = content.replace(
+                    /<div[^>]*id="J_NoticeDetail"[^>]*>[\s\S]*?<\/div>/i,
+                    `<div id="J_NoticeDetail">${noticeData.content}</div>`
+                );
+             } else {
+                 // Append to body if possible, or just end
+                 content += `<div id="J_NoticeDetail" style="display:none">${noticeData.content}</div>`;
+             }
+        }
+        
+        // Add Metadata Header
+        const header = `<div id="fapaifang-meta" style="display:none">
+            <meta name="item_id" content="${itemId}">
+            <meta name="original_url" content="${itemUrl}">
+        </div>`;
+                         
+        return header + content;
+    }
+    
+    function submitItemResult(itemId, htmlContent) {
+        fetchApi('/analyze_html', {
+            id: itemId,
+            html: htmlContent,
+            status: 'done'
+        }, () => {
+             // log(`[${itemId}] 提交成功`, 'success'); // Too spammy for burst mode
+             fastReviewState.stats.success++;
+             fastReviewState.activeCount--;
+        }, () => {
+             log(`[${itemId}] 提交失败`, 'error');
+             fastReviewState.stats.failed++;
+             fastReviewState.activeCount--;
+        });
+    }
+    
+    function handleFastCaptcha(targetUrl) {
+        if (fastReviewState.captchaMode) return;
+        fastReviewState.captchaMode = true;
+        log('🔒 检测到验证码/异常，暂停请求...', 'warning');
+        
+        // REPORT TO SERVER (Heartbeat)
+        const reportHeartbeat = setInterval(() => {
+            if (!fastReviewState.captchaMode) {
+                clearInterval(reportHeartbeat);
+                return;
+            }
+            fetchApi('/report_captcha', {}, (res) => {
+                 if (res.status === 'solving') {
+                     log('🤖 服务器正在解决验证码...', 'info');
+                 }
+            });
+        }, 5000);
+        // Fire first one immediately
+        fetchApi('/report_captcha', {});
+
+        // Global Lock Check to prevent multiple windows
+        // Random Backoff to prevent Thundering Herd
+        setTimeout(() => {
+            const now = Date.now();
+            const lastLock = GM_getValue('uni_captcha_lock', 0);
+            
+            // Double Check: If locked within last 60 seconds by someone else, assume a window is already open
+            if (now - lastLock < 60 * 1000) {
+                log('🔒 [延迟检] 全局锁生效中，跳过打开新窗口', 'info');
+            } else {
+                log('🔒 [Winner] 获取全局锁，打开验证窗口...', 'error');
+                GM_setValue('uni_captcha_lock', now);
+                // Open verification window
+                const urlToOpen = targetUrl || 'https://sf-item.taobao.com/sf_item/1015214534677.htm';
+                window.open(urlToOpen, 'fw_captcha_popup');
+            }
+        }, Math.random() * 2000);
+        
+        const check = setInterval(() => {
+            if (!isRunning || currentMode !== 'REVIEW_FAST') {
+                clearInterval(check);
+                return;
+            }
+            // Probe to see if captcha is cleared
+            GM_xmlhttpRequest({
+                method: "GET",
+                url: 'https://sf-item.taobao.com/sf_item/1.htm',
+                onload: (r) => {
+                    if (r.responseText.indexOf('RGV587_ERROR') === -1) {
+                        // FIX: Check if we already resumed (race condition protection)
+                        if (!fastReviewState.captchaMode) return;
+                        
+                        log('✅ 验证码已解除，恢复工作', 'success');
+                        fastReviewState.captchaMode = false;
+                        // Release lock (optional, but good practice to reset timestamp or just let it expire)
+                        GM_setValue('uni_captcha_lock', 0);
+                        clearInterval(check);
+                        
+                        // AUTO-RESUME BACKEND
+                        fetchApi('/resume', {}, () => {
+                             log('🔄 已通知服务器解除暂停状态', 'success');
+                             fastReviewLoop(); // Resume
+                        });
+                    } else {
+                        // Refresh lock timestamp to keep other windows suppressed while we wait
+                         if (Date.now() - GM_getValue('uni_captcha_lock', 0) > 30000) {
+                             GM_setValue('uni_captcha_lock', Date.now());
+                         }
+                    }
+                }
+            });
+        }, 3000); // Check every 3s
+    }
+
+    // ==========================================
+    // MODULE 3: SLOW REVIEW (Master Page - Tab Manager)
+    // ==========================================
+    let slowReviewState = { 
+        maxSlots: 10, 
+        slots: [], 
+        interval: 2000,
+        running: false
+    };
+
+    function startSlowReview() {
+         log('启动慢速检阅 (Tab) 逻辑...', 'info');
+         slowReviewState.running = true;
+         slowReviewLoop();
+    }
+    
+    function slowReviewLoop() {
+        if (!isRunning || currentMode !== 'REVIEW_SLOW') {
+            slowReviewState.running = false;
+            return;
+        }
+
+        // Global Lock Check
+        const lastLock = GM_getValue('uni_captcha_lock', 0);
+        if (Date.now() - lastLock < 60 * 1000) {
+            const status = document.getElementById('uni-stats-text');
+            if (status) status.innerText = `⚠️ 暂停中: 等待验证码解决...`;
+            setTimeout(slowReviewLoop, 3000); // Check again later
+            return;
+        }
+        
+        // Clean up closed slots
+        slowReviewState.slots = slowReviewState.slots.filter(s => !s.closed);
+
+        const status = document.getElementById('uni-stats-text');
+        if (status) status.innerText = `Tabs: ${slowReviewState.slots.length}/${slowReviewState.maxSlots}`;
+
+        if (slowReviewState.slots.length < slowReviewState.maxSlots) {
+             fetchApi('/get_tasks', {}, (res) => {
+                 if (res.tasks && res.tasks.length > 0) {
+                     const task = res.tasks[0]; // Take one
+                     log(`打开任务: ${task.id}`, 'info');
+                     
+                     // Use auto_worker=1 param to trigger worker mode
+                     const url = task.url + (task.url.includes('?') ? '&' : '?') + 'auto_worker=1';
+                     const win = GM_openInTab(url, { active: false, insert: true });
+                     
+                     slowReviewState.slots.push(win);
+                 } else {
+                     log("无待处理任务...", 'info');
+                 }
+                 setTimeout(slowReviewLoop, slowReviewState.interval);
+             }, () => {
+                 setTimeout(slowReviewLoop, slowReviewState.interval);
+             });
+        } else {
+             setTimeout(slowReviewLoop, 1000);
+        }
+    }
+
+    // --- Optimization: Event-Driven Concurrency ---
+    // Listen for worker completion signals to trigger immediate loop check
+    if (typeof GM_addValueChangeListener !== 'undefined') {
+        let debounceTimer = null;
+        GM_addValueChangeListener('uni_signal_slot_free', function(name, oldVal, newVal, remote) {
+            if (remote) {
+                // Debounce to avoid flooding
+                if (debounceTimer) clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    if (isRunning && currentMode === 'REVIEW_SLOW') {
+                         log('♻️ 收到Worker空闲信号，立即填充...', 'info');
+                         slowReviewLoop();
+                    }
+                }, 200);
+            }
+        });
+    }
+
+    function handleSlowCaptcha() {
+         log('🔒 [Worker] 检测到验证码/异常，尝试设置全局锁...', 'warning');
+         // Global Lock Check
+         const now = Date.now();
+         const lastLock = GM_getValue('uni_captcha_lock', 0);
+         
+         // Only set lock if not already locked by someone else recently (or if we are the ones who locked it?)
+         // For simplicity: if lock is old (>60s) OR we are just detecting it now, we take over.
+         GM_setValue('uni_captcha_lock', now);
+         logToMaster('🔒 [Worker] 已设置全局锁，开启心跳保活...', 'error');
+         
+         // HEARTBEAT LOOP: Keep lock alive while captcha exists
+         const heartbeat = setInterval(() => {
+             // Check if captcha elements still exist
+             const hasCaptcha = document.body.innerText.indexOf('RGV587_ERROR') !== -1 || document.querySelector('#nocaptcha') || document.querySelector('.nc-container');
+             
+             if (hasCaptcha) {
+                 // Refresh lock to prevent expiry
+                 GM_setValue('uni_captcha_lock', Date.now());
+                 logToMaster('🔒 [Worker] 验证码未解除，刷新全局锁...', 'warning');
+             } else {
+                 // Captcha gone! Release lock and reload
+                 clearInterval(heartbeat);
+                 GM_setValue('uni_captcha_lock', 0);
+                 logToMaster('✅ [Worker] 验证码已解除，释放锁并刷新...', 'success');
+                 window.location.reload();
+             }
+         }, 5000); // Check every 5s
+    }
+
+    // ==========================================
+    // MODULE 4: WORKER (Detail Page - Automatic)
+    // ==========================================
+    function initWorker() {
+        if (!isDetail) return;
+        if (autoWorkerMode === '1') {
+            log('自动工作模式已激活', 'success');
+            
+            // Wait for Helper to load or just scrape directly?
+            // To reuse Helper logic, we can inspect DOM
+            setTimeout(() => {
+                const helperBtn = document.getElementById('helper-start-btn'); // Assuming Helper UI exists
+                if (helperBtn) {
+                     // If Helper is unified, we might just call internal function
+                     // But Helper might be same file. 
+                     // Let's scrape directly for reliability.
+                     doWorkerScrape();
+                } else {
+                     doWorkerScrape();
+                }
+            }, 3000);
+        } else {
+            // Check for Captcha immediately
+            if (document.body.innerText.indexOf('RGV587_ERROR') !== -1 || document.querySelector('#nocaptcha')) {
+                handleSlowCaptcha();
+            }
+        }
+    }
+    
+    function pruneDOM() {
+        logToMaster("Pruning DOM for memory optimization...", 'info');
+        
+        // 1. Remove specific heavy/useless areas first (Headers, Footers, Sidebars)
+        const selectorRemovals = [
+            '.tb-footer', '#J_SiteFooter', '#sf-foot-2014', '.sf-foot-2014',
+            '.pm-main-l', '#J_UlThumb', '.J_HeadImageWrap',
+            '#J_SiteNav', '.site-nav', '#sf-head-2014', '.sf-head-2014', '.nav-con',
+            '.search-bar', '#J_Search', '.top-nav-bar'
+        ];
+        selectorRemovals.forEach(sel => {
+             document.querySelectorAll(sel).forEach(el => el.remove());
+        });
+
+        // 2. Remove Media & Scripts & Interactive Elements
+        const tagsToRemove = ['script', 'style', 'link', 'svg', 'iframe', 'noscript', 'meta', 'img', 'video', 'canvas', 'input', 'button', 'select', 'textarea'];
+        tagsToRemove.forEach(tag => {
+            const elements = document.querySelectorAll(tag);
+            elements.forEach(el => el.remove());
+        });
+
+        // 3. Remove Comments
+        const removeComments = (node) => {
+            if (!node) return;
+            for (let i = node.childNodes.length - 1; i >= 0; i--) {
+                const child = node.childNodes[i];
+                if (child.nodeType === 8) { // Comment
+                    node.removeChild(child);
+                } else if (child.nodeType === 1) { // Element
+                    removeComments(child);
+                }
+            }
+        };
+        try { removeComments(document.body); } catch(e) {}
+
+        // 4. Remove Attributes (except ID) - AGGRESSIVE
+        // This makes the HTML much smaller for the LLM
+        const all = document.getElementsByTagName("*");
+        for (let i = 0, max = all.length; i < max; i++) {
+             const el = all[i];
+             const attrs = Array.from(el.attributes || []);
+             for (const attr of attrs) {
+                 const name = attr.name.toLowerCase();
+                 // Keep ID for structure, Keep row/colspan for tables
+                 if (name !== 'id' && name !== 'rowspan' && name !== 'colspan') {
+                     el.removeAttribute(attr.name);
+                 }
+             }
+        }
+        
+        logToMaster("DOM Pruned.", 'success');
+    }
+
+    function doWorkerScrape() {
+        // Simple extraction for Worker
+        
+        // Optimize BEFORE grabbing HTML
+        pruneDOM();
+
+        const html = document.documentElement.outerHTML;
+        const itemIdMatch = window.location.href.match(/id=(\d+)/) || window.location.pathname.match(/\/(\d+)\.htm/);
+        const itemId = itemIdMatch ? itemIdMatch[1] : 'unknown';
+        
+        logToMaster(`抓取内容 (ID: ${itemId}), HTML大小: ${Math.round(html.length/1024)}KB...`, 'info');
+        
+        fetchApi('/analyze_html', {
+            id: itemId,
+            html: html,
+            status: 'done'
+        }, () => {
+             logToMaster(`[ID:${itemId}] 上传成功，准备关闭...`, 'success');
+             setTimeout(() => window.close(), 1000);
+        }, () => {
+             logToMaster(`[ID:${itemId}] 上传失败!`, 'error');
+             setTimeout(() => window.close(), 5000);
+        });
+
+        // Trigger Slot Free Signal just before closing
+        GM_setValue('uni_signal_slot_free', Date.now());
+    }
+
+    // ==========================================
+    // MODULE 5: HELPER (Detail Page - Manual UI)
+    // ==========================================
+    function initHelper() {
+        if (!isDetail) return;
+        // Avoid double loading
+        if (document.getElementById('detail-helper-panel')) return;
+
+        log('加载详情助手 UI (完整版)...', 'info');
+        
+        // --- Helper Config & State ---
+        const IS_AUTO_MODE = new URLSearchParams(window.location.search).get('auto_fix') === '1';
+        let isPanelMinimized = GM_getValue('dh_panel_minimized', false);
+
+        // Data Fields Config
+        const FIELDS = [
+            { key: 'id', label: 'ID', type: 'number', readonly: true },
+            { key: '市场评估价', label: '市场评估价', type: 'number' },
+            { key: '起拍价格', label: '起拍价格', type: 'number' },
+            { key: '成交价格', label: '成交价格', type: 'number' },
+            { key: '交易时间', label: '交易时间', type: 'text' }, // yyyy/MM/dd HH:mm:ss
+            { key: '原始网站', label: '原始网站', type: 'text', readonly: true },
+            { key: '是否成交', label: '是否成交', type: 'checkbox' },
+            { key: '竞拍人数', label: '竞拍人数', type: 'number' },
+            { key: '出价人数', label: '出价人数', type: 'number' },
+            { key: '地点', label: '地点', type: 'text' },
+            { key: '所属小区', label: '所属小区', type: 'text' },
+            { key: '省份', label: '省份', type: 'text' },
+            { key: '城市', label: '城市', type: 'text' },
+            { key: '区', label: '区', type: 'text' },
+            { key: '最靠近商圈', label: '最靠近商圈', type: 'text' },
+            { key: '建筑面积', label: '建筑面积', type: 'number', step: 0.01 },
+            { key: '单价', label: '单价', type: 'number', readonly: true }, // Auto-calculated
+        ];
+
+        // --- Core Logic Helpers ---
+
+        function getCleanContext() {
+            let parts = [];
+            const notice = document.querySelector('#J_NoticeDetail');
+            if (notice && notice.innerText.trim().length > 10) parts.push('【公告详情】\n' + notice.innerText.trim());
+            
+            const desc = document.querySelector('#J_desc');
+            if (desc && desc.innerText.trim().length > 10) parts.push('【标的物描述】\n' + desc.innerText.trim());
+            
+            const main = document.querySelector('.pm-main');
+            if (main && main.innerText.trim().length > 10) parts.push('【拍卖主信息】\n' + main.innerText.trim());
+            
+            if (parts.length === 0) parts.push(document.body.innerText.replace(/\n{3,}/g, '\n\n').trim());
+            
+            return parts.join('\n---\n').substring(0, 3000);
+        }
+
+        function extractPageData() {
+            const url = window.location.href;
+            const itemIdMatch = url.match(/[?&]id=(\d+)/) || url.match(/\/(\d+)\.htm/) || url.match(/\/(\d+)(?:\?|$)/);
+            const id = itemIdMatch ? itemIdMatch[1] : 'unknown';
+            
+            let title = '';
+            const h1 = document.querySelector('.pm-main > h1') || document.querySelector('h1');
+            if (h1) title = h1.innerText.replace(/\s+/g, ' ').trim();
+            else title = document.title.trim();
+            
+            const pageText = document.body.innerText;
+
+            let data = {
+                id: id,
+                title: title,
+                context: getCleanContext(),
+                原始网站: url,
+                is_processed: true,
+                '是否成交': false,
+                '成交价格': 0,
+                '市场评估价': 0,
+                '起拍价格': 0,
+                '竞拍人数': 0,
+                '出价人数': 0,
+                '建筑面积': 0
+            };
+
+            // Strategy 1: Parse J_COMPONENT script tags
+            try {
+                const componentScripts = document.querySelectorAll('script.J_COMPONENT');
+                for (const script of componentScripts) {
+                    try {
+                        const raw = script.textContent.trim();
+                        if (!raw) continue;
+                        const decoded = decodeURIComponent(raw);
+                        const json = JSON.parse(decoded);
+
+                        if (json.key === 'STATISTICS_INFO' && json.dataSource) {
+                            const ds = json.dataSource;
+                            if (ds.applyNumber !== undefined && ds.applyNumber >= 0) data['竞拍人数'] = parseInt(ds.applyNumber) || 0;
+                            if (ds.bidUserNumber !== undefined && ds.bidUserNumber >= 0) data['出价人数'] = parseInt(ds.bidUserNumber) || 0;
+                        }
+
+                        if (json.key === 'AUCTION_RULE' && json.dataSource && json.dataSource.bidRuleFields) {
+                            for (const field of json.dataSource.bidRuleFields) {
+                                if (!field.title || !field.texts || !field.texts.length) continue;
+                                const val = field.texts[0].preMsg;
+                                if (!val) continue;
+                                const numVal = parseFloat(val.replace(/[^\d.]/g, '')) || 0;
+                                if (field.title.includes('评估价') || field.title.includes('市场价')) {
+                                    data['市场评估价'] = numVal;
+                                } else if (field.title.includes('起拍价')) {
+                                    data['起拍价格'] = numVal;
+                                }
+                            }
+                        }
+
+                        if (json.key === 'BID_CONTROL' && json.dataSource) {
+                            const ds = json.dataSource;
+                            if (ds.endTime) {
+                                const endDate = new Date(ds.endTime);
+                                data['交易时间'] = endDate.toISOString().replace('T', ' ').split('.')[0];
+                            }
+                            if (ds.currentPrice) {
+                                data['成交价格'] = parseFloat(ds.currentPrice) || 0;
+                            }
+                            if (ds.bidCount !== undefined && ds.bidCount >= 0) {
+                                data['出价人数'] = parseInt(ds.bidCount) || 0;
+                            }
+                            if (ds.status === 'done' || ds.status === 'succ') {
+                                data['是否成交'] = true;
+                            }
+                        }
+
+                        if ((json.key === 'ITEM_INFO' || json.key === 'HEADER') && json.dataSource) {
+                            const ds = json.dataSource;
+                            if (ds.title && !data['地点']) data['地点'] = ds.title;
+                        }
+
+                    } catch (e) { /* ignore */ }
+                }
+            } catch (e) { console.warn('[DetailHelper] J_COMPONENT error:', e); }
+
+            // Strategy 2: Text/DOM-based fallbacks
+            if (!data['成交价格'] || data['成交价格'] === 0) {
+                const priceEl = document.querySelector('.pm-current-price .pm-price') || document.querySelector('.current-price .price') || document.querySelector('.sf-price');
+                if (priceEl) data['成交价格'] = parseFloat(priceEl.textContent.replace(/[^\d.]/g, '')) || 0;
+                
+                if (!data['成交价格']) {
+                    const dealMatch = pageText.match(/(?:当前价|成交价|拍卖价|竞价结果)[：:\s]*[¥￥]?([\d,]+(?:\.\d+)?)/);
+                    if (dealMatch) data['成交价格'] = parseFloat(dealMatch[1].replace(/,/g, ''));
+                }
+            }
+            
+            if (!data['竞拍人数']) {
+                const statEls = document.querySelectorAll('.sf-stats span, .pm-bid-info span, .bid-info span, .J_Stats span');
+                for (const el of statEls) {
+                    const m = el.textContent.match(/(\d+)\s*人报名/);
+                    if (m) { data['竞拍人数'] = parseInt(m[1]); break; }
+                }
+            }
+
+            if (!data['是否成交'] && (pageText.includes('已成交') || pageText.includes('竞价成功'))) {
+                data['是否成交'] = true;
+            }
+
+            if (!data['地点'] || data['地点'] === title) {
+                const addressMatch = pageText.match(/标的物(?:所在)?位置[：:\s]*([\S\s]+?)[\r\n]/) || pageText.match(/坐落(?:于)?[：:\s]*([\S\s]+?)[\r\n]/);
+                if (addressMatch) data['地点'] = addressMatch[1].trim();
+                else data['地点'] = title;
+            }
+            
+            // Parse Address Components
+            if (data['地点']) {
+                const addr = data['地点'];
+                const provMatch = addr.match(/(.+?省)/);
+                if (provMatch) data['省份'] = provMatch[1];
+
+                const cityMatch = addr.match(/(.+?市)/);
+                if (cityMatch) {
+                    let city = cityMatch[1];
+                    if (data['省份']) city = city.replace(data['省份'], '');
+                    data['城市'] = city;
+                }
+
+                const distMatch = addr.match(/(.+?[区县])/);
+                if (distMatch) {
+                    let dist = distMatch[1];
+                    if (data['省份']) dist = dist.replace(data['省份'], '');
+                    if (data['城市']) dist = dist.replace(data['城市'], '');
+                    data['区'] = dist;
+                }
+
+                const commMatch = addr.match(/([^\s省市区县]+?(?:小区|花园|苑|大厦|公寓|别墅|山庄))/);
+                if (commMatch) data['所属小区'] = commMatch[1];
+            }
+
+            // Area Extraction
+            if (!data['建筑面积']) {
+                const areaPatterns = [
+                    /(?<!套内)建筑面积[：:\s]*[约为]*(\d+(?:[.,]\d+)?)\s*(?:平方米|平米|㎡|m²)?/i,
+                    /房屋建筑面积[：:\s]*[约为]*(\d+(?:[.,]\d+)?)/i,
+                    /房屋面积[：:\s]*[约为]*(\d+(?:[.,]\d+)?)/i,
+                    /产权面积[：:\s]*[约为]*(\d+(?:[.,]\d+)?)/i,
+                    /总面积[：:\s]*[约为]*(\d+(?:[.,]\d+)?)/i,
+                    /(\d+(?:\.\d+)?)\s*(?:㎡|m²)/i
+                ];
+                for (const p of areaPatterns) {
+                    const m = pageText.match(p);
+                    if (m) {
+                        data['建筑面积'] = parseFloat(m[1].replace(',', '.'));
+                        break;
+                    }
+                }
+            }
+
+            return data;
+        }
+        
+        // --- Data Loading ---
+        async function loadDataWithPriority(forcePage = false) {
+            updateStatus('正在加载数据...');
+            
+            // 1. Local Backend (Highest)
+            const itemIdMatch = window.location.href.match(/[?&]id=(\d+)/) || window.location.pathname.match(/\/(\d+)\.htm/);
+            const id = itemIdMatch ? itemIdMatch[1] : null;
+            
+            if (id) {
+                try {
+                    const response = await new Promise(resolve => {
+                         fetchApi(`/get_item?id=${id}`, {}, resolve, () => resolve({error: true}));
+                    });
+                    if (response && !response.error && Object.keys(response).length > 0) {
+                        log('Loaded Local Data', 'success');
+                        updateStatus('✅ 已加载本地存档数据 (独占模式)');
+                        return response;
+                    }
+                } catch(e) {}
+            }
+            
+            // 2. URL Params (Middle)
+            const urlParams = new URLSearchParams(window.location.search);
+            let urlData = {};
+            let hasUrlData = false;
+            FIELDS.forEach(field => {
+                const paramVal = urlParams.get(field.key);
+                if (paramVal !== null && paramVal !== undefined && paramVal !== '') {
+                     hasUrlData = true;
+                     if (field.type === 'number') urlData[field.key] = parseFloat(paramVal);
+                     else if (field.type === 'checkbox') urlData[field.key] = (paramVal === 'true' || paramVal === '1');
+                     else urlData[field.key] = decodeURIComponent(paramVal);
+                }
+            });
+            if (hasUrlData) {
+                if (!urlData['id']) urlData['id'] = id || 'unknown';
+                updateStatus('⚠️ 使用URL传入数据 (独占模式)');
+                return urlData;
+            }
+            
+            // 3. Page Extraction (Lowest)
+            updateStatus('⚠️ 使用页面抓取数据');
+            return extractPageData();
+        }
+
+        // --- UI Construction ---
+        function createPanel() {
+            let panel = document.getElementById('detail-helper-panel');
+            if (!panel) {
+                panel = document.createElement('div');
+                panel.id = 'detail-helper-panel';
+                document.body.appendChild(panel);
+            }
+            updatePanelStyle();
+        }
+
+        function updatePanelStyle() {
+            const panel = document.getElementById('detail-helper-panel');
+            if (!panel) return;
+
+            if (isPanelMinimized) {
+                panel.innerHTML = `
+                    <div style="padding: 8px 12px; background: #f5f5f5; display: flex; justify-content: space-between; align-items: center;">
+                        <b style="font-size: 14px;">📝 助手</b>
+                        <div>
+                            <button id="dh-bar-refresh" style="border:none; background:none; cursor:pointer;" title="同步">🔄</button>
+                            <button id="dh-bar-expand" style="border:none; background:none; cursor:pointer;" title="展开">🔼</button>
+                        </div>
+                    </div>`;
+                Object.assign(panel.style, {
+                    position: 'fixed', top: '100px', right: '20px', width: '200px', height: 'auto',
+                    background: 'white', border: '1px solid #ccc', zIndex: '999990',
+                    borderRadius: '8px', boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+                });
+                document.getElementById('dh-bar-expand').onclick = togglePanel;
+                document.getElementById('dh-bar-refresh').onclick = () => refreshData();
+            } else {
+                Object.assign(panel.style, {
+                    position: 'fixed', top: '100px', right: '20px', width: '320px', maxHeight: '80vh',
+                    background: 'white', border: '1px solid #ccc', zIndex: '999990', overflowY: 'auto',
+                    borderRadius: '8px', boxShadow: '0 0 20px rgba(0,0,0,0.2)'
+                });
+                renderPanelContent(panel);
+                refreshData();
+            }
+        }
+
+        function togglePanel() {
+            isPanelMinimized = !isPanelMinimized;
+            GM_setValue('dh_panel_minimized', isPanelMinimized);
+            updatePanelStyle();
+        }
+
+        function renderPanelContent(panel) {
+            panel.innerHTML = `
+                <div style="padding: 12px; background: #f5f5f5; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10;">
+                    <b style="font-size: 14px;">📝 数据录入助手</b>
+                    <div>
+                         <button id="dh-btn-refresh" style="border:none; background:none; cursor:pointer; font-size:16px;" title="刷新">🔄</button>
+                         <button id="dh-btn-min" style="border:none; background:none; cursor:pointer; font-size:16px;" title="最小化">➖</button>
+                    </div>
+                </div>
+                <div id="dh-form-container" style="padding: 15px;"></div>
+                <div style="padding: 12px; background: #f5f5f5; border-top: 1px solid #ddd; position: sticky; bottom: 0; text-align: center;">
+                    <div id="dh-status" style="margin-bottom: 8px; font-size: 12px; color: #666; height: 1.5em;"></div>
+                    <div style="display: flex; gap: 8px;">
+                        <button id="dh-btn-infer" style="flex: 1; padding: 10px; background: #9c27b0; color: white; border: none; border-radius: 4px; cursor: pointer;">🔍 推断位置</button>
+                        <button id="dh-btn-submit" style="flex: 2; padding: 10px; background: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">提交保存</button>
+                    </div>
+                </div>`;
+
+            const container = panel.querySelector('#dh-form-container');
+            FIELDS.forEach(field => {
+                const row = document.createElement('div');
+                row.style.marginBottom = '10px';
+                const label = document.createElement('label');
+                label.textContent = field.label;
+                label.style.display = 'block';
+                label.style.marginBottom = '4px';
+                label.style.color = '#666';
+
+                let input = document.createElement('input');
+                if (field.type === 'checkbox') {
+                    input.type = 'checkbox';
+                    label.style.display = 'inline-block';
+                    input.style.marginLeft = '8px';
+                    row.appendChild(label);
+                    row.appendChild(input);
+                } else {
+                    input.type = field.type;
+                    input.style.width = '100%';
+                    input.style.padding = '6px';
+                    input.style.border = '1px solid #ccc';
+                    input.style.borderRadius = '4px';
+                    if (field.readonly) { input.readOnly = true; input.style.background = '#eee'; }
+                    if (field.step) input.step = field.step;
+                    row.appendChild(label);
+                    row.appendChild(input);
+                }
+                input.id = `dh-input-${field.key}`;
+                if (['建筑面积', '成交价格', '起拍价格'].includes(field.key)) {
+                    input.addEventListener('input', calculateUnitPrice);
+                }
+                container.appendChild(row);
+            });
+
+            document.getElementById('dh-btn-min').onclick = togglePanel;
+            document.getElementById('dh-btn-refresh').onclick = () => refreshData();
+            document.getElementById('dh-btn-submit').onclick = submitData;
+            document.getElementById('dh-btn-infer').onclick = inferLocation;
+        }
+
+        // --- Actions ---
+        
+        async function refreshData() {
+            const data = await loadDataWithPriority();
+            FIELDS.forEach(field => {
+                const input = document.getElementById(`dh-input-${field.key}`);
+                if (input) {
+                    if (field.type === 'checkbox') input.checked = !!data[field.key];
+                    else input.value = (data[field.key] !== undefined && data[field.key] !== null) ? data[field.key] : '';
+                }
+            });
+            calculateUnitPrice();
+            
+            if (IS_AUTO_MODE) {
+                const areaInput = document.getElementById('dh-input-建筑面积');
+                if (areaInput && (!parseFloat(areaInput.value) || parseFloat(areaInput.value) === 0)) {
+                    scrollAndRetryArea();
+                } else {
+                    checkAutoSubmit();
+                }
+            }
+        }
+        
+        function calculateUnitPrice() {
+             const area = parseFloat(document.getElementById('dh-input-建筑面积')?.value) || 0;
+             let price = parseFloat(document.getElementById('dh-input-成交价格')?.value) || 0;
+             if (price <= 0) price = parseFloat(document.getElementById('dh-input-起拍价格')?.value) || 0;
+             
+             const unitInput = document.getElementById('dh-input-单价');
+             if (unitInput) {
+                 unitInput.value = (area > 0 && price > 0) ? (price / area).toFixed(2) : 0;
+             }
+        }
+        
+        function scrollAndRetryArea() {
+            updateStatus('⏳ 滚动加载详情中...');
+            window.scrollTo({ top: document.body.scrollHeight * 0.75, behavior: 'smooth' });
+            setTimeout(() => {
+                const pageText = document.body.innerText;
+                const areaPatterns = [
+                    /(?<!套内)建筑面积[：:\s]*[约为]*(\d+(?:[.,]\d+)?)\s*(?:平方米|平米|㎡|m²)?/i,
+                    /房屋建筑面积[：:\s]*[约为]*(\d+(?:[.,]\d+)?)/i,
+                ];
+                let foundArea = 0;
+                for (const p of areaPatterns) {
+                    const m = pageText.match(p);
+                    if (m) { foundArea = parseFloat(m[1].replace(',', '.')); break; }
+                }
+                
+                if (foundArea > 0) {
+                    const el = document.getElementById('dh-input-建筑面积');
+                    if(el) el.value = foundArea;
+                    calculateUnitPrice();
+                    updateStatus('✅ 建筑面积已补充提取');
+                } else {
+                    updateStatus('⚠️ 面积未找到，继续提交');
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                checkAutoSubmit();
+            }, 3000);
+        }
+        
+        function inferLocation(callback) {
+            const address = document.getElementById('dh-input-地点')?.value.trim();
+            if (!address) { updateStatus('⚠️ 需要地址', '#ff9800'); return; }
+            
+            updateStatus('🔍 AI推断位置中...', '#9c27b0');
+            const btn = document.getElementById('dh-btn-infer');
+            if(btn) btn.disabled = true;
+
+            fetchApi('/infer_location', { address: address, title: document.title }, (result) => {
+                if(btn) btn.disabled = false;
+                let updated = [];
+                if (result['所属小区']) {
+                     const el = document.getElementById('dh-input-所属小区');
+                     if(el) { el.value = result['所属小区']; updated.push('小区: '+result['所属小区']); }
+                }
+                if (result['最靠近商圈']) {
+                     const el = document.getElementById('dh-input-最靠近商圈');
+                     if(el) { el.value = result['最靠近商圈']; updated.push('商圈: '+result['最靠近商圈']); }
+                }
+                updateStatus(updated.length ? '✅ '+updated.join(', ') : '⚠️ AI未推断出信息', updated.length ? '#4caf50':'#ff9800');
+                if (typeof callback === 'function') callback(true);
+            }, () => {
+                if(btn) btn.disabled = false;
+                updateStatus('❌ 推断失败', '#f44336');
+                if (typeof callback === 'function') callback(false);
+            });
+        }
+        
+        function collectFormData() {
+            let data = {};
+            const url = window.location.href;
+            const itemIdMatch = url.match(/[?&]id=(\d+)/) || url.match(/\/(\d+)\.htm/);
+            data.id = itemIdMatch ? itemIdMatch[1] : 'unknown';
+            data.url = url;
+            data.title = document.title;
+            data.context = getCleanContext();
+            
+            FIELDS.forEach(field => {
+                const input = document.getElementById(`dh-input-${field.key}`);
+                if (input) {
+                    if (field.type === 'checkbox') data[field.key] = input.checked;
+                    else if (field.type === 'number') data[field.key] = parseFloat(input.value) || 0;
+                    else data[field.key] = input.value;
+                }
+            });
+            return data;
+        }
+
+        function submitData() {
+            calculateUnitPrice();
+            const data = collectFormData();
+            
+            const needsInfo = (!data['所属小区'] || !data['最靠近商圈']) && data['地点'];
+            if (needsInfo) {
+                updateStatus('🔍 自动推断位置...', '#9c27b0');
+                inferLocation(() => doSubmit());
+            } else {
+                doSubmit();
+            }
+        }
+        
+        function doSubmit() {
+            calculateUnitPrice();
+            const data = collectFormData();
+            updateStatus('正在提交...', '#2196F3');
+            const btn = document.getElementById('dh-btn-submit');
+            if(btn) btn.disabled = true;
+            
+            fetchApi('/approve_area', data, (res) => {
+                if(btn) btn.disabled = false;
+                updateStatus('✅ 提交成功！', '#4caf50');
+                // Flash Green
+                const panel = document.getElementById('detail-helper-panel');
+                if(panel) { panel.style.background = '#e8f5e9'; setTimeout(()=>panel.style.background='white', 500); }
+                
+                checkAutoSubmit(true); // Proceed to next if auto
+            }, () => {
+                if(btn) btn.disabled = false;
+                updateStatus('❌ 提交失败', '#f44336');
+            });
+        }
+        
+        function checkAutoSubmit(forceNext = false) {
+            if (!IS_AUTO_MODE) return;
+            // In auto mode, logic might differ: usually we want to verify then submit
+            // If called from scrollAndRetryArea, we submit result to AI queue (area_result)
+            // But if called from doSubmit (Manual click or final step), we might want to fetch next.
+            
+            if (forceNext) {
+                 setTimeout(() => {
+                     updateStatus('🔄 获取下一任务...', '#2196f3');
+                     fetchApi('/next_task', {}, (task) => {
+                         if (task && task.url) {
+                             let nextUrl = task.url;
+                             let separator = nextUrl.includes('?') ? '&' : '?';
+                             if (!nextUrl.includes('auto_fix=1')) {
+                                 nextUrl += separator + 'auto_fix=1';
+                                 separator = '&';
+                             }
+                             // Persist uni_port if present in current URL
+                             const currentPort = new URLSearchParams(window.location.search).get('uni_port');
+                             if (currentPort && !nextUrl.includes('uni_port=')) {
+                                 nextUrl += separator + 'uni_port=' + currentPort;
+                             }
+                             window.location.href = nextUrl;
+                         } else {
+                             updateStatus('🏁 完成', '#ff9800');
+                             setTimeout(() => window.close(), 3000);
+                         }
+                     });
+                 }, 500);
+                 return;
+            }
+            
+            // Auto-submit to AI Queue
+            const data = collectFormData();
+            if(data.id) {
+                updateStatus('🤖 提交AI校验...', '#9c27b0');
+                fetchApi('/area_result', data, () => {
+                     updateStatus('✅ AI校验提交成功', '#4caf50');
+                     setTimeout(() => checkAutoSubmit(true), 500);
+                }, () => updateStatus('❌ AI提交失败', '#f44336'));
+            }
+        }
+        
+        function updateStatus(msg, color = '#666') {
+            const el = document.getElementById('dh-status');
+            if (el) { el.textContent = msg; el.style.color = color; }
+        }
+
+        // --- Init ---
+        if (IS_AUTO_MODE) {
+            log('自动模式 - 预滚动...', 'info');
+            window.scrollTo({ top: document.body.scrollHeight * 0.75, behavior: 'smooth' });
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(createPanel, 500);
+            }, 2000);
+        } else {
+            setTimeout(createPanel, 500);
+        }
+    }
+
+    // --- Main Entry ---
+    // 1. If Master Page -> Show Dashboard
+    if (isMaster) {
+        window.addEventListener('load', createDashboard);
+    } 
+    // 2. If Detail Page -> Init Helper & Worker Check
+    else if (isDetail) {
+        initHelper();
+        initWorker();
+    }
+    // 3. Login/Sec Page -> Auto-close or Alert
+    else if (isLoginOrSec) {
+        log('检测到验证/登录页面', 'warning');
+        initCaptchaDetector();
+    }
+    
+    // Always run captcha detector just in case it pops up elsewhere
+    setTimeout(initCaptchaDetector, 2000);
+
+    // --- TAB Identity ---
+    const TAB_ID = 'tab_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    console.log(`[Fapaifang] Init Tab ID: ${TAB_ID}`);
+
+    // --- Captcha Detector ---
+    function initCaptchaDetector() {
+        if (window.captcha_monitor_active) return;
+        window.captcha_monitor_active = true;
+        
+        setInterval(() => {
+            const slider = document.querySelector('#nc_1_n1z');
+            const wrapper = document.querySelector('.nc-lang-cnt');
+            
+            if ((slider && slider.offsetParent !== null) || (wrapper && wrapper.offsetParent !== null)) {
+                
+                // --- Global Lock Check (Winner Takes All) ---
+                const lastGlobalReport = GM_getValue('last_captcha_global_time', 0);
+                const lockTabId = GM_getValue('captcha_solving_tab_id', null);
+                const now = Date.now();
+                
+                // If lock exists and is valid (< 3 mins)
+                if (now - lastGlobalReport < 3 * 60 * 1000) {
+                    // If locked by ANOTHER tab
+                     if (lockTabId && lockTabId !== TAB_ID) {
+                         log(`⚠️ 验证码正在由页签 ${lockTabId} 处理，本页签 (${TAB_ID}) 自动避让。`, 'warning');
+                         
+                         // If I am a dedicated captcha page (Login/Sec), I should die.
+                         if (isLoginOrSec) {
+                             log('检测到多余验证窗口，3秒后自动关闭...', 'error');
+                             setTimeout(() => window.close(), 3000); // Give user a moment to see why
+                         }
+                         return;
+                     }
+                     // If locked by ME, proceed (maybe retry?)
+                }
+
+                // Check if already reported recently locally (session)
+                const lastReport = parseInt(sessionStorage.getItem('last_captcha_report') || '0');
+                if (now - lastReport > 10000) { // Report every 10s max
+                     log(`⚠️ 发现滑块验证码！Tab:${TAB_ID} 正在获取锁并请求处理...`, 'error');
+                     
+                     // CLAIM LOCK
+                     GM_setValue('last_captcha_global_time', now);
+                     GM_setValue('captcha_solving_tab_id', TAB_ID);
+                     
+                     // Visual Alert
+                     let note = document.getElementById('unified-captcha-alert');
+                     if(!note) {
+                         note = document.createElement('div');
+                         note.id = 'unified-captcha-alert';
+                         note.style.cssText = 'position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:999999;background:red;color:white;padding:15px;font-size:20px;border-radius:5px;font-weight:bold;';
+                         note.textContent = `⚠️ 正在处理验证码 (Tab: ${TAB_ID})`;
+                         document.body.appendChild(note);
+                     }
+                      
+                     fetchApi('/report_captcha', {
+                         url: window.location.href,
+                         timestamp: Date.now()
+                     }, (res) => {
+                         if(res.status === 'solving') {
+                            if(note) note.textContent = '🤖 后端正在尝试自动过滑块... 请勿操作鼠标';
+                         }
+                     });
+                     
+                     sessionStorage.setItem('last_captcha_report', Date.now());
+                }
+            }
+        }, 1000);
+    }
+
+})();

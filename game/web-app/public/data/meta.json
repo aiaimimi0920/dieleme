@@ -1,0 +1,20 @@
+{
+  "total_cities": 3,
+  "total_districts": 12,
+  "total_communities": 505,
+  "last_updated": "2026-02-10",
+  "cities": [
+    {
+      "name": "北京市",
+      "id": 291085
+    },
+    {
+      "name": "杭州市",
+      "id": 521588
+    },
+    {
+      "name": "上海市",
+      "id": 112922
+    }
+  ]
+}

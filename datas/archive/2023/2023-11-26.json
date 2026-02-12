@@ -1,0 +1,142 @@
+[
+    {
+        "id": 744675969491,
+        "市场评估价": 4430300,
+        "起拍价格": 3102000,
+        "成交价格": 3822000,
+        "交易时间": "2023/11/26 10:59:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/744675969491.htm?track_id=4eb40cba-91f6-41c3-ae03-b4f0c89913d0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "四川省 成都市 金牛区 蜀汉路528号12栋1单元",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "金牛区",
+        "最靠近商圈": "蜀汉路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 744944882384,
+        "市场评估价": 216959.91,
+        "起拍价格": 151871.94,
+        "成交价格": 151871.94,
+        "交易时间": "2023/11/26 10:00:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/744944882384.htm?track_id=c3c9430f-c766-4813-af95-98f2fd070eae",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 成都市 武侯区 一环路南二段17号1幢4楼63号",
+        "所属小区": "数码大厦",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "武侯区",
+        "最靠近商圈": "跳伞塔",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 747815850564,
+        "市场评估价": 846627.4,
+        "起拍价格": 541749,
+        "成交价格": 655506,
+        "交易时间": "2023/11/26 10:22:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/747815850564.htm?track_id=9499d985-49a2-44a2-89bd-2b5cd5550f86",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 22,
+        "地点": "广东省 韶关市 新丰县 丰宁路2号星悦湾花园1街3栋2102",
+        "所属小区": "星悦湾花园",
+        "省份": "广东省",
+        "城市": "韶关市",
+        "区": "新丰县",
+        "最靠近商圈": "丰城街道",
+        "建筑面积": 138.95,
+        "单价": 4716.46,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 747918843513,
+        "市场评估价": 0,
+        "起拍价格": 286280,
+        "成交价格": 302280,
+        "交易时间": "2023/11/26 10:52:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/747918843513.htm?track_id=de603458-c1f2-4a3e-a965-57103df8505d",
+        "是否成交": true,
+        "竞拍人数": 8,
+        "出价人数": 0,
+        "地点": "广西壮族自治区 柳州市 城中区 解放南路40号泰华大厦7-2号",
+        "所属小区": "泰华大厦",
+        "省份": "广西壮族自治区",
+        "城市": "柳州市",
+        "区": "城中区",
+        "最靠近商圈": "五星街",
+        "建筑面积": 79.07,
+        "单价": 3823.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "747590116500",
+        "url": "https://sf-item.taobao.com/sf_item/747590116500.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
+        "end": 1700964451000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747717577248",
+        "url": "https://sf-item.taobao.com/sf_item/747717577248.htm?track_id=906011fd-fbbf-4f51-9330-3a43a4453aa5",
+        "end": 1700971078000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "740641017437",
+        "url": "https://sf-item.taobao.com/sf_item/740641017437.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
+        "end": 1700964713000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747354232111",
+        "url": "https://sf-item.taobao.com/sf_item/747354232111.htm?track_id=ef6df7ca-1a71-4a99-9fe3-19f84526c73b",
+        "end": 1701042410000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747584068232",
+        "url": "https://sf-item.taobao.com/sf_item/747584068232.htm?track_id=ef6df7ca-1a71-4a99-9fe3-19f84526c73b",
+        "end": 1700964000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747809634979",
+        "url": "https://sf-item.taobao.com/sf_item/747809634979.htm?track_id=ef6df7ca-1a71-4a99-9fe3-19f84526c73b",
+        "end": 1700965930000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747905347482",
+        "url": "https://sf-item.taobao.com/sf_item/747905347482.htm?track_id=ef6df7ca-1a71-4a99-9fe3-19f84526c73b",
+        "end": 1700964058000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "744051562416",
+        "url": "https://sf-item.taobao.com/sf_item/744051562416.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
+        "end": 1700966636000,
+        "status": "done",
+        "is_processed": false
+    }
+]

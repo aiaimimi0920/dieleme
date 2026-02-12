@@ -1,0 +1,31 @@
+[
+    {
+        "id": 525612420030,
+        "市场评估价": null,
+        "起拍价格": 3240100,
+        "成交价格": 3240100,
+        "交易时间": "2016/01/18 20:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525612420030.htm?track_id=bb14b61f-f76a-4f24-8ddb-deb1f6094121",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河南省周口市邯郸县支农路西侧北环路北侧",
+        "所属小区": "金丹花园",
+        "省份": "河南省",
+        "城市": "周口市",
+        "区": "郸城县",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": 936.44,
+        "单价": 3460.02,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "525703572669",
+        "url": "https://sf-item.taobao.com/sf_item/525703572669.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
+        "end": 1453082400000,
+        "status": "done",
+        "is_processed": false
+    }
+]

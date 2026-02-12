@@ -1,0 +1,73 @@
+[
+    {
+        "id": 536633401570,
+        "市场评估价": null,
+        "起拍价格": 554368,
+        "成交价格": 654368,
+        "交易时间": "2016-08-10 10:21:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536633401570.htm?track_id=32958a91-2917-4f1c-bd40-2c5f953fc250",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 徐州市 泉山区",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": null,
+        "建筑面积": 158.84,
+        "单价": 4119.67,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 536183241997,
+        "市场评估价": null,
+        "起拍价格": 423909.45,
+        "成交价格": 423909.45,
+        "交易时间": "2016/08/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536183241997.htm?track_id=d912b89a-734d-4af7-add5-7a07af10bfaa",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省新乡市胜利中街239号恒基绿城时代广场1号楼1单元11604号",
+        "所属小区": "恒基绿城时代广场",
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": "胜利路商圈",
+        "建筑面积": 118.85,
+        "单价": 3566.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "535953737308",
+        "url": "https://sf-item.taobao.com/sf_item/535953737308.htm?track_id=ef5eeaad-a6e8-4cc8-9382-470fbeaf25b4",
+        "end": 1470799938000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535940447058",
+        "url": "https://sf-item.taobao.com/sf_item/535940447058.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
+        "end": 1470796847000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536083300966",
+        "url": "https://sf-item.taobao.com/sf_item/536083300966.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
+        "end": 1470796213000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535940139055",
+        "url": "https://sf-item.taobao.com/sf_item/535940139055.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
+        "end": 1470796173000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,66 @@
+[
+    {
+        "id": 669009145819,
+        "市场评估价": 0,
+        "起拍价格": 590000,
+        "成交价格": 650000,
+        "交易时间": "2022/03/28 10:07:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669009145819.htm?track_id=13e87188-98a8-40b6-abb9-41050795d386",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 13,
+        "地点": "四川省 成都市 武侯区 沙堰西二街20号50栋2单元4楼8号房屋",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "武侯区",
+        "最靠近商圈": "外双楠",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "667063402468",
+        "url": "https://sf-item.taobao.com/sf_item/667063402468.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
+        "end": 1648509643000,
+        "status": "done",
+        "is_processed": false,
+        "原始网站": "https://sf-item.taobao.com/sf_item/667063402468.htm"
+    },
+    {
+        "id": 668617780965,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 1313000,
+        "交易时间": "2022/03/28 10:14:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/668617780965.htm?track_id=da662821-54cd-4e69-9e61-31af04cb699a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "江苏省苏州市虎丘区鸿文雅苑14幢208室",
+        "所属小区": "鸿文雅苑",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "虎丘区",
+        "最靠近商圈": "狮山",
+        "建筑面积": 79.56,
+        "单价": 16506.79,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "667723130607",
+        "url": "https://sf-item.taobao.com/sf_item/667723130607.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "end": 1648437381000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "669580487759",
+        "url": "https://sf-item.taobao.com/sf_item/669580487759.htm?track_id=110cae27-78c2-4291-8b1b-70244e446202",
+        "end": 1648433227000,
+        "status": "done",
+        "is_processed": false
+    }
+]

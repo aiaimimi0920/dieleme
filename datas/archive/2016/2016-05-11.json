@@ -1,0 +1,86 @@
+[
+    {
+        "id": 530608333167,
+        "市场评估价": null,
+        "起拍价格": 3252692,
+        "成交价格": 3252692,
+        "交易时间": "2016-05-11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530608333167.htm?track_id=d912b89a-734d-4af7-add5-7a07af10bfaa",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省新乡市卫滨区",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 530675367832,
+        "市场评估价": 0,
+        "起拍价格": 4338400,
+        "成交价格": 5458400,
+        "交易时间": "2016/05/11 10:44:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530675367832.htm?track_id=00a8d63d-3334-4454-a1c9-d3ccb4eac2f9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 168,
+        "地点": "苏州市相城区阳澄湖镇早花村",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "阳澄湖镇",
+        "建筑面积": 1218.6,
+        "单价": 4478.56,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "530223329923",
+        "url": "https://sf-item.taobao.com/sf_item/530223329923.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
+        "end": 1462933577000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530218561015",
+        "url": "https://sf-item.taobao.com/sf_item/530218561015.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "end": 1462933079000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530148675580",
+        "url": "https://sf-item.taobao.com/sf_item/530148675580.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "end": 1462933793000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530249716236",
+        "url": "https://sf-item.taobao.com/sf_item/530249716236.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
+        "end": 1462933142000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530220625688",
+        "url": "https://sf-item.taobao.com/sf_item/530220625688.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
+        "end": 1462932000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529794773048",
+        "url": "https://sf-item.taobao.com/sf_item/529794773048.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
+        "end": 1462936446000,
+        "status": "done",
+        "is_processed": false
+    }
+]

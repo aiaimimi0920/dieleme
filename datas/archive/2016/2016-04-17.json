@@ -1,0 +1,44 @@
+[
+    {
+        "id": 529097823972,
+        "市场评估价": 660000,
+        "起拍价格": 430000,
+        "成交价格": 502000,
+        "交易时间": "2016-04-17 02:42:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/529097823972.htm?track_id=2759b34d-c86e-4f52-9b88-8d6538a91845",
+        "是否成交": true,
+        "竞拍人数": 6,
+        "出价人数": 53,
+        "地点": "吉林省 吉林市 丰满区",
+        "所属小区": "中央公园",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "丰满区",
+        "最靠近商圈": "泰山路商圈",
+        "建筑面积": 108.88,
+        "单价": 4611.57,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "529108258484",
+        "url": "https://sf-item.taobao.com/sf_item/529108258484.htm?track_id=32ecdb41-ce90-492f-a9ea-1746b136c1b5",
+        "end": 1460859547000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529104503329",
+        "url": "https://sf-item.taobao.com/sf_item/529104503329.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
+        "end": 1460859379000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529194588443",
+        "url": "https://sf-item.taobao.com/sf_item/529194588443.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
+        "end": 1460858400000,
+        "status": "done",
+        "is_processed": false
+    }
+]

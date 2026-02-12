@@ -1,0 +1,96 @@
+[
+    {
+        "id": 531227610136,
+        "市场评估价": 1512400,
+        "起拍价格": 1512400,
+        "成交价格": 1512400,
+        "交易时间": "2016/05/13 22:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531227610136.htm?track_id=ae4650d4-5c63-475b-b151-8f8f243f253c",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 1,
+        "地点": "广东省 广州市 荔湾区",
+        "所属小区": "无法确定，输入地址仅为行政区（荔湾区），未提供具体街道或门牌号",
+        "省份": "广东省",
+        "城市": "广州市",
+        "区": "荔湾区",
+        "最靠近商圈": null,
+        "建筑面积": 0.0,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true,
+        "is_ai_fixed": true,
+        "is_gui_processed": true,
+        "manual_checked": true
+    },
+    {
+        "id": 530779554689,
+        "市场评估价": null,
+        "起拍价格": 744000,
+        "成交价格": 964000,
+        "交易时间": "2016-05-13 10:10:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530779554689.htm?track_id=1119b38f-2ac5-4841-9014-1438fab202a6",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": 15,
+        "地点": "江苏省苏州市相城区",
+        "所属小区": "丽岛别墅",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "黄埭镇",
+        "建筑面积": 90.6,
+        "单价": 10641.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "530790255158",
+        "url": "https://sf-item.taobao.com/sf_item/530790255158.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
+        "end": 1463104800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530860745845",
+        "url": "https://sf-item.taobao.com/sf_item/530860745845.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
+        "end": 1463104800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530860653237",
+        "url": "https://sf-item.taobao.com/sf_item/530860653237.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "end": 1463104800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530826504885",
+        "url": "https://sf-item.taobao.com/sf_item/530826504885.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "end": 1463105629000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530418492728",
+        "url": "https://sf-item.taobao.com/sf_item/530418492728.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "end": 1463106236000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530783007408",
+        "url": "https://sf-item.taobao.com/sf_item/530783007408.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
+        "end": 1463114835000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530836638671",
+        "url": "https://sf-item.taobao.com/sf_item/530836638671.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
+        "end": 1463107816000,
+        "status": "done",
+        "is_processed": false
+    }
+]

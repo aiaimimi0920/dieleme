@@ -1,0 +1,60 @@
+[
+    {
+        "id": 520802695330,
+        "市场评估价": 2710526,
+        "起拍价格": 1900000,
+        "成交价格": 1900000,
+        "交易时间": "2015/08/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520802695330.htm?track_id=d9ec48aa-4074-4753-b388-923573bde11a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省启东市汇龙镇幸福岛38号",
+        "所属小区": "幸福岛",
+        "省份": "江苏省",
+        "城市": "启东市",
+        "区": "汇龙镇",
+        "最靠近商圈": "汇龙镇商圈",
+        "建筑面积": 410.22,
+        "单价": 4631.66,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 520845353401,
+        "市场评估价": null,
+        "起拍价格": 3300000,
+        "成交价格": 3300000,
+        "交易时间": "2015-08-11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520845353401.htm?track_id=f2bdc883-e9f9-4bf1-8702-29bf44cdf41e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 苏州市 相城区",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": null,
+        "建筑面积": 409.12,
+        "单价": 8066.09,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "520776130978",
+        "url": "https://sf-item.taobao.com/sf_item/520776130978.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "end": 1439262289000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520840255847",
+        "url": "https://sf-item.taobao.com/sf_item/520840255847.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1439258400000,
+        "status": "done",
+        "is_processed": false
+    }
+]

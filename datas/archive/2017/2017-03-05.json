@@ -1,0 +1,30 @@
+[
+    {
+        "id": 545192206141,
+        "市场评估价": null,
+        "起拍价格": 44504.64,
+        "成交价格": 44504.64,
+        "交易时间": "2017-03-05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545192206141.htm?track_id=d041744a-96eb-4a5d-b759-151a957ea701",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 安阳市 龙安区",
+        "所属小区": "太行小区",
+        "省份": "河南省",
+        "城市": "安阳市",
+        "区": "龙安区",
+        "最靠近商圈": "安阳火车站商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "545202868313",
+        "url": "https://sf-item.taobao.com/sf_item/545202868313.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
+        "end": 1488679200000,
+        "status": "done",
+        "is_processed": false
+    }
+]

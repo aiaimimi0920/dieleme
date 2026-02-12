@@ -1,0 +1,37 @@
+[
+    {
+        "id": 522963359517,
+        "市场评估价": null,
+        "起拍价格": 437000,
+        "成交价格": 437000,
+        "交易时间": "2015/11/01 10:00:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/522963359517.htm?track_id=3abd882b-c96c-46cf-bf70-bcff18e785d1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "徐州市黄河北路西苑人家8#-1-101室",
+        "所属小区": "西苑人家",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "鼓楼区",
+        "最靠近商圈": "西苑",
+        "建筑面积": 92.56,
+        "单价": 4721.86,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "523046152644",
+        "url": "https://sf-item.taobao.com/sf_item/523046152644.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
+        "end": 1446386851000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "523052009355",
+        "url": "https://sf-item.taobao.com/sf_item/523052009355.htm?track_id=137a4dca-e387-408f-a8bf-387cec33a923",
+        "end": 1446345263000,
+        "status": "done",
+        "is_processed": false
+    }
+]

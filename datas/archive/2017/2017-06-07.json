@@ -1,0 +1,51 @@
+[
+    {
+        "id": 551449595721,
+        "市场评估价": 918000,
+        "起拍价格": 918000,
+        "成交价格": 934000,
+        "交易时间": "2017/06/07 10:12:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/551449595721.htm?track_id=7fabc968-299e-4900-8678-a6fa50d6ac1f",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "广东省增城市新塘镇工业加工区新风路8号群星商业中心新利大厦1711号",
+        "所属小区": "新利大厦",
+        "省份": "广东省",
+        "城市": "广州市",
+        "区": "增城区",
+        "最靠近商圈": "新塘",
+        "建筑面积": 109.61,
+        "单价": 8520.34,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "550034280463",
+        "url": "https://sf-item.taobao.com/sf_item/550034280463.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "end": 1496800800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549999544675",
+        "url": "https://sf-item.taobao.com/sf_item/549999544675.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "end": 1496803002000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "550001616714",
+        "url": "https://sf-item.taobao.com/sf_item/550001616714.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "end": 1496805807000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "551584689401",
+        "url": "https://sf-item.taobao.com/sf_item/551584689401.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "end": 1496800800000,
+        "status": "done",
+        "is_processed": false
+    }
+]

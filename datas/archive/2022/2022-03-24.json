@@ -1,0 +1,117 @@
+[
+    {
+        "id": 668810206456,
+        "市场评估价": 3093177.7,
+        "起拍价格": 2165225,
+        "成交价格": 2165225,
+        "交易时间": "2022-03-24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/668810206456.htm?track_id=4b2175c9-76a3-40ba-b8c2-e6b0c097d2e8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广州市海珠区滨江东路96号503房",
+        "所属小区": "海珠半岛花园",
+        "省份": "广东省",
+        "城市": "广州市",
+        "区": "海珠区",
+        "最靠近商圈": "滨江东路",
+        "建筑面积": 64.09,
+        "单价": 33765.44,
+        "is_processed": true,
+        "detail_captured": true,
+        "is_ai_fixed": true
+    },
+    {
+        "id": 668872586652,
+        "市场评估价": 5219429.66,
+        "起拍价格": 4175544,
+        "成交价格": 5125544,
+        "交易时间": "2022-03-24 10:44:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/668872586652.htm?track_id=1bb5cc2c-7ade-41d4-b0a9-31433d21af9f",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 2,
+        "地点": "广州市花都区雅瑶镇广花六路9号C15-1",
+        "所属小区": "雅瑶商业广场",
+        "省份": "广东省",
+        "城市": "广州市",
+        "区": "花都区",
+        "最靠近商圈": null,
+        "建筑面积": 319.4,
+        "单价": 16055.44,
+        "is_processed": true,
+        "detail_captured": true,
+        "is_ai_fixed": true
+    },
+    {
+        "id": 670060922582,
+        "市场评估价": null,
+        "起拍价格": 365965,
+        "成交价格": 365965,
+        "交易时间": "2022-03-24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/670060922582.htm?track_id=5aa6a1ee-f368-4e1e-b072-ef857e027c94",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "四川省 成都市 都江堰市 都江堰市玉堂镇赵公路158号“景顺·山水间”24栋1单元3层7号",
+        "所属小区": "景顺·山水间",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "都江堰市",
+        "最靠近商圈": "玉堂镇",
+        "建筑面积": 88.37,
+        "单价": 4139.46,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "670024298985",
+        "url": "https://sf-item.taobao.com/sf_item/670024298985.htm?track_id=93f5b1ce-1034-4c5d-ba15-3ba24f721dae",
+        "end": 1648087365000,
+        "status": "done",
+        "is_processed": false,
+        "原始网站": "https://sf-item.taobao.com/sf_item/670024298985.htm"
+    },
+    {
+        "id": "669352948418",
+        "url": "https://sf-item.taobao.com/sf_item/669352948418.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
+        "end": 1648087385000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670147527805",
+        "url": "https://sf-item.taobao.com/sf_item/670147527805.htm?track_id=375f93c0-4a0c-406a-a015-a7462976ee1c",
+        "end": 1648089034000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "666920754560",
+        "url": "https://sf-item.taobao.com/sf_item/666920754560.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
+        "end": 1648103397000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "667283575961",
+        "url": "https://sf-item.taobao.com/sf_item/667283575961.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
+        "end": 1648103621000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "667283819333",
+        "url": "https://sf-item.taobao.com/sf_item/667283819333.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
+        "end": 1648100250000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "667284155719",
+        "url": "https://sf-item.taobao.com/sf_item/667284155719.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
+        "end": 1648103810000,
+        "status": "done",
+        "is_processed": false
+    }
+]

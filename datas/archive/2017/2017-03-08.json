@@ -1,0 +1,38 @@
+[
+    {
+        "id": 545398245405,
+        "市场评估价": 0,
+        "起拍价格": 1900000,
+        "成交价格": 1900000,
+        "交易时间": "2017/03/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545398245405.htm?track_id=c5627436-5c75-4e36-a3e2-6980a6fb2e30",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "浙江省 衢州市 常山县",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "常山县",
+        "最靠近商圈": null,
+        "建筑面积": 1985.96,
+        "单价": 956.72,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "545194624761",
+        "url": "https://sf-item.taobao.com/sf_item/545194624761.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
+        "end": 1488939206000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544887501862",
+        "url": "https://sf-item.taobao.com/sf_item/544887501862.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "end": 1488954378000,
+        "status": "done",
+        "is_processed": false
+    }
+]

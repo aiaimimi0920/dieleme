@@ -1,0 +1,93 @@
+[
+    {
+        "id": 524637509197,
+        "市场评估价": 643000,
+        "起拍价格": 515000,
+        "成交价格": 515000,
+        "交易时间": "2015-12-15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524637509197.htm?track_id=80f93dd7-d895-4e89-9177-162ae2c4265b",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 1,
+        "地点": "浙江省 宁波市 北仑区 小浃江中路665号（东岗碶新村）16幢15号，303室",
+        "所属小区": "东岗碶新村",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "小港",
+        "建筑面积": 102.5,
+        "单价": 5024.39,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 525192124935,
+        "市场评估价": null,
+        "起拍价格": 273300,
+        "成交价格": 275300,
+        "交易时间": "2015/12/15 10:00:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525192124935.htm?track_id=4510220a-04b8-418c-9882-ac906642c54c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 2,
+        "地点": "宜阳县城关滨河西路南侧滨河新城10幢2-301",
+        "所属小区": "滨河新城",
+        "省份": "河南省",
+        "城市": "洛阳市",
+        "区": "宜阳县",
+        "最靠近商圈": "滨河新城",
+        "建筑面积": 132.1,
+        "单价": 2084.78,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "524604738005",
+        "url": "https://sf-item.taobao.com/sf_item/524604738005.htm?track_id=e17bfa31-568b-40b1-a430-6b187995b33f",
+        "end": 1450147588000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524630597805",
+        "url": "https://sf-item.taobao.com/sf_item/524630597805.htm?track_id=9d62b742-b4d8-4891-b062-beb125515e21",
+        "end": 1450145716000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524598879035",
+        "url": "https://sf-item.taobao.com/sf_item/524598879035.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
+        "end": 1450145223000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524629853605",
+        "url": "https://sf-item.taobao.com/sf_item/524629853605.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
+        "end": 1450144800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524598943566",
+        "url": "https://sf-item.taobao.com/sf_item/524598943566.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
+        "end": 1450144800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524641932531",
+        "url": "https://sf-item.taobao.com/sf_item/524641932531.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
+        "end": 1450144800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524610692543",
+        "url": "https://sf-item.taobao.com/sf_item/524610692543.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
+        "end": 1450145059000,
+        "status": "done",
+        "is_processed": false
+    }
+]

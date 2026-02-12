@@ -1,0 +1,44 @@
+[
+    {
+        "id": 524257005237,
+        "市场评估价": 1252500,
+        "起拍价格": 1002000,
+        "成交价格": 1212000,
+        "交易时间": "2015年11月17日 10:16:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524257005237.htm?track_id=de3f2535-c001-4a80-9e39-1dedba8d3f55",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 22,
+        "地点": "苏州市城北西路1958号金成花园20幢504室",
+        "所属小区": "金成花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "沧浪区",
+        "最靠近商圈": "金阊新城",
+        "建筑面积": 113,
+        "单价": 10725.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "523844947458",
+        "url": "https://sf-item.taobao.com/sf_item/523844947458.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
+        "end": 1447726208000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "523771829810",
+        "url": "https://sf-item.taobao.com/sf_item/523771829810.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
+        "end": 1447725829000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524265068978",
+        "url": "https://sf-item.taobao.com/sf_item/524265068978.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1447725600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,38 @@
+[
+    {
+        "id": 530585056496,
+        "市场评估价": 541900,
+        "起拍价格": 347200,
+        "成交价格": 495200,
+        "交易时间": "2016/05/07 10:14:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530585056496.htm?track_id=287e3dee-8b39-4ed7-affd-ef00244e1916",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "徐州市新城区J14号路西，4号路北龙域花园21-1-1303室",
+        "所属小区": "龙域花园",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "云龙区",
+        "最靠近商圈": "大龙湖商圈",
+        "建筑面积": 92.64,
+        "单价": 5345.42,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "530541693669",
+        "url": "https://sf-item.taobao.com/sf_item/530541693669.htm?track_id=0aa51a89-be2a-4b2d-a15e-840b4b7b2be4",
+        "end": 1462587926000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530566876223",
+        "url": "https://sf-item.taobao.com/sf_item/530566876223.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
+        "end": 1462629600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

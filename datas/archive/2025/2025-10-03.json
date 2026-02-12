@@ -1,0 +1,107 @@
+[
+    {
+        "id": 978348252179,
+        "市场评估价": 1229291,
+        "起拍价格": 688404,
+        "成交价格": 1008404,
+        "交易时间": "2025/10/03 10:32:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/978348252179.htm?track_id=4cbd261c-d2f4-4889-b899-2941fc74cb7d",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": null,
+        "地点": "四川省 成都市 温江区 柳城街办柳林路99号4栋26层2604号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "温江区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 978346820739,
+        "市场评估价": 781545,
+        "起拍价格": 437666,
+        "成交价格": 437666,
+        "交易时间": "2025/10/03 10:00:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/978346820739.htm?track_id=c5834459-8dc3-4221-bbc2-a2121b108f98",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 成都市 温江区 万春镇春江西路398号1栋1单元6层602号房屋",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "温江区",
+        "最靠近商圈": "万春镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 976459939176,
+        "市场评估价": 895964,
+        "起拍价格": 573418,
+        "成交价格": 623418,
+        "交易时间": "2025/10/03 10:05:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/976459939176.htm?track_id=39131037-4b51-4957-be28-9e444fd53ebd",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 9,
+        "地点": "安徽省 亳州市 蒙城县 安徽省亳州市蒙城县名邦御府21幢105号",
+        "所属小区": "名邦御府",
+        "省份": "安徽省",
+        "城市": "亳州市",
+        "区": "蒙城县",
+        "最靠近商圈": "城关镇",
+        "建筑面积": 121.24,
+        "单价": 5140.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "976857766565",
+        "url": "https://sf-item.taobao.com/sf_item/976857766565.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
+        "end": 1759456848000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "978395048420",
+        "url": "https://sf-item.taobao.com/sf_item/978395048420.htm?track_id=be4791d9-4192-47ad-a814-1baf514b1a3e",
+        "end": 1759456850000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "976570322929",
+        "url": "https://sf-item.taobao.com/sf_item/976570322929.htm?track_id=4b4e999e-3aac-478b-9b5f-a68739a27816",
+        "end": 1759456939000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "976879082685",
+        "url": "https://sf-item.taobao.com/sf_item/976879082685.htm?track_id=39151f44-c8e6-4909-a96a-5342e8b2e652",
+        "end": 1759456800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "977002278274",
+        "url": "https://sf-item.taobao.com/sf_item/977002278274.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
+        "end": 1759464339000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "976354815173",
+        "url": "https://sf-item.taobao.com/sf_item/976354815173.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
+        "end": 1759466674000,
+        "status": "done",
+        "is_processed": false
+    }
+]

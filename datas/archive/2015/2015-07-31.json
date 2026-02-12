@@ -1,0 +1,100 @@
+[
+    {
+        "id": 520657920567,
+        "市场评估价": 267900,
+        "起拍价格": 171456,
+        "成交价格": 215456,
+        "交易时间": "2015-07-31 02:21:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520657920567.htm?track_id=5696bf2d-82dd-429b-9a0a-f0b63d93a02f",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "徐州市煤建路39#-1-502室",
+        "所属小区": "煤建公司家属院",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "云龙湖商圈",
+        "建筑面积": 53.53,
+        "单价": 4024.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 520649638429,
+        "市场评估价": 0,
+        "起拍价格": 1903200,
+        "成交价格": 2503200,
+        "交易时间": "2015/07/31 11:04:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520649638429.htm?track_id=6007db18-db3a-4a45-b6f1-575e4e6367a1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 55,
+        "地点": "苏州市吴中区木渎镇胥江康悦家园10幢1室",
+        "所属小区": "胥江康悦家园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "木渎",
+        "建筑面积": 268.25,
+        "单价": 9333.33,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 520653726198,
+        "市场评估价": 0,
+        "起拍价格": 167081,
+        "成交价格": 167081,
+        "交易时间": "2015/07/31 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520653726198.htm?track_id=f2bdc883-e9f9-4bf1-8702-29bf44cdf41e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "苏州市相城区北桥街道未来路1号2幢519室",
+        "所属小区": "漕湖之星",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "北桥",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "520652534193",
+        "url": "https://sf-item.taobao.com/sf_item/520652534193.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
+        "end": 1438308000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520558414140",
+        "url": "https://sf-item.taobao.com/sf_item/520558414140.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
+        "end": 1438310087000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520556841305",
+        "url": "https://sf-item.taobao.com/sf_item/520556841305.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
+        "end": 1438310078000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520555539443",
+        "url": "https://sf-item.taobao.com/sf_item/520555539443.htm?track_id=9d62b742-b4d8-4891-b062-beb125515e21",
+        "end": 1438309150000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520826997915",
+        "url": "https://sf-item.taobao.com/sf_item/520826997915.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
+        "end": 1438308892000,
+        "status": "done",
+        "is_processed": false
+    }
+]

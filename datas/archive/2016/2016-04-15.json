@@ -1,0 +1,44 @@
+[
+    {
+        "id": 528945843532,
+        "市场评估价": null,
+        "起拍价格": 3000000,
+        "成交价格": 3600000,
+        "交易时间": "2016/04/15 10:10:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528945843532.htm?track_id=2d60b708-6433-4094-86f3-42e861342406",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广东省 深圳市 福田区",
+        "所属小区": "台湾花园大厦",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "福田区",
+        "最靠近商圈": "福田中心区",
+        "建筑面积": 113.08,
+        "单价": 31832.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "529032660561",
+        "url": "https://sf-item.taobao.com/sf_item/529032660561.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "end": 1460693234000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529020580974",
+        "url": "https://sf-item.taobao.com/sf_item/529020580974.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
+        "end": 1460688878000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529711674852",
+        "url": "https://sf-item.taobao.com/sf_item/529711674852.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
+        "end": 1460685600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

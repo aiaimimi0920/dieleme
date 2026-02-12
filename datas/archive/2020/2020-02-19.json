@@ -1,0 +1,107 @@
+[
+    {
+        "id": 609560898550,
+        "市场评估价": 1368000,
+        "起拍价格": 1094400,
+        "成交价格": 1094400,
+        "交易时间": "2020-02-19 21:32:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/609560898550.htm?track_id=89fd2ee9-28bd-4577-b83a-4baf1722c8ce",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省成都市金牛区银沙路40号1栋4单元4楼6号房屋",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "金牛区",
+        "最靠近商圈": "银沙路",
+        "建筑面积": 114,
+        "单价": 9596.49,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 611499331509,
+        "市场评估价": 579500,
+        "起拍价格": 405650,
+        "成交价格": 797650,
+        "交易时间": "2020-02-19 15:41:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611499331509.htm?track_id=fef23db7-6eaa-42f5-aa80-e7cc43089235",
+        "是否成交": true,
+        "竞拍人数": 12,
+        "出价人数": 362,
+        "地点": "四川省 成都市 温江区 涌泉光华大道三段336号1栋1单元1楼16号",
+        "所属小区": "涌泉社区",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "温江区",
+        "最靠近商圈": "光华大道商圈",
+        "建筑面积": 41.79,
+        "单价": 19080.79,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 611317097745,
+        "市场评估价": 1289036.5,
+        "起拍价格": 902325.55,
+        "成交价格": 1354325.55,
+        "交易时间": "2020-02-19 03:26:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611317097745.htm?track_id=f7145404-3c50-476e-99bc-5d89e2244d0f",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 86,
+        "地点": "四川省 成都市 双流区 东升街道金河路43号人居﹒都市阳光5栋1单元4楼402号不动产",
+        "所属小区": "人居﹒都市阳光",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "双流区",
+        "最靠近商圈": "东升商圈",
+        "建筑面积": 124.86,
+        "单价": 10838.55,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "611312549396",
+        "url": "https://sf-item.taobao.com/sf_item/611312549396.htm?track_id=0dd40b95-8471-4dcf-9346-f8ebf0b69c81",
+        "end": 1582077600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611557314107",
+        "url": "https://sf-item.taobao.com/sf_item/611557314107.htm?track_id=25f0e98c-d1bf-4b6c-8b3e-37c35873c737",
+        "end": 1582078206000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611086049412",
+        "url": "https://sf-item.taobao.com/sf_item/611086049412.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
+        "end": 1582084347000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611815899452",
+        "url": "https://sf-item.taobao.com/sf_item/611815899452.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
+        "end": 1582082677000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611809719940",
+        "url": "https://sf-item.taobao.com/sf_item/611809719940.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
+        "end": 1582078595000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611570854766",
+        "url": "https://sf-item.taobao.com/sf_item/611570854766.htm?track_id=e9db07e5-7acb-4b43-9d9c-583daa52fdcf",
+        "end": 1582077600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

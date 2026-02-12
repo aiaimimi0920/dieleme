@@ -1,0 +1,44 @@
+[
+    {
+        "id": 540011209549,
+        "市场评估价": 0,
+        "起拍价格": 370478,
+        "成交价格": 434478,
+        "交易时间": "2016/10/20 10:03:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540011209549.htm?track_id=b35f34fe-0a19-4682-8d78-76f7652264d7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 21,
+        "地点": "江苏省苏州市吴中区木渎镇长江路9号6幢433室",
+        "所属小区": "合景领峰",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "木渎",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "538811380214",
+        "url": "https://sf-item.taobao.com/sf_item/538811380214.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
+        "end": 1476976118000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538729518026",
+        "url": "https://sf-item.taobao.com/sf_item/538729518026.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "end": 1476973204000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539369919578",
+        "url": "https://sf-item.taobao.com/sf_item/539369919578.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "end": 1476929050000,
+        "status": "done",
+        "is_processed": false
+    }
+]

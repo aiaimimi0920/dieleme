@@ -1,0 +1,65 @@
+[
+    {
+        "id": 532979485805,
+        "市场评估价": 2203200,
+        "起拍价格": 1411000,
+        "成交价格": 1906000,
+        "交易时间": "2016-06-18 10:09:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/532979485805.htm",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 87,
+        "地点": "江苏省徐州市泉山区湖北路滨湖花园三期C5#-1-1603室",
+        "所属小区": "滨湖花园三期",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "滨湖花园商圈",
+        "建筑面积": 139.02,
+        "单价": 13711.51,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 533811846389,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1150000,
+        "交易时间": "2016-06-18 11:15:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/533811846389.htm?track_id=6007db18-db3a-4a45-b6f1-575e4e6367a1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 55,
+        "地点": "江苏省 苏州市 吴中区",
+        "所属小区": "吴淞新村",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "独墅湖",
+        "建筑面积": 134.42,
+        "单价": 8555.25,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "532011301351",
+        "url": "https://sf-item.taobao.com/sf_item/532011301351.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
+        "end": 1466258400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "532921685868",
+        "url": "https://sf-item.taobao.com/sf_item/532921685868.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
+        "end": 1466217307000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "532895050632",
+        "url": "https://sf-item.taobao.com/sf_item/532895050632.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
+        "end": 1466215200000,
+        "status": "done",
+        "is_processed": false
+    }
+]

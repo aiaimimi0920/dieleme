@@ -1,0 +1,72 @@
+[
+    {
+        "id": 543477174672,
+        "市场评估价": 0,
+        "起拍价格": 415650,
+        "成交价格": 585650,
+        "交易时间": "2017/01/08 10:04:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/543477174672.htm?track_id=aba1c982-7469-48ac-945a-27d5361836a7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 12,
+        "地点": "内蒙古自治区赤峰市林西县林西镇南街铜矿1号商住楼3-102室",
+        "所属小区": "铜矿1号商住楼",
+        "省份": "内蒙古自治区",
+        "城市": "赤峰市",
+        "区": "林西县",
+        "最靠近商圈": "林西镇",
+        "建筑面积": 83.13,
+        "单价": 7044.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 543894410661,
+        "市场评估价": null,
+        "起拍价格": 61998000,
+        "成交价格": 61998000,
+        "交易时间": "2017-01-08T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/543894410661.htm?track_id=4641f2bd-3886-4c03-8ff7-e1769f31c25e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "四川省 遂宁市 安居区",
+        "所属小区": "黄峨大酒店",
+        "省份": "四川省",
+        "城市": "遂宁市",
+        "区": "安居区",
+        "最靠近商圈": "安居区中心",
+        "建筑面积": 17365.95,
+        "单价": 3571.44,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "543606234897",
+        "url": "https://sf-item.taobao.com/sf_item/543606234897.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
+        "end": 1483847295000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "543561405844",
+        "url": "https://sf-item.taobao.com/sf_item/543561405844.htm?track_id=3da5f1bb-5176-482b-b9da-2470b0a42f6d",
+        "end": 1483833600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "543572918304",
+        "url": "https://sf-item.taobao.com/sf_item/543572918304.htm?track_id=3da5f1bb-5176-482b-b9da-2470b0a42f6d",
+        "end": 1483833600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "543548784539",
+        "url": "https://sf-item.taobao.com/sf_item/543548784539.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "end": 1483844725000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,72 @@
+[
+    {
+        "id": 526567598888,
+        "市场评估价": 4106545,
+        "起拍价格": 3490000,
+        "成交价格": 3860000,
+        "交易时间": "2016/02/23 10:10:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526567598888.htm?track_id=939470bf-29af-4985-a938-0f637ddbc424",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "广东省广州市海珠区滨江东路环月街2号1705房",
+        "所属小区": "金海湾花园",
+        "省份": "广东省",
+        "城市": "广州市",
+        "区": "海珠区",
+        "最靠近商圈": "滨江东",
+        "建筑面积": 135.86,
+        "单价": 28412.87,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 526943119491,
+        "市场评估价": 413500,
+        "起拍价格": 297720,
+        "成交价格": 317720,
+        "交易时间": "2016/02/23 10:10:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526943119491.htm?track_id=3eea6dd7-3556-43b2-86eb-23ee75ff8f4c",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 16,
+        "地点": "徐州经济开发区杨山路南经六路东绿城花园小区东22#-3-101室",
+        "所属小区": "绿城花园小区",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "鼓楼区",
+        "最靠近商圈": "徐州经济开发区",
+        "建筑面积": 84.04,
+        "单价": 3781.06,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "526984820810",
+        "url": "https://sf-item.taobao.com/sf_item/526984820810.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "end": 1456196753000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "526970273327",
+        "url": "https://sf-item.taobao.com/sf_item/526970273327.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "end": 1456196745000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "526978242495",
+        "url": "https://sf-item.taobao.com/sf_item/526978242495.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "end": 1456194378000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "526967270821",
+        "url": "https://sf-item.taobao.com/sf_item/526967270821.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1456192800000,
+        "status": "done",
+        "is_processed": false
+    }
+]

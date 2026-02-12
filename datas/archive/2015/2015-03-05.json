@@ -1,0 +1,31 @@
+[
+    {
+        "id": 43865332556,
+        "市场评估价": null,
+        "起拍价格": 450000,
+        "成交价格": 515000,
+        "交易时间": "2015-03-05 10:03:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43865332556.htm?track_id=dcfaf760-6a1f-4a91-9531-0526ff8c8ea5",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": null,
+        "地点": "苏州市吴中区东吴南路153号",
+        "所属小区": "东吴新村",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "吴中商圈",
+        "建筑面积": 92.28,
+        "单价": 5580.84,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "43834898930",
+        "url": "https://sf-item.taobao.com/sf_item/43834898930.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "end": 1425521937000,
+        "status": "done",
+        "is_processed": false
+    }
+]

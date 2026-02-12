@@ -1,0 +1,44 @@
+[
+    {
+        "id": 43967305572,
+        "市场评估价": 635138,
+        "起拍价格": 450000,
+        "成交价格": 540000,
+        "交易时间": "2015/03/19 10:15:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43967305572.htm?track_id=de3f2535-c001-4a80-9e39-1dedba8d3f55",
+        "是否成交": true,
+        "竞拍人数": 7,
+        "出价人数": 14,
+        "地点": "苏州市虎丘区阳山花园二区44幢505室",
+        "所属小区": "阳山花园二区",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "虎丘区",
+        "最靠近商圈": "浒墅关",
+        "建筑面积": 97.22,
+        "单价": 5554.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "43967377179",
+        "url": "https://sf-item.taobao.com/sf_item/43967377179.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
+        "end": 1426728008000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "43982524405",
+        "url": "https://sf-item.taobao.com/sf_item/43982524405.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
+        "end": 1426727371000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "43998917390",
+        "url": "https://sf-item.taobao.com/sf_item/43998917390.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
+        "end": 1426734962000,
+        "status": "done",
+        "is_processed": false
+    }
+]

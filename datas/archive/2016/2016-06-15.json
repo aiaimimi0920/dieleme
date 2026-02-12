@@ -1,0 +1,37 @@
+[
+    {
+        "id": 532608016171,
+        "市场评估价": null,
+        "起拍价格": 276000,
+        "成交价格": 356000,
+        "交易时间": "2016/06/15 10:06:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/532608016171.htm?track_id=d08581cf-7528-4c36-a90f-b5eef0ef438a",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": null,
+        "地点": "江苏省 淮安市 淮安区",
+        "所属小区": "建华玖珑湾",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": 90.74,
+        "单价": 3925.92,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "532613413637",
+        "url": "https://sf-item.taobao.com/sf_item/532613413637.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "end": 1466000050000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "532798195769",
+        "url": "https://sf-item.taobao.com/sf_item/532798195769.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1465956248000,
+        "status": "done",
+        "is_processed": false
+    }
+]

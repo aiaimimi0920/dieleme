@@ -1,0 +1,170 @@
+[
+    {
+        "id": 540604570275,
+        "市场评估价": 1004000,
+        "起拍价格": 642560,
+        "成交价格": 896060,
+        "交易时间": "2016/11/09 10:16:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540604570275.htm?track_id=c12191da-9643-4e28-aada-12cac9da7a1d",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": 34,
+        "地点": "江苏省 徐州市 泉山区",
+        "所属小区": "薇园小区",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "淮海西路商圈",
+        "建筑面积": 140.08,
+        "单价": 6397.37,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 540600456095,
+        "市场评估价": 2159700,
+        "起拍价格": 1382208,
+        "成交价格": 1382208,
+        "交易时间": "2016-11-09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540600456095.htm?track_id=ffc63780-8a7c-488c-8d8e-05f540078c84",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 1,
+        "地点": "江苏省 徐州市 泉山区",
+        "所属小区": "汉泉山庄",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "泉山万达",
+        "建筑面积": 230.81,
+        "单价": 5989.25,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 540606399901,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 994648,
+        "交易时间": "2016-11-09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540606399901.htm",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 22,
+        "地点": "苏州市相城区元和街道峰汇园花园一区2幢102室",
+        "所属小区": "峰汇园花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "元和商圈",
+        "建筑面积": 27.4,
+        "单价": 36305.23,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 541150680065,
+        "市场评估价": null,
+        "起拍价格": 1920000,
+        "成交价格": 1920000,
+        "交易时间": "2016/11/09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541150680065.htm",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省苏州市相城区渭塘镇商苑北街北首",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": null,
+        "建筑面积": 772.13,
+        "单价": 2486.75,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "540599064664",
+        "url": "https://sf-item.taobao.com/sf_item/540599064664.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "end": 1478656800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540607217074",
+        "url": "https://sf-item.taobao.com/sf_item/540607217074.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "end": 1478656800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541155565118",
+        "url": "https://sf-item.taobao.com/sf_item/541155565118.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "end": 1478659490000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541154673538",
+        "url": "https://sf-item.taobao.com/sf_item/541154673538.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "end": 1478660264000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540624483305",
+        "url": "https://sf-item.taobao.com/sf_item/540624483305.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "end": 1478660360000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541164071449",
+        "url": "https://sf-item.taobao.com/sf_item/541164071449.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "end": 1478660202000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539901177866",
+        "url": "https://sf-item.taobao.com/sf_item/539901177866.htm?track_id=ef5eeaad-a6e8-4cc8-9382-470fbeaf25b4",
+        "end": 1478661362000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539902807033",
+        "url": "https://sf-item.taobao.com/sf_item/539902807033.htm?track_id=ef5eeaad-a6e8-4cc8-9382-470fbeaf25b4",
+        "end": 1478658578000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539900438002",
+        "url": "https://sf-item.taobao.com/sf_item/539900438002.htm?track_id=ef5eeaad-a6e8-4cc8-9382-470fbeaf25b4",
+        "end": 1478658910000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539901751210",
+        "url": "https://sf-item.taobao.com/sf_item/539901751210.htm?track_id=ef5eeaad-a6e8-4cc8-9382-470fbeaf25b4",
+        "end": 1478659747000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539902331389",
+        "url": "https://sf-item.taobao.com/sf_item/539902331389.htm?track_id=a698a9e5-cfa5-48e0-86bd-280315dc7c24",
+        "end": 1478658074000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539902938318",
+        "url": "https://sf-item.taobao.com/sf_item/539902938318.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
+        "end": 1478660285000,
+        "status": "done",
+        "is_processed": false
+    }
+]

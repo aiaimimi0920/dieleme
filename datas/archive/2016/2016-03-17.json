@@ -1,0 +1,65 @@
+[
+    {
+        "id": 527440248213,
+        "市场评估价": null,
+        "起拍价格": 162000,
+        "成交价格": 170000,
+        "交易时间": "2016-03-17 10:03:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527440248213.htm?track_id=c6ccba6f-06f2-4cb3-bc96-6982efecc542",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 9,
+        "地点": "河南省新乡市牧野区",
+        "所属小区": "电影公司家属楼",
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "牧野区",
+        "最靠近商圈": "孟姜女路商圈",
+        "建筑面积": 62.96,
+        "单价": 2699.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 527590668726,
+        "市场评估价": 647500,
+        "起拍价格": 647500,
+        "成交价格": 909500,
+        "交易时间": "2016-03-17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527590668726.htm",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省苏州市吴中区吴中村14幢103室",
+        "所属小区": "吴中村",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "吴中城区",
+        "建筑面积": 65.32,
+        "单价": 13923.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "527605646588",
+        "url": "https://sf-item.taobao.com/sf_item/527605646588.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
+        "end": 1458180664000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527106899383",
+        "url": "https://sf-item.taobao.com/sf_item/527106899383.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
+        "end": 1458180000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527562530860",
+        "url": "https://sf-item.taobao.com/sf_item/527562530860.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1458180000000,
+        "status": "done",
+        "is_processed": false
+    }
+]

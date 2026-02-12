@@ -1,0 +1,44 @@
+[
+    {
+        "id": 522885771287,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 862760,
+        "交易时间": "2015-10-13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/522885771287.htm",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 12,
+        "地点": "江苏省苏州市相城区元和街道嘉元路663号康桥花园22幢903室",
+        "所属小区": "康桥花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "元和商圈",
+        "建筑面积": 87.17,
+        "单价": 9896.31,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "522586824857",
+        "url": "https://sf-item.taobao.com/sf_item/522586824857.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
+        "end": 1444702137000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "522588708357",
+        "url": "https://sf-item.taobao.com/sf_item/522588708357.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1444701600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "522623895061",
+        "url": "https://sf-item.taobao.com/sf_item/522623895061.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1444701600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

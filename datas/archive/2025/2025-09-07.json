@@ -1,0 +1,100 @@
+[
+    {
+        "id": 969774768717,
+        "市场评估价": null,
+        "起拍价格": 1,
+        "成交价格": 324001,
+        "交易时间": "2025/09/07 11:25:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/969774768717.htm?track_id=758a7636-4a50-42fe-bfb8-b722aa272aa3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 80,
+        "地点": "四川省 成都市 都江堰市 青城山芙蓉A区2栋4单元4层8号",
+        "所属小区": "青城山芙蓉A区",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "都江堰市",
+        "最靠近商圈": "青城山",
+        "建筑面积": 45.47,
+        "单价": 7125.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 957956543973,
+        "市场评估价": 1518726.5,
+        "起拍价格": 1064000,
+        "成交价格": 1812000,
+        "交易时间": "2025/09/07 10:56:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/957956543973.htm?track_id=29ed3407-5b5e-4e12-a0e5-5ac0fcd67fcf",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 198,
+        "地点": "四川省 成都市 其它区 中和街道中和大道22号11栋1单元3层5号",
+        "所属小区": "蓝光金悦派",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "高新区",
+        "最靠近商圈": "中和",
+        "建筑面积": 130.97,
+        "单价": 13836.45,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "967415003697",
+        "url": "https://sf-item.taobao.com/sf_item/967415003697.htm?track_id=aac41e8b-629b-4b88-be2e-2c47fcfd4824",
+        "end": 1757210400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "967949974613",
+        "url": "https://sf-item.taobao.com/sf_item/967949974613.htm?track_id=aac41e8b-629b-4b88-be2e-2c47fcfd4824",
+        "end": 1757210400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "968659957520",
+        "url": "https://sf-item.taobao.com/sf_item/968659957520.htm?track_id=aac41e8b-629b-4b88-be2e-2c47fcfd4824",
+        "end": 1757210400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "969261392534",
+        "url": "https://sf-item.taobao.com/sf_item/969261392534.htm?track_id=aac41e8b-629b-4b88-be2e-2c47fcfd4824",
+        "end": 1757210400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "967333355411",
+        "url": "https://sf-item.taobao.com/sf_item/967333355411.htm?track_id=4b4e999e-3aac-478b-9b5f-a68739a27816",
+        "end": 1757210400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "967919042141",
+        "url": "https://sf-item.taobao.com/sf_item/967919042141.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
+        "end": 1757212821000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "967914550851",
+        "url": "https://sf-item.taobao.com/sf_item/967914550851.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "end": 1757211577000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "961463791438",
+        "url": "https://sf-item.taobao.com/sf_item/961463791438.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "end": 1757210440000,
+        "status": "done",
+        "is_processed": false
+    }
+]

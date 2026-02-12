@@ -1,0 +1,107 @@
+[
+    {
+        "id": 526001383353,
+        "市场评估价": 803000,
+        "起拍价格": 578160,
+        "成交价格": 612160,
+        "交易时间": "2016-01-23 10:18:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526001383353.htm",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 27,
+        "地点": "四川省成都市龙泉驿区大面街道梧桐路60号上东阳光三期14栋1单元3楼6号",
+        "所属小区": "上东阳光三期",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "龙泉驿区",
+        "最靠近商圈": "大面商圈",
+        "建筑面积": 117.92,
+        "单价": 5192.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "526049081107",
+        "url": "https://sf-item.taobao.com/sf_item/526049081107.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
+        "end": 1453514690000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525984416973",
+        "url": "https://sf-item.taobao.com/sf_item/525984416973.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
+        "end": 1453515770000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525929987150",
+        "url": "https://sf-item.taobao.com/sf_item/525929987150.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
+        "end": 1453515799000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525969790716",
+        "url": "https://sf-item.taobao.com/sf_item/525969790716.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "end": 1453515254000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525984685000",
+        "url": "https://sf-item.taobao.com/sf_item/525984685000.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "end": 1453516308000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525969590536",
+        "url": "https://sf-item.taobao.com/sf_item/525969590536.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "end": 1453516119000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525976357245",
+        "url": "https://sf-item.taobao.com/sf_item/525976357245.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "end": 1453515223000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525976869555",
+        "url": "https://sf-item.taobao.com/sf_item/525976869555.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "end": 1453515490000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525964854430",
+        "url": "https://sf-item.taobao.com/sf_item/525964854430.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
+        "end": 1453516325000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525985280803",
+        "url": "https://sf-item.taobao.com/sf_item/525985280803.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
+        "end": 1453515737000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525990832409",
+        "url": "https://sf-item.taobao.com/sf_item/525990832409.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
+        "end": 1453514651000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525976205678",
+        "url": "https://sf-item.taobao.com/sf_item/525976205678.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
+        "end": 1453514400000,
+        "status": "done",
+        "is_processed": false
+    }
+]

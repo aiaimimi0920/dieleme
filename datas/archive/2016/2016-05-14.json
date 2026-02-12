@@ -1,0 +1,59 @@
+[
+    {
+        "id": 530735959526,
+        "市场评估价": null,
+        "起拍价格": 139600,
+        "成交价格": 219600,
+        "交易时间": "2016-05-14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530735959526.htm?track_id=3165dbe6-55f7-4066-b2f0-445973ab493e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省 佛山市 禅城区",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "佛山市",
+        "区": "禅城区",
+        "最靠近商圈": null,
+        "建筑面积": 14.39,
+        "单价": 15260.6,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 530872182805,
+        "市场评估价": null,
+        "起拍价格": 2610000,
+        "成交价格": 3615000,
+        "交易时间": "2016/05/14 10:37:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530872182805.htm?track_id=c8335557-dab5-4022-832a-6b1bc7c7410e",
+        "是否成交": true,
+        "竞拍人数": 116,
+        "出价人数": null,
+        "地点": "江苏省 苏州市 吴中区 胥口镇 太湖之春山庄22号",
+        "所属小区": "太湖之春山庄",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "胥口镇商圈",
+        "建筑面积": 274.3,
+        "单价": 13178.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "530897073167",
+        "url": "https://sf-item.taobao.com/sf_item/530897073167.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "end": 1463193525000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530836583445",
+        "url": "https://sf-item.taobao.com/sf_item/530836583445.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
+        "end": 1463235808000,
+        "status": "done",
+        "is_processed": false
+    }
+]

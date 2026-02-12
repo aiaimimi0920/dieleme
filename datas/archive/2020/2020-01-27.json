@@ -1,0 +1,72 @@
+[
+    {
+        "id": 611363122020,
+        "市场评估价": 5821500,
+        "起拍价格": 4657200,
+        "成交价格": 5317200,
+        "交易时间": "2020-01-27 03:54:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611363122020.htm?track_id=b7cd871a-c029-401e-9623-8df1bc7d468c",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 57,
+        "地点": "成都市锦江区东大街芷泉段88号7栋1单元37楼3702号房屋",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "锦江区",
+        "最靠近商圈": null,
+        "建筑面积": 188.24,
+        "单价": 28240,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 610191080860,
+        "市场评估价": 5585580,
+        "起拍价格": 3909906,
+        "成交价格": 4579906,
+        "交易时间": "2020-01-27 11:04:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610191080860.htm?track_id=8a31c6a9-d0ba-4245-a3f5-c243b23a56b3",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 57,
+        "地点": "江苏省徐州市泉山区凤鸣山庄阳光森林半山别墅",
+        "所属小区": "凤鸣山庄",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": null,
+        "建筑面积": 266.19,
+        "单价": 17205.06,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "610684506958",
+        "url": "https://sf-item.taobao.com/sf_item/610684506958.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
+        "end": 1580090400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611592503222",
+        "url": "https://sf-item.taobao.com/sf_item/611592503222.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
+        "end": 1580090424000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "610753272975",
+        "url": "https://sf-item.taobao.com/sf_item/610753272975.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
+        "end": 1580091828000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611021001849",
+        "url": "https://sf-item.taobao.com/sf_item/611021001849.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
+        "end": 1580091397000,
+        "status": "done",
+        "is_processed": false
+    }
+]

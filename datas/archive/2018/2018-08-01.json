@@ -1,0 +1,101 @@
+[
+    {
+        "id": 573710771419,
+        "市场评估价": 681500,
+        "起拍价格": 436160,
+        "成交价格": 541160,
+        "交易时间": "2018/08/01 10:28:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/573710771419.htm?track_id=b9b19603-9f1f-4760-b847-b0043e1e8647",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 22,
+        "地点": "广州市花都区新华镇商业大道40号503房",
+        "所属小区": "商业大道小区",
+        "省份": "广东省",
+        "城市": "广州市",
+        "区": "花都区",
+        "最靠近商圈": "新华商圈",
+        "建筑面积": 104.85,
+        "单价": 5160.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 572805787173,
+        "市场评估价": 1593000,
+        "起拍价格": 1115100,
+        "成交价格": 2605100,
+        "交易时间": "2018-08-01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572805787173.htm?track_id=59450ea2-fd44-4570-ad8c-33d6fc2f9d5f",
+        "是否成交": true,
+        "竞拍人数": 30,
+        "出价人数": 84,
+        "地点": "成都市新都区新都镇马超东路555号16栋1单元1层1号房屋",
+        "所属小区": "马超小区",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "新都区",
+        "最靠近商圈": "新都广场商圈",
+        "建筑面积": 165.75,
+        "单价": 15717.04,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 574556669235,
+        "市场评估价": 0,
+        "起拍价格": 679872,
+        "成交价格": 909872,
+        "交易时间": "2018/08/01 13:41:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574556669235.htm?track_id=2ad8d33d-2f45-48c9-8746-b82c4465d83d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 24,
+        "地点": "兰州市城关区青白石街道“碧桂园.一期”",
+        "所属小区": "碧桂园一期",
+        "省份": "甘肃省",
+        "城市": "兰州市",
+        "区": "城关区",
+        "最靠近商圈": "青白石",
+        "建筑面积": 142.66,
+        "单价": 6377.72,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "572185404141",
+        "url": "https://sf-item.taobao.com/sf_item/572185404141.htm?track_id=10beff77-cbfd-4062-96ee-37ea0a0eb7cf",
+        "end": 1533089378000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572240492430",
+        "url": "https://sf-item.taobao.com/sf_item/572240492430.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
+        "end": 1533088969000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572602749021",
+        "url": "https://sf-item.taobao.com/sf_item/572602749021.htm?track_id=75efc7d9-1c15-436a-a771-a5622ac43bf7",
+        "end": 1533090225000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572324225744",
+        "url": "https://sf-item.taobao.com/sf_item/572324225744.htm?track_id=2b62575d-0413-4703-92f3-5a18bf4482ae",
+        "end": 1533090687000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572509118457",
+        "url": "https://sf-item.taobao.com/sf_item/572509118457.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "end": 1533098437000,
+        "status": "done",
+        "is_processed": false
+    }
+]

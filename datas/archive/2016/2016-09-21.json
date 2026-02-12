@@ -1,0 +1,58 @@
+[
+    {
+        "id": 538100133097,
+        "市场评估价": 527200,
+        "起拍价格": 430000,
+        "成交价格": 450000,
+        "交易时间": "2016-09-21 02:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538100133097.htm?track_id=ef4dac19-f2de-4a36-9288-a7dde0fee573",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 0,
+        "地点": "宁波市北仑区新矸镇高凤新村5幢101室",
+        "所属小区": "高凤新村",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "新矸",
+        "建筑面积": 112.79,
+        "单价": 3990.25,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "538203140354",
+        "url": "https://sf-item.taobao.com/sf_item/538203140354.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "end": 1474437122000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538114853984",
+        "url": "https://sf-item.taobao.com/sf_item/538114853984.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "end": 1474426218000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537970706996",
+        "url": "https://sf-item.taobao.com/sf_item/537970706996.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
+        "end": 1474423954000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538020176114",
+        "url": "https://sf-item.taobao.com/sf_item/538020176114.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
+        "end": 1474423200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538166917014",
+        "url": "https://sf-item.taobao.com/sf_item/538166917014.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "end": 1474423200000,
+        "status": "done",
+        "is_processed": false
+    }
+]

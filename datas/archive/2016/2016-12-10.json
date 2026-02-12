@@ -1,0 +1,86 @@
+[
+    {
+        "id": 542241454539,
+        "市场评估价": 1540400,
+        "起拍价格": 1540400,
+        "成交价格": 2450400,
+        "交易时间": "2016-12-10 02:25:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542241454539.htm?track_id=74cc0356-ab8d-4876-98e8-d2a7f7926e24",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 82,
+        "地点": "成都市高新区荣华北路299号4栋2单元14层1402号",
+        "所属小区": "都城雅颂居",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "高新区",
+        "最靠近商圈": "大源片区",
+        "建筑面积": 143.67,
+        "单价": 17055.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 542223605500,
+        "市场评估价": 1000000,
+        "起拍价格": 640000,
+        "成交价格": 801000,
+        "交易时间": "2016-12-10 02:06:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542223605500.htm?track_id=6a668922-0320-46b5-b774-a636f44a0488",
+        "是否成交": true,
+        "竞拍人数": 6,
+        "出价人数": 24,
+        "地点": "江苏省 徐州市 泉山区",
+        "所属小区": "银郡花园",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "鼓楼商圈",
+        "建筑面积": 137.55,
+        "单价": 5823.34,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "542255280488",
+        "url": "https://sf-item.taobao.com/sf_item/542255280488.htm?track_id=0aa51a89-be2a-4b2d-a15e-840b4b7b2be4",
+        "end": 1481336370000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539787234983",
+        "url": "https://sf-item.taobao.com/sf_item/539787234983.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "end": 1481335200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542228585555",
+        "url": "https://sf-item.taobao.com/sf_item/542228585555.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
+        "end": 1481381252000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542322810999",
+        "url": "https://sf-item.taobao.com/sf_item/542322810999.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
+        "end": 1481378688000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542230165389",
+        "url": "https://sf-item.taobao.com/sf_item/542230165389.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
+        "end": 1481378400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542277206620",
+        "url": "https://sf-item.taobao.com/sf_item/542277206620.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "end": 1481337613000,
+        "status": "done",
+        "is_processed": false
+    }
+]

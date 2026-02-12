@@ -1,0 +1,52 @@
+[
+    {
+        "id": 534725297045,
+        "市场评估价": 133000,
+        "起拍价格": 100000,
+        "成交价格": 108000,
+        "交易时间": "2016-07-19 02:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534725297045.htm?track_id=9f5db99b-103a-4321-b9c4-363b35a392cb",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 5,
+        "地点": "宁波市北仑区大碶芦山村屠家村93号1幢1号自建房屋",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "大碶",
+        "建筑面积": 91.9,
+        "单价": 1175.19,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "534670016361",
+        "url": "https://sf-item.taobao.com/sf_item/534670016361.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
+        "end": 1468893892000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534615727706",
+        "url": "https://sf-item.taobao.com/sf_item/534615727706.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
+        "end": 1468896508000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534643137207",
+        "url": "https://sf-item.taobao.com/sf_item/534643137207.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
+        "end": 1468896569000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534633968072",
+        "url": "https://sf-item.taobao.com/sf_item/534633968072.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
+        "end": 1468893600000,
+        "status": "done",
+        "is_processed": false
+    }
+]

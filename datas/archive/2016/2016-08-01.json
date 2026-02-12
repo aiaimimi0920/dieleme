@@ -1,0 +1,37 @@
+[
+    {
+        "id": 535612502863,
+        "市场评估价": 722722,
+        "起拍价格": 722722,
+        "成交价格": 1152222,
+        "交易时间": "2016/08/01 11:03:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535612502863.htm",
+        "是否成交": true,
+        "竞拍人数": 507,
+        "出价人数": null,
+        "地点": "河北省廊坊市香河县",
+        "所属小区": "香格今典小区",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": "香河县城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "535761116132",
+        "url": "https://sf-item.taobao.com/sf_item/535761116132.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
+        "end": 1470016800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535690854610",
+        "url": "https://sf-item.taobao.com/sf_item/535690854610.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
+        "end": 1470016800000,
+        "status": "done",
+        "is_processed": false
+    }
+]

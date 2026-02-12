@@ -1,0 +1,82 @@
+[
+    {
+        "id": 584957904947,
+        "市场评估价": 149100,
+        "起拍价格": 95424,
+        "成交价格": 95424,
+        "交易时间": "2019/02/07 11:05:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/584957904947.htm?track_id=a32e185f-62d9-4768-9e29-b2171af27ecd",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 广州市 荔湾区逢源路151号4153房",
+        "所属小区": "耀华社区",
+        "省份": "广东省",
+        "城市": "广州市",
+        "区": "荔湾区",
+        "最靠近商圈": "上下九",
+        "建筑面积": 10.65,
+        "单价": 8960.94,
+        "is_processed": true,
+        "detail_captured": true,
+        "status": "done",
+        "is_ai_fixed": true
+    },
+    {
+        "id": 586647195186,
+        "市场评估价": 154500,
+        "起拍价格": 101040,
+        "成交价格": 101040,
+        "交易时间": "2019-02-07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586647195186.htm?track_id=c8c57302-85ed-46e9-a0c2-fec2f2c94658",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "成都市武侯区核桃堰路51号5栋-1楼52号车位",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "武侯区",
+        "最靠近商圈": "武侯新城商圈",
+        "建筑面积": 26.19,
+        "单价": 3857.96,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "586651307738",
+        "url": "https://sf-item.taobao.com/sf_item/586651307738.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
+        "end": 1549504996000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586145936046",
+        "url": "https://sf-item.taobao.com/sf_item/586145936046.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "end": 1549504800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586641831927",
+        "url": "https://sf-item.taobao.com/sf_item/586641831927.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "end": 1549504800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586365757825",
+        "url": "https://sf-item.taobao.com/sf_item/586365757825.htm?track_id=6b420920-de29-4df5-8b8e-ab244cccd0e8",
+        "end": 1549504800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586354157960",
+        "url": "https://sf-item.taobao.com/sf_item/586354157960.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
+        "end": 1549504800000,
+        "status": "done",
+        "is_processed": false
+    }
+]

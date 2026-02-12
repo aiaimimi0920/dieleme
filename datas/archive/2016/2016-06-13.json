@@ -1,0 +1,66 @@
+[
+    {
+        "id": 532734097408,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 2003500,
+        "交易时间": "2016-06-13 10:07:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/532734097408.htm?track_id=0d2f3cbf-4e77-41d5-b6db-c2f17bbdedc3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 23,
+        "地点": "江苏省 苏州市 相城区",
+        "所属小区": "知音别苑",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "春申湖中路商圈",
+        "建筑面积": 130.08,
+        "单价": 15407.56,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 532749068165,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1755921,
+        "交易时间": "2016-06-13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/532749068165.htm?track_id=c644d4bc-a751-454c-b26b-0674134ca383",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": null,
+        "地点": "江苏省 苏州市 相城区",
+        "所属小区": "知音别苑",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": null,
+        "建筑面积": 130.62,
+        "单价": 13442.97,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "532539234560",
+        "url": "https://sf-item.taobao.com/sf_item/532539234560.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "end": 1465786593000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "532538918067",
+        "url": "https://sf-item.taobao.com/sf_item/532538918067.htm?track_id=645fbace-2a78-4783-9257-833921945028",
+        "end": 1465786288000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "532637443916",
+        "url": "https://sf-item.taobao.com/sf_item/532637443916.htm?track_id=645fbace-2a78-4783-9257-833921945028",
+        "end": 1465783871000,
+        "status": "done",
+        "is_processed": false
+    }
+]

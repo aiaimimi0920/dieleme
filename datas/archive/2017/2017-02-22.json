@@ -1,0 +1,51 @@
+[
+    {
+        "id": 544570423952,
+        "市场评估价": null,
+        "起拍价格": 2394000,
+        "成交价格": 3874000,
+        "交易时间": "2017-02-22 11:37:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544570423952.htm?track_id=0cb31ddd-7f2b-478b-95fc-812c579e608d",
+        "是否成交": true,
+        "竞拍人数": 108,
+        "出价人数": 108,
+        "地点": "广东省佛山市禅城区",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "佛山市",
+        "区": "禅城区",
+        "最靠近商圈": null,
+        "建筑面积": 311.41,
+        "单价": 12439.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "544559063068",
+        "url": "https://sf-item.taobao.com/sf_item/544559063068.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "end": 1487735262000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544512284162",
+        "url": "https://sf-item.taobao.com/sf_item/544512284162.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "end": 1487737776000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544511996314",
+        "url": "https://sf-item.taobao.com/sf_item/544511996314.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "end": 1487733570000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544528825981",
+        "url": "https://sf-item.taobao.com/sf_item/544528825981.htm?track_id=a698a9e5-cfa5-48e0-86bd-280315dc7c24",
+        "end": 1487733679000,
+        "status": "done",
+        "is_processed": false
+    }
+]

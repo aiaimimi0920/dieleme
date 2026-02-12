@@ -1,0 +1,73 @@
+[
+    {
+        "id": 43927749842,
+        "市场评估价": null,
+        "起拍价格": 925000,
+        "成交价格": 1015000,
+        "交易时间": "2015-03-16 10:10:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43927749842.htm?track_id=5b585c57-64c4-424a-a5cb-0fbfcbe53f05",
+        "是否成交": true,
+        "竞拍人数": 10,
+        "出价人数": 10,
+        "地点": "江苏省 徐州市 鼓楼区",
+        "所属小区": "久隆凤凰城翡翠苑",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "鼓楼区",
+        "最靠近商圈": "淮海西路",
+        "建筑面积": 192.58,
+        "单价": 5266.97,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 43866987488,
+        "市场评估价": null,
+        "起拍价格": 1600000,
+        "成交价格": 1600000,
+        "交易时间": "2015/03/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43866987488.htm?track_id=f2bdc883-e9f9-4bf1-8702-29bf44cdf41e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "江苏省苏州市相城区黄埭镇东桥长康北路22号",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "东桥商圈",
+        "建筑面积": 204.75,
+        "单价": 7814.41,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "43881747917",
+        "url": "https://sf-item.taobao.com/sf_item/43881747917.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1426471200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "43881803712",
+        "url": "https://sf-item.taobao.com/sf_item/43881803712.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1426471200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "43905526276",
+        "url": "https://sf-item.taobao.com/sf_item/43905526276.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1426471200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "43943249461",
+        "url": "https://sf-item.taobao.com/sf_item/43943249461.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1426471200000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,44 @@
+[
+    {
+        "id": 533000462966,
+        "市场评估价": 353352,
+        "起拍价格": 353352,
+        "成交价格": 585520,
+        "交易时间": "2016-06-19 10:27:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/533000462966.htm?track_id=49168c0e-1a1e-4bf1-af3f-844f76616545",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 60,
+        "地点": "江苏省 徐州市 泉山区",
+        "所属小区": "小康人家二期",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "泉山区",
+        "建筑面积": 29.46,
+        "单价": 19874.4,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "533068833975",
+        "url": "https://sf-item.taobao.com/sf_item/533068833975.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
+        "end": 1466303071000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524588480834",
+        "url": "https://sf-item.taobao.com/sf_item/524588480834.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
+        "end": 1466305246000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "532192673147",
+        "url": "https://sf-item.taobao.com/sf_item/532192673147.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
+        "end": 1466302558000,
+        "status": "done",
+        "is_processed": false
+    }
+]

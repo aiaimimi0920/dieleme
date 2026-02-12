@@ -1,0 +1,65 @@
+[
+    {
+        "id": 527220639011,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1219376,
+        "交易时间": "2016/02/26 10:56:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527220639011.htm?track_id=3f823873-2d76-4aaa-825b-ed5e69cf3417",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": null,
+        "地点": "江苏省 苏州市 相城区",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "元和街道",
+        "建筑面积": 153.03,
+        "单价": 7969.16,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 526979312905,
+        "市场评估价": 348000,
+        "起拍价格": 348000,
+        "成交价格": 453000,
+        "交易时间": "2016-02-26 10:18:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526979312905.htm?track_id=534fc858-ba61-45e6-bd63-cd680ab908b0",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": 4,
+        "地点": "江苏省 苏州市 吴中区 郭巷街道双银国际金融城5幢212号",
+        "所属小区": "双银国际金融城",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "郭巷商圈",
+        "建筑面积": 59.87,
+        "单价": 7565.69,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "526975209814",
+        "url": "https://sf-item.taobao.com/sf_item/526975209814.htm?track_id=0c00c899-c0ca-4cde-9de0-12bba8db97b1",
+        "end": 1456453006000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "526990668104",
+        "url": "https://sf-item.taobao.com/sf_item/526990668104.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
+        "end": 1456453206000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527097809225",
+        "url": "https://sf-item.taobao.com/sf_item/527097809225.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
+        "end": 1456495835000,
+        "status": "done",
+        "is_processed": false
+    }
+]

@@ -1,0 +1,65 @@
+[
+    {
+        "id": 538182403967,
+        "市场评估价": 2446100,
+        "起拍价格": 1252500,
+        "成交价格": 1452500,
+        "交易时间": "2016-09-28 10:04:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538182403967.htm?track_id=61976373-681d-4b5e-aa23-e8d85fc9cc9e",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 1,
+        "地点": "浙江省宁波市北仑区",
+        "所属小区": "世茂世界湾花园",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "新碶",
+        "建筑面积": 181.17,
+        "单价": 8015.51,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 538814694459,
+        "市场评估价": null,
+        "起拍价格": 2880000,
+        "成交价格": 3615000,
+        "交易时间": "2016-09-28T11:09:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538814694459.htm",
+        "是否成交": true,
+        "竞拍人数": 146,
+        "出价人数": null,
+        "地点": "江苏省苏州市相城区渭塘镇珍珠湖路168号湖岸明珠花园32幢104室",
+        "所属小区": "湖岸明珠花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "渭塘镇",
+        "建筑面积": 243.4,
+        "单价": 14855.23,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "538028827780",
+        "url": "https://sf-item.taobao.com/sf_item/538028827780.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "end": 1475035895000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538118158209",
+        "url": "https://sf-item.taobao.com/sf_item/538118158209.htm?track_id=0c00c899-c0ca-4cde-9de0-12bba8db97b1",
+        "end": 1475030014000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538226550608",
+        "url": "https://sf-item.taobao.com/sf_item/538226550608.htm?track_id=fb36ca66-519f-47e0-8cf2-d020609c405d",
+        "end": 1475029156000,
+        "status": "done",
+        "is_processed": false
+    }
+]

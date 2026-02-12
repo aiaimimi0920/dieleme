@@ -1,0 +1,44 @@
+[
+    {
+        "id": 534261756437,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 7697342,
+        "交易时间": "2016/06/28 10:53:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534261756437.htm",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 65,
+        "地点": "苏州市相城区元和镇阳澄湖东路88号",
+        "所属小区": "静湖别墅",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "元和",
+        "建筑面积": 368.56,
+        "单价": 20886.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "534043485578",
+        "url": "https://sf-item.taobao.com/sf_item/534043485578.htm?track_id=7cc7040a-9604-45a8-8944-4f43c49da988",
+        "end": 1467079200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531247285967",
+        "url": "https://sf-item.taobao.com/sf_item/531247285967.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
+        "end": 1467122400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533696558888",
+        "url": "https://sf-item.taobao.com/sf_item/533696558888.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
+        "end": 1467087282000,
+        "status": "done",
+        "is_processed": false
+    }
+]

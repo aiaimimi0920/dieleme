@@ -1,0 +1,44 @@
+[
+    {
+        "id": 44383469244,
+        "市场评估价": 293000,
+        "起拍价格": 210000,
+        "成交价格": 213000,
+        "交易时间": "2015-04-10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44383469244.htm?track_id=6035aaa5-80e8-4dd6-b810-e228d63b46ab",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 2,
+        "地点": "江苏省徐州市泉山区奎西巷55号2#-5-502室",
+        "所属小区": "奎西巷小区",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "彭城广场",
+        "建筑面积": 52.37,
+        "单价": 4065.53,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "44374449271",
+        "url": "https://sf-item.taobao.com/sf_item/44374449271.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
+        "end": 1428675350000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "44335403359",
+        "url": "https://sf-item.taobao.com/sf_item/44335403359.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1428631200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "44319467178",
+        "url": "https://sf-item.taobao.com/sf_item/44319467178.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
+        "end": 1428631722000,
+        "status": "done",
+        "is_processed": false
+    }
+]

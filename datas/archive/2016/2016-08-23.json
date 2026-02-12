@@ -1,0 +1,193 @@
+[
+    {
+        "id": 536572059426,
+        "市场评估价": 1907100,
+        "起拍价格": 1500000,
+        "成交价格": 1680000,
+        "交易时间": "2016-08-23T10:54:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536572059426.htm?track_id=a43d082e-2ab4-4092-9593-4c9a03b61c59",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 2,
+        "地点": "四川省成都市青羊区青羊大道101号",
+        "所属小区": "博瑞都市花园",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "青羊区",
+        "最靠近商圈": "光华村",
+        "建筑面积": 176.58,
+        "单价": 9514.99,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 536583257887,
+        "市场评估价": 0,
+        "起拍价格": 134855,
+        "成交价格": 134855,
+        "交易时间": "2016/08/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536583257887.htm?track_id=c6ccba6f-06f2-4cb3-bc96-6982efecc542",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "新乡市牧野区白小屯64号",
+        "所属小区": "白小屯",
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "牧野区",
+        "最靠近商圈": "牧野区",
+        "建筑面积": 132.05,
+        "单价": 1021.25,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 536673605493,
+        "市场评估价": 0,
+        "起拍价格": 810000,
+        "成交价格": 1220000,
+        "交易时间": "2016/08/23 10:25:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536673605493.htm?track_id=8953e8b5-4490-4a6d-853f-86279f438993",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 41,
+        "地点": "浙江省温州市泰顺县罗阳镇飞龙一路7号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "泰顺县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 202.8,
+        "单价": 6015.78,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 537100351636,
+        "市场评估价": null,
+        "起拍价格": 1370432,
+        "成交价格": 1645432,
+        "交易时间": "2016-08-23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537100351636.htm",
+        "是否成交": true,
+        "竞拍人数": 41,
+        "出价人数": 12,
+        "地点": "江苏省 苏州市 相城区 元和街道春申湖中路658号11幢608室",
+        "所属小区": "万科魅力之城",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "相城万达广场",
+        "建筑面积": 127.38,
+        "单价": 12917.51,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 537294868074,
+        "市场评估价": null,
+        "起拍价格": 1600000,
+        "成交价格": 1790000,
+        "交易时间": "2016-08-23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537294868074.htm",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省苏州市相城区元和街道齐门北大街1259号",
+        "所属小区": "花好月圆",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "元和商圈",
+        "建筑面积": 117.93,
+        "单价": 15185.59,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "536494047465",
+        "url": "https://sf-item.taobao.com/sf_item/536494047465.htm?track_id=bc4cc6cc-aae3-4ff7-91f0-9cc8fc60204b",
+        "end": 1471919260000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536474862874",
+        "url": "https://sf-item.taobao.com/sf_item/536474862874.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
+        "end": 1471917600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536552928641",
+        "url": "https://sf-item.taobao.com/sf_item/536552928641.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
+        "end": 1471917600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536513989513",
+        "url": "https://sf-item.taobao.com/sf_item/536513989513.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "end": 1471917600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536523158647",
+        "url": "https://sf-item.taobao.com/sf_item/536523158647.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
+        "end": 1471925220000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536537107051",
+        "url": "https://sf-item.taobao.com/sf_item/536537107051.htm?track_id=137a4dca-e387-408f-a8bf-387cec33a923",
+        "end": 1471922520000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536582923887",
+        "url": "https://sf-item.taobao.com/sf_item/536582923887.htm?track_id=645fbace-2a78-4783-9257-833921945028",
+        "end": 1471921239000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536669564883",
+        "url": "https://sf-item.taobao.com/sf_item/536669564883.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
+        "end": 1471919235000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537193525683",
+        "url": "https://sf-item.taobao.com/sf_item/537193525683.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
+        "end": 1471920721000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536659525555",
+        "url": "https://sf-item.taobao.com/sf_item/536659525555.htm?track_id=fb36ca66-519f-47e0-8cf2-d020609c405d",
+        "end": 1471920870000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537231136567",
+        "url": "https://sf-item.taobao.com/sf_item/537231136567.htm?track_id=fb36ca66-519f-47e0-8cf2-d020609c405d",
+        "end": 1471919920000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536621138592",
+        "url": "https://sf-item.taobao.com/sf_item/536621138592.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
+        "end": 1471918293000,
+        "status": "done",
+        "is_processed": false
+    }
+]

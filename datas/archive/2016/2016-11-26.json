@@ -1,0 +1,81 @@
+[
+    {
+        "id": 541586746084,
+        "市场评估价": 1988500,
+        "起拍价格": 1590800,
+        "成交价格": 2290800,
+        "交易时间": "2016/11/26 10:32:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541586746084.htm?track_id=1529bd2b-d1e5-4ac6-ae17-87aebbe3cac4",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": 64,
+        "地点": "四川省成都市成华区建设巷14号附6号1层",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "成华区",
+        "最靠近商圈": "建设路商圈",
+        "建筑面积": 57.14,
+        "单价": 40091.0,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 541586670904,
+        "市场评估价": 1988500,
+        "起拍价格": 1590800,
+        "成交价格": 2120800,
+        "交易时间": "2016/11/26 10:20:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541586670904.htm?track_id=2c7c3df3-0f71-4964-b244-3ff83f6b051c",
+        "是否成交": true,
+        "竞拍人数": 8,
+        "出价人数": 48,
+        "地点": "成都市成华区建设巷14号附5号1层",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "成华区",
+        "最靠近商圈": "建设路商圈",
+        "建筑面积": 57.14,
+        "单价": 37115.86,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "541586843228",
+        "url": "https://sf-item.taobao.com/sf_item/541586843228.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
+        "end": 1480126019000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541814353628",
+        "url": "https://sf-item.taobao.com/sf_item/541814353628.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "end": 1480127644000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541588326665",
+        "url": "https://sf-item.taobao.com/sf_item/541588326665.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
+        "end": 1480127420000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541184306357",
+        "url": "https://sf-item.taobao.com/sf_item/541184306357.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
+        "end": 1480128331000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541167564291",
+        "url": "https://sf-item.taobao.com/sf_item/541167564291.htm?track_id=0d8e7746-cfb4-4d5f-b22b-7d43d8847bd0",
+        "end": 1480129390000,
+        "status": "done",
+        "is_processed": false
+    }
+]

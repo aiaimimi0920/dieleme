@@ -1,0 +1,72 @@
+[
+    {
+        "id": 533591515545,
+        "市场评估价": 1456618,
+        "起拍价格": 834400,
+        "成交价格": 1199400,
+        "交易时间": "2016-06-29 10:28:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/533591515545.htm?track_id=9ff8e604-5f36-4cff-bd28-aec91a83418c",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 72,
+        "地点": "浙江省宁波市北仑区",
+        "所属小区": "阳光公寓",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "北仑区",
+        "最靠近商圈": "小港",
+        "建筑面积": 144.45,
+        "单价": 8303.8,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 533757843119,
+        "市场评估价": 1680000,
+        "起拍价格": 1600000,
+        "成交价格": 1600000,
+        "交易时间": "2016-06-29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/533757843119.htm?track_id=ffc63780-8a7c-488c-8d8e-05f540078c84",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 1,
+        "地点": "江苏省 徐州市 泉山区",
+        "所属小区": "龙泉花园",
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": "泉山万达商圈",
+        "建筑面积": 197.45,
+        "单价": 8104.92,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "533884605784",
+        "url": "https://sf-item.taobao.com/sf_item/533884605784.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "end": 1467169838000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533857642330",
+        "url": "https://sf-item.taobao.com/sf_item/533857642330.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1467165600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533918368430",
+        "url": "https://sf-item.taobao.com/sf_item/533918368430.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "end": 1467165600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533888856235",
+        "url": "https://sf-item.taobao.com/sf_item/533888856235.htm?track_id=4ad87b93-3084-4bc2-9259-b6b0538f1145",
+        "end": 1467167434000,
+        "status": "done",
+        "is_processed": false
+    }
+]
