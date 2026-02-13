@@ -1401,11 +1401,25 @@
         "detail_captured": true
     },
     {
-        "id": "882553052513",
-        "url": "https://sf-item.taobao.com/sf_item/882553052513.htm?track_id=42fc7346-7816-4a0b-a9c5-920f24eb6c29",
-        "end": 1739848538000,
-        "status": "done",
-        "is_processed": false
+        "id": 882553052513,
+        "市场评估价": null,
+        "起拍价格": 1027511,
+        "成交价格": 1507511,
+        "交易时间": "2025-02-18 11:15:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/882553052513.htm?track_id=42fc7346-7816-4a0b-a9c5-920f24eb6c29",
+        "是否成交": true,
+        "竞拍人数": 69,
+        "出价人数": null,
+        "地点": "江西省上饶市铅山县河口镇席山路500号铅山碧桂园11号楼1单元502室",
+        "所属小区": "铅山碧桂园",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "铅山县",
+        "最靠近商圈": "河口镇中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "875429609941",
@@ -1436,18 +1450,46 @@
         "detail_captured": true
     },
     {
-        "id": "879401779839",
-        "url": "https://sf-item.taobao.com/sf_item/879401779839.htm?track_id=1d2888d6-6fb7-43a3-9d32-48bb0f233bcb",
-        "end": 1739844000000,
-        "status": "done",
-        "is_processed": false
+        "id": 879401779839,
+        "市场评估价": 683720.5,
+        "起拍价格": 492278.76,
+        "成交价格": 496278.76,
+        "交易时间": "2025/02/18 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/879401779839.htm?track_id=1d2888d6-6fb7-43a3-9d32-48bb0f233bcb",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 科尔沁镇碧桂园囍居小区9-1-1603室",
+        "所属小区": "碧桂园囍居",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁镇",
+        "建筑面积": 131.7,
+        "单价": 3768.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "878309089059",
-        "url": "https://sf-item.taobao.com/sf_item/878309089059.htm?track_id=6a59a740-b292-4c15-91ae-c099e20c1aab",
-        "end": 1739844000000,
-        "status": "done",
-        "is_processed": false
+        "id": 878309089059,
+        "市场评估价": 1328340,
+        "起拍价格": 929838,
+        "成交价格": 929838,
+        "交易时间": "2025/02/18 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/878309089059.htm?track_id=6a59a740-b292-4c15-91ae-c099e20c1aab",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延吉市丛柳街1008号",
+        "所属小区": "长城小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心商圈",
+        "建筑面积": 148.41,
+        "单价": 6266.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "877463658236",
@@ -1464,9 +1506,86 @@
         "is_processed": false
     },
     {
-        "id": "875616396836",
-        "url": "https://sf-item.taobao.com/sf_item/875616396836.htm?track_id=cdbf980c-d320-4bfa-9b01-0d39c92ee920",
-        "end": 1739846758000,
+        "id": 875616396836,
+        "市场评估价": null,
+        "起拍价格": 1252200,
+        "成交价格": 1596555,
+        "交易时间": "2025-02-18 10:45:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/875616396836.htm?track_id=cdbf980c-d320-4bfa-9b01-0d39c92ee920",
+        "是否成交": true,
+        "竞拍人数": 56,
+        "出价人数": 56,
+        "地点": "广西壮族自治区 贵港市 桂平市 西山镇大起村3队",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "桂平客运中心",
+        "建筑面积": 577.6,
+        "单价": 2766.3,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "878513480253",
+        "url": "https://sf-item.taobao.com/sf_item/878513480253.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1739849368000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "874944313324",
+        "url": "https://sf-item.taobao.com/sf_item/874944313324.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1739844761000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "878214196352",
+        "url": "https://sf-item.taobao.com/sf_item/878214196352.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1739845519000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "878568852409",
+        "url": "https://sf-item.taobao.com/sf_item/878568852409.htm?track_id=5d2028cd-85b5-4657-a6d6-1ff52559d487",
+        "end": 1739844400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "877333239803",
+        "url": "https://sf-item.taobao.com/sf_item/877333239803.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1739844857000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "877910106497",
+        "url": "https://sf-item.taobao.com/sf_item/877910106497.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1739845159000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "877224880604",
+        "url": "https://sf-item.taobao.com/sf_item/877224880604.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1739849772000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "860017433791",
+        "url": "https://sf-item.taobao.com/sf_item/860017433791.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
+        "end": 1739862507000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "860017449319",
+        "url": "https://sf-item.taobao.com/sf_item/860017449319.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
+        "end": 1739860698000,
         "status": "done",
         "is_processed": false
     }

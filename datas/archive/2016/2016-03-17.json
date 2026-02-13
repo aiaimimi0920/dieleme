@@ -42,11 +42,25 @@
         "detail_captured": true
     },
     {
-        "id": "527605646588",
-        "url": "https://sf-item.taobao.com/sf_item/527605646588.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
-        "end": 1458180664000,
-        "status": "done",
-        "is_processed": false
+        "id": 527605646588,
+        "市场评估价": null,
+        "起拍价格": 7760000,
+        "成交价格": 9260000,
+        "交易时间": "2016/03/17 10:11:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527605646588.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 13,
+        "地点": "浙江省嘉兴市海盐县于城镇吕冢村老盐湖线西侧",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "于城镇",
+        "建筑面积": 5048.29,
+        "单价": 1834.45,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "527106899383",
@@ -59,6 +73,13 @@
         "id": "527562530860",
         "url": "https://sf-item.taobao.com/sf_item/527562530860.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
         "end": 1458180000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527423409730",
+        "url": "https://sf-item.taobao.com/sf_item/527423409730.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1458180758000,
         "status": "done",
         "is_processed": false
     }

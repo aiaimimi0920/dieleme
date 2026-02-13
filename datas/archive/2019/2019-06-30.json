@@ -357,11 +357,25 @@
         "detail_captured": true
     },
     {
-        "id": "595761394418",
-        "url": "https://sf-item.taobao.com/sf_item/595761394418.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
-        "end": 1561860606000,
-        "status": "done",
-        "is_processed": false
+        "id": 595761394418,
+        "市场评估价": null,
+        "起拍价格": 216036,
+        "成交价格": 249036,
+        "交易时间": "2019-06-30 10:10:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595761394418.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "是否成交": true,
+        "竞拍人数": 34,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 包头昆区少先路31号街坊34-45号房屋",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 595466205002,
@@ -427,30 +441,135 @@
         "detail_captured": true
     },
     {
-        "id": "595891611407",
-        "url": "https://sf-item.taobao.com/sf_item/595891611407.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
-        "end": 1561860000000,
-        "status": "done",
-        "is_processed": false
+        "id": 595891611407,
+        "市场评估价": 560000,
+        "起拍价格": 560000,
+        "成交价格": 560000,
+        "交易时间": "2019-06-30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595891611407.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省遵义市汇川区宁波路150号7栋504号",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "宁波路",
+        "建筑面积": 89.93,
+        "单价": 6230.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "595527097442",
-        "url": "https://sf-item.taobao.com/sf_item/595527097442.htm?track_id=5c3fd042-c684-4bcf-8fa2-cf27f98d7d60",
-        "end": 1561862156000,
-        "status": "done",
-        "is_processed": false
+        "id": 595527097442,
+        "市场评估价": 1216200,
+        "起拍价格": 851340,
+        "成交价格": 1099340,
+        "交易时间": "2019/06/30 10:35:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595527097442.htm?track_id=5c3fd042-c684-4bcf-8fa2-cf27f98d7d60",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "辽宁省 沈阳市 铁西区 铁西区贵和街6-2号2-3-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "贵和商圈",
+        "建筑面积": 108.31,
+        "单价": 10150.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "596912311527",
-        "url": "https://sf-item.taobao.com/sf_item/596912311527.htm?track_id=b4163aa6-d768-4bf1-a06b-e4d196abe393",
-        "end": 1561887131000,
-        "status": "done",
-        "is_processed": false
+        "id": 596912311527,
+        "市场评估价": 965526,
+        "起拍价格": 868973,
+        "成交价格": 868973,
+        "交易时间": "2019/06/30 17:32:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/596912311527.htm?track_id=b4163aa6-d768-4bf1-a06b-e4d196abe393",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 常德市 鼎城区 王家铺三组",
+        "所属小区": "桥南建材市场",
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": "桥南商圈",
+        "建筑面积": 55.49,
+        "单价": 15657.68,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "595540177769",
         "url": "https://sf-item.taobao.com/sf_item/595540177769.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
         "end": 1561864672000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595316588666",
+        "url": "https://sf-item.taobao.com/sf_item/595316588666.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1561860324000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595317248593",
+        "url": "https://sf-item.taobao.com/sf_item/595317248593.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1561860000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595317776201",
+        "url": "https://sf-item.taobao.com/sf_item/595317776201.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1561860000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595546993845",
+        "url": "https://sf-item.taobao.com/sf_item/595546993845.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1561860000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595277204616",
+        "url": "https://sf-item.taobao.com/sf_item/595277204616.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1561860000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595277552508",
+        "url": "https://sf-item.taobao.com/sf_item/595277552508.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1561860000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595313136704",
+        "url": "https://sf-item.taobao.com/sf_item/595313136704.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1561860066000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596489317604",
+        "url": "https://sf-item.taobao.com/sf_item/596489317604.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1561863584000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595708546940",
+        "url": "https://sf-item.taobao.com/sf_item/595708546940.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1561861515000,
         "status": "done",
         "is_processed": false
     }

@@ -126,12 +126,25 @@
         "detail_captured": true
     },
     {
-        "id": "645032857041",
-        "url": "https://sf-item.taobao.com/sf_item/645032857041.htm?track_id=b6dce3dc-7774-4ab1-b41b-efb6865cfbc5",
-        "end": 1624759200000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/645032857041.htm"
+        "id": 645032857041,
+        "市场评估价": 740905,
+        "起拍价格": 592724,
+        "成交价格": 592724,
+        "交易时间": "2021/06/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/645032857041.htm?track_id=b6dce3dc-7774-4ab1-b41b-efb6865cfbc5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 湘潭市 雨湖区 云塘街道车站路282号骄阳大厦4栋10号门面",
+        "所属小区": "骄阳大厦",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "湘潭中心商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 646156587299,
@@ -197,9 +210,37 @@
         "detail_captured": true
     },
     {
-        "id": "645141608284",
-        "url": "https://sf-item.taobao.com/sf_item/645141608284.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
-        "end": 1624761067000,
+        "id": 645141608284,
+        "市场评估价": 609970,
+        "起拍价格": 426979,
+        "成交价格": 604979,
+        "交易时间": "2021-06-27 10:31:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/645141608284.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 90,
+        "地点": "辽宁省 沈阳市 铁西区 保工北街26号1-14-4",
+        "所属小区": "鑫丰御景",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 54.75,
+        "单价": 11049.98,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "644283000893",
+        "url": "https://sf-item.taobao.com/sf_item/644283000893.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1624824451000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "645545237172",
+        "url": "https://sf-item.taobao.com/sf_item/645545237172.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1624760922000,
         "status": "done",
         "is_processed": false
     }

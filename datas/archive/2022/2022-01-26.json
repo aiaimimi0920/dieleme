@@ -233,11 +233,25 @@
         "detail_captured": true
     },
     {
-        "id": "665274266671",
-        "url": "https://sf-item.taobao.com/sf_item/665274266671.htm?track_id=8fa9c4cb-f3cd-40dc-b488-cc876c6a9da1",
-        "end": 1643162400000,
-        "status": "done",
-        "is_processed": false
+        "id": 665274266671,
+        "市场评估价": 537707,
+        "起拍价格": 376395,
+        "成交价格": 376395,
+        "交易时间": "2022/01/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/665274266671.htm?track_id=8fa9c4cb-f3cd-40dc-b488-cc876c6a9da1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "辽宁省 沈阳市 浑南区 营盘西街17-2号1312",
+        "所属小区": "奥体万达广场公寓",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "浑南区",
+        "最靠近商圈": "奥体商圈",
+        "建筑面积": 71.21,
+        "单价": 5285.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "665036682775",
@@ -264,6 +278,20 @@
         "id": "665976516682",
         "url": "https://sf-item.taobao.com/sf_item/665976516682.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1643162400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "664313788124",
+        "url": "https://sf-item.taobao.com/sf_item/664313788124.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1643166978000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665422858842",
+        "url": "https://sf-item.taobao.com/sf_item/665422858842.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1643173367000,
         "status": "done",
         "is_processed": false
     }

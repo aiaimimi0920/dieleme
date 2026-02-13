@@ -42,12 +42,25 @@
         "detail_captured": true
     },
     {
-        "id": "735123244400",
-        "url": "https://sf-item.taobao.com/sf_item/735123244400.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
-        "end": 1697934292000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/735123244400.htm"
+        "id": 735123244400,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 547266.4,
+        "交易时间": "2023/10/22 08:24:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/735123244400.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 淮安市 淮安区 甘露花苑小区5号楼3306室",
+        "所属小区": "甘露花苑",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 740034943325,
@@ -69,5 +82,12 @@
         "单价": 25196.24,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "740193979755",
+        "url": "https://sf-item.taobao.com/sf_item/740193979755.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1697940000000,
+        "status": "done",
+        "is_processed": false
     }
 ]

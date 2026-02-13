@@ -63,12 +63,25 @@
         "detail_captured": true
     },
     {
-        "id": "658779695009",
-        "url": "https://sf-item.taobao.com/sf_item/658779695009.htm?track_id=db23e410-2033-4f0d-95a6-24187531e9b0",
-        "end": 1637373600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/658779695009.htm"
+        "id": 658779695009,
+        "市场评估价": 0,
+        "起拍价格": 1064876.4,
+        "成交价格": 1064876.4,
+        "交易时间": "2021/11/20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/658779695009.htm?track_id=db23e410-2033-4f0d-95a6-24187531e9b0",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 淮安市 淮安区 淮安区锦绣山阳17号楼506室",
+        "所属小区": "锦绣山阳",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 659351077486,
@@ -113,23 +126,72 @@
         "detail_captured": true
     },
     {
-        "id": "657659172020",
-        "url": "https://sf-item.taobao.com/sf_item/657659172020.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
-        "end": 1637374871000,
-        "status": "done",
-        "is_processed": false
+        "id": 657659172020,
+        "市场评估价": null,
+        "起拍价格": 1316037.7,
+        "成交价格": 1412037.7,
+        "交易时间": "2021/11/20 10:21:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657659172020.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 76,
+        "地点": "包头市钢铁大街80号凯旋豪庭5-2103号",
+        "所属小区": "凯旋豪庭",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "钢铁大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "657896389448",
-        "url": "https://sf-item.taobao.com/sf_item/657896389448.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
-        "end": 1637373600000,
-        "status": "done",
-        "is_processed": false
+        "id": 657896389448,
+        "市场评估价": null,
+        "起拍价格": 722635.2,
+        "成交价格": 722635.2,
+        "交易时间": "2021-11-20T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657896389448.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "辽宁省沈阳市铁西区北三中路24-4号B11号楼、单元号1-4-2号",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 78.52,
+        "单价": 9203.09,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "659634014783",
         "url": "https://sf-item.taobao.com/sf_item/659634014783.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
         "end": 1637373740000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659749895925",
+        "url": "https://sf-item.taobao.com/sf_item/659749895925.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1637373627000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "658553060956",
+        "url": "https://sf-item.taobao.com/sf_item/658553060956.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1637373688000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "658648093941",
+        "url": "https://sf-item.taobao.com/sf_item/658648093941.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1637372649000,
         "status": "done",
         "is_processed": false
     }

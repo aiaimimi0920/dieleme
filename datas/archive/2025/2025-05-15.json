@@ -358,16 +358,65 @@
         "detail_captured": true
     },
     {
-        "id": "893277552834",
-        "url": "https://sf-item.taobao.com/sf_item/893277552834.htm?track_id=0f7c79f6-1d57-4cd8-9a8d-0c8e235f582b",
-        "end": 1747273051000,
-        "status": "done",
-        "is_processed": false
+        "id": 893277552834,
+        "市场评估价": 545600,
+        "起拍价格": 306000,
+        "成交价格": 306000,
+        "交易时间": "2025/05/15 09:37:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/893277552834.htm?track_id=0f7c79f6-1d57-4cd8-9a8d-0c8e235f582b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳镇小金村小罗公路山塘窝立缘小区3号楼2层03房",
+        "所属小区": "立缘小区",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 118.6,
+        "单价": 2580.1,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "892919247401",
         "url": "https://sf-item.taobao.com/sf_item/892919247401.htm?track_id=4b4e999e-3aac-478b-9b5f-a68739a27816",
         "end": 1747284466000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "910836275081",
+        "url": "https://sf-item.taobao.com/sf_item/910836275081.htm?track_id=7c737cf8-b427-44c7-8a5e-bd75d257223c",
+        "end": 1747274400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "917214167225",
+        "url": "https://sf-item.taobao.com/sf_item/917214167225.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1747276301000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "910187340725",
+        "url": "https://sf-item.taobao.com/sf_item/910187340725.htm?track_id=9583dfdb-76e7-4339-9ab5-b262551224f2",
+        "end": 1747276636000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "892911879180",
+        "url": "https://sf-item.taobao.com/sf_item/892911879180.htm?track_id=743e6c95-df8d-4384-a1c1-434833f32b0b",
+        "end": 1747286707000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "911519904248",
+        "url": "https://sf-item.taobao.com/sf_item/911519904248.htm?track_id=743e6c95-df8d-4384-a1c1-434833f32b0b",
+        "end": 1747274400000,
         "status": "done",
         "is_processed": false
     }

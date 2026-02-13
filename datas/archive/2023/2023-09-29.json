@@ -456,9 +456,72 @@
         "is_processed": false
     },
     {
-        "id": "736884078330",
-        "url": "https://sf-item.taobao.com/sf_item/736884078330.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
-        "end": 1695956205000,
+        "id": 736884078330,
+        "市场评估价": 1471800,
+        "起拍价格": 1059696,
+        "成交价格": 1303696,
+        "交易时间": "2023/09/29 10:56:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/736884078330.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 62,
+        "地点": "河南省郑州市二七区庆喜路24号4号楼2单元2404号",
+        "所属小区": "锦绣山河玉瑞园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七新区",
+        "建筑面积": 126.79,
+        "单价": 10283.26,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "736052077240",
+        "url": "https://sf-item.taobao.com/sf_item/736052077240.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "end": 1695953976000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "736051937498",
+        "url": "https://sf-item.taobao.com/sf_item/736051937498.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1695952800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "735558497351",
+        "url": "https://sf-item.taobao.com/sf_item/735558497351.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1695955536000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "736062281965",
+        "url": "https://sf-item.taobao.com/sf_item/736062281965.htm?track_id=a801121e-5e95-40e5-81ec-2addd861f9d7",
+        "end": 1695961480000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "738639125155",
+        "url": "https://sf-item.taobao.com/sf_item/738639125155.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1695953565000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "736156410937",
+        "url": "https://sf-item.taobao.com/sf_item/736156410937.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1695952800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "738790414661",
+        "url": "https://sf-item.taobao.com/sf_item/738790414661.htm?track_id=fb35d09c-9591-40f4-8668-e4abba953bf0",
+        "end": 1695952800000,
         "status": "done",
         "is_processed": false
     }

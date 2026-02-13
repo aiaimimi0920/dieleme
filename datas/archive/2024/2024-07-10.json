@@ -315,16 +315,44 @@
         "detail_captured": true
     },
     {
-        "id": "808026050784",
-        "url": "https://sf-item.taobao.com/sf_item/808026050784.htm?track_id=0593e471-c881-44d0-95c1-98333df4c080",
-        "end": 1720576862000,
-        "status": "done",
-        "is_processed": false
+        "id": 808026050784,
+        "市场评估价": null,
+        "起拍价格": 7196800,
+        "成交价格": 7196800,
+        "交易时间": "2024-07-09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/808026050784.htm?track_id=0593e471-c881-44d0-95c1-98333df4c080",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广西壮族自治区桂林市阳朔县阳朔镇西街106号C幢",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "桂林市",
+        "区": "阳朔县",
+        "最靠近商圈": "西街",
+        "建筑面积": 1002.36,
+        "单价": 7178.91,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "793458056283",
         "url": "https://sf-item.taobao.com/sf_item/793458056283.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
         "end": 1720606320000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "807643660792",
+        "url": "https://sf-item.taobao.com/sf_item/807643660792.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1720576800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "807994495644",
+        "url": "https://sf-item.taobao.com/sf_item/807994495644.htm?track_id=a801121e-5e95-40e5-81ec-2addd861f9d7",
+        "end": 1720579927000,
         "status": "done",
         "is_processed": false
     }

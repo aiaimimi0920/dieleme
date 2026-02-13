@@ -463,12 +463,25 @@
         "detail_captured": true
     },
     {
-        "id": "641488520821",
-        "url": "https://sf-item.taobao.com/sf_item/641488520821.htm?track_id=1eed3f63-6c86-4e46-a19c-0be98e8bec2f",
-        "end": 1619403819000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/641488520821.htm"
+        "id": 641488520821,
+        "市场评估价": 97800,
+        "起拍价格": 61000,
+        "成交价格": 71800,
+        "交易时间": "2021/04/26 10:23:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641488520821.htm?track_id=1eed3f63-6c86-4e46-a19c-0be98e8bec2f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 19,
+        "地点": "湖南省湘潭市雨湖区窑湾街道宝庆路228号金源物流综合大楼部分商业用房",
+        "所属小区": "金源物流综合大楼",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "窑湾",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 640697897891,
@@ -576,18 +589,46 @@
         "detail_captured": true
     },
     {
-        "id": "640545896935",
-        "url": "https://sf-item.taobao.com/sf_item/640545896935.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
-        "end": 1619403420000,
-        "status": "done",
-        "is_processed": false
+        "id": 640545896935,
+        "市场评估价": null,
+        "起拍价格": 525324,
+        "成交价格": 565324,
+        "交易时间": "2021-04-26 10:17:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/640545896935.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 9,
+        "地点": "河南省郑州市新密市城区祥云街北侧(青屏苑)A2号楼2单元27层2702",
+        "所属小区": "青屏苑",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏广场",
+        "建筑面积": 90.2,
+        "单价": 6267.45,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "641598483353",
-        "url": "https://sf-item.taobao.com/sf_item/641598483353.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1619403307000,
-        "status": "done",
-        "is_processed": false
+        "id": 641598483353,
+        "市场评估价": null,
+        "起拍价格": 525324,
+        "成交价格": 560324,
+        "交易时间": "2021/04/26 10:15:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641598483353.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 7,
+        "地点": "河南省 郑州市 新密市 城区祥云街北侧(青屏苑)A2号楼2单元27层2703",
+        "所属小区": "青屏苑",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏广场商圈",
+        "建筑面积": 90.2,
+        "单价": 6211.96,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "641487256109",
@@ -607,6 +648,34 @@
         "id": "640583492069",
         "url": "https://sf-item.taobao.com/sf_item/640583492069.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
         "end": 1619414396000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641796929605",
+        "url": "https://sf-item.taobao.com/sf_item/641796929605.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1619405735000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642436123973",
+        "url": "https://sf-item.taobao.com/sf_item/642436123973.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1619402400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642439611138",
+        "url": "https://sf-item.taobao.com/sf_item/642439611138.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1619402400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641208950300",
+        "url": "https://sf-item.taobao.com/sf_item/641208950300.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1619411588000,
         "status": "done",
         "is_processed": false
     }

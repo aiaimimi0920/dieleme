@@ -192,18 +192,46 @@
         "detail_captured": true
     },
     {
-        "id": "540832053575",
-        "url": "https://sf-item.taobao.com/sf_item/540832053575.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
-        "end": 1479221228000,
-        "status": "done",
-        "is_processed": false
+        "id": 540832053575,
+        "市场评估价": null,
+        "起拍价格": 836300,
+        "成交价格": 952300,
+        "交易时间": "2016/11/15 22:47:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540832053575.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 47,
+        "地点": "福建省泉州市安溪县凤城镇新安西路3-4-601房",
+        "所属小区": "新安小区",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪城区",
+        "建筑面积": 176.01,
+        "单价": 5410.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "540841358422",
-        "url": "https://sf-item.taobao.com/sf_item/540841358422.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
-        "end": 1479178753000,
-        "status": "done",
-        "is_processed": false
+        "id": 540841358422,
+        "市场评估价": null,
+        "起拍价格": 2050000,
+        "成交价格": 3850000,
+        "交易时间": "2016-11-15 10:59:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540841358422.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
+        "是否成交": true,
+        "竞拍人数": 61,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 长河街道",
+        "所属小区": "水印城",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 137.61,
+        "单价": 27970.57,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "540797301991",
@@ -216,6 +244,13 @@
         "id": "540800935628",
         "url": "https://sf-item.taobao.com/sf_item/540800935628.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
         "end": 1479176663000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538593000339",
+        "url": "https://sf-item.taobao.com/sf_item/538593000339.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1479176071000,
         "status": "done",
         "is_processed": false
     }

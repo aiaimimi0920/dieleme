@@ -85,12 +85,25 @@
         "detail_captured": true
     },
     {
-        "id": "900288589189",
-        "url": "https://sf-item.taobao.com/sf_item/900288589189.htm?track_id=00a8d63d-3334-4454-a1c9-d3ccb4eac2f9",
-        "end": 1745126821000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/900288589189.htm"
+        "id": 900288589189,
+        "市场评估价": null,
+        "起拍价格": 1698529.7,
+        "成交价格": 2208529.7,
+        "交易时间": "2025-04-20 13:27:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/900288589189.htm?track_id=00a8d63d-3334-4454-a1c9-d3ccb4eac2f9",
+        "是否成交": true,
+        "竞拍人数": 134,
+        "出价人数": 148,
+        "地点": "江苏省 苏州市 相城区 香城花园一区40幢",
+        "所属小区": "香城花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "相城中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "906658692817",
@@ -107,11 +120,25 @@
         "is_processed": false
     },
     {
-        "id": "901136344215",
-        "url": "https://sf-item.taobao.com/sf_item/901136344215.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
-        "end": 1745114400000,
-        "status": "done",
-        "is_processed": false
+        "id": 901136344215,
+        "市场评估价": 930050,
+        "起拍价格": 652000,
+        "成交价格": 652000,
+        "交易时间": "2025/04/20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/901136344215.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道城东路1665号御景城1幢503室",
+        "所属小区": "御景城",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 138.41,
+        "单价": 4711.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "900734241236",

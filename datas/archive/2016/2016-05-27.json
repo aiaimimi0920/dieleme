@@ -51,16 +51,58 @@
         "is_processed": false
     },
     {
-        "id": "531599880223",
-        "url": "https://sf-item.taobao.com/sf_item/531599880223.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
-        "end": 1464314400000,
-        "status": "done",
-        "is_processed": false
+        "id": 531599880223,
+        "市场评估价": 0,
+        "起拍价格": 243360,
+        "成交价格": 243360,
+        "交易时间": "2016/05/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531599880223.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省嘉兴市海盐县通元镇海安通元家园147幢403室",
+        "所属小区": "海安通元家园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "通元镇",
+        "建筑面积": 93.41,
+        "单价": 2605.29,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "531131139527",
         "url": "https://sf-item.taobao.com/sf_item/531131139527.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
         "end": 1464315410000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531369483377",
+        "url": "https://sf-item.taobao.com/sf_item/531369483377.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1464316078000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531318928370",
+        "url": "https://sf-item.taobao.com/sf_item/531318928370.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1464316230000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531481858301",
+        "url": "https://sf-item.taobao.com/sf_item/531481858301.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1464314684000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531604816116",
+        "url": "https://sf-item.taobao.com/sf_item/531604816116.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1464322934000,
         "status": "done",
         "is_processed": false
     }

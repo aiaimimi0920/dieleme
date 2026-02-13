@@ -341,9 +341,44 @@
         "detail_captured": true
     },
     {
-        "id": "579877206428",
-        "url": "https://sf-item.taobao.com/sf_item/579877206428.htm?track_id=c902a72e-3d80-4d38-af05-f68239d878f6",
-        "end": 1541665050000,
+        "id": 579877206428,
+        "市场评估价": 3358000,
+        "起拍价格": 2426155,
+        "成交价格": 2606155,
+        "交易时间": "2018-11-08 16:17:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/579877206428.htm?track_id=c902a72e-3d80-4d38-af05-f68239d878f6",
+        "是否成交": true,
+        "竞拍人数": 19,
+        "出价人数": 19,
+        "地点": "辽宁省沈阳市铁西区经济技术开发区十四号路4甲5-3号",
+        "所属小区": "金贵家园",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 421.17,
+        "单价": 6187.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "579984825272",
+        "url": "https://sf-item.taobao.com/sf_item/579984825272.htm?track_id=6aabcd90-810d-43c8-9914-e7c57096882b",
+        "end": 1541643844000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579986385057",
+        "url": "https://sf-item.taobao.com/sf_item/579986385057.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
+        "end": 1541644295000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579727649669",
+        "url": "https://sf-item.taobao.com/sf_item/579727649669.htm?track_id=330a34e0-5029-49b4-8c2b-4f67d5c5f99f",
+        "end": 1541642662000,
         "status": "done",
         "is_processed": false
     }

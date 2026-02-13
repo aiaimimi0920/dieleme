@@ -315,9 +315,65 @@
         "detail_captured": true
     },
     {
-        "id": "634806715579",
-        "url": "https://sf-item.taobao.com/sf_item/634806715579.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
+        "id": 634806715579,
+        "市场评估价": 1274563,
+        "起拍价格": 815720.32,
+        "成交价格": 815720.32,
+        "交易时间": "2021-01-02 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634806715579.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延吉市友谊路66A号3011013",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心商圈",
+        "建筑面积": 209.77,
+        "单价": 3888.67,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "632493628075",
+        "url": "https://sf-item.taobao.com/sf_item/632493628075.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1609557305000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633156406826",
+        "url": "https://sf-item.taobao.com/sf_item/633156406826.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1609554467000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633148702664",
+        "url": "https://sf-item.taobao.com/sf_item/633148702664.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1609557419000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632493584719",
+        "url": "https://sf-item.taobao.com/sf_item/632493584719.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1609561283000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633118042023",
+        "url": "https://sf-item.taobao.com/sf_item/633118042023.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
         "end": 1609552800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634160461464",
+        "url": "https://sf-item.taobao.com/sf_item/634160461464.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1609553960000,
         "status": "done",
         "is_processed": false
     }

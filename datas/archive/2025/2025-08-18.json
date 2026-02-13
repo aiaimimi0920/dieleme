@@ -441,8 +441,57 @@
         "detail_captured": true
     },
     {
-        "id": "960656473668",
-        "url": "https://sf-item.taobao.com/sf_item/960656473668.htm?track_id=4b4e999e-3aac-478b-9b5f-a68739a27816",
+        "id": 960656473668,
+        "市场评估价": null,
+        "起拍价格": 1908543,
+        "成交价格": 1908543,
+        "交易时间": "2025/08/18 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/960656473668.htm?track_id=4b4e999e-3aac-478b-9b5f-a68739a27816",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 凤城五路北侧紫薇希望城12幢22402室房屋一套及装修附着物",
+        "所属小区": "紫薇希望城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城五路",
+        "建筑面积": 200.12,
+        "单价": 9535.88,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "961366760569",
+        "url": "https://sf-item.taobao.com/sf_item/961366760569.htm?track_id=69e73da1-9844-4e22-80d5-44d18631979f",
+        "end": 1755482409000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "954542468364",
+        "url": "https://sf-item.taobao.com/sf_item/954542468364.htm?track_id=c5b6e009-74c4-4149-95dd-a1f6a780bccf",
+        "end": 1755482400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "959160163099",
+        "url": "https://sf-item.taobao.com/sf_item/959160163099.htm?track_id=c5b6e009-74c4-4149-95dd-a1f6a780bccf",
+        "end": 1755504000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "959501347560",
+        "url": "https://sf-item.taobao.com/sf_item/959501347560.htm?track_id=30d808e3-d96d-4c20-b7c0-2a2a14a6d2bf",
+        "end": 1755483593000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "953069918826",
+        "url": "https://sf-item.taobao.com/sf_item/953069918826.htm?track_id=57ebabcd-28ac-405a-a636-47bdb8bc5f01",
         "end": 1755482400000,
         "status": "done",
         "is_processed": false

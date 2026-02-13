@@ -63,16 +63,37 @@
         "detail_captured": true
     },
     {
-        "id": "525497789256",
-        "url": "https://sf-item.taobao.com/sf_item/525497789256.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1452218958000,
-        "status": "done",
-        "is_processed": false
+        "id": 525497789256,
+        "市场评估价": null,
+        "起拍价格": 2260000,
+        "成交价格": 3180000,
+        "交易时间": "2016/01/08 10:09:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525497789256.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": 69,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 长河街道 倾城之恋花园",
+        "所属小区": "倾城之恋花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河商圈",
+        "建筑面积": 140.85,
+        "单价": 22589.29,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "525482750304",
         "url": "https://sf-item.taobao.com/sf_item/525482750304.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
         "end": 1452219079000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525268917137",
+        "url": "https://sf-item.taobao.com/sf_item/525268917137.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1452218875000,
         "status": "done",
         "is_processed": false
     }

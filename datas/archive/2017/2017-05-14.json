@@ -202,9 +202,30 @@
         "is_processed": false
     },
     {
-        "id": "548517017532",
-        "url": "https://sf-item.taobao.com/sf_item/548517017532.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1494729974000,
+        "id": 548517017532,
+        "市场评估价": 3700000,
+        "起拍价格": 2960000,
+        "成交价格": 4260000,
+        "交易时间": "2017/05/14 10:46:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548517017532.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 101,
+        "地点": "杭州市滨江区西兴街道连园9幢1单元502室",
+        "所属小区": "连园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "西兴",
+        "建筑面积": 138.88,
+        "单价": 30675.8,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "548547208273",
+        "url": "https://sf-item.taobao.com/sf_item/548547208273.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1494727200000,
         "status": "done",
         "is_processed": false
     }

@@ -126,16 +126,86 @@
         "detail_captured": true
     },
     {
-        "id": "670967629557",
-        "url": "https://sf-item.taobao.com/sf_item/670967629557.htm?track_id=5241dcde-d9e4-42ea-be80-5c6f0ad3d040",
-        "end": 1649478763000,
+        "id": 670967629557,
+        "市场评估价": 2888573,
+        "起拍价格": 1617600.88,
+        "成交价格": 1617600.88,
+        "交易时间": "2022-04-09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/670967629557.htm?track_id=5241dcde-d9e4-42ea-be80-5c6f0ad3d040",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省延边朝鲜族自治州延吉市天池路3847号1004",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "天池路商圈",
+        "建筑面积": 319.78,
+        "单价": 5058.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 669837558399,
+        "市场评估价": 1381300,
+        "起拍价格": 1381300,
+        "成交价格": 2226300,
+        "交易时间": "2022/04/09 10:47:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669837558399.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 113,
+        "地点": "安徽省 合肥市 瑶海区 芜湖路1号御景湾小区5幢2902室",
+        "所属小区": "御景湾小区",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "大东门商圈",
+        "建筑面积": 104.5,
+        "单价": 21304.31,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "670513568500",
+        "url": "https://sf-item.taobao.com/sf_item/670513568500.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1649469917000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "669837558399",
-        "url": "https://sf-item.taobao.com/sf_item/669837558399.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
-        "end": 1649472472000,
+        "id": "670517700460",
+        "url": "https://sf-item.taobao.com/sf_item/670517700460.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1649469694000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671578119767",
+        "url": "https://sf-item.taobao.com/sf_item/671578119767.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1649469600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "669726817203",
+        "url": "https://sf-item.taobao.com/sf_item/669726817203.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1649475003000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "669335324836",
+        "url": "https://sf-item.taobao.com/sf_item/669335324836.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1649469600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670365155396",
+        "url": "https://sf-item.taobao.com/sf_item/670365155396.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "end": 1649469998000,
         "status": "done",
         "is_processed": false
     }

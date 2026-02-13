@@ -401,12 +401,25 @@
         "detail_captured": true
     },
     {
-        "id": "664334067870",
-        "url": "https://sf-item.taobao.com/sf_item/664334067870.htm?track_id=084def55-bf53-4dc0-8a28-e7429cec6488",
-        "end": 1640833372000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/664334067870.htm"
+        "id": 664334067870,
+        "市场评估价": 0,
+        "起拍价格": 440896,
+        "成交价格": 606896,
+        "交易时间": "2021/12/30 11:02:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/664334067870.htm?track_id=084def55-bf53-4dc0-8a28-e7429cec6488",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 64,
+        "地点": "湖南省 湘潭市 雨湖区 九华经开区富洲路1号教师公寓45栋1单元1301001号",
+        "所属小区": "教师公寓",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "九华经开区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 663670793258,
@@ -430,20 +443,46 @@
         "detail_captured": true
     },
     {
-        "id": "664213102453",
-        "url": "https://sf-item.taobao.com/sf_item/664213102453.htm?track_id=355e610b-2b96-4e4a-acaf-e053e28f5d82",
-        "end": 1640829600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/664213102453.htm"
+        "id": 664213102453,
+        "市场评估价": 502736,
+        "起拍价格": 402188.8,
+        "成交价格": 402188.8,
+        "交易时间": "2021-12-30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/664213102453.htm?track_id=355e610b-2b96-4e4a-acaf-e053e28f5d82",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "甘肃省酒泉市金塔县金色阳光家园住宅小区C区8-2-102室",
+        "所属小区": "金色阳光家园",
+        "省份": "甘肃省",
+        "城市": "酒泉市",
+        "区": "金塔县",
+        "最靠近商圈": "金塔县城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "661880907540",
-        "url": "https://sf-item.taobao.com/sf_item/661880907540.htm?track_id=16f915b7-82fe-4dae-92c6-42c19aa1feac",
-        "end": 1640830762000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/661880907540.htm"
+        "id": 661880907540,
+        "市场评估价": 1362433.42,
+        "起拍价格": 953703.39,
+        "成交价格": 1028703.39,
+        "交易时间": "2021-12-30 10:19:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/661880907540.htm?track_id=16f915b7-82fe-4dae-92c6-42c19aa1feac",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": null,
+        "地点": "河北省廊坊市香河县香河县五一路新华大街北侧香城郦舍小区12号楼2单元0603室",
+        "所属小区": "香城郦舍",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": "新华大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 663176698351,
@@ -614,11 +653,25 @@
         "detail_captured": true
     },
     {
-        "id": "663638829709",
-        "url": "https://sf-item.taobao.com/sf_item/663638829709.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
-        "end": 1640829600000,
-        "status": "done",
-        "is_processed": false
+        "id": 663638829709,
+        "市场评估价": null,
+        "起拍价格": 1183685.4,
+        "成交价格": 1183685.4,
+        "交易时间": "2021/12/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/663638829709.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "内蒙古自治区 包头市 昆都仑区 青年路16号街坊26号-店甲5",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 662627308668,
@@ -670,18 +723,46 @@
         "detail_captured": true
     },
     {
-        "id": "664458815248",
-        "url": "https://sf-item.taobao.com/sf_item/664458815248.htm?track_id=a9e168e8-b28e-4052-8e8c-c5d324fab1f0",
-        "end": 1640829689000,
-        "status": "done",
-        "is_processed": false
+        "id": 664458815248,
+        "市场评估价": 674240,
+        "起拍价格": 450000,
+        "成交价格": 450000,
+        "交易时间": "2021/12/30 10:01:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/664458815248.htm?track_id=a9e168e8-b28e-4052-8e8c-c5d324fab1f0",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省吉林市船营区桃园臻品11号楼2单元17层82号房屋",
+        "所属小区": "桃园臻品",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "船营区商圈",
+        "建筑面积": 98.3,
+        "单价": 4577.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "662489832221",
-        "url": "https://sf-item.taobao.com/sf_item/662489832221.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
-        "end": 1640829600000,
-        "status": "done",
-        "is_processed": false
+        "id": 662489832221,
+        "市场评估价": 803778.4,
+        "起拍价格": 803778.4,
+        "成交价格": 803778.4,
+        "交易时间": "2021/12/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/662489832221.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "河北省 廊坊市 霸州市 霸州市胜芳镇丽华米兰雅居小区8-1-702室",
+        "所属小区": "丽华米兰雅居",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "胜芳镇",
+        "建筑面积": 131.94,
+        "单价": 6091.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "663595289030",
@@ -691,11 +772,25 @@
         "is_processed": false
     },
     {
-        "id": "661850346289",
-        "url": "https://sf-item.taobao.com/sf_item/661850346289.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
-        "end": 1640829767000,
-        "status": "done",
-        "is_processed": false
+        "id": 661850346289,
+        "市场评估价": null,
+        "起拍价格": 2280155,
+        "成交价格": 2280155,
+        "交易时间": "2021-12-29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/661850346289.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 太元路369号3幢12801室",
+        "所属小区": "金科天籁城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "太元路商圈",
+        "建筑面积": 122.08,
+        "单价": 18679.79,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "664736051704",
@@ -705,9 +800,93 @@
         "is_processed": false
     },
     {
-        "id": "660708764012",
-        "url": "https://sf-item.taobao.com/sf_item/660708764012.htm?track_id=12fa5130-966a-4767-9eab-5085df986259",
-        "end": 1640829613000,
+        "id": 660708764012,
+        "市场评估价": 1289587,
+        "起拍价格": 910000,
+        "成交价格": 910000,
+        "交易时间": "2021-12-30 10:00:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/660708764012.htm?track_id=12fa5130-966a-4767-9eab-5085df986259",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省信阳市平桥区羊山新区新五路翡翠华庭13号楼1单元17层1701室",
+        "所属小区": "恒大翡翠华庭",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": 149.5,
+        "单价": 6090.57,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "660104171485",
+        "url": "https://sf-item.taobao.com/sf_item/660104171485.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1640852471000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663530159465",
+        "url": "https://sf-item.taobao.com/sf_item/663530159465.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1640831089000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663969426865",
+        "url": "https://sf-item.taobao.com/sf_item/663969426865.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1640829602000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663995626912",
+        "url": "https://sf-item.taobao.com/sf_item/663995626912.htm?track_id=5d2028cd-85b5-4657-a6d6-1ff52559d487",
+        "end": 1640831324000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663636061584",
+        "url": "https://sf-item.taobao.com/sf_item/663636061584.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1640831003000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "664510319804",
+        "url": "https://sf-item.taobao.com/sf_item/664510319804.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1640849237000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "660320678047",
+        "url": "https://sf-item.taobao.com/sf_item/660320678047.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1640839488000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "661375555822",
+        "url": "https://sf-item.taobao.com/sf_item/661375555822.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1640829950000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659519096753",
+        "url": "https://sf-item.taobao.com/sf_item/659519096753.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "end": 1640829600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "664370907141",
+        "url": "https://sf-item.taobao.com/sf_item/664370907141.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1640832349000,
         "status": "done",
         "is_processed": false
     }

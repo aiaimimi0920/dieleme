@@ -462,20 +462,46 @@
         "detail_captured": true
     },
     {
-        "id": "695368865466",
-        "url": "https://sf-item.taobao.com/sf_item/695368865466.htm?track_id=e10f4c13-2137-425e-b21c-bc66c315504d",
-        "end": 1672972500000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/695368865466.htm"
+        "id": 695368865466,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1030000,
+        "交易时间": "2023/01/06 10:35:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695368865466.htm?track_id=e10f4c13-2137-425e-b21c-bc66c315504d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 93,
+        "地点": "江苏省 淮安市 淮安区 淮安市淮安区延寿庵东巷33号",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "694098214349",
-        "url": "https://sf-item.taobao.com/sf_item/694098214349.htm?track_id=bef8b094-1f22-4a16-9125-5fc5d479b490",
-        "end": 1672976304000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/694098214349.htm"
+        "id": 694098214349,
+        "市场评估价": null,
+        "起拍价格": 4900000,
+        "成交价格": 5640000,
+        "交易时间": "2023-01-06 11:38:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/694098214349.htm?track_id=bef8b094-1f22-4a16-9125-5fc5d479b490",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": null,
+        "地点": "江苏省淮安市淮安区淮安绿地世纪城国际花都（一期）35号楼35-1室",
+        "所属小区": "淮安绿地世纪城国际花都",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安主城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 695814619580,
@@ -618,9 +644,58 @@
         "is_processed": false
     },
     {
-        "id": "695063100322",
-        "url": "https://sf-item.taobao.com/sf_item/695063100322.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
-        "end": 1672972299000,
+        "id": 695063100322,
+        "市场评估价": null,
+        "起拍价格": 639900,
+        "成交价格": 807900,
+        "交易时间": "2023/01/06 10:31:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695063100322.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 26,
+        "地点": "河南省 郑州市 二七区 灵山路108号4号楼1单元4层401",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 95.78,
+        "单价": 8431.51,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "695357297475",
+        "url": "https://sf-item.taobao.com/sf_item/695357297475.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1672973025000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695037876214",
+        "url": "https://sf-item.taobao.com/sf_item/695037876214.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1672971933000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "694250422399",
+        "url": "https://sf-item.taobao.com/sf_item/694250422399.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1672972024000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "693640443652",
+        "url": "https://sf-item.taobao.com/sf_item/693640443652.htm?track_id=1bfdf5f3-ff79-4ec0-acb3-c67a8bc42bdf",
+        "end": 1672971372000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695372113756",
+        "url": "https://sf-item.taobao.com/sf_item/695372113756.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1672971129000,
         "status": "done",
         "is_processed": false
     }

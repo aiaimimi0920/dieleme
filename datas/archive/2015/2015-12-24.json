@@ -147,10 +147,24 @@
         "detail_captured": true
     },
     {
-        "id": "525024701232",
-        "url": "https://sf-item.taobao.com/sf_item/525024701232.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
-        "end": 1450922972000,
-        "status": "done",
-        "is_processed": false
+        "id": 525024701232,
+        "市场评估价": null,
+        "起拍价格": 514760,
+        "成交价格": 539760,
+        "交易时间": "2015-12-24 10:09:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525024701232.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省南平市顺昌县",
+        "所属小区": "天成佳苑",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "顺昌县双溪城南东路",
+        "建筑面积": 56.76,
+        "单价": 9506.74,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

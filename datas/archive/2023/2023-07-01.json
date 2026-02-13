@@ -315,12 +315,25 @@
         "detail_captured": true
     },
     {
-        "id": "724568931851",
-        "url": "https://sf-item.taobao.com/sf_item/724568931851.htm?track_id=3dbef094-943c-4b6d-88a6-99da1be5d441",
-        "end": 1688176901000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/724568931851.htm"
+        "id": 724568931851,
+        "市场评估价": 500000,
+        "起拍价格": 360000,
+        "成交价格": 360000,
+        "交易时间": "2023/07/01 10:01:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/724568931851.htm?track_id=3dbef094-943c-4b6d-88a6-99da1be5d441",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 湘潭市 雨湖区 湖南省湘潭市雨湖区云塘街道韶山东路新建村18号城郊香樟园C3栋3单元101号房产",
+        "所属小区": "城郊香樟园",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "韶山商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 721767863203,
@@ -344,9 +357,30 @@
         "detail_captured": true
     },
     {
-        "id": "721170320474",
-        "url": "https://sf-item.taobao.com/sf_item/721170320474.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
-        "end": 1688177605000,
+        "id": 721170320474,
+        "市场评估价": null,
+        "起拍价格": 749112,
+        "成交价格": 824112,
+        "交易时间": "2023/07/01 10:13:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/721170320474.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 16,
+        "地点": "内蒙古自治区 包头市 昆都仑区 黄河大街66号紫金华府108-1905",
+        "所属小区": "紫金华府",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "黄河大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "721791235592",
+        "url": "https://sf-item.taobao.com/sf_item/721791235592.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1688176876000,
         "status": "done",
         "is_processed": false
     }

@@ -325,11 +325,25 @@
         "detail_captured": true
     },
     {
-        "id": "586524083734",
-        "url": "https://sf-item.taobao.com/sf_item/586524083734.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
-        "end": 1551319200000,
-        "status": "done",
-        "is_processed": false
+        "id": 586524083734,
+        "市场评估价": 0,
+        "起拍价格": 4934000,
+        "成交价格": 4934000,
+        "交易时间": "2019/02/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586524083734.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区沈辽路204号2门、3门",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 493.4,
+        "单价": 10000.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586708373959",
@@ -346,11 +360,25 @@
         "is_processed": false
     },
     {
-        "id": "586974071295",
-        "url": "https://sf-item.taobao.com/sf_item/586974071295.htm?track_id=4f440ecd-a246-4dcb-a3a6-c8deab71317f",
-        "end": 1551320712000,
-        "status": "done",
-        "is_processed": false
+        "id": 586974071295,
+        "市场评估价": null,
+        "起拍价格": 145856,
+        "成交价格": 218656,
+        "交易时间": "2019/02/28 10:25:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586974071295.htm?track_id=4f440ecd-a246-4dcb-a3a6-c8deab71317f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省 云浮市 郁南县 连滩镇中华路尾三角小区B幢302号",
+        "所属小区": "三角小区",
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "连滩镇",
+        "建筑面积": 99.08,
+        "单价": 2206.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586457697078",
@@ -370,6 +398,20 @@
         "id": "586741663149",
         "url": "https://sf-item.taobao.com/sf_item/586741663149.htm?track_id=e0cbd2e8-7004-4585-9259-25beae5cf5de",
         "end": 1551319290000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586740319246",
+        "url": "https://sf-item.taobao.com/sf_item/586740319246.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1551321770000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586823421499",
+        "url": "https://sf-item.taobao.com/sf_item/586823421499.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1551326865000,
         "status": "done",
         "is_processed": false
     }

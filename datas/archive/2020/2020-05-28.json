@@ -399,11 +399,25 @@
         "detail_captured": true
     },
     {
-        "id": "617575973648",
-        "url": "https://sf-item.taobao.com/sf_item/617575973648.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
-        "end": 1590631209000,
-        "status": "done",
-        "is_processed": false
+        "id": 617575973648,
+        "市场评估价": 512404,
+        "起拍价格": 286946.24,
+        "成交价格": 289815.24,
+        "交易时间": "2020-05-28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/617575973648.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 平顺胡同12号1单元201",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市商圈",
+        "建筑面积": 157.76,
+        "单价": 1837.02,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "617117498359",
@@ -413,23 +427,100 @@
         "is_processed": false
     },
     {
-        "id": "616439070065",
-        "url": "https://sf-item.taobao.com/sf_item/616439070065.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
-        "end": 1590633377000,
-        "status": "done",
-        "is_processed": false
+        "id": 616439070065,
+        "市场评估价": null,
+        "起拍价格": 250000,
+        "成交价格": 455000,
+        "交易时间": "2020/05/28 10:36:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616439070065.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": 81,
+        "出价人数": 64,
+        "地点": "广东省 阳江市 阳春市 春城街道朝阳新城E区锦绣花园5#楼10号商铺",
+        "所属小区": "锦绣花园",
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": "春城街道",
+        "建筑面积": 50.6,
+        "单价": 8996.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "614238671992",
-        "url": "https://sf-item.taobao.com/sf_item/614238671992.htm?track_id=c3263236-9027-4790-98db-026890358103",
-        "end": 1590676905000,
-        "status": "done",
-        "is_processed": false
+        "id": 614238671992,
+        "市场评估价": null,
+        "起拍价格": 316452.28,
+        "成交价格": 316452.28,
+        "交易时间": "2020/05/28 22:41:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/614238671992.htm?track_id=c3263236-9027-4790-98db-026890358103",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": null,
+        "地点": "内蒙古自治区 呼伦贝尔市 牙克石市 永兴办事处锦绣嘉园小区13号楼1-601号房产",
+        "所属小区": "锦绣嘉园",
+        "省份": "内蒙古自治区",
+        "城市": "呼伦贝尔市",
+        "区": "牙克石市",
+        "最靠近商圈": "永兴办事处",
+        "建筑面积": 112.3,
+        "单价": 2819.61,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "613946793687",
         "url": "https://sf-item.taobao.com/sf_item/613946793687.htm?track_id=e9db07e5-7acb-4b43-9d9c-583daa52fdcf",
         "end": 1590658520000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616569829924",
+        "url": "https://sf-item.taobao.com/sf_item/616569829924.htm?track_id=895fcaa5-fb8d-48ba-9e9d-667dedb92adf",
+        "end": 1590633990000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "618230982477",
+        "url": "https://sf-item.taobao.com/sf_item/618230982477.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1590631383000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "618171779584",
+        "url": "https://sf-item.taobao.com/sf_item/618171779584.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "end": 1590631384000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617224779176",
+        "url": "https://sf-item.taobao.com/sf_item/617224779176.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1590633913000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616426392982",
+        "url": "https://sf-item.taobao.com/sf_item/616426392982.htm?track_id=5d2028cd-85b5-4657-a6d6-1ff52559d487",
+        "end": 1590632394000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616870981499",
+        "url": "https://sf-item.taobao.com/sf_item/616870981499.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1590632236000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "615290668368",
+        "url": "https://sf-item.taobao.com/sf_item/615290668368.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1590637532000,
         "status": "done",
         "is_processed": false
     }

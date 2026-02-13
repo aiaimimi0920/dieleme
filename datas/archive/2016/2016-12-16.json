@@ -106,30 +106,107 @@
         "detail_captured": true
     },
     {
-        "id": "542527726982",
-        "url": "https://sf-item.taobao.com/sf_item/542527726982.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
-        "end": 1481857305000,
-        "status": "done",
-        "is_processed": false
+        "id": 542527726982,
+        "市场评估价": 1227100,
+        "起拍价格": 990000,
+        "成交价格": 1082000,
+        "交易时间": "2016/12/16 11:01:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542527726982.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市二七区解放路30号3号楼2单元29层2901号",
+        "所属小区": "解放路30号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场商圈",
+        "建筑面积": 105.33,
+        "单价": 10272.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "542519069315",
-        "url": "https://sf-item.taobao.com/sf_item/542519069315.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
-        "end": 1481853600000,
-        "status": "done",
-        "is_processed": false
+        "id": 542519069315,
+        "市场评估价": 680800,
+        "起拍价格": 580000,
+        "成交价格": 580000,
+        "交易时间": "2016/12/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542519069315.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河南省郑州市二七区新圃东街5号院5号楼2单元27号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "中原万达商圈",
+        "建筑面积": 93.65,
+        "单价": 6192.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "542634651959",
-        "url": "https://sf-item.taobao.com/sf_item/542634651959.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
-        "end": 1481853600000,
-        "status": "done",
-        "is_processed": false
+        "id": 542634651959,
+        "市场评估价": 426400,
+        "起拍价格": 426400,
+        "成交价格": 426400,
+        "交易时间": "2016/12/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542634651959.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "河南省郑州市二七区长江中路129号9号楼21层110号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "长江中路",
+        "建筑面积": 42.85,
+        "单价": 9954.26,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "542967987266",
         "url": "https://sf-item.taobao.com/sf_item/542967987266.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
         "end": 1481856247000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542598680265",
+        "url": "https://sf-item.taobao.com/sf_item/542598680265.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "end": 1481853600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "543010102440",
+        "url": "https://sf-item.taobao.com/sf_item/543010102440.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1481853853000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542562506257",
+        "url": "https://sf-item.taobao.com/sf_item/542562506257.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1481868056000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542490356693",
+        "url": "https://sf-item.taobao.com/sf_item/542490356693.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1481858745000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542490148426",
+        "url": "https://sf-item.taobao.com/sf_item/542490148426.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1481855000000,
         "status": "done",
         "is_processed": false
     }

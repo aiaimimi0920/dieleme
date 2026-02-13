@@ -594,11 +594,25 @@
         "manual_checked": true
     },
     {
-        "id": "642909097651",
-        "url": "https://sf-item.taobao.com/sf_item/642909097651.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
-        "end": 1620612000000,
-        "status": "done",
-        "is_processed": false
+        "id": 642909097651,
+        "市场评估价": 0,
+        "起拍价格": 189840,
+        "成交价格": 189840,
+        "交易时间": "2021/05/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642909097651.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 阳光家园5号楼",
+        "所属小区": "阳光家园",
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": "中兴街",
+        "建筑面积": 55.45,
+        "单价": 3424.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "642738133805",
@@ -611,6 +625,41 @@
         "id": "642738721228",
         "url": "https://sf-item.taobao.com/sf_item/642738721228.htm?track_id=963d0425-54e8-4a01-88cf-6133f7f3e41c",
         "end": 1620612042000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642902901002",
+        "url": "https://sf-item.taobao.com/sf_item/642902901002.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1620612000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643586791920",
+        "url": "https://sf-item.taobao.com/sf_item/643586791920.htm?track_id=62ad0d53-1f42-4565-affc-8bd7d5720e56",
+        "end": 1620613130000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641352588699",
+        "url": "https://sf-item.taobao.com/sf_item/641352588699.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1620612008000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643255258758",
+        "url": "https://sf-item.taobao.com/sf_item/643255258758.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1620617086000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641799245025",
+        "url": "https://sf-item.taobao.com/sf_item/641799245025.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1620612351000,
         "status": "done",
         "is_processed": false
     }

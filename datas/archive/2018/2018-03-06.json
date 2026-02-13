@@ -491,11 +491,12 @@
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
-        "最靠近商圈": null,
+        "最靠近商圈": "鼓楼商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564913047547,
@@ -571,15 +572,16 @@
         "竞拍人数": null,
         "出价人数": 11,
         "地点": "山东省威海市荣成市石岛永安北路92号楼404室",
-        "所属小区": null,
+        "所属小区": "石岛广场小区",
         "省份": "山东省",
         "城市": "威海市",
         "区": "荣成市",
-        "最靠近商圈": "石岛",
+        "最靠近商圈": "石岛商圈",
         "建筑面积": 107.42,
-        "单价": 2726.92,
+        "单价": 2726.68,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564759657951,
@@ -676,15 +678,16 @@
         "竞拍人数": 61,
         "出价人数": null,
         "地点": "江苏省 苏州市 相城区 渭塘镇 玉盘路181号8幢107室",
-        "所属小区": null,
+        "所属小区": "珍珠湾花园",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "渭塘",
+        "最靠近商圈": "渭塘商圈",
         "建筑面积": 189.42,
-        "单价": 10295.32,
+        "单价": 10294.58,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564639624998,
@@ -708,11 +711,25 @@
         "detail_captured": true
     },
     {
-        "id": "564090400062",
-        "url": "https://sf-item.taobao.com/sf_item/564090400062.htm?track_id=9c0b7602-9aa6-4930-a97c-348cbcf397a5",
-        "end": 1520301600000,
-        "status": "done",
-        "is_processed": false
+        "id": 564090400062,
+        "市场评估价": null,
+        "起拍价格": 623600,
+        "成交价格": 743600,
+        "交易时间": "2018/03/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564090400062.htm?track_id=9c0b7602-9aa6-4930-a97c-348cbcf397a5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 25,
+        "地点": "山东省 潍坊市 昌邑市 新兴街1508号文苑小区11号楼1单元401室",
+        "所属小区": "文苑小区",
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": "昌邑市中心",
+        "建筑面积": 164.24,
+        "单价": 4527.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 564830440863,
@@ -736,23 +753,93 @@
         "detail_captured": true
     },
     {
-        "id": "562930932418",
-        "url": "https://sf-item.taobao.com/sf_item/562930932418.htm?track_id=a6442849-7d38-4664-8f57-6a497d39d3a7",
-        "end": 1520300428000,
-        "status": "done",
-        "is_processed": false
+        "id": 562930932418,
+        "市场评估价": 2479871,
+        "起拍价格": 1388728,
+        "成交价格": 1498728,
+        "交易时间": "2018/03/06 09:40:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562930932418.htm?track_id=a6442849-7d38-4664-8f57-6a497d39d3a7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 18,
+        "地点": "安徽省 合肥市 新站区 汴河路与经二路交口林语人家10幢商101、101上",
+        "所属小区": "林语人家",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "新站区",
+        "最靠近商圈": "新站区商圈",
+        "建筑面积": 196.27,
+        "单价": 7636.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "563098198732",
-        "url": "https://sf-item.taobao.com/sf_item/563098198732.htm?track_id=a6442849-7d38-4664-8f57-6a497d39d3a7",
-        "end": 1520300343000,
-        "status": "done",
-        "is_processed": false
+        "id": 563098198732,
+        "市场评估价": 2295432,
+        "起拍价格": 1285443,
+        "成交价格": 1420443,
+        "交易时间": "2018/03/06 09:39:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563098198732.htm?track_id=a6442849-7d38-4664-8f57-6a497d39d3a7",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": 0,
+        "地点": "安徽省合肥市新站区汴河路与经二路交口林语人家10幢商105、105上",
+        "所属小区": "林语人家",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "新站区",
+        "最靠近商圈": "七里塘",
+        "建筑面积": 177.61,
+        "单价": 7998.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "565031387269",
         "url": "https://sf-item.taobao.com/sf_item/565031387269.htm?track_id=c8e9871a-16d9-4594-8c9f-5feecf4c8a23",
         "end": 1520301600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564807785701",
+        "url": "https://sf-item.taobao.com/sf_item/564807785701.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1520302602000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564762129029",
+        "url": "https://sf-item.taobao.com/sf_item/564762129029.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "end": 1520304305000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564889390150",
+        "url": "https://sf-item.taobao.com/sf_item/564889390150.htm?track_id=0d0a4b96-3475-41c6-be82-f884580aae77",
+        "end": 1520302004000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564962319616",
+        "url": "https://sf-item.taobao.com/sf_item/564962319616.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1520303557000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564880170216",
+        "url": "https://sf-item.taobao.com/sf_item/564880170216.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "end": 1520298000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563441719602",
+        "url": "https://sf-item.taobao.com/sf_item/563441719602.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1520319282000,
         "status": "done",
         "is_processed": false
     }

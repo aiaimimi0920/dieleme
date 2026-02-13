@@ -504,18 +504,46 @@
         "detail_captured": true
     },
     {
-        "id": "868279024736",
-        "url": "https://sf-item.taobao.com/sf_item/868279024736.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1736563823000,
-        "status": "done",
-        "is_processed": false
+        "id": 868279024736,
+        "市场评估价": 927650,
+        "起拍价格": 519484,
+        "成交价格": 749484,
+        "交易时间": "2025/01/11 10:50:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/868279024736.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江西省 南昌市 青云谱区 青云谱区洪城路158号正盛太古港商业城A地块4－b#住宅楼二单元3002室",
+        "所属小区": "正盛太古港商业城",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "洪城商圈",
+        "建筑面积": 89.28,
+        "单价": 8394.32,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "867990485959",
-        "url": "https://sf-item.taobao.com/sf_item/867990485959.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
-        "end": 1736562046000,
-        "status": "done",
-        "is_processed": false
+        "id": 867990485959,
+        "市场评估价": 1350613,
+        "起拍价格": 756344,
+        "成交价格": 1056344,
+        "交易时间": "2025-01-11 10:20:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/867990485959.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
+        "是否成交": true,
+        "竞拍人数": 19,
+        "出价人数": 19,
+        "地点": "江西省南昌市青云谱区青云谱区洪城路158号正盛太古港商业城A地块4－b#住宅楼二单元4504室",
+        "所属小区": "正盛太古港商业城",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "洪城路商圈",
+        "建筑面积": 131.66,
+        "单价": 8019.7,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "867282712957",
@@ -556,6 +584,41 @@
         "id": "861636510752",
         "url": "https://sf-item.taobao.com/sf_item/861636510752.htm?track_id=cb1e7b48-b17d-4d57-9242-154429765f25",
         "end": 1736574745000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "861941509188",
+        "url": "https://sf-item.taobao.com/sf_item/861941509188.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1736562942000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "857975444602",
+        "url": "https://sf-item.taobao.com/sf_item/857975444602.htm?track_id=8b419dc7-cda7-4057-8901-42ba60db8b13",
+        "end": 1736563481000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "867342611240",
+        "url": "https://sf-item.taobao.com/sf_item/867342611240.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1736561217000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "868594108471",
+        "url": "https://sf-item.taobao.com/sf_item/868594108471.htm?track_id=1d7de8cb-3c6a-4ed4-af6a-105ce509c724",
+        "end": 1736560800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "867665958644",
+        "url": "https://sf-item.taobao.com/sf_item/867665958644.htm?track_id=aa7c9499-83e3-4f8b-82a0-5b73185c82fb",
+        "end": 1736560800000,
         "status": "done",
         "is_processed": false
     }

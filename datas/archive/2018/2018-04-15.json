@@ -108,10 +108,24 @@
         "detail_captured": true
     },
     {
-        "id": "565502542241",
-        "url": "https://sf-item.taobao.com/sf_item/565502542241.htm?track_id=efe09fc5-98eb-42e5-a38c-752f0783ac4b",
-        "end": 1523757672000,
-        "status": "done",
-        "is_processed": false
+        "id": 565502542241,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 789251.2,
+        "交易时间": "2018/04/15 10:01:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565502542241.htm?track_id=efe09fc5-98eb-42e5-a38c-752f0783ac4b",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": 22,
+        "地点": "辽宁省 沈阳市 铁西区 兴顺街5-1号2-3-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 97.65,
+        "单价": 8081.28,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

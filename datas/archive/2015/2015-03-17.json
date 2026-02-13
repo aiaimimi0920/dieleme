@@ -43,9 +43,44 @@
         "detail_captured": true
     },
     {
-        "id": "43959316552",
-        "url": "https://sf-item.taobao.com/sf_item/43959316552.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
-        "end": 1426557600000,
+        "id": 43959316552,
+        "市场评估价": null,
+        "起拍价格": 588000,
+        "成交价格": 588000,
+        "交易时间": "2015-03-17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43959316552.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县武原街道三角子路怡城花苑D幢503室",
+        "所属小区": "怡城花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 119.31,
+        "单价": 4931.52,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "43876071822",
+        "url": "https://sf-item.taobao.com/sf_item/43876071822.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1426559811000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "43915401422",
+        "url": "https://sf-item.taobao.com/sf_item/43915401422.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1426558232000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "43954628811",
+        "url": "https://sf-item.taobao.com/sf_item/43954628811.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1426557805000,
         "status": "done",
         "is_processed": false
     }

@@ -42,18 +42,46 @@
         "detail_captured": true
     },
     {
-        "id": "525742479661",
-        "url": "https://sf-item.taobao.com/sf_item/525742479661.htm?track_id=0d8e7746-cfb4-4d5f-b22b-7d43d8847bd0",
-        "end": 1453169431000,
-        "status": "done",
-        "is_processed": false
+        "id": 525742479661,
+        "市场评估价": 870700,
+        "起拍价格": 557248,
+        "成交价格": 743284,
+        "交易时间": "2016-01-19 10:10:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525742479661.htm?track_id=0d8e7746-cfb4-4d5f-b22b-7d43d8847bd0",
+        "是否成交": true,
+        "竞拍人数": 34,
+        "出价人数": 34,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": "锦龙居",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "航海中路/长江东路商圈",
+        "建筑面积": 144.54,
+        "单价": 5142.88,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "525786661352",
-        "url": "https://sf-item.taobao.com/sf_item/525786661352.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1453169553000,
-        "status": "done",
-        "is_processed": false
+        "id": 525786661352,
+        "市场评估价": null,
+        "起拍价格": 2500000,
+        "成交价格": 3320000,
+        "交易时间": "2016-01-19 10:12:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525786661352.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": 68,
+        "出价人数": 4,
+        "地点": "浙江省 杭州市 滨江区",
+        "所属小区": "风雅钱塘世纪花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江高新区",
+        "建筑面积": 168.71,
+        "单价": 19675.15,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "525779026307",
@@ -66,6 +94,13 @@
         "id": "525798552527",
         "url": "https://sf-item.taobao.com/sf_item/525798552527.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
         "end": 1453168800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525737088003",
+        "url": "https://sf-item.taobao.com/sf_item/525737088003.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1453171304000,
         "status": "done",
         "is_processed": false
     }

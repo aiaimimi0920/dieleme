@@ -168,9 +168,37 @@
         "detail_captured": true
     },
     {
-        "id": "917739355958",
-        "url": "https://sf-item.taobao.com/sf_item/917739355958.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
-        "end": 1748745093000,
+        "id": 917739355958,
+        "市场评估价": null,
+        "起拍价格": 498241.41,
+        "成交价格": 534241.41,
+        "交易时间": "2025/06/01 10:31:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/917739355958.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "新密市城区溱水路北侧、密州大道东侧（东城半岛二期）3号楼1单元16层1602",
+        "所属小区": "东城半岛二期",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密城区",
+        "建筑面积": 98.42,
+        "单价": 5429.0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "917639667819",
+        "url": "https://sf-item.taobao.com/sf_item/917639667819.htm?track_id=ef50c735-a371-4834-af1b-815806338e54",
+        "end": 1748764966000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "917639759694",
+        "url": "https://sf-item.taobao.com/sf_item/917639759694.htm?track_id=ef50c735-a371-4834-af1b-815806338e54",
+        "end": 1748755806000,
         "status": "done",
         "is_processed": false
     }

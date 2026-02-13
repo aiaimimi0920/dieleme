@@ -175,16 +175,44 @@
         "is_processed": false
     },
     {
-        "id": "618194955361",
-        "url": "https://sf-item.taobao.com/sf_item/618194955361.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
-        "end": 1590895227000,
-        "status": "done",
-        "is_processed": false
+        "id": 618194955361,
+        "市场评估价": 3526300,
+        "起拍价格": 1974728,
+        "成交价格": 2654728,
+        "交易时间": "2020/05/31 11:20:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/618194955361.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 107,
+        "地点": "福建省 厦门市 同安区 厦门市同安区汀溪街588号之17住宅房地产",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "同安区",
+        "最靠近商圈": "汀溪板块",
+        "建筑面积": 262.14,
+        "单价": 10130.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "617112621264",
         "url": "https://sf-item.taobao.com/sf_item/617112621264.htm?track_id=3c382c58-b2c8-4aa6-8dbc-528f6d79f8ee",
         "end": 1590895632000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617905456230",
+        "url": "https://sf-item.taobao.com/sf_item/617905456230.htm?track_id=b4353959-2c75-46fd-ae3a-556685042bba",
+        "end": 1590892633000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617112125911",
+        "url": "https://sf-item.taobao.com/sf_item/617112125911.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1590891297000,
         "status": "done",
         "is_processed": false
     }

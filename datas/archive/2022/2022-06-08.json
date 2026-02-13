@@ -365,16 +365,79 @@
         "detail_captured": true
     },
     {
-        "id": "674752183645",
-        "url": "https://sf-item.taobao.com/sf_item/674752183645.htm?track_id=0998525a-0e3f-4b2c-a314-8b80a91badd0",
-        "end": 1654655372000,
+        "id": 674752183645,
+        "市场评估价": 788100,
+        "起拍价格": 552000,
+        "成交价格": 692000,
+        "交易时间": "2022/06/08 10:29:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/674752183645.htm?track_id=0998525a-0e3f-4b2c-a314-8b80a91badd0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 35,
+        "地点": "福建省 漳州市 平和县 小溪镇高东路1号御龙湾",
+        "所属小区": "御龙湾",
+        "省份": "福建省",
+        "城市": "漳州市",
+        "区": "平和县",
+        "最靠近商圈": "小溪镇",
+        "建筑面积": 119.03,
+        "单价": 5813.72,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 673695816449,
+        "市场评估价": 9105200,
+        "起拍价格": 7300000,
+        "成交价格": 8810000,
+        "交易时间": "2022/06/08 11:35:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673695816449.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 114,
+        "地点": "浙江省 杭州市 滨江区 长河街道风雅钱塘世纪花园8幢3单元2102室",
+        "所属小区": "风雅钱塘世纪花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 164.66,
+        "单价": 53505.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "675481183049",
+        "url": "https://sf-item.taobao.com/sf_item/675481183049.htm?track_id=bcfea102-99f4-4d3a-aa3e-f06b59c7474b",
+        "end": 1654653600000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "673695816449",
-        "url": "https://sf-item.taobao.com/sf_item/673695816449.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1654659335000,
+        "id": "674662340605",
+        "url": "https://sf-item.taobao.com/sf_item/674662340605.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1654653600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "675357874386",
+        "url": "https://sf-item.taobao.com/sf_item/675357874386.htm?track_id=e060ffc2-3fe3-43ca-bf44-12c2e06c793c",
+        "end": 1654655795000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "675004422427",
+        "url": "https://sf-item.taobao.com/sf_item/675004422427.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1654712164000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "674396768864",
+        "url": "https://sf-item.taobao.com/sf_item/674396768864.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1654655229000,
         "status": "done",
         "is_processed": false
     }

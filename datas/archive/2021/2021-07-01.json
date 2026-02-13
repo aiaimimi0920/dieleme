@@ -651,12 +651,25 @@
         "detail_captured": true
     },
     {
-        "id": "645117810699",
-        "url": "https://sf-item.taobao.com/sf_item/645117810699.htm?track_id=9394ccd4-73d7-45ef-a863-13c2c70971bf",
-        "end": 1625104800000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/645117810699.htm"
+        "id": 645117810699,
+        "市场评估价": 42860000,
+        "起拍价格": 26485194,
+        "成交价格": 26485194,
+        "交易时间": "2021-07-01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/645117810699.htm?track_id=9394ccd4-73d7-45ef-a863-13c2c70971bf",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "江苏省苏州市相城区元和街道华元路796号、798号、800号、802号、804号、806号、808号、810号及聚元街233号部分户室",
+        "所属小区": "苏州东方国际名品城",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "元和商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 647212372831,
@@ -689,6 +702,20 @@
     {
         "id": "646783240711",
         "url": "https://sf-item.taobao.com/sf_item/646783240711.htm?track_id=963d0425-54e8-4a01-88cf-6133f7f3e41c",
+        "end": 1625104800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "645383760059",
+        "url": "https://sf-item.taobao.com/sf_item/645383760059.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1625107609000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644428600842",
+        "url": "https://sf-item.taobao.com/sf_item/644428600842.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
         "end": 1625104800000,
         "status": "done",
         "is_processed": false

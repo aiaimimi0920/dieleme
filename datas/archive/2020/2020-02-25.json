@@ -384,11 +384,25 @@
         "detail_captured": true
     },
     {
-        "id": "611627406875",
-        "url": "https://sf-item.taobao.com/sf_item/611627406875.htm?track_id=efe09fc5-98eb-42e5-a38c-752f0783ac4b",
-        "end": 1582598700000,
-        "status": "done",
-        "is_processed": false
+        "id": 611627406875,
+        "市场评估价": null,
+        "起拍价格": 1080000,
+        "成交价格": 1180000,
+        "交易时间": "2020/02/25 10:45:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611627406875.htm?track_id=efe09fc5-98eb-42e5-a38c-752f0783ac4b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 兴华北街32-2号",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场商圈",
+        "建筑面积": 125.15,
+        "单价": 9428.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "611494113337",
@@ -398,9 +412,30 @@
         "is_processed": false
     },
     {
-        "id": "611921587696",
-        "url": "https://sf-item.taobao.com/sf_item/611921587696.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
-        "end": 1582596000000,
+        "id": 611921587696,
+        "市场评估价": 0,
+        "起拍价格": 979930,
+        "成交价格": 2153930,
+        "交易时间": "2020/02/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611921587696.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 73,
+        "地点": "郑州市二七区铭功路东、太康路南2号楼1单元36层3609室的房产",
+        "所属小区": "金林公馆",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "611442429806",
+        "url": "https://sf-item.taobao.com/sf_item/611442429806.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1582596146000,
         "status": "done",
         "is_processed": false
     }

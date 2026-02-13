@@ -189,23 +189,79 @@
         "detail_captured": true
     },
     {
-        "id": "696154222727",
-        "url": "https://sf-item.taobao.com/sf_item/696154222727.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
-        "end": 1675219250000,
-        "status": "done",
-        "is_processed": false
+        "id": 696154222727,
+        "市场评估价": null,
+        "起拍价格": 274240,
+        "成交价格": 284240,
+        "交易时间": "2023/02/01 10:40:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696154222727.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": null,
+        "地点": "河南省 郑州市 新密市 城区青屏大街西段南侧4层东户",
+        "所属小区": "青屏大街西段南侧4层东户",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏大街商圈",
+        "建筑面积": 155.82,
+        "单价": 1825.22,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "696537175608",
-        "url": "https://sf-item.taobao.com/sf_item/696537175608.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
-        "end": 1675216800000,
-        "status": "done",
-        "is_processed": false
+        "id": 696537175608,
+        "市场评估价": 1101626,
+        "起拍价格": 618000,
+        "成交价格": 618000,
+        "交易时间": "2023/02/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696537175608.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳街道小金村小罗公路山塘窝立缘小区5号楼18层02房",
+        "所属小区": "立缘小区",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳街道",
+        "建筑面积": 174.12,
+        "单价": 3548.73,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "696412052503",
         "url": "https://sf-item.taobao.com/sf_item/696412052503.htm?track_id=b11be64f-29a6-4dba-8035-2a2ffeff2505",
         "end": 1675220721000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696838613721",
+        "url": "https://sf-item.taobao.com/sf_item/696838613721.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1675217918000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697340179555",
+        "url": "https://sf-item.taobao.com/sf_item/697340179555.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1675218756000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696753005298",
+        "url": "https://sf-item.taobao.com/sf_item/696753005298.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1675238597000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696811572240",
+        "url": "https://sf-item.taobao.com/sf_item/696811572240.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1675262161000,
         "status": "done",
         "is_processed": false
     }

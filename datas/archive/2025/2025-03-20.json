@@ -231,16 +231,114 @@
         "detail_captured": true
     },
     {
-        "id": "895194604833",
-        "url": "https://sf-item.taobao.com/sf_item/895194604833.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
-        "end": 1742436000000,
-        "status": "done",
-        "is_processed": false
+        "id": 895194604833,
+        "市场评估价": 466368,
+        "起拍价格": 373094.4,
+        "成交价格": 373094.4,
+        "交易时间": "2025/03/20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/895194604833.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 霸州市 胜芳镇胜堂路胜苑小区",
+        "所属小区": "胜苑小区",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "胜芳商圈",
+        "建筑面积": 134.4,
+        "单价": 2776,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "893294233905",
         "url": "https://sf-item.taobao.com/sf_item/893294233905.htm?track_id=b04c8370-e80e-4212-9eff-cc325f75098a",
         "end": 1742436255000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "887835413556",
+        "url": "https://sf-item.taobao.com/sf_item/887835413556.htm?track_id=72941855-3cec-4df2-aa07-8f74679bfc2d",
+        "end": 1742436000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "894405346327",
+        "url": "https://sf-item.taobao.com/sf_item/894405346327.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1742437308000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "894062575485",
+        "url": "https://sf-item.taobao.com/sf_item/894062575485.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1742436000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "894323094650",
+        "url": "https://sf-item.taobao.com/sf_item/894323094650.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1742436000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "894760297219",
+        "url": "https://sf-item.taobao.com/sf_item/894760297219.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1742436000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "894760405664",
+        "url": "https://sf-item.taobao.com/sf_item/894760405664.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1742436000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "895133804881",
+        "url": "https://sf-item.taobao.com/sf_item/895133804881.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1742436000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "895136316194",
+        "url": "https://sf-item.taobao.com/sf_item/895136316194.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1742436000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "884823016660",
+        "url": "https://sf-item.taobao.com/sf_item/884823016660.htm?track_id=b2a0791c-e94d-46c9-b7b2-e898b5ba78f0",
+        "end": 1742454647000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "894406118298",
+        "url": "https://sf-item.taobao.com/sf_item/894406118298.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
+        "end": 1742438167000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "890559923927",
+        "url": "https://sf-item.taobao.com/sf_item/890559923927.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1742440521000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "891245977601",
+        "url": "https://sf-item.taobao.com/sf_item/891245977601.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1742438165000,
         "status": "done",
         "is_processed": false
     }

@@ -189,20 +189,46 @@
         "detail_captured": true
     },
     {
-        "id": "912226506719",
-        "url": "https://sf-item.taobao.com/sf_item/912226506719.htm?track_id=9768bbb0-f630-49a5-9680-dbcb6c307b87",
-        "end": 1749348254000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/912226506719.htm"
+        "id": 912226506719,
+        "市场评估价": 840336.5,
+        "起拍价格": 588235.55,
+        "成交价格": 718235.55,
+        "交易时间": "2025/06/08 10:04:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/912226506719.htm?track_id=9768bbb0-f630-49a5-9680-dbcb6c307b87",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 27,
+        "地点": "四川省 广元市 利州区 嘉陵办事处政府街109号“宏亨.广府”",
+        "所属小区": "宏亨.广府",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "嘉陵办事处",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "927486894904",
-        "url": "https://sf-item.taobao.com/sf_item/927486894904.htm?track_id=fe7e9f5b-9c47-4349-a0dd-530e6cf55dbb",
-        "end": 1749348637000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/927486894904.htm"
+        "id": 927486894904,
+        "市场评估价": 446502.79,
+        "起拍价格": 286400,
+        "成交价格": 322400,
+        "交易时间": "2025-06-08 10:10:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/927486894904.htm?track_id=fe7e9f5b-9c47-4349-a0dd-530e6cf55dbb",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 13,
+        "地点": "湖南省 湘潭市 雨湖区 湘潭经济技术开发区潭州大道18号湘潭奥园冠军城19L栋1单元1401001号",
+        "所属小区": "湘潭奥园冠军城",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "湘潭奥园商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 926377263251,
@@ -226,18 +252,46 @@
         "detail_captured": true
     },
     {
-        "id": "928537992471",
-        "url": "https://sf-item.taobao.com/sf_item/928537992471.htm?track_id=f9d53f9a-35c4-4816-96c7-9774afd0b58c",
-        "end": 1749348000000,
-        "status": "done",
-        "is_processed": false
+        "id": 928537992471,
+        "市场评估价": 2377342,
+        "起拍价格": 1919704,
+        "成交价格": 1919704,
+        "交易时间": "2025/06/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/928537992471.htm?track_id=f9d53f9a-35c4-4816-96c7-9774afd0b58c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 明德花园",
+        "所属小区": "明德花园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "包百商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "928471328625",
-        "url": "https://sf-item.taobao.com/sf_item/928471328625.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
-        "end": 1749348770000,
-        "status": "done",
-        "is_processed": false
+        "id": 928471328625,
+        "市场评估价": 521028,
+        "起拍价格": 291775.68,
+        "成交价格": 321775.68,
+        "交易时间": "2025-06-08T10:12:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/928471328625.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": 16,
+        "地点": "辽宁省 沈阳市 铁西区 北四西路8-8号3-4",
+        "所属小区": "中海寰宇天下",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "北四西路商圈",
+        "建筑面积": 73.8,
+        "单价": 4360.36,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "920131574128",
@@ -247,9 +301,79 @@
         "is_processed": false
     },
     {
-        "id": "927315449688",
-        "url": "https://sf-item.taobao.com/sf_item/927315449688.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1749348957000,
+        "id": 927315449688,
+        "市场评估价": 420864,
+        "起拍价格": 319856.64,
+        "成交价格": 420356.64,
+        "交易时间": "2025/06/08 10:15:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/927315449688.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 137,
+        "地点": "云南省 丽江市 华坪县 华坪县荣将镇鸿泰康城2组F幢2单元3层302号房屋",
+        "所属小区": "鸿泰康城",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "荣将镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "927884549558",
+        "url": "https://sf-item.taobao.com/sf_item/927884549558.htm?track_id=4c4eeb49-6d0a-4655-9e36-002074dab1e8",
+        "end": 1749348000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "926891043052",
+        "url": "https://sf-item.taobao.com/sf_item/926891043052.htm?track_id=08271d2b-720b-4ac9-8bef-4716c7dea6e2",
+        "end": 1749349377000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "926890443023",
+        "url": "https://sf-item.taobao.com/sf_item/926890443023.htm?track_id=08271d2b-720b-4ac9-8bef-4716c7dea6e2",
+        "end": 1749349612000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "926906511789",
+        "url": "https://sf-item.taobao.com/sf_item/926906511789.htm?track_id=8b419dc7-cda7-4057-8901-42ba60db8b13",
+        "end": 1749349567000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "927824093554",
+        "url": "https://sf-item.taobao.com/sf_item/927824093554.htm?track_id=8b419dc7-cda7-4057-8901-42ba60db8b13",
+        "end": 1749349492000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "920980177555",
+        "url": "https://sf-item.taobao.com/sf_item/920980177555.htm?track_id=efb4342c-0c1c-4486-9308-1ed5553b53ca",
+        "end": 1749349551000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "927258962450",
+        "url": "https://sf-item.taobao.com/sf_item/927258962450.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1749349107000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "926878099176",
+        "url": "https://sf-item.taobao.com/sf_item/926878099176.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1749348238000,
         "status": "done",
         "is_processed": false
     }

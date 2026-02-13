@@ -168,11 +168,25 @@
         "detail_captured": true
     },
     {
-        "id": "640377785934",
-        "url": "https://sf-item.taobao.com/sf_item/640377785934.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
-        "end": 1622390706000,
-        "status": "done",
-        "is_processed": false
+        "id": 640377785934,
+        "市场评估价": 1982874,
+        "起拍价格": 1427669.28,
+        "成交价格": 1427669.28,
+        "交易时间": "2021-05-31T00:05:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/640377785934.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 依兰镇大成村",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 103.68,
+        "单价": 13773.49,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "644604906450",
@@ -192,6 +206,27 @@
         "id": "643958684135",
         "url": "https://sf-item.taobao.com/sf_item/643958684135.htm?track_id=6b04ce3c-2f80-41e6-9418-abb9d96f54be",
         "end": 1622341072000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644736114428",
+        "url": "https://sf-item.taobao.com/sf_item/644736114428.htm?track_id=13522d09-c2bb-419f-9fee-29d88a0e165a",
+        "end": 1622345145000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642850084421",
+        "url": "https://sf-item.taobao.com/sf_item/642850084421.htm?track_id=1f756e4c-b012-46bd-9069-1a5d9bb4c457",
+        "end": 1622341765000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644344073416",
+        "url": "https://sf-item.taobao.com/sf_item/644344073416.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1622341667000,
         "status": "done",
         "is_processed": false
     }

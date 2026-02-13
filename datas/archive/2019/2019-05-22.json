@@ -211,11 +211,25 @@
         "detail_captured": true
     },
     {
-        "id": "592454863112",
-        "url": "https://sf-item.taobao.com/sf_item/592454863112.htm?track_id=7b04b434-ceff-470a-aefa-d328aa1bebd6",
-        "end": 1558491174000,
-        "status": "done",
-        "is_processed": false
+        "id": 592454863112,
+        "市场评估价": null,
+        "起拍价格": 900000,
+        "成交价格": 1026000,
+        "交易时间": "2019-05-22 10:12:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592454863112.htm?track_id=7b04b434-ceff-470a-aefa-d328aa1bebd6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城十二路62号",
+        "所属小区": "首创国际城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城十二路",
+        "建筑面积": 90.91,
+        "单价": 11286.04,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "593658630533",
@@ -225,11 +239,25 @@
         "is_processed": false
     },
     {
-        "id": "593479873723",
-        "url": "https://sf-item.taobao.com/sf_item/593479873723.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
-        "end": 1558490400000,
-        "status": "done",
-        "is_processed": false
+        "id": 593479873723,
+        "市场评估价": null,
+        "起拍价格": 2591680,
+        "成交价格": 2591680,
+        "交易时间": "2019-05-22T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/593479873723.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 西安市经济技术开发区凤城九路白桦林居绿岛6幢10802号",
+        "所属小区": "白桦林居绿岛",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区",
+        "建筑面积": 161.98,
+        "单价": 15999.52,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "592038248972",
@@ -239,9 +267,30 @@
         "is_processed": false
     },
     {
-        "id": "593248388916",
-        "url": "https://sf-item.taobao.com/sf_item/593248388916.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
-        "end": 1558492903000,
+        "id": 593248388916,
+        "市场评估价": null,
+        "起拍价格": 1169943,
+        "成交价格": 1364943,
+        "交易时间": "2019-05-22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/593248388916.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
+        "是否成交": true,
+        "竞拍人数": 39,
+        "出价人数": 40,
+        "地点": "江西省 鹰潭市 贵溪市 城南320国道江滨花苑10栋3单元5号店面",
+        "所属小区": "江滨花苑",
+        "省份": "江西省",
+        "城市": "鹰潭市",
+        "区": "贵溪市",
+        "最靠近商圈": "城南",
+        "建筑面积": 116.91,
+        "单价": 11677.18,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "593651902917",
+        "url": "https://sf-item.taobao.com/sf_item/593651902917.htm?track_id=62ad0d53-1f42-4565-affc-8bd7d5720e56",
+        "end": 1558491233000,
         "status": "done",
         "is_processed": false
     }

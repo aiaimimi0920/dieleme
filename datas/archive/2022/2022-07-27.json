@@ -336,12 +336,25 @@
         "detail_captured": true
     },
     {
-        "id": "673955848994",
-        "url": "https://sf-item.taobao.com/sf_item/673955848994.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
-        "end": 1658887147000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/673955848994.htm"
+        "id": 673955848994,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 850920.8,
+        "交易时间": "2022/07/27 09:59:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673955848994.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省 淮安市 淮安区 淮安市淮安区楚州大道209号金陵名府21号楼504室",
+        "所属小区": "金陵名府",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "楚州大道",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 677891515443,
@@ -386,11 +399,25 @@
         "detail_captured": true
     },
     {
-        "id": "677733449626",
-        "url": "https://sf-item.taobao.com/sf_item/677733449626.htm?track_id=1700d9a2-f936-490b-8e6c-7a864551c62a",
-        "end": 1658902727000,
-        "status": "done",
-        "is_processed": false
+        "id": 677733449626,
+        "市场评估价": 0,
+        "起拍价格": 2303056,
+        "成交价格": 2303056,
+        "交易时间": "2022/07/27 14:18:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/677733449626.htm?track_id=1700d9a2-f936-490b-8e6c-7a864551c62a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 上饶市 铅山县 河口镇黄岗山社区狮江大道52号",
+        "所属小区": "黄岗山社区",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "铅山县",
+        "最靠近商圈": "河口镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 678574135479,
@@ -414,23 +441,65 @@
         "detail_captured": true
     },
     {
-        "id": "677554144592",
-        "url": "https://sf-item.taobao.com/sf_item/677554144592.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
-        "end": 1658887814000,
-        "status": "done",
-        "is_processed": false
+        "id": 677554144592,
+        "市场评估价": 628000,
+        "起拍价格": 502400,
+        "成交价格": 610400,
+        "交易时间": "2022/07/27 10:10:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/677554144592.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 55,
+        "地点": "合肥市瑶海区铜陵北路2#-210室",
+        "所属小区": null,
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": 72.8,
+        "单价": 8384.62,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "678767847842",
-        "url": "https://sf-item.taobao.com/sf_item/678767847842.htm?track_id=bb65ed84-7144-485c-9338-fa746a2ca92a",
-        "end": 1658891956000,
-        "status": "done",
-        "is_processed": false
+        "id": 678767847842,
+        "市场评估价": null,
+        "起拍价格": 1024053,
+        "成交价格": 1180053,
+        "交易时间": "2022/07/27 11:19:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678767847842.htm?track_id=bb65ed84-7144-485c-9338-fa746a2ca92a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市二七区沅江路16号1层附13号",
+        "所属小区": "兴华商物楼",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 70.27,
+        "单价": 16798.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "678056221804",
         "url": "https://sf-item.taobao.com/sf_item/678056221804.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
         "end": 1658889761000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "678626110803",
+        "url": "https://sf-item.taobao.com/sf_item/678626110803.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1658887263000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677969401837",
+        "url": "https://sf-item.taobao.com/sf_item/677969401837.htm?track_id=802501ef-0ab0-410f-b5ee-43532bb45d13",
+        "end": 1658887200000,
         "status": "done",
         "is_processed": false
     }

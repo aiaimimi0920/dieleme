@@ -126,9 +126,44 @@
         "detail_captured": true
     },
     {
-        "id": "982346640495",
-        "url": "https://sf-item.taobao.com/sf_item/982346640495.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
-        "end": 1765702963000,
+        "id": 982346640495,
+        "市场评估价": 488707,
+        "起拍价格": 274000,
+        "成交价格": 274000,
+        "交易时间": "2025/12/14 17:02:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/982346640495.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 秦山街道兴安路663号鸿宸逸庭30幢702室",
+        "所属小区": "鸿宸逸庭",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "秦山",
+        "建筑面积": 76.48,
+        "单价": 3582.67,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "999035328723",
+        "url": "https://sf-item.taobao.com/sf_item/999035328723.htm?track_id=a6175f35-bb37-4759-86f5-ff504978cb24",
+        "end": 1765683487000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "992495107405",
+        "url": "https://sf-item.taobao.com/sf_item/992495107405.htm?track_id=4776eefe-b963-4a12-9978-984c47ec513d",
+        "end": 1765678809000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "982508688307",
+        "url": "https://sf-item.taobao.com/sf_item/982508688307.htm?track_id=7ea40920-fed2-42de-bda6-b8c5278fe902",
+        "end": 1765686068000,
         "status": "done",
         "is_processed": false
     }

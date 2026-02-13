@@ -165,16 +165,17 @@
         "竞拍人数": 1,
         "出价人数": 1,
         "地点": "成都市锦江区梨花街12号1栋1单元3层12号",
-        "所属小区": null,
+        "所属小区": "时代广场",
         "省份": "四川省",
         "城市": "成都市",
         "区": "锦江区",
         "最靠近商圈": "春熙路商圈",
         "建筑面积": 13.37,
-        "单价": 13358.72,
+        "单价": 13350.79,
         "is_processed": true,
         "detail_captured": true,
-        "status": "done"
+        "status": "done",
+        "manual_checked": true
     },
     {
         "id": "573016871316",
@@ -409,9 +410,44 @@
         "detail_captured": true
     },
     {
-        "id": "572979774526",
-        "url": "https://sf-item.taobao.com/sf_item/572979774526.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
-        "end": 1531967443000,
+        "id": 572979774526,
+        "市场评估价": null,
+        "起拍价格": 1357200,
+        "成交价格": 1510200,
+        "交易时间": "2018/07/19 10:30:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572979774526.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 26,
+        "地点": "河南省郑州市二七区勤劳街5号2号楼2905号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": 90.59,
+        "单价": 16670,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "572871409065",
+        "url": "https://sf-item.taobao.com/sf_item/572871409065.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1531967665000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572375081024",
+        "url": "https://sf-item.taobao.com/sf_item/572375081024.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "end": 1531967939000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570473594570",
+        "url": "https://sf-item.taobao.com/sf_item/570473594570.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1531972334000,
         "status": "done",
         "is_processed": false
     }

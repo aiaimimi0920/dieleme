@@ -399,16 +399,79 @@
         "detail_captured": true
     },
     {
-        "id": "845220788856",
-        "url": "https://sf-item.taobao.com/sf_item/845220788856.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
-        "end": 1730985050000,
+        "id": 845220788856,
+        "市场评估价": 1303358.1,
+        "起拍价格": 938417.83,
+        "成交价格": 938417.83,
+        "交易时间": "2024/11/07 21:10:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/845220788856.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 霸州市 霸州市四季花园6-3-202",
+        "所属小区": "四季花园",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "霸州市",
+        "建筑面积": 146.1,
+        "单价": 6422.3,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 830420315581,
+        "市场评估价": 411085,
+        "起拍价格": 230400,
+        "成交价格": 230400,
+        "交易时间": "2024/11/07 13:24:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/830420315581.htm?track_id=6b840f29-02b5-4efb-8294-0385d5579a0c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 北海市 铁山港区 北海市铁山港区南康镇朝阳大道金宸南康花苑1幢3单元503号房屋（包含家具家电",
+        "所属小区": "金宸南康花苑",
+        "省份": "广西壮族自治区",
+        "城市": "北海市",
+        "区": "铁山港区",
+        "最靠近商圈": "南康镇",
+        "建筑面积": 91.11,
+        "单价": 2529.52,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "844348571717",
+        "url": "https://sf-item.taobao.com/sf_item/844348571717.htm?track_id=5fc4c768-6ab1-4407-acf9-835197b7645a",
+        "end": 1730944838000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "830420315581",
-        "url": "https://sf-item.taobao.com/sf_item/830420315581.htm?track_id=6b840f29-02b5-4efb-8294-0385d5579a0c",
-        "end": 1730957090000,
+        "id": "845900065549",
+        "url": "https://sf-item.taobao.com/sf_item/845900065549.htm?track_id=a4454510-a7b4-4b05-a536-3635b364b17e",
+        "end": 1730944800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "845499047346",
+        "url": "https://sf-item.taobao.com/sf_item/845499047346.htm?track_id=fb35d09c-9591-40f4-8668-e4abba953bf0",
+        "end": 1730944800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "846172460942",
+        "url": "https://sf-item.taobao.com/sf_item/846172460942.htm?track_id=fb35d09c-9591-40f4-8668-e4abba953bf0",
+        "end": 1730944800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "845974401416",
+        "url": "https://sf-item.taobao.com/sf_item/845974401416.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
+        "end": 1730945633000,
         "status": "done",
         "is_processed": false
     }

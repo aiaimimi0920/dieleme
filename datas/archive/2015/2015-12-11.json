@@ -148,16 +148,51 @@
         "detail_captured": true
     },
     {
-        "id": "524569085821",
-        "url": "https://sf-item.taobao.com/sf_item/524569085821.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
-        "end": 1449801056000,
-        "status": "done",
-        "is_processed": false
+        "id": 524569085821,
+        "市场评估价": 527100,
+        "起拍价格": 448035,
+        "成交价格": 500035,
+        "交易时间": "2015-12-11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524569085821.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
+        "是否成交": true,
+        "竞拍人数": 27,
+        "出价人数": 27,
+        "地点": "河南省郑州市二七区棉纺东路66号院41号楼20层2001号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 54.54,
+        "单价": 9172.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "524533207892",
         "url": "https://sf-item.taobao.com/sf_item/524533207892.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
         "end": 1449799886000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524362337997",
+        "url": "https://sf-item.taobao.com/sf_item/524362337997.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1449806715000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524361122697",
+        "url": "https://sf-item.taobao.com/sf_item/524361122697.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
+        "end": 1449802520000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524365267822",
+        "url": "https://sf-item.taobao.com/sf_item/524365267822.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1449799809000,
         "status": "done",
         "is_processed": false
     }

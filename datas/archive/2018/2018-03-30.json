@@ -257,16 +257,72 @@
         "detail_captured": true
     },
     {
-        "id": "565069507780",
-        "url": "https://sf-item.taobao.com/sf_item/565069507780.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
-        "end": 1522380152000,
-        "status": "done",
-        "is_processed": false
+        "id": 565069507780,
+        "市场评估价": 3712500,
+        "起拍价格": 2598750,
+        "成交价格": 3013750,
+        "交易时间": "2018/03/30 11:22:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565069507780.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 84,
+        "地点": "河南省 郑州市 二七区 合作路1号院14号楼3单元5层30号",
+        "所属小区": "鑫苑景园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大石桥",
+        "建筑面积": 183.67,
+        "单价": 16409.36,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "564975658990",
         "url": "https://sf-item.taobao.com/sf_item/564975658990.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1522375317000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565110265988",
+        "url": "https://sf-item.taobao.com/sf_item/565110265988.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1522376052000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564982608144",
+        "url": "https://sf-item.taobao.com/sf_item/564982608144.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1522376202000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564921552975",
+        "url": "https://sf-item.taobao.com/sf_item/564921552975.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1522377247000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565933435443",
+        "url": "https://sf-item.taobao.com/sf_item/565933435443.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1522376892000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565108369290",
+        "url": "https://sf-item.taobao.com/sf_item/565108369290.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1522375200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564998740380",
+        "url": "https://sf-item.taobao.com/sf_item/564998740380.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1522378850000,
         "status": "done",
         "is_processed": false
     }

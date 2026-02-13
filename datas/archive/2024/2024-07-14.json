@@ -196,11 +196,25 @@
         "is_processed": false
     },
     {
-        "id": "804888646187",
-        "url": "https://sf-item.taobao.com/sf_item/804888646187.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
-        "end": 1720922400000,
-        "status": "done",
-        "is_processed": false
+        "id": 804888646187,
+        "市场评估价": 513525,
+        "起拍价格": 360000,
+        "成交价格": 360000,
+        "交易时间": "2024/07/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/804888646187.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 园洲镇振兴大道南面汇景新城C栋2008的房产",
+        "所属小区": "汇景新城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "园洲",
+        "建筑面积": 100.2,
+        "单价": 3592.81,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "790301048106",
@@ -210,11 +224,25 @@
         "is_processed": false
     },
     {
-        "id": "805448725171",
-        "url": "https://sf-item.taobao.com/sf_item/805448725171.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
-        "end": 1720922400000,
-        "status": "done",
-        "is_processed": false
+        "id": 805448725171,
+        "市场评估价": null,
+        "起拍价格": 750690,
+        "成交价格": 750690,
+        "交易时间": "2024/07/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/805448725171.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 未央路69号1幢20702室（华迪大厦）",
+        "所属小区": "华迪大厦",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "龙首原",
+        "建筑面积": 107.99,
+        "单价": 6955.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "807856250767",
@@ -224,16 +252,37 @@
         "is_processed": false
     },
     {
-        "id": "807864698359",
-        "url": "https://sf-item.taobao.com/sf_item/807864698359.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
-        "end": 1720927872000,
-        "status": "done",
-        "is_processed": false
+        "id": 807864698359,
+        "市场评估价": null,
+        "起拍价格": 6720,
+        "成交价格": 7122,
+        "交易时间": "2024/07/14 11:31:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/807864698359.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省云浮市郁南县都城镇一环路两广市场右侧丰茂大厦二层",
+        "所属小区": "丰茂大厦",
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "805638033048",
         "url": "https://sf-item.taobao.com/sf_item/805638033048.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1720922400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "809783111195",
+        "url": "https://sf-item.taobao.com/sf_item/809783111195.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1720925474000,
         "status": "done",
         "is_processed": false
     }

@@ -336,9 +336,37 @@
         "detail_captured": true
     },
     {
-        "id": "611730395753",
-        "url": "https://sf-item.taobao.com/sf_item/611730395753.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
-        "end": 1580436800000,
+        "id": 611730395753,
+        "市场评估价": 479400,
+        "起拍价格": 345168,
+        "成交价格": 380168,
+        "交易时间": "2020/01/31 10:13:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611730395753.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 15,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 龙山大道桃溪园3栋2单元102号",
+        "所属小区": "桃溪园",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "龙山大道",
+        "建筑面积": 114.11,
+        "单价": 3331.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "611455366748",
+        "url": "https://sf-item.taobao.com/sf_item/611455366748.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1580437404000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611738451395",
+        "url": "https://sf-item.taobao.com/sf_item/611738451395.htm?track_id=269f7c8e-7c43-472e-9c90-32f75befe4fb",
+        "end": 1580436063000,
         "status": "done",
         "is_processed": false
     }

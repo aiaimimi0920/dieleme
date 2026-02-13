@@ -119,15 +119,16 @@
         "竞拍人数": 71,
         "出价人数": null,
         "地点": "江苏省 徐州市 鼓楼区 九里村四组",
-        "所属小区": null,
+        "所属小区": "九里村",
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
-        "最靠近商圈": null,
+        "最靠近商圈": "九里",
         "建筑面积": 207.83,
-        "单价": 5944.46,
+        "单价": 5942.36,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 584328913390,
@@ -272,9 +273,10 @@
         "区": "广饶县",
         "最靠近商圈": null,
         "建筑面积": 324.6,
-        "单价": 11056.54,
+        "单价": 11054.25,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 584387282241,
@@ -298,18 +300,46 @@
         "detail_captured": true
     },
     {
-        "id": "584457342432",
-        "url": "https://sf-item.taobao.com/sf_item/584457342432.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
-        "end": 1547950458000,
-        "status": "done",
-        "is_processed": false
+        "id": 584457342432,
+        "市场评估价": 0,
+        "起拍价格": 1530887.4,
+        "成交价格": 1820887.4,
+        "交易时间": "2019/01/20 10:14:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/584457342432.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 30,
+        "地点": "内蒙古自治区 包头市 昆都仑区 民族东路西北侧欧风丽景小区12-407",
+        "所属小区": "欧风丽景小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "昆都仑区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "584299705629",
-        "url": "https://sf-item.taobao.com/sf_item/584299705629.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
-        "end": 1547952655000,
-        "status": "done",
-        "is_processed": false
+        "id": 584299705629,
+        "市场评估价": 557000,
+        "起拍价格": 389900,
+        "成交价格": 512900,
+        "交易时间": "2019-01-20 10:50:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/584299705629.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
+        "是否成交": true,
+        "竞拍人数": 42,
+        "出价人数": null,
+        "地点": "四川省 资阳市 乐至县 天池镇帅乡大道南城豪庭1幢2单元17楼1号住宅",
+        "所属小区": "南城豪庭",
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "584362362606",
@@ -359,5 +389,12 @@
         "单价": 5970.08,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "585053280431",
+        "url": "https://sf-item.taobao.com/sf_item/585053280431.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
+        "end": 1547949600000,
+        "status": "done",
+        "is_processed": false
     }
 ]

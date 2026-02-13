@@ -240,12 +240,25 @@
         "原始网站": "https://sf-item.taobao.com/sf_item/661378847357.htm"
     },
     {
-        "id": "657660240414",
-        "url": "https://sf-item.taobao.com/sf_item/657660240414.htm?track_id=a47cc26b-fb23-41c9-9221-470af2883939",
-        "end": 1638634382000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/657660240414.htm"
+        "id": 657660240414,
+        "市场评估价": null,
+        "起拍价格": 756293.82,
+        "成交价格": 756293.82,
+        "交易时间": "2021/12/05 00:13:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657660240414.htm?track_id=a47cc26b-fb23-41c9-9221-470af2883939",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省淮安市淮安区经济技术开发区迎宾大道1号1幢1-13室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 661020330774,
@@ -332,10 +345,24 @@
         "detail_captured": true
     },
     {
-        "id": "659328342905",
-        "url": "https://sf-item.taobao.com/sf_item/659328342905.htm?track_id=071853d6-ddf2-4e6c-b06a-71a1cdc67745",
-        "end": 1638611839000,
-        "status": "done",
-        "is_processed": false
+        "id": 659328342905,
+        "市场评估价": null,
+        "起拍价格": 1320000,
+        "成交价格": 1320000,
+        "交易时间": "2021/12/04 17:57:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/659328342905.htm?track_id=071853d6-ddf2-4e6c-b06a-71a1cdc67745",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "云南省丽江市华坪县荣将镇荣将社区三组",
+        "所属小区": "鸿泰康城",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "荣将镇",
+        "建筑面积": 643.97,
+        "单价": 2050.02,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

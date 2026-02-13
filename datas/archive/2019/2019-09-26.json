@@ -358,23 +358,58 @@
         "detail_captured": true
     },
     {
-        "id": "601656863447",
-        "url": "https://sf-item.taobao.com/sf_item/601656863447.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1569463200000,
-        "status": "done",
-        "is_processed": false
+        "id": 601656863447,
+        "市场评估价": 231557.62,
+        "起拍价格": 185246.1,
+        "成交价格": 231557.62,
+        "交易时间": "2019/09/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/601656863447.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 6,
+        "地点": "河南省 郑州市 新密市 青峰西路1号楼东单元2层西户",
+        "所属小区": "青峰西路段",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市区",
+        "建筑面积": 84.29,
+        "单价": 2747.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "602346529610",
-        "url": "https://sf-item.taobao.com/sf_item/602346529610.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
-        "end": 1569466155000,
-        "status": "done",
-        "is_processed": false
+        "id": 602346529610,
+        "市场评估价": 650000,
+        "起拍价格": 520000,
+        "成交价格": 584000,
+        "交易时间": "2019-09-26 10:49:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/602346529610.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "是否成交": true,
+        "竞拍人数": 25,
+        "出价人数": 25,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 都匀市天乐路10号全欣大厦1单元16跃层1607号",
+        "所属小区": "全欣大厦",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "都匀市中心",
+        "建筑面积": 220.35,
+        "单价": 2650.33,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "601334374215",
         "url": "https://sf-item.taobao.com/sf_item/601334374215.htm?track_id=0c00c899-c0ca-4cde-9de0-12bba8db97b1",
         "end": 1569471054000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601081845880",
+        "url": "https://sf-item.taobao.com/sf_item/601081845880.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "end": 1569463666000,
         "status": "done",
         "is_processed": false
     }

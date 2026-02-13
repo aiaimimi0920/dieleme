@@ -441,18 +441,46 @@
         "detail_captured": true
     },
     {
-        "id": "600150955243",
-        "url": "https://sf-item.taobao.com/sf_item/600150955243.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
-        "end": 1567649952000,
-        "status": "done",
-        "is_processed": false
+        "id": 600150955243,
+        "市场评估价": 464248,
+        "起拍价格": 324974,
+        "成交价格": 336974,
+        "交易时间": "2019-09-05 10:19:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600150955243.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 13,
+        "地点": "辽宁省 沈阳市 铁西区 艳欣街16-1号5-3-3",
+        "所属小区": "艳欣小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 72.91,
+        "单价": 4623.18,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "600763412482",
-        "url": "https://sf-item.taobao.com/sf_item/600763412482.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
-        "end": 1567649765000,
-        "status": "done",
-        "is_processed": false
+        "id": 600763412482,
+        "市场评估价": 1068634,
+        "起拍价格": 660000,
+        "成交价格": 700000,
+        "交易时间": "2019/09/05 10:16:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600763412482.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 21,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 斗篷山路23号西苑大厦",
+        "所属小区": "西苑大厦",
+        "省份": "贵州省",
+        "城市": "都匀市",
+        "区": null,
+        "最靠近商圈": "斗篷山路",
+        "建筑面积": 207.18,
+        "单价": 3379.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "601002161006",
@@ -462,16 +490,58 @@
         "is_processed": false
     },
     {
-        "id": "600205983869",
-        "url": "https://sf-item.taobao.com/sf_item/600205983869.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
-        "end": 1567651349000,
-        "status": "done",
-        "is_processed": false
+        "id": 600205983869,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1003500,
+        "交易时间": "2019-09-05 10:42:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600205983869.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
+        "是否成交": true,
+        "竞拍人数": 43,
+        "出价人数": 43,
+        "地点": "河南省 郑州市 二七区 南宏路南嵩山南路东8号楼一单元19层1905（现为1904）",
+        "所属小区": "招商天地华府",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 89,
+        "单价": 11273.6,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "601189282087",
         "url": "https://sf-item.taobao.com/sf_item/601189282087.htm?track_id=9d62b742-b4d8-4891-b062-beb125515e21",
         "end": 1567650822000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "597046404477",
+        "url": "https://sf-item.taobao.com/sf_item/597046404477.htm?track_id=0f72315c-33a4-418f-8ce6-c0b1970f71d9",
+        "end": 1567658403000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598965956591",
+        "url": "https://sf-item.taobao.com/sf_item/598965956591.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1567657447000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598969744599",
+        "url": "https://sf-item.taobao.com/sf_item/598969744599.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1567657079000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601046441701",
+        "url": "https://sf-item.taobao.com/sf_item/601046441701.htm?track_id=3b36e442-fd18-4c67-9caf-4ea62c7a61cd",
+        "end": 1567648800000,
         "status": "done",
         "is_processed": false
     }

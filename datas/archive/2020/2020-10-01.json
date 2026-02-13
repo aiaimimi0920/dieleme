@@ -295,9 +295,51 @@
         "detail_captured": true
     },
     {
-        "id": "627351238335",
-        "url": "https://sf-item.taobao.com/sf_item/627351238335.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
-        "end": 1601517751000,
+        "id": 627351238335,
+        "市场评估价": null,
+        "起拍价格": 286065,
+        "成交价格": 310065,
+        "交易时间": "2020-10-01T10:02:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/627351238335.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 新村路25号4单元302室",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 107.77,
+        "单价": 2877.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "623634772516",
+        "url": "https://sf-item.taobao.com/sf_item/623634772516.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1601517676000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "627001261843",
+        "url": "https://sf-item.taobao.com/sf_item/627001261843.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1601517600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625398444094",
+        "url": "https://sf-item.taobao.com/sf_item/625398444094.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1601519297000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625634076411",
+        "url": "https://sf-item.taobao.com/sf_item/625634076411.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1601519599000,
         "status": "done",
         "is_processed": false
     }

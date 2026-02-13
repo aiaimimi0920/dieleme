@@ -149,9 +149,30 @@
         "detail_captured": true
     },
     {
-        "id": "556397421824",
-        "url": "https://sf-item.taobao.com/sf_item/556397421824.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
-        "end": 1504493138000,
+        "id": 556397421824,
+        "市场评估价": null,
+        "起拍价格": 830000,
+        "成交价格": 1250000,
+        "交易时间": "2017-09-04 10:45:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556397421824.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
+        "是否成交": true,
+        "竞拍人数": 79,
+        "出价人数": 79,
+        "地点": "江苏省 无锡市 梁溪区 无锡市人民中路88-1616",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": 63.61,
+        "单价": 19645.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "556442682952",
+        "url": "https://sf-item.taobao.com/sf_item/556442682952.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
+        "end": 1504493407000,
         "status": "done",
         "is_processed": false
     }

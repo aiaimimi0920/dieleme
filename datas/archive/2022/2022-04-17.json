@@ -196,9 +196,30 @@
         "is_processed": false
     },
     {
-        "id": "670830104019",
-        "url": "https://sf-item.taobao.com/sf_item/670830104019.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
-        "end": 1650163282000,
+        "id": 670830104019,
+        "市场评估价": null,
+        "起拍价格": 2080000,
+        "成交价格": 2180000,
+        "交易时间": "2022-04-17 10:41:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/670830104019.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 泉州市 安溪县 安溪县宝龙城市广场国际社区1#2-1601房",
+        "所属小区": "宝龙城市广场国际社区",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "宝龙商圈",
+        "建筑面积": 177.39,
+        "单价": 12292.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "671224661938",
+        "url": "https://sf-item.taobao.com/sf_item/671224661938.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1650205955000,
         "status": "done",
         "is_processed": false
     }

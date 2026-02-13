@@ -834,11 +834,25 @@
         "detail_captured": true
     },
     {
-        "id": "561503019125",
-        "url": "https://sf-item.taobao.com/sf_item/561503019125.htm?track_id=d3b98f13-6b01-489a-81f5-130926bf6037",
-        "end": 1513309318000,
-        "status": "done",
-        "is_processed": false
+        "id": 561503019125,
+        "市场评估价": 62699300,
+        "起拍价格": 43889510,
+        "成交价格": 50189510,
+        "交易时间": "2017-12-15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561503019125.htm?track_id=d3b98f13-6b01-489a-81f5-130926bf6037",
+        "是否成交": true,
+        "竞拍人数": 55,
+        "出价人数": 55,
+        "地点": "江苏省无锡市锡山区东亭镇锡沪路",
+        "所属小区": "长城大酒店",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭商圈",
+        "建筑面积": 4286.93,
+        "单价": 11705.12,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "561428478272",
@@ -848,18 +862,46 @@
         "is_processed": false
     },
     {
-        "id": "562039185940",
-        "url": "https://sf-item.taobao.com/sf_item/562039185940.htm?track_id=c3263236-9027-4790-98db-026890358103",
-        "end": 1513303200000,
-        "status": "done",
-        "is_processed": false
+        "id": 562039185940,
+        "市场评估价": null,
+        "起拍价格": 138635,
+        "成交价格": 138635,
+        "交易时间": "2017-12-15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562039185940.htm?track_id=c3263236-9027-4790-98db-026890358103",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 呼伦贝尔市 牙克石市",
+        "所属小区": "滨河湾佳园",
+        "省份": "内蒙古自治区",
+        "城市": "呼伦贝尔市",
+        "区": "牙克石市",
+        "最靠近商圈": null,
+        "建筑面积": 68.34,
+        "单价": 2029.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "562109666516",
-        "url": "https://sf-item.taobao.com/sf_item/562109666516.htm?track_id=c3263236-9027-4790-98db-026890358103",
-        "end": 1513303200000,
-        "status": "done",
-        "is_processed": false
+        "id": 562109666516,
+        "市场评估价": null,
+        "起拍价格": 139400,
+        "成交价格": 139400,
+        "交易时间": "2017/12/15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562109666516.htm?track_id=c3263236-9027-4790-98db-026890358103",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 呼伦贝尔市 牙克石市",
+        "所属小区": "滨河湾佳园",
+        "省份": "内蒙古自治区",
+        "城市": "呼伦贝尔市",
+        "区": "牙克石市",
+        "最靠近商圈": "市中心",
+        "建筑面积": 68.34,
+        "单价": 2040.45,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "561241837660",
@@ -872,6 +914,27 @@
         "id": "561258645409",
         "url": "https://sf-item.taobao.com/sf_item/561258645409.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
         "end": 1513304013000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562174495233",
+        "url": "https://sf-item.taobao.com/sf_item/562174495233.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
+        "end": 1513303200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561423850565",
+        "url": "https://sf-item.taobao.com/sf_item/561423850565.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1513304380000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561363261795",
+        "url": "https://sf-item.taobao.com/sf_item/561363261795.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1513304206000,
         "status": "done",
         "is_processed": false
     }

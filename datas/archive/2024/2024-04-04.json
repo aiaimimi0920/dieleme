@@ -148,16 +148,37 @@
         "detail_captured": true
     },
     {
-        "id": "769796303925",
-        "url": "https://sf-item.taobao.com/sf_item/769796303925.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
-        "end": 1712196294000,
-        "status": "done",
-        "is_processed": false
+        "id": 769796303925,
+        "市场评估价": 0,
+        "起拍价格": 594078,
+        "成交价格": 594078,
+        "交易时间": "2024/04/04 10:04:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/769796303925.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 城区平安路南段西侧、栖霞街南侧祥和·新街坊6号楼1单元17层1701（不动产权证号：1601006716）房产一处",
+        "所属小区": "祥和·新街坊",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密城区",
+        "建筑面积": 138.47,
+        "单价": 4290.85,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "765056246392",
         "url": "https://sf-item.taobao.com/sf_item/765056246392.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1712197134000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "775073757212",
+        "url": "https://sf-item.taobao.com/sf_item/775073757212.htm?track_id=6aabcd90-810d-43c8-9914-e7c57096882b",
+        "end": 1712203168000,
         "status": "done",
         "is_processed": false
     }

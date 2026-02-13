@@ -214,10 +214,24 @@
         "detail_captured": true
     },
     {
-        "id": "563994106317",
-        "url": "https://sf-item.taobao.com/sf_item/563994106317.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
-        "end": 1517191552000,
-        "status": "done",
-        "is_processed": false
+        "id": 563994106317,
+        "市场评估价": 855888,
+        "起拍价格": 479298,
+        "成交价格": 718898,
+        "交易时间": "2018/01/29 10:05:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563994106317.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 39,
+        "地点": "吉林省吉林市船营区大唐",
+        "所属小区": "大唐天下江山",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "大唐",
+        "建筑面积": 131.88,
+        "单价": 5450.99,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

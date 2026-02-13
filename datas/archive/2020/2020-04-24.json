@@ -238,11 +238,25 @@
         "is_processed": false
     },
     {
-        "id": "615651386549",
-        "url": "https://sf-item.taobao.com/sf_item/615651386549.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
-        "end": 1587695752000,
-        "status": "done",
-        "is_processed": false
+        "id": 615651386549,
+        "市场评估价": null,
+        "起拍价格": 11320000,
+        "成交价格": 14370000,
+        "交易时间": "2020-04-24T10:35:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/615651386549.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 通策广场2幢501室",
+        "所属小区": "通策广场",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 1346.33,
+        "单价": 10672.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "615113592161",
@@ -252,11 +266,25 @@
         "is_processed": false
     },
     {
-        "id": "613944897811",
-        "url": "https://sf-item.taobao.com/sf_item/613944897811.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
-        "end": 1587696892000,
-        "status": "done",
-        "is_processed": false
+        "id": 613944897811,
+        "市场评估价": null,
+        "起拍价格": 9500000,
+        "成交价格": 15060000,
+        "交易时间": "2020/04/24 10:54:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/613944897811.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 62,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道御涛轩5幢1单元402室",
+        "所属小区": "御涛轩",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿板块",
+        "建筑面积": 252.71,
+        "单价": 59586.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "613942891680",
@@ -269,6 +297,41 @@
         "id": "614373410773",
         "url": "https://sf-item.taobao.com/sf_item/614373410773.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
         "end": 1587694362000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "614394746664",
+        "url": "https://sf-item.taobao.com/sf_item/614394746664.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1587704601000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613618056010",
+        "url": "https://sf-item.taobao.com/sf_item/613618056010.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1587696314000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "614635263832",
+        "url": "https://sf-item.taobao.com/sf_item/614635263832.htm?track_id=13522d09-c2bb-419f-9fee-29d88a0e165a",
+        "end": 1587696264000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "615325913297",
+        "url": "https://sf-item.taobao.com/sf_item/615325913297.htm?track_id=89143a92-a511-4287-9fd0-7f485c07af6e",
+        "end": 1587693600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613753693883",
+        "url": "https://sf-item.taobao.com/sf_item/613753693883.htm?track_id=269f7c8e-7c43-472e-9c90-32f75befe4fb",
+        "end": 1587693600000,
         "status": "done",
         "is_processed": false
     }

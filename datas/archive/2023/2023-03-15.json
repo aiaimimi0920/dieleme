@@ -422,12 +422,25 @@
         "detail_captured": true
     },
     {
-        "id": "696277470737",
-        "url": "https://sf-item.taobao.com/sf_item/696277470737.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
-        "end": 1678865241000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/696277470737.htm"
+        "id": 696277470737,
+        "市场评估价": 665837,
+        "起拍价格": 208806.56,
+        "成交价格": 208806.56,
+        "交易时间": "2023/03/15 15:27:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696277470737.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省张家口市怀来县金秋家园二期12-1-202",
+        "所属小区": "金秋家园二期",
+        "省份": "河北省",
+        "城市": "张家口市",
+        "区": "怀来县",
+        "最靠近商圈": "沙城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "701779949663",
@@ -440,6 +453,13 @@
         "id": "703990020104",
         "url": "https://sf-item.taobao.com/sf_item/703990020104.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1678845600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701726675333",
+        "url": "https://sf-item.taobao.com/sf_item/701726675333.htm?track_id=c9d350ba-1b65-4e91-8615-aaa681af9d56",
+        "end": 1678857489000,
         "status": "done",
         "is_processed": false
     }

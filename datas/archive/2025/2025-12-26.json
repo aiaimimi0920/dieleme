@@ -1395,11 +1395,25 @@
         "detail_captured": true
     },
     {
-        "id": "1002624908851",
-        "url": "https://sf-item.taobao.com/sf_item/1002624908851.htm?track_id=e8c17455-3f41-4cf2-86a4-facef0c109ce",
-        "end": 1766714434000,
-        "status": "done",
-        "is_processed": false
+        "id": 1002624908851,
+        "市场评估价": null,
+        "起拍价格": 1205720,
+        "成交价格": 1205720,
+        "交易时间": "2025-12-26 10:00:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1002624908851.htm?track_id=e8c17455-3f41-4cf2-86a4-facef0c109ce",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省遵义市汇川区人民路森林苑一期A、B栋A栋32-1号",
+        "所属小区": "森林苑",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": 243.39,
+        "单价": 4955.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "1002500572453",
@@ -1423,23 +1437,142 @@
         "is_processed": false
     },
     {
-        "id": "1001068894281",
-        "url": "https://sf-item.taobao.com/sf_item/1001068894281.htm?track_id=5984ec99-f57e-41fa-b161-c6b01e8eae21",
-        "end": 1766718832000,
+        "id": 1001068894281,
+        "市场评估价": 0,
+        "起拍价格": 40000,
+        "成交价格": 60000,
+        "交易时间": "2025/12/26 11:13:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1001068894281.htm?track_id=5984ec99-f57e-41fa-b161-c6b01e8eae21",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 46,
+        "地点": "广西壮族自治区 贵港市 桂平市 广西桂平市西山镇新岗村福桂三千城花漾里地下室-B1C082号车位",
+        "所属小区": "福桂三千城花漾里",
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "西山镇",
+        "建筑面积": 32.83,
+        "单价": 1828.17,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 1002531256858,
+        "市场评估价": null,
+        "起拍价格": 40000,
+        "成交价格": 56800,
+        "交易时间": "2025-12-26 13:22:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1002531256858.htm?track_id=5984ec99-f57e-41fa-b161-c6b01e8eae21",
+        "是否成交": true,
+        "竞拍人数": 42,
+        "出价人数": null,
+        "地点": "广西壮族自治区 贵港市 桂平市 广西桂平市西山镇新岗村福桂三千城花漾里地下室-B1C080号车位",
+        "所属小区": "福桂三千城花漾里",
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": null,
+        "建筑面积": 32.83,
+        "单价": 1731.34,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 1001377417724,
+        "市场评估价": 161000,
+        "起拍价格": 90200,
+        "成交价格": 90200,
+        "交易时间": "2025/12/26 12:42:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1001377417724.htm?track_id=77b3d34f-dba3-444c-81d4-83ee428253c1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 海盐县沈荡镇镇东南路244号镇东南路、林家路商业楼2幢321室",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "沈荡镇",
+        "建筑面积": 45.77,
+        "单价": 1970.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "998121652268",
+        "url": "https://sf-item.taobao.com/sf_item/998121652268.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1766721547000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "1002531256858",
-        "url": "https://sf-item.taobao.com/sf_item/1002531256858.htm?track_id=5984ec99-f57e-41fa-b161-c6b01e8eae21",
-        "end": 1766726556000,
+        "id": "996718220190",
+        "url": "https://sf-item.taobao.com/sf_item/996718220190.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1766716728000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "1001377417724",
-        "url": "https://sf-item.taobao.com/sf_item/1001377417724.htm?track_id=77b3d34f-dba3-444c-81d4-83ee428253c1",
-        "end": 1766724144000,
+        "id": "996716400428",
+        "url": "https://sf-item.taobao.com/sf_item/996716400428.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1766714473000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1000008391300",
+        "url": "https://sf-item.taobao.com/sf_item/1000008391300.htm?track_id=51ac8b9e-9dcd-4f34-9958-1d4a363cb642",
+        "end": 1766716563000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "997388705236",
+        "url": "https://sf-item.taobao.com/sf_item/997388705236.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1766721491000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1002557944958",
+        "url": "https://sf-item.taobao.com/sf_item/1002557944958.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1766719664000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1001732505517",
+        "url": "https://sf-item.taobao.com/sf_item/1001732505517.htm?track_id=28e60be4-916f-4210-b04b-4de12abb78d2",
+        "end": 1766714400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1000462047053",
+        "url": "https://sf-item.taobao.com/sf_item/1000462047053.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1766715446000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1000982790140",
+        "url": "https://sf-item.taobao.com/sf_item/1000982790140.htm?track_id=00bf6ac6-5a2b-41b1-a113-09d350449c79",
+        "end": 1766743679000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "998131072648",
+        "url": "https://sf-item.taobao.com/sf_item/998131072648.htm?track_id=4485b87f-3c5b-498d-9604-a8ee5c93b154",
+        "end": 1766716062000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "995938871435",
+        "url": "https://sf-item.taobao.com/sf_item/995938871435.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1766716118000,
         "status": "done",
         "is_processed": false
     }

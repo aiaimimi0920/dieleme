@@ -507,11 +507,25 @@
         "detail_captured": true
     },
     {
-        "id": "797854883263",
-        "url": "https://sf-item.taobao.com/sf_item/797854883263.htm?track_id=2b62575d-0413-4703-92f3-5a18bf4482ae",
-        "end": 1717647002000,
-        "status": "done",
-        "is_processed": false
+        "id": 797854883263,
+        "市场评估价": null,
+        "起拍价格": 833654,
+        "成交价格": 983654,
+        "交易时间": "2024-06-06 12:10:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/797854883263.htm?track_id=2b62575d-0413-4703-92f3-5a18bf4482ae",
+        "是否成交": true,
+        "竞拍人数": 51,
+        "出价人数": 49,
+        "地点": "陕西省 西安市 未央区 北二环10号3幢",
+        "所属小区": "未央区北二环10号3幢",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "未央路商圈",
+        "建筑面积": 154.81,
+        "单价": 6352.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "789404541071",
@@ -528,16 +542,58 @@
         "is_processed": false
     },
     {
-        "id": "797939387710",
-        "url": "https://sf-item.taobao.com/sf_item/797939387710.htm?track_id=c3263236-9027-4790-98db-026890358103",
-        "end": 1717642255000,
-        "status": "done",
-        "is_processed": false
+        "id": 797939387710,
+        "市场评估价": 246200,
+        "起拍价格": 167416,
+        "成交价格": 220416,
+        "交易时间": "2024-06-06T10:50:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/797939387710.htm?track_id=c3263236-9027-4790-98db-026890358103",
+        "是否成交": true,
+        "竞拍人数": 51,
+        "出价人数": 49,
+        "地点": "内蒙古自治区 呼伦贝尔市 牙克石市 阳光小区三期",
+        "所属小区": "阳光小区三期",
+        "省份": "内蒙古自治区",
+        "城市": "呼伦贝尔市",
+        "区": "牙克石市",
+        "最靠近商圈": "牙克石市中心",
+        "建筑面积": 71,
+        "单价": 3105.61,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "798025097895",
         "url": "https://sf-item.taobao.com/sf_item/798025097895.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
         "end": 1717641245000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "798026106592",
+        "url": "https://sf-item.taobao.com/sf_item/798026106592.htm?track_id=bcfea102-99f4-4d3a-aa3e-f06b59c7474b",
+        "end": 1717639212000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "798067852933",
+        "url": "https://sf-item.taobao.com/sf_item/798067852933.htm?track_id=8b419dc7-cda7-4057-8901-42ba60db8b13",
+        "end": 1717640358000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "793572124584",
+        "url": "https://sf-item.taobao.com/sf_item/793572124584.htm?track_id=7c151630-b847-4af4-a435-456209157b57",
+        "end": 1717639899000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "795954032989",
+        "url": "https://sf-item.taobao.com/sf_item/795954032989.htm?track_id=d6b81b23-6b98-4054-93da-db45c73c9f79",
+        "end": 1717639370000,
         "status": "done",
         "is_processed": false
     }

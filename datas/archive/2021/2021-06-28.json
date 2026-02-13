@@ -358,12 +358,25 @@
         "detail_captured": true
     },
     {
-        "id": "645179240235",
-        "url": "https://sf-item.taobao.com/sf_item/645179240235.htm?track_id=d08581cf-7528-4c36-a90f-b5eef0ef438a",
-        "end": 1624846837000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/645179240235.htm"
+        "id": 645179240235,
+        "市场评估价": null,
+        "起拍价格": 598054.1,
+        "成交价格": 826054.1,
+        "交易时间": "2021-06-28T10:20:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/645179240235.htm?track_id=d08581cf-7528-4c36-a90f-b5eef0ef438a",
+        "是否成交": true,
+        "竞拍人数": 34,
+        "出价人数": 34,
+        "地点": "江苏省淮安市淮安区书香门第3-08号楼2201室",
+        "所属小区": "书香门第",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 647187533994,
@@ -408,18 +421,46 @@
         "detail_captured": true
     },
     {
-        "id": "646735316672",
-        "url": "https://sf-item.taobao.com/sf_item/646735316672.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
-        "end": 1624845600000,
-        "status": "done",
-        "is_processed": false
+        "id": 646735316672,
+        "市场评估价": 1434787.2,
+        "起拍价格": 803480.832,
+        "成交价格": 803480.83,
+        "交易时间": "2021/06/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/646735316672.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 天池镇文庙街“尚锦秀庭”一期3#楼第1层4号、5号、6号",
+        "所属小区": "尚锦秀庭",
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "645265856875",
-        "url": "https://sf-item.taobao.com/sf_item/645265856875.htm?track_id=4b5a9960-ce5b-4518-83a2-39c7f885432d",
-        "end": 1624847468000,
-        "status": "done",
-        "is_processed": false
+        "id": 645265856875,
+        "市场评估价": null,
+        "起拍价格": 1200000,
+        "成交价格": 1445000,
+        "交易时间": "2021/06/28 10:31:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/645265856875.htm?track_id=4b5a9960-ce5b-4518-83a2-39c7f885432d",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": 38,
+        "地点": "陕西省 西安市 未央区 草滩街道办东风路3幢21001室房屋",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": null,
+        "建筑面积": 120.62,
+        "单价": 11985.26,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "647168201644",
@@ -439,6 +480,27 @@
         "id": "645669777685",
         "url": "https://sf-item.taobao.com/sf_item/645669777685.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
         "end": 1624848771000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646270171693",
+        "url": "https://sf-item.taobao.com/sf_item/646270171693.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "end": 1624846036000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "645289440924",
+        "url": "https://sf-item.taobao.com/sf_item/645289440924.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1624846842000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646778084887",
+        "url": "https://sf-item.taobao.com/sf_item/646778084887.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1624845600000,
         "status": "done",
         "is_processed": false
     }

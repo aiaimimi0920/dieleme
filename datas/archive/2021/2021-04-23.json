@@ -386,18 +386,46 @@
         "is_processed": false
     },
     {
-        "id": "640467745017",
-        "url": "https://sf-item.taobao.com/sf_item/640467745017.htm?track_id=110cae27-78c2-4291-8b1b-70244e446202",
-        "end": 1619147134000,
-        "status": "done",
-        "is_processed": false
+        "id": 640467745017,
+        "市场评估价": 201129,
+        "起拍价格": 140791,
+        "成交价格": 172791,
+        "交易时间": "2021/04/23 11:05:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/640467745017.htm?track_id=110cae27-78c2-4291-8b1b-70244e446202",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 29,
+        "地点": "辽宁省 沈阳市 铁西区 北一西路23号2-4-1",
+        "所属小区": "锅炉厂小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "北一西路",
+        "建筑面积": 38.56,
+        "单价": 4482.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "642023266853",
-        "url": "https://sf-item.taobao.com/sf_item/642023266853.htm?track_id=3cd0e4d1-9631-49bf-9bf5-2e2d655dc96b",
-        "end": 1619143200000,
-        "status": "done",
-        "is_processed": false
+        "id": 642023266853,
+        "市场评估价": 248149,
+        "起拍价格": 170000,
+        "成交价格": 170000,
+        "交易时间": "2021/04/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642023266853.htm?track_id=3cd0e4d1-9631-49bf-9bf5-2e2d655dc96b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 开发区纬三路三和大厦A栋1层4号",
+        "所属小区": "三和大厦",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "开发区",
+        "建筑面积": 47.42,
+        "单价": 3585.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "641674505614",
@@ -407,11 +435,25 @@
         "is_processed": false
     },
     {
-        "id": "642018382402",
-        "url": "https://sf-item.taobao.com/sf_item/642018382402.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
-        "end": 1619144431000,
-        "status": "done",
-        "is_processed": false
+        "id": 642018382402,
+        "市场评估价": null,
+        "起拍价格": 752768,
+        "成交价格": 864768,
+        "交易时间": "2021/04/23 10:20:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642018382402.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 15,
+        "地点": "江西省 鹰潭市 贵溪市 冶金大道西侧泰盛居小区4#楼103室商业房产一套",
+        "所属小区": "泰盛居小区",
+        "省份": "江西省",
+        "城市": "鹰潭市",
+        "区": "贵溪市",
+        "最靠近商圈": "冶金大道",
+        "建筑面积": 91.53,
+        "单价": 9446.85,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "641044606377",
@@ -431,6 +473,20 @@
         "id": "640913163226",
         "url": "https://sf-item.taobao.com/sf_item/640913163226.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
         "end": 1619145186000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "640322160802",
+        "url": "https://sf-item.taobao.com/sf_item/640322160802.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1619148600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638371080152",
+        "url": "https://sf-item.taobao.com/sf_item/638371080152.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1619148811000,
         "status": "done",
         "is_processed": false
     }

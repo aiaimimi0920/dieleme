@@ -384,23 +384,79 @@
         "detail_captured": true
     },
     {
-        "id": "566345482575",
-        "url": "https://sf-item.taobao.com/sf_item/566345482575.htm?track_id=10beff77-cbfd-4062-96ee-37ea0a0eb7cf",
-        "end": 1524794856000,
-        "status": "done",
-        "is_processed": false
+        "id": 566345482575,
+        "市场评估价": 358527,
+        "起拍价格": 286822,
+        "成交价格": 340822,
+        "交易时间": "2018/04/27 10:07:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/566345482575.htm?track_id=10beff77-cbfd-4062-96ee-37ea0a0eb7cf",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 20,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 文艺胡同",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "爱丹路商圈",
+        "建筑面积": 91.93,
+        "单价": 3706.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "567577203505",
-        "url": "https://sf-item.taobao.com/sf_item/567577203505.htm?track_id=39151f44-c8e6-4909-a96a-5342e8b2e652",
-        "end": 1524794400000,
-        "status": "done",
-        "is_processed": false
+        "id": 567577203505,
+        "市场评估价": 857000,
+        "起拍价格": 685600,
+        "成交价格": 685600,
+        "交易时间": "2018/04/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/567577203505.htm?track_id=39151f44-c8e6-4909-a96a-5342e8b2e652",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 土默特右旗 萨拉齐镇胜源阳光小区商业楼",
+        "所属小区": "胜源阳光小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "土默特右旗",
+        "最靠近商圈": "萨拉齐镇",
+        "建筑面积": 111.42,
+        "单价": 6152.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "565720516278",
         "url": "https://sf-item.taobao.com/sf_item/565720516278.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
         "end": 1524794703000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566250945150",
+        "url": "https://sf-item.taobao.com/sf_item/566250945150.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1524795070000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567375417968",
+        "url": "https://sf-item.taobao.com/sf_item/567375417968.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1524794400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566160781391",
+        "url": "https://sf-item.taobao.com/sf_item/566160781391.htm?track_id=c1122bc0-fff8-4176-9d60-e693e4959044",
+        "end": 1524794400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566593330734",
+        "url": "https://sf-item.taobao.com/sf_item/566593330734.htm?track_id=9a575996-5fed-41aa-91ca-c7ec4c237ab0",
+        "end": 1524794634000,
         "status": "done",
         "is_processed": false
     }

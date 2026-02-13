@@ -210,20 +210,46 @@
         "detail_captured": true
     },
     {
-        "id": "648718473031",
-        "url": "https://sf-item.taobao.com/sf_item/648718473031.htm?track_id=9768bbb0-f630-49a5-9680-dbcb6c307b87",
-        "end": 1625711436000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/648718473031.htm"
+        "id": 648718473031,
+        "市场评估价": 593300,
+        "起拍价格": 332248,
+        "成交价格": 418620,
+        "交易时间": "2021/07/08 10:30:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/648718473031.htm?track_id=9768bbb0-f630-49a5-9680-dbcb6c307b87",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 27,
+        "地点": "四川省 广元市 利州区 开发区下西办事处西滨道至利州西路连接线东侧",
+        "所属小区": "世纪城",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "下西",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "648310216090",
-        "url": "https://sf-item.taobao.com/sf_item/648310216090.htm?track_id=77698f75-ba5e-43d0-b6aa-9b26020e5d27",
-        "end": 1625711576000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/648310216090.htm"
+        "id": 648310216090,
+        "市场评估价": 614500,
+        "起拍价格": 344120,
+        "成交价格": 443909,
+        "交易时间": "2021-07-08 10:32:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/648310216090.htm?track_id=77698f75-ba5e-43d0-b6aa-9b26020e5d27",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 18,
+        "地点": "四川省广元市利州区开发区下西办事处西滨道至利州西路连接线东侧",
+        "所属小区": "广元市世纪城商业综合体",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "广元市中心城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 648387468117,
@@ -334,6 +360,13 @@
         "id": "648734593349",
         "url": "https://sf-item.taobao.com/sf_item/648734593349.htm?track_id=6177169f-1bfc-4a21-9490-b437ab53f2e9",
         "end": 1625710360000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646118953835",
+        "url": "https://sf-item.taobao.com/sf_item/646118953835.htm?track_id=d15013f3-1b9a-448b-8eab-b42be114371e",
+        "end": 1625710089000,
         "status": "done",
         "is_processed": false
     }

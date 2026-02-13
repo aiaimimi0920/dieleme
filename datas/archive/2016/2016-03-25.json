@@ -64,16 +64,37 @@
         "manual_checked": true
     },
     {
-        "id": "528008624314",
-        "url": "https://sf-item.taobao.com/sf_item/528008624314.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
-        "end": 1458916965000,
-        "status": "done",
-        "is_processed": false
+        "id": 528008624314,
+        "市场评估价": null,
+        "起拍价格": 327680,
+        "成交价格": 421680,
+        "交易时间": "2016-03-25 22:42:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528008624314.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
+        "是否成交": true,
+        "竞拍人数": 71,
+        "出价人数": 71,
+        "地点": "广东省惠州市博罗县石湾镇宏明西路北侧一品中央·珑园15栋402",
+        "所属小区": "一品中央·珑园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾镇",
+        "建筑面积": 136.65,
+        "单价": 3085.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "527960609862",
         "url": "https://sf-item.taobao.com/sf_item/527960609862.htm?track_id=645fbace-2a78-4783-9257-833921945028",
         "end": 1458872910000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527903251196",
+        "url": "https://sf-item.taobao.com/sf_item/527903251196.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1458872336000,
         "status": "done",
         "is_processed": false
     }

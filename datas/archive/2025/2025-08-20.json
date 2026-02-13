@@ -232,11 +232,25 @@
         "detail_captured": true
     },
     {
-        "id": "953053018103",
-        "url": "https://sf-item.taobao.com/sf_item/953053018103.htm?track_id=0998525a-0e3f-4b2c-a314-8b80a91badd0",
-        "end": 1755655653000,
-        "status": "done",
-        "is_processed": false
+        "id": 953053018103,
+        "市场评估价": 462456.4,
+        "起拍价格": 323720,
+        "成交价格": 401720,
+        "交易时间": "2025/08/20 10:07:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/953053018103.htm?track_id=0998525a-0e3f-4b2c-a314-8b80a91badd0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 16,
+        "地点": "福建省 漳州市 平和县 小溪镇文锦路189号宸洲.尚品府7-1幢1602单元",
+        "所属小区": "宸洲.尚品府",
+        "省份": "福建省",
+        "城市": "漳州市",
+        "区": "平和县",
+        "最靠近商圈": "小溪镇",
+        "建筑面积": 89.33,
+        "单价": 4497.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "954684436465",
@@ -267,16 +281,37 @@
         "is_processed": false
     },
     {
-        "id": "958113243278",
-        "url": "https://sf-item.taobao.com/sf_item/958113243278.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
-        "end": 1755656651000,
-        "status": "done",
-        "is_processed": false
+        "id": 958113243278,
+        "市场评估价": 600000,
+        "起拍价格": 360000,
+        "成交价格": 460000,
+        "交易时间": "2025/08/20 10:24:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/958113243278.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
+        "是否成交": true,
+        "竞拍人数": 23,
+        "出价人数": 23,
+        "地点": "河南省郑州市二七区碧云路99号13号楼3单元5层东1户",
+        "所属小区": "碧云路99号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场商圈",
+        "建筑面积": 97.52,
+        "单价": 4716.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "952191083762",
         "url": "https://sf-item.taobao.com/sf_item/952191083762.htm?track_id=e17bfa31-568b-40b1-a430-6b187995b33f",
         "end": 1755672628000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "952690782030",
+        "url": "https://sf-item.taobao.com/sf_item/952690782030.htm?track_id=d38494fe-98ee-40f4-91fc-1e9253049bbf",
+        "end": 1755667462000,
         "status": "done",
         "is_processed": false
     }

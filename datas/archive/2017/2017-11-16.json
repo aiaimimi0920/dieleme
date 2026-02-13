@@ -398,15 +398,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "贵州省 黔西南布依族苗族自治州 兴义市 桔山镇花月村比弗利山庄",
-        "所属小区": null,
+        "所属小区": "比弗利山庄",
         "省份": "贵州省",
         "城市": "黔西南布依族苗族自治州",
         "区": "兴义市",
-        "最靠近商圈": null,
+        "最靠近商圈": "桔山商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 559698840431,
@@ -482,15 +483,16 @@
         "竞拍人数": 93,
         "出价人数": 82,
         "地点": "江苏省 淮安市 淮安区 旅游大厦底层北起第4间",
-        "所属小区": null,
+        "所属小区": "旅游大厦",
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮安区商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 559736748824,
@@ -507,11 +509,12 @@
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮安区商业中心商圈",
         "建筑面积": 108.9,
         "单价": 4986.23,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 559945076165,
@@ -549,18 +552,46 @@
         "is_processed": false
     },
     {
-        "id": "560808630125",
-        "url": "https://sf-item.taobao.com/sf_item/560808630125.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
-        "end": 1510797600000,
-        "status": "done",
-        "is_processed": false
+        "id": 560808630125,
+        "市场评估价": 1118696,
+        "起拍价格": 1118696,
+        "成交价格": 1154696,
+        "交易时间": "2017/11/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560808630125.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
+        "是否成交": true,
+        "竞拍人数": 4,
+        "出价人数": 4,
+        "地点": "广东省 揭阳市 惠来县 惠城镇南门大街葵馨豪庭A4栋2203号",
+        "所属小区": "葵馨豪庭",
+        "省份": "广东省",
+        "城市": "揭阳市",
+        "区": "惠来县",
+        "最靠近商圈": "惠城镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "559884675560",
-        "url": "https://sf-item.taobao.com/sf_item/559884675560.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
-        "end": 1510802839000,
-        "status": "done",
-        "is_processed": false
+        "id": 559884675560,
+        "市场评估价": 1004200,
+        "起拍价格": 803360,
+        "成交价格": 853360,
+        "交易时间": "2017/11/16 11:27:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559884675560.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 26,
+        "地点": "河南省郑州市二七区政通路62号院5号楼16层1627号住宅",
+        "所属小区": "升龙国际中心A区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": 71.22,
+        "单价": 11981.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "559984442894",
@@ -570,9 +601,58 @@
         "is_processed": false
     },
     {
-        "id": "560713226006",
-        "url": "https://sf-item.taobao.com/sf_item/560713226006.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
-        "end": 1510801758000,
+        "id": 560713226006,
+        "市场评估价": null,
+        "起拍价格": 27556416,
+        "成交价格": 27556416,
+        "交易时间": "2017/11/16 11:09:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560713226006.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省郑州市二七区嵩山南路238号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 6161.1,
+        "单价": 4473.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "559405861053",
+        "url": "https://sf-item.taobao.com/sf_item/559405861053.htm?track_id=2aae7a99-698e-4407-8145-803f91390659",
+        "end": 1510799242000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559769697705",
+        "url": "https://sf-item.taobao.com/sf_item/559769697705.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1510799181000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559981822278",
+        "url": "https://sf-item.taobao.com/sf_item/559981822278.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1510814273000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559830184621",
+        "url": "https://sf-item.taobao.com/sf_item/559830184621.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1510801120000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560827614625",
+        "url": "https://sf-item.taobao.com/sf_item/560827614625.htm?track_id=f9fba1dc-0a83-468f-bda8-aa92f58b8e7a",
+        "end": 1510794149000,
         "status": "done",
         "is_processed": false
     }

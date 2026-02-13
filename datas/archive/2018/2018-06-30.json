@@ -142,13 +142,14 @@
         "地点": "贵州省 黔西南布依族苗族自治州 兴义市 西湖路69号（州交警支队宿舍）11幢1号",
         "所属小区": "州交警支队宿舍",
         "省份": "贵州省",
-        "城市": "黔西南布依族苗族自治州",
+        "城市": "兴义市",
         "区": "兴义市",
-        "最靠近商圈": null,
+        "最靠近商圈": "街心花园",
         "建筑面积": 94.48,
-        "单价": 3623.74,
+        "单价": 3623.4,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 570993968811,
@@ -302,11 +303,25 @@
         "detail_captured": true
     },
     {
-        "id": "570561043274",
-        "url": "https://sf-item.taobao.com/sf_item/570561043274.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1530324097000,
-        "status": "done",
-        "is_processed": false
+        "id": 570561043274,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 804610,
+        "交易时间": "2018-06-30 10:01:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570561043274.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河南省郑州市新密市新密市城区溱水路与政通路交叉口西北角中强御金湾28号楼1单元2层202",
+        "所属小区": "中强御金湾",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市城区",
+        "建筑面积": 172.11,
+        "单价": 4675.03,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "570561043423",
@@ -316,30 +331,107 @@
         "is_processed": false
     },
     {
-        "id": "570373309514",
-        "url": "https://sf-item.taobao.com/sf_item/570373309514.htm?track_id=8b62a118-5217-4938-94e5-3f574e023c8a",
-        "end": 1530325190000,
-        "status": "done",
-        "is_processed": false
+        "id": 570373309514,
+        "市场评估价": null,
+        "起拍价格": 99607.2,
+        "成交价格": 148607.2,
+        "交易时间": "2018-06-30 10:19:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570373309514.htm?track_id=8b62a118-5217-4938-94e5-3f574e023c8a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省惠州市博罗县湖镇镇光辉村猪场农产品集散中心3区1号楼415房",
+        "所属小区": "光辉村猪场农产品集散中心",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "湖镇镇",
+        "建筑面积": 59.29,
+        "单价": 2506.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "571119749706",
-        "url": "https://sf-item.taobao.com/sf_item/571119749706.htm?track_id=a698a9e5-cfa5-48e0-86bd-280315dc7c24",
-        "end": 1530333579000,
-        "status": "done",
-        "is_processed": false
+        "id": 571119749706,
+        "市场评估价": 3080000,
+        "起拍价格": 1724800,
+        "成交价格": 2464300,
+        "交易时间": "2018-06-30 12:39:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571119749706.htm?track_id=a698a9e5-cfa5-48e0-86bd-280315dc7c24",
+        "是否成交": true,
+        "竞拍人数": 70,
+        "出价人数": 67,
+        "地点": "江苏省无锡市锡山区",
+        "所属小区": "友谊南路商业用房",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭商圈",
+        "建筑面积": 329.41,
+        "单价": 7485.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "571426447303",
-        "url": "https://sf-item.taobao.com/sf_item/571426447303.htm?track_id=e74a98ac-e47a-499f-8827-8d5ebe2b7b1e",
-        "end": 1530321307000,
-        "status": "done",
-        "is_processed": false
+        "id": 571426447303,
+        "市场评估价": null,
+        "起拍价格": 742000,
+        "成交价格": 742000,
+        "交易时间": "2018-06-30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571426447303.htm?track_id=e74a98ac-e47a-499f-8827-8d5ebe2b7b1e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河南省信阳市平桥区南京路146号信阳国际建材港19号楼1至2层120号220号",
+        "所属小区": "信阳国际建材港",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": 110.34,
+        "单价": 6726.11,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "567215180239",
         "url": "https://sf-item.taobao.com/sf_item/567215180239.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1530329245000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568730905757",
+        "url": "https://sf-item.taobao.com/sf_item/568730905757.htm?track_id=a5509f1b-d0f1-4066-9e83-25810044a34d",
+        "end": 1530347217000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570249985086",
+        "url": "https://sf-item.taobao.com/sf_item/570249985086.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1530327075000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570347370914",
+        "url": "https://sf-item.taobao.com/sf_item/570347370914.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1530333663000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571226505333",
+        "url": "https://sf-item.taobao.com/sf_item/571226505333.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1530324132000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571226505440",
+        "url": "https://sf-item.taobao.com/sf_item/571226505440.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1530324395000,
         "status": "done",
         "is_processed": false
     }

@@ -7,9 +7,37 @@
         "is_processed": false
     },
     {
-        "id": "539335988219",
-        "url": "https://sf-item.taobao.com/sf_item/539335988219.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
-        "end": 1476324000000,
+        "id": 539335988219,
+        "市场评估价": null,
+        "起拍价格": 470790,
+        "成交价格": 470790,
+        "交易时间": "2016/10/13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539335988219.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区 航海路南、祥云路东1号楼1单元28层2806号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 59.45,
+        "单价": 7918.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "539094857790",
+        "url": "https://sf-item.taobao.com/sf_item/539094857790.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1476326995000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538382031373",
+        "url": "https://sf-item.taobao.com/sf_item/538382031373.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
+        "end": 1476326086000,
         "status": "done",
         "is_processed": false
     }

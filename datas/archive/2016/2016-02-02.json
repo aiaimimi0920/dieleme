@@ -50,10 +50,24 @@
         "is_processed": false
     },
     {
-        "id": "526301604939",
-        "url": "https://sf-item.taobao.com/sf_item/526301604939.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
-        "end": 1454386462000,
-        "status": "done",
-        "is_processed": false
+        "id": 526301604939,
+        "市场评估价": 0,
+        "起拍价格": 5526972,
+        "成交价格": 6210972,
+        "交易时间": "2016/02/02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526301604939.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "北京市海淀区中关村南大街34号科技发展大厦C座1702号",
+        "所属小区": "科技发展大厦",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "海淀区",
+        "最靠近商圈": "中关村",
+        "建筑面积": 242.18,
+        "单价": 25653.21,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

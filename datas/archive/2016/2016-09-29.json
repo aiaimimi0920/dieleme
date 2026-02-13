@@ -212,23 +212,65 @@
         "manual_checked": true
     },
     {
-        "id": "538541100632",
-        "url": "https://sf-item.taobao.com/sf_item/538541100632.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
-        "end": 1475116890000,
-        "status": "done",
-        "is_processed": false
+        "id": 538541100632,
+        "市场评估价": null,
+        "起拍价格": 868000,
+        "成交价格": 1303000,
+        "交易时间": "2016-09-29 10:41:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538541100632.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "是否成交": true,
+        "竞拍人数": 53,
+        "出价人数": 11,
+        "地点": "江苏省 无锡市 锡山区",
+        "所属小区": "君怡花苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": 163.83,
+        "单价": 7951.78,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "538366595252",
-        "url": "https://sf-item.taobao.com/sf_item/538366595252.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
-        "end": 1475124758000,
-        "status": "done",
-        "is_processed": false
+        "id": 538366595252,
+        "市场评估价": null,
+        "起拍价格": 1900000,
+        "成交价格": 3361000,
+        "交易时间": "2016-09-29 12:52:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538366595252.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 47,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "沈荡",
+        "建筑面积": 868.35,
+        "单价": 3871.52,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "538367334643",
         "url": "https://sf-item.taobao.com/sf_item/538367334643.htm?track_id=4ad87b93-3084-4bc2-9259-b6b0538f1145",
         "end": 1475116558000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538125342592",
+        "url": "https://sf-item.taobao.com/sf_item/538125342592.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1475117291000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538050547923",
+        "url": "https://sf-item.taobao.com/sf_item/538050547923.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1475117700000,
         "status": "done",
         "is_processed": false
     }

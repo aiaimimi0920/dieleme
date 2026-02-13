@@ -399,30 +399,114 @@
         "detail_captured": true
     },
     {
-        "id": "599077865769",
-        "url": "https://sf-item.taobao.com/sf_item/599077865769.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
-        "end": 1565230716000,
-        "status": "done",
-        "is_processed": false
+        "id": 599077865769,
+        "市场评估价": 827300,
+        "起拍价格": 529472,
+        "成交价格": 601472,
+        "交易时间": "2019/08/08 10:18:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/599077865769.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 44,
+        "地点": "山东省 潍坊市 昌邑市 昌邑市山前街南北海路西",
+        "所属小区": "豫园小区",
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": null,
+        "建筑面积": 156.37,
+        "单价": 3846.73,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "599463371536",
-        "url": "https://sf-item.taobao.com/sf_item/599463371536.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
-        "end": 1565227708000,
-        "status": "done",
-        "is_processed": false
+        "id": 599463371536,
+        "市场评估价": null,
+        "起拍价格": 623792,
+        "成交价格": 623792,
+        "交易时间": "2019-10-05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/599463371536.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 吉林市 船营区 顺城街裕华园小区2号楼2单元4层20号",
+        "所属小区": "裕华园小区",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "顺城街商圈",
+        "建筑面积": 130,
+        "单价": 4798.4,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "599315899729",
-        "url": "https://sf-item.taobao.com/sf_item/599315899729.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
-        "end": 1565229604000,
-        "status": "done",
-        "is_processed": false
+        "id": 599315899729,
+        "市场评估价": 630000,
+        "起拍价格": 352800,
+        "成交价格": 352800,
+        "交易时间": "2019/08/08 10:00:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/599315899729.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区沈辽路158-2号1-7-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 154.98,
+        "单价": 2276.91,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "597658332412",
         "url": "https://sf-item.taobao.com/sf_item/597658332412.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
         "end": 1565231528000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598857536493",
+        "url": "https://sf-item.taobao.com/sf_item/598857536493.htm?track_id=2aae7a99-698e-4407-8145-803f91390659",
+        "end": 1565230637000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598855776977",
+        "url": "https://sf-item.taobao.com/sf_item/598855776977.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1565233530000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "599087585729",
+        "url": "https://sf-item.taobao.com/sf_item/599087585729.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1565232395000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "597202947156",
+        "url": "https://sf-item.taobao.com/sf_item/597202947156.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1565233715000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596842965305",
+        "url": "https://sf-item.taobao.com/sf_item/596842965305.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1565234414000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596625178403",
+        "url": "https://sf-item.taobao.com/sf_item/596625178403.htm?track_id=ec0864e8-1dfb-4aa2-9cc5-3a21f48d84d2",
+        "end": 1565234212000,
         "status": "done",
         "is_processed": false
     }

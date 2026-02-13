@@ -128,18 +128,46 @@
         "manual_checked": true
     },
     {
-        "id": "542587058724",
-        "url": "https://sf-item.taobao.com/sf_item/542587058724.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
-        "end": 1482286932000,
-        "status": "done",
-        "is_processed": false
+        "id": 542587058724,
+        "市场评估价": null,
+        "起拍价格": 408444,
+        "成交价格": 449444,
+        "交易时间": "2016-12-21 10:22:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542587058724.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": 6,
+        "地点": "内蒙古自治区 包头市 昆都仑区",
+        "所属小区": "信德雅居",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "团结大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "542646969898",
-        "url": "https://sf-item.taobao.com/sf_item/542646969898.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
-        "end": 1482286843000,
-        "status": "done",
-        "is_processed": false
+        "id": 542646969898,
+        "市场评估价": null,
+        "起拍价格": 416622,
+        "成交价格": 458622,
+        "交易时间": "2016-12-21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542646969898.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "包头市稀土高新区民族东路南沼潭东路西明阳景苑-1-1号",
+        "所属小区": "明阳景苑",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "沼潭商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "542824775369",
@@ -156,11 +184,25 @@
         "is_processed": false
     },
     {
-        "id": "543148917580",
-        "url": "https://sf-item.taobao.com/sf_item/543148917580.htm?track_id=ef5eeaad-a6e8-4cc8-9382-470fbeaf25b4",
-        "end": 1482288671000,
-        "status": "done",
-        "is_processed": false
+        "id": 543148917580,
+        "市场评估价": 724700,
+        "起拍价格": 463900,
+        "成交价格": 665900,
+        "交易时间": "2016-12-21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/543148917580.htm?track_id=ef5eeaad-a6e8-4cc8-9382-470fbeaf25b4",
+        "是否成交": true,
+        "竞拍人数": 102,
+        "出价人数": 102,
+        "地点": "江苏省 无锡市 锡山区",
+        "所属小区": "名都花苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": 89.4,
+        "单价": 7448.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "543159598832",
@@ -170,16 +212,51 @@
         "is_processed": false
     },
     {
-        "id": "542803773389",
-        "url": "https://sf-item.taobao.com/sf_item/542803773389.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
-        "end": 1482295751000,
-        "status": "done",
-        "is_processed": false
+        "id": 542803773389,
+        "市场评估价": null,
+        "起拍价格": 21081180,
+        "成交价格": 26961180,
+        "交易时间": "2016/12/21 12:49:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542803773389.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 219,
+        "地点": "北京 北京市 海淀区",
+        "所属小区": "主语家园",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "海淀区",
+        "最靠近商圈": "首体",
+        "建筑面积": 292.77,
+        "单价": 92105.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "542768328831",
         "url": "https://sf-item.taobao.com/sf_item/542768328831.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
         "end": 1482285600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542783728207",
+        "url": "https://sf-item.taobao.com/sf_item/542783728207.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1482286365000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542581711377",
+        "url": "https://sf-item.taobao.com/sf_item/542581711377.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1482286197000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542666666410",
+        "url": "https://sf-item.taobao.com/sf_item/542666666410.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1482287139000,
         "status": "done",
         "is_processed": false
     }

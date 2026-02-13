@@ -441,18 +441,46 @@
         "detail_captured": true
     },
     {
-        "id": "1011571149499",
-        "url": "https://sf-item.taobao.com/sf_item/1011571149499.htm?track_id=be4791d9-4192-47ad-a814-1baf514b1a3e",
-        "end": 1769392800000,
-        "status": "done",
-        "is_processed": false
+        "id": 1011571149499,
+        "市场评估价": null,
+        "起拍价格": 615572.5,
+        "成交价格": 615572.5,
+        "交易时间": "2026-01-26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1011571149499.htm?track_id=be4791d9-4192-47ad-a814-1baf514b1a3e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": null,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 额尔格图镇本街白音塔拉商业楼1-1-1号",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "额尔格图镇",
+        "建筑面积": 307.22,
+        "单价": 2003.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "1005848538265",
-        "url": "https://sf-item.taobao.com/sf_item/1005848538265.htm?track_id=b4163aa6-d768-4bf1-a06b-e4d196abe393",
-        "end": 1769392800000,
-        "status": "done",
-        "is_processed": false
+        "id": 1005848538265,
+        "市场评估价": null,
+        "起拍价格": 615400,
+        "成交价格": 615400,
+        "交易时间": "2026-01-26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1005848538265.htm?track_id=b4163aa6-d768-4bf1-a06b-e4d196abe393",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "湖南省 常德市 鼎城区 鼎城路",
+        "所属小区": "原县印刷厂",
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": "玉霞街道",
+        "建筑面积": 80.06,
+        "单价": 7681.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "1012361412143",
@@ -472,6 +500,41 @@
         "id": "1010441826654",
         "url": "https://sf-item.taobao.com/sf_item/1010441826654.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
         "end": 1769394074000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1007803824098",
+        "url": "https://sf-item.taobao.com/sf_item/1007803824098.htm?track_id=c566893a-201b-4839-8262-2d73cb1d9a72",
+        "end": 1769399278000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1006140210283",
+        "url": "https://sf-item.taobao.com/sf_item/1006140210283.htm?track_id=8d3b48f8-3369-4de9-9c5a-e40b9c965091",
+        "end": 1769392836000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1007079833465",
+        "url": "https://sf-item.taobao.com/sf_item/1007079833465.htm?track_id=7910db3a-160d-47d2-a0b9-9ea879422ee1",
+        "end": 1769395453000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1007301885810",
+        "url": "https://sf-item.taobao.com/sf_item/1007301885810.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1769392999000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1001243311448",
+        "url": "https://sf-item.taobao.com/sf_item/1001243311448.htm?track_id=28e60be4-916f-4210-b04b-4de12abb78d2",
+        "end": 1769392800000,
         "status": "done",
         "is_processed": false
     }

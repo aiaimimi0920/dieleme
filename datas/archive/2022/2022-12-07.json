@@ -378,11 +378,25 @@
         "detail_captured": true
     },
     {
-        "id": "690456492724",
-        "url": "https://sf-item.taobao.com/sf_item/690456492724.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
-        "end": 1670382495000,
-        "status": "done",
-        "is_processed": false
+        "id": 690456492724,
+        "市场评估价": 1470295,
+        "起拍价格": 1176236,
+        "成交价格": 1531236,
+        "交易时间": "2022/12/07 11:08:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/690456492724.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 55,
+        "地点": "安徽省 合肥市 瑶海区 长江东路286号春暖花开小区12幢1802",
+        "所属小区": "春暖花开",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "长江东路",
+        "建筑面积": 88.07,
+        "单价": 17386.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "692827766030",
@@ -395,6 +409,27 @@
         "id": "691465777527",
         "url": "https://sf-item.taobao.com/sf_item/691465777527.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
         "end": 1670379403000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684008876644",
+        "url": "https://sf-item.taobao.com/sf_item/684008876644.htm?track_id=f013eb3a-d76b-4cb1-9f95-b142415f8da5",
+        "end": 1670385253000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692016931709",
+        "url": "https://sf-item.taobao.com/sf_item/692016931709.htm?track_id=f013eb3a-d76b-4cb1-9f95-b142415f8da5",
+        "end": 1670378522000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684848354756",
+        "url": "https://sf-item.taobao.com/sf_item/684848354756.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1670405644000,
         "status": "done",
         "is_processed": false
     }

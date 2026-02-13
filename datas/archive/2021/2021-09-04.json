@@ -63,12 +63,25 @@
         "detail_captured": true
     },
     {
-        "id": "648655388841",
-        "url": "https://sf-item.taobao.com/sf_item/648655388841.htm?track_id=9097b3a9-6b7a-4e1a-912c-5b92e1dd3c01",
-        "end": 1630757151000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/648655388841.htm"
+        "id": 648655388841,
+        "市场评估价": 202428200,
+        "起拍价格": 113359792,
+        "成交价格": 113359792,
+        "交易时间": "2021/09/04 20:05:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/648655388841.htm?track_id=9097b3a9-6b7a-4e1a-912c-5b92e1dd3c01",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "北京 北京市 东城区 王府井大街176号6层",
+        "所属小区": "丹耀大厦",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "王府井",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 651905258859,
@@ -113,9 +126,30 @@
         "detail_captured": true
     },
     {
-        "id": "652960285519",
-        "url": "https://sf-item.taobao.com/sf_item/652960285519.htm?track_id=4f440ecd-a246-4dcb-a3a6-c8deab71317f",
-        "end": 1630730614000,
+        "id": 652960285519,
+        "市场评估价": null,
+        "起拍价格": 1555344,
+        "成交价格": 2706192,
+        "交易时间": "2021-09-04 12:43:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652960285519.htm?track_id=4f440ecd-a246-4dcb-a3a6-c8deab71317f",
+        "是否成交": true,
+        "竞拍人数": 145,
+        "出价人数": null,
+        "地点": "广东省 云浮市 郁南县 都城镇二环路边",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城镇",
+        "建筑面积": 576.22,
+        "单价": 4696.11,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "652721779883",
+        "url": "https://sf-item.taobao.com/sf_item/652721779883.htm?track_id=2aae7a99-698e-4407-8145-803f91390659",
+        "end": 1630721662000,
         "status": "done",
         "is_processed": false
     }

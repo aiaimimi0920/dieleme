@@ -677,11 +677,25 @@
         "detail_captured": true
     },
     {
-        "id": "571119737583",
-        "url": "https://sf-item.taobao.com/sf_item/571119737583.htm?track_id=4623c9c1-aa4c-4821-b65d-91267094dab0",
-        "end": 1530496800000,
-        "status": "done",
-        "is_processed": false
+        "id": 571119737583,
+        "市场评估价": 739400,
+        "起拍价格": 598914,
+        "成交价格": 598914,
+        "交易时间": "2018/07/02 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571119737583.htm?track_id=4623c9c1-aa4c-4821-b65d-91267094dab0",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖北省 十堰市 茅箭区 五堰街办人民北路98号6幢3-21-1号",
+        "所属小区": null,
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": "五堰",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "571318751866",
@@ -691,9 +705,72 @@
         "is_processed": false
     },
     {
-        "id": "570561043432",
-        "url": "https://sf-item.taobao.com/sf_item/570561043432.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
-        "end": 1530498308000,
+        "id": 570561043432,
+        "市场评估价": 1245000,
+        "起拍价格": 1120500,
+        "成交价格": 1150500,
+        "交易时间": "2018-07-02 10:25:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570561043432.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": 30,
+        "地点": "河南省 郑州市 二七区 建云街13号3号楼4单元1层43号",
+        "所属小区": "富华佳苑",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": 93.82,
+        "单价": 12259.94,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "571611989223",
+        "url": "https://sf-item.taobao.com/sf_item/571611989223.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1530496923000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571098824953",
+        "url": "https://sf-item.taobao.com/sf_item/571098824953.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1530496800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571331962868",
+        "url": "https://sf-item.taobao.com/sf_item/571331962868.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1530496993000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571331962962",
+        "url": "https://sf-item.taobao.com/sf_item/571331962962.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1530496800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571426447942",
+        "url": "https://sf-item.taobao.com/sf_item/571426447942.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1530496800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571736246158",
+        "url": "https://sf-item.taobao.com/sf_item/571736246158.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1530496800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571736246159",
+        "url": "https://sf-item.taobao.com/sf_item/571736246159.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1530496800000,
         "status": "done",
         "is_processed": false
     }

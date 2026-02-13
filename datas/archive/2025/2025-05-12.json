@@ -380,20 +380,46 @@
         "detail_captured": true
     },
     {
-        "id": "916677705471",
-        "url": "https://sf-item.taobao.com/sf_item/916677705471.htm?track_id=0ce28854-62e6-4d1d-b52b-5dabc893a612",
-        "end": 1747015700000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/916677705471.htm"
+        "id": 916677705471,
+        "市场评估价": 463094,
+        "起拍价格": 260000,
+        "成交价格": 282500,
+        "交易时间": "2025/05/12 10:08:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/916677705471.htm?track_id=0ce28854-62e6-4d1d-b52b-5dabc893a612",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 8,
+        "地点": "江西省 上饶市 弋阳县 南岩镇乐江首府南4幢1-12、2-12房产",
+        "所属小区": "乐江首府",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "弋阳县",
+        "最靠近商圈": "南岩镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "916671205686",
-        "url": "https://sf-item.taobao.com/sf_item/916671205686.htm?track_id=0ce28854-62e6-4d1d-b52b-5dabc893a612",
-        "end": 1747015551000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/916671205686.htm"
+        "id": 916671205686,
+        "市场评估价": 430994,
+        "起拍价格": 241400,
+        "成交价格": 248600,
+        "交易时间": "2025-05-12 10:05:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/916671205686.htm?track_id=0ce28854-62e6-4d1d-b52b-5dabc893a612",
+        "是否成交": true,
+        "竞拍人数": 4,
+        "出价人数": 4,
+        "地点": "江西省上饶市弋阳县南岩镇乐江首府南4幢1-13、2-13房产",
+        "所属小区": "乐江首府",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "弋阳县",
+        "最靠近商圈": "南岩镇",
+        "建筑面积": 248.6,
+        "单价": 1000.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 908618307603,
@@ -417,9 +443,86 @@
         "detail_captured": true
     },
     {
-        "id": "909796108599",
-        "url": "https://sf-item.taobao.com/sf_item/909796108599.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
-        "end": 1747016469000,
+        "id": 909796108599,
+        "市场评估价": null,
+        "起拍价格": 1280000,
+        "成交价格": 1510000,
+        "交易时间": "2025-05-12 10:21:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/909796108599.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
+        "是否成交": true,
+        "竞拍人数": 27,
+        "出价人数": 27,
+        "地点": "福建省 泉州市 安溪县 城厢镇二环南路888号尚学领地润宇欧洲城17号楼1梯302室",
+        "所属小区": "尚学领地润宇欧洲城",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪城厢",
+        "建筑面积": 171.85,
+        "单价": 8792.06,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "908476983807",
+        "url": "https://sf-item.taobao.com/sf_item/908476983807.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1747017161000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "909271109736",
+        "url": "https://sf-item.taobao.com/sf_item/909271109736.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1747017310000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908496175827",
+        "url": "https://sf-item.taobao.com/sf_item/908496175827.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1747018519000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908620299715",
+        "url": "https://sf-item.taobao.com/sf_item/908620299715.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1747015229000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "909708660682",
+        "url": "https://sf-item.taobao.com/sf_item/909708660682.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1747016531000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908886906701",
+        "url": "https://sf-item.taobao.com/sf_item/908886906701.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1747016258000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908702452806",
+        "url": "https://sf-item.taobao.com/sf_item/908702452806.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1747016120000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "915567278054",
+        "url": "https://sf-item.taobao.com/sf_item/915567278054.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1747018443000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "909272420607",
+        "url": "https://sf-item.taobao.com/sf_item/909272420607.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1747023508000,
         "status": "done",
         "is_processed": false
     }

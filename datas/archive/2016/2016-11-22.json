@@ -361,23 +361,58 @@
         "manual_checked": true
     },
     {
-        "id": "541050405128",
-        "url": "https://sf-item.taobao.com/sf_item/541050405128.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
-        "end": 1479785403000,
-        "status": "done",
-        "is_processed": false
+        "id": 541050405128,
+        "市场评估价": 5048400,
+        "起拍价格": 5048400,
+        "成交价格": 8098400,
+        "交易时间": "2016/11/22 11:30:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541050405128.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 391,
+        "地点": "厦门市同安区凤山一里85号（厦航同城湾）",
+        "所属小区": "厦航同城湾",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "同安区",
+        "最靠近商圈": "同安老城区",
+        "建筑面积": 299.41,
+        "单价": 27040.1,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "541230665985",
-        "url": "https://sf-item.taobao.com/sf_item/541230665985.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1479782930000,
-        "status": "done",
-        "is_processed": false
+        "id": 541230665985,
+        "市场评估价": 15800000,
+        "起拍价格": 8206000,
+        "成交价格": 12506000,
+        "交易时间": "2016/11/22 10:48:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541230665985.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": 71,
+        "出价人数": 71,
+        "地点": "杭州市滨江区长河街道同人路25号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河商圈",
+        "建筑面积": 1088.49,
+        "单价": 11487.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "541819878677",
         "url": "https://sf-item.taobao.com/sf_item/541819878677.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
         "end": 1479781399000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541184543840",
+        "url": "https://sf-item.taobao.com/sf_item/541184543840.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1479780567000,
         "status": "done",
         "is_processed": false
     }

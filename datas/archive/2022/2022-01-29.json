@@ -210,11 +210,25 @@
         "detail_captured": true
     },
     {
-        "id": "667083327075",
-        "url": "https://sf-item.taobao.com/sf_item/667083327075.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
-        "end": 1643467779000,
-        "status": "done",
-        "is_processed": false
+        "id": 667083327075,
+        "市场评估价": null,
+        "起拍价格": 622164,
+        "成交价格": 622164,
+        "交易时间": "2022-01-29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/667083327075.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "内蒙古自治区包头市昆都仑区钢铁大街19号街坊中源大厦-1001号",
+        "所属小区": "中源大厦",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "钢铁大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 667084395602,
@@ -280,25 +294,67 @@
         "detail_captured": true
     },
     {
-        "id": "667048398223",
-        "url": "https://sf-item.taobao.com/sf_item/667048398223.htm?track_id=9ec7e7a4-d280-40ea-8302-422c00f4e23a",
-        "end": 1643421600000,
-        "status": "done",
-        "is_processed": false
+        "id": 667048398223,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 152000,
+        "交易时间": "2022-01-29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/667048398223.htm?track_id=9ec7e7a4-d280-40ea-8302-422c00f4e23a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市新密市城区周楼街北段西侧东单元5层东户",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市中心商圈",
+        "建筑面积": 63.28,
+        "单价": 2402.03,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "667064654008",
-        "url": "https://sf-item.taobao.com/sf_item/667064654008.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
-        "end": 1643421600000,
-        "status": "done",
-        "is_processed": false
+        "id": 667064654008,
+        "市场评估价": 707251,
+        "起拍价格": 424352,
+        "成交价格": 424352,
+        "交易时间": "2022/01/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/667064654008.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 北四西路4甲8（2305）",
+        "所属小区": "雅仕阁",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场商圈",
+        "建筑面积": 121.73,
+        "单价": 3486.85,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "666147919986",
-        "url": "https://sf-item.taobao.com/sf_item/666147919986.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
-        "end": 1643421892000,
-        "status": "done",
-        "is_processed": false
+        "id": 666147919986,
+        "市场评估价": 1490000,
+        "起拍价格": 1200000,
+        "成交价格": 1200000,
+        "交易时间": "2022-01-29 10:04:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/666147919986.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳镇城东区商业东街262号东森公园半山豪庭4号楼18层01房及1号楼负一层车位1-29号",
+        "所属小区": "东森公园半山豪庭",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 174.34,
+        "单价": 6885.76,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "666574313927",
@@ -332,6 +388,62 @@
         "id": "667420723482",
         "url": "https://sf-item.taobao.com/sf_item/667420723482.htm?track_id=6ae54ebd-72a6-469d-b121-c24b2586341e",
         "end": 1643422498000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "667051994510",
+        "url": "https://sf-item.taobao.com/sf_item/667051994510.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1643421600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "666301100095",
+        "url": "https://sf-item.taobao.com/sf_item/666301100095.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1643421600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "666301140429",
+        "url": "https://sf-item.taobao.com/sf_item/666301140429.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1643421600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "667414307121",
+        "url": "https://sf-item.taobao.com/sf_item/667414307121.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1643421600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665862474605",
+        "url": "https://sf-item.taobao.com/sf_item/665862474605.htm?track_id=f484603b-057a-4a7b-809f-534da817f7bd",
+        "end": 1643424145000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665861386135",
+        "url": "https://sf-item.taobao.com/sf_item/665861386135.htm?track_id=c4c60b14-f2e6-4b01-bf89-31ae10d3dd4e",
+        "end": 1643423376000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665189472961",
+        "url": "https://sf-item.taobao.com/sf_item/665189472961.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1643421600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "666316584785",
+        "url": "https://sf-item.taobao.com/sf_item/666316584785.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1643423834000,
         "status": "done",
         "is_processed": false
     }

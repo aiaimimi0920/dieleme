@@ -306,5 +306,19 @@
         "end": 1669773600000,
         "status": "done",
         "is_processed": false
+    },
+    {
+        "id": "692770375832",
+        "url": "https://sf-item.taobao.com/sf_item/692770375832.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1669773888000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "689994857795",
+        "url": "https://sf-item.taobao.com/sf_item/689994857795.htm?track_id=55c1cc05-4e69-4ba6-9889-416b52dc39e0",
+        "end": 1669775823000,
+        "status": "done",
+        "is_processed": false
     }
 ]

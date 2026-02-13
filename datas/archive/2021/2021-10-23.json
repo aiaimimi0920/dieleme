@@ -63,9 +63,44 @@
         "detail_captured": true
     },
     {
-        "id": "656154386698",
-        "url": "https://sf-item.taobao.com/sf_item/656154386698.htm?track_id=9ec7e7a4-d280-40ea-8302-422c00f4e23a",
-        "end": 1634954400000,
+        "id": 656154386698,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 2049250,
+        "交易时间": "2021-10-23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/656154386698.htm?track_id=9ec7e7a4-d280-40ea-8302-422c00f4e23a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 城区青屏大街西段南侧-1层西户、1层西户、2层西户（产权证号：0701023215）房产一处",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏大街商圈",
+        "建筑面积": 486.09,
+        "单价": 4213.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "653455474627",
+        "url": "https://sf-item.taobao.com/sf_item/653455474627.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
+        "end": 1635006722000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "653754551301",
+        "url": "https://sf-item.taobao.com/sf_item/653754551301.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1634974533000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654290722586",
+        "url": "https://sf-item.taobao.com/sf_item/654290722586.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1634970585000,
         "status": "done",
         "is_processed": false
     }

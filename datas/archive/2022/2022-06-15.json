@@ -358,23 +358,58 @@
         "detail_captured": true
     },
     {
-        "id": "675618090661",
-        "url": "https://sf-item.taobao.com/sf_item/675618090661.htm?track_id=b04c8370-e80e-4212-9eff-cc325f75098a",
-        "end": 1655258729000,
-        "status": "done",
-        "is_processed": false
+        "id": 675618090661,
+        "市场评估价": 426363.57,
+        "起拍价格": 238963.2,
+        "成交价格": 258075.2,
+        "交易时间": "2022/06/15 10:05:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/675618090661.htm?track_id=b04c8370-e80e-4212-9eff-cc325f75098a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省 云浮市 郁南县 都城镇承平垌郁南恒大翡翠龙庭6栋05号商铺",
+        "所属小区": "郁南恒大翡翠龙庭",
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城镇",
+        "建筑面积": 38.1,
+        "单价": 6773.62,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "673840140162",
-        "url": "https://sf-item.taobao.com/sf_item/673840140162.htm?track_id=24a3714f-fe8c-41e0-b99f-2ad312458bc8",
-        "end": 1655262541000,
-        "status": "done",
-        "is_processed": false
+        "id": 673840140162,
+        "市场评估价": 1602326,
+        "起拍价格": 1281861,
+        "成交价格": 1515861,
+        "交易时间": "2022/06/15 11:09:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673840140162.htm?track_id=24a3714f-fe8c-41e0-b99f-2ad312458bc8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 65,
+        "地点": "安徽省 合肥市 瑶海区 合肥市瑶海区临泉路香格里拉花园紫阳18幢902室房产",
+        "所属小区": "香格里拉花园",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "临泉路商圈",
+        "建筑面积": 125.82,
+        "单价": 12047.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "674473537619",
         "url": "https://sf-item.taobao.com/sf_item/674473537619.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
         "end": 1655272014000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "676007715226",
+        "url": "https://sf-item.taobao.com/sf_item/676007715226.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1655262231000,
         "status": "done",
         "is_processed": false
     }

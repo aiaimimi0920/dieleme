@@ -105,12 +105,25 @@
         "detail_captured": true
     },
     {
-        "id": "942097153576",
-        "url": "https://sf-item.taobao.com/sf_item/942097153576.htm?track_id=5615e4c9-8958-4f72-9330-e4dc6bcc644a",
-        "end": 1751768843000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/942097153576.htm"
+        "id": 942097153576,
+        "市场评估价": 235355.78,
+        "起拍价格": 131799.24,
+        "成交价格": 150299.24,
+        "交易时间": "2025-07-06 10:27:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/942097153576.htm?track_id=5615e4c9-8958-4f72-9330-e4dc6bcc644a",
+        "是否成交": true,
+        "竞拍人数": 25,
+        "出价人数": 24,
+        "地点": "安徽省 淮南市 八公山区 澜山和府11栋401室",
+        "所属小区": "澜山和府",
+        "省份": "安徽省",
+        "城市": "淮南市",
+        "区": "八公山区",
+        "最靠近商圈": "八公山商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 942116077845,
@@ -155,11 +168,25 @@
         "detail_captured": true
     },
     {
-        "id": "942621180543",
-        "url": "https://sf-item.taobao.com/sf_item/942621180543.htm?track_id=cf056ea5-aa54-42c7-a87a-2c84a7147018",
-        "end": 1751768121000,
-        "status": "done",
-        "is_processed": false
+        "id": 942621180543,
+        "市场评估价": null,
+        "起拍价格": 906819.2,
+        "成交价格": 1041819.2,
+        "交易时间": "2025-07-06 10:15:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/942621180543.htm?track_id=cf056ea5-aa54-42c7-a87a-2c84a7147018",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 23,
+        "地点": "吉林省 吉林市 船营区 北山名苑",
+        "所属小区": "北山名苑",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": null,
+        "建筑面积": 128.05,
+        "单价": 8132.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "933628087680",

@@ -380,9 +380,37 @@
         "detail_captured": true
     },
     {
-        "id": "549576080676",
-        "url": "https://sf-item.taobao.com/sf_item/549576080676.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
-        "end": 1496109600000,
+        "id": 549576080676,
+        "市场评估价": null,
+        "起拍价格": 13953900,
+        "成交价格": 13953900,
+        "交易时间": "2017/05/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/549576080676.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "辽宁省沈阳市铁西区北一中路1-4号27门、28门、29门、30门，1-5号1门、76门",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "北一中路商业区",
+        "建筑面积": 867.02,
+        "单价": 16092.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "549599535997",
+        "url": "https://sf-item.taobao.com/sf_item/549599535997.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1496114108000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549536733876",
+        "url": "https://sf-item.taobao.com/sf_item/549536733876.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1496113178000,
         "status": "done",
         "is_processed": false
     }

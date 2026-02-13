@@ -168,9 +168,37 @@
         "detail_captured": true
     },
     {
-        "id": "695288059146",
-        "url": "https://sf-item.taobao.com/sf_item/695288059146.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
-        "end": 1677670166000,
+        "id": 695288059146,
+        "市场评估价": 286200,
+        "起拍价格": 183168,
+        "成交价格": 183168,
+        "交易时间": "2022-12-31 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695288059146.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "辽宁省 沈阳市 铁西区 重工南街102-2号5-7-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "重工板块",
+        "建筑面积": 43.68,
+        "单价": 4193.13,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "698390639416",
+        "url": "https://sf-item.taobao.com/sf_item/698390639416.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1677646278000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697129561183",
+        "url": "https://sf-item.taobao.com/sf_item/697129561183.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1677661627000,
         "status": "done",
         "is_processed": false
     }

@@ -366,16 +366,44 @@
         "is_processed": false
     },
     {
-        "id": "574553660041",
-        "url": "https://sf-item.taobao.com/sf_item/574553660041.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
-        "end": 1536546287000,
-        "status": "done",
-        "is_processed": false
+        "id": 574553660041,
+        "市场评估价": null,
+        "起拍价格": 1070000,
+        "成交价格": 1260000,
+        "交易时间": "2018-09-10 10:24:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574553660041.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 13,
+        "地点": "江西省 南昌市 青云谱区 广州路博泰魏玛峰尚11#一单元1102室",
+        "所属小区": "博泰魏玛峰尚",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "洪都商圈",
+        "建筑面积": 135.1,
+        "单价": 9329.96,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "575250659369",
         "url": "https://sf-item.taobao.com/sf_item/575250659369.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
         "end": 1536548273000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576009801682",
+        "url": "https://sf-item.taobao.com/sf_item/576009801682.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
+        "end": 1536545021000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575281779305",
+        "url": "https://sf-item.taobao.com/sf_item/575281779305.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1536555879000,
         "status": "done",
         "is_processed": false
     }

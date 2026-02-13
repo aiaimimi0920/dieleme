@@ -463,9 +463,30 @@
         "detail_captured": true
     },
     {
-        "id": "556441473948",
-        "url": "https://sf-item.taobao.com/sf_item/556441473948.htm?track_id=fa6217ee-c7e8-4543-a54b-06e989689ced",
-        "end": 1503281272000,
+        "id": 556441473948,
+        "市场评估价": 0,
+        "起拍价格": 403750,
+        "成交价格": 433750,
+        "交易时间": "2017/08/21 10:07:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556441473948.htm?track_id=fa6217ee-c7e8-4543-a54b-06e989689ced",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "陕西省 西安市 未央区凤城五路北侧紫薇希望城17-22605号",
+        "所属小区": "紫薇希望城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城五路",
+        "建筑面积": 59.01,
+        "单价": 7350.62,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "555739127066",
+        "url": "https://sf-item.taobao.com/sf_item/555739127066.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1503281080000,
         "status": "done",
         "is_processed": false
     }

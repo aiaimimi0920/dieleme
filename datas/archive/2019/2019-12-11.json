@@ -693,11 +693,25 @@
         "detail_captured": true
     },
     {
-        "id": "604105021699",
-        "url": "https://sf-item.taobao.com/sf_item/604105021699.htm?track_id=550b9314-3d9c-4ea4-be54-b1fbc20ac0c9",
-        "end": 1576047080000,
-        "status": "done",
-        "is_processed": false
+        "id": 604105021699,
+        "市场评估价": null,
+        "起拍价格": 966842.24,
+        "成交价格": 966842.24,
+        "交易时间": "2019-12-11 14:51:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/604105021699.htm?track_id=550b9314-3d9c-4ea4-be54-b1fbc20ac0c9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 上饶市 铅山县 河口镇龙门大道信江龙庭B区2幢B号",
+        "所属小区": "信江龙庭",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "铅山县",
+        "最靠近商圈": "河口镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 608320989969,
@@ -721,16 +735,72 @@
         "detail_captured": true
     },
     {
-        "id": "608470490926",
-        "url": "https://sf-item.taobao.com/sf_item/608470490926.htm?track_id=6177169f-1bfc-4a21-9490-b437ab53f2e9",
-        "end": 1576031715000,
-        "status": "done",
-        "is_processed": false
+        "id": 608470490926,
+        "市场评估价": null,
+        "起拍价格": 1234240,
+        "成交价格": 1492240,
+        "交易时间": "2019/12/11 10:35:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/608470490926.htm?track_id=6177169f-1bfc-4a21-9490-b437ab53f2e9",
+        "是否成交": true,
+        "竞拍人数": 41,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 经济技术开发区草滩生态产业园尚苑路2188号（雨润?星雨华府）5幢",
+        "所属小区": "雨润星雨华府",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "草滩生态产业园",
+        "建筑面积": 143.01,
+        "单价": 10434.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "607640465548",
         "url": "https://sf-item.taobao.com/sf_item/607640465548.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
         "end": 1576042627000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "603634984153",
+        "url": "https://sf-item.taobao.com/sf_item/603634984153.htm?track_id=9a405c8a-1c07-49bc-9bd5-0414da77ea78",
+        "end": 1576028734000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607121617577",
+        "url": "https://sf-item.taobao.com/sf_item/607121617577.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
+        "end": 1576029600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607076176118",
+        "url": "https://sf-item.taobao.com/sf_item/607076176118.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1576029600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607293248157",
+        "url": "https://sf-item.taobao.com/sf_item/607293248157.htm?track_id=269f7c8e-7c43-472e-9c90-32f75befe4fb",
+        "end": 1576029600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607997787726",
+        "url": "https://sf-item.taobao.com/sf_item/607997787726.htm?track_id=269f7c8e-7c43-472e-9c90-32f75befe4fb",
+        "end": 1576029600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607998071406",
+        "url": "https://sf-item.taobao.com/sf_item/607998071406.htm?track_id=269f7c8e-7c43-472e-9c90-32f75befe4fb",
+        "end": 1576029600000,
         "status": "done",
         "is_processed": false
     }

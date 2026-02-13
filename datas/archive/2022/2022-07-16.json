@@ -210,20 +210,46 @@
         "detail_captured": true
     },
     {
-        "id": "677236476322",
-        "url": "https://sf-item.taobao.com/sf_item/677236476322.htm?track_id=e10f4c13-2137-425e-b21c-bc66c315504d",
-        "end": 1657937983000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/677236476322.htm"
+        "id": 677236476322,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 927984,
+        "交易时间": "2022/07/16 10:19:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/677236476322.htm?track_id=e10f4c13-2137-425e-b21c-bc66c315504d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 82,
+        "地点": "江苏省 淮安市 淮安区 淮安市淮安区杜康桥路4号丽正花苑住宅小区8号楼201室及车库",
+        "所属小区": "丽正花苑",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "678242731080",
-        "url": "https://sf-item.taobao.com/sf_item/678242731080.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
-        "end": 1657939015000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/678242731080.htm"
+        "id": 678242731080,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 485992,
+        "交易时间": "2022/07/16 10:36:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678242731080.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 44,
+        "地点": "江苏省 淮安市 淮安区 淮安市淮安区文化小区3栋306室及车库",
+        "所属小区": "文化小区",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 676943918351,
@@ -331,12 +357,25 @@
         "detail_captured": true
     },
     {
-        "id": "678256967716",
-        "url": "https://sf-item.taobao.com/sf_item/678256967716.htm?track_id=fcb63efd-5826-4875-99ac-7bfa5689930d",
-        "end": 1657938351000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/678256967716.htm"
+        "id": 678256967716,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 1700000,
+        "交易时间": "2022/07/16 10:25:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678256967716.htm?track_id=fcb63efd-5826-4875-99ac-7bfa5689930d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 67,
+        "地点": "江苏省 苏州市 姑苏区 干将东路181号403室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "观前商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 677833946096,
@@ -444,11 +483,25 @@
         "detail_captured": true
     },
     {
-        "id": "678244807493",
-        "url": "https://sf-item.taobao.com/sf_item/678244807493.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
-        "end": 1657936800000,
-        "status": "done",
-        "is_processed": false
+        "id": 678244807493,
+        "市场评估价": null,
+        "起拍价格": 530100,
+        "成交价格": 530100,
+        "交易时间": "2022-07-16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678244807493.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省遵义市汇川区路岛花园主楼主楼1-402号",
+        "所属小区": "路岛花园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "大连路商圈",
+        "建筑面积": 125.19,
+        "单价": 4235.35,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "676932274173",
@@ -458,11 +511,25 @@
         "is_processed": false
     },
     {
-        "id": "676518885309",
-        "url": "https://sf-item.taobao.com/sf_item/676518885309.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
-        "end": 1657938938000,
-        "status": "done",
-        "is_processed": false
+        "id": 676518885309,
+        "市场评估价": 774156.33,
+        "起拍价格": 500000,
+        "成交价格": 600000,
+        "交易时间": "2022-07-16 10:35:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676518885309.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
+        "是否成交": true,
+        "竞拍人数": 17,
+        "出价人数": 17,
+        "地点": "广东省 惠州市 博罗县 罗阳镇惠博大道999号华泓.星岸城25号楼10层04房",
+        "所属小区": "华泓.星岸城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇中心",
+        "建筑面积": 104.22,
+        "单价": 5759.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "676250456848",
@@ -482,6 +549,69 @@
         "id": "676238512498",
         "url": "https://sf-item.taobao.com/sf_item/676238512498.htm?track_id=260a9d3f-8c3f-4758-b6e0-eb9e92a8298e",
         "end": 1657942807000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677613441474",
+        "url": "https://sf-item.taobao.com/sf_item/677613441474.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1657937088000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677614033176",
+        "url": "https://sf-item.taobao.com/sf_item/677614033176.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1657937049000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677614041184",
+        "url": "https://sf-item.taobao.com/sf_item/677614041184.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1657936980000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677614249629",
+        "url": "https://sf-item.taobao.com/sf_item/677614249629.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1657937038000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677921110396",
+        "url": "https://sf-item.taobao.com/sf_item/677921110396.htm?track_id=dd9b2ad6-0c16-4fa0-934f-94384d19c8fc",
+        "end": 1657936800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677922654434",
+        "url": "https://sf-item.taobao.com/sf_item/677922654434.htm?track_id=dd9b2ad6-0c16-4fa0-934f-94384d19c8fc",
+        "end": 1657936800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677866414503",
+        "url": "https://sf-item.taobao.com/sf_item/677866414503.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
+        "end": 1657936800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "676627173357",
+        "url": "https://sf-item.taobao.com/sf_item/676627173357.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1657937073000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "676626705409",
+        "url": "https://sf-item.taobao.com/sf_item/676626705409.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1657936800000,
         "status": "done",
         "is_processed": false
     }

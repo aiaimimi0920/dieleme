@@ -393,15 +393,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "江苏省 苏州市 吴中区 光福镇南街玉壶弄18号401室",
-        "所属小区": null,
+        "所属小区": "光福镇玉壶弄小区",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "吴中区",
-        "最靠近商圈": "光福",
+        "最靠近商圈": "光福镇商圈",
         "建筑面积": 60.73,
-        "单价": 7675.58,
+        "单价": 7673.31,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 571426447533,
@@ -477,15 +478,16 @@
         "竞拍人数": 10,
         "出价人数": 10,
         "地点": "江苏省 苏州市 姑苏区 天福里31号",
-        "所属小区": null,
+        "所属小区": "天福里",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
-        "最靠近商圈": "观前街",
+        "最靠近商圈": "观前商圈",
         "建筑面积": 177.19,
-        "单价": 12776.62,
+        "单价": 12775.55,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": "571119749368",
@@ -495,9 +497,65 @@
         "is_processed": false
     },
     {
-        "id": "571119805716",
-        "url": "https://sf-item.taobao.com/sf_item/571119805716.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
-        "end": 1531622114000,
+        "id": 571119805716,
+        "市场评估价": null,
+        "起拍价格": 721000,
+        "成交价格": 826000,
+        "交易时间": "2018-07-15 10:35:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571119805716.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 22,
+        "地点": "福建省 泉州市 安溪县 安溪县茶叶批发市场R120店",
+        "所属小区": "安溪县茶叶批发市场",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪茶叶批发市场",
+        "建筑面积": 32.87,
+        "单价": 25166.65,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "572509118512",
+        "url": "https://sf-item.taobao.com/sf_item/572509118512.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1531623010000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572189316726",
+        "url": "https://sf-item.taobao.com/sf_item/572189316726.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1531623020000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572185404745",
+        "url": "https://sf-item.taobao.com/sf_item/572185404745.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1531620913000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572185404744",
+        "url": "https://sf-item.taobao.com/sf_item/572185404744.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1531620986000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572583763569",
+        "url": "https://sf-item.taobao.com/sf_item/572583763569.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1531620000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571098824492",
+        "url": "https://sf-item.taobao.com/sf_item/571098824492.htm?track_id=9a575996-5fed-41aa-91ca-c7ec4c237ab0",
+        "end": 1531623363000,
         "status": "done",
         "is_processed": false
     }

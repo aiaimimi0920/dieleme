@@ -277,8 +277,29 @@
         "detail_captured": true
     },
     {
-        "id": "619500883534",
-        "url": "https://sf-item.taobao.com/sf_item/619500883534.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "id": 619500883534,
+        "市场评估价": null,
+        "起拍价格": 2763250,
+        "成交价格": 3913250,
+        "交易时间": "2020/06/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/619500883534.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 20,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道优优滨海7幢901室",
+        "所属小区": "优优滨海",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 239.87,
+        "单价": 16314.0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "619529063710",
+        "url": "https://sf-item.taobao.com/sf_item/619529063710.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
         "end": 1593136800000,
         "status": "done",
         "is_processed": false

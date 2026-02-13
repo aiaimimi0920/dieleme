@@ -105,26 +105,67 @@
         "detail_captured": true
     },
     {
-        "id": "697736955533",
-        "url": "https://sf-item.taobao.com/sf_item/697736955533.htm?track_id=bc97f436-0dc2-4702-9160-4c0e5af5a28d",
-        "end": 1677289013000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/697736955533.htm"
+        "id": 697736955533,
+        "市场评估价": null,
+        "起拍价格": 50000,
+        "成交价格": 441898.24,
+        "交易时间": "2023-02-25 09:36:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/697736955533.htm?track_id=bc97f436-0dc2-4702-9160-4c0e5af5a28d",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 香河县 大运河孔雀城学府公园项目大运河-运河.九里1号楼1单元1802室",
+        "所属小区": "大运河孔雀城学府公园",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": "大运河孔雀城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "699329896418",
-        "url": "https://sf-item.taobao.com/sf_item/699329896418.htm?track_id=5c3fd042-c684-4bcf-8fa2-cf27f98d7d60",
-        "end": 1677291471000,
-        "status": "done",
-        "is_processed": false
+        "id": 699329896418,
+        "市场评估价": 882030,
+        "起拍价格": 564500,
+        "成交价格": 840500,
+        "交易时间": "2023-02-25 10:17:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/699329896418.htm?track_id=5c3fd042-c684-4bcf-8fa2-cf27f98d7d60",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 34,
+        "地点": "辽宁省沈阳市铁西区建设中路12-4号2-25-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场商圈",
+        "建筑面积": 85.71,
+        "单价": 9807.61,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "701782239902",
-        "url": "https://sf-item.taobao.com/sf_item/701782239902.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
-        "end": 1677290475000,
-        "status": "done",
-        "is_processed": false
+        "id": 701782239902,
+        "市场评估价": 367500,
+        "起拍价格": 205800,
+        "成交价格": 205800,
+        "交易时间": "2023/02/25 10:01:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/701782239902.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 兴工北街63号1-14-1",
+        "所属小区": "幸福岛",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 40.24,
+        "单价": 5113.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "700942088232",
@@ -137,6 +178,69 @@
         "id": "701862335197",
         "url": "https://sf-item.taobao.com/sf_item/701862335197.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
         "end": 1677295482000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701252497195",
+        "url": "https://sf-item.taobao.com/sf_item/701252497195.htm?track_id=c9d350ba-1b65-4e91-8615-aaa681af9d56",
+        "end": 1677293921000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701251901361",
+        "url": "https://sf-item.taobao.com/sf_item/701251901361.htm?track_id=c9d350ba-1b65-4e91-8615-aaa681af9d56",
+        "end": 1677292448000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701247685579",
+        "url": "https://sf-item.taobao.com/sf_item/701247685579.htm?track_id=c9d350ba-1b65-4e91-8615-aaa681af9d56",
+        "end": 1677294870000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701727143849",
+        "url": "https://sf-item.taobao.com/sf_item/701727143849.htm?track_id=6d54c8e1-78b5-49d8-b1b2-0cb744dcdd01",
+        "end": 1677290408000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701727151902",
+        "url": "https://sf-item.taobao.com/sf_item/701727151902.htm?track_id=6d54c8e1-78b5-49d8-b1b2-0cb744dcdd01",
+        "end": 1677291826000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701727231495",
+        "url": "https://sf-item.taobao.com/sf_item/701727231495.htm?track_id=6d54c8e1-78b5-49d8-b1b2-0cb744dcdd01",
+        "end": 1677290424000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701331957578",
+        "url": "https://sf-item.taobao.com/sf_item/701331957578.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1677293446000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701333597727",
+        "url": "https://sf-item.taobao.com/sf_item/701333597727.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1677317222000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "694235932684",
+        "url": "https://sf-item.taobao.com/sf_item/694235932684.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "end": 1677297654000,
         "status": "done",
         "is_processed": false
     }

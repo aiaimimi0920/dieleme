@@ -446,7 +446,8 @@
         "建筑面积": 120.1,
         "单价": 2218.5,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 585401908143,
@@ -509,7 +510,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 584643841143,
@@ -617,37 +619,149 @@
         "detail_captured": true
     },
     {
-        "id": "585302622957",
-        "url": "https://sf-item.taobao.com/sf_item/585302622957.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
-        "end": 1548385134000,
-        "status": "done",
-        "is_processed": false
+        "id": 585302622957,
+        "市场评估价": 525844,
+        "起拍价格": 402270.66,
+        "成交价格": 402270.66,
+        "交易时间": "2019-01-25 10:58:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585302622957.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延朝路",
+        "所属小区": "新地小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延朝路商圈",
+        "建筑面积": 138.38,
+        "单价": 2907.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "585595345792",
-        "url": "https://sf-item.taobao.com/sf_item/585595345792.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
-        "end": 1548381600000,
-        "status": "done",
-        "is_processed": false
+        "id": 585595345792,
+        "市场评估价": 1165500,
+        "起拍价格": 1048950,
+        "成交价格": 1048950,
+        "交易时间": "2019/01/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585595345792.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "陕西省 西安市 未央区 文景路79号\"邮政住宅小区\"6幢1单元10903室住宅房",
+        "所属小区": "邮政住宅小区",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "文景路商圈",
+        "建筑面积": 135.54,
+        "单价": 7740.1,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "585594337405",
-        "url": "https://sf-item.taobao.com/sf_item/585594337405.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1548382330000,
-        "status": "done",
-        "is_processed": false
+        "id": 585594337405,
+        "市场评估价": 1679349,
+        "起拍价格": 950000,
+        "成交价格": 1200000,
+        "交易时间": "2019/01/25 10:12:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585594337405.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 26,
+        "地点": "江西省 南昌市 青云谱区 解放西路49号玉河明珠1栋3单元404室房产",
+        "所属小区": "玉河明珠",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "解放西路商圈",
+        "建筑面积": 132.65,
+        "单价": 9046.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "585873675585",
-        "url": "https://sf-item.taobao.com/sf_item/585873675585.htm?track_id=6e2f85f4-a431-4d2a-afe1-a8628010aed9",
-        "end": 1548381600000,
-        "status": "done",
-        "is_processed": false
+        "id": 585873675585,
+        "市场评估价": null,
+        "起拍价格": 3100000,
+        "成交价格": 3100000,
+        "交易时间": "2019-01-25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585873675585.htm?track_id=6e2f85f4-a431-4d2a-afe1-a8628010aed9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市海盐县武原街道海丰西路283号保利一品花园5幢404室",
+        "所属小区": "保利一品花园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 192.81,
+        "单价": 16084.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "585892979179",
         "url": "https://sf-item.taobao.com/sf_item/585892979179.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
         "end": 1548384664000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585768806219",
+        "url": "https://sf-item.taobao.com/sf_item/585768806219.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1548382338000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584668837139",
+        "url": "https://sf-item.taobao.com/sf_item/584668837139.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1548389561000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584263728497",
+        "url": "https://sf-item.taobao.com/sf_item/584263728497.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1548383993000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584770454437",
+        "url": "https://sf-item.taobao.com/sf_item/584770454437.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1548381844000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585403772182",
+        "url": "https://sf-item.taobao.com/sf_item/585403772182.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1548404027000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585401280883",
+        "url": "https://sf-item.taobao.com/sf_item/585401280883.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1548389112000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582506813033",
+        "url": "https://sf-item.taobao.com/sf_item/582506813033.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1548384597000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585401068762",
+        "url": "https://sf-item.taobao.com/sf_item/585401068762.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "end": 1548381600000,
         "status": "done",
         "is_processed": false
     }

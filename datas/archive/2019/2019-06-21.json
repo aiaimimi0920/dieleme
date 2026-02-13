@@ -531,11 +531,25 @@
         "detail_captured": true
     },
     {
-        "id": "595967607798",
-        "url": "https://sf-item.taobao.com/sf_item/595967607798.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
-        "end": 1561083055000,
-        "status": "done",
-        "is_processed": false
+        "id": 595967607798,
+        "市场评估价": null,
+        "起拍价格": 2149582,
+        "成交价格": 2420582,
+        "交易时间": "2019-06-21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595967607798.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "内蒙古自治区 包头市 昆都仑区 包头市高新区华丽家族小区6-105住宅、6-C10车库",
+        "所属小区": "华丽家族小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "包头市高新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 595157531994,
@@ -559,18 +573,46 @@
         "detail_captured": true
     },
     {
-        "id": "595138879364",
-        "url": "https://sf-item.taobao.com/sf_item/595138879364.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
-        "end": 1561082633000,
-        "status": "done",
-        "is_processed": false
+        "id": 595138879364,
+        "市场评估价": 901381,
+        "起拍价格": 630967,
+        "成交价格": 632967,
+        "交易时间": "2019/06/21 10:03:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595138879364.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区燕塞湖街20号2-11-1",
+        "所属小区": "丽都新城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 181.73,
+        "单价": 3482.03,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "595933733380",
-        "url": "https://sf-item.taobao.com/sf_item/595933733380.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
-        "end": 1561082405000,
-        "status": "done",
-        "is_processed": false
+        "id": 595933733380,
+        "市场评估价": null,
+        "起拍价格": 384880,
+        "成交价格": 384880,
+        "交易时间": "2019/06/21 10:00:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595933733380.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 淄博市 博山区 五龙街28号润泽园小区1号住宅楼",
+        "所属小区": "润泽园",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "594809417701",
@@ -583,6 +625,48 @@
         "id": "595716588748",
         "url": "https://sf-item.taobao.com/sf_item/595716588748.htm?track_id=0739f089-7ac6-489d-ad38-282796f4890c",
         "end": 1561082400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594087075882",
+        "url": "https://sf-item.taobao.com/sf_item/594087075882.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1561083145000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594561768495",
+        "url": "https://sf-item.taobao.com/sf_item/594561768495.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1561083537000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594341680983",
+        "url": "https://sf-item.taobao.com/sf_item/594341680983.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1561082400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596204783291",
+        "url": "https://sf-item.taobao.com/sf_item/596204783291.htm?track_id=4c84a2d9-638f-45a5-86b7-e8180a7a933f",
+        "end": 1561082400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595704364842",
+        "url": "https://sf-item.taobao.com/sf_item/595704364842.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "end": 1561082400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594805613338",
+        "url": "https://sf-item.taobao.com/sf_item/594805613338.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1561090797000,
         "status": "done",
         "is_processed": false
     }

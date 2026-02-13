@@ -1331,12 +1331,25 @@
         "detail_captured": true
     },
     {
-        "id": "611311577318",
-        "url": "https://sf-item.taobao.com/sf_item/611311577318.htm?track_id=d912b89a-734d-4af7-add5-7a07af10bfaa",
-        "end": 1581645600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/611311577318.htm"
+        "id": 611311577318,
+        "市场评估价": 0,
+        "起拍价格": 97500,
+        "成交价格": 98500,
+        "交易时间": "2020/02/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611311577318.htm?track_id=d912b89a-734d-4af7-add5-7a07af10bfaa",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 2,
+        "地点": "河南省 新乡市 卫滨区 新乡市卫滨区胜利路与南环路交叉口的新盾嘉苑10号楼1001",
+        "所属小区": "新盾嘉苑",
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": "卫滨区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 611312029130,
@@ -1528,12 +1541,25 @@
         "detail_captured": true
     },
     {
-        "id": "611794167530",
-        "url": "https://sf-item.taobao.com/sf_item/611794167530.htm?track_id=d912b89a-734d-4af7-add5-7a07af10bfaa",
-        "end": 1581645600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/611794167530.htm"
+        "id": 611794167530,
+        "市场评估价": null,
+        "起拍价格": 97000,
+        "成交价格": 98000,
+        "交易时间": "2020/02/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611794167530.htm?track_id=d912b89a-734d-4af7-add5-7a07af10bfaa",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "河南省新乡市卫滨区胜利路与南环路交叉口的新盾嘉苑21号楼1006",
+        "所属小区": "新盾嘉苑",
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": "胜利路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 611044560088,
@@ -2418,9 +2444,37 @@
         "detail_captured": true
     },
     {
-        "id": "611471546299",
-        "url": "https://sf-item.taobao.com/sf_item/611471546299.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1581645903000,
+        "id": 611471546299,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 701400,
+        "交易时间": "2020-02-14 10:05:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611471546299.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 5,
+        "地点": "河南省 郑州市 新密市 青屏大街西段北侧（世纪新村22号楼）自东向西5单元6层东户",
+        "所属小区": "世纪新村",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏大街",
+        "建筑面积": 165.62,
+        "单价": 4234.35,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "610955028503",
+        "url": "https://sf-item.taobao.com/sf_item/610955028503.htm?track_id=895fcaa5-fb8d-48ba-9e9d-667dedb92adf",
+        "end": 1581645600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609728160637",
+        "url": "https://sf-item.taobao.com/sf_item/609728160637.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1581652829000,
         "status": "done",
         "is_processed": false
     }

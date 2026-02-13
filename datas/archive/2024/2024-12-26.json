@@ -466,25 +466,67 @@
         "detail_captured": true
     },
     {
-        "id": "861528761278",
-        "url": "https://sf-item.taobao.com/sf_item/861528761278.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
-        "end": 1735178433000,
-        "status": "done",
-        "is_processed": false
+        "id": 861528761278,
+        "市场评估价": null,
+        "起拍价格": 548196,
+        "成交价格": 548196,
+        "交易时间": "2024-12-26 10:00:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/861528761278.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省遵义市汇川区广州路天安星园4栋5-4号房产",
+        "所属小区": "天安星园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "广州路商圈",
+        "建筑面积": 132.44,
+        "单价": 4138.36,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "860256051777",
-        "url": "https://sf-item.taobao.com/sf_item/860256051777.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
-        "end": 1735182146000,
-        "status": "done",
-        "is_processed": false
+        "id": 860256051777,
+        "市场评估价": 1980000,
+        "起拍价格": 1584000,
+        "成交价格": 1744000,
+        "交易时间": "2024/12/26 11:02:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/860256051777.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 32,
+        "地点": "河南省郑州市二七区贺江路69号院T12号楼1单元11层西户",
+        "所属小区": "橄榄城五号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "长江路商圈",
+        "建筑面积": 188.74,
+        "单价": 9233.3,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "847679991714",
-        "url": "https://sf-item.taobao.com/sf_item/847679991714.htm?track_id=d8f63a09-ef84-4561-bc48-ff20ead59d2a",
-        "end": 1735199891000,
-        "status": "done",
-        "is_processed": false
+        "id": 847679991714,
+        "市场评估价": 4702600,
+        "起拍价格": 2640000,
+        "成交价格": 2640000,
+        "交易时间": "2024/12/26 15:58:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/847679991714.htm?track_id=d8f63a09-ef84-4561-bc48-ff20ead59d2a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 杭州市 滨江区 长河街道（临）同人路274号",
+        "所属小区": "同人广场",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河板块",
+        "建筑面积": 212.02,
+        "单价": 12452.8,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "861129547076",
@@ -497,6 +539,62 @@
         "id": "861286570443",
         "url": "https://sf-item.taobao.com/sf_item/861286570443.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
         "end": 1735178999000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "860247295828",
+        "url": "https://sf-item.taobao.com/sf_item/860247295828.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1735178858000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "860720953536",
+        "url": "https://sf-item.taobao.com/sf_item/860720953536.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1735180123000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "861275614767",
+        "url": "https://sf-item.taobao.com/sf_item/861275614767.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1735179522000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "861876124638",
+        "url": "https://sf-item.taobao.com/sf_item/861876124638.htm?track_id=dd9b2ad6-0c16-4fa0-934f-94384d19c8fc",
+        "end": 1735178400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "861071115585",
+        "url": "https://sf-item.taobao.com/sf_item/861071115585.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1735182675000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "853455193471",
+        "url": "https://sf-item.taobao.com/sf_item/853455193471.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1735179986000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "857210183422",
+        "url": "https://sf-item.taobao.com/sf_item/857210183422.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1735180393000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "857921856500",
+        "url": "https://sf-item.taobao.com/sf_item/857921856500.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "end": 1735178715000,
         "status": "done",
         "is_processed": false
     }

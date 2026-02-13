@@ -525,10 +525,24 @@
         "detail_captured": true
     },
     {
-        "id": "614326547047",
-        "url": "https://sf-item.taobao.com/sf_item/614326547047.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
-        "end": 1587348000000,
-        "status": "done",
-        "is_processed": false
+        "id": 614326547047,
+        "市场评估价": null,
+        "起拍价格": 521723,
+        "成交价格": 521723,
+        "交易时间": "2020/04/20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/614326547047.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 友谊大街友谊小区11-74",
+        "所属小区": "友谊小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "友谊大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

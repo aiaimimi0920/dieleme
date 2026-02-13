@@ -378,23 +378,72 @@
         "detail_captured": true
     },
     {
-        "id": "623877081636",
-        "url": "https://sf-item.taobao.com/sf_item/623877081636.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1597284000000,
-        "status": "done",
-        "is_processed": false
+        "id": 623877081636,
+        "市场评估价": 795940.33,
+        "起拍价格": 473584.51,
+        "成交价格": 473584.51,
+        "交易时间": "2020/08/13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/623877081636.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区十三号路4甲3-22号2-5-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 131.9,
+        "单价": 3590.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "624444111764",
-        "url": "https://sf-item.taobao.com/sf_item/624444111764.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
-        "end": 1597313331000,
-        "status": "done",
-        "is_processed": false
+        "id": 624444111764,
+        "市场评估价": null,
+        "起拍价格": 482000,
+        "成交价格": 482000,
+        "交易时间": "2020/08/13 18:08:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624444111764.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省南平市顺昌县双溪镇中山中路23号401室",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪镇",
+        "建筑面积": 109.8,
+        "单价": 4389.8,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "622937222881",
         "url": "https://sf-item.taobao.com/sf_item/622937222881.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
         "end": 1597285280000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623876013671",
+        "url": "https://sf-item.taobao.com/sf_item/623876013671.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
+        "end": 1597284000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620902214296",
+        "url": "https://sf-item.taobao.com/sf_item/620902214296.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1597288920000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624192130091",
+        "url": "https://sf-item.taobao.com/sf_item/624192130091.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1597284937000,
         "status": "done",
         "is_processed": false
     }

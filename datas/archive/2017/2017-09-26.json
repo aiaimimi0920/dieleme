@@ -504,11 +504,12 @@
         "省份": "湖南省",
         "城市": "湘潭市",
         "区": "雨湖区",
-        "最靠近商圈": "韶山商圈",
+        "最靠近商圈": "雨湖商圈",
         "建筑面积": 103.78,
-        "单价": 9646.79,
+        "单价": 9651.67,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 558337810394,
@@ -616,25 +617,67 @@
         "detail_captured": true
     },
     {
-        "id": "557466972167",
-        "url": "https://sf-item.taobao.com/sf_item/557466972167.htm?track_id=bc44a8f3-b884-4d6c-b85a-fa1993dc6006",
-        "end": 1506393316000,
-        "status": "done",
-        "is_processed": false
+        "id": 557466972167,
+        "市场评估价": null,
+        "起拍价格": 783200,
+        "成交价格": 937200,
+        "交易时间": "2017-09-26 10:35:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557466972167.htm?track_id=bc44a8f3-b884-4d6c-b85a-fa1993dc6006",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 23,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城六路东段389号“银池﹒丽舍云端”第2幢12502号",
+        "所属小区": "银池·丽舍云端",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城五路商圈",
+        "建筑面积": 110.63,
+        "单价": 8468.95,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "557369368497",
-        "url": "https://sf-item.taobao.com/sf_item/557369368497.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
-        "end": 1506391966000,
-        "status": "done",
-        "is_processed": false
+        "id": 557369368497,
+        "市场评估价": null,
+        "起拍价格": 3000000,
+        "成交价格": 3080000,
+        "交易时间": "2017/09/26 10:12:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557369368497.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 5,
+        "地点": "浙江省温州市龙湾区永中街道宾航路88号财智大厦2、3、4幢101室房地产",
+        "所属小区": "财智大厦",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "龙湾万达广场",
+        "建筑面积": 159.39,
+        "单价": 19323.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "557580441358",
-        "url": "https://sf-item.taobao.com/sf_item/557580441358.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
-        "end": 1506387373000,
-        "status": "done",
-        "is_processed": false
+        "id": 557580441358,
+        "市场评估价": null,
+        "起拍价格": 2200000,
+        "成交价格": 3620000,
+        "交易时间": "2017/09/26 08:56:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557580441358.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 112,
+        "地点": "浙江省 嘉兴市 海盐县 海盐县武原街道百尺北路155号天鸿名都",
+        "所属小区": "天鸿名都",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 233.49,
+        "单价": 15507.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "557543003788",
@@ -654,6 +697,62 @@
         "id": "557397304149",
         "url": "https://sf-item.taobao.com/sf_item/557397304149.htm?track_id=b83e9521-b8c5-4682-9703-1e8745dd3e14",
         "end": 1506391464000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557600094980",
+        "url": "https://sf-item.taobao.com/sf_item/557600094980.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1506392890000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557405676566",
+        "url": "https://sf-item.taobao.com/sf_item/557405676566.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1506394835000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557613899921",
+        "url": "https://sf-item.taobao.com/sf_item/557613899921.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1506392400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557688935431",
+        "url": "https://sf-item.taobao.com/sf_item/557688935431.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1506391200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558233814094",
+        "url": "https://sf-item.taobao.com/sf_item/558233814094.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1506391200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557659731069",
+        "url": "https://sf-item.taobao.com/sf_item/557659731069.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1506391200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557553169484",
+        "url": "https://sf-item.taobao.com/sf_item/557553169484.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1506391200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557659575972",
+        "url": "https://sf-item.taobao.com/sf_item/557659575972.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1506391378000,
         "status": "done",
         "is_processed": false
     }

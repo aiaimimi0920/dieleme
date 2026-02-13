@@ -590,23 +590,65 @@
         "detail_captured": true
     },
     {
-        "id": "601016474477",
-        "url": "https://sf-item.taobao.com/sf_item/601016474477.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
-        "end": 1567562445000,
-        "status": "done",
-        "is_processed": false
+        "id": 601016474477,
+        "市场评估价": 0,
+        "起拍价格": 1549600,
+        "成交价格": 1549600,
+        "交易时间": "2019/09/04 10:00:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/601016474477.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 人民路乌江水电遵义基地",
+        "所属小区": "乌江恬苑",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "人民路",
+        "建筑面积": 222.47,
+        "单价": 6965.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "599696341778",
-        "url": "https://sf-item.taobao.com/sf_item/599696341778.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
-        "end": 1567564706000,
-        "status": "done",
-        "is_processed": false
+        "id": 599696341778,
+        "市场评估价": 1033045,
+        "起拍价格": 723132,
+        "成交价格": 871132,
+        "交易时间": "2019/09/04 10:38:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/599696341778.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 75,
+        "地点": "辽宁省 沈阳市 铁西区 燕塞湖街22-3号2-2-1",
+        "所属小区": "三隆世纪城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 149.09,
+        "单价": 5843.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "599952274309",
         "url": "https://sf-item.taobao.com/sf_item/599952274309.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
         "end": 1567563999000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600051190705",
+        "url": "https://sf-item.taobao.com/sf_item/600051190705.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1567563924000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600794154748",
+        "url": "https://sf-item.taobao.com/sf_item/600794154748.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1567562400000,
         "status": "done",
         "is_processed": false
     }

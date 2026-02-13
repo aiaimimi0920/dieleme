@@ -232,11 +232,25 @@
         "detail_captured": true
     },
     {
-        "id": "667030548413",
-        "url": "https://sf-item.taobao.com/sf_item/667030548413.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
-        "end": 1645932762000,
-        "status": "done",
-        "is_processed": false
+        "id": 667030548413,
+        "市场评估价": 0,
+        "起拍价格": 1775777.76,
+        "成交价格": 1903777.76,
+        "交易时间": "2022/02/27 11:32:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/667030548413.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 119,
+        "地点": "内蒙古自治区 包头市 昆都仑区 钢铁大街12号街坊锡华世纪花园百合苑RS11-1号",
+        "所属小区": "锡华世纪花园百合苑",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "钢铁大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 667775614550,
@@ -281,9 +295,30 @@
         "detail_captured": true
     },
     {
-        "id": "667474606849",
-        "url": "https://sf-item.taobao.com/sf_item/667474606849.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1645933029000,
+        "id": 667474606849,
+        "市场评估价": 2158900,
+        "起拍价格": 1554408,
+        "成交价格": 1693408,
+        "交易时间": "2022/02/27 11:37:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/667474606849.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 122,
+        "地点": "云南省 丽江市 华坪县 中心镇华兴社区三组",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "中心镇",
+        "建筑面积": 687.1,
+        "单价": 2464.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "668863347884",
+        "url": "https://sf-item.taobao.com/sf_item/668863347884.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1645928393000,
         "status": "done",
         "is_processed": false
     }

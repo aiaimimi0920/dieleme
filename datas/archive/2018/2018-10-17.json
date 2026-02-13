@@ -162,15 +162,16 @@
         "竞拍人数": null,
         "出价人数": 40,
         "地点": "山东省 威海市 环翠区 文化西路",
-        "所属小区": null,
+        "所属小区": "威海市环翠区文化西路",
         "省份": "山东省",
         "城市": "威海市",
         "区": "环翠区",
-        "最靠近商圈": null,
+        "最靠近商圈": "威海中心",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 578286992515,
@@ -215,11 +216,25 @@
         "detail_captured": true
     },
     {
-        "id": "578579762001",
-        "url": "https://sf-item.taobao.com/sf_item/578579762001.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
-        "end": 1539742732000,
-        "status": "done",
-        "is_processed": false
+        "id": 578579762001,
+        "市场评估价": null,
+        "起拍价格": 869200,
+        "成交价格": 989200,
+        "交易时间": "2018/10/17 10:18:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/578579762001.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "湖南省 常德市 鼎城区 武陵镇永安社区",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": null,
+        "建筑面积": 349.46,
+        "单价": 2830.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "578434366132",
@@ -232,6 +247,69 @@
         "id": "576735032361",
         "url": "https://sf-item.taobao.com/sf_item/576735032361.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
         "end": 1539742361000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577265194479",
+        "url": "https://sf-item.taobao.com/sf_item/577265194479.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1539743044000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577370383085",
+        "url": "https://sf-item.taobao.com/sf_item/577370383085.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1539741901000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578236860023",
+        "url": "https://sf-item.taobao.com/sf_item/578236860023.htm?track_id=62ad0d53-1f42-4565-affc-8bd7d5720e56",
+        "end": 1539744256000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578237076464",
+        "url": "https://sf-item.taobao.com/sf_item/578237076464.htm?track_id=62ad0d53-1f42-4565-affc-8bd7d5720e56",
+        "end": 1539741926000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578650595983",
+        "url": "https://sf-item.taobao.com/sf_item/578650595983.htm?track_id=62ad0d53-1f42-4565-affc-8bd7d5720e56",
+        "end": 1539741614000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578413429231",
+        "url": "https://sf-item.taobao.com/sf_item/578413429231.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1539741954000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578657883107",
+        "url": "https://sf-item.taobao.com/sf_item/578657883107.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1539741600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577129755282",
+        "url": "https://sf-item.taobao.com/sf_item/577129755282.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1539741600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577325265885",
+        "url": "https://sf-item.taobao.com/sf_item/577325265885.htm?track_id=269f7c8e-7c43-472e-9c90-32f75befe4fb",
+        "end": 1539738000000,
         "status": "done",
         "is_processed": false
     }

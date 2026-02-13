@@ -42,10 +42,24 @@
         "detail_captured": true
     },
     {
-        "id": "524825858933",
-        "url": "https://sf-item.taobao.com/sf_item/524825858933.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1450491735000,
-        "status": "done",
-        "is_processed": false
+        "id": 524825858933,
+        "市场评估价": null,
+        "起拍价格": 6390000,
+        "成交价格": 8710000,
+        "交易时间": "2015-12-19 10:22:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524825858933.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": 117,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": null,
+        "建筑面积": 325.57,
+        "单价": 26743.82,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

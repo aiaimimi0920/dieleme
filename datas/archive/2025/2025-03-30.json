@@ -147,10 +147,24 @@
         "detail_captured": true
     },
     {
-        "id": "891909747507",
-        "url": "https://sf-item.taobao.com/sf_item/891909747507.htm?track_id=bb65ed84-7144-485c-9338-fa746a2ca92a",
-        "end": 1743302798000,
-        "status": "done",
-        "is_processed": false
+        "id": 891909747507,
+        "市场评估价": null,
+        "起拍价格": 1237254,
+        "成交价格": 1577254,
+        "交易时间": "2025-03-30T10:46:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/891909747507.htm?track_id=bb65ed84-7144-485c-9338-fa746a2ca92a",
+        "是否成交": true,
+        "竞拍人数": 64,
+        "出价人数": 64,
+        "地点": "河南省 郑州市 二七区 嵩山南路191号院2号楼1-2层112号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 125.16,
+        "单价": 12597.69,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -63,25 +63,67 @@
         "detail_captured": true
     },
     {
-        "id": "535023025238",
-        "url": "https://sf-item.taobao.com/sf_item/535023025238.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
-        "end": 1469152800000,
-        "status": "done",
-        "is_processed": false
+        "id": 535023025238,
+        "市场评估价": null,
+        "起拍价格": 440000,
+        "成交价格": 600000,
+        "交易时间": "2016/07/22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535023025238.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 9,
+        "地点": "贵州省遵义市汇川区珠海路丰学府芳邻小区A-25-G-9",
+        "所属小区": "丰学府芳邻",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "珠海路商圈",
+        "建筑面积": 141.69,
+        "单价": 4234.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "534873319908",
-        "url": "https://sf-item.taobao.com/sf_item/534873319908.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
-        "end": 1469153571000,
-        "status": "done",
-        "is_processed": false
+        "id": 534873319908,
+        "市场评估价": 0,
+        "起拍价格": 192738,
+        "成交价格": 252738,
+        "交易时间": "2016/07/22 10:12:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534873319908.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 7,
+        "地点": "贵州省遵义市汇川区大连路航天社区（航汽一区）33栋2单元602室（附12号）",
+        "所属小区": "航天社区",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "大连路",
+        "建筑面积": 74.13,
+        "单价": 3408.52,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "534971581234",
-        "url": "https://sf-item.taobao.com/sf_item/534971581234.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
-        "end": 1469155992000,
-        "status": "done",
-        "is_processed": false
+        "id": 534971581234,
+        "市场评估价": null,
+        "起拍价格": 530000,
+        "成交价格": 590000,
+        "交易时间": "2016-07-22T10:53:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534971581234.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 31,
+        "地点": "浙江省嘉兴市海盐县",
+        "所属小区": "海景苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 116.27,
+        "单价": 5073.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "535002313919",
@@ -98,11 +140,25 @@
         "is_processed": false
     },
     {
-        "id": "534819599719",
-        "url": "https://sf-item.taobao.com/sf_item/534819599719.htm?track_id=f0ab8160-a6c9-4731-aa8f-79271cd5c413",
-        "end": 1469155505000,
-        "status": "done",
-        "is_processed": false
+        "id": 534819599719,
+        "市场评估价": null,
+        "起拍价格": 550000,
+        "成交价格": 681000,
+        "交易时间": "2016-07-22 10:45:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534819599719.htm?track_id=f0ab8160-a6c9-4731-aa8f-79271cd5c413",
+        "是否成交": true,
+        "竞拍人数": 59,
+        "出价人数": 11,
+        "地点": "江苏省 常州市 天宁区",
+        "所属小区": "世纪华城",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "天宁中心商圈",
+        "建筑面积": 90,
+        "单价": 7566.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "535698114436",
@@ -115,6 +171,55 @@
         "id": "534819431232",
         "url": "https://sf-item.taobao.com/sf_item/534819431232.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1469152800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534915393973",
+        "url": "https://sf-item.taobao.com/sf_item/534915393973.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1469153555000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534701232120",
+        "url": "https://sf-item.taobao.com/sf_item/534701232120.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1469154576000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534837212940",
+        "url": "https://sf-item.taobao.com/sf_item/534837212940.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1469154332000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535725265560",
+        "url": "https://sf-item.taobao.com/sf_item/535725265560.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1469153606000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534882842140",
+        "url": "https://sf-item.taobao.com/sf_item/534882842140.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1469154961000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534581971860",
+        "url": "https://sf-item.taobao.com/sf_item/534581971860.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1469155165000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535003436039",
+        "url": "https://sf-item.taobao.com/sf_item/535003436039.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1469154698000,
         "status": "done",
         "is_processed": false
     }

@@ -126,11 +126,25 @@
         "detail_captured": true
     },
     {
-        "id": "566747014611",
-        "url": "https://sf-item.taobao.com/sf_item/566747014611.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
-        "end": 1525227336000,
-        "status": "done",
-        "is_processed": false
+        "id": 566747014611,
+        "市场评估价": null,
+        "起拍价格": 1194309.9,
+        "成交价格": 1264309.9,
+        "交易时间": "2018/05/02 10:15:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/566747014611.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 15,
+        "地点": "内蒙古自治区 包头市 昆都仑区 莫尼路北税苑小区",
+        "所属小区": "税苑小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "莫尼路",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 566726097761,
@@ -164,6 +178,13 @@
         "id": "567677099187",
         "url": "https://sf-item.taobao.com/sf_item/567677099187.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1525226481000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566969659097",
+        "url": "https://sf-item.taobao.com/sf_item/566969659097.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1525229243000,
         "status": "done",
         "is_processed": false
     }

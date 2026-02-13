@@ -1,9 +1,23 @@
 [
     {
-        "id": "520802103875",
-        "url": "https://sf-item.taobao.com/sf_item/520802103875.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
-        "end": 1439043010000,
-        "status": "done",
-        "is_processed": false
+        "id": 520802103875,
+        "市场评估价": null,
+        "起拍价格": 775000,
+        "成交价格": 950000,
+        "交易时间": "2015-08-08T22:10:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520802103875.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
+        "是否成交": true,
+        "竞拍人数": 36,
+        "出价人数": null,
+        "地点": "福建省 泉州市 安溪县",
+        "所属小区": "康馨苑",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "丰泽区",
+        "最靠近商圈": "圣湖商圈",
+        "建筑面积": 128.06,
+        "单价": 7418.23,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

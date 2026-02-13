@@ -771,11 +771,25 @@
         "detail_captured": true
     },
     {
-        "id": "594343368862",
-        "url": "https://sf-item.taobao.com/sf_item/594343368862.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
-        "end": 1560823698000,
-        "status": "done",
-        "is_processed": false
+        "id": 594343368862,
+        "市场评估价": 416000,
+        "起拍价格": 300000,
+        "成交价格": 336000,
+        "交易时间": "2019-06-18 10:08:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594343368862.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 12,
+        "地点": "四川省 资阳市 乐至县 天池镇宏扬路132号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 595712827738,
@@ -799,18 +813,46 @@
         "detail_captured": true
     },
     {
-        "id": "595285102489",
-        "url": "https://sf-item.taobao.com/sf_item/595285102489.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
-        "end": 1560823435000,
-        "status": "done",
-        "is_processed": false
+        "id": 595285102489,
+        "市场评估价": 1291062,
+        "起拍价格": 877922.4,
+        "成交价格": 877922.4,
+        "交易时间": "2019/06/18 10:03:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595285102489.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 常德市 鼎城区 武陵镇永安社区财富广场",
+        "所属小区": "财富广场",
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": "武陵镇",
+        "建筑面积": 314.28,
+        "单价": 2793.1,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "595284530776",
-        "url": "https://sf-item.taobao.com/sf_item/595284530776.htm?track_id=b4163aa6-d768-4bf1-a06b-e4d196abe393",
-        "end": 1560823200000,
-        "status": "done",
-        "is_processed": false
+        "id": 595284530776,
+        "市场评估价": 1733453,
+        "起拍价格": 1178748,
+        "成交价格": 1183748,
+        "交易时间": "2019/06/18 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595284530776.htm?track_id=b4163aa6-d768-4bf1-a06b-e4d196abe393",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 2,
+        "地点": "湖南省 常德市 鼎城区 武陵镇永安社区财富广场B6-09-01号",
+        "所属小区": "财富广场",
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": 125.15,
+        "单价": 9458.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "594576865974",
@@ -820,11 +862,25 @@
         "is_processed": false
     },
     {
-        "id": "595371697958",
-        "url": "https://sf-item.taobao.com/sf_item/595371697958.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
-        "end": 1560851845000,
-        "status": "done",
-        "is_processed": false
+        "id": 595371697958,
+        "市场评估价": null,
+        "起拍价格": 523360,
+        "成交价格": 523360,
+        "交易时间": "2019/06/18 17:57:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595371697958.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 淄博市 博山区 博山区天隆广场6号楼1单元301号（原9栋3层02号）住宅",
+        "所属小区": "天隆广场",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "594320184325",
@@ -851,6 +907,55 @@
         "id": "594630343027",
         "url": "https://sf-item.taobao.com/sf_item/594630343027.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1560823200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596029475801",
+        "url": "https://sf-item.taobao.com/sf_item/596029475801.htm?track_id=85d6e4c3-5841-4382-a02e-efc4156014e9",
+        "end": 1560823200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594919483284",
+        "url": "https://sf-item.taobao.com/sf_item/594919483284.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1560823553000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594313785372",
+        "url": "https://sf-item.taobao.com/sf_item/594313785372.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1560823616000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594270029642",
+        "url": "https://sf-item.taobao.com/sf_item/594270029642.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "end": 1560824136000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594574602281",
+        "url": "https://sf-item.taobao.com/sf_item/594574602281.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1560823200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594747467933",
+        "url": "https://sf-item.taobao.com/sf_item/594747467933.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1560823200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596014991089",
+        "url": "https://sf-item.taobao.com/sf_item/596014991089.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1560824391000,
         "status": "done",
         "is_processed": false
     }

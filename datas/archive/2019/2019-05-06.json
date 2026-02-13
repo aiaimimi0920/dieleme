@@ -1002,11 +1002,12 @@
         "省份": "山东省",
         "城市": "威海市",
         "区": "荣成市",
-        "最靠近商圈": null,
+        "最靠近商圈": "荣成市中心商圈",
         "建筑面积": 103.87,
-        "单价": 4692.53,
+        "单价": 4692.98,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 592268482139,
@@ -1082,15 +1083,16 @@
         "竞拍人数": 42,
         "出价人数": null,
         "地点": "江苏省 苏州市 相城区 苏州市相城区北桥街道未来路1号4幢117室",
-        "所属小区": null,
+        "所属小区": "未来家园",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
         "最靠近商圈": "北桥商圈",
         "建筑面积": 54.47,
-        "单价": 6919.22,
+        "单价": 6921.24,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 591043558960,
@@ -1145,15 +1147,16 @@
         "竞拍人数": 0,
         "出价人数": 28,
         "地点": "江苏省 苏州市 相城区 苏州市相城区北桥街道未来路1号4幢118室",
-        "所属小区": null,
+        "所属小区": "北桥馨苑",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
         "最靠近商圈": "北桥商圈",
         "建筑面积": 54.47,
-        "单价": 6813.66,
+        "单价": 6811.09,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 591211031882,
@@ -1170,11 +1173,12 @@
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": null,
+        "最靠近商圈": "北桥商圈",
         "建筑面积": 47.59,
-        "单价": 6531.96,
+        "单价": 6534.99,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 591211611576,
@@ -1229,15 +1233,16 @@
         "竞拍人数": 0,
         "出价人数": 14,
         "地点": "江苏省 苏州市 相城区 苏州市相城区北桥街道未来路1号4幢119室",
-        "所属小区": null,
+        "所属小区": "北桥街道未来路小区",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": null,
+        "最靠近商圈": "北桥商圈",
         "建筑面积": 54.47,
-        "单价": 5893.68,
+        "单价": 5893.15,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 590891093939,
@@ -1271,15 +1276,16 @@
         "竞拍人数": 9,
         "出价人数": 1,
         "地点": "江苏省 苏州市 相城区 北桥街道未来路1号4幢305室",
-        "所属小区": null,
+        "所属小区": "北桥街道安置小区",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "北桥",
+        "最靠近商圈": "北桥街道",
         "建筑面积": 50.99,
         "单价": 6099.24,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 590671216975,
@@ -1317,11 +1323,12 @@
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "北桥",
+        "最靠近商圈": "北桥商圈",
         "建筑面积": 50.99,
-        "单价": 5552.11,
+        "单价": 5550.11,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 591212567057,
@@ -1355,15 +1362,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "江苏省 苏州市 相城区 苏州市相城区北桥街道未来路1号4幢205",
-        "所属小区": null,
+        "所属小区": "未来花园",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": null,
+        "最靠近商圈": "北桥商圈",
         "建筑面积": 55.68,
-        "单价": 5386.81,
+        "单价": 5387.93,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 590891141165,
@@ -1376,15 +1384,16 @@
         "竞拍人数": 0,
         "出价人数": 0,
         "地点": "江苏省苏州市相城区北桥街道未来路1号5幢230",
-        "所属小区": null,
+        "所属小区": "未来苑",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": null,
+        "最靠近商圈": "北桥商圈",
         "建筑面积": 51.07,
-        "单价": 5381.54,
+        "单价": 5384.77,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 590891141166,
@@ -1401,11 +1410,12 @@
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": null,
+        "最靠近商圈": "北桥商圈",
         "建筑面积": 51.07,
-        "单价": 5384.88,
+        "单价": 5384.77,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 591042950520,
@@ -1418,15 +1428,16 @@
         "竞拍人数": 1,
         "出价人数": 1,
         "地点": "江苏省 苏州市 相城区 北桥街道未来路1号5幢127",
-        "所属小区": null,
+        "所属小区": "北桥街道未来路5幢",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "北桥板块",
+        "最靠近商圈": "北桥街道商圈",
         "建筑面积": 51.26,
-        "单价": 5365.61,
+        "单价": 5364.81,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 591043146314,
@@ -1502,15 +1513,16 @@
         "竞拍人数": null,
         "出价人数": 32,
         "地点": "江苏省 苏州市 姑苏区 苏州市姑苏区干将东路879号504室不动产",
-        "所属小区": null,
+        "所属小区": "苏苑小区",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
-        "最靠近商圈": "观前商圈",
+        "最靠近商圈": "观前街商圈",
         "建筑面积": 353.76,
-        "单价": 8119.07,
+        "单价": 8117.07,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 590324485533,
@@ -1618,25 +1630,67 @@
         "detail_captured": true
     },
     {
-        "id": "592139777560",
-        "url": "https://sf-item.taobao.com/sf_item/592139777560.htm?track_id=ea13efc1-539c-4316-ab90-5b0a689696ee",
-        "end": 1557109037000,
-        "status": "done",
-        "is_processed": false
+        "id": 592139777560,
+        "市场评估价": 255100,
+        "起拍价格": 142856,
+        "成交价格": 214856,
+        "交易时间": "2019/05/06 10:17:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592139777560.htm?track_id=ea13efc1-539c-4316-ab90-5b0a689696ee",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 52,
+        "地点": "辽宁省 沈阳市 铁西区 强工二街17号1-7-5室",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 51.85,
+        "单价": 4142.33,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "592466187709",
-        "url": "https://sf-item.taobao.com/sf_item/592466187709.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
-        "end": 1557108999000,
-        "status": "done",
-        "is_processed": false
+        "id": 592466187709,
+        "市场评估价": 915794,
+        "起拍价格": 700582.41,
+        "成交价格": 754582.41,
+        "交易时间": "2019/05/06 10:16:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592466187709.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": 28,
+        "地点": "辽宁省 沈阳市 铁西区 燕塞湖街26号272",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 136.89,
+        "单价": 5511.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "590681760318",
-        "url": "https://sf-item.taobao.com/sf_item/590681760318.htm?track_id=688fbbc2-7eac-49ec-a186-0fa9752f3f7b",
-        "end": 1557108534000,
-        "status": "done",
-        "is_processed": false
+        "id": 590681760318,
+        "市场评估价": 2120898,
+        "起拍价格": 1484629,
+        "成交价格": 2474629,
+        "交易时间": "2019/05/06 10:08:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/590681760318.htm?track_id=688fbbc2-7eac-49ec-a186-0fa9752f3f7b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 98,
+        "地点": "江西省 南昌市 青云谱区 青云谱区施尧路1111号水榭花都6栋1001室",
+        "所属小区": "水榭花都",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "象湖",
+        "建筑面积": 171.83,
+        "单价": 14400.89,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "590689613355",
@@ -1653,32 +1707,88 @@
         "is_processed": false
     },
     {
-        "id": "591810381589",
-        "url": "https://sf-item.taobao.com/sf_item/591810381589.htm?track_id=d6e0451f-ec2c-4d96-88dc-d92bbcbf6515",
-        "end": 1557116585000,
-        "status": "done",
-        "is_processed": false
+        "id": 591810381589,
+        "市场评估价": 2020100,
+        "起拍价格": 1294400,
+        "成交价格": 1524400,
+        "交易时间": "2019/05/06 12:23:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/591810381589.htm?track_id=d6e0451f-ec2c-4d96-88dc-d92bbcbf6515",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 112,
+        "地点": "江苏省 无锡市 梁溪区 崇安区广益路“广益?哥伦布”289-3-110",
+        "所属小区": "广益哥伦布",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "广益商圈",
+        "建筑面积": 53.61,
+        "单价": 28432.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "591802568926",
-        "url": "https://sf-item.taobao.com/sf_item/591802568926.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
-        "end": 1557108202000,
-        "status": "done",
-        "is_processed": false
+        "id": 591802568926,
+        "市场评估价": null,
+        "起拍价格": 180000,
+        "成交价格": 186000,
+        "交易时间": "2019/05/06 10:03:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/591802568926.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 淄博市 博山区 白塔镇国家村中心街430号",
+        "所属小区": "国家村",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "白塔镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "591027530186",
-        "url": "https://sf-item.taobao.com/sf_item/591027530186.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
-        "end": 1557108458000,
-        "status": "done",
-        "is_processed": false
+        "id": 591027530186,
+        "市场评估价": null,
+        "起拍价格": 301560,
+        "成交价格": 475560,
+        "交易时间": "2019-05-06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/591027530186.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 48,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道城北西路194号304室",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 57.86,
+        "单价": 8217.22,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "592300450582",
-        "url": "https://sf-item.taobao.com/sf_item/592300450582.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
-        "end": 1557111227000,
-        "status": "done",
-        "is_processed": false
+        "id": 592300450582,
+        "市场评估价": 2053054,
+        "起拍价格": 1396076.72,
+        "成交价格": 1626076.72,
+        "交易时间": "2019-05-06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592300450582.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 47,
+        "地点": "河南省郑州市二七区郑密路126号9号楼东2单元22层2208号",
+        "所属小区": "亚星盛世·郦都",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七区",
+        "建筑面积": 143.51,
+        "单价": 11333.33,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "590874977577",
@@ -1698,6 +1808,97 @@
         "id": "590960234905",
         "url": "https://sf-item.taobao.com/sf_item/590960234905.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
         "end": 1557109993000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590647768086",
+        "url": "https://sf-item.taobao.com/sf_item/590647768086.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1557113266000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "591188803337",
+        "url": "https://sf-item.taobao.com/sf_item/591188803337.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1557110447000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590867441675",
+        "url": "https://sf-item.taobao.com/sf_item/590867441675.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1557110313000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "591187567327",
+        "url": "https://sf-item.taobao.com/sf_item/591187567327.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1557109923000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590648700372",
+        "url": "https://sf-item.taobao.com/sf_item/590648700372.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1557110474000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590648968410",
+        "url": "https://sf-item.taobao.com/sf_item/590648968410.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1557109117000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "591188263567",
+        "url": "https://sf-item.taobao.com/sf_item/591188263567.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1557109146000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592261034224",
+        "url": "https://sf-item.taobao.com/sf_item/592261034224.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1557112580000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592077901496",
+        "url": "https://sf-item.taobao.com/sf_item/592077901496.htm?track_id=0446e63e-c627-4515-9144-1e3ccb4cd3ce",
+        "end": 1557108875000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590768021799",
+        "url": "https://sf-item.taobao.com/sf_item/590768021799.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1557109700000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "589021694354",
+        "url": "https://sf-item.taobao.com/sf_item/589021694354.htm?track_id=1bfdf5f3-ff79-4ec0-acb3-c67a8bc42bdf",
+        "end": 1557166792000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592112189282",
+        "url": "https://sf-item.taobao.com/sf_item/592112189282.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1557109560000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592111869010",
+        "url": "https://sf-item.taobao.com/sf_item/592111869010.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
+        "end": 1557108000000,
         "status": "done",
         "is_processed": false
     }

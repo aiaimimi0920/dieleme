@@ -351,15 +351,16 @@
         "竞拍人数": 0,
         "出价人数": 65,
         "地点": "广东省 韶关市 新丰县 丰城街道丰城大道东37号",
-        "所属小区": null,
+        "所属小区": "丰城大道东小区",
         "省份": "广东省",
         "城市": "韶关市",
         "区": "新丰县",
-        "最靠近商圈": "丰城街道",
+        "最靠近商圈": "丰城街道商圈",
         "建筑面积": 573,
-        "单价": 3157.59,
+        "单价": 3158.46,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 586440377272,
@@ -478,15 +479,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "河南省新乡市牧野区黄岗路7号住宅楼4单元4401室",
-        "所属小区": null,
+        "所属小区": "黄岗路7号住宅小区",
         "省份": "河南省",
         "城市": "新乡市",
         "区": "牧野区",
-        "最靠近商圈": null,
+        "最靠近商圈": "牧野区商圈",
         "建筑面积": 60.17,
-        "单价": 2864.18,
+        "单价": 2866.54,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 585797339957,
@@ -657,18 +659,46 @@
         "detail_captured": true
     },
     {
-        "id": "586070513546",
-        "url": "https://sf-item.taobao.com/sf_item/586070513546.htm?track_id=15d3c34d-ea18-4beb-8082-c657542c2f90",
-        "end": 1549938079000,
-        "status": "done",
-        "is_processed": false
+        "id": 586070513546,
+        "市场评估价": 508104,
+        "起拍价格": 345511,
+        "成交价格": 387511,
+        "交易时间": "2019/02/12 10:21:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586070513546.htm?track_id=15d3c34d-ea18-4beb-8082-c657542c2f90",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 15,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 林海路",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 124.78,
+        "单价": 3105.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "586638639124",
-        "url": "https://sf-item.taobao.com/sf_item/586638639124.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
-        "end": 1549936800000,
-        "status": "done",
-        "is_processed": false
+        "id": 586638639124,
+        "市场评估价": null,
+        "起拍价格": 1640000,
+        "成交价格": 1640000,
+        "交易时间": "2019/02/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586638639124.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省西安市未央区经济技术开发区凤城八路南侧E康城22幢1单元11706号",
+        "所属小区": "E康城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城八路",
+        "建筑面积": 147.63,
+        "单价": 11109.12,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586192588173",
@@ -702,6 +732,20 @@
         "id": "586543766411",
         "url": "https://sf-item.taobao.com/sf_item/586543766411.htm?track_id=4ad87b93-3084-4bc2-9259-b6b0538f1145",
         "end": 1549937943000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586652494757",
+        "url": "https://sf-item.taobao.com/sf_item/586652494757.htm?track_id=8b419dc7-cda7-4057-8901-42ba60db8b13",
+        "end": 1549938715000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585411876305",
+        "url": "https://sf-item.taobao.com/sf_item/585411876305.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1549942484000,
         "status": "done",
         "is_processed": false
     }

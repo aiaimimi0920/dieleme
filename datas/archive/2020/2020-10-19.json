@@ -528,9 +528,37 @@
         "detail_captured": true
     },
     {
-        "id": "626776716541",
-        "url": "https://sf-item.taobao.com/sf_item/626776716541.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
-        "end": 1603072800000,
+        "id": 626776716541,
+        "市场评估价": 3407200,
+        "起拍价格": 2385040,
+        "成交价格": 2385040,
+        "交易时间": "2020/10/19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/626776716541.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 北二中路6-1号502",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 327.87,
+        "单价": 7275.59,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "625438733133",
+        "url": "https://sf-item.taobao.com/sf_item/625438733133.htm?track_id=9370e9c3-7a71-4d89-8eb3-257be301ecff",
+        "end": 1603072926000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626570745969",
+        "url": "https://sf-item.taobao.com/sf_item/626570745969.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1603075118000,
         "status": "done",
         "is_processed": false
     }

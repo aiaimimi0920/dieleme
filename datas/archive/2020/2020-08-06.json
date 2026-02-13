@@ -231,9 +231,44 @@
         "detail_captured": true
     },
     {
-        "id": "624008751934",
-        "url": "https://sf-item.taobao.com/sf_item/624008751934.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
-        "end": 1596681624000,
+        "id": 624008751934,
+        "市场评估价": 0,
+        "起拍价格": 346452.4,
+        "成交价格": 433452.4,
+        "交易时间": "2020/08/06 10:40:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624008751934.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 30,
+        "地点": "河南省 郑州市 二七区 二七区南福华街东27号楼3单元6层40号房产",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 59.25,
+        "单价": 7313.53,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "623124148668",
+        "url": "https://sf-item.taobao.com/sf_item/623124148668.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1596679200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624017531637",
+        "url": "https://sf-item.taobao.com/sf_item/624017531637.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1596679412000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619902745899",
+        "url": "https://sf-item.taobao.com/sf_item/619902745899.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1596680742000,
         "status": "done",
         "is_processed": false
     }

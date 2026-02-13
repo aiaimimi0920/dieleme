@@ -383,9 +383,37 @@
         "detail_captured": true
     },
     {
-        "id": "572038993628",
-        "url": "https://sf-item.taobao.com/sf_item/572038993628.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
-        "end": 1532315625000,
+        "id": 572038993628,
+        "市场评估价": null,
+        "起拍价格": 217770,
+        "成交价格": 402570,
+        "交易时间": "2018/07/23 11:13:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572038993628.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 73,
+        "地点": "江西省 南昌市 青云谱区 青云谱农场区华东国际工业博览城18号楼永安路27号",
+        "所属小区": "华东国际工业博览城",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "华东国际工业博览城",
+        "建筑面积": 52.67,
+        "单价": 7643.87,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "572961280897",
+        "url": "https://sf-item.taobao.com/sf_item/572961280897.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1532316879000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573212119955",
+        "url": "https://sf-item.taobao.com/sf_item/573212119955.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "end": 1532311200000,
         "status": "done",
         "is_processed": false
     }

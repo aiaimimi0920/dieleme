@@ -464,11 +464,25 @@
         "detail_captured": true
     },
     {
-        "id": "798856555292",
-        "url": "https://sf-item.taobao.com/sf_item/798856555292.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
-        "end": 1718246478000,
-        "status": "done",
-        "is_processed": false
+        "id": 798856555292,
+        "市场评估价": null,
+        "起拍价格": 60000,
+        "成交价格": 525056,
+        "交易时间": "2024/06/13 10:41:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/798856555292.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省遵义市汇川区人民路麒麟广场F栋17-4号",
+        "所属小区": "麒麟广场",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": 139.99,
+        "单价": 3750.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "800224649318",
@@ -478,23 +492,114 @@
         "is_processed": false
     },
     {
-        "id": "800246457808",
-        "url": "https://sf-item.taobao.com/sf_item/800246457808.htm?track_id=c91db458-86b2-4c54-b8e2-bb20970fae22",
-        "end": 1718244038000,
-        "status": "done",
-        "is_processed": false
+        "id": 800246457808,
+        "市场评估价": null,
+        "起拍价格": 502336,
+        "成交价格": 502336,
+        "交易时间": "2024/06/13 10:00:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/800246457808.htm?track_id=c91db458-86b2-4c54-b8e2-bb20970fae22",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 沈辽西路25号楼1-12B-1房产",
+        "所属小区": "华润二十四城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "张士",
+        "建筑面积": 114.48,
+        "单价": 4387.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "800103330590",
-        "url": "https://sf-item.taobao.com/sf_item/800103330590.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
-        "end": 1718244911000,
-        "status": "done",
-        "is_processed": false
+        "id": 800103330590,
+        "市场评估价": 298700,
+        "起拍价格": 167272,
+        "成交价格": 211272,
+        "交易时间": "2024/06/13 10:15:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/800103330590.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 37,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道百尺北路333号优活新天地商业中心4074室",
+        "所属小区": "优活新天地商业中心",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 47.41,
+        "单价": 4456.85,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "798593826950",
         "url": "https://sf-item.taobao.com/sf_item/798593826950.htm?track_id=fb36ca66-519f-47e0-8cf2-d020609c405d",
         "end": 1718246835000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "800337404350",
+        "url": "https://sf-item.taobao.com/sf_item/800337404350.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1718244000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "800364110043",
+        "url": "https://sf-item.taobao.com/sf_item/800364110043.htm?track_id=1d7de8cb-3c6a-4ed4-af6a-105ce509c724",
+        "end": 1718244000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "800267945254",
+        "url": "https://sf-item.taobao.com/sf_item/800267945254.htm?track_id=aa7c9499-83e3-4f8b-82a0-5b73185c82fb",
+        "end": 1718247600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "785012772092",
+        "url": "https://sf-item.taobao.com/sf_item/785012772092.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1718247328000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "787630942882",
+        "url": "https://sf-item.taobao.com/sf_item/787630942882.htm?track_id=ec0864e8-1dfb-4aa2-9cc5-3a21f48d84d2",
+        "end": 1718247916000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "785013616180",
+        "url": "https://sf-item.taobao.com/sf_item/785013616180.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1718244520000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "785012536557",
+        "url": "https://sf-item.taobao.com/sf_item/785012536557.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1718244224000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "796059506175",
+        "url": "https://sf-item.taobao.com/sf_item/796059506175.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1718244000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "797020027073",
+        "url": "https://sf-item.taobao.com/sf_item/797020027073.htm?track_id=7c151630-b847-4af4-a435-456209157b57",
+        "end": 1718244827000,
         "status": "done",
         "is_processed": false
     }

@@ -128,10 +128,24 @@
         "detail_captured": true
     },
     {
-        "id": "660884586523",
-        "url": "https://sf-item.taobao.com/sf_item/660884586523.htm?track_id=9ec7e7a4-d280-40ea-8302-422c00f4e23a",
-        "end": 1640138400000,
-        "status": "done",
-        "is_processed": false
+        "id": 660884586523,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 638010,
+        "交易时间": "2021/12/22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/660884586523.htm?track_id=9ec7e7a4-d280-40ea-8302-422c00f4e23a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 新密市 城关镇青石河村一组（920-0007-0003）（权证号：0905002274）房产一处",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 880.64,
+        "单价": 724.53,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

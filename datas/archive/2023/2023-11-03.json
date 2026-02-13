@@ -617,18 +617,46 @@
         "detail_captured": true
     },
     {
-        "id": "743476662215",
-        "url": "https://sf-item.taobao.com/sf_item/743476662215.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
-        "end": 1698979343000,
-        "status": "done",
-        "is_processed": false
+        "id": 743476662215,
+        "市场评估价": 572282,
+        "起拍价格": 320477.92,
+        "成交价格": 390965.92,
+        "交易时间": "2023/11/03 10:42:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/743476662215.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 20,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 科尔沁镇府东花园北区22-2-502",
+        "所属小区": "府东花园北区",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁镇",
+        "建筑面积": 143.78,
+        "单价": 2718.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "740232589200",
-        "url": "https://sf-item.taobao.com/sf_item/740232589200.htm?track_id=b5067d3b-a8a7-456b-852f-55dbd2272063",
-        "end": 1698997603000,
-        "status": "done",
-        "is_processed": false
+        "id": 740232589200,
+        "市场评估价": 2463192,
+        "起拍价格": 1576444,
+        "成交价格": 1576444,
+        "交易时间": "2023/11/03 15:46:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/740232589200.htm?track_id=b5067d3b-a8a7-456b-852f-55dbd2272063",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 建设东路60-1号1-10-2",
+        "所属小区": "凯旋门",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 142.86,
+        "单价": 11035.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "743521257883",
@@ -645,11 +673,25 @@
         "is_processed": false
     },
     {
-        "id": "743663879329",
-        "url": "https://sf-item.taobao.com/sf_item/743663879329.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1698978102000,
-        "status": "done",
-        "is_processed": false
+        "id": 743663879329,
+        "市场评估价": 313700,
+        "起拍价格": 254097,
+        "成交价格": 282097,
+        "交易时间": "2023/11/03 10:21:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/743663879329.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 29,
+        "地点": "云南省 丽江市 华坪县 华坪县中心镇兴隆社区二组腾茂种养植业有限公司商住楼203室房地产",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "中心镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "743309084118",
@@ -659,11 +701,25 @@
         "is_processed": false
     },
     {
-        "id": "743466965646",
-        "url": "https://sf-item.taobao.com/sf_item/743466965646.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1698979567000,
-        "status": "done",
-        "is_processed": false
+        "id": 743466965646,
+        "市场评估价": 323300,
+        "起拍价格": 261873,
+        "成交价格": 288873,
+        "交易时间": "2023/11/03 10:46:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/743466965646.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "云南省丽江市华坪县华坪县中心镇兴隆社区二组腾茂种养植业有限公司商住楼303室房地产",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "华坪县中心镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "743468853380",
@@ -736,9 +792,65 @@
         "is_processed": false
     },
     {
-        "id": "743700535921",
-        "url": "https://sf-item.taobao.com/sf_item/743700535921.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
-        "end": 1698978674000,
+        "id": 743700535921,
+        "市场评估价": null,
+        "起拍价格": 676054,
+        "成交价格": 760054,
+        "交易时间": "2023-11-03 10:31:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/743700535921.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": 15,
+        "地点": "河南省 郑州市 二七区 广秀路72号7号楼6层603",
+        "所属小区": "广秀路72号7号楼",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 89.44,
+        "单价": 8497.88,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "741200498903",
+        "url": "https://sf-item.taobao.com/sf_item/741200498903.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1698980016000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743571034370",
+        "url": "https://sf-item.taobao.com/sf_item/743571034370.htm?track_id=e060ffc2-3fe3-43ca-bf44-12c2e06c793c",
+        "end": 1698978552000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743356004369",
+        "url": "https://sf-item.taobao.com/sf_item/743356004369.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
+        "end": 1698976800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743344737067",
+        "url": "https://sf-item.taobao.com/sf_item/743344737067.htm?track_id=a104badb-d029-4a84-9853-223a95622272",
+        "end": 1698984334000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743389029396",
+        "url": "https://sf-item.taobao.com/sf_item/743389029396.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1698988015000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743577314118",
+        "url": "https://sf-item.taobao.com/sf_item/743577314118.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1698980400000,
         "status": "done",
         "is_processed": false
     }

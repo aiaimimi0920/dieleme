@@ -63,12 +63,25 @@
         "detail_captured": true
     },
     {
-        "id": "977582598253",
-        "url": "https://sf-item.taobao.com/sf_item/977582598253.htm?track_id=6f4b5be5-994a-4899-8b6e-9b8258eafb47",
-        "end": 1760927555000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/977582598253.htm"
+        "id": 977582598253,
+        "市场评估价": 210750,
+        "起拍价格": 168600,
+        "成交价格": 335600,
+        "交易时间": "2025/10/20 10:32:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/977582598253.htm?track_id=6f4b5be5-994a-4899-8b6e-9b8258eafb47",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 156,
+        "地点": "内蒙古自治区 呼伦贝尔市 满洲里市 佳润金城小区2号楼",
+        "所属小区": "佳润金城",
+        "省份": "内蒙古自治区",
+        "城市": "呼伦贝尔市",
+        "区": "满洲里市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 975959427876,
@@ -113,11 +126,25 @@
         "detail_captured": true
     },
     {
-        "id": "978401529829",
-        "url": "https://sf-item.taobao.com/sf_item/978401529829.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
-        "end": 1760927152000,
-        "status": "done",
-        "is_processed": false
+        "id": 978401529829,
+        "市场评估价": 840800,
+        "起拍价格": 588560,
+        "成交价格": 624560,
+        "交易时间": "2025-10-20 10:25:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/978401529829.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县 海盐县武原街道城东路1665号御景城16幢1104室",
+        "所属小区": "御景城",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 128.05,
+        "单价": 4877.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "981526185714",
@@ -137,6 +164,41 @@
         "id": "977171099745",
         "url": "https://sf-item.taobao.com/sf_item/977171099745.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
         "end": 1760929652000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "977715882518",
+        "url": "https://sf-item.taobao.com/sf_item/977715882518.htm?track_id=c9d350ba-1b65-4e91-8615-aaa681af9d56",
+        "end": 1760927326000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "976482302642",
+        "url": "https://sf-item.taobao.com/sf_item/976482302642.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1760925786000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "976907775794",
+        "url": "https://sf-item.taobao.com/sf_item/976907775794.htm?track_id=270daa9e-b990-4124-b38a-5a1621dd3c7c",
+        "end": 1760925788000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "979088324830",
+        "url": "https://sf-item.taobao.com/sf_item/979088324830.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1760925600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "979274667274",
+        "url": "https://sf-item.taobao.com/sf_item/979274667274.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1760931600000,
         "status": "done",
         "is_processed": false
     }

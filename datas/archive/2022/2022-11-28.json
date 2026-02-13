@@ -189,12 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "689417484940",
-        "url": "https://sf-item.taobao.com/sf_item/689417484940.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
-        "end": 1669600916000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/689417484940.htm"
+        "id": 689417484940,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1110065,
+        "交易时间": "2022-11-28T10:01:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/689417484940.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 3,
+        "地点": "江苏省 淮安市 淮安区 新安花苑9号楼1202室",
+        "所属小区": "新安花苑",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 692294701087,
@@ -218,12 +231,25 @@
         "detail_captured": true
     },
     {
-        "id": "692560270827",
-        "url": "https://sf-item.taobao.com/sf_item/692560270827.htm?track_id=bc97f436-0dc2-4702-9160-4c0e5af5a28d",
-        "end": 1669601064000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/692560270827.htm"
+        "id": 692560270827,
+        "市场评估价": 571132.6,
+        "起拍价格": 319834.26,
+        "成交价格": 319834.26,
+        "交易时间": "2022-11-28 10:04:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/692560270827.htm?track_id=bc97f436-0dc2-4702-9160-4c0e5af5a28d",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 香河县 新华大街东段南侧兴业家园小区5号楼8单元602室房屋",
+        "所属小区": "兴业家园",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": "香河县城中心商圈",
+        "建筑面积": 120,
+        "单价": 2665.29,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 692225610336,
@@ -331,16 +357,65 @@
         "detail_captured": true
     },
     {
-        "id": "689991002828",
-        "url": "https://sf-item.taobao.com/sf_item/689991002828.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
-        "end": 1669601048000,
-        "status": "done",
-        "is_processed": false
+        "id": 689991002828,
+        "市场评估价": null,
+        "起拍价格": 667800,
+        "成交价格": 667800,
+        "交易时间": "2022-11-28 10:04:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/689991002828.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省遵义市汇川区珠海路曼哈顿时代广场住宅1-19-4号房产",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": null,
+        "建筑面积": 111.36,
+        "单价": 5996.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "691975388407",
         "url": "https://sf-item.taobao.com/sf_item/691975388407.htm?track_id=38ff9499-8b6e-4751-ba19-1b5236d6f01f",
         "end": 1669600961000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "689890095501",
+        "url": "https://sf-item.taobao.com/sf_item/689890095501.htm?track_id=ea4eb8ff-33af-48f0-9fc5-5c633b8347fe",
+        "end": 1669600800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692503990060",
+        "url": "https://sf-item.taobao.com/sf_item/692503990060.htm?track_id=802501ef-0ab0-410f-b5ee-43532bb45d13",
+        "end": 1669600800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "689414080295",
+        "url": "https://sf-item.taobao.com/sf_item/689414080295.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1669601457000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "688231359607",
+        "url": "https://sf-item.taobao.com/sf_item/688231359607.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1669604335000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "689385092854",
+        "url": "https://sf-item.taobao.com/sf_item/689385092854.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1669602337000,
         "status": "done",
         "is_processed": false
     }

@@ -336,11 +336,12 @@
         "省份": "甘肃省",
         "城市": "兰州市",
         "区": "七里河区",
-        "最靠近商圈": "小西湖商圈",
+        "最靠近商圈": "西湖商圈",
         "建筑面积": 120,
-        "单价": 8239,
+        "单价": 8239.0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564545730856,
@@ -353,7 +354,7 @@
         "竞拍人数": 28,
         "出价人数": null,
         "地点": "江西省 景德镇市 浮梁县 洪源镇方家村",
-        "所属小区": null,
+        "所属小区": "洪源镇方家村",
         "省份": "江西省",
         "城市": "景德镇市",
         "区": "浮梁县",
@@ -361,21 +362,50 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 563744466387,
+        "市场评估价": null,
+        "起拍价格": 1002050,
+        "成交价格": 1452050,
+        "交易时间": "2018/02/09 10:08:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563744466387.htm?track_id=688fbbc2-7eac-49ec-a186-0fa9752f3f7b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 39,
+        "地点": "江西省 南昌市 青云谱区 施尧路1111号水榭花都6栋2504室",
+        "所属小区": "水榭花都",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "施尧路",
+        "建筑面积": 129.15,
+        "单价": 11243.24,
+        "is_processed": true,
         "detail_captured": true
     },
     {
-        "id": "563744466387",
-        "url": "https://sf-item.taobao.com/sf_item/563744466387.htm?track_id=688fbbc2-7eac-49ec-a186-0fa9752f3f7b",
-        "end": 1518142138000,
-        "status": "done",
-        "is_processed": false
-    },
-    {
-        "id": "564591007675",
-        "url": "https://sf-item.taobao.com/sf_item/564591007675.htm?track_id=c6df0310-ebd5-4130-9d27-718efb9b09f3",
-        "end": 1518141600000,
-        "status": "done",
-        "is_processed": false
+        "id": 564591007675,
+        "市场评估价": 2120300,
+        "起拍价格": 1187368,
+        "成交价格": 1187368,
+        "交易时间": "2018-02-09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564591007675.htm?track_id=c6df0310-ebd5-4130-9d27-718efb9b09f3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 西安市未央区湖滨路（雅荷蓝湾）6幢2单元20101号",
+        "所属小区": "雅荷蓝湾",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "湖滨路商圈",
+        "建筑面积": 319.28,
+        "单价": 3719.41,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "564304977189",
@@ -394,6 +424,20 @@
     {
         "id": "564478181874",
         "url": "https://sf-item.taobao.com/sf_item/564478181874.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
+        "end": 1518141600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563748322779",
+        "url": "https://sf-item.taobao.com/sf_item/563748322779.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1518141600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563174982546",
+        "url": "https://sf-item.taobao.com/sf_item/563174982546.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
         "end": 1518141600000,
         "status": "done",
         "is_processed": false

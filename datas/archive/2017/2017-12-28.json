@@ -222,20 +222,70 @@
         "竞拍人数": 71,
         "出价人数": 64,
         "地点": "江苏省苏州市姑苏区桐芳巷36号",
-        "所属小区": null,
+        "所属小区": "桐芳巷小区",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
-        "最靠近商圈": "观前街商圈",
+        "最靠近商圈": "观前商圈",
         "建筑面积": 240,
         "单价": 23979.17,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 562642845953,
+        "市场评估价": 0,
+        "起拍价格": 720000,
+        "成交价格": 954000,
+        "交易时间": "2017/12/28 10:07:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562642845953.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 31,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道城东路1268号明珠苑",
+        "所属小区": "明珠苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 119.51,
+        "单价": 7983.15,
         "is_processed": true,
         "detail_captured": true
     },
     {
-        "id": "562642845953",
-        "url": "https://sf-item.taobao.com/sf_item/562642845953.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
-        "end": 1514426856000,
+        "id": "562572645989",
+        "url": "https://sf-item.taobao.com/sf_item/562572645989.htm?track_id=9583dfdb-76e7-4339-9ab5-b262551224f2",
+        "end": 1514426400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561753540713",
+        "url": "https://sf-item.taobao.com/sf_item/561753540713.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1514426400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561832854666",
+        "url": "https://sf-item.taobao.com/sf_item/561832854666.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1514428534000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562192739701",
+        "url": "https://sf-item.taobao.com/sf_item/562192739701.htm?track_id=30d808e3-d96d-4c20-b7c0-2a2a14a6d2bf",
+        "end": 1514426400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562636171932",
+        "url": "https://sf-item.taobao.com/sf_item/562636171932.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1514426400000,
         "status": "done",
         "is_processed": false
     }

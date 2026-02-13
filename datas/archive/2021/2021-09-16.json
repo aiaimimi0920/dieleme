@@ -504,20 +504,46 @@
         "detail_captured": true
     },
     {
-        "id": "653909613535",
-        "url": "https://sf-item.taobao.com/sf_item/653909613535.htm?track_id=6b56c8f7-18e3-4f90-bf71-270f2f377bfd",
-        "end": 1631757615000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/653909613535.htm"
+        "id": 653909613535,
+        "市场评估价": 0,
+        "起拍价格": 269938,
+        "成交价格": 269938,
+        "交易时间": "2021/09/16 10:00:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/653909613535.htm?track_id=6b56c8f7-18e3-4f90-bf71-270f2f377bfd",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 东河区 工业南路正北1号小区3号楼37号房屋",
+        "所属小区": "正北1号小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "东河区",
+        "最靠近商圈": "工业南路",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "655068907989",
-        "url": "https://sf-item.taobao.com/sf_item/655068907989.htm?track_id=9097b3a9-6b7a-4e1a-912c-5b92e1dd3c01",
-        "end": 1631775850000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/655068907989.htm"
+        "id": 655068907989,
+        "市场评估价": null,
+        "起拍价格": 1060000,
+        "成交价格": 1060000,
+        "交易时间": "2021/09/16 15:04:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/655068907989.htm?track_id=9097b3a9-6b7a-4e1a-912c-5b92e1dd3c01",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京 北京市 东城区 东华门大街18号楼3层2单元205号",
+        "所属小区": null,
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "东华门",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 652763333775,
@@ -696,18 +722,46 @@
         "detail_captured": true
     },
     {
-        "id": "653720056356",
-        "url": "https://sf-item.taobao.com/sf_item/653720056356.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
-        "end": 1631757600000,
-        "status": "done",
-        "is_processed": false
+        "id": 653720056356,
+        "市场评估价": 805064,
+        "起拍价格": 450835.84,
+        "成交价格": 459835.84,
+        "交易时间": "2021-09-16T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/653720056356.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "吉林省 吉林市 船营区 吉林大街320号宝丰名苑2号高层住宅08幢2单元0221235室",
+        "所属小区": "宝丰名苑",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "吉林大街商圈",
+        "建筑面积": 115.72,
+        "单价": 3971.52,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "653721260424",
-        "url": "https://sf-item.taobao.com/sf_item/653721260424.htm?track_id=a9e168e8-b28e-4052-8e8c-c5d324fab1f0",
-        "end": 1631757647000,
-        "status": "done",
-        "is_processed": false
+        "id": 653721260424,
+        "市场评估价": 770070,
+        "起拍价格": 431239.2,
+        "成交价格": 431239.2,
+        "交易时间": "2021/09/16 10:00:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/653721260424.htm?track_id=a9e168e8-b28e-4052-8e8c-c5d324fab1f0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "吉林省 吉林市 船营区 吉林大街320号宝丰名苑2号高层住宅08幢2单元0218223室",
+        "所属小区": "宝丰名苑",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "吉林大街商圈",
+        "建筑面积": 110.69,
+        "单价": 3896.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "653845348534",
@@ -720,6 +774,55 @@
         "id": "651021772028",
         "url": "https://sf-item.taobao.com/sf_item/651021772028.htm?track_id=c8e9871a-16d9-4594-8c9f-5feecf4c8a23",
         "end": 1631788627000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652810754545",
+        "url": "https://sf-item.taobao.com/sf_item/652810754545.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1631763365000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654161677611",
+        "url": "https://sf-item.taobao.com/sf_item/654161677611.htm?track_id=f484603b-057a-4a7b-809f-534da817f7bd",
+        "end": 1631759841000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "653714532283",
+        "url": "https://sf-item.taobao.com/sf_item/653714532283.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1631757600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654554002642",
+        "url": "https://sf-item.taobao.com/sf_item/654554002642.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1631757600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652776579523",
+        "url": "https://sf-item.taobao.com/sf_item/652776579523.htm?track_id=eec62054-78a1-43b5-9022-1fa82f70b2cc",
+        "end": 1631757600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652560293163",
+        "url": "https://sf-item.taobao.com/sf_item/652560293163.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1631762807000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "653751936624",
+        "url": "https://sf-item.taobao.com/sf_item/653751936624.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1631757600000,
         "status": "done",
         "is_processed": false
     }

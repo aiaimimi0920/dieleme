@@ -315,11 +315,25 @@
         "detail_captured": true
     },
     {
-        "id": "794681195615",
-        "url": "https://sf-item.taobao.com/sf_item/794681195615.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
-        "end": 1716948000000,
-        "status": "done",
-        "is_processed": false
+        "id": 794681195615,
+        "市场评估价": 445738,
+        "起拍价格": 356590.4,
+        "成交价格": 356590.4,
+        "交易时间": "2024/05/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/794681195615.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 霸州市 堂二里镇健泰安居花园二期4号楼1单元201室",
+        "所属小区": "健泰安居花园二期",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "堂二里镇",
+        "建筑面积": 104.12,
+        "单价": 3424.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "794818703097",
@@ -329,16 +343,51 @@
         "is_processed": false
     },
     {
-        "id": "778104118540",
-        "url": "https://sf-item.taobao.com/sf_item/778104118540.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
-        "end": 1716956666000,
-        "status": "done",
-        "is_processed": false
+        "id": 778104118540,
+        "市场评估价": null,
+        "起拍价格": 1433600,
+        "成交价格": 1433600,
+        "交易时间": "2024/05/29 12:24:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/778104118540.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 温州市 龙湾区 滨海二路928号大都会商业中心B区7幢202室",
+        "所属小区": "大都会商业中心",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "滨海商圈",
+        "建筑面积": 261.44,
+        "单价": 5484.22,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "793610256122",
         "url": "https://sf-item.taobao.com/sf_item/793610256122.htm?track_id=c6681eeb-21d2-4ee1-8884-fbe9cb8310a9",
         "end": 1716948024000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "773598204261",
+        "url": "https://sf-item.taobao.com/sf_item/773598204261.htm?track_id=137253df-6de5-4012-9d11-d14c66cf8e95",
+        "end": 1716952897000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "789295005758",
+        "url": "https://sf-item.taobao.com/sf_item/789295005758.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1716948000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "789280744596",
+        "url": "https://sf-item.taobao.com/sf_item/789280744596.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1716948000000,
         "status": "done",
         "is_processed": false
     }

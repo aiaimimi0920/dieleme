@@ -336,16 +336,72 @@
         "detail_captured": true
     },
     {
-        "id": "621461774474",
-        "url": "https://sf-item.taobao.com/sf_item/621461774474.htm?track_id=15d3c34d-ea18-4beb-8082-c657542c2f90",
-        "end": 1595643889000,
+        "id": 621461774474,
+        "市场评估价": 360368,
+        "起拍价格": 306312.8,
+        "成交价格": 372312.8,
+        "交易时间": "2020-07-25 10:24:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/621461774474.htm?track_id=15d3c34d-ea18-4beb-8082-c657542c2f90",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 北山街1005号",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 71.36,
+        "单价": 5217.39,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 622865566108,
+        "市场评估价": null,
+        "起拍价格": 1069584,
+        "成交价格": 1369584,
+        "交易时间": "2020/07/25 10:17:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622865566108.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省信阳市平桥区羊山新区新七大道恒大名都20号楼1层101号",
+        "所属小区": "恒大名都",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": 178.98,
+        "单价": 7653.11,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "621254761720",
+        "url": "https://sf-item.taobao.com/sf_item/621254761720.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1595643913000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "622865566108",
-        "url": "https://sf-item.taobao.com/sf_item/622865566108.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
-        "end": 1595643421000,
+        "id": "620679236110",
+        "url": "https://sf-item.taobao.com/sf_item/620679236110.htm?track_id=bd671c96-a855-4938-b47e-195ef1097e2d",
+        "end": 1595643554000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623043367568",
+        "url": "https://sf-item.taobao.com/sf_item/623043367568.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1595643224000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "622760914322",
+        "url": "https://sf-item.taobao.com/sf_item/622760914322.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1595642783000,
         "status": "done",
         "is_processed": false
     }

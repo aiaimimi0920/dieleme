@@ -127,10 +127,24 @@
         "detail_captured": true
     },
     {
-        "id": "534057333629",
-        "url": "https://sf-item.taobao.com/sf_item/534057333629.htm?track_id=f019ae24-a6bb-4a29-a585-e2709b5b8128",
-        "end": 1467770400000,
-        "status": "done",
-        "is_processed": false
+        "id": 534057333629,
+        "市场评估价": null,
+        "起拍价格": 324360,
+        "成交价格": 324360,
+        "交易时间": "2016/07/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534057333629.htm?track_id=f019ae24-a6bb-4a29-a585-e2709b5b8128",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区赤峰市阿鲁科尔沁旗天山镇学苑路东汉林西街南（百合新城）12#-1-501",
+        "所属小区": "百合新城",
+        "省份": "内蒙古自治区",
+        "城市": "赤峰市",
+        "区": "阿鲁科尔沁旗",
+        "最靠近商圈": "天山镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

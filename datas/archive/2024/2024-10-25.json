@@ -756,11 +756,25 @@
         "detail_captured": true
     },
     {
-        "id": "841564935593",
-        "url": "https://sf-item.taobao.com/sf_item/841564935593.htm?track_id=75efc7d9-1c15-436a-a771-a5622ac43bf7",
-        "end": 1729823673000,
-        "status": "done",
-        "is_processed": false
+        "id": 841564935593,
+        "市场评估价": null,
+        "起拍价格": 2397336,
+        "成交价格": 3327336,
+        "交易时间": "2024-10-25 10:34:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/841564935593.htm?track_id=75efc7d9-1c15-436a-a771-a5622ac43bf7",
+        "是否成交": true,
+        "竞拍人数": 59,
+        "出价人数": 59,
+        "地点": "陕西省 西安市 未央区 未央路301号5幢12202室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": null,
+        "建筑面积": 129.64,
+        "单价": 25648.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "841750739485",
@@ -770,18 +784,46 @@
         "is_processed": false
     },
     {
-        "id": "841539003824",
-        "url": "https://sf-item.taobao.com/sf_item/841539003824.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
-        "end": 1729822031000,
-        "status": "done",
-        "is_processed": false
+        "id": 841539003824,
+        "市场评估价": 307000,
+        "起拍价格": 171920,
+        "成交价格": 186920,
+        "交易时间": "2024/10/25 10:07:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/841539003824.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道枣园西路756号吾悦广场2幢4002室",
+        "所属小区": "吾悦广场",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "吾悦广场商圈",
+        "建筑面积": 50.2,
+        "单价": 3723.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "841799985850",
-        "url": "https://sf-item.taobao.com/sf_item/841799985850.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1729825180000,
-        "status": "done",
-        "is_processed": false
+        "id": 841799985850,
+        "市场评估价": 5200000,
+        "起拍价格": 3330000,
+        "成交价格": 4860000,
+        "交易时间": "2024-10-25 10:59:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/841799985850.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": 81,
+        "出价人数": 119,
+        "地点": "浙江省 杭州市 滨江区 明月江南公寓10幢3单元2103室",
+        "所属小区": "明月江南公寓",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区/长河",
+        "建筑面积": 85.47,
+        "单价": 56907.25,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "842012700833",
@@ -794,6 +836,55 @@
         "id": "837113871155",
         "url": "https://sf-item.taobao.com/sf_item/837113871155.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
         "end": 1729822873000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "837181819107",
+        "url": "https://sf-item.taobao.com/sf_item/837181819107.htm?track_id=137253df-6de5-4012-9d11-d14c66cf8e95",
+        "end": 1729821600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "841475835870",
+        "url": "https://sf-item.taobao.com/sf_item/841475835870.htm?track_id=137253df-6de5-4012-9d11-d14c66cf8e95",
+        "end": 1729821600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "841991412321",
+        "url": "https://sf-item.taobao.com/sf_item/841991412321.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1729822200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "841987248803",
+        "url": "https://sf-item.taobao.com/sf_item/841987248803.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1729821600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "837838912642",
+        "url": "https://sf-item.taobao.com/sf_item/837838912642.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
+        "end": 1729823492000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "837824244799",
+        "url": "https://sf-item.taobao.com/sf_item/837824244799.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1729833315000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "837820076190",
+        "url": "https://sf-item.taobao.com/sf_item/837820076190.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1729825451000,
         "status": "done",
         "is_processed": false
     }

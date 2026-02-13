@@ -357,15 +357,50 @@
         "detail_captured": true
     },
     {
-        "id": "816358578691",
-        "url": "https://sf-item.taobao.com/sf_item/816358578691.htm?track_id=0efb8088-640c-4f4b-bc4c-bcbf73b25068",
+        "id": 816358578691,
+        "市场评估价": null,
+        "起拍价格": 2206332.8,
+        "成交价格": 2206332.8,
+        "交易时间": "2024-08-21T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/816358578691.htm?track_id=0efb8088-640c-4f4b-bc4c-bcbf73b25068",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 玉岗镇春和村",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": "玉岗镇",
+        "建筑面积": 647.2,
+        "单价": 3408.83,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "816151974618",
+        "url": "https://sf-item.taobao.com/sf_item/816151974618.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
         "end": 1724205600000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "816151974618",
-        "url": "https://sf-item.taobao.com/sf_item/816151974618.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
+        "id": "817003742743",
+        "url": "https://sf-item.taobao.com/sf_item/817003742743.htm?track_id=83a69582-76f4-4489-bccb-41fc9b7b6cf6",
+        "end": 1724205600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "816664470750",
+        "url": "https://sf-item.taobao.com/sf_item/816664470750.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "end": 1724206522000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "822084717816",
+        "url": "https://sf-item.taobao.com/sf_item/822084717816.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
         "end": 1724205600000,
         "status": "done",
         "is_processed": false

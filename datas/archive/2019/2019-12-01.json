@@ -420,11 +420,25 @@
         "detail_captured": true
     },
     {
-        "id": "607815994431",
-        "url": "https://sf-item.taobao.com/sf_item/607815994431.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
-        "end": 1575167360000,
-        "status": "done",
-        "is_processed": false
+        "id": 607815994431,
+        "市场评估价": null,
+        "起拍价格": 228750.64,
+        "成交价格": 266750.64,
+        "交易时间": "2019-12-01 10:29:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/607815994431.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "是否成交": true,
+        "竞拍人数": 39,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 包头市昆区林荫中路西侧、友谊大街南侧昆仑广场1-906",
+        "所属小区": "昆仑广场",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "林荫中路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "607253359158",
@@ -441,11 +455,25 @@
         "is_processed": false
     },
     {
-        "id": "606559908834",
-        "url": "https://sf-item.taobao.com/sf_item/606559908834.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
-        "end": 1575165631000,
-        "status": "done",
-        "is_processed": false
+        "id": 606559908834,
+        "市场评估价": 81270,
+        "起拍价格": 69079,
+        "成交价格": 71079,
+        "交易时间": "2019/12/01 10:00:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606559908834.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 2,
+        "地点": "贵州省 遵义市 汇川区 宁波路兴泰农贸市场1层3号商业用房",
+        "所属小区": "兴泰农贸市场",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "上海路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "606560408185",
@@ -490,9 +518,30 @@
         "is_processed": false
     },
     {
-        "id": "608049627623",
-        "url": "https://sf-item.taobao.com/sf_item/608049627623.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
-        "end": 1575165600000,
+        "id": 608049627623,
+        "市场评估价": 0,
+        "起拍价格": 320000,
+        "成交价格": 320000,
+        "交易时间": "2019/12/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/608049627623.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省信阳市平桥区明港镇市场街12栋2号1至2层",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "明港镇",
+        "建筑面积": 50.31,
+        "单价": 6360.21,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "607247827848",
+        "url": "https://sf-item.taobao.com/sf_item/607247827848.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1575167185000,
         "status": "done",
         "is_processed": false
     }

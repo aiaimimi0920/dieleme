@@ -550,11 +550,25 @@
         "detail_captured": true
     },
     {
-        "id": "627020120687",
-        "url": "https://sf-item.taobao.com/sf_item/627020120687.htm?track_id=48dfd4c3-795e-4adf-b7c9-3294509d2a33",
-        "end": 1603245600000,
-        "status": "done",
-        "is_processed": false
+        "id": 627020120687,
+        "市场评估价": 428440,
+        "起拍价格": 299908,
+        "成交价格": 302908,
+        "交易时间": "2020/10/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/627020120687.htm?track_id=48dfd4c3-795e-4adf-b7c9-3294509d2a33",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 4,
+        "地点": "辽宁省 沈阳市 铁西区 壮工街2甲4-5号4-5-1",
+        "所属小区": "沈铁十二路小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西区",
+        "建筑面积": 82.25,
+        "单价": 3683.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "627008068727",
@@ -581,6 +595,41 @@
         "id": "626991678016",
         "url": "https://sf-item.taobao.com/sf_item/626991678016.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1603245600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "628037180581",
+        "url": "https://sf-item.taobao.com/sf_item/628037180581.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1603246499000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "628861331647",
+        "url": "https://sf-item.taobao.com/sf_item/628861331647.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1603245600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "628038075001",
+        "url": "https://sf-item.taobao.com/sf_item/628038075001.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1603263369000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "627273739974",
+        "url": "https://sf-item.taobao.com/sf_item/627273739974.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1603246755000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "627546498474",
+        "url": "https://sf-item.taobao.com/sf_item/627546498474.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1603249734000,
         "status": "done",
         "is_processed": false
     }

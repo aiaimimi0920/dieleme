@@ -529,12 +529,25 @@
         "detail_captured": true
     },
     {
-        "id": "974689461962",
-        "url": "https://sf-item.taobao.com/sf_item/974689461962.htm?track_id=d08581cf-7528-4c36-a90f-b5eef0ef438a",
-        "end": 1758768609000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/974689461962.htm"
+        "id": 974689461962,
+        "市场评估价": 655800,
+        "起拍价格": 367248,
+        "成交价格": 423248,
+        "交易时间": "2025-09-25 10:50:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/974689461962.htm?track_id=d08581cf-7528-4c36-a90f-b5eef0ef438a",
+        "是否成交": true,
+        "竞拍人数": 29,
+        "出价人数": 29,
+        "地点": "江苏省 淮安市 淮安区 荷湖星城G2号住宅楼1306",
+        "所属小区": "荷湖星城",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安开发区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 973578163396,
@@ -579,18 +592,46 @@
         "detail_captured": true
     },
     {
-        "id": "967317511927",
-        "url": "https://sf-item.taobao.com/sf_item/967317511927.htm?track_id=51c9bb43-5333-4fe3-a6d8-942ae0c7baf8",
-        "end": 1758767479000,
-        "status": "done",
-        "is_processed": false
+        "id": 967317511927,
+        "市场评估价": null,
+        "起拍价格": 1422580,
+        "成交价格": 1485580,
+        "交易时间": "2025/09/25 10:31:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/967317511927.htm?track_id=51c9bb43-5333-4fe3-a6d8-942ae0c7baf8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 厦门市 翔安区 翔安区洪前北里4号3005室房产",
+        "所属小区": "洪前北里",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "翔安区",
+        "最靠近商圈": "新店商圈",
+        "建筑面积": 129.22,
+        "单价": 11496.29,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "967470127569",
-        "url": "https://sf-item.taobao.com/sf_item/967470127569.htm?track_id=4b4e999e-3aac-478b-9b5f-a68739a27816",
-        "end": 1758765600000,
-        "status": "done",
-        "is_processed": false
+        "id": 967470127569,
+        "市场评估价": null,
+        "起拍价格": 1155309,
+        "成交价格": 1155309,
+        "交易时间": "2025-09-25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/967470127569.htm?track_id=4b4e999e-3aac-478b-9b5f-a68739a27816",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城十路66号",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区商圈",
+        "建筑面积": 135.58,
+        "单价": 8520.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "973452075274",
@@ -600,11 +641,25 @@
         "is_processed": false
     },
     {
-        "id": "975357168778",
-        "url": "https://sf-item.taobao.com/sf_item/975357168778.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
-        "end": 1758767536000,
-        "status": "done",
-        "is_processed": false
+        "id": 975357168778,
+        "市场评估价": null,
+        "起拍价格": 441000,
+        "成交价格": 541000,
+        "交易时间": "2025-09-25 10:32:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/975357168778.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 18,
+        "地点": "福建省 泉州市 安溪县 安溪县城厢镇长安街56号永隆鹭岛上郡3号楼3单元1603室",
+        "所属小区": "永隆鹭岛上郡",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪县城厢镇",
+        "建筑面积": 79.53,
+        "单价": 6799.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "973438127033",
@@ -617,6 +672,41 @@
         "id": "974832021564",
         "url": "https://sf-item.taobao.com/sf_item/974832021564.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
         "end": 1758769186000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "971579810948",
+        "url": "https://sf-item.taobao.com/sf_item/971579810948.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1758766919000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "974669213305",
+        "url": "https://sf-item.taobao.com/sf_item/974669213305.htm?track_id=29741d11-d626-40b6-853d-7490b7dfc9dc",
+        "end": 1758765782000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "974153126511",
+        "url": "https://sf-item.taobao.com/sf_item/974153126511.htm?track_id=08271d2b-720b-4ac9-8bef-4716c7dea6e2",
+        "end": 1758768435000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "974796897715",
+        "url": "https://sf-item.taobao.com/sf_item/974796897715.htm?track_id=7ea40920-fed2-42de-bda6-b8c5278fe902",
+        "end": 1758765644000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "969765526942",
+        "url": "https://sf-item.taobao.com/sf_item/969765526942.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1758766052000,
         "status": "done",
         "is_processed": false
     }

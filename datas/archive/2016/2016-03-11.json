@@ -169,18 +169,46 @@
         "detail_captured": true
     },
     {
-        "id": "527352749358",
-        "url": "https://sf-item.taobao.com/sf_item/527352749358.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
-        "end": 1457661600000,
-        "status": "done",
-        "is_processed": false
+        "id": 527352749358,
+        "市场评估价": null,
+        "起拍价格": 990000,
+        "成交价格": 990000,
+        "交易时间": "2016-03-11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527352749358.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "贵州省遵义市汇川区香港路筑炉商住楼1层3号",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "香港路",
+        "建筑面积": 41.58,
+        "单价": 23807.6,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "527281516923",
-        "url": "https://sf-item.taobao.com/sf_item/527281516923.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
-        "end": 1457661600000,
-        "status": "done",
-        "is_processed": false
+        "id": 527281516923,
+        "市场评估价": null,
+        "起拍价格": 381187.2,
+        "成交价格": 381187.2,
+        "交易时间": "2016-03-11T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527281516923.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市",
+        "所属小区": "参花街警官公寓",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "参花街商圈",
+        "建筑面积": 99.02,
+        "单价": 3849.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "527314608155",
@@ -193,6 +221,41 @@
         "id": "527357749834",
         "url": "https://sf-item.taobao.com/sf_item/527357749834.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
         "end": 1457662388000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527226043922",
+        "url": "https://sf-item.taobao.com/sf_item/527226043922.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1457662878000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527358824409",
+        "url": "https://sf-item.taobao.com/sf_item/527358824409.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1457661810000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527268902439",
+        "url": "https://sf-item.taobao.com/sf_item/527268902439.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1457662389000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527275780147",
+        "url": "https://sf-item.taobao.com/sf_item/527275780147.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1457663044000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527276104026",
+        "url": "https://sf-item.taobao.com/sf_item/527276104026.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1457663143000,
         "status": "done",
         "is_processed": false
     }

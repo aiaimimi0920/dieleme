@@ -844,12 +844,25 @@
         "detail_captured": true
     },
     {
-        "id": "661222345394",
-        "url": "https://sf-item.taobao.com/sf_item/661222345394.htm?track_id=fae51871-3e66-4f42-b383-3b65f7d3c080",
-        "end": 1640657728000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/661222345394.htm"
+        "id": 661222345394,
+        "市场评估价": 1707300,
+        "起拍价格": 1195110,
+        "成交价格": 1255110,
+        "交易时间": "2021/12/28 10:15:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/661222345394.htm?track_id=fae51871-3e66-4f42-b383-3b65f7d3c080",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "北京市东城区门楼胡同53号10幢1层",
+        "所属小区": null,
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "王府井",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 663026878062,
@@ -915,11 +928,25 @@
         "detail_captured": true
     },
     {
-        "id": "661152404470",
-        "url": "https://sf-item.taobao.com/sf_item/661152404470.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
-        "end": 1640656800000,
-        "status": "done",
-        "is_processed": false
+        "id": 661152404470,
+        "市场评估价": null,
+        "起拍价格": 250000,
+        "成交价格": 250000,
+        "交易时间": "2021-12-28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/661152404470.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省遵义市汇川区山盆镇打鼓村街上的一栋自建房",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "山盆镇",
+        "建筑面积": 265.2,
+        "单价": 942.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "661743740238",
@@ -929,11 +956,25 @@
         "is_processed": false
     },
     {
-        "id": "662936441386",
-        "url": "https://sf-item.taobao.com/sf_item/662936441386.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
-        "end": 1640657005000,
-        "status": "done",
-        "is_processed": false
+        "id": 662936441386,
+        "市场评估价": 577230,
+        "起拍价格": 323249,
+        "成交价格": 323249,
+        "交易时间": "2021-12-28 10:03:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/662936441386.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "辽宁省 沈阳市 铁西区 北三东路3-1号5-6-2",
+        "所属小区": "万丰花苑",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "北三东路",
+        "建筑面积": 66.84,
+        "单价": 4836.11,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "661579709108",
@@ -943,25 +984,67 @@
         "is_processed": false
     },
     {
-        "id": "662157521313",
-        "url": "https://sf-item.taobao.com/sf_item/662157521313.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
-        "end": 1640656920000,
-        "status": "done",
-        "is_processed": false
+        "id": 662157521313,
+        "市场评估价": null,
+        "起拍价格": 527206.4,
+        "成交价格": 527206.4,
+        "交易时间": "2021-12-28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/662157521313.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省揭阳市惠来县葵潭镇玄武村宾馆后",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "揭阳市",
+        "区": "惠来县",
+        "最靠近商圈": "葵潭镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "662518278122",
-        "url": "https://sf-item.taobao.com/sf_item/662518278122.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
-        "end": 1640656886000,
-        "status": "done",
-        "is_processed": false
+        "id": 662518278122,
+        "市场评估价": null,
+        "起拍价格": 1541120,
+        "成交价格": 1541120,
+        "交易时间": "2022-02-26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/662518278122.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 揭阳市 惠来县 葵潭镇玄武村宾馆后",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "揭阳市",
+        "区": "惠来县",
+        "最靠近商圈": "葵潭镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "660826154431",
-        "url": "https://sf-item.taobao.com/sf_item/660826154431.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
-        "end": 1640667433000,
-        "status": "done",
-        "is_processed": false
+        "id": 660826154431,
+        "市场评估价": 1618300,
+        "起拍价格": 1,
+        "成交价格": 1320001,
+        "交易时间": "2021/12/28 12:57:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/660826154431.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "是否成交": true,
+        "竞拍人数": 304,
+        "出价人数": 304,
+        "地点": "浙江省嘉兴市海盐县武原镇昭君弄8号恒隆广场B区2幢1601室",
+        "所属小区": "恒隆广场",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原核心商圈",
+        "建筑面积": 143.21,
+        "单价": 9220.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "660826200840",
@@ -974,6 +1057,76 @@
         "id": "662524576387",
         "url": "https://sf-item.taobao.com/sf_item/662524576387.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
         "end": 1640656800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663663887315",
+        "url": "https://sf-item.taobao.com/sf_item/663663887315.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1640657984000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "661071852865",
+        "url": "https://sf-item.taobao.com/sf_item/661071852865.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1640656800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663393362768",
+        "url": "https://sf-item.taobao.com/sf_item/663393362768.htm?track_id=9583dfdb-76e7-4339-9ab5-b262551224f2",
+        "end": 1640656800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663283646583",
+        "url": "https://sf-item.taobao.com/sf_item/663283646583.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1640656873000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "661625410008",
+        "url": "https://sf-item.taobao.com/sf_item/661625410008.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1640673647000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663926875446",
+        "url": "https://sf-item.taobao.com/sf_item/663926875446.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1640665732000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "662340531020",
+        "url": "https://sf-item.taobao.com/sf_item/662340531020.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1640661967000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663642731209",
+        "url": "https://sf-item.taobao.com/sf_item/663642731209.htm?track_id=13cd85db-23da-4248-955c-35bde50b8d56",
+        "end": 1640656800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "661587926334",
+        "url": "https://sf-item.taobao.com/sf_item/661587926334.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1640660960000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659837401539",
+        "url": "https://sf-item.taobao.com/sf_item/659837401539.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1640662751000,
         "status": "done",
         "is_processed": false
     }

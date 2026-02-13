@@ -392,16 +392,44 @@
         "is_processed": false
     },
     {
-        "id": "857721463929",
-        "url": "https://sf-item.taobao.com/sf_item/857721463929.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
-        "end": 1735532078000,
-        "status": "done",
-        "is_processed": false
+        "id": 857721463929,
+        "市场评估价": 1585550,
+        "起拍价格": 1109885,
+        "成交价格": 1701885,
+        "交易时间": "2024/12/30 12:14:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/857721463929.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
+        "是否成交": true,
+        "竞拍人数": 208,
+        "出价人数": 206,
+        "地点": "安徽省合肥市瑶海区合肥市当涂路璟泰时代赢家广场3幢1104号",
+        "所属小区": "璟泰时代赢家广场",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "璟泰赢家社区商圈",
+        "建筑面积": 143.35,
+        "单价": 11866.89,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "858300596560",
         "url": "https://sf-item.taobao.com/sf_item/858300596560.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
         "end": 1735524538000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "863228472251",
+        "url": "https://sf-item.taobao.com/sf_item/863228472251.htm?track_id=5fc4c768-6ab1-4407-acf9-835197b7645a",
+        "end": 1735524000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "854359631499",
+        "url": "https://sf-item.taobao.com/sf_item/854359631499.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1735526907000,
         "status": "done",
         "is_processed": false
     }

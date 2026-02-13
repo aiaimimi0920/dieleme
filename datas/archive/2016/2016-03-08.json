@@ -106,23 +106,72 @@
         "detail_captured": true
     },
     {
-        "id": "527158346639",
-        "url": "https://sf-item.taobao.com/sf_item/527158346639.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
-        "end": 1457403436000,
-        "status": "done",
-        "is_processed": false
+        "id": 527158346639,
+        "市场评估价": null,
+        "起拍价格": 230000,
+        "成交价格": 320000,
+        "交易时间": "2016/03/08 10:17:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527158346639.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 19,
+        "地点": "浙江省嘉兴市海盐县武原镇盐北路88号美林金色港湾小区13幢103室",
+        "所属小区": "美林金色港湾",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原镇商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "527181208016",
-        "url": "https://sf-item.taobao.com/sf_item/527181208016.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
-        "end": 1457402400000,
-        "status": "done",
-        "is_processed": false
+        "id": 527181208016,
+        "市场评估价": null,
+        "起拍价格": 260000,
+        "成交价格": 395000,
+        "交易时间": "2016-03-08T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527181208016.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": "美林金色港湾",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "527086566292",
         "url": "https://sf-item.taobao.com/sf_item/527086566292.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
         "end": 1457402400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527112812952",
+        "url": "https://sf-item.taobao.com/sf_item/527112812952.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1457403118000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527167673475",
+        "url": "https://sf-item.taobao.com/sf_item/527167673475.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1457403349000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527046798608",
+        "url": "https://sf-item.taobao.com/sf_item/527046798608.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1457403432000,
         "status": "done",
         "is_processed": false
     }

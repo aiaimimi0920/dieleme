@@ -49,11 +49,25 @@
         "is_processed": false
     },
     {
-        "id": "745702944300",
-        "url": "https://sf-item.taobao.com/sf_item/745702944300.htm?track_id=b5067d3b-a8a7-456b-852f-55dbd2272063",
-        "end": 1702223595000,
-        "status": "done",
-        "is_processed": false
+        "id": 745702944300,
+        "市场评估价": 313166,
+        "起拍价格": 186335,
+        "成交价格": 186335,
+        "交易时间": "2023/12/10 23:53:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/745702944300.htm?track_id=b5067d3b-a8a7-456b-852f-55dbd2272063",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 富工一街8号3-7-1",
+        "所属小区": "肇工小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 61.55,
+        "单价": 3027.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "747350004554",
@@ -63,23 +77,79 @@
         "is_processed": false
     },
     {
-        "id": "750675520556",
-        "url": "https://sf-item.taobao.com/sf_item/750675520556.htm?track_id=9e33301f-30c6-457a-a6fc-ef33c49611ec",
-        "end": 1702210401000,
-        "status": "done",
-        "is_processed": false
+        "id": 750675520556,
+        "市场评估价": 397200,
+        "起拍价格": 280000,
+        "成交价格": 346000,
+        "交易时间": "2023-12-10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/750675520556.htm?track_id=9e33301f-30c6-457a-a6fc-ef33c49611ec",
+        "是否成交": true,
+        "竞拍人数": 34,
+        "出价人数": 34,
+        "地点": "广东省 惠州市 博罗县 罗阳街道横坑、翠美园村委会江南（土名）东江新城七期风情商业街1层25商铺",
+        "所属小区": "东江新城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "东江新城",
+        "建筑面积": 39.72,
+        "单价": 8710.37,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "747433944652",
-        "url": "https://sf-item.taobao.com/sf_item/747433944652.htm?track_id=6b420920-de29-4df5-8b8e-ab244cccd0e8",
-        "end": 1702173600000,
-        "status": "done",
-        "is_processed": false
+        "id": 747433944652,
+        "市场评估价": 93880,
+        "起拍价格": 65716,
+        "成交价格": 66216,
+        "交易时间": "2023/12/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/747433944652.htm?track_id=6b420920-de29-4df5-8b8e-ab244cccd0e8",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "黑龙江省 鸡西市 密山市 珍铭一品",
+        "所属小区": "珍铭一品",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "密山市",
+        "最靠近商圈": "珍铭一品",
+        "建筑面积": 26.8,
+        "单价": 2470.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "746248225269",
         "url": "https://sf-item.taobao.com/sf_item/746248225269.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
         "end": 1702173823000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747333857098",
+        "url": "https://sf-item.taobao.com/sf_item/747333857098.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1702176201000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747407990707",
+        "url": "https://sf-item.taobao.com/sf_item/747407990707.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1702174190000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747183068405",
+        "url": "https://sf-item.taobao.com/sf_item/747183068405.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1702174105000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "750778242799",
+        "url": "https://sf-item.taobao.com/sf_item/750778242799.htm?track_id=c1122bc0-fff8-4176-9d60-e693e4959044",
+        "end": 1702173600000,
         "status": "done",
         "is_processed": false
     }

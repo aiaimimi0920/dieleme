@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "545202868313",
-        "url": "https://sf-item.taobao.com/sf_item/545202868313.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
-        "end": 1488679200000,
-        "status": "done",
-        "is_processed": false
+        "id": 545202868313,
+        "市场评估价": null,
+        "起拍价格": 336413,
+        "成交价格": 336413,
+        "交易时间": "2017/03/05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545202868313.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "顺昌县中山东路44号顺兴小区创新楼10层1010室",
+        "所属小区": "顺兴小区",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "顺昌县城中心商圈",
+        "建筑面积": 104.58,
+        "单价": 3216.81,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

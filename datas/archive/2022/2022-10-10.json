@@ -569,12 +569,25 @@
         "detail_captured": true
     },
     {
-        "id": "683337569929",
-        "url": "https://sf-item.taobao.com/sf_item/683337569929.htm?track_id=1eed3f63-6c86-4e46-a19c-0be98e8bec2f",
-        "end": 1665370197000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/683337569929.htm"
+        "id": 683337569929,
+        "市场评估价": 446600,
+        "起拍价格": 358000,
+        "成交价格": 600000,
+        "交易时间": "2022/10/10 10:49:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/683337569929.htm?track_id=1eed3f63-6c86-4e46-a19c-0be98e8bec2f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 52,
+        "地点": "湖南省 湘潭市 雨湖区 湘潭市雨湖区长城乡红旗村湘大教师公寓D-8栋4号门面",
+        "所属小区": "湘大教师公寓",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "湘大板块",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 684546829523,
@@ -640,12 +653,25 @@
         "detail_captured": true
     },
     {
-        "id": "683269503081",
-        "url": "https://sf-item.taobao.com/sf_item/683269503081.htm?track_id=05096155-51c4-413a-ad96-a5cbb2c4bea5",
-        "end": 1665369732000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/683269503081.htm"
+        "id": 683269503081,
+        "市场评估价": 5021650,
+        "起拍价格": 3515155,
+        "成交价格": 4255155,
+        "交易时间": "2022-10-10 10:42:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/683269503081.htm?track_id=05096155-51c4-413a-ad96-a5cbb2c4bea5",
+        "是否成交": true,
+        "竞拍人数": 62,
+        "出价人数": null,
+        "地点": "江苏省 苏州市 姑苏区 苏州市吴中西路666号天辰花园12幢903室房产",
+        "所属小区": "天辰花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "石路商圈",
+        "建筑面积": 90.0,
+        "单价": 47279.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 684004255502,
@@ -795,18 +821,46 @@
         "detail_captured": true
     },
     {
-        "id": "683598302534",
-        "url": "https://sf-item.taobao.com/sf_item/683598302534.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
-        "end": 1665367200000,
-        "status": "done",
-        "is_processed": false
+        "id": 683598302534,
+        "市场评估价": 1034556,
+        "起拍价格": 775917,
+        "成交价格": 775917,
+        "交易时间": "2022-10-10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/683598302534.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 兴华北街3甲1号2-7-1",
+        "所属小区": "新湖明珠城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "北二路商圈",
+        "建筑面积": 94.48,
+        "单价": 8210.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "683909327117",
-        "url": "https://sf-item.taobao.com/sf_item/683909327117.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
-        "end": 1665368647000,
-        "status": "done",
-        "is_processed": false
+        "id": 683909327117,
+        "市场评估价": 748610,
+        "起拍价格": 530000,
+        "成交价格": 935000,
+        "交易时间": "2022/10/10 10:24:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/683909327117.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 82,
+        "地点": "广东省 惠州市 博罗县 罗阳镇商业街成峰广场C幢118号第二层、119号一至二层",
+        "所属小区": "成峰广场",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳商业街",
+        "建筑面积": 205.38,
+        "单价": 4552.87,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "683256873039",
@@ -823,9 +877,58 @@
         "is_processed": false
     },
     {
-        "id": "682904684789",
-        "url": "https://sf-item.taobao.com/sf_item/682904684789.htm?track_id=ca140538-c6e4-48d5-9d5a-28b21db6a43b",
-        "end": 1665370479000,
+        "id": 682904684789,
+        "市场评估价": 605100,
+        "起拍价格": 425000,
+        "成交价格": 531000,
+        "交易时间": "2022-10-10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/682904684789.htm?track_id=ca140538-c6e4-48d5-9d5a-28b21db6a43b",
+        "是否成交": true,
+        "竞拍人数": 54,
+        "出价人数": 53,
+        "地点": "江苏省-无锡市-梁溪区",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": null,
+        "建筑面积": 89.0,
+        "单价": 5966.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "684000255079",
+        "url": "https://sf-item.taobao.com/sf_item/684000255079.htm?track_id=d5566e93-6667-4ee0-86bb-103d626c1c7d",
+        "end": 1665367200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684181684329",
+        "url": "https://sf-item.taobao.com/sf_item/684181684329.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1665370481000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684252209467",
+        "url": "https://sf-item.taobao.com/sf_item/684252209467.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1665367367000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684839283746",
+        "url": "https://sf-item.taobao.com/sf_item/684839283746.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1665368721000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683317207910",
+        "url": "https://sf-item.taobao.com/sf_item/683317207910.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1665369436000,
         "status": "done",
         "is_processed": false
     }

@@ -462,11 +462,25 @@
         "detail_captured": true
     },
     {
-        "id": "602545465170",
-        "url": "https://sf-item.taobao.com/sf_item/602545465170.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
-        "end": 1571019158000,
-        "status": "done",
-        "is_processed": false
+        "id": 602545465170,
+        "市场评估价": 438400,
+        "起拍价格": 350720,
+        "成交价格": 406720,
+        "交易时间": "2019/10/14 10:12:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/602545465170.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 17,
+        "地点": "广东省 惠州市 博罗县 博罗县龙溪镇龙岗村委会第六小组岗头湖（土名）汇乐园（二期）9号楼住宅4层01房",
+        "所属小区": "汇乐园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "龙溪镇",
+        "建筑面积": 82.95,
+        "单价": 4904.34,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "602303616246",
@@ -479,6 +493,69 @@
         "id": "602550121590",
         "url": "https://sf-item.taobao.com/sf_item/602550121590.htm?track_id=0739f089-7ac6-489d-ad38-282796f4890c",
         "end": 1571018400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602750074318",
+        "url": "https://sf-item.taobao.com/sf_item/602750074318.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1571018400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604302178941",
+        "url": "https://sf-item.taobao.com/sf_item/604302178941.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1571018400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602732126171",
+        "url": "https://sf-item.taobao.com/sf_item/602732126171.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1571020323000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602296248591",
+        "url": "https://sf-item.taobao.com/sf_item/602296248591.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1571019712000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602946311651",
+        "url": "https://sf-item.taobao.com/sf_item/602946311651.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1571018788000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602753110688",
+        "url": "https://sf-item.taobao.com/sf_item/602753110688.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1571018864000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602281752479",
+        "url": "https://sf-item.taobao.com/sf_item/602281752479.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1571018533000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602942783301",
+        "url": "https://sf-item.taobao.com/sf_item/602942783301.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1571018400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600559856227",
+        "url": "https://sf-item.taobao.com/sf_item/600559856227.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
+        "end": 1571022330000,
         "status": "done",
         "is_processed": false
     }

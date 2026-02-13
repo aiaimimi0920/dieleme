@@ -189,11 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "637409625017",
-        "url": "https://sf-item.taobao.com/sf_item/637409625017.htm?track_id=4b5a9960-ce5b-4518-83a2-39c7f885432d",
-        "end": 1614825471000,
-        "status": "done",
-        "is_processed": false
+        "id": 637409625017,
+        "市场评估价": 4710633,
+        "起拍价格": 3297443.1,
+        "成交价格": 4352624.54,
+        "交易时间": "2021/03/04 10:37:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637409625017.htm?track_id=4b5a9960-ce5b-4518-83a2-39c7f885432d",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省西安市未央区经济开发区凤城十二路66号31幢11102室",
+        "所属小区": "首创国际城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城十二路",
+        "建筑面积": 231.14,
+        "单价": 18831.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "634229751630",
@@ -203,9 +217,58 @@
         "is_processed": false
     },
     {
-        "id": "637252656974",
-        "url": "https://sf-item.taobao.com/sf_item/637252656974.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1614823954000,
+        "id": 637252656974,
+        "市场评估价": 1912917,
+        "起拍价格": 1530000,
+        "成交价格": 2315000,
+        "交易时间": "2021/03/04 10:12:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637252656974.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 62,
+        "地点": "云南省丽江市华坪县新庄乡新庄村一队",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "637045592372",
+        "url": "https://sf-item.taobao.com/sf_item/637045592372.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1614824441000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635819486800",
+        "url": "https://sf-item.taobao.com/sf_item/635819486800.htm?track_id=f6103b53-b575-4181-920b-1934f9796e9b",
+        "end": 1614820931000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637954950524",
+        "url": "https://sf-item.taobao.com/sf_item/637954950524.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1614826216000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637640813919",
+        "url": "https://sf-item.taobao.com/sf_item/637640813919.htm?track_id=cf957666-f844-4fc6-8d4f-5ff6a94a29bb",
+        "end": 1614822781000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638045735725",
+        "url": "https://sf-item.taobao.com/sf_item/638045735725.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1614832799000,
         "status": "done",
         "is_processed": false
     }

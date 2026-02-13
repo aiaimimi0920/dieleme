@@ -168,12 +168,25 @@
         "detail_captured": true
     },
     {
-        "id": "965446893360",
-        "url": "https://sf-item.taobao.com/sf_item/965446893360.htm?track_id=77698f75-ba5e-43d0-b6aa-9b26020e5d27",
-        "end": 1757816914000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/965446893360.htm"
+        "id": 965446893360,
+        "市场评估价": 700692.0,
+        "起拍价格": 490484.4,
+        "成交价格": 570484.4,
+        "交易时间": "2025/09/14 10:28:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/965446893360.htm?track_id=77698f75-ba5e-43d0-b6aa-9b26020e5d27",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 21,
+        "地点": "四川省 广元市 利州区 南河办事处成都路与南京路交汇处开云世家5号楼3-2-4号住房",
+        "所属小区": "开云世家",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "南河",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 961597391598,
@@ -218,18 +231,46 @@
         "detail_captured": true
     },
     {
-        "id": "971628348206",
-        "url": "https://sf-item.taobao.com/sf_item/971628348206.htm?track_id=2fdeb787-c803-4a90-b48c-145e27db4ba9",
-        "end": 1757815231000,
-        "status": "done",
-        "is_processed": false
+        "id": 971628348206,
+        "市场评估价": 1090000,
+        "起拍价格": 697600,
+        "成交价格": 697600,
+        "交易时间": "2025/09/14 10:00:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/971628348206.htm?track_id=2fdeb787-c803-4a90-b48c-145e27db4ba9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 兴华北街8-6号2-6-1（建筑面积：97.34平方米）房产",
+        "所属小区": "鑫丰雍景豪城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西商圈",
+        "建筑面积": 97.34,
+        "单价": 7167.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "970199402445",
-        "url": "https://sf-item.taobao.com/sf_item/970199402445.htm?track_id=d9d5cff6-76da-4d05-953f-bedf8efbb449",
-        "end": 1757818602000,
-        "status": "done",
-        "is_processed": false
+        "id": 970199402445,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 507406.72,
+        "交易时间": "2025-09-14T10:56:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/970199402445.htm?track_id=d9d5cff6-76da-4d05-953f-bedf8efbb449",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 30,
+        "地点": "陕西省 西安市 未央区 御井路7007号利君未来城1幢12202室",
+        "所属小区": "利君未来城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "未央湖",
+        "建筑面积": 89.85,
+        "单价": 5642.15,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "970178786731",
@@ -249,6 +290,76 @@
         "id": "969692143882",
         "url": "https://sf-item.taobao.com/sf_item/969692143882.htm?track_id=4b4e999e-3aac-478b-9b5f-a68739a27816",
         "end": 1757815496000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "966190420007",
+        "url": "https://sf-item.taobao.com/sf_item/966190420007.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1757815921000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "965199516870",
+        "url": "https://sf-item.taobao.com/sf_item/965199516870.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1757815996000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "971530460637",
+        "url": "https://sf-item.taobao.com/sf_item/971530460637.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1757822639000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "970893693232",
+        "url": "https://sf-item.taobao.com/sf_item/970893693232.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1757817692000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "969793990284",
+        "url": "https://sf-item.taobao.com/sf_item/969793990284.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1757816037000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "965975668968",
+        "url": "https://sf-item.taobao.com/sf_item/965975668968.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1757816835000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "970303534518",
+        "url": "https://sf-item.taobao.com/sf_item/970303534518.htm?track_id=d7569be6-9a1f-4c05-9408-c98aa52b83be",
+        "end": 1757820591000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "971627228360",
+        "url": "https://sf-item.taobao.com/sf_item/971627228360.htm?track_id=d7569be6-9a1f-4c05-9408-c98aa52b83be",
+        "end": 1757815388000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "965535076788",
+        "url": "https://sf-item.taobao.com/sf_item/965535076788.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
+        "end": 1757815629000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "970268782854",
+        "url": "https://sf-item.taobao.com/sf_item/970268782854.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
+        "end": 1757817016000,
         "status": "done",
         "is_processed": false
     }

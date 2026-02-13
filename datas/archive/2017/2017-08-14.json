@@ -257,10 +257,24 @@
         "detail_captured": true
     },
     {
-        "id": "555961601844",
-        "url": "https://sf-item.taobao.com/sf_item/555961601844.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
-        "end": 1502676000000,
-        "status": "done",
-        "is_processed": false
+        "id": 555961601844,
+        "市场评估价": 460864,
+        "起拍价格": 294952.96,
+        "成交价格": 294952.96,
+        "交易时间": "2017/08/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/555961601844.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省延边朝鲜族自治州延吉市东阳小区1号楼A座904室",
+        "所属小区": "东阳小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市区",
+        "建筑面积": 121.28,
+        "单价": 2432,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

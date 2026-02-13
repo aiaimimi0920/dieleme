@@ -231,12 +231,25 @@
         "detail_captured": true
     },
     {
-        "id": "740721233133",
-        "url": "https://sf-item.taobao.com/sf_item/740721233133.htm?track_id=3bf896da-fda1-432e-baaf-0a8bf5bd01c9",
-        "end": 1698458400000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/740721233133.htm"
+        "id": 740721233133,
+        "市场评估价": 0,
+        "起拍价格": 605323.6,
+        "成交价格": 611323.6,
+        "交易时间": "2023/10/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/740721233133.htm?track_id=3bf896da-fda1-432e-baaf-0a8bf5bd01c9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "四川省 广元市 利州区 东坝办事处莲花村九组（北二环南侧）和成·原著二期 6 幢",
+        "所属小区": "和成·原著二期",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "东坝",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 740641716655,
@@ -435,11 +448,25 @@
         "is_processed": false
     },
     {
-        "id": "742899259303",
-        "url": "https://sf-item.taobao.com/sf_item/742899259303.htm?track_id=238365b2-67df-4e4e-b47f-46d817a2ef1f",
-        "end": 1698458615000,
-        "status": "done",
-        "is_processed": false
+        "id": 742899259303,
+        "市场评估价": 1950926,
+        "起拍价格": 1092518.56,
+        "成交价格": 1092518.56,
+        "交易时间": "2023/10/28 10:03:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/742899259303.htm?track_id=238365b2-67df-4e4e-b47f-46d817a2ef1f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 厦门市 翔安区 首开领翔上郡（2012XP08地块）-地块三11#楼A梯3层302室房产",
+        "所属小区": "首开领翔上郡",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "翔安区",
+        "最靠近商圈": "翔安新城",
+        "建筑面积": 81.54,
+        "单价": 13397.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "740805625158",
@@ -452,6 +479,27 @@
         "id": "742807745454",
         "url": "https://sf-item.taobao.com/sf_item/742807745454.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
         "end": 1698458400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "742817798908",
+        "url": "https://sf-item.taobao.com/sf_item/742817798908.htm?track_id=9a405c8a-1c07-49bc-9bd5-0414da77ea78",
+        "end": 1698458400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "740934674901",
+        "url": "https://sf-item.taobao.com/sf_item/740934674901.htm?track_id=efb4342c-0c1c-4486-9308-1ed5553b53ca",
+        "end": 1698459600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "740810590397",
+        "url": "https://sf-item.taobao.com/sf_item/740810590397.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1698458711000,
         "status": "done",
         "is_processed": false
     }

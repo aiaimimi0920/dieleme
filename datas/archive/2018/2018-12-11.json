@@ -811,11 +811,25 @@
         "detail_captured": true
     },
     {
-        "id": "581405288892",
-        "url": "https://sf-item.taobao.com/sf_item/581405288892.htm?track_id=0998525a-0e3f-4b2c-a314-8b80a91badd0",
-        "end": 1544495064000,
-        "status": "done",
-        "is_processed": false
+        "id": 581405288892,
+        "市场评估价": null,
+        "起拍价格": 392700,
+        "成交价格": 577700,
+        "交易时间": "2018/12/11 10:24:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581405288892.htm?track_id=0998525a-0e3f-4b2c-a314-8b80a91badd0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 29,
+        "地点": "福建省 漳州市 平和县 和平北路北区（万成家天下）A3-13#1407室",
+        "所属小区": "万成家天下",
+        "省份": "福建省",
+        "城市": "漳州市",
+        "区": "平和县",
+        "最靠近商圈": null,
+        "建筑面积": 119.02,
+        "单价": 4854.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "581852426093",
@@ -825,11 +839,25 @@
         "is_processed": false
     },
     {
-        "id": "581856442112",
-        "url": "https://sf-item.taobao.com/sf_item/581856442112.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
-        "end": 1544496070000,
-        "status": "done",
-        "is_processed": false
+        "id": 581856442112,
+        "市场评估价": 461600,
+        "起拍价格": 330000,
+        "成交价格": 415800,
+        "交易时间": "2018/12/11 10:41:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581856442112.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "是否成交": true,
+        "竞拍人数": 43,
+        "出价人数": 43,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 都匀市剑江中路66号时代广场1栋19层附94号",
+        "所属小区": "时代广场",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "剑江中路商圈",
+        "建筑面积": 88.2,
+        "单价": 4717.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "581775035851",
@@ -846,18 +874,46 @@
         "is_processed": false
     },
     {
-        "id": "581532488595",
-        "url": "https://sf-item.taobao.com/sf_item/581532488595.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
-        "end": 1544493600000,
-        "status": "done",
-        "is_processed": false
+        "id": 581532488595,
+        "市场评估价": null,
+        "起拍价格": 1840000,
+        "成交价格": 1840000,
+        "交易时间": "2018-12-11T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581532488595.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江西省南昌市青云谱区施尧路1111号水榭花都8栋3002室",
+        "所属小区": "水榭花都",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "洪都商圈",
+        "建筑面积": 214.96,
+        "单价": 8556.37,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "575642738735",
-        "url": "https://sf-item.taobao.com/sf_item/575642738735.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
-        "end": 1544493600000,
-        "status": "done",
-        "is_processed": false
+        "id": 575642738735,
+        "市场评估价": null,
+        "起拍价格": 810000,
+        "成交价格": 810000,
+        "交易时间": "2018-12-11T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/575642738735.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省云浮市郁南县连滩镇维新路245号",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "连滩镇",
+        "建筑面积": 492.62,
+        "单价": 1644.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "581719105372",
@@ -867,25 +923,67 @@
         "is_processed": false
     },
     {
-        "id": "582616417290",
-        "url": "https://sf-item.taobao.com/sf_item/582616417290.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
-        "end": 1544496425000,
-        "status": "done",
-        "is_processed": false
+        "id": 582616417290,
+        "市场评估价": null,
+        "起拍价格": 2310528,
+        "成交价格": 3420528,
+        "交易时间": "2018/12/11 10:47:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/582616417290.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
+        "是否成交": true,
+        "竞拍人数": 89,
+        "出价人数": 89,
+        "地点": "广西壮族自治区 贵港市 桂平市 木乐镇振兴路",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "木乐镇商业中心",
+        "建筑面积": 1682.28,
+        "单价": 2033.81,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "581538960051",
-        "url": "https://sf-item.taobao.com/sf_item/581538960051.htm?track_id=62107ca1-60ab-4628-8507-532fdea80d74",
-        "end": 1544493600000,
-        "status": "done",
-        "is_processed": false
+        "id": 581538960051,
+        "市场评估价": 0,
+        "起拍价格": 146480.76,
+        "成交价格": 146480.76,
+        "交易时间": "2018/12/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581538960051.htm?track_id=62107ca1-60ab-4628-8507-532fdea80d74",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 淄博市 博山区 域城镇南域城村院内",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "582788898661",
-        "url": "https://sf-item.taobao.com/sf_item/582788898661.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
-        "end": 1544495469000,
-        "status": "done",
-        "is_processed": false
+        "id": 582788898661,
+        "市场评估价": 1919994,
+        "起拍价格": 1228797,
+        "成交价格": 1418797,
+        "交易时间": "2018/12/11 10:31:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/582788898661.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 39,
+        "地点": "河南省 郑州市 二七区 建云街19号2号楼东3单元34号",
+        "所属小区": "建云小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七万达广场",
+        "建筑面积": 161.82,
+        "单价": 8768.46,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "581446580414",
@@ -895,11 +993,25 @@
         "is_processed": false
     },
     {
-        "id": "581962599719",
-        "url": "https://sf-item.taobao.com/sf_item/581962599719.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
-        "end": 1544494872000,
-        "status": "done",
-        "is_processed": false
+        "id": 581962599719,
+        "市场评估价": 1050000,
+        "起拍价格": 840000,
+        "成交价格": 1910000,
+        "交易时间": "2018-12-11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581962599719.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
+        "是否成交": true,
+        "竞拍人数": 52,
+        "出价人数": 44,
+        "地点": "江苏省常州市天宁区常州市乾盛兰庭8幢乙单元503室",
+        "所属小区": "乾盛兰庭",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "天宁商圈",
+        "建筑面积": 140,
+        "单价": 13642.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "580944013664",
@@ -912,6 +1024,69 @@
         "id": "581257168192",
         "url": "https://sf-item.taobao.com/sf_item/581257168192.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1544493600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582793726278",
+        "url": "https://sf-item.taobao.com/sf_item/582793726278.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1544494009000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581831910484",
+        "url": "https://sf-item.taobao.com/sf_item/581831910484.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1544497200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582879199546",
+        "url": "https://sf-item.taobao.com/sf_item/582879199546.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1544495706000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581888547696",
+        "url": "https://sf-item.taobao.com/sf_item/581888547696.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1544495324000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581730666151",
+        "url": "https://sf-item.taobao.com/sf_item/581730666151.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1544503038000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582522481426",
+        "url": "https://sf-item.taobao.com/sf_item/582522481426.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1544493600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582429337387",
+        "url": "https://sf-item.taobao.com/sf_item/582429337387.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1544496499000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581206774120",
+        "url": "https://sf-item.taobao.com/sf_item/581206774120.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1544501945000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581149362165",
+        "url": "https://sf-item.taobao.com/sf_item/581149362165.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1544503165000,
         "status": "done",
         "is_processed": false
     }

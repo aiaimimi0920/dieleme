@@ -21,11 +21,25 @@
         "detail_captured": true
     },
     {
-        "id": "539363723928",
-        "url": "https://sf-item.taobao.com/sf_item/539363723928.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
-        "end": 1477015200000,
-        "status": "done",
-        "is_processed": false
+        "id": 539363723928,
+        "市场评估价": 130109,
+        "起拍价格": 105388.29,
+        "成交价格": 106488.29,
+        "交易时间": "2016-10-21T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539363723928.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 20.48,
+        "单价": 5200.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "539365879522",
@@ -56,11 +70,25 @@
         "is_processed": false
     },
     {
-        "id": "539366831276",
-        "url": "https://sf-item.taobao.com/sf_item/539366831276.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
-        "end": 1477019954000,
-        "status": "done",
-        "is_processed": false
+        "id": 539366831276,
+        "市场评估价": 664000,
+        "起拍价格": 531200,
+        "成交价格": 633200,
+        "交易时间": "2016/10/21 11:19:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539366831276.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
+        "是否成交": true,
+        "竞拍人数": 52,
+        "出价人数": 52,
+        "地点": "江苏省 无锡市 锡山区",
+        "所属小区": "芙蓉山庄",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": 89.84,
+        "单价": 7045.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "539366295652",
@@ -87,6 +115,13 @@
         "id": "539957436899",
         "url": "https://sf-item.taobao.com/sf_item/539957436899.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1477015200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539340272991",
+        "url": "https://sf-item.taobao.com/sf_item/539340272991.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1477018326000,
         "status": "done",
         "is_processed": false
     }

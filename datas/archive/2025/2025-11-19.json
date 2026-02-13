@@ -255,12 +255,25 @@
         "detail_captured": true
     },
     {
-        "id": "986907741792",
-        "url": "https://sf-item.taobao.com/sf_item/986907741792.htm?track_id=3f214cd3-13b1-48c5-b064-46cb4c02437f",
-        "end": 1763519709000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/986907741792.htm"
+        "id": 986907741792,
+        "市场评估价": 1434357,
+        "起拍价格": 1004050,
+        "成交价格": 1189050,
+        "交易时间": "2025/11/19 10:35:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/986907741792.htm?track_id=3f214cd3-13b1-48c5-b064-46cb4c02437f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 32,
+        "地点": "四川省 成都市 双流区 成都市天府新区万东路80号附1号8栋2单元27层2703号房屋（不含室内家具家电）",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "天府新区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 985017122424,
@@ -515,16 +528,79 @@
         "detail_captured": true
     },
     {
-        "id": "977698849873",
-        "url": "https://sf-item.taobao.com/sf_item/977698849873.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
-        "end": 1763517671000,
+        "id": 977698849873,
+        "市场评估价": 261212,
+        "起拍价格": 146280,
+        "成交价格": 146280,
+        "交易时间": "2025/11/19 10:01:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/977698849873.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "吉林省 吉林市 船营区 搜登站镇街内1号楼4号的一套住宅用房",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "搜登站镇",
+        "建筑面积": 148.5,
+        "单价": 985.25,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 986604277851,
+        "市场评估价": 0,
+        "起拍价格": 415084.96,
+        "成交价格": 691084.96,
+        "交易时间": "2025/11/19 10:04:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/986604277851.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 70,
+        "地点": "广东省 梅州市 蕉岭县 蕉城镇长寿新城骏业广场（福星二期）9栋44、45号店铺",
+        "所属小区": "长寿新城骏业广场",
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "长寿新城",
+        "建筑面积": 94.38,
+        "单价": 7324.13,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "990846745109",
+        "url": "https://sf-item.taobao.com/sf_item/990846745109.htm?track_id=06d50902-4cb5-47c9-aa0d-987464c3d93f",
+        "end": 1763518974000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "986604277851",
-        "url": "https://sf-item.taobao.com/sf_item/986604277851.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
-        "end": 1763517866000,
+        "id": "991598564587",
+        "url": "https://sf-item.taobao.com/sf_item/991598564587.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1763521146000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "985888753658",
+        "url": "https://sf-item.taobao.com/sf_item/985888753658.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1763518004000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "977631957173",
+        "url": "https://sf-item.taobao.com/sf_item/977631957173.htm?track_id=7ea40920-fed2-42de-bda6-b8c5278fe902",
+        "end": 1763525917000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "990042911129",
+        "url": "https://sf-item.taobao.com/sf_item/990042911129.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
+        "end": 1763517600000,
         "status": "done",
         "is_processed": false
     }

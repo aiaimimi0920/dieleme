@@ -273,16 +273,79 @@
         "detail_captured": true
     },
     {
-        "id": "595706268287",
-        "url": "https://sf-item.taobao.com/sf_item/595706268287.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
-        "end": 1562810400000,
+        "id": 595706268287,
+        "市场评估价": 412676,
+        "起拍价格": 288873.2,
+        "成交价格": 288873.2,
+        "交易时间": "2019/07/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595706268287.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 园圃胡同",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心",
+        "建筑面积": 93.79,
+        "单价": 3080.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 597060710071,
+        "市场评估价": 0,
+        "起拍价格": 780808,
+        "成交价格": 915808,
+        "交易时间": "2019/07/11 10:39:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/597060710071.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 28,
+        "地点": "河南省 郑州市 二七区 南屏路南、石柱东路西、环翠路北、碧云路东2号楼2单元9层906号",
+        "所属小区": "锦绣山河",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七万达",
+        "建筑面积": 111.3,
+        "单价": 8227.92,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "595620436270",
+        "url": "https://sf-item.taobao.com/sf_item/595620436270.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1562835012000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "597060710071",
-        "url": "https://sf-item.taobao.com/sf_item/597060710071.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
-        "end": 1562812742000,
+        "id": "597345190087",
+        "url": "https://sf-item.taobao.com/sf_item/597345190087.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1562810969000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "591596840573",
+        "url": "https://sf-item.taobao.com/sf_item/591596840573.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1562813289000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594973093933",
+        "url": "https://sf-item.taobao.com/sf_item/594973093933.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1562824868000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595153582761",
+        "url": "https://sf-item.taobao.com/sf_item/595153582761.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1562812618000,
         "status": "done",
         "is_processed": false
     }

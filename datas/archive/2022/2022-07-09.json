@@ -546,12 +546,25 @@
         "detail_captured": true
     },
     {
-        "id": "676809565054",
-        "url": "https://sf-item.taobao.com/sf_item/676809565054.htm?track_id=f07778d4-cc4c-45e7-9a48-3ba6f2d17103",
-        "end": 1657332000000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/676809565054.htm"
+        "id": 676809565054,
+        "市场评估价": 750300,
+        "起拍价格": 600300,
+        "成交价格": 600300,
+        "交易时间": "2022-07-09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676809565054.htm?track_id=f07778d4-cc4c-45e7-9a48-3ba6f2d17103",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省泰安市宁阳县民生雅居",
+        "所属小区": "民生雅居",
+        "省份": "山东省",
+        "城市": "泰安市",
+        "区": "宁阳县",
+        "最靠近商圈": "宁阳县城中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 677412098532,
@@ -575,12 +588,25 @@
         "detail_captured": true
     },
     {
-        "id": "676126765990",
-        "url": "https://sf-item.taobao.com/sf_item/676126765990.htm?track_id=bc97f436-0dc2-4702-9160-4c0e5af5a28d",
-        "end": 1657332000000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/676126765990.htm"
+        "id": 676126765990,
+        "市场评估价": 474830.52,
+        "起拍价格": 332381.36,
+        "成交价格": 332381.36,
+        "交易时间": "2022-07-09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676126765990.htm?track_id=bc97f436-0dc2-4702-9160-4c0e5af5a28d",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 香河县 香公馆住宅小区二期7号楼3单元801室",
+        "所属小区": "香公馆住宅小区",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": "香河新城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 676775903486,
@@ -602,5 +628,47 @@
         "单价": 3740.87,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "675762585007",
+        "url": "https://sf-item.taobao.com/sf_item/675762585007.htm?track_id=2aae7a99-698e-4407-8145-803f91390659",
+        "end": 1657333198000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677385122072",
+        "url": "https://sf-item.taobao.com/sf_item/677385122072.htm?track_id=8991c5b1-871a-44f4-871d-3ba5c4f82a8e",
+        "end": 1657332430000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677384446790",
+        "url": "https://sf-item.taobao.com/sf_item/677384446790.htm?track_id=85d6e4c3-5841-4382-a02e-efc4156014e9",
+        "end": 1657332089000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677388694054",
+        "url": "https://sf-item.taobao.com/sf_item/677388694054.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1657332000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "676775695940",
+        "url": "https://sf-item.taobao.com/sf_item/676775695940.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1657337357000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677321558272",
+        "url": "https://sf-item.taobao.com/sf_item/677321558272.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1657339482000,
+        "status": "done",
+        "is_processed": false
     }
 ]

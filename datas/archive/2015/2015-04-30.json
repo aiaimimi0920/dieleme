@@ -149,9 +149,30 @@
         "manual_checked": true
     },
     {
-        "id": "44862456396",
-        "url": "https://sf-item.taobao.com/sf_item/44862456396.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
-        "end": 1430359200000,
+        "id": 44862456396,
+        "市场评估价": 0,
+        "起拍价格": 452000,
+        "成交价格": 456000,
+        "交易时间": "2015/04/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44862456396.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "海盐县武原街道城北小区213-1幢101室",
+        "所属小区": "城北小区",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": null,
+        "建筑面积": 123.0,
+        "单价": 3707.32,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "44697490350",
+        "url": "https://sf-item.taobao.com/sf_item/44697490350.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1430360895000,
         "status": "done",
         "is_processed": false
     }

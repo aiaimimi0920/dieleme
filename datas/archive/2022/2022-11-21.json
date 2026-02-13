@@ -2121,12 +2121,25 @@
         "detail_captured": true
     },
     {
-        "id": "688092812528",
-        "url": "https://sf-item.taobao.com/sf_item/688092812528.htm?track_id=93f5b1ce-1034-4c5d-ba15-3ba24f721dae",
-        "end": 1668996000000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/688092812528.htm"
+        "id": 688092812528,
+        "市场评估价": 909200,
+        "起拍价格": 636500,
+        "成交价格": 636500,
+        "交易时间": "2022/11/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/688092812528.htm?track_id=93f5b1ce-1034-4c5d-ba15-3ba24f721dae",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省上饶市弋阳县弋江镇滨江时代广场第C2栋1-701室",
+        "所属小区": "滨江时代广场",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "弋阳县",
+        "最靠近商圈": "弋江镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 689058375506,
@@ -2171,11 +2184,25 @@
         "detail_captured": true
     },
     {
-        "id": "687961408014",
-        "url": "https://sf-item.taobao.com/sf_item/687961408014.htm?track_id=a7155322-1f8b-438d-b84c-02072d71caf5",
-        "end": 1668996000000,
-        "status": "done",
-        "is_processed": false
+        "id": 687961408014,
+        "市场评估价": 978907,
+        "起拍价格": 685234.9,
+        "成交价格": 685234.9,
+        "交易时间": "2022-11-21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/687961408014.htm?track_id=a7155322-1f8b-438d-b84c-02072d71caf5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 烟厂胡同",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心",
+        "建筑面积": 246.39,
+        "单价": 2782.59,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "688863727936",
@@ -2185,18 +2212,46 @@
         "is_processed": false
     },
     {
-        "id": "688419565587",
-        "url": "https://sf-item.taobao.com/sf_item/688419565587.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
-        "end": 1668997344000,
-        "status": "done",
-        "is_processed": false
+        "id": 688419565587,
+        "市场评估价": 658800,
+        "起拍价格": 430000,
+        "成交价格": 502000,
+        "交易时间": "2022-11-21 10:22:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/688419565587.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
+        "是否成交": true,
+        "竞拍人数": 19,
+        "出价人数": 19,
+        "地点": "广东省 惠州市 博罗县 罗阳镇九村居民委员会上、下头塘组（土名）地段保利山水城四期7栋2单元9层06房",
+        "所属小区": "保利山水城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 91.5,
+        "单价": 5480.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "688178780967",
-        "url": "https://sf-item.taobao.com/sf_item/688178780967.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1668996876000,
-        "status": "done",
-        "is_processed": false
+        "id": 688178780967,
+        "市场评估价": 0,
+        "起拍价格": 1183847,
+        "成交价格": 1375847,
+        "交易时间": "2022/11/21 10:14:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/688178780967.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 25,
+        "地点": "江西省 南昌市 青云谱区 洪城路158号正盛太古港商业城A地块3-b号住宅楼一单元3904室",
+        "所属小区": "正盛太古港商业城",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "洪城路商圈",
+        "建筑面积": 116.79,
+        "单价": 11783.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "691156652527",
@@ -2209,6 +2264,41 @@
         "id": "691535114993",
         "url": "https://sf-item.taobao.com/sf_item/691535114993.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
         "end": 1668996000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691528698117",
+        "url": "https://sf-item.taobao.com/sf_item/691528698117.htm?track_id=83a69582-76f4-4489-bccb-41fc9b7b6cf6",
+        "end": 1668997252000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691705578828",
+        "url": "https://sf-item.taobao.com/sf_item/691705578828.htm?track_id=9a405c8a-1c07-49bc-9bd5-0414da77ea78",
+        "end": 1668996856000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691881871863",
+        "url": "https://sf-item.taobao.com/sf_item/691881871863.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "end": 1668996799000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "688300829551",
+        "url": "https://sf-item.taobao.com/sf_item/688300829551.htm?track_id=5d2028cd-85b5-4657-a6d6-1ff52559d487",
+        "end": 1668998355000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692009195810",
+        "url": "https://sf-item.taobao.com/sf_item/692009195810.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1668996878000,
         "status": "done",
         "is_processed": false
     }

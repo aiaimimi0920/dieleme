@@ -49,11 +49,25 @@
         "is_processed": false
     },
     {
-        "id": "523274736563",
-        "url": "https://sf-item.taobao.com/sf_item/523274736563.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
-        "end": 1447207275000,
-        "status": "done",
-        "is_processed": false
+        "id": 523274736563,
+        "市场评估价": null,
+        "起拍价格": 9951400,
+        "成交价格": 10451400,
+        "交易时间": "2015/11/11 10:01:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523274736563.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 南平市 顺昌县",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪街道",
+        "建筑面积": 8720.64,
+        "单价": 1198.46,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "523364905471",

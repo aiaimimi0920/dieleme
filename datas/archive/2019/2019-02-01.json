@@ -236,23 +236,79 @@
         "is_processed": false
     },
     {
-        "id": "586269599611",
-        "url": "https://sf-item.taobao.com/sf_item/586269599611.htm?track_id=62107ca1-60ab-4628-8507-532fdea80d74",
-        "end": 1548986400000,
-        "status": "done",
-        "is_processed": false
+        "id": 586269599611,
+        "市场评估价": null,
+        "起拍价格": 386512,
+        "成交价格": 386512,
+        "交易时间": "2019/02/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586269599611.htm?track_id=62107ca1-60ab-4628-8507-532fdea80d74",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 淄博市 博山区 颜北路169号",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "584502702148",
-        "url": "https://sf-item.taobao.com/sf_item/584502702148.htm?track_id=c8e9871a-16d9-4594-8c9f-5feecf4c8a23",
-        "end": 1548986400000,
-        "status": "done",
-        "is_processed": false
+        "id": 584502702148,
+        "市场评估价": 0,
+        "起拍价格": 477000,
+        "成交价格": 477000,
+        "交易时间": "2019/02/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/584502702148.htm?track_id=c8e9871a-16d9-4594-8c9f-5feecf4c8a23",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 怀化市 芷江侗族自治县 东街东紫巷腾龙居（原芷江师范南院）2幢1702号",
+        "所属小区": "腾龙居",
+        "省份": "湖南省",
+        "城市": "怀化市",
+        "区": "芷江侗族自治县",
+        "最靠近商圈": "芷江镇",
+        "建筑面积": 155.17,
+        "单价": 3073.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586065253409",
         "url": "https://sf-item.taobao.com/sf_item/586065253409.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
         "end": 1548987027000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586368247486",
+        "url": "https://sf-item.taobao.com/sf_item/586368247486.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1548986815000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586296079310",
+        "url": "https://sf-item.taobao.com/sf_item/586296079310.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1548986636000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586389487325",
+        "url": "https://sf-item.taobao.com/sf_item/586389487325.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1548986400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586055485776",
+        "url": "https://sf-item.taobao.com/sf_item/586055485776.htm?track_id=b4353959-2c75-46fd-ae3a-556685042bba",
+        "end": 1548986400000,
         "status": "done",
         "is_processed": false
     }

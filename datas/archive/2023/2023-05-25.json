@@ -525,11 +525,25 @@
         "detail_captured": true
     },
     {
-        "id": "717163208971",
-        "url": "https://sf-item.taobao.com/sf_item/717163208971.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
-        "end": 1684980000000,
-        "status": "done",
-        "is_processed": false
+        "id": 717163208971,
+        "市场评估价": 556600,
+        "起拍价格": 311696,
+        "成交价格": 311696,
+        "交易时间": "2023-05-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/717163208971.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 沈阳经济技术开发区浑河二街2甲6号-17号1-6-2",
+        "所属小区": "万熹绿景",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 89.08,
+        "单价": 3499.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "717184492243",
@@ -546,37 +560,170 @@
         "is_processed": false
     },
     {
-        "id": "717169608058",
-        "url": "https://sf-item.taobao.com/sf_item/717169608058.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
-        "end": 1684981169000,
-        "status": "done",
-        "is_processed": false
+        "id": 717169608058,
+        "市场评估价": 694870,
+        "起拍价格": 390000,
+        "成交价格": 485000,
+        "交易时间": "2023/05/25 10:19:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/717169608058.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 65,
+        "地点": "江西省 南昌市 青云谱区 青云谱区解放西路49号明珠广场商务办公楼1507室",
+        "所属小区": "明珠广场",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "明珠广场",
+        "建筑面积": 112.64,
+        "单价": 4305.45,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "717344005561",
-        "url": "https://sf-item.taobao.com/sf_item/717344005561.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
-        "end": 1684980000000,
-        "status": "done",
-        "is_processed": false
+        "id": 717344005561,
+        "市场评估价": 1588914,
+        "起拍价格": 1188508,
+        "成交价格": 1193508,
+        "交易时间": "2023-05-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/717344005561.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "河南省平顶山市湛河区平顶山市豫森时代新城2号楼101号-2",
+        "所属小区": "豫森时代新城",
+        "省份": "河南省",
+        "城市": "平顶山市",
+        "区": "湛河区",
+        "最靠近商圈": "轻工路与城乡路交叉口",
+        "建筑面积": 123.43,
+        "单价": 9671.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "717106408648",
-        "url": "https://sf-item.taobao.com/sf_item/717106408648.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
-        "end": 1684980254000,
-        "status": "done",
-        "is_processed": false
+        "id": 717106408648,
+        "市场评估价": 1719318,
+        "起拍价格": 1286050,
+        "成交价格": 1286050,
+        "交易时间": "2023/05/25 10:04:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/717106408648.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 平顶山市 湛河区 平顶山市豫森时代新城2号楼101号-4",
+        "所属小区": "豫森时代新城",
+        "省份": "河南省",
+        "城市": "平顶山市",
+        "区": "湛河区",
+        "最靠近商圈": "轻工路与城乡路交叉口",
+        "建筑面积": 133.56,
+        "单价": 9628.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "717526642187",
-        "url": "https://sf-item.taobao.com/sf_item/717526642187.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
-        "end": 1684980000000,
-        "status": "done",
-        "is_processed": false
+        "id": 717526642187,
+        "市场评估价": 2536625,
+        "起拍价格": 1897396,
+        "成交价格": 1897396,
+        "交易时间": "2023/05/25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/717526642187.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 平顶山市 湛河区 平顶山市豫森时代新城2号楼101号-3",
+        "所属小区": "豫森时代新城",
+        "省份": "河南省",
+        "城市": "平顶山市",
+        "区": "湛河区",
+        "最靠近商圈": "轻工路与城乡路交叉口",
+        "建筑面积": 197.05,
+        "单价": 9627.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "719307999685",
         "url": "https://sf-item.taobao.com/sf_item/719307999685.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1684980245000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "713979944328",
+        "url": "https://sf-item.taobao.com/sf_item/713979944328.htm?track_id=b29a20ac-4526-4c00-8c7e-3478c2981281",
+        "end": 1684983496000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "717814663111",
+        "url": "https://sf-item.taobao.com/sf_item/717814663111.htm?track_id=c9d350ba-1b65-4e91-8615-aaa681af9d56",
+        "end": 1684983191000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "712695186200",
+        "url": "https://sf-item.taobao.com/sf_item/712695186200.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1684980117000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "710797533040",
+        "url": "https://sf-item.taobao.com/sf_item/710797533040.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1685002215000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "710798017895",
+        "url": "https://sf-item.taobao.com/sf_item/710798017895.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1685002195000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "710798833520",
+        "url": "https://sf-item.taobao.com/sf_item/710798833520.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1685002220000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "711213243003",
+        "url": "https://sf-item.taobao.com/sf_item/711213243003.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1685002228000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "713411746118",
+        "url": "https://sf-item.taobao.com/sf_item/713411746118.htm?track_id=a8a7504e-6323-4c92-b93b-cd51b5436bd0",
+        "end": 1684980687000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "717529582253",
+        "url": "https://sf-item.taobao.com/sf_item/717529582253.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1684981165000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "714651579788",
+        "url": "https://sf-item.taobao.com/sf_item/714651579788.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1684980558000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "712915695799",
+        "url": "https://sf-item.taobao.com/sf_item/712915695799.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
+        "end": 1684983750000,
         "status": "done",
         "is_processed": false
     }

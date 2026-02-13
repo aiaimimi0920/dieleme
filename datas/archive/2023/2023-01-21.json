@@ -273,9 +273,37 @@
         "detail_captured": true
     },
     {
-        "id": "695623858788",
-        "url": "https://sf-item.taobao.com/sf_item/695623858788.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
-        "end": 1674267898000,
+        "id": 695623858788,
+        "市场评估价": 907000,
+        "起拍价格": 634900,
+        "成交价格": 688900,
+        "交易时间": "2023/01/21 10:24:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695623858788.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道河滨小区经济适用房1幢205室",
+        "所属小区": "河滨小区",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 97.88,
+        "单价": 7035.72,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "695378373469",
+        "url": "https://sf-item.taobao.com/sf_item/695378373469.htm?track_id=57ebabcd-28ac-405a-a636-47bdb8bc5f01",
+        "end": 1674266400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696315721698",
+        "url": "https://sf-item.taobao.com/sf_item/696315721698.htm?track_id=7c151630-b847-4af4-a435-456209157b57",
+        "end": 1674267658000,
         "status": "done",
         "is_processed": false
     }

@@ -429,25 +429,67 @@
         "detail_captured": true
     },
     {
-        "id": "570309643075",
-        "url": "https://sf-item.taobao.com/sf_item/570309643075.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
-        "end": 1529809015000,
-        "status": "done",
-        "is_processed": false
+        "id": 570309643075,
+        "市场评估价": null,
+        "起拍价格": 810000,
+        "成交价格": 1002000,
+        "交易时间": "2018-06-24 10:56:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570309643075.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "是否成交": true,
+        "竞拍人数": 60,
+        "出价人数": 64,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 剑江中路44号文峰家园锦江苑2栋8层附35号",
+        "所属小区": "文峰家园锦江苑",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "剑江中路商圈",
+        "建筑面积": 185.21,
+        "单价": 5412.45,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "570221494760",
-        "url": "https://sf-item.taobao.com/sf_item/570221494760.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
-        "end": 1529806232000,
-        "status": "done",
-        "is_processed": false
+        "id": 570221494760,
+        "市场评估价": 0,
+        "起拍价格": 330000,
+        "成交价格": 374000,
+        "交易时间": "2018/06/24 10:10:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570221494760.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 20,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 都匀市西苑虹桥苑A栋3层301号",
+        "所属小区": "西苑虹桥苑",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "虹桥",
+        "建筑面积": 118.91,
+        "单价": 3146.02,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "570222129967",
-        "url": "https://sf-item.taobao.com/sf_item/570222129967.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
-        "end": 1529807837000,
-        "status": "done",
-        "is_processed": false
+        "id": 570222129967,
+        "市场评估价": null,
+        "起拍价格": 663462,
+        "成交价格": 948462,
+        "交易时间": "2018/06/24 10:37:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570222129967.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 南平市 顺昌县双溪龙山路西侧2幢1层114号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪商圈",
+        "建筑面积": 60.28,
+        "单价": 15733.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "570054568296",
@@ -460,6 +502,48 @@
         "id": "570209694955",
         "url": "https://sf-item.taobao.com/sf_item/570209694955.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1529805846000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570049300622",
+        "url": "https://sf-item.taobao.com/sf_item/570049300622.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
+        "end": 1529805604000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570328206522",
+        "url": "https://sf-item.taobao.com/sf_item/570328206522.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1529807141000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570223461020",
+        "url": "https://sf-item.taobao.com/sf_item/570223461020.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1529807379000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570410871305",
+        "url": "https://sf-item.taobao.com/sf_item/570410871305.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1529811392000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570380315545",
+        "url": "https://sf-item.taobao.com/sf_item/570380315545.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1529808619000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570059272066",
+        "url": "https://sf-item.taobao.com/sf_item/570059272066.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1529807514000,
         "status": "done",
         "is_processed": false
     }

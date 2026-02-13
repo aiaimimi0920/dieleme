@@ -1136,11 +1136,25 @@
         "detail_captured": true
     },
     {
-        "id": "779519086568",
-        "url": "https://sf-item.taobao.com/sf_item/779519086568.htm?track_id=f9884c7d-afe0-4627-af9d-113061a1c8a7",
-        "end": 1718183465000,
-        "status": "done",
-        "is_processed": false
+        "id": 779519086568,
+        "市场评估价": 396551,
+        "起拍价格": 269655,
+        "成交价格": 269655,
+        "交易时间": "2024/06/12 17:11:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/779519086568.htm?track_id=f9884c7d-afe0-4627-af9d-113061a1c8a7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 城市风景",
+        "所属小区": "嘉和城市风景",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": null,
+        "建筑面积": 84.96,
+        "单价": 3173.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "798872499657",
@@ -1150,18 +1164,46 @@
         "is_processed": false
     },
     {
-        "id": "799092941263",
-        "url": "https://sf-item.taobao.com/sf_item/799092941263.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
-        "end": 1718159123000,
-        "status": "done",
-        "is_processed": false
+        "id": 799092941263,
+        "市场评估价": null,
+        "起拍价格": 736000,
+        "成交价格": 941000,
+        "交易时间": "2024/06/12 10:25:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/799092941263.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
+        "是否成交": true,
+        "竞拍人数": 36,
+        "出价人数": null,
+        "地点": "福建省 泉州市 安溪县 安溪县参内镇河滨北路966号安溪恒大御景2号楼1102室",
+        "所属小区": "安溪恒大御景",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪县城",
+        "建筑面积": 127,
+        "单价": 7409.45,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "795025668464",
-        "url": "https://sf-item.taobao.com/sf_item/795025668464.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
-        "end": 1718158879000,
-        "status": "done",
-        "is_processed": false
+        "id": 795025668464,
+        "市场评估价": 1440000,
+        "起拍价格": 1150000,
+        "成交价格": 1320000,
+        "交易时间": "2024/06/12 10:21:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/795025668464.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "浙江省杭州市滨江区长河街道滨康路308号聚才大厦1幢1925室",
+        "所属小区": "聚才大厦",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河商圈",
+        "建筑面积": 42.41,
+        "单价": 31124.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "793537756370",
@@ -1195,6 +1237,55 @@
         "id": "799404995022",
         "url": "https://sf-item.taobao.com/sf_item/799404995022.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1718157677000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "798703480976",
+        "url": "https://sf-item.taobao.com/sf_item/798703480976.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1718157968000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "793349551120",
+        "url": "https://sf-item.taobao.com/sf_item/793349551120.htm?track_id=be9d2ee5-ec98-4723-b69d-13c8370ef63e",
+        "end": 1718158426000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "794369955769",
+        "url": "https://sf-item.taobao.com/sf_item/794369955769.htm?track_id=addbb771-a109-4b32-8cec-541c849a16ea",
+        "end": 1718159401000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "794518602958",
+        "url": "https://sf-item.taobao.com/sf_item/794518602958.htm?track_id=bce7c78f-af18-4d86-a5d0-8036c9800db5",
+        "end": 1718159201000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "799354740497",
+        "url": "https://sf-item.taobao.com/sf_item/799354740497.htm?track_id=8aff2cad-797b-46cd-a4eb-8b5f6ed552eb",
+        "end": 1718157855000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "799361172010",
+        "url": "https://sf-item.taobao.com/sf_item/799361172010.htm?track_id=8aff2cad-797b-46cd-a4eb-8b5f6ed552eb",
+        "end": 1718157600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "794952164349",
+        "url": "https://sf-item.taobao.com/sf_item/794952164349.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1718157600000,
         "status": "done",
         "is_processed": false
     }

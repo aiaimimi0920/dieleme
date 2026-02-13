@@ -238,11 +238,25 @@
         "detail_captured": true
     },
     {
-        "id": "924180140019",
-        "url": "https://sf-item.taobao.com/sf_item/924180140019.htm?track_id=f019ae24-a6bb-4a29-a585-e2709b5b8128",
-        "end": 1748829900000,
-        "status": "done",
-        "is_processed": false
+        "id": 924180140019,
+        "市场评估价": 915040,
+        "起拍价格": 823536,
+        "成交价格": 832536,
+        "交易时间": "2025/06/02 10:05:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/924180140019.htm?track_id=f019ae24-a6bb-4a29-a585-e2709b5b8128",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 8,
+        "地点": "内蒙古自治区 赤峰市 阿鲁科尔沁旗 天山镇益民路西、天元大街南(峰景新城C区11#-1-S107)",
+        "所属小区": "峰景新城",
+        "省份": "内蒙古自治区",
+        "城市": "赤峰市",
+        "区": "阿鲁科尔沁旗",
+        "最靠近商圈": "天山镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "919102344002",
@@ -259,11 +273,25 @@
         "is_processed": false
     },
     {
-        "id": "924689353336",
-        "url": "https://sf-item.taobao.com/sf_item/924689353336.htm?track_id=c8e9871a-16d9-4594-8c9f-5feecf4c8a23",
-        "end": 1748829600000,
-        "status": "done",
-        "is_processed": false
+        "id": 924689353336,
+        "市场评估价": 408800,
+        "起拍价格": 272000,
+        "成交价格": 272000,
+        "交易时间": "2025-06-02 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/924689353336.htm?track_id=c8e9871a-16d9-4594-8c9f-5feecf4c8a23",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "湖南省怀化市芷江侗族自治县芷江县芷江镇府后路与蟒湖路交叉口（中伟公馆3A幢）1204号住宅",
+        "所属小区": "中伟公馆",
+        "省份": "湖南省",
+        "城市": "怀化市",
+        "区": "芷江侗族自治县",
+        "最靠近商圈": "芷江镇商圈",
+        "建筑面积": 131.1,
+        "单价": 2074.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "918490910659",
@@ -276,6 +304,34 @@
         "id": "919006221802",
         "url": "https://sf-item.taobao.com/sf_item/919006221802.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
         "end": 1748833922000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "923564025998",
+        "url": "https://sf-item.taobao.com/sf_item/923564025998.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1748834567000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "915645585832",
+        "url": "https://sf-item.taobao.com/sf_item/915645585832.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1748831226000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "918114667739",
+        "url": "https://sf-item.taobao.com/sf_item/918114667739.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1748830312000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "917402637820",
+        "url": "https://sf-item.taobao.com/sf_item/917402637820.htm?track_id=a8a7504e-6323-4c92-b93b-cd51b5436bd0",
+        "end": 1748831023000,
         "status": "done",
         "is_processed": false
     }

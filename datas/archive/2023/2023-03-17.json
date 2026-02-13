@@ -504,20 +504,46 @@
         "detail_captured": true
     },
     {
-        "id": "696288462213",
-        "url": "https://sf-item.taobao.com/sf_item/696288462213.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
-        "end": 1679072937000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/696288462213.htm"
+        "id": 696288462213,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 614399.76,
+        "交易时间": "2023-03-18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696288462213.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 2,
+        "地点": "江苏省 淮安市 淮安区 关天培路168号世纪佳苑小区70号楼1单元601室",
+        "所属小区": "世纪佳苑",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安万达广场",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "696277418926",
-        "url": "https://sf-item.taobao.com/sf_item/696277418926.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
-        "end": 1679017799000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/696277418926.htm"
+        "id": 696277418926,
+        "市场评估价": 665837,
+        "起拍价格": 208806.56,
+        "成交价格": 208806.56,
+        "交易时间": "2023/03/17 09:49:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696277418926.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 张家口市 怀来县 金秋家园二期12-4-201",
+        "所属小区": "金秋家园二期",
+        "省份": "河北省",
+        "城市": "张家口市",
+        "区": "怀来县",
+        "最靠近商圈": "怀来县",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 702782595405,
@@ -562,18 +588,46 @@
         "detail_captured": true
     },
     {
-        "id": "705047590086",
-        "url": "https://sf-item.taobao.com/sf_item/705047590086.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
-        "end": 1679016771000,
-        "status": "done",
-        "is_processed": false
+        "id": 705047590086,
+        "市场评估价": 1651900,
+        "起拍价格": 925064,
+        "成交价格": 925064,
+        "交易时间": "2023/03/17 09:32:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/705047590086.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 四川省乐至县天池镇乐蓬路145号富春山庄园1幢1层2号（现门牌号：乐至县文庙街25号1栋2楼2号）",
+        "所属小区": "富春山庄园",
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "文庙街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "701998200737",
-        "url": "https://sf-item.taobao.com/sf_item/701998200737.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
-        "end": 1679023085000,
-        "status": "done",
-        "is_processed": false
+        "id": 701998200737,
+        "市场评估价": null,
+        "起拍价格": 3340000,
+        "成交价格": 5740000,
+        "交易时间": "2023/03/17 11:18:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/701998200737.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "是否成交": true,
+        "竞拍人数": 200,
+        "出价人数": null,
+        "地点": "北京 北京市 海淀区 甘家口1号楼2层1门202室",
+        "所属小区": "甘家口",
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "海淀区",
+        "最靠近商圈": "甘家口",
+        "建筑面积": 50.2,
+        "单价": 114343.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "702060348771",
@@ -583,11 +637,25 @@
         "is_processed": false
     },
     {
-        "id": "702806503179",
-        "url": "https://sf-item.taobao.com/sf_item/702806503179.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
-        "end": 1679019420000,
-        "status": "done",
-        "is_processed": false
+        "id": 702806503179,
+        "市场评估价": 2560000,
+        "起拍价格": 1792000,
+        "成交价格": 2288000,
+        "交易时间": "2023-03-17 10:17:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/702806503179.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
+        "是否成交": true,
+        "竞拍人数": 63,
+        "出价人数": 63,
+        "地点": "浙江省 杭州市 滨江区 长河街道冠山小区19幢3单元401室",
+        "所属小区": "冠山小区",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河",
+        "建筑面积": 80.7,
+        "单价": 28358.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "702803295862",
@@ -600,6 +668,48 @@
         "id": "703939896396",
         "url": "https://sf-item.taobao.com/sf_item/703939896396.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1679018400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701433716015",
+        "url": "https://sf-item.taobao.com/sf_item/701433716015.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1679021592000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "703996044571",
+        "url": "https://sf-item.taobao.com/sf_item/703996044571.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1679024816000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "705205782562",
+        "url": "https://sf-item.taobao.com/sf_item/705205782562.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1679018427000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701791231938",
+        "url": "https://sf-item.taobao.com/sf_item/701791231938.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1679018400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "705253815322",
+        "url": "https://sf-item.taobao.com/sf_item/705253815322.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1679018494000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "699340309329",
+        "url": "https://sf-item.taobao.com/sf_item/699340309329.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1679021834000,
         "status": "done",
         "is_processed": false
     }

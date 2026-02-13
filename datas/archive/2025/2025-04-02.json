@@ -414,18 +414,46 @@
         "is_processed": false
     },
     {
-        "id": "893299536260",
-        "url": "https://sf-item.taobao.com/sf_item/893299536260.htm?track_id=a964952a-39d1-47ef-967c-21a68995e6ee",
-        "end": 1743561936000,
-        "status": "done",
-        "is_processed": false
+        "id": 893299536260,
+        "市场评估价": 164801,
+        "起拍价格": 131841,
+        "成交价格": 171381,
+        "交易时间": "2025/04/02 10:45:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/893299536260.htm?track_id=a964952a-39d1-47ef-967c-21a68995e6ee",
+        "是否成交": true,
+        "竞拍人数": 31,
+        "出价人数": 31,
+        "地点": "福建省 漳州市 平和县 小溪镇河滨东路168-1号C幢1318室",
+        "所属小区": "河滨东路168号商场",
+        "省份": "福建省",
+        "城市": "漳州市",
+        "区": "平和县",
+        "最靠近商圈": "小溪镇河滨东路商圈",
+        "建筑面积": 123.04,
+        "单价": 1392.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "892497650408",
-        "url": "https://sf-item.taobao.com/sf_item/892497650408.htm?track_id=a964952a-39d1-47ef-967c-21a68995e6ee",
-        "end": 1743561498000,
-        "status": "done",
-        "is_processed": false
+        "id": 892497650408,
+        "市场评估价": 162165,
+        "起拍价格": 129732,
+        "成交价格": 167345,
+        "交易时间": "2025/04/02 10:38:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/892497650408.htm?track_id=a964952a-39d1-47ef-967c-21a68995e6ee",
+        "是否成交": true,
+        "竞拍人数": 27,
+        "出价人数": 30,
+        "地点": "福建省 漳州市 平和县 小溪镇河滨东路168-1号C幢1320室",
+        "所属小区": "河滨东路168号商场",
+        "省份": "福建省",
+        "城市": "漳州市",
+        "区": "平和县",
+        "最靠近商圈": "小溪镇",
+        "建筑面积": 125.25,
+        "单价": 1335.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "892498626600",
@@ -463,16 +491,44 @@
         "is_processed": false
     },
     {
-        "id": "879418782484",
-        "url": "https://sf-item.taobao.com/sf_item/879418782484.htm?track_id=6a59a740-b292-4c15-91ae-c099e20c1aab",
-        "end": 1743606053000,
-        "status": "done",
-        "is_processed": false
+        "id": 879418782484,
+        "市场评估价": 85246,
+        "起拍价格": 47737.76,
+        "成交价格": 47737.76,
+        "交易时间": "2025/04/02 23:00:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/879418782484.htm?track_id=6a59a740-b292-4c15-91ae-c099e20c1aab",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 龙海胡同天信小区21号楼1单元701室",
+        "所属小区": "天信小区",
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": "延吉市",
+        "最靠近商圈": "天池路商圈",
+        "建筑面积": 54.61,
+        "单价": 874.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "893252761050",
         "url": "https://sf-item.taobao.com/sf_item/893252761050.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
         "end": 1743559424000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "892614743049",
+        "url": "https://sf-item.taobao.com/sf_item/892614743049.htm?track_id=5d2028cd-85b5-4657-a6d6-1ff52559d487",
+        "end": 1743561540000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "896408591686",
+        "url": "https://sf-item.taobao.com/sf_item/896408591686.htm?track_id=efb4342c-0c1c-4486-9308-1ed5553b53ca",
+        "end": 1743559825000,
         "status": "done",
         "is_processed": false
     }

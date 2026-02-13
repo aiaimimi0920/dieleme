@@ -528,12 +528,25 @@
         "detail_captured": true
     },
     {
-        "id": "729822368286",
-        "url": "https://sf-item.taobao.com/sf_item/729822368286.htm?track_id=3f823873-2d76-4aaa-825b-ed5e69cf3417",
-        "end": 1691635804000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/729822368286.htm"
+        "id": 729822368286,
+        "市场评估价": 2068792,
+        "起拍价格": 1160000,
+        "成交价格": 1400000,
+        "交易时间": "2023/08/10 10:50:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/729822368286.htm?track_id=3f823873-2d76-4aaa-825b-ed5e69cf3417",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": 40,
+        "地点": "江苏省 苏州市 相城区 元和街道湖沁花园6幢503室",
+        "所属小区": "湖沁花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "活力岛",
+        "建筑面积": 116.0,
+        "单价": 12068.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "727897834882",
@@ -546,6 +559,34 @@
         "id": "728069231234",
         "url": "https://sf-item.taobao.com/sf_item/728069231234.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
         "end": 1691654377000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "730621170145",
+        "url": "https://sf-item.taobao.com/sf_item/730621170145.htm?track_id=599f0548-7337-4064-a0a2-c669e108d062",
+        "end": 1691636612000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "729551108015",
+        "url": "https://sf-item.taobao.com/sf_item/729551108015.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1691654400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "725017772017",
+        "url": "https://sf-item.taobao.com/sf_item/725017772017.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1691636301000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "725237209907",
+        "url": "https://sf-item.taobao.com/sf_item/725237209907.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1691633253000,
         "status": "done",
         "is_processed": false
     }

@@ -210,12 +210,25 @@
         "detail_captured": true
     },
     {
-        "id": "873785620697",
-        "url": "https://sf-item.taobao.com/sf_item/873785620697.htm?track_id=c5f0cb30-688f-4061-aecb-b7b78ae8793d",
-        "end": 1741138040000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/873785620697.htm"
+        "id": 873785620697,
+        "市场评估价": null,
+        "起拍价格": 2394348,
+        "成交价格": 2394348,
+        "交易时间": "2025/03/05 09:27:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/873785620697.htm?track_id=c5f0cb30-688f-4061-aecb-b7b78ae8793d",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "北京 北京市 东城区 东直门外大街42号（宇飞大厦）15层1506号",
+        "所属小区": "宇飞大厦",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "东直门",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 887986773015,
@@ -279,5 +292,26 @@
         "单价": 12183.87,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "865871156888",
+        "url": "https://sf-item.taobao.com/sf_item/865871156888.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1741145101000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "865247154381",
+        "url": "https://sf-item.taobao.com/sf_item/865247154381.htm?track_id=2ac62aa9-1a14-4704-a230-f30171d59dfb",
+        "end": 1741147352000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "888695426353",
+        "url": "https://sf-item.taobao.com/sf_item/888695426353.htm?track_id=743e6c95-df8d-4384-a1c1-434833f32b0b",
+        "end": 1741140000000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -189,16 +189,37 @@
         "detail_captured": true
     },
     {
-        "id": "638948135867",
-        "url": "https://sf-item.taobao.com/sf_item/638948135867.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
-        "end": 1615718064000,
-        "status": "done",
-        "is_processed": false
+        "id": 638948135867,
+        "市场评估价": null,
+        "起拍价格": 726595.48,
+        "成交价格": 726595.48,
+        "交易时间": "2021/03/14 18:34:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/638948135867.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 常德市 鼎城区 玉霞街道迎宾社区恒华茗苑2号楼905室房屋",
+        "所属小区": "恒华茗苑",
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": "玉霞街道",
+        "建筑面积": 165.95,
+        "单价": 4379.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "637564524275",
         "url": "https://sf-item.taobao.com/sf_item/637564524275.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
         "end": 1615690121000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638325221773",
+        "url": "https://sf-item.taobao.com/sf_item/638325221773.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1615688299000,
         "status": "done",
         "is_processed": false
     }

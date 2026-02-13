@@ -273,25 +273,67 @@
         "detail_captured": true
     },
     {
-        "id": "720067573694",
-        "url": "https://sf-item.taobao.com/sf_item/720067573694.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
-        "end": 1688349821000,
-        "status": "done",
-        "is_processed": false
+        "id": 720067573694,
+        "市场评估价": 1334713,
+        "起拍价格": 1067770.4,
+        "成交价格": 1067770.4,
+        "交易时间": "2023/07/03 10:03:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/720067573694.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 北一中路27号1-5-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 117.42,
+        "单价": 9091.04,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "723491334033",
-        "url": "https://sf-item.taobao.com/sf_item/723491334033.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
-        "end": 1688399943000,
-        "status": "done",
-        "is_processed": false
+        "id": 723491334033,
+        "市场评估价": 710790,
+        "起拍价格": 398043,
+        "成交价格": 398043,
+        "交易时间": "2023/07/03 23:59:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/723491334033.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 重工北街24巷2号2-4-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "重工街",
+        "建筑面积": 129,
+        "单价": 3085.6,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "723653507159",
-        "url": "https://sf-item.taobao.com/sf_item/723653507159.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
-        "end": 1688351855000,
-        "status": "done",
-        "is_processed": false
+        "id": 723653507159,
+        "市场评估价": 0,
+        "起拍价格": 523852,
+        "成交价格": 571852,
+        "交易时间": "2023/07/03 10:37:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/723653507159.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 25,
+        "地点": "河南省 郑州市 二七区 京广南路10号院中岳大厦1单元29层2916号",
+        "所属小区": "中岳大厦",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": 99.83,
+        "单价": 5728.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "723475962763",
@@ -304,6 +346,41 @@
         "id": "723508930194",
         "url": "https://sf-item.taobao.com/sf_item/723508930194.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1688349830000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "724368568360",
+        "url": "https://sf-item.taobao.com/sf_item/724368568360.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1688349668000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "724410626987",
+        "url": "https://sf-item.taobao.com/sf_item/724410626987.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1688349600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "720336208599",
+        "url": "https://sf-item.taobao.com/sf_item/720336208599.htm?track_id=c4c60b14-f2e6-4b01-bf89-31ae10d3dd4e",
+        "end": 1688349600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "724361776611",
+        "url": "https://sf-item.taobao.com/sf_item/724361776611.htm?track_id=23b41d43-a66d-4854-8110-feb7462db538",
+        "end": 1688349600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "721886917315",
+        "url": "https://sf-item.taobao.com/sf_item/721886917315.htm?track_id=330a34e0-5029-49b4-8c2b-4f67d5c5f99f",
+        "end": 1688350146000,
         "status": "done",
         "is_processed": false
     }

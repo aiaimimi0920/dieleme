@@ -273,11 +273,25 @@
         "detail_captured": true
     },
     {
-        "id": "848309883982",
-        "url": "https://sf-item.taobao.com/sf_item/848309883982.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
-        "end": 1733018400000,
-        "status": "done",
-        "is_processed": false
+        "id": 848309883982,
+        "市场评估价": null,
+        "起拍价格": 1450039,
+        "成交价格": 1450039,
+        "交易时间": "2024/12/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/848309883982.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "西安市经济技术开发区凤城九路39号（凤城九号小区）5幢12101室",
+        "所属小区": "凤城九号小区",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区",
+        "建筑面积": 112.62,
+        "单价": 12876.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "848431154439",
@@ -296,6 +310,48 @@
     {
         "id": "853011402554",
         "url": "https://sf-item.taobao.com/sf_item/853011402554.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "end": 1733018400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "853083507055",
+        "url": "https://sf-item.taobao.com/sf_item/853083507055.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1733018691000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "848335951159",
+        "url": "https://sf-item.taobao.com/sf_item/848335951159.htm?track_id=f484603b-057a-4a7b-809f-534da817f7bd",
+        "end": 1733023548000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "852935603315",
+        "url": "https://sf-item.taobao.com/sf_item/852935603315.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1733018536000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "853418521453",
+        "url": "https://sf-item.taobao.com/sf_item/853418521453.htm?track_id=e060ffc2-3fe3-43ca-bf44-12c2e06c793c",
+        "end": 1733021775000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "847320216085",
+        "url": "https://sf-item.taobao.com/sf_item/847320216085.htm?track_id=018cd2d0-3b33-4452-90a3-52a886cb2abb",
+        "end": 1733014687000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "847555519503",
+        "url": "https://sf-item.taobao.com/sf_item/847555519503.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
         "end": 1733018400000,
         "status": "done",
         "is_processed": false

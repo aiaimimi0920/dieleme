@@ -779,11 +779,25 @@
         "detail_captured": true
     },
     {
-        "id": "616160299943",
-        "url": "https://sf-item.taobao.com/sf_item/616160299943.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1589249309000,
-        "status": "done",
-        "is_processed": false
+        "id": 616160299943,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 216000,
+        "交易时间": "2020/05/12 10:08:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616160299943.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 5,
+        "地点": "河南省 郑州市 新密市 城区溱水路北侧房产",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 129.23,
+        "单价": 1670.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "614609122782",
@@ -793,16 +807,44 @@
         "is_processed": false
     },
     {
-        "id": "616860426754",
-        "url": "https://sf-item.taobao.com/sf_item/616860426754.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
-        "end": 1589251967000,
-        "status": "done",
-        "is_processed": false
+        "id": 616860426754,
+        "市场评估价": 12551300,
+        "起拍价格": 7040000,
+        "成交价格": 8900000,
+        "交易时间": "2020/05/12 10:52:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616860426754.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 国信嘉园9幢二单元401室",
+        "所属小区": "国信嘉园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江商圈",
+        "建筑面积": 288.04,
+        "单价": 30896.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "616969222779",
         "url": "https://sf-item.taobao.com/sf_item/616969222779.htm?track_id=e9db07e5-7acb-4b43-9d9c-583daa52fdcf",
         "end": 1589248800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "615656173152",
+        "url": "https://sf-item.taobao.com/sf_item/615656173152.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1589250460000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "615647386838",
+        "url": "https://sf-item.taobao.com/sf_item/615647386838.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
+        "end": 1589250653000,
         "status": "done",
         "is_processed": false
     }

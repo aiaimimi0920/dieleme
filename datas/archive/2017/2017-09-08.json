@@ -550,11 +550,12 @@
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮安区商圈",
         "建筑面积": 73.34,
-        "单价": 8592.07,
+        "单价": 8591.22,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 556501287090,
@@ -567,15 +568,16 @@
         "竞拍人数": 0,
         "出价人数": 13,
         "地点": "江苏省 淮安市 淮安区 淮安市经济开发区黄元路10号41幢505室",
-        "所属小区": null,
+        "所属小区": "东湖璀璨天成",
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": "淮安市经济开发区",
+        "最靠近商圈": "经开区",
         "建筑面积": 106.97,
-        "单价": 4115.65,
+        "单价": 4115.55,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 556549702519,
@@ -627,16 +629,93 @@
         "is_processed": false
     },
     {
-        "id": "556560002503",
-        "url": "https://sf-item.taobao.com/sf_item/556560002503.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
-        "end": 1504838198000,
+        "id": 556560002503,
+        "市场评估价": 4526971,
+        "起拍价格": 3168880,
+        "成交价格": 3668880,
+        "交易时间": "2017/09/08 10:36:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556560002503.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 101,
+        "地点": "辽宁省 沈阳市 铁西区 齐贤南街158号5门",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 325.12,
+        "单价": 11285.28,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 555971300167,
+        "市场评估价": null,
+        "起拍价格": 573210,
+        "成交价格": 573210,
+        "交易时间": "2017-09-08T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/555971300167.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 沈辽西路17号1-17A-5",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 90.34,
+        "单价": 6349.35,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "556686477022",
+        "url": "https://sf-item.taobao.com/sf_item/556686477022.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1504836992000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "555971300167",
-        "url": "https://sf-item.taobao.com/sf_item/555971300167.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
+        "id": "556317812163",
+        "url": "https://sf-item.taobao.com/sf_item/556317812163.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1504861404000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556908839583",
+        "url": "https://sf-item.taobao.com/sf_item/556908839583.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
         "end": 1504836000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556537878581",
+        "url": "https://sf-item.taobao.com/sf_item/556537878581.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1504837180000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556359248286",
+        "url": "https://sf-item.taobao.com/sf_item/556359248286.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1504838453000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556544147902",
+        "url": "https://sf-item.taobao.com/sf_item/556544147902.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1504842895000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556431235974",
+        "url": "https://sf-item.taobao.com/sf_item/556431235974.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1504836737000,
         "status": "done",
         "is_processed": false
     }

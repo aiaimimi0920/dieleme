@@ -63,12 +63,25 @@
         "detail_captured": true
     },
     {
-        "id": "775717953776",
-        "url": "https://sf-item.taobao.com/sf_item/775717953776.htm?track_id=9768bbb0-f630-49a5-9680-dbcb6c307b87",
-        "end": 1713665842000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/775717953776.htm"
+        "id": 775717953776,
+        "市场评估价": null,
+        "起拍价格": 457870,
+        "成交价格": 556870,
+        "交易时间": "2024/04/21 10:17:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/775717953776.htm?track_id=9768bbb0-f630-49a5-9680-dbcb6c307b87",
+        "是否成交": true,
+        "竞拍人数": 33,
+        "出价人数": 8,
+        "地点": "四川省 广元市 利州区 阳光·云麓（一期）5 栋 2-14-1 号",
+        "所属小区": "阳光·云麓（一期）",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "东坝",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 775684692837,
@@ -90,5 +103,19 @@
         "单价": 7635.05,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "779929460750",
+        "url": "https://sf-item.taobao.com/sf_item/779929460750.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1713664800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766642547170",
+        "url": "https://sf-item.taobao.com/sf_item/766642547170.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1713699874000,
+        "status": "done",
+        "is_processed": false
     }
 ]

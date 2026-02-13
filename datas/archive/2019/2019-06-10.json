@@ -767,16 +767,37 @@
         "detail_captured": true
     },
     {
-        "id": "594004658224",
-        "url": "https://sf-item.taobao.com/sf_item/594004658224.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
-        "end": 1560135668000,
-        "status": "done",
-        "is_processed": false
+        "id": 594004658224,
+        "市场评估价": 475083,
+        "起拍价格": 332558.1,
+        "成交价格": 420558.1,
+        "交易时间": "2019/06/10 11:01:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594004658224.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 84,
+        "地点": "辽宁省 沈阳市 铁西区 云峰南街8号2-16-2",
+        "所属小区": "云峰小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 61.9,
+        "单价": 6792.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "594915900219",
         "url": "https://sf-item.taobao.com/sf_item/594915900219.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
         "end": 1560132013000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593827373990",
+        "url": "https://sf-item.taobao.com/sf_item/593827373990.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "end": 1560133442000,
         "status": "done",
         "is_processed": false
     }

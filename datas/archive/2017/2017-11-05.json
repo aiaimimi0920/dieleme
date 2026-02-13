@@ -267,11 +267,12 @@
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "北桥",
+        "最靠近商圈": "高铁新城商圈",
         "建筑面积": 40.45,
-        "单价": 4130.41,
+        "单价": 4128.55,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 560126884544,
@@ -290,9 +291,10 @@
         "区": "相城区",
         "最靠近商圈": "北桥街道",
         "建筑面积": 40.45,
-        "单价": 4081.07,
+        "单价": 4079.11,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 560347307886,
@@ -330,11 +332,12 @@
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": null,
+        "最靠近商圈": "高铁新城商圈",
         "建筑面积": 47.59,
-        "单价": 4032.04,
+        "单价": 4034.46,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 560281026827,
@@ -379,10 +382,24 @@
         "detail_captured": true
     },
     {
-        "id": "560277050903",
-        "url": "https://sf-item.taobao.com/sf_item/560277050903.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
-        "end": 1509850411000,
-        "status": "done",
-        "is_processed": false
+        "id": 560277050903,
+        "市场评估价": null,
+        "起拍价格": 1400000,
+        "成交价格": 1600000,
+        "交易时间": "2017-11-05 10:53:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560277050903.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "是否成交": true,
+        "竞拍人数": 34,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县 海盐县武原镇盐北路北、谢家路西金色港湾二期",
+        "所属小区": "金色港湾",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 245.03,
+        "单价": 6529.29,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

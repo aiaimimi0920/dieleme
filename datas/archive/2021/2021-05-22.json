@@ -105,16 +105,86 @@
         "detail_captured": true
     },
     {
-        "id": "642992438487",
-        "url": "https://sf-item.taobao.com/sf_item/642992438487.htm?track_id=6b1ba342-958e-4517-b81b-61618a33239d",
-        "end": 1621648800000,
-        "status": "done",
-        "is_processed": false
+        "id": 642992438487,
+        "市场评估价": 2708784,
+        "起拍价格": 2708784,
+        "成交价格": 2708784,
+        "交易时间": "2021/05/22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642992438487.htm?track_id=6b1ba342-958e-4517-b81b-61618a33239d",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 西安市未央区玄武路69号锦园新世纪花园社区18幢21604室房产",
+        "所属小区": "锦园新世纪花园",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "龙首原商圈",
+        "建筑面积": 173.37,
+        "单价": 15624.79,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "643343575309",
         "url": "https://sf-item.taobao.com/sf_item/643343575309.htm?track_id=137a4dca-e387-408f-a8bf-387cec33a923",
         "end": 1621651895000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644558591050",
+        "url": "https://sf-item.taobao.com/sf_item/644558591050.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1621652413000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642261712666",
+        "url": "https://sf-item.taobao.com/sf_item/642261712666.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "end": 1621652329000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642279364377",
+        "url": "https://sf-item.taobao.com/sf_item/642279364377.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1621649121000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642258576240",
+        "url": "https://sf-item.taobao.com/sf_item/642258576240.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1621651375000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643006786782",
+        "url": "https://sf-item.taobao.com/sf_item/643006786782.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1621653224000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643346063571",
+        "url": "https://sf-item.taobao.com/sf_item/643346063571.htm?track_id=a801121e-5e95-40e5-81ec-2addd861f9d7",
+        "end": 1621652489000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642657557447",
+        "url": "https://sf-item.taobao.com/sf_item/642657557447.htm?track_id=a801121e-5e95-40e5-81ec-2addd861f9d7",
+        "end": 1621651348000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643014122605",
+        "url": "https://sf-item.taobao.com/sf_item/643014122605.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1621652367000,
         "status": "done",
         "is_processed": false
     }

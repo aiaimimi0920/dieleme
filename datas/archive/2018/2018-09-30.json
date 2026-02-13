@@ -382,7 +382,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 577223201393,
@@ -395,15 +396,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "山东省 泰安市 宁阳县 宁阳县城区亿丰时代广场建材城A12-18号（东向北数第3套）营业楼",
-        "所属小区": null,
+        "所属小区": "亿丰时代广场",
         "省份": "山东省",
         "城市": "泰安市",
         "区": "宁阳县",
-        "最靠近商圈": null,
+        "最靠近商圈": "宁阳亿丰时代广场商圈",
         "建筑面积": 100,
-        "单价": 4882,
+        "单价": 4882.0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 574281527192,
@@ -427,11 +429,25 @@
         "detail_captured": true
     },
     {
-        "id": "576563143597",
-        "url": "https://sf-item.taobao.com/sf_item/576563143597.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
-        "end": 1538272800000,
-        "status": "done",
-        "is_processed": false
+        "id": 576563143597,
+        "市场评估价": null,
+        "起拍价格": 269550,
+        "成交价格": 269550,
+        "交易时间": "2018/09/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/576563143597.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 常德市 鼎城区 石门桥镇上街居委会",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": "石门桥镇",
+        "建筑面积": 133.58,
+        "单价": 2017.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "576260125099",
@@ -472,6 +488,27 @@
         "id": "577126725645",
         "url": "https://sf-item.taobao.com/sf_item/577126725645.htm?track_id=e0cbd2e8-7004-4585-9259-25beae5cf5de",
         "end": 1538272954000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577136200637",
+        "url": "https://sf-item.taobao.com/sf_item/577136200637.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1538274839000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576462266068",
+        "url": "https://sf-item.taobao.com/sf_item/576462266068.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1538276381000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576174128501",
+        "url": "https://sf-item.taobao.com/sf_item/576174128501.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1538274497000,
         "status": "done",
         "is_processed": false
     }

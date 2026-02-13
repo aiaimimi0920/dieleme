@@ -170,23 +170,58 @@
         "detail_captured": true
     },
     {
-        "id": "531990797519",
-        "url": "https://sf-item.taobao.com/sf_item/531990797519.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
-        "end": 1464920442000,
-        "status": "done",
-        "is_processed": false
+        "id": 531990797519,
+        "市场评估价": null,
+        "起拍价格": 538000,
+        "成交价格": 682000,
+        "交易时间": "2016-06-03 10:20:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531990797519.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
+        "是否成交": true,
+        "竞拍人数": 45,
+        "出价人数": 5,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": "海逸豪园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 102.4,
+        "单价": 6660.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "531937901164",
-        "url": "https://sf-item.taobao.com/sf_item/531937901164.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
-        "end": 1464919200000,
-        "status": "done",
-        "is_processed": false
+        "id": 531937901164,
+        "市场评估价": null,
+        "起拍价格": 567000,
+        "成交价格": 567000,
+        "交易时间": "2016-06-03T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531937901164.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市海盐县武原街道宜家花城69幢103室",
+        "所属小区": "宜家花城",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 133.81,
+        "单价": 4235.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "531884073473",
         "url": "https://sf-item.taobao.com/sf_item/531884073473.htm?track_id=645fbace-2a78-4783-9257-833921945028",
         "end": 1464921947000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531872444277",
+        "url": "https://sf-item.taobao.com/sf_item/531872444277.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1464920610000,
         "status": "done",
         "is_processed": false
     }

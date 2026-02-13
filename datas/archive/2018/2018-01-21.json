@@ -360,9 +360,10 @@
         "区": "息县",
         "最靠近商圈": null,
         "建筑面积": 104.52,
-        "单价": 5214.13,
+        "单价": 5214.0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 562844580096,
@@ -673,11 +674,12 @@
         "省份": "河南省",
         "城市": "信阳市",
         "区": "息县",
-        "最靠近商圈": null,
+        "最靠近商圈": "息州大道商圈",
         "建筑面积": 212.68,
-        "单价": 4497.76,
+        "单价": 4500.0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 563009470842,
@@ -822,9 +824,10 @@
         "区": "息县",
         "最靠近商圈": null,
         "建筑面积": 165.84,
-        "单价": 4499.52,
+        "单价": 4500.0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 563088647308,
@@ -921,15 +924,16 @@
         "竞拍人数": 31,
         "出价人数": null,
         "地点": "江苏省 苏州市 吴中区 横泾街道中兴路165号4幢206室",
-        "所属小区": null,
+        "所属小区": "中兴家园",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "吴中区",
-        "最靠近商圈": "横泾",
+        "最靠近商圈": "横泾商圈",
         "建筑面积": 121.46,
-        "单价": 12815.14,
+        "单价": 12815.41,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 563074371164,
@@ -942,15 +946,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "江苏省 苏州市 姑苏区 东环路1858号6幢1227室",
-        "所属小区": null,
+        "所属小区": "中环国际花园",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
-        "最靠近商圈": "东环路商圈",
+        "最靠近商圈": "园区湖东邻里中心",
         "建筑面积": 12.42,
         "单价": 10747.18,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 563575053757,
@@ -974,9 +979,37 @@
         "detail_captured": true
     },
     {
-        "id": "562974789375",
-        "url": "https://sf-item.taobao.com/sf_item/562974789375.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
-        "end": 1516504482000,
+        "id": 562974789375,
+        "市场评估价": 0,
+        "起拍价格": 1440000,
+        "成交价格": 1810000,
+        "交易时间": "2018/01/21 11:14:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562974789375.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省 无锡市 锡山区 隽府园",
+        "所属小区": "隽府园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "锡山商圈",
+        "建筑面积": 141.13,
+        "单价": 12824.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "563017141189",
+        "url": "https://sf-item.taobao.com/sf_item/563017141189.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1516500152000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563035721926",
+        "url": "https://sf-item.taobao.com/sf_item/563035721926.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1516500000000,
         "status": "done",
         "is_processed": false
     }

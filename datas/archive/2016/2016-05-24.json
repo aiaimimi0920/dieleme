@@ -42,9 +42,44 @@
         "detail_captured": true
     },
     {
-        "id": "531167850538",
-        "url": "https://sf-item.taobao.com/sf_item/531167850538.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
-        "end": 1464055476000,
+        "id": 531167850538,
+        "市场评估价": null,
+        "起拍价格": 286000,
+        "成交价格": 321000,
+        "交易时间": "2016/05/24 10:04:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531167850538.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 8,
+        "地点": "贵州省 遵义市 汇川区 长春路8栋3单元3层331号",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "茅草铺",
+        "建筑面积": 98.63,
+        "单价": 3255.18,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "531208647480",
+        "url": "https://sf-item.taobao.com/sf_item/531208647480.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1464057550000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531287513095",
+        "url": "https://sf-item.taobao.com/sf_item/531287513095.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1464057117000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531210843840",
+        "url": "https://sf-item.taobao.com/sf_item/531210843840.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1464057404000,
         "status": "done",
         "is_processed": false
     }

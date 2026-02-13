@@ -294,23 +294,58 @@
         "detail_captured": true
     },
     {
-        "id": "622570196178",
-        "url": "https://sf-item.taobao.com/sf_item/622570196178.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
-        "end": 1596074579000,
-        "status": "done",
-        "is_processed": false
+        "id": 622570196178,
+        "市场评估价": null,
+        "起拍价格": 1119756,
+        "成交价格": 1127756,
+        "交易时间": "2020/07/30 10:02:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622570196178.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
+        "是否成交": true,
+        "竞拍人数": 4,
+        "出价人数": 4,
+        "地点": "内蒙古自治区 包头市 昆都仑区 黄河大街以南林荫南路以西京奥港花园9-1701号房屋",
+        "所属小区": "京奥港花园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "622038558543",
-        "url": "https://sf-item.taobao.com/sf_item/622038558543.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1596074400000,
-        "status": "done",
-        "is_processed": false
+        "id": 622038558543,
+        "市场评估价": 500134,
+        "起拍价格": 350094,
+        "成交价格": 350094,
+        "交易时间": "2020/07/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622038558543.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 沈辽路198-7号3-5-3",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈辽路商圈",
+        "建筑面积": 86.4,
+        "单价": 4052.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "622892697049",
         "url": "https://sf-item.taobao.com/sf_item/622892697049.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
         "end": 1596076166000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619730224492",
+        "url": "https://sf-item.taobao.com/sf_item/619730224492.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "end": 1596074400000,
         "status": "done",
         "is_processed": false
     }

@@ -567,16 +567,79 @@
         "detail_captured": true
     },
     {
-        "id": "601745818345",
-        "url": "https://sf-item.taobao.com/sf_item/601745818345.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
-        "end": 1568342374000,
+        "id": 601745818345,
+        "市场评估价": 1020681,
+        "起拍价格": 653235.84,
+        "成交价格": 801235.84,
+        "交易时间": "2019/09/13 10:39:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/601745818345.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 75,
+        "地点": "山东省 潍坊市 昌邑市 昌邑市烟汕路18号18幢1单元502室",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": null,
+        "建筑面积": 164.6,
+        "单价": 4867.09,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 601771514283,
+        "市场评估价": null,
+        "起拍价格": 2417897.25,
+        "成交价格": 2417897.25,
+        "交易时间": "2019/09/13 11:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/601771514283.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖北省 襄阳市 襄城区 陈侯巷4幢2层房屋",
+        "所属小区": null,
+        "省份": "湖北省",
+        "城市": "襄阳市",
+        "区": "襄城区",
+        "最靠近商圈": null,
+        "建筑面积": 383.98,
+        "单价": 6296.45,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "601609097347",
+        "url": "https://sf-item.taobao.com/sf_item/601609097347.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "end": 1568341306000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "601771514283",
-        "url": "https://sf-item.taobao.com/sf_item/601771514283.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
-        "end": 1568343600000,
+        "id": "601567713653",
+        "url": "https://sf-item.taobao.com/sf_item/601567713653.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1568345849000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601960251633",
+        "url": "https://sf-item.taobao.com/sf_item/601960251633.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1568344830000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602003155843",
+        "url": "https://sf-item.taobao.com/sf_item/602003155843.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1568344807000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600636575488",
+        "url": "https://sf-item.taobao.com/sf_item/600636575488.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "end": 1568341331000,
         "status": "done",
         "is_processed": false
     }

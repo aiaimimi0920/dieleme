@@ -126,11 +126,25 @@
         "detail_captured": true
     },
     {
-        "id": "692699243434",
-        "url": "https://sf-item.taobao.com/sf_item/692699243434.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
-        "end": 1674611990000,
-        "status": "done",
-        "is_processed": false
+        "id": 692699243434,
+        "市场评估价": 38300,
+        "起拍价格": 21448,
+        "成交价格": 21448,
+        "交易时间": "2023-01-25 09:59:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/692699243434.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 劳动镇新观音街村1栋1层15号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "696020732551",

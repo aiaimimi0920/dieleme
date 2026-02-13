@@ -358,12 +358,25 @@
         "detail_captured": true
     },
     {
-        "id": "901832276983",
-        "url": "https://sf-item.taobao.com/sf_item/901832276983.htm?track_id=77698f75-ba5e-43d0-b6aa-9b26020e5d27",
-        "end": 1744252051000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/901832276983.htm"
+        "id": 901832276983,
+        "市场评估价": 842000,
+        "起拍价格": 538880,
+        "成交价格": 603880,
+        "交易时间": "2025/04/10 10:27:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/901832276983.htm?track_id=77698f75-ba5e-43d0-b6aa-9b26020e5d27",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 14,
+        "地点": "四川省广元市利州区东坝办事处苴国路北侧（四一零医院宿舍）新院C幢4-5-1号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "东坝",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 887360557830,
@@ -443,16 +456,58 @@
         "is_processed": false
     },
     {
-        "id": "902643276481",
-        "url": "https://sf-item.taobao.com/sf_item/902643276481.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
-        "end": 1744273606000,
-        "status": "done",
-        "is_processed": false
+        "id": 902643276481,
+        "市场评估价": null,
+        "起拍价格": 30000,
+        "成交价格": 271252,
+        "交易时间": "2025/04/10 16:26:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/902643276481.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省遵义市汇川区西安路遵义监狱星源小区经济适用住房7栋7层1号房产",
+        "所属小区": "星源小区",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "西安路商圈",
+        "建筑面积": 109.21,
+        "单价": 2485.8,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "896229884414",
         "url": "https://sf-item.taobao.com/sf_item/896229884414.htm?track_id=4f440ecd-a246-4dcb-a3a6-c8deab71317f",
         "end": 1744254488000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "891858691124",
+        "url": "https://sf-item.taobao.com/sf_item/891858691124.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1744252125000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "895237933229",
+        "url": "https://sf-item.taobao.com/sf_item/895237933229.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1744252662000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "894541619791",
+        "url": "https://sf-item.taobao.com/sf_item/894541619791.htm?track_id=d6b81b23-6b98-4054-93da-db45c73c9f79",
+        "end": 1744250400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "901391324941",
+        "url": "https://sf-item.taobao.com/sf_item/901391324941.htm?track_id=d6b81b23-6b98-4054-93da-db45c73c9f79",
+        "end": 1744250400000,
         "status": "done",
         "is_processed": false
     }

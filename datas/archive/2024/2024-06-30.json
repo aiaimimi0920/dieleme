@@ -421,11 +421,25 @@
         "detail_captured": true
     },
     {
-        "id": "805474511002",
-        "url": "https://sf-item.taobao.com/sf_item/805474511002.htm?track_id=e122e251-b97e-4821-a3d5-c33e23d3658a",
-        "end": 1719712831000,
-        "status": "done",
-        "is_processed": false
+        "id": 805474511002,
+        "市场评估价": 426479,
+        "起拍价格": 290005.72,
+        "成交价格": 290005.72,
+        "交易时间": "2024/06/30 10:00:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/805474511002.htm?track_id=e122e251-b97e-4821-a3d5-c33e23d3658a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 局子街88号经纬国际",
+        "所属小区": "经纬国际",
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": "延吉市",
+        "最靠近商圈": "延河路商圈",
+        "建筑面积": 80.09,
+        "单价": 3618.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "784359308815",
@@ -435,16 +449,79 @@
         "is_processed": false
     },
     {
-        "id": "805797716336",
-        "url": "https://sf-item.taobao.com/sf_item/805797716336.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
-        "end": 1719712800000,
-        "status": "done",
-        "is_processed": false
+        "id": 805797716336,
+        "市场评估价": 757824,
+        "起拍价格": 424382,
+        "成交价格": 424382,
+        "交易时间": "2024/06/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/805797716336.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道金涌花苑一区3幢601室",
+        "所属小区": "金涌花苑一区",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 132.16,
+        "单价": 3211.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "805086035501",
         "url": "https://sf-item.taobao.com/sf_item/805086035501.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
         "end": 1719715635000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "796327989626",
+        "url": "https://sf-item.taobao.com/sf_item/796327989626.htm?track_id=022d996f-075c-4095-a007-6769f0bd4ad0",
+        "end": 1719707974000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "800831845089",
+        "url": "https://sf-item.taobao.com/sf_item/800831845089.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1719714456000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "801107213293",
+        "url": "https://sf-item.taobao.com/sf_item/801107213293.htm?track_id=dfd27f7b-bc7d-4bb9-a04a-63aa0958a58b",
+        "end": 1719712800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "794826167159",
+        "url": "https://sf-item.taobao.com/sf_item/794826167159.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1719714973000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "799522370668",
+        "url": "https://sf-item.taobao.com/sf_item/799522370668.htm?track_id=13522d09-c2bb-419f-9fee-29d88a0e165a",
+        "end": 1719717572000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "800733938442",
+        "url": "https://sf-item.taobao.com/sf_item/800733938442.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1719738027000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "805490751871",
+        "url": "https://sf-item.taobao.com/sf_item/805490751871.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1719714712000,
         "status": "done",
         "is_processed": false
     }

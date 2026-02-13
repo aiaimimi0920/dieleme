@@ -1,11 +1,24 @@
 [
     {
-        "id": "768737707570",
-        "url": "https://sf-item.taobao.com/sf_item/768737707570.htm?track_id=27e62783-e1d8-429c-a6dd-43a032875cc9",
-        "end": 1710147908000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/768737707570.htm"
+        "id": 768737707570,
+        "市场评估价": null,
+        "起拍价格": 855954,
+        "成交价格": 855954,
+        "交易时间": "2024/03/11 17:05:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/768737707570.htm?track_id=27e62783-e1d8-429c-a6dd-43a032875cc9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 成都市 武侯区 晋阳街道中央花园金钻一期2栋1单元6层A号房屋（现场显示为：晋阳路190号4栋1单元6层A号）",
+        "所属小区": "中央花园金钻一期",
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "武侯区",
+        "最靠近商圈": "晋阳商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 766854855434,
@@ -449,16 +462,86 @@
         "detail_captured": true
     },
     {
-        "id": "769135790179",
-        "url": "https://sf-item.taobao.com/sf_item/769135790179.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
-        "end": 1710127210000,
-        "status": "done",
-        "is_processed": false
+        "id": 769135790179,
+        "市场评估价": 497600,
+        "起拍价格": 278656,
+        "成交价格": 346656,
+        "交易时间": "2024/03/11 11:20:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/769135790179.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 67,
+        "地点": "浙江省 嘉兴市 海盐县 大桥新区东海花苑一期安置房5幢201室",
+        "所属小区": "东海花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "大桥新区",
+        "建筑面积": 91.72,
+        "单价": 3780.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "768445347236",
         "url": "https://sf-item.taobao.com/sf_item/768445347236.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
         "end": 1710123075000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766758155295",
+        "url": "https://sf-item.taobao.com/sf_item/766758155295.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1710126362000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766761347553",
+        "url": "https://sf-item.taobao.com/sf_item/766761347553.htm?track_id=8d3b48f8-3369-4de9-9c5a-e40b9c965091",
+        "end": 1710122400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766929417315",
+        "url": "https://sf-item.taobao.com/sf_item/766929417315.htm?track_id=f1ff17f2-ecc2-4537-a574-f646ca8d0355",
+        "end": 1710122400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766972238855",
+        "url": "https://sf-item.taobao.com/sf_item/766972238855.htm?track_id=72941855-3cec-4df2-aa07-8f74679bfc2d",
+        "end": 1710122481000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766667244665",
+        "url": "https://sf-item.taobao.com/sf_item/766667244665.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1710122400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766766079037",
+        "url": "https://sf-item.taobao.com/sf_item/766766079037.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1710126736000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766657492914",
+        "url": "https://sf-item.taobao.com/sf_item/766657492914.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1710123700000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766829553132",
+        "url": "https://sf-item.taobao.com/sf_item/766829553132.htm?track_id=addbb771-a109-4b32-8cec-541c849a16ea",
+        "end": 1710125576000,
         "status": "done",
         "is_processed": false
     }

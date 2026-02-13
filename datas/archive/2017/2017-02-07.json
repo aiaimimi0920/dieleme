@@ -64,11 +64,25 @@
         "detail_captured": true
     },
     {
-        "id": "544347620103",
-        "url": "https://sf-item.taobao.com/sf_item/544347620103.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
-        "end": 1486434943000,
-        "status": "done",
-        "is_processed": false
+        "id": 544347620103,
+        "市场评估价": null,
+        "起拍价格": 343000,
+        "成交价格": 427000,
+        "交易时间": "2017-02-07 10:35:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544347620103.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 26,
+        "地点": "福建省泉州市安溪县",
+        "所属小区": "龙凤都城",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "龙凤都城",
+        "建筑面积": 94.49,
+        "单价": 4522.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "544235171238",

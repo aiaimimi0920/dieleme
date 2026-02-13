@@ -127,16 +127,44 @@
         "manual_checked": true
     },
     {
-        "id": "544566615548",
-        "url": "https://sf-item.taobao.com/sf_item/544566615548.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
-        "end": 1487647329000,
-        "status": "done",
-        "is_processed": false
+        "id": 544566615548,
+        "市场评估价": null,
+        "起拍价格": 4075000,
+        "成交价格": 5915000,
+        "交易时间": "2017/02/21 11:22:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544566615548.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区",
+        "所属小区": "寰宇湾",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "西兴商圈",
+        "建筑面积": 181.57,
+        "单价": 32577.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "544541090334",
         "url": "https://sf-item.taobao.com/sf_item/544541090334.htm?track_id=f0ab8160-a6c9-4731-aa8f-79271cd5c413",
         "end": 1487644511000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544511724368",
+        "url": "https://sf-item.taobao.com/sf_item/544511724368.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1487643791000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544514954923",
+        "url": "https://sf-item.taobao.com/sf_item/544514954923.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1487649878000,
         "status": "done",
         "is_processed": false
     }

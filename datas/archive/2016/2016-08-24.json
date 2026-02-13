@@ -134,10 +134,24 @@
         "manual_checked": true
     },
     {
-        "id": "536816205711",
-        "url": "https://sf-item.taobao.com/sf_item/536816205711.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
-        "end": 1472007289000,
-        "status": "done",
-        "is_processed": false
+        "id": 536816205711,
+        "市场评估价": null,
+        "起拍价格": 560000,
+        "成交价格": 670000,
+        "交易时间": "2016-08-24 10:54:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536816205711.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
+        "是否成交": true,
+        "竞拍人数": 56,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": "常秀景苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 128.71,
+        "单价": 5205.67,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

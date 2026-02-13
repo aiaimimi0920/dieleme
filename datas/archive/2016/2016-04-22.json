@@ -70,16 +70,51 @@
         "is_processed": false
     },
     {
-        "id": "529274591109",
-        "url": "https://sf-item.taobao.com/sf_item/529274591109.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
-        "end": 1461290400000,
-        "status": "done",
-        "is_processed": false
+        "id": 529274591109,
+        "市场评估价": null,
+        "起拍价格": 260000,
+        "成交价格": 282000,
+        "交易时间": "2016-04-22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/529274591109.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 9,
+        "地点": "浙江省嘉兴市海盐县武原街道秀水花苑25幢305室",
+        "所属小区": "秀水花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 69.86,
+        "单价": 4036.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "529407569977",
         "url": "https://sf-item.taobao.com/sf_item/529407569977.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
         "end": 1461291830000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529388220114",
+        "url": "https://sf-item.taobao.com/sf_item/529388220114.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1461295788000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529297303740",
+        "url": "https://sf-item.taobao.com/sf_item/529297303740.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1461292008000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529298819198",
+        "url": "https://sf-item.taobao.com/sf_item/529298819198.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1461294730000,
         "status": "done",
         "is_processed": false
     }

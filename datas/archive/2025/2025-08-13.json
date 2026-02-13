@@ -603,16 +603,44 @@
         "is_processed": false
     },
     {
-        "id": "958840872841",
-        "url": "https://sf-item.taobao.com/sf_item/958840872841.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
-        "end": 1755050992000,
-        "status": "done",
-        "is_processed": false
+        "id": 958840872841,
+        "市场评估价": null,
+        "起拍价格": 200000,
+        "成交价格": 250000,
+        "交易时间": "2025-08-13 10:09:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/958840872841.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 6,
+        "地点": "浙江省 温州市 龙湾区 温州经济技术开发区星海街道滨海十五支路328号未央苑",
+        "所属小区": "未央苑",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "星海街道",
+        "建筑面积": 49.47,
+        "单价": 5057.85,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "956545278489",
         "url": "https://sf-item.taobao.com/sf_item/956545278489.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
         "end": 1755052379000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "951867468887",
+        "url": "https://sf-item.taobao.com/sf_item/951867468887.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1755057474000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "957233945016",
+        "url": "https://sf-item.taobao.com/sf_item/957233945016.htm?track_id=dd9b2ad6-0c16-4fa0-934f-94384d19c8fc",
+        "end": 1755050500000,
         "status": "done",
         "is_processed": false
     }

@@ -63,18 +63,46 @@
         "detail_captured": true
     },
     {
-        "id": "976857766565",
-        "url": "https://sf-item.taobao.com/sf_item/976857766565.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
-        "end": 1759456848000,
-        "status": "done",
-        "is_processed": false
+        "id": 976857766565,
+        "市场评估价": 416966,
+        "起拍价格": 285206,
+        "成交价格": 285206,
+        "交易时间": "2025-10-03 10:00:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/976857766565.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖北省 十堰市 茅箭区 二堰街办人民南路12号4幢1-4-1号",
+        "所属小区": "二堰小区",
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": "二堰商圈",
+        "建筑面积": 97.65,
+        "单价": 2918.91,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "978395048420",
-        "url": "https://sf-item.taobao.com/sf_item/978395048420.htm?track_id=be4791d9-4192-47ad-a814-1baf514b1a3e",
-        "end": 1759456850000,
-        "status": "done",
-        "is_processed": false
+        "id": 978395048420,
+        "市场评估价": null,
+        "起拍价格": 1311470.4,
+        "成交价格": 1311470.4,
+        "交易时间": "2025-10-03T10:00:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/978395048420.htm?track_id=be4791d9-4192-47ad-a814-1baf514b1a3e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 河南街以南、学院路以东、哈萨尔街以北延城雅仕居S2-商业-15号",
+        "所属小区": "城雅仕居",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "城雅仕居",
+        "建筑面积": 350.48,
+        "单价": 3741.35,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "976570322929",
@@ -101,6 +129,48 @@
         "id": "976354815173",
         "url": "https://sf-item.taobao.com/sf_item/976354815173.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
         "end": 1759466674000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "977311057612",
+        "url": "https://sf-item.taobao.com/sf_item/977311057612.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1759458928000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "976457867124",
+        "url": "https://sf-item.taobao.com/sf_item/976457867124.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1759456800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "976504527300",
+        "url": "https://sf-item.taobao.com/sf_item/976504527300.htm?track_id=4b7945b8-aed5-4af2-96c1-758b28760217",
+        "end": 1759456800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "976377539331",
+        "url": "https://sf-item.taobao.com/sf_item/976377539331.htm?track_id=7ea40920-fed2-42de-bda6-b8c5278fe902",
+        "end": 1759456800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "967043570800",
+        "url": "https://sf-item.taobao.com/sf_item/967043570800.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1759457668000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "970906131670",
+        "url": "https://sf-item.taobao.com/sf_item/970906131670.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1759458898000,
         "status": "done",
         "is_processed": false
     }

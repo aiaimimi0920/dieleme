@@ -86,18 +86,46 @@
         "detail_captured": true
     },
     {
-        "id": "552576972257",
-        "url": "https://sf-item.taobao.com/sf_item/552576972257.htm?track_id=1eb0cba0-3dd8-407a-a997-3eb1b6789b1e",
-        "end": 1499307207000,
-        "status": "done",
-        "is_processed": false
+        "id": 552576972257,
+        "市场评估价": null,
+        "起拍价格": 254703,
+        "成交价格": 275203,
+        "交易时间": "2017/07/06 10:13:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/552576972257.htm?track_id=1eb0cba0-3dd8-407a-a997-3eb1b6789b1e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "遵义市汇川区深圳路文化小区6号附163号",
+        "所属小区": "深圳路文化小区",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "深圳路商圈",
+        "建筑面积": 64.52,
+        "单价": 4265.19,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "552358529476",
-        "url": "https://sf-item.taobao.com/sf_item/552358529476.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
-        "end": 1499312721000,
-        "status": "done",
-        "is_processed": false
+        "id": 552358529476,
+        "市场评估价": null,
+        "起拍价格": 2140000,
+        "成交价格": 4380000,
+        "交易时间": "2017-07-06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/552358529476.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 长河街道 海威国际公寓2幢1单元202室",
+        "所属小区": "海威国际",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江商圈",
+        "建筑面积": 127.47,
+        "单价": 34359.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "554315428199",
@@ -110,6 +138,27 @@
         "id": "554423342779",
         "url": "https://sf-item.taobao.com/sf_item/554423342779.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
         "end": 1499306591000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "552469814697",
+        "url": "https://sf-item.taobao.com/sf_item/552469814697.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1499313191000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "551794648127",
+        "url": "https://sf-item.taobao.com/sf_item/551794648127.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
+        "end": 1499306400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "552541396379",
+        "url": "https://sf-item.taobao.com/sf_item/552541396379.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1499306400000,
         "status": "done",
         "is_processed": false
     }

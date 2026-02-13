@@ -189,17 +189,86 @@
         "detail_captured": true
     },
     {
-        "id": "697477228083",
-        "url": "https://sf-item.taobao.com/sf_item/697477228083.htm?track_id=82ed24c0-12c4-4936-97b4-3549c577b13b",
-        "end": 1675995694000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/697477228083.htm"
+        "id": 697477228083,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 393048,
+        "交易时间": "2023/02/10 10:21:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/697477228083.htm?track_id=82ed24c0-12c4-4936-97b4-3549c577b13b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 35,
+        "地点": "江苏省 苏州市 吴中区 木渎镇汇润国际商务广场1幢2108室",
+        "所属小区": "汇润国际商务广场",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "木渎",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "696761819543",
         "url": "https://sf-item.taobao.com/sf_item/696761819543.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
         "end": 1675995590000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696728881990",
+        "url": "https://sf-item.taobao.com/sf_item/696728881990.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1675994426000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697007186042",
+        "url": "https://sf-item.taobao.com/sf_item/697007186042.htm?track_id=2bb477cb-231e-4b85-83ae-5c068b3fdfad",
+        "end": 1675994400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697020571643",
+        "url": "https://sf-item.taobao.com/sf_item/697020571643.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1675994400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696497748761",
+        "url": "https://sf-item.taobao.com/sf_item/696497748761.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1675996697000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696839421136",
+        "url": "https://sf-item.taobao.com/sf_item/696839421136.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1675994400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696643842256",
+        "url": "https://sf-item.taobao.com/sf_item/696643842256.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1676000563000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696308177578",
+        "url": "https://sf-item.taobao.com/sf_item/696308177578.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1676000889000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695233500632",
+        "url": "https://sf-item.taobao.com/sf_item/695233500632.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1675994730000,
         "status": "done",
         "is_processed": false
     }

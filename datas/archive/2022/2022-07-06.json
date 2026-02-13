@@ -189,12 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "676806261312",
-        "url": "https://sf-item.taobao.com/sf_item/676806261312.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
-        "end": 1657073521000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/676806261312.htm"
+        "id": 676806261312,
+        "市场评估价": 319500,
+        "起拍价格": 218000,
+        "成交价格": 244000,
+        "交易时间": "2022/07/06 10:12:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676806261312.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 20,
+        "地点": "湖南省 湘潭市 雨湖区 湘潭市湘潭市雨湖区雨湖路街道车站路9号2栋2单元510号的房产",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "雨湖路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 676572552420,
@@ -281,23 +294,86 @@
         "detail_captured": true
     },
     {
-        "id": "676013504093",
-        "url": "https://sf-item.taobao.com/sf_item/676013504093.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
-        "end": 1657079487000,
-        "status": "done",
-        "is_processed": false
+        "id": 676013504093,
+        "市场评估价": null,
+        "起拍价格": 1167526.83,
+        "成交价格": 1302526.83,
+        "交易时间": "2022/07/06 11:51:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676013504093.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": 28,
+        "地点": "辽宁省 沈阳市 铁西区 保工北街52-5号1-21-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 111.07,
+        "单价": 11719.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "675890762899",
-        "url": "https://sf-item.taobao.com/sf_item/675890762899.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
-        "end": 1657078736000,
-        "status": "done",
-        "is_processed": false
+        "id": 675890762899,
+        "市场评估价": 1450166,
+        "起拍价格": 1200000,
+        "成交价格": 1408000,
+        "交易时间": "2022-07-06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/675890762899.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 87,
+        "地点": "安徽省 合肥市 瑶海区 合肥市瑶海区新站区当涂路与皇藏峪路交口西南角星河湾花园2幢1601室",
+        "所属小区": "星河湾花园",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "新站区",
+        "最靠近商圈": "七里塘商圈",
+        "建筑面积": 124.5,
+        "单价": 11317.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "675651321449",
         "url": "https://sf-item.taobao.com/sf_item/675651321449.htm?track_id=e17bfa31-568b-40b1-a430-6b187995b33f",
         "end": 1657082487000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "675583974114",
+        "url": "https://sf-item.taobao.com/sf_item/675583974114.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1657073212000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "675664741629",
+        "url": "https://sf-item.taobao.com/sf_item/675664741629.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1657078133000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677356799292",
+        "url": "https://sf-item.taobao.com/sf_item/677356799292.htm?track_id=1b72c4a3-0a3f-4a49-a0ef-97c696656a04",
+        "end": 1657072800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "676708369782",
+        "url": "https://sf-item.taobao.com/sf_item/676708369782.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1657073091000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "676373687979",
+        "url": "https://sf-item.taobao.com/sf_item/676373687979.htm?track_id=f64ab655-ee09-44f6-a1f4-fdd79f567ac8",
+        "end": 1657072800000,
         "status": "done",
         "is_processed": false
     }

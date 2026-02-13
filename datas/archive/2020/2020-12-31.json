@@ -570,44 +570,205 @@
         "detail_captured": true
     },
     {
-        "id": "634639627929",
-        "url": "https://sf-item.taobao.com/sf_item/634639627929.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
-        "end": 1609381642000,
-        "status": "done",
-        "is_processed": false
+        "id": 634639627929,
+        "市场评估价": null,
+        "起拍价格": 936000,
+        "成交价格": 1216000,
+        "交易时间": "2020-12-31 10:27:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634639627929.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 18,
+        "地点": "陕西省 西安市 未央区 御井路7007号利君未来城6幢12304室",
+        "所属小区": "利君未来城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "御井路",
+        "建筑面积": 103.39,
+        "单价": 11761.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "634641415122",
-        "url": "https://sf-item.taobao.com/sf_item/634641415122.htm?track_id=f54c6550-c392-4c21-8b2f-2014789fe8f8",
-        "end": 1609380812000,
-        "status": "done",
-        "is_processed": false
+        "id": 634641415122,
+        "市场评估价": 1399400,
+        "起拍价格": 1133514,
+        "成交价格": 1213514,
+        "交易时间": "2020/12/31 10:13:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634641415122.htm?track_id=f54c6550-c392-4c21-8b2f-2014789fe8f8",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": 13,
+        "地点": "陕西省 西安市 未央区 经济技术开发区尚苑路2188号雨润·星雨华府6幢12101号房产",
+        "所属小区": "雨润星雨华府",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 116.76,
+        "单价": 10393.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "634146023296",
-        "url": "https://sf-item.taobao.com/sf_item/634146023296.htm?track_id=9248c2f2-f3a2-476d-9b0d-890248cdd341",
-        "end": 1609382867000,
-        "status": "done",
-        "is_processed": false
+        "id": 634146023296,
+        "市场评估价": 0,
+        "起拍价格": 246288,
+        "成交价格": 246288,
+        "交易时间": "2020/12/31 10:47:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634146023296.htm?track_id=9248c2f2-f3a2-476d-9b0d-890248cdd341",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 佳木斯市 桦川县 悦来镇民主街房屋",
+        "所属小区": "华泰豪庭",
+        "省份": "黑龙江省",
+        "城市": "佳木斯市",
+        "区": "桦川县",
+        "最靠近商圈": "悦来镇",
+        "建筑面积": 109.95,
+        "单价": 2240.11,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "632516657813",
-        "url": "https://sf-item.taobao.com/sf_item/632516657813.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
-        "end": 1609386117000,
-        "status": "done",
-        "is_processed": false
+        "id": 632516657813,
+        "市场评估价": 0,
+        "起拍价格": 1226540,
+        "成交价格": 1506540,
+        "交易时间": "2020/12/31 11:41:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/632516657813.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 136,
+        "地点": "河南省 郑州市 二七区 京广南路19号铁道洁云里小区1号楼",
+        "所属小区": "铁道洁云里小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场",
+        "建筑面积": 118.78,
+        "单价": 12682.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "632774614570",
-        "url": "https://sf-item.taobao.com/sf_item/632774614570.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
-        "end": 1609381381000,
-        "status": "done",
-        "is_processed": false
+        "id": 632774614570,
+        "市场评估价": 0,
+        "起拍价格": 610000,
+        "成交价格": 775000,
+        "交易时间": "2020/12/31 10:23:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/632774614570.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 22,
+        "地点": "河南省 郑州市 二七区 连云路15号1号楼1单元5层16号",
+        "所属小区": "连云里",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场",
+        "建筑面积": 81.46,
+        "单价": 9513.73,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "632368265810",
         "url": "https://sf-item.taobao.com/sf_item/632368265810.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
         "end": 1609383997000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632297013116",
+        "url": "https://sf-item.taobao.com/sf_item/632297013116.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1609381746000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634317910058",
+        "url": "https://sf-item.taobao.com/sf_item/634317910058.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1609381781000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634319694334",
+        "url": "https://sf-item.taobao.com/sf_item/634319694334.htm?track_id=ba7ff91c-543e-4e8e-a1cd-79a47a356bc3",
+        "end": 1609380535000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634323566304",
+        "url": "https://sf-item.taobao.com/sf_item/634323566304.htm?track_id=ba7ff91c-543e-4e8e-a1cd-79a47a356bc3",
+        "end": 1609380180000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634641563528",
+        "url": "https://sf-item.taobao.com/sf_item/634641563528.htm?track_id=f6103b53-b575-4181-920b-1934f9796e9b",
+        "end": 1609380000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634027537241",
+        "url": "https://sf-item.taobao.com/sf_item/634027537241.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1609390065000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "631770013924",
+        "url": "https://sf-item.taobao.com/sf_item/631770013924.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1609383086000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632080458019",
+        "url": "https://sf-item.taobao.com/sf_item/632080458019.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1609382145000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633679268931",
+        "url": "https://sf-item.taobao.com/sf_item/633679268931.htm?track_id=eec62054-78a1-43b5-9022-1fa82f70b2cc",
+        "end": 1609380026000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632386631795",
+        "url": "https://sf-item.taobao.com/sf_item/632386631795.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1609383884000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634641871302",
+        "url": "https://sf-item.taobao.com/sf_item/634641871302.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "end": 1609380000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632523985564",
+        "url": "https://sf-item.taobao.com/sf_item/632523985564.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1609380000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632837410232",
+        "url": "https://sf-item.taobao.com/sf_item/632837410232.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1609380000000,
         "status": "done",
         "is_processed": false
     }

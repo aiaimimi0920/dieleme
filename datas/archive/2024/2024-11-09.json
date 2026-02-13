@@ -212,9 +212,37 @@
         "detail_captured": true
     },
     {
-        "id": "846811000340",
-        "url": "https://sf-item.taobao.com/sf_item/846811000340.htm?track_id=f318f174-d213-49b5-88b0-0165640b650c",
-        "end": 1731117897000,
+        "id": 846811000340,
+        "市场评估价": 1022800,
+        "起拍价格": 644364,
+        "成交价格": 644364,
+        "交易时间": "2024-11-09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/846811000340.htm?track_id=f318f174-d213-49b5-88b0-0165640b650c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 信阳市 平桥区 镇政府东侧1号楼1-2层的房屋",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "平桥区中心商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "846219119965",
+        "url": "https://sf-item.taobao.com/sf_item/846219119965.htm?track_id=5fc4c768-6ab1-4407-acf9-835197b7645a",
+        "end": 1731117600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "845931154538",
+        "url": "https://sf-item.taobao.com/sf_item/845931154538.htm?track_id=8aff2cad-797b-46cd-a4eb-8b5f6ed552eb",
+        "end": 1731117600000,
         "status": "done",
         "is_processed": false
     }

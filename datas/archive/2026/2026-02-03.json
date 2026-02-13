@@ -913,12 +913,25 @@
         "detail_captured": true
     },
     {
-        "id": "1013295917527",
-        "url": "https://sf-item.taobao.com/sf_item/1013295917527.htm?track_id=e88ce8c5-c72b-41e3-9c17-2af431817d28",
-        "end": 1770102458000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/1013295917527.htm"
+        "id": 1013295917527,
+        "市场评估价": 1057479.1,
+        "起拍价格": 592189,
+        "成交价格": 636189,
+        "交易时间": "2026/02/03 15:07:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1013295917527.htm?track_id=e88ce8c5-c72b-41e3-9c17-2af431817d28",
+        "是否成交": true,
+        "竞拍人数": 23,
+        "出价人数": 21,
+        "地点": "四川省 成都市 新都区 龙桥镇龙容路32号9栋3单元3层5号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "新都区",
+        "最靠近商圈": "龙桥商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 1012530554485,
@@ -942,12 +955,25 @@
         "detail_captured": true
     },
     {
-        "id": "1014125744357",
-        "url": "https://sf-item.taobao.com/sf_item/1014125744357.htm?track_id=c1629c9c-a1e3-4d07-8bad-05161b7b7d8e",
-        "end": 1770086170000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/1014125744357.htm"
+        "id": 1014125744357,
+        "市场评估价": 648593,
+        "起拍价格": 363213,
+        "成交价格": 429213,
+        "交易时间": "2026-02-03 10:36:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1014125744357.htm?track_id=c1629c9c-a1e3-4d07-8bad-05161b7b7d8e",
+        "是否成交": true,
+        "竞拍人数": 35,
+        "出价人数": 27,
+        "地点": "四川省 成都市 温江区 金马镇太极大道266号1栋22层4号房屋",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "温江区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 1008394153725,
@@ -1336,11 +1362,25 @@
         "detail_captured": true
     },
     {
-        "id": "1007570122327",
-        "url": "https://sf-item.taobao.com/sf_item/1007570122327.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
-        "end": 1770086536000,
-        "status": "done",
-        "is_processed": false
+        "id": 1007570122327,
+        "市场评估价": 5271815,
+        "起拍价格": 3700000,
+        "成交价格": 6022000,
+        "交易时间": "2026/02/03 10:42:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1007570122327.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 102,
+        "地点": "广东省 惠州市 博罗县 罗阳镇博惠路207号的房地产",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 1355.02,
+        "单价": 4444.26,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "1012512910089",
@@ -1353,6 +1393,76 @@
         "id": "1012113519636",
         "url": "https://sf-item.taobao.com/sf_item/1012113519636.htm?track_id=69b81b86-a702-421f-a37e-34670abdf9a8",
         "end": 1770084000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1012410771060",
+        "url": "https://sf-item.taobao.com/sf_item/1012410771060.htm?track_id=7ec70b87-5ced-40d9-b4a5-cb74d5d60a97",
+        "end": 1770084646000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1013115666908",
+        "url": "https://sf-item.taobao.com/sf_item/1013115666908.htm?track_id=464d3b98-b48f-4fae-9da9-f05e77c9eda2",
+        "end": 1770084000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1012474710579",
+        "url": "https://sf-item.taobao.com/sf_item/1012474710579.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1770084786000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1009479800702",
+        "url": "https://sf-item.taobao.com/sf_item/1009479800702.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1770084000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1009408428893",
+        "url": "https://sf-item.taobao.com/sf_item/1009408428893.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1770084766000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1007831658331",
+        "url": "https://sf-item.taobao.com/sf_item/1007831658331.htm?track_id=bce7c78f-af18-4d86-a5d0-8036c9800db5",
+        "end": 1770085341000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1012438843782",
+        "url": "https://sf-item.taobao.com/sf_item/1012438843782.htm?track_id=270daa9e-b990-4124-b38a-5a1621dd3c7c",
+        "end": 1770084000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1008429165189",
+        "url": "https://sf-item.taobao.com/sf_item/1008429165189.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1770085571000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1014717308389",
+        "url": "https://sf-item.taobao.com/sf_item/1014717308389.htm?track_id=08271d2b-720b-4ac9-8bef-4716c7dea6e2",
+        "end": 1770085775000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1012461187708",
+        "url": "https://sf-item.taobao.com/sf_item/1012461187708.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1770084210000,
         "status": "done",
         "is_processed": false
     }

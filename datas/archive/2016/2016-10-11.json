@@ -141,16 +141,72 @@
         "is_processed": false
     },
     {
-        "id": "538709735239",
-        "url": "https://sf-item.taobao.com/sf_item/538709735239.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
-        "end": 1476151200000,
+        "id": 538709735239,
+        "市场评估价": null,
+        "起拍价格": 608560,
+        "成交价格": 608560,
+        "交易时间": "2016/10/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538709735239.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省泉州市安溪县凤城镇新科路100号-6梯1504房",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城商圈",
+        "建筑面积": 127.49,
+        "单价": 4773.86,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 539035011608,
+        "市场评估价": 673431,
+        "起拍价格": 412140,
+        "成交价格": 412140,
+        "交易时间": "2016-10-11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539035011608.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省信阳市平桥区明港镇新民路东侧金辉商住楼4号楼4号商住楼",
+        "所属小区": "金辉商住楼",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": null,
+        "建筑面积": 204.07,
+        "单价": 2020.34,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "538969589818",
+        "url": "https://sf-item.taobao.com/sf_item/538969589818.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1476151875000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "539035011608",
-        "url": "https://sf-item.taobao.com/sf_item/539035011608.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
-        "end": 1476151200000,
+        "id": "538972581517",
+        "url": "https://sf-item.taobao.com/sf_item/538972581517.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1476151961000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538587172630",
+        "url": "https://sf-item.taobao.com/sf_item/538587172630.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1476151781000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538364987213",
+        "url": "https://sf-item.taobao.com/sf_item/538364987213.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
+        "end": 1476154474000,
         "status": "done",
         "is_processed": false
     }

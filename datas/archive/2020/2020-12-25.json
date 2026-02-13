@@ -715,11 +715,25 @@
         "detail_captured": true
     },
     {
-        "id": "631381304443",
-        "url": "https://sf-item.taobao.com/sf_item/631381304443.htm?track_id=4db99a87-2bd9-4030-b1fa-33492e39505c",
-        "end": 1608855890000,
-        "status": "done",
-        "is_processed": false
+        "id": 631381304443,
+        "市场评估价": 573216,
+        "起拍价格": 518624,
+        "成交价格": 518624,
+        "交易时间": "2020/12/25 08:24:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/631381304443.htm?track_id=4db99a87-2bd9-4030-b1fa-33492e39505c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 斗篷山路193号剑江临水居（原山水佳苑）1号楼1-28-7号",
+        "所属小区": "剑江临水居",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": null,
+        "建筑面积": 136.48,
+        "单价": 3799.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "633542849485",
@@ -729,32 +743,88 @@
         "is_processed": false
     },
     {
-        "id": "633563553383",
-        "url": "https://sf-item.taobao.com/sf_item/633563553383.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
-        "end": 1608861600000,
-        "status": "done",
-        "is_processed": false
+        "id": 633563553383,
+        "市场评估价": null,
+        "起拍价格": 67235,
+        "成交价格": 67235,
+        "交易时间": "2020/12/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/633563553383.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 春和街31-19-277",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": null,
+        "建筑面积": 39.2,
+        "单价": 1715.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "633882286032",
-        "url": "https://sf-item.taobao.com/sf_item/633882286032.htm?track_id=0efb8088-640c-4f4b-bc4c-bcbf73b25068",
-        "end": 1608861600000,
-        "status": "done",
-        "is_processed": false
+        "id": 633882286032,
+        "市场评估价": null,
+        "起拍价格": 147290.88,
+        "成交价格": 147290.88,
+        "交易时间": "2020-12-25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/633882286032.htm?track_id=0efb8088-640c-4f4b-bc4c-bcbf73b25068",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 宝泉镇振兴街",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": null,
+        "建筑面积": 66,
+        "单价": 2230.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "634197511255",
-        "url": "https://sf-item.taobao.com/sf_item/634197511255.htm?track_id=0efb8088-640c-4f4b-bc4c-bcbf73b25068",
-        "end": 1608861600000,
-        "status": "done",
-        "is_processed": false
+        "id": 634197511255,
+        "市场评估价": null,
+        "起拍价格": 178002.56,
+        "成交价格": 178002.56,
+        "交易时间": "2020/12/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634197511255.htm?track_id=0efb8088-640c-4f4b-bc4c-bcbf73b25068",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 宝泉镇振兴街",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": null,
+        "建筑面积": 65.55,
+        "单价": 2716.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "634194227758",
-        "url": "https://sf-item.taobao.com/sf_item/634194227758.htm?track_id=372cfc29-2a38-4b1d-8036-925aa36c5f76",
-        "end": 1608861869000,
-        "status": "done",
-        "is_processed": false
+        "id": 634194227758,
+        "市场评估价": 117845,
+        "起拍价格": 75421,
+        "成交价格": 75921,
+        "交易时间": "2020-12-25 10:04:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634194227758.htm?track_id=372cfc29-2a38-4b1d-8036-925aa36c5f76",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 0,
+        "地点": "黑龙江省 鸡西市 密山市 密山镇",
+        "所属小区": "馨源花园",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "密山市",
+        "最靠近商圈": null,
+        "建筑面积": 35.83,
+        "单价": 2119.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "631937600641",
@@ -767,6 +837,97 @@
         "id": "631920828994",
         "url": "https://sf-item.taobao.com/sf_item/631920828994.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
         "end": 1608863817000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632515014290",
+        "url": "https://sf-item.taobao.com/sf_item/632515014290.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1608863209000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633213728117",
+        "url": "https://sf-item.taobao.com/sf_item/633213728117.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1608867293000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633249932902",
+        "url": "https://sf-item.taobao.com/sf_item/633249932902.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1608868629000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632197813335",
+        "url": "https://sf-item.taobao.com/sf_item/632197813335.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1608862653000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633597811147",
+        "url": "https://sf-item.taobao.com/sf_item/633597811147.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1608862903000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633597771354",
+        "url": "https://sf-item.taobao.com/sf_item/633597771354.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1608862270000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633883130688",
+        "url": "https://sf-item.taobao.com/sf_item/633883130688.htm?track_id=f8fcb460-293d-4823-a6b8-e6d33c641f75",
+        "end": 1608862532000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633214564084",
+        "url": "https://sf-item.taobao.com/sf_item/633214564084.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1608861600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632527002509",
+        "url": "https://sf-item.taobao.com/sf_item/632527002509.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1608868351000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633526493167",
+        "url": "https://sf-item.taobao.com/sf_item/633526493167.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1608864989000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632531450690",
+        "url": "https://sf-item.taobao.com/sf_item/632531450690.htm?track_id=a801121e-5e95-40e5-81ec-2addd861f9d7",
+        "end": 1608863148000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "631306249532",
+        "url": "https://sf-item.taobao.com/sf_item/631306249532.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1608863373000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633591981593",
+        "url": "https://sf-item.taobao.com/sf_item/633591981593.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1608869880000,
         "status": "done",
         "is_processed": false
     }

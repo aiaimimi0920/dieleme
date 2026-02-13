@@ -1019,18 +1019,46 @@
         "detail_captured": true
     },
     {
-        "id": "586679829253",
-        "url": "https://sf-item.taobao.com/sf_item/586679829253.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
-        "end": 1551664800000,
-        "status": "done",
-        "is_processed": false
+        "id": 586679829253,
+        "市场评估价": 11582800,
+        "起拍价格": 11582800,
+        "成交价格": 11582800,
+        "交易时间": "2019-03-04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586679829253.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "西安市曲江大明宫遗址区马旗寨路北侧汇林华城B区商业街4涉案建筑物",
+        "所属小区": "汇林华城B区",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "大明宫遗址区",
+        "建筑面积": 2004.28,
+        "单价": 5779.98,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "587113114423",
-        "url": "https://sf-item.taobao.com/sf_item/587113114423.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
-        "end": 1551664800000,
-        "status": "done",
-        "is_processed": false
+        "id": 587113114423,
+        "市场评估价": 417700,
+        "起拍价格": 263060,
+        "成交价格": 263060,
+        "交易时间": "2019-03-04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/587113114423.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省惠州市博罗县罗阳镇小金村金盘围金豪花园",
+        "所属小区": "金豪花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳中心",
+        "建筑面积": 89.98,
+        "单价": 2923.73,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "587217307724",
@@ -1040,9 +1068,72 @@
         "is_processed": false
     },
     {
-        "id": "586945489204",
-        "url": "https://sf-item.taobao.com/sf_item/586945489204.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
+        "id": 586945489204,
+        "市场评估价": null,
+        "起拍价格": 654500,
+        "成交价格": 654500,
+        "交易时间": "2019/03/04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586945489204.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "羊山新区新七大道博林.和谐家园20号楼3单元1层106号",
+        "所属小区": "博林.和谐家园",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": 95.63,
+        "单价": 6844.34,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "586813962806",
+        "url": "https://sf-item.taobao.com/sf_item/586813962806.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1551665659000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586650804975",
+        "url": "https://sf-item.taobao.com/sf_item/586650804975.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1551665480000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586957595352",
+        "url": "https://sf-item.taobao.com/sf_item/586957595352.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
         "end": 1551664800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586196530228",
+        "url": "https://sf-item.taobao.com/sf_item/586196530228.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1551669224000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586806414592",
+        "url": "https://sf-item.taobao.com/sf_item/586806414592.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1551666850000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586806018900",
+        "url": "https://sf-item.taobao.com/sf_item/586806018900.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1551665595000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586958847244",
+        "url": "https://sf-item.taobao.com/sf_item/586958847244.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1551665103000,
         "status": "done",
         "is_processed": false
     }

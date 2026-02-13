@@ -113,11 +113,25 @@
         "is_processed": false
     },
     {
-        "id": "711950440180",
-        "url": "https://sf-item.taobao.com/sf_item/711950440180.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
-        "end": 1683950822000,
-        "status": "done",
-        "is_processed": false
+        "id": 711950440180,
+        "市场评估价": 17022483,
+        "起拍价格": 13617986.4,
+        "成交价格": 17102986.4,
+        "交易时间": "2023-05-13 12:07:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/711950440180.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 274,
+        "地点": "北京 北京市 海淀区 清林苑小区3楼4门601号房屋",
+        "所属小区": "清林苑",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "海淀区",
+        "最靠近商圈": "清河",
+        "建筑面积": 187.98,
+        "单价": 91004.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "714943610328",
@@ -144,6 +158,20 @@
         "id": "714701237442",
         "url": "https://sf-item.taobao.com/sf_item/714701237442.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1683943200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "712422046194",
+        "url": "https://sf-item.taobao.com/sf_item/712422046194.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1683945287000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "713937233128",
+        "url": "https://sf-item.taobao.com/sf_item/713937233128.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1683944416000,
         "status": "done",
         "is_processed": false
     }

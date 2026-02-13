@@ -64,9 +64,30 @@
         "manual_checked": true
     },
     {
-        "id": "526960478620",
-        "url": "https://sf-item.taobao.com/sf_item/526960478620.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
-        "end": 1455978248000,
+        "id": 526960478620,
+        "市场评估价": 0,
+        "起拍价格": 835000,
+        "成交价格": 1000000,
+        "交易时间": "2016/02/20 22:24:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526960478620.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 34,
+        "地点": "安溪县凤城镇中山街180号902室",
+        "所属小区": "中山大厦",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "中闽百汇购物广场",
+        "建筑面积": 151.33,
+        "单价": 6608.48,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "526567768959",
+        "url": "https://sf-item.taobao.com/sf_item/526567768959.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1455934913000,
         "status": "done",
         "is_processed": false
     }

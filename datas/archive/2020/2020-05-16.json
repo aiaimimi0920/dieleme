@@ -273,11 +273,25 @@
         "detail_captured": true
     },
     {
-        "id": "615951581298",
-        "url": "https://sf-item.taobao.com/sf_item/615951581298.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
-        "end": 1589595520000,
-        "status": "done",
-        "is_processed": false
+        "id": 615951581298,
+        "市场评估价": 871666,
+        "起拍价格": 697333,
+        "成交价格": 761333,
+        "交易时间": "2020/05/16 10:18:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/615951581298.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 61,
+        "地点": "山东省 潍坊市 昌邑市 新兴街327号2幢无单元33，无单元35,3单元205室",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": null,
+        "建筑面积": 160.13,
+        "单价": 4756.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "616457099330",
@@ -287,11 +301,25 @@
         "is_processed": false
     },
     {
-        "id": "616634520928",
-        "url": "https://sf-item.taobao.com/sf_item/616634520928.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
-        "end": 1589598770000,
-        "status": "done",
-        "is_processed": false
+        "id": 616634520928,
+        "市场评估价": null,
+        "起拍价格": 15110000,
+        "成交价格": 17250000,
+        "交易时间": "2020/05/16 11:12:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616634520928.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 173,
+        "地点": "北京 北京市 海淀区 马连洼竹园35号楼4层1单元5018",
+        "所属小区": "竹园",
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "海淀区",
+        "最靠近商圈": "马连洼",
+        "建筑面积": 280.43,
+        "单价": 61522.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "615872917620",
@@ -301,16 +329,44 @@
         "is_processed": false
     },
     {
-        "id": "616674094099",
-        "url": "https://sf-item.taobao.com/sf_item/616674094099.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
-        "end": 1589596968000,
-        "status": "done",
-        "is_processed": false
+        "id": 616674094099,
+        "市场评估价": 1512014,
+        "起拍价格": 967688.96,
+        "成交价格": 1227688.96,
+        "交易时间": "2020/05/16 10:42:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616674094099.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": 21,
+        "地点": "河南省郑州市二七区二七区连云路15号5号楼1单元1层2号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场商圈",
+        "建筑面积": 116.93,
+        "单价": 10500.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "616741596283",
         "url": "https://sf-item.taobao.com/sf_item/616741596283.htm?track_id=e9db07e5-7acb-4b43-9d9c-583daa52fdcf",
         "end": 1589594400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "615631573778",
+        "url": "https://sf-item.taobao.com/sf_item/615631573778.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1589594591000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "615965837836",
+        "url": "https://sf-item.taobao.com/sf_item/615965837836.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1589595551000,
         "status": "done",
         "is_processed": false
     }

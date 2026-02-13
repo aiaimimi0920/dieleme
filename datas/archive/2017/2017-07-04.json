@@ -256,11 +256,25 @@
         "manual_checked": true
     },
     {
-        "id": "552432746638",
-        "url": "https://sf-item.taobao.com/sf_item/552432746638.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1499133894000,
-        "status": "done",
-        "is_processed": false
+        "id": 552432746638,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 479700,
+        "交易时间": "2017/07/04 10:04:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/552432746638.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 新密市城区新惠街3排3号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密城区",
+        "建筑面积": 234.64,
+        "单价": 2044.26,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "552166752230",
@@ -273,6 +287,20 @@
         "id": "552298811472",
         "url": "https://sf-item.taobao.com/sf_item/552298811472.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
         "end": 1499136984000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "552368381996",
+        "url": "https://sf-item.taobao.com/sf_item/552368381996.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1499126400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "552254280815",
+        "url": "https://sf-item.taobao.com/sf_item/552254280815.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1499133600000,
         "status": "done",
         "is_processed": false
     }

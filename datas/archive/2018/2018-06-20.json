@@ -631,15 +631,16 @@
         "竞拍人数": 46,
         "出价人数": 46,
         "地点": "江苏省苏州市吴中区工业园区榭雨街9号41幢601室",
-        "所属小区": null,
+        "所属小区": "东湖大郡",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "吴中区",
-        "最靠近商圈": "独墅湖",
+        "最靠近商圈": "旺山商圈",
         "建筑面积": 129.98,
-        "单价": 19380.86,
+        "单价": 19387.6,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 570373817941,
@@ -705,25 +706,67 @@
         "detail_captured": true
     },
     {
-        "id": "569630056348",
-        "url": "https://sf-item.taobao.com/sf_item/569630056348.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
-        "end": 1529460157000,
-        "status": "done",
-        "is_processed": false
+        "id": 569630056348,
+        "市场评估价": 0,
+        "起拍价格": 122280.2,
+        "成交价格": 131280.2,
+        "交易时间": "2018/06/20 10:02:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569630056348.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 4,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 克东镇恒祥首府",
+        "所属小区": "恒祥首府",
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": "克东镇",
+        "建筑面积": 45.97,
+        "单价": 2855.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "569852821993",
-        "url": "https://sf-item.taobao.com/sf_item/569852821993.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1529460476000,
-        "status": "done",
-        "is_processed": false
+        "id": 569852821993,
+        "市场评估价": 1354397,
+        "起拍价格": 1354397,
+        "成交价格": 1764397,
+        "交易时间": "2018/06/20 10:07:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569852821993.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "云南省丽江市华坪县荣将镇步行街",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "荣将镇",
+        "建筑面积": 609.26,
+        "单价": 2896.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "569653056256",
-        "url": "https://sf-item.taobao.com/sf_item/569653056256.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1529462062000,
-        "status": "done",
-        "is_processed": false
+        "id": 569653056256,
+        "市场评估价": null,
+        "起拍价格": 3506000,
+        "成交价格": 5926000,
+        "交易时间": "2018-06-20 10:34:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569653056256.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": 103,
+        "出价人数": 109,
+        "地点": "浙江省 杭州市 滨江区",
+        "所属小区": "南岸晶都花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 166.94,
+        "单价": 35509.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "570004227422",
@@ -740,11 +783,25 @@
         "is_processed": false
     },
     {
-        "id": "569767096331",
-        "url": "https://sf-item.taobao.com/sf_item/569767096331.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
-        "end": 1529463188000,
-        "status": "done",
-        "is_processed": false
+        "id": 569767096331,
+        "市场评估价": 0,
+        "起拍价格": 3760000,
+        "成交价格": 6450000,
+        "交易时间": "2018/06/20 10:53:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569767096331.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 66,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道彩虹城42幢1单元1301室房屋",
+        "所属小区": "彩虹城",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 144.75,
+        "单价": 44553.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "569871845264",
@@ -764,6 +821,55 @@
         "id": "569740016090",
         "url": "https://sf-item.taobao.com/sf_item/569740016090.htm?track_id=fb36ca66-519f-47e0-8cf2-d020609c405d",
         "end": 1529464945000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569634589159",
+        "url": "https://sf-item.taobao.com/sf_item/569634589159.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1529463498000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569815447628",
+        "url": "https://sf-item.taobao.com/sf_item/569815447628.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1529461249000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569832049311",
+        "url": "https://sf-item.taobao.com/sf_item/569832049311.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1529462088000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570350194577",
+        "url": "https://sf-item.taobao.com/sf_item/570350194577.htm?track_id=eba88dd1-33f1-430f-afc6-b6c27ccbba5f",
+        "end": 1529461841000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569539294218",
+        "url": "https://sf-item.taobao.com/sf_item/569539294218.htm?track_id=eba88dd1-33f1-430f-afc6-b6c27ccbba5f",
+        "end": 1529465112000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570560287833",
+        "url": "https://sf-item.taobao.com/sf_item/570560287833.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "end": 1529460000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569663380225",
+        "url": "https://sf-item.taobao.com/sf_item/569663380225.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1529461804000,
         "status": "done",
         "is_processed": false
     }

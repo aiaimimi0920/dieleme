@@ -234,11 +234,25 @@
         "detail_captured": true
     },
     {
-        "id": "709968662012",
-        "url": "https://sf-item.taobao.com/sf_item/709968662012.htm?track_id=0aa51a89-be2a-4b2d-a15e-840b4b7b2be4",
-        "end": 1681352069000,
-        "status": "done",
-        "is_processed": false
+        "id": 709968662012,
+        "市场评估价": null,
+        "起拍价格": 173320.56,
+        "成交价格": 187720.56,
+        "交易时间": "2023-04-13 10:14:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/709968662012.htm?track_id=0aa51a89-be2a-4b2d-a15e-840b4b7b2be4",
+        "是否成交": true,
+        "竞拍人数": 19,
+        "出价人数": 19,
+        "地点": "河南省 郑州市 新密市 城区嵩山大道中段北侧东单元5层东户",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市城区",
+        "建筑面积": 132.89,
+        "单价": 1412.11,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "709485348528",
@@ -269,16 +283,51 @@
         "is_processed": false
     },
     {
-        "id": "706926041769",
-        "url": "https://sf-item.taobao.com/sf_item/706926041769.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
-        "end": 1681352919000,
-        "status": "done",
-        "is_processed": false
+        "id": 706926041769,
+        "市场评估价": null,
+        "起拍价格": 577220,
+        "成交价格": 617220,
+        "交易时间": "2023/04/13 10:28:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/706926041769.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省泉州市安溪县安溪县凤城镇龙湖63幢601室房产",
+        "所属小区": "龙湖",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": null,
+        "建筑面积": 103.95,
+        "单价": 5940.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "701188910244",
         "url": "https://sf-item.taobao.com/sf_item/701188910244.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1681371241000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "707930939727",
+        "url": "https://sf-item.taobao.com/sf_item/707930939727.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1681351200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709788521249",
+        "url": "https://sf-item.taobao.com/sf_item/709788521249.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1681357235000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "710144883718",
+        "url": "https://sf-item.taobao.com/sf_item/710144883718.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1681352380000,
         "status": "done",
         "is_processed": false
     }

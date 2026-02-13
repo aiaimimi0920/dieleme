@@ -741,7 +741,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 576227823178,
@@ -807,11 +808,25 @@
         "detail_captured": true
     },
     {
-        "id": "575733104718",
-        "url": "https://sf-item.taobao.com/sf_item/575733104718.htm?track_id=e3073e34-9f76-4911-9b62-b85ecbb1ce43",
-        "end": 1537930355000,
-        "status": "done",
-        "is_processed": false
+        "id": 575733104718,
+        "市场评估价": null,
+        "起拍价格": 240600,
+        "成交价格": 314600,
+        "交易时间": "2018-09-26T10:52:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/575733104718.htm?track_id=e3073e34-9f76-4911-9b62-b85ecbb1ce43",
+        "是否成交": true,
+        "竞拍人数": 35,
+        "出价人数": null,
+        "地点": "四川省 凉山彝族自治州 越西县",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "凉山彝族自治州",
+        "区": "越西县",
+        "最靠近商圈": null,
+        "建筑面积": 178.02,
+        "单价": 1766.21,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "577135287058",
@@ -873,6 +888,62 @@
         "id": "576590954001",
         "url": "https://sf-item.taobao.com/sf_item/576590954001.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1537927200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576878673105",
+        "url": "https://sf-item.taobao.com/sf_item/576878673105.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "end": 1537929015000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575810700106",
+        "url": "https://sf-item.taobao.com/sf_item/575810700106.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1537932648000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576073842694",
+        "url": "https://sf-item.taobao.com/sf_item/576073842694.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1537927213000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576191051458",
+        "url": "https://sf-item.taobao.com/sf_item/576191051458.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "end": 1537928278000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574944380765",
+        "url": "https://sf-item.taobao.com/sf_item/574944380765.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1537931569000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576010849625",
+        "url": "https://sf-item.taobao.com/sf_item/576010849625.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1537935711000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576011193295",
+        "url": "https://sf-item.taobao.com/sf_item/576011193295.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1537933118000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576075547126",
+        "url": "https://sf-item.taobao.com/sf_item/576075547126.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1537928842000,
         "status": "done",
         "is_processed": false
     }

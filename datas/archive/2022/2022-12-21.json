@@ -336,11 +336,25 @@
         "detail_captured": true
     },
     {
-        "id": "693146386535",
-        "url": "https://sf-item.taobao.com/sf_item/693146386535.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
-        "end": 1671588000000,
-        "status": "done",
-        "is_processed": false
+        "id": 693146386535,
+        "市场评估价": 0,
+        "起拍价格": 1195897,
+        "成交价格": 1195897,
+        "交易时间": "2022/12/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/693146386535.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 沼潭东路15号三江尊园凯旋苑1-305",
+        "所属小区": "三江尊园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "沼潭",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 693144366975,
@@ -364,18 +378,46 @@
         "detail_captured": true
     },
     {
-        "id": "692187120799",
-        "url": "https://sf-item.taobao.com/sf_item/692187120799.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
-        "end": 1671612301000,
-        "status": "done",
-        "is_processed": false
+        "id": 692187120799,
+        "市场评估价": 649566,
+        "起拍价格": 363756.96,
+        "成交价格": 363756.96,
+        "交易时间": "2022/12/21 16:45:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/692187120799.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 天池镇南街14组帅乡大道魅力新城6幢2单元13号（现门牌号：魅力新城6幢2单元1楼2号）",
+        "所属小区": "魅力新城",
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "691934476779",
-        "url": "https://sf-item.taobao.com/sf_item/691934476779.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
-        "end": 1671591763000,
-        "status": "done",
-        "is_processed": false
+        "id": 691934476779,
+        "市场评估价": 289879,
+        "起拍价格": 185522,
+        "成交价格": 185522.4,
+        "交易时间": "2022/12/21 11:02:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/691934476779.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省遵义市汇川区南京路丽祥花园1号商业用房",
+        "所属小区": "丽祥花园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "南京路商圈",
+        "建筑面积": 18.96,
+        "单价": 9785.04,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "693835736630",
@@ -392,16 +434,44 @@
         "is_processed": false
     },
     {
-        "id": "692769717385",
-        "url": "https://sf-item.taobao.com/sf_item/692769717385.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
-        "end": 1671590838000,
-        "status": "done",
-        "is_processed": false
+        "id": 692769717385,
+        "市场评估价": null,
+        "起拍价格": 430000,
+        "成交价格": 800000,
+        "交易时间": "2022/12/21 10:47:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/692769717385.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 30,
+        "地点": "浙江省 温州市 龙湾区 温州市龙湾区瑶溪街道新天地锦园6幢2-109室（现门牌：B09）",
+        "所属小区": "新天地锦园",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "瑶溪",
+        "建筑面积": 37.07,
+        "单价": 21580.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "690237020353",
         "url": "https://sf-item.taobao.com/sf_item/690237020353.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1671595669000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "693512732298",
+        "url": "https://sf-item.taobao.com/sf_item/693512732298.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1671588000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "694398050640",
+        "url": "https://sf-item.taobao.com/sf_item/694398050640.htm?track_id=d15013f3-1b9a-448b-8eab-b42be114371e",
+        "end": 1671588000000,
         "status": "done",
         "is_processed": false
     }

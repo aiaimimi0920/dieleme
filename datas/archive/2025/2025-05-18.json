@@ -105,17 +105,37 @@
         "detail_captured": true
     },
     {
-        "id": "911540654242",
-        "url": "https://sf-item.taobao.com/sf_item/911540654242.htm?track_id=8295f343-2fa1-4ff1-acf2-b4284848fe50",
-        "end": 1747535332000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/911540654242.htm"
+        "id": 911540654242,
+        "市场评估价": 2356100,
+        "起拍价格": 1649270,
+        "成交价格": 2169270,
+        "交易时间": "2025/05/18 10:28:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/911540654242.htm?track_id=8295f343-2fa1-4ff1-acf2-b4284848fe50",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": 26,
+        "地点": "安徽省亳州市蒙城县濮水路北、经十四路东中梁玖玺台42幢102号房产",
+        "所属小区": "中梁玖玺台",
+        "省份": "安徽省",
+        "城市": "亳州市",
+        "区": "蒙城县",
+        "最靠近商圈": "蒙城县城东板块",
+        "建筑面积": 216.83,
+        "单价": 10000.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "912242573286",
         "url": "https://sf-item.taobao.com/sf_item/912242573286.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
         "end": 1747536056000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "918216223978",
+        "url": "https://sf-item.taobao.com/sf_item/918216223978.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1747533600000,
         "status": "done",
         "is_processed": false
     }

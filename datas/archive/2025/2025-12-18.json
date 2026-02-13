@@ -579,18 +579,46 @@
         "is_processed": false
     },
     {
-        "id": "994093217721",
-        "url": "https://sf-item.taobao.com/sf_item/994093217721.htm?track_id=4b5a9960-ce5b-4518-83a2-39c7f885432d",
-        "end": 1766024771000,
-        "status": "done",
-        "is_processed": false
+        "id": 994093217721,
+        "市场评估价": 2648325.5,
+        "起拍价格": 1860000,
+        "成交价格": 2210000,
+        "交易时间": "2025/12/18 10:26:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/994093217721.htm?track_id=4b5a9960-ce5b-4518-83a2-39c7f885432d",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": 32,
+        "地点": "陕西省 西安市 未央区 太华路199号中建·开元壹号（二期）13幢21001室",
+        "所属小区": "中建·开元壹号",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "龙首原",
+        "建筑面积": 174.45,
+        "单价": 12667.09,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "998507426461",
-        "url": "https://sf-item.taobao.com/sf_item/998507426461.htm?track_id=e7a54447-6924-4a88-8baa-334f0f068dfd",
-        "end": 1766023261000,
-        "status": "done",
-        "is_processed": false
+        "id": 998507426461,
+        "市场评估价": 293200,
+        "起拍价格": 212000,
+        "成交价格": 212000,
+        "交易时间": "2025/12/18 10:01:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/998507426461.htm?track_id=e7a54447-6924-4a88-8baa-334f0f068dfd",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省惠州市博罗县罗阳镇博义路罗埔二路34号（土名）地段香槟公馆3栋23层06房",
+        "所属小区": "香槟公馆",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 58.64,
+        "单价": 3615.28,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "997246659790",
@@ -600,16 +628,107 @@
         "is_processed": false
     },
     {
-        "id": "998598578962",
-        "url": "https://sf-item.taobao.com/sf_item/998598578962.htm?track_id=3c8f58da-6271-4004-92b5-aa2e0f896c1b",
-        "end": 1766034729000,
+        "id": 998598578962,
+        "市场评估价": 251187,
+        "起拍价格": 144683.71,
+        "成交价格": 168683.71,
+        "交易时间": "2025-12-18 13:12:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/998598578962.htm?track_id=3c8f58da-6271-4004-92b5-aa2e0f896c1b",
+        "是否成交": true,
+        "竞拍人数": 33,
+        "出价人数": 33,
+        "地点": "新疆维吾尔自治区 阿克苏地区 柯坪县 和谐小区6号楼2单元403 室",
+        "所属小区": "和谐小区",
+        "省份": "新疆维吾尔自治区",
+        "城市": "阿克苏地区",
+        "区": "柯坪县",
+        "最靠近商圈": "柯坪县中心",
+        "建筑面积": 119.67,
+        "单价": 1408.19,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 1000038924612,
+        "市场评估价": 2243160,
+        "起拍价格": 1264000,
+        "成交价格": 1358000,
+        "交易时间": "2025-12-18 12:53:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1000038924612.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县 海盐县武原街道盐北路365号海盐国际紧固件五金城三排南70、71、72号",
+        "所属小区": "海盐国际紧固件五金城",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道商圈",
+        "建筑面积": 339,
+        "单价": 4005.9,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "999243653515",
+        "url": "https://sf-item.taobao.com/sf_item/999243653515.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1766024989000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "1000038924612",
-        "url": "https://sf-item.taobao.com/sf_item/1000038924612.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
-        "end": 1766033619000,
+        "id": "997864326236",
+        "url": "https://sf-item.taobao.com/sf_item/997864326236.htm?track_id=87bdd104-9f5f-432b-9ac1-b4e159478f43",
+        "end": 1766041150000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999382933384",
+        "url": "https://sf-item.taobao.com/sf_item/999382933384.htm?track_id=1b72c4a3-0a3f-4a49-a0ef-97c696656a04",
+        "end": 1766023736000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "998590546799",
+        "url": "https://sf-item.taobao.com/sf_item/998590546799.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1766023650000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "998522810617",
+        "url": "https://sf-item.taobao.com/sf_item/998522810617.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1766028387000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "997999883900",
+        "url": "https://sf-item.taobao.com/sf_item/997999883900.htm?track_id=270daa9e-b990-4124-b38a-5a1621dd3c7c",
+        "end": 1766023481000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "997923599671",
+        "url": "https://sf-item.taobao.com/sf_item/997923599671.htm?track_id=b164c654-ec15-4c16-853e-f984183f99d5",
+        "end": 1766023214000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "998463694914",
+        "url": "https://sf-item.taobao.com/sf_item/998463694914.htm?track_id=7ea40920-fed2-42de-bda6-b8c5278fe902",
+        "end": 1766026937000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "992359051634",
+        "url": "https://sf-item.taobao.com/sf_item/992359051634.htm?track_id=5724ee14-58ff-4ecc-b16a-be51c4d3b278",
+        "end": 1766023200000,
         "status": "done",
         "is_processed": false
     }

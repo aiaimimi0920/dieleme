@@ -294,11 +294,25 @@
         "detail_captured": true
     },
     {
-        "id": "610930517054",
-        "url": "https://sf-item.taobao.com/sf_item/610930517054.htm?track_id=02d2fecc-9c57-4b4f-9618-bc9258835c70",
-        "end": 1581213668000,
-        "status": "done",
-        "is_processed": false
+        "id": 610930517054,
+        "市场评估价": 953400,
+        "起拍价格": 770000,
+        "成交价格": 770000,
+        "交易时间": "2020/02/09 10:01:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610930517054.htm?track_id=02d2fecc-9c57-4b4f-9618-bc9258835c70",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "湖北省 十堰市 茅箭区 五堰街办山西路8-A号2幢1-19-1号",
+        "所属小区": "锦绣南山",
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": "五堰商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 611390357048,
@@ -322,9 +336,30 @@
         "detail_captured": true
     },
     {
-        "id": "611698722483",
-        "url": "https://sf-item.taobao.com/sf_item/611698722483.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
-        "end": 1581213934000,
+        "id": 611698722483,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 601863,
+        "交易时间": "2020/02/09 10:05:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611698722483.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市新密市周楼街与育才街交叉口西南角（金鼎御园）6号楼2单元23层1303",
+        "所属小区": "金鼎御园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市城区",
+        "建筑面积": 117.05,
+        "单价": 5142.02,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "611949619812",
+        "url": "https://sf-item.taobao.com/sf_item/611949619812.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1581247102000,
         "status": "done",
         "is_processed": false
     }

@@ -630,8 +630,36 @@
         "detail_captured": true
     },
     {
-        "id": "768870394176",
-        "url": "https://sf-item.taobao.com/sf_item/768870394176.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
+        "id": 768870394176,
+        "市场评估价": 480025,
+        "起拍价格": 385000,
+        "成交价格": 385000,
+        "交易时间": "2024/03/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/768870394176.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广东省 惠州市 博罗县 罗阳镇横坑、翠美园村委会江南（土名）东江新城七期6号楼1单元14层01房",
+        "所属小区": "东江新城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳中心区",
+        "建筑面积": 73.85,
+        "单价": 5214.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "762313131860",
+        "url": "https://sf-item.taobao.com/sf_item/762313131860.htm?track_id=23b41d43-a66d-4854-8110-feb7462db538",
+        "end": 1711326694000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "772348228941",
+        "url": "https://sf-item.taobao.com/sf_item/772348228941.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
         "end": 1711332000000,
         "status": "done",
         "is_processed": false

@@ -126,17 +126,72 @@
         "detail_captured": true
     },
     {
-        "id": "708110189185",
-        "url": "https://sf-item.taobao.com/sf_item/708110189185.htm?track_id=d45c34f4-0f53-47d9-ac99-23fc46900cd3",
-        "end": 1680747461000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/708110189185.htm"
+        "id": 708110189185,
+        "市场评估价": 498800,
+        "起拍价格": 336690,
+        "成交价格": 423690,
+        "交易时间": "2023-04-06 10:17:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/708110189185.htm?track_id=d45c34f4-0f53-47d9-ac99-23fc46900cd3",
+        "是否成交": true,
+        "竞拍人数": 49,
+        "出价人数": 42,
+        "地点": "湖南省 湘潭市 雨湖区 湘潭市雨湖区城正街熙春路688号华丰春城2号楼2单元040202号房屋",
+        "所属小区": "华丰春城",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "熙春路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "707828533347",
-        "url": "https://sf-item.taobao.com/sf_item/707828533347.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
-        "end": 1680747703000,
+        "id": 707828533347,
+        "市场评估价": 0,
+        "起拍价格": 296787.2,
+        "成交价格": 352787.2,
+        "交易时间": "2023/04/06 10:21:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/707828533347.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 19,
+        "地点": "河南省 郑州市 二七区 航海中路71号院24号楼1层1号",
+        "所属小区": "航海中路71号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场",
+        "建筑面积": 52.33,
+        "单价": 6740.18,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "708642165596",
+        "url": "https://sf-item.taobao.com/sf_item/708642165596.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1680747841000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708643021957",
+        "url": "https://sf-item.taobao.com/sf_item/708643021957.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1680747518000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708367100125",
+        "url": "https://sf-item.taobao.com/sf_item/708367100125.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1680746958000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708844090215",
+        "url": "https://sf-item.taobao.com/sf_item/708844090215.htm?track_id=38645221-478f-4c88-ae42-f8414519aee5",
+        "end": 1680746400000,
         "status": "done",
         "is_processed": false
     }

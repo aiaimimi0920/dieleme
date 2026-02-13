@@ -127,11 +127,25 @@
         "detail_captured": true
     },
     {
-        "id": "617221953603",
-        "url": "https://sf-item.taobao.com/sf_item/617221953603.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
-        "end": 1589681639000,
-        "status": "done",
-        "is_processed": false
+        "id": 617221953603,
+        "市场评估价": 0,
+        "起拍价格": 528272,
+        "成交价格": 660272,
+        "交易时间": "2020/05/17 10:13:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/617221953603.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 47,
+        "地点": "内蒙古自治区 包头市 昆都仑区 站前路35号丽晶名邸住宅小区",
+        "所属小区": "丽晶名邸",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 617220465350,
@@ -155,9 +169,37 @@
         "detail_captured": true
     },
     {
-        "id": "616547103050",
-        "url": "https://sf-item.taobao.com/sf_item/616547103050.htm?track_id=39151f44-c8e6-4909-a96a-5342e8b2e652",
-        "end": 1589680800000,
+        "id": 616547103050,
+        "市场评估价": 174795,
+        "起拍价格": null,
+        "成交价格": 139836,
+        "交易时间": "2020/05/17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616547103050.htm?track_id=39151f44-c8e6-4909-a96a-5342e8b2e652",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 土默特右旗 土默特右旗萨拉齐镇工业大街绿苑小区",
+        "所属小区": "绿苑小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "土默特右旗",
+        "最靠近商圈": "萨拉齐镇",
+        "建筑面积": 32.25,
+        "单价": 4339.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "616511987150",
+        "url": "https://sf-item.taobao.com/sf_item/616511987150.htm?track_id=d5566e93-6667-4ee0-86bb-103d626c1c7d",
+        "end": 1589681675000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617733783097",
+        "url": "https://sf-item.taobao.com/sf_item/617733783097.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1589681389000,
         "status": "done",
         "is_processed": false
     }

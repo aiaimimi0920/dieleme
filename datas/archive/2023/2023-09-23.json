@@ -273,9 +273,58 @@
         "detail_captured": true
     },
     {
-        "id": "734997561303",
-        "url": "https://sf-item.taobao.com/sf_item/734997561303.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
-        "end": 1695440460000,
+        "id": 734997561303,
+        "市场评估价": 1722824,
+        "起拍价格": 1205977,
+        "成交价格": 1650977,
+        "交易时间": "2023/09/23 11:41:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/734997561303.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
+        "是否成交": true,
+        "竞拍人数": 99,
+        "出价人数": 98,
+        "地点": "辽宁省 沈阳市 铁西区 兴华北街3-3号2-7-2",
+        "所属小区": "新湖明珠城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "兴华",
+        "建筑面积": 128.79,
+        "单价": 12814.35,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "737836547190",
+        "url": "https://sf-item.taobao.com/sf_item/737836547190.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1695435360000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "737708462497",
+        "url": "https://sf-item.taobao.com/sf_item/737708462497.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1695434400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "732371892338",
+        "url": "https://sf-item.taobao.com/sf_item/732371892338.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1695436700000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "737767118064",
+        "url": "https://sf-item.taobao.com/sf_item/737767118064.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1695438104000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "735102359701",
+        "url": "https://sf-item.taobao.com/sf_item/735102359701.htm?track_id=018cd2d0-3b33-4452-90a3-52a886cb2abb",
+        "end": 1695434400000,
         "status": "done",
         "is_processed": false
     }

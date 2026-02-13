@@ -189,9 +189,30 @@
         "detail_captured": true
     },
     {
-        "id": "775570872762",
-        "url": "https://sf-item.taobao.com/sf_item/775570872762.htm?track_id=b933d91f-482c-433e-9cd4-4ab734f870c4",
-        "end": 1712368808000,
+        "id": 775570872762,
+        "市场评估价": 70375,
+        "起拍价格": 39410,
+        "成交价格": 39410,
+        "交易时间": "2024/04/06 10:00:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/775570872762.htm?track_id=b933d91f-482c-433e-9cd4-4ab734f870c4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "黑龙江省鸡西市密山市珍铭一品小区5号楼1号车库",
+        "所属小区": "珍铭一品",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "密山市",
+        "最靠近商圈": "密山市中心商圈",
+        "建筑面积": 20.09,
+        "单价": 1962.17,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "771727245733",
+        "url": "https://sf-item.taobao.com/sf_item/771727245733.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1712369655000,
         "status": "done",
         "is_processed": false
     }

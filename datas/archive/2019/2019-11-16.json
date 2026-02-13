@@ -357,11 +357,25 @@
         "detail_captured": true
     },
     {
-        "id": "606811861920",
-        "url": "https://sf-item.taobao.com/sf_item/606811861920.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
-        "end": 1573869600000,
-        "status": "done",
-        "is_processed": false
+        "id": 606811861920,
+        "市场评估价": 0,
+        "起拍价格": 369619.2,
+        "成交价格": 369619.2,
+        "交易时间": "2019/11/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606811861920.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "包头市昆区友谊大街26号街坊15-10",
+        "所属小区": "友谊大街26号街坊",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "友谊大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 606818229561,
@@ -427,32 +441,88 @@
         "detail_captured": true
     },
     {
-        "id": "605393720004",
-        "url": "https://sf-item.taobao.com/sf_item/605393720004.htm?track_id=9c0b7602-9aa6-4930-a97c-348cbcf397a5",
-        "end": 1573870644000,
-        "status": "done",
-        "is_processed": false
+        "id": 605393720004,
+        "市场评估价": 996215,
+        "起拍价格": 796972,
+        "成交价格": 886972,
+        "交易时间": "2019/11/16 10:17:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605393720004.htm?track_id=9c0b7602-9aa6-4930-a97c-348cbcf397a5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 32,
+        "地点": "山东省 潍坊市 昌邑市 昌邑市文昌南路123号综合楼3幢2单元201室",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": "昌邑市中心",
+        "建筑面积": 156.0,
+        "单价": 5685.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "606192324225",
-        "url": "https://sf-item.taobao.com/sf_item/606192324225.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
-        "end": 1573869830000,
-        "status": "done",
-        "is_processed": false
+        "id": 606192324225,
+        "市场评估价": 380711,
+        "起拍价格": 243655.04,
+        "成交价格": 253401.24,
+        "交易时间": "2019/11/16 10:03:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606192324225.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 4,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 局子街",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": null,
+        "最靠近商圈": null,
+        "建筑面积": 101.55,
+        "单价": 2495.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "605649893129",
-        "url": "https://sf-item.taobao.com/sf_item/605649893129.htm?track_id=9662dc8a-155d-4344-9d83-8dbab508b9f6",
-        "end": 1573877111000,
-        "status": "done",
-        "is_processed": false
+        "id": 605649893129,
+        "市场评估价": 482690,
+        "起拍价格": 386000,
+        "成交价格": 640000,
+        "交易时间": "2019/11/16 12:05:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605649893129.htm?track_id=9662dc8a-155d-4344-9d83-8dbab508b9f6",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 平桥北路印刷厂35-37轴1层",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "都匀市",
+        "区": null,
+        "最靠近商圈": "平桥",
+        "建筑面积": 37.13,
+        "单价": 17234.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "607252323413",
-        "url": "https://sf-item.taobao.com/sf_item/607252323413.htm?track_id=15200676-b47d-4c3b-9ca3-15aed2f95ca0",
-        "end": 1573870581000,
-        "status": "done",
-        "is_processed": false
+        "id": 607252323413,
+        "市场评估价": 2104800,
+        "起拍价格": 1599648,
+        "成交价格": 1676648,
+        "交易时间": "2019-11-16 10:16:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/607252323413.htm?track_id=15200676-b47d-4c3b-9ca3-15aed2f95ca0",
+        "是否成交": true,
+        "竞拍人数": 12,
+        "出价人数": 12,
+        "地点": "陕西省 西安市 未央区 张家堡广场东侧（未央路155号）“西安印象”10幢4单元11层41101室住宅房",
+        "所属小区": "西安印象",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "张家堡",
+        "建筑面积": 139.02,
+        "单价": 12054.73,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "605457733329",
@@ -479,6 +549,97 @@
         "id": "605201524062",
         "url": "https://sf-item.taobao.com/sf_item/605201524062.htm?track_id=c3263236-9027-4790-98db-026890358103",
         "end": 1573869600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607011322773",
+        "url": "https://sf-item.taobao.com/sf_item/607011322773.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1573872324000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604943292361",
+        "url": "https://sf-item.taobao.com/sf_item/604943292361.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1573869600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607222999205",
+        "url": "https://sf-item.taobao.com/sf_item/607222999205.htm?track_id=53ecf66e-fff0-40e6-bfb1-10d37f267b1e",
+        "end": 1573869600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606736353447",
+        "url": "https://sf-item.taobao.com/sf_item/606736353447.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1573869600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607027438655",
+        "url": "https://sf-item.taobao.com/sf_item/607027438655.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1573873200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607246203423",
+        "url": "https://sf-item.taobao.com/sf_item/607246203423.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1573871139000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606804265580",
+        "url": "https://sf-item.taobao.com/sf_item/606804265580.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1573870753000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607242479993",
+        "url": "https://sf-item.taobao.com/sf_item/607242479993.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1573871036000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606804641162",
+        "url": "https://sf-item.taobao.com/sf_item/606804641162.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1573871028000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606550988877",
+        "url": "https://sf-item.taobao.com/sf_item/606550988877.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1573870406000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606551308368",
+        "url": "https://sf-item.taobao.com/sf_item/606551308368.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1573869600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607031606178",
+        "url": "https://sf-item.taobao.com/sf_item/607031606178.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1573869618000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606673949729",
+        "url": "https://sf-item.taobao.com/sf_item/606673949729.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1573875404000,
         "status": "done",
         "is_processed": false
     }

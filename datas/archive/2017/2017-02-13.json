@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "544401820024",
-        "url": "https://sf-item.taobao.com/sf_item/544401820024.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1486951390000,
-        "status": "done",
-        "is_processed": false
+        "id": 544401820024,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 135040,
+        "交易时间": "2017/02/13 10:03:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544401820024.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "河南省 郑州市 新密市",
+        "所属小区": "电业局家属楼",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市老城区",
+        "建筑面积": 96.41,
+        "单价": 1400.76,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -394,11 +394,25 @@
         "detail_captured": true
     },
     {
-        "id": "589485342360",
-        "url": "https://sf-item.taobao.com/sf_item/589485342360.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
-        "end": 1555812922000,
-        "status": "done",
-        "is_processed": false
+        "id": 589485342360,
+        "市场评估价": 0,
+        "起拍价格": 446500,
+        "成交价格": 466500,
+        "交易时间": "2019/04/21 10:15:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/589485342360.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 21,
+        "地点": "内蒙古自治区 包头市 昆都仑区 包头市团结大街17号街坊南排小区-2-16号房屋",
+        "所属小区": "南排小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "昆都仑区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 589081988427,
@@ -422,18 +436,46 @@
         "detail_captured": true
     },
     {
-        "id": "590653568744",
-        "url": "https://sf-item.taobao.com/sf_item/590653568744.htm?track_id=729154e2-c3fe-4cc3-8d6c-6f797f011ba7",
-        "end": 1555812000000,
-        "status": "done",
-        "is_processed": false
+        "id": 590653568744,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 666000,
+        "交易时间": "2019/04/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/590653568744.htm?track_id=729154e2-c3fe-4cc3-8d6c-6f797f011ba7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省郑州市新密市城区长乐路北段西侧（万博豪苑）A座040001",
+        "所属小区": "万博豪苑",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市中心",
+        "建筑面积": 192.55,
+        "单价": 3459.36,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "589596007891",
-        "url": "https://sf-item.taobao.com/sf_item/589596007891.htm?track_id=909e3e03-2756-4d7b-84a1-406321c112b1",
-        "end": 1555815894000,
-        "status": "done",
-        "is_processed": false
+        "id": 589596007891,
+        "市场评估价": 1929500,
+        "起拍价格": 1389240,
+        "成交价格": 1560240,
+        "交易时间": "2019/04/21 11:04:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/589596007891.htm?track_id=909e3e03-2756-4d7b-84a1-406321c112b1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 56,
+        "地点": "河南省 郑州市 二七区 绿云小康住宅3号楼12层3号",
+        "所属小区": "绿云小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "淮河路商圈",
+        "建筑面积": 173.97,
+        "单价": 8968.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "589263696508",
@@ -446,6 +488,27 @@
         "id": "589618578058",
         "url": "https://sf-item.taobao.com/sf_item/589618578058.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1555812000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "589064924703",
+        "url": "https://sf-item.taobao.com/sf_item/589064924703.htm?track_id=06d50902-4cb5-47c9-aa0d-987464c3d93f",
+        "end": 1555812540000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "591190739729",
+        "url": "https://sf-item.taobao.com/sf_item/591190739729.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1555813904000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "589605622677",
+        "url": "https://sf-item.taobao.com/sf_item/589605622677.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1555812332000,
         "status": "done",
         "is_processed": false
     }

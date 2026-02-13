@@ -636,8 +636,50 @@
         "is_processed": false
     },
     {
-        "id": "593379939658",
-        "url": "https://sf-item.taobao.com/sf_item/593379939658.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
+        "id": 593379939658,
+        "市场评估价": 0,
+        "起拍价格": 1200000,
+        "成交价格": 1200000,
+        "交易时间": "2019/06/04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/593379939658.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 霸州市 天祥路隆泰小区A区5号楼2单元101室",
+        "所属小区": "隆泰小区",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": null,
+        "建筑面积": 150.99,
+        "单价": 7950.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "592825504014",
+        "url": "https://sf-item.taobao.com/sf_item/592825504014.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1559613605000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594627006379",
+        "url": "https://sf-item.taobao.com/sf_item/594627006379.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1559613600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592381108376",
+        "url": "https://sf-item.taobao.com/sf_item/592381108376.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1559618718000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592772452419",
+        "url": "https://sf-item.taobao.com/sf_item/592772452419.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
         "end": 1559613600000,
         "status": "done",
         "is_processed": false

@@ -338,11 +338,25 @@
         "detail_captured": true
     },
     {
-        "id": "561078572354",
-        "url": "https://sf-item.taobao.com/sf_item/561078572354.htm?track_id=6721f6dc-cbea-4576-a232-d30a97e97665",
-        "end": 1512871200000,
-        "status": "done",
-        "is_processed": false
+        "id": 561078572354,
+        "市场评估价": 207000,
+        "起拍价格": 145000,
+        "成交价格": 145000,
+        "交易时间": "2017/12/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561078572354.htm?track_id=6721f6dc-cbea-4576-a232-d30a97e97665",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省乐至县天池镇迎宾大道一巷42号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 561727304315,
@@ -366,9 +380,51 @@
         "detail_captured": true
     },
     {
-        "id": "561072392966",
-        "url": "https://sf-item.taobao.com/sf_item/561072392966.htm?track_id=688fbbc2-7eac-49ec-a186-0fa9752f3f7b",
-        "end": 1512874108000,
+        "id": 561072392966,
+        "市场评估价": null,
+        "起拍价格": 1390000,
+        "成交价格": 1708000,
+        "交易时间": "2017-12-10 10:48:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561072392966.htm?track_id=688fbbc2-7eac-49ec-a186-0fa9752f3f7b",
+        "是否成交": true,
+        "竞拍人数": 52,
+        "出价人数": null,
+        "地点": "江西省南昌市青云谱区青云谱路569号青云佳苑小区12栋2单元101室",
+        "所属小区": "青云佳苑",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "朝阳新城",
+        "建筑面积": 189.73,
+        "单价": 9000.25,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "561302575788",
+        "url": "https://sf-item.taobao.com/sf_item/561302575788.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1512873128000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561075188431",
+        "url": "https://sf-item.taobao.com/sf_item/561075188431.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1512871303000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561304771504",
+        "url": "https://sf-item.taobao.com/sf_item/561304771504.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1512871264000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561165981972",
+        "url": "https://sf-item.taobao.com/sf_item/561165981972.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1512872771000,
         "status": "done",
         "is_processed": false
     }

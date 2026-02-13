@@ -85,10 +85,24 @@
         "detail_captured": true
     },
     {
-        "id": "45066411997",
-        "url": "https://sf-item.taobao.com/sf_item/45066411997.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
-        "end": 1431655782000,
-        "status": "done",
-        "is_processed": false
+        "id": 45066411997,
+        "市场评估价": 0,
+        "起拍价格": 500000,
+        "成交价格": 552000,
+        "交易时间": "2015/05/15 10:09:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45066411997.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 27,
+        "地点": "浙江省嘉兴市海盐县武原街道城北东路81号501室",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 153.16,
+        "单价": 3603.55,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

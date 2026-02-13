@@ -148,24 +148,65 @@
         "detail_captured": true
     },
     {
-        "id": "912579673251",
-        "url": "https://sf-item.taobao.com/sf_item/912579673251.htm?track_id=600efb13-9e81-41c2-815c-34d0055eea21",
-        "end": 1747880599000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/912579673251.htm"
+        "id": 912579673251,
+        "市场评估价": 2501500,
+        "起拍价格": 1755000,
+        "成交价格": 2055000,
+        "交易时间": "2025/05/22 10:23:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/912579673251.htm?track_id=600efb13-9e81-41c2-815c-34d0055eea21",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 28,
+        "地点": "江苏省 苏州市 相城区 元和街道水漾花城花苑36幢801室",
+        "所属小区": "水漾花城",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "元和商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "896138233515",
-        "url": "https://sf-item.taobao.com/sf_item/896138233515.htm?track_id=c3263236-9027-4790-98db-026890358103",
-        "end": 1747879820000,
-        "status": "done",
-        "is_processed": false
+        "id": 896138233515,
+        "市场评估价": null,
+        "起拍价格": 88088,
+        "成交价格": 95088,
+        "交易时间": "2025-05-22 10:10:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/896138233515.htm?track_id=c3263236-9027-4790-98db-026890358103",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": null,
+        "地点": "内蒙古自治区 呼伦贝尔市 牙克石市 和谐园小区",
+        "所属小区": "和谐园小区",
+        "省份": "内蒙古自治区",
+        "城市": "呼伦贝尔市",
+        "区": "牙克石市",
+        "最靠近商圈": null,
+        "建筑面积": 19.4,
+        "单价": 4900.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "919077717934",
         "url": "https://sf-item.taobao.com/sf_item/919077717934.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
         "end": 1747882043000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "916559729836",
+        "url": "https://sf-item.taobao.com/sf_item/916559729836.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1747880135000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "916606932216",
+        "url": "https://sf-item.taobao.com/sf_item/916606932216.htm?track_id=d6b81b23-6b98-4054-93da-db45c73c9f79",
+        "end": 1747879499000,
         "status": "done",
         "is_processed": false
     }

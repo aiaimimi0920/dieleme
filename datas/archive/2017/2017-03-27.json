@@ -148,11 +148,25 @@
         "detail_captured": true
     },
     {
-        "id": "545587496916",
-        "url": "https://sf-item.taobao.com/sf_item/545587496916.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1490580294000,
-        "status": "done",
-        "is_processed": false
+        "id": 545587496916,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 409000,
+        "交易时间": "2017-03-27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545587496916.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 2,
+        "地点": "河南省 郑州市 新密市",
+        "所属小区": "未来城市花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 163.99,
+        "单价": 2494.8,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "546685135395",
@@ -162,10 +176,24 @@
         "is_processed": false
     },
     {
-        "id": "546416880237",
-        "url": "https://sf-item.taobao.com/sf_item/546416880237.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
-        "end": 1490580000000,
-        "status": "done",
-        "is_processed": false
+        "id": 546416880237,
+        "市场评估价": 302000,
+        "起拍价格": 241600,
+        "成交价格": 241600,
+        "交易时间": "2017-03-27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546416880237.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省郑州市二七区大学路80号9号楼2层9S2134号",
+        "所属小区": "康桥华城",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": 17.1,
+        "单价": 14128.65,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

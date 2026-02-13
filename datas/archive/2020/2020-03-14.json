@@ -126,9 +126,37 @@
         "detail_captured": true
     },
     {
-        "id": "612420398617",
-        "url": "https://sf-item.taobao.com/sf_item/612420398617.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
-        "end": 1584153482000,
+        "id": 612420398617,
+        "市场评估价": 0,
+        "起拍价格": 224000,
+        "成交价格": 258000,
+        "交易时间": "2020/03/14 10:38:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/612420398617.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 18,
+        "地点": "河南省 郑州市 二七区 二马路68号13层1312号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场",
+        "建筑面积": 45.18,
+        "单价": 5710.45,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "612566861021",
+        "url": "https://sf-item.taobao.com/sf_item/612566861021.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1584151354000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "610227476754",
+        "url": "https://sf-item.taobao.com/sf_item/610227476754.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1584162137000,
         "status": "done",
         "is_processed": false
     }

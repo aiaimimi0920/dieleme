@@ -590,16 +590,37 @@
         "detail_captured": true
     },
     {
-        "id": "855450954241",
-        "url": "https://sf-item.taobao.com/sf_item/855450954241.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
-        "end": 1735094558000,
-        "status": "done",
-        "is_processed": false
+        "id": 855450954241,
+        "市场评估价": 0,
+        "起拍价格": 368000,
+        "成交价格": 539000,
+        "交易时间": "2024/12/25 10:42:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/855450954241.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 58,
+        "地点": "福建省 泉州市 安溪县 城厢镇龙凤居委会龙凤社区452号太阳湾13幢1梯502室房产",
+        "所属小区": "太阳湾",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "仙苑",
+        "建筑面积": 94.64,
+        "单价": 5694.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "859502363840",
         "url": "https://sf-item.taobao.com/sf_item/859502363840.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
         "end": 1735093030000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "861265166491",
+        "url": "https://sf-item.taobao.com/sf_item/861265166491.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1735092000000,
         "status": "done",
         "is_processed": false
     }

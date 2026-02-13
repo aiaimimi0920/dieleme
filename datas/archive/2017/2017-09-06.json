@@ -242,7 +242,7 @@
         "竞拍人数": null,
         "出价人数": 42,
         "地点": "湖南省 湘潭市 雨湖区 湘潭市雨湖区昭潭乡迎宾东路158号附5号商业门面房产",
-        "所属小区": null,
+        "所属小区": "昭潭商业中心",
         "省份": "湖南省",
         "城市": "湘潭市",
         "区": "雨湖区",
@@ -250,7 +250,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 557129844926,
@@ -263,15 +264,16 @@
         "竞拍人数": 38,
         "出价人数": 38,
         "地点": "湖南省 湘潭市 雨湖区 湘潭市雨湖区昭潭乡迎宾东路158号附3号商业门面房产",
-        "所属小区": null,
+        "所属小区": "无法确定",
         "省份": "湖南省",
         "城市": "湘潭市",
         "区": "雨湖区",
-        "最靠近商圈": "昭潭商圈",
+        "最靠近商圈": "基建营商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 556617223158,
@@ -319,6 +321,27 @@
         "id": "556327636162",
         "url": "https://sf-item.taobao.com/sf_item/556327636162.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
         "end": 1504663200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556490849593",
+        "url": "https://sf-item.taobao.com/sf_item/556490849593.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1504666142000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556411804375",
+        "url": "https://sf-item.taobao.com/sf_item/556411804375.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1504664236000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556490877347",
+        "url": "https://sf-item.taobao.com/sf_item/556490877347.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1504667964000,
         "status": "done",
         "is_processed": false
     }

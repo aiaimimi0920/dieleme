@@ -133,11 +133,25 @@
         "is_processed": false
     },
     {
-        "id": "668579221845",
-        "url": "https://sf-item.taobao.com/sf_item/668579221845.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
-        "end": 1646532802000,
-        "status": "done",
-        "is_processed": false
+        "id": 668579221845,
+        "市场评估价": 0,
+        "起拍价格": 250000,
+        "成交价格": 260000,
+        "交易时间": "2022/03/06 10:13:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/668579221845.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 6,
+        "地点": "江西省 南昌市 青云谱区 南昌市青云谱区青云谱农场区华东国际博览城30号楼同惠路18号房产",
+        "所属小区": "华东国际博览城",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "华东国际博览城",
+        "建筑面积": 52.67,
+        "单价": 4936.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "669216779900",
@@ -164,6 +178,13 @@
         "id": "668864050344",
         "url": "https://sf-item.taobao.com/sf_item/668864050344.htm?track_id=38ff9499-8b6e-4751-ba19-1b5236d6f01f",
         "end": 1646532000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "668572745106",
+        "url": "https://sf-item.taobao.com/sf_item/668572745106.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1646537722000,
         "status": "done",
         "is_processed": false
     }

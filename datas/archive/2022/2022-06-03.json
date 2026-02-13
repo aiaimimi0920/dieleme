@@ -105,12 +105,25 @@
         "detail_captured": true
     },
     {
-        "id": "674320836414",
-        "url": "https://sf-item.taobao.com/sf_item/674320836414.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
-        "end": 1654221612000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/674320836414.htm"
+        "id": 674320836414,
+        "市场评估价": null,
+        "起拍价格": 350112,
+        "成交价格": 350112,
+        "交易时间": "2022-06-03 10:00:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/674320836414.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 淮安市 淮安区 三台阁巷50号",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 672847590938,
@@ -134,11 +147,31 @@
         "detail_captured": true
     },
     {
-        "id": "674096792963",
-        "url": "https://sf-item.taobao.com/sf_item/674096792963.htm?track_id=36c76a1f-1710-4bc6-80f1-8bfc73e32fb5",
-        "end": 1654222044000,
+        "id": 674096792963,
+        "市场评估价": 0,
+        "起拍价格": 1004800,
+        "成交价格": 1574800,
+        "交易时间": "2022/06/03 10:07:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/674096792963.htm?track_id=36c76a1f-1710-4bc6-80f1-8bfc73e32fb5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 49,
+        "地点": "江苏省 苏州市 虎丘区 嘉多利花园",
+        "所属小区": "嘉多利花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "虎丘区",
+        "最靠近商圈": "狮山商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "675015110282",
+        "url": "https://sf-item.taobao.com/sf_item/675015110282.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1654228039000,
         "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/674096792963.htm"
+        "is_processed": false
     }
 ]

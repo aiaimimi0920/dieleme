@@ -402,15 +402,16 @@
         "竞拍人数": 1,
         "出价人数": 1,
         "地点": "江西省 上饶市 弋阳县 漆工大道435号",
-        "所属小区": null,
+        "所属小区": "志敏华庭",
         "省份": "江西省",
         "城市": "上饶市",
         "区": "弋阳县",
-        "最靠近商圈": "弋阳县",
+        "最靠近商圈": "城北商圈",
         "建筑面积": 141.55,
-        "单价": 2940.69,
+        "单价": 2940.3,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 577231877594,
@@ -484,11 +485,25 @@
         "detail_captured": true
     },
     {
-        "id": "577340394232",
-        "url": "https://sf-item.taobao.com/sf_item/577340394232.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
-        "end": 1538186400000,
-        "status": "done",
-        "is_processed": false
+        "id": 577340394232,
+        "市场评估价": null,
+        "起拍价格": 450396,
+        "成交价格": 529396,
+        "交易时间": "2018/09/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/577340394232.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 26,
+        "地点": "内蒙古自治区 包头市 昆都仑区 包头市高新区劳动路高新花园6-47号房屋",
+        "所属小区": "高新花园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "高新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 576280449226,
@@ -540,18 +555,46 @@
         "is_processed": false
     },
     {
-        "id": "575952658362",
-        "url": "https://sf-item.taobao.com/sf_item/575952658362.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
-        "end": 1538192501000,
-        "status": "done",
-        "is_processed": false
+        "id": 575952658362,
+        "市场评估价": 0,
+        "起拍价格": 483100,
+        "成交价格": 665100,
+        "交易时间": "2018/09/29 11:41:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/575952658362.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": 10,
+        "出价人数": 10,
+        "地点": "广东省 阳江市 阳春市 春城拥军路30号漠阳商住楼A幢11号",
+        "所属小区": "漠阳商住楼",
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": "春城商圈",
+        "建筑面积": 90.18,
+        "单价": 7374.32,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "575188013377",
-        "url": "https://sf-item.taobao.com/sf_item/575188013377.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
-        "end": 1538187068000,
-        "status": "done",
-        "is_processed": false
+        "id": 575188013377,
+        "市场评估价": 727400,
+        "起拍价格": 581920,
+        "成交价格": 751920,
+        "交易时间": "2018/09/29 10:11:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/575188013377.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
+        "是否成交": true,
+        "竞拍人数": 34,
+        "出价人数": 33,
+        "地点": "福建省 泉州市 安溪县 凤城龙湖点38幢店5及夹层",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "龙湖商城",
+        "建筑面积": 40.86,
+        "单价": 18415.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "576231647866",
@@ -564,6 +607,34 @@
         "id": "576369602868",
         "url": "https://sf-item.taobao.com/sf_item/576369602868.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
         "end": 1538187804000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576441871334",
+        "url": "https://sf-item.taobao.com/sf_item/576441871334.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1538190800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576190141523",
+        "url": "https://sf-item.taobao.com/sf_item/576190141523.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1538193713000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577195869488",
+        "url": "https://sf-item.taobao.com/sf_item/577195869488.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1538188245000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577430183429",
+        "url": "https://sf-item.taobao.com/sf_item/577430183429.htm?track_id=98c1f1ff-3bb1-407f-830c-58bff771157b",
+        "end": 1538186400000,
         "status": "done",
         "is_processed": false
     }

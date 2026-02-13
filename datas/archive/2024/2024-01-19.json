@@ -695,11 +695,25 @@
         "detail_captured": true
     },
     {
-        "id": "759938382625",
-        "url": "https://sf-item.taobao.com/sf_item/759938382625.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
-        "end": 1705629600000,
-        "status": "done",
-        "is_processed": false
+        "id": 759938382625,
+        "市场评估价": 465030.92,
+        "起拍价格": 299000,
+        "成交价格": 299000,
+        "交易时间": "2024-01-19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/759938382625.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 泰美镇良田村委会石颈村板桥地段庆达时代广场3号商住楼B座16层04房",
+        "所属小区": "庆达时代广场",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "泰美商圈",
+        "建筑面积": 79.06,
+        "单价": 3782.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "759875476971",
@@ -726,6 +740,55 @@
         "id": "759929518903",
         "url": "https://sf-item.taobao.com/sf_item/759929518903.htm?track_id=d6e0451f-ec2c-4d96-88dc-d92bbcbf6515",
         "end": 1705639376000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "759990771606",
+        "url": "https://sf-item.taobao.com/sf_item/759990771606.htm?track_id=f013eb3a-d76b-4cb1-9f95-b142415f8da5",
+        "end": 1705629600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "757489512806",
+        "url": "https://sf-item.taobao.com/sf_item/757489512806.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1705641654000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "760017656552",
+        "url": "https://sf-item.taobao.com/sf_item/760017656552.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1705644385000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "756052351644",
+        "url": "https://sf-item.taobao.com/sf_item/756052351644.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1705630082000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "760001842683",
+        "url": "https://sf-item.taobao.com/sf_item/760001842683.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "end": 1705630097000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "760010942635",
+        "url": "https://sf-item.taobao.com/sf_item/760010942635.htm?track_id=23b41d43-a66d-4854-8110-feb7462db538",
+        "end": 1705629600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "759965258820",
+        "url": "https://sf-item.taobao.com/sf_item/759965258820.htm?track_id=ef50c735-a371-4834-af1b-815806338e54",
+        "end": 1705636461000,
         "status": "done",
         "is_processed": false
     }

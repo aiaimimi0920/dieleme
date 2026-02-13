@@ -401,11 +401,12 @@
         "省份": "湖南省",
         "城市": "邵阳市",
         "区": "新邵县",
-        "最靠近商圈": "酿溪镇",
+        "最靠近商圈": "酿溪镇商圈",
         "建筑面积": 640.55,
-        "单价": 1964.97,
+        "单价": 1964.89,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 582609572345,
@@ -660,18 +661,46 @@
         "detail_captured": true
     },
     {
-        "id": "583858102470",
-        "url": "https://sf-item.taobao.com/sf_item/583858102470.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1545964138000,
-        "status": "done",
-        "is_processed": false
+        "id": 583858102470,
+        "市场评估价": null,
+        "起拍价格": 945000,
+        "成交价格": 1205000,
+        "交易时间": "2018-12-28 10:28:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583858102470.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": 27,
+        "出价人数": null,
+        "地点": "江西省 南昌市 青云谱区 三店西路丝网塘5号象湖源B3栋1单元1401室",
+        "所属小区": "象湖源",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "象湖新城",
+        "建筑面积": 165.06,
+        "单价": 7300.25,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "583699397643",
-        "url": "https://sf-item.taobao.com/sf_item/583699397643.htm?track_id=ef5eeaad-a6e8-4cc8-9382-470fbeaf25b4",
-        "end": 1545965614000,
-        "status": "done",
-        "is_processed": false
+        "id": 583699397643,
+        "市场评估价": 990300,
+        "起拍价格": 554700,
+        "成交价格": 854700,
+        "交易时间": "2018-12-28 10:53:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583699397643.htm?track_id=ef5eeaad-a6e8-4cc8-9382-470fbeaf25b4",
+        "是否成交": true,
+        "竞拍人数": 81,
+        "出价人数": 101,
+        "地点": "江苏省无锡市锡山区东港花苑",
+        "所属小区": "东港花苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东港",
+        "建筑面积": 89.81,
+        "单价": 9509.15,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "583703697259",
@@ -681,25 +710,67 @@
         "is_processed": false
     },
     {
-        "id": "581829074617",
-        "url": "https://sf-item.taobao.com/sf_item/581829074617.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
-        "end": 1545986359000,
-        "status": "done",
-        "is_processed": false
+        "id": 581829074617,
+        "市场评估价": null,
+        "起拍价格": 227131,
+        "成交价格": 256131,
+        "交易时间": "2018/12/28 16:39:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581829074617.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": 28,
+        "地点": "江西省 鹰潭市 贵溪市 城南商贸广场A3栋36号商铺",
+        "所属小区": "城南商贸广场",
+        "省份": "江西省",
+        "城市": "鹰潭市",
+        "区": "贵溪市",
+        "最靠近商圈": "城南商贸广场",
+        "建筑面积": 53.86,
+        "单价": 4756.79,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "580312770659",
-        "url": "https://sf-item.taobao.com/sf_item/580312770659.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
-        "end": 1545968204000,
-        "status": "done",
-        "is_processed": false
+        "id": 580312770659,
+        "市场评估价": null,
+        "起拍价格": 1972200,
+        "成交价格": 1972200,
+        "交易时间": "2018/12/28 11:36:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/580312770659.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖北省 襄阳市 襄城区 胜利街半山逸品",
+        "所属小区": "半山逸品",
+        "省份": "湖北省",
+        "城市": "襄阳市",
+        "区": "襄城区",
+        "最靠近商圈": "胜利街",
+        "建筑面积": 163.98,
+        "单价": 12027.15,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "583096379616",
-        "url": "https://sf-item.taobao.com/sf_item/583096379616.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
-        "end": 1545967385000,
-        "status": "done",
-        "is_processed": false
+        "id": 583096379616,
+        "市场评估价": 0,
+        "起拍价格": 1400000,
+        "成交价格": 1535000,
+        "交易时间": "2018/12/28 11:23:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583096379616.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 28,
+        "地点": "河南省 郑州市 二七区 政通路亚新美好人家17号楼5单元4层西户",
+        "所属小区": "亚新美好人家",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 126.76,
+        "单价": 12107.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "582344040127",
@@ -747,6 +818,83 @@
         "id": "579411999190",
         "url": "https://sf-item.taobao.com/sf_item/579411999190.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1545981534000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584064091456",
+        "url": "https://sf-item.taobao.com/sf_item/584064091456.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1545962540000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583925962575",
+        "url": "https://sf-item.taobao.com/sf_item/583925962575.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1545963694000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583927394347",
+        "url": "https://sf-item.taobao.com/sf_item/583927394347.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1545966530000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583591268662",
+        "url": "https://sf-item.taobao.com/sf_item/583591268662.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1545963326000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583816669291",
+        "url": "https://sf-item.taobao.com/sf_item/583816669291.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1545964334000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582208874421",
+        "url": "https://sf-item.taobao.com/sf_item/582208874421.htm?track_id=5f9c48bc-c41a-40e6-a9da-79c3ecd64fa1",
+        "end": 1545962400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583930766329",
+        "url": "https://sf-item.taobao.com/sf_item/583930766329.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1545964411000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583593244752",
+        "url": "https://sf-item.taobao.com/sf_item/583593244752.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1545964753000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583059843650",
+        "url": "https://sf-item.taobao.com/sf_item/583059843650.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "end": 1545963383000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583088383073",
+        "url": "https://sf-item.taobao.com/sf_item/583088383073.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
+        "end": 1545991200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583072139813",
+        "url": "https://sf-item.taobao.com/sf_item/583072139813.htm?track_id=269f7c8e-7c43-472e-9c90-32f75befe4fb",
+        "end": 1545962400000,
         "status": "done",
         "is_processed": false
     }

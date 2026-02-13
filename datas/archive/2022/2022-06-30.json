@@ -273,12 +273,25 @@
         "detail_captured": true
     },
     {
-        "id": "676534345472",
-        "url": "https://sf-item.taobao.com/sf_item/676534345472.htm?track_id=f7b7f397-482e-4d64-a9e4-6e1e0e0afac1",
-        "end": 1656560449000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/676534345472.htm"
+        "id": 676534345472,
+        "市场评估价": null,
+        "起拍价格": 8415000,
+        "成交价格": 9360000,
+        "交易时间": "2022/06/30 11:40:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676534345472.htm?track_id=f7b7f397-482e-4d64-a9e4-6e1e0e0afac1",
+        "是否成交": true,
+        "竞拍人数": 152,
+        "出价人数": 80,
+        "地点": "北京市东城区建国门北大街5号19层2122号",
+        "所属小区": null,
+        "省份": "北京",
+        "城市": "北京",
+        "区": "东城区",
+        "最靠近商圈": "建国门商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 676538133045,
@@ -302,12 +315,25 @@
         "detail_captured": true
     },
     {
-        "id": "676822534086",
-        "url": "https://sf-item.taobao.com/sf_item/676822534086.htm?track_id=05096155-51c4-413a-ad96-a5cbb2c4bea5",
-        "end": 1656558031000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/676822534086.htm"
+        "id": 676822534086,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1915000,
+        "交易时间": "2022-06-30 11:00:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676822534086.htm?track_id=05096155-51c4-413a-ad96-a5cbb2c4bea5",
+        "是否成交": true,
+        "竞拍人数": 55,
+        "出价人数": 62,
+        "地点": "江苏省 苏州市 姑苏区 南浩花园6幢508室",
+        "所属小区": "南浩花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "石路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 674882860424,
@@ -338,16 +364,44 @@
         "is_processed": false
     },
     {
-        "id": "677191039579",
-        "url": "https://sf-item.taobao.com/sf_item/677191039579.htm?track_id=d6e0451f-ec2c-4d96-88dc-d92bbcbf6515",
-        "end": 1656562082000,
-        "status": "done",
-        "is_processed": false
+        "id": 677191039579,
+        "市场评估价": 23251200,
+        "起拍价格": 14880768,
+        "成交价格": 17510768,
+        "交易时间": "2022/06/30 12:08:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/677191039579.htm?track_id=d6e0451f-ec2c-4d96-88dc-d92bbcbf6515",
+        "是否成交": true,
+        "竞拍人数": 81,
+        "出价人数": 81,
+        "地点": "江苏省 无锡市 梁溪区 后西溪110，114，118，122，126，130五姓巷23，27，33",
+        "所属小区": "后西溪布料市场",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "后西溪商业区",
+        "建筑面积": 1748.36,
+        "单价": 10017.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "676427600409",
         "url": "https://sf-item.taobao.com/sf_item/676427600409.htm?track_id=b83e9521-b8c5-4682-9703-1e8745dd3e14",
         "end": 1656555901000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677182771791",
+        "url": "https://sf-item.taobao.com/sf_item/677182771791.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1656554634000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "675915831627",
+        "url": "https://sf-item.taobao.com/sf_item/675915831627.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1656556724000,
         "status": "done",
         "is_processed": false
     }

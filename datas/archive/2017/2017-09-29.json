@@ -417,11 +417,12 @@
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
-        "最靠近商圈": null,
+        "最靠近商圈": "彭城广场商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 557837711062,
@@ -529,18 +530,46 @@
         "detail_captured": true
     },
     {
-        "id": "558580663561",
-        "url": "https://sf-item.taobao.com/sf_item/558580663561.htm?track_id=4c8d4ce0-34a2-4526-ae5a-cddaf3a07478",
-        "end": 1506650400000,
-        "status": "done",
-        "is_processed": false
+        "id": 558580663561,
+        "市场评估价": 14356400,
+        "起拍价格": 8039584,
+        "成交价格": 8039584,
+        "交易时间": "2017/09/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558580663561.htm?track_id=4c8d4ce0-34a2-4526-ae5a-cddaf3a07478",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 九江市 彭泽县 龙城大道铭城尚品",
+        "所属小区": "铭城尚品",
+        "省份": "江西省",
+        "城市": "九江市",
+        "区": "彭泽县",
+        "最靠近商圈": "龙城大道",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "557447644824",
-        "url": "https://sf-item.taobao.com/sf_item/557447644824.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
-        "end": 1506656638000,
-        "status": "done",
-        "is_processed": false
+        "id": 557447644824,
+        "市场评估价": null,
+        "起拍价格": 3195180,
+        "成交价格": 4025180,
+        "交易时间": "2017/09/29 11:43:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557447644824.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 80,
+        "地点": "内蒙古自治区 包头市 昆都仑区 丽日花园",
+        "所属小区": "丽日花园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 557834199430,
@@ -564,16 +593,51 @@
         "detail_captured": true
     },
     {
-        "id": "557488551324",
-        "url": "https://sf-item.taobao.com/sf_item/557488551324.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
-        "end": 1506650400000,
-        "status": "done",
-        "is_processed": false
+        "id": 557488551324,
+        "市场评估价": 424298,
+        "起拍价格": 339438,
+        "成交价格": 339438,
+        "交易时间": "2017-09-29T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557488551324.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 新丰二队",
+        "所属小区": "富元小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市",
+        "建筑面积": 100.64,
+        "单价": 3372.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "557854939590",
         "url": "https://sf-item.taobao.com/sf_item/557854939590.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
         "end": 1506653778000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557876442224",
+        "url": "https://sf-item.taobao.com/sf_item/557876442224.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1506655063000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557647526500",
+        "url": "https://sf-item.taobao.com/sf_item/557647526500.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1506652924000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558578863378",
+        "url": "https://sf-item.taobao.com/sf_item/558578863378.htm?track_id=e060ffc2-3fe3-43ca-bf44-12c2e06c793c",
+        "end": 1506655002000,
         "status": "done",
         "is_processed": false
     }

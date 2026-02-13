@@ -353,11 +353,12 @@
         "省份": "山东省",
         "城市": "东营市",
         "区": "广饶县",
-        "最靠近商圈": null,
+        "最靠近商圈": "广饶县城中心商圈",
         "建筑面积": 324.6,
-        "单价": 10868.35,
+        "单价": 10857.67,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 563542181559,
@@ -416,16 +417,44 @@
         "is_processed": false
     },
     {
-        "id": "563404005168",
-        "url": "https://sf-item.taobao.com/sf_item/563404005168.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
-        "end": 1517711728000,
-        "status": "done",
-        "is_processed": false
+        "id": 563404005168,
+        "市场评估价": 1693213,
+        "起拍价格": 1219112.8,
+        "成交价格": 1411112.8,
+        "交易时间": "2018/02/04 10:35:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563404005168.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
+        "是否成交": true,
+        "竞拍人数": 59,
+        "出价人数": 53,
+        "地点": "河南省郑州市二七区陇海中路28号隆福国际3号楼1单元19层1902号房产",
+        "所属小区": "隆福国际",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "陇海路商圈",
+        "建筑面积": 91.53,
+        "单价": 15418.62,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "563316580106",
         "url": "https://sf-item.taobao.com/sf_item/563316580106.htm?track_id=d8f63a09-ef84-4561-bc48-ff20ead59d2a",
         "end": 1517708165000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564134768988",
+        "url": "https://sf-item.taobao.com/sf_item/564134768988.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1517709600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563489956177",
+        "url": "https://sf-item.taobao.com/sf_item/563489956177.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1517712513000,
         "status": "done",
         "is_processed": false
     }

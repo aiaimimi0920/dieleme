@@ -366,11 +366,25 @@
         "is_processed": false
     },
     {
-        "id": "623314140375",
-        "url": "https://sf-item.taobao.com/sf_item/623314140375.htm?track_id=47596332-5b2b-49b8-80de-9414247b807b",
-        "end": 1598407200000,
-        "status": "done",
-        "is_processed": false
+        "id": 623314140375,
+        "市场评估价": null,
+        "起拍价格": 22507425,
+        "成交价格": 22507425,
+        "交易时间": "2020/08/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/623314140375.htm?track_id=47596332-5b2b-49b8-80de-9414247b807b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 保定市 定兴县 朝阳路北迎宾路东侧",
+        "所属小区": null,
+        "省份": "河北省",
+        "城市": "保定市",
+        "区": "定兴县",
+        "最靠近商圈": "定兴县城区",
+        "建筑面积": 2925,
+        "单价": 7695.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "623978662152",
@@ -387,11 +401,25 @@
         "is_processed": false
     },
     {
-        "id": "623588325704",
-        "url": "https://sf-item.taobao.com/sf_item/623588325704.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1598408993000,
-        "status": "done",
-        "is_processed": false
+        "id": 623588325704,
+        "市场评估价": 25750000,
+        "起拍价格": 18025000,
+        "成交价格": 25225000,
+        "交易时间": "2020-08-26 10:29:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/623588325704.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": 72,
+        "出价人数": 72,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道水晶城水晶澜轩1幢1单元2701室",
+        "所属小区": "水晶城",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 160.58,
+        "单价": 157154.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "624191595557",
@@ -404,6 +432,13 @@
         "id": "623907850930",
         "url": "https://sf-item.taobao.com/sf_item/623907850930.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
         "end": 1598413526000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "622111856767",
+        "url": "https://sf-item.taobao.com/sf_item/622111856767.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1598409310000,
         "status": "done",
         "is_processed": false
     }

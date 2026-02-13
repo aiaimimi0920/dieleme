@@ -127,11 +127,25 @@
         "detail_captured": true
     },
     {
-        "id": "534749304717",
-        "url": "https://sf-item.taobao.com/sf_item/534749304717.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
-        "end": 1468635527000,
-        "status": "done",
-        "is_processed": false
+        "id": 534749304717,
+        "市场评估价": null,
+        "起拍价格": 6800000,
+        "成交价格": 9000000,
+        "交易时间": "2016-07-16 10:18:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534749304717.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县 西塘桥街道新城村",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": null,
+        "建筑面积": 6573.48,
+        "单价": 1369.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "534710153484",

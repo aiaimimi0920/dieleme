@@ -981,18 +981,46 @@
         "is_processed": false
     },
     {
-        "id": "923701928775",
-        "url": "https://sf-item.taobao.com/sf_item/923701928775.htm?track_id=2fdeb787-c803-4a90-b48c-145e27db4ba9",
-        "end": 1748570411000,
-        "status": "done",
-        "is_processed": false
+        "id": 923701928775,
+        "市场评估价": 267143,
+        "起拍价格": 170972,
+        "成交价格": 170972,
+        "交易时间": "2025/05/30 10:00:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/923701928775.htm?track_id=2fdeb787-c803-4a90-b48c-145e27db4ba9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 齐贤南街58号12-7-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 53.29,
+        "单价": 3208.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "922734658985",
-        "url": "https://sf-item.taobao.com/sf_item/922734658985.htm?track_id=9e33301f-30c6-457a-a6fc-ef33c49611ec",
-        "end": 1748571920000,
-        "status": "done",
-        "is_processed": false
+        "id": 922734658985,
+        "市场评估价": 0,
+        "起拍价格": 409760,
+        "成交价格": 557760,
+        "交易时间": "2025/05/30 10:25:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/922734658985.htm?track_id=9e33301f-30c6-457a-a6fc-ef33c49611ec",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 38,
+        "地点": "广东省 惠州市 博罗县 麻陂镇永丰村镇府后面锦泰滨河花园5座104、105、106商铺（已打通）",
+        "所属小区": "锦泰滨河花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "麻陂镇",
+        "建筑面积": 170.14,
+        "单价": 3279.14,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "922963785029",
@@ -1002,25 +1030,67 @@
         "is_processed": false
     },
     {
-        "id": "915573650455",
-        "url": "https://sf-item.taobao.com/sf_item/915573650455.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
-        "end": 1748570609000,
-        "status": "done",
-        "is_processed": false
+        "id": 915573650455,
+        "市场评估价": 668719,
+        "起拍价格": 468104,
+        "成交价格": 660104,
+        "交易时间": "2025-05-30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/915573650455.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
+        "是否成交": true,
+        "竞拍人数": 96,
+        "出价人数": 4,
+        "地点": "安徽省合肥市瑶海区胡岗路8号裕东景园10幢404室",
+        "所属小区": "裕东景园",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "龙岗商圈",
+        "建筑面积": 78.34,
+        "单价": 8426.17,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "917950273510",
-        "url": "https://sf-item.taobao.com/sf_item/917950273510.htm?track_id=8f606913-277a-4987-a73c-79e8b9623e98",
-        "end": 1748570639000,
-        "status": "done",
-        "is_processed": false
+        "id": 917950273510,
+        "市场评估价": 0,
+        "起拍价格": 328580.87,
+        "成交价格": 460580.87,
+        "交易时间": "2025/05/30 10:03:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/917950273510.htm?track_id=8f606913-277a-4987-a73c-79e8b9623e98",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 32,
+        "地点": "湖北省 黄冈市 红安县 城关镇勇毅路南勇毅馨苑小区6号楼2单元1602号房产",
+        "所属小区": "勇毅馨苑",
+        "省份": "湖北省",
+        "城市": "黄冈市",
+        "区": "红安县",
+        "最靠近商圈": "城关镇",
+        "建筑面积": 129.45,
+        "单价": 3558.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "916074222193",
-        "url": "https://sf-item.taobao.com/sf_item/916074222193.htm?track_id=a25eec90-12d0-4352-8462-de2de18a394a",
-        "end": 1748573202000,
-        "status": "done",
-        "is_processed": false
+        "id": 916074222193,
+        "市场评估价": null,
+        "起拍价格": 430000,
+        "成交价格": 556850,
+        "交易时间": "2025-05-30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/916074222193.htm?track_id=a25eec90-12d0-4352-8462-de2de18a394a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 51,
+        "地点": "广西壮族自治区贵港市桂平市西山镇新岗村福桂三千城D区11#-3-501号房",
+        "所属小区": "福桂三千城",
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "三千城",
+        "建筑面积": 113.24,
+        "单价": 4917.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "923765344848",
@@ -1037,16 +1107,93 @@
         "is_processed": false
     },
     {
-        "id": "917374574282",
-        "url": "https://sf-item.taobao.com/sf_item/917374574282.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
-        "end": 1748570400000,
-        "status": "done",
-        "is_processed": false
+        "id": 917374574282,
+        "市场评估价": 739380,
+        "起拍价格": 517600,
+        "成交价格": 517600,
+        "交易时间": "2025-05-30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/917374574282.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道华丰路1668号金洲阳光4幢2805室",
+        "所属小区": "金洲阳光",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道商圈",
+        "建筑面积": 91.57,
+        "单价": 5651.79,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "922747906407",
         "url": "https://sf-item.taobao.com/sf_item/922747906407.htm?track_id=69b81b86-a702-421f-a37e-34670abdf9a8",
         "end": 1748570400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "917161187275",
+        "url": "https://sf-item.taobao.com/sf_item/917161187275.htm?track_id=69e73da1-9844-4e22-80d5-44d18631979f",
+        "end": 1748570400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "922802286807",
+        "url": "https://sf-item.taobao.com/sf_item/922802286807.htm?track_id=7ec70b87-5ced-40d9-b4a5-cb74d5d60a97",
+        "end": 1748570400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "916017594062",
+        "url": "https://sf-item.taobao.com/sf_item/916017594062.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1748575292000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "916063322349",
+        "url": "https://sf-item.taobao.com/sf_item/916063322349.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1748570400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "918318872143",
+        "url": "https://sf-item.taobao.com/sf_item/918318872143.htm?track_id=9370e9c3-7a71-4d89-8eb3-257be301ecff",
+        "end": 1748571698000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "917053394801",
+        "url": "https://sf-item.taobao.com/sf_item/917053394801.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1748570400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "916107724410",
+        "url": "https://sf-item.taobao.com/sf_item/916107724410.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1748581877000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "917276471586",
+        "url": "https://sf-item.taobao.com/sf_item/917276471586.htm?track_id=ef50c735-a371-4834-af1b-815806338e54",
+        "end": 1748596706000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "923219145127",
+        "url": "https://sf-item.taobao.com/sf_item/923219145127.htm?track_id=018cd2d0-3b33-4452-90a3-52a886cb2abb",
+        "end": 1748570786000,
         "status": "done",
         "is_processed": false
     }

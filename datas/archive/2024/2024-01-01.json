@@ -105,11 +105,25 @@
         "detail_captured": true
     },
     {
-        "id": "756037235520",
-        "url": "https://sf-item.taobao.com/sf_item/756037235520.htm?track_id=f9d53f9a-35c4-4816-96c7-9774afd0b58c",
-        "end": 1704074400000,
-        "status": "done",
-        "is_processed": false
+        "id": 756037235520,
+        "市场评估价": 1015932,
+        "起拍价格": 1015932,
+        "成交价格": 1015932,
+        "交易时间": "2024-01-01T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/756037235520.htm?track_id=f9d53f9a-35c4-4816-96c7-9774afd0b58c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 钢铁大街80号凯旋豪庭10-1108号",
+        "所属小区": "凯旋豪庭",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "钢铁大街商圈",
+        "建筑面积": 96.32,
+        "单价": 10550.99,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 756025943651,
@@ -131,5 +145,19 @@
         "单价": 3363.86,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "752467327866",
+        "url": "https://sf-item.taobao.com/sf_item/752467327866.htm?track_id=23b41d43-a66d-4854-8110-feb7462db538",
+        "end": 1704074400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "752250184826",
+        "url": "https://sf-item.taobao.com/sf_item/752250184826.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
+        "end": 1704078504000,
+        "status": "done",
+        "is_processed": false
     }
 ]

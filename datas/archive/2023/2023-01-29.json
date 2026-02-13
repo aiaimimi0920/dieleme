@@ -1609,12 +1609,25 @@
         "detail_captured": true
     },
     {
-        "id": "695376365047",
-        "url": "https://sf-item.taobao.com/sf_item/695376365047.htm?track_id=2b7cafab-ad8b-43da-899c-d144c94318c5",
-        "end": 1674959868000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/695376365047.htm"
+        "id": 695376365047,
+        "市场评估价": 822749,
+        "起拍价格": 575925,
+        "成交价格": 831925,
+        "交易时间": "2023/01/29 10:37:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695376365047.htm?track_id=2b7cafab-ad8b-43da-899c-d144c94318c5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 60,
+        "地点": "江苏省 淮安市 淮安区 淮安市紫金花苑33号楼2单元203室",
+        "所属小区": "紫金花苑",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 695533516883,
@@ -1793,23 +1806,86 @@
         "detail_captured": true
     },
     {
-        "id": "696639894122",
-        "url": "https://sf-item.taobao.com/sf_item/696639894122.htm?track_id=4b5a9960-ce5b-4518-83a2-39c7f885432d",
-        "end": 1674960748000,
-        "status": "done",
-        "is_processed": false
+        "id": 696639894122,
+        "市场评估价": 0,
+        "起拍价格": 697169,
+        "成交价格": 872169,
+        "交易时间": "2023/01/29 10:52:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696639894122.htm?track_id=4b5a9960-ce5b-4518-83a2-39c7f885432d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "陕西省 西安市 未央区 朱宏路7号1幢10502室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "朱宏路",
+        "建筑面积": 113.93,
+        "单价": 7653.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "696175752348",
-        "url": "https://sf-item.taobao.com/sf_item/696175752348.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
-        "end": 1674964145000,
-        "status": "done",
-        "is_processed": false
+        "id": 696175752348,
+        "市场评估价": 1489331,
+        "起拍价格": 1139338,
+        "成交价格": 1391338,
+        "交易时间": "2023-01-29 11:49:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696175752348.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
+        "是否成交": true,
+        "竞拍人数": 113,
+        "出价人数": 97,
+        "地点": "安徽省合肥市瑶海区",
+        "所属小区": "元一名城",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "元一名城商圈",
+        "建筑面积": 111.19,
+        "单价": 12504.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "697352014529",
         "url": "https://sf-item.taobao.com/sf_item/697352014529.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1674957620000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697222483114",
+        "url": "https://sf-item.taobao.com/sf_item/697222483114.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
+        "end": 1674965037000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696416752561",
+        "url": "https://sf-item.taobao.com/sf_item/696416752561.htm?track_id=62ad0d53-1f42-4565-affc-8bd7d5720e56",
+        "end": 1674958685000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696433905080",
+        "url": "https://sf-item.taobao.com/sf_item/696433905080.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1674958287000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696432329388",
+        "url": "https://sf-item.taobao.com/sf_item/696432329388.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1674958365000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695748534294",
+        "url": "https://sf-item.taobao.com/sf_item/695748534294.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1674957736000,
         "status": "done",
         "is_processed": false
     }

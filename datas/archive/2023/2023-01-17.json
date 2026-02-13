@@ -821,12 +821,25 @@
         "detail_captured": true
     },
     {
-        "id": "696333210186",
-        "url": "https://sf-item.taobao.com/sf_item/696333210186.htm?track_id=99405413-c414-4fd1-b2d0-d88e84e4df58",
-        "end": 1673926134000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/696333210186.htm"
+        "id": 696333210186,
+        "市场评估价": null,
+        "起拍价格": 331005,
+        "成交价格": 406505,
+        "交易时间": "2023/01/17 11:28:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696333210186.htm?track_id=99405413-c414-4fd1-b2d0-d88e84e4df58",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 119,
+        "地点": "河南省 新乡市 卫滨区 人民西路235号新荷小区9号楼1单元1201室",
+        "所属小区": "新荷小区",
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 694538239475,
@@ -997,18 +1010,46 @@
         "detail_captured": true
     },
     {
-        "id": "695325162740",
-        "url": "https://sf-item.taobao.com/sf_item/695325162740.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
-        "end": 1673921717000,
-        "status": "done",
-        "is_processed": false
+        "id": 695325162740,
+        "市场评估价": 923482.67,
+        "起拍价格": 647000,
+        "成交价格": 743000,
+        "交易时间": "2023/01/17 10:15:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695325162740.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
+        "是否成交": true,
+        "竞拍人数": 17,
+        "出价人数": 17,
+        "地点": "广东省 惠州市 博罗县 园洲镇振兴大道南面汇景新城A栋1601号",
+        "所属小区": "汇景新城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "园洲镇中心",
+        "建筑面积": 122.89,
+        "单价": 6049.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "696537255937",
-        "url": "https://sf-item.taobao.com/sf_item/696537255937.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
-        "end": 1673920800000,
-        "status": "done",
-        "is_processed": false
+        "id": 696537255937,
+        "市场评估价": null,
+        "起拍价格": 1016624,
+        "成交价格": 1016624,
+        "交易时间": "2023-01-17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696537255937.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区 一马路1 号9 号楼16 层1607 号",
+        "所属小区": "世贸·大户中心",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": 162.74,
+        "单价": 6248.95,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "696223198071",
@@ -1028,6 +1069,48 @@
         "id": "695464835982",
         "url": "https://sf-item.taobao.com/sf_item/695464835982.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
         "end": 1673922316000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695904197249",
+        "url": "https://sf-item.taobao.com/sf_item/695904197249.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1673922309000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696295274609",
+        "url": "https://sf-item.taobao.com/sf_item/696295274609.htm?track_id=fccfa2e9-a97d-4bcf-8868-b601f64309ca",
+        "end": 1673920800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696356651008",
+        "url": "https://sf-item.taobao.com/sf_item/696356651008.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1673933533000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695446387076",
+        "url": "https://sf-item.taobao.com/sf_item/695446387076.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1673925257000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695183242021",
+        "url": "https://sf-item.taobao.com/sf_item/695183242021.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1673924400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "694673312398",
+        "url": "https://sf-item.taobao.com/sf_item/694673312398.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
+        "end": 1673922264000,
         "status": "done",
         "is_processed": false
     }

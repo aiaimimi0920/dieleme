@@ -252,11 +252,25 @@
         "detail_captured": true
     },
     {
-        "id": "708709624828",
-        "url": "https://sf-item.taobao.com/sf_item/708709624828.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
-        "end": 1682215200000,
-        "status": "done",
-        "is_processed": false
+        "id": 708709624828,
+        "市场评估价": 1003354.74,
+        "起拍价格": 802683.79,
+        "成交价格": 802683.79,
+        "交易时间": "2023-04-23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/708709624828.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 南京路金旭城上城2号楼12-4号住宅用房",
+        "所属小区": "金旭城上城",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "南京路商圈",
+        "建筑面积": 155.27,
+        "单价": 5168.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "701773649397",
@@ -266,9 +280,30 @@
         "is_processed": false
     },
     {
-        "id": "711472602244",
-        "url": "https://sf-item.taobao.com/sf_item/711472602244.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
-        "end": 1682216344000,
+        "id": 711472602244,
+        "市场评估价": 685698,
+        "起拍价格": 384000,
+        "成交价格": 462000,
+        "交易时间": "2023-04-23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/711472602244.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县 望海街道凤凰路286号凤凰花苑3幢702室",
+        "所属小区": "凤凰花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "望海街道",
+        "建筑面积": 87.91,
+        "单价": 5255.31,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "708801493576",
+        "url": "https://sf-item.taobao.com/sf_item/708801493576.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1682215419000,
         "status": "done",
         "is_processed": false
     }

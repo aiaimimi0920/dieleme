@@ -405,23 +405,79 @@
         "detail_captured": true
     },
     {
-        "id": "613812101246",
-        "url": "https://sf-item.taobao.com/sf_item/613812101246.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
-        "end": 1586324209000,
-        "status": "done",
-        "is_processed": false
+        "id": 613812101246,
+        "市场评估价": 520138,
+        "起拍价格": 291278,
+        "成交价格": 343278,
+        "交易时间": "2020/04/08 13:36:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/613812101246.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": 24,
+        "地点": "辽宁省 沈阳市 铁西区 沈辽路22甲3号1-7-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 84.84,
+        "单价": 4046.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "613061153807",
-        "url": "https://sf-item.taobao.com/sf_item/613061153807.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
-        "end": 1586312139000,
-        "status": "done",
-        "is_processed": false
+        "id": 613061153807,
+        "市场评估价": 1311500,
+        "起拍价格": 918050,
+        "成交价格": 1107050,
+        "交易时间": "2020/04/08 10:15:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/613061153807.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 22,
+        "地点": "广东省惠州市博罗县石湾镇永康大道龙湾新城E6栋401",
+        "所属小区": "龙湾新城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾镇",
+        "建筑面积": 172.7,
+        "单价": 6409.09,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "612947349960",
         "url": "https://sf-item.taobao.com/sf_item/612947349960.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1586311293000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613140303447",
+        "url": "https://sf-item.taobao.com/sf_item/613140303447.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1586315792000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613481632375",
+        "url": "https://sf-item.taobao.com/sf_item/613481632375.htm?track_id=8b419dc7-cda7-4057-8901-42ba60db8b13",
+        "end": 1586312772000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613119831099",
+        "url": "https://sf-item.taobao.com/sf_item/613119831099.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1586311200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613120964406",
+        "url": "https://sf-item.taobao.com/sf_item/613120964406.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "end": 1586311716000,
         "status": "done",
         "is_processed": false
     }

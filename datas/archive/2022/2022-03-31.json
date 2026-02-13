@@ -254,16 +254,37 @@
         "detail_captured": true
     },
     {
-        "id": "670119745960",
-        "url": "https://sf-item.taobao.com/sf_item/670119745960.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
-        "end": 1648692000000,
-        "status": "done",
-        "is_processed": false
+        "id": 670119745960,
+        "市场评估价": 9418400,
+        "起拍价格": 6027776,
+        "成交价格": 6027776,
+        "交易时间": "2022-03-31 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/670119745960.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 兴工北街73号",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "兴工北街商圈",
+        "建筑面积": 880.22,
+        "单价": 6849.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "668907132299",
         "url": "https://sf-item.taobao.com/sf_item/668907132299.htm?track_id=ed45c085-6979-434d-b5f5-48502876b866",
         "end": 1648694635000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "669208439440",
+        "url": "https://sf-item.taobao.com/sf_item/669208439440.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "end": 1648692000000,
         "status": "done",
         "is_processed": false
     }

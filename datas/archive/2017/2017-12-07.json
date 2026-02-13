@@ -1851,9 +1851,37 @@
         "detail_captured": true
     },
     {
-        "id": "561745162858",
-        "url": "https://sf-item.taobao.com/sf_item/561745162858.htm?track_id=4f440ecd-a246-4dcb-a3a6-c8deab71317f",
-        "end": 1512613383000,
+        "id": 561745162858,
+        "市场评估价": null,
+        "起拍价格": 520000,
+        "成交价格": 765000,
+        "交易时间": "2017/12/07 10:23:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561745162858.htm?track_id=4f440ecd-a246-4dcb-a3a6-c8deab71317f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省 云浮市 郁南县 郁南县都城镇新生东路13号D5",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": null,
+        "建筑面积": 356.85,
+        "单价": 2143.15,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "561697101446",
+        "url": "https://sf-item.taobao.com/sf_item/561697101446.htm?track_id=895fcaa5-fb8d-48ba-9e9d-667dedb92adf",
+        "end": 1512608400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560986319979",
+        "url": "https://sf-item.taobao.com/sf_item/560986319979.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1512612000000,
         "status": "done",
         "is_processed": false
     }

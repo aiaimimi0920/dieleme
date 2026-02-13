@@ -189,12 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "771961537868",
-        "url": "https://sf-item.taobao.com/sf_item/771961537868.htm?track_id=11bbf43e-41dc-4d54-8d08-808f708a5b12",
-        "end": 1716338442000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/771961537868.htm"
+        "id": 771961537868,
+        "市场评估价": 0,
+        "起拍价格": 396224,
+        "成交价格": 396224,
+        "交易时间": "2024/05/22 08:40:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/771961537868.htm?track_id=11bbf43e-41dc-4d54-8d08-808f708a5b12",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 香河县 交通胡同1号新成家园2号楼3单元0102室房屋",
+        "所属小区": "新成家园",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": "香河城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 771897290281,
@@ -228,6 +241,27 @@
         "id": "784413077787",
         "url": "https://sf-item.taobao.com/sf_item/784413077787.htm?track_id=59e63ae0-8744-458a-8d62-3648aa0e3c75",
         "end": 1716344465000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "790249692177",
+        "url": "https://sf-item.taobao.com/sf_item/790249692177.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1716343743000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "785860252494",
+        "url": "https://sf-item.taobao.com/sf_item/785860252494.htm?track_id=23b41d43-a66d-4854-8110-feb7462db538",
+        "end": 1716343200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "792845896096",
+        "url": "https://sf-item.taobao.com/sf_item/792845896096.htm?track_id=9dd7c5ea-7173-4af5-9ceb-987607532695",
+        "end": 1716344592000,
         "status": "done",
         "is_processed": false
     }

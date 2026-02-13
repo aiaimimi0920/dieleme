@@ -640,11 +640,25 @@
         "is_processed": false
     },
     {
-        "id": "543241783872",
-        "url": "https://sf-item.taobao.com/sf_item/543241783872.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
-        "end": 1483064298000,
-        "status": "done",
-        "is_processed": false
+        "id": 543241783872,
+        "市场评估价": null,
+        "起拍价格": 280000,
+        "成交价格": 374000,
+        "交易时间": "2016/12/30 10:18:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/543241783872.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市海盐县武原街道海丰西路211号新城海丰综合楼1-403、1-406室",
+        "所属小区": "新城海丰综合楼",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道商圈",
+        "建筑面积": 84.64,
+        "单价": 4418.62,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "543051610980",
@@ -654,11 +668,25 @@
         "is_processed": false
     },
     {
-        "id": "543485253108",
-        "url": "https://sf-item.taobao.com/sf_item/543485253108.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
-        "end": 1483065476000,
-        "status": "done",
-        "is_processed": false
+        "id": 543485253108,
+        "市场评估价": 565652,
+        "起拍价格": 565652,
+        "成交价格": 670652,
+        "交易时间": "2016/12/30 10:37:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/543485253108.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 22,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": "郑锻东苑",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "京广路",
+        "建筑面积": 55.9,
+        "单价": 11997.71,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "543279077994",
@@ -675,11 +703,25 @@
         "is_processed": false
     },
     {
-        "id": "543471841509",
-        "url": "https://sf-item.taobao.com/sf_item/543471841509.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
-        "end": 1483063200000,
-        "status": "done",
-        "is_processed": false
+        "id": 543471841509,
+        "市场评估价": 1740100,
+        "起拍价格": 1392080,
+        "成交价格": 1392080,
+        "交易时间": "2016/12/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/543471841509.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "河南省郑州市二七区长江中路128号21号楼东8单元114号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七万达",
+        "建筑面积": 144.69,
+        "单价": 9620.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "543187873816",
@@ -692,6 +734,41 @@
         "id": "543207811434",
         "url": "https://sf-item.taobao.com/sf_item/543207811434.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
         "end": 1483063200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "543247427953",
+        "url": "https://sf-item.taobao.com/sf_item/543247427953.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1483063677000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542928208101",
+        "url": "https://sf-item.taobao.com/sf_item/542928208101.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1483065333000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542917188519",
+        "url": "https://sf-item.taobao.com/sf_item/542917188519.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1483066841000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "543450475211",
+        "url": "https://sf-item.taobao.com/sf_item/543450475211.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1483066182000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "543198809026",
+        "url": "https://sf-item.taobao.com/sf_item/543198809026.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1483064081000,
         "status": "done",
         "is_processed": false
     }

@@ -341,23 +341,86 @@
         "detail_captured": true
     },
     {
-        "id": "579709730182",
-        "url": "https://sf-item.taobao.com/sf_item/579709730182.htm?track_id=110cae27-78c2-4291-8b1b-70244e446202",
-        "end": 1541816289000,
-        "status": "done",
-        "is_processed": false
+        "id": 579709730182,
+        "市场评估价": 0,
+        "起拍价格": 398965,
+        "成交价格": 460965,
+        "交易时间": "2018/11/10 10:18:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/579709730182.htm?track_id=110cae27-78c2-4291-8b1b-70244e446202",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 30,
+        "地点": "辽宁省 沈阳市 铁西区 铁西区富工一街19号2-5-2",
+        "所属小区": "富工小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 98,
+        "单价": 4703.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "579241767359",
-        "url": "https://sf-item.taobao.com/sf_item/579241767359.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
-        "end": 1541815200000,
-        "status": "done",
-        "is_processed": false
+        "id": 579241767359,
+        "市场评估价": null,
+        "起拍价格": 740360,
+        "成交价格": 740360,
+        "交易时间": "2018-11-10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/579241767359.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 南平市 顺昌县 顺昌县双溪龙山路3号龙山花园4幢7层703室",
+        "所属小区": "龙山花园",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪街道",
+        "建筑面积": 142.71,
+        "单价": 5189.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "578888948028",
         "url": "https://sf-item.taobao.com/sf_item/578888948028.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
         "end": 1541818854000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "580415849596",
+        "url": "https://sf-item.taobao.com/sf_item/580415849596.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1541815200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "580669579429",
+        "url": "https://sf-item.taobao.com/sf_item/580669579429.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1541815200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579150406514",
+        "url": "https://sf-item.taobao.com/sf_item/579150406514.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1541816423000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577079177016",
+        "url": "https://sf-item.taobao.com/sf_item/577079177016.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1541843936000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "580174948438",
+        "url": "https://sf-item.taobao.com/sf_item/580174948438.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1541817078000,
         "status": "done",
         "is_processed": false
     }

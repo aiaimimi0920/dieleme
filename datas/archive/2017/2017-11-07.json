@@ -278,9 +278,30 @@
         "detail_captured": true
     },
     {
-        "id": "557992796828",
-        "url": "https://sf-item.taobao.com/sf_item/557992796828.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
-        "end": 1510020000000,
+        "id": 557992796828,
+        "市场评估价": 650934,
+        "起拍价格": 416599,
+        "成交价格": 416599,
+        "交易时间": "2017/11/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557992796828.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "辽宁省 沈阳市 铁西区 肇工街188号2C01、2C15",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场商圈",
+        "建筑面积": 34.8,
+        "单价": 11971.24,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "560367186124",
+        "url": "https://sf-item.taobao.com/sf_item/560367186124.htm?track_id=1f756e4c-b012-46bd-9069-1a5d9bb4c457",
+        "end": 1510020980000,
         "status": "done",
         "is_processed": false
     }

@@ -864,12 +864,25 @@
         "detail_captured": true
     },
     {
-        "id": "892791302504",
-        "url": "https://sf-item.taobao.com/sf_item/892791302504.htm?track_id=8db6a2e9-d7fc-46d8-a408-dc0294f52795",
-        "end": 1743473395000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/892791302504.htm"
+        "id": 892791302504,
+        "市场评估价": null,
+        "起拍价格": 768270,
+        "成交价格": 788270,
+        "交易时间": "2025-04-01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/892791302504.htm?track_id=8db6a2e9-d7fc-46d8-a408-dc0294f52795",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 4,
+        "地点": "河北省廊坊市香河县五一路43号潮白晓月小区4号楼1单元0901室",
+        "所属小区": "潮白晓月",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 892850898508,
@@ -1001,6 +1014,34 @@
         "id": "892243903983",
         "url": "https://sf-item.taobao.com/sf_item/892243903983.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
         "end": 1743473427000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "893942688281",
+        "url": "https://sf-item.taobao.com/sf_item/893942688281.htm?track_id=7ec70b87-5ced-40d9-b4a5-cb74d5d60a97",
+        "end": 1743472800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "892966923141",
+        "url": "https://sf-item.taobao.com/sf_item/892966923141.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1743475641000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "892977211330",
+        "url": "https://sf-item.taobao.com/sf_item/892977211330.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1743473970000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "898070059563",
+        "url": "https://sf-item.taobao.com/sf_item/898070059563.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1743472940000,
         "status": "done",
         "is_processed": false
     }

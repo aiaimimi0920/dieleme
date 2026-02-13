@@ -715,11 +715,25 @@
         "detail_captured": true
     },
     {
-        "id": "622856202210",
-        "url": "https://sf-item.taobao.com/sf_item/622856202210.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
-        "end": 1597024800000,
-        "status": "done",
-        "is_processed": false
+        "id": 622856202210,
+        "市场评估价": 5284500,
+        "起拍价格": 3699150,
+        "成交价格": 3699150,
+        "交易时间": "2020/08/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622856202210.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 东街27号（现仲弘街20号附1号）",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "623195163988",
@@ -732,6 +746,34 @@
         "id": "623716541271",
         "url": "https://sf-item.taobao.com/sf_item/623716541271.htm?track_id=e9db07e5-7acb-4b43-9d9c-583daa52fdcf",
         "end": 1597024800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623974130925",
+        "url": "https://sf-item.taobao.com/sf_item/623974130925.htm?track_id=85d6e4c3-5841-4382-a02e-efc4156014e9",
+        "end": 1597024800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "622385254980",
+        "url": "https://sf-item.taobao.com/sf_item/622385254980.htm?track_id=fe65f6e2-fa8a-40a9-a6d0-1d1f199419f6",
+        "end": 1597024880000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "622334476884",
+        "url": "https://sf-item.taobao.com/sf_item/622334476884.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1597027563000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "622916286201",
+        "url": "https://sf-item.taobao.com/sf_item/622916286201.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1597027040000,
         "status": "done",
         "is_processed": false
     }

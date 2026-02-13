@@ -252,9 +252,30 @@
         "detail_captured": true
     },
     {
-        "id": "612887247933",
-        "url": "https://sf-item.taobao.com/sf_item/612887247933.htm?track_id=729154e2-c3fe-4cc3-8d6c-6f797f011ba7",
-        "end": 1585447200000,
+        "id": 612887247933,
+        "市场评估价": 567000,
+        "起拍价格": 567000,
+        "成交价格": 567000,
+        "交易时间": "2020-03-29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/612887247933.htm?track_id=729154e2-c3fe-4cc3-8d6c-6f797f011ba7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 溱水路中段北侧（香山雅居1号楼）西单元12层西户",
+        "所属小区": "香山雅居",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "溱水路商圈",
+        "建筑面积": 104.5,
+        "单价": 5431.26,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "612459380322",
+        "url": "https://sf-item.taobao.com/sf_item/612459380322.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1585450092000,
         "status": "done",
         "is_processed": false
     }

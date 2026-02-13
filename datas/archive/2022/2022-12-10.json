@@ -928,18 +928,46 @@
         "detail_captured": true
     },
     {
-        "id": "692179394031",
-        "url": "https://sf-item.taobao.com/sf_item/692179394031.htm?track_id=1c95698b-0cb1-4ce8-a244-6b6fc38fc0f1",
-        "end": 1670639597000,
-        "status": "done",
-        "is_processed": false
+        "id": 692179394031,
+        "市场评估价": null,
+        "起拍价格": 141330,
+        "成交价格": 160930,
+        "交易时间": "2022-12-10 10:33:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/692179394031.htm?track_id=1c95698b-0cb1-4ce8-a244-6b6fc38fc0f1",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": 15,
+        "地点": "四川省乐山市五通桥区金山镇生产街687号9幢2单元5层501号",
+        "所属小区": "金山",
+        "省份": "四川省",
+        "城市": "乐山市",
+        "区": "五通桥区",
+        "最靠近商圈": "金山镇",
+        "建筑面积": 110.26,
+        "单价": 1459.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "691966163602",
-        "url": "https://sf-item.taobao.com/sf_item/691966163602.htm?track_id=a7155322-1f8b-438d-b84c-02072d71caf5",
-        "end": 1670650075000,
-        "status": "done",
-        "is_processed": false
+        "id": 691966163602,
+        "市场评估价": 347821.0,
+        "起拍价格": 194779.76,
+        "成交价格": 194779.76,
+        "交易时间": "2022/12/10 13:27:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/691966163602.htm?track_id=a7155322-1f8b-438d-b84c-02072d71caf5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 长河胡同658D号",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市区",
+        "建筑面积": 102.21,
+        "单价": 1905.3,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "692378494207",
@@ -963,16 +991,121 @@
         "is_processed": false
     },
     {
-        "id": "692217786179",
-        "url": "https://sf-item.taobao.com/sf_item/692217786179.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
-        "end": 1670641893000,
+        "id": 692217786179,
+        "市场评估价": 675138,
+        "起拍价格": 473000,
+        "成交价格": 661400,
+        "交易时间": "2022-12-10 11:11:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/692217786179.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "是否成交": true,
+        "竞拍人数": 109,
+        "出价人数": 136,
+        "地点": "浙江省嘉兴市海盐县武原街道虹桥新村9幢302室",
+        "所属小区": "虹桥新村",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 71.14,
+        "单价": 9305.06,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 691618040855,
+        "市场评估价": 1011428,
+        "起拍价格": 708000,
+        "成交价格": 742000,
+        "交易时间": "2022/12/10 10:22:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/691618040855.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 31,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道谢家路945号金色江湾小区14幢802室",
+        "所属小区": "金色江湾小区",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 89.61,
+        "单价": 8280.25,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "691835469809",
+        "url": "https://sf-item.taobao.com/sf_item/691835469809.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1670637600000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "691618040855",
-        "url": "https://sf-item.taobao.com/sf_item/691618040855.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
-        "end": 1670638944000,
+        "id": "692230678884",
+        "url": "https://sf-item.taobao.com/sf_item/692230678884.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1670645431000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691624136724",
+        "url": "https://sf-item.taobao.com/sf_item/691624136724.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1670638649000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691637556339",
+        "url": "https://sf-item.taobao.com/sf_item/691637556339.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1670640168000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691623604032",
+        "url": "https://sf-item.taobao.com/sf_item/691623604032.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1670638610000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692228938681",
+        "url": "https://sf-item.taobao.com/sf_item/692228938681.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1670639878000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691632868590",
+        "url": "https://sf-item.taobao.com/sf_item/691632868590.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1670639682000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692495395481",
+        "url": "https://sf-item.taobao.com/sf_item/692495395481.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1670639075000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692497207741",
+        "url": "https://sf-item.taobao.com/sf_item/692497207741.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1670637600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692642071280",
+        "url": "https://sf-item.taobao.com/sf_item/692642071280.htm?track_id=330a34e0-5029-49b4-8c2b-4f67d5c5f99f",
+        "end": 1670639433000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692263630763",
+        "url": "https://sf-item.taobao.com/sf_item/692263630763.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
+        "end": 1670637600000,
         "status": "done",
         "is_processed": false
     }

@@ -324,9 +324,37 @@
         "is_processed": false
     },
     {
-        "id": "564262558903",
-        "url": "https://sf-item.taobao.com/sf_item/564262558903.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
-        "end": 1517624106000,
+        "id": 564262558903,
+        "市场评估价": null,
+        "起拍价格": 152500,
+        "成交价格": 164500,
+        "交易时间": "2018-02-03 10:15:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564262558903.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
+        "是否成交": true,
+        "竞拍人数": 6,
+        "出价人数": 9,
+        "地点": "广东省 云浮市 郁南县 都城镇白木城中路山根开发区第66幢1、2号2401房及夹层5号摩托车房",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城",
+        "建筑面积": 83.05,
+        "单价": 1980.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "564171681098",
+        "url": "https://sf-item.taobao.com/sf_item/564171681098.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1517624529000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564256665783",
+        "url": "https://sf-item.taobao.com/sf_item/564256665783.htm?track_id=2b2bafd9-1b69-4ea4-9afa-a1768fda15a0",
+        "end": 1517635336000,
         "status": "done",
         "is_processed": false
     }

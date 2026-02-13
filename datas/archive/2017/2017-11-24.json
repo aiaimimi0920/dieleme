@@ -511,11 +511,12 @@
         "省份": "湖南省",
         "城市": "湘潭市",
         "区": "雨湖区",
-        "最靠近商圈": null,
+        "最靠近商圈": "九华商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 561005180609,
@@ -612,6 +613,27 @@
         "id": "561170274947",
         "url": "https://sf-item.taobao.com/sf_item/561170274947.htm?track_id=b83e9521-b8c5-4682-9703-1e8745dd3e14",
         "end": 1511490764000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560339050441",
+        "url": "https://sf-item.taobao.com/sf_item/560339050441.htm?track_id=30d808e3-d96d-4c20-b7c0-2a2a14a6d2bf",
+        "end": 1511490672000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560405763876",
+        "url": "https://sf-item.taobao.com/sf_item/560405763876.htm?track_id=30d808e3-d96d-4c20-b7c0-2a2a14a6d2bf",
+        "end": 1511489029000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560810185149",
+        "url": "https://sf-item.taobao.com/sf_item/560810185149.htm?track_id=3b36e442-fd18-4c67-9caf-4ea62c7a61cd",
+        "end": 1511489056000,
         "status": "done",
         "is_processed": false
     }

@@ -189,12 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "737061440825",
-        "url": "https://sf-item.taobao.com/sf_item/737061440825.htm?track_id=87695415-cecf-457b-add8-a6cf9bc25c90",
-        "end": 1696557600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/737061440825.htm"
+        "id": 737061440825,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 815680,
+        "交易时间": "2023-10-06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/737061440825.htm?track_id=87695415-cecf-457b-add8-a6cf9bc25c90",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河南省 信阳市 息县 东大街五一村二里庄宣传部家属院",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "息县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 739801565181,
@@ -237,5 +250,40 @@
         "单价": 2339.65,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "739889423670",
+        "url": "https://sf-item.taobao.com/sf_item/739889423670.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1696564167000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "739490472572",
+        "url": "https://sf-item.taobao.com/sf_item/739490472572.htm?track_id=7910db3a-160d-47d2-a0b9-9ea879422ee1",
+        "end": 1696560904000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "739765102062",
+        "url": "https://sf-item.taobao.com/sf_item/739765102062.htm?track_id=5d2028cd-85b5-4657-a6d6-1ff52559d487",
+        "end": 1696561251000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "739747793580",
+        "url": "https://sf-item.taobao.com/sf_item/739747793580.htm?track_id=23b41d43-a66d-4854-8110-feb7462db538",
+        "end": 1696557600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "739622485442",
+        "url": "https://sf-item.taobao.com/sf_item/739622485442.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1696561281000,
+        "status": "done",
+        "is_processed": false
     }
 ]

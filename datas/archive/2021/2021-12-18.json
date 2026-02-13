@@ -232,12 +232,25 @@
         "detail_captured": true
     },
     {
-        "id": "662084397139",
-        "url": "https://sf-item.taobao.com/sf_item/662084397139.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
-        "end": 1639792800000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/662084397139.htm"
+        "id": 662084397139,
+        "市场评估价": null,
+        "起拍价格": 526568,
+        "成交价格": 526568,
+        "交易时间": "2021/12/18 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/662084397139.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省 淮安市 淮安区 淮安区华亭路11号弘瑞冠邸4号楼302室",
+        "所属小区": "弘瑞冠邸",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 661646944502,
@@ -345,22 +358,71 @@
         "detail_captured": true
     },
     {
-        "id": "661583042538",
-        "url": "https://sf-item.taobao.com/sf_item/661583042538.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
-        "end": 1639820559000,
-        "status": "done",
-        "is_processed": false
+        "id": 661583042538,
+        "市场评估价": null,
+        "起拍价格": 320000,
+        "成交价格": 320000,
+        "交易时间": "2021/12/18 17:42:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/661583042538.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省廊坊市霸州市开发区温泉新都孔雀城·柏园一期0301#2单元1303室",
+        "所属小区": "温泉新都孔雀城·柏园一期",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "开发区",
+        "建筑面积": 72.92,
+        "单价": 4387.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "660513641133",
-        "url": "https://sf-item.taobao.com/sf_item/660513641133.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
-        "end": 1639793056000,
-        "status": "done",
-        "is_processed": false
+        "id": 660513641133,
+        "市场评估价": 607800,
+        "起拍价格": 341000,
+        "成交价格": 458000,
+        "交易时间": "2021/12/18 10:04:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/660513641133.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 35,
+        "地点": "广东省惠州市博罗县泰美镇新星村油新组小罗路东边地段泰美花园1号楼8层03房",
+        "所属小区": "泰美花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "泰美镇",
+        "建筑面积": 120.67,
+        "单价": 3795.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "661666880679",
         "url": "https://sf-item.taobao.com/sf_item/661666880679.htm?track_id=cb1e7b48-b17d-4d57-9242-154429765f25",
+        "end": 1639792800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "662452110519",
+        "url": "https://sf-item.taobao.com/sf_item/662452110519.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
+        "end": 1639793601000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "662451846984",
+        "url": "https://sf-item.taobao.com/sf_item/662451846984.htm?track_id=f8fcb460-293d-4823-a6b8-e6d33c641f75",
+        "end": 1639794731000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "662447534940",
+        "url": "https://sf-item.taobao.com/sf_item/662447534940.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
         "end": 1639792800000,
         "status": "done",
         "is_processed": false

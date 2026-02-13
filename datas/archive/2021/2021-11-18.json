@@ -421,12 +421,25 @@
         "detail_captured": true
     },
     {
-        "id": "659959871939",
-        "url": "https://sf-item.taobao.com/sf_item/659959871939.htm?track_id=0c1bce73-f071-4021-ba7c-60e178ae41e9",
-        "end": 1637202748000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/659959871939.htm"
+        "id": 659959871939,
+        "市场评估价": null,
+        "起拍价格": 211033.2,
+        "成交价格": 268033.2,
+        "交易时间": "2021-11-18 10:32:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/659959871939.htm?track_id=0c1bce73-f071-4021-ba7c-60e178ae41e9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省荣成市凤凰小区",
+        "所属小区": "凤凰小区",
+        "省份": "山东省",
+        "城市": "威海市",
+        "区": "荣成市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 659951215700,
@@ -450,20 +463,46 @@
         "detail_captured": true
     },
     {
-        "id": "658911387463",
-        "url": "https://sf-item.taobao.com/sf_item/658911387463.htm?track_id=a47cc26b-fb23-41c9-9221-470af2883939",
-        "end": 1637222283000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/658911387463.htm"
+        "id": 658911387463,
+        "市场评估价": null,
+        "起拍价格": 752523.14,
+        "成交价格": 752523.14,
+        "交易时间": "2021/11/18 15:58:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/658911387463.htm?track_id=a47cc26b-fb23-41c9-9221-470af2883939",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省淮安市淮安区江苏省淮安市经济技术开发区迎宾大道1号21幢21-52室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "迎宾大道商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "658373391220",
-        "url": "https://sf-item.taobao.com/sf_item/658373391220.htm?track_id=f69c765d-fc25-4022-9320-eff31581ed33",
-        "end": 1637201045000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/658373391220.htm"
+        "id": 658373391220,
+        "市场评估价": 1482755,
+        "起拍价格": 1260342,
+        "成交价格": 1260342,
+        "交易时间": "2021/11/18 10:04:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/658373391220.htm?track_id=f69c765d-fc25-4022-9320-eff31581ed33",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 呼和浩特市 回民区 海西路小府街蒙工商住楼",
+        "所属小区": "蒙工商住楼",
+        "省份": "内蒙古自治区",
+        "城市": "呼和浩特市",
+        "区": "回民区",
+        "最靠近商圈": "海西路",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 658535932255,
@@ -515,23 +554,114 @@
         "is_processed": false
     },
     {
-        "id": "657581833351",
-        "url": "https://sf-item.taobao.com/sf_item/657581833351.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
-        "end": 1637205110000,
-        "status": "done",
-        "is_processed": false
+        "id": 657581833351,
+        "市场评估价": 903200,
+        "起拍价格": 903200,
+        "成交价格": 1668200,
+        "交易时间": "2021/11/18 11:11:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657581833351.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 137,
+        "地点": "安徽省 合肥市 瑶海区 临泉东路277号合肥瑶海万达广场3幢住宅及1幢商铺1201",
+        "所属小区": "合肥瑶海万达广场",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "瑶海万达商圈",
+        "建筑面积": 99.19,
+        "单价": 16820.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "659222557960",
-        "url": "https://sf-item.taobao.com/sf_item/659222557960.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
-        "end": 1637204159000,
-        "status": "done",
-        "is_processed": false
+        "id": 659222557960,
+        "市场评估价": 2602500,
+        "起拍价格": 1700000,
+        "成交价格": 2195000,
+        "交易时间": "2021/11/18 10:55:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/659222557960.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 52,
+        "地点": "浙江省 杭州市 滨江区 西兴街道西兴路2333号星澜大厦2幢610室",
+        "所属小区": "星澜大厦",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "西兴",
+        "建筑面积": 57.04,
+        "单价": 38473.96,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "656827447041",
         "url": "https://sf-item.taobao.com/sf_item/656827447041.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
         "end": 1637223273000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659947275513",
+        "url": "https://sf-item.taobao.com/sf_item/659947275513.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1637200800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659188041058",
+        "url": "https://sf-item.taobao.com/sf_item/659188041058.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1637200800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659947451651",
+        "url": "https://sf-item.taobao.com/sf_item/659947451651.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1637201678000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659559622094",
+        "url": "https://sf-item.taobao.com/sf_item/659559622094.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1637202939000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659190297738",
+        "url": "https://sf-item.taobao.com/sf_item/659190297738.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1637200800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657185615683",
+        "url": "https://sf-item.taobao.com/sf_item/657185615683.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1637205709000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657766890340",
+        "url": "https://sf-item.taobao.com/sf_item/657766890340.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1637203419000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "658158707777",
+        "url": "https://sf-item.taobao.com/sf_item/658158707777.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1637201976000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657185703516",
+        "url": "https://sf-item.taobao.com/sf_item/657185703516.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1637201559000,
         "status": "done",
         "is_processed": false
     }

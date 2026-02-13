@@ -64,9 +64,30 @@
         "manual_checked": true
     },
     {
-        "id": "537121369163",
-        "url": "https://sf-item.taobao.com/sf_item/537121369163.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
-        "end": 1472608800000,
+        "id": 537121369163,
+        "市场评估价": null,
+        "起拍价格": 407880,
+        "成交价格": 417880,
+        "交易时间": "2016-08-31 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537121369163.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "福建省 南平市 顺昌县",
+        "所属小区": "瑞城.蝶景湾",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "顺昌县",
+        "建筑面积": 110.99,
+        "单价": 3763.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "536878247398",
+        "url": "https://sf-item.taobao.com/sf_item/536878247398.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1472617217000,
         "status": "done",
         "is_processed": false
     }

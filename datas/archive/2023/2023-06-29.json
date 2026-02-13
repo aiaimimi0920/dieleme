@@ -569,19 +569,46 @@
         "detail_captured": true
     },
     {
-        "id": "724312447313",
-        "url": "https://sf-item.taobao.com/sf_item/724312447313.htm?track_id=5b515210-6097-45da-a49d-3fca861acf29",
-        "end": 1688004000000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/724312447313.htm"
+        "id": 724312447313,
+        "市场评估价": 768100,
+        "起拍价格": 522308,
+        "成交价格": 522308,
+        "交易时间": "2023/06/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/724312447313.htm?track_id=5b515210-6097-45da-a49d-3fca861acf29",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省菏泽市单县翰林府邸10#1-204",
+        "所属小区": "翰林府邸",
+        "省份": "山东省",
+        "城市": "菏泽市",
+        "区": "单县",
+        "最靠近商圈": "单县县城中心商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "724002902745",
-        "url": "https://sf-item.taobao.com/sf_item/724002902745.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
-        "end": 1688004731000,
-        "status": "done",
-        "is_processed": false
+        "id": 724002902745,
+        "市场评估价": 1273500,
+        "起拍价格": 855792,
+        "成交价格": 959792,
+        "交易时间": "2023-06-29 10:12:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/724002902745.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 14,
+        "地点": "辽宁省 沈阳市 铁西区 北一东路51-3号2门",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 92.53,
+        "单价": 10380.4,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "720569093071",
@@ -594,6 +621,13 @@
         "id": "723872697117",
         "url": "https://sf-item.taobao.com/sf_item/723872697117.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
         "end": 1688004827000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "724031750485",
+        "url": "https://sf-item.taobao.com/sf_item/724031750485.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1688007600000,
         "status": "done",
         "is_processed": false
     }

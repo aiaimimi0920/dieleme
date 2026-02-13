@@ -231,23 +231,65 @@
         "detail_captured": true
     },
     {
-        "id": "793844740421",
-        "url": "https://sf-item.taobao.com/sf_item/793844740421.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
-        "end": 1716602400000,
-        "status": "done",
-        "is_processed": false
+        "id": 793844740421,
+        "市场评估价": 131797,
+        "起拍价格": 73806.32,
+        "成交价格": 73806.32,
+        "交易时间": "2024/05/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/793844740421.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "吉林市船营区今日家园小区4号楼36号车库",
+        "所属小区": "今日家园",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "船营区商圈",
+        "建筑面积": 21.72,
+        "单价": 3397.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "785398963005",
-        "url": "https://sf-item.taobao.com/sf_item/785398963005.htm?track_id=62107ca1-60ab-4628-8507-532fdea80d74",
-        "end": 1716602652000,
-        "status": "done",
-        "is_processed": false
+        "id": 785398963005,
+        "市场评估价": null,
+        "起拍价格": 627550,
+        "成交价格": 627550,
+        "交易时间": "2024/05/25 10:04:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/785398963005.htm?track_id=62107ca1-60ab-4628-8507-532fdea80d74",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "山东省 淄博市 博山区 白虎山路45号乙5号",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "793490282869",
         "url": "https://sf-item.taobao.com/sf_item/793490282869.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1716602400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "793790547987",
+        "url": "https://sf-item.taobao.com/sf_item/793790547987.htm?track_id=2aae7a99-698e-4407-8145-803f91390659",
+        "end": 1716603407000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "794050951791",
+        "url": "https://sf-item.taobao.com/sf_item/794050951791.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1716603739000,
         "status": "done",
         "is_processed": false
     }

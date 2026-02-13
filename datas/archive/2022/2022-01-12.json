@@ -441,16 +441,43 @@
         "detail_captured": true
     },
     {
-        "id": "665854331252",
-        "url": "https://sf-item.taobao.com/sf_item/665854331252.htm?track_id=dd630e1c-c081-464c-8ce5-099b378b8e2f",
-        "end": 1641954109000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/665854331252.htm"
+        "id": 665854331252,
+        "市场评估价": 1075971.2,
+        "起拍价格": 602543.87,
+        "成交价格": 712543.87,
+        "交易时间": "2022/01/12 10:21:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/665854331252.htm?track_id=dd630e1c-c081-464c-8ce5-099b378b8e2f",
+        "是否成交": true,
+        "竞拍人数": 20,
+        "出价人数": 14,
+        "地点": "河北省廊坊市香河县绣水街南汇展路东侧京汉君庭小区14号楼1单元103室",
+        "所属小区": "京汉君庭",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "665416241155",
         "url": "https://sf-item.taobao.com/sf_item/665416241155.htm?track_id=a0234ec9-cc55-4428-869e-0613b6c1445c",
+        "end": 1641952800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665884767236",
+        "url": "https://sf-item.taobao.com/sf_item/665884767236.htm?track_id=f013eb3a-d76b-4cb1-9f95-b142415f8da5",
+        "end": 1641949231000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663207386982",
+        "url": "https://sf-item.taobao.com/sf_item/663207386982.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
         "end": 1641952800000,
         "status": "done",
         "is_processed": false

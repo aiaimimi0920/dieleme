@@ -106,16 +106,72 @@
         "detail_captured": true
     },
     {
-        "id": "520442134257",
-        "url": "https://sf-item.taobao.com/sf_item/520442134257.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
-        "end": 1437446222000,
-        "status": "done",
-        "is_processed": false
+        "id": 520442134257,
+        "市场评估价": null,
+        "起拍价格": 715000,
+        "成交价格": 901000,
+        "交易时间": "2015-07-21 10:37:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520442134257.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "是否成交": true,
+        "竞拍人数": 36,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": "尚景蓝湾",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": null,
+        "建筑面积": 233.88,
+        "单价": 3849.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "520431691115",
         "url": "https://sf-item.taobao.com/sf_item/520431691115.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
         "end": 1437444000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520441432416",
+        "url": "https://sf-item.taobao.com/sf_item/520441432416.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1437444997000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520440704863",
+        "url": "https://sf-item.taobao.com/sf_item/520440704863.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1437445277000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520437321115",
+        "url": "https://sf-item.taobao.com/sf_item/520437321115.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1437444000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520440960818",
+        "url": "https://sf-item.taobao.com/sf_item/520440960818.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1437444828000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520439306500",
+        "url": "https://sf-item.taobao.com/sf_item/520439306500.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1437444570000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520436223978",
+        "url": "https://sf-item.taobao.com/sf_item/520436223978.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1437444272000,
         "status": "done",
         "is_processed": false
     }

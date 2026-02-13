@@ -379,18 +379,46 @@
         "detail_captured": true
     },
     {
-        "id": "603254154999",
-        "url": "https://sf-item.taobao.com/sf_item/603254154999.htm?track_id=1d5d14b5-0c47-438b-96cc-fae3462ab3fc",
-        "end": 1570461554000,
-        "status": "done",
-        "is_processed": false
+        "id": 603254154999,
+        "市场评估价": null,
+        "起拍价格": 468000,
+        "成交价格": 468000,
+        "交易时间": "2019/10/07 23:19:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/603254154999.htm?track_id=1d5d14b5-0c47-438b-96cc-fae3462ab3fc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "浙江省嘉兴市海盐县武原街道联翔路883号润家商贸广场3幢311室",
+        "所属小区": "润家商贸广场",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原",
+        "建筑面积": 114.36,
+        "单价": 4092.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "602217150370",
-        "url": "https://sf-item.taobao.com/sf_item/602217150370.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
-        "end": 1570416541000,
-        "status": "done",
-        "is_processed": false
+        "id": 602217150370,
+        "市场评估价": null,
+        "起拍价格": 1400000,
+        "成交价格": 1832000,
+        "交易时间": "2019/10/07 10:49:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/602217150370.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
+        "是否成交": true,
+        "竞拍人数": 118,
+        "出价人数": 127,
+        "地点": "河南省 郑州市 二七区 位于郑州市二七区郑密路126号9号楼2单元15层1508号房产",
+        "所属小区": "郑密路126号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 143.51,
+        "单价": 12758.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "601810416996",
@@ -417,6 +445,13 @@
         "id": "603210590530",
         "url": "https://sf-item.taobao.com/sf_item/603210590530.htm?track_id=0739f089-7ac6-489d-ad38-282796f4890c",
         "end": 1570413600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602166909501",
+        "url": "https://sf-item.taobao.com/sf_item/602166909501.htm?track_id=5f9c48bc-c41a-40e6-a9da-79c3ecd64fa1",
+        "end": 1570413899000,
         "status": "done",
         "is_processed": false
     }

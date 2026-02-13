@@ -105,12 +105,25 @@
         "detail_captured": true
     },
     {
-        "id": "696277238960",
-        "url": "https://sf-item.taobao.com/sf_item/696277238960.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
-        "end": 1674382530000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/696277238960.htm"
+        "id": 696277238960,
+        "市场评估价": 854027,
+        "起拍价格": 267822.96,
+        "成交价格": 267822.96,
+        "交易时间": "2023-01-22 18:15:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696277238960.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省张家口市怀来县金秋家园二期12-3-501",
+        "所属小区": "金秋家园二期",
+        "省份": "河北省",
+        "城市": "张家口市",
+        "区": "怀来县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 696680034169,
@@ -134,23 +147,86 @@
         "detail_captured": true
     },
     {
-        "id": "696092412248",
-        "url": "https://sf-item.taobao.com/sf_item/696092412248.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
-        "end": 1674353548000,
-        "status": "done",
-        "is_processed": false
+        "id": 696092412248,
+        "市场评估价": 578040,
+        "起拍价格": 380000,
+        "成交价格": 435000,
+        "交易时间": "2023-01-22T10:12:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696092412248.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": 40,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 都匀市沿江路1号剑江半岛2栋2单元12层5号",
+        "所属小区": "剑江半岛",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "剑江半岛",
+        "建筑面积": 116,
+        "单价": 3750,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "696076680390",
-        "url": "https://sf-item.taobao.com/sf_item/696076680390.htm?track_id=d5f892bf-8cd0-4b5f-b29c-66f68324d079",
-        "end": 1674353005000,
-        "status": "done",
-        "is_processed": false
+        "id": 696076680390,
+        "市场评估价": 885200,
+        "起拍价格": 566528,
+        "成交价格": 582528,
+        "交易时间": "2023-01-22 10:03:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696076680390.htm?track_id=d5f892bf-8cd0-4b5f-b29c-66f68324d079",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 9,
+        "地点": "辽宁省 沈阳市 铁西区 洪湖二街1-3号2-2-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 96.04,
+        "单价": 6063.85,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "695443409015",
         "url": "https://sf-item.taobao.com/sf_item/695443409015.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
         "end": 1674353578000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696895755430",
+        "url": "https://sf-item.taobao.com/sf_item/696895755430.htm?track_id=06d50902-4cb5-47c9-aa0d-987464c3d93f",
+        "end": 1674353398000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696673074790",
+        "url": "https://sf-item.taobao.com/sf_item/696673074790.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1674355238000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696110088322",
+        "url": "https://sf-item.taobao.com/sf_item/696110088322.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1674352800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696672998730",
+        "url": "https://sf-item.taobao.com/sf_item/696672998730.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1674352800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696923723566",
+        "url": "https://sf-item.taobao.com/sf_item/696923723566.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1674355725000,
         "status": "done",
         "is_processed": false
     }

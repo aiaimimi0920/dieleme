@@ -63,9 +63,37 @@
         "detail_captured": true
     },
     {
-        "id": "521818896538",
-        "url": "https://sf-item.taobao.com/sf_item/521818896538.htm?track_id=0d8e7746-cfb4-4d5f-b22b-7d43d8847bd0",
-        "end": 1443147921000,
+        "id": 521818896538,
+        "市场评估价": 0,
+        "起拍价格": 870000,
+        "成交价格": 1035000,
+        "交易时间": "2015/09/25 10:25:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/521818896538.htm?track_id=0d8e7746-cfb4-4d5f-b22b-7d43d8847bd0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "河南省郑州市二七区长江中路128号（六期）28号楼2单元6层24号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "长江中路",
+        "建筑面积": 169.79,
+        "单价": 6094.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "521710838426",
+        "url": "https://sf-item.taobao.com/sf_item/521710838426.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1443146848000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "521694367784",
+        "url": "https://sf-item.taobao.com/sf_item/521694367784.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1443147204000,
         "status": "done",
         "is_processed": false
     }

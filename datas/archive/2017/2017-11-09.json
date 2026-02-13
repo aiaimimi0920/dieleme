@@ -344,16 +344,51 @@
         "detail_captured": true
     },
     {
-        "id": "560466122521",
-        "url": "https://sf-item.taobao.com/sf_item/560466122521.htm?track_id=1eb0cba0-3dd8-407a-a997-3eb1b6789b1e",
-        "end": 1510196159000,
-        "status": "done",
-        "is_processed": false
+        "id": 560466122521,
+        "市场评估价": null,
+        "起拍价格": 358800000,
+        "成交价格": 436800,
+        "交易时间": "2017-11-09 10:55:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560466122521.htm?track_id=1eb0cba0-3dd8-407a-a997-3eb1b6789b1e",
+        "是否成交": true,
+        "竞拍人数": 33,
+        "出价人数": 40,
+        "地点": "贵州省 遵义市 汇川区 高桥镇西安路金大花园C栋1单元6-2号",
+        "所属小区": "金大花园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "高桥商圈",
+        "建筑面积": 108.13,
+        "单价": 4042.19,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "560404791912",
         "url": "https://sf-item.taobao.com/sf_item/560404791912.htm?track_id=9e33301f-30c6-457a-a6fc-ef33c49611ec",
         "end": 1510192800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559402813915",
+        "url": "https://sf-item.taobao.com/sf_item/559402813915.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1510193522000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560514787428",
+        "url": "https://sf-item.taobao.com/sf_item/560514787428.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
+        "end": 1510192800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560316200884",
+        "url": "https://sf-item.taobao.com/sf_item/560316200884.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "end": 1510194172000,
         "status": "done",
         "is_processed": false
     }

@@ -147,9 +147,30 @@
         "detail_captured": true
     },
     {
-        "id": "525593582877",
-        "url": "https://sf-item.taobao.com/sf_item/525593582877.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
-        "end": 1452911193000,
+        "id": 525593582877,
+        "市场评估价": 0,
+        "起拍价格": 346000,
+        "成交价格": 416000,
+        "交易时间": "2016/01/16 10:26:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525593582877.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 49,
+        "地点": "海盐县武原街道城东路1268号明珠苑2幢1001室",
+        "所属小区": "明珠苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 95.59,
+        "单价": 4351.83,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "525655391747",
+        "url": "https://sf-item.taobao.com/sf_item/525655391747.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1452911860000,
         "status": "done",
         "is_processed": false
     }

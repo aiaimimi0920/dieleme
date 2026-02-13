@@ -297,9 +297,51 @@
         "detail_captured": true
     },
     {
-        "id": "896145456723",
-        "url": "https://sf-item.taobao.com/sf_item/896145456723.htm?track_id=b933d91f-482c-433e-9cd4-4ab734f870c4",
-        "end": 1742608812000,
+        "id": 896145456723,
+        "市场评估价": 85211,
+        "起拍价格": 47718.16,
+        "成交价格": 47718.16,
+        "交易时间": "2025/03/22 10:00:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/896145456723.htm?track_id=b933d91f-482c-433e-9cd4-4ab734f870c4",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 鸡西市 密山市 珍铭一品小区",
+        "所属小区": "珍铭一品小区",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "密山市",
+        "最靠近商圈": "密山市区",
+        "建筑面积": 79.86,
+        "单价": 597.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "893124010155",
+        "url": "https://sf-item.taobao.com/sf_item/893124010155.htm?track_id=5fc4c768-6ab1-4407-acf9-835197b7645a",
+        "end": 1742608800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "873939466261",
+        "url": "https://sf-item.taobao.com/sf_item/873939466261.htm?track_id=dfd27f7b-bc7d-4bb9-a04a-63aa0958a58b",
+        "end": 1742606491000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "884589995588",
+        "url": "https://sf-item.taobao.com/sf_item/884589995588.htm?track_id=13522d09-c2bb-419f-9fee-29d88a0e165a",
+        "end": 1742616449000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "897906767529",
+        "url": "https://sf-item.taobao.com/sf_item/897906767529.htm?track_id=750b58ad-ff75-4aee-b3f4-98c79d909aed",
+        "end": 1742608800000,
         "status": "done",
         "is_processed": false
     }

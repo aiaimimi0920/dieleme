@@ -309,15 +309,16 @@
         "竞拍人数": 1,
         "出价人数": 1,
         "地点": "山东省单县明泰第一城小区13#-1-1301号",
-        "所属小区": "明泰第一城小区",
+        "所属小区": "明泰第一城",
         "省份": "山东省",
         "城市": "菏泽市",
         "区": "单县",
-        "最靠近商圈": null,
+        "最靠近商圈": "单县中心商圈",
         "建筑面积": 128.01,
-        "单价": 4296.62,
+        "单价": 4296.54,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 582506702226,
@@ -425,25 +426,67 @@
         "detail_captured": true
     },
     {
-        "id": "582385129730",
-        "url": "https://sf-item.taobao.com/sf_item/582385129730.htm?track_id=ea13efc1-539c-4316-ab90-5b0a689696ee",
-        "end": 1544149250000,
-        "status": "done",
-        "is_processed": false
+        "id": 582385129730,
+        "市场评估价": 848525,
+        "起拍价格": 576998,
+        "成交价格": 686998,
+        "交易时间": "2018-12-07 10:20:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/582385129730.htm?track_id=ea13efc1-539c-4316-ab90-5b0a689696ee",
+        "是否成交": true,
+        "竞拍人数": 50,
+        "出价人数": 18,
+        "地点": "辽宁省 沈阳市 铁西区 兴华北街11号2-13-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "兴华",
+        "建筑面积": 69.78,
+        "单价": 9838.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "582189724192",
-        "url": "https://sf-item.taobao.com/sf_item/582189724192.htm?track_id=d3432e01-0f76-40f5-82d8-5786967034ed",
-        "end": 1544150996000,
-        "status": "done",
-        "is_processed": false
+        "id": 582189724192,
+        "市场评估价": 288800,
+        "起拍价格": 161728,
+        "成交价格": 203728,
+        "交易时间": "2018/12/07 10:49:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/582189724192.htm?track_id=d3432e01-0f76-40f5-82d8-5786967034ed",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 42,
+        "地点": "辽宁省 沈阳市 铁西区 富工五街50号6-7-3室",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 53.34,
+        "单价": 3819.76,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "579544776448",
-        "url": "https://sf-item.taobao.com/sf_item/579544776448.htm?track_id=9662dc8a-155d-4344-9d83-8dbab508b9f6",
-        "end": 1544168852000,
-        "status": "done",
-        "is_processed": false
+        "id": 579544776448,
+        "市场评估价": null,
+        "起拍价格": 4481050,
+        "成交价格": 4481050,
+        "交易时间": "2018-12-07 15:47:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/579544776448.htm?track_id=9662dc8a-155d-4344-9d83-8dbab508b9f6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 新华路110号",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": null,
+        "建筑面积": 270.92,
+        "单价": 16545.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "581434005172",
@@ -470,6 +513,83 @@
         "id": "582514126894",
         "url": "https://sf-item.taobao.com/sf_item/582514126894.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1544148029000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581254985270",
+        "url": "https://sf-item.taobao.com/sf_item/581254985270.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "end": 1544148000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581696139610",
+        "url": "https://sf-item.taobao.com/sf_item/581696139610.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1544150655000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582646687445",
+        "url": "https://sf-item.taobao.com/sf_item/582646687445.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1544148000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579543344354",
+        "url": "https://sf-item.taobao.com/sf_item/579543344354.htm?track_id=ec0864e8-1dfb-4aa2-9cc5-3a21f48d84d2",
+        "end": 1544148518000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582400598972",
+        "url": "https://sf-item.taobao.com/sf_item/582400598972.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1544151616000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "580088367045",
+        "url": "https://sf-item.taobao.com/sf_item/580088367045.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1544149843000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582477946934",
+        "url": "https://sf-item.taobao.com/sf_item/582477946934.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
+        "end": 1544148163000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581661059268",
+        "url": "https://sf-item.taobao.com/sf_item/581661059268.htm?track_id=330a34e0-5029-49b4-8c2b-4f67d5c5f99f",
+        "end": 1544144716000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581213480116",
+        "url": "https://sf-item.taobao.com/sf_item/581213480116.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
+        "end": 1544144701000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581212288325",
+        "url": "https://sf-item.taobao.com/sf_item/581212288325.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
+        "end": 1544145279000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581531566001",
+        "url": "https://sf-item.taobao.com/sf_item/581531566001.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
+        "end": 1544145535000,
         "status": "done",
         "is_processed": false
     }

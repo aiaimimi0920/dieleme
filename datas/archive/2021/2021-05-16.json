@@ -147,25 +147,67 @@
         "detail_captured": true
     },
     {
-        "id": "643764802939",
-        "url": "https://sf-item.taobao.com/sf_item/643764802939.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
-        "end": 1621130585000,
-        "status": "done",
-        "is_processed": false
+        "id": 643764802939,
+        "市场评估价": null,
+        "起拍价格": 632454,
+        "成交价格": 632454,
+        "交易时间": "2021/05/16 10:03:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/643764802939.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "贵州省遵义市汇川区人民路祥龙世纪城C栋27-4号房产",
+        "所属小区": "祥龙世纪城",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "人民路",
+        "建筑面积": 115.58,
+        "单价": 5472.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "642221025935",
-        "url": "https://sf-item.taobao.com/sf_item/642221025935.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1621130422000,
-        "status": "done",
-        "is_processed": false
+        "id": 642221025935,
+        "市场评估价": 403600,
+        "起拍价格": 282520,
+        "成交价格": 282520,
+        "交易时间": "2021/05/16 10:00:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642221025935.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 南滑翔路31号9-7-2",
+        "所属小区": "滑翔五小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "滑翔",
+        "建筑面积": 80.3,
+        "单价": 3518.3,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "643759538614",
-        "url": "https://sf-item.taobao.com/sf_item/643759538614.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
-        "end": 1621130400000,
-        "status": "done",
-        "is_processed": false
+        "id": 643759538614,
+        "市场评估价": 373031,
+        "起拍价格": 208897.36,
+        "成交价格": 208897.36,
+        "交易时间": "2021/05/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/643759538614.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 沈辽西路65-11号2-7-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 81.43,
+        "单价": 2565.35,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "642220837255",
@@ -189,11 +231,25 @@
         "is_processed": false
     },
     {
-        "id": "642843612708",
-        "url": "https://sf-item.taobao.com/sf_item/642843612708.htm?track_id=12fa5130-966a-4767-9eab-5085df986259",
-        "end": 1621130400000,
-        "status": "done",
-        "is_processed": false
+        "id": 642843612708,
+        "市场评估价": null,
+        "起拍价格": 644000,
+        "成交价格": 644000,
+        "交易时间": "2021/05/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642843612708.htm?track_id=12fa5130-966a-4767-9eab-5085df986259",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河南省信阳市平桥区羊山新区新六大街金上海湾二期7号楼3单元4层405号",
+        "所属小区": "金上海湾二期",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": 134.96,
+        "单价": 4770.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "641733633570",
@@ -206,6 +262,34 @@
         "id": "639692495975",
         "url": "https://sf-item.taobao.com/sf_item/639692495975.htm?track_id=963d0425-54e8-4a01-88cf-6133f7f3e41c",
         "end": 1621169956000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643021585181",
+        "url": "https://sf-item.taobao.com/sf_item/643021585181.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1621130400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643442601906",
+        "url": "https://sf-item.taobao.com/sf_item/643442601906.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1621130400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642558914737",
+        "url": "https://sf-item.taobao.com/sf_item/642558914737.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1621131495000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643405611695",
+        "url": "https://sf-item.taobao.com/sf_item/643405611695.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1621130400000,
         "status": "done",
         "is_processed": false
     }

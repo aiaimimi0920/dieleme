@@ -50,9 +50,30 @@
         "is_processed": false
     },
     {
-        "id": "530836583445",
-        "url": "https://sf-item.taobao.com/sf_item/530836583445.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
-        "end": 1463235808000,
+        "id": 530836583445,
+        "市场评估价": null,
+        "起拍价格": 652320,
+        "成交价格": 777320,
+        "交易时间": "2016-05-14 22:23:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530836583445.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": null,
+        "地点": "福建省泉州市安溪县凤城中山街",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城中山街商圈",
+        "建筑面积": 76.87,
+        "单价": 10116.5,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "530725090024",
+        "url": "https://sf-item.taobao.com/sf_item/530725090024.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1463192518000,
         "status": "done",
         "is_processed": false
     }

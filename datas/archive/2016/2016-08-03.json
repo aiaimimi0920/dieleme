@@ -22,11 +22,25 @@
         "manual_checked": true
     },
     {
-        "id": "535834486048",
-        "url": "https://sf-item.taobao.com/sf_item/535834486048.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
-        "end": 1470189860000,
-        "status": "done",
-        "is_processed": false
+        "id": 535834486048,
+        "市场评估价": null,
+        "起拍价格": 286450,
+        "成交价格": 286450,
+        "交易时间": "2016/08/03 10:04:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535834486048.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": "东海花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "大桥新区",
+        "建筑面积": 105.63,
+        "单价": 2711.29,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "535895888113",
@@ -39,6 +53,20 @@
         "id": "536427740232",
         "url": "https://sf-item.taobao.com/sf_item/536427740232.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1470189600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535905116021",
+        "url": "https://sf-item.taobao.com/sf_item/535905116021.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1470193858000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535658950676",
+        "url": "https://sf-item.taobao.com/sf_item/535658950676.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1470193264000,
         "status": "done",
         "is_processed": false
     }

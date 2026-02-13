@@ -169,11 +169,25 @@
         "detail_captured": true
     },
     {
-        "id": "669509724365",
-        "url": "https://sf-item.taobao.com/sf_item/669509724365.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
-        "end": 1649037765000,
-        "status": "done",
-        "is_processed": false
+        "id": 669509724365,
+        "市场评估价": null,
+        "起拍价格": 331427.63,
+        "成交价格": 331427.63,
+        "交易时间": "2022/04/04 10:02:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669509724365.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "辽宁省沈阳市铁西区保工南街83号3-5-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "保工街商圈",
+        "建筑面积": 66.87,
+        "单价": 4956.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "669932584913",
@@ -193,6 +207,27 @@
         "id": "670529094761",
         "url": "https://sf-item.taobao.com/sf_item/670529094761.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
         "end": 1649064248000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671130603538",
+        "url": "https://sf-item.taobao.com/sf_item/671130603538.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
+        "end": 1649038749000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670107285695",
+        "url": "https://sf-item.taobao.com/sf_item/670107285695.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1649039324000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "668975332874",
+        "url": "https://sf-item.taobao.com/sf_item/668975332874.htm?track_id=3b36e442-fd18-4c67-9caf-4ea62c7a61cd",
+        "end": 1649037800000,
         "status": "done",
         "is_processed": false
     }

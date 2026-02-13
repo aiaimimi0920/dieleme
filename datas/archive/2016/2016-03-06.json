@@ -1,9 +1,23 @@
 [
     {
-        "id": "527108175213",
-        "url": "https://sf-item.taobao.com/sf_item/527108175213.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1457229600000,
-        "status": "done",
-        "is_processed": false
+        "id": 527108175213,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 409200,
+        "交易时间": "2016-03-06T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527108175213.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "河南省 郑州市 新密市",
+        "所属小区": "金海洋房小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密城区",
+        "建筑面积": 133.3,
+        "单价": 3068.43,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

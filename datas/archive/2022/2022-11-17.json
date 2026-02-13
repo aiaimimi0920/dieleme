@@ -190,12 +190,25 @@
         "detail_captured": true
     },
     {
-        "id": "691288099830",
-        "url": "https://sf-item.taobao.com/sf_item/691288099830.htm?track_id=a47cc26b-fb23-41c9-9221-470af2883939",
-        "end": 1668650400000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/691288099830.htm"
+        "id": 691288099830,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 8400000,
+        "交易时间": "2022-11-17T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/691288099830.htm?track_id=a47cc26b-fb23-41c9-9221-470af2883939",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省淮安市淮安区翔宇小区7号楼",
+        "所属小区": "翔宇小区",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "翔宇板块",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 691292119004,
@@ -219,30 +232,121 @@
         "detail_captured": true
     },
     {
-        "id": "691065498060",
-        "url": "https://sf-item.taobao.com/sf_item/691065498060.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
-        "end": 1668652465000,
-        "status": "done",
-        "is_processed": false
+        "id": 691065498060,
+        "市场评估价": 2510128,
+        "起拍价格": 1405672,
+        "成交价格": 1789419,
+        "交易时间": "2022/11/17 10:34:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/691065498060.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 92,
+        "地点": "吉林省 吉林市 船营区 松江西路77号大唐天下江山小区4号楼04幢4单元0435261室",
+        "所属小区": "大唐天下江山",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "松江路",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "690427068332",
-        "url": "https://sf-item.taobao.com/sf_item/690427068332.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
-        "end": 1668650400000,
-        "status": "done",
-        "is_processed": false
+        "id": 690427068332,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 233900,
+        "交易时间": "2022/11/17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/690427068332.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "郑州市二七区",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "691033762022",
-        "url": "https://sf-item.taobao.com/sf_item/691033762022.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
-        "end": 1668650400000,
-        "status": "done",
-        "is_processed": false
+        "id": 691033762022,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 233600,
+        "交易时间": "2022/11/17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/691033762022.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "河南省郑州市二七区大学南路246号5号楼1923号",
+        "所属小区": "升龙国际中心",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "690410648689",
         "url": "https://sf-item.taobao.com/sf_item/690410648689.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1668650695000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "690417532389",
+        "url": "https://sf-item.taobao.com/sf_item/690417532389.htm?track_id=83a69582-76f4-4489-bccb-41fc9b7b6cf6",
+        "end": 1668650400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "690752921841",
+        "url": "https://sf-item.taobao.com/sf_item/690752921841.htm?track_id=7ec70b87-5ced-40d9-b4a5-cb74d5d60a97",
+        "end": 1668650793000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691033438257",
+        "url": "https://sf-item.taobao.com/sf_item/691033438257.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1668652804000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "687737805751",
+        "url": "https://sf-item.taobao.com/sf_item/687737805751.htm?track_id=addbb771-a109-4b32-8cec-541c849a16ea",
+        "end": 1668651485000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "689926901193",
+        "url": "https://sf-item.taobao.com/sf_item/689926901193.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1668651396000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "687647028364",
+        "url": "https://sf-item.taobao.com/sf_item/687647028364.htm?track_id=51f06735-ea2e-48e1-a840-19b9b94eec10",
+        "end": 1668654094000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692496371941",
+        "url": "https://sf-item.taobao.com/sf_item/692496371941.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "end": 1668650618000,
         "status": "done",
         "is_processed": false
     }

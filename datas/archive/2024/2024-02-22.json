@@ -358,44 +358,198 @@
         "detail_captured": true
     },
     {
-        "id": "766619477582",
-        "url": "https://sf-item.taobao.com/sf_item/766619477582.htm?track_id=6e662cdf-1176-40fd-9ad6-f612efeab445",
-        "end": 1708567200000,
-        "status": "done",
-        "is_processed": false
+        "id": 766619477582,
+        "市场评估价": 0,
+        "起拍价格": 175209900.32,
+        "成交价格": 175209900.32,
+        "交易时间": "2024/02/22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/766619477582.htm?track_id=6e662cdf-1176-40fd-9ad6-f612efeab445",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延吉市朝阳街有产权证房屋、无产权证房屋及连接通道及延吉市朝阳街延边科学技术大学院内的一套20吨锅炉设备及附属设施、树木若干",
+        "所属小区": "延边科学技术大学",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "朝阳街",
+        "建筑面积": 137948.96,
+        "单价": 1270.37,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "765847797265",
-        "url": "https://sf-item.taobao.com/sf_item/765847797265.htm?track_id=40b8eaf8-22dd-4b93-a4cf-079a9760fb3d",
-        "end": 1708567200000,
-        "status": "done",
-        "is_processed": false
+        "id": 765847797265,
+        "市场评估价": 1771791,
+        "起拍价格": 1133946.24,
+        "成交价格": 1133946.24,
+        "交易时间": "2024-02-22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/765847797265.htm?track_id=40b8eaf8-22dd-4b93-a4cf-079a9760fb3d",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区七号街21-20号2门",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 311.99,
+        "单价": 3634.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "763631230103",
-        "url": "https://sf-item.taobao.com/sf_item/763631230103.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
-        "end": 1708568032000,
-        "status": "done",
-        "is_processed": false
+        "id": 763631230103,
+        "市场评估价": 1500946,
+        "起拍价格": 1200757,
+        "成交价格": 1600757,
+        "交易时间": "2024/02/22 10:13:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/763631230103.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
+        "是否成交": true,
+        "竞拍人数": 54,
+        "出价人数": 54,
+        "地点": "河北省 廊坊市 霸州市 胜芳镇香槟花园小区C11号楼02室",
+        "所属小区": "香槟花园",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "胜芳镇",
+        "建筑面积": 284.27,
+        "单价": 5630.02,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "766528351754",
-        "url": "https://sf-item.taobao.com/sf_item/766528351754.htm?track_id=25f0e98c-d1bf-4b6c-8b3e-37c35873c737",
-        "end": 1708567660000,
-        "status": "done",
-        "is_processed": false
+        "id": 766528351754,
+        "市场评估价": 864500,
+        "起拍价格": 553300,
+        "成交价格": 559300,
+        "交易时间": "2024/02/22 10:07:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/766528351754.htm?track_id=25f0e98c-d1bf-4b6c-8b3e-37c35873c737",
+        "是否成交": true,
+        "竞拍人数": 7,
+        "出价人数": 7,
+        "地点": "广东省 惠州市 博罗县 广东省博罗县罗阳街道城东社区商业东街193号城市代号花园3栋B座201号房产",
+        "所属小区": "城市代号花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳街道",
+        "建筑面积": 135.18,
+        "单价": 4136.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "766539100539",
-        "url": "https://sf-item.taobao.com/sf_item/766539100539.htm?track_id=c7c7d22c-2b14-452e-9800-31a900e96db1",
-        "end": 1708568912000,
-        "status": "done",
-        "is_processed": false
+        "id": 766539100539,
+        "市场评估价": 335000,
+        "起拍价格": 268000,
+        "成交价格": 322600,
+        "交易时间": "2024/02/22 10:28:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/766539100539.htm?track_id=c7c7d22c-2b14-452e-9800-31a900e96db1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 22,
+        "地点": "内蒙古自治区 通辽市 库伦旗 库伦镇兴源寺居委西数第三间",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "通辽市",
+        "区": "库伦旗",
+        "最靠近商圈": "库伦镇",
+        "建筑面积": 66,
+        "单价": 4887.88,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "766640645336",
         "url": "https://sf-item.taobao.com/sf_item/766640645336.htm?track_id=714d6a20-14ce-4681-bdad-a5c0be12e883",
         "end": 1708567846000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766275655693",
+        "url": "https://sf-item.taobao.com/sf_item/766275655693.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1708568984000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "762171479111",
+        "url": "https://sf-item.taobao.com/sf_item/762171479111.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1708568770000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "762170223604",
+        "url": "https://sf-item.taobao.com/sf_item/762170223604.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1708567334000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "764655653992",
+        "url": "https://sf-item.taobao.com/sf_item/764655653992.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1708569345000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "765625112953",
+        "url": "https://sf-item.taobao.com/sf_item/765625112953.htm?track_id=1b72c4a3-0a3f-4a49-a0ef-97c696656a04",
+        "end": 1708568052000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "763631179740",
+        "url": "https://sf-item.taobao.com/sf_item/763631179740.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1708568450000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "763475756795",
+        "url": "https://sf-item.taobao.com/sf_item/763475756795.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1708569258000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766441568518",
+        "url": "https://sf-item.taobao.com/sf_item/766441568518.htm?track_id=51f06735-ea2e-48e1-a840-19b9b94eec10",
+        "end": 1708568733000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766527317132",
+        "url": "https://sf-item.taobao.com/sf_item/766527317132.htm?track_id=51f06735-ea2e-48e1-a840-19b9b94eec10",
+        "end": 1708567793000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766738759700",
+        "url": "https://sf-item.taobao.com/sf_item/766738759700.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1708567200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "756655982936",
+        "url": "https://sf-item.taobao.com/sf_item/756655982936.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1708568961000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "761447423181",
+        "url": "https://sf-item.taobao.com/sf_item/761447423181.htm?track_id=018cd2d0-3b33-4452-90a3-52a886cb2abb",
+        "end": 1708572365000,
         "status": "done",
         "is_processed": false
     }

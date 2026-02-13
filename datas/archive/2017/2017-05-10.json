@@ -254,23 +254,58 @@
         "detail_captured": true
     },
     {
-        "id": "549430598246",
-        "url": "https://sf-item.taobao.com/sf_item/549430598246.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1494381600000,
-        "status": "done",
-        "is_processed": false
+        "id": 549430598246,
+        "市场评估价": 629000,
+        "起拍价格": 629000,
+        "成交价格": 629000,
+        "交易时间": "2017-05-10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/549430598246.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市",
+        "所属小区": "广兴·清华园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "西大街商圈",
+        "建筑面积": 130.22,
+        "单价": 4832.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "548125764745",
-        "url": "https://sf-item.taobao.com/sf_item/548125764745.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
-        "end": 1494386348000,
-        "status": "done",
-        "is_processed": false
+        "id": 548125764745,
+        "市场评估价": 598400,
+        "起拍价格": 418880,
+        "成交价格": 720880,
+        "交易时间": "2017-05-10T11:19:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548125764745.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "是否成交": true,
+        "竞拍人数": 113,
+        "出价人数": 55,
+        "地点": "江苏省无锡市锡山区",
+        "所属小区": "东港花苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": 89.01,
+        "单价": 8095.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "546409446758",
         "url": "https://sf-item.taobao.com/sf_item/546409446758.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1494381600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548094694846",
+        "url": "https://sf-item.taobao.com/sf_item/548094694846.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1494384136000,
         "status": "done",
         "is_processed": false
     }

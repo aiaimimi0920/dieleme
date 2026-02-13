@@ -210,12 +210,25 @@
         "detail_captured": true
     },
     {
-        "id": "719679456916",
-        "url": "https://sf-item.taobao.com/sf_item/719679456916.htm?track_id=36c76a1f-1710-4bc6-80f1-8bfc73e32fb5",
-        "end": 1687919941000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/719679456916.htm"
+        "id": 719679456916,
+        "市场评估价": 5114300,
+        "起拍价格": 5114300,
+        "成交价格": 5934300,
+        "交易时间": "2023/06/28 10:39:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/719679456916.htm?track_id=36c76a1f-1710-4bc6-80f1-8bfc73e32fb5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 41,
+        "地点": "江苏省 苏州市 虎丘区 狮山路88号",
+        "所属小区": "锦华苑",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "虎丘区",
+        "最靠近商圈": "狮山路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 720855847758,
@@ -288,16 +301,51 @@
         "is_processed": false
     },
     {
-        "id": "722918397805",
-        "url": "https://sf-item.taobao.com/sf_item/722918397805.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
-        "end": 1687920038000,
-        "status": "done",
-        "is_processed": false
+        "id": 722918397805,
+        "市场评估价": null,
+        "起拍价格": 197400,
+        "成交价格": 225400,
+        "交易时间": "2023/06/28 10:40:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/722918397805.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": 15,
+        "地点": "河南省 郑州市 二七区 王立砦北街18号27号楼东2单元3层130号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "王立砦",
+        "建筑面积": 40.29,
+        "单价": 5594.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "723208693590",
         "url": "https://sf-item.taobao.com/sf_item/723208693590.htm?track_id=645fbace-2a78-4783-9257-833921945028",
         "end": 1687918837000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "720851175592",
+        "url": "https://sf-item.taobao.com/sf_item/720851175592.htm?track_id=4c4eeb49-6d0a-4655-9e36-002074dab1e8",
+        "end": 1687917600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "720575233941",
+        "url": "https://sf-item.taobao.com/sf_item/720575233941.htm?track_id=4c84a2d9-638f-45a5-86b7-e8180a7a933f",
+        "end": 1687917600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "720863495583",
+        "url": "https://sf-item.taobao.com/sf_item/720863495583.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1687920655000,
         "status": "done",
         "is_processed": false
     }

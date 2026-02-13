@@ -43,9 +43,37 @@
         "manual_checked": true
     },
     {
-        "id": "45463434237",
-        "url": "https://sf-item.taobao.com/sf_item/45463434237.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
-        "end": 1433469600000,
+        "id": 45463434237,
+        "市场评估价": null,
+        "起拍价格": 850000,
+        "成交价格": 850000,
+        "交易时间": "2015/06/05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45463434237.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 0,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 剑江中路106号丽景公寓1层1-4号",
+        "所属小区": "丽景公寓",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "都匀市中心商圈",
+        "建筑面积": 106.25,
+        "单价": 8000.0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "45435420817",
+        "url": "https://sf-item.taobao.com/sf_item/45435420817.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1433474774000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "45529025902",
+        "url": "https://sf-item.taobao.com/sf_item/45529025902.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1433471078000,
         "status": "done",
         "is_processed": false
     }

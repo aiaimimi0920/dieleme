@@ -492,11 +492,25 @@
         "is_processed": false
     },
     {
-        "id": "631007192537",
-        "url": "https://sf-item.taobao.com/sf_item/631007192537.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
-        "end": 1608692825000,
-        "status": "done",
-        "is_processed": false
+        "id": 631007192537,
+        "市场评估价": 4120000,
+        "起拍价格": 1,
+        "成交价格": 4430001,
+        "交易时间": "2020/12/23 11:07:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/631007192537.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 191,
+        "地点": "杭州市滨江区浦沿街道江涛阁1幢1单元702室",
+        "所属小区": "江涛阁",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 112.51,
+        "单价": 39376.6,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "631915537127",
@@ -516,6 +530,34 @@
         "id": "631915361282",
         "url": "https://sf-item.taobao.com/sf_item/631915361282.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1608688928000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "629534347547",
+        "url": "https://sf-item.taobao.com/sf_item/629534347547.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1608722303000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "631429156581",
+        "url": "https://sf-item.taobao.com/sf_item/631429156581.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1608692338000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "631937773457",
+        "url": "https://sf-item.taobao.com/sf_item/631937773457.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1608690620000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632484787868",
+        "url": "https://sf-item.taobao.com/sf_item/632484787868.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1608691919000,
         "status": "done",
         "is_processed": false
     }

@@ -148,16 +148,37 @@
         "manual_checked": true
     },
     {
-        "id": "544609343581",
-        "url": "https://sf-item.taobao.com/sf_item/544609343581.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
-        "end": 1488506400000,
-        "status": "done",
-        "is_processed": false
+        "id": 544609343581,
+        "市场评估价": null,
+        "起拍价格": 289360,
+        "成交价格": 289360,
+        "交易时间": "2017/03/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544609343581.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "广东省云浮市郁南县连滩镇鸿源华庭F幢7B房",
+        "所属小区": "鸿源华庭",
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "连滩镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "545023655219",
         "url": "https://sf-item.taobao.com/sf_item/545023655219.htm?track_id=fb36ca66-519f-47e0-8cf2-d020609c405d",
         "end": 1488509958000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "545063625097",
+        "url": "https://sf-item.taobao.com/sf_item/545063625097.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1488506400000,
         "status": "done",
         "is_processed": false
     }

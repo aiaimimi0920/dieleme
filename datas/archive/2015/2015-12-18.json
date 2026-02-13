@@ -85,18 +85,46 @@
         "detail_captured": true
     },
     {
-        "id": "524783505376",
-        "url": "https://sf-item.taobao.com/sf_item/524783505376.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
-        "end": 1450404006000,
-        "status": "done",
-        "is_processed": false
+        "id": 524783505376,
+        "市场评估价": null,
+        "起拍价格": 480000,
+        "成交价格": 512000,
+        "交易时间": "2015-12-18 10:00:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524783505376.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 10,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市",
+        "所属小区": "伯爵·国际花园",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "开发区",
+        "建筑面积": 124.84,
+        "单价": 4101.28,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "524837164771",
-        "url": "https://sf-item.taobao.com/sf_item/524837164771.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
-        "end": 1450447452000,
-        "status": "done",
-        "is_processed": false
+        "id": 524837164771,
+        "市场评估价": null,
+        "起拍价格": 1905624,
+        "成交价格": 2065624,
+        "交易时间": "2015/12/18 22:04:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524837164771.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 33,
+        "地点": "广东省惠州市博罗县园洲镇上南村20米路",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "园洲镇",
+        "建筑面积": 912.77,
+        "单价": 2262.73,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "524819017407",
@@ -109,6 +137,13 @@
         "id": "524839416790",
         "url": "https://sf-item.taobao.com/sf_item/524839416790.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
         "end": 1450404000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524818297288",
+        "url": "https://sf-item.taobao.com/sf_item/524818297288.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1450402496000,
         "status": "done",
         "is_processed": false
     }

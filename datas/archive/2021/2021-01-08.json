@@ -611,37 +611,163 @@
         "detail_captured": true
     },
     {
-        "id": "634915050635",
-        "url": "https://sf-item.taobao.com/sf_item/634915050635.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
-        "end": 1610071200000,
-        "status": "done",
-        "is_processed": false
+        "id": 634915050635,
+        "市场评估价": 1411790,
+        "起拍价格": 1080019.35,
+        "成交价格": 1080019.35,
+        "交易时间": "2021/01/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634915050635.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省遵义市汇川区人民路元盛鹭园小区9幢1-2-2号房屋",
+        "所属小区": "元盛鹭园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "遵义市中心城区",
+        "建筑面积": 120.8,
+        "单价": 8943.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "633148404884",
-        "url": "https://sf-item.taobao.com/sf_item/633148404884.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
-        "end": 1610073116000,
-        "status": "done",
-        "is_processed": false
+        "id": 633148404884,
+        "市场评估价": 573300,
+        "起拍价格": 487305,
+        "成交价格": 513305,
+        "交易时间": "2021-01-08 10:31:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/633148404884.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 26,
+        "地点": "辽宁省 沈阳市 铁西区 飞翔路14号1-2-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "启工街商圈",
+        "建筑面积": 77.19,
+        "单价": 6649.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "633801051353",
-        "url": "https://sf-item.taobao.com/sf_item/633801051353.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
-        "end": 1610078592000,
-        "status": "done",
-        "is_processed": false
+        "id": 633801051353,
+        "市场评估价": 1676531,
+        "起拍价格": 1257399,
+        "成交价格": 1851399,
+        "交易时间": "2021/01/08 12:03:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/633801051353.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 118,
+        "地点": "河南省 郑州市 二七区 棉纺东路25号9号楼东2单元20号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "棉纺路",
+        "建筑面积": 121.03,
+        "单价": 15296.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "633288670617",
-        "url": "https://sf-item.taobao.com/sf_item/633288670617.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
-        "end": 1610073481000,
-        "status": "done",
-        "is_processed": false
+        "id": 633288670617,
+        "市场评估价": null,
+        "起拍价格": 1218203,
+        "成交价格": 1674203,
+        "交易时间": "2021-01-08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/633288670617.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
+        "是否成交": true,
+        "竞拍人数": 89,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区 长江中路128号（六期）19号楼1单元3层5号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场",
+        "建筑面积": 140.95,
+        "单价": 11886.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "635236555649",
         "url": "https://sf-item.taobao.com/sf_item/635236555649.htm?track_id=963d0425-54e8-4a01-88cf-6133f7f3e41c",
         "end": 1610071200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634669205866",
+        "url": "https://sf-item.taobao.com/sf_item/634669205866.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1610071200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633175000071",
+        "url": "https://sf-item.taobao.com/sf_item/633175000071.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1610073001000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635246207763",
+        "url": "https://sf-item.taobao.com/sf_item/635246207763.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1610071367000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626255693394",
+        "url": "https://sf-item.taobao.com/sf_item/626255693394.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1610072582000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633509545588",
+        "url": "https://sf-item.taobao.com/sf_item/633509545588.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1610073823000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634134567295",
+        "url": "https://sf-item.taobao.com/sf_item/634134567295.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1610075108000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633506877409",
+        "url": "https://sf-item.taobao.com/sf_item/633506877409.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1610073867000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633149868187",
+        "url": "https://sf-item.taobao.com/sf_item/633149868187.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1610072954000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633511917945",
+        "url": "https://sf-item.taobao.com/sf_item/633511917945.htm?track_id=7910db3a-160d-47d2-a0b9-9ea879422ee1",
+        "end": 1610073722000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634166239048",
+        "url": "https://sf-item.taobao.com/sf_item/634166239048.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
+        "end": 1610071874000,
         "status": "done",
         "is_processed": false
     }

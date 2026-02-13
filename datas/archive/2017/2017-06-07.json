@@ -21,18 +21,46 @@
         "detail_captured": true
     },
     {
-        "id": "550034280463",
-        "url": "https://sf-item.taobao.com/sf_item/550034280463.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1496800800000,
-        "status": "done",
-        "is_processed": false
+        "id": 550034280463,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 199800,
+        "交易时间": "2017/06/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/550034280463.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "新密市城区溱水路西段北侧2层东户201室",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市主城区",
+        "建筑面积": 133.58,
+        "单价": 1495.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "549999544675",
-        "url": "https://sf-item.taobao.com/sf_item/549999544675.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
-        "end": 1496803002000,
-        "status": "done",
-        "is_processed": false
+        "id": 549999544675,
+        "市场评估价": null,
+        "起拍价格": 343000,
+        "成交价格": 544000,
+        "交易时间": "2017-06-07 10:36:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/549999544675.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "是否成交": true,
+        "竞拍人数": 63,
+        "出价人数": null,
+        "地点": "福建省 泉州市 安溪县",
+        "所属小区": "龙凤都城四期",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪城区",
+        "建筑面积": 94.49,
+        "单价": 5757.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "550001616714",
@@ -42,9 +70,65 @@
         "is_processed": false
     },
     {
-        "id": "551584689401",
-        "url": "https://sf-item.taobao.com/sf_item/551584689401.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
-        "end": 1496800800000,
+        "id": 551584689401,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 367797,
+        "交易时间": "2017-06-07T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/551584689401.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": "郑州福寿街88号",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 50.02,
+        "单价": 7348.13,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "550113055019",
+        "url": "https://sf-item.taobao.com/sf_item/550113055019.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1496806178000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "550053249595",
+        "url": "https://sf-item.taobao.com/sf_item/550053249595.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1496803878000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "550113031064",
+        "url": "https://sf-item.taobao.com/sf_item/550113031064.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1496802816000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "550112575978",
+        "url": "https://sf-item.taobao.com/sf_item/550112575978.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1496803674000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "550000124490",
+        "url": "https://sf-item.taobao.com/sf_item/550000124490.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1496802076000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "550061661795",
+        "url": "https://sf-item.taobao.com/sf_item/550061661795.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1496802205000,
         "status": "done",
         "is_processed": false
     }

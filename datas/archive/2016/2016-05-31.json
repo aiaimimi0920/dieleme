@@ -42,23 +42,58 @@
         "detail_captured": true
     },
     {
-        "id": "531659036101",
-        "url": "https://sf-item.taobao.com/sf_item/531659036101.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
-        "end": 1464660828000,
-        "status": "done",
-        "is_processed": false
+        "id": 531659036101,
+        "市场评估价": 308032,
+        "起拍价格": 246425.6,
+        "成交价格": 282425.6,
+        "交易时间": "2016-05-31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531659036101.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 13,
+        "地点": "吉林省延边朝鲜族自治州延吉市长白路4单元501号",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心商圈",
+        "建筑面积": 96.02,
+        "单价": 2941.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "531597708023",
-        "url": "https://sf-item.taobao.com/sf_item/531597708023.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
-        "end": 1464660000000,
-        "status": "done",
-        "is_processed": false
+        "id": 531597708023,
+        "市场评估价": null,
+        "起拍价格": 812961,
+        "成交价格": 816961,
+        "交易时间": "2016-05-31 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531597708023.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市",
+        "所属小区": "西苑迦南地",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": null,
+        "建筑面积": 208.66,
+        "单价": 3914.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "531533286746",
         "url": "https://sf-item.taobao.com/sf_item/531533286746.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1464660000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531623901341",
+        "url": "https://sf-item.taobao.com/sf_item/531623901341.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1464662625000,
         "status": "done",
         "is_processed": false
     }

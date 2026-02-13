@@ -63,23 +63,65 @@
         "detail_captured": true
     },
     {
-        "id": "836894981465",
-        "url": "https://sf-item.taobao.com/sf_item/836894981465.htm?track_id=513f2165-2464-4ebe-ad49-cc83f38a4fd5",
-        "end": 1729649083000,
-        "status": "done",
-        "is_processed": false
+        "id": 836894981465,
+        "市场评估价": 2959754,
+        "起拍价格": 2071827.8,
+        "成交价格": 2535827.8,
+        "交易时间": "2024/10/23 10:04:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/836894981465.htm?track_id=513f2165-2464-4ebe-ad49-cc83f38a4fd5",
+        "是否成交": true,
+        "竞拍人数": 103,
+        "出价人数": 103,
+        "地点": "内蒙古自治区 赤峰市 阿鲁科尔沁旗 天山镇天山路东汉林东街北商厅0002-1室15",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "赤峰市",
+        "区": "阿鲁科尔沁旗",
+        "最靠近商圈": "天山镇商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "836261639451",
-        "url": "https://sf-item.taobao.com/sf_item/836261639451.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
-        "end": 1729648800000,
-        "status": "done",
-        "is_processed": false
+        "id": 836261639451,
+        "市场评估价": 4500000,
+        "起拍价格": 4500000,
+        "成交价格": 4500000,
+        "交易时间": "2024/10/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/836261639451.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省西安市未央区玄武路69号西安锦园新世纪花园社区4幢31101室",
+        "所属小区": "西安锦园新世纪花园社区",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "玄武路",
+        "建筑面积": 422.84,
+        "单价": 10642.31,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "823526756834",
         "url": "https://sf-item.taobao.com/sf_item/823526756834.htm?track_id=c6681eeb-21d2-4ee1-8884-fbe9cb8310a9",
         "end": 1729648103000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "836759788156",
+        "url": "https://sf-item.taobao.com/sf_item/836759788156.htm?track_id=f966165e-b876-4860-909d-4d7fffa42aec",
+        "end": 1729650605000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826305431557",
+        "url": "https://sf-item.taobao.com/sf_item/826305431557.htm?track_id=1d7de8cb-3c6a-4ed4-af6a-105ce509c724",
+        "end": 1729642814000,
         "status": "done",
         "is_processed": false
     }

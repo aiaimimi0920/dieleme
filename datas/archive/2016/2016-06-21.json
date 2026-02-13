@@ -85,25 +85,67 @@
         "detail_captured": true
     },
     {
-        "id": "532889110627",
-        "url": "https://sf-item.taobao.com/sf_item/532889110627.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
-        "end": 1466474400000,
-        "status": "done",
-        "is_processed": false
+        "id": 532889110627,
+        "市场评估价": null,
+        "起拍价格": 1001852,
+        "成交价格": 1003852,
+        "交易时间": "2016-06-21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/532889110627.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区",
+        "所属小区": "凯旋·豪庭",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "包百商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "532861170524",
-        "url": "https://sf-item.taobao.com/sf_item/532861170524.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
-        "end": 1466474400000,
-        "status": "done",
-        "is_processed": false
+        "id": 532861170524,
+        "市场评估价": 289061,
+        "起拍价格": 208847,
+        "成交价格": 208847,
+        "交易时间": "2016/06/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/532861170524.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "延吉市前进路49号4单元501号",
+        "所属小区": "晨光小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉火车站商圈",
+        "建筑面积": 85.42,
+        "单价": 2444.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "532839015443",
-        "url": "https://sf-item.taobao.com/sf_item/532839015443.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
-        "end": 1466476187000,
-        "status": "done",
-        "is_processed": false
+        "id": 532839015443,
+        "市场评估价": null,
+        "起拍价格": 1055190,
+        "成交价格": 1150190,
+        "交易时间": "2016/06/21 10:29:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/532839015443.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 18,
+        "地点": "河南省郑州市二七区红云路2号院16号楼东3单元6层东户",
+        "所属小区": "金祥花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场商圈",
+        "建筑面积": 256.85,
+        "单价": 4479.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "532844206703",
@@ -113,11 +155,25 @@
         "is_processed": false
     },
     {
-        "id": "533142601590",
-        "url": "https://sf-item.taobao.com/sf_item/533142601590.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
-        "end": 1466474400000,
-        "status": "done",
-        "is_processed": false
+        "id": 533142601590,
+        "市场评估价": 2120300,
+        "起拍价格": 2120300,
+        "成交价格": 2120300,
+        "交易时间": "2016/06/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/533142601590.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省郑州市二七区航海路97号台胞小区77号房产",
+        "所属小区": "台胞小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 202.57,
+        "单价": 10470.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "532903892914",
@@ -130,6 +186,34 @@
         "id": "532983808245",
         "url": "https://sf-item.taobao.com/sf_item/532983808245.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
         "end": 1466475289000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533053946156",
+        "url": "https://sf-item.taobao.com/sf_item/533053946156.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1466474870000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "532993098691",
+        "url": "https://sf-item.taobao.com/sf_item/532993098691.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1466474400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533117164999",
+        "url": "https://sf-item.taobao.com/sf_item/533117164999.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1466474783000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533863310180",
+        "url": "https://sf-item.taobao.com/sf_item/533863310180.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1466474400000,
         "status": "done",
         "is_processed": false
     }

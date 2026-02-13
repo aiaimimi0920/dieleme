@@ -430,30 +430,107 @@
         "is_processed": false
     },
     {
-        "id": "572324225126",
-        "url": "https://sf-item.taobao.com/sf_item/572324225126.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
-        "end": 1532745591000,
-        "status": "done",
-        "is_processed": false
+        "id": 572324225126,
+        "市场评估价": 1227200,
+        "起拍价格": 981760,
+        "成交价格": 1209760,
+        "交易时间": "2018/07/28 10:39:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572324225126.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 72,
+        "地点": "河南省郑州市二七区淮河路绿云小区29号楼东1单元西门",
+        "所属小区": "绿云小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "淮河路商圈",
+        "建筑面积": 94.15,
+        "单价": 12850.24,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "571961800453",
-        "url": "https://sf-item.taobao.com/sf_item/571961800453.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
-        "end": 1532745498000,
-        "status": "done",
-        "is_processed": false
+        "id": 571961800453,
+        "市场评估价": 1471000,
+        "起拍价格": 1176800,
+        "成交价格": 1260800,
+        "交易时间": "2018/07/28 10:38:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571961800453.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
+        "是否成交": true,
+        "竞拍人数": 29,
+        "出价人数": 29,
+        "地点": "河南省 郑州市 二七区 南屏路69号11号楼1单元13层1305号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 115.04,
+        "单价": 10960.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "572254629027",
-        "url": "https://sf-item.taobao.com/sf_item/572254629027.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1532751546000,
-        "status": "done",
-        "is_processed": false
+        "id": 572254629027,
+        "市场评估价": null,
+        "起拍价格": 2950000,
+        "成交价格": 4750000,
+        "交易时间": "2018-07-28 12:19:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572254629027.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": 114,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 钱江湾花园10幢1单元401室",
+        "所属小区": "钱江湾花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江区政府",
+        "建筑面积": 124.59,
+        "单价": 38127.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "572185404139",
         "url": "https://sf-item.taobao.com/sf_item/572185404139.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1532743334000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572072573671",
+        "url": "https://sf-item.taobao.com/sf_item/572072573671.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1532744595000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568823104434",
+        "url": "https://sf-item.taobao.com/sf_item/568823104434.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "end": 1532736703000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573274137627",
+        "url": "https://sf-item.taobao.com/sf_item/573274137627.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
+        "end": 1532746816000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573569503700",
+        "url": "https://sf-item.taobao.com/sf_item/573569503700.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1532744829000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573570179108",
+        "url": "https://sf-item.taobao.com/sf_item/573570179108.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1532743200000,
         "status": "done",
         "is_processed": false
     }

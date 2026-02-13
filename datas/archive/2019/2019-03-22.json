@@ -509,11 +509,25 @@
         "detail_captured": true
     },
     {
-        "id": "588546863993",
-        "url": "https://sf-item.taobao.com/sf_item/588546863993.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
-        "end": 1553220460000,
-        "status": "done",
-        "is_processed": false
+        "id": 588546863993,
+        "市场评估价": 717682,
+        "起拍价格": 596731.04,
+        "成交价格": 596731.04,
+        "交易时间": "2019-03-22 10:07:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588546863993.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
+        "是否成交": true,
+        "竞拍人数": 17,
+        "出价人数": 17,
+        "地点": "贵州省 遵义市 汇川区 成都路东方星园（玉兰园）B幢1单元1-4-404号",
+        "所属小区": "东方星园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "高桥",
+        "建筑面积": 109.12,
+        "单价": 5467.62,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 588365266303,
@@ -537,11 +551,25 @@
         "detail_captured": true
     },
     {
-        "id": "588006488852",
-        "url": "https://sf-item.taobao.com/sf_item/588006488852.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
-        "end": 1553220009000,
-        "status": "done",
-        "is_processed": false
+        "id": 588006488852,
+        "市场评估价": 337984,
+        "起拍价格": 287286,
+        "成交价格": 287286,
+        "交易时间": "2019/03/22 10:00:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588006488852.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 吉林市 船营区 船营区金沙街46号迎宾大路南回迁区（荣邦华福）1号住宅01幢2单元14层83号一处住宅",
+        "所属小区": "荣邦华福",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "船营商圈",
+        "建筑面积": 73.22,
+        "单价": 3924.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586484193955",
@@ -551,18 +579,46 @@
         "is_processed": false
     },
     {
-        "id": "588041400444",
-        "url": "https://sf-item.taobao.com/sf_item/588041400444.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
-        "end": 1553220000000,
-        "status": "done",
-        "is_processed": false
+        "id": 588041400444,
+        "市场评估价": 0,
+        "起拍价格": 2382108,
+        "成交价格": 2382108,
+        "交易时间": "2019/03/22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588041400444.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "陕西省 西安市 未央区 旅游度假区建设路16幢10102房产一处",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "旅游度假区",
+        "建筑面积": 233.54,
+        "单价": 10198.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "586887947260",
-        "url": "https://sf-item.taobao.com/sf_item/586887947260.htm?track_id=071853d6-ddf2-4e6c-b06a-71a1cdc67745",
-        "end": 1553214266000,
-        "status": "done",
-        "is_processed": false
+        "id": 586887947260,
+        "市场评估价": 40100,
+        "起拍价格": 32080,
+        "成交价格": 32080,
+        "交易时间": "2019/03/22 08:24:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586887947260.htm?track_id=071853d6-ddf2-4e6c-b06a-71a1cdc67745",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "云南省丽江市华坪县蓝色港湾小区",
+        "所属小区": "蓝色港湾小区",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "华坪县中心镇",
+        "建筑面积": 15.6,
+        "单价": 2056.41,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586899465213",
@@ -574,6 +630,41 @@
     {
         "id": "587454699250",
         "url": "https://sf-item.taobao.com/sf_item/587454699250.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
+        "end": 1553220000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "587491235633",
+        "url": "https://sf-item.taobao.com/sf_item/587491235633.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1553220000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "587305378169",
+        "url": "https://sf-item.taobao.com/sf_item/587305378169.htm?track_id=a5509f1b-d0f1-4066-9e83-25810044a34d",
+        "end": 1553220101000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588363466491",
+        "url": "https://sf-item.taobao.com/sf_item/588363466491.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1553220000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "587147625915",
+        "url": "https://sf-item.taobao.com/sf_item/587147625915.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1553221494000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586931028055",
+        "url": "https://sf-item.taobao.com/sf_item/586931028055.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
         "end": 1553220000000,
         "status": "done",
         "is_processed": false

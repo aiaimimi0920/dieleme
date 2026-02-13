@@ -189,15 +189,43 @@
         "detail_captured": true
     },
     {
-        "id": "639560113678",
-        "url": "https://sf-item.taobao.com/sf_item/639560113678.htm?track_id=851581af-a6c5-4cfc-a0ec-51191b76b75c",
-        "end": 1618367621000,
-        "status": "done",
-        "is_processed": false
+        "id": 639560113678,
+        "市场评估价": null,
+        "起拍价格": 1980000,
+        "成交价格": 3105000,
+        "交易时间": "2021/04/14 10:33:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/639560113678.htm?track_id=851581af-a6c5-4cfc-a0ec-51191b76b75c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 103,
+        "地点": "陕西省 西安市 未央区 碧桂园凤凰城",
+        "所属小区": "碧桂园凤凰城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "浐灞生态区",
+        "最靠近商圈": "浐灞生态区",
+        "建筑面积": 145.49,
+        "单价": 21341.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "639264268581",
         "url": "https://sf-item.taobao.com/sf_item/639264268581.htm?track_id=963d0425-54e8-4a01-88cf-6133f7f3e41c",
+        "end": 1618365600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641187601424",
+        "url": "https://sf-item.taobao.com/sf_item/641187601424.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1618366173000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "640773929185",
+        "url": "https://sf-item.taobao.com/sf_item/640773929185.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
         "end": 1618365600000,
         "status": "done",
         "is_processed": false

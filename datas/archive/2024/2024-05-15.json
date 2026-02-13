@@ -399,23 +399,72 @@
         "detail_captured": true
     },
     {
-        "id": "789437805014",
-        "url": "https://sf-item.taobao.com/sf_item/789437805014.htm?track_id=25f0e98c-d1bf-4b6c-8b3e-37c35873c737",
-        "end": 1715738960000,
-        "status": "done",
-        "is_processed": false
+        "id": 789437805014,
+        "市场评估价": 768739.54,
+        "起拍价格": 432000,
+        "成交价格": 460000,
+        "交易时间": "2024/05/15 10:09:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/789437805014.htm?track_id=25f0e98c-d1bf-4b6c-8b3e-37c35873c737",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 8,
+        "地点": "广东省 惠州市 博罗县 罗阳镇横坑、翠美园村委会江南（土名）东江新城三期8栋2单元3层04房",
+        "所属小区": "东江新城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳",
+        "建筑面积": 125.57,
+        "单价": 3662.33,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "789363678603",
-        "url": "https://sf-item.taobao.com/sf_item/789363678603.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
-        "end": 1715738400000,
-        "status": "done",
-        "is_processed": false
+        "id": 789363678603,
+        "市场评估价": 1304000,
+        "起拍价格": 731000,
+        "成交价格": 731000,
+        "交易时间": "2024/05/15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/789363678603.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳街道浪头村南蛇岭（土名）富力现代广场B1幢3，夹层01房",
+        "所属小区": "富力现代广场",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳街道",
+        "建筑面积": 203.75,
+        "单价": 3587.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "787604251125",
         "url": "https://sf-item.taobao.com/sf_item/787604251125.htm?track_id=f0ab8160-a6c9-4731-aa8f-79271cd5c413",
         "end": 1715739984000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "789478397728",
+        "url": "https://sf-item.taobao.com/sf_item/789478397728.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1715741083000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "789473709132",
+        "url": "https://sf-item.taobao.com/sf_item/789473709132.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1715758121000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "771652957231",
+        "url": "https://sf-item.taobao.com/sf_item/771652957231.htm?track_id=4a858692-a0f8-4792-9419-c674044442da",
+        "end": 1715739026000,
         "status": "done",
         "is_processed": false
     }

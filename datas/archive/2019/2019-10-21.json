@@ -378,11 +378,25 @@
         "detail_captured": true
     },
     {
-        "id": "603086558866",
-        "url": "https://sf-item.taobao.com/sf_item/603086558866.htm?track_id=02d2fecc-9c57-4b4f-9618-bc9258835c70",
-        "end": 1571623433000,
-        "status": "done",
-        "is_processed": false
+        "id": 603086558866,
+        "市场评估价": 517400,
+        "起拍价格": 413920,
+        "成交价格": 413920,
+        "交易时间": "2019/10/21 10:03:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/603086558866.htm?track_id=02d2fecc-9c57-4b4f-9618-bc9258835c70",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖北省 十堰市 茅箭区 天津路88号8幢2-12-3号",
+        "所属小区": null,
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 602972637314,
@@ -406,23 +420,65 @@
         "detail_captured": true
     },
     {
-        "id": "603398151972",
-        "url": "https://sf-item.taobao.com/sf_item/603398151972.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
-        "end": 1571623492000,
-        "status": "done",
-        "is_processed": false
+        "id": 603398151972,
+        "市场评估价": 595142,
+        "起拍价格": 416599.4,
+        "成交价格": 425599.4,
+        "交易时间": "2019/10/21 10:04:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/603398151972.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳镇人民路天第花园302号",
+        "所属小区": "天第花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 127.14,
+        "单价": 3345.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "603068318204",
-        "url": "https://sf-item.taobao.com/sf_item/603068318204.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
-        "end": 1571623276000,
-        "status": "done",
-        "is_processed": false
+        "id": 603068318204,
+        "市场评估价": 0,
+        "起拍价格": 1287000,
+        "成交价格": 1287000,
+        "交易时间": "2019/10/21 10:01:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/603068318204.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省西安市未央区经济技术开发区文景路东凤城九路北金源御景华府18号楼11902号",
+        "所属小区": "金源御景华府",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 124.63,
+        "单价": 10327.11,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "604210065734",
         "url": "https://sf-item.taobao.com/sf_item/604210065734.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
         "end": 1571626247000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "603405543095",
+        "url": "https://sf-item.taobao.com/sf_item/603405543095.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1571632853000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "603405479936",
+        "url": "https://sf-item.taobao.com/sf_item/603405479936.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1571626800000,
         "status": "done",
         "is_processed": false
     }

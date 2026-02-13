@@ -378,11 +378,25 @@
         "detail_captured": true
     },
     {
-        "id": "944218631242",
-        "url": "https://sf-item.taobao.com/sf_item/944218631242.htm?track_id=f9884c7d-afe0-4627-af9d-113061a1c8a7",
-        "end": 1753668000000,
-        "status": "done",
-        "is_processed": false
+        "id": 944218631242,
+        "市场评估价": 736480,
+        "起拍价格": 736480,
+        "成交价格": 736480,
+        "交易时间": "2025-07-28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/944218631242.htm?track_id=f9884c7d-afe0-4627-af9d-113061a1c8a7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 西山大道26号碧桂园·滨江1号13栋1单元33层3号房产",
+        "所属小区": "碧桂园·滨江1号",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "碧桂园·滨江1号",
+        "建筑面积": 136.36,
+        "单价": 5400.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "950601106855",
@@ -392,16 +406,107 @@
         "is_processed": false
     },
     {
-        "id": "932949315470",
-        "url": "https://sf-item.taobao.com/sf_item/932949315470.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
-        "end": 1753726897000,
+        "id": 932949315470,
+        "市场评估价": 601500,
+        "起拍价格": 336840,
+        "成交价格": 336840,
+        "交易时间": "2025/07/29 02:21:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/932949315470.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 百步镇翡翠路17号翡翠名邸15幢105室",
+        "所属小区": "翡翠名邸",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "百步镇",
+        "建筑面积": 88.2,
+        "单价": 3819.05,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 950548586385,
+        "市场评估价": 0,
+        "起拍价格": 561024,
+        "成交价格": 595024,
+        "交易时间": "2025/07/28 10:57:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/950548586385.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 18,
+        "地点": "河南省 郑州市 二七区 西陈庄前街94号院9号楼东2单元3层1-18号房产",
+        "所属小区": "西陈庄前街94号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场",
+        "建筑面积": 109.16,
+        "单价": 5450.01,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "944631742164",
+        "url": "https://sf-item.taobao.com/sf_item/944631742164.htm?track_id=7c737cf8-b427-44c7-8a5e-bd75d257223c",
+        "end": 1753668126000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "950548586385",
-        "url": "https://sf-item.taobao.com/sf_item/950548586385.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
-        "end": 1753671454000,
+        "id": "951739660902",
+        "url": "https://sf-item.taobao.com/sf_item/951739660902.htm?track_id=c5b6e009-74c4-4149-95dd-a1f6a780bccf",
+        "end": 1753668000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "950556966293",
+        "url": "https://sf-item.taobao.com/sf_item/950556966293.htm?track_id=2ac62aa9-1a14-4704-a230-f30171d59dfb",
+        "end": 1753668000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "951751056639",
+        "url": "https://sf-item.taobao.com/sf_item/951751056639.htm?track_id=2ac62aa9-1a14-4704-a230-f30171d59dfb",
+        "end": 1753668000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "943770351841",
+        "url": "https://sf-item.taobao.com/sf_item/943770351841.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1753669471000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "950546990776",
+        "url": "https://sf-item.taobao.com/sf_item/950546990776.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1753668000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "951187993664",
+        "url": "https://sf-item.taobao.com/sf_item/951187993664.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1753673980000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "955707351348",
+        "url": "https://sf-item.taobao.com/sf_item/955707351348.htm?track_id=5724ee14-58ff-4ecc-b16a-be51c4d3b278",
+        "end": 1753668108000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "945068805751",
+        "url": "https://sf-item.taobao.com/sf_item/945068805751.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
+        "end": 1753668000000,
         "status": "done",
         "is_processed": false
     }

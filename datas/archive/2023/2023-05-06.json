@@ -654,11 +654,25 @@
         "detail_captured": true
     },
     {
-        "id": "714102811541",
-        "url": "https://sf-item.taobao.com/sf_item/714102811541.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
-        "end": 1683341533000,
-        "status": "done",
-        "is_processed": false
+        "id": 714102811541,
+        "市场评估价": 2477284,
+        "起拍价格": 1400000,
+        "成交价格": 1806000,
+        "交易时间": "2023/05/06 10:52:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/714102811541.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 35,
+        "地点": "广东省 惠州市 博罗县 龙溪镇龙岗村第六小组岗上埔（土名）金昌凤凰苑AA08",
+        "所属小区": "金昌凤凰苑",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "龙溪镇",
+        "建筑面积": 426.4,
+        "单价": 4235.46,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "713096803208",
@@ -675,15 +689,85 @@
         "is_processed": false
     },
     {
-        "id": "711146806884",
-        "url": "https://sf-item.taobao.com/sf_item/711146806884.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
+        "id": 711146806884,
+        "市场评估价": 0,
+        "起拍价格": 540919,
+        "成交价格": 540919,
+        "交易时间": "2023/05/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/711146806884.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 梅州市 蕉岭县 蕉城镇碧水街以西商贸中心B3栋501房",
+        "所属小区": "商贸中心",
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "蕉城镇",
+        "建筑面积": 246.32,
+        "单价": 2196.45,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "712722265002",
+        "url": "https://sf-item.taobao.com/sf_item/712722265002.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1683338400000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "712722265002",
-        "url": "https://sf-item.taobao.com/sf_item/712722265002.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
+        "id": "713991367382",
+        "url": "https://sf-item.taobao.com/sf_item/713991367382.htm?track_id=62ad0d53-1f42-4565-affc-8bd7d5720e56",
+        "end": 1683338611000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708969296813",
+        "url": "https://sf-item.taobao.com/sf_item/708969296813.htm?track_id=addbb771-a109-4b32-8cec-541c849a16ea",
+        "end": 1683338888000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "710809875200",
+        "url": "https://sf-item.taobao.com/sf_item/710809875200.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1683342517000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "713370998253",
+        "url": "https://sf-item.taobao.com/sf_item/713370998253.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1683338400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "710337275489",
+        "url": "https://sf-item.taobao.com/sf_item/710337275489.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1683338400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "713165820214",
+        "url": "https://sf-item.taobao.com/sf_item/713165820214.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1683338400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "710993225787",
+        "url": "https://sf-item.taobao.com/sf_item/710993225787.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1683342988000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "713427277406",
+        "url": "https://sf-item.taobao.com/sf_item/713427277406.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
         "end": 1683338400000,
         "status": "done",
         "is_processed": false

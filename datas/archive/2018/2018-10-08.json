@@ -399,11 +399,12 @@
         "省份": "四川省",
         "城市": "成都市",
         "区": "温江区",
-        "最靠近商圈": null,
+        "最靠近商圈": "万春镇商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 576816189947,
@@ -981,15 +982,16 @@
         "竞拍人数": 2,
         "出价人数": null,
         "地点": "四川省成都市温江区万春镇南岳村九社",
-        "所属小区": null,
+        "所属小区": "成都恒大城",
         "省份": "四川省",
         "城市": "成都市",
         "区": "温江区",
-        "最靠近商圈": null,
+        "最靠近商圈": "万春商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 577048979787,
@@ -1257,15 +1259,16 @@
         "竞拍人数": 6,
         "出价人数": 7,
         "地点": "江苏省 徐州市 鼓楼区 地藏里",
-        "所属小区": null,
+        "所属小区": "鼓楼地藏里小区",
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
-        "最靠近商圈": "鼓楼商圈",
+        "最靠近商圈": "彭城广场商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 576773561538,
@@ -1282,11 +1285,12 @@
         "省份": "广西壮族自治区",
         "城市": "柳州市",
         "区": "城中区",
-        "最靠近商圈": "中山西路商圈",
+        "最靠近商圈": "五星商圈",
         "建筑面积": 80.96,
-        "单价": 7588.69,
+        "单价": 7588.96,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 576840437503,
@@ -1324,10 +1328,24 @@
         "is_processed": false
     },
     {
-        "id": "576953578550",
-        "url": "https://sf-item.taobao.com/sf_item/576953578550.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
-        "end": 1538965203000,
-        "status": "done",
-        "is_processed": false
+        "id": 576953578550,
+        "市场评估价": null,
+        "起拍价格": 1048460,
+        "成交价格": 1378706,
+        "交易时间": "2018/10/08 10:20:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/576953578550.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市二七区政通路68号院7号楼2单元29层2901",
+        "所属小区": "政通路68号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学城商圈",
+        "建筑面积": 90.55,
+        "单价": 15226.77,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

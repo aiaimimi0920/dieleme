@@ -42,12 +42,25 @@
         "detail_captured": true
     },
     {
-        "id": "765882420263",
-        "url": "https://sf-item.taobao.com/sf_item/765882420263.htm?track_id=00dfda53-f4af-4fcc-b681-320460f2d956",
-        "end": 1708135673000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/765882420263.htm"
+        "id": 765882420263,
+        "市场评估价": 0,
+        "起拍价格": 508510,
+        "成交价格": 516510,
+        "交易时间": "2024/02/17 10:07:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/765882420263.htm?track_id=00dfda53-f4af-4fcc-b681-320460f2d956",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 7,
+        "地点": "内蒙古自治区 包头市 东河区 环城路北东方明珠嘉园小区-3-36",
+        "所属小区": "东方明珠嘉园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "东河区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 764445020678,
@@ -115,6 +128,27 @@
     {
         "id": "765611800343",
         "url": "https://sf-item.taobao.com/sf_item/765611800343.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
+        "end": 1708135200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "763103445178",
+        "url": "https://sf-item.taobao.com/sf_item/763103445178.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1708137769000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "765742884392",
+        "url": "https://sf-item.taobao.com/sf_item/765742884392.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1708144250000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "765968590505",
+        "url": "https://sf-item.taobao.com/sf_item/765968590505.htm?track_id=23b41d43-a66d-4854-8110-feb7462db538",
         "end": 1708135200000,
         "status": "done",
         "is_processed": false

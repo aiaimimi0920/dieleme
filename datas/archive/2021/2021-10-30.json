@@ -400,12 +400,25 @@
         "detail_captured": true
     },
     {
-        "id": "656991792353",
-        "url": "https://sf-item.taobao.com/sf_item/656991792353.htm?track_id=6b56c8f7-18e3-4f90-bf71-270f2f377bfd",
-        "end": 1635559200000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/656991792353.htm"
+        "id": 656991792353,
+        "市场评估价": null,
+        "起拍价格": 352245.6,
+        "成交价格": 352245.6,
+        "交易时间": "2021/10/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/656991792353.htm?track_id=6b56c8f7-18e3-4f90-bf71-270f2f377bfd",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 东河区 臭水井村土二楼",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "东河区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 657677771582,
@@ -429,12 +442,25 @@
         "detail_captured": true
     },
     {
-        "id": "657770974977",
-        "url": "https://sf-item.taobao.com/sf_item/657770974977.htm?track_id=5f53f0e9-c74a-4e90-a996-112b1fb7f76f",
-        "end": 1635560189000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/657770974977.htm"
+        "id": 657770974977,
+        "市场评估价": 326433,
+        "起拍价格": 185000,
+        "成交价格": 209000,
+        "交易时间": "2021/10/30 10:16:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657770974977.htm?track_id=5f53f0e9-c74a-4e90-a996-112b1fb7f76f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 25,
+        "地点": "山东省泰安市宁阳县华丰镇东村",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "泰安市",
+        "区": "宁阳县",
+        "最靠近商圈": "华丰镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 656976167888,
@@ -521,18 +547,46 @@
         "detail_captured": true
     },
     {
-        "id": "657432165447",
-        "url": "https://sf-item.taobao.com/sf_item/657432165447.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
-        "end": 1635559288000,
-        "status": "done",
-        "is_processed": false
+        "id": 657432165447,
+        "市场评估价": 427999,
+        "起拍价格": 308159.28,
+        "成交价格": 342056.77,
+        "交易时间": "2021-10-30 10:01:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657432165447.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 12,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延北路1192号丹虹小区8号楼3单元202房屋",
+        "所属小区": "丹虹小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 98.03,
+        "单价": 3489.28,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "656985668344",
-        "url": "https://sf-item.taobao.com/sf_item/656985668344.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
-        "end": 1635559840000,
-        "status": "done",
-        "is_processed": false
+        "id": 656985668344,
+        "市场评估价": 497621,
+        "起拍价格": 358287.12,
+        "成交价格": 369035.73,
+        "交易时间": "2021/10/30 10:10:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/656985668344.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 4,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延北路1192号丹虹小区8号楼3单元102房屋",
+        "所属小区": "丹虹小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 115.11,
+        "单价": 3205.24,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "657813370385",
@@ -552,6 +606,20 @@
         "id": "656087201489",
         "url": "https://sf-item.taobao.com/sf_item/656087201489.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
         "end": 1635559200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657443557971",
+        "url": "https://sf-item.taobao.com/sf_item/657443557971.htm?track_id=f484603b-057a-4a7b-809f-534da817f7bd",
+        "end": 1635559899000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656974559206",
+        "url": "https://sf-item.taobao.com/sf_item/656974559206.htm?track_id=6d5b6fa2-81b8-4761-92be-cf7469dd2225",
+        "end": 1635559417000,
         "status": "done",
         "is_processed": false
     }

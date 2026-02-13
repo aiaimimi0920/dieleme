@@ -169,11 +169,25 @@
         "detail_captured": true
     },
     {
-        "id": "541068425555",
-        "url": "https://sf-item.taobao.com/sf_item/541068425555.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
-        "end": 1480644000000,
-        "status": "done",
-        "is_processed": false
+        "id": 541068425555,
+        "市场评估价": null,
+        "起拍价格": 2110000,
+        "成交价格": 2110000,
+        "交易时间": "2016-12-02 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541068425555.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省 遵义市 汇川区 人民路国投大厦16-12、13、14、15号",
+        "所属小区": "国投大厦",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": 303.12,
+        "单价": 6950.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "541847077447",
@@ -193,6 +207,48 @@
         "id": "541849793083",
         "url": "https://sf-item.taobao.com/sf_item/541849793083.htm?track_id=9d62b742-b4d8-4891-b062-beb125515e21",
         "end": 1480644379000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541590839400",
+        "url": "https://sf-item.taobao.com/sf_item/541590839400.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1480644668000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541769646550",
+        "url": "https://sf-item.taobao.com/sf_item/541769646550.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1480647633000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541759501850",
+        "url": "https://sf-item.taobao.com/sf_item/541759501850.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1480644777000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541760865219",
+        "url": "https://sf-item.taobao.com/sf_item/541760865219.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1480644731000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541746984203",
+        "url": "https://sf-item.taobao.com/sf_item/541746984203.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1480644962000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541758761918",
+        "url": "https://sf-item.taobao.com/sf_item/541758761918.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1480644000000,
         "status": "done",
         "is_processed": false
     }

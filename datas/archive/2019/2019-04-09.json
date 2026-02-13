@@ -902,18 +902,46 @@
         "detail_captured": true
     },
     {
-        "id": "588403441605",
-        "url": "https://sf-item.taobao.com/sf_item/588403441605.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
-        "end": 1554801364000,
-        "status": "done",
-        "is_processed": false
+        "id": 588403441605,
+        "市场评估价": 490765,
+        "起拍价格": 314089.6,
+        "成交价格": 314089.6,
+        "交易时间": "2019/04/09 17:16:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588403441605.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 光华路",
+        "所属小区": "华府家园",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延西街商圈",
+        "建筑面积": 136.21,
+        "单价": 2305.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "588381381435",
-        "url": "https://sf-item.taobao.com/sf_item/588381381435.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
-        "end": 1554775200000,
-        "status": "done",
-        "is_processed": false
+        "id": 588381381435,
+        "市场评估价": null,
+        "起拍价格": 1217025.6,
+        "成交价格": 1217025.6,
+        "交易时间": "2019-04-09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588381381435.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省 惠州市 博罗县 罗阳镇桥西五路博丰花苑第五座1204及1205号房",
+        "所属小区": "博丰花苑",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 410.05,
+        "单价": 2967.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "589985395187",
@@ -926,6 +954,48 @@
         "id": "588630739261",
         "url": "https://sf-item.taobao.com/sf_item/588630739261.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1554775200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588463113689",
+        "url": "https://sf-item.taobao.com/sf_item/588463113689.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1554778143000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "589368988172",
+        "url": "https://sf-item.taobao.com/sf_item/589368988172.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1554775863000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588607894487",
+        "url": "https://sf-item.taobao.com/sf_item/588607894487.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1554778248000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588767487671",
+        "url": "https://sf-item.taobao.com/sf_item/588767487671.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1554777438000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588767603502",
+        "url": "https://sf-item.taobao.com/sf_item/588767603502.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1554778416000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588290838776",
+        "url": "https://sf-item.taobao.com/sf_item/588290838776.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1554778518000,
         "status": "done",
         "is_processed": false
     }

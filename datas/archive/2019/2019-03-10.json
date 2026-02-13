@@ -128,9 +128,58 @@
         "detail_captured": true
     },
     {
-        "id": "586392480303",
-        "url": "https://sf-item.taobao.com/sf_item/586392480303.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
-        "end": 1552188411000,
+        "id": 586392480303,
+        "市场评估价": 0,
+        "起拍价格": 105750,
+        "成交价格": 204750,
+        "交易时间": "2019/03/10 11:26:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586392480303.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 93,
+        "地点": "辽宁省 沈阳市 铁西区 重工北街24巷3号4-3-2（2）",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "重工街",
+        "建筑面积": 25.82,
+        "单价": 7929.51,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "587350217157",
+        "url": "https://sf-item.taobao.com/sf_item/587350217157.htm?track_id=0d0a4b96-3475-41c6-be82-f884580aae77",
+        "end": 1552183200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586991048152",
+        "url": "https://sf-item.taobao.com/sf_item/586991048152.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1552200634000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "587358037238",
+        "url": "https://sf-item.taobao.com/sf_item/587358037238.htm?track_id=8b419dc7-cda7-4057-8901-42ba60db8b13",
+        "end": 1552186632000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "587461526107",
+        "url": "https://sf-item.taobao.com/sf_item/587461526107.htm?track_id=3b36e442-fd18-4c67-9caf-4ea62c7a61cd",
+        "end": 1552187463000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "587110760777",
+        "url": "https://sf-item.taobao.com/sf_item/587110760777.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
+        "end": 1552183200000,
         "status": "done",
         "is_processed": false
     }

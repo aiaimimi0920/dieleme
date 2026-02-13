@@ -317,9 +317,79 @@
         "detail_captured": true
     },
     {
-        "id": "607469161911",
-        "url": "https://sf-item.taobao.com/sf_item/607469161911.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
-        "end": 1576288816000,
+        "id": 607469161911,
+        "市场评估价": 0,
+        "起拍价格": 510000,
+        "成交价格": 510000,
+        "交易时间": "2019/12/14 10:00:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/607469161911.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "广东省惠州市博罗县罗阳镇九村村头上头塘村小组三丫浪倒角山（土名）华泓·星岸城6号楼1601号",
+        "所属小区": "华泓·星岸城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 91.17,
+        "单价": 5593.28,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "607722390779",
+        "url": "https://sf-item.taobao.com/sf_item/607722390779.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1576294071000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607501013966",
+        "url": "https://sf-item.taobao.com/sf_item/607501013966.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1576289324000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607566166912",
+        "url": "https://sf-item.taobao.com/sf_item/607566166912.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1576293311000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607336789848",
+        "url": "https://sf-item.taobao.com/sf_item/607336789848.htm?track_id=6aabcd90-810d-43c8-9914-e7c57096882b",
+        "end": 1576292992000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608662081108",
+        "url": "https://sf-item.taobao.com/sf_item/608662081108.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1576288800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609119331447",
+        "url": "https://sf-item.taobao.com/sf_item/609119331447.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1576288800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609137643714",
+        "url": "https://sf-item.taobao.com/sf_item/609137643714.htm?track_id=89143a92-a511-4287-9fd0-7f485c07af6e",
+        "end": 1576288800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607941899690",
+        "url": "https://sf-item.taobao.com/sf_item/607941899690.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1576288800000,
         "status": "done",
         "is_processed": false
     }

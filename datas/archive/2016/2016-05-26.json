@@ -85,16 +85,44 @@
         "detail_captured": true
     },
     {
-        "id": "531501502281",
-        "url": "https://sf-item.taobao.com/sf_item/531501502281.htm?track_id=238365b2-67df-4e4e-b47f-46d817a2ef1f",
-        "end": 1464253200000,
-        "status": "done",
-        "is_processed": false
+        "id": 531501502281,
+        "市场评估价": 110819400,
+        "起拍价格": 74160000,
+        "成交价格": 74160000,
+        "交易时间": "2016/05/26 17:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531501502281.htm?track_id=238365b2-67df-4e4e-b47f-46d817a2ef1f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 厦门市 翔安区",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "翔安区",
+        "最靠近商圈": "翔安新城",
+        "建筑面积": 53477.14,
+        "单价": 1386.49,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "531226427213",
         "url": "https://sf-item.taobao.com/sf_item/531226427213.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
         "end": 1464228696000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531120271901",
+        "url": "https://sf-item.taobao.com/sf_item/531120271901.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "end": 1464228000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531436003792",
+        "url": "https://sf-item.taobao.com/sf_item/531436003792.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1464229270000,
         "status": "done",
         "is_processed": false
     }

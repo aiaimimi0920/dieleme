@@ -343,9 +343,58 @@
         "is_processed": false
     },
     {
-        "id": "681009217701",
-        "url": "https://sf-item.taobao.com/sf_item/681009217701.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
-        "end": 1663812000000,
+        "id": 681009217701,
+        "市场评估价": 895405,
+        "起拍价格": 626800,
+        "成交价格": 626800,
+        "交易时间": "2022-09-22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/681009217701.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 南昌市 青云谱区 南昌市青云谱区敬之路3号天沐•观湖国际名邸69号住宅楼二单元1403室",
+        "所属小区": "天沐·观湖国际名邸",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "洪都商圈",
+        "建筑面积": 83.34,
+        "单价": 7520.96,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "682746800858",
+        "url": "https://sf-item.taobao.com/sf_item/682746800858.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1663812951000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683436782087",
+        "url": "https://sf-item.taobao.com/sf_item/683436782087.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1663813005000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683398794702",
+        "url": "https://sf-item.taobao.com/sf_item/683398794702.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1663812899000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683524490263",
+        "url": "https://sf-item.taobao.com/sf_item/683524490263.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1663814809000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683145737225",
+        "url": "https://sf-item.taobao.com/sf_item/683145737225.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1663812125000,
         "status": "done",
         "is_processed": false
     }

@@ -315,11 +315,25 @@
         "detail_captured": true
     },
     {
-        "id": "651070303909",
-        "url": "https://sf-item.taobao.com/sf_item/651070303909.htm?track_id=40525c8e-6438-4ad9-bf6a-94c5cd57b48b",
-        "end": 1627524106000,
-        "status": "done",
-        "is_processed": false
+        "id": 651070303909,
+        "市场评估价": 0,
+        "起拍价格": 837872,
+        "成交价格": 837872,
+        "交易时间": "2021/07/29 10:01:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/651070303909.htm?track_id=40525c8e-6438-4ad9-bf6a-94c5cd57b48b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 乐山市 五通桥区 牛华镇振华路",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "乐山市",
+        "区": "五通桥区",
+        "最靠近商圈": "牛华镇",
+        "建筑面积": 230.8,
+        "单价": 3630.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "651005375008",
@@ -329,11 +343,25 @@
         "is_processed": false
     },
     {
-        "id": "649853620922",
-        "url": "https://sf-item.taobao.com/sf_item/649853620922.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
-        "end": 1627524087000,
-        "status": "done",
-        "is_processed": false
+        "id": 649853620922,
+        "市场评估价": 563001,
+        "起拍价格": 360320.64,
+        "成交价格": 360320.64,
+        "交易时间": "2021-07-29 10:01:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/649853620922.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 沈阳经济技术开发区沈辽西路142-9号2-29-3（澳海澜郡）",
+        "所属小区": "澳海澜郡",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 75.62,
+        "单价": 4764.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "649870724211",
@@ -343,9 +371,58 @@
         "is_processed": false
     },
     {
-        "id": "646710997081",
-        "url": "https://sf-item.taobao.com/sf_item/646710997081.htm?track_id=24a3714f-fe8c-41e0-b99f-2ad312458bc8",
-        "end": 1627527487000,
+        "id": 646710997081,
+        "市场评估价": 1595000,
+        "起拍价格": 1116500,
+        "成交价格": 1621500,
+        "交易时间": "2021/07/29 10:58:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/646710997081.htm?track_id=24a3714f-fe8c-41e0-b99f-2ad312458bc8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "安徽省合肥市瑶海区新安江路558号东郡苑7幢3703室",
+        "所属小区": "东郡苑",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "和平路商圈",
+        "建筑面积": 95.02,
+        "单价": 17063.53,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "649090274945",
+        "url": "https://sf-item.taobao.com/sf_item/649090274945.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1627524000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "651013275325",
+        "url": "https://sf-item.taobao.com/sf_item/651013275325.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1627524861000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "648265578100",
+        "url": "https://sf-item.taobao.com/sf_item/648265578100.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1627524738000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "647063618939",
+        "url": "https://sf-item.taobao.com/sf_item/647063618939.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1627526713000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "647063578995",
+        "url": "https://sf-item.taobao.com/sf_item/647063578995.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1627526267000,
         "status": "done",
         "is_processed": false
     }

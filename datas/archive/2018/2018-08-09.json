@@ -165,11 +165,12 @@
         "省份": "山东省",
         "城市": "威海市",
         "区": "环翠区",
-        "最靠近商圈": null,
+        "最靠近商圈": "威海市中心商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 574072613062,
@@ -186,11 +187,12 @@
         "省份": "山东省",
         "城市": "东营市",
         "区": "广饶县",
-        "最靠近商圈": null,
+        "最靠近商圈": "乐安大街商圈",
         "建筑面积": 146.81,
-        "单价": 5610.35,
+        "单价": 5609.97,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 573103265407,
@@ -214,11 +216,25 @@
         "detail_captured": true
     },
     {
-        "id": "573219807466",
-        "url": "https://sf-item.taobao.com/sf_item/573219807466.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
-        "end": 1533780000000,
-        "status": "done",
-        "is_processed": false
+        "id": 573219807466,
+        "市场评估价": null,
+        "起拍价格": 920045,
+        "成交价格": 920045,
+        "交易时间": "2018-08-09T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/573219807466.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "内蒙古自治区 包头市 昆都仑区 少先路16号街坊荣资梦乡A1-305号房产",
+        "所属小区": "荣资梦乡",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "573162243801",
@@ -228,9 +244,51 @@
         "is_processed": false
     },
     {
-        "id": "569005881722",
-        "url": "https://sf-item.taobao.com/sf_item/569005881722.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
-        "end": 1533785223000,
+        "id": 569005881722,
+        "市场评估价": 8022500,
+        "起拍价格": 5134400,
+        "成交价格": 5134400,
+        "交易时间": "2018/08/09 11:27:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569005881722.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市二七区嵩山北路45号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "碧沙岗商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "573209530578",
+        "url": "https://sf-item.taobao.com/sf_item/573209530578.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "end": 1533781199000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572804944819",
+        "url": "https://sf-item.taobao.com/sf_item/572804944819.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1533782840000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572264631636",
+        "url": "https://sf-item.taobao.com/sf_item/572264631636.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1533780000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573021000097",
+        "url": "https://sf-item.taobao.com/sf_item/573021000097.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1533785099000,
         "status": "done",
         "is_processed": false
     }

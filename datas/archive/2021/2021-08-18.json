@@ -294,11 +294,25 @@
         "detail_captured": true
     },
     {
-        "id": "650601061576",
-        "url": "https://sf-item.taobao.com/sf_item/650601061576.htm?track_id=6177169f-1bfc-4a21-9490-b437ab53f2e9",
-        "end": 1629254692000,
-        "status": "done",
-        "is_processed": false
+        "id": 650601061576,
+        "市场评估价": null,
+        "起拍价格": 769089,
+        "成交价格": 1254089,
+        "交易时间": "2021-08-18 10:44:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/650601061576.htm?track_id=6177169f-1bfc-4a21-9490-b437ab53f2e9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 42,
+        "地点": "陕西省 西安市 未央区 太元路6幢30906室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "西安北站商圈",
+        "建筑面积": 79.51,
+        "单价": 15773.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "650455133511",
@@ -332,6 +346,34 @@
         "id": "650180100358",
         "url": "https://sf-item.taobao.com/sf_item/650180100358.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
         "end": 1629252000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "650969634421",
+        "url": "https://sf-item.taobao.com/sf_item/650969634421.htm?track_id=ef50c735-a371-4834-af1b-815806338e54",
+        "end": 1629267225000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "651337031263",
+        "url": "https://sf-item.taobao.com/sf_item/651337031263.htm?track_id=ef50c735-a371-4834-af1b-815806338e54",
+        "end": 1629258833000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "650183844842",
+        "url": "https://sf-item.taobao.com/sf_item/650183844842.htm?track_id=89143a92-a511-4287-9fd0-7f485c07af6e",
+        "end": 1629255600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "649868984075",
+        "url": "https://sf-item.taobao.com/sf_item/649868984075.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1629258992000,
         "status": "done",
         "is_processed": false
     }

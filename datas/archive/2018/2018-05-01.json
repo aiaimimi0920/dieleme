@@ -275,11 +275,12 @@
         "省份": "甘肃省",
         "城市": "兰州市",
         "区": "七里河区",
-        "最靠近商圈": "小西湖",
+        "最靠近商圈": "西站商圈",
         "建筑面积": 248.61,
-        "单价": 7889.64,
+        "单价": 7889.47,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 566802181263,
@@ -303,16 +304,65 @@
         "detail_captured": true
     },
     {
-        "id": "566883650308",
-        "url": "https://sf-item.taobao.com/sf_item/566883650308.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
+        "id": 566883650308,
+        "市场评估价": 340758,
+        "起拍价格": 238530.6,
+        "成交价格": 238530.6,
+        "交易时间": "2018/05/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/566883650308.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 南七西路29号131",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 64.66,
+        "单价": 3689.32,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 567739135378,
+        "市场评估价": null,
+        "起拍价格": 700000,
+        "成交价格": 950000,
+        "交易时间": "2018/05/01 10:11:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/567739135378.htm?track_id=d9d5cff6-76da-4d05-953f-bedf8efbb449",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 26,
+        "地点": "陕西省 西安市 未央区 经济开发区北二环凤城明珠2幢1单元304号",
+        "所属小区": "凤城明珠",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "西安经济技术开发区",
+        "建筑面积": 102.47,
+        "单价": 9271.3,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "566547708839",
+        "url": "https://sf-item.taobao.com/sf_item/566547708839.htm?track_id=8991c5b1-871a-44f4-871d-3ba5c4f82a8e",
         "end": 1525140000000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "567739135378",
-        "url": "https://sf-item.taobao.com/sf_item/567739135378.htm?track_id=d9d5cff6-76da-4d05-953f-bedf8efbb449",
-        "end": 1525140689000,
+        "id": "566748418043",
+        "url": "https://sf-item.taobao.com/sf_item/566748418043.htm?track_id=8991c5b1-871a-44f4-871d-3ba5c4f82a8e",
+        "end": 1525140000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566782857428",
+        "url": "https://sf-item.taobao.com/sf_item/566782857428.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1525141388000,
         "status": "done",
         "is_processed": false
     }

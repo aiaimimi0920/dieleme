@@ -295,11 +295,25 @@
         "detail_captured": true
     },
     {
-        "id": "607685919130",
-        "url": "https://sf-item.taobao.com/sf_item/607685919130.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
-        "end": 1574474400000,
-        "status": "done",
-        "is_processed": false
+        "id": 607685919130,
+        "市场评估价": 461700,
+        "起拍价格": 295488,
+        "成交价格": 295488,
+        "交易时间": "2019/11/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/607685919130.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省乐至县天池镇农经路幸福巷9号、11号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "606002492688",
@@ -309,23 +323,79 @@
         "is_processed": false
     },
     {
-        "id": "605648748367",
-        "url": "https://sf-item.taobao.com/sf_item/605648748367.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
-        "end": 1574474400000,
-        "status": "done",
-        "is_processed": false
+        "id": 605648748367,
+        "市场评估价": 219376,
+        "起拍价格": 153563.2,
+        "成交价格": 156563.2,
+        "交易时间": "2019/11/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605648748367.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 长白路",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延边国贸",
+        "建筑面积": 71.95,
+        "单价": 2175.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "602459871480",
-        "url": "https://sf-item.taobao.com/sf_item/602459871480.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
-        "end": 1574547884000,
-        "status": "done",
-        "is_processed": false
+        "id": 602459871480,
+        "市场评估价": 462331,
+        "起拍价格": 258906,
+        "成交价格": 258906,
+        "交易时间": "2019/11/24 06:24:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/602459871480.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 勋望街9号7-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西商圈",
+        "建筑面积": 61.9,
+        "单价": 4182.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "606236149940",
         "url": "https://sf-item.taobao.com/sf_item/606236149940.htm?track_id=645fbace-2a78-4783-9257-833921945028",
         "end": 1574476903000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605996976237",
+        "url": "https://sf-item.taobao.com/sf_item/605996976237.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1574475214000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605383128522",
+        "url": "https://sf-item.taobao.com/sf_item/605383128522.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1574475278000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606978788439",
+        "url": "https://sf-item.taobao.com/sf_item/606978788439.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1574475154000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606459670615",
+        "url": "https://sf-item.taobao.com/sf_item/606459670615.htm?track_id=0197b9e4-1f85-4f10-afb0-ae2d7cd2e5cf",
+        "end": 1574474400000,
         "status": "done",
         "is_processed": false
     }

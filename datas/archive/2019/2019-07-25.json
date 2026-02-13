@@ -233,25 +233,67 @@
         "detail_captured": true
     },
     {
-        "id": "596328684809",
-        "url": "https://sf-item.taobao.com/sf_item/596328684809.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
-        "end": 1564020000000,
-        "status": "done",
-        "is_processed": false
+        "id": 596328684809,
+        "市场评估价": null,
+        "起拍价格": 789477.6,
+        "成交价格": 789477.6,
+        "交易时间": "2019/07/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/596328684809.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 小九路11号3-5-1",
+        "所属小区": "九路住宅小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场商圈",
+        "建筑面积": 115.61,
+        "单价": 6824.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "598468939890",
-        "url": "https://sf-item.taobao.com/sf_item/598468939890.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
-        "end": 1564024275000,
-        "status": "done",
-        "is_processed": false
+        "id": 598468939890,
+        "市场评估价": 3851100,
+        "起拍价格": 3851100,
+        "成交价格": 4961100,
+        "交易时间": "2019-07-25T11:11:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/598468939890.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
+        "是否成交": true,
+        "竞拍人数": 72,
+        "出价人数": 71,
+        "地点": "浙江省杭州市滨江区长河街道通江路251号江锦国际大厦202室",
+        "所属小区": "江锦国际",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 290.25,
+        "单价": 17100.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "598485287226",
-        "url": "https://sf-item.taobao.com/sf_item/598485287226.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
-        "end": 1564021445000,
-        "status": "done",
-        "is_processed": false
+        "id": 598485287226,
+        "市场评估价": null,
+        "起拍价格": 1371732,
+        "成交价格": 1907732,
+        "交易时间": "2019-07-25T10:24:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/598485287226.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
+        "是否成交": true,
+        "竞拍人数": 67,
+        "出价人数": 67,
+        "地点": "浙江省杭州市滨江区长河街道通江路251号江锦国际大厦207室",
+        "所属小区": "江锦国际",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河",
+        "建筑面积": 106.45,
+        "单价": 17923.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "598107709738",
@@ -264,6 +306,41 @@
         "id": "597163440657",
         "url": "https://sf-item.taobao.com/sf_item/597163440657.htm?track_id=0739f089-7ac6-489d-ad38-282796f4890c",
         "end": 1564045897000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596611804789",
+        "url": "https://sf-item.taobao.com/sf_item/596611804789.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "end": 1564021332000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595779880232",
+        "url": "https://sf-item.taobao.com/sf_item/595779880232.htm?track_id=60276a66-e935-4686-ac2d-7b6b359940ee",
+        "end": 1564041419000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596012093193",
+        "url": "https://sf-item.taobao.com/sf_item/596012093193.htm?track_id=60276a66-e935-4686-ac2d-7b6b359940ee",
+        "end": 1564041424000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598481511490",
+        "url": "https://sf-item.taobao.com/sf_item/598481511490.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1564020243000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598109553270",
+        "url": "https://sf-item.taobao.com/sf_item/598109553270.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1564020000000,
         "status": "done",
         "is_processed": false
     }

@@ -336,16 +336,79 @@
         "detail_captured": true
     },
     {
-        "id": "727367776975",
-        "url": "https://sf-item.taobao.com/sf_item/727367776975.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "id": 727367776975,
+        "市场评估价": 0,
+        "起拍价格": 682491,
+        "成交价格": 682491,
+        "交易时间": "2023-07-22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/727367776975.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 广州路天安星园7号楼4-1-1",
+        "所属小区": "天安星园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "广州路商圈",
+        "建筑面积": 171.75,
+        "单价": 3973.45,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 727850995970,
+        "市场评估价": 0,
+        "起拍价格": 1303000,
+        "成交价格": 1323000,
+        "交易时间": "2023/07/22 10:17:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/727850995970.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 5,
+        "地点": "福建省 泉州市 安溪县 凤城镇河滨北路818号水晶城6号楼404房",
+        "所属小区": "水晶城",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城镇",
+        "建筑面积": 103.84,
+        "单价": 12738.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "725133821224",
+        "url": "https://sf-item.taobao.com/sf_item/725133821224.htm?track_id=c566893a-201b-4839-8262-2d73cb1d9a72",
+        "end": 1689995140000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "725078845558",
+        "url": "https://sf-item.taobao.com/sf_item/725078845558.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1690009543000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "727597613214",
+        "url": "https://sf-item.taobao.com/sf_item/727597613214.htm?track_id=9583dfdb-76e7-4339-9ab5-b262551224f2",
         "end": 1689991200000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "727850995970",
-        "url": "https://sf-item.taobao.com/sf_item/727850995970.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
-        "end": 1689992221000,
+        "id": "725308134107",
+        "url": "https://sf-item.taobao.com/sf_item/725308134107.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1689991480000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "725448143931",
+        "url": "https://sf-item.taobao.com/sf_item/725448143931.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1689992164000,
         "status": "done",
         "is_processed": false
     }

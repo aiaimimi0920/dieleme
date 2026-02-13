@@ -168,18 +168,46 @@
         "detail_captured": true
     },
     {
-        "id": "614447406501",
-        "url": "https://sf-item.taobao.com/sf_item/614447406501.htm?track_id=0dd40b95-8471-4dcf-9346-f8ebf0b69c81",
-        "end": 1586916231000,
-        "status": "done",
-        "is_processed": false
+        "id": 614447406501,
+        "市场评估价": 1975347,
+        "起拍价格": 1106194.32,
+        "成交价格": 1106194.32,
+        "交易时间": "2020-04-15 10:03:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/614447406501.htm?track_id=0dd40b95-8471-4dcf-9346-f8ebf0b69c81",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "延吉市太平街",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": null,
+        "最靠近商圈": "延吉市中心",
+        "建筑面积": 748.71,
+        "单价": 1477.49,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "613816359250",
-        "url": "https://sf-item.taobao.com/sf_item/613816359250.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
-        "end": 1586924681000,
-        "status": "done",
-        "is_processed": false
+        "id": 613816359250,
+        "市场评估价": null,
+        "起拍价格": 1195208,
+        "成交价格": 1785208,
+        "交易时间": "2020/04/15 12:24:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/613816359250.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": 113,
+        "出价人数": 119,
+        "地点": "广东省 阳江市 阳春市 春城街道阳春大道西侧规划行洪渠北中汇?星座商品楼首层16号商铺（含夹层）",
+        "所属小区": "中汇•星座",
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": "春城街道",
+        "建筑面积": 209.68,
+        "单价": 8508.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "614746691692",
@@ -192,6 +220,20 @@
         "id": "614746367802",
         "url": "https://sf-item.taobao.com/sf_item/614746367802.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1586916000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613256340781",
+        "url": "https://sf-item.taobao.com/sf_item/613256340781.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1586916980000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611580082204",
+        "url": "https://sf-item.taobao.com/sf_item/611580082204.htm?track_id=e76b4749-9232-43f5-8a4e-d6b730fc98cb",
+        "end": 1586925389000,
         "status": "done",
         "is_processed": false
     }

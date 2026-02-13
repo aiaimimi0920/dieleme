@@ -379,11 +379,25 @@
         "detail_captured": true
     },
     {
-        "id": "630125509284",
-        "url": "https://sf-item.taobao.com/sf_item/630125509284.htm?track_id=e47d20ec-1d68-4f96-864f-1736db1ab045",
-        "end": 1606271062000,
-        "status": "done",
-        "is_processed": false
+        "id": 630125509284,
+        "市场评估价": 670400,
+        "起拍价格": 469280,
+        "成交价格": 569280,
+        "交易时间": "2020-11-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/630125509284.htm?track_id=e47d20ec-1d68-4f96-864f-1736db1ab045",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": 19,
+        "地点": "辽宁省 沈阳市 铁西区 沈阳经济技术开发区花海路26-1号1-6-B",
+        "所属小区": "白领双星小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 93.9,
+        "单价": 6063.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "630050669461",
@@ -417,6 +431,27 @@
         "id": "630629023961",
         "url": "https://sf-item.taobao.com/sf_item/630629023961.htm?track_id=2251861a-8fa8-42fa-a066-263dacf55468",
         "end": 1606271142000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "630287210037",
+        "url": "https://sf-item.taobao.com/sf_item/630287210037.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1606271397000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "630573651290",
+        "url": "https://sf-item.taobao.com/sf_item/630573651290.htm?track_id=efb4342c-0c1c-4486-9308-1ed5553b53ca",
+        "end": 1606272080000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "630633387519",
+        "url": "https://sf-item.taobao.com/sf_item/630633387519.htm?track_id=269f7c8e-7c43-472e-9c90-32f75befe4fb",
+        "end": 1606269635000,
         "status": "done",
         "is_processed": false
     }

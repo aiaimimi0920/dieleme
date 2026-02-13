@@ -1057,11 +1057,25 @@
         "is_processed": false
     },
     {
-        "id": "798261866824",
-        "url": "https://sf-item.taobao.com/sf_item/798261866824.htm?track_id=b5067d3b-a8a7-456b-852f-55dbd2272063",
-        "end": 1717725664000,
-        "status": "done",
-        "is_processed": false
+        "id": 798261866824,
+        "市场评估价": 237732,
+        "起拍价格": 133129.92,
+        "成交价格": 133129.92,
+        "交易时间": "2024/06/07 10:01:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/798261866824.htm?track_id=b5067d3b-a8a7-456b-852f-55dbd2272063",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 绣工西街19号4-8-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西兴华",
+        "建筑面积": 63.92,
+        "单价": 2083.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "798477115114",
@@ -1071,18 +1085,46 @@
         "is_processed": false
     },
     {
-        "id": "797978226687",
-        "url": "https://sf-item.taobao.com/sf_item/797978226687.htm?track_id=75efc7d9-1c15-436a-a771-a5622ac43bf7",
-        "end": 1717726326000,
-        "status": "done",
-        "is_processed": false
+        "id": 797978226687,
+        "市场评估价": 0,
+        "起拍价格": 1778344,
+        "成交价格": 2113344,
+        "交易时间": "2024/06/07 10:12:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/797978226687.htm?track_id=75efc7d9-1c15-436a-a771-a5622ac43bf7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "陕西省 西安市 未央区 玄武东路华远海蓝城12幢20302室",
+        "所属小区": "华远海蓝城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "浐灞生态区",
+        "建筑面积": 129.69,
+        "单价": 16294.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "798172491811",
-        "url": "https://sf-item.taobao.com/sf_item/798172491811.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
-        "end": 1717725600000,
-        "status": "done",
-        "is_processed": false
+        "id": 798172491811,
+        "市场评估价": 881179.28,
+        "起拍价格": 634450,
+        "成交价格": 634450,
+        "交易时间": "2024-06-07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/798172491811.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "河北省 廊坊市 霸州市 胜芳镇新城华府7-3-302",
+        "所属小区": "新城华府",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "胜芳镇",
+        "建筑面积": 161.27,
+        "单价": 3934.04,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "788411078335",
@@ -1099,11 +1141,25 @@
         "is_processed": false
     },
     {
-        "id": "796003249565",
-        "url": "https://sf-item.taobao.com/sf_item/796003249565.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
-        "end": 1717726336000,
-        "status": "done",
-        "is_processed": false
+        "id": 796003249565,
+        "市场评估价": 1010300,
+        "起拍价格": 646592,
+        "成交价格": 706592,
+        "交易时间": "2024/06/07 10:12:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/796003249565.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 13,
+        "地点": "河南省 郑州市 二七区 华中路10号院4号楼1单元6层601（合同号：19005824591）的房产",
+        "所属小区": "华中路10号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七万达商圈",
+        "建筑面积": 142.14,
+        "单价": 4971.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "795985673844",
@@ -1116,6 +1172,27 @@
         "id": "796624463563",
         "url": "https://sf-item.taobao.com/sf_item/796624463563.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
         "end": 1717725600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "796739972775",
+        "url": "https://sf-item.taobao.com/sf_item/796739972775.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1717728327000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "786849435580",
+        "url": "https://sf-item.taobao.com/sf_item/786849435580.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1717728912000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "787599585668",
+        "url": "https://sf-item.taobao.com/sf_item/787599585668.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1717728502000,
         "status": "done",
         "is_processed": false
     }

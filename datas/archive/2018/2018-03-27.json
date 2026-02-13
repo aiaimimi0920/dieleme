@@ -321,15 +321,16 @@
         "竞拍人数": 78,
         "出价人数": 78,
         "地点": "山东省威海市荣成市崖头镇杨格庄村二区7号楼",
-        "所属小区": null,
+        "所属小区": "杨格庄村",
         "省份": "山东省",
         "城市": "威海市",
         "区": "荣成市",
-        "最靠近商圈": null,
+        "最靠近商圈": "崖头商圈",
         "建筑面积": 410.32,
-        "单价": 3040.05,
+        "单价": 3039.21,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 565107881315,
@@ -458,16 +459,51 @@
         "detail_captured": true
     },
     {
-        "id": "565017537316",
-        "url": "https://sf-item.taobao.com/sf_item/565017537316.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
-        "end": 1522119350000,
-        "status": "done",
-        "is_processed": false
+        "id": 565017537316,
+        "市场评估价": null,
+        "起拍价格": 19880000,
+        "成交价格": 28800000,
+        "交易时间": "2018-03-27 10:55:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565017537316.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 温州市 龙湾区 温州市龙湾区永中街道罗东北街167号龙联大厦",
+        "所属小区": "龙联大厦",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "永中街道",
+        "建筑面积": 3506.54,
+        "单价": 8214.17,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "563868258043",
         "url": "https://sf-item.taobao.com/sf_item/563868258043.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1522121195000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564891090860",
+        "url": "https://sf-item.taobao.com/sf_item/564891090860.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1522134159000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565598279668",
+        "url": "https://sf-item.taobao.com/sf_item/565598279668.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1522118137000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565647039518",
+        "url": "https://sf-item.taobao.com/sf_item/565647039518.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1522117334000,
         "status": "done",
         "is_processed": false
     }

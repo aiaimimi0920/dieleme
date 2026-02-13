@@ -671,11 +671,12 @@
         "省份": "山东省",
         "城市": "威海市",
         "区": "荣成市",
-        "最靠近商圈": null,
+        "最靠近商圈": "步行街商圈",
         "建筑面积": 91.5,
-        "单价": 2073.5,
+        "单价": 2073.22,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 568452948859,
@@ -688,15 +689,16 @@
         "竞拍人数": null,
         "出价人数": 0,
         "地点": "山东省威海市荣成市月湖新城西区408号楼504",
-        "所属小区": null,
+        "所属小区": "月湖新城",
         "省份": "山东省",
         "城市": "威海市",
         "区": "荣成市",
-        "最靠近商圈": "月湖新城",
+        "最靠近商圈": "荣成市中心商圈",
         "建筑面积": 80.59,
-        "单价": 2484.35,
+        "单价": 2484.18,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 568577421384,
@@ -715,9 +717,10 @@
         "区": "荣成市",
         "最靠近商圈": null,
         "建筑面积": 113.78,
-        "单价": 4450.66,
+        "单价": 4454.21,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 568867723339,
@@ -841,9 +844,10 @@
         "区": "姑苏区",
         "最靠近商圈": "观前街商圈",
         "建筑面积": 63.62,
-        "单价": 11159.64,
+        "单价": 11160.01,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 568360236688,
@@ -888,11 +892,25 @@
         "is_processed": false
     },
     {
-        "id": "568229512369",
-        "url": "https://sf-item.taobao.com/sf_item/568229512369.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
-        "end": 1527560282000,
-        "status": "done",
-        "is_processed": false
+        "id": 568229512369,
+        "市场评估价": 4688500,
+        "起拍价格": 3282000,
+        "成交价格": 4872000,
+        "交易时间": "2018/05/29 10:18:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/568229512369.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 127,
+        "地点": "江苏省 无锡市 锡山区 凯旋华庭A区G95-6幢115单元",
+        "所属小区": "凯旋华庭",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": 333.7,
+        "单价": 14599.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "568870547095",
@@ -909,9 +927,79 @@
         "is_processed": false
     },
     {
-        "id": "568760215455",
-        "url": "https://sf-item.taobao.com/sf_item/568760215455.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
-        "end": 1527561130000,
+        "id": 568760215455,
+        "市场评估价": null,
+        "起拍价格": 327250,
+        "成交价格": 507250,
+        "交易时间": "2018-05-29 10:32:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/568760215455.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
+        "是否成交": true,
+        "竞拍人数": 86,
+        "出价人数": 86,
+        "地点": "江苏省无锡市梁溪区惠龙新村324-203室",
+        "所属小区": "惠龙新村",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "崇安寺商圈",
+        "建筑面积": 66.87,
+        "单价": 7585.91,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "568679679804",
+        "url": "https://sf-item.taobao.com/sf_item/568679679804.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1527559543000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568427565950",
+        "url": "https://sf-item.taobao.com/sf_item/568427565950.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1527570667000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568571678800",
+        "url": "https://sf-item.taobao.com/sf_item/568571678800.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1527562775000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568651757257",
+        "url": "https://sf-item.taobao.com/sf_item/568651757257.htm?track_id=9370e9c3-7a71-4d89-8eb3-257be301ecff",
+        "end": 1527560960000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568506358484",
+        "url": "https://sf-item.taobao.com/sf_item/568506358484.htm?track_id=a104badb-d029-4a84-9853-223a95622272",
+        "end": 1527564470000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568528826955",
+        "url": "https://sf-item.taobao.com/sf_item/568528826955.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
+        "end": 1527562800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568384896129",
+        "url": "https://sf-item.taobao.com/sf_item/568384896129.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "end": 1527559927000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568578161436",
+        "url": "https://sf-item.taobao.com/sf_item/568578161436.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1527559439000,
         "status": "done",
         "is_processed": false
     }

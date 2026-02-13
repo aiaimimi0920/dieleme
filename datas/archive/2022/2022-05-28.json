@@ -231,9 +231,44 @@
         "detail_captured": true
     },
     {
-        "id": "674338593765",
-        "url": "https://sf-item.taobao.com/sf_item/674338593765.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
-        "end": 1653703200000,
+        "id": 674338593765,
+        "市场评估价": 2571400,
+        "起拍价格": 1529983,
+        "成交价格": 1529983,
+        "交易时间": "2022/05/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/674338593765.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 北四东路40号1-1-2",
+        "所属小区": "巴塞罗那",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 229.94,
+        "单价": 6655.78,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "674682798056",
+        "url": "https://sf-item.taobao.com/sf_item/674682798056.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
+        "end": 1653699600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673769774254",
+        "url": "https://sf-item.taobao.com/sf_item/673769774254.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1653705338000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673721048242",
+        "url": "https://sf-item.taobao.com/sf_item/673721048242.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1653704274000,
         "status": "done",
         "is_processed": false
     }

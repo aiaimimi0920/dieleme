@@ -211,23 +211,65 @@
         "detail_captured": true
     },
     {
-        "id": "970157890630",
-        "url": "https://sf-item.taobao.com/sf_item/970157890630.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1759285708000,
-        "status": "done",
-        "is_processed": false
+        "id": 970157890630,
+        "市场评估价": 827383,
+        "起拍价格": 580000,
+        "成交价格": 713400,
+        "交易时间": "2025-10-01 10:28:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/970157890630.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": 24,
+        "出价人数": 22,
+        "地点": "江西省 南昌市 青云谱区 何坊西路47号谱洋府7#住宅楼1单元2103室",
+        "所属小区": "谱洋府",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "洪都商圈",
+        "建筑面积": 97.2,
+        "单价": 7343.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "970166006948",
-        "url": "https://sf-item.taobao.com/sf_item/970166006948.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
-        "end": 1759284253000,
-        "status": "done",
-        "is_processed": false
+        "id": 970166006948,
+        "市场评估价": 822315,
+        "起拍价格": 580000,
+        "成交价格": 672800,
+        "交易时间": "2025/10/01 10:04:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/970166006948.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
+        "是否成交": true,
+        "竞拍人数": 17,
+        "出价人数": 17,
+        "地点": "江西省 南昌市 青云谱区 何坊西路47号谱洋府7#商业住宅楼1单元2102室",
+        "所属小区": "谱洋府",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "青云谱商圈",
+        "建筑面积": 97.2,
+        "单价": 6921.81,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "975916919161",
         "url": "https://sf-item.taobao.com/sf_item/975916919161.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
         "end": 1759284949000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "951788231337",
+        "url": "https://sf-item.taobao.com/sf_item/951788231337.htm?track_id=c5b6e009-74c4-4149-95dd-a1f6a780bccf",
+        "end": 1759298835000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "976454786765",
+        "url": "https://sf-item.taobao.com/sf_item/976454786765.htm?track_id=f8fcb460-293d-4823-a6b8-e6d33c641f75",
+        "end": 1759285045000,
         "status": "done",
         "is_processed": false
     }

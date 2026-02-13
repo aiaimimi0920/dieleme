@@ -210,23 +210,72 @@
         "detail_captured": true
     },
     {
-        "id": "826608982429",
-        "url": "https://sf-item.taobao.com/sf_item/826608982429.htm?track_id=50ef3e24-222c-4421-aae9-e417e102cb8b",
-        "end": 1725847305000,
-        "status": "done",
-        "is_processed": false
+        "id": 826608982429,
+        "市场评估价": null,
+        "起拍价格": 662000,
+        "成交价格": 662000,
+        "交易时间": "2024/09/09 10:01:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/826608982429.htm?track_id=50ef3e24-222c-4421-aae9-e417e102cb8b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 泉州市 安溪县 安溪县参内镇学府路1号学府壹号二期6号楼1梯2703室房产",
+        "所属小区": "学府壹号二期",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "参内镇",
+        "建筑面积": 119.02,
+        "单价": 5562.04,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "820887596301",
-        "url": "https://sf-item.taobao.com/sf_item/820887596301.htm?track_id=539c2a58-d4a9-45fb-ba00-cef0f02fa0fc",
-        "end": 1725847200000,
-        "status": "done",
-        "is_processed": false
+        "id": 820887596301,
+        "市场评估价": 135080,
+        "起拍价格": 135080,
+        "成交价格": 186080,
+        "交易时间": "2024/09/09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/820887596301.htm?track_id=539c2a58-d4a9-45fb-ba00-cef0f02fa0fc",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": 26,
+        "地点": "黑龙江省 鸡西市 密山市 密山镇",
+        "所属小区": "天福家园",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "密山市",
+        "最靠近商圈": "密山镇中心",
+        "建筑面积": 33.77,
+        "单价": 5512.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "822793708312",
         "url": "https://sf-item.taobao.com/sf_item/822793708312.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1725847200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "822641215231",
+        "url": "https://sf-item.taobao.com/sf_item/822641215231.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1725849382000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "822759301463",
+        "url": "https://sf-item.taobao.com/sf_item/822759301463.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1725856236000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826218906284",
+        "url": "https://sf-item.taobao.com/sf_item/826218906284.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1725856098000,
         "status": "done",
         "is_processed": false
     }

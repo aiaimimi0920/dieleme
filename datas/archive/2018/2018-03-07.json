@@ -127,23 +127,72 @@
         "detail_captured": true
     },
     {
-        "id": "564747195222",
-        "url": "https://sf-item.taobao.com/sf_item/564747195222.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
-        "end": 1520389547000,
-        "status": "done",
-        "is_processed": false
+        "id": 564747195222,
+        "市场评估价": null,
+        "起拍价格": 603283,
+        "成交价格": 655283,
+        "交易时间": "2018-03-07 10:25:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564747195222.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
+        "是否成交": true,
+        "竞拍人数": 52,
+        "出价人数": 52,
+        "地点": "内蒙古自治区 包头市 昆都仑区 青年路62号碧水山庄6-401",
+        "所属小区": "碧水山庄",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "564687321004",
-        "url": "https://sf-item.taobao.com/sf_item/564687321004.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
-        "end": 1520389356000,
-        "status": "done",
-        "is_processed": false
+        "id": 564687321004,
+        "市场评估价": null,
+        "起拍价格": 858489,
+        "成交价格": 953489,
+        "交易时间": "2018/03/07 10:22:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564687321004.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 20,
+        "地点": "陕西省 西安市 未央区 凤城二路27号",
+        "所属小区": "天心苑",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": null,
+        "建筑面积": 164.46,
+        "单价": 5796.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "564724365813",
         "url": "https://sf-item.taobao.com/sf_item/564724365813.htm?track_id=0d8e7746-cfb4-4d5f-b22b-7d43d8847bd0",
         "end": 1520391981000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564709552828",
+        "url": "https://sf-item.taobao.com/sf_item/564709552828.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1520388000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563637609758",
+        "url": "https://sf-item.taobao.com/sf_item/563637609758.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "end": 1520388000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564318743185",
+        "url": "https://sf-item.taobao.com/sf_item/564318743185.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1520395509000,
         "status": "done",
         "is_processed": false
     }

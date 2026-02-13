@@ -436,7 +436,7 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "河南省洛阳市宜阳县寻村镇北城区锦屏大道西侧1幢4-201房产",
-        "所属小区": null,
+        "所属小区": "锦屏花园",
         "省份": "河南省",
         "城市": "洛阳市",
         "区": "宜阳县",
@@ -444,7 +444,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 580623322233,
@@ -633,6 +634,41 @@
         "id": "580888788617",
         "url": "https://sf-item.taobao.com/sf_item/580888788617.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
         "end": 1543812790000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581253654698",
+        "url": "https://sf-item.taobao.com/sf_item/581253654698.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1543803213000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581214206198",
+        "url": "https://sf-item.taobao.com/sf_item/581214206198.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1543807849000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582228786411",
+        "url": "https://sf-item.taobao.com/sf_item/582228786411.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1543803855000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578988848248",
+        "url": "https://sf-item.taobao.com/sf_item/578988848248.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1543805031000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "580751832929",
+        "url": "https://sf-item.taobao.com/sf_item/580751832929.htm?track_id=7c151630-b847-4af4-a435-456209157b57",
+        "end": 1543802747000,
         "status": "done",
         "is_processed": false
     }

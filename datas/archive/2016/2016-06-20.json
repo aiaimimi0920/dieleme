@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "532797027865",
-        "url": "https://sf-item.taobao.com/sf_item/532797027865.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
-        "end": 1466433297000,
-        "status": "done",
-        "is_processed": false
+        "id": 532797027865,
+        "市场评估价": 0,
+        "起拍价格": 2550700,
+        "成交价格": 3005700,
+        "交易时间": "2016/06/20 22:34:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/532797027865.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 78,
+        "地点": "福建省泉州市安溪县凤城镇新安西路47-49号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城镇",
+        "建筑面积": 116.76,
+        "单价": 25752.99,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

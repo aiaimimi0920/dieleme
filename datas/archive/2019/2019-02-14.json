@@ -207,16 +207,17 @@
         "竞拍人数": 3,
         "出价人数": 3,
         "地点": "广州市南沙区大岗镇高沙路蓝怡街58号",
-        "所属小区": null,
+        "所属小区": "蓝怡街小区",
         "省份": "广东省",
         "城市": "广州市",
         "区": "南沙区",
-        "最靠近商圈": "大岗",
+        "最靠近商圈": "大岗中心商业区",
         "建筑面积": 71.87,
-        "单价": 9667.41,
+        "单价": 9670.7,
         "is_processed": true,
         "detail_captured": true,
-        "status": "done"
+        "status": "done",
+        "manual_checked": true
     },
     {
         "id": "586242072537",
@@ -365,11 +366,12 @@
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮城商圈",
         "建筑面积": 110.55,
-        "单价": 4530.87,
+        "单价": 4531.02,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 585408300343,
@@ -388,9 +390,10 @@
         "区": "七里河区",
         "最靠近商圈": "西站商圈",
         "建筑面积": 85.43,
-        "单价": 6103.0,
+        "单价": 6098.24,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 585610181754,
@@ -498,11 +501,25 @@
         "detail_captured": true
     },
     {
-        "id": "585724378569",
-        "url": "https://sf-item.taobao.com/sf_item/585724378569.htm?track_id=375f93c0-4a0c-406a-a015-a7462976ee1c",
-        "end": 1550109738000,
-        "status": "done",
-        "is_processed": false
+        "id": 585724378569,
+        "市场评估价": 785300,
+        "起拍价格": 502592,
+        "成交价格": 618592,
+        "交易时间": "2019-02-14 10:02:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585724378569.htm?track_id=375f93c0-4a0c-406a-a015-a7462976ee1c",
+        "是否成交": true,
+        "竞拍人数": 58,
+        "出价人数": null,
+        "地点": "安徽省 合肥市 新站区 凤阳路南侧综合楼2幢202室",
+        "所属小区": null,
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "新站区",
+        "最靠近商圈": "新站广场商圈",
+        "建筑面积": 138.55,
+        "单价": 4464.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586627529670",
@@ -515,6 +532,62 @@
         "id": "586027609326",
         "url": "https://sf-item.taobao.com/sf_item/586027609326.htm?track_id=b83e9521-b8c5-4682-9703-1e8745dd3e14",
         "end": 1550148809000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586495413126",
+        "url": "https://sf-item.taobao.com/sf_item/586495413126.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1550111559000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586776983719",
+        "url": "https://sf-item.taobao.com/sf_item/586776983719.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1550111877000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585798832118",
+        "url": "https://sf-item.taobao.com/sf_item/585798832118.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1550110489000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586191592139",
+        "url": "https://sf-item.taobao.com/sf_item/586191592139.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1550125261000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584045318740",
+        "url": "https://sf-item.taobao.com/sf_item/584045318740.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1550113291000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584451464584",
+        "url": "https://sf-item.taobao.com/sf_item/584451464584.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1550112784000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584454204910",
+        "url": "https://sf-item.taobao.com/sf_item/584454204910.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1550109733000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583917141700",
+        "url": "https://sf-item.taobao.com/sf_item/583917141700.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "end": 1550109602000,
         "status": "done",
         "is_processed": false
     }

@@ -63,30 +63,114 @@
         "detail_captured": true
     },
     {
-        "id": "527415890152",
-        "url": "https://sf-item.taobao.com/sf_item/527415890152.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
-        "end": 1458013362000,
-        "status": "done",
-        "is_processed": false
+        "id": 527415890152,
+        "市场评估价": null,
+        "起拍价格": 1650000,
+        "成交价格": 1757000,
+        "交易时间": "2016-03-15T11:42:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527415890152.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市",
+        "所属小区": "华欣大厦",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "小十字",
+        "建筑面积": 57.64,
+        "单价": 30462.81,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "527555933743",
-        "url": "https://sf-item.taobao.com/sf_item/527555933743.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
-        "end": 1458054305000,
-        "status": "done",
-        "is_processed": false
+        "id": 527555933743,
+        "市场评估价": 0,
+        "起拍价格": 1371200,
+        "成交价格": 1691200,
+        "交易时间": "2016/03/15 23:05:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527555933743.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 65,
+        "地点": "福建省泉州市安溪县安溪县茶叶批发市场L幢117-1号店面",
+        "所属小区": "安溪县茶叶批发市场",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "中国茶都",
+        "建筑面积": 56.67,
+        "单价": 29848.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "527388391312",
-        "url": "https://sf-item.taobao.com/sf_item/527388391312.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
-        "end": 1458008509000,
-        "status": "done",
-        "is_processed": false
+        "id": 527388391312,
+        "市场评估价": null,
+        "起拍价格": 633200,
+        "成交价格": 900200,
+        "交易时间": "2016-03-15 10:21:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527388391312.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
+        "是否成交": true,
+        "竞拍人数": 80,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": "海逸豪园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 122.43,
+        "单价": 7351.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "527341361051",
         "url": "https://sf-item.taobao.com/sf_item/527341361051.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
         "end": 1458007200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527299753954",
+        "url": "https://sf-item.taobao.com/sf_item/527299753954.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1458008558000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527305027444",
+        "url": "https://sf-item.taobao.com/sf_item/527305027444.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1458009727000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527346790337",
+        "url": "https://sf-item.taobao.com/sf_item/527346790337.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1458009880000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527356845825",
+        "url": "https://sf-item.taobao.com/sf_item/527356845825.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1458008488000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527303999398",
+        "url": "https://sf-item.taobao.com/sf_item/527303999398.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1458010267000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527357561835",
+        "url": "https://sf-item.taobao.com/sf_item/527357561835.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1458009502000,
         "status": "done",
         "is_processed": false
     }

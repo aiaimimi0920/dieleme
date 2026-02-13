@@ -399,18 +399,46 @@
         "detail_captured": true
     },
     {
-        "id": "911702472893",
-        "url": "https://sf-item.taobao.com/sf_item/911702472893.htm?track_id=48dfd4c3-795e-4adf-b7c9-3294509d2a33",
-        "end": 1746842400000,
-        "status": "done",
-        "is_processed": false
+        "id": 911702472893,
+        "市场评估价": 832100,
+        "起拍价格": 465976,
+        "成交价格": 533476,
+        "交易时间": "2025/05/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/911702472893.htm?track_id=48dfd4c3-795e-4adf-b7c9-3294509d2a33",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 5,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区中央大街22-15号1-1-1",
+        "所属小区": "美域天成",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西经济技术开发区",
+        "建筑面积": 94.41,
+        "单价": 5648.61,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "914016094208",
-        "url": "https://sf-item.taobao.com/sf_item/914016094208.htm?track_id=3fa856a2-e12a-4769-a482-89c3519c8086",
-        "end": 1746871343000,
-        "status": "done",
-        "is_processed": false
+        "id": 914016094208,
+        "市场评估价": 1076313.6,
+        "起拍价格": 610000,
+        "成交价格": 610000,
+        "交易时间": "2025-05-10 18:02:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/914016094208.htm?track_id=3fa856a2-e12a-4769-a482-89c3519c8086",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广东省惠州市博罗县罗阳街道城东区博中路10号东江豪门花园2栋商住楼1层35商铺",
+        "所属小区": "东江豪门花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳街道城东区",
+        "建筑面积": 93.43,
+        "单价": 6530.62,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "916085448462",
@@ -420,9 +448,121 @@
         "is_processed": false
     },
     {
-        "id": "905719486640",
-        "url": "https://sf-item.taobao.com/sf_item/905719486640.htm?track_id=f318f174-d213-49b5-88b0-0165640b650c",
-        "end": 1746842647000,
+        "id": 905719486640,
+        "市场评估价": null,
+        "起拍价格": 652610,
+        "成交价格": 652610,
+        "交易时间": "2025-05-10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/905719486640.htm?track_id=f318f174-d213-49b5-88b0-0165640b650c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河南省信阳市平桥区羊山新区新二十四大街锦江城18号楼2单元8层804号房屋",
+        "所属小区": "锦江城",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "914770931341",
+        "url": "https://sf-item.taobao.com/sf_item/914770931341.htm?track_id=69e73da1-9844-4e22-80d5-44d18631979f",
+        "end": 1746842400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "907831369211",
+        "url": "https://sf-item.taobao.com/sf_item/907831369211.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "end": 1746843142000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "907526079881",
+        "url": "https://sf-item.taobao.com/sf_item/907526079881.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1746842400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "907541099434",
+        "url": "https://sf-item.taobao.com/sf_item/907541099434.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1746842400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "907809762047",
+        "url": "https://sf-item.taobao.com/sf_item/907809762047.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1746842400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "907813306915",
+        "url": "https://sf-item.taobao.com/sf_item/907813306915.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1746842400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "907837522415",
+        "url": "https://sf-item.taobao.com/sf_item/907837522415.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1746842400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "907841842170",
+        "url": "https://sf-item.taobao.com/sf_item/907841842170.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1746842400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908312241661",
+        "url": "https://sf-item.taobao.com/sf_item/908312241661.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1746842400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908718404977",
+        "url": "https://sf-item.taobao.com/sf_item/908718404977.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1746842400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908731428692",
+        "url": "https://sf-item.taobao.com/sf_item/908731428692.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1746842400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "915159851044",
+        "url": "https://sf-item.taobao.com/sf_item/915159851044.htm?track_id=c4c60b14-f2e6-4b01-bf89-31ae10d3dd4e",
+        "end": 1746844947000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908827060676",
+        "url": "https://sf-item.taobao.com/sf_item/908827060676.htm?track_id=743e6c95-df8d-4384-a1c1-434833f32b0b",
+        "end": 1746842692000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "915521317244",
+        "url": "https://sf-item.taobao.com/sf_item/915521317244.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1746910246000,
         "status": "done",
         "is_processed": false
     }

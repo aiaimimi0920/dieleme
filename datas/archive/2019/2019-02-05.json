@@ -85,10 +85,24 @@
         "detail_captured": true
     },
     {
-        "id": "585898976595",
-        "url": "https://sf-item.taobao.com/sf_item/585898976595.htm?track_id=071853d6-ddf2-4e6c-b06a-71a1cdc67745",
-        "end": 1549332245000,
-        "status": "done",
-        "is_processed": false
+        "id": 585898976595,
+        "市场评估价": 650030,
+        "起拍价格": 520024,
+        "成交价格": 520024,
+        "交易时间": "2019/02/05 10:04:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585898976595.htm?track_id=071853d6-ddf2-4e6c-b06a-71a1cdc67745",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "云南省 丽江市 华坪县 荣将镇",
+        "所属小区": "鸿泰康城",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "荣将镇",
+        "建筑面积": 200,
+        "单价": 2600.12,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

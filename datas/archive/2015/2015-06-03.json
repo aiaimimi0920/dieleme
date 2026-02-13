@@ -85,9 +85,30 @@
         "detail_captured": true
     },
     {
-        "id": "45148875061",
-        "url": "https://sf-item.taobao.com/sf_item/45148875061.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1433296860000,
+        "id": 45148875061,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 398800,
+        "交易时间": "2015/06/03 10:01:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45148875061.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 2,
+        "地点": "河南省郑州市新密市城区西大街西段11号院4号楼一单元4层东户",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 177.17,
+        "单价": 2249.76,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "45324995765",
+        "url": "https://sf-item.taobao.com/sf_item/45324995765.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1433299525000,
         "status": "done",
         "is_processed": false
     }

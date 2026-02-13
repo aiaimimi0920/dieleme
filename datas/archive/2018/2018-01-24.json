@@ -294,11 +294,12 @@
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
-        "最靠近商圈": null,
+        "最靠近商圈": "彭城广场",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 563227619698,
@@ -329,9 +330,30 @@
         "is_processed": false
     },
     {
-        "id": "563230287402",
-        "url": "https://sf-item.taobao.com/sf_item/563230287402.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
-        "end": 1516761889000,
+        "id": 563230287402,
+        "市场评估价": 1178700,
+        "起拍价格": 825100,
+        "成交价格": 1035100,
+        "交易时间": "2018/01/24 10:44:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563230287402.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": 22,
+        "地点": "河南省 郑州市 二七区 工人路413号院蔚蓝港湾21号楼1单元11层44号",
+        "所属小区": "正商蔚蓝港湾",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "京广路商圈",
+        "建筑面积": 82.6,
+        "单价": 12525.9,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "563248639766",
+        "url": "https://sf-item.taobao.com/sf_item/563248639766.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1516760889000,
         "status": "done",
         "is_processed": false
     }

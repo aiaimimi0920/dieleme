@@ -196,9 +196,30 @@
         "is_processed": false
     },
     {
-        "id": "609978078774",
-        "url": "https://sf-item.taobao.com/sf_item/609978078774.htm?track_id=73d5d661-0377-4d54-9279-7921cdef3c5e",
-        "end": 1579399745000,
+        "id": 609978078774,
+        "市场评估价": 175800,
+        "起拍价格": 131850,
+        "成交价格": 163850,
+        "交易时间": "2020-01-19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/609978078774.htm?track_id=73d5d661-0377-4d54-9279-7921cdef3c5e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 21,
+        "地点": "河南省 郑州市 新密市 城区西大街西段南侧（广兴·清华园）13号楼1单元12层1207",
+        "所属小区": "广兴·清华园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密西大街商圈",
+        "建筑面积": 46.28,
+        "单价": 3540.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "610502056886",
+        "url": "https://sf-item.taobao.com/sf_item/610502056886.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1579399372000,
         "status": "done",
         "is_processed": false
     }

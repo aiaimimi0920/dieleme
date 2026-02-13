@@ -72,9 +72,30 @@
         "is_processed": false
     },
     {
-        "id": "563488811528",
-        "url": "https://sf-item.taobao.com/sf_item/563488811528.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
-        "end": 1518059718000,
+        "id": 563488811528,
+        "市场评估价": 645600,
+        "起拍价格": 413248,
+        "成交价格": 551248,
+        "交易时间": "2018-02-08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563488811528.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
+        "是否成交": true,
+        "竞拍人数": 45,
+        "出价人数": 44,
+        "地点": "河南省郑州市二七区陇海西路79号2号楼3单元31号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 59.45,
+        "单价": 9279.24,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "564502490142",
+        "url": "https://sf-item.taobao.com/sf_item/564502490142.htm?track_id=b2a0791c-e94d-46c9-b7b2-e898b5ba78f0",
+        "end": 1518055200000,
         "status": "done",
         "is_processed": false
     }

@@ -2120,15 +2120,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "北京市东城区南竹杆胡同12号楼5层3单元502号",
-        "所属小区": null,
+        "所属小区": "南竹杆胡同12号楼",
         "省份": "北京市",
         "城市": "北京市",
         "区": "东城区",
-        "最靠近商圈": "朝阳门商圈",
+        "最靠近商圈": "东单商圈",
         "建筑面积": 76.68,
-        "单价": 88082.02,
+        "单价": 88035.99,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 555834559215,
@@ -2215,11 +2216,25 @@
         "detail_captured": true
     },
     {
-        "id": "556659269039",
-        "url": "https://sf-item.taobao.com/sf_item/556659269039.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
-        "end": 1503972000000,
-        "status": "done",
-        "is_processed": false
+        "id": 556659269039,
+        "市场评估价": 336530,
+        "起拍价格": 286050,
+        "成交价格": 286050,
+        "交易时间": "2017-08-29T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556659269039.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 白山胡同28号2单元501",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市六中南侧",
+        "建筑面积": 79.86,
+        "单价": 3579.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "556208635958",
@@ -2229,9 +2244,37 @@
         "is_processed": false
     },
     {
-        "id": "555991372699",
-        "url": "https://sf-item.taobao.com/sf_item/555991372699.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
-        "end": 1503972922000,
+        "id": 555991372699,
+        "市场评估价": null,
+        "起拍价格": 410000,
+        "成交价格": 620000,
+        "交易时间": "2017-08-29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/555991372699.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
+        "是否成交": true,
+        "竞拍人数": 36,
+        "出价人数": 36,
+        "地点": "温州市龙湾区永中街道永定路1188号万达商业广场6幢305室",
+        "所属小区": "万达商业广场",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "万达广场",
+        "建筑面积": 60.68,
+        "单价": 10218.72,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "556012838561",
+        "url": "https://sf-item.taobao.com/sf_item/556012838561.htm?track_id=ee7db25a-5517-4741-9c05-2375638d23bc",
+        "end": 1503972000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556207155609",
+        "url": "https://sf-item.taobao.com/sf_item/556207155609.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
+        "end": 1503979176000,
         "status": "done",
         "is_processed": false
     }

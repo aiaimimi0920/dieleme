@@ -574,11 +574,12 @@
         "省份": "河南省",
         "城市": "洛阳市",
         "区": "宜阳县",
-        "最靠近商圈": null,
+        "最靠近商圈": "锦屏镇商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 586728811736,
@@ -591,15 +592,16 @@
         "竞拍人数": 65,
         "出价人数": 42,
         "地点": "内蒙古自治区 包头市 青山区 幸福南路16号街坊-30-9号住宅",
-        "所属小区": null,
+        "所属小区": "幸福南路16号街坊",
         "省份": "内蒙古自治区",
         "城市": "包头市",
         "区": "青山区",
-        "最靠近商圈": null,
+        "最靠近商圈": "万达广场",
         "建筑面积": 60,
         "单价": 6666.67,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 584409253650,
@@ -623,18 +625,46 @@
         "detail_captured": true
     },
     {
-        "id": "586227284704",
-        "url": "https://sf-item.taobao.com/sf_item/586227284704.htm?track_id=cf056ea5-aa54-42c7-a87a-2c84a7147018",
-        "end": 1551062598000,
-        "status": "done",
-        "is_processed": false
+        "id": 586227284704,
+        "市场评估价": 891885,
+        "起拍价格": 713508,
+        "成交价格": 970368,
+        "交易时间": "2019/02/25 10:43:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586227284704.htm?track_id=cf056ea5-aa54-42c7-a87a-2c84a7147018",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 34,
+        "地点": "吉林省 吉林市 船营区 青岛街",
+        "所属小区": "北大小区",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "北山",
+        "建筑面积": 108.37,
+        "单价": 8953.02,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "586500945325",
-        "url": "https://sf-item.taobao.com/sf_item/586500945325.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
-        "end": 1551060333000,
-        "status": "done",
-        "is_processed": false
+        "id": 586500945325,
+        "市场评估价": 472700,
+        "起拍价格": 378100,
+        "成交价格": 451810,
+        "交易时间": "2019-02-25 10:05:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586500945325.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 8,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 协府路10号黔中公寓1幢1单元",
+        "所属小区": "黔中公寓",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "都匀市",
+        "建筑面积": 85.94,
+        "单价": 5252.04,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "584725769807",
@@ -644,16 +674,51 @@
         "is_processed": false
     },
     {
-        "id": "586579146405",
-        "url": "https://sf-item.taobao.com/sf_item/586579146405.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
-        "end": 1551060258000,
-        "status": "done",
-        "is_processed": false
+        "id": 586579146405,
+        "市场评估价": 1232600,
+        "起拍价格": 1232600,
+        "成交价格": 1327600,
+        "交易时间": "2019-02-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586579146405.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
+        "是否成交": true,
+        "竞拍人数": 20,
+        "出价人数": 20,
+        "地点": "陕西省 西安市 未央区 大白杨村阳光台",
+        "所属小区": "大白杨村阳光台",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "未央路商圈",
+        "建筑面积": 123.26,
+        "单价": 10772.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586608498978",
         "url": "https://sf-item.taobao.com/sf_item/586608498978.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1551060000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586355997574",
+        "url": "https://sf-item.taobao.com/sf_item/586355997574.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1551064830000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586764335105",
+        "url": "https://sf-item.taobao.com/sf_item/586764335105.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "end": 1551060000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585445694504",
+        "url": "https://sf-item.taobao.com/sf_item/585445694504.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1551062806000,
         "status": "done",
         "is_processed": false
     }

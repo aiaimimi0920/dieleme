@@ -294,12 +294,25 @@
         "detail_captured": true
     },
     {
-        "id": "757117078329",
-        "url": "https://sf-item.taobao.com/sf_item/757117078329.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
-        "end": 1704679200000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/757117078329.htm"
+        "id": 757117078329,
+        "市场评估价": 7258981,
+        "起拍价格": 4936107,
+        "成交价格": 4936107,
+        "交易时间": "2024-01-08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/757117078329.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 张家口市 怀来县 北辛堡镇方家冲村北原乡美利坚二期B16-65号房产",
+        "所属小区": "原乡美利坚二期",
+        "省份": "河北省",
+        "城市": "张家口市",
+        "区": "怀来县",
+        "最靠近商圈": "北辛堡",
+        "建筑面积": 314.36,
+        "单价": 15700.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 757379017198,
@@ -365,19 +378,46 @@
         "detail_captured": true
     },
     {
-        "id": "756933482073",
-        "url": "https://sf-item.taobao.com/sf_item/756933482073.htm?track_id=715c0582-9bb8-4efa-b000-77b012ff737b",
-        "end": 1704683555000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/756933482073.htm"
+        "id": 756933482073,
+        "市场评估价": 0,
+        "起拍价格": 3138400,
+        "成交价格": 3902800,
+        "交易时间": "2024-01-08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/756933482073.htm?track_id=715c0582-9bb8-4efa-b000-77b012ff737b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省 苏州市 吴中区 工业园区新未来花园6幢502室",
+        "所属小区": "新未来花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "工业园区",
+        "建筑面积": 94.95,
+        "单价": 41106.9,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "757617538649",
-        "url": "https://sf-item.taobao.com/sf_item/757617538649.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
-        "end": 1704695630000,
-        "status": "done",
-        "is_processed": false
+        "id": 757617538649,
+        "市场评估价": null,
+        "起拍价格": 498511.58,
+        "成交价格": 498511.58,
+        "交易时间": "2024-01-08 14:33:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/757617538649.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 城区青屏大街西段北侧（新天地·商居园5号楼）18层中户",
+        "所属小区": "新天地·商居园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏大街商圈",
+        "建筑面积": 160.86,
+        "单价": 3098.7,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "757468216851",
@@ -390,6 +430,20 @@
         "id": "757396376338",
         "url": "https://sf-item.taobao.com/sf_item/757396376338.htm?track_id=4ad87b93-3084-4bc2-9259-b6b0538f1145",
         "end": 1704681549000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "757170464581",
+        "url": "https://sf-item.taobao.com/sf_item/757170464581.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1704679490000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "757605857464",
+        "url": "https://sf-item.taobao.com/sf_item/757605857464.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1704681486000,
         "status": "done",
         "is_processed": false
     }

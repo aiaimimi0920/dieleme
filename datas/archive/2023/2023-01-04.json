@@ -718,12 +718,25 @@
         "detail_captured": true
     },
     {
-        "id": "695607151408",
-        "url": "https://sf-item.taobao.com/sf_item/695607151408.htm?track_id=06be4172-b434-4c8f-8986-1b9e4d67d0b4",
-        "end": 1672798040000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/695607151408.htm"
+        "id": 695607151408,
+        "市场评估价": 1059895,
+        "起拍价格": 810820.1,
+        "成交价格": 842820.1,
+        "交易时间": "2023-01-04 10:07:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695607151408.htm?track_id=06be4172-b434-4c8f-8986-1b9e4d67d0b4",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 5,
+        "地点": "内蒙古自治区 呼和浩特市 回民区 北二环富力华庭5号住宅楼28层2单元2801号房屋",
+        "所属小区": "富力华庭",
+        "省份": "内蒙古自治区",
+        "城市": "呼和浩特市",
+        "区": "回民区",
+        "最靠近商圈": "北二环商圈",
+        "建筑面积": 120,
+        "单价": 7023.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 694672360282,
@@ -768,18 +781,46 @@
         "detail_captured": true
     },
     {
-        "id": "695096861682",
-        "url": "https://sf-item.taobao.com/sf_item/695096861682.htm?track_id=c3263236-9027-4790-98db-026890358103",
-        "end": 1672797889000,
-        "status": "done",
-        "is_processed": false
+        "id": 695096861682,
+        "市场评估价": 544090,
+        "起拍价格": 304692,
+        "成交价格": 337692,
+        "交易时间": "2023-01-04 10:04:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695096861682.htm?track_id=c3263236-9027-4790-98db-026890358103",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 9,
+        "地点": "内蒙古自治区呼伦贝尔市牙克石市汇德公馆A2区3号楼2单元202室",
+        "所属小区": "汇德公馆",
+        "省份": "内蒙古自治区",
+        "城市": "呼伦贝尔市",
+        "区": "牙克石市",
+        "最靠近商圈": "牙克石市区",
+        "建筑面积": 152.62,
+        "单价": 2212.12,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "694373919285",
-        "url": "https://sf-item.taobao.com/sf_item/694373919285.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1672801671000,
-        "status": "done",
-        "is_processed": false
+        "id": 694373919285,
+        "市场评估价": 5084300,
+        "起拍价格": 3560000,
+        "成交价格": 4410000,
+        "交易时间": "2023/01/04 11:07:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/694373919285.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": 71,
+        "出价人数": 73,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道璞悦湾10幢3单元301室",
+        "所属小区": "璞悦湾",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江区核心商圈",
+        "建筑面积": 88.54,
+        "单价": 49802.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "693580500648",
@@ -806,6 +847,27 @@
         "id": "693384721402",
         "url": "https://sf-item.taobao.com/sf_item/693384721402.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1672825322000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "694528604323",
+        "url": "https://sf-item.taobao.com/sf_item/694528604323.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1672814790000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "693997142730",
+        "url": "https://sf-item.taobao.com/sf_item/693997142730.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1672810584000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "694432563725",
+        "url": "https://sf-item.taobao.com/sf_item/694432563725.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1672797600000,
         "status": "done",
         "is_processed": false
     }

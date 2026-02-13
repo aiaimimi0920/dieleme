@@ -168,12 +168,25 @@
         "detail_captured": true
     },
     {
-        "id": "717366912797",
-        "url": "https://sf-item.taobao.com/sf_item/717366912797.htm?track_id=24a37f41-29df-4831-8277-60944565da52",
-        "end": 1690163961000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/717366912797.htm"
+        "id": 717366912797,
+        "市场评估价": null,
+        "起拍价格": 661952,
+        "成交价格": 661952,
+        "交易时间": "2023-07-24 09:59:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/717366912797.htm?track_id=24a37f41-29df-4831-8277-60944565da52",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省新乡市卫滨区南干道27号20号楼东1层平房",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 727911881707,
@@ -197,9 +210,44 @@
         "detail_captured": true
     },
     {
-        "id": "727630948605",
-        "url": "https://sf-item.taobao.com/sf_item/727630948605.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
-        "end": 1690166521000,
+        "id": 727630948605,
+        "市场评估价": 423385,
+        "起拍价格": 237095.6,
+        "成交价格": 284095.6,
+        "交易时间": "2023-07-24 10:42:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/727630948605.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
+        "是否成交": true,
+        "竞拍人数": 37,
+        "出价人数": 48,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道长安北路533号人才小区5幢1901室",
+        "所属小区": "人才小区",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 68.06,
+        "单价": 4175.23,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "724878172898",
+        "url": "https://sf-item.taobao.com/sf_item/724878172898.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1690180006000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "725283025301",
+        "url": "https://sf-item.taobao.com/sf_item/725283025301.htm?track_id=efb4342c-0c1c-4486-9308-1ed5553b53ca",
+        "end": 1690164563000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "724422834600",
+        "url": "https://sf-item.taobao.com/sf_item/724422834600.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
+        "end": 1690164005000,
         "status": "done",
         "is_processed": false
     }

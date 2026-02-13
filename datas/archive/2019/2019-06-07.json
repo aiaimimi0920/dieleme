@@ -380,18 +380,46 @@
         "detail_captured": true
     },
     {
-        "id": "593741674409",
-        "url": "https://sf-item.taobao.com/sf_item/593741674409.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
-        "end": 1559872800000,
-        "status": "done",
-        "is_processed": false
+        "id": 593741674409,
+        "市场评估价": null,
+        "起拍价格": 559087.5,
+        "成交价格": 559087.5,
+        "交易时间": "2019-06-07T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/593741674409.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 钢铁大街19号街坊中源大厦-1211号",
+        "所属小区": "中源大厦",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "钢铁大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "594785605787",
-        "url": "https://sf-item.taobao.com/sf_item/594785605787.htm?track_id=f54c6550-c392-4c21-8b2f-2014789fe8f8",
-        "end": 1559874463000,
-        "status": "done",
-        "is_processed": false
+        "id": 594785605787,
+        "市场评估价": null,
+        "起拍价格": 1080000,
+        "成交价格": 1155000,
+        "交易时间": "2019/06/07 10:27:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594785605787.htm?track_id=f54c6550-c392-4c21-8b2f-2014789fe8f8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "陕西省 西安市 未央区 张家堡广场东侧",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "张家堡商圈",
+        "建筑面积": 107.17,
+        "单价": 10777.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "594674884649",
@@ -404,6 +432,34 @@
         "id": "594962062199",
         "url": "https://sf-item.taobao.com/sf_item/594962062199.htm?track_id=645fbace-2a78-4783-9257-833921945028",
         "end": 1559874000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595069858750",
+        "url": "https://sf-item.taobao.com/sf_item/595069858750.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1559873960000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595243767727",
+        "url": "https://sf-item.taobao.com/sf_item/595243767727.htm?track_id=85d6e4c3-5841-4382-a02e-efc4156014e9",
+        "end": 1559872800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594665076891",
+        "url": "https://sf-item.taobao.com/sf_item/594665076891.htm?track_id=0d0a4b96-3475-41c6-be82-f884580aae77",
+        "end": 1559873305000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593345700856",
+        "url": "https://sf-item.taobao.com/sf_item/593345700856.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1559873239000,
         "status": "done",
         "is_processed": false
     }

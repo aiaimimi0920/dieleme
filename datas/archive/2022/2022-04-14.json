@@ -134,32 +134,88 @@
         "原始网站": "https://sf-item.taobao.com/sf_item/670430560738.htm"
     },
     {
-        "id": "670071723642",
-        "url": "https://sf-item.taobao.com/sf_item/670071723642.htm?track_id=5241dcde-d9e4-42ea-be80-5c6f0ad3d040",
-        "end": 1649929931000,
-        "status": "done",
-        "is_processed": false
+        "id": 670071723642,
+        "市场评估价": null,
+        "起拍价格": 1107613.92,
+        "成交价格": 1107613.92,
+        "交易时间": "2022-04-14 17:52:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/670071723642.htm?track_id=5241dcde-d9e4-42ea-be80-5c6f0ad3d040",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 站前街909-19号一至二层商业房地产",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉站前商圈",
+        "建筑面积": 305.43,
+        "单价": 3626.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "669799562744",
-        "url": "https://sf-item.taobao.com/sf_item/669799562744.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
-        "end": 1649905179000,
-        "status": "done",
-        "is_processed": false
+        "id": 669799562744,
+        "市场评估价": 695832.8,
+        "起拍价格": 446000,
+        "成交价格": 586000,
+        "交易时间": "2022/04/14 10:59:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669799562744.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 34,
+        "地点": "广东省 惠州市 博罗县 罗阳镇商业东街永安居B栋1002号",
+        "所属小区": "永安居",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 116.36,
+        "单价": 5036.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "667621176542",
-        "url": "https://sf-item.taobao.com/sf_item/667621176542.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
-        "end": 1649906700000,
-        "status": "done",
-        "is_processed": false
+        "id": 667621176542,
+        "市场评估价": null,
+        "起拍价格": 1040000,
+        "成交价格": 1040000,
+        "交易时间": "2022-04-21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/667621176542.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城十路52号4幢12705室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区",
+        "建筑面积": 97.47,
+        "单价": 10673.09,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "670287196155",
-        "url": "https://sf-item.taobao.com/sf_item/670287196155.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
-        "end": 1649909942000,
-        "status": "done",
-        "is_processed": false
+        "id": 670287196155,
+        "市场评估价": 2210259,
+        "起拍价格": 1989234,
+        "成交价格": 2551234,
+        "交易时间": "2022-04-14 12:19:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/670287196155.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
+        "是否成交": true,
+        "竞拍人数": 244,
+        "出价人数": 209,
+        "地点": "安徽省 合肥市 瑶海区 合肥市新站区铜陵北路华府竹丝苑7幢102.202室房产",
+        "所属小区": "华府竹丝苑",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "新站区",
+        "建筑面积": 174.94,
+        "单价": 14587.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "670808329613",
@@ -172,6 +228,69 @@
         "id": "669405188350",
         "url": "https://sf-item.taobao.com/sf_item/669405188350.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
         "end": 1649902615000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670437066563",
+        "url": "https://sf-item.taobao.com/sf_item/670437066563.htm?track_id=a5509f1b-d0f1-4066-9e83-25810044a34d",
+        "end": 1649901617000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670795520745",
+        "url": "https://sf-item.taobao.com/sf_item/670795520745.htm?track_id=0446e63e-c627-4515-9144-1e3ccb4cd3ce",
+        "end": 1649901600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671518034176",
+        "url": "https://sf-item.taobao.com/sf_item/671518034176.htm?track_id=d38494fe-98ee-40f4-91fc-1e9253049bbf",
+        "end": 1649901600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671897979362",
+        "url": "https://sf-item.taobao.com/sf_item/671897979362.htm?track_id=f64ab655-ee09-44f6-a1f4-fdd79f567ac8",
+        "end": 1649902343000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670829816440",
+        "url": "https://sf-item.taobao.com/sf_item/670829816440.htm?track_id=f64ab655-ee09-44f6-a1f4-fdd79f567ac8",
+        "end": 1649901600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670829928466",
+        "url": "https://sf-item.taobao.com/sf_item/670829928466.htm?track_id=f64ab655-ee09-44f6-a1f4-fdd79f567ac8",
+        "end": 1649901600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671215753488",
+        "url": "https://sf-item.taobao.com/sf_item/671215753488.htm?track_id=f64ab655-ee09-44f6-a1f4-fdd79f567ac8",
+        "end": 1649901600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "669044936395",
+        "url": "https://sf-item.taobao.com/sf_item/669044936395.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1649910009000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671172109161",
+        "url": "https://sf-item.taobao.com/sf_item/671172109161.htm?track_id=372083ae-219b-405a-b6f1-dd5cf7092ecf",
+        "end": 1649901600000,
         "status": "done",
         "is_processed": false
     }

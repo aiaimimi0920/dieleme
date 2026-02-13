@@ -273,16 +273,72 @@
         "detail_captured": true
     },
     {
-        "id": "600353153679",
-        "url": "https://sf-item.taobao.com/sf_item/600353153679.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
-        "end": 1568427690000,
+        "id": 600353153679,
+        "市场评估价": null,
+        "起拍价格": 250000,
+        "成交价格": 282000,
+        "交易时间": "2019-09-14T10:21:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600353153679.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "是否成交": true,
+        "竞拍人数": 33,
+        "出价人数": 33,
+        "地点": "内蒙古自治区 包头市 昆都仑区 友谊大街31号街坊18-11",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "友谊大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 600556209440,
+        "市场评估价": 714376,
+        "起拍价格": 510000,
+        "成交价格": 552500,
+        "交易时间": "2019/09/14 10:09:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600556209440.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 18,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 斗篷山路227号天源广场城市综合体4幢4单元19层1902号房",
+        "所属小区": "天源广场",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "斗篷山商圈",
+        "建筑面积": 137.38,
+        "单价": 4022.88,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "602024975261",
+        "url": "https://sf-item.taobao.com/sf_item/602024975261.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
+        "end": 1568430773000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "600556209440",
-        "url": "https://sf-item.taobao.com/sf_item/600556209440.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
-        "end": 1568426956000,
+        "id": "601318108697",
+        "url": "https://sf-item.taobao.com/sf_item/601318108697.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1568426538000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601763394501",
+        "url": "https://sf-item.taobao.com/sf_item/601763394501.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1568426546000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601956171227",
+        "url": "https://sf-item.taobao.com/sf_item/601956171227.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1568426567000,
         "status": "done",
         "is_processed": false
     }

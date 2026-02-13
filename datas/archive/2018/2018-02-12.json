@@ -442,15 +442,16 @@
         "竞拍人数": 140,
         "出价人数": 140,
         "地点": "北京市 东城区 崇文区广渠门南小街1号楼1单元1101号住宅",
-        "所属小区": null,
+        "所属小区": "广渠门南里",
         "省份": "北京市",
         "城市": "北京市",
         "区": "东城区",
         "最靠近商圈": "广渠门商圈",
         "建筑面积": 133.21,
-        "单价": 63107.16,
+        "单价": 63091.04,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564744827758,
@@ -516,16 +517,37 @@
         "detail_captured": true
     },
     {
-        "id": "563939729698",
-        "url": "https://sf-item.taobao.com/sf_item/563939729698.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
-        "end": 1518400800000,
-        "status": "done",
-        "is_processed": false
+        "id": 563939729698,
+        "市场评估价": 338574,
+        "起拍价格": 237001.8,
+        "成交价格": 237001.8,
+        "交易时间": "2018/02/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563939729698.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省吉林市船营区长春路88号馨港湾小区2幢3单元0303093",
+        "所属小区": "馨港湾",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": null,
+        "建筑面积": 82.7,
+        "单价": 2867.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "563912054176",
         "url": "https://sf-item.taobao.com/sf_item/563912054176.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
         "end": 1518408976000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563424559942",
+        "url": "https://sf-item.taobao.com/sf_item/563424559942.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "end": 1518401802000,
         "status": "done",
         "is_processed": false
     }

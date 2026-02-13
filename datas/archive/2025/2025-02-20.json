@@ -337,5 +337,47 @@
         "单价": 33807.81,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "877963346377",
+        "url": "https://sf-item.taobao.com/sf_item/877963346377.htm?track_id=c566893a-201b-4839-8262-2d73cb1d9a72",
+        "end": 1740020048000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "865672510269",
+        "url": "https://sf-item.taobao.com/sf_item/865672510269.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1740025205000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "864167062305",
+        "url": "https://sf-item.taobao.com/sf_item/864167062305.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1740021433000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "868088976818",
+        "url": "https://sf-item.taobao.com/sf_item/868088976818.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1740019565000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "864166978787",
+        "url": "https://sf-item.taobao.com/sf_item/864166978787.htm?track_id=ec0864e8-1dfb-4aa2-9cc5-3a21f48d84d2",
+        "end": 1740021177000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "870928291249",
+        "url": "https://sf-item.taobao.com/sf_item/870928291249.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1740016895000,
+        "status": "done",
+        "is_processed": false
     }
 ]

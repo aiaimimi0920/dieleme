@@ -214,9 +214,44 @@
         "detail_captured": true
     },
     {
-        "id": "564794504571",
-        "url": "https://sf-item.taobao.com/sf_item/564794504571.htm?track_id=c902a72e-3d80-4d38-af05-f68239d878f6",
-        "end": 1522548001000,
+        "id": 564794504571,
+        "市场评估价": 620032,
+        "起拍价格": 347219,
+        "成交价格": 451219,
+        "交易时间": "2018/04/01 10:00:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564794504571.htm?track_id=c902a72e-3d80-4d38-af05-f68239d878f6",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 18,
+        "地点": "辽宁省 沈阳市 铁西区 兴顺街29-1号2-7-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西商圈",
+        "建筑面积": 110.72,
+        "单价": 4075.7,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "565825576241",
+        "url": "https://sf-item.taobao.com/sf_item/565825576241.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "end": 1522549364000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566103547483",
+        "url": "https://sf-item.taobao.com/sf_item/566103547483.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "end": 1522549848000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564393607117",
+        "url": "https://sf-item.taobao.com/sf_item/564393607117.htm?track_id=2b2bafd9-1b69-4ea4-9afa-a1768fda15a0",
+        "end": 1522593561000,
         "status": "done",
         "is_processed": false
     }

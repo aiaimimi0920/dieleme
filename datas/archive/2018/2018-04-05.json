@@ -346,9 +346,44 @@
         "is_processed": false
     },
     {
-        "id": "565504330943",
-        "url": "https://sf-item.taobao.com/sf_item/565504330943.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
-        "end": 1522917632000,
+        "id": 565504330943,
+        "市场评估价": null,
+        "起拍价格": 1316157.66,
+        "成交价格": 1316157.66,
+        "交易时间": "2018-04-05 16:40:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565504330943.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖北省襄阳市襄城区东大·翰文苑1幢5单元6层右户",
+        "所属小区": "东大翰文苑",
+        "省份": "湖北省",
+        "城市": "襄阳市",
+        "区": "襄城区",
+        "最靠近商圈": "襄城核心商圈",
+        "建筑面积": 142.11,
+        "单价": 9264.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "565343455274",
+        "url": "https://sf-item.taobao.com/sf_item/565343455274.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1522897701000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565343291631",
+        "url": "https://sf-item.taobao.com/sf_item/565343291631.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1522898997000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565297166565",
+        "url": "https://sf-item.taobao.com/sf_item/565297166565.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1522906700000,
         "status": "done",
         "is_processed": false
     }

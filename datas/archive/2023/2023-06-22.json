@@ -147,11 +147,45 @@
         "detail_captured": true
     },
     {
-        "id": "719244385382",
-        "url": "https://sf-item.taobao.com/sf_item/719244385382.htm?track_id=f727226c-029e-4369-8d24-25201b6b31de",
-        "end": 1687401271000,
+        "id": 719244385382,
+        "市场评估价": 6385000,
+        "起拍价格": 5108000,
+        "成交价格": 5918000,
+        "交易时间": "2023/06/22 10:34:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/719244385382.htm?track_id=f727226c-029e-4369-8d24-25201b6b31de",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 34,
+        "地点": "北京市东城区东直门北小街8号院1号楼9层1单元903号房产",
+        "所属小区": "东直门北小街8号院",
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "东直门",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "716237268560",
+        "url": "https://sf-item.taobao.com/sf_item/716237268560.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1687403425000,
         "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/719244385382.htm"
+        "is_processed": false
+    },
+    {
+        "id": "717699736558",
+        "url": "https://sf-item.taobao.com/sf_item/717699736558.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1687401734000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "721883404214",
+        "url": "https://sf-item.taobao.com/sf_item/721883404214.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "end": 1687399200000,
+        "status": "done",
+        "is_processed": false
     }
 ]

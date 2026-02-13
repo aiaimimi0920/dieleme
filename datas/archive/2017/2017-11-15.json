@@ -311,11 +311,12 @@
         "省份": "湖南省",
         "城市": "湘潭市",
         "区": "雨湖区",
-        "最靠近商圈": "昭潭乡宝庆路商圈",
+        "最靠近商圈": "雨湖商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 560768402535,
@@ -328,15 +329,16 @@
         "竞拍人数": 0,
         "出价人数": 10,
         "地点": "湖南省 怀化市 新晃侗族自治县 人民路",
-        "所属小区": null,
+        "所属小区": "人民路",
         "省份": "湖南省",
         "城市": "怀化市",
         "区": "新晃侗族自治县",
-        "最靠近商圈": "新晃镇",
+        "最靠近商圈": "夜郎广场商圈",
         "建筑面积": 668.4,
-        "单价": 756.65,
+        "单价": 756.67,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 560607684543,
@@ -384,6 +386,27 @@
         "id": "560567006473",
         "url": "https://sf-item.taobao.com/sf_item/560567006473.htm?track_id=9cbead34-beda-4b6e-a08c-fc7477352ff4",
         "end": 1510713033000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559760497980",
+        "url": "https://sf-item.taobao.com/sf_item/559760497980.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1510715105000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560047579279",
+        "url": "https://sf-item.taobao.com/sf_item/560047579279.htm?track_id=6aabcd90-810d-43c8-9914-e7c57096882b",
+        "end": 1510714645000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559929533768",
+        "url": "https://sf-item.taobao.com/sf_item/559929533768.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
+        "end": 1510711200000,
         "status": "done",
         "is_processed": false
     }

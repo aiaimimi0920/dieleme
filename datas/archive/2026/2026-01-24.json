@@ -638,23 +638,86 @@
         "detail_captured": true
     },
     {
-        "id": "1009795006709",
-        "url": "https://sf-item.taobao.com/sf_item/1009795006709.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
-        "end": 1769221496000,
-        "status": "done",
-        "is_processed": false
+        "id": 1009795006709,
+        "市场评估价": 371400,
+        "起拍价格": 208000,
+        "成交价格": 247000,
+        "交易时间": "2026-01-24 10:24:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1009795006709.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
+        "是否成交": true,
+        "竞拍人数": 46,
+        "出价人数": 46,
+        "地点": "浙江省海盐县武原街道观海路56号凭澜居12幢302室",
+        "所属小区": "凭澜居",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 79.13,
+        "单价": 3122.91,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "1010632201447",
-        "url": "https://sf-item.taobao.com/sf_item/1010632201447.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
-        "end": 1769222406000,
-        "status": "done",
-        "is_processed": false
+        "id": 1010632201447,
+        "市场评估价": 370500,
+        "起拍价格": 207600,
+        "成交价格": 221100,
+        "交易时间": "2026-01-24 10:40:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1010632201447.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": 28,
+        "地点": "浙江省 嘉兴市 海盐县 海盐县武原街道观海路56号凭澜居16幢204室",
+        "所属小区": "凭澜居",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 78.68,
+        "单价": 2810.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "1004504387726",
         "url": "https://sf-item.taobao.com/sf_item/1004504387726.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
         "end": 1769221609000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1011439940805",
+        "url": "https://sf-item.taobao.com/sf_item/1011439940805.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1769220000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1009215959862",
+        "url": "https://sf-item.taobao.com/sf_item/1009215959862.htm?track_id=c5b6e009-74c4-4149-95dd-a1f6a780bccf",
+        "end": 1769220000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "996667108898",
+        "url": "https://sf-item.taobao.com/sf_item/996667108898.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1769220151000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1010995688828",
+        "url": "https://sf-item.taobao.com/sf_item/1010995688828.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1769221492000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "995124729317",
+        "url": "https://sf-item.taobao.com/sf_item/995124729317.htm?track_id=d7569be6-9a1f-4c05-9408-c98aa52b83be",
+        "end": 1769225791000,
         "status": "done",
         "is_processed": false
     }

@@ -358,9 +358,58 @@
         "detail_captured": true
     },
     {
-        "id": "692474784938",
-        "url": "https://sf-item.taobao.com/sf_item/692474784938.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
+        "id": 692474784938,
+        "市场评估价": null,
+        "起拍价格": 6295665,
+        "成交价格": 6295665,
+        "交易时间": "2023/01/05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/692474784938.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 二七区 政通路62号院5号楼1层A5-1002号",
+        "所属小区": "政通路62号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七万达",
+        "建筑面积": 410.84,
+        "单价": 15326.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "695272850770",
+        "url": "https://sf-item.taobao.com/sf_item/695272850770.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1672885658000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "694349615756",
+        "url": "https://sf-item.taobao.com/sf_item/694349615756.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1672886299000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "694356747467",
+        "url": "https://sf-item.taobao.com/sf_item/694356747467.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
         "end": 1672884000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "693458701222",
+        "url": "https://sf-item.taobao.com/sf_item/693458701222.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
+        "end": 1672884652000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695602938327",
+        "url": "https://sf-item.taobao.com/sf_item/695602938327.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
+        "end": 1672885117000,
         "status": "done",
         "is_processed": false
     }

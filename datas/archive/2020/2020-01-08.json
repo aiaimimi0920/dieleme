@@ -422,11 +422,25 @@
         "detail_captured": true
     },
     {
-        "id": "609451273805",
-        "url": "https://sf-item.taobao.com/sf_item/609451273805.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
-        "end": 1578448800000,
-        "status": "done",
-        "is_processed": false
+        "id": 609451273805,
+        "市场评估价": 1240000,
+        "起拍价格": 930000,
+        "成交价格": 930000,
+        "交易时间": "2020/01/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/609451273805.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 重工南街104号（B-C）轴",
+        "所属小区": "郭家一小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 135.5,
+        "单价": 6867.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "609182436935",
@@ -446,6 +460,13 @@
         "id": "610051649513",
         "url": "https://sf-item.taobao.com/sf_item/610051649513.htm?track_id=6ae54ebd-72a6-469d-b121-c24b2586341e",
         "end": 1578449778000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608837332749",
+        "url": "https://sf-item.taobao.com/sf_item/608837332749.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1578451803000,
         "status": "done",
         "is_processed": false
     }

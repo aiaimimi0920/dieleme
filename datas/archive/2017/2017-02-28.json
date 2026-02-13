@@ -307,9 +307,65 @@
         "is_processed": false
     },
     {
-        "id": "543854128457",
-        "url": "https://sf-item.taobao.com/sf_item/543854128457.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
-        "end": 1488247200000,
+        "id": 543854128457,
+        "市场评估价": 0,
+        "起拍价格": 1492200,
+        "成交价格": 1492200,
+        "交易时间": "2017/02/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/543854128457.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "郑州市二七区嵩山北路东、棉纺路北3幢1单元16层08号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "嵩山北路商圈",
+        "建筑面积": 137.78,
+        "单价": 10830.89,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "544869366891",
+        "url": "https://sf-item.taobao.com/sf_item/544869366891.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1488250166000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "543734617220",
+        "url": "https://sf-item.taobao.com/sf_item/543734617220.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1488247881000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544609907871",
+        "url": "https://sf-item.taobao.com/sf_item/544609907871.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1488250277000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544556715362",
+        "url": "https://sf-item.taobao.com/sf_item/544556715362.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1488250800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544528257703",
+        "url": "https://sf-item.taobao.com/sf_item/544528257703.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1488250433000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544745504004",
+        "url": "https://sf-item.taobao.com/sf_item/544745504004.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1488250183000,
         "status": "done",
         "is_processed": false
     }

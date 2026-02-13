@@ -105,18 +105,46 @@
         "detail_captured": true
     },
     {
-        "id": "546714190450",
-        "url": "https://sf-item.taobao.com/sf_item/546714190450.htm?track_id=d5f892bf-8cd0-4b5f-b29c-66f68324d079",
-        "end": 1492653813000,
-        "status": "done",
-        "is_processed": false
+        "id": 546714190450,
+        "市场评估价": 583900,
+        "起拍价格": 408730,
+        "成交价格": 428730,
+        "交易时间": "2017/04/20 10:03:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546714190450.htm?track_id=d5f892bf-8cd0-4b5f-b29c-66f68324d079",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 9,
+        "地点": "沈阳市铁西区富工四街54号4-3-1",
+        "所属小区": "富祥园",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 111.48,
+        "单价": 3845.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "546695537206",
-        "url": "https://sf-item.taobao.com/sf_item/546695537206.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
-        "end": 1492653600000,
-        "status": "done",
-        "is_processed": false
+        "id": 546695537206,
+        "市场评估价": 867234,
+        "起拍价格": 607064,
+        "成交价格": 607064,
+        "交易时间": "2017-04-20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546695537206.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 147.74,
+        "单价": 4109.98,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "546656165506",
@@ -150,6 +178,13 @@
         "id": "546645285172",
         "url": "https://sf-item.taobao.com/sf_item/546645285172.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1492653600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "546775320184",
+        "url": "https://sf-item.taobao.com/sf_item/546775320184.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1492657017000,
         "status": "done",
         "is_processed": false
     }

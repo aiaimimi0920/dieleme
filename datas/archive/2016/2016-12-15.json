@@ -275,11 +275,25 @@
         "detail_captured": true
     },
     {
-        "id": "542516196673",
-        "url": "https://sf-item.taobao.com/sf_item/542516196673.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
-        "end": 1481767200000,
-        "status": "done",
-        "is_processed": false
+        "id": 542516196673,
+        "市场评估价": null,
+        "起拍价格": 1653120,
+        "成交价格": 1653120,
+        "交易时间": "2016/12/15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542516196673.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "福建省 南平市 顺昌县",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": null,
+        "建筑面积": 3303.35,
+        "单价": 500.49,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "542530922723",
@@ -306,6 +320,27 @@
         "id": "542398399147",
         "url": "https://sf-item.taobao.com/sf_item/542398399147.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1481767200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542338963247",
+        "url": "https://sf-item.taobao.com/sf_item/542338963247.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1481767201000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540855441228",
+        "url": "https://sf-item.taobao.com/sf_item/540855441228.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1481771779000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540860386875",
+        "url": "https://sf-item.taobao.com/sf_item/540860386875.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1481770984000,
         "status": "done",
         "is_processed": false
     }

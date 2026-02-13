@@ -147,9 +147,72 @@
         "detail_captured": true
     },
     {
-        "id": "841799829980",
-        "url": "https://sf-item.taobao.com/sf_item/841799829980.htm?track_id=cf056ea5-aa54-42c7-a87a-2c84a7147018",
-        "end": 1729735680000,
+        "id": 841799829980,
+        "市场评估价": 585164,
+        "起拍价格": 327692,
+        "成交价格": 335692,
+        "交易时间": "2024-10-24 10:08:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/841799829980.htm?track_id=cf056ea5-aa54-42c7-a87a-2c84a7147018",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 5,
+        "地点": "吉林省 吉林市 船营区 北极街699号西山香麓二期S3号网点1层28号网点",
+        "所属小区": "西山香麓二期",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "北极街商圈",
+        "建筑面积": 45.57,
+        "单价": 7365.11,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "839936757429",
+        "url": "https://sf-item.taobao.com/sf_item/839936757429.htm?track_id=e07536cd-d649-451b-a236-8b0169080c46",
+        "end": 1729739351000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "841435411155",
+        "url": "https://sf-item.taobao.com/sf_item/841435411155.htm?track_id=efb4342c-0c1c-4486-9308-1ed5553b53ca",
+        "end": 1729736062000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "828922106424",
+        "url": "https://sf-item.taobao.com/sf_item/828922106424.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1729737252000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "838573721716",
+        "url": "https://sf-item.taobao.com/sf_item/838573721716.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1729737193000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "839255711964",
+        "url": "https://sf-item.taobao.com/sf_item/839255711964.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1729737430000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "837047056385",
+        "url": "https://sf-item.taobao.com/sf_item/837047056385.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1729741062000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "834926892253",
+        "url": "https://sf-item.taobao.com/sf_item/834926892253.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1729737455000,
         "status": "done",
         "is_processed": false
     }

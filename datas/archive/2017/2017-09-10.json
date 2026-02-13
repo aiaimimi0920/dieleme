@@ -191,11 +191,25 @@
         "detail_captured": true
     },
     {
-        "id": "557659619342",
-        "url": "https://sf-item.taobao.com/sf_item/557659619342.htm?track_id=b16229fb-54c5-486b-ab7e-3f669df20ed4",
-        "end": 1505010730000,
-        "status": "done",
-        "is_processed": false
+        "id": 557659619342,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 438600,
+        "交易时间": "2017/09/10 10:32:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557659619342.htm?track_id=b16229fb-54c5-486b-ab7e-3f669df20ed4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 27,
+        "地点": "河南省 郑州市 新密市 新密市城区西大街西段南侧（兴苑花园8号楼）东单元4层东户",
+        "所属小区": "兴苑花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市城区西大街",
+        "建筑面积": 139.45,
+        "单价": 3146.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 557604918028,
@@ -219,11 +233,25 @@
         "detail_captured": true
     },
     {
-        "id": "557604590585",
-        "url": "https://sf-item.taobao.com/sf_item/557604590585.htm?track_id=73d5d661-0377-4d54-9279-7921cdef3c5e",
-        "end": 1505009227000,
-        "status": "done",
-        "is_processed": false
+        "id": 557604590585,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 401341,
+        "交易时间": "2017/09/10 10:07:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557604590585.htm?track_id=73d5d661-0377-4d54-9279-7921cdef3c5e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 21,
+        "地点": "河南省 郑州市 新密市 新密市广兴清华园12号楼2单元6层605号",
+        "所属小区": "广兴清华园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密城区",
+        "建筑面积": 143.9,
+        "单价": 2789.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "556825015293",
@@ -233,9 +261,30 @@
         "is_processed": false
     },
     {
-        "id": "557646183182",
-        "url": "https://sf-item.taobao.com/sf_item/557646183182.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
-        "end": 1505009016000,
+        "id": 557646183182,
+        "市场评估价": null,
+        "起拍价格": 2275712,
+        "成交价格": 2275712,
+        "交易时间": "2017-09-10 10:03:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557646183182.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "博罗县罗阳镇义和横江尾村横江尾组沙板",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": null,
+        "建筑面积": 969.42,
+        "单价": 2345.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "556250768160",
+        "url": "https://sf-item.taobao.com/sf_item/556250768160.htm?track_id=c566893a-201b-4839-8262-2d73cb1d9a72",
+        "end": 1505013768000,
         "status": "done",
         "is_processed": false
     }

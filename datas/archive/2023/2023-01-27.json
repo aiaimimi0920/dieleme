@@ -483,9 +483,58 @@
         "detail_captured": true
     },
     {
-        "id": "697059774013",
-        "url": "https://sf-item.taobao.com/sf_item/697059774013.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1674787512000,
+        "id": 697059774013,
+        "市场评估价": 377500,
+        "起拍价格": 320875,
+        "成交价格": 371875,
+        "交易时间": "2023-01-27 10:45:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/697059774013.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": 102,
+        "出价人数": 98,
+        "地点": "云南省 丽江市 华坪县 华坪县中心镇",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "697054754940",
+        "url": "https://sf-item.taobao.com/sf_item/697054754940.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1674784995000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697059498851",
+        "url": "https://sf-item.taobao.com/sf_item/697059498851.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1674784801000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697312415814",
+        "url": "https://sf-item.taobao.com/sf_item/697312415814.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1674785076000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696833677168",
+        "url": "https://sf-item.taobao.com/sf_item/696833677168.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1674785394000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696836069205",
+        "url": "https://sf-item.taobao.com/sf_item/696836069205.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1674784891000,
         "status": "done",
         "is_processed": false
     }

@@ -294,12 +294,25 @@
         "detail_captured": true
     },
     {
-        "id": "868431799842",
-        "url": "https://sf-item.taobao.com/sf_item/868431799842.htm?track_id=7669240a-40cb-4d36-afc0-5cc22e268182",
-        "end": 1738029727000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/868431799842.htm"
+        "id": 868431799842,
+        "市场评估价": 806693,
+        "起拍价格": 564685.1,
+        "成交价格": 564685.1,
+        "交易时间": "2025/01/28 10:02:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/868431799842.htm?track_id=7669240a-40cb-4d36-afc0-5cc22e268182",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 广元市 利州区 广元市市中区嘉陵办事处下河街滨江商场A幢底层2号营业房",
+        "所属小区": "滨江商场",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "下河街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 868288503373,
@@ -363,5 +376,12 @@
         "单价": 16673.19,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "867958165777",
+        "url": "https://sf-item.taobao.com/sf_item/867958165777.htm?track_id=1d7de8cb-3c6a-4ed4-af6a-105ce509c724",
+        "end": 1738029620000,
+        "status": "done",
+        "is_processed": false
     }
 ]

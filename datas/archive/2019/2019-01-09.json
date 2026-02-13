@@ -206,15 +206,16 @@
         "竞拍人数": 1,
         "出价人数": 1,
         "地点": "内蒙古自治区 赤峰市 林西县 林西镇北街",
-        "所属小区": null,
+        "所属小区": "林西镇北街家属院",
         "省份": "内蒙古自治区",
         "城市": "赤峰市",
         "区": "林西县",
-        "最靠近商圈": null,
+        "最靠近商圈": "北街商圈",
         "建筑面积": 542.54,
-        "单价": 5479.93,
+        "单价": 5479.62,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 583655290862,
@@ -273,11 +274,12 @@
         "省份": "广西壮族自治区",
         "城市": "柳州市",
         "区": "城中区",
-        "最靠近商圈": null,
+        "最靠近商圈": "万达广场商圈",
         "建筑面积": 331.93,
-        "单价": 9019.88,
+        "单价": 9018.72,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 583461677285,
@@ -301,11 +303,25 @@
         "detail_captured": true
     },
     {
-        "id": "583323493038",
-        "url": "https://sf-item.taobao.com/sf_item/583323493038.htm?track_id=d5f892bf-8cd0-4b5f-b29c-66f68324d079",
-        "end": 1547000195000,
-        "status": "done",
-        "is_processed": false
+        "id": 583323493038,
+        "市场评估价": 598517,
+        "起拍价格": 418962,
+        "成交价格": 440962,
+        "交易时间": "2019-01-09T10:16:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583323493038.htm?track_id=d5f892bf-8cd0-4b5f-b29c-66f68324d079",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 11,
+        "地点": "辽宁省 沈阳市 铁西区 兴工北街5甲2-7-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "兴工北街商圈",
+        "建筑面积": 75.8,
+        "单价": 5814.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "583314568563",
@@ -315,16 +331,51 @@
         "is_processed": false
     },
     {
-        "id": "583184516748",
-        "url": "https://sf-item.taobao.com/sf_item/583184516748.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
-        "end": 1547003226000,
-        "status": "done",
-        "is_processed": false
+        "id": 583184516748,
+        "市场评估价": null,
+        "起拍价格": 889680,
+        "成交价格": 961680,
+        "交易时间": "2019-01-09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583184516748.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 9,
+        "地点": "湖北省 襄阳市 襄城区 陈侯巷18号（市职业技术学院）2幢1单元3层左户房屋",
+        "所属小区": "市职业技术学院家属院",
+        "省份": "湖北省",
+        "城市": "襄阳市",
+        "区": "襄城区",
+        "最靠近商圈": "陈侯巷商圈",
+        "建筑面积": 120.72,
+        "单价": 7962.21,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "583583034422",
         "url": "https://sf-item.taobao.com/sf_item/583583034422.htm?track_id=0d8e7746-cfb4-4d5f-b22b-7d43d8847bd0",
         "end": 1547000674000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583375720209",
+        "url": "https://sf-item.taobao.com/sf_item/583375720209.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1546999812000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584291330333",
+        "url": "https://sf-item.taobao.com/sf_item/584291330333.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1547034058000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583500805598",
+        "url": "https://sf-item.taobao.com/sf_item/583500805598.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1546999739000,
         "status": "done",
         "is_processed": false
     }

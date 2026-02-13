@@ -42,16 +42,37 @@
         "detail_captured": true
     },
     {
-        "id": "681291282724",
-        "url": "https://sf-item.taobao.com/sf_item/681291282724.htm?track_id=a7155322-1f8b-438d-b84c-02072d71caf5",
-        "end": 1664972805000,
-        "status": "done",
-        "is_processed": false
+        "id": 681291282724,
+        "市场评估价": 572446,
+        "起拍价格": 320569.76,
+        "成交价格": 320569.76,
+        "交易时间": "2022/10/05 20:26:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/681291282724.htm?track_id=a7155322-1f8b-438d-b84c-02072d71caf5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 新丰街708号",
+        "所属小区": "恒天玫瑰园",
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": "延吉市",
+        "最靠近商圈": "新丰街商圈",
+        "建筑面积": 88.15,
+        "单价": 3637.32,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "684339419301",
         "url": "https://sf-item.taobao.com/sf_item/684339419301.htm?track_id=6b04ce3c-2f80-41e6-9418-abb9d96f54be",
         "end": 1664935949000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683808096696",
+        "url": "https://sf-item.taobao.com/sf_item/683808096696.htm?track_id=d5566e93-6667-4ee0-86bb-103d626c1c7d",
+        "end": 1664937511000,
         "status": "done",
         "is_processed": false
     }

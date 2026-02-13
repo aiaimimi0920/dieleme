@@ -231,16 +231,51 @@
         "detail_captured": true
     },
     {
-        "id": "671477016479",
-        "url": "https://sf-item.taobao.com/sf_item/671477016479.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
-        "end": 1650596523000,
-        "status": "done",
-        "is_processed": false
+        "id": 671477016479,
+        "市场评估价": 1438900,
+        "起拍价格": 920896,
+        "成交价格": 1056896,
+        "交易时间": "2022/04/22 11:02:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/671477016479.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 30,
+        "地点": "河南省郑州市二七区郑州市二七区汝河路26号院3号楼3层311号房产",
+        "所属小区": "汝河路26号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "汝河路商圈",
+        "建筑面积": 83.74,
+        "单价": 12621.57,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "671237890384",
         "url": "https://sf-item.taobao.com/sf_item/671237890384.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
         "end": 1650592984000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671216646863",
+        "url": "https://sf-item.taobao.com/sf_item/671216646863.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1650595552000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671009602223",
+        "url": "https://sf-item.taobao.com/sf_item/671009602223.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1650596880000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671388191822",
+        "url": "https://sf-item.taobao.com/sf_item/671388191822.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1650593251000,
         "status": "done",
         "is_processed": false
     }

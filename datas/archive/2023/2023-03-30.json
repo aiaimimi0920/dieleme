@@ -210,12 +210,25 @@
         "detail_captured": true
     },
     {
-        "id": "707498041557",
-        "url": "https://sf-item.taobao.com/sf_item/707498041557.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
-        "end": 1680144438000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/707498041557.htm"
+        "id": 707498041557,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1023472,
+        "交易时间": "2023-03-30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/707498041557.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 47,
+        "地点": "江苏省淮安市淮安区如意里2号楼1506室",
+        "所属小区": "如意里",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区中心商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 704465514129,
@@ -246,11 +259,25 @@
         "is_processed": false
     },
     {
-        "id": "704110098555",
-        "url": "https://sf-item.taobao.com/sf_item/704110098555.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
-        "end": 1680145296000,
-        "status": "done",
-        "is_processed": false
+        "id": 704110098555,
+        "市场评估价": 1883888,
+        "起拍价格": 1507111,
+        "成交价格": 2177111,
+        "交易时间": "2023/03/30 11:01:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/704110098555.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 118,
+        "地点": "安徽省 合肥市 瑶海区 包公大道与郎溪路交口园上园14幢501室",
+        "所属小区": "园上园",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "龙岗商圈",
+        "建筑面积": 138.36,
+        "单价": 15736.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "707787170778",
@@ -260,9 +287,51 @@
         "is_processed": false
     },
     {
-        "id": "707948059993",
-        "url": "https://sf-item.taobao.com/sf_item/707948059993.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
-        "end": 1680148630000,
+        "id": 707948059993,
+        "市场评估价": 1071204.66,
+        "起拍价格": 771268,
+        "成交价格": 1038268,
+        "交易时间": "2023/03/30 11:57:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/707948059993.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 82,
+        "地点": "河南省 郑州市 二七区 连云路69号3号楼1单元4层东户",
+        "所属小区": "连云路69号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七万达",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "707728690391",
+        "url": "https://sf-item.taobao.com/sf_item/707728690391.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1680147022000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "707235420485",
+        "url": "https://sf-item.taobao.com/sf_item/707235420485.htm?track_id=ef50c735-a371-4834-af1b-815806338e54",
+        "end": 1680141665000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "702292204312",
+        "url": "https://sf-item.taobao.com/sf_item/702292204312.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1680143811000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701185582634",
+        "url": "https://sf-item.taobao.com/sf_item/701185582634.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1680146379000,
         "status": "done",
         "is_processed": false
     }

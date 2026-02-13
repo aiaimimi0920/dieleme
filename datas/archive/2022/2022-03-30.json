@@ -168,25 +168,67 @@
         "detail_captured": true
     },
     {
-        "id": "667536531097",
-        "url": "https://sf-item.taobao.com/sf_item/667536531097.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
-        "end": 1648623334000,
-        "status": "done",
-        "is_processed": false
+        "id": 667536531097,
+        "市场评估价": null,
+        "起拍价格": 482902,
+        "成交价格": 542902,
+        "交易时间": "2022-03-30T14:55:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/667536531097.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "是否成交": true,
+        "竞拍人数": 20,
+        "出价人数": null,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 剑江中路28号文峰家园文景苑2栋18层附104号",
+        "所属小区": "文峰家园",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "文峰商圈",
+        "建筑面积": 142.03,
+        "单价": 3821.31,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "668832844211",
-        "url": "https://sf-item.taobao.com/sf_item/668832844211.htm?track_id=8b62a118-5217-4938-94e5-3f574e023c8a",
-        "end": 1648606833000,
-        "status": "done",
-        "is_processed": false
+        "id": 668832844211,
+        "市场评估价": 999482,
+        "起拍价格": 560000,
+        "成交价格": 735000,
+        "交易时间": "2022/03/30 10:20:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/668832844211.htm?track_id=8b62a118-5217-4938-94e5-3f574e023c8a",
+        "是否成交": true,
+        "竞拍人数": 24,
+        "出价人数": 24,
+        "地点": "广东省惠州市博罗县龙溪镇夏寮村委会第一村民小组岗上埔（土名）景泰豪庭三期（中央华府Ⅲ）F栋7层01房",
+        "所属小区": "景泰豪庭三期",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "龙溪镇",
+        "建筑面积": 141.54,
+        "单价": 5191.88,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "669918351056",
-        "url": "https://sf-item.taobao.com/sf_item/669918351056.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
-        "end": 1648606880000,
-        "status": "done",
-        "is_processed": false
+        "id": 669918351056,
+        "市场评估价": 386023,
+        "起拍价格": 248000,
+        "成交价格": 284000,
+        "交易时间": "2022/03/30 10:21:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669918351056.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 龙溪镇龙桥大道1238号汇金广场7栋商住楼6层04房",
+        "所属小区": "汇金广场",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "龙溪镇",
+        "建筑面积": 79.69,
+        "单价": 3563.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "669236094424",
@@ -203,11 +245,25 @@
         "is_processed": false
     },
     {
-        "id": "669129697128",
-        "url": "https://sf-item.taobao.com/sf_item/669129697128.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
-        "end": 1648610512000,
-        "status": "done",
-        "is_processed": false
+        "id": 669129697128,
+        "市场评估价": 2432647.33,
+        "起拍价格": 2189383,
+        "成交价格": 2349383,
+        "交易时间": "2022-03-30 11:21:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669129697128.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市二七区兴华南街99号13号楼东2单元14号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "兴华街商圈",
+        "建筑面积": 194.38,
+        "单价": 12086.57,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "667410815879",
@@ -220,6 +276,34 @@
         "id": "669407918070",
         "url": "https://sf-item.taobao.com/sf_item/669407918070.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1648605891000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "669342586481",
+        "url": "https://sf-item.taobao.com/sf_item/669342586481.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "end": 1648607263000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670353783466",
+        "url": "https://sf-item.taobao.com/sf_item/670353783466.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1648612423000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "669402888083",
+        "url": "https://sf-item.taobao.com/sf_item/669402888083.htm?track_id=6f2bafaa-d7d3-4b31-aeeb-791dd7eba396",
+        "end": 1648605683000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670577939850",
+        "url": "https://sf-item.taobao.com/sf_item/670577939850.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1648605926000,
         "status": "done",
         "is_processed": false
     }

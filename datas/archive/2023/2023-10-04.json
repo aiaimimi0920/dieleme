@@ -103,5 +103,12 @@
         "单价": 15873.56,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "739050208095",
+        "url": "https://sf-item.taobao.com/sf_item/739050208095.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1696384800000,
+        "status": "done",
+        "is_processed": false
     }
 ]

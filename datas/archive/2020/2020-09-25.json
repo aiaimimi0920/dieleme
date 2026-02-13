@@ -484,11 +484,25 @@
         "detail_captured": true
     },
     {
-        "id": "626908110857",
-        "url": "https://sf-item.taobao.com/sf_item/626908110857.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
-        "end": 1601002568000,
-        "status": "done",
-        "is_processed": false
+        "id": 626908110857,
+        "市场评估价": 544600,
+        "起拍价格": 304976,
+        "成交价格": 382976,
+        "交易时间": "2020/09/25 10:56:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/626908110857.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": 21,
+        "地点": "四川省 资阳市 乐至县 天池镇西街E组团住房一套（现为福兴街71号1栋1单元2楼2号）",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 625966302752,
@@ -512,18 +526,46 @@
         "detail_captured": true
     },
     {
-        "id": "625965998135",
-        "url": "https://sf-item.taobao.com/sf_item/625965998135.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
-        "end": 1601003556000,
-        "status": "done",
-        "is_processed": false
+        "id": 625965998135,
+        "市场评估价": 1220500,
+        "起拍价格": 1098450,
+        "成交价格": 1431450,
+        "交易时间": "2020/09/25 11:12:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625965998135.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 56,
+        "地点": "安徽省 合肥市 瑶海区 新站区板桥河路东临泉路北元一名城A12幢1201室",
+        "所属小区": "元一名城",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "新站区",
+        "建筑面积": 122.93,
+        "单价": 11644.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "625946978445",
-        "url": "https://sf-item.taobao.com/sf_item/625946978445.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
-        "end": 1601002891000,
-        "status": "done",
-        "is_processed": false
+        "id": 625946978445,
+        "市场评估价": null,
+        "起拍价格": 1085000,
+        "成交价格": 1305000,
+        "交易时间": "2020/09/25 11:01:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625946978445.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 37,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道城东路1665号御景城10幢3201室",
+        "所属小区": "御景城",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 138.27,
+        "单价": 9438.3,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "625674869004",
@@ -536,6 +578,83 @@
         "id": "627193507359",
         "url": "https://sf-item.taobao.com/sf_item/627193507359.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1601001877000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625682745278",
+        "url": "https://sf-item.taobao.com/sf_item/625682745278.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1601000653000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625935307344",
+        "url": "https://sf-item.taobao.com/sf_item/625935307344.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1601002811000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626016987062",
+        "url": "https://sf-item.taobao.com/sf_item/626016987062.htm?track_id=6abd5223-c136-4fc7-bb7b-5c922dcc102a",
+        "end": 1601001577000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625346516130",
+        "url": "https://sf-item.taobao.com/sf_item/625346516130.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1601003177000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626240183254",
+        "url": "https://sf-item.taobao.com/sf_item/626240183254.htm?track_id=30d808e3-d96d-4c20-b7c0-2a2a14a6d2bf",
+        "end": 1600999228000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625521703299",
+        "url": "https://sf-item.taobao.com/sf_item/625521703299.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1601004686000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623257576876",
+        "url": "https://sf-item.taobao.com/sf_item/623257576876.htm?track_id=55c1cc05-4e69-4ba6-9889-416b52dc39e0",
+        "end": 1601003604000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624141635149",
+        "url": "https://sf-item.taobao.com/sf_item/624141635149.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1601000965000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626902958110",
+        "url": "https://sf-item.taobao.com/sf_item/626902958110.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1600999200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626458950117",
+        "url": "https://sf-item.taobao.com/sf_item/626458950117.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1600999792000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624179406690",
+        "url": "https://sf-item.taobao.com/sf_item/624179406690.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1600999475000,
         "status": "done",
         "is_processed": false
     }

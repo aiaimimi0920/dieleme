@@ -71,9 +71,37 @@
         "原始网站": "https://sf-item.taobao.com/sf_item/538491929197.htm"
     },
     {
-        "id": "537748594241",
-        "url": "https://sf-item.taobao.com/sf_item/537748594241.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
-        "end": 1473904800000,
+        "id": 537748594241,
+        "市场评估价": null,
+        "起拍价格": 346000,
+        "成交价格": 350000,
+        "交易时间": "2016-09-15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537748594241.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "贵州省都匀市斗篷山路101号港湾丽都4栋16层附1603号",
+        "所属小区": "港湾丽都",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "斗篷山路",
+        "建筑面积": 142.3,
+        "单价": 2459.59,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "537827345533",
+        "url": "https://sf-item.taobao.com/sf_item/537827345533.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1473905619000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537737169352",
+        "url": "https://sf-item.taobao.com/sf_item/537737169352.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1473905837000,
         "status": "done",
         "is_processed": false
     }

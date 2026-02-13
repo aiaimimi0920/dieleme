@@ -169,11 +169,25 @@
         "detail_captured": true
     },
     {
-        "id": "793853598157",
-        "url": "https://sf-item.taobao.com/sf_item/793853598157.htm?track_id=93f14e3f-e379-4453-9800-c710d8e5cae4",
-        "end": 1717898400000,
-        "status": "done",
-        "is_processed": false
+        "id": 793853598157,
+        "市场评估价": null,
+        "起拍价格": 69737,
+        "成交价格": 69737,
+        "交易时间": "2024/06/09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/793853598157.htm?track_id=93f14e3f-e379-4453-9800-c710d8e5cae4",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 阿尔丁大街9号106小商品批发商场-2544商铺",
+        "所属小区": "106小商品批发商场",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "阿尔丁广场",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "777198404161",
@@ -183,9 +197,72 @@
         "is_processed": false
     },
     {
-        "id": "793863114607",
-        "url": "https://sf-item.taobao.com/sf_item/793863114607.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
-        "end": 1717899357000,
+        "id": 793863114607,
+        "市场评估价": 221306,
+        "起拍价格": 160000,
+        "成交价格": 235000,
+        "交易时间": "2024/06/09 10:15:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/793863114607.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
+        "是否成交": true,
+        "竞拍人数": 39,
+        "出价人数": 39,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道百尺北路365号华邦金座3幢702室",
+        "所属小区": "华邦金座",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 47.46,
+        "单价": 4950.14,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "798873439828",
+        "url": "https://sf-item.taobao.com/sf_item/798873439828.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1717901926000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "793910602491",
+        "url": "https://sf-item.taobao.com/sf_item/793910602491.htm?track_id=f484603b-057a-4a7b-809f-534da817f7bd",
+        "end": 1717902314000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "794462372838",
+        "url": "https://sf-item.taobao.com/sf_item/794462372838.htm?track_id=f7851355-72f4-4dd3-918c-6b401b86ff61",
+        "end": 1717898400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "798517884149",
+        "url": "https://sf-item.taobao.com/sf_item/798517884149.htm?track_id=f8fcb460-293d-4823-a6b8-e6d33c641f75",
+        "end": 1717899844000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "789191775127",
+        "url": "https://sf-item.taobao.com/sf_item/789191775127.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1717898970000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "792868974557",
+        "url": "https://sf-item.taobao.com/sf_item/792868974557.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1717899126000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "793838991073",
+        "url": "https://sf-item.taobao.com/sf_item/793838991073.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1717901141000,
         "status": "done",
         "is_processed": false
     }

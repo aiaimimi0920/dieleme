@@ -210,18 +210,46 @@
         "detail_captured": true
     },
     {
-        "id": "621330175401",
-        "url": "https://sf-item.taobao.com/sf_item/621330175401.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
-        "end": 1595387716000,
-        "status": "done",
-        "is_processed": false
+        "id": 621330175401,
+        "市场评估价": 592197,
+        "起拍价格": 414537.9,
+        "成交价格": 576537.9,
+        "交易时间": "2020/07/22 11:15:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/621330175401.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 138,
+        "地点": "辽宁省 沈阳市 铁西区 中央大街20甲1-4-83号1-14-1",
+        "所属小区": "隆玺府",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "中央大街商圈",
+        "建筑面积": 119.66,
+        "单价": 4817.7,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "621064510934",
-        "url": "https://sf-item.taobao.com/sf_item/621064510934.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1595383200000,
-        "status": "done",
-        "is_processed": false
+        "id": 621064510934,
+        "市场评估价": 420150,
+        "起拍价格": 294105,
+        "成交价格": 294105,
+        "交易时间": "2020/07/22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/621064510934.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省沈阳市铁西区红粉路39-2号7-7-3",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 91.04,
+        "单价": 3230.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "622029617707",
@@ -241,6 +269,27 @@
         "id": "621627686218",
         "url": "https://sf-item.taobao.com/sf_item/621627686218.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1595383200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "621238823811",
+        "url": "https://sf-item.taobao.com/sf_item/621238823811.htm?track_id=6abd5223-c136-4fc7-bb7b-5c922dcc102a",
+        "end": 1595384404000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620730789238",
+        "url": "https://sf-item.taobao.com/sf_item/620730789238.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1595386281000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "621004106124",
+        "url": "https://sf-item.taobao.com/sf_item/621004106124.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1595385919000,
         "status": "done",
         "is_processed": false
     }

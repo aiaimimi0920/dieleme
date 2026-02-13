@@ -106,16 +106,72 @@
         "detail_captured": true
     },
     {
-        "id": "554774334870",
-        "url": "https://sf-item.taobao.com/sf_item/554774334870.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
+        "id": 554774334870,
+        "市场评估价": 0,
+        "起拍价格": 425000,
+        "成交价格": 425000,
+        "交易时间": "2017/07/19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/554774334870.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "都匀市嘉和路2号嘉和城市风景2栋2单元10层附40号住宅",
+        "所属小区": "嘉和城市风景",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": null,
+        "建筑面积": 146.15,
+        "单价": 2907.93,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 553332991079,
+        "市场评估价": 684400,
+        "起拍价格": 479100,
+        "成交价格": 1087100,
+        "交易时间": "2017/07/19 10:49:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/553332991079.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省无锡市锡山区安镇街道紫汀苑65-1102号",
+        "所属小区": "紫汀苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "安镇板块",
+        "建筑面积": 142.72,
+        "单价": 7615.04,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "553377282527",
+        "url": "https://sf-item.taobao.com/sf_item/553377282527.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1500431684000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "553231898724",
+        "url": "https://sf-item.taobao.com/sf_item/553231898724.htm?track_id=c1122bc0-fff8-4176-9d60-e693e4959044",
         "end": 1500429600000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "553332991079",
-        "url": "https://sf-item.taobao.com/sf_item/553332991079.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
-        "end": 1500432570000,
+        "id": "553272607460",
+        "url": "https://sf-item.taobao.com/sf_item/553272607460.htm?track_id=c1122bc0-fff8-4176-9d60-e693e4959044",
+        "end": 1500429600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "553371190717",
+        "url": "https://sf-item.taobao.com/sf_item/553371190717.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1500429600000,
         "status": "done",
         "is_processed": false
     }

@@ -78,11 +78,25 @@
         "is_processed": false
     },
     {
-        "id": "527261399694",
-        "url": "https://sf-item.taobao.com/sf_item/527261399694.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
-        "end": 1457489361000,
-        "status": "done",
-        "is_processed": false
+        "id": 527261399694,
+        "市场评估价": null,
+        "起拍价格": 1474200,
+        "成交价格": 1477200,
+        "交易时间": "2016-03-09T10:09:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527261399694.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 2,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "527313377937",
@@ -102,6 +116,13 @@
         "id": "527328692628",
         "url": "https://sf-item.taobao.com/sf_item/527328692628.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
         "end": 1457488800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527056491129",
+        "url": "https://sf-item.taobao.com/sf_item/527056491129.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1457490346000,
         "status": "done",
         "is_processed": false
     }

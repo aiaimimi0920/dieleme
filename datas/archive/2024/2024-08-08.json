@@ -337,18 +337,46 @@
         "detail_captured": true
     },
     {
-        "id": "817906942183",
-        "url": "https://sf-item.taobao.com/sf_item/817906942183.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
-        "end": 1723082400000,
-        "status": "done",
-        "is_processed": false
+        "id": 817906942183,
+        "市场评估价": 1444228,
+        "起拍价格": 808767.68,
+        "成交价格": 808767.68,
+        "交易时间": "2024-08-08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/817906942183.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省吉林市船营区雾凇西路139号百业国际五金汽配城B1号商铺21号",
+        "所属小区": "百业国际五金汽配城",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "雾凇路商圈",
+        "建筑面积": 213.58,
+        "单价": 3786.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "818203724688",
-        "url": "https://sf-item.taobao.com/sf_item/818203724688.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
-        "end": 1723082408000,
-        "status": "done",
-        "is_processed": false
+        "id": 818203724688,
+        "市场评估价": 1444228,
+        "起拍价格": 808767.68,
+        "成交价格": 808767.68,
+        "交易时间": "2024/08/08 10:00:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/818203724688.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省吉林市船营区雾凇西路139号百业国际五金汽配城B1号商铺20号",
+        "所属小区": "百业国际五金汽配城",
+        "省份": "吉林",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "雾凇西路商圈",
+        "建筑面积": 213.58,
+        "单价": 3790.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "816553511667",
@@ -361,6 +389,62 @@
         "id": "816868665528",
         "url": "https://sf-item.taobao.com/sf_item/816868665528.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1723082423000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "813186135847",
+        "url": "https://sf-item.taobao.com/sf_item/813186135847.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1723083334000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "813315690348",
+        "url": "https://sf-item.taobao.com/sf_item/813315690348.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1723083289000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "813497585984",
+        "url": "https://sf-item.taobao.com/sf_item/813497585984.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1723083280000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "813661868795",
+        "url": "https://sf-item.taobao.com/sf_item/813661868795.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1723082953000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "813573672498",
+        "url": "https://sf-item.taobao.com/sf_item/813573672498.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1723082798000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820378594222",
+        "url": "https://sf-item.taobao.com/sf_item/820378594222.htm?track_id=750b58ad-ff75-4aee-b3f4-98c79d909aed",
+        "end": 1723082400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820688680721",
+        "url": "https://sf-item.taobao.com/sf_item/820688680721.htm?track_id=750b58ad-ff75-4aee-b3f4-98c79d909aed",
+        "end": 1723082400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "810436908479",
+        "url": "https://sf-item.taobao.com/sf_item/810436908479.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1723084098000,
         "status": "done",
         "is_processed": false
     }

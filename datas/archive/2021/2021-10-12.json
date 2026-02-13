@@ -888,12 +888,25 @@
         "detail_captured": true
     },
     {
-        "id": "655381262091",
-        "url": "https://sf-item.taobao.com/sf_item/655381262091.htm?track_id=2b7cafab-ad8b-43da-899c-d144c94318c5",
-        "end": 1634005808000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/655381262091.htm"
+        "id": 655381262091,
+        "市场评估价": null,
+        "起拍价格": 700000,
+        "成交价格": 883000,
+        "交易时间": "2021-10-12 10:30:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/655381262091.htm?track_id=2b7cafab-ad8b-43da-899c-d144c94318c5",
+        "是否成交": true,
+        "竞拍人数": 59,
+        "出价人数": 59,
+        "地点": "江苏省 淮安市 淮安区 淮安区锦和名苑1号楼601室",
+        "所属小区": "锦和名苑",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 654068208805,
@@ -917,12 +930,25 @@
         "detail_captured": true
     },
     {
-        "id": "655377038030",
-        "url": "https://sf-item.taobao.com/sf_item/655377038030.htm?track_id=dd630e1c-c081-464c-8ce5-099b378b8e2f",
-        "end": 1634006295000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/655377038030.htm"
+        "id": 655377038030,
+        "市场评估价": 700572.2,
+        "起拍价格": 490400.54,
+        "成交价格": 574400.54,
+        "交易时间": "2021-10-12 10:38:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/655377038030.htm?track_id=dd630e1c-c081-464c-8ce5-099b378b8e2f",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": 22,
+        "地点": "河北省廊坊市香河县香河县绣水街74号锦绣家园小区11号楼2单元602室房屋",
+        "所属小区": "锦绣家园",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": "香河新城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 655933081531,
@@ -946,39 +972,109 @@
         "detail_captured": true
     },
     {
-        "id": "654534014830",
-        "url": "https://sf-item.taobao.com/sf_item/654534014830.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
-        "end": 1634004968000,
-        "status": "done",
-        "is_processed": false
+        "id": 654534014830,
+        "市场评估价": null,
+        "起拍价格": 298000,
+        "成交价格": 388000,
+        "交易时间": "2021-10-12 10:16:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/654534014830.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
+        "是否成交": true,
+        "竞拍人数": 37,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 阿尔丁大街12号街坊3D-110号",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "阿尔丁商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "654535006226",
-        "url": "https://sf-item.taobao.com/sf_item/654535006226.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
-        "end": 1634005177000,
-        "status": "done",
-        "is_processed": false
+        "id": 654535006226,
+        "市场评估价": 0,
+        "起拍价格": 298000,
+        "成交价格": 404000,
+        "交易时间": "2021/10/12 10:19:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/654535006226.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 34,
+        "地点": "内蒙古自治区 包头市 昆都仑区 阿尔丁大街12号街坊",
+        "所属小区": "阿尔丁大街12号街坊",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "阿尔丁大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "654925171056",
-        "url": "https://sf-item.taobao.com/sf_item/654925171056.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
-        "end": 1634005490000,
-        "status": "done",
-        "is_processed": false
+        "id": 654925171056,
+        "市场评估价": null,
+        "起拍价格": 298000,
+        "成交价格": 414000,
+        "交易时间": "2021-10-12 10:24:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/654925171056.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 阿尔丁大街12号街坊",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "阿尔丁商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "654158657064",
-        "url": "https://sf-item.taobao.com/sf_item/654158657064.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
-        "end": 1634005395000,
-        "status": "done",
-        "is_processed": false
+        "id": 654158657064,
+        "市场评估价": null,
+        "起拍价格": 788000,
+        "成交价格": 1183000,
+        "交易时间": "2021-10-12 10:23:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/654158657064.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
+        "是否成交": true,
+        "竞拍人数": 66,
+        "出价人数": null,
+        "地点": "内蒙古自治区包头市昆都仑区乌兰小区三区6-16室",
+        "所属小区": "乌兰小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "包钢",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "654533786342",
-        "url": "https://sf-item.taobao.com/sf_item/654533786342.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
-        "end": 1634005667000,
-        "status": "done",
-        "is_processed": false
+        "id": 654533786342,
+        "市场评估价": null,
+        "起拍价格": 563000,
+        "成交价格": 887000,
+        "交易时间": "2021/10/12 10:27:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/654533786342.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区包头市昆都仑区乌兰小区三区6-15室",
+        "所属小区": "乌兰小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "团结大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 655941633536,
@@ -1030,11 +1126,25 @@
         "detail_captured": true
     },
     {
-        "id": "656222166279",
-        "url": "https://sf-item.taobao.com/sf_item/656222166279.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
-        "end": 1634008590000,
-        "status": "done",
-        "is_processed": false
+        "id": 656222166279,
+        "市场评估价": null,
+        "起拍价格": 400387,
+        "成交价格": 452887,
+        "交易时间": "2021-10-12 11:16:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/656222166279.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
+        "是否成交": true,
+        "竞拍人数": 35,
+        "出价人数": null,
+        "地点": "广东省 揭阳市 惠来县 襟江一路16号",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "揭阳市",
+        "区": "惠来县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "654513421296",
@@ -1051,11 +1161,25 @@
         "is_processed": false
     },
     {
-        "id": "656174958704",
-        "url": "https://sf-item.taobao.com/sf_item/656174958704.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
-        "end": 1634006025000,
-        "status": "done",
-        "is_processed": false
+        "id": 656174958704,
+        "市场评估价": 0,
+        "起拍价格": 1273419,
+        "成交价格": 1483419,
+        "交易时间": "2021/10/12 10:33:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/656174958704.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 24,
+        "地点": "河南省 郑州市 二七区 勤劳街1号院1号楼2单元8层29号",
+        "所属小区": "勤劳街1号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场",
+        "建筑面积": 136.69,
+        "单价": 10851.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "655391712392",
@@ -1068,6 +1192,97 @@
         "id": "655418880690",
         "url": "https://sf-item.taobao.com/sf_item/655418880690.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
         "end": 1634004606000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655399162998",
+        "url": "https://sf-item.taobao.com/sf_item/655399162998.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1634005523000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656237322379",
+        "url": "https://sf-item.taobao.com/sf_item/656237322379.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
+        "end": 1634004000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654866044973",
+        "url": "https://sf-item.taobao.com/sf_item/654866044973.htm?track_id=f013eb3a-d76b-4cb1-9f95-b142415f8da5",
+        "end": 1634004000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654961069524",
+        "url": "https://sf-item.taobao.com/sf_item/654961069524.htm?track_id=f013eb3a-d76b-4cb1-9f95-b142415f8da5",
+        "end": 1634004000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655582227857",
+        "url": "https://sf-item.taobao.com/sf_item/655582227857.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1634005881000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655627827835",
+        "url": "https://sf-item.taobao.com/sf_item/655627827835.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1634004296000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654743685377",
+        "url": "https://sf-item.taobao.com/sf_item/654743685377.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1634004141000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655574975753",
+        "url": "https://sf-item.taobao.com/sf_item/655574975753.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1634004256000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655232079657",
+        "url": "https://sf-item.taobao.com/sf_item/655232079657.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1634008556000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656082891156",
+        "url": "https://sf-item.taobao.com/sf_item/656082891156.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1634009674000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654582888657",
+        "url": "https://sf-item.taobao.com/sf_item/654582888657.htm?track_id=1f756e4c-b012-46bd-9069-1a5d9bb4c457",
+        "end": 1634004318000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656245810454",
+        "url": "https://sf-item.taobao.com/sf_item/656245810454.htm?track_id=bc90718d-e65a-4467-9717-78b1a1bf1278",
+        "end": 1634005129000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656696391073",
+        "url": "https://sf-item.taobao.com/sf_item/656696391073.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1634013418000,
         "status": "done",
         "is_processed": false
     }

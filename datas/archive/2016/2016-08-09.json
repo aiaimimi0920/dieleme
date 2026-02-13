@@ -126,11 +126,25 @@
         "detail_captured": true
     },
     {
-        "id": "535945360118",
-        "url": "https://sf-item.taobao.com/sf_item/535945360118.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
-        "end": 1470711055000,
-        "status": "done",
-        "is_processed": false
+        "id": 535945360118,
+        "市场评估价": 0,
+        "起拍价格": 1810000,
+        "成交价格": 2130000,
+        "交易时间": "2016/08/09 10:50:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535945360118.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 64,
+        "地点": "杭州市滨江区君尚大厦2009室、2010室",
+        "所属小区": "君尚大厦",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 104.72,
+        "单价": 20331.13,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "535906381200",
@@ -143,6 +157,34 @@
         "id": "535906065553",
         "url": "https://sf-item.taobao.com/sf_item/535906065553.htm?track_id=4ad87b93-3084-4bc2-9259-b6b0538f1145",
         "end": 1470708189000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535935690771",
+        "url": "https://sf-item.taobao.com/sf_item/535935690771.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1470709066000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535909031907",
+        "url": "https://sf-item.taobao.com/sf_item/535909031907.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1470709754000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535908415675",
+        "url": "https://sf-item.taobao.com/sf_item/535908415675.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1470708000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536009532012",
+        "url": "https://sf-item.taobao.com/sf_item/536009532012.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1470708000000,
         "status": "done",
         "is_processed": false
     }

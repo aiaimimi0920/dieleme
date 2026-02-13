@@ -403,11 +403,25 @@
         "manual_checked": true
     },
     {
-        "id": "618784133993",
-        "url": "https://sf-item.taobao.com/sf_item/618784133993.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
-        "end": 1592965311000,
-        "status": "done",
-        "is_processed": false
+        "id": 618784133993,
+        "市场评估价": 350600,
+        "起拍价格": 262950,
+        "成交价格": 340950,
+        "交易时间": "2020/06/24 10:21:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/618784133993.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": 11,
+        "地点": "辽宁省 沈阳市 铁西区 沈辽西路136-4号1-3-2",
+        "所属小区": "铁西区沈辽西路136-4号",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "开发区",
+        "建筑面积": 58.3,
+        "单价": 5848.45,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "619722089132",
@@ -420,6 +434,13 @@
         "id": "617535116937",
         "url": "https://sf-item.taobao.com/sf_item/617535116937.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1592966095000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619318820983",
+        "url": "https://sf-item.taobao.com/sf_item/619318820983.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1592968943000,
         "status": "done",
         "is_processed": false
     }

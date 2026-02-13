@@ -483,9 +483,37 @@
         "detail_captured": true
     },
     {
-        "id": "595603765217",
-        "url": "https://sf-item.taobao.com/sf_item/595603765217.htm?track_id=ea13efc1-539c-4316-ab90-5b0a689696ee",
-        "end": 1561948790000,
+        "id": 595603765217,
+        "市场评估价": 850200,
+        "起拍价格": 595140,
+        "成交价格": 705140,
+        "交易时间": "2019/07/01 10:39:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595603765217.htm?track_id=ea13efc1-539c-4316-ab90-5b0a689696ee",
+        "是否成交": true,
+        "竞拍人数": 54,
+        "出价人数": 54,
+        "地点": "辽宁省 沈阳市 铁西区 中央大街20甲2-10号1-4-3",
+        "所属小区": "中央大街20甲2-10号",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西",
+        "建筑面积": 132.66,
+        "单价": 5311.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "596744570422",
+        "url": "https://sf-item.taobao.com/sf_item/596744570422.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1561946400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596852363421",
+        "url": "https://sf-item.taobao.com/sf_item/596852363421.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1561946400000,
         "status": "done",
         "is_processed": false
     }

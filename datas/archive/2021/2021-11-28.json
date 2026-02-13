@@ -210,11 +210,25 @@
         "detail_captured": true
     },
     {
-        "id": "659158414670",
-        "url": "https://sf-item.taobao.com/sf_item/659158414670.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
-        "end": 1638064800000,
-        "status": "done",
-        "is_processed": false
+        "id": 659158414670,
+        "市场评估价": 821055.46,
+        "起拍价格": 656844.37,
+        "成交价格": 656844.37,
+        "交易时间": "2021-11-28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/659158414670.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 潍坊市 昌邑市 院校中街29号政亨·龙泽园4幢1单元201室",
+        "所属小区": "政亨·龙泽园",
+        "省份": "山东",
+        "城市": "潍坊",
+        "区": "昌邑",
+        "最靠近商圈": "院校中街商圈",
+        "建筑面积": 134.66,
+        "单价": 4875.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "657708880761",
@@ -224,9 +238,44 @@
         "is_processed": false
     },
     {
-        "id": "659140114966",
-        "url": "https://sf-item.taobao.com/sf_item/659140114966.htm?track_id=6e2f85f4-a431-4d2a-afe1-a8628010aed9",
-        "end": 1638065097000,
+        "id": 659140114966,
+        "市场评估价": 887700,
+        "起拍价格": 621390,
+        "成交价格": 621390,
+        "交易时间": "2021/11/28 10:04:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/659140114966.htm?track_id=6e2f85f4-a431-4d2a-afe1-a8628010aed9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道长安北路382号盈都海棠湾3幢103室",
+        "所属小区": "盈都海棠湾",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 90.03,
+        "单价": 6902.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "660016929750",
+        "url": "https://sf-item.taobao.com/sf_item/660016929750.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1638065566000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "660807271965",
+        "url": "https://sf-item.taobao.com/sf_item/660807271965.htm?track_id=330a34e0-5029-49b4-8c2b-4f67d5c5f99f",
+        "end": 1638065763000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "660793387495",
+        "url": "https://sf-item.taobao.com/sf_item/660793387495.htm?track_id=fb35d09c-9591-40f4-8668-e4abba953bf0",
+        "end": 1638064800000,
         "status": "done",
         "is_processed": false
     }

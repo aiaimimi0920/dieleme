@@ -463,16 +463,58 @@
         "detail_captured": true
     },
     {
-        "id": "593250488582",
-        "url": "https://sf-item.taobao.com/sf_item/593250488582.htm?track_id=15200676-b47d-4c3b-9ca3-15aed2f95ca0",
-        "end": 1561515145000,
-        "status": "done",
-        "is_processed": false
+        "id": 593250488582,
+        "市场评估价": 1098900,
+        "起拍价格": 1098900,
+        "成交价格": 1198900,
+        "交易时间": "2019/06/26 10:12:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/593250488582.htm?track_id=15200676-b47d-4c3b-9ca3-15aed2f95ca0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 12,
+        "地点": "西安市经济技术开发区凤城五路103号3橦1单元11102",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 90.71,
+        "单价": 13217.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "594887208452",
         "url": "https://sf-item.taobao.com/sf_item/594887208452.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
         "end": 1561518968000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594757364245",
+        "url": "https://sf-item.taobao.com/sf_item/594757364245.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1561517366000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594814016439",
+        "url": "https://sf-item.taobao.com/sf_item/594814016439.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "end": 1561515386000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595119806333",
+        "url": "https://sf-item.taobao.com/sf_item/595119806333.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1561514409000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595796112247",
+        "url": "https://sf-item.taobao.com/sf_item/595796112247.htm?track_id=60276a66-e935-4686-ac2d-7b6b359940ee",
+        "end": 1561514400000,
         "status": "done",
         "is_processed": false
     }

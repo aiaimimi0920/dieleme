@@ -421,23 +421,58 @@
         "detail_captured": true
     },
     {
-        "id": "614257995655",
-        "url": "https://sf-item.taobao.com/sf_item/614257995655.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
-        "end": 1587268450000,
-        "status": "done",
-        "is_processed": false
+        "id": 614257995655,
+        "市场评估价": 710668.8,
+        "起拍价格": 710668.8,
+        "成交价格": 784668.8,
+        "交易时间": "2020-04-19 11:54:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/614257995655.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 58,
+        "地点": "内蒙古自治区包头市昆都仑区包头市昆区团结大街10号街坊怡景园-3-513号房屋",
+        "所属小区": "怡景园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "昆都仑区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "613808805059",
-        "url": "https://sf-item.taobao.com/sf_item/613808805059.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
-        "end": 1587264093000,
-        "status": "done",
-        "is_processed": false
+        "id": 613808805059,
+        "市场评估价": 549630,
+        "起拍价格": 384741,
+        "成交价格": 579741,
+        "交易时间": "2020-04-19 10:41:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/613808805059.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
+        "是否成交": true,
+        "竞拍人数": 35,
+        "出价人数": 35,
+        "地点": "广东省 惠州市 博罗县 罗阳镇九村村上头塘、下头塘组三丫浪倒角山地段江山美苑C8栋二单元1306房",
+        "所属小区": "江山美苑",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 88.65,
+        "单价": 6536.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "615265646522",
         "url": "https://sf-item.taobao.com/sf_item/615265646522.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
         "end": 1587264670000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "612217986184",
+        "url": "https://sf-item.taobao.com/sf_item/612217986184.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
+        "end": 1587312912000,
         "status": "done",
         "is_processed": false
     }

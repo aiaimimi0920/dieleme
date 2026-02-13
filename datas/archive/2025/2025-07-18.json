@@ -836,20 +836,46 @@
         "detail_captured": true
     },
     {
-        "id": "941183400577",
-        "url": "https://sf-item.taobao.com/sf_item/941183400577.htm?track_id=bef8b094-1f22-4a16-9125-5fc5d479b490",
-        "end": 1752804745000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/941183400577.htm"
+        "id": 941183400577,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 758261,
+        "交易时间": "2025-07-18 10:12:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/941183400577.htm?track_id=bef8b094-1f22-4a16-9125-5fc5d479b490",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": null,
+        "地点": "江苏省淮安市淮安区楚州府21号楼1703室",
+        "所属小区": "楚州府",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "940656665589",
-        "url": "https://sf-item.taobao.com/sf_item/940656665589.htm?track_id=72f88d48-6f22-47dd-a0ce-36d41052e7da",
-        "end": 1752804821000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/940656665589.htm"
+        "id": 940656665589,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 757920,
+        "交易时间": "2025/07/18 10:13:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/940656665589.htm?track_id=72f88d48-6f22-47dd-a0ce-36d41052e7da",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 18,
+        "地点": "江苏省 淮安市 淮安区 云河湾小区13号商住楼803室",
+        "所属小区": "云河湾",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 946635554631,
@@ -978,12 +1004,25 @@
         "detail_captured": true
     },
     {
-        "id": "940625329338",
-        "url": "https://sf-item.taobao.com/sf_item/940625329338.htm?track_id=8aeef043-df37-44d0-9ecf-2b6decd262b7",
-        "end": 1752804040000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/940625329338.htm"
+        "id": 940625329338,
+        "市场评估价": 682422,
+        "起拍价格": 477700,
+        "成交价格": 477700,
+        "交易时间": "2025/07/18 10:00:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/940625329338.htm?track_id=8aeef043-df37-44d0-9ecf-2b6decd262b7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "苏州市相城区太平街道金澄花园二区44幢204室",
+        "所属小区": "金澄花园二区",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "太平",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 940056754055,
@@ -1007,11 +1046,25 @@
         "detail_captured": true
     },
     {
-        "id": "941054892405",
-        "url": "https://sf-item.taobao.com/sf_item/941054892405.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
-        "end": 1752810812000,
-        "status": "done",
-        "is_processed": false
+        "id": 941054892405,
+        "市场评估价": null,
+        "起拍价格": 755501,
+        "成交价格": 1068501,
+        "交易时间": "2025-07-18 11:53:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/941054892405.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "是否成交": true,
+        "竞拍人数": 152,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 高新区黄河路2号总部经济园·CEO福邸1-103",
+        "所属小区": "总部经济园·CEO福邸",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "高新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 946051311278,
@@ -1119,25 +1172,67 @@
         "detail_captured": true
     },
     {
-        "id": "947234881179",
-        "url": "https://sf-item.taobao.com/sf_item/947234881179.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
-        "end": 1752805404000,
-        "status": "done",
-        "is_processed": false
+        "id": 947234881179,
+        "市场评估价": 400412,
+        "起拍价格": 224232,
+        "成交价格": 272232,
+        "交易时间": "2025/07/18 10:23:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/947234881179.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 25,
+        "地点": "辽宁省 沈阳市 铁西区 贵和街22-1号1-21-10",
+        "所属小区": "贵和小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 84.6,
+        "单价": 3217.35,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "946615834205",
-        "url": "https://sf-item.taobao.com/sf_item/946615834205.htm?track_id=2fdeb787-c803-4a90-b48c-145e27db4ba9",
-        "end": 1752804000000,
-        "status": "done",
-        "is_processed": false
+        "id": 946615834205,
+        "市场评估价": 353200,
+        "起拍价格": 197792,
+        "成交价格": 197792,
+        "交易时间": "2025-07-18 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/946615834205.htm?track_id=2fdeb787-c803-4a90-b48c-145e27db4ba9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 红粉路39号12-12-1",
+        "所属小区": "御景家园",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 87.46,
+        "单价": 2261.02,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "946069711624",
-        "url": "https://sf-item.taobao.com/sf_item/946069711624.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
-        "end": 1752805762000,
-        "status": "done",
-        "is_processed": false
+        "id": 946069711624,
+        "市场评估价": 1711170,
+        "起拍价格": 960000,
+        "成交价格": 1149000,
+        "交易时间": "2025/07/18 10:29:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/946069711624.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 13,
+        "地点": "广东省 惠州市 博罗县 罗阳街道横坑.翠美园村委会江南（土名）地段东江新城四期137栋1-3层02房",
+        "所属小区": "东江新城四期",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳街道",
+        "建筑面积": 190.13,
+        "单价": 6043.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "937756463503",
@@ -1154,11 +1249,25 @@
         "is_processed": false
     },
     {
-        "id": "946514414483",
-        "url": "https://sf-item.taobao.com/sf_item/946514414483.htm?track_id=f318f174-d213-49b5-88b0-0165640b650c",
-        "end": 1752804297000,
-        "status": "done",
-        "is_processed": false
+        "id": 946514414483,
+        "市场评估价": 957200,
+        "起拍价格": 775332,
+        "成交价格": 775332,
+        "交易时间": "2025/07/18 10:04:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/946514414483.htm?track_id=f318f174-d213-49b5-88b0-0165640b650c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 信阳市 平桥区 新七大道恒大名都",
+        "所属小区": "恒大名都",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "945776427128",
@@ -1171,6 +1280,76 @@
         "id": "941233972179",
         "url": "https://sf-item.taobao.com/sf_item/941233972179.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
         "end": 1752806367000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947495713014",
+        "url": "https://sf-item.taobao.com/sf_item/947495713014.htm?track_id=69e73da1-9844-4e22-80d5-44d18631979f",
+        "end": 1752804000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "939536559900",
+        "url": "https://sf-item.taobao.com/sf_item/939536559900.htm?track_id=7c737cf8-b427-44c7-8a5e-bd75d257223c",
+        "end": 1752804025000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "946428427817",
+        "url": "https://sf-item.taobao.com/sf_item/946428427817.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1752804000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "946134891494",
+        "url": "https://sf-item.taobao.com/sf_item/946134891494.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1752809282000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "945572919792",
+        "url": "https://sf-item.taobao.com/sf_item/945572919792.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1752804265000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947651872388",
+        "url": "https://sf-item.taobao.com/sf_item/947651872388.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "end": 1752804577000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "946209367871",
+        "url": "https://sf-item.taobao.com/sf_item/946209367871.htm?track_id=30d808e3-d96d-4c20-b7c0-2a2a14a6d2bf",
+        "end": 1752804031000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "937333096955",
+        "url": "https://sf-item.taobao.com/sf_item/937333096955.htm?track_id=eec62054-78a1-43b5-9022-1fa82f70b2cc",
+        "end": 1752804008000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "940040286742",
+        "url": "https://sf-item.taobao.com/sf_item/940040286742.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "end": 1752804279000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "945630983449",
+        "url": "https://sf-item.taobao.com/sf_item/945630983449.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1752805618000,
         "status": "done",
         "is_processed": false
     }

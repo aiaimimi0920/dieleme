@@ -386,31 +386,121 @@
         "原始网站": "https://sf-item.taobao.com/sf_item/1003970469698.htm"
     },
     {
-        "id": "1000971654041",
-        "url": "https://sf-item.taobao.com/sf_item/1000971654041.htm?track_id=a50ddc8b-63c3-4a18-b933-283cf7793e4d",
-        "end": 1768010400000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/1000971654041.htm"
+        "id": 1000971654041,
+        "市场评估价": 614922.5,
+        "起拍价格": 430446,
+        "成交价格": 430446,
+        "交易时间": "2026/01/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1000971654041.htm?track_id=a50ddc8b-63c3-4a18-b933-283cf7793e4d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江西省 景德镇市 浮梁县 景德镇市浮梁县浮梁镇旧城村（文化长廊东侧）5#",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "景德镇市",
+        "区": "浮梁县",
+        "最靠近商圈": "浮梁镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "1000230625459",
-        "url": "https://sf-item.taobao.com/sf_item/1000230625459.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
-        "end": 1768010593000,
-        "status": "done",
-        "is_processed": false
+        "id": 1000230625459,
+        "市场评估价": null,
+        "起拍价格": 300000,
+        "成交价格": 320000,
+        "交易时间": "2026/01/10 10:03:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1000230625459.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 11,
+        "地点": "河南省郑州市新密市城区",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市城区",
+        "建筑面积": 84.1,
+        "单价": 3805.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "1004905959486",
-        "url": "https://sf-item.taobao.com/sf_item/1004905959486.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
-        "end": 1768010889000,
-        "status": "done",
-        "is_processed": false
+        "id": 1004905959486,
+        "市场评估价": 550094.16,
+        "起拍价格": 550094.16,
+        "成交价格": 570094.16,
+        "交易时间": "2026-01-10 10:08:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1004905959486.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": 11,
+        "地点": "河南省 郑州市 新密市 城区",
+        "所属小区": "未来城市花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "溱水路商圈",
+        "建筑面积": 178.5,
+        "单价": 3192.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "1005915978925",
         "url": "https://sf-item.taobao.com/sf_item/1005915978925.htm?track_id=137a4dca-e387-408f-a8bf-387cec33a923",
         "end": 1768012769000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1007702424519",
+        "url": "https://sf-item.taobao.com/sf_item/1007702424519.htm?track_id=1842a620-e2c4-4993-a5db-58b670ac4391",
+        "end": 1768010400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1007362300202",
+        "url": "https://sf-item.taobao.com/sf_item/1007362300202.htm?track_id=137253df-6de5-4012-9d11-d14c66cf8e95",
+        "end": 1768035871000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1006748209220",
+        "url": "https://sf-item.taobao.com/sf_item/1006748209220.htm?track_id=4b7945b8-aed5-4af2-96c1-758b28760217",
+        "end": 1768010533000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1006764789896",
+        "url": "https://sf-item.taobao.com/sf_item/1006764789896.htm?track_id=4b7945b8-aed5-4af2-96c1-758b28760217",
+        "end": 1768010524000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1007138392018",
+        "url": "https://sf-item.taobao.com/sf_item/1007138392018.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1768011068000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1007078524185",
+        "url": "https://sf-item.taobao.com/sf_item/1007078524185.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1768010400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1005579278642",
+        "url": "https://sf-item.taobao.com/sf_item/1005579278642.htm?track_id=270daa9e-b990-4124-b38a-5a1621dd3c7c",
+        "end": 1768010649000,
         "status": "done",
         "is_processed": false
     }

@@ -149,12 +149,25 @@
         "detail_captured": true
     },
     {
-        "id": "753662776601",
-        "url": "https://sf-item.taobao.com/sf_item/753662776601.htm?track_id=fff32915-ff04-42d4-a5fa-c1ce25a46be8",
-        "end": 1704592800000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/753662776601.htm"
+        "id": 753662776601,
+        "市场评估价": 99000,
+        "起拍价格": 79200,
+        "成交价格": 79200,
+        "交易时间": "2024/01/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/753662776601.htm?track_id=fff32915-ff04-42d4-a5fa-c1ce25a46be8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "四川省 广元市 利州区 东坝办事处万育街皇尊公寓地下室-1 层 33 号车位",
+        "所属小区": "皇尊公寓",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "东坝板块",
+        "建筑面积": 47.62,
+        "单价": 1663.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 753473053958,
@@ -178,19 +191,46 @@
         "detail_captured": true
     },
     {
-        "id": "757389181032",
-        "url": "https://sf-item.taobao.com/sf_item/757389181032.htm?track_id=fe8ca57f-b708-47d9-9296-a2f06fd30d4d",
-        "end": 1704595395000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/757389181032.htm"
+        "id": 757389181032,
+        "市场评估价": 1524172.6,
+        "起拍价格": 853536.66,
+        "成交价格": 1043536.66,
+        "交易时间": "2024/01/07 10:43:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/757389181032.htm?track_id=fe8ca57f-b708-47d9-9296-a2f06fd30d4d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 39,
+        "地点": "江苏省 苏州市 姑苏区 南华公寓57幢506室",
+        "所属小区": "南华公寓",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "南门商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "757444027732",
-        "url": "https://sf-item.taobao.com/sf_item/757444027732.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
-        "end": 1704593661000,
-        "status": "done",
-        "is_processed": false
+        "id": 757444027732,
+        "市场评估价": 801700,
+        "起拍价格": 450000,
+        "成交价格": 594000,
+        "交易时间": "2024-01-07 10:14:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/757444027732.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
+        "是否成交": true,
+        "竞拍人数": 33,
+        "出价人数": 33,
+        "地点": "广东省 惠州市 博罗县 园洲镇下南村委会园洲大道北面地段汇园国际花园二期12栋商住楼1单元4层03房",
+        "所属小区": "汇园国际花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "园洲",
+        "建筑面积": 116.7,
+        "单价": 5089.37,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "753842311405",
@@ -203,6 +243,13 @@
         "id": "753714845702",
         "url": "https://sf-item.taobao.com/sf_item/753714845702.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
         "end": 1704594252000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "753852775531",
+        "url": "https://sf-item.taobao.com/sf_item/753852775531.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1704592871000,
         "status": "done",
         "is_processed": false
     }

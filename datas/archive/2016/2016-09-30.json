@@ -108,25 +108,67 @@
         "manual_checked": true
     },
     {
-        "id": "538069468823",
-        "url": "https://sf-item.taobao.com/sf_item/538069468823.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
-        "end": 1475203177000,
-        "status": "done",
-        "is_processed": false
+        "id": 538069468823,
+        "市场评估价": 1510800,
+        "起拍价格": 1359720,
+        "成交价格": 1515720,
+        "交易时间": "2016-09-30 10:39:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538069468823.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 72,
+        "地点": "河南省郑州市二七区政通路亚新美好人家1号楼东3单元6层东户",
+        "所属小区": "亚新美好人家",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "升龙商业广场",
+        "建筑面积": 167.12,
+        "单价": 9070.28,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "538524412113",
-        "url": "https://sf-item.taobao.com/sf_item/538524412113.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
-        "end": 1475203822000,
-        "status": "done",
-        "is_processed": false
+        "id": 538524412113,
+        "市场评估价": 766200,
+        "起拍价格": 612960,
+        "成交价格": 738960,
+        "交易时间": "2016/09/30 10:50:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538524412113.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 13,
+        "地点": "河南省郑州市二七区二道街228号院1号楼3单元34号",
+        "所属小区": "二道街228号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七区",
+        "建筑面积": 85.94,
+        "单价": 8600.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "538274382015",
-        "url": "https://sf-item.taobao.com/sf_item/538274382015.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
-        "end": 1475201821000,
-        "status": "done",
-        "is_processed": false
+        "id": 538274382015,
+        "市场评估价": 559000,
+        "起拍价格": 357760,
+        "成交价格": 497760,
+        "交易时间": "2016-09-30 10:17:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538274382015.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
+        "是否成交": true,
+        "竞拍人数": 29,
+        "出价人数": 5,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": "友谊大厦",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "德化街商圈",
+        "建筑面积": 59.6,
+        "单价": 8350.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "538458670965",
@@ -146,6 +188,34 @@
         "id": "538434031954",
         "url": "https://sf-item.taobao.com/sf_item/538434031954.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
         "end": 1475206166000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539093193621",
+        "url": "https://sf-item.taobao.com/sf_item/539093193621.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1475202389000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539050854756",
+        "url": "https://sf-item.taobao.com/sf_item/539050854756.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1475203136000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538540004054",
+        "url": "https://sf-item.taobao.com/sf_item/538540004054.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1475205117000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538500353369",
+        "url": "https://sf-item.taobao.com/sf_item/538500353369.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1475204046000,
         "status": "done",
         "is_processed": false
     }

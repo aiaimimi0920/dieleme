@@ -446,11 +446,25 @@
         "detail_captured": true
     },
     {
-        "id": "549405769111",
-        "url": "https://sf-item.taobao.com/sf_item/549405769111.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1494900000000,
-        "status": "done",
-        "is_processed": false
+        "id": 549405769111,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 626400,
+        "交易时间": "2017-05-16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/549405769111.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 新密市",
+        "所属小区": "中强御金湾二期",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "溱水路商圈",
+        "建筑面积": 125.28,
+        "单价": 5000.34,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "548620819483",
@@ -470,6 +484,34 @@
         "id": "548548495610",
         "url": "https://sf-item.taobao.com/sf_item/548548495610.htm?track_id=f0ab8160-a6c9-4731-aa8f-79271cd5c413",
         "end": 1494904256000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549653106976",
+        "url": "https://sf-item.taobao.com/sf_item/549653106976.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "end": 1494900547000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548586829592",
+        "url": "https://sf-item.taobao.com/sf_item/548586829592.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1494900556000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549582510335",
+        "url": "https://sf-item.taobao.com/sf_item/549582510335.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1494901149000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548521221212",
+        "url": "https://sf-item.taobao.com/sf_item/548521221212.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1494908658000,
         "status": "done",
         "is_processed": false
     }

@@ -148,11 +148,25 @@
         "detail_captured": true
     },
     {
-        "id": "642360844280",
-        "url": "https://sf-item.taobao.com/sf_item/642360844280.htm?track_id=4c8d4ce0-34a2-4526-ae5a-cddaf3a07478",
-        "end": 1621735200000,
-        "status": "done",
-        "is_processed": false
+        "id": 642360844280,
+        "市场评估价": 580318,
+        "起拍价格": 406222.6,
+        "成交价格": 406222.6,
+        "交易时间": "2021/05/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642360844280.htm?track_id=4c8d4ce0-34a2-4526-ae5a-cddaf3a07478",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 九江市 彭泽县 教育三支路",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "九江市",
+        "区": "彭泽县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 643440052421,
@@ -193,6 +207,20 @@
         "id": "643439824821",
         "url": "https://sf-item.taobao.com/sf_item/643439824821.htm?track_id=cb1e7b48-b17d-4d57-9242-154429765f25",
         "end": 1621739280000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642748681424",
+        "url": "https://sf-item.taobao.com/sf_item/642748681424.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1621735200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644157610419",
+        "url": "https://sf-item.taobao.com/sf_item/644157610419.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
+        "end": 1621736621000,
         "status": "done",
         "is_processed": false
     }

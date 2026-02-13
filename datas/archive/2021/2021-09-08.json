@@ -126,12 +126,25 @@
         "detail_captured": true
     },
     {
-        "id": "652190341208",
-        "url": "https://sf-item.taobao.com/sf_item/652190341208.htm?track_id=db23e410-2033-4f0d-95a6-24187531e9b0",
-        "end": 1631066400000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/652190341208.htm"
+        "id": 652190341208,
+        "市场评估价": 0,
+        "起拍价格": 598632.3,
+        "成交价格": 598632.3,
+        "交易时间": "2021/09/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652190341208.htm?track_id=db23e410-2033-4f0d-95a6-24187531e9b0",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 淮安市 淮安区 淮安市东海畅园商住1幢302室",
+        "所属小区": "东海畅园",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 653229849954,
@@ -155,16 +168,37 @@
         "detail_captured": true
     },
     {
-        "id": "652882459894",
-        "url": "https://sf-item.taobao.com/sf_item/652882459894.htm?track_id=19c10d1a-aefc-4d0f-a385-532173897a49",
-        "end": 1631068653000,
-        "status": "done",
-        "is_processed": false
+        "id": 652882459894,
+        "市场评估价": 715300,
+        "起拍价格": 500710,
+        "成交价格": 645710,
+        "交易时间": "2021/09/08 10:37:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652882459894.htm?track_id=19c10d1a-aefc-4d0f-a385-532173897a49",
+        "是否成交": true,
+        "竞拍人数": 30,
+        "出价人数": 30,
+        "地点": "陕西省 西安市 未央区 西安市浐灞生态区浐河东路北段1688号26幢11106室",
+        "所属小区": "浐河半岛",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "浐灞生态区",
+        "建筑面积": 46.96,
+        "单价": 13754.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "653909359432",
         "url": "https://sf-item.taobao.com/sf_item/653909359432.htm?track_id=2983f99a-2c1f-4c8c-8a28-f7b1e60ab457",
         "end": 1631068222000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "651707016236",
+        "url": "https://sf-item.taobao.com/sf_item/651707016236.htm?track_id=d43679d7-7949-4fd9-9494-9b14b5ea692d",
+        "end": 1631066400000,
         "status": "done",
         "is_processed": false
     }

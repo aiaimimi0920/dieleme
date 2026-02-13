@@ -107,11 +107,25 @@
         "detail_captured": true
     },
     {
-        "id": "540321296247",
-        "url": "https://sf-item.taobao.com/sf_item/540321296247.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
-        "end": 1477622576000,
-        "status": "done",
-        "is_processed": false
+        "id": 540321296247,
+        "市场评估价": 905500,
+        "起拍价格": 905500,
+        "成交价格": 980500,
+        "交易时间": "2016/10/28 10:42:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540321296247.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 25,
+        "地点": "河南省郑州市二七区长江中路108号24号楼东2单元4层西户",
+        "所属小区": "江山书香名邸",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七万达商圈",
+        "建筑面积": 88.8,
+        "单价": 11041.29,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "539852099870",
@@ -131,6 +145,48 @@
         "id": "539738456017",
         "url": "https://sf-item.taobao.com/sf_item/539738456017.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1477620000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540463349239",
+        "url": "https://sf-item.taobao.com/sf_item/540463349239.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1477622188000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539910040566",
+        "url": "https://sf-item.taobao.com/sf_item/539910040566.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1477623343000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539889168812",
+        "url": "https://sf-item.taobao.com/sf_item/539889168812.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1477623617000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539800938189",
+        "url": "https://sf-item.taobao.com/sf_item/539800938189.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1477623228000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539888941784",
+        "url": "https://sf-item.taobao.com/sf_item/539888941784.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1477622811000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539799726363",
+        "url": "https://sf-item.taobao.com/sf_item/539799726363.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1477620588000,
         "status": "done",
         "is_processed": false
     }

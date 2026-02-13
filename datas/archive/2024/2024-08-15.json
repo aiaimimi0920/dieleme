@@ -589,11 +589,25 @@
         "detail_captured": true
     },
     {
-        "id": "819907847297",
-        "url": "https://sf-item.taobao.com/sf_item/819907847297.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
-        "end": 1723687200000,
-        "status": "done",
-        "is_processed": false
+        "id": 819907847297,
+        "市场评估价": 505829.61,
+        "起拍价格": 455247,
+        "成交价格": 455247,
+        "交易时间": "2024/08/15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/819907847297.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 霸州市 胜芳镇新华园住宅小区8号楼2单元201室",
+        "所属小区": "新华园住宅小区",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "胜芳镇",
+        "建筑面积": 115.83,
+        "单价": 3930.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "820348444524",
@@ -603,18 +617,46 @@
         "is_processed": false
     },
     {
-        "id": "820247873354",
-        "url": "https://sf-item.taobao.com/sf_item/820247873354.htm?track_id=c3263236-9027-4790-98db-026890358103",
-        "end": 1723687514000,
-        "status": "done",
-        "is_processed": false
+        "id": 820247873354,
+        "市场评估价": 526200,
+        "起拍价格": 357816,
+        "成交价格": 393816,
+        "交易时间": "2024-08-15T10:05:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/820247873354.htm?track_id=c3263236-9027-4790-98db-026890358103",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 13,
+        "地点": "内蒙古自治区 呼伦贝尔市 牙克石市 永兴办事处锦绣嘉园小区",
+        "所属小区": "锦绣嘉园",
+        "省份": "内蒙古自治区",
+        "城市": "呼伦贝尔市",
+        "区": "牙克石市",
+        "最靠近商圈": "永兴办事处",
+        "建筑面积": 134.62,
+        "单价": 2925.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "816157514003",
-        "url": "https://sf-item.taobao.com/sf_item/816157514003.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
-        "end": 1723690883000,
-        "status": "done",
-        "is_processed": false
+        "id": 816157514003,
+        "市场评估价": 1479748,
+        "起拍价格": 887850,
+        "成交价格": 955850,
+        "交易时间": "2024/08/15 11:01:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/816157514003.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 18,
+        "地点": "河南省郑州市二七区庆喜路24号6号楼1层102号房产",
+        "所属小区": "玉瑞园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七新城",
+        "建筑面积": 128.15,
+        "单价": 7459.85,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "819862335861",
@@ -627,6 +669,20 @@
         "id": "819959826721",
         "url": "https://sf-item.taobao.com/sf_item/819959826721.htm?track_id=2251861a-8fa8-42fa-a066-263dacf55468",
         "end": 1723690724000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820270032587",
+        "url": "https://sf-item.taobao.com/sf_item/820270032587.htm?track_id=6d5b6fa2-81b8-4761-92be-cf7469dd2225",
+        "end": 1723687200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820232500108",
+        "url": "https://sf-item.taobao.com/sf_item/820232500108.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1723690019000,
         "status": "done",
         "is_processed": false
     }

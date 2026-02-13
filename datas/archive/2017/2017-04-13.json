@@ -232,10 +232,24 @@
         "detail_captured": true
     },
     {
-        "id": "547462936500",
-        "url": "https://sf-item.taobao.com/sf_item/547462936500.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1492048800000,
-        "status": "done",
-        "is_processed": false
+        "id": 547462936500,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 118908,
+        "交易时间": "2017/04/13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/547462936500.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 新密市溱水路东段北侧44号楼西单元5层西户",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 91.75,
+        "单价": 1296.06,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

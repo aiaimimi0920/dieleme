@@ -275,12 +275,25 @@
         "detail_captured": true
     },
     {
-        "id": "681131004391",
-        "url": "https://sf-item.taobao.com/sf_item/681131004391.htm?track_id=5913c08a-e10e-44ca-918f-082b8a3ae1e6",
-        "end": 1663986889000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/681131004391.htm"
+        "id": 681131004391,
+        "市场评估价": 810026.64,
+        "起拍价格": 729023.98,
+        "成交价格": 924023.98,
+        "交易时间": "2022-09-24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/681131004391.htm?track_id=5913c08a-e10e-44ca-918f-082b8a3ae1e6",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": 40,
+        "地点": "河北省廊坊市香河县府前街53号香江逸景北区6号楼2单元1501室",
+        "所属小区": "香江逸景北区",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": "香河新城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 682230663693,
@@ -304,15 +317,57 @@
         "detail_captured": true
     },
     {
-        "id": "683905663449",
-        "url": "https://sf-item.taobao.com/sf_item/683905663449.htm?track_id=dd4d0805-6714-4a1f-88b3-815a5449302b",
+        "id": 683905663449,
+        "市场评估价": 0,
+        "起拍价格": 360000,
+        "成交价格": 360000,
+        "交易时间": "2022/09/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/683905663449.htm?track_id=dd4d0805-6714-4a1f-88b3-815a5449302b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 桂林市 阳朔县 阳朔镇荆凤南路3号彰泰·阳朔印象",
+        "所属小区": "彰泰·阳朔印象",
+        "省份": "广西壮族自治区",
+        "城市": "桂林市",
+        "区": "阳朔县",
+        "最靠近商圈": "阳朔镇",
+        "建筑面积": 37.15,
+        "单价": 9687.75,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "683554430937",
+        "url": "https://sf-item.taobao.com/sf_item/683554430937.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
         "end": 1663984800000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "683554430937",
-        "url": "https://sf-item.taobao.com/sf_item/683554430937.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
+        "id": "681866802352",
+        "url": "https://sf-item.taobao.com/sf_item/681866802352.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1663984800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "682055103008",
+        "url": "https://sf-item.taobao.com/sf_item/682055103008.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1663985755000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "681603865824",
+        "url": "https://sf-item.taobao.com/sf_item/681603865824.htm?track_id=62ad0d53-1f42-4565-affc-8bd7d5720e56",
+        "end": 1663988001000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683618826400",
+        "url": "https://sf-item.taobao.com/sf_item/683618826400.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
         "end": 1663984800000,
         "status": "done",
         "is_processed": false

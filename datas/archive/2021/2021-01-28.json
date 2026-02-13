@@ -378,23 +378,65 @@
         "detail_captured": true
     },
     {
-        "id": "636341119221",
-        "url": "https://sf-item.taobao.com/sf_item/636341119221.htm?track_id=24a3714f-fe8c-41e0-b99f-2ad312458bc8",
-        "end": 1611800548000,
-        "status": "done",
-        "is_processed": false
+        "id": 636341119221,
+        "市场评估价": 2237884,
+        "起拍价格": 1253216,
+        "成交价格": 1618216,
+        "交易时间": "2021/01/28 10:22:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636341119221.htm?track_id=24a3714f-fe8c-41e0-b99f-2ad312458bc8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 70,
+        "地点": "安徽省 合肥市 瑶海区 合肥市瑶海区临泉东路与王岗路交口恒大城17-19幢19幢201室",
+        "所属小区": "恒大城",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "龙岗板块",
+        "建筑面积": 172.61,
+        "单价": 9375.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "635479727295",
-        "url": "https://sf-item.taobao.com/sf_item/635479727295.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
-        "end": 1611799494000,
-        "status": "done",
-        "is_processed": false
+        "id": 635479727295,
+        "市场评估价": null,
+        "起拍价格": 616480,
+        "成交价格": 616480,
+        "交易时间": "2021/01/28 10:04:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/635479727295.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 淄博市 博山区 博山区双馨苑",
+        "所属小区": "双馨苑",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "634827937746",
         "url": "https://sf-item.taobao.com/sf_item/634827937746.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
         "end": 1611800612000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636365195000",
+        "url": "https://sf-item.taobao.com/sf_item/636365195000.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1611799395000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635706024475",
+        "url": "https://sf-item.taobao.com/sf_item/635706024475.htm?track_id=c1122bc0-fff8-4176-9d60-e693e4959044",
+        "end": 1611800869000,
         "status": "done",
         "is_processed": false
     }

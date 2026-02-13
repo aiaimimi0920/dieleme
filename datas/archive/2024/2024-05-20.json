@@ -63,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "785509402200",
-        "url": "https://sf-item.taobao.com/sf_item/785509402200.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
-        "end": 1716170976000,
-        "status": "done",
-        "is_processed": false
+        "id": 785509402200,
+        "市场评估价": null,
+        "起拍价格": 2758653,
+        "成交价格": 3080653,
+        "交易时间": "2024-05-20 10:09:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/785509402200.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 20,
+        "地点": "内蒙古自治区 包头市 昆都仑区 黄河大街以南林荫男南路以西京奥港花园12-104、12-105",
+        "所属小区": "京奥港花园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "林荫路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

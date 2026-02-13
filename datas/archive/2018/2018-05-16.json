@@ -550,9 +550,51 @@
         "detail_captured": true
     },
     {
-        "id": "567579611327",
-        "url": "https://sf-item.taobao.com/sf_item/567579611327.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1526436330000,
+        "id": 567579611327,
+        "市场评估价": null,
+        "起拍价格": 790000,
+        "成交价格": 1022500,
+        "交易时间": "2018/05/16 10:05:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/567579611327.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 31,
+        "地点": "江西省 南昌市 青云谱区 城投一康泽园13栋5单元602室",
+        "所属小区": "城投一康泽园",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": null,
+        "建筑面积": 156.82,
+        "单价": 6519.57,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "567574483471",
+        "url": "https://sf-item.taobao.com/sf_item/567574483471.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1526436696000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568632016823",
+        "url": "https://sf-item.taobao.com/sf_item/568632016823.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1526436000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567404276880",
+        "url": "https://sf-item.taobao.com/sf_item/567404276880.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1526440671000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565423285040",
+        "url": "https://sf-item.taobao.com/sf_item/565423285040.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "end": 1526459406000,
         "status": "done",
         "is_processed": false
     }

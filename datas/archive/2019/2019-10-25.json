@@ -337,11 +337,25 @@
         "detail_captured": true
     },
     {
-        "id": "605469135720",
-        "url": "https://sf-item.taobao.com/sf_item/605469135720.htm?track_id=4c8d4ce0-34a2-4526-ae5a-cddaf3a07478",
-        "end": 1571968800000,
-        "status": "done",
-        "is_processed": false
+        "id": 605469135720,
+        "市场评估价": 63420,
+        "起拍价格": 35515.2,
+        "成交价格": 35815.2,
+        "交易时间": "2019/10/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605469135720.htm?track_id=4c8d4ce0-34a2-4526-ae5a-cddaf3a07478",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "江西省 九江市 彭泽县 彭泽县朝阳新区农牧局院侧（楼梯间外部小门面）",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "九江市",
+        "区": "彭泽县",
+        "最靠近商圈": "朝阳新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 603382960399,
@@ -407,18 +421,46 @@
         "detail_captured": true
     },
     {
-        "id": "601974830190",
-        "url": "https://sf-item.taobao.com/sf_item/601974830190.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
-        "end": 1571974252000,
-        "status": "done",
-        "is_processed": false
+        "id": 601974830190,
+        "市场评估价": 387952,
+        "起拍价格": 279325.44,
+        "成交价格": 281325.44,
+        "交易时间": "2019/10/25 11:30:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/601974830190.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 重阳胡同",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延边大学",
+        "建筑面积": 95.32,
+        "单价": 2950.96,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "603207702573",
-        "url": "https://sf-item.taobao.com/sf_item/603207702573.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
-        "end": 1571972186000,
-        "status": "done",
-        "is_processed": false
+        "id": 603207702573,
+        "市场评估价": 1094969.2,
+        "起拍价格": 700780.29,
+        "成交价格": 830780.29,
+        "交易时间": "2019-10-25 10:56:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/603207702573.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 21,
+        "地点": "陕西省 西安市 未央区 玮二十六街马乎沱村27幢12008室住宅房",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": null,
+        "建筑面积": 104,
+        "单价": 7997.89,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "603836754340",
@@ -428,11 +470,25 @@
         "is_processed": false
     },
     {
-        "id": "603401620643",
-        "url": "https://sf-item.taobao.com/sf_item/603401620643.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1571972983000,
-        "status": "done",
-        "is_processed": false
+        "id": 603401620643,
+        "市场评估价": 0,
+        "起拍价格": 2410000,
+        "成交价格": 3220000,
+        "交易时间": "2019/10/25 11:09:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/603401620643.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 67,
+        "地点": "浙江省 杭州市 滨江区 银爵世纪公寓2幢1单元2502室",
+        "所属小区": "银爵世纪公寓",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 89.01,
+        "单价": 36174.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "603642629169",
@@ -445,6 +501,20 @@
         "id": "604063267620",
         "url": "https://sf-item.taobao.com/sf_item/604063267620.htm?track_id=645fbace-2a78-4783-9257-833921945028",
         "end": 1571972059000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "603306370304",
+        "url": "https://sf-item.taobao.com/sf_item/603306370304.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1571977124000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605035177872",
+        "url": "https://sf-item.taobao.com/sf_item/605035177872.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
+        "end": 1571970537000,
         "status": "done",
         "is_processed": false
     }

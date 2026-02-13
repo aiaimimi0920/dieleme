@@ -42,11 +42,25 @@
         "detail_captured": true
     },
     {
-        "id": "538272249658",
-        "url": "https://sf-item.taobao.com/sf_item/538272249658.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
-        "end": 1476758089000,
-        "status": "done",
-        "is_processed": false
+        "id": 538272249658,
+        "市场评估价": null,
+        "起拍价格": 1153900,
+        "成交价格": 1593900,
+        "交易时间": "2016-10-18 10:34:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538272249658.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
+        "是否成交": true,
+        "竞拍人数": 88,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "539043412506",
@@ -59,6 +73,20 @@
         "id": "539831929407",
         "url": "https://sf-item.taobao.com/sf_item/539831929407.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
         "end": 1476756388000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539413623035",
+        "url": "https://sf-item.taobao.com/sf_item/539413623035.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1476756284000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539409996418",
+        "url": "https://sf-item.taobao.com/sf_item/539409996418.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1476761497000,
         "status": "done",
         "is_processed": false
     }

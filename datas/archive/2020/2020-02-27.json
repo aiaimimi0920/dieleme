@@ -252,9 +252,37 @@
         "detail_captured": true
     },
     {
-        "id": "612144370686",
-        "url": "https://sf-item.taobao.com/sf_item/612144370686.htm?track_id=80b9189b-7b09-495c-973d-3d28af41e2ce",
-        "end": 1582768800000,
+        "id": 612144370686,
+        "市场评估价": 934592,
+        "起拍价格": 887862,
+        "成交价格": 887862,
+        "交易时间": "2020/02/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/612144370686.htm?track_id=80b9189b-7b09-495c-973d-3d28af41e2ce",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 吉林市 船营区 南京街光华路7号楼14号",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "河南街商圈",
+        "建筑面积": 34.0,
+        "单价": 26113.59,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "611491406007",
+        "url": "https://sf-item.taobao.com/sf_item/611491406007.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1582770921000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608799906198",
+        "url": "https://sf-item.taobao.com/sf_item/608799906198.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1582782684000,
         "status": "done",
         "is_processed": false
     }

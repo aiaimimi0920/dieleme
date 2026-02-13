@@ -610,12 +610,25 @@
         "detail_captured": true
     },
     {
-        "id": "774260642067",
-        "url": "https://sf-item.taobao.com/sf_item/774260642067.htm?track_id=4cd8b0c6-7915-42bd-b95f-812f349062d2",
-        "end": 1712628000000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/774260642067.htm"
+        "id": 774260642067,
+        "市场评估价": 475739,
+        "起拍价格": 475739,
+        "成交价格": 475739,
+        "交易时间": "2024-04-09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/774260642067.htm?track_id=4cd8b0c6-7915-42bd-b95f-812f349062d2",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 柳州市 城中区 连塘路北二巷17号B栋5-1房",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "柳州市",
+        "区": "城中区",
+        "最靠近商圈": "城中商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 770403291724,
@@ -681,11 +694,25 @@
         "detail_captured": true
     },
     {
-        "id": "776162940364",
-        "url": "https://sf-item.taobao.com/sf_item/776162940364.htm?track_id=4815c203-2eab-42bd-9247-dc2e2d1c07e7",
-        "end": 1712636661000,
-        "status": "done",
-        "is_processed": false
+        "id": 776162940364,
+        "市场评估价": 1774059.14,
+        "起拍价格": 1091046.37,
+        "成交价格": 1463046.37,
+        "交易时间": "2024-04-09 12:24:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/776162940364.htm?track_id=4815c203-2eab-42bd-9247-dc2e2d1c07e7",
+        "是否成交": true,
+        "竞拍人数": 164,
+        "出价人数": 164,
+        "地点": "贵州省 遵义市 汇川区 福州路香提雅苑二期9号楼塔楼6-1",
+        "所属小区": "香提雅苑",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "长沙路商圈",
+        "建筑面积": 173.74,
+        "单价": 8422.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 776165179354,
@@ -898,18 +925,46 @@
         "detail_captured": true
     },
     {
-        "id": "772462535227",
-        "url": "https://sf-item.taobao.com/sf_item/772462535227.htm?track_id=7cc7040a-9604-45a8-8944-4f43c49da988",
-        "end": 1712628396000,
-        "status": "done",
-        "is_processed": false
+        "id": 772462535227,
+        "市场评估价": 1150493,
+        "起拍价格": 805346,
+        "成交价格": 853346,
+        "交易时间": "2024/04/09 10:06:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/772462535227.htm?track_id=7cc7040a-9604-45a8-8944-4f43c49da988",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 7,
+        "地点": "河北省保定市定兴县定兴县华建路南侧、迎宾街东侧（名仕嘉苑）",
+        "所属小区": "名仕嘉苑",
+        "省份": "河北省",
+        "城市": "保定市",
+        "区": "定兴县",
+        "最靠近商圈": null,
+        "建筑面积": 135.65,
+        "单价": 6290.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "771842048233",
-        "url": "https://sf-item.taobao.com/sf_item/771842048233.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
-        "end": 1712635248000,
-        "status": "done",
-        "is_processed": false
+        "id": 771842048233,
+        "市场评估价": 3498455.33,
+        "起拍价格": 2798765,
+        "成交价格": 3453765,
+        "交易时间": "2024/04/09 12:00:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/771842048233.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 92,
+        "地点": "安徽省 合肥市 瑶海区 明光路与胜利路交口恒大广场7幢住宅304",
+        "所属小区": "恒大广场",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "胜利路",
+        "建筑面积": 188.95,
+        "单价": 18278.7,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "766204056985",
@@ -950,6 +1005,34 @@
         "id": "766305426063",
         "url": "https://sf-item.taobao.com/sf_item/766305426063.htm?track_id=d8f63a09-ef84-4561-bc48-ff20ead59d2a",
         "end": 1712621753000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "772388799252",
+        "url": "https://sf-item.taobao.com/sf_item/772388799252.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1712630718000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "772233873357",
+        "url": "https://sf-item.taobao.com/sf_item/772233873357.htm?track_id=7910db3a-160d-47d2-a0b9-9ea879422ee1",
+        "end": 1712629314000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "772199221777",
+        "url": "https://sf-item.taobao.com/sf_item/772199221777.htm?track_id=7c747b4a-979c-4b75-9123-4cfc4fc6be49",
+        "end": 1712628000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "775121302021",
+        "url": "https://sf-item.taobao.com/sf_item/775121302021.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "end": 1712629611000,
         "status": "done",
         "is_processed": false
     }

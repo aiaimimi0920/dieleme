@@ -568,11 +568,25 @@
         "detail_captured": true
     },
     {
-        "id": "732841251354",
-        "url": "https://sf-item.taobao.com/sf_item/732841251354.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
-        "end": 1694143713000,
-        "status": "done",
-        "is_processed": false
+        "id": 732841251354,
+        "市场评估价": null,
+        "起拍价格": 999387,
+        "成交价格": 1102387,
+        "交易时间": "2023-09-08 11:28:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/732841251354.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "是否成交": true,
+        "竞拍人数": 102,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 民族东路西兵工大道南昆北东路东兵工南路北富力华庭一期V6-304",
+        "所属小区": "富力华庭",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "昆北商圈",
+        "建筑面积": 90.1,
+        "单价": 12237.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 735314419309,
@@ -617,16 +631,128 @@
         "detail_captured": true
     },
     {
-        "id": "732876167078",
-        "url": "https://sf-item.taobao.com/sf_item/732876167078.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
-        "end": 1694140080000,
+        "id": 732876167078,
+        "市场评估价": null,
+        "起拍价格": 800926,
+        "成交价格": 824926,
+        "交易时间": "2023/09/08 10:28:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/732876167078.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 9,
+        "地点": "贵州省遵义市汇川区大连路枫桥韵泊小区15号楼（1-14-1号）房产",
+        "所属小区": "枫桥韵泊",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "大连路",
+        "建筑面积": 157.4,
+        "单价": 5242.72,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 735062113803,
+        "市场评估价": 524304,
+        "起拍价格": 293611,
+        "成交价格": 326611,
+        "交易时间": "2023-09-08 10:30:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/735062113803.htm?track_id=39151f44-c8e6-4909-a96a-5342e8b2e652",
+        "是否成交": true,
+        "竞拍人数": 24,
+        "出价人数": 20,
+        "地点": "内蒙古自治区包头市土默特右旗萨拉齐镇110国道南侧",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "土默特右旗",
+        "最靠近商圈": "萨拉齐",
+        "建筑面积": 127.32,
+        "单价": 2565.35,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "734986421375",
+        "url": "https://sf-item.taobao.com/sf_item/734986421375.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1694138675000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "735062113803",
-        "url": "https://sf-item.taobao.com/sf_item/735062113803.htm?track_id=39151f44-c8e6-4909-a96a-5342e8b2e652",
-        "end": 1694140209000,
+        "id": "735243683539",
+        "url": "https://sf-item.taobao.com/sf_item/735243683539.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1694138635000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "730725065447",
+        "url": "https://sf-item.taobao.com/sf_item/730725065447.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1694145308000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "735001942250",
+        "url": "https://sf-item.taobao.com/sf_item/735001942250.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1694141045000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "734694216729",
+        "url": "https://sf-item.taobao.com/sf_item/734694216729.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1694139879000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "730723774124",
+        "url": "https://sf-item.taobao.com/sf_item/730723774124.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1694139874000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "732835491859",
+        "url": "https://sf-item.taobao.com/sf_item/732835491859.htm?track_id=6abd5223-c136-4fc7-bb7b-5c922dcc102a",
+        "end": 1694140879000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "734806900914",
+        "url": "https://sf-item.taobao.com/sf_item/734806900914.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1694138400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "731300080668",
+        "url": "https://sf-item.taobao.com/sf_item/731300080668.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1694141191000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "735113814906",
+        "url": "https://sf-item.taobao.com/sf_item/735113814906.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1694138400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "731751068925",
+        "url": "https://sf-item.taobao.com/sf_item/731751068925.htm?track_id=55c1cc05-4e69-4ba6-9889-416b52dc39e0",
+        "end": 1694143396000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "735054241695",
+        "url": "https://sf-item.taobao.com/sf_item/735054241695.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1694145144000,
         "status": "done",
         "is_processed": false
     }

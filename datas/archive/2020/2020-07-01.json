@@ -425,11 +425,25 @@
         "detail_captured": true
     },
     {
-        "id": "619594314555",
-        "url": "https://sf-item.taobao.com/sf_item/619594314555.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
-        "end": 1593568800000,
-        "status": "done",
-        "is_processed": false
+        "id": 619594314555,
+        "市场评估价": 0,
+        "起拍价格": 1123949,
+        "成交价格": 1123949,
+        "交易时间": "2020-07-01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/619594314555.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 钢铁大街12号街坊-2-12号房屋",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "钢铁大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 618851252316,
@@ -463,6 +477,13 @@
         "id": "619601322442",
         "url": "https://sf-item.taobao.com/sf_item/619601322442.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
         "end": 1593572295000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620573901382",
+        "url": "https://sf-item.taobao.com/sf_item/620573901382.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "end": 1593568800000,
         "status": "done",
         "is_processed": false
     }

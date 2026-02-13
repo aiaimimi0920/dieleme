@@ -192,18 +192,46 @@
         "detail_captured": true
     },
     {
-        "id": "546288570423",
-        "url": "https://sf-item.taobao.com/sf_item/546288570423.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
-        "end": 1490686030000,
-        "status": "done",
-        "is_processed": false
+        "id": 546288570423,
+        "市场评估价": null,
+        "起拍价格": 27390588.8,
+        "成交价格": 40140588.8,
+        "交易时间": "2017/03/28 15:27:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546288570423.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市海淀区玉渊潭南路11号院3号楼2单元1302号",
+        "所属小区": "玉渊潭南路11号院",
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "海淀区",
+        "最靠近商圈": "玉渊潭",
+        "建筑面积": 404.87,
+        "单价": 99131.57,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "545633470921",
-        "url": "https://sf-item.taobao.com/sf_item/545633470921.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
-        "end": 1490667219000,
-        "status": "done",
-        "is_processed": false
+        "id": 545633470921,
+        "市场评估价": null,
+        "起拍价格": 290000,
+        "成交价格": 342000,
+        "交易时间": "2017/03/28 10:13:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545633470921.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市海盐县武原镇秀水路200号欣居花苑11幢201室",
+        "所属小区": "欣居花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原镇",
+        "建筑面积": 72.35,
+        "单价": 4727.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "545611587312",
@@ -216,6 +244,34 @@
         "id": "545623473132",
         "url": "https://sf-item.taobao.com/sf_item/545623473132.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
         "end": 1490667029000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "546488531576",
+        "url": "https://sf-item.taobao.com/sf_item/546488531576.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1490668193000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "546449781342",
+        "url": "https://sf-item.taobao.com/sf_item/546449781342.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1490666996000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "545577910942",
+        "url": "https://sf-item.taobao.com/sf_item/545577910942.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1490677302000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "545487420524",
+        "url": "https://sf-item.taobao.com/sf_item/545487420524.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1490668648000,
         "status": "done",
         "is_processed": false
     }

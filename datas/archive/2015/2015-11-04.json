@@ -84,16 +84,37 @@
         "detail_captured": true
     },
     {
-        "id": "523158922965",
-        "url": "https://sf-item.taobao.com/sf_item/523158922965.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
-        "end": 1446603754000,
-        "status": "done",
-        "is_processed": false
+        "id": 523158922965,
+        "市场评估价": 0,
+        "起拍价格": 658400,
+        "成交价格": 769400,
+        "交易时间": "2015/11/04 10:22:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523158922965.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 33,
+        "地点": "浙江省嘉兴市海盐县武原街道滨海一号2幢606室",
+        "所属小区": "滨海一号",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原商圈",
+        "建筑面积": 124.12,
+        "单价": 6198.12,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "523047338085",
         "url": "https://sf-item.taobao.com/sf_item/523047338085.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
         "end": 1446602400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "523027764613",
+        "url": "https://sf-item.taobao.com/sf_item/523027764613.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1446609592000,
         "status": "done",
         "is_processed": false
     }

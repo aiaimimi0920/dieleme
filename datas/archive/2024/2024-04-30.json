@@ -781,18 +781,46 @@
         "detail_captured": true
     },
     {
-        "id": "782650590026",
-        "url": "https://sf-item.taobao.com/sf_item/782650590026.htm?track_id=6e662cdf-1176-40fd-9ad6-f612efeab445",
-        "end": 1714442400000,
-        "status": "done",
-        "is_processed": false
+        "id": 782650590026,
+        "市场评估价": 1887266,
+        "起拍价格": 1056868.96,
+        "成交价格": 1056868.96,
+        "交易时间": "2024/04/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/782650590026.htm?track_id=6e662cdf-1176-40fd-9ad6-f612efeab445",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 长白山西路318号威远城3号楼1004",
+        "所属小区": "威远城",
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": null,
+        "最靠近商圈": "延吉市",
+        "建筑面积": 311.43,
+        "单价": 3393.46,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "778355013993",
-        "url": "https://sf-item.taobao.com/sf_item/778355013993.htm?track_id=7cc7040a-9604-45a8-8944-4f43c49da988",
-        "end": 1714442400000,
-        "status": "done",
-        "is_processed": false
+        "id": 778355013993,
+        "市场评估价": 810000,
+        "起拍价格": 810000,
+        "成交价格": 810000,
+        "交易时间": "2024/04/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/778355013993.htm?track_id=7cc7040a-9604-45a8-8944-4f43c49da988",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省保定市定兴县开发区华建路路南广电小区",
+        "所属小区": "广电小区",
+        "省份": "河北省",
+        "城市": "保定市",
+        "区": "定兴县",
+        "最靠近商圈": "定兴县开发区",
+        "建筑面积": 167.63,
+        "单价": 4831.17,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "777715951975",
@@ -802,11 +830,25 @@
         "is_processed": false
     },
     {
-        "id": "783133969881",
-        "url": "https://sf-item.taobao.com/sf_item/783133969881.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
-        "end": 1714443940000,
-        "status": "done",
-        "is_processed": false
+        "id": 783133969881,
+        "市场评估价": 2404600,
+        "起拍价格": 1346576,
+        "成交价格": 1486576,
+        "交易时间": "2024-04-30 10:25:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/783133969881.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": 29,
+        "地点": "江西省 鹰潭市 贵溪市 贵溪市建设路51号",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "鹰潭市",
+        "区": "贵溪市",
+        "最靠近商圈": null,
+        "建筑面积": 96.57,
+        "单价": 15385.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "782992647473",
@@ -837,11 +879,25 @@
         "is_processed": false
     },
     {
-        "id": "783060396023",
-        "url": "https://sf-item.taobao.com/sf_item/783060396023.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
-        "end": 1714442400000,
-        "status": "done",
-        "is_processed": false
+        "id": 783060396023,
+        "市场评估价": 30400,
+        "起拍价格": 30400,
+        "成交价格": 30400,
+        "交易时间": "2024/04/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/783060396023.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 阳江市 阳春市 阳春市河西街道绵登路3号绵登广场A幢362号小车位",
+        "所属小区": "绵登广场",
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": "绵登广场商圈",
+        "建筑面积": 20,
+        "单价": 1520,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "783071792123",
@@ -851,11 +907,25 @@
         "is_processed": false
     },
     {
-        "id": "783074028845",
-        "url": "https://sf-item.taobao.com/sf_item/783074028845.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
-        "end": 1714442400000,
-        "status": "done",
-        "is_processed": false
+        "id": 783074028845,
+        "市场评估价": null,
+        "起拍价格": 30400,
+        "成交价格": 30400,
+        "交易时间": "2024/04/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/783074028845.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省阳江市阳春市阳春市河西街道绵登路3号绵登广场E幢513号小车位",
+        "所属小区": "绵登广场",
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": "河西街道",
+        "建筑面积": 12.5,
+        "单价": 2432,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "783089685135",
@@ -865,11 +935,25 @@
         "is_processed": false
     },
     {
-        "id": "783100489849",
-        "url": "https://sf-item.taobao.com/sf_item/783100489849.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
-        "end": 1714442400000,
-        "status": "done",
-        "is_processed": false
+        "id": 783100489849,
+        "市场评估价": null,
+        "起拍价格": 30400,
+        "成交价格": 30400,
+        "交易时间": "2024-04-30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/783100489849.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省 阳江市 阳春市 阳春市河西街道绵登路3号绵登广场B幢277号",
+        "所属小区": "绵登广场",
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": "河西街道",
+        "建筑面积": 32.5,
+        "单价": 9353.85,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "778408679387",
@@ -889,6 +973,34 @@
         "id": "782729121685",
         "url": "https://sf-item.taobao.com/sf_item/782729121685.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
         "end": 1714444396000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "778316276300",
+        "url": "https://sf-item.taobao.com/sf_item/778316276300.htm?track_id=7ec70b87-5ced-40d9-b4a5-cb74d5d60a97",
+        "end": 1714442665000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "777727123321",
+        "url": "https://sf-item.taobao.com/sf_item/777727123321.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1714445593000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "783199157537",
+        "url": "https://sf-item.taobao.com/sf_item/783199157537.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1714443166000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "782410303411",
+        "url": "https://sf-item.taobao.com/sf_item/782410303411.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1714442400000,
         "status": "done",
         "is_processed": false
     }

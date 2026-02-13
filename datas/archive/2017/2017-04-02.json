@@ -172,10 +172,24 @@
         "detail_captured": true
     },
     {
-        "id": "545881326288",
-        "url": "https://sf-item.taobao.com/sf_item/545881326288.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
-        "end": 1491103205000,
-        "status": "done",
-        "is_processed": false
+        "id": 545881326288,
+        "市场评估价": 0,
+        "起拍价格": 1149840,
+        "成交价格": 1504840,
+        "交易时间": "2017/04/02 11:20:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545881326288.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 72,
+        "地点": "福建省泉州市安溪县凤城镇中山街57号1604室",
+        "所属小区": "中山街57号",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "中闽百汇广场",
+        "建筑面积": 156.4,
+        "单价": 9621.49,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

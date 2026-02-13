@@ -441,9 +441,72 @@
         "detail_captured": true
     },
     {
-        "id": "860494604272",
-        "url": "https://sf-item.taobao.com/sf_item/860494604272.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
-        "end": 1736302627000,
+        "id": 860494604272,
+        "市场评估价": null,
+        "起拍价格": 6090000,
+        "成交价格": 6790000,
+        "交易时间": "2025-01-08 10:17:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/860494604272.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": 15,
+        "地点": "浙江省 温州市 龙湾区 上江路198号经开区商务广场1幢1602室",
+        "所属小区": "经开区商务广场",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "经开区商务广场",
+        "建筑面积": 1026.87,
+        "单价": 6607.71,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "859912003463",
+        "url": "https://sf-item.taobao.com/sf_item/859912003463.htm?track_id=5fc4c768-6ab1-4407-acf9-835197b7645a",
+        "end": 1736301600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "859962934285",
+        "url": "https://sf-item.taobao.com/sf_item/859962934285.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1736302589000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "865081015749",
+        "url": "https://sf-item.taobao.com/sf_item/865081015749.htm?track_id=2ac62aa9-1a14-4704-a230-f30171d59dfb",
+        "end": 1736333071000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "865250702465",
+        "url": "https://sf-item.taobao.com/sf_item/865250702465.htm?track_id=2ac62aa9-1a14-4704-a230-f30171d59dfb",
+        "end": 1736301253000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "860137819833",
+        "url": "https://sf-item.taobao.com/sf_item/860137819833.htm?track_id=a801121e-5e95-40e5-81ec-2addd861f9d7",
+        "end": 1736304863000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "862846800173",
+        "url": "https://sf-item.taobao.com/sf_item/862846800173.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1736306138000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "860254778781",
+        "url": "https://sf-item.taobao.com/sf_item/860254778781.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1736301998000,
         "status": "done",
         "is_processed": false
     }

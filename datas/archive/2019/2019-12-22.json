@@ -406,16 +406,37 @@
         "is_processed": false
     },
     {
-        "id": "609322277896",
-        "url": "https://sf-item.taobao.com/sf_item/609322277896.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
-        "end": 1576980020000,
-        "status": "done",
-        "is_processed": false
+        "id": 609322277896,
+        "市场评估价": null,
+        "起拍价格": 686400,
+        "成交价格": 726400,
+        "交易时间": "2019/12/22 10:00:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/609322277896.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 5,
+        "地点": "河南省信阳市平桥区平西路与科教路交汇处馨澳花园5号楼1单元3层302号",
+        "所属小区": "馨澳花园",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "平桥区中心商圈",
+        "建筑面积": 126.98,
+        "单价": 5722.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "609061828693",
         "url": "https://sf-item.taobao.com/sf_item/609061828693.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
         "end": 1576980491000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607968068192",
+        "url": "https://sf-item.taobao.com/sf_item/607968068192.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "end": 1576980000000,
         "status": "done",
         "is_processed": false
     }

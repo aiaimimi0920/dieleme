@@ -561,15 +561,16 @@
         "竞拍人数": 0,
         "出价人数": 0,
         "地点": "江苏省 苏州市 相城区 阳澄湖镇凤阳路88号1幢204室",
-        "所属小区": null,
+        "所属小区": "阳澄湖畔花苑",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "阳澄湖商圈",
+        "最靠近商圈": "阳澄湖镇商圈",
         "建筑面积": 137.76,
-        "单价": 6096.44,
+        "单价": 6097.56,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 560365636926,
@@ -628,18 +629,46 @@
         "is_processed": false
     },
     {
-        "id": "560622143723",
-        "url": "https://sf-item.taobao.com/sf_item/560622143723.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1511667562000,
-        "status": "done",
-        "is_processed": false
+        "id": 560622143723,
+        "市场评估价": null,
+        "起拍价格": 3510000,
+        "成交价格": 4510000,
+        "交易时间": "2017-11-26T11:39:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560622143723.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": 101,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 伟业路481号",
+        "所属小区": "银色港湾公寓",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江区政府",
+        "建筑面积": 89.91,
+        "单价": 50116.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "560522302040",
-        "url": "https://sf-item.taobao.com/sf_item/560522302040.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
-        "end": 1511661600000,
-        "status": "done",
-        "is_processed": false
+        "id": 560522302040,
+        "市场评估价": null,
+        "起拍价格": 1525500,
+        "成交价格": 1525500,
+        "交易时间": "2017/11/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560522302040.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 二七区 郑州市经济技术开发区第五大街以西、经南三路以北",
+        "所属小区": "富田九鼎世家",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "经开区",
+        "建筑面积": 93.83,
+        "单价": 16250.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "561537533114",
@@ -652,6 +681,90 @@
         "id": "561608090376",
         "url": "https://sf-item.taobao.com/sf_item/561608090376.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1511662059000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560887761731",
+        "url": "https://sf-item.taobao.com/sf_item/560887761731.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511662477000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560954474225",
+        "url": "https://sf-item.taobao.com/sf_item/560954474225.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511661600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560953398573",
+        "url": "https://sf-item.taobao.com/sf_item/560953398573.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511661600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560790048613",
+        "url": "https://sf-item.taobao.com/sf_item/560790048613.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511661600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560790544646",
+        "url": "https://sf-item.taobao.com/sf_item/560790544646.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511661600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560791880384",
+        "url": "https://sf-item.taobao.com/sf_item/560791880384.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511661600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560792860182",
+        "url": "https://sf-item.taobao.com/sf_item/560792860182.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511661600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560884429426",
+        "url": "https://sf-item.taobao.com/sf_item/560884429426.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511661600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560887805812",
+        "url": "https://sf-item.taobao.com/sf_item/560887805812.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511661855000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560953410295",
+        "url": "https://sf-item.taobao.com/sf_item/560953410295.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511661600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560953506847",
+        "url": "https://sf-item.taobao.com/sf_item/560953506847.htm?track_id=6b4b581d-4997-4d64-8594-a51df793718b",
+        "end": 1511661600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560305624800",
+        "url": "https://sf-item.taobao.com/sf_item/560305624800.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1511663660000,
         "status": "done",
         "is_processed": false
     }

@@ -211,11 +211,25 @@
         "detail_captured": true
     },
     {
-        "id": "606294133754",
-        "url": "https://sf-item.taobao.com/sf_item/606294133754.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
-        "end": 1574562458000,
-        "status": "done",
-        "is_processed": false
+        "id": 606294133754,
+        "市场评估价": 695000,
+        "起拍价格": 695000,
+        "成交价格": 861600,
+        "交易时间": "2019/11/24 10:27:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606294133754.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 50,
+        "地点": "山东省 潍坊市 昌邑市 奎聚街办北海路2号北海明居小区4号楼3单元205室",
+        "所属小区": "北海明居小区",
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": null,
+        "建筑面积": 143.96,
+        "单价": 5985.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "606052796002",
@@ -225,11 +239,25 @@
         "is_processed": false
     },
     {
-        "id": "607499170304",
-        "url": "https://sf-item.taobao.com/sf_item/607499170304.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
-        "end": 1574562323000,
-        "status": "done",
-        "is_processed": false
+        "id": 607499170304,
+        "市场评估价": null,
+        "起拍价格": 1169290,
+        "成交价格": 1115432,
+        "交易时间": "2019/11/24 10:25:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/607499170304.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 19,
+        "地点": "河南省 信阳市 平桥区 羊山新区新七大道东方经典B区2号楼2单元15层1506号",
+        "所属小区": "东方经典",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": 140.74,
+        "单价": 7922.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "606460666864",
@@ -241,6 +269,20 @@
     {
         "id": "606672331766",
         "url": "https://sf-item.taobao.com/sf_item/606672331766.htm?track_id=0739f089-7ac6-489d-ad38-282796f4890c",
+        "end": 1574560800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605948060828",
+        "url": "https://sf-item.taobao.com/sf_item/605948060828.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1574560800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606319717633",
+        "url": "https://sf-item.taobao.com/sf_item/606319717633.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
         "end": 1574560800000,
         "status": "done",
         "is_processed": false

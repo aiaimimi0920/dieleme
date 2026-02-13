@@ -301,9 +301,37 @@
         "is_processed": false
     },
     {
-        "id": "803037485514",
-        "url": "https://sf-item.taobao.com/sf_item/803037485514.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
-        "end": 1719022901000,
+        "id": 803037485514,
+        "市场评估价": null,
+        "起拍价格": 602840,
+        "成交价格": 802840,
+        "交易时间": "2024/06/22 10:21:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/803037485514.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
+        "是否成交": true,
+        "竞拍人数": 30,
+        "出价人数": 21,
+        "地点": "河南省信阳市平桥区羊山新区新七大道恒大名都2号楼31层3104号",
+        "所属小区": "恒大名都",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": 162.89,
+        "单价": 4927.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "797819803073",
+        "url": "https://sf-item.taobao.com/sf_item/797819803073.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1719021632000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "802961589030",
+        "url": "https://sf-item.taobao.com/sf_item/802961589030.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1719023263000,
         "status": "done",
         "is_processed": false
     }

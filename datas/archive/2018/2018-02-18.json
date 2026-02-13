@@ -106,10 +106,24 @@
         "detail_captured": true
     },
     {
-        "id": "564199773133",
-        "url": "https://sf-item.taobao.com/sf_item/564199773133.htm?track_id=ca140538-c6e4-48d5-9d5a-28b21db6a43b",
-        "end": 1518920459000,
-        "status": "done",
-        "is_processed": false
+        "id": 564199773133,
+        "市场评估价": null,
+        "起拍价格": 680000,
+        "成交价格": 1015000,
+        "交易时间": "2018/02/18 10:20:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564199773133.htm?track_id=ca140538-c6e4-48d5-9d5a-28b21db6a43b",
+        "是否成交": true,
+        "竞拍人数": 68,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 梁溪区 中山路",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "崇安寺商圈",
+        "建筑面积": 60.05,
+        "单价": 16902.58,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -143,11 +143,12 @@
         "省份": "安徽省",
         "城市": "蚌埠市",
         "区": "淮上区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮上万达广场",
         "建筑面积": 95.65,
-        "单价": 4913.74,
+        "单价": 4913.75,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 573379262775,
@@ -199,11 +200,25 @@
         "is_processed": false
     },
     {
-        "id": "574472951211",
-        "url": "https://sf-item.taobao.com/sf_item/574472951211.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
-        "end": 1534039200000,
-        "status": "done",
-        "is_processed": false
+        "id": 574472951211,
+        "市场评估价": 1429256,
+        "起拍价格": null,
+        "成交价格": 1222013,
+        "交易时间": "2018-08-12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574472951211.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 昆明路航天罗庄小区7号楼32-2号",
+        "所属小区": "航天罗庄小区",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "昆明路",
+        "建筑面积": 178.59,
+        "单价": 6842.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "573170748053",
@@ -213,16 +228,44 @@
         "is_processed": false
     },
     {
-        "id": "573260656852",
-        "url": "https://sf-item.taobao.com/sf_item/573260656852.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
-        "end": 1534040397000,
-        "status": "done",
-        "is_processed": false
+        "id": 573260656852,
+        "市场评估价": 0,
+        "起拍价格": 1941900,
+        "成交价格": 2499900,
+        "交易时间": "2018/08/12 10:19:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/573260656852.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 63,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道秦山路169号金桂公寓D、E商业用房",
+        "所属小区": "金桂公寓",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 142.34,
+        "单价": 17566.37,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "573372037779",
         "url": "https://sf-item.taobao.com/sf_item/573372037779.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1534039366000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573345981578",
+        "url": "https://sf-item.taobao.com/sf_item/573345981578.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1534039200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574465639501",
+        "url": "https://sf-item.taobao.com/sf_item/574465639501.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "end": 1534039437000,
         "status": "done",
         "is_processed": false
     }

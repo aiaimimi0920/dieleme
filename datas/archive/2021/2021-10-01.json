@@ -287,18 +287,46 @@
         "is_processed": false
     },
     {
-        "id": "655607310835",
-        "url": "https://sf-item.taobao.com/sf_item/655607310835.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
-        "end": 1633054018000,
-        "status": "done",
-        "is_processed": false
+        "id": 655607310835,
+        "市场评估价": 288747,
+        "起拍价格": 118270.8,
+        "成交价格": 199270.8,
+        "交易时间": "2021/10/01 10:06:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/655607310835.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
+        "是否成交": true,
+        "竞拍人数": 71,
+        "出价人数": 43,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 蓝天家园小区 B33号楼3单元503室",
+        "所属小区": "蓝天家园",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市核心商圈",
+        "建筑面积": 81.36,
+        "单价": 2450.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "654952587458",
-        "url": "https://sf-item.taobao.com/sf_item/654952587458.htm?track_id=dd4d0805-6714-4a1f-88b3-815a5449302b",
-        "end": 1633053600000,
-        "status": "done",
-        "is_processed": false
+        "id": 654952587458,
+        "市场评估价": null,
+        "起拍价格": 154128,
+        "成交价格": 154128,
+        "交易时间": "2021-10-01T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/654952587458.htm?track_id=dd4d0805-6714-4a1f-88b3-815a5449302b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 桂林市 阳朔县 阳朔镇石马路藏龙沃府8幢28号",
+        "所属小区": "藏龙沃府",
+        "省份": "广西壮族自治区",
+        "城市": "桂林市",
+        "区": "阳朔县",
+        "最靠近商圈": null,
+        "建筑面积": 31.2,
+        "单价": 4942.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "656088555840",
@@ -308,9 +336,72 @@
         "is_processed": false
     },
     {
-        "id": "653337138203",
-        "url": "https://sf-item.taobao.com/sf_item/653337138203.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
-        "end": 1633071282000,
+        "id": 653337138203,
+        "市场评估价": null,
+        "起拍价格": 360000,
+        "成交价格": 360000,
+        "交易时间": "2021-10-01T14:54:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/653337138203.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 淄博市 博山区 新博南路18号兴学花苑",
+        "所属小区": "兴学花苑",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "博山城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "653845284655",
+        "url": "https://sf-item.taobao.com/sf_item/653845284655.htm?track_id=c50edd57-1d55-4788-bc81-d598c484f17f",
+        "end": 1633060419000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654947435494",
+        "url": "https://sf-item.taobao.com/sf_item/654947435494.htm?track_id=c50edd57-1d55-4788-bc81-d598c484f17f",
+        "end": 1633053600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655291845651",
+        "url": "https://sf-item.taobao.com/sf_item/655291845651.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
+        "end": 1633054837000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655706350377",
+        "url": "https://sf-item.taobao.com/sf_item/655706350377.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1633054360000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654886584814",
+        "url": "https://sf-item.taobao.com/sf_item/654886584814.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1633055312000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655332165992",
+        "url": "https://sf-item.taobao.com/sf_item/655332165992.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1633053833000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655333745357",
+        "url": "https://sf-item.taobao.com/sf_item/655333745357.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1633053792000,
         "status": "done",
         "is_processed": false
     }

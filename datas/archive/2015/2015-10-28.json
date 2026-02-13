@@ -42,8 +42,29 @@
         "detail_captured": true
     },
     {
-        "id": "522955146567",
-        "url": "https://sf-item.taobao.com/sf_item/522955146567.htm?track_id=0998525a-0e3f-4b2c-a314-8b80a91badd0",
+        "id": 522955146567,
+        "市场评估价": null,
+        "起拍价格": 3533025,
+        "成交价格": 3533025,
+        "交易时间": "2015-10-28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/522955146567.htm?track_id=0998525a-0e3f-4b2c-a314-8b80a91badd0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 漳州市 平和县",
+        "所属小区": "三鑫小区",
+        "省份": "福建省",
+        "城市": "漳州市",
+        "区": "平和县",
+        "最靠近商圈": "小溪镇",
+        "建筑面积": 2046.84,
+        "单价": 1727.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "522963642521",
+        "url": "https://sf-item.taobao.com/sf_item/522963642521.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
         "end": 1445997600000,
         "status": "done",
         "is_processed": false

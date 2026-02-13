@@ -577,9 +577,51 @@
         "is_processed": false
     },
     {
-        "id": "610641519118",
-        "url": "https://sf-item.taobao.com/sf_item/610641519118.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
-        "end": 1578277651000,
+        "id": 610641519118,
+        "市场评估价": null,
+        "起拍价格": 400000,
+        "成交价格": 500000,
+        "交易时间": "2020-01-06 10:27:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610641519118.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 22,
+        "地点": "山东省 淄博市 博山区 秋泉路15号水印蓝山小区院内",
+        "所属小区": "水印蓝山",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "博山",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "608343336306",
+        "url": "https://sf-item.taobao.com/sf_item/608343336306.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1578276249000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608837574473",
+        "url": "https://sf-item.taobao.com/sf_item/608837574473.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1578279669000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609060267156",
+        "url": "https://sf-item.taobao.com/sf_item/609060267156.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1578277739000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608341216548",
+        "url": "https://sf-item.taobao.com/sf_item/608341216548.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "end": 1578276194000,
         "status": "done",
         "is_processed": false
     }

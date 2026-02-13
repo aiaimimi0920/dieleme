@@ -64,9 +64,37 @@
         "manual_checked": true
     },
     {
-        "id": "538159224985",
-        "url": "https://sf-item.taobao.com/sf_item/538159224985.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
-        "end": 1474898900000,
+        "id": 538159224985,
+        "市场评估价": null,
+        "起拍价格": 860300,
+        "成交价格": 880300,
+        "交易时间": "2016/09/26 22:08:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538159224985.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 5,
+        "地点": "福建省泉州市安溪县凤城镇河滨南路1068号蓝溪国际1号楼3002室",
+        "所属小区": "蓝溪国际",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "特产城",
+        "建筑面积": 136.02,
+        "单价": 6472.69,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "538167678988",
+        "url": "https://sf-item.taobao.com/sf_item/538167678988.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1474857339000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538154706448",
+        "url": "https://sf-item.taobao.com/sf_item/538154706448.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1474857787000,
         "status": "done",
         "is_processed": false
     }

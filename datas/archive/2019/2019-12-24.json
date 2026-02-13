@@ -1017,16 +1017,114 @@
         "detail_captured": true
     },
     {
-        "id": "608415365670",
-        "url": "https://sf-item.taobao.com/sf_item/608415365670.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
-        "end": 1577155953000,
+        "id": 608415365670,
+        "市场评估价": null,
+        "起拍价格": 789600,
+        "成交价格": 941600,
+        "交易时间": "2019-12-24 10:52:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/608415365670.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
+        "是否成交": true,
+        "竞拍人数": 67,
+        "出价人数": 77,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道盐北路88号金色港湾三期18幢501室",
+        "所属小区": "金色港湾三期",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": null,
+        "建筑面积": 138.65,
+        "单价": 6787.28,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 608107496398,
+        "市场评估价": 1689572.66,
+        "起拍价格": 1182701,
+        "成交价格": 1467701,
+        "交易时间": "2019/12/24 11:21:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/608107496398.htm?track_id=909e3e03-2756-4d7b-84a1-406321c112b1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 58,
+        "地点": "河南省 郑州市 二七区 赣江路163号9号楼2单元10层1001",
+        "所属小区": "绿岛港湾",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七万达商圈",
+        "建筑面积": 126.3,
+        "单价": 11620.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "608071980447",
+        "url": "https://sf-item.taobao.com/sf_item/608071980447.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1577157803000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "608107496398",
-        "url": "https://sf-item.taobao.com/sf_item/608107496398.htm?track_id=909e3e03-2756-4d7b-84a1-406321c112b1",
-        "end": 1577157662000,
+        "id": "608409305873",
+        "url": "https://sf-item.taobao.com/sf_item/608409305873.htm?track_id=802501ef-0ab0-410f-b5ee-43532bb45d13",
+        "end": 1577152869000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608607410774",
+        "url": "https://sf-item.taobao.com/sf_item/608607410774.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1577152800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608856067202",
+        "url": "https://sf-item.taobao.com/sf_item/608856067202.htm?track_id=62ad0d53-1f42-4565-affc-8bd7d5720e56",
+        "end": 1577154583000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609899783813",
+        "url": "https://sf-item.taobao.com/sf_item/609899783813.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1577153157000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609176096945",
+        "url": "https://sf-item.taobao.com/sf_item/609176096945.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1577152800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609017226987",
+        "url": "https://sf-item.taobao.com/sf_item/609017226987.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1577154242000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609512986431",
+        "url": "https://sf-item.taobao.com/sf_item/609512986431.htm?track_id=7910db3a-160d-47d2-a0b9-9ea879422ee1",
+        "end": 1577153721000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606475517025",
+        "url": "https://sf-item.taobao.com/sf_item/606475517025.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1577161402000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609166804062",
+        "url": "https://sf-item.taobao.com/sf_item/609166804062.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1577154101000,
         "status": "done",
         "is_processed": false
     }

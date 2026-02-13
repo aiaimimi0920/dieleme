@@ -198,30 +198,107 @@
         "detail_captured": true
     },
     {
-        "id": "606962398275",
-        "url": "https://sf-item.taobao.com/sf_item/606962398275.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
-        "end": 1575079996000,
-        "status": "done",
-        "is_processed": false
+        "id": 606962398275,
+        "市场评估价": null,
+        "起拍价格": 249313,
+        "成交价格": 259312.7,
+        "交易时间": "2019/11/30 10:13:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606962398275.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 6,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 迎春街258号旭阳小区1-1-403号",
+        "所属小区": "旭阳小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 69.01,
+        "单价": 3758.04,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "607556530869",
-        "url": "https://sf-item.taobao.com/sf_item/607556530869.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
-        "end": 1575079200000,
-        "status": "done",
-        "is_processed": false
+        "id": 607556530869,
+        "市场评估价": 0,
+        "起拍价格": 796860,
+        "成交价格": 796860,
+        "交易时间": "2019/11/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/607556530869.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城二路（新世纪大厦）",
+        "所属小区": "新世纪大厦",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 95.75,
+        "单价": 8322.59,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "606832111335",
-        "url": "https://sf-item.taobao.com/sf_item/606832111335.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
-        "end": 1575087050000,
-        "status": "done",
-        "is_processed": false
+        "id": 606832111335,
+        "市场评估价": 644600,
+        "起拍价格": 644600,
+        "成交价格": 898600,
+        "交易时间": "2019/11/30 12:10:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606832111335.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
+        "是否成交": true,
+        "竞拍人数": 99,
+        "出价人数": 93,
+        "地点": "安徽省 合肥市 瑶海区 凤阳东路花冲苑4幢404室",
+        "所属小区": "花冲苑",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "花冲商圈",
+        "建筑面积": 81.29,
+        "单价": 11054.37,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "606468832556",
         "url": "https://sf-item.taobao.com/sf_item/606468832556.htm?track_id=d0061311-1feb-4c56-91d7-2d2fa7310ed8",
         "end": 1575079702000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607292400101",
+        "url": "https://sf-item.taobao.com/sf_item/607292400101.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1575079200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607301884815",
+        "url": "https://sf-item.taobao.com/sf_item/607301884815.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1575079821000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606550822273",
+        "url": "https://sf-item.taobao.com/sf_item/606550822273.htm?track_id=bc90718d-e65a-4467-9717-78b1a1bf1278",
+        "end": 1575079200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607789566232",
+        "url": "https://sf-item.taobao.com/sf_item/607789566232.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1575087257000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606680837451",
+        "url": "https://sf-item.taobao.com/sf_item/606680837451.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1575079200000,
         "status": "done",
         "is_processed": false
     }

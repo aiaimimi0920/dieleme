@@ -756,11 +756,25 @@
         "detail_captured": true
     },
     {
-        "id": "628312095625",
-        "url": "https://sf-item.taobao.com/sf_item/628312095625.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
-        "end": 1603852797000,
-        "status": "done",
-        "is_processed": false
+        "id": 628312095625,
+        "市场评估价": null,
+        "起拍价格": 480000,
+        "成交价格": 505000,
+        "交易时间": "2020/10/28 10:39:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/628312095625.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 友谊小区南13-18号",
+        "所属小区": "友谊小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "友谊大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 627336700101,
@@ -868,18 +882,46 @@
         "detail_captured": true
     },
     {
-        "id": "628535075225",
-        "url": "https://sf-item.taobao.com/sf_item/628535075225.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
-        "end": 1603858053000,
-        "status": "done",
-        "is_processed": false
+        "id": 628535075225,
+        "市场评估价": 572300,
+        "起拍价格": 0,
+        "成交价格": 447809.5,
+        "交易时间": "2020/10/28 12:07:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/628535075225.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 0,
+        "地点": "贵州省遵义市汇川区大连路海鸿5号楼0001幢2-3-2号房屋",
+        "所属小区": "海鸿",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "香港路商圈",
+        "建筑面积": 94.81,
+        "单价": 4722.52,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "624568284163",
-        "url": "https://sf-item.taobao.com/sf_item/624568284163.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1603848820000,
-        "status": "done",
-        "is_processed": false
+        "id": 624568284163,
+        "市场评估价": 305300,
+        "起拍价格": 170968,
+        "成交价格": 170968,
+        "交易时间": "2020/10/28 09:33:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624568284163.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 红粉路25号1-8-3",
+        "所属小区": "艳路二期",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场商圈",
+        "建筑面积": 57.16,
+        "单价": 2991.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "628458783997",
@@ -899,6 +941,34 @@
         "id": "627467404618",
         "url": "https://sf-item.taobao.com/sf_item/627467404618.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
         "end": 1603852193000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "629621243738",
+        "url": "https://sf-item.taobao.com/sf_item/629621243738.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
+        "end": 1603850400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "628964239002",
+        "url": "https://sf-item.taobao.com/sf_item/628964239002.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1603852148000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "629307406083",
+        "url": "https://sf-item.taobao.com/sf_item/629307406083.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1603850400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626305860823",
+        "url": "https://sf-item.taobao.com/sf_item/626305860823.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1603859552000,
         "status": "done",
         "is_processed": false
     }

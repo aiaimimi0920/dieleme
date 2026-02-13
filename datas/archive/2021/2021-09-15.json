@@ -127,12 +127,25 @@
         "detail_captured": true
     },
     {
-        "id": "653135122734",
-        "url": "https://sf-item.taobao.com/sf_item/653135122734.htm?track_id=502d205c-e78e-4e2d-871a-4c7c83c4fbe5",
-        "end": 1631673157000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/653135122734.htm"
+        "id": 653135122734,
+        "市场评估价": 0,
+        "起拍价格": 2800000,
+        "成交价格": 3350000,
+        "交易时间": "2021/09/15 10:32:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/653135122734.htm?track_id=502d205c-e78e-4e2d-871a-4c7c83c4fbe5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 35,
+        "地点": "江苏省 苏州市 姑苏区 新城路2号2幢501室",
+        "所属小区": "新城花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "石路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 654698171817,
@@ -215,6 +228,27 @@
         "id": "653734917752",
         "url": "https://sf-item.taobao.com/sf_item/653734917752.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1631671200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "651015335237",
+        "url": "https://sf-item.taobao.com/sf_item/651015335237.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1631675637000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652530060307",
+        "url": "https://sf-item.taobao.com/sf_item/652530060307.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1631672590000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654120710202",
+        "url": "https://sf-item.taobao.com/sf_item/654120710202.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1631696814000,
         "status": "done",
         "is_processed": false
     }

@@ -211,9 +211,44 @@
         "detail_captured": true
     },
     {
-        "id": "538432207125",
-        "url": "https://sf-item.taobao.com/sf_item/538432207125.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
-        "end": 1476024190000,
+        "id": 538432207125,
+        "市场评估价": null,
+        "起拍价格": 463000,
+        "成交价格": 511000,
+        "交易时间": "2016-10-09 22:43:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538432207125.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省泉州市安溪县凤城镇河滨北路3号19幢401",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城镇商圈",
+        "建筑面积": 94.0,
+        "单价": 5436.17,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "538949896693",
+        "url": "https://sf-item.taobao.com/sf_item/538949896693.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1475980579000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538909701054",
+        "url": "https://sf-item.taobao.com/sf_item/538909701054.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1475981440000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "538728154846",
+        "url": "https://sf-item.taobao.com/sf_item/538728154846.htm?track_id=b2a0791c-e94d-46c9-b7b2-e898b5ba78f0",
+        "end": 1475978690000,
         "status": "done",
         "is_processed": false
     }

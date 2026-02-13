@@ -246,9 +246,44 @@
         "is_processed": false
     },
     {
-        "id": "657122775140",
-        "url": "https://sf-item.taobao.com/sf_item/657122775140.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
-        "end": 1635732807000,
+        "id": 657122775140,
+        "市场评估价": 1930000,
+        "起拍价格": 1351000,
+        "成交价格": 1411000,
+        "交易时间": "2021/11/01 10:13:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657122775140.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 13,
+        "地点": "浙江省 杭州市 滨江区 科技馆街972号悦晟国际金融大厦1523室",
+        "所属小区": "悦晟国际金融大厦",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区/高新板块",
+        "建筑面积": 57.49,
+        "单价": 24532.41,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "657211371810",
+        "url": "https://sf-item.taobao.com/sf_item/657211371810.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1635734565000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656084839111",
+        "url": "https://sf-item.taobao.com/sf_item/656084839111.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1635736640000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656421185471",
+        "url": "https://sf-item.taobao.com/sf_item/656421185471.htm?track_id=30d808e3-d96d-4c20-b7c0-2a2a14a6d2bf",
+        "end": 1635736016000,
         "status": "done",
         "is_processed": false
     }

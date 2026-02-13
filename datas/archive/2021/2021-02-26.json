@@ -841,12 +841,25 @@
         "detail_captured": true
     },
     {
-        "id": "638574983728",
-        "url": "https://sf-item.taobao.com/sf_item/638574983728.htm?track_id=a7f348f0-d467-4d26-9001-2607f02270c7",
-        "end": 1614305002000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/638574983728.htm"
+        "id": 638574983728,
+        "市场评估价": null,
+        "起拍价格": 429848,
+        "成交价格": 429848,
+        "交易时间": "2021-02-26 10:03:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/638574983728.htm?track_id=a7f348f0-d467-4d26-9001-2607f02270c7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省威海市荣成市华悦新城小区",
+        "所属小区": "华悦新城",
+        "省份": "山东省",
+        "城市": "威海市",
+        "区": "荣成市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 635444306713,
@@ -940,25 +953,67 @@
         "is_processed": false
     },
     {
-        "id": "637193945062",
-        "url": "https://sf-item.taobao.com/sf_item/637193945062.htm?track_id=2a4dbcbf-581b-4c65-afa5-e01fe29ed290",
-        "end": 1614305975000,
-        "status": "done",
-        "is_processed": false
+        "id": 637193945062,
+        "市场评估价": 19018810,
+        "起拍价格": 13313167,
+        "成交价格": 20153167,
+        "交易时间": "2021/02/26 10:19:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637193945062.htm?track_id=2a4dbcbf-581b-4c65-afa5-e01fe29ed290",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 115,
+        "地点": "陕西省 西安市 未央区 凤城九路海珀兰轩小区15幢10103室商铺、10104室商铺",
+        "所属小区": "海珀兰轩",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "市府商圈",
+        "建筑面积": 675.24,
+        "单价": 29846.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "637844151304",
-        "url": "https://sf-item.taobao.com/sf_item/637844151304.htm?track_id=83e68fed-9084-46cb-a950-7f8ce7e08692",
-        "end": 1614310271000,
-        "status": "done",
-        "is_processed": false
+        "id": 637844151304,
+        "市场评估价": 591042,
+        "起拍价格": 413730,
+        "成交价格": 577730,
+        "交易时间": "2021/02/26 11:31:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637844151304.htm?track_id=83e68fed-9084-46cb-a950-7f8ce7e08692",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "陕西省 西安市 未央区 北辰村第六社区兴盛花园高层住宅楼B座2605号",
+        "所属小区": "兴盛花园",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "北辰村",
+        "建筑面积": 109.9,
+        "单价": 5256.87,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "637517314737",
-        "url": "https://sf-item.taobao.com/sf_item/637517314737.htm?track_id=75efc7d9-1c15-436a-a771-a5622ac43bf7",
-        "end": 1614306760000,
-        "status": "done",
-        "is_processed": false
+        "id": 637517314737,
+        "市场评估价": 3514080,
+        "起拍价格": 2459856,
+        "成交价格": 3275856,
+        "交易时间": "2021-02-26T10:32:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637517314737.htm?track_id=75efc7d9-1c15-436a-a771-a5622ac43bf7",
+        "是否成交": true,
+        "竞拍人数": 68,
+        "出价人数": 62,
+        "地点": "陕西省 西安市 未央区 浐灞大道北澜庭金堤（A14小区）16幢10901室",
+        "所属小区": "澜庭金堤（A14小区）",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "浐灞生态区",
+        "建筑面积": 217.78,
+        "单价": 15044.49,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "637518234845",
@@ -968,11 +1023,25 @@
         "is_processed": false
     },
     {
-        "id": "637883677206",
-        "url": "https://sf-item.taobao.com/sf_item/637883677206.htm?track_id=19c10d1a-aefc-4d0f-a385-532173897a49",
-        "end": 1614307404000,
-        "status": "done",
-        "is_processed": false
+        "id": 637883677206,
+        "市场评估价": null,
+        "起拍价格": 948384,
+        "成交价格": 1220984,
+        "交易时间": "2021-02-26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637883677206.htm?track_id=19c10d1a-aefc-4d0f-a385-532173897a49",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 西安市经济技术开发区北二环中段名流水晶宫小区1幢3单元30805室",
+        "所属小区": "名流水晶宫小区",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "637922113368",
@@ -982,11 +1051,25 @@
         "is_processed": false
     },
     {
-        "id": "637520588299",
-        "url": "https://sf-item.taobao.com/sf_item/637520588299.htm?track_id=c8a98758-d89c-4119-9cd3-afa7a351cacb",
-        "end": 1614305842000,
-        "status": "done",
-        "is_processed": false
+        "id": 637520588299,
+        "市场评估价": null,
+        "起拍价格": 604000,
+        "成交价格": 608000,
+        "交易时间": "2021/02/26 10:17:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637520588299.htm?track_id=c8a98758-d89c-4119-9cd3-afa7a351cacb",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 泉州市 安溪县 安溪县参内乡河滨北路2009号安溪万达广场5号楼商铺A-120",
+        "所属小区": "安溪万达广场",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪万达广场商圈",
+        "建筑面积": 87.05,
+        "单价": 6982.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "637520628565",
@@ -996,9 +1079,114 @@
         "is_processed": false
     },
     {
-        "id": "637520764922",
-        "url": "https://sf-item.taobao.com/sf_item/637520764922.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
-        "end": 1614306783000,
+        "id": 637520764922,
+        "市场评估价": null,
+        "起拍价格": 930000,
+        "成交价格": 1200000,
+        "交易时间": "2021/02/26 10:33:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637520764922.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 35,
+        "地点": "福建省 泉州市 安溪县 安溪县城厢镇二环北路溪江月5号楼2505室房产",
+        "所属小区": "溪江月",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "二环北路",
+        "建筑面积": 132.72,
+        "单价": 9044.76,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "638243126332",
+        "url": "https://sf-item.taobao.com/sf_item/638243126332.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1614307844000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635142432046",
+        "url": "https://sf-item.taobao.com/sf_item/635142432046.htm?track_id=f6103b53-b575-4181-920b-1934f9796e9b",
+        "end": 1614337973000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637614851901",
+        "url": "https://sf-item.taobao.com/sf_item/637614851901.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1614307067000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637351828079",
+        "url": "https://sf-item.taobao.com/sf_item/637351828079.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1614304800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637837871347",
+        "url": "https://sf-item.taobao.com/sf_item/637837871347.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1614313064000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638243622167",
+        "url": "https://sf-item.taobao.com/sf_item/638243622167.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
+        "end": 1614304800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637550164265",
+        "url": "https://sf-item.taobao.com/sf_item/637550164265.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
+        "end": 1614304984000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636440870754",
+        "url": "https://sf-item.taobao.com/sf_item/636440870754.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1614310992000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635987898156",
+        "url": "https://sf-item.taobao.com/sf_item/635987898156.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1614305594000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636856815475",
+        "url": "https://sf-item.taobao.com/sf_item/636856815475.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1614306270000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637496327216",
+        "url": "https://sf-item.taobao.com/sf_item/637496327216.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1614305169000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635768624135",
+        "url": "https://sf-item.taobao.com/sf_item/635768624135.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "end": 1614304800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636075646087",
+        "url": "https://sf-item.taobao.com/sf_item/636075646087.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "end": 1614304930000,
         "status": "done",
         "is_processed": false
     }

@@ -84,25 +84,67 @@
         "detail_captured": true
     },
     {
-        "id": "537197951588",
-        "url": "https://sf-item.taobao.com/sf_item/537197951588.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
-        "end": 1473127200000,
-        "status": "done",
-        "is_processed": false
+        "id": 537197951588,
+        "市场评估价": 317714,
+        "起拍价格": 203336.96,
+        "成交价格": 209436.96,
+        "交易时间": "2016/09/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537197951588.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "吉林省吉林市船营区东北亚城市花园2号楼2单元19层240号",
+        "所属小区": "东北亚城市花园",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "船营区商圈",
+        "建筑面积": 78.72,
+        "单价": 2660.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "537205147023",
-        "url": "https://sf-item.taobao.com/sf_item/537205147023.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
-        "end": 1473127200000,
-        "status": "done",
-        "is_processed": false
+        "id": 537205147023,
+        "市场评估价": 256846,
+        "起拍价格": 164381.44,
+        "成交价格": 164381.44,
+        "交易时间": "2016/09/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537205147023.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "吉林省吉林市船营区东北亚城市花园6号楼1单元30层142号",
+        "所属小区": "东北亚城市花园",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "船营区商圈",
+        "建筑面积": 66.8,
+        "单价": 2460.8,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "537210181489",
-        "url": "https://sf-item.taobao.com/sf_item/537210181489.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
-        "end": 1473131642000,
-        "status": "done",
-        "is_processed": false
+        "id": 537210181489,
+        "市场评估价": 782169,
+        "起拍价格": 565118,
+        "成交价格": 740118,
+        "交易时间": "2016-09-06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537210181489.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 锡山区 东亭街道锡沪东路172-1号501室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": null,
+        "建筑面积": 116.61,
+        "单价": 6348.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "537235702494",
@@ -122,6 +164,41 @@
         "id": "537795826294",
         "url": "https://sf-item.taobao.com/sf_item/537795826294.htm?track_id=e17bfa31-568b-40b1-a430-6b187995b33f",
         "end": 1473130970000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537349856335",
+        "url": "https://sf-item.taobao.com/sf_item/537349856335.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1473131365000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537200975462",
+        "url": "https://sf-item.taobao.com/sf_item/537200975462.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1473129820000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537163351693",
+        "url": "https://sf-item.taobao.com/sf_item/537163351693.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1473128684000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537346128074",
+        "url": "https://sf-item.taobao.com/sf_item/537346128074.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1473127200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537777182482",
+        "url": "https://sf-item.taobao.com/sf_item/537777182482.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1473127200000,
         "status": "done",
         "is_processed": false
     }

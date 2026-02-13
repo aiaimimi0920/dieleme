@@ -967,10 +967,24 @@
         "detail_captured": true
     },
     {
-        "id": "542578672284",
-        "url": "https://sf-item.taobao.com/sf_item/542578672284.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
-        "end": 1484792963000,
-        "status": "done",
-        "is_processed": false
+        "id": 542578672284,
+        "市场评估价": null,
+        "起拍价格": 2423000,
+        "成交价格": 3223000,
+        "交易时间": "2017-01-19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542578672284.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 84,
+        "地点": "福建省泉州市安溪县凤城镇新安路新加坡花园别墅B221号",
+        "所属小区": "新加坡花园",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "河滨北路商圈",
+        "建筑面积": 252.64,
+        "单价": 12756.21,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

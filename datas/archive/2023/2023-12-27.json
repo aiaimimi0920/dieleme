@@ -357,12 +357,25 @@
         "detail_captured": true
     },
     {
-        "id": "748700721441",
-        "url": "https://sf-item.taobao.com/sf_item/748700721441.htm?track_id=c00aeabb-8fd7-4407-b982-90eed337592f",
-        "end": 1703649946000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/748700721441.htm"
+        "id": 748700721441,
+        "市场评估价": null,
+        "起拍价格": 696000,
+        "成交价格": 696000,
+        "交易时间": "2023/12/27 12:05:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/748700721441.htm?track_id=c00aeabb-8fd7-4407-b982-90eed337592f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省威海市荣成市清华园小区13号楼1503室",
+        "所属小区": "清华园小区",
+        "省份": "山东省",
+        "城市": "威海市",
+        "区": "荣成市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 754195317181,
@@ -428,9 +441,44 @@
         "detail_captured": true
     },
     {
-        "id": "751007441747",
-        "url": "https://sf-item.taobao.com/sf_item/751007441747.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
+        "id": 751007441747,
+        "市场评估价": 1714835.34,
+        "起拍价格": 1286126.51,
+        "成交价格": 1286126.51,
+        "交易时间": "2023/12/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/751007441747.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 福州路香提雅苑二期6号楼塔楼1-12-2",
+        "所属小区": "香提雅苑二期",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "大连路商圈",
+        "建筑面积": 167.94,
+        "单价": 7659.44,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "750879240470",
+        "url": "https://sf-item.taobao.com/sf_item/750879240470.htm?track_id=bcfea102-99f4-4d3a-aa3e-f06b59c7474b",
         "end": 1703642400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "751045102675",
+        "url": "https://sf-item.taobao.com/sf_item/751045102675.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1703650204000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "744591410277",
+        "url": "https://sf-item.taobao.com/sf_item/744591410277.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1703666958000,
         "status": "done",
         "is_processed": false
     }

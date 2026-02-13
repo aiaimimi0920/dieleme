@@ -49,10 +49,24 @@
         "is_processed": false
     },
     {
-        "id": "540439334756",
-        "url": "https://sf-item.taobao.com/sf_item/540439334756.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
-        "end": 1478959200000,
-        "status": "done",
-        "is_processed": false
+        "id": 540439334756,
+        "市场评估价": 0,
+        "起拍价格": 401000,
+        "成交价格": 401000,
+        "交易时间": "2016/11/12 22:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540439334756.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "安溪县凤城镇河滨东路257号2-1507室",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": null,
+        "建筑面积": 84.98,
+        "单价": 4718.76,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

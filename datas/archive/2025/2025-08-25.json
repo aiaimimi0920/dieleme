@@ -315,12 +315,25 @@
         "detail_captured": true
     },
     {
-        "id": "955591979571",
-        "url": "https://sf-item.taobao.com/sf_item/955591979571.htm?track_id=9768bbb0-f630-49a5-9680-dbcb6c307b87",
-        "end": 1756088057000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/955591979571.htm"
+        "id": 955591979571,
+        "市场评估价": 414780,
+        "起拍价格": 290346,
+        "成交价格": 352346,
+        "交易时间": "2025/08/25 10:14:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/955591979571.htm?track_id=9768bbb0-f630-49a5-9680-dbcb6c307b87",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 32,
+        "地点": "四川省 广元市 利州区 宝轮镇电厂",
+        "所属小区": "102小区",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "宝轮镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 962995858911,
@@ -407,25 +420,67 @@
         "detail_captured": true
     },
     {
-        "id": "957271148290",
-        "url": "https://sf-item.taobao.com/sf_item/957271148290.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
-        "end": 1756087474000,
-        "status": "done",
-        "is_processed": false
+        "id": 957271148290,
+        "市场评估价": null,
+        "起拍价格": 424564,
+        "成交价格": 656564,
+        "交易时间": "2025-08-25 10:04:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/957271148290.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 21,
+        "地点": "内蒙古自治区 包头市 昆都仑区 昆区白云路西侧，黄河大街北侧，南排道东侧，新光西路南侧馥室成双商住小区21-808号",
+        "所属小区": "馥室成双",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "958688971244",
-        "url": "https://sf-item.taobao.com/sf_item/958688971244.htm?track_id=2d93ff24-d2fd-490e-bf75-4ad6c170e512",
-        "end": 1756088268000,
-        "status": "done",
-        "is_processed": false
+        "id": 958688971244,
+        "市场评估价": 421087,
+        "起拍价格": 235808.72,
+        "成交价格": 301808.72,
+        "交易时间": "2025-08-25 10:17:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/958688971244.htm?track_id=2d93ff24-d2fd-490e-bf75-4ad6c170e512",
+        "是否成交": true,
+        "竞拍人数": 34,
+        "出价人数": 27,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区沈辽西路136-31号1-9-1",
+        "所属小区": "沈辽西路136-31号",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 74.82,
+        "单价": 4034.76,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "964251012759",
-        "url": "https://sf-item.taobao.com/sf_item/964251012759.htm?track_id=25f0e98c-d1bf-4b6c-8b3e-37c35873c737",
-        "end": 1756087200000,
-        "status": "done",
-        "is_processed": false
+        "id": 964251012759,
+        "市场评估价": 658440,
+        "起拍价格": 370000,
+        "成交价格": 391000,
+        "交易时间": "2025/08/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/964251012759.htm?track_id=25f0e98c-d1bf-4b6c-8b3e-37c35873c737",
+        "是否成交": true,
+        "竞拍人数": 8,
+        "出价人数": 8,
+        "地点": "广东省 惠州市 博罗县 罗阳镇商业东街东森华庭D栋2单元402号的房产及室内财产",
+        "所属小区": "东森华庭",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇中心",
+        "建筑面积": 140.98,
+        "单价": 2775.22,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "955522562171",
@@ -435,11 +490,25 @@
         "is_processed": false
     },
     {
-        "id": "956704609400",
-        "url": "https://sf-item.taobao.com/sf_item/956704609400.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
-        "end": 1756088243000,
-        "status": "done",
-        "is_processed": false
+        "id": 956704609400,
+        "市场评估价": 642450,
+        "起拍价格": 449715,
+        "成交价格": 550715,
+        "交易时间": "2025/08/25 10:17:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/956704609400.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 62,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道谢家路945号金色江湾小区14幢603室",
+        "所属小区": "金色江湾小区",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 89.9,
+        "单价": 6125.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "943719755804",
@@ -452,6 +521,41 @@
         "id": "955092319686",
         "url": "https://sf-item.taobao.com/sf_item/955092319686.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
         "end": 1756088247000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "956844309717",
+        "url": "https://sf-item.taobao.com/sf_item/956844309717.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1756091720000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "957433400550",
+        "url": "https://sf-item.taobao.com/sf_item/957433400550.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1756090024000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "959525299082",
+        "url": "https://sf-item.taobao.com/sf_item/959525299082.htm?track_id=b36474a7-7b3f-439f-aae6-7991c0412fe7",
+        "end": 1756087200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "956690353991",
+        "url": "https://sf-item.taobao.com/sf_item/956690353991.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1756087314000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "937412368990",
+        "url": "https://sf-item.taobao.com/sf_item/937412368990.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1756083474000,
         "status": "done",
         "is_processed": false
     }

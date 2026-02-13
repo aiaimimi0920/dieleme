@@ -325,12 +325,25 @@
         "detail_captured": true
     },
     {
-        "id": "933078343450",
-        "url": "https://sf-item.taobao.com/sf_item/933078343450.htm?track_id=55593408-d351-4235-ad85-32e47dafe541",
-        "end": 1751853600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/933078343450.htm"
+        "id": 933078343450,
+        "市场评估价": 20942680,
+        "起拍价格": 14660000,
+        "成交价格": 14660000,
+        "交易时间": "2025/07/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/933078343450.htm?track_id=55593408-d351-4235-ad85-32e47dafe541",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "北京 北京市 东城区 金鱼池中街2号院10号楼6层2单元701、702、703室及6号楼-2层-063车位",
+        "所属小区": "金鱼池中街2号院",
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "前门-崇文门商圈",
+        "建筑面积": 292.98,
+        "单价": 50032.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 941499611927,
@@ -375,18 +388,46 @@
         "detail_captured": true
     },
     {
-        "id": "940445871809",
-        "url": "https://sf-item.taobao.com/sf_item/940445871809.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
-        "end": 1751854843000,
-        "status": "done",
-        "is_processed": false
+        "id": 940445871809,
+        "市场评估价": 210582,
+        "起拍价格": 117925.92,
+        "成交价格": 164925.92,
+        "交易时间": "2025/07/07 10:20:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/940445871809.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
+        "是否成交": true,
+        "竞拍人数": 83,
+        "出价人数": 83,
+        "地点": "吉林省延边朝鲜族自治州延吉市站前街182号1单元612",
+        "所属小区": "倍达创业大厦",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "站前商圈",
+        "建筑面积": 52.15,
+        "单价": 3162.28,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "940451107685",
-        "url": "https://sf-item.taobao.com/sf_item/940451107685.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
-        "end": 1751855663000,
-        "status": "done",
-        "is_processed": false
+        "id": 940451107685,
+        "市场评估价": 398589,
+        "起拍价格": 223209.84,
+        "成交价格": 307209.84,
+        "交易时间": "2025/07/07 10:34:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/940451107685.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
+        "是否成交": true,
+        "竞拍人数": 53,
+        "出价人数": 53,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 健康路22号2004住宅房地产",
+        "所属小区": "鑫田家园",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "站前街商圈",
+        "建筑面积": 146.54,
+        "单价": 2095.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "941979410349",
@@ -399,6 +440,27 @@
         "id": "942509417116",
         "url": "https://sf-item.taobao.com/sf_item/942509417116.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
         "end": 1751854504000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "943057616097",
+        "url": "https://sf-item.taobao.com/sf_item/943057616097.htm?track_id=7c737cf8-b427-44c7-8a5e-bd75d257223c",
+        "end": 1751854000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "935041360337",
+        "url": "https://sf-item.taobao.com/sf_item/935041360337.htm?track_id=8b419dc7-cda7-4057-8901-42ba60db8b13",
+        "end": 1751855200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "941951346976",
+        "url": "https://sf-item.taobao.com/sf_item/941951346976.htm?track_id=57ebabcd-28ac-405a-a636-47bdb8bc5f01",
+        "end": 1751853845000,
         "status": "done",
         "is_processed": false
     }

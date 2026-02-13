@@ -22,10 +22,24 @@
         "manual_checked": true
     },
     {
-        "id": "537332677132",
-        "url": "https://sf-item.taobao.com/sf_item/537332677132.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
-        "end": 1472954400000,
-        "status": "done",
-        "is_processed": false
+        "id": 537332677132,
+        "市场评估价": null,
+        "起拍价格": 340992,
+        "成交价格": 350992,
+        "交易时间": "2016/09/04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537332677132.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "贵州省 遵义市 汇川区 人民路国投综合大楼1幢第10层10-19号",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": 61.5,
+        "单价": 5710.44,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

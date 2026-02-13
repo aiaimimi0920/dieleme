@@ -464,18 +464,46 @@
         "detail_captured": true
     },
     {
-        "id": "607675363235",
-        "url": "https://sf-item.taobao.com/sf_item/607675363235.htm?track_id=19c10d1a-aefc-4d0f-a385-532173897a49",
-        "end": 1574648893000,
-        "status": "done",
-        "is_processed": false
+        "id": 607675363235,
+        "市场评估价": null,
+        "起拍价格": 1284392.8,
+        "成交价格": 1470572.8,
+        "交易时间": "2019-11-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/607675363235.htm?track_id=19c10d1a-aefc-4d0f-a385-532173897a49",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 30,
+        "地点": "陕西省 西安市 未央区 金桥六路中新浐灞半岛A11区18号楼11203号房屋一套",
+        "所属小区": "中新浐灞半岛",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "浐灞生态区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "606261573081",
-        "url": "https://sf-item.taobao.com/sf_item/606261573081.htm?track_id=7429b7b4-87ab-47b3-8aa3-9be14e592e2a",
-        "end": 1574648179000,
-        "status": "done",
-        "is_processed": false
+        "id": 606261573081,
+        "市场评估价": null,
+        "起拍价格": 748965,
+        "成交价格": 804965,
+        "交易时间": "2019/11/25 10:16:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606261573081.htm?track_id=7429b7b4-87ab-47b3-8aa3-9be14e592e2a",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": null,
+        "地点": "广东省 惠州市 博罗县 罗阳镇上塘村龙溪排洪渠东新时代花园1号楼603房",
+        "所属小区": "新时代花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 152.85,
+        "单价": 5264.73,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "606255981050",
@@ -488,6 +516,20 @@
         "id": "606694363918",
         "url": "https://sf-item.taobao.com/sf_item/606694363918.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
         "end": 1574647200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606146164025",
+        "url": "https://sf-item.taobao.com/sf_item/606146164025.htm?track_id=7ec70b87-5ced-40d9-b4a5-cb74d5d60a97",
+        "end": 1574647665000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607328081099",
+        "url": "https://sf-item.taobao.com/sf_item/607328081099.htm?track_id=b4353959-2c75-46fd-ae3a-556685042bba",
+        "end": 1574647214000,
         "status": "done",
         "is_processed": false
     }

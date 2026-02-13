@@ -147,12 +147,25 @@
         "detail_captured": true
     },
     {
-        "id": "641328949368",
-        "url": "https://sf-item.taobao.com/sf_item/641328949368.htm?track_id=e10f4c13-2137-425e-b21c-bc66c315504d",
-        "end": 1619922480000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/641328949368.htm"
+        "id": 641328949368,
+        "市场评估价": 289300,
+        "起拍价格": 202510,
+        "成交价格": 416510,
+        "交易时间": "2021-05-02 10:28:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641328949368.htm?track_id=e10f4c13-2137-425e-b21c-bc66c315504d",
+        "是否成交": true,
+        "竞拍人数": 83,
+        "出价人数": 83,
+        "地点": "江苏省 淮安市 淮安区 淮安市淮安区席桥镇席桥村街心组235省道边的自建房",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 641366645513,
@@ -204,9 +217,44 @@
         "is_processed": false
     },
     {
-        "id": "642068091765",
-        "url": "https://sf-item.taobao.com/sf_item/642068091765.htm?track_id=2b62575d-0413-4703-92f3-5a18bf4482ae",
-        "end": 1619922984000,
+        "id": 642068091765,
+        "市场评估价": 1202744,
+        "起拍价格": 1142607,
+        "成交价格": 1412607,
+        "交易时间": "2021/05/02 10:36:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642068091765.htm?track_id=2b62575d-0413-4703-92f3-5a18bf4482ae",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 辰宫御林花园（辰宫·双河湾）5-13106室",
+        "所属小区": "辰宫御林花园",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "浐灞商务中心",
+        "建筑面积": 134.49,
+        "单价": 10503.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "640921168922",
+        "url": "https://sf-item.taobao.com/sf_item/640921168922.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1619923068000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641720810541",
+        "url": "https://sf-item.taobao.com/sf_item/641720810541.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1619924377000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "640818136829",
+        "url": "https://sf-item.taobao.com/sf_item/640818136829.htm?track_id=3b36e442-fd18-4c67-9caf-4ea62c7a61cd",
+        "end": 1619923685000,
         "status": "done",
         "is_processed": false
     }

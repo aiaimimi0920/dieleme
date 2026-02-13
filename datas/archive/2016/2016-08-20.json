@@ -85,10 +85,24 @@
         "detail_captured": true
     },
     {
-        "id": "537095518411",
-        "url": "https://sf-item.taobao.com/sf_item/537095518411.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
-        "end": 1471654800000,
-        "status": "done",
-        "is_processed": false
+        "id": 537095518411,
+        "市场评估价": 0,
+        "起拍价格": 560000,
+        "成交价格": 560000,
+        "交易时间": "2016/08/20 09:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537095518411.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 信阳市 平桥区 肖店乡肖店街居委会主街道1至3层房屋",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": null,
+        "建筑面积": 530.45,
+        "单价": 1055.69,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

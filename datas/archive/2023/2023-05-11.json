@@ -357,12 +357,25 @@
         "detail_captured": true
     },
     {
-        "id": "710524160707",
-        "url": "https://sf-item.taobao.com/sf_item/710524160707.htm?track_id=4296822d-7a68-46d7-9ea3-699d42ae4575",
-        "end": 1683773725000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/710524160707.htm"
+        "id": 710524160707,
+        "市场评估价": 5900000,
+        "起拍价格": 5858000,
+        "成交价格": 8178000,
+        "交易时间": "2023/05/11 10:55:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/710524160707.htm?track_id=4296822d-7a68-46d7-9ea3-699d42ae4575",
+        "是否成交": true,
+        "竞拍人数": 61,
+        "出价人数": 61,
+        "地点": "北京市东城区广渠家园23号楼10层1单元1001室不动产",
+        "所属小区": "广渠家园",
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "广渠门内",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 711527510569,
@@ -407,18 +420,46 @@
         "detail_captured": true
     },
     {
-        "id": "714241561871",
-        "url": "https://sf-item.taobao.com/sf_item/714241561871.htm?track_id=a9e168e8-b28e-4052-8e8c-c5d324fab1f0",
-        "end": 1683788366000,
-        "status": "done",
-        "is_processed": false
+        "id": 714241561871,
+        "市场评估价": 445417,
+        "起拍价格": 249434,
+        "成交价格": 249434,
+        "交易时间": "2023/05/11 14:59:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/714241561871.htm?track_id=a9e168e8-b28e-4052-8e8c-c5d324fab1f0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "吉林省 吉林市 船营区 船营区解放大路华南小区27号楼2单元7层19号",
+        "所属小区": "华南小区",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "解放大路商圈",
+        "建筑面积": 119,
+        "单价": 2096.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "714102883938",
-        "url": "https://sf-item.taobao.com/sf_item/714102883938.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
-        "end": 1683771389000,
-        "status": "done",
-        "is_processed": false
+        "id": 714102883938,
+        "市场评估价": 905746.4,
+        "起拍价格": 833286.7,
+        "成交价格": 883286.7,
+        "交易时间": "2023-05-11 10:16:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/714102883938.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": 11,
+        "地点": "河北省 廊坊市 霸州市 提香温泉小镇",
+        "所属小区": "提香温泉小镇",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "益津商圈",
+        "建筑面积": 135.8,
+        "单价": 6503.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "710660811906",
@@ -431,6 +472,34 @@
         "id": "709072709149",
         "url": "https://sf-item.taobao.com/sf_item/709072709149.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1683770400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "714601054671",
+        "url": "https://sf-item.taobao.com/sf_item/714601054671.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1683775378000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "711720754810",
+        "url": "https://sf-item.taobao.com/sf_item/711720754810.htm?track_id=57ebabcd-28ac-405a-a636-47bdb8bc5f01",
+        "end": 1683770400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "713288640277",
+        "url": "https://sf-item.taobao.com/sf_item/713288640277.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
+        "end": 1683771015000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "714418805994",
+        "url": "https://sf-item.taobao.com/sf_item/714418805994.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1683771446000,
         "status": "done",
         "is_processed": false
     }

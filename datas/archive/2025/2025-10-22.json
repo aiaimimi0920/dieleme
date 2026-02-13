@@ -400,12 +400,25 @@
         "detail_captured": true
     },
     {
-        "id": "980801735807",
-        "url": "https://sf-item.taobao.com/sf_item/980801735807.htm?track_id=7669240a-40cb-4d36-afc0-5cc22e268182",
-        "end": 1761096397000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/980801735807.htm"
+        "id": 980801735807,
+        "市场评估价": 408500,
+        "起拍价格": 228760,
+        "成交价格": 228760,
+        "交易时间": "2025/10/22 09:26:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/980801735807.htm?track_id=7669240a-40cb-4d36-afc0-5cc22e268182",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 广元市 利州区 上西办事处15号路商住楼1层1号营业用房",
+        "所属小区": "上西办事处15号路商住楼",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "上西",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 977987006063,
@@ -429,23 +442,65 @@
         "detail_captured": true
     },
     {
-        "id": "975232194383",
-        "url": "https://sf-item.taobao.com/sf_item/975232194383.htm?track_id=24e00779-1b9d-47cb-937e-f9074333104b",
-        "end": 1761098469000,
-        "status": "done",
-        "is_processed": false
+        "id": 975232194383,
+        "市场评估价": 0,
+        "起拍价格": 3750000,
+        "成交价格": 3750000,
+        "交易时间": "2025/10/22 10:01:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/975232194383.htm?track_id=24e00779-1b9d-47cb-937e-f9074333104b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省厦门市翔安区翔安区新莲一里12号102室房产",
+        "所属小区": "新莲一里",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "翔安区",
+        "最靠近商圈": "新店",
+        "建筑面积": 537.41,
+        "单价": 6977.28,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "977367697258",
-        "url": "https://sf-item.taobao.com/sf_item/977367697258.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
-        "end": 1761100300000,
-        "status": "done",
-        "is_processed": false
+        "id": 977367697258,
+        "市场评估价": 1218309.48,
+        "起拍价格": 1218309.48,
+        "成交价格": 1720309.48,
+        "交易时间": "2025-10-22 10:31:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/977367697258.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 科尔沁镇碧桂园丹枫泊翠四街06幢01号房屋及院落等附属设施",
+        "所属小区": "丹枫泊翠",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁镇",
+        "建筑面积": 202.68,
+        "单价": 8483.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "976853499775",
         "url": "https://sf-item.taobao.com/sf_item/976853499775.htm?track_id=f0ab8160-a6c9-4731-aa8f-79271cd5c413",
         "end": 1761099931000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "979325468041",
+        "url": "https://sf-item.taobao.com/sf_item/979325468041.htm?track_id=56f7c0ea-8a20-4323-ae17-916b5df2b980",
+        "end": 1761098400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "980533793027",
+        "url": "https://sf-item.taobao.com/sf_item/980533793027.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1761118808000,
         "status": "done",
         "is_processed": false
     }

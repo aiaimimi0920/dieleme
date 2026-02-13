@@ -168,16 +168,51 @@
         "detail_captured": true
     },
     {
-        "id": "800701374724",
-        "url": "https://sf-item.taobao.com/sf_item/800701374724.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
-        "end": 1718420204000,
-        "status": "done",
-        "is_processed": false
+        "id": 800701374724,
+        "市场评估价": null,
+        "起拍价格": 440871,
+        "成交价格": 548871,
+        "交易时间": "2024-06-15T10:56:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/800701374724.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": 27,
+        "地点": "河南省 郑州市 二七区 金沙江路222号3号楼29层2905号",
+        "所属小区": "金水区金沙江路222号3号楼",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 76.54,
+        "单价": 7169.87,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "800940853991",
         "url": "https://sf-item.taobao.com/sf_item/800940853991.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1718416835000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "795310703823",
+        "url": "https://sf-item.taobao.com/sf_item/795310703823.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
+        "end": 1718421438000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "793429343149",
+        "url": "https://sf-item.taobao.com/sf_item/793429343149.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1718429361000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "795607912247",
+        "url": "https://sf-item.taobao.com/sf_item/795607912247.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1718418299000,
         "status": "done",
         "is_processed": false
     }

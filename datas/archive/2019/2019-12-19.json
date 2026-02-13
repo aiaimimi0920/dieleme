@@ -302,16 +302,72 @@
         "is_processed": false
     },
     {
-        "id": "609409395190",
-        "url": "https://sf-item.taobao.com/sf_item/609409395190.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
-        "end": 1576720800000,
-        "status": "done",
-        "is_processed": false
+        "id": 609409395190,
+        "市场评估价": null,
+        "起拍价格": 490649,
+        "成交价格": 490649,
+        "交易时间": "2019-12-19T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/609409395190.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "福建省 南平市 顺昌县",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪街道",
+        "建筑面积": 113.68,
+        "单价": 4315.95,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "607765286952",
         "url": "https://sf-item.taobao.com/sf_item/607765286952.htm?track_id=0739f089-7ac6-489d-ad38-282796f4890c",
         "end": 1576720800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609408323717",
+        "url": "https://sf-item.taobao.com/sf_item/609408323717.htm?track_id=c566893a-201b-4839-8262-2d73cb1d9a72",
+        "end": 1576722449000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608930297197",
+        "url": "https://sf-item.taobao.com/sf_item/608930297197.htm?track_id=2aae7a99-698e-4407-8145-803f91390659",
+        "end": 1576723974000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607828414373",
+        "url": "https://sf-item.taobao.com/sf_item/607828414373.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1576720800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607770935571",
+        "url": "https://sf-item.taobao.com/sf_item/607770935571.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1576725995000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607070252172",
+        "url": "https://sf-item.taobao.com/sf_item/607070252172.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1576723130000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607290385970",
+        "url": "https://sf-item.taobao.com/sf_item/607290385970.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1576726786000,
         "status": "done",
         "is_processed": false
     }

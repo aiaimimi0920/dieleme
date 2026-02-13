@@ -64,9 +64,30 @@
         "detail_captured": true
     },
     {
-        "id": "520185413599",
-        "url": "https://sf-item.taobao.com/sf_item/520185413599.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
-        "end": 1436237058000,
+        "id": 520185413599,
+        "市场评估价": null,
+        "起拍价格": 540000,
+        "成交价格": 657000,
+        "交易时间": "2015-07-07 10:44:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520185413599.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "是否成交": true,
+        "竞拍人数": 37,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市海盐县武原街道德信·泊林公馆5幢2单元704号房",
+        "所属小区": "德信·泊林公馆",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 116.93,
+        "单价": 5623.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "520182487774",
+        "url": "https://sf-item.taobao.com/sf_item/520182487774.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1436234400000,
         "status": "done",
         "is_processed": false
     }

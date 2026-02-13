@@ -45,16 +45,44 @@
         "manual_checked": true
     },
     {
-        "id": "529744593254",
-        "url": "https://sf-item.taobao.com/sf_item/529744593254.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
-        "end": 1461808800000,
-        "status": "done",
-        "is_processed": false
+        "id": 529744593254,
+        "市场评估价": null,
+        "起拍价格": 1981438.2,
+        "成交价格": 1981438.2,
+        "交易时间": "2016/04/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/529744593254.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "广东省揭阳市惠来县葵潭镇玄武大道京惠庄园一排04(即A幢01号)",
+        "所属小区": "京惠庄园",
+        "省份": "广东省",
+        "城市": "揭阳市",
+        "区": "惠来县",
+        "最靠近商圈": "葵潭镇",
+        "建筑面积": 524.19,
+        "单价": 3780.32,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "529655934373",
         "url": "https://sf-item.taobao.com/sf_item/529655934373.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
         "end": 1461809605000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529737309894",
+        "url": "https://sf-item.taobao.com/sf_item/529737309894.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1461809179000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529675983689",
+        "url": "https://sf-item.taobao.com/sf_item/529675983689.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1461808800000,
         "status": "done",
         "is_processed": false
     }

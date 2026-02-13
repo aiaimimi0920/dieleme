@@ -168,11 +168,25 @@
         "detail_captured": true
     },
     {
-        "id": "616869601987",
-        "url": "https://sf-item.taobao.com/sf_item/616869601987.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
-        "end": 1589335821000,
-        "status": "done",
-        "is_processed": false
+        "id": 616869601987,
+        "市场评估价": 914700,
+        "起拍价格": 740907,
+        "成交价格": 764907,
+        "交易时间": "2020/05/13 10:10:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616869601987.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 9,
+        "地点": "贵州省遵义市汇川区珠海路国际米兰C栋403号房产",
+        "所属小区": "国际米兰",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "珠海路商圈",
+        "建筑面积": 152.45,
+        "单价": 5017.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "614473760386",
@@ -185,6 +199,13 @@
         "id": "615231900640",
         "url": "https://sf-item.taobao.com/sf_item/615231900640.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
         "end": 1589336576000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "615371064306",
+        "url": "https://sf-item.taobao.com/sf_item/615371064306.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1589338113000,
         "status": "done",
         "is_processed": false
     }

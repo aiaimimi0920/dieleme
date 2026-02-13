@@ -277,9 +277,37 @@
         "detail_captured": true
     },
     {
-        "id": "574068932071",
-        "url": "https://sf-item.taobao.com/sf_item/574068932071.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1534934378000,
+        "id": 574068932071,
+        "市场评估价": 0,
+        "起拍价格": 2721870,
+        "成交价格": 2721870,
+        "交易时间": "2018/08/22 18:39:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574068932071.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 新密市城区青屏大街与平安路交叉口（东森凯悦园邸）独栋别墅1-2层",
+        "所属小区": "东森凯悦园邸",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市城区",
+        "建筑面积": 346.41,
+        "单价": 7858.57,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "574044963915",
+        "url": "https://sf-item.taobao.com/sf_item/574044963915.htm?track_id=895fcaa5-fb8d-48ba-9e9d-667dedb92adf",
+        "end": 1534905100000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573026337891",
+        "url": "https://sf-item.taobao.com/sf_item/573026337891.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1534904278000,
         "status": "done",
         "is_processed": false
     }

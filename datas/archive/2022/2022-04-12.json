@@ -1168,9 +1168,58 @@
         "is_processed": false
     },
     {
-        "id": "669851898259",
-        "url": "https://sf-item.taobao.com/sf_item/669851898259.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
-        "end": 1649730197000,
+        "id": 669851898259,
+        "市场评估价": null,
+        "起拍价格": 683300,
+        "成交价格": 1650311,
+        "交易时间": "2022/04/12 10:23:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669851898259.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 137,
+        "地点": "广西壮族自治区贵港市桂平市石龙镇石龙村东安街",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "石龙镇",
+        "建筑面积": 316.2,
+        "单价": 5219.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "670590579058",
+        "url": "https://sf-item.taobao.com/sf_item/670590579058.htm?track_id=f484603b-057a-4a7b-809f-534da817f7bd",
+        "end": 1649728809000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670465339423",
+        "url": "https://sf-item.taobao.com/sf_item/670465339423.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1649733062000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "669830725569",
+        "url": "https://sf-item.taobao.com/sf_item/669830725569.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1649733943000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "670484687556",
+        "url": "https://sf-item.taobao.com/sf_item/670484687556.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1649734292000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671224402116",
+        "url": "https://sf-item.taobao.com/sf_item/671224402116.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1649732400000,
         "status": "done",
         "is_processed": false
     }

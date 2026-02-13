@@ -168,9 +168,51 @@
         "detail_captured": true
     },
     {
-        "id": "722916719784",
-        "url": "https://sf-item.taobao.com/sf_item/722916719784.htm?track_id=7b04b434-ceff-470a-aefa-d328aa1bebd6",
-        "end": 1687488245000,
+        "id": 722916719784,
+        "市场评估价": 2526300,
+        "起拍价格": 1717884,
+        "成交价格": 1762884,
+        "交易时间": "2023/06/23 10:44:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/722916719784.htm?track_id=7b04b434-ceff-470a-aefa-d328aa1bebd6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 10,
+        "地点": "陕西省西安市经济技术开发区凤城九路白桦林间小区25幢2单元20102号单元房",
+        "所属小区": "白桦林间",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城九路",
+        "建筑面积": 132.51,
+        "单价": 13304.87,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "721625722530",
+        "url": "https://sf-item.taobao.com/sf_item/721625722530.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1687486379000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "721629802670",
+        "url": "https://sf-item.taobao.com/sf_item/721629802670.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1687494789000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "719396796126",
+        "url": "https://sf-item.taobao.com/sf_item/719396796126.htm?track_id=a5509f1b-d0f1-4066-9e83-25810044a34d",
+        "end": 1687485600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "722779245719",
+        "url": "https://sf-item.taobao.com/sf_item/722779245719.htm?track_id=bd671c96-a855-4938-b47e-195ef1097e2d",
+        "end": 1687485972000,
         "status": "done",
         "is_processed": false
     }

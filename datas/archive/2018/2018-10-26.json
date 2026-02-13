@@ -53,15 +53,16 @@
         "竞拍人数": null,
         "出价人数": 2,
         "地点": "贵州省 黔西南布依族苗族自治州 兴义市 文化路",
-        "所属小区": null,
+        "所属小区": "文化路周边住宅小区",
         "省份": "贵州省",
         "城市": "黔西南布依族苗族自治州",
         "区": "兴义市",
-        "最靠近商圈": "文化路商圈",
+        "最靠近商圈": "兴义市中心商圈",
         "建筑面积": 90.87,
-        "单价": 3739.93,
+        "单价": 3740.0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 578926571567,
@@ -169,11 +170,25 @@
         "detail_captured": true
     },
     {
-        "id": "579015309017",
-        "url": "https://sf-item.taobao.com/sf_item/579015309017.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
-        "end": 1540519200000,
-        "status": "done",
-        "is_processed": false
+        "id": 579015309017,
+        "市场评估价": null,
+        "起拍价格": 50400,
+        "成交价格": 50400,
+        "交易时间": "2018/10/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/579015309017.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "浙江省 温州市 龙湾区 温州市龙湾区永中街道南翔锦苑1号车库193号车位（现场号为NA07)",
+        "所属小区": "南翔锦苑",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "永中街道",
+        "建筑面积": 35.48,
+        "单价": 1420.52,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "576543816014",
@@ -200,6 +215,48 @@
         "id": "579122162070",
         "url": "https://sf-item.taobao.com/sf_item/579122162070.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1540519200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577923743253",
+        "url": "https://sf-item.taobao.com/sf_item/577923743253.htm?track_id=8991c5b1-871a-44f4-871d-3ba5c4f82a8e",
+        "end": 1540519200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577922323615",
+        "url": "https://sf-item.taobao.com/sf_item/577922323615.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1540523132000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578854724743",
+        "url": "https://sf-item.taobao.com/sf_item/578854724743.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1540521266000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577195072197",
+        "url": "https://sf-item.taobao.com/sf_item/577195072197.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
+        "end": 1540519200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578845680576",
+        "url": "https://sf-item.taobao.com/sf_item/578845680576.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1540519200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578526634078",
+        "url": "https://sf-item.taobao.com/sf_item/578526634078.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1540520941000,
         "status": "done",
         "is_processed": false
     }

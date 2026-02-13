@@ -358,30 +358,114 @@
         "detail_captured": true
     },
     {
-        "id": "625329087438",
-        "url": "https://sf-item.taobao.com/sf_item/625329087438.htm?track_id=5c3fd042-c684-4bcf-8fa2-cf27f98d7d60",
-        "end": 1598495539000,
-        "status": "done",
-        "is_processed": false
+        "id": 625329087438,
+        "市场评估价": 476778,
+        "起拍价格": 266996,
+        "成交价格": 338996,
+        "交易时间": "2020/08/27 10:32:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625329087438.htm?track_id=5c3fd042-c684-4bcf-8fa2-cf27f98d7d60",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 65,
+        "地点": "辽宁省 沈阳市 铁西区 壮工街2甲2-1号6-7-2",
+        "所属小区": "壮工街2甲2-1号",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场商圈",
+        "建筑面积": 100.82,
+        "单价": 3362.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "624756969481",
-        "url": "https://sf-item.taobao.com/sf_item/624756969481.htm?track_id=338e08a5-6097-4777-af8b-636880c2658c",
-        "end": 1598493600000,
-        "status": "done",
-        "is_processed": false
+        "id": 624756969481,
+        "市场评估价": null,
+        "起拍价格": 1405000,
+        "成交价格": 1405000,
+        "交易时间": "2020-08-27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624756969481.htm?track_id=338e08a5-6097-4777-af8b-636880c2658c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 南平市 顺昌县",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "龙津镇",
+        "建筑面积": 428.33,
+        "单价": 3283.37,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "624529937075",
-        "url": "https://sf-item.taobao.com/sf_item/624529937075.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
-        "end": 1598497908000,
-        "status": "done",
-        "is_processed": false
+        "id": 624529937075,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1106960,
+        "交易时间": "2020-08-27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624529937075.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
+        "是否成交": true,
+        "竞拍人数": 112,
+        "出价人数": 117,
+        "地点": "河南省 郑州市 二七区 嵩山南路375号3号楼1单元22层2201号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "623834306297",
         "url": "https://sf-item.taobao.com/sf_item/623834306297.htm?track_id=2983f99a-2c1f-4c8c-8a28-f7b1e60ab457",
         "end": 1598496400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623935510496",
+        "url": "https://sf-item.taobao.com/sf_item/623935510496.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1598493920000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624730877692",
+        "url": "https://sf-item.taobao.com/sf_item/624730877692.htm?track_id=4c4eeb49-6d0a-4655-9e36-002074dab1e8",
+        "end": 1598496376000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625172211052",
+        "url": "https://sf-item.taobao.com/sf_item/625172211052.htm?track_id=fe65f6e2-fa8a-40a9-a6d0-1d1f199419f6",
+        "end": 1598493600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624056451836",
+        "url": "https://sf-item.taobao.com/sf_item/624056451836.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1598493915000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623032223198",
+        "url": "https://sf-item.taobao.com/sf_item/623032223198.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1598497501000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623966594188",
+        "url": "https://sf-item.taobao.com/sf_item/623966594188.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
+        "end": 1598493600000,
         "status": "done",
         "is_processed": false
     }

@@ -126,11 +126,25 @@
         "detail_captured": true
     },
     {
-        "id": "610988235119",
-        "url": "https://sf-item.taobao.com/sf_item/610988235119.htm?track_id=0aa51a89-be2a-4b2d-a15e-840b4b7b2be4",
-        "end": 1580177392000,
-        "status": "done",
-        "is_processed": false
+        "id": 610988235119,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 570840,
+        "交易时间": "2020/01/28 10:09:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610988235119.htm?track_id=0aa51a89-be2a-4b2d-a15e-840b4b7b2be4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 15,
+        "地点": "河南省 郑州市 新密市 友爱街（未来城）6号楼1单元6层604",
+        "所属小区": "未来城",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市城区",
+        "建筑面积": 101.31,
+        "单价": 5634.52,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "610364133815",
@@ -143,6 +157,13 @@
         "id": "611498431362",
         "url": "https://sf-item.taobao.com/sf_item/611498431362.htm?track_id=0739f089-7ac6-489d-ad38-282796f4890c",
         "end": 1580176800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "610814592279",
+        "url": "https://sf-item.taobao.com/sf_item/610814592279.htm?track_id=a801121e-5e95-40e5-81ec-2addd861f9d7",
+        "end": 1580177390000,
         "status": "done",
         "is_processed": false
     }

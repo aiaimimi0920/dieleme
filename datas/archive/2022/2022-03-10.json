@@ -336,12 +336,25 @@
         "detail_captured": true
     },
     {
-        "id": "668464337901",
-        "url": "https://sf-item.taobao.com/sf_item/668464337901.htm?track_id=24a37f41-29df-4831-8277-60944565da52",
-        "end": 1646877864000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/668464337901.htm"
+        "id": 668464337901,
+        "市场评估价": null,
+        "起拍价格": 612094,
+        "成交价格": 668094,
+        "交易时间": "2022/03/10 10:04:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/668464337901.htm?track_id=24a37f41-29df-4831-8277-60944565da52",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 新乡市 卫滨区 新乡市中原路179号综合楼1层房产",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": "新乡火车站商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 668408044973,
@@ -407,11 +420,25 @@
         "detail_captured": true
     },
     {
-        "id": "668412964242",
-        "url": "https://sf-item.taobao.com/sf_item/668412964242.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
-        "end": 1646877600000,
-        "status": "done",
-        "is_processed": false
+        "id": 668412964242,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 963886.04,
+        "交易时间": "2022-03-10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/668412964242.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区包头市昆都仑区民族东路西北侧欧风丽景小区7-402号",
+        "所属小区": "欧风丽景",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "团结大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 668791685653,
@@ -438,6 +465,27 @@
         "id": "669508735416",
         "url": "https://sf-item.taobao.com/sf_item/669508735416.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
         "end": 1646877726000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "668816649589",
+        "url": "https://sf-item.taobao.com/sf_item/668816649589.htm?track_id=0f72315c-33a4-418f-8ce6-c0b1970f71d9",
+        "end": 1646901168000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "664763624143",
+        "url": "https://sf-item.taobao.com/sf_item/664763624143.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1646883989000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665172573059",
+        "url": "https://sf-item.taobao.com/sf_item/665172573059.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1646883305000,
         "status": "done",
         "is_processed": false
     }

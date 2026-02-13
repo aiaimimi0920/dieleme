@@ -72,16 +72,44 @@
         "is_processed": false
     },
     {
-        "id": "540662097119",
-        "url": "https://sf-item.taobao.com/sf_item/540662097119.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
-        "end": 1479348000000,
-        "status": "done",
-        "is_processed": false
+        "id": 540662097119,
+        "市场评估价": 246938,
+        "起拍价格": 246938,
+        "成交价格": 249938,
+        "交易时间": "2016/11/17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540662097119.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "延吉市长安街536号富康南区3-1-701住宅",
+        "所属小区": "富康南区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉老城区",
+        "建筑面积": 69.56,
+        "单价": 3593.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "540689758632",
         "url": "https://sf-item.taobao.com/sf_item/540689758632.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
         "end": 1479348428000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540820531636",
+        "url": "https://sf-item.taobao.com/sf_item/540820531636.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1479348000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540828432611",
+        "url": "https://sf-item.taobao.com/sf_item/540828432611.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "end": 1479348184000,
         "status": "done",
         "is_processed": false
     }

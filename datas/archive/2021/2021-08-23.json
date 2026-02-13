@@ -317,25 +317,67 @@
         "detail_captured": true
     },
     {
-        "id": "651356418424",
-        "url": "https://sf-item.taobao.com/sf_item/651356418424.htm?track_id=1700d9a2-f936-490b-8e6c-7a864551c62a",
-        "end": 1629684000000,
-        "status": "done",
-        "is_processed": false
+        "id": 651356418424,
+        "市场评估价": 310700,
+        "起拍价格": 217490,
+        "成交价格": 217490,
+        "交易时间": "2021/08/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/651356418424.htm?track_id=1700d9a2-f936-490b-8e6c-7a864551c62a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 上饶市 铅山县 河口镇黄岗山社区判官庙79号205室",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "铅山县",
+        "最靠近商圈": "河口镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "652592618472",
-        "url": "https://sf-item.taobao.com/sf_item/652592618472.htm?track_id=b5d46ba2-6f8b-4a97-9fec-425fc00a9d71",
-        "end": 1629684000000,
-        "status": "done",
-        "is_processed": false
+        "id": 652592618472,
+        "市场评估价": 601111,
+        "起拍价格": 408755.48,
+        "成交价格": 408755.48,
+        "交易时间": "2021/08/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652592618472.htm?track_id=b5d46ba2-6f8b-4a97-9fec-425fc00a9d71",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "贵州省黔南布依族苗族自治州都匀市环东北路水榭花都10栋3单元3层附302号",
+        "所属小区": "水榭花都",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "环东北路",
+        "建筑面积": 137.24,
+        "单价": 2978.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "651782992703",
-        "url": "https://sf-item.taobao.com/sf_item/651782992703.htm?track_id=2b62575d-0413-4703-92f3-5a18bf4482ae",
-        "end": 1629688111000,
-        "status": "done",
-        "is_processed": false
+        "id": 651782992703,
+        "市场评估价": null,
+        "起拍价格": 1196176,
+        "成交价格": 1504176,
+        "交易时间": "2021-08-23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/651782992703.htm?track_id=2b62575d-0413-4703-92f3-5a18bf4482ae",
+        "是否成交": true,
+        "竞拍人数": 52,
+        "出价人数": 52,
+        "地点": "陕西省 西安市 未央区 凤城九路海荣名城二期63号楼2单元305室",
+        "所属小区": "海荣名城二期",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区商圈",
+        "建筑面积": 98.7,
+        "单价": 15231.89,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "652495022105",
@@ -345,9 +387,100 @@
         "is_processed": false
     },
     {
-        "id": "652941479710",
-        "url": "https://sf-item.taobao.com/sf_item/652941479710.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
-        "end": 1629696451000,
+        "id": 652941479710,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 1047280,
+        "交易时间": "2021/08/23 13:27:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652941479710.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 60,
+        "地点": "河南省 郑州市 二七区 兴华南街99号22号楼东5单元5层57号",
+        "所属小区": "锦绣江南",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七万达",
+        "建筑面积": 123.65,
+        "单价": 8469.83,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "652972819667",
+        "url": "https://sf-item.taobao.com/sf_item/652972819667.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1629687425000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652217349325",
+        "url": "https://sf-item.taobao.com/sf_item/652217349325.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1629684000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652969707891",
+        "url": "https://sf-item.taobao.com/sf_item/652969707891.htm?track_id=ea4eb8ff-33af-48f0-9fc5-5c633b8347fe",
+        "end": 1629684000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652401626208",
+        "url": "https://sf-item.taobao.com/sf_item/652401626208.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1629684207000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652791379026",
+        "url": "https://sf-item.taobao.com/sf_item/652791379026.htm?track_id=51ac8b9e-9dcd-4f34-9958-1d4a363cb642",
+        "end": 1629685262000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652409266187",
+        "url": "https://sf-item.taobao.com/sf_item/652409266187.htm?track_id=51ac8b9e-9dcd-4f34-9958-1d4a363cb642",
+        "end": 1629684000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "651374638529",
+        "url": "https://sf-item.taobao.com/sf_item/651374638529.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1629684000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652556342666",
+        "url": "https://sf-item.taobao.com/sf_item/652556342666.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1629684000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "651778768593",
+        "url": "https://sf-item.taobao.com/sf_item/651778768593.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1629686315000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "652203313183",
+        "url": "https://sf-item.taobao.com/sf_item/652203313183.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1629684204000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "650974966321",
+        "url": "https://sf-item.taobao.com/sf_item/650974966321.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1629684000000,
         "status": "done",
         "is_processed": false
     }

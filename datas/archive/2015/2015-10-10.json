@@ -72,11 +72,25 @@
         "is_processed": false
     },
     {
-        "id": "522186946450",
-        "url": "https://sf-item.taobao.com/sf_item/522186946450.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1444443716000,
-        "status": "done",
-        "is_processed": false
+        "id": 522186946450,
+        "市场评估价": null,
+        "起拍价格": 2440000,
+        "成交价格": 2910000,
+        "交易时间": "2015/10/10 10:21:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/522186946450.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省杭州市滨江区浦沿街道盛元慧谷花园3幢5单元2402室",
+        "所属小区": "盛元慧谷花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 158.35,
+        "单价": 18376.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "522027824046",

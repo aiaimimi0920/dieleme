@@ -485,25 +485,67 @@
         "detail_captured": true
     },
     {
-        "id": "625360876430",
-        "url": "https://sf-item.taobao.com/sf_item/625360876430.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
-        "end": 1599704217000,
-        "status": "done",
-        "is_processed": false
+        "id": 625360876430,
+        "市场评估价": 1000000,
+        "起拍价格": 765000,
+        "成交价格": 840000,
+        "交易时间": "2020/09/10 10:16:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625360876430.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 16,
+        "地点": "贵州省遵义市汇川区广州路香樟印象12栋1-402号房屋",
+        "所属小区": "香樟印象",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "广州路",
+        "建筑面积": 148.59,
+        "单价": 5653.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "624158180301",
-        "url": "https://sf-item.taobao.com/sf_item/624158180301.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
-        "end": 1599703613000,
-        "status": "done",
-        "is_processed": false
+        "id": 624158180301,
+        "市场评估价": null,
+        "起拍价格": 319760,
+        "成交价格": 409760,
+        "交易时间": "2020/09/10 10:06:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624158180301.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 6,
+        "地点": "福建省 泉州市 安溪县 安溪县茶叶批发市场Q幢114店",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "茶都商圈",
+        "建筑面积": 33.68,
+        "单价": 12165.09,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "624752110873",
-        "url": "https://sf-item.taobao.com/sf_item/624752110873.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
-        "end": 1599704018000,
-        "status": "done",
-        "is_processed": false
+        "id": 624752110873,
+        "市场评估价": null,
+        "起拍价格": 331730,
+        "成交价格": 406730,
+        "交易时间": "2020/09/10 10:13:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624752110873.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 26,
+        "地点": "福建省 泉州市 安溪县 安溪县茶叶批发市场N幢177店",
+        "所属小区": "安溪县茶叶批发市场",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪县茶叶批发市场",
+        "建筑面积": 37.27,
+        "单价": 10912.85,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "624570245911",
@@ -516,6 +558,48 @@
         "id": "624286000056",
         "url": "https://sf-item.taobao.com/sf_item/624286000056.htm?track_id=e9db07e5-7acb-4b43-9d9c-583daa52fdcf",
         "end": 1599703200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624198712223",
+        "url": "https://sf-item.taobao.com/sf_item/624198712223.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1599703838000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624082580119",
+        "url": "https://sf-item.taobao.com/sf_item/624082580119.htm?track_id=fe65f6e2-fa8a-40a9-a6d0-1d1f199419f6",
+        "end": 1599703211000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625360724626",
+        "url": "https://sf-item.taobao.com/sf_item/625360724626.htm?track_id=89143a92-a511-4287-9fd0-7f485c07af6e",
+        "end": 1599706800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624000625920",
+        "url": "https://sf-item.taobao.com/sf_item/624000625920.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1599703200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624001565295",
+        "url": "https://sf-item.taobao.com/sf_item/624001565295.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1599703200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624051343364",
+        "url": "https://sf-item.taobao.com/sf_item/624051343364.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1599707833000,
         "status": "done",
         "is_processed": false
     }

@@ -147,24 +147,121 @@
         "detail_captured": true
     },
     {
-        "id": "687727992613",
-        "url": "https://sf-item.taobao.com/sf_item/687727992613.htm?track_id=45554b6b-9801-419f-9a2a-4417bfff5eb4",
-        "end": 1669457049000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/687727992613.htm"
+        "id": 687727992613,
+        "市场评估价": 3052478,
+        "起拍价格": 1709500,
+        "成交价格": 1709500,
+        "交易时间": "2022/11/26 18:04:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/687727992613.htm?track_id=45554b6b-9801-419f-9a2a-4417bfff5eb4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江西省上饶市弋阳县弋江镇志敏大道北路178-1（2）号",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "弋阳县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "691532240282",
-        "url": "https://sf-item.taobao.com/sf_item/691532240282.htm?track_id=a1a258a2-2cb8-48d7-ba49-94fe87e8bd5f",
-        "end": 1669457603000,
+        "id": 691532240282,
+        "市场评估价": 574447,
+        "起拍价格": 344668.2,
+        "成交价格": 491668.2,
+        "交易时间": "2022/11/26 18:13:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/691532240282.htm?track_id=a1a258a2-2cb8-48d7-ba49-94fe87e8bd5f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "宁夏回族自治区 固原市 隆德县 解放街",
+        "所属小区": "山水珑庭小区",
+        "省份": "宁夏回族自治区",
+        "城市": "固原市",
+        "区": "隆德县",
+        "最靠近商圈": "解放街",
+        "建筑面积": 134.07,
+        "单价": 3667.0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 691048889570,
+        "市场评估价": 1098500,
+        "起拍价格": 703040,
+        "成交价格": 821040,
+        "交易时间": "2022/11/26 11:41:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/691048889570.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 47,
+        "地点": "河南省 郑州市 二七区 二七区工人路413号院蔚蓝港湾15号楼10层75号",
+        "所属小区": "蔚蓝港湾",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": 95.03,
+        "单价": 8639.67,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "689545046061",
+        "url": "https://sf-item.taobao.com/sf_item/689545046061.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1669428242000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "691048889570",
-        "url": "https://sf-item.taobao.com/sf_item/691048889570.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
-        "end": 1669434088000,
+        "id": "691787676764",
+        "url": "https://sf-item.taobao.com/sf_item/691787676764.htm?track_id=4c4eeb49-6d0a-4655-9e36-002074dab1e8",
+        "end": 1669428000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692445487796",
+        "url": "https://sf-item.taobao.com/sf_item/692445487796.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1669431618000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691709342934",
+        "url": "https://sf-item.taobao.com/sf_item/691709342934.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1669428851000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691977667577",
+        "url": "https://sf-item.taobao.com/sf_item/691977667577.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1669428044000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "689589395578",
+        "url": "https://sf-item.taobao.com/sf_item/689589395578.htm?track_id=6d5b6fa2-81b8-4761-92be-cf7469dd2225",
+        "end": 1669428000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691911724850",
+        "url": "https://sf-item.taobao.com/sf_item/691911724850.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1669430027000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692237125868",
+        "url": "https://sf-item.taobao.com/sf_item/692237125868.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1669428922000,
         "status": "done",
         "is_processed": false
     }

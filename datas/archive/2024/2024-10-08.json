@@ -399,23 +399,79 @@
         "detail_captured": true
     },
     {
-        "id": "835610987908",
-        "url": "https://sf-item.taobao.com/sf_item/835610987908.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
-        "end": 1728352800000,
-        "status": "done",
-        "is_processed": false
+        "id": 835610987908,
+        "市场评估价": null,
+        "起拍价格": 506919,
+        "成交价格": 506919,
+        "交易时间": "2024/10/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/835610987908.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": null,
+        "地点": "湖南省 常德市 鼎城区 郭家铺街道桃花源路碧桂园天悦湾4.11.15号楼",
+        "所属小区": "碧桂园天悦湾",
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": "郭家铺街道",
+        "建筑面积": 143.1,
+        "单价": 3542.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "832233588524",
-        "url": "https://sf-item.taobao.com/sf_item/832233588524.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
-        "end": 1728352800000,
-        "status": "done",
-        "is_processed": false
+        "id": 832233588524,
+        "市场评估价": 373000,
+        "起拍价格": 262000,
+        "成交价格": 264000,
+        "交易时间": "2024/10/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/832233588524.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "浙江省 嘉兴市 海盐县 大桥新区东海花苑二期安置房116幢101室",
+        "所属小区": "东海花苑二期",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "大桥新区",
+        "建筑面积": 86.09,
+        "单价": 3066.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "835738775820",
         "url": "https://sf-item.taobao.com/sf_item/835738775820.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1728352891000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "836145110209",
+        "url": "https://sf-item.taobao.com/sf_item/836145110209.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1728355085000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "831670419662",
+        "url": "https://sf-item.taobao.com/sf_item/831670419662.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1728354234000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "836492777701",
+        "url": "https://sf-item.taobao.com/sf_item/836492777701.htm?track_id=1b72c4a3-0a3f-4a49-a0ef-97c696656a04",
+        "end": 1728353618000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "836238962271",
+        "url": "https://sf-item.taobao.com/sf_item/836238962271.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1728359304000,
         "status": "done",
         "is_processed": false
     }

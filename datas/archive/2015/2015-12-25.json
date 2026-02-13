@@ -63,18 +63,46 @@
         "detail_captured": true
     },
     {
-        "id": "525072987805",
-        "url": "https://sf-item.taobao.com/sf_item/525072987805.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
-        "end": 1451052000000,
-        "status": "done",
-        "is_processed": false
+        "id": 525072987805,
+        "市场评估价": null,
+        "起拍价格": 6191200,
+        "成交价格": 6201200,
+        "交易时间": "2015-12-25T22:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525072987805.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 泉州市 安溪县 蓬莱镇美滨村彭亭工业区",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "蓬莱镇",
+        "建筑面积": 7414.69,
+        "单价": 836.46,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "525054396181",
-        "url": "https://sf-item.taobao.com/sf_item/525054396181.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
-        "end": 1451018165000,
-        "status": "done",
-        "is_processed": false
+        "id": 525054396181,
+        "市场评估价": null,
+        "起拍价格": 33430000,
+        "成交价格": 53860000,
+        "交易时间": "2015-12-25 12:36:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525054396181.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省杭州市滨江区浦沿街道南环路2952号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 13670.07,
+        "单价": 3940.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "525038572348",
@@ -94,6 +122,20 @@
         "id": "525039880524",
         "url": "https://sf-item.taobao.com/sf_item/525039880524.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
         "end": 1451008801000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525052416635",
+        "url": "https://sf-item.taobao.com/sf_item/525052416635.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1451011615000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525004387453",
+        "url": "https://sf-item.taobao.com/sf_item/525004387453.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1451011654000,
         "status": "done",
         "is_processed": false
     }

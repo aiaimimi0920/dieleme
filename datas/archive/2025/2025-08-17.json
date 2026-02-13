@@ -196,16 +196,51 @@
         "is_processed": false
     },
     {
-        "id": "953204981775",
-        "url": "https://sf-item.taobao.com/sf_item/953204981775.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
-        "end": 1755396285000,
-        "status": "done",
-        "is_processed": false
+        "id": 953204981775,
+        "市场评估价": 552608,
+        "起拍价格": 387000,
+        "成交价格": 387000,
+        "交易时间": "2025-08-17 10:04:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/953204981775.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道枣园东路88号新城花苑9幢3单元106室",
+        "所属小区": "新城花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 84.86,
+        "单价": 4566.68,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "952498333873",
         "url": "https://sf-item.taobao.com/sf_item/952498333873.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
         "end": 1755396738000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "959642006864",
+        "url": "https://sf-item.taobao.com/sf_item/959642006864.htm?track_id=b29a20ac-4526-4c00-8c7e-3478c2981281",
+        "end": 1755397278000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "955707762810",
+        "url": "https://sf-item.taobao.com/sf_item/955707762810.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1755396635000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "955708910409",
+        "url": "https://sf-item.taobao.com/sf_item/955708910409.htm?track_id=5724ee14-58ff-4ecc-b16a-be51c4d3b278",
+        "end": 1755396000000,
         "status": "done",
         "is_processed": false
     }

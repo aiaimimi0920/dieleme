@@ -150,13 +150,6 @@
         "detail_captured": true
     },
     {
-        "id": "593054413939",
-        "url": "https://sf-item.taobao.com/sf_item/593054413939.htm?track_id=02d2fecc-9c57-4b4f-9618-bc9258835c70",
-        "end": 1559440800000,
-        "status": "done",
-        "is_processed": false
-    },
-    {
         "id": "594231584568",
         "url": "https://sf-item.taobao.com/sf_item/594231584568.htm?track_id=9c0b7602-9aa6-4930-a97c-348cbcf397a5",
         "end": 1559441632000,
@@ -164,11 +157,25 @@
         "is_processed": false
     },
     {
-        "id": "588810732069",
-        "url": "https://sf-item.taobao.com/sf_item/588810732069.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
-        "end": 1559439933000,
-        "status": "done",
-        "is_processed": false
+        "id": 588810732069,
+        "市场评估价": 681051,
+        "起拍价格": 612946,
+        "成交价格": 612946,
+        "交易时间": "2019/06/02 09:45:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588810732069.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 保工街16-4号6门",
+        "所属小区": "保工小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "保工街商圈",
+        "建筑面积": 88.69,
+        "单价": 6911.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "593972228277",
@@ -192,23 +199,65 @@
         "is_processed": false
     },
     {
-        "id": "594261144335",
-        "url": "https://sf-item.taobao.com/sf_item/594261144335.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
-        "end": 1559441871000,
-        "status": "done",
-        "is_processed": false
+        "id": 594261144335,
+        "市场评估价": 0,
+        "起拍价格": 9908192,
+        "成交价格": 10205432,
+        "交易时间": "2019/06/02 10:17:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594261144335.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 7,
+        "地点": "广东省 云浮市 郁南县 都城镇一环东路1号的房屋及房屋占用土地使用权",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城镇",
+        "建筑面积": 2571.68,
+        "单价": 3968.32,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "592871573811",
-        "url": "https://sf-item.taobao.com/sf_item/592871573811.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
-        "end": 1559440800000,
-        "status": "done",
-        "is_processed": false
+        "id": 592871573811,
+        "市场评估价": null,
+        "起拍价格": 1339170,
+        "成交价格": 1344170,
+        "交易时间": "2019/06/02 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592871573811.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "广东省 阳江市 阳春市 阳春市春城街道春州大道1号春江花园",
+        "所属小区": "春江花园",
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": "春州大道商圈",
+        "建筑面积": 356.91,
+        "单价": 3766.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "593322623623",
         "url": "https://sf-item.taobao.com/sf_item/593322623623.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
         "end": 1559442437000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592829140245",
+        "url": "https://sf-item.taobao.com/sf_item/592829140245.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1559444364000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594568594123",
+        "url": "https://sf-item.taobao.com/sf_item/594568594123.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1559442481000,
         "status": "done",
         "is_processed": false
     }

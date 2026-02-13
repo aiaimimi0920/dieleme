@@ -147,11 +147,25 @@
         "detail_captured": true
     },
     {
-        "id": "671232381843",
-        "url": "https://sf-item.taobao.com/sf_item/671232381843.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
-        "end": 1651370520000,
-        "status": "done",
-        "is_processed": false
+        "id": 671232381843,
+        "市场评估价": 2087992.7,
+        "起拍价格": 1461594.89,
+        "成交价格": 1461594.89,
+        "交易时间": "2022/05/01 10:02:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/671232381843.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城三路",
+        "所属小区": "雅荷花园",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区商圈",
+        "建筑面积": 189.55,
+        "单价": 7711.52,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "672401393611",
@@ -161,9 +175,44 @@
         "is_processed": false
     },
     {
-        "id": "670587692024",
-        "url": "https://sf-item.taobao.com/sf_item/670587692024.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
-        "end": 1651375635000,
+        "id": 670587692024,
+        "市场评估价": 814400,
+        "起拍价格": 814400,
+        "成交价格": 1020400,
+        "交易时间": "2022/05/01 11:27:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/670587692024.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 104,
+        "地点": "安徽省 合肥市 瑶海区 临泉路海州景秀世家53幢202室",
+        "所属小区": "海州景秀世家",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "龙岗开发区",
+        "建筑面积": 87.09,
+        "单价": 11714.62,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "670841540772",
+        "url": "https://sf-item.taobao.com/sf_item/670841540772.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "end": 1651371532000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "672927730922",
+        "url": "https://sf-item.taobao.com/sf_item/672927730922.htm?track_id=f3e6fb9d-e938-488c-9090-5238a2891f28",
+        "end": 1651371446000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671657206371",
+        "url": "https://sf-item.taobao.com/sf_item/671657206371.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1651374000000,
         "status": "done",
         "is_processed": false
     }

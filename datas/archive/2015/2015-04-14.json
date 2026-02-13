@@ -1,22 +1,57 @@
 [
     {
-        "id": "44294857706",
-        "url": "https://sf-item.taobao.com/sf_item/44294857706.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1428976800000,
-        "status": "done",
-        "is_processed": false
+        "id": 44294857706,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 484800,
+        "交易时间": "2015/04/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44294857706.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 2,
+        "地点": "新密市城区溱水路西段南侧平安小区4号楼东单元3层西户",
+        "所属小区": "平安小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市中心",
+        "建筑面积": 160.92,
+        "单价": 3011.68,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "44506429129",
-        "url": "https://sf-item.taobao.com/sf_item/44506429129.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
-        "end": 1428977172000,
-        "status": "done",
-        "is_processed": false
+        "id": 44506429129,
+        "市场评估价": null,
+        "起拍价格": 608000,
+        "成交价格": 644000,
+        "交易时间": "2015/04/14 10:06:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44506429129.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 19,
+        "地点": "海盐县武原街道城东路588号海景苑28幢403室",
+        "所属小区": "海景苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 118.65,
+        "单价": 5428.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "44376227065",
         "url": "https://sf-item.taobao.com/sf_item/44376227065.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
         "end": 1428976800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "44402322903",
+        "url": "https://sf-item.taobao.com/sf_item/44402322903.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1428978770000,
         "status": "done",
         "is_processed": false
     }

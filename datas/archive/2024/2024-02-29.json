@@ -254,12 +254,25 @@
         "detail_captured": true
     },
     {
-        "id": "766544538905",
-        "url": "https://sf-item.taobao.com/sf_item/766544538905.htm?track_id=3dbef094-943c-4b6d-88a6-99da1be5d441",
-        "end": 1709172000000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/766544538905.htm"
+        "id": 766544538905,
+        "市场评估价": 413300,
+        "起拍价格": 297576,
+        "成交价格": 297576,
+        "交易时间": "2024-02-29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/766544538905.htm?track_id=3dbef094-943c-4b6d-88a6-99da1be5d441",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 湘潭市 雨湖区 响水乡矿院路8号",
+        "所属小区": "锦绣世家",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "雨湖商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 766750264967,
@@ -304,11 +317,25 @@
         "detail_captured": true
     },
     {
-        "id": "766163427011",
-        "url": "https://sf-item.taobao.com/sf_item/766163427011.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
-        "end": 1709172000000,
-        "status": "done",
-        "is_processed": false
+        "id": 766163427011,
+        "市场评估价": 469122,
+        "起拍价格": 375297.6,
+        "成交价格": 375297.6,
+        "交易时间": "2024-02-29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/766163427011.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河北省 廊坊市 霸州市 商贸小区2号楼4单元101室",
+        "所属小区": "商贸小区",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": null,
+        "建筑面积": 123,
+        "单价": 3051.2,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "766778821233",
@@ -325,11 +352,25 @@
         "is_processed": false
     },
     {
-        "id": "764833237838",
-        "url": "https://sf-item.taobao.com/sf_item/764833237838.htm?track_id=a6442849-7d38-4664-8f57-6a497d39d3a7",
-        "end": 1709174256000,
-        "status": "done",
-        "is_processed": false
+        "id": 764833237838,
+        "市场评估价": 811900,
+        "起拍价格": 568330,
+        "成交价格": 758330,
+        "交易时间": "2024/02/29 10:37:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/764833237838.htm?track_id=a6442849-7d38-4664-8f57-6a497d39d3a7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 31,
+        "地点": "安徽省 合肥市 瑶海区 龙岗开发区华都城市花园23幢S101室",
+        "所属小区": "华都城市花园",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "龙岗开发区",
+        "建筑面积": 34.42,
+        "单价": 22028.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "763637791866",
@@ -341,6 +382,41 @@
     {
         "id": "764860154930",
         "url": "https://sf-item.taobao.com/sf_item/764860154930.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
+        "end": 1709172000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "764485248231",
+        "url": "https://sf-item.taobao.com/sf_item/764485248231.htm?track_id=1bfdf5f3-ff79-4ec0-acb3-c67a8bc42bdf",
+        "end": 1709177863000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "763016512113",
+        "url": "https://sf-item.taobao.com/sf_item/763016512113.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1709176947000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "764279648346",
+        "url": "https://sf-item.taobao.com/sf_item/764279648346.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1709174385000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "764661376334",
+        "url": "https://sf-item.taobao.com/sf_item/764661376334.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1709172000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766162931497",
+        "url": "https://sf-item.taobao.com/sf_item/766162931497.htm?track_id=d6b81b23-6b98-4054-93da-db45c73c9f79",
         "end": 1709172000000,
         "status": "done",
         "is_processed": false

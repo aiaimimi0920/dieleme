@@ -63,9 +63,30 @@
         "detail_captured": true
     },
     {
-        "id": "764988138701",
-        "url": "https://sf-item.taobao.com/sf_item/764988138701.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
-        "end": 1707617743000,
+        "id": 764988138701,
+        "市场评估价": 517400,
+        "起拍价格": 291000,
+        "成交价格": 373000,
+        "交易时间": "2024/02/11 10:15:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/764988138701.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 42,
+        "地点": "浙江省 嘉兴市 海盐县 经济开发区大桥新区泾海路535号大桥·港湾花苑17幢106室",
+        "所属小区": "大桥·港湾花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "大桥新区",
+        "建筑面积": 89.26,
+        "单价": 4179.62,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "761959086900",
+        "url": "https://sf-item.taobao.com/sf_item/761959086900.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1707617639000,
         "status": "done",
         "is_processed": false
     }

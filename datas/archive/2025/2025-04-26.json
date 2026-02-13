@@ -105,12 +105,25 @@
         "detail_captured": true
     },
     {
-        "id": "887823113386",
-        "url": "https://sf-item.taobao.com/sf_item/887823113386.htm?track_id=fe7e9f5b-9c47-4349-a0dd-530e6cf55dbb",
-        "end": 1745672536000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/887823113386.htm"
+        "id": 887823113386,
+        "市场评估价": 469100,
+        "起拍价格": 309606,
+        "成交价格": 402606,
+        "交易时间": "2025/04/26 21:02:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/887823113386.htm?track_id=fe7e9f5b-9c47-4349-a0dd-530e6cf55dbb",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 6,
+        "地点": "湖南省湘潭市雨湖区湘潭市雨湖区城正街街道韶山东路58号新景家园文昌苑附1栋5单元060501号房产",
+        "所属小区": "新景家园",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "城正街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 902190594036,
@@ -134,30 +147,121 @@
         "detail_captured": true
     },
     {
-        "id": "902528641842",
-        "url": "https://sf-item.taobao.com/sf_item/902528641842.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
-        "end": 1745633929000,
-        "status": "done",
-        "is_processed": false
+        "id": 902528641842,
+        "市场评估价": null,
+        "起拍价格": 768000,
+        "成交价格": 833000,
+        "交易时间": "2025/04/26 10:18:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/902528641842.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省遵义市汇川区南京路留馨花园F5栋2C6号",
+        "所属小区": "留馨花园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "南京路商圈",
+        "建筑面积": 223.49,
+        "单价": 3730.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "886105217065",
-        "url": "https://sf-item.taobao.com/sf_item/886105217065.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
-        "end": 1745644650000,
-        "status": "done",
-        "is_processed": false
+        "id": 886105217065,
+        "市场评估价": 0,
+        "起拍价格": 425214,
+        "成交价格": 425214,
+        "交易时间": "2025/04/26 13:17:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/886105217065.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 宁波路（航天六区6-2栋1单元304室）",
+        "所属小区": "航天六区",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "宁波路",
+        "建筑面积": 123.77,
+        "单价": 3435.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "909215064061",
-        "url": "https://sf-item.taobao.com/sf_item/909215064061.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
-        "end": 1745635524000,
-        "status": "done",
-        "is_processed": false
+        "id": 909215064061,
+        "市场评估价": null,
+        "起拍价格": 1170000,
+        "成交价格": 1425000,
+        "交易时间": "2025/04/26 10:45:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/909215064061.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 46,
+        "地点": "江苏省 无锡市 锡山区 凯旋华庭B区9-603",
+        "所属小区": "凯旋华庭",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭商圈",
+        "建筑面积": 126.46,
+        "单价": 11265.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "909318560940",
         "url": "https://sf-item.taobao.com/sf_item/909318560940.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
         "end": 1745633169000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908207938361",
+        "url": "https://sf-item.taobao.com/sf_item/908207938361.htm?track_id=7ec70b87-5ced-40d9-b4a5-cb74d5d60a97",
+        "end": 1745633943000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908207934714",
+        "url": "https://sf-item.taobao.com/sf_item/908207934714.htm?track_id=464d3b98-b48f-4fae-9da9-f05e77c9eda2",
+        "end": 1745633040000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "901865263274",
+        "url": "https://sf-item.taobao.com/sf_item/901865263274.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1745635414000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "901132381229",
+        "url": "https://sf-item.taobao.com/sf_item/901132381229.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1745633928000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "903032832729",
+        "url": "https://sf-item.taobao.com/sf_item/903032832729.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1745636718000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908885901854",
+        "url": "https://sf-item.taobao.com/sf_item/908885901854.htm?track_id=e060ffc2-3fe3-43ca-bf44-12c2e06c793c",
+        "end": 1745637997000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "892599400154",
+        "url": "https://sf-item.taobao.com/sf_item/892599400154.htm?track_id=fb35d09c-9591-40f4-8668-e4abba953bf0",
+        "end": 1745632811000,
         "status": "done",
         "is_processed": false
     }

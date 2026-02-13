@@ -231,12 +231,25 @@
         "detail_captured": true
     },
     {
-        "id": "673821168406",
-        "url": "https://sf-item.taobao.com/sf_item/673821168406.htm?track_id=bc97f436-0dc2-4702-9160-4c0e5af5a28d",
-        "end": 1654913079000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/673821168406.htm"
+        "id": 673821168406,
+        "市场评估价": 608000,
+        "起拍价格": 425600,
+        "成交价格": 425600,
+        "交易时间": "2022/06/11 10:04:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673821168406.htm?track_id=bc97f436-0dc2-4702-9160-4c0e5af5a28d",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省廊坊市香河县大香公路189号喜运小区8号楼1单元0702室",
+        "所属小区": "喜运小区",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": "香河商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 674869253454,
@@ -302,23 +315,93 @@
         "detail_captured": true
     },
     {
-        "id": "673836320649",
-        "url": "https://sf-item.taobao.com/sf_item/673836320649.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
-        "end": 1654913797000,
-        "status": "done",
-        "is_processed": false
+        "id": 673836320649,
+        "市场评估价": 445723,
+        "起拍价格": 285000,
+        "成交价格": 330000,
+        "交易时间": "2022-06-11T10:16:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673836320649.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
+        "是否成交": true,
+        "竞拍人数": 19,
+        "出价人数": 19,
+        "地点": "广东省 惠州市 博罗县 龙溪镇夏寮村委会十二沟（土名）龙城一号御园（第一期）2号商住楼6层02房",
+        "所属小区": "龙城一号御园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "龙溪镇",
+        "建筑面积": 78.37,
+        "单价": 4212.68,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "674351818078",
-        "url": "https://sf-item.taobao.com/sf_item/674351818078.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
-        "end": 1654914139000,
-        "status": "done",
-        "is_processed": false
+        "id": 674351818078,
+        "市场评估价": 1326266,
+        "起拍价格": 930000,
+        "成交价格": 1190000,
+        "交易时间": "2022-06-11 10:22:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/674351818078.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
+        "是否成交": true,
+        "竞拍人数": 45,
+        "出价人数": 27,
+        "地点": "江苏省 无锡市 锡山区 无锡市绿景雅苑13-2802",
+        "所属小区": "无锡市绿景雅苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭商圈",
+        "建筑面积": 86.0,
+        "单价": 13837.21,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "673641328630",
         "url": "https://sf-item.taobao.com/sf_item/673641328630.htm?track_id=3c382c58-b2c8-4aa6-8dbc-528f6d79f8ee",
         "end": 1654916465000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "675719971256",
+        "url": "https://sf-item.taobao.com/sf_item/675719971256.htm?track_id=85d6e4c3-5841-4382-a02e-efc4156014e9",
+        "end": 1654912800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "675221589297",
+        "url": "https://sf-item.taobao.com/sf_item/675221589297.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1654917454000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "675868827796",
+        "url": "https://sf-item.taobao.com/sf_item/675868827796.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1654912800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "675869079695",
+        "url": "https://sf-item.taobao.com/sf_item/675869079695.htm?track_id=dd9b2ad6-0c16-4fa0-934f-94384d19c8fc",
+        "end": 1654912800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "675131414713",
+        "url": "https://sf-item.taobao.com/sf_item/675131414713.htm?track_id=d15013f3-1b9a-448b-8eab-b42be114371e",
+        "end": 1654913089000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "674544354714",
+        "url": "https://sf-item.taobao.com/sf_item/674544354714.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1654916923000,
         "status": "done",
         "is_processed": false
     }

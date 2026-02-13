@@ -260,11 +260,25 @@
         "detail_captured": true
     },
     {
-        "id": "779580290323",
-        "url": "https://sf-item.taobao.com/sf_item/779580290323.htm?track_id=5ede635e-ee33-491b-94f8-6189342541ca",
-        "end": 1715443635000,
-        "status": "done",
-        "is_processed": false
+        "id": 779580290323,
+        "市场评估价": 1951243,
+        "起拍价格": 1248720,
+        "成交价格": 1248720,
+        "交易时间": "2024-05-12 00:07:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/779580290323.htm?track_id=5ede635e-ee33-491b-94f8-6189342541ca",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城十二路55号4幢10801室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 126.09,
+        "单价": 9898.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "781637062504",
@@ -281,23 +295,86 @@
         "is_processed": false
     },
     {
-        "id": "787709616553",
-        "url": "https://sf-item.taobao.com/sf_item/787709616553.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
-        "end": 1715392800000,
-        "status": "done",
-        "is_processed": false
+        "id": 787709616553,
+        "市场评估价": 261800,
+        "起拍价格": 223839,
+        "成交价格": 223839,
+        "交易时间": "2024-05-11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/787709616553.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 二七区 连云路50号",
+        "所属小区": "连云路50号",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 45.75,
+        "单价": 4890.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "787714057967",
-        "url": "https://sf-item.taobao.com/sf_item/787714057967.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
-        "end": 1715392800000,
-        "status": "done",
-        "is_processed": false
+        "id": 787714057967,
+        "市场评估价": 383600,
+        "起拍价格": 327978,
+        "成交价格": 327978,
+        "交易时间": "2024-05-11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/787714057967.htm?track_id=f73196c0-763d-47fb-afd5-c0dbca7d04a7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 二七区 连云路50号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 65.72,
+        "单价": 4993.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "787627974748",
         "url": "https://sf-item.taobao.com/sf_item/787627974748.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
         "end": 1715393145000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "782094630266",
+        "url": "https://sf-item.taobao.com/sf_item/782094630266.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1715393530000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "781189059622",
+        "url": "https://sf-item.taobao.com/sf_item/781189059622.htm?track_id=9370e9c3-7a71-4d89-8eb3-257be301ecff",
+        "end": 1715393595000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "787913467685",
+        "url": "https://sf-item.taobao.com/sf_item/787913467685.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1715396400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "788045565220",
+        "url": "https://sf-item.taobao.com/sf_item/788045565220.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1715396400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "787536699325",
+        "url": "https://sf-item.taobao.com/sf_item/787536699325.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1715396400000,
         "status": "done",
         "is_processed": false
     }

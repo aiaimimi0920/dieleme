@@ -232,12 +232,25 @@
         "detail_captured": true
     },
     {
-        "id": "649336912827",
-        "url": "https://sf-item.taobao.com/sf_item/649336912827.htm?track_id=39131037-4b51-4957-be28-9e444fd53ebd",
-        "end": 1626920550000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/649336912827.htm"
+        "id": 649336912827,
+        "市场评估价": 0,
+        "起拍价格": 450844,
+        "成交价格": 458844,
+        "交易时间": "2021/07/22 10:22:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/649336912827.htm?track_id=39131037-4b51-4957-be28-9e444fd53ebd",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 5,
+        "地点": "安徽省 亳州市 蒙城县 紫金豪庭A区4#楼205室不动产",
+        "所属小区": "紫金豪庭",
+        "省份": "安徽省",
+        "城市": "亳州市",
+        "区": "蒙城县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 650474495759,
@@ -352,9 +365,86 @@
         "is_processed": false
     },
     {
-        "id": "649725329333",
-        "url": "https://sf-item.taobao.com/sf_item/649725329333.htm?track_id=8bdc729f-339b-44d0-a182-bc2bca314fa6",
-        "end": 1626920169000,
+        "id": 649725329333,
+        "市场评估价": 225203,
+        "起拍价格": 144129.92,
+        "成交价格": 174929.92,
+        "交易时间": "2021/07/22 10:16:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/649725329333.htm?track_id=8bdc729f-339b-44d0-a182-bc2bca314fa6",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 23,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 参花街238号16015号房屋",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 48.64,
+        "单价": 3595.84,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "646037107797",
+        "url": "https://sf-item.taobao.com/sf_item/646037107797.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
+        "end": 1626919200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "650087102955",
+        "url": "https://sf-item.taobao.com/sf_item/650087102955.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1626919764000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "650451479563",
+        "url": "https://sf-item.taobao.com/sf_item/650451479563.htm?track_id=a5509f1b-d0f1-4066-9e83-25810044a34d",
+        "end": 1626919272000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "649319316741",
+        "url": "https://sf-item.taobao.com/sf_item/649319316741.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1626919200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "649334556221",
+        "url": "https://sf-item.taobao.com/sf_item/649334556221.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1626919200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "649731925104",
+        "url": "https://sf-item.taobao.com/sf_item/649731925104.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1626919200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "650462343899",
+        "url": "https://sf-item.taobao.com/sf_item/650462343899.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1626919200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646922329084",
+        "url": "https://sf-item.taobao.com/sf_item/646922329084.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1626925439000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "648497409668",
+        "url": "https://sf-item.taobao.com/sf_item/648497409668.htm?track_id=330a34e0-5029-49b4-8c2b-4f67d5c5f99f",
+        "end": 1626919842000,
         "status": "done",
         "is_processed": false
     }

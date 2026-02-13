@@ -316,16 +316,86 @@
         "detail_captured": true
     },
     {
-        "id": "606043032583",
-        "url": "https://sf-item.taobao.com/sf_item/606043032583.htm?track_id=5241dcde-d9e4-42ea-be80-5c6f0ad3d040",
-        "end": 1573264800000,
+        "id": 606043032583,
+        "市场评估价": null,
+        "起拍价格": 588485.1,
+        "成交价格": 588485.1,
+        "交易时间": "2019-11-09T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606043032583.htm?track_id=5241dcde-d9e4-42ea-be80-5c6f0ad3d040",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 局子街",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 63.21,
+        "单价": 9315.98,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 606304621134,
+        "市场评估价": 0,
+        "起拍价格": 520000,
+        "成交价格": 542500,
+        "交易时间": "2019/11/09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606304621134.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 9,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 剑江中路83号都市龙庭1栋2单元14层附1403号",
+        "所属小区": "都市龙庭",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "剑江中路商圈",
+        "建筑面积": 133.77,
+        "单价": 4055.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "606518498108",
+        "url": "https://sf-item.taobao.com/sf_item/606518498108.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1573293479000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "606304621134",
-        "url": "https://sf-item.taobao.com/sf_item/606304621134.htm?track_id=8b05fd82-e079-4a91-997a-974297679aae",
-        "end": 1573265491000,
+        "id": "604768784445",
+        "url": "https://sf-item.taobao.com/sf_item/604768784445.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1573266908000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605444155547",
+        "url": "https://sf-item.taobao.com/sf_item/605444155547.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1573267268000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605233786998",
+        "url": "https://sf-item.taobao.com/sf_item/605233786998.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1573266322000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604010796627",
+        "url": "https://sf-item.taobao.com/sf_item/604010796627.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1573267201000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606527894520",
+        "url": "https://sf-item.taobao.com/sf_item/606527894520.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1573269207000,
         "status": "done",
         "is_processed": false
     }

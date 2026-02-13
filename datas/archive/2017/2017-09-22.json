@@ -478,15 +478,16 @@
         "竞拍人数": null,
         "出价人数": 16,
         "地点": "北京市东城区东打磨厂街7号北京宝鼎中心760号房产",
-        "所属小区": null,
+        "所属小区": "宝鼎中心",
         "省份": "北京市",
         "城市": "北京市",
         "区": "东城区",
-        "最靠近商圈": null,
+        "最靠近商圈": "崇文门商圈",
         "建筑面积": 59.1,
-        "单价": 27290.48,
+        "单价": 27309.64,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 558074356628,
@@ -594,9 +595,51 @@
         "detail_captured": true
     },
     {
-        "id": "557451650386",
-        "url": "https://sf-item.taobao.com/sf_item/557451650386.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1506053588000,
+        "id": 557451650386,
+        "市场评估价": null,
+        "起拍价格": 3570000,
+        "成交价格": 5900000,
+        "交易时间": "2017-09-22T12:13:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557451650386.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": 111,
+        "出价人数": 116,
+        "地点": "浙江省 杭州市 滨江区 西兴街道风情苑11幢3单元1801室",
+        "所属小区": "风情苑",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "西兴",
+        "建筑面积": 247.7,
+        "单价": 23817.59,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "557305418534",
+        "url": "https://sf-item.taobao.com/sf_item/557305418534.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1506047193000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557181654535",
+        "url": "https://sf-item.taobao.com/sf_item/557181654535.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1506047024000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557432082173",
+        "url": "https://sf-item.taobao.com/sf_item/557432082173.htm?track_id=9583dfdb-76e7-4339-9ab5-b262551224f2",
+        "end": 1506045600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557510883628",
+        "url": "https://sf-item.taobao.com/sf_item/557510883628.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1506048504000,
         "status": "done",
         "is_processed": false
     }

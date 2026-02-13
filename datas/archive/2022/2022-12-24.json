@@ -331,12 +331,25 @@
         "detail_captured": true
     },
     {
-        "id": "694946671245",
-        "url": "https://sf-item.taobao.com/sf_item/694946671245.htm?track_id=f69c765d-fc25-4022-9320-eff31581ed33",
-        "end": 1671847200000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/694946671245.htm"
+        "id": 694946671245,
+        "市场评估价": 944465,
+        "起拍价格": 604457.6,
+        "成交价格": 604457.6,
+        "交易时间": "2022/12/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/694946671245.htm?track_id=f69c765d-fc25-4022-9320-eff31581ed33",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 呼和浩特市 回民区 小府路清怡花苑",
+        "所属小区": "清怡花苑",
+        "省份": "内蒙古自治区",
+        "城市": "呼和浩特市",
+        "区": "回民区",
+        "最靠近商圈": "小府路",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 693169629435,
@@ -360,23 +373,100 @@
         "detail_captured": true
     },
     {
-        "id": "693317559781",
-        "url": "https://sf-item.taobao.com/sf_item/693317559781.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
-        "end": 1671879842000,
-        "status": "done",
-        "is_processed": false
+        "id": 693317559781,
+        "市场评估价": null,
+        "起拍价格": 336000,
+        "成交价格": 336000,
+        "交易时间": "2022/12/24 19:04:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/693317559781.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 淄博市 博山区 山头街道秋谷村转天岭96号纳福佳园1号楼1单元3层301",
+        "所属小区": "纳福佳园",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "博山商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "693722827761",
-        "url": "https://sf-item.taobao.com/sf_item/693722827761.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
-        "end": 1671849671000,
-        "status": "done",
-        "is_processed": false
+        "id": 693722827761,
+        "市场评估价": null,
+        "起拍价格": 399468,
+        "成交价格": 435468,
+        "交易时间": "2022/12/24 10:41:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/693722827761.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区 郑密路99号5号楼东2单元9层907号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 56.59,
+        "单价": 7695.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "693180685286",
         "url": "https://sf-item.taobao.com/sf_item/693180685286.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
         "end": 1671851633000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "693196309160",
+        "url": "https://sf-item.taobao.com/sf_item/693196309160.htm?track_id=ea4eb8ff-33af-48f0-9fc5-5c633b8347fe",
+        "end": 1671847200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "693002923696",
+        "url": "https://sf-item.taobao.com/sf_item/693002923696.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1671848579000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "694735779488",
+        "url": "https://sf-item.taobao.com/sf_item/694735779488.htm?track_id=5d2028cd-85b5-4657-a6d6-1ff52559d487",
+        "end": 1671847779000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "693451562550",
+        "url": "https://sf-item.taobao.com/sf_item/693451562550.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1671847491000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "688624119569",
+        "url": "https://sf-item.taobao.com/sf_item/688624119569.htm?track_id=51f06735-ea2e-48e1-a840-19b9b94eec10",
+        "end": 1671866802000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "693062552873",
+        "url": "https://sf-item.taobao.com/sf_item/693062552873.htm?track_id=372083ae-219b-405a-b6f1-dd5cf7092ecf",
+        "end": 1671870378000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "687105470703",
+        "url": "https://sf-item.taobao.com/sf_item/687105470703.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "end": 1671864851000,
         "status": "done",
         "is_processed": false
     }

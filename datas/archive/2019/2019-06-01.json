@@ -168,11 +168,25 @@
         "detail_captured": true
     },
     {
-        "id": "592960137791",
-        "url": "https://sf-item.taobao.com/sf_item/592960137791.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
-        "end": 1559355204000,
-        "status": "done",
-        "is_processed": false
+        "id": 592960137791,
+        "市场评估价": 301375,
+        "起拍价格": 210963,
+        "成交价格": 236963,
+        "交易时间": "2019/06/01 10:13:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592960137791.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 14,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区开发二十一号路13-8号1-3-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 54.39,
+        "单价": 4358.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "594210693104",
@@ -206,6 +220,13 @@
         "id": "594569474068",
         "url": "https://sf-item.taobao.com/sf_item/594569474068.htm?track_id=338e08a5-6097-4777-af8b-636880c2658c",
         "end": 1559354410000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593056033774",
+        "url": "https://sf-item.taobao.com/sf_item/593056033774.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1559354400000,
         "status": "done",
         "is_processed": false
     }

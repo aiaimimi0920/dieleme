@@ -294,37 +294,163 @@
         "detail_captured": true
     },
     {
-        "id": "987315483347",
-        "url": "https://sf-item.taobao.com/sf_item/987315483347.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
-        "end": 1764468130000,
-        "status": "done",
-        "is_processed": false
+        "id": 987315483347,
+        "市场评估价": 734267,
+        "起拍价格": 528673,
+        "成交价格": 528673,
+        "交易时间": "2025/11/30 10:02:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/987315483347.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖北省 十堰市 茅箭区 五堰街办天津路16A号4幢1-20-1号",
+        "所属小区": "天津路16号",
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": "五堰",
+        "建筑面积": 119.89,
+        "单价": 4409.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "990231121333",
-        "url": "https://sf-item.taobao.com/sf_item/990231121333.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
-        "end": 1764468053000,
-        "status": "done",
-        "is_processed": false
+        "id": 990231121333,
+        "市场评估价": 880292,
+        "起拍价格": 633811,
+        "成交价格": 633811,
+        "交易时间": "2025/11/30 10:00:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/990231121333.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖北省 十堰市 茅箭区 五堰街办人民北路98号6幢 4-11-3",
+        "所属小区": "锦绣花园",
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": "五堰商圈",
+        "建筑面积": 148.61,
+        "单价": 4264.78,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "994344225044",
-        "url": "https://sf-item.taobao.com/sf_item/994344225044.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
-        "end": 1764469428000,
-        "status": "done",
-        "is_processed": false
+        "id": 994344225044,
+        "市场评估价": null,
+        "起拍价格": 600000,
+        "成交价格": 715000,
+        "交易时间": "2025/11/30 10:23:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/994344225044.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 18,
+        "地点": "福建省 泉州市 安溪县 安溪县城厢镇二环南路888号润宇欧洲城一期2号楼1梯904室房产",
+        "所属小区": "润宇欧洲城",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "城厢镇",
+        "建筑面积": 112.64,
+        "单价": 6347.4,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "989299940718",
-        "url": "https://sf-item.taobao.com/sf_item/989299940718.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
-        "end": 1764469261000,
-        "status": "done",
-        "is_processed": false
+        "id": 989299940718,
+        "市场评估价": 0,
+        "起拍价格": 620000,
+        "成交价格": 740000,
+        "交易时间": "2025/11/30 10:21:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/989299940718.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 16,
+        "地点": "福建省 泉州市 安溪县 凤城镇河滨北路828号万兴隆·山水湾3号楼2梯2103室房产",
+        "所属小区": "万兴隆·山水湾",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城商圈",
+        "建筑面积": 97,
+        "单价": 7628.87,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "977616441346",
         "url": "https://sf-item.taobao.com/sf_item/977616441346.htm?track_id=cb1e7b48-b17d-4d57-9242-154429765f25",
         "end": 1764461058000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "993340930697",
+        "url": "https://sf-item.taobao.com/sf_item/993340930697.htm?track_id=69e73da1-9844-4e22-80d5-44d18631979f",
+        "end": 1764468000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "981052278980",
+        "url": "https://sf-item.taobao.com/sf_item/981052278980.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1764470299000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "992519384086",
+        "url": "https://sf-item.taobao.com/sf_item/992519384086.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1764470338000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "985665419844",
+        "url": "https://sf-item.taobao.com/sf_item/985665419844.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1764471543000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "989851368497",
+        "url": "https://sf-item.taobao.com/sf_item/989851368497.htm?track_id=7910db3a-160d-47d2-a0b9-9ea879422ee1",
+        "end": 1764472313000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "990415133919",
+        "url": "https://sf-item.taobao.com/sf_item/990415133919.htm?track_id=bce7c78f-af18-4d86-a5d0-8036c9800db5",
+        "end": 1764469919000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "986835612081",
+        "url": "https://sf-item.taobao.com/sf_item/986835612081.htm?track_id=a8a7504e-6323-4c92-b93b-cd51b5436bd0",
+        "end": 1764469082000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "988436291922",
+        "url": "https://sf-item.taobao.com/sf_item/988436291922.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1764468153000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "990428801164",
+        "url": "https://sf-item.taobao.com/sf_item/990428801164.htm?track_id=270daa9e-b990-4124-b38a-5a1621dd3c7c",
+        "end": 1764468000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "990499012148",
+        "url": "https://sf-item.taobao.com/sf_item/990499012148.htm?track_id=270daa9e-b990-4124-b38a-5a1621dd3c7c",
+        "end": 1764468000000,
         "status": "done",
         "is_processed": false
     }

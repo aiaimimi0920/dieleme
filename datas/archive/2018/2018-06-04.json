@@ -1048,15 +1048,16 @@
         "竞拍人数": 0,
         "出价人数": 41,
         "地点": "江苏省 苏州市 相城区 望亭镇人民街25号6幢207室房地产",
-        "所属小区": null,
+        "所属小区": "望亭新村",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "望亭镇",
+        "最靠近商圈": "望亭商圈",
         "建筑面积": 103.63,
-        "单价": 9264.78,
+        "单价": 9263.73,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 568915617508,
@@ -1108,16 +1109,51 @@
         "is_processed": false
     },
     {
-        "id": "568774156626",
-        "url": "https://sf-item.taobao.com/sf_item/568774156626.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
-        "end": 1528078299000,
-        "status": "done",
-        "is_processed": false
+        "id": 568774156626,
+        "市场评估价": null,
+        "起拍价格": 472000,
+        "成交价格": 762000,
+        "交易时间": "2018-06-04 10:11:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/568774156626.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "是否成交": true,
+        "竞拍人数": 53,
+        "出价人数": 53,
+        "地点": "江苏省无锡市锡山区芙蓉山庄A-59-2701室",
+        "所属小区": "芙蓉山庄",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": null,
+        "建筑面积": 87.04,
+        "单价": 8756.35,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "569155036839",
         "url": "https://sf-item.taobao.com/sf_item/569155036839.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
         "end": 1528078585000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568080322034",
+        "url": "https://sf-item.taobao.com/sf_item/568080322034.htm?track_id=8991c5b1-871a-44f4-871d-3ba5c4f82a8e",
+        "end": 1528103395000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569023550483",
+        "url": "https://sf-item.taobao.com/sf_item/569023550483.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1528078207000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568960433047",
+        "url": "https://sf-item.taobao.com/sf_item/568960433047.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
+        "end": 1528080724000,
         "status": "done",
         "is_processed": false
     }

@@ -315,15 +315,16 @@
         "竞拍人数": 15,
         "出价人数": 52,
         "地点": "四川省 成都市 青羊区 草堂北支路56号1栋1单元3层3号房屋",
-        "所属小区": null,
+        "所属小区": "浣花溪公园",
         "省份": "四川省",
         "城市": "成都市",
         "区": "青羊区",
-        "最靠近商圈": "草堂商圈",
+        "最靠近商圈": "浣花溪商圈",
         "建筑面积": 55.36,
-        "单价": 17240.89,
+        "单价": 17238.08,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 572875321663,
@@ -631,15 +632,16 @@
         "竞拍人数": 0,
         "出价人数": 47,
         "地点": "江苏省 徐州市 鼓楼区 复兴北路126#西楼-4-402室",
-        "所属小区": null,
+        "所属小区": "翰林花园",
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
-        "最靠近商圈": "火车站",
+        "最靠近商圈": "徐州火车站商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 572758333934,
@@ -831,11 +833,25 @@
         "detail_captured": true
     },
     {
-        "id": "573985084652",
-        "url": "https://sf-item.taobao.com/sf_item/573985084652.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1533968975000,
-        "status": "done",
-        "is_processed": false
+        "id": 573985084652,
+        "市场评估价": 0,
+        "起拍价格": 381192,
+        "成交价格": 468592,
+        "交易时间": "2018/08/11 14:29:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/573985084652.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 24,
+        "地点": "江西省 南昌市 青云谱区 三店西路14号9栋3单元502室",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "青云谱区",
+        "建筑面积": 66.49,
+        "单价": 7047.09,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "573273137227",
@@ -845,23 +861,100 @@
         "is_processed": false
     },
     {
-        "id": "573353182032",
-        "url": "https://sf-item.taobao.com/sf_item/573353182032.htm?track_id=c8a98758-d89c-4119-9cd3-afa7a351cacb",
-        "end": 1533952800000,
-        "status": "done",
-        "is_processed": false
+        "id": 573353182032,
+        "市场评估价": 0,
+        "起拍价格": 22000000,
+        "成交价格": 22000000,
+        "交易时间": "2018/08/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/573353182032.htm?track_id=c8a98758-d89c-4119-9cd3-afa7a351cacb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 泉州市 安溪县 凤城镇北石兴业路68-76号宗地一的商铺及多层办公楼",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": null,
+        "建筑面积": 7112.2,
+        "单价": 3093.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "574203781689",
-        "url": "https://sf-item.taobao.com/sf_item/574203781689.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
-        "end": 1533952800000,
-        "status": "done",
-        "is_processed": false
+        "id": 574203781689,
+        "市场评估价": 8252200,
+        "起拍价格": 5300000,
+        "成交价格": 5300000,
+        "交易时间": "2018/08/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574203781689.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市二七区郑东新区商会大厦",
+        "所属小区": "商会大厦",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "郑东新区",
+        "建筑面积": 677.24,
+        "单价": 7826.21,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "573304987080",
         "url": "https://sf-item.taobao.com/sf_item/573304987080.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
         "end": 1533955166000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570246096862",
+        "url": "https://sf-item.taobao.com/sf_item/570246096862.htm?track_id=8991c5b1-871a-44f4-871d-3ba5c4f82a8e",
+        "end": 1533962565000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574089864511",
+        "url": "https://sf-item.taobao.com/sf_item/574089864511.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1533952926000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573190196629",
+        "url": "https://sf-item.taobao.com/sf_item/573190196629.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1533954891000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572758600484",
+        "url": "https://sf-item.taobao.com/sf_item/572758600484.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1533967484000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573245983622",
+        "url": "https://sf-item.taobao.com/sf_item/573245983622.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1533955632000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573165468971",
+        "url": "https://sf-item.taobao.com/sf_item/573165468971.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1533952800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574129169110",
+        "url": "https://sf-item.taobao.com/sf_item/574129169110.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1533967200000,
         "status": "done",
         "is_processed": false
     }

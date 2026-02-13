@@ -224,18 +224,46 @@
         "is_processed": false
     },
     {
-        "id": "836584590751",
-        "url": "https://sf-item.taobao.com/sf_item/836584590751.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
-        "end": 1728267275000,
-        "status": "done",
-        "is_processed": false
+        "id": 836584590751,
+        "市场评估价": null,
+        "起拍价格": 407960,
+        "成交价格": 511960,
+        "交易时间": "2024/10/07 10:14:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/836584590751.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 17,
+        "地点": "山东省 淄博市 博山区 中心路68号万顺御花园7号楼2单元",
+        "所属小区": "万顺御花园",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "中心路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "836245219968",
-        "url": "https://sf-item.taobao.com/sf_item/836245219968.htm?track_id=e74a98ac-e47a-499f-8827-8d5ebe2b7b1e",
-        "end": 1728266400000,
-        "status": "done",
-        "is_processed": false
+        "id": 836245219968,
+        "市场评估价": null,
+        "起拍价格": 209034,
+        "成交价格": 209034,
+        "交易时间": "2024/10/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/836245219968.htm?track_id=e74a98ac-e47a-499f-8827-8d5ebe2b7b1e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 信阳市 平桥区 羊山新区新七大道信阳恒大翡翠龙庭D区6B栋6层601号",
+        "所属小区": "信阳恒大翡翠龙庭",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "831822466670",
@@ -248,6 +276,41 @@
         "id": "832227072426",
         "url": "https://sf-item.taobao.com/sf_item/832227072426.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
         "end": 1728268314000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "836124187434",
+        "url": "https://sf-item.taobao.com/sf_item/836124187434.htm?track_id=7ec70b87-5ced-40d9-b4a5-cb74d5d60a97",
+        "end": 1728267683000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "836394047613",
+        "url": "https://sf-item.taobao.com/sf_item/836394047613.htm?track_id=ef50c735-a371-4834-af1b-815806338e54",
+        "end": 1728273844000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "836887904049",
+        "url": "https://sf-item.taobao.com/sf_item/836887904049.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1728266603000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "836889264697",
+        "url": "https://sf-item.taobao.com/sf_item/836889264697.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1728268803000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "836887472661",
+        "url": "https://sf-item.taobao.com/sf_item/836887472661.htm?track_id=3b36e442-fd18-4c67-9caf-4ea62c7a61cd",
+        "end": 1728266400000,
         "status": "done",
         "is_processed": false
     }

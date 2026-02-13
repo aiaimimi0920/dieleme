@@ -315,9 +315,72 @@
         "detail_captured": true
     },
     {
-        "id": "755527806730",
-        "url": "https://sf-item.taobao.com/sf_item/755527806730.htm?track_id=592f94fa-d93e-488c-a277-64ba249fba39",
-        "end": 1705288130000,
+        "id": 755527806730,
+        "市场评估价": 1503300,
+        "起拍价格": 1052310,
+        "成交价格": 1192310,
+        "交易时间": "2024/01/15 11:08:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/755527806730.htm?track_id=592f94fa-d93e-488c-a277-64ba249fba39",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 55,
+        "地点": "山东省 潍坊市 昌邑市 利民街413-1号",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": "利民街商圈",
+        "建筑面积": 122.41,
+        "单价": 9740.54,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "755579625765",
+        "url": "https://sf-item.taobao.com/sf_item/755579625765.htm?track_id=bb7a356f-f90b-422c-910b-47b42d1399f4",
+        "end": 1705284247000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "758488286702",
+        "url": "https://sf-item.taobao.com/sf_item/758488286702.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1705285512000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "760042643495",
+        "url": "https://sf-item.taobao.com/sf_item/760042643495.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1705284000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "760043811968",
+        "url": "https://sf-item.taobao.com/sf_item/760043811968.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1705284000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "755811107669",
+        "url": "https://sf-item.taobao.com/sf_item/755811107669.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1705304505000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "755907486330",
+        "url": "https://sf-item.taobao.com/sf_item/755907486330.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1705285534000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "755478964495",
+        "url": "https://sf-item.taobao.com/sf_item/755478964495.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1705284889000,
         "status": "done",
         "is_processed": false
     }

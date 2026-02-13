@@ -493,18 +493,46 @@
         "detail_captured": true
     },
     {
-        "id": "946210807275",
-        "url": "https://sf-item.taobao.com/sf_item/946210807275.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
-        "end": 1752897522000,
-        "status": "done",
-        "is_processed": false
+        "id": 946210807275,
+        "市场评估价": null,
+        "起拍价格": 968000,
+        "成交价格": 1148000,
+        "交易时间": "2025/07/19 11:58:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/946210807275.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 31,
+        "地点": "福建省 泉州市 安溪县 凤城镇民主路536号金龙现代广场A幢4607室、4608室房产",
+        "所属小区": "金龙现代广场",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城镇",
+        "建筑面积": 107.83,
+        "单价": 10646.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "946844219601",
-        "url": "https://sf-item.taobao.com/sf_item/946844219601.htm?track_id=bd1a1615-af02-4f76-80ed-e42d6351de92",
-        "end": 1752892794000,
-        "status": "done",
-        "is_processed": false
+        "id": 946844219601,
+        "市场评估价": null,
+        "起拍价格": 392000,
+        "成交价格": 392000,
+        "交易时间": "2025/07/19 10:39:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/946844219601.htm?track_id=bd1a1615-af02-4f76-80ed-e42d6351de92",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 泉州市 安溪县 安溪县凤城镇河滨东路257号安发花园E幢301室房产及储藏间",
+        "所属小区": "安发花园",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城商圈",
+        "建筑面积": 120.61,
+        "单价": 3250.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "946934486477",
@@ -514,16 +542,72 @@
         "is_processed": false
     },
     {
-        "id": "946428967587",
-        "url": "https://sf-item.taobao.com/sf_item/946428967587.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
-        "end": 1752893557000,
-        "status": "done",
-        "is_processed": false
+        "id": 946428967587,
+        "市场评估价": 1016900,
+        "起拍价格": 660000,
+        "成交价格": 750000,
+        "交易时间": "2025-07-19 10:52:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/946428967587.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": 22,
+        "地点": "浙江省嘉兴市海盐县武原街道百尺南路300号金域蓝湾小区32幢101室",
+        "所属小区": "金域蓝湾",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 141.3,
+        "单价": 5307.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "941681656500",
         "url": "https://sf-item.taobao.com/sf_item/941681656500.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
         "end": 1752891782000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "922293602873",
+        "url": "https://sf-item.taobao.com/sf_item/922293602873.htm?track_id=72941855-3cec-4df2-aa07-8f74679bfc2d",
+        "end": 1752913075000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947054926467",
+        "url": "https://sf-item.taobao.com/sf_item/947054926467.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1752891440000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947035822330",
+        "url": "https://sf-item.taobao.com/sf_item/947035822330.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1752891359000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "946587127323",
+        "url": "https://sf-item.taobao.com/sf_item/946587127323.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1752890633000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "946586079023",
+        "url": "https://sf-item.taobao.com/sf_item/946586079023.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1752890908000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947655021421",
+        "url": "https://sf-item.taobao.com/sf_item/947655021421.htm?track_id=c338dd4c-dbd5-4791-a5d7-85d400fcb213",
+        "end": 1752890609000,
         "status": "done",
         "is_processed": false
     }

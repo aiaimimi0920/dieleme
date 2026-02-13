@@ -56,11 +56,25 @@
         "is_processed": false
     },
     {
-        "id": "526978242495",
-        "url": "https://sf-item.taobao.com/sf_item/526978242495.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
-        "end": 1456194378000,
-        "status": "done",
-        "is_processed": false
+        "id": 526978242495,
+        "市场评估价": null,
+        "起拍价格": 461000,
+        "成交价格": 525000,
+        "交易时间": "2016-02-23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526978242495.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 32,
+        "地点": "浙江省嘉兴市海盐县武原街道小曲景苑12幢404室",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": null,
+        "建筑面积": 122.13,
+        "单价": 4298.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "526967270821",

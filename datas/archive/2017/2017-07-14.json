@@ -349,11 +349,25 @@
         "is_processed": false
     },
     {
-        "id": "554353470842",
-        "url": "https://sf-item.taobao.com/sf_item/554353470842.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
-        "end": 1499998843000,
-        "status": "done",
-        "is_processed": false
+        "id": 554353470842,
+        "市场评估价": 0,
+        "起拍价格": 2880000,
+        "成交价格": 4010000,
+        "交易时间": "2017/07/14 10:20:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/554353470842.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 56,
+        "地点": "温州市机场大道5128弄2号东紫园5幢401室",
+        "所属小区": "东紫园",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "龙湾中心区",
+        "建筑面积": 496.64,
+        "单价": 8074.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "553122761057",
@@ -394,6 +408,41 @@
         "id": "554386113170",
         "url": "https://sf-item.taobao.com/sf_item/554386113170.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
         "end": 1499997671000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "552790911406",
+        "url": "https://sf-item.taobao.com/sf_item/552790911406.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1500003217000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "552747042398",
+        "url": "https://sf-item.taobao.com/sf_item/552747042398.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1500001047000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "553004831065",
+        "url": "https://sf-item.taobao.com/sf_item/553004831065.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1500004332000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "553006095474",
+        "url": "https://sf-item.taobao.com/sf_item/553006095474.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1499998769000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "552651948946",
+        "url": "https://sf-item.taobao.com/sf_item/552651948946.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1500004982000,
         "status": "done",
         "is_processed": false
     }

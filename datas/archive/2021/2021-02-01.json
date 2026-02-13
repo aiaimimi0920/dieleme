@@ -147,12 +147,25 @@
         "detail_captured": true
     },
     {
-        "id": "636005628491",
-        "url": "https://sf-item.taobao.com/sf_item/636005628491.htm?track_id=214ea52d-853d-4f31-befa-cca8abf4631c",
-        "end": 1612144800000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/636005628491.htm"
+        "id": 636005628491,
+        "市场评估价": 420844,
+        "起拍价格": 255000,
+        "成交价格": 255000,
+        "交易时间": "2021-02-01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636005628491.htm?track_id=214ea52d-853d-4f31-befa-cca8abf4631c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省泰安市宁阳县七贤路西城关供销社家属院",
+        "所属小区": "城关供销社家属院",
+        "省份": "山东省",
+        "城市": "泰安市",
+        "区": "宁阳县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 635920067853,
@@ -176,11 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "634938316833",
-        "url": "https://sf-item.taobao.com/sf_item/634938316833.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
-        "end": 1612146050000,
-        "status": "done",
-        "is_processed": false
+        "id": 634938316833,
+        "市场评估价": 1080000,
+        "起拍价格": 864000,
+        "成交价格": 904000,
+        "交易时间": "2021/02/01 10:20:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634938316833.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 24,
+        "地点": "内蒙古自治区 包头市 昆都仑区 少先路17号街坊神华公寓-A-A18C2",
+        "所属小区": "神华公寓",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "昆都仑区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 635608614178,
@@ -204,16 +231,65 @@
         "detail_captured": true
     },
     {
-        "id": "636011584636",
-        "url": "https://sf-item.taobao.com/sf_item/636011584636.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
-        "end": 1612147966000,
-        "status": "done",
-        "is_processed": false
+        "id": 636011584636,
+        "市场评估价": null,
+        "起拍价格": 644274,
+        "成交价格": 719274,
+        "交易时间": "2021/02/01 10:52:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636011584636.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 16,
+        "地点": "福建省 南平市 顺昌县 双溪街道城北路156号天天花园6幢8层604室",
+        "所属小区": "天天花园",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪街道",
+        "建筑面积": 117.83,
+        "单价": 6105.21,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "635518410856",
         "url": "https://sf-item.taobao.com/sf_item/635518410856.htm?track_id=6b04ce3c-2f80-41e6-9418-abb9d96f54be",
         "end": 1612145388000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636365377378",
+        "url": "https://sf-item.taobao.com/sf_item/636365377378.htm?track_id=06d50902-4cb5-47c9-aa0d-987464c3d93f",
+        "end": 1612145733000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634516189402",
+        "url": "https://sf-item.taobao.com/sf_item/634516189402.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1612150268000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634903832197",
+        "url": "https://sf-item.taobao.com/sf_item/634903832197.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1612148315000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636284577550",
+        "url": "https://sf-item.taobao.com/sf_item/636284577550.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1612144800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636260061281",
+        "url": "https://sf-item.taobao.com/sf_item/636260061281.htm?track_id=fb35d09c-9591-40f4-8668-e4abba953bf0",
+        "end": 1612144800000,
         "status": "done",
         "is_processed": false
     }

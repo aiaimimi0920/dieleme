@@ -147,16 +147,65 @@
         "detail_captured": true
     },
     {
-        "id": "639066918442",
-        "url": "https://sf-item.taobao.com/sf_item/639066918442.htm?track_id=729154e2-c3fe-4cc3-8d6c-6f797f011ba7",
-        "end": 1616032800000,
-        "status": "done",
-        "is_processed": false
+        "id": 639066918442,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1285830,
+        "交易时间": "2021/03/18 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/639066918442.htm?track_id=729154e2-c3fe-4cc3-8d6c-6f797f011ba7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 新密市 青屏大街西段南侧（中兴融园24号）1-2层西户",
+        "所属小区": "中兴融园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 346.46,
+        "单价": 3711.1,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "638704387306",
         "url": "https://sf-item.taobao.com/sf_item/638704387306.htm?track_id=963d0425-54e8-4a01-88cf-6133f7f3e41c",
         "end": 1616032800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "639066714256",
+        "url": "https://sf-item.taobao.com/sf_item/639066714256.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1616032800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637902239490",
+        "url": "https://sf-item.taobao.com/sf_item/637902239490.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1616043097000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636881808502",
+        "url": "https://sf-item.taobao.com/sf_item/636881808502.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1616035616000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637515078035",
+        "url": "https://sf-item.taobao.com/sf_item/637515078035.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1616037007000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637899335043",
+        "url": "https://sf-item.taobao.com/sf_item/637899335043.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1616033837000,
         "status": "done",
         "is_processed": false
     }

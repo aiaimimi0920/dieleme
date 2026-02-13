@@ -87,16 +87,44 @@
         "detail_captured": true
     },
     {
-        "id": "524395167870",
-        "url": "https://sf-item.taobao.com/sf_item/524395167870.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
-        "end": 1449194400000,
-        "status": "done",
-        "is_processed": false
+        "id": 524395167870,
+        "市场评估价": null,
+        "起拍价格": 620126,
+        "成交价格": 626126,
+        "交易时间": "2015-12-04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524395167870.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 3,
+        "地点": "浙江省嘉兴市海盐县",
+        "所属小区": "海韵华庭",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 114.96,
+        "单价": 5448.21,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "524395777886",
         "url": "https://sf-item.taobao.com/sf_item/524395777886.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
         "end": 1449196000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524293911303",
+        "url": "https://sf-item.taobao.com/sf_item/524293911303.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1449194400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "524226884546",
+        "url": "https://sf-item.taobao.com/sf_item/524226884546.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1449194777000,
         "status": "done",
         "is_processed": false
     }

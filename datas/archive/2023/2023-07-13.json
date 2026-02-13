@@ -399,12 +399,25 @@
         "detail_captured": true
     },
     {
-        "id": "726132037008",
-        "url": "https://sf-item.taobao.com/sf_item/726132037008.htm?track_id=6b56c8f7-18e3-4f90-bf71-270f2f377bfd",
-        "end": 1689213600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/726132037008.htm"
+        "id": 726132037008,
+        "市场评估价": 695467.2,
+        "起拍价格": 486642.8,
+        "成交价格": 437978.52,
+        "交易时间": "2023-07-13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/726132037008.htm?track_id=6b56c8f7-18e3-4f90-bf71-270f2f377bfd",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 东河区 西门大街以北公园路以西西河槽以东鹿鸣苑42-605",
+        "所属小区": "鹿鸣苑",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "东河区",
+        "最靠近商圈": "东河商圈",
+        "建筑面积": 95.88,
+        "单价": 4569.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 726015672068,
@@ -512,23 +525,93 @@
         "detail_captured": true
     },
     {
-        "id": "726237021286",
-        "url": "https://sf-item.taobao.com/sf_item/726237021286.htm?track_id=906011fd-fbbf-4f51-9330-3a43a4453aa5",
-        "end": 1689213600000,
-        "status": "done",
-        "is_processed": false
+        "id": 726237021286,
+        "市场评估价": null,
+        "起拍价格": 96000,
+        "成交价格": 96000,
+        "交易时间": "2023/07/13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/726237021286.htm?track_id=906011fd-fbbf-4f51-9330-3a43a4453aa5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "延吉市青杨街25-15号1035车库",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 25.65,
+        "单价": 3743.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "726075077977",
-        "url": "https://sf-item.taobao.com/sf_item/726075077977.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
-        "end": 1689230694000,
-        "status": "done",
-        "is_processed": false
+        "id": 726075077977,
+        "市场评估价": 1168223.4,
+        "起拍价格": 700935,
+        "成交价格": 700935,
+        "交易时间": "2023/07/13 14:44:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/726075077977.htm?track_id=d947fc0c-694d-40e4-80b1-6532573f0bf9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 腾飞一街37号1-12-2",
+        "所属小区": "万科四季花城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 161.58,
+        "单价": 4336.28,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "726209083127",
         "url": "https://sf-item.taobao.com/sf_item/726209083127.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
         "end": 1689216766000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "725951185598",
+        "url": "https://sf-item.taobao.com/sf_item/725951185598.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1689216200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "726243197865",
+        "url": "https://sf-item.taobao.com/sf_item/726243197865.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1689215366000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "726395266949",
+        "url": "https://sf-item.taobao.com/sf_item/726395266949.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1689214982000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "725905116669",
+        "url": "https://sf-item.taobao.com/sf_item/725905116669.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1689213600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "724151423019",
+        "url": "https://sf-item.taobao.com/sf_item/724151423019.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1689222191000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "726109198779",
+        "url": "https://sf-item.taobao.com/sf_item/726109198779.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "end": 1689213600000,
         "status": "done",
         "is_processed": false
     }

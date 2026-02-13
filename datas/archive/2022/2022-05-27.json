@@ -420,12 +420,25 @@
         "detail_captured": true
     },
     {
-        "id": "669497344409",
-        "url": "https://sf-item.taobao.com/sf_item/669497344409.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
-        "end": 1653615537000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/669497344409.htm"
+        "id": 669497344409,
+        "市场评估价": 598770,
+        "起拍价格": 383213,
+        "成交价格": 422213,
+        "交易时间": "2022/05/27 09:38:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669497344409.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 14,
+        "地点": "湖南省 湘潭市 雨湖区 中山路街道韶山西路红旗小区6栋西单元1楼西户",
+        "所属小区": "红旗小区",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "雨湖商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 674951267648,
@@ -512,11 +525,25 @@
         "is_processed": false
     },
     {
-        "id": "673525582521",
-        "url": "https://sf-item.taobao.com/sf_item/673525582521.htm?track_id=260a9d3f-8c3f-4758-b6e0-eb9e92a8298e",
-        "end": 1653620584000,
-        "status": "done",
-        "is_processed": false
+        "id": 673525582521,
+        "市场评估价": null,
+        "起拍价格": 306506,
+        "成交价格": 660506,
+        "交易时间": "2022-05-27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673525582521.htm?track_id=260a9d3f-8c3f-4758-b6e0-eb9e92a8298e",
+        "是否成交": true,
+        "竞拍人数": 191,
+        "出价人数": null,
+        "地点": "浙江省台州市天台县赤城街道天桐路99号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "台州市",
+        "区": "天台县",
+        "最靠近商圈": null,
+        "建筑面积": 41.74,
+        "单价": 15827.14,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "669932248039",
@@ -533,16 +560,65 @@
         "is_processed": false
     },
     {
-        "id": "674520230133",
-        "url": "https://sf-item.taobao.com/sf_item/674520230133.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
-        "end": 1653618491000,
-        "status": "done",
-        "is_processed": false
+        "id": 674520230133,
+        "市场评估价": null,
+        "起拍价格": 600000,
+        "成交价格": 690000,
+        "交易时间": "2022/05/27 10:28:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/674520230133.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": null,
+        "地点": "福建省 泉州市 安溪县 安溪县城厢镇新兴路333号702室房产",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": null,
+        "建筑面积": 98.46,
+        "单价": 7008.18,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "673203697088",
         "url": "https://sf-item.taobao.com/sf_item/673203697088.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
         "end": 1653617953000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "674284985638",
+        "url": "https://sf-item.taobao.com/sf_item/674284985638.htm?track_id=895fcaa5-fb8d-48ba-9e9d-667dedb92adf",
+        "end": 1653616800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673197981284",
+        "url": "https://sf-item.taobao.com/sf_item/673197981284.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1653617193000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673767219511",
+        "url": "https://sf-item.taobao.com/sf_item/673767219511.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1653619280000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "672718156485",
+        "url": "https://sf-item.taobao.com/sf_item/672718156485.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1653619039000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "674607854578",
+        "url": "https://sf-item.taobao.com/sf_item/674607854578.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1653617300000,
         "status": "done",
         "is_processed": false
     }

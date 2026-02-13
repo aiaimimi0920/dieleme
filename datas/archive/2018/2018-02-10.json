@@ -331,15 +331,16 @@
         "竞拍人数": 57,
         "出价人数": 57,
         "地点": "河南省 新乡市 牧野区 中同街新华商贸城D区2000-10号楼东3单元2层西户",
-        "所属小区": null,
+        "所属小区": "新华商贸城D区",
         "省份": "河南省",
         "城市": "新乡市",
         "区": "牧野区",
-        "最靠近商圈": "中同街商圈",
+        "最靠近商圈": "平原商场商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564664275688,
@@ -352,7 +353,7 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "江苏省 徐州市 鼓楼区 下淀路香花畦小区26-2-601室",
-        "所属小区": null,
+        "所属小区": "香花畦小区",
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
@@ -360,7 +361,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 563681364368,
@@ -436,27 +438,49 @@
         "竞拍人数": 3,
         "出价人数": 3,
         "地点": "江苏省 苏州市 相城区 北桥街道洋泾村6幢501室",
-        "所属小区": null,
+        "所属小区": "洋泾村",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "北桥",
+        "最靠近商圈": "北桥商圈",
         "建筑面积": 74,
         "单价": 5513.51,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
-        "id": "563731196967",
-        "url": "https://sf-item.taobao.com/sf_item/563731196967.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
-        "end": 1518228625000,
-        "status": "done",
-        "is_processed": false
+        "id": 563731196967,
+        "市场评估价": null,
+        "起拍价格": 3510000,
+        "成交价格": 3750000,
+        "交易时间": "2018-02-10 10:10:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563731196967.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
+        "是否成交": true,
+        "竞拍人数": 17,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区 大学南路8号12号楼1-2层147号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": 139.16,
+        "单价": 26953.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "563985375790",
         "url": "https://sf-item.taobao.com/sf_item/563985375790.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1518228000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563446728483",
+        "url": "https://sf-item.taobao.com/sf_item/563446728483.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "end": 1518252917000,
         "status": "done",
         "is_processed": false
     }

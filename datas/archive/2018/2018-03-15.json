@@ -436,15 +436,16 @@
         "竞拍人数": 48,
         "出价人数": 48,
         "地点": "江苏省 苏州市 虎丘区 横塘镇苏福路199号C区402室",
-        "所属小区": null,
+        "所属小区": "万佳花苑",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "虎丘区",
-        "最靠近商圈": "横塘商圈",
+        "最靠近商圈": "横塘",
         "建筑面积": 130.84,
-        "单价": 11847.63,
+        "单价": 11846.53,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564914757063,
@@ -478,15 +479,16 @@
         "竞拍人数": 33,
         "出价人数": 33,
         "地点": "江苏省 苏州市 相城区 阳澄湖镇凤阳路88号4幢105室",
-        "所属小区": null,
+        "所属小区": "凤阳路88号",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "阳澄湖",
+        "最靠近商圈": "阳澄湖镇商圈",
         "建筑面积": 116.73,
-        "单价": 7213.32,
+        "单价": 7213.23,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 565002490374,
@@ -615,23 +617,93 @@
         "detail_captured": true
     },
     {
-        "id": "564928057595",
-        "url": "https://sf-item.taobao.com/sf_item/564928057595.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
-        "end": 1521080360000,
-        "status": "done",
-        "is_processed": false
+        "id": 564928057595,
+        "市场评估价": null,
+        "起拍价格": 450892,
+        "成交价格": 625892,
+        "交易时间": "2018-03-15T10:19:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564928057595.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
+        "是否成交": true,
+        "竞拍人数": 24,
+        "出价人数": 24,
+        "地点": "福建省 南平市 顺昌县",
+        "所属小区": "龙山花园",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪商圈",
+        "建筑面积": 141.66,
+        "单价": 4417.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "565070795864",
-        "url": "https://sf-item.taobao.com/sf_item/565070795864.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
-        "end": 1521080562000,
-        "status": "done",
-        "is_processed": false
+        "id": 565070795864,
+        "市场评估价": 1903600,
+        "起拍价格": 1522880,
+        "成交价格": 1622880,
+        "交易时间": "2018/03/15 10:22:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565070795864.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 21,
+        "地点": "河南省 郑州市 二七区 开发路东、长江路南B-2号楼2单元16层1601号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七万达商圈",
+        "建筑面积": 141.01,
+        "单价": 11508.9,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "565062295592",
         "url": "https://sf-item.taobao.com/sf_item/565062295592.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1521079200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564927693853",
+        "url": "https://sf-item.taobao.com/sf_item/564927693853.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1521080524000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564927885644",
+        "url": "https://sf-item.taobao.com/sf_item/564927885644.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1521080036000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565002066411",
+        "url": "https://sf-item.taobao.com/sf_item/565002066411.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1521079614000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565084475322",
+        "url": "https://sf-item.taobao.com/sf_item/565084475322.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1521079251000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564815624890",
+        "url": "https://sf-item.taobao.com/sf_item/564815624890.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1521080788000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564733627556",
+        "url": "https://sf-item.taobao.com/sf_item/564733627556.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1521080441000,
         "status": "done",
         "is_processed": false
     }

@@ -210,11 +210,25 @@
         "detail_captured": true
     },
     {
-        "id": "763924612701",
-        "url": "https://sf-item.taobao.com/sf_item/763924612701.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
-        "end": 1707062400000,
-        "status": "done",
-        "is_processed": false
+        "id": 763924612701,
+        "市场评估价": null,
+        "起拍价格": 2519600,
+        "成交价格": 2519600,
+        "交易时间": "2024/02/05 00:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/763924612701.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城一路24号1幢2单元20501室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区",
+        "建筑面积": 506.22,
+        "单价": 4977.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "763609678753",
@@ -224,9 +238,37 @@
         "is_processed": false
     },
     {
-        "id": "760181510881",
-        "url": "https://sf-item.taobao.com/sf_item/760181510881.htm?track_id=f318f174-d213-49b5-88b0-0165640b650c",
+        "id": 760181510881,
+        "市场评估价": null,
+        "起拍价格": 572320,
+        "成交价格": 572300,
+        "交易时间": "2024/02/04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/760181510881.htm?track_id=f318f174-d213-49b5-88b0-0165640b650c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河南省信阳市平桥区羊山新区新十六大街宏益华·国际新城二期B区19号楼2单元2层203号",
+        "所属小区": "宏益华·国际新城二期",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "763629430612",
+        "url": "https://sf-item.taobao.com/sf_item/763629430612.htm?track_id=895fcaa5-fb8d-48ba-9e9d-667dedb92adf",
         "end": 1707012000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "760267154362",
+        "url": "https://sf-item.taobao.com/sf_item/760267154362.htm?track_id=2b2bafd9-1b69-4ea4-9afa-a1768fda15a0",
+        "end": 1707012100000,
         "status": "done",
         "is_processed": false
     }

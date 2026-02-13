@@ -360,12 +360,25 @@
         "detail_captured": true
     },
     {
-        "id": "943160470435",
-        "url": "https://sf-item.taobao.com/sf_item/943160470435.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
-        "end": 1752112800000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/943160470435.htm"
+        "id": 943160470435,
+        "市场评估价": 1183900,
+        "起拍价格": 662984,
+        "成交价格": 664984,
+        "交易时间": "2025/07/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/943160470435.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 2,
+        "地点": "江苏省 淮安市 淮安区 二条巷29号不动产",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 933446655947,
@@ -599,23 +612,79 @@
         "detail_captured": true
     },
     {
-        "id": "943282274499",
-        "url": "https://sf-item.taobao.com/sf_item/943282274499.htm?track_id=f7a9b79e-4dfb-4e7d-8594-cf69c8750ee0",
-        "end": 1752113840000,
-        "status": "done",
-        "is_processed": false
+        "id": 943282274499,
+        "市场评估价": 562735.5,
+        "起拍价格": 315131.88,
+        "成交价格": 441131.88,
+        "交易时间": "2025/07/10 10:17:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/943282274499.htm?track_id=f7a9b79e-4dfb-4e7d-8594-cf69c8750ee0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 16,
+        "地点": "四川省 巴中市 南江县 南江镇红塔新区香缇别院2、3、4、5号楼及王五星级酒店/3幢5单元5-1-2号住宅",
+        "所属小区": "香缇别院",
+        "省份": "四川省",
+        "城市": "巴中市",
+        "区": "南江县",
+        "最靠近商圈": "红塔新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "936155832213",
-        "url": "https://sf-item.taobao.com/sf_item/936155832213.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
-        "end": 1752118380000,
-        "status": "done",
-        "is_processed": false
+        "id": 936155832213,
+        "市场评估价": null,
+        "起拍价格": 1233851.5,
+        "成交价格": 2263851.5,
+        "交易时间": "2025-07-10 11:33:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/936155832213.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "是否成交": true,
+        "竞拍人数": 78,
+        "出价人数": 78,
+        "地点": "福建省厦门市同安区银湖西里21号1101室",
+        "所属小区": "银湖西里",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "同安区",
+        "最靠近商圈": "同安城区",
+        "建筑面积": 202.03,
+        "单价": 11205.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "943160126434",
         "url": "https://sf-item.taobao.com/sf_item/943160126434.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
         "end": 1752114167000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "944333260186",
+        "url": "https://sf-item.taobao.com/sf_item/944333260186.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1752113051000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "936980398001",
+        "url": "https://sf-item.taobao.com/sf_item/936980398001.htm?track_id=dfd27f7b-bc7d-4bb9-a04a-63aa0958a58b",
+        "end": 1752134889000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "944291040832",
+        "url": "https://sf-item.taobao.com/sf_item/944291040832.htm?track_id=72941855-3cec-4df2-aa07-8f74679bfc2d",
+        "end": 1752112800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "917782031950",
+        "url": "https://sf-item.taobao.com/sf_item/917782031950.htm?track_id=9582ae0b-a5a9-4968-b6c7-a653cd6ba890",
+        "end": 1752115152000,
         "status": "done",
         "is_processed": false
     }

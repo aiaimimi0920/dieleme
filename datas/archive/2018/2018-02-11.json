@@ -235,11 +235,25 @@
         "detail_captured": true
     },
     {
-        "id": "563961586597",
-        "url": "https://sf-item.taobao.com/sf_item/563961586597.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
-        "end": 1518319254000,
-        "status": "done",
-        "is_processed": false
+        "id": 563961586597,
+        "市场评估价": 1348865,
+        "起拍价格": 1348865,
+        "成交价格": 1653865,
+        "交易时间": "2018/02/11 11:20:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563961586597.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
+        "是否成交": true,
+        "竞拍人数": 61,
+        "出价人数": 61,
+        "地点": "河南省郑州市二七区工人路401号院15号楼北2单元3层9号",
+        "所属小区": "工人路401号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "工人路",
+        "建筑面积": 113,
+        "单价": 14635.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "563960442567",
@@ -259,6 +273,13 @@
         "id": "564693567154",
         "url": "https://sf-item.taobao.com/sf_item/564693567154.htm?track_id=b11be64f-29a6-4dba-8035-2a2ffeff2505",
         "end": 1518315096000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563683213019",
+        "url": "https://sf-item.taobao.com/sf_item/563683213019.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1518315878000,
         "status": "done",
         "is_processed": false
     }

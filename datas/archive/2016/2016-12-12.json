@@ -331,16 +331,44 @@
         "is_processed": false
     },
     {
-        "id": "542328330209",
-        "url": "https://sf-item.taobao.com/sf_item/542328330209.htm?track_id=e0094841-bb62-45c7-9b58-c8edf58d1a71",
-        "end": 1481509559000,
-        "status": "done",
-        "is_processed": false
+        "id": 542328330209,
+        "市场评估价": 1182900,
+        "起拍价格": 1182900,
+        "成交价格": 1402900,
+        "交易时间": "2016/12/12 10:25:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542328330209.htm?track_id=e0094841-bb62-45c7-9b58-c8edf58d1a71",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 39,
+        "地点": "江苏省 无锡市 锡山区 春江花园218号701室",
+        "所属小区": "春江花园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭板块",
+        "建筑面积": 154.32,
+        "单价": 9091.91,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "542231608782",
         "url": "https://sf-item.taobao.com/sf_item/542231608782.htm?track_id=fb36ca66-519f-47e0-8cf2-d020609c405d",
         "end": 1481511950000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542295110894",
+        "url": "https://sf-item.taobao.com/sf_item/542295110894.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1481508000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542340058111",
+        "url": "https://sf-item.taobao.com/sf_item/542340058111.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1481508000000,
         "status": "done",
         "is_processed": false
     }

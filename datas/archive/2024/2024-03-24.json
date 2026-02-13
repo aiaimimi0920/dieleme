@@ -273,25 +273,67 @@
         "detail_captured": true
     },
     {
-        "id": "768694590325",
-        "url": "https://sf-item.taobao.com/sf_item/768694590325.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
-        "end": 1711246326000,
-        "status": "done",
-        "is_processed": false
+        "id": 768694590325,
+        "市场评估价": 325493,
+        "起拍价格": 227846,
+        "成交价格": 401846,
+        "交易时间": "2024-03-24 10:12:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/768694590325.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 32,
+        "地点": "吉林省 吉林市 船营区 欢喜乡铜匠村1处无籍房产及1个鱼塘",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "772255377739",
-        "url": "https://sf-item.taobao.com/sf_item/772255377739.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
-        "end": 1711245600000,
-        "status": "done",
-        "is_processed": false
+        "id": 772255377739,
+        "市场评估价": 891200,
+        "起拍价格": 570000,
+        "成交价格": 570000,
+        "交易时间": "2024-03-24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/772255377739.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广东省惠州市博罗县罗阳镇上塘村竹园村民小组庙前(土名)-学府苑806号",
+        "所属小区": "学府苑",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 162.15,
+        "单价": 3512.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "771855792334",
-        "url": "https://sf-item.taobao.com/sf_item/771855792334.htm?track_id=50ef3e24-222c-4421-aae9-e417e102cb8b",
-        "end": 1711245718000,
-        "status": "done",
-        "is_processed": false
+        "id": 771855792334,
+        "市场评估价": 820000,
+        "起拍价格": 590400,
+        "成交价格": 590400,
+        "交易时间": "2024-03-24 10:01:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/771855792334.htm?track_id=50ef3e24-222c-4421-aae9-e417e102cb8b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 泉州市 安溪县 官桥镇官桥村久美湾39号弘桥四季花园6幢1梯601室",
+        "所属小区": "弘桥四季花园",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "官桥商圈",
+        "建筑面积": 114.06,
+        "单价": 5176.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "768437459005",
@@ -304,6 +346,41 @@
         "id": "761880999692",
         "url": "https://sf-item.taobao.com/sf_item/761880999692.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1711243367000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "772247992341",
+        "url": "https://sf-item.taobao.com/sf_item/772247992341.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1711248296000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "772242308471",
+        "url": "https://sf-item.taobao.com/sf_item/772242308471.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1711247269000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "772172878097",
+        "url": "https://sf-item.taobao.com/sf_item/772172878097.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1711245600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "768654792277",
+        "url": "https://sf-item.taobao.com/sf_item/768654792277.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1711247011000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "768736719608",
+        "url": "https://sf-item.taobao.com/sf_item/768736719608.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1711246955000,
         "status": "done",
         "is_processed": false
     }

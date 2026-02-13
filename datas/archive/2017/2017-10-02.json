@@ -296,11 +296,25 @@
         "detail_captured": true
     },
     {
-        "id": "558582999950",
-        "url": "https://sf-item.taobao.com/sf_item/558582999950.htm?track_id=c6df0310-ebd5-4130-9d27-718efb9b09f3",
-        "end": 1506909600000,
-        "status": "done",
-        "is_processed": false
+        "id": 558582999950,
+        "市场评估价": null,
+        "起拍价格": 3633600,
+        "成交价格": 3633600,
+        "交易时间": "2017-10-02 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558582999950.htm?track_id=c6df0310-ebd5-4130-9d27-718efb9b09f3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 广安路800号7幢20102号",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "浐灞生态区",
+        "建筑面积": 254.94,
+        "单价": 14250.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "557946114208",
@@ -317,9 +331,30 @@
         "is_processed": false
     },
     {
-        "id": "557945398134",
-        "url": "https://sf-item.taobao.com/sf_item/557945398134.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
-        "end": 1506912150000,
+        "id": 557945398134,
+        "市场评估价": 0,
+        "起拍价格": 1400000,
+        "成交价格": 1750000,
+        "交易时间": "2017/10/02 10:42:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557945398134.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 30,
+        "地点": "浙江省杭州市滨江区江南大道480号",
+        "所属小区": "海威国际",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "星光大道商圈",
+        "建筑面积": 80.64,
+        "单价": 21703.18,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "558539660207",
+        "url": "https://sf-item.taobao.com/sf_item/558539660207.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1506909600000,
         "status": "done",
         "is_processed": false
     }

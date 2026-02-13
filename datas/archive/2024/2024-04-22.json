@@ -148,9 +148,44 @@
         "detail_captured": true
     },
     {
-        "id": "775408298077",
-        "url": "https://sf-item.taobao.com/sf_item/775408298077.htm?track_id=50ef3e24-222c-4421-aae9-e417e102cb8b",
-        "end": 1713751254000,
+        "id": 775408298077,
+        "市场评估价": null,
+        "起拍价格": 765000,
+        "成交价格": 765000,
+        "交易时间": "2024-04-22 10:00:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/775408298077.htm?track_id=50ef3e24-222c-4421-aae9-e417e102cb8b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省泉州市安溪县参内镇河滨北路2009号安溪万达广场1号楼1A2802房产",
+        "所属小区": "安溪万达广场",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪万达广场商圈",
+        "建筑面积": 94.42,
+        "单价": 8102.56,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "774213747692",
+        "url": "https://sf-item.taobao.com/sf_item/774213747692.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1713777338000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "775391610349",
+        "url": "https://sf-item.taobao.com/sf_item/775391610349.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1713751204000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "779629982464",
+        "url": "https://sf-item.taobao.com/sf_item/779629982464.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1713751200000,
         "status": "done",
         "is_processed": false
     }

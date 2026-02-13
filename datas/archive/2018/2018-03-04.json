@@ -144,11 +144,12 @@
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
-        "最靠近商圈": null,
+        "最靠近商圈": "下淀",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564609336041,
@@ -165,11 +166,12 @@
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
-        "最靠近商圈": null,
+        "最靠近商圈": "下淀商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564852074861,
@@ -319,17 +321,45 @@
         "detail_captured": true
     },
     {
-        "id": "564832218290",
-        "url": "https://sf-item.taobao.com/sf_item/564832218290.htm?track_id=3c382c58-b2c8-4aa6-8dbc-528f6d79f8ee",
-        "end": 1520133263000,
-        "status": "done",
-        "is_processed": false
+        "id": 564832218290,
+        "市场评估价": 1520000,
+        "起拍价格": 820000,
+        "成交价格": 1520000,
+        "交易时间": "2018-03-04T11:14:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564832218290.htm?track_id=3c382c58-b2c8-4aa6-8dbc-528f6d79f8ee",
+        "是否成交": true,
+        "竞拍人数": 61,
+        "出价人数": 99,
+        "地点": "江苏省无锡市梁溪区蔚蓝观邸",
+        "所属小区": "蔚蓝观邸",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": null,
+        "建筑面积": 106.77,
+        "单价": 14246.89,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "564905047033",
-        "url": "https://sf-item.taobao.com/sf_item/564905047033.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
-        "end": 1520134673000,
-        "status": "done",
-        "is_processed": false
+        "id": 564905047033,
+        "市场评估价": null,
+        "起拍价格": 3320000,
+        "成交价格": 4700000,
+        "交易时间": "2018-03-04 11:37:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564905047033.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
+        "是否成交": true,
+        "竞拍人数": 62,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 西兴街道",
+        "所属小区": "东方郡公寓",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 87.01,
+        "单价": 54017.45,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

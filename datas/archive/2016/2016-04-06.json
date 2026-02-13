@@ -84,9 +84,30 @@
         "detail_captured": true
     },
     {
-        "id": "528326837527",
-        "url": "https://sf-item.taobao.com/sf_item/528326837527.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
-        "end": 1459908945000,
+        "id": 528326837527,
+        "市场评估价": 2724700,
+        "起拍价格": 2170000,
+        "成交价格": 3080000,
+        "交易时间": "2016/04/06 10:15:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528326837527.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 24,
+        "地点": "浙江省杭州市滨江区白金海岸花园14幢1单元901室",
+        "所属小区": "白金海岸花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 146.89,
+        "单价": 20971.53,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "528391928749",
+        "url": "https://sf-item.taobao.com/sf_item/528391928749.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1459908986000,
         "status": "done",
         "is_processed": false
     }

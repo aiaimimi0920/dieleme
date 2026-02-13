@@ -298,11 +298,25 @@
         "detail_captured": true
     },
     {
-        "id": "984824863667",
-        "url": "https://sf-item.taobao.com/sf_item/984824863667.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
-        "end": 1762312277000,
-        "status": "done",
-        "is_processed": false
+        "id": 984824863667,
+        "市场评估价": 902955.56,
+        "起拍价格": 505680,
+        "成交价格": 657680,
+        "交易时间": "2025/11/05 11:11:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/984824863667.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
+        "是否成交": true,
+        "竞拍人数": 57,
+        "出价人数": 57,
+        "地点": "安徽省 合肥市 瑶海区 新站区新蚌埠路与凤台路交口七里香榭花园4幢208",
+        "所属小区": "七里香榭花园",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "新站区",
+        "最靠近商圈": "新蚌埠路商圈",
+        "建筑面积": 87.12,
+        "单价": 7549.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "981068966250",
@@ -315,6 +329,27 @@
         "id": "980538659066",
         "url": "https://sf-item.taobao.com/sf_item/980538659066.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
         "end": 1762311468000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "981801125830",
+        "url": "https://sf-item.taobao.com/sf_item/981801125830.htm?track_id=7c737cf8-b427-44c7-8a5e-bd75d257223c",
+        "end": 1762308000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "982119337415",
+        "url": "https://sf-item.taobao.com/sf_item/982119337415.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
+        "end": 1762311155000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "981179380431",
+        "url": "https://sf-item.taobao.com/sf_item/981179380431.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1762322228000,
         "status": "done",
         "is_processed": false
     }

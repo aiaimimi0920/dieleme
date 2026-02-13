@@ -85,18 +85,46 @@
         "detail_captured": true
     },
     {
-        "id": "542131613173",
-        "url": "https://sf-item.taobao.com/sf_item/542131613173.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
-        "end": 1481594400000,
-        "status": "done",
-        "is_processed": false
+        "id": 542131613173,
+        "市场评估价": null,
+        "起拍价格": 174304,
+        "成交价格": 176304,
+        "交易时间": "2016-12-13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542131613173.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "包头市昆都仑区友谊大街23号街坊",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "540996984581",
-        "url": "https://sf-item.taobao.com/sf_item/540996984581.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
-        "end": 1481594400000,
-        "status": "done",
-        "is_processed": false
+        "id": 540996984581,
+        "市场评估价": 7002156,
+        "起拍价格": 7002156,
+        "成交价格": 7003156,
+        "交易时间": "2016-12-13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540996984581.htm?track_id=09d89800-b389-4a22-b7d9-927179bab0e4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 2,
+        "地点": "内蒙古自治区 包头市 昆都仑区",
+        "所属小区": "呼得木林大街5号街坊底店",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "呼得木林大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 542295303898,
@@ -123,6 +151,13 @@
         "id": "542327041375",
         "url": "https://sf-item.taobao.com/sf_item/542327041375.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1481594400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542335471772",
+        "url": "https://sf-item.taobao.com/sf_item/542335471772.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1481596396000,
         "status": "done",
         "is_processed": false
     }

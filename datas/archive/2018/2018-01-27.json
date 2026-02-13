@@ -228,11 +228,12 @@
         "省份": "四川省",
         "城市": "宜宾市",
         "区": "珙县",
-        "最靠近商圈": null,
+        "最靠近商圈": "巡场商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 563138964841,
@@ -245,15 +246,16 @@
         "竞拍人数": 0,
         "出价人数": 0,
         "地点": "河南省 洛阳市 宜阳县 宜阳县城关镇文明中路南侧新建三街23号房地产",
-        "所属小区": null,
+        "所属小区": "宜阳县城关镇文明中路小区",
         "省份": "河南省",
         "城市": "洛阳市",
         "区": "宜阳县",
-        "最靠近商圈": null,
+        "最靠近商圈": "宜阳人民广场商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 563011868979,
@@ -291,11 +293,12 @@
         "省份": "内蒙古自治区",
         "城市": "呼伦贝尔市",
         "区": "满洲里市",
-        "最靠近商圈": null,
+        "最靠近商圈": "中苏步行街",
         "建筑面积": 299.7,
-        "单价": 5116.68,
+        "单价": 5116.32,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 562989925466,
@@ -350,15 +353,16 @@
         "竞拍人数": 0,
         "出价人数": 69,
         "地点": "江苏省 苏州市 姑苏区 干将西路515号710室",
-        "所属小区": null,
+        "所属小区": "邮电公寓",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
-        "最靠近商圈": "石路商圈",
+        "最靠近商圈": "观前商圈",
         "建筑面积": 159.94,
-        "单价": 10519.64,
+        "单价": 10516.44,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 563797684582,
@@ -382,16 +386,37 @@
         "detail_captured": true
     },
     {
-        "id": "563895369213",
-        "url": "https://sf-item.taobao.com/sf_item/563895369213.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
-        "end": 1517050353000,
-        "status": "done",
-        "is_processed": false
+        "id": 563895369213,
+        "市场评估价": null,
+        "起拍价格": 444259.2,
+        "成交价格": 444259.2,
+        "交易时间": "2018/01/27 18:52:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563895369213.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省惠州市博罗县龙华镇粮桥村横陂（土名）地段峰景嘉苑1栋1301号",
+        "所属小区": "峰景嘉苑",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "龙华镇",
+        "建筑面积": 132.22,
+        "单价": 3360.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "563365690877",
         "url": "https://sf-item.taobao.com/sf_item/563365690877.htm?track_id=b11be64f-29a6-4dba-8035-2a2ffeff2505",
         "end": 1517019867000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563174584535",
+        "url": "https://sf-item.taobao.com/sf_item/563174584535.htm?track_id=9a405c8a-1c07-49bc-9bd5-0414da77ea78",
+        "end": 1517018411000,
         "status": "done",
         "is_processed": false
     }

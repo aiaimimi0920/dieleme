@@ -378,23 +378,58 @@
         "is_processed": false
     },
     {
-        "id": "583360917503",
-        "url": "https://sf-item.taobao.com/sf_item/583360917503.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
-        "end": 1546069533000,
-        "status": "done",
-        "is_processed": false
+        "id": 583360917503,
+        "市场评估价": 404667,
+        "起拍价格": 353275,
+        "成交价格": 353275,
+        "交易时间": "2018/12/29 15:45:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583360917503.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 沈阳市铁西区兴顺街56-2号1-10-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "兴顺街商圈",
+        "建筑面积": 49.75,
+        "单价": 7099.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "583926785279",
-        "url": "https://sf-item.taobao.com/sf_item/583926785279.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
-        "end": 1546057283000,
-        "status": "done",
-        "is_processed": false
+        "id": 583926785279,
+        "市场评估价": null,
+        "起拍价格": 755700,
+        "成交价格": 755700,
+        "交易时间": "2018/12/29 12:21:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583926785279.htm?track_id=5672e23b-af81-4159-9eb5-493a73a188e7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省西安市未央区经济技术开发区凤城四路海璟蓝寓",
+        "所属小区": "海璟蓝寓",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 104.69,
+        "单价": 7217.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "583968038710",
         "url": "https://sf-item.taobao.com/sf_item/583968038710.htm?track_id=ef5eeaad-a6e8-4cc8-9382-470fbeaf25b4",
         "end": 1546054314000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583016946438",
+        "url": "https://sf-item.taobao.com/sf_item/583016946438.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1546049845000,
         "status": "done",
         "is_processed": false
     }

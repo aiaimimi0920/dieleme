@@ -494,11 +494,25 @@
         "detail_captured": true
     },
     {
-        "id": "595859185137",
-        "url": "https://sf-item.taobao.com/sf_item/595859185137.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
-        "end": 1560996208000,
-        "status": "done",
-        "is_processed": false
+        "id": 595859185137,
+        "市场评估价": 257895,
+        "起拍价格": 144421.2,
+        "成交价格": 222421.2,
+        "交易时间": "2019-06-20 10:03:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595859185137.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
+        "是否成交": true,
+        "竞拍人数": 27,
+        "出价人数": 27,
+        "地点": "辽宁省 沈阳市 铁西区 沈阳经济技术开发区十三号路4甲3-26号1-22-5室（水墨丹青·砚池）",
+        "所属小区": "水墨丹青·砚池",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 71.36,
+        "单价": 3118.33,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "594473605140",
@@ -511,6 +525,20 @@
         "id": "595681173084",
         "url": "https://sf-item.taobao.com/sf_item/595681173084.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1560996095000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594261684310",
+        "url": "https://sf-item.taobao.com/sf_item/594261684310.htm?track_id=1b72c4a3-0a3f-4a49-a0ef-97c696656a04",
+        "end": 1560996071000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595277084013",
+        "url": "https://sf-item.taobao.com/sf_item/595277084013.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
+        "end": 1560997948000,
         "status": "done",
         "is_processed": false
     }

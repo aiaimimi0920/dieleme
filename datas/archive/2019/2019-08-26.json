@@ -693,11 +693,25 @@
         "detail_captured": true
     },
     {
-        "id": "598906480962",
-        "url": "https://sf-item.taobao.com/sf_item/598906480962.htm?track_id=7429b7b4-87ab-47b3-8aa3-9be14e592e2a",
-        "end": 1566784800000,
-        "status": "done",
-        "is_processed": false
+        "id": 598906480962,
+        "市场评估价": 812602,
+        "起拍价格": 568821.4,
+        "成交价格": 658421.4,
+        "交易时间": "2019/08/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/598906480962.htm?track_id=7429b7b4-87ab-47b3-8aa3-9be14e592e2a",
+        "是否成交": true,
+        "竞拍人数": 8,
+        "出价人数": 8,
+        "地点": "广东省惠州市博罗县罗阳镇商业东街富力现代广场E2栋3303",
+        "所属小区": "富力现代广场",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇商业东街",
+        "建筑面积": 118.68,
+        "单价": 5547.62,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "599327914476",
@@ -731,6 +745,20 @@
         "id": "599242075163",
         "url": "https://sf-item.taobao.com/sf_item/599242075163.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
         "end": 1566785253000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600113988423",
+        "url": "https://sf-item.taobao.com/sf_item/600113988423.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1566787137000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600114460916",
+        "url": "https://sf-item.taobao.com/sf_item/600114460916.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1566788329000,
         "status": "done",
         "is_processed": false
     }

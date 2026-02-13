@@ -105,11 +105,25 @@
         "detail_captured": true
     },
     {
-        "id": "645845301162",
-        "url": "https://sf-item.taobao.com/sf_item/645845301162.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
-        "end": 1625365106000,
-        "status": "done",
-        "is_processed": false
+        "id": 645845301162,
+        "市场评估价": 287445,
+        "起拍价格": 229956,
+        "成交价格": 321956,
+        "交易时间": "2021-07-04T10:18:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/645845301162.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
+        "是否成交": true,
+        "竞拍人数": 91,
+        "出价人数": 91,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 恒昇美邑小区",
+        "所属小区": "恒昇美邑小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延边大学商圈",
+        "建筑面积": 63.58,
+        "单价": 5063.26,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "646257877279",
@@ -119,9 +133,44 @@
         "is_processed": false
     },
     {
-        "id": "647731997205",
-        "url": "https://sf-item.taobao.com/sf_item/647731997205.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
-        "end": 1625365138000,
+        "id": 647731997205,
+        "市场评估价": 634800,
+        "起拍价格": 355488,
+        "成交价格": 399488,
+        "交易时间": "2021/07/04 10:18:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/647731997205.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 23,
+        "地点": "辽宁省 沈阳市 铁西区 勋业一路14-2号1-6-2",
+        "所属小区": "鑫朝欧洲城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西体育场",
+        "建筑面积": 108,
+        "单价": 3698.96,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "647862721997",
+        "url": "https://sf-item.taobao.com/sf_item/647862721997.htm?track_id=b29a20ac-4526-4c00-8c7e-3478c2981281",
+        "end": 1625364883000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646955307172",
+        "url": "https://sf-item.taobao.com/sf_item/646955307172.htm?track_id=f7851355-72f4-4dd3-918c-6b401b86ff61",
+        "end": 1625370018000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "648405318291",
+        "url": "https://sf-item.taobao.com/sf_item/648405318291.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1625364255000,
         "status": "done",
         "is_processed": false
     }

@@ -173,8 +173,29 @@
         "detail_captured": true
     },
     {
-        "id": "554507291914",
-        "url": "https://sf-item.taobao.com/sf_item/554507291914.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "id": 554507291914,
+        "市场评估价": null,
+        "起拍价格": 800000,
+        "成交价格": 800000,
+        "交易时间": "2017-07-15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/554507291914.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省 遵义市 汇川区",
+        "所属小区": "恒兴香樟印象",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": null,
+        "建筑面积": 181.2,
+        "单价": 4413.26,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "553247127699",
+        "url": "https://sf-item.taobao.com/sf_item/553247127699.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
         "end": 1500084000000,
         "status": "done",
         "is_processed": false

@@ -380,12 +380,25 @@
         "detail_captured": true
     },
     {
-        "id": "948468335759",
-        "url": "https://sf-item.taobao.com/sf_item/948468335759.htm?track_id=3acac2e5-4046-49d7-a750-fe434029436a",
-        "end": 1760756496000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/948468335759.htm"
+        "id": 948468335759,
+        "市场评估价": 0,
+        "起拍价格": 577120,
+        "成交价格": 577120,
+        "交易时间": "2025/10/18 11:01:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/948468335759.htm?track_id=3acac2e5-4046-49d7-a750-fe434029436a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "甘肃省 兰州市 七里河区 土门墩街道建西西路81号第2单元7层702室",
+        "所属小区": null,
+        "省份": "甘肃省",
+        "城市": "兰州市",
+        "区": "七里河区",
+        "最靠近商圈": "土门墩",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 982097741819,
@@ -409,9 +422,51 @@
         "detail_captured": true
     },
     {
-        "id": "975879105638",
-        "url": "https://sf-item.taobao.com/sf_item/975879105638.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
-        "end": 1760756514000,
+        "id": 975879105638,
+        "市场评估价": null,
+        "起拍价格": 460000,
+        "成交价格": 540000,
+        "交易时间": "2025/10/18 11:01:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/975879105638.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 淄博市 博山区 凤凰山西路10号颜山国际二区25号楼4单元17层西户房产及附属阁楼",
+        "所属小区": "颜山国际",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "博山中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "982230224602",
+        "url": "https://sf-item.taobao.com/sf_item/982230224602.htm?track_id=69e73da1-9844-4e22-80d5-44d18631979f",
+        "end": 1760752800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "982472688940",
+        "url": "https://sf-item.taobao.com/sf_item/982472688940.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1760754242000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "978370232904",
+        "url": "https://sf-item.taobao.com/sf_item/978370232904.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1760755328000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "976954120873",
+        "url": "https://sf-item.taobao.com/sf_item/976954120873.htm?track_id=8aff2cad-797b-46cd-a4eb-8b5f6ed552eb",
+        "end": 1760753061000,
         "status": "done",
         "is_processed": false
     }

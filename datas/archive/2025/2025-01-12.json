@@ -126,18 +126,46 @@
         "detail_captured": true
     },
     {
-        "id": "861884506975",
-        "url": "https://sf-item.taobao.com/sf_item/861884506975.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
-        "end": 1736647200000,
-        "status": "done",
-        "is_processed": false
+        "id": 861884506975,
+        "市场评估价": 410644,
+        "起拍价格": 287450.8,
+        "成交价格": 287450.8,
+        "交易时间": "2025/01/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/861884506975.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省资阳市乐至县天池镇建材路123号（香槟城）5栋1单元5层6号",
+        "所属小区": "香槟城",
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "862004686084",
-        "url": "https://sf-item.taobao.com/sf_item/862004686084.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
-        "end": 1736647200000,
-        "status": "done",
-        "is_processed": false
+        "id": 862004686084,
+        "市场评估价": 412062,
+        "起拍价格": 288443.4,
+        "成交价格": 288443.4,
+        "交易时间": "2025-01-12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/862004686084.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 迎宾大道289号（西庭御景）2幢1单元24楼2号",
+        "所属小区": "西庭御景",
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "迎宾大道商圈",
+        "建筑面积": 120,
+        "单价": 2403.7,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "861963390205",
@@ -157,6 +185,20 @@
         "id": "859404691338",
         "url": "https://sf-item.taobao.com/sf_item/859404691338.htm?track_id=c6681eeb-21d2-4ee1-8884-fbe9cb8310a9",
         "end": 1736647228000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "867003915692",
+        "url": "https://sf-item.taobao.com/sf_item/867003915692.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1736647200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "861198694582",
+        "url": "https://sf-item.taobao.com/sf_item/861198694582.htm?track_id=e060ffc2-3fe3-43ca-bf44-12c2e06c793c",
+        "end": 1736654877000,
         "status": "done",
         "is_processed": false
     }

@@ -295,18 +295,46 @@
         "detail_captured": true
     },
     {
-        "id": "683979624120",
-        "url": "https://sf-item.taobao.com/sf_item/683979624120.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
-        "end": 1666337949000,
-        "status": "done",
-        "is_processed": false
+        "id": 683979624120,
+        "市场评估价": 998886,
+        "起拍价格": 764148,
+        "成交价格": 764148,
+        "交易时间": "2022/10/21 15:39:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/683979624120.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "贵州省遵义市汇川区苏州德宝贵园A1、A2、B1号楼（13-5）号房产",
+        "所属小区": "德宝贵园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "苏州路板块",
+        "建筑面积": 127.83,
+        "单价": 5977.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "684159601413",
-        "url": "https://sf-item.taobao.com/sf_item/684159601413.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
-        "end": 1666318862000,
-        "status": "done",
-        "is_processed": false
+        "id": 684159601413,
+        "市场评估价": 1489524,
+        "起拍价格": 1100000,
+        "成交价格": 1210000,
+        "交易时间": "2022-10-21 10:21:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684159601413.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
+        "是否成交": true,
+        "竞拍人数": 20,
+        "出价人数": 20,
+        "地点": "广东省 惠州市 博罗县 罗阳镇商业街成峰广场C幢116号",
+        "所属小区": "成峰广场",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇商业街",
+        "建筑面积": 130.66,
+        "单价": 9264.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "683839192115",
@@ -326,6 +354,34 @@
         "id": "684758935745",
         "url": "https://sf-item.taobao.com/sf_item/684758935745.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
         "end": 1666317600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683348444209",
+        "url": "https://sf-item.taobao.com/sf_item/683348444209.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1666319854000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683819976418",
+        "url": "https://sf-item.taobao.com/sf_item/683819976418.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1666322880000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "685788534747",
+        "url": "https://sf-item.taobao.com/sf_item/685788534747.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1666317908000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683832332938",
+        "url": "https://sf-item.taobao.com/sf_item/683832332938.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1666321971000,
         "status": "done",
         "is_processed": false
     }

@@ -269,15 +269,16 @@
         "竞拍人数": 26,
         "出价人数": 26,
         "地点": "河南省周口市 城县人民路北段路西三间三层商铺",
-        "所属小区": null,
+        "所属小区": "城关镇人民路商铺",
         "省份": "河南省",
         "城市": "周口市",
-        "区": "城县",
-        "最靠近商圈": "人民路北段",
+        "区": "川汇区",
+        "最靠近商圈": "周口中心广场商圈",
         "建筑面积": 231.6,
-        "单价": 2606.48,
+        "单价": 2606.65,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 558047604267,
@@ -380,9 +381,10 @@
         "区": "单县",
         "最靠近商圈": null,
         "建筑面积": 307.82,
-        "单价": 2278.57,
+        "单价": 2278.19,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 558189014629,
@@ -458,15 +460,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "山东省 菏泽市 单县 开发区",
-        "所属小区": "御景园",
+        "所属小区": "单县开发区小区",
         "省份": "山东省",
         "城市": "菏泽市",
         "区": "单县",
-        "最靠近商圈": null,
+        "最靠近商圈": "单县开发区商圈",
         "建筑面积": 292.15,
-        "单价": 2166.65,
+        "单价": 2166.23,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 558252235334,
@@ -548,9 +551,10 @@
         "区": "单县",
         "最靠近商圈": null,
         "建筑面积": 292.15,
-        "单价": 2132.41,
+        "单价": 2132.0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 558170637251,
@@ -728,10 +732,24 @@
         "is_processed": false
     },
     {
-        "id": "558594555348",
-        "url": "https://sf-item.taobao.com/sf_item/558594555348.htm?track_id=36cbdafc-c7f2-4969-8855-cd1ae91bfdc9",
-        "end": 1508122695000,
-        "status": "done",
-        "is_processed": false
+        "id": 558594555348,
+        "市场评估价": null,
+        "起拍价格": 1054620,
+        "成交价格": 2064620,
+        "交易时间": "2017/10/16 10:58:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558594555348.htm?track_id=36cbdafc-c7f2-4969-8855-cd1ae91bfdc9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 梁溪区 东林苑",
+        "所属小区": "东林苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "东林板块",
+        "建筑面积": 154.62,
+        "单价": 13353.01,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

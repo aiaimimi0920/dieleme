@@ -208,11 +208,12 @@
         "省份": "甘肃省",
         "城市": "兰州市",
         "区": "七里河区",
-        "最靠近商圈": null,
+        "最靠近商圈": "建兰路商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 575031994693,
@@ -327,11 +328,25 @@
         "is_processed": false
     },
     {
-        "id": "574613584700",
-        "url": "https://sf-item.taobao.com/sf_item/574613584700.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1536372917000,
-        "status": "done",
-        "is_processed": false
+        "id": 574613584700,
+        "市场评估价": null,
+        "起拍价格": 351000,
+        "成交价格": 429000,
+        "交易时间": "2018/09/08 10:15:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574613584700.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 27,
+        "地点": "江西省 南昌市 青云谱区 解放西路49号玉河明珠小区公寓楼A栋1109室",
+        "所属小区": "玉河明珠小区",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "洪都",
+        "建筑面积": 48.02,
+        "单价": 8933.78,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "575132815428",
@@ -341,11 +356,25 @@
         "is_processed": false
     },
     {
-        "id": "574797516258",
-        "url": "https://sf-item.taobao.com/sf_item/574797516258.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
-        "end": 1536372010000,
-        "status": "done",
-        "is_processed": false
+        "id": 574797516258,
+        "市场评估价": null,
+        "起拍价格": 538650,
+        "成交价格": 538650,
+        "交易时间": "2018-09-08 10:00:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574797516258.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 云浮市 郁南县 郁南县都城镇一环路的房地产",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城镇",
+        "建筑面积": 241.07,
+        "单价": 2232.2,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "575908445329",
@@ -358,6 +387,20 @@
         "id": "575110186518",
         "url": "https://sf-item.taobao.com/sf_item/575110186518.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
         "end": 1536372657000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576081987908",
+        "url": "https://sf-item.taobao.com/sf_item/576081987908.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "end": 1536376704000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575426604508",
+        "url": "https://sf-item.taobao.com/sf_item/575426604508.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1536372000000,
         "status": "done",
         "is_processed": false
     }

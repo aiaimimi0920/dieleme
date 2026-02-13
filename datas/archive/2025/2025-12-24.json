@@ -212,16 +212,72 @@
         "detail_captured": true
     },
     {
-        "id": "996279973816",
-        "url": "https://sf-item.taobao.com/sf_item/996279973816.htm?track_id=e8c17455-3f41-4cf2-86a4-facef0c109ce",
-        "end": 1766541600000,
+        "id": 996279973816,
+        "市场评估价": 1061125.95,
+        "起拍价格": 1061125.95,
+        "成交价格": 1061125.95,
+        "交易时间": "2025-12-24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/996279973816.htm?track_id=e8c17455-3f41-4cf2-86a4-facef0c109ce",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省遵义市汇川区福州路桑提亚纳二期10号楼1-12-1号住宅用房",
+        "所属小区": "桑提亚纳二期",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "长沙路商圈",
+        "建筑面积": 110.33,
+        "单价": 9622.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 999981623637,
+        "市场评估价": 8942600,
+        "起拍价格": 5010000,
+        "成交价格": 6610000,
+        "交易时间": "2025/12/24 10:15:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/999981623637.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 65,
+        "地点": "广东省 惠州市 博罗县 罗阳镇鸡麻地八村麦田岭地段五矿·哈施塔特一期八区01栋01房",
+        "所属小区": "五矿·哈施塔特",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "五矿·哈施塔特",
+        "建筑面积": 745.22,
+        "单价": 8869.9,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "999045335084",
+        "url": "https://sf-item.taobao.com/sf_item/999045335084.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "end": 1766545757000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "999981623637",
-        "url": "https://sf-item.taobao.com/sf_item/999981623637.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
-        "end": 1766542510000,
+        "id": "1000443233497",
+        "url": "https://sf-item.taobao.com/sf_item/1000443233497.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "end": 1766545352000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "994975562027",
+        "url": "https://sf-item.taobao.com/sf_item/994975562027.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1766544230000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1000468593979",
+        "url": "https://sf-item.taobao.com/sf_item/1000468593979.htm?track_id=30d808e3-d96d-4c20-b7c0-2a2a14a6d2bf",
+        "end": 1766563763000,
         "status": "done",
         "is_processed": false
     }

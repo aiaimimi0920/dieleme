@@ -297,16 +297,37 @@
         "detail_captured": true
     },
     {
-        "id": "563585761568",
-        "url": "https://sf-item.taobao.com/sf_item/563585761568.htm?track_id=be4791d9-4192-47ad-a814-1baf514b1a3e",
-        "end": 1516413600000,
-        "status": "done",
-        "is_processed": false
+        "id": 563585761568,
+        "市场评估价": 0,
+        "起拍价格": 520800,
+        "成交价格": 520800,
+        "交易时间": "2018/01/20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563585761568.htm?track_id=be4791d9-4192-47ad-a814-1baf514b1a3e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 兴科家园3号门市2号商业房",
+        "所属小区": "兴科家园",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": null,
+        "建筑面积": 98.25,
+        "单价": 5300.25,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "563095719517",
         "url": "https://sf-item.taobao.com/sf_item/563095719517.htm?track_id=688fbbc2-7eac-49ec-a186-0fa9752f3f7b",
         "end": 1516416145000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563638030152",
+        "url": "https://sf-item.taobao.com/sf_item/563638030152.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1516421298000,
         "status": "done",
         "is_processed": false
     }

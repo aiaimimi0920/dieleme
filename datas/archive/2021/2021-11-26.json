@@ -1029,30 +1029,114 @@
         "detail_captured": true
     },
     {
-        "id": "659751597804",
-        "url": "https://sf-item.taobao.com/sf_item/659751597804.htm?track_id=dd4d0805-6714-4a1f-88b3-815a5449302b",
-        "end": 1637892010000,
-        "status": "done",
-        "is_processed": false
+        "id": 659751597804,
+        "市场评估价": 0,
+        "起拍价格": 880000,
+        "成交价格": 880000,
+        "交易时间": "2021/11/26 10:00:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/659751597804.htm?track_id=dd4d0805-6714-4a1f-88b3-815a5449302b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 桂林市 阳朔县 阳朔镇玉溪路",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "桂林市",
+        "区": "阳朔县",
+        "最靠近商圈": "阳朔千古情商圈",
+        "建筑面积": 216.71,
+        "单价": 4060.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "660586183273",
-        "url": "https://sf-item.taobao.com/sf_item/660586183273.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
-        "end": 1637893836000,
-        "status": "done",
-        "is_processed": false
+        "id": 660586183273,
+        "市场评估价": 329217,
+        "起拍价格": 223867,
+        "成交价格": 223867.8,
+        "交易时间": "2021-11-26 10:30:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/660586183273.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省延边朝鲜族自治州延吉市友谊路66A新罗世界B单元15014号房屋",
+        "所属小区": "新罗世界",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心商圈",
+        "建筑面积": 57.92,
+        "单价": 3865.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "659008350481",
-        "url": "https://sf-item.taobao.com/sf_item/659008350481.htm?track_id=48dfd4c3-795e-4adf-b7c9-3294509d2a33",
-        "end": 1637892586000,
-        "status": "done",
-        "is_processed": false
+        "id": 659008350481,
+        "市场评估价": 1155831,
+        "起拍价格": 809082,
+        "成交价格": 821082,
+        "交易时间": "2021/11/26 10:09:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/659008350481.htm?track_id=48dfd4c3-795e-4adf-b7c9-3294509d2a33",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "辽宁省 沈阳市 铁西区 北四西路4甲6（1-6-2）",
+        "所属小区": "第一城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 112.72,
+        "单价": 7284.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "658999650376",
         "url": "https://sf-item.taobao.com/sf_item/658999650376.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
         "end": 1637892491000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "658536446464",
+        "url": "https://sf-item.taobao.com/sf_item/658536446464.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1637893136000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657818492546",
+        "url": "https://sf-item.taobao.com/sf_item/657818492546.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
+        "end": 1637892000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "660319918580",
+        "url": "https://sf-item.taobao.com/sf_item/660319918580.htm?track_id=b2a0791c-e94d-46c9-b7b2-e898b5ba78f0",
+        "end": 1637892000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "658378725681",
+        "url": "https://sf-item.taobao.com/sf_item/658378725681.htm?track_id=b2a0791c-e94d-46c9-b7b2-e898b5ba78f0",
+        "end": 1637892000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659873614989",
+        "url": "https://sf-item.taobao.com/sf_item/659873614989.htm?track_id=89143a92-a511-4287-9fd0-7f485c07af6e",
+        "end": 1637895884000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659206111567",
+        "url": "https://sf-item.taobao.com/sf_item/659206111567.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1637918253000,
         "status": "done",
         "is_processed": false
     }

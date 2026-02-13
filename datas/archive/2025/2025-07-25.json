@@ -680,12 +680,25 @@
         "detail_captured": true
     },
     {
-        "id": "949063043290",
-        "url": "https://sf-item.taobao.com/sf_item/949063043290.htm?track_id=0db1aff7-83bd-45e8-a210-73296ccba900",
-        "end": 1753415377000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/949063043290.htm"
+        "id": 949063043290,
+        "市场评估价": 370114.61,
+        "起拍价格": 207264.18,
+        "成交价格": 207264.18,
+        "交易时间": "2025/07/25 11:49:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/949063043290.htm?track_id=0db1aff7-83bd-45e8-a210-73296ccba900",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "四川省 广元市 利州区 东坝街道办事处商业街8号2幢",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "东坝",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 949983765421,
@@ -758,18 +771,46 @@
         "is_processed": false
     },
     {
-        "id": "943896137562",
-        "url": "https://sf-item.taobao.com/sf_item/943896137562.htm?track_id=93f14e3f-e379-4453-9800-c710d8e5cae4",
-        "end": 1753408800000,
-        "status": "done",
-        "is_processed": false
+        "id": 943896137562,
+        "市场评估价": null,
+        "起拍价格": 1664568,
+        "成交价格": 1664568,
+        "交易时间": "2025-07-25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/943896137562.htm?track_id=93f14e3f-e379-4453-9800-c710d8e5cae4",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区包头市昆都仑区黄河大街以南、林荫南路以西京奥港花园11-107",
+        "所属小区": "京奥港花园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "团结大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "950561888972",
-        "url": "https://sf-item.taobao.com/sf_item/950561888972.htm?track_id=f7a9b79e-4dfb-4e7d-8594-cf69c8750ee0",
-        "end": 1753409168000,
-        "status": "done",
-        "is_processed": false
+        "id": 950561888972,
+        "市场评估价": 550005,
+        "起拍价格": 308002.8,
+        "成交价格": 350002.8,
+        "交易时间": "2025/07/25 10:06:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/950561888972.htm?track_id=f7a9b79e-4dfb-4e7d-8594-cf69c8750ee0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 13,
+        "地点": "四川省 巴中市 南江县 南江镇红塔新区香缇别院1幢A单元8层5号住宅",
+        "所属小区": "香缇别院",
+        "省份": "四川省",
+        "城市": "巴中市",
+        "区": "南江县",
+        "最靠近商圈": "红塔新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 949041358674,
@@ -793,23 +834,93 @@
         "detail_captured": true
     },
     {
-        "id": "949468154228",
-        "url": "https://sf-item.taobao.com/sf_item/949468154228.htm?track_id=25f0e98c-d1bf-4b6c-8b3e-37c35873c737",
-        "end": 1753409048000,
-        "status": "done",
-        "is_processed": false
+        "id": 949468154228,
+        "市场评估价": 605561.25,
+        "起拍价格": 437000,
+        "成交价格": 465000,
+        "交易时间": "2025-07-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/949468154228.htm?track_id=25f0e98c-d1bf-4b6c-8b3e-37c35873c737",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 7,
+        "地点": "广东省惠州市博罗县园洲镇阵村村朱屋组（土名）地段世纪名苑4栋8层06号房",
+        "所属小区": "世纪名苑",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "园洲镇",
+        "建筑面积": 97.75,
+        "单价": 4757.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "926313482180",
-        "url": "https://sf-item.taobao.com/sf_item/926313482180.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
-        "end": 1753451945000,
-        "status": "done",
-        "is_processed": false
+        "id": 926313482180,
+        "市场评估价": 530000,
+        "起拍价格": 297000,
+        "成交价格": 323000,
+        "交易时间": "2025/07/25 21:59:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/926313482180.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 10,
+        "地点": "浙江省 嘉兴市 海盐县 百步镇百禾路581号柳岸春风苑15幢105室",
+        "所属小区": "柳岸春风苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "百步镇",
+        "建筑面积": 74.38,
+        "单价": 4342.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "943158350052",
         "url": "https://sf-item.taobao.com/sf_item/943158350052.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
         "end": 1753409745000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "949453498029",
+        "url": "https://sf-item.taobao.com/sf_item/949453498029.htm?track_id=0d0a4b96-3475-41c6-be82-f884580aae77",
+        "end": 1753409322000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "943920193676",
+        "url": "https://sf-item.taobao.com/sf_item/943920193676.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1753409581000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "943929921962",
+        "url": "https://sf-item.taobao.com/sf_item/943929921962.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1753410243000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "943347354755",
+        "url": "https://sf-item.taobao.com/sf_item/943347354755.htm?track_id=6abd5223-c136-4fc7-bb7b-5c922dcc102a",
+        "end": 1753409333000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "950702228181",
+        "url": "https://sf-item.taobao.com/sf_item/950702228181.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1753409302000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "941592021179",
+        "url": "https://sf-item.taobao.com/sf_item/941592021179.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1753420362000,
         "status": "done",
         "is_processed": false
     }

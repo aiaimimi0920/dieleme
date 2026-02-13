@@ -588,23 +588,86 @@
         "detail_captured": true
     },
     {
-        "id": "736771155303",
-        "url": "https://sf-item.taobao.com/sf_item/736771155303.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
-        "end": 1696647385000,
-        "status": "done",
-        "is_processed": false
+        "id": 736771155303,
+        "市场评估价": null,
+        "起拍价格": 915065,
+        "成交价格": 1302066,
+        "交易时间": "2023-10-07 10:56:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/736771155303.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 198,
+        "地点": "内蒙古自治区 包头市 昆都仑区 少先路16号街坊荣资梦乡小区-B2-103号房产",
+        "所属小区": "荣资梦乡小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "740122667727",
-        "url": "https://sf-item.taobao.com/sf_item/740122667727.htm?track_id=6b420920-de29-4df5-8b8e-ab244cccd0e8",
-        "end": 1696644136000,
-        "status": "done",
-        "is_processed": false
+        "id": 740122667727,
+        "市场评估价": 109048,
+        "起拍价格": 61066.88,
+        "成交价格": 61066.88,
+        "交易时间": "2023/10/07 10:02:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/740122667727.htm?track_id=6b420920-de29-4df5-8b8e-ab244cccd0e8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 鸡西市 密山市 珍铭一品",
+        "所属小区": "珍铭一品",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "密山市",
+        "最靠近商圈": "密山市",
+        "建筑面积": 31.13,
+        "单价": 1961.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "737250444471",
         "url": "https://sf-item.taobao.com/sf_item/737250444471.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
         "end": 1696646463000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "737732271252",
+        "url": "https://sf-item.taobao.com/sf_item/737732271252.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1696644000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "739128962640",
+        "url": "https://sf-item.taobao.com/sf_item/739128962640.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1696658621000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "737312812043",
+        "url": "https://sf-item.taobao.com/sf_item/737312812043.htm?track_id=0d0a4b96-3475-41c6-be82-f884580aae77",
+        "end": 1696644432000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "737424778394",
+        "url": "https://sf-item.taobao.com/sf_item/737424778394.htm?track_id=1b72c4a3-0a3f-4a49-a0ef-97c696656a04",
+        "end": 1696644379000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "739889518843",
+        "url": "https://sf-item.taobao.com/sf_item/739889518843.htm?track_id=23b41d43-a66d-4854-8110-feb7462db538",
+        "end": 1696644000000,
         "status": "done",
         "is_processed": false
     }

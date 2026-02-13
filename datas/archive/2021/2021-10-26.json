@@ -1096,12 +1096,25 @@
         "detail_captured": true
     },
     {
-        "id": "656928617878",
-        "url": "https://sf-item.taobao.com/sf_item/656928617878.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
-        "end": 1635215327000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/656928617878.htm"
+        "id": 656928617878,
+        "市场评估价": 2000000,
+        "起拍价格": 1800000,
+        "成交价格": 1865000,
+        "交易时间": "2021/10/26 10:28:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/656928617878.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 14,
+        "地点": "湖南省 湘潭市 雨湖区 湘潭市雨湖区响水乡宝马路以北逸墅庄园A20栋2001号的房屋",
+        "所属小区": "逸墅庄园",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "响水乡",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 655870677142,
@@ -1230,23 +1243,100 @@
         "detail_captured": true
     },
     {
-        "id": "656573388903",
-        "url": "https://sf-item.taobao.com/sf_item/656573388903.htm?track_id=fe9502ad-438c-4cd6-8625-26f85ada71a1",
-        "end": 1635206664000,
-        "status": "done",
-        "is_processed": false
+        "id": 656573388903,
+        "市场评估价": null,
+        "起拍价格": 379350,
+        "成交价格": 421073,
+        "交易时间": "2021/10/26 08:04:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/656573388903.htm?track_id=fe9502ad-438c-4cd6-8625-26f85ada71a1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 7,
+        "地点": "陕西省 延安市 宜川县 石沟坪金瀑小区",
+        "所属小区": "金瀑小区",
+        "省份": "陕西省",
+        "城市": "延安市",
+        "区": "宜川县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "655401760838",
-        "url": "https://sf-item.taobao.com/sf_item/655401760838.htm?track_id=c3263236-9027-4790-98db-026890358103",
-        "end": 1635213615000,
-        "status": "done",
-        "is_processed": false
+        "id": 655401760838,
+        "市场评估价": 200760,
+        "起拍价格": 160608,
+        "成交价格": 160608,
+        "交易时间": "2021/10/26 10:00:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/655401760838.htm?track_id=c3263236-9027-4790-98db-026890358103",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 呼伦贝尔市 牙克石市 乌尔其汗镇黎明小区",
+        "所属小区": "黎明小区",
+        "省份": "内蒙古自治区",
+        "城市": "呼伦贝尔市",
+        "区": "牙克石市",
+        "最靠近商圈": "乌尔其汗镇",
+        "建筑面积": 95.6,
+        "单价": 1679.99,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "656329313014",
         "url": "https://sf-item.taobao.com/sf_item/656329313014.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
         "end": 1635233847000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656321398411",
+        "url": "https://sf-item.taobao.com/sf_item/656321398411.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1635214848000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655353000581",
+        "url": "https://sf-item.taobao.com/sf_item/655353000581.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1635228065000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657757083299",
+        "url": "https://sf-item.taobao.com/sf_item/657757083299.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1635215139000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657018757138",
+        "url": "https://sf-item.taobao.com/sf_item/657018757138.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1635216084000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657769483039",
+        "url": "https://sf-item.taobao.com/sf_item/657769483039.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1635220967000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657404258203",
+        "url": "https://sf-item.taobao.com/sf_item/657404258203.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1635219491000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655225065017",
+        "url": "https://sf-item.taobao.com/sf_item/655225065017.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1635216956000,
         "status": "done",
         "is_processed": false
     }

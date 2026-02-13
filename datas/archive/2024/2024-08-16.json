@@ -630,18 +630,46 @@
         "detail_captured": true
     },
     {
-        "id": "803168822448",
-        "url": "https://sf-item.taobao.com/sf_item/803168822448.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
-        "end": 1723777696000,
-        "status": "done",
-        "is_processed": false
+        "id": 803168822448,
+        "市场评估价": 671024,
+        "起拍价格": 603921.6,
+        "成交价格": 603921.6,
+        "交易时间": "2024/08/16 11:08:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/803168822448.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省潍坊市昌邑市万国商贸城G2楼",
+        "所属小区": "万国商贸城",
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": "昌邑市城区",
+        "建筑面积": 120.04,
+        "单价": 5032.24,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "820508213266",
-        "url": "https://sf-item.taobao.com/sf_item/820508213266.htm?track_id=efe09fc5-98eb-42e5-a38c-752f0783ac4b",
-        "end": 1723774783000,
-        "status": "done",
-        "is_processed": false
+        "id": 820508213266,
+        "市场评估价": 941290.5,
+        "起拍价格": 527124,
+        "成交价格": 581124,
+        "交易时间": "2024/08/16 10:19:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/820508213266.htm?track_id=efe09fc5-98eb-42e5-a38c-752f0783ac4b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 22,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区中央大街27甲16号2-10-1",
+        "所属小区": "新湖仙湖金境",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西经开区",
+        "建筑面积": 104.01,
+        "单价": 5587.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "820320022646",
@@ -651,25 +679,67 @@
         "is_processed": false
     },
     {
-        "id": "820517401431",
-        "url": "https://sf-item.taobao.com/sf_item/820517401431.htm?track_id=c91db458-86b2-4c54-b8e2-bb20970fae22",
-        "end": 1723773620000,
-        "status": "done",
-        "is_processed": false
+        "id": 820517401431,
+        "市场评估价": 214888.6,
+        "起拍价格": 120339,
+        "成交价格": 120339,
+        "交易时间": "2024/08/16 10:00:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/820517401431.htm?track_id=c91db458-86b2-4c54-b8e2-bb20970fae22",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 艳璐街34号2-5-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 40.9,
+        "单价": 2942.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "820212970734",
-        "url": "https://sf-item.taobao.com/sf_item/820212970734.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
-        "end": 1723774678000,
-        "status": "done",
-        "is_processed": false
+        "id": 820212970734,
+        "市场评估价": 0,
+        "起拍价格": 580082.74,
+        "成交价格": 694082.74,
+        "交易时间": "2024/08/16 10:17:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/820212970734.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 25,
+        "地点": "河北省 廊坊市 霸州市 碧桂园天玺拙园小区7号楼1单元1401室的不动产",
+        "所属小区": "碧桂园天玺拙园小区",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": null,
+        "建筑面积": 109.11,
+        "单价": 6361.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "820531564828",
-        "url": "https://sf-item.taobao.com/sf_item/820531564828.htm?track_id=7cc7040a-9604-45a8-8944-4f43c49da988",
-        "end": 1723774320000,
-        "status": "done",
-        "is_processed": false
+        "id": 820531564828,
+        "市场评估价": 0,
+        "起拍价格": 620000,
+        "成交价格": 764000,
+        "交易时间": "2024/08/16 10:12:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/820531564828.htm?track_id=7cc7040a-9604-45a8-8944-4f43c49da988",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 18,
+        "地点": "河北省 保定市 定兴县 繁兴街北延路西佶地国际C区15号楼2单元1602",
+        "所属小区": "佶地国际",
+        "省份": "河北省",
+        "城市": "保定市",
+        "区": "定兴县",
+        "最靠近商圈": "定兴县",
+        "建筑面积": 135,
+        "单价": 5659.26,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "820504849064",
@@ -696,6 +766,62 @@
         "id": "816056832477",
         "url": "https://sf-item.taobao.com/sf_item/816056832477.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
         "end": 1723775303000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "815169673646",
+        "url": "https://sf-item.taobao.com/sf_item/815169673646.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1723777794000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "819931806985",
+        "url": "https://sf-item.taobao.com/sf_item/819931806985.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1723778630000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820248124279",
+        "url": "https://sf-item.taobao.com/sf_item/820248124279.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1723775271000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820203065647",
+        "url": "https://sf-item.taobao.com/sf_item/820203065647.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1723775978000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "819150341987",
+        "url": "https://sf-item.taobao.com/sf_item/819150341987.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1723776917000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820465121523",
+        "url": "https://sf-item.taobao.com/sf_item/820465121523.htm?track_id=e060ffc2-3fe3-43ca-bf44-12c2e06c793c",
+        "end": 1723774244000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820182357075",
+        "url": "https://sf-item.taobao.com/sf_item/820182357075.htm?track_id=1d7de8cb-3c6a-4ed4-af6a-105ce509c724",
+        "end": 1723773600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "819795315836",
+        "url": "https://sf-item.taobao.com/sf_item/819795315836.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1723774798000,
         "status": "done",
         "is_processed": false
     }

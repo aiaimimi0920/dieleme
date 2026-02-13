@@ -1,29 +1,169 @@
 [
     {
-        "id": "1015587024357",
-        "url": "https://sf-item.taobao.com/sf_item/1015587024357.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
-        "end": 1770864591000,
-        "status": "done",
-        "is_processed": false
+        "id": 1015587024357,
+        "市场评估价": 0,
+        "起拍价格": 675000,
+        "成交价格": 783000,
+        "交易时间": "2026/02/12 10:49:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1015587024357.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 19,
+        "地点": "福建省 泉州市 安溪县 城厢镇安美东路1号财富广场6号楼2梯1802室房产",
+        "所属小区": "财富广场",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "财富广场",
+        "建筑面积": 110.49,
+        "单价": 7086.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "1016198633477",
-        "url": "https://sf-item.taobao.com/sf_item/1016198633477.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
-        "end": 1770862625000,
-        "status": "done",
-        "is_processed": false
+        "id": 1016198633477,
+        "市场评估价": null,
+        "起拍价格": 272000,
+        "成交价格": 284000,
+        "交易时间": "2026/02/12 10:17:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1016198633477.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 7,
+        "地点": "福建省 泉州市 安溪县 安溪茶博汇第17幢306号房地产",
+        "所属小区": "安溪茶博汇",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪茶博汇",
+        "建筑面积": 100.27,
+        "单价": 2832.6,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "1016944764775",
-        "url": "https://sf-item.taobao.com/sf_item/1016944764775.htm?track_id=bd1a1615-af02-4f76-80ed-e42d6351de92",
-        "end": 1770861600000,
-        "status": "done",
-        "is_processed": false
+        "id": 1016944764775,
+        "市场评估价": null,
+        "起拍价格": 666000,
+        "成交价格": 666000,
+        "交易时间": "2026/02/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1016944764775.htm?track_id=bd1a1615-af02-4f76-80ed-e42d6351de92",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 泉州市 安溪县 城厢镇二环南路666号百福豪城32号楼201室房产",
+        "所属小区": "百福豪城",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "城厢商圈",
+        "建筑面积": 109.95,
+        "单价": 6055.02,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "1015432011179",
         "url": "https://sf-item.taobao.com/sf_item/1015432011179.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
         "end": 1770863039000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1017810404447",
+        "url": "https://sf-item.taobao.com/sf_item/1017810404447.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1770861600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1016962021688",
+        "url": "https://sf-item.taobao.com/sf_item/1016962021688.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1770863036000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1015431367027",
+        "url": "https://sf-item.taobao.com/sf_item/1015431367027.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1770864050000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1015214594734",
+        "url": "https://sf-item.taobao.com/sf_item/1015214594734.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1770867420000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1016064690824",
+        "url": "https://sf-item.taobao.com/sf_item/1016064690824.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1770861600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1016929517996",
+        "url": "https://sf-item.taobao.com/sf_item/1016929517996.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1770861600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1016056034304",
+        "url": "https://sf-item.taobao.com/sf_item/1016056034304.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1770875890000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1016230518473",
+        "url": "https://sf-item.taobao.com/sf_item/1016230518473.htm?track_id=13522d09-c2bb-419f-9fee-29d88a0e165a",
+        "end": 1770874734000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1016194178496",
+        "url": "https://sf-item.taobao.com/sf_item/1016194178496.htm?track_id=f9fba1dc-0a83-468f-bda8-aa92f58b8e7a",
+        "end": 1770862017000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1016177418979",
+        "url": "https://sf-item.taobao.com/sf_item/1016177418979.htm?track_id=efb4342c-0c1c-4486-9308-1ed5553b53ca",
+        "end": 1770862406000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1019536285854",
+        "url": "https://sf-item.taobao.com/sf_item/1019536285854.htm?track_id=30d808e3-d96d-4c20-b7c0-2a2a14a6d2bf",
+        "end": 1770865194000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1014839141704",
+        "url": "https://sf-item.taobao.com/sf_item/1014839141704.htm?track_id=55c1cc05-4e69-4ba6-9889-416b52dc39e0",
+        "end": 1770866764000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1014839781019",
+        "url": "https://sf-item.taobao.com/sf_item/1014839781019.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1770864162000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1013990262689",
+        "url": "https://sf-item.taobao.com/sf_item/1013990262689.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1770866510000,
         "status": "done",
         "is_processed": false
     }

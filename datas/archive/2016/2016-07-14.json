@@ -86,11 +86,25 @@
         "detail_captured": true
     },
     {
-        "id": "534561585923",
-        "url": "https://sf-item.taobao.com/sf_item/534561585923.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
-        "end": 1468461600000,
-        "status": "done",
-        "is_processed": false
+        "id": 534561585923,
+        "市场评估价": 808679,
+        "起拍价格": 517554,
+        "成交价格": 517554,
+        "交易时间": "2016/07/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534561585923.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林市船营区昌茂花园6号楼1单元15-16层36号",
+        "所属小区": "昌茂花园",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "解放中路商圈",
+        "建筑面积": 141.18,
+        "单价": 3665.68,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "534564974325",
@@ -103,6 +117,13 @@
         "id": "534566006436",
         "url": "https://sf-item.taobao.com/sf_item/534566006436.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1468461600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534596766825",
+        "url": "https://sf-item.taobao.com/sf_item/534596766825.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1468463279000,
         "status": "done",
         "is_processed": false
     }

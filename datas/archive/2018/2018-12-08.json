@@ -624,16 +624,44 @@
         "detail_captured": true
     },
     {
-        "id": "581774807463",
-        "url": "https://sf-item.taobao.com/sf_item/581774807463.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1544234400000,
-        "status": "done",
-        "is_processed": false
+        "id": 581774807463,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 240800,
+        "交易时间": "2018/12/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581774807463.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市新密市新密市城区青屏大街长安路屈嘴街诚信路围合处中兴融园6号楼1单元3层030006号",
+        "所属小区": "中兴融园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏大街商圈",
+        "建筑面积": 47.81,
+        "单价": 5036.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "581771999494",
         "url": "https://sf-item.taobao.com/sf_item/581771999494.htm?track_id=38ff9499-8b6e-4751-ba19-1b5236d6f01f",
         "end": 1544234561000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582239016695",
+        "url": "https://sf-item.taobao.com/sf_item/582239016695.htm?track_id=2aae7a99-698e-4407-8145-803f91390659",
+        "end": 1544238061000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581671259641",
+        "url": "https://sf-item.taobao.com/sf_item/581671259641.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1544234400000,
         "status": "done",
         "is_processed": false
     }

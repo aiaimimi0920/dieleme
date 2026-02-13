@@ -1161,12 +1161,25 @@
         "detail_captured": true
     },
     {
-        "id": "690468951062",
-        "url": "https://sf-item.taobao.com/sf_item/690468951062.htm?track_id=e10f4c13-2137-425e-b21c-bc66c315504d",
-        "end": 1669688891000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/690468951062.htm"
+        "id": 690468951062,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 692248,
+        "交易时间": "2022-11-29T10:28:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/690468951062.htm?track_id=e10f4c13-2137-425e-b21c-bc66c315504d",
+        "是否成交": true,
+        "竞拍人数": 87,
+        "出价人数": null,
+        "地点": "江苏省淮安市淮安区香溢花城安置小区4号楼2102室",
+        "所属小区": "香溢花城安置小区",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 689188048662,
@@ -1260,25 +1273,67 @@
         "is_processed": false
     },
     {
-        "id": "691540672332",
-        "url": "https://sf-item.taobao.com/sf_item/691540672332.htm?track_id=44061c44-dccf-40bc-8c44-df06897af9b1",
-        "end": 1669689975000,
-        "status": "done",
-        "is_processed": false
+        "id": 691540672332,
+        "市场评估价": 1246800,
+        "起拍价格": 997440,
+        "成交价格": 1157440,
+        "交易时间": "2022-11-29 10:46:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/691540672332.htm?track_id=44061c44-dccf-40bc-8c44-df06897af9b1",
+        "是否成交": true,
+        "竞拍人数": 81,
+        "出价人数": 81,
+        "地点": "安徽省 合肥市 瑶海区 胜利路秀珍大厦1幢2110室",
+        "所属小区": "秀珍大厦",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "胜利路商圈",
+        "建筑面积": 143.82,
+        "单价": 8042.73,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "690515339395",
-        "url": "https://sf-item.taobao.com/sf_item/690515339395.htm?track_id=ba646f98-68d2-4622-8321-0904c04d5fb2",
-        "end": 1669687563000,
-        "status": "done",
-        "is_processed": false
+        "id": 690515339395,
+        "市场评估价": 772467,
+        "起拍价格": 617973.6,
+        "成交价格": 737973.6,
+        "交易时间": "2022/11/29 10:06:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/690515339395.htm?track_id=ba646f98-68d2-4622-8321-0904c04d5fb2",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": null,
+        "地点": "贵州省 贵阳市 修文县 扎佐镇和平村境内扎佐镇步行街上和国际项目A1幢1单元1层15号",
+        "所属小区": "上和国际",
+        "省份": "贵州省",
+        "城市": "贵阳市",
+        "区": "修文县",
+        "最靠近商圈": "扎佐镇步行街",
+        "建筑面积": 61.38,
+        "单价": 12027.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "689157711883",
-        "url": "https://sf-item.taobao.com/sf_item/689157711883.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
-        "end": 1669693830000,
-        "status": "done",
-        "is_processed": false
+        "id": 689157711883,
+        "市场评估价": null,
+        "起拍价格": 970000,
+        "成交价格": 1520000,
+        "交易时间": "2022/11/29 11:50:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/689157711883.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
+        "是否成交": true,
+        "竞拍人数": 78,
+        "出价人数": null,
+        "地点": "福建省泉州市安溪县参内乡河滨北路966号安溪恒大御景93号楼商铺06",
+        "所属小区": "安溪恒大御景",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪恒大御景商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "690479775994",
@@ -1291,6 +1346,69 @@
         "id": "690193518434",
         "url": "https://sf-item.taobao.com/sf_item/690193518434.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
         "end": 1669687200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "690488635530",
+        "url": "https://sf-item.taobao.com/sf_item/690488635530.htm?track_id=d5566e93-6667-4ee0-86bb-103d626c1c7d",
+        "end": 1669688524000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692305109396",
+        "url": "https://sf-item.taobao.com/sf_item/692305109396.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1669695027000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "689006872386",
+        "url": "https://sf-item.taobao.com/sf_item/689006872386.htm?track_id=bce7c78f-af18-4d86-a5d0-8036c9800db5",
+        "end": 1669689662000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692879287681",
+        "url": "https://sf-item.taobao.com/sf_item/692879287681.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1669687484000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "690216490840",
+        "url": "https://sf-item.taobao.com/sf_item/690216490840.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1669687200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692239513063",
+        "url": "https://sf-item.taobao.com/sf_item/692239513063.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "end": 1669687902000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "692105670383",
+        "url": "https://sf-item.taobao.com/sf_item/692105670383.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1669687480000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "690150747882",
+        "url": "https://sf-item.taobao.com/sf_item/690150747882.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1669687553000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683522496336",
+        "url": "https://sf-item.taobao.com/sf_item/683522496336.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1669696666000,
         "status": "done",
         "is_processed": false
     }

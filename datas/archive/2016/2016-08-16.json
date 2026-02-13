@@ -106,18 +106,46 @@
         "detail_captured": true
     },
     {
-        "id": "536320363113",
-        "url": "https://sf-item.taobao.com/sf_item/536320363113.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
-        "end": 1471313355000,
-        "status": "done",
-        "is_processed": false
+        "id": 536320363113,
+        "市场评估价": 680500,
+        "起拍价格": 544400,
+        "成交价格": 701400,
+        "交易时间": "2016/08/16 10:09:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536320363113.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 153,
+        "地点": "河南省郑州市二七区兴华南街12号楼东2单元22号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路",
+        "建筑面积": 86.36,
+        "单价": 8121.35,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "536228764838",
-        "url": "https://sf-item.taobao.com/sf_item/536228764838.htm?track_id=909e3e03-2756-4d7b-84a1-406321c112b1",
-        "end": 1471314945000,
-        "status": "done",
-        "is_processed": false
+        "id": 536228764838,
+        "市场评估价": 1298600,
+        "起拍价格": 1168740,
+        "成交价格": 1278740,
+        "交易时间": "2016-08-16 10:35:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536228764838.htm?track_id=909e3e03-2756-4d7b-84a1-406321c112b1",
+        "是否成交": true,
+        "竞拍人数": 56,
+        "出价人数": 0,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": "亚星盛世家园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 138.24,
+        "单价": 9253.03,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "536332894244",
@@ -144,6 +172,20 @@
         "id": "536808835617",
         "url": "https://sf-item.taobao.com/sf_item/536808835617.htm?track_id=b11be64f-29a6-4dba-8035-2a2ffeff2505",
         "end": 1471315655000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536351901771",
+        "url": "https://sf-item.taobao.com/sf_item/536351901771.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1471314565000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535843919140",
+        "url": "https://sf-item.taobao.com/sf_item/535843919140.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1471314605000,
         "status": "done",
         "is_processed": false
     }

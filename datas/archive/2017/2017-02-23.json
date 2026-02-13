@@ -241,16 +241,44 @@
         "is_processed": false
     },
     {
-        "id": "544721141602",
-        "url": "https://sf-item.taobao.com/sf_item/544721141602.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
-        "end": 1487820871000,
-        "status": "done",
-        "is_processed": false
+        "id": 544721141602,
+        "市场评估价": null,
+        "起拍价格": 1100000,
+        "成交价格": 1232000,
+        "交易时间": "2017-02-23 11:34:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544721141602.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
+        "是否成交": true,
+        "竞拍人数": 66,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": "隆福国际",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "545208759813",
         "url": "https://sf-item.taobao.com/sf_item/545208759813.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
         "end": 1487817874000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544571974892",
+        "url": "https://sf-item.taobao.com/sf_item/544571974892.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1487817150000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544541841664",
+        "url": "https://sf-item.taobao.com/sf_item/544541841664.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1487819002000,
         "status": "done",
         "is_processed": false
     }

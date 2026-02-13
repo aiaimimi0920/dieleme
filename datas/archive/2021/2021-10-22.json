@@ -45,11 +45,31 @@
         "detail_captured": true
     },
     {
-        "id": "655695395148",
-        "url": "https://sf-item.taobao.com/sf_item/655695395148.htm?track_id=c383bb05-bf64-4c7c-93e8-13fad7f281aa",
-        "end": 1634870813000,
+        "id": 655695395148,
+        "市场评估价": 2945258,
+        "起拍价格": 2100000,
+        "成交价格": 2500000,
+        "交易时间": "2021-10-22T10:46:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/655695395148.htm?track_id=c383bb05-bf64-4c7c-93e8-13fad7f281aa",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 32,
+        "地点": "江苏省苏州市姑苏区清塘路333号虎阜花园西区42幢203室",
+        "所属小区": "虎阜花园西区",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "虎丘",
+        "建筑面积": 89.12,
+        "单价": 28052.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "655236682494",
+        "url": "https://sf-item.taobao.com/sf_item/655236682494.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1634869081000,
         "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/655695395148.htm"
+        "is_processed": false
     }
 ]

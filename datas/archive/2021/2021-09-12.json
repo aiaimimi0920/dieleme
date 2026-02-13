@@ -84,12 +84,25 @@
         "detail_captured": true
     },
     {
-        "id": "652970682536",
-        "url": "https://sf-item.taobao.com/sf_item/652970682536.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
-        "end": 1631418344000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/652970682536.htm"
+        "id": 652970682536,
+        "市场评估价": 0,
+        "起拍价格": 815629,
+        "成交价格": 929629,
+        "交易时间": "2021/09/12 11:45:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652970682536.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 48,
+        "地点": "江苏省 淮安市 淮安区 关天培路世纪佳苑小区3号楼2单元401室",
+        "所属小区": "世纪佳苑小区",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "关天培路",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 653254883038,
@@ -162,23 +175,72 @@
         "is_processed": false
     },
     {
-        "id": "652494957608",
-        "url": "https://sf-item.taobao.com/sf_item/652494957608.htm?track_id=a111a0ce-52df-468f-b678-52855c23b066",
-        "end": 1631412000000,
-        "status": "done",
-        "is_processed": false
+        "id": 652494957608,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 923750,
+        "交易时间": "2021/09/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652494957608.htm?track_id=a111a0ce-52df-468f-b678-52855c23b066",
+        "是否成交": true,
+        "竞拍人数": 96,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 浑南区 沈营大街12号4-1-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "浑南区",
+        "最靠近商圈": null,
+        "建筑面积": 125,
+        "单价": 7390,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "653310044881",
-        "url": "https://sf-item.taobao.com/sf_item/653310044881.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
-        "end": 1631415446000,
-        "status": "done",
-        "is_processed": false
+        "id": 653310044881,
+        "市场评估价": null,
+        "起拍价格": 1213483,
+        "成交价格": 1313483,
+        "交易时间": "2021-09-12 10:57:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/653310044881.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 21,
+        "地点": "河南省 郑州市 二七区 庆喜路24号4号楼1单元5层504号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": 126.68,
+        "单价": 10357.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "653187651844",
         "url": "https://sf-item.taobao.com/sf_item/653187651844.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
         "end": 1631413090000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654582091282",
+        "url": "https://sf-item.taobao.com/sf_item/654582091282.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1631417582000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "651792208661",
+        "url": "https://sf-item.taobao.com/sf_item/651792208661.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1631415359000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "653362963304",
+        "url": "https://sf-item.taobao.com/sf_item/653362963304.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1631412000000,
         "status": "done",
         "is_processed": false
     }

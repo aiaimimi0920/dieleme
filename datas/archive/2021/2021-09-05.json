@@ -85,12 +85,25 @@
         "detail_captured": true
     },
     {
-        "id": "649877252294",
-        "url": "https://sf-item.taobao.com/sf_item/649877252294.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
-        "end": 1630835902000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/649877252294.htm"
+        "id": 649877252294,
+        "市场评估价": 346400,
+        "起拍价格": 193984,
+        "成交价格": 208984,
+        "交易时间": "2021-09-05 17:58:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/649877252294.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 7,
+        "地点": "江苏省 淮安市 淮安区 淮安市淮安区国际商城A7号楼2108A号商铺",
+        "所属小区": "国际商城",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安商业中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 651868817507,
@@ -177,11 +190,25 @@
         "detail_captured": true
     },
     {
-        "id": "652817208550",
-        "url": "https://sf-item.taobao.com/sf_item/652817208550.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
-        "end": 1630807200000,
-        "status": "done",
-        "is_processed": false
+        "id": 652817208550,
+        "市场评估价": 560385,
+        "起拍价格": 317580,
+        "成交价格": 317580,
+        "交易时间": "2021/09/05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652817208550.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 沈阳经济技术开发区开发二十七号路330-1号1-5-2",
+        "所属小区": "东方银座莱茵城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 83.89,
+        "单价": 3785.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "652402958072",
@@ -191,9 +218,30 @@
         "is_processed": false
     },
     {
-        "id": "652400442081",
-        "url": "https://sf-item.taobao.com/sf_item/652400442081.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
-        "end": 1630811415000,
+        "id": 652400442081,
+        "市场评估价": 1243100,
+        "起拍价格": 880000,
+        "成交价格": 1097500,
+        "交易时间": "2021/09/05 11:10:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652400442081.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "是否成交": true,
+        "竞拍人数": 131,
+        "出价人数": 134,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道谢家路945号金色江湾小区13幢801室",
+        "所属小区": "金色江湾小区",
+        "省份": "浙江",
+        "城市": "嘉兴",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 92.21,
+        "单价": 11906.06,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "650433493055",
+        "url": "https://sf-item.taobao.com/sf_item/650433493055.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1630828224000,
         "status": "done",
         "is_processed": false
     }

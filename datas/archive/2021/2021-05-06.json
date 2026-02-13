@@ -232,16 +232,58 @@
         "detail_captured": true
     },
     {
-        "id": "643251731574",
-        "url": "https://sf-item.taobao.com/sf_item/643251731574.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
-        "end": 1620267197000,
-        "status": "done",
-        "is_processed": false
+        "id": 643251731574,
+        "市场评估价": 474620,
+        "起拍价格": 304000,
+        "成交价格": 361000,
+        "交易时间": "2021-05-06 10:13:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/643251731574.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 10,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 新华剑江中路西苑金河谷A栋3单元4层2号",
+        "所属小区": "金河谷",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "剑江中路商圈",
+        "建筑面积": 132.4,
+        "单价": 2728.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "641646162096",
         "url": "https://sf-item.taobao.com/sf_item/641646162096.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
         "end": 1620266887000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642198436080",
+        "url": "https://sf-item.taobao.com/sf_item/642198436080.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "end": 1620268687000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "640952801478",
+        "url": "https://sf-item.taobao.com/sf_item/640952801478.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1620276344000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641017202945",
+        "url": "https://sf-item.taobao.com/sf_item/641017202945.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1620270249000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "640675557142",
+        "url": "https://sf-item.taobao.com/sf_item/640675557142.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "end": 1620266990000,
         "status": "done",
         "is_processed": false
     }

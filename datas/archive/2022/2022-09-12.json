@@ -210,23 +210,65 @@
         "detail_captured": true
     },
     {
-        "id": "682185939092",
-        "url": "https://sf-item.taobao.com/sf_item/682185939092.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
-        "end": 1662949164000,
-        "status": "done",
-        "is_processed": false
+        "id": 682185939092,
+        "市场评估价": 925919,
+        "起拍价格": 518516,
+        "成交价格": 590516,
+        "交易时间": "2022/09/12 10:19:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/682185939092.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 25,
+        "地点": "辽宁省 沈阳市 铁西区 北一西路21乙6号3-2-1",
+        "所属小区": "锦绣四合院",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西商圈",
+        "建筑面积": 111.67,
+        "单价": 5287.19,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "682335299190",
-        "url": "https://sf-item.taobao.com/sf_item/682335299190.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
-        "end": 1662949465000,
-        "status": "done",
-        "is_processed": false
+        "id": 682335299190,
+        "市场评估价": null,
+        "起拍价格": 175100,
+        "成交价格": 263475,
+        "交易时间": "2022/09/12 10:24:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/682335299190.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 101,
+        "地点": "广西壮族自治区 贵港市 桂平市 凤凰新区综合市场A#-2-1205号商品房",
+        "所属小区": "凤凰新区综合市场",
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "凤凰新区",
+        "建筑面积": 104.35,
+        "单价": 2525.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "681233527755",
         "url": "https://sf-item.taobao.com/sf_item/681233527755.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
         "end": 1662948654000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "681670428917",
+        "url": "https://sf-item.taobao.com/sf_item/681670428917.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1662948000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "680254524797",
+        "url": "https://sf-item.taobao.com/sf_item/680254524797.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "end": 1662948000000,
         "status": "done",
         "is_processed": false
     }

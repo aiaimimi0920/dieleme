@@ -77,9 +77,44 @@
         "is_processed": false
     },
     {
-        "id": "779535369998",
-        "url": "https://sf-item.taobao.com/sf_item/779535369998.htm?track_id=6e2f85f4-a431-4d2a-afe1-a8628010aed9",
-        "end": 1714788000000,
+        "id": 779535369998,
+        "市场评估价": 1015012,
+        "起拍价格": 710509,
+        "成交价格": 710509,
+        "交易时间": "2024-05-04T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/779535369998.htm?track_id=6e2f85f4-a431-4d2a-afe1-a8628010aed9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道华丰路1668号金洲阳光2幢3202室",
+        "所属小区": "金洲阳光",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 101.44,
+        "单价": 7002.7,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "779747711706",
+        "url": "https://sf-item.taobao.com/sf_item/779747711706.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1714788184000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "785054053138",
+        "url": "https://sf-item.taobao.com/sf_item/785054053138.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1714797195000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "785078488837",
+        "url": "https://sf-item.taobao.com/sf_item/785078488837.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1714810569000,
         "status": "done",
         "is_processed": false
     }

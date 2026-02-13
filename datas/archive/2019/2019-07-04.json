@@ -259,16 +259,79 @@
         "is_processed": false
     },
     {
-        "id": "595137287426",
-        "url": "https://sf-item.taobao.com/sf_item/595137287426.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
-        "end": 1562206951000,
+        "id": 595137287426,
+        "市场评估价": null,
+        "起拍价格": 260000,
+        "成交价格": 314000,
+        "交易时间": "2019-07-04 10:22:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595137287426.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
+        "是否成交": true,
+        "竞拍人数": 49,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 46.28,
+        "单价": 6783.69,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 595327111527,
+        "市场评估价": 323157,
+        "起拍价格": 290842,
+        "成交价格": 318842,
+        "交易时间": "2019-07-04 16:11:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595327111527.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": 15,
+        "地点": "云南省丽江市华坪县蓝色港湾2号楼602号房产",
+        "所属小区": "蓝色港湾",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "中心镇",
+        "建筑面积": 127.73,
+        "单价": 2495.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "596906854786",
+        "url": "https://sf-item.taobao.com/sf_item/596906854786.htm?track_id=9a405c8a-1c07-49bc-9bd5-0414da77ea78",
+        "end": 1562205600000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "595327111527",
-        "url": "https://sf-item.taobao.com/sf_item/595327111527.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1562227909000,
+        "id": "594890976636",
+        "url": "https://sf-item.taobao.com/sf_item/594890976636.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1562205600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595471199849",
+        "url": "https://sf-item.taobao.com/sf_item/595471199849.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1562205600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596889626863",
+        "url": "https://sf-item.taobao.com/sf_item/596889626863.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "end": 1562205600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594467026210",
+        "url": "https://sf-item.taobao.com/sf_item/594467026210.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1562209934000,
         "status": "done",
         "is_processed": false
     }

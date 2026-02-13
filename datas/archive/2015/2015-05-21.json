@@ -21,18 +21,46 @@
         "detail_captured": true
     },
     {
-        "id": "45149103196",
-        "url": "https://sf-item.taobao.com/sf_item/45149103196.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
-        "end": 1432173600000,
-        "status": "done",
-        "is_processed": false
+        "id": 45149103196,
+        "市场评估价": null,
+        "起拍价格": 12157746,
+        "成交价格": 12157746,
+        "交易时间": "2015/05/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45149103196.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省嘉兴市海盐县西塘桥街道方家埭路83号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "西塘桥",
+        "建筑面积": 7845.59,
+        "单价": 1550.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "45171071235",
-        "url": "https://sf-item.taobao.com/sf_item/45171071235.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
-        "end": 1432173602000,
-        "status": "done",
-        "is_processed": false
+        "id": 45171071235,
+        "市场评估价": null,
+        "起拍价格": 324000,
+        "成交价格": 324000,
+        "交易时间": "2015/05/21 10:00:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45171071235.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市海盐县武原街道城北小区211幢304室",
+        "所属小区": "城北小区",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 88.82,
+        "单价": 3647.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "45243017692",
@@ -42,11 +70,25 @@
         "is_processed": false
     },
     {
-        "id": "45178162596",
-        "url": "https://sf-item.taobao.com/sf_item/45178162596.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
-        "end": 1432175783000,
-        "status": "done",
-        "is_processed": false
+        "id": 45178162596,
+        "市场评估价": null,
+        "起拍价格": 1120000,
+        "成交价格": 1520000,
+        "交易时间": "2015/05/21 10:36:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45178162596.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 25,
+        "地点": "浙江省 杭州市 滨江区 长河街道滨盛路1786号汉氏大厦309室",
+        "所属小区": "汉氏大厦",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河板块",
+        "建筑面积": 119.07,
+        "单价": 12766.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "45132505045",
@@ -65,6 +107,20 @@
     {
         "id": "45150832616",
         "url": "https://sf-item.taobao.com/sf_item/45150832616.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "end": 1432173600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "45215269033",
+        "url": "https://sf-item.taobao.com/sf_item/45215269033.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1432173816000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "45172690386",
+        "url": "https://sf-item.taobao.com/sf_item/45172690386.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
         "end": 1432173600000,
         "status": "done",
         "is_processed": false

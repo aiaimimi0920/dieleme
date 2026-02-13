@@ -92,12 +92,25 @@
         "detail_captured": true
     },
     {
-        "id": "678851051550",
-        "url": "https://sf-item.taobao.com/sf_item/678851051550.htm?track_id=f1eb5140-fbe3-4f0e-b1e0-7b321e3a1f62",
-        "end": 1658629706000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/678851051550.htm"
+        "id": 678851051550,
+        "市场评估价": 5400575,
+        "起拍价格": 4540575,
+        "成交价格": 5400575,
+        "交易时间": "2022/07/24 10:28:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678851051550.htm?track_id=f1eb5140-fbe3-4f0e-b1e0-7b321e3a1f62",
+        "是否成交": true,
+        "竞拍人数": 47,
+        "出价人数": 47,
+        "地点": "苏州吴中经济开发区城南街道兴昂路99号1幢107室等32套的商业房地产",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "城南街道/兴昂路商圈",
+        "建筑面积": 798.12,
+        "单价": 6766.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 678208121150,
@@ -226,9 +239,30 @@
         "detail_captured": true
     },
     {
-        "id": "677737632735",
-        "url": "https://sf-item.taobao.com/sf_item/677737632735.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
-        "end": 1658628000000,
+        "id": 677737632735,
+        "市场评估价": 2009880,
+        "起拍价格": 1125533,
+        "成交价格": 1125533,
+        "交易时间": "2022/07/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/677737632735.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 南昌市 青云谱区 青云谱区城南大道南段西侧博学路399号生命树小区24号住宅楼四单元201室",
+        "所属小区": "生命树小区",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "城南商圈",
+        "建筑面积": 167.49,
+        "单价": 6720.92,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "678109413468",
+        "url": "https://sf-item.taobao.com/sf_item/678109413468.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
+        "end": 1658632341000,
         "status": "done",
         "is_processed": false
     }

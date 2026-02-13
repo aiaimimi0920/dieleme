@@ -609,16 +609,44 @@
         "detail_captured": true
     },
     {
-        "id": "795739598222",
-        "url": "https://sf-item.taobao.com/sf_item/795739598222.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
-        "end": 1719367200000,
-        "status": "done",
-        "is_processed": false
+        "id": 795739598222,
+        "市场评估价": 0,
+        "起拍价格": 5400000,
+        "成交价格": 5400000,
+        "交易时间": "2024/06/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/795739598222.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 阳江市 阳春市 阳春市春城街道东湖公园二期商住楼三区G-120号、G-121号、G-122号、G-123号、G-126号（复式）",
+        "所属小区": "东湖公园二期商住楼",
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": "东湖公园",
+        "建筑面积": 1374.4,
+        "单价": 3928.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "800744071330",
         "url": "https://sf-item.taobao.com/sf_item/800744071330.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
         "end": 1719367332000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "799416165692",
+        "url": "https://sf-item.taobao.com/sf_item/799416165692.htm?track_id=83a69582-76f4-4489-bccb-41fc9b7b6cf6",
+        "end": 1719368045000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "798313506150",
+        "url": "https://sf-item.taobao.com/sf_item/798313506150.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1719367532000,
         "status": "done",
         "is_processed": false
     }

@@ -169,23 +169,58 @@
         "detail_captured": true
     },
     {
-        "id": "615183332823",
-        "url": "https://sf-item.taobao.com/sf_item/615183332823.htm?track_id=110cae27-78c2-4291-8b1b-70244e446202",
-        "end": 1587867371000,
-        "status": "done",
-        "is_processed": false
+        "id": 615183332823,
+        "市场评估价": 342732,
+        "起拍价格": 191931,
+        "成交价格": 222931,
+        "交易时间": "2020/04/26 10:16:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/615183332823.htm?track_id=110cae27-78c2-4291-8b1b-70244e446202",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 32,
+        "地点": "辽宁省 沈阳市 铁西区 富工二街7号3-7-2",
+        "所属小区": "肇工小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 58.99,
+        "单价": 3780.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "615842670507",
-        "url": "https://sf-item.taobao.com/sf_item/615842670507.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
-        "end": 1587866400000,
-        "status": "done",
-        "is_processed": false
+        "id": 615842670507,
+        "市场评估价": null,
+        "起拍价格": 889776,
+        "成交价格": 889776,
+        "交易时间": "2020-04-26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/615842670507.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 南平市 顺昌县 双溪利德路10号4层",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪",
+        "建筑面积": 100,
+        "单价": 8897.76,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "613951827120",
         "url": "https://sf-item.taobao.com/sf_item/613951827120.htm?track_id=e9db07e5-7acb-4b43-9d9c-583daa52fdcf",
         "end": 1587886383000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "612703564742",
+        "url": "https://sf-item.taobao.com/sf_item/612703564742.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1587889891000,
         "status": "done",
         "is_processed": false
     }

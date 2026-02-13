@@ -1092,11 +1092,25 @@
         "detail_captured": true
     },
     {
-        "id": "823085859927",
-        "url": "https://sf-item.taobao.com/sf_item/823085859927.htm?track_id=ca140538-c6e4-48d5-9d5a-28b21db6a43b",
-        "end": 1726197085000,
-        "status": "done",
-        "is_processed": false
+        "id": 823085859927,
+        "市场评估价": 1348500,
+        "起拍价格": 950000,
+        "成交价格": 1142000,
+        "交易时间": "2024-09-13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/823085859927.htm?track_id=ca140538-c6e4-48d5-9d5a-28b21db6a43b",
+        "是否成交": true,
+        "竞拍人数": 49,
+        "出价人数": 49,
+        "地点": "江苏省 无锡市 梁溪区 无锡市南长华府2-9",
+        "所属小区": "南长华府",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "南禅寺",
+        "建筑面积": 120,
+        "单价": 9516.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "828477051587",
@@ -1130,6 +1144,62 @@
         "id": "828639558687",
         "url": "https://sf-item.taobao.com/sf_item/828639558687.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1726192800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "824185105223",
+        "url": "https://sf-item.taobao.com/sf_item/824185105223.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1726192800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "822034979995",
+        "url": "https://sf-item.taobao.com/sf_item/822034979995.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1726218334000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820806093476",
+        "url": "https://sf-item.taobao.com/sf_item/820806093476.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1726193512000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "824408132467",
+        "url": "https://sf-item.taobao.com/sf_item/824408132467.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1726193546000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "827274331662",
+        "url": "https://sf-item.taobao.com/sf_item/827274331662.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1726192800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "828666414577",
+        "url": "https://sf-item.taobao.com/sf_item/828666414577.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1726198319000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "823466176006",
+        "url": "https://sf-item.taobao.com/sf_item/823466176006.htm?track_id=8aff2cad-797b-46cd-a4eb-8b5f6ed552eb",
+        "end": 1726193003000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "825283850292",
+        "url": "https://sf-item.taobao.com/sf_item/825283850292.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1726196329000,
         "status": "done",
         "is_processed": false
     }

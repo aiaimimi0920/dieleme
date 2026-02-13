@@ -294,9 +294,44 @@
         "detail_captured": true
     },
     {
-        "id": "669857986801",
-        "url": "https://sf-item.taobao.com/sf_item/669857986801.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
-        "end": 1649129293000,
+        "id": 669857986801,
+        "市场评估价": 6263600,
+        "起拍价格": 4390000,
+        "成交价格": 6110000,
+        "交易时间": "2022-04-05 11:28:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669857986801.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
+        "是否成交": true,
+        "竞拍人数": 175,
+        "出价人数": 109,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道水晶城",
+        "所属小区": "水晶城",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江区核心区",
+        "建筑面积": 89.38,
+        "单价": 68346.41,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "671230279557",
+        "url": "https://sf-item.taobao.com/sf_item/671230279557.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1649124088000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "669379245966",
+        "url": "https://sf-item.taobao.com/sf_item/669379245966.htm?track_id=a801121e-5e95-40e5-81ec-2addd861f9d7",
+        "end": 1649128022000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "669719146326",
+        "url": "https://sf-item.taobao.com/sf_item/669719146326.htm?track_id=55c1cc05-4e69-4ba6-9889-416b52dc39e0",
+        "end": 1649126265000,
         "status": "done",
         "is_processed": false
     }

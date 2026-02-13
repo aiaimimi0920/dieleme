@@ -203,14 +203,36 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "江苏省 苏州市 相城区 太平街道南中街49号",
-        "所属小区": null,
+        "所属小区": "南中花园",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "太平街道",
+        "最靠近商圈": "活力岛商圈",
         "建筑面积": 205.6,
-        "单价": 6089.92,
+        "单价": 6089.49,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "562176319587",
+        "url": "https://sf-item.taobao.com/sf_item/562176319587.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1513220305000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560809948581",
+        "url": "https://sf-item.taobao.com/sf_item/560809948581.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1513217657000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560973354908",
+        "url": "https://sf-item.taobao.com/sf_item/560973354908.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1513217544000,
+        "status": "done",
+        "is_processed": false
     }
 ]

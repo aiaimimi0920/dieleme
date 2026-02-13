@@ -96,15 +96,16 @@
         "竞拍人数": 9,
         "出价人数": 43,
         "地点": "四川省 成都市 龙泉驿区 爱明街11号1层及11号附1号2层",
-        "所属小区": null,
+        "所属小区": "中航名城",
         "省份": "四川省",
         "城市": "成都市",
         "区": "龙泉驿区",
-        "最靠近商圈": "音乐广场商圈",
+        "最靠近商圈": "龙泉驿大面商圈",
         "建筑面积": 593.16,
-        "单价": 6115.38,
+        "单价": 6115.36,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 565645367229,
@@ -192,9 +193,30 @@
         "detail_captured": true
     },
     {
-        "id": "565698739285",
-        "url": "https://sf-item.taobao.com/sf_item/565698739285.htm?track_id=3c382c58-b2c8-4aa6-8dbc-528f6d79f8ee",
-        "end": 1522039360000,
+        "id": 565698739285,
+        "市场评估价": null,
+        "起拍价格": 2730000,
+        "成交价格": 3770000,
+        "交易时间": "2018-03-26 12:42:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565698739285.htm?track_id=3c382c58-b2c8-4aa6-8dbc-528f6d79f8ee",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省无锡市梁溪区东林苑",
+        "所属小区": "东林苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "崇安寺",
+        "建筑面积": 285.28,
+        "单价": 13228.82,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "564087900110",
+        "url": "https://sf-item.taobao.com/sf_item/564087900110.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1522042174000,
         "status": "done",
         "is_processed": false
     }

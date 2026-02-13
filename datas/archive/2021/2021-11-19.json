@@ -408,12 +408,25 @@
         "detail_captured": true
     },
     {
-        "id": "658828312271",
-        "url": "https://sf-item.taobao.com/sf_item/658828312271.htm?track_id=fc835619-e58e-412f-9391-f7e42eb89d8d",
-        "end": 1637287327000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/658828312271.htm"
+        "id": 658828312271,
+        "市场评估价": null,
+        "起拍价格": 4600000,
+        "成交价格": 4600000,
+        "交易时间": "2021-11-19 10:02:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/658828312271.htm?track_id=fc835619-e58e-412f-9391-f7e42eb89d8d",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省苏州市吴中区城南街道兴昂路99号4幢",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": null,
+        "建筑面积": 1177.79,
+        "单价": 3905.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 659285705856,
@@ -542,24 +555,86 @@
         "detail_captured": true
     },
     {
-        "id": "659121619233",
-        "url": "https://sf-item.taobao.com/sf_item/659121619233.htm?track_id=05096155-51c4-413a-ad96-a5cbb2c4bea5",
-        "end": 1637289748000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/659121619233.htm"
+        "id": 659121619233,
+        "市场评估价": 1900000,
+        "起拍价格": 1064000,
+        "成交价格": 1354000,
+        "交易时间": "2021-11-19 10:42:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/659121619233.htm?track_id=05096155-51c4-413a-ad96-a5cbb2c4bea5",
+        "是否成交": true,
+        "竞拍人数": 58,
+        "出价人数": 58,
+        "地点": "江苏省 苏州市 姑苏区 金桥新村16幢602室",
+        "所属小区": "金桥新村",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "姑苏区",
+        "最靠近商圈": "平江路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "657529565223",
-        "url": "https://sf-item.taobao.com/sf_item/657529565223.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
-        "end": 1637287200000,
-        "status": "done",
-        "is_processed": false
+        "id": 657529565223,
+        "市场评估价": null,
+        "起拍价格": 1510000,
+        "成交价格": 1510000,
+        "交易时间": "2021-11-19T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657529565223.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 太华北路甲字88号（锦园君逸）9幢",
+        "所属小区": "锦园君逸",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "未央路商圈",
+        "建筑面积": 93.38,
+        "单价": 16172.79,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "657902041450",
         "url": "https://sf-item.taobao.com/sf_item/657902041450.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
         "end": 1637290039000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "658907996220",
+        "url": "https://sf-item.taobao.com/sf_item/658907996220.htm?track_id=85d6e4c3-5841-4382-a02e-efc4156014e9",
+        "end": 1637287200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "659341557958",
+        "url": "https://sf-item.taobao.com/sf_item/659341557958.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1637287200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657293253946",
+        "url": "https://sf-item.taobao.com/sf_item/657293253946.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1637293752000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "658206423095",
+        "url": "https://sf-item.taobao.com/sf_item/658206423095.htm?track_id=5d2028cd-85b5-4657-a6d6-1ff52559d487",
+        "end": 1637289165000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "658395959992",
+        "url": "https://sf-item.taobao.com/sf_item/658395959992.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1637287200000,
         "status": "done",
         "is_processed": false
     }

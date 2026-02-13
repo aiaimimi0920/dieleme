@@ -605,15 +605,16 @@
         "竞拍人数": 1,
         "出价人数": 1,
         "地点": "江苏省苏州市姑苏区中街路93-95号",
-        "所属小区": null,
+        "所属小区": "中街路小区",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
-        "最靠近商圈": "石路",
+        "最靠近商圈": "观前街商圈",
         "建筑面积": 196,
         "单价": 11836.73,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 562390341828,
@@ -679,25 +680,67 @@
         "detail_captured": true
     },
     {
-        "id": "561559860975",
-        "url": "https://sf-item.taobao.com/sf_item/561559860975.htm?track_id=ea13efc1-539c-4316-ab90-5b0a689696ee",
-        "end": 1513909152000,
-        "status": "done",
-        "is_processed": false
+        "id": 561559860975,
+        "市场评估价": 1618200,
+        "起拍价格": 1132740,
+        "成交价格": 1367740,
+        "交易时间": "2017/12/22 10:19:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561559860975.htm?track_id=ea13efc1-539c-4316-ab90-5b0a689696ee",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 兴华北街3-6号2-1-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "兴华北街商圈",
+        "建筑面积": 118.2,
+        "单价": 11571.24,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "562456682463",
-        "url": "https://sf-item.taobao.com/sf_item/562456682463.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
-        "end": 1513909215000,
-        "status": "done",
-        "is_processed": false
+        "id": 562456682463,
+        "市场评估价": 361500,
+        "起拍价格": 361500,
+        "成交价格": 461520,
+        "交易时间": "2017/12/22 10:20:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562456682463.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 66,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 环城西路47号腾龙溪苑4栋9层附30号",
+        "所属小区": "腾龙溪苑",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "云宫商圈",
+        "建筑面积": 128.51,
+        "单价": 3592.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "561543736452",
-        "url": "https://sf-item.taobao.com/sf_item/561543736452.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
-        "end": 1513908946000,
-        "status": "done",
-        "is_processed": false
+        "id": 561543736452,
+        "市场评估价": 2433500,
+        "起拍价格": 1946800,
+        "成交价格": 2061800,
+        "交易时间": "2017/12/22 10:15:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561543736452.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 23,
+        "地点": "河南省 郑州市 二七区 政通路68号院3号楼2单元16层1602号",
+        "所属小区": "升龙国际中心",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": 142.46,
+        "单价": 14475.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "561632001568",
@@ -710,6 +753,48 @@
         "id": "562305332658",
         "url": "https://sf-item.taobao.com/sf_item/562305332658.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1513908000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562391201336",
+        "url": "https://sf-item.taobao.com/sf_item/562391201336.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1513910648000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561771702932",
+        "url": "https://sf-item.taobao.com/sf_item/561771702932.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1513909902000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562273178105",
+        "url": "https://sf-item.taobao.com/sf_item/562273178105.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1513912612000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561627763017",
+        "url": "https://sf-item.taobao.com/sf_item/561627763017.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1513908546000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561670921582",
+        "url": "https://sf-item.taobao.com/sf_item/561670921582.htm?track_id=f8fcb460-293d-4823-a6b8-e6d33c641f75",
+        "end": 1513910385000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562274092886",
+        "url": "https://sf-item.taobao.com/sf_item/562274092886.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1513909179000,
         "status": "done",
         "is_processed": false
     }

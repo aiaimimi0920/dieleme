@@ -795,25 +795,67 @@
         "detail_captured": true
     },
     {
-        "id": "576436087275",
-        "url": "https://sf-item.taobao.com/sf_item/576436087275.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
-        "end": 1538100183000,
-        "status": "done",
-        "is_processed": false
+        "id": 576436087275,
+        "市场评估价": 509837,
+        "起拍价格": 368357,
+        "成交价格": 450357,
+        "交易时间": "2018/09/28 10:03:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/576436087275.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 42,
+        "地点": "吉林省 吉林市 船营区 青岛街北大三区2号楼3单元7层42号",
+        "所属小区": "北大三区",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "河南街",
+        "建筑面积": 145.46,
+        "单价": 3096.52,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "577162581859",
-        "url": "https://sf-item.taobao.com/sf_item/577162581859.htm?track_id=9662dc8a-155d-4344-9d83-8dbab508b9f6",
-        "end": 1538122047000,
-        "status": "done",
-        "is_processed": false
+        "id": 577162581859,
+        "市场评估价": null,
+        "起拍价格": 3450000,
+        "成交价格": 3450000,
+        "交易时间": "2018-09-28T16:07:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/577162581859.htm?track_id=9662dc8a-155d-4344-9d83-8dbab508b9f6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 都匀市协府路28号东山怡景3栋2层",
+        "所属小区": "东山怡景",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": null,
+        "建筑面积": 598.64,
+        "单价": 5761.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "577352455496",
-        "url": "https://sf-item.taobao.com/sf_item/577352455496.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
-        "end": 1538100220000,
-        "status": "done",
-        "is_processed": false
+        "id": 577352455496,
+        "市场评估价": null,
+        "起拍价格": 267125.6,
+        "成交价格": 297125.6,
+        "交易时间": "2018-09-28 10:03:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/577352455496.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 6,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 克东镇保安街",
+        "所属小区": "鑫鹏家园",
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": null,
+        "建筑面积": 126.48,
+        "单价": 2347.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "577084377347",
@@ -833,6 +875,41 @@
         "id": "577316591201",
         "url": "https://sf-item.taobao.com/sf_item/577316591201.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1538100000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577023474045",
+        "url": "https://sf-item.taobao.com/sf_item/577023474045.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1538101661000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576985136647",
+        "url": "https://sf-item.taobao.com/sf_item/576985136647.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1538100000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576990456015",
+        "url": "https://sf-item.taobao.com/sf_item/576990456015.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1538100000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576910835186",
+        "url": "https://sf-item.taobao.com/sf_item/576910835186.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1538100000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576434387281",
+        "url": "https://sf-item.taobao.com/sf_item/576434387281.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1538100208000,
         "status": "done",
         "is_processed": false
     }

@@ -842,18 +842,46 @@
         "detail_captured": true
     },
     {
-        "id": "930474541251",
-        "url": "https://sf-item.taobao.com/sf_item/930474541251.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
-        "end": 1751421600000,
-        "status": "done",
-        "is_processed": false
+        "id": 930474541251,
+        "市场评估价": 283700,
+        "起拍价格": 198590,
+        "成交价格": 198590,
+        "交易时间": "2025/07/02 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/930474541251.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "山东省潍坊市昌邑市昌邑市交通街617号沁园春小区",
+        "所属小区": "沁园春小区",
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": "昌邑市中百大厦、佳乐家商圈",
+        "建筑面积": 101.68,
+        "单价": 1953.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "930120697898",
-        "url": "https://sf-item.taobao.com/sf_item/930120697898.htm?track_id=8ada02cd-0473-4544-9493-f35110975742",
-        "end": 1751423215000,
-        "status": "done",
-        "is_processed": false
+        "id": 930120697898,
+        "市场评估价": 693477.0,
+        "起拍价格": 554781.6,
+        "成交价格": 887650.8,
+        "交易时间": "2025-07-02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/930120697898.htm?track_id=8ada02cd-0473-4544-9493-f35110975742",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 科尔沁右翼前旗河南街以南、学院路以东、哈萨尔街以北S4-商业-3号及地下室、二楼半缓台等附属设施",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": null,
+        "建筑面积": 209.32,
+        "单价": 4242.22,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "938482296524",
@@ -863,9 +891,58 @@
         "is_processed": false
     },
     {
-        "id": "938103017910",
-        "url": "https://sf-item.taobao.com/sf_item/938103017910.htm?track_id=bd1a1615-af02-4f76-80ed-e42d6351de92",
-        "end": 1751421651000,
+        "id": 938103017910,
+        "市场评估价": null,
+        "起拍价格": 338400,
+        "成交价格": 338400,
+        "交易时间": "2025/07/02 10:00:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/938103017910.htm?track_id=bd1a1615-af02-4f76-80ed-e42d6351de92",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 泉州市 安溪县 城厢镇蓝溪西路666号龙湾盛世11幢1梯1603室房产",
+        "所属小区": "龙湾盛世",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "城厢镇",
+        "建筑面积": 79.82,
+        "单价": 4236.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "932071300177",
+        "url": "https://sf-item.taobao.com/sf_item/932071300177.htm?track_id=dfd27f7b-bc7d-4bb9-a04a-63aa0958a58b",
+        "end": 1751421795000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "932725480115",
+        "url": "https://sf-item.taobao.com/sf_item/932725480115.htm?track_id=f8fcb460-293d-4823-a6b8-e6d33c641f75",
+        "end": 1751422715000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "937985126904",
+        "url": "https://sf-item.taobao.com/sf_item/937985126904.htm?track_id=aa7c9499-83e3-4f8b-82a0-5b73185c82fb",
+        "end": 1751425200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "939480339938",
+        "url": "https://sf-item.taobao.com/sf_item/939480339938.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1751422579000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "940511961391",
+        "url": "https://sf-item.taobao.com/sf_item/940511961391.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1751423930000,
         "status": "done",
         "is_processed": false
     }

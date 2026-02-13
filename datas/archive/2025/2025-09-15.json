@@ -519,9 +519,37 @@
         "is_processed": false
     },
     {
-        "id": "965498790830",
-        "url": "https://sf-item.taobao.com/sf_item/965498790830.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
-        "end": 1757908234000,
+        "id": 965498790830,
+        "市场评估价": 0,
+        "起拍价格": 539346,
+        "成交价格": 833346,
+        "交易时间": "2025/09/15 11:50:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/965498790830.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 119,
+        "地点": "河南省 郑州市 二七区 长江中路128号(北区五期)13号楼东1单元1层2号",
+        "所属小区": "亚星盛世家园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "长江路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "965144506564",
+        "url": "https://sf-item.taobao.com/sf_item/965144506564.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1757902092000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "969143766430",
+        "url": "https://sf-item.taobao.com/sf_item/969143766430.htm?track_id=a9afb993-f3c1-4f11-9e15-21f52bf7c564",
+        "end": 1757901600000,
         "status": "done",
         "is_processed": false
     }

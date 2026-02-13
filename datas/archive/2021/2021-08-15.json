@@ -42,16 +42,37 @@
         "detail_captured": true
     },
     {
-        "id": "651184888377",
-        "url": "https://sf-item.taobao.com/sf_item/651184888377.htm?track_id=b5d46ba2-6f8b-4a97-9fec-425fc00a9d71",
-        "end": 1628992800000,
-        "status": "done",
-        "is_processed": false
+        "id": 651184888377,
+        "市场评估价": 305606,
+        "起拍价格": 207813,
+        "成交价格": 207813,
+        "交易时间": "2021-08-15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/651184888377.htm?track_id=b5d46ba2-6f8b-4a97-9fec-425fc00a9d71",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 聚林世纪城",
+        "所属小区": "聚林世纪城",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "剑江商圈",
+        "建筑面积": 72.85,
+        "单价": 2854.09,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "650713694434",
         "url": "https://sf-item.taobao.com/sf_item/650713694434.htm?track_id=83e68fed-9084-46cb-a950-7f8ce7e08692",
         "end": 1629005179000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "651712106565",
+        "url": "https://sf-item.taobao.com/sf_item/651712106565.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1628994925000,
         "status": "done",
         "is_processed": false
     }

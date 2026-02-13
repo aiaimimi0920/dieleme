@@ -133,9 +133,37 @@
         "is_processed": false
     },
     {
-        "id": "543816460904",
-        "url": "https://sf-item.taobao.com/sf_item/543816460904.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
-        "end": 1484362539000,
+        "id": 543816460904,
+        "市场评估价": 465710,
+        "起拍价格": 30.5,
+        "成交价格": 375000,
+        "交易时间": "2017/01/14 10:55:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/543816460904.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 63,
+        "地点": "海盐县武原街道金涌花苑四区2幢301-2室",
+        "所属小区": "金涌花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原",
+        "建筑面积": 73.39,
+        "单价": 5110.84,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "543813517001",
+        "url": "https://sf-item.taobao.com/sf_item/543813517001.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1484362626000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "543725497684",
+        "url": "https://sf-item.taobao.com/sf_item/543725497684.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1484360878000,
         "status": "done",
         "is_processed": false
     }

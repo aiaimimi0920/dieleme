@@ -635,7 +635,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 560980700678,
@@ -827,16 +828,72 @@
         "detail_captured": true
     },
     {
-        "id": "560678870296",
-        "url": "https://sf-item.taobao.com/sf_item/560678870296.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "id": 560678870296,
+        "市场评估价": 347211,
+        "起拍价格": 260408.25,
+        "成交价格": 260408.25,
+        "交易时间": "2017/12/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560678870296.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 文体小区",
+        "所属小区": "文体小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心",
+        "建筑面积": 106.67,
+        "单价": 2441.05,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 560825978661,
+        "市场评估价": null,
+        "起拍价格": 580000,
+        "成交价格": 718000,
+        "交易时间": "2017-12-08 10:35:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560825978661.htm?track_id=d3b98f13-6b01-489a-81f5-130926bf6037",
+        "是否成交": true,
+        "竞拍人数": 47,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 锡山区 东北塘镇东方国际轻纺城C11幢3号、302号、C11幢5号、202号",
+        "所属小区": "东方国际轻纺城",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东北塘",
+        "建筑面积": 147.68,
+        "单价": 4858.13,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "560981732350",
+        "url": "https://sf-item.taobao.com/sf_item/560981732350.htm?track_id=9370e9c3-7a71-4d89-8eb3-257be301ecff",
+        "end": 1512699055000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561628448568",
+        "url": "https://sf-item.taobao.com/sf_item/561628448568.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
         "end": 1512698400000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "560825978661",
-        "url": "https://sf-item.taobao.com/sf_item/560825978661.htm?track_id=d3b98f13-6b01-489a-81f5-130926bf6037",
-        "end": 1512700508000,
+        "id": "561560264973",
+        "url": "https://sf-item.taobao.com/sf_item/561560264973.htm?track_id=4485b87f-3c5b-498d-9604-a8ee5c93b154",
+        "end": 1512698400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561141854794",
+        "url": "https://sf-item.taobao.com/sf_item/561141854794.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1512699882000,
         "status": "done",
         "is_processed": false
     }

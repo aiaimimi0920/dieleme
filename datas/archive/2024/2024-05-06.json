@@ -399,9 +399,58 @@
         "detail_captured": true
     },
     {
-        "id": "785875036760",
-        "url": "https://sf-item.taobao.com/sf_item/785875036760.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
+        "id": 785875036760,
+        "市场评估价": 451164,
+        "起拍价格": 288744.96,
+        "成交价格": 290744.96,
+        "交易时间": "2024/05/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/785875036760.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江西省 鹰潭市 贵溪市 贵溪市壹品滨江12栋1单元3101室",
+        "所属小区": "壹品滨江",
+        "省份": "江西省",
+        "城市": "鹰潭市",
+        "区": "贵溪市",
+        "最靠近商圈": "贵溪市",
+        "建筑面积": 132.81,
+        "单价": 2189.26,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "785913913572",
+        "url": "https://sf-item.taobao.com/sf_item/785913913572.htm?track_id=f1ff17f2-ecc2-4537-a574-f646ca8d0355",
+        "end": 1715011470000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "784674160589",
+        "url": "https://sf-item.taobao.com/sf_item/784674160589.htm?track_id=dd9b2ad6-0c16-4fa0-934f-94384d19c8fc",
         "end": 1714960800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "774119404940",
+        "url": "https://sf-item.taobao.com/sf_item/774119404940.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1714962067000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "774183220997",
+        "url": "https://sf-item.taobao.com/sf_item/774183220997.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1714960800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "785904796789",
+        "url": "https://sf-item.taobao.com/sf_item/785904796789.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1714985477000,
         "status": "done",
         "is_processed": false
     }

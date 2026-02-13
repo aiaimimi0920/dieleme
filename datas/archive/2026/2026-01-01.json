@@ -231,18 +231,46 @@
         "detail_captured": true
     },
     {
-        "id": "991935221407",
-        "url": "https://sf-item.taobao.com/sf_item/991935221407.htm?track_id=b100dc58-8747-482c-b3ec-c2a9c6284bae",
-        "end": 1767255306000,
-        "status": "done",
-        "is_processed": false
+        "id": 991935221407,
+        "市场评估价": 8032800,
+        "起拍价格": 4779516,
+        "成交价格": 4779516,
+        "交易时间": "2026-01-01 16:15:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/991935221407.htm?track_id=b100dc58-8747-482c-b3ec-c2a9c6284bae",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "贵州省黔东南苗族侗族自治州丹寨县龙泉镇兴泉路南侧隆天二号商住楼",
+        "所属小区": "隆天二号商住楼",
+        "省份": "贵州省",
+        "城市": "黔东南苗族侗族自治州",
+        "区": "丹寨县",
+        "最靠近商圈": "龙泉镇",
+        "建筑面积": 1093.05,
+        "单价": 4372.68,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "991935581066",
-        "url": "https://sf-item.taobao.com/sf_item/991935581066.htm?track_id=b100dc58-8747-482c-b3ec-c2a9c6284bae",
-        "end": 1767255290000,
-        "status": "done",
-        "is_processed": false
+        "id": 991935581066,
+        "市场评估价": 5973300,
+        "起拍价格": 5973300,
+        "成交价格": 5973300,
+        "交易时间": "2026/01/01 16:14:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/991935581066.htm?track_id=b100dc58-8747-482c-b3ec-c2a9c6284bae",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔东南苗族侗族自治州 丹寨县 龙泉镇兴泉路南侧",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "黔东南苗族侗族自治州",
+        "区": "丹寨县",
+        "最靠近商圈": "龙泉镇",
+        "建筑面积": 488.65,
+        "单价": 12220.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "1004246680134",
@@ -255,6 +283,27 @@
         "id": "1004244880892",
         "url": "https://sf-item.taobao.com/sf_item/1004244880892.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
         "end": 1767236120000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "996383707234",
+        "url": "https://sf-item.taobao.com/sf_item/996383707234.htm?track_id=743e6c95-df8d-4384-a1c1-434833f32b0b",
+        "end": 1767258848000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "995124553114",
+        "url": "https://sf-item.taobao.com/sf_item/995124553114.htm?track_id=d7569be6-9a1f-4c05-9408-c98aa52b83be",
+        "end": 1767249988000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1002815066989",
+        "url": "https://sf-item.taobao.com/sf_item/1002815066989.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1767234397000,
         "status": "done",
         "is_processed": false
     }

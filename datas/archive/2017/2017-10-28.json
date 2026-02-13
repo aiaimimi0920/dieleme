@@ -470,9 +470,37 @@
         "detail_captured": true
     },
     {
-        "id": "559247977120",
-        "url": "https://sf-item.taobao.com/sf_item/559247977120.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
-        "end": 1509166268000,
+        "id": 559247977120,
+        "市场评估价": null,
+        "起拍价格": 2538480,
+        "成交价格": 3608480,
+        "交易时间": "2017/10/28 12:51:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559247977120.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省泉州市安溪县凤城镇八三一路三远商城",
+        "所属小区": "三远商城",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城镇商圈",
+        "建筑面积": 403.82,
+        "单价": 8935.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "558884021755",
+        "url": "https://sf-item.taobao.com/sf_item/558884021755.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1509156000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559867266053",
+        "url": "https://sf-item.taobao.com/sf_item/559867266053.htm?track_id=eba88dd1-33f1-430f-afc6-b6c27ccbba5f",
+        "end": 1509158287000,
         "status": "done",
         "is_processed": false
     }

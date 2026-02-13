@@ -443,11 +443,25 @@
         "detail_captured": true
     },
     {
-        "id": "712458819349",
-        "url": "https://sf-item.taobao.com/sf_item/712458819349.htm?track_id=df554a70-13fc-4a0c-94f6-1f982ecde085",
-        "end": 1682560800000,
-        "status": "done",
-        "is_processed": false
+        "id": 712458819349,
+        "市场评估价": 0,
+        "起拍价格": 335440,
+        "成交价格": 367440,
+        "交易时间": "2023/04/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/712458819349.htm?track_id=df554a70-13fc-4a0c-94f6-1f982ecde085",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 7,
+        "地点": "河北省 邯郸市 磁县 和谐大道西头路北光明城小区2号楼1单元902号",
+        "所属小区": "光明城小区",
+        "省份": "河北省",
+        "城市": "邯郸市",
+        "区": "磁县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 712254346587,
@@ -471,11 +485,25 @@
         "detail_captured": true
     },
     {
-        "id": "712182722896",
-        "url": "https://sf-item.taobao.com/sf_item/712182722896.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
-        "end": 1682561134000,
-        "status": "done",
-        "is_processed": false
+        "id": 712182722896,
+        "市场评估价": 602345,
+        "起拍价格": 515005,
+        "成交价格": 523005,
+        "交易时间": "2023-04-27 10:05:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/712182722896.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 5,
+        "地点": "贵州省遵义市汇川区遵义县遵南大道保利未来城市A1地块20栋2-12-5号房产",
+        "所属小区": "保利未来城市",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "遵义县商圈",
+        "建筑面积": 122.13,
+        "单价": 4282.78,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "712401259954",
@@ -485,9 +513,58 @@
         "is_processed": false
     },
     {
-        "id": "711784716870",
-        "url": "https://sf-item.taobao.com/sf_item/711784716870.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
-        "end": 1682562314000,
+        "id": 711784716870,
+        "市场评估价": 1176000,
+        "起拍价格": 670000,
+        "成交价格": 748000,
+        "交易时间": "2023/04/27 10:25:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/711784716870.htm?track_id=9888b932-90d9-433e-9fbd-6845e3c0df1f",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 13,
+        "地点": "浙江省 嘉兴市 海盐县 海盐县武原街道新桥北路202号盛世嘉园28幢102室不动产",
+        "所属小区": "盛世嘉园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 138.94,
+        "单价": 5383.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "709205457402",
+        "url": "https://sf-item.taobao.com/sf_item/709205457402.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1682561058000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709757955680",
+        "url": "https://sf-item.taobao.com/sf_item/709757955680.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1682602224000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "712423775407",
+        "url": "https://sf-item.taobao.com/sf_item/712423775407.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1682564400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709129074389",
+        "url": "https://sf-item.taobao.com/sf_item/709129074389.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1682562447000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "707937783588",
+        "url": "https://sf-item.taobao.com/sf_item/707937783588.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
+        "end": 1682564774000,
         "status": "done",
         "is_processed": false
     }

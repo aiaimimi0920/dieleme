@@ -526,16 +526,44 @@
         "detail_captured": true
     },
     {
-        "id": "742784275558",
-        "url": "https://sf-item.taobao.com/sf_item/742784275558.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
-        "end": 1700637628000,
-        "status": "done",
-        "is_processed": false
+        "id": 742784275558,
+        "市场评估价": 917700,
+        "起拍价格": 630000,
+        "成交价格": 630000,
+        "交易时间": "2023/11/22 15:20:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/742784275558.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "广东省惠州市博罗县石湾镇鸾岗村、中岗村委会地段兴业一路北侧帝庭公馆13栋商住楼5层01房",
+        "所属小区": "帝庭公馆",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾镇",
+        "建筑面积": 105,
+        "单价": 6000,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "743717147298",
         "url": "https://sf-item.taobao.com/sf_item/743717147298.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
         "end": 1700624042000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747030981678",
+        "url": "https://sf-item.taobao.com/sf_item/747030981678.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1700618400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743647744633",
+        "url": "https://sf-item.taobao.com/sf_item/743647744633.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1700619048000,
         "status": "done",
         "is_processed": false
     }

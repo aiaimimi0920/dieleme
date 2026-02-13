@@ -273,12 +273,25 @@
         "detail_captured": true
     },
     {
-        "id": "684750181733",
-        "url": "https://sf-item.taobao.com/sf_item/684750181733.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
-        "end": 1665627889000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/684750181733.htm"
+        "id": 684750181733,
+        "市场评估价": 452162.33,
+        "起拍价格": 253212,
+        "成交价格": 265212,
+        "交易时间": "2022/10/13 10:24:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684750181733.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 13,
+        "地点": "湖南省 湘潭市 雨湖区 九华江南大道1号吉利雅居41栋1单元0801004号",
+        "所属小区": "吉利雅居",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "九华",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 682240031707,
@@ -323,9 +336,93 @@
         "detail_captured": true
     },
     {
-        "id": "685057762652",
-        "url": "https://sf-item.taobao.com/sf_item/685057762652.htm?track_id=a21036ae-650d-4bc3-baa4-38742ea5eee9",
+        "id": 685057762652,
+        "市场评估价": 4235294,
+        "起拍价格": 3600000,
+        "成交价格": 3600000,
+        "交易时间": "2022/10/13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/685057762652.htm?track_id=a21036ae-650d-4bc3-baa4-38742ea5eee9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "安徽省铜陵市郊区安徽省铜陵市双星国际大厦2A2号",
+        "所属小区": "双星国际大厦",
+        "省份": "安徽省",
+        "城市": "铜陵市",
+        "区": "郊区",
+        "最靠近商圈": "铜陵市中心商圈",
+        "建筑面积": 758.54,
+        "单价": 4742.77,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "682819926860",
+        "url": "https://sf-item.taobao.com/sf_item/682819926860.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1665627087000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683027668382",
+        "url": "https://sf-item.taobao.com/sf_item/683027668382.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1665629436000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683337505325",
+        "url": "https://sf-item.taobao.com/sf_item/683337505325.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1665630167000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684041595848",
+        "url": "https://sf-item.taobao.com/sf_item/684041595848.htm?track_id=a8a7504e-6323-4c92-b93b-cd51b5436bd0",
+        "end": 1665628893000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683052272935",
+        "url": "https://sf-item.taobao.com/sf_item/683052272935.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1665627117000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683337393121",
+        "url": "https://sf-item.taobao.com/sf_item/683337393121.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1665626888000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683669578826",
+        "url": "https://sf-item.taobao.com/sf_item/683669578826.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1665627207000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "682981164537",
+        "url": "https://sf-item.taobao.com/sf_item/682981164537.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
         "end": 1665626400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683927935115",
+        "url": "https://sf-item.taobao.com/sf_item/683927935115.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1665626598000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683853835922",
+        "url": "https://sf-item.taobao.com/sf_item/683853835922.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1665639128000,
         "status": "done",
         "is_processed": false
     }

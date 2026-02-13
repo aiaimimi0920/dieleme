@@ -1155,25 +1155,67 @@
         "detail_captured": true
     },
     {
-        "id": "593489976579",
-        "url": "https://sf-item.taobao.com/sf_item/593489976579.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
-        "end": 1560218877000,
-        "status": "done",
-        "is_processed": false
+        "id": 593489976579,
+        "市场评估价": 1002000,
+        "起拍价格": 701400,
+        "成交价格": 923400,
+        "交易时间": "2019/06/11 10:07:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/593489976579.htm?track_id=39bbfc78-6ace-49b6-9f86-43b6d4efc875",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 75,
+        "地点": "辽宁省 沈阳市 铁西区 北四东路44-3号6-4-1",
+        "所属小区": "鑫丰御景庭",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 91.07,
+        "单价": 10138.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "594588720613",
-        "url": "https://sf-item.taobao.com/sf_item/594588720613.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
-        "end": 1560218400000,
-        "status": "done",
-        "is_processed": false
+        "id": 594588720613,
+        "市场评估价": 792168,
+        "起拍价格": 641656.08,
+        "成交价格": 641656.08,
+        "交易时间": "2019/06/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594588720613.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 太平街",
+        "所属小区": "天宇枫叶园",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "太平街",
+        "建筑面积": 117.15,
+        "单价": 5476.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "594866389958",
-        "url": "https://sf-item.taobao.com/sf_item/594866389958.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
-        "end": 1560218400000,
-        "status": "done",
-        "is_processed": false
+        "id": 594866389958,
+        "市场评估价": 1332900,
+        "起拍价格": 1066320,
+        "成交价格": 1114320,
+        "交易时间": "2019/06/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594866389958.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 15,
+        "地点": "辽宁省 沈阳市 铁西区 北一中路25号3-29-2",
+        "所属小区": "鑫丰国际",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 82.7,
+        "单价": 13474.6,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "595305819437",
@@ -1183,11 +1225,25 @@
         "is_processed": false
     },
     {
-        "id": "594912724015",
-        "url": "https://sf-item.taobao.com/sf_item/594912724015.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
-        "end": 1560219128000,
-        "status": "done",
-        "is_processed": false
+        "id": 594912724015,
+        "市场评估价": 2415395,
+        "起拍价格": 1360000.0,
+        "成交价格": 2000000.0,
+        "交易时间": "2019/06/11 10:12:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594912724015.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 52,
+        "地点": "江西省 南昌市 青云谱区 广州路博泰生态商务园14号楼103室",
+        "所属小区": "博泰生态商务园",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "青云谱区",
+        "建筑面积": 221.19,
+        "单价": 9042.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "593796050774",
@@ -1197,16 +1253,72 @@
         "is_processed": false
     },
     {
-        "id": "593743953584",
-        "url": "https://sf-item.taobao.com/sf_item/593743953584.htm?track_id=909e3e03-2756-4d7b-84a1-406321c112b1",
-        "end": 1560221641000,
-        "status": "done",
-        "is_processed": false
+        "id": 593743953584,
+        "市场评估价": 966000,
+        "起拍价格": 618240,
+        "成交价格": 816240,
+        "交易时间": "2019-06-11 10:54:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/593743953584.htm?track_id=909e3e03-2756-4d7b-84a1-406321c112b1",
+        "是否成交": true,
+        "竞拍人数": 56,
+        "出价人数": 56,
+        "地点": "河南省 郑州市 二七区 二七区五彩小区3号楼5单元4号",
+        "所属小区": "五彩小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": 77.1,
+        "单价": 10588.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "594103666057",
         "url": "https://sf-item.taobao.com/sf_item/594103666057.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
         "end": 1560218880000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595067374344",
+        "url": "https://sf-item.taobao.com/sf_item/595067374344.htm?track_id=06d50902-4cb5-47c9-aa0d-987464c3d93f",
+        "end": 1560218491000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593649829666",
+        "url": "https://sf-item.taobao.com/sf_item/593649829666.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1560219716000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593925530083",
+        "url": "https://sf-item.taobao.com/sf_item/593925530083.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1560219404000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593624533035",
+        "url": "https://sf-item.taobao.com/sf_item/593624533035.htm?track_id=9370e9c3-7a71-4d89-8eb3-257be301ecff",
+        "end": 1560219652000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595401579447",
+        "url": "https://sf-item.taobao.com/sf_item/595401579447.htm?track_id=750b58ad-ff75-4aee-b3f4-98c79d909aed",
+        "end": 1560246267000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595247791461",
+        "url": "https://sf-item.taobao.com/sf_item/595247791461.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1560218617000,
         "status": "done",
         "is_processed": false
     }

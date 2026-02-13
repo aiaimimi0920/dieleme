@@ -64,10 +64,24 @@
         "detail_captured": true
     },
     {
-        "id": "44178004778",
-        "url": "https://sf-item.taobao.com/sf_item/44178004778.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1428544800000,
-        "status": "done",
-        "is_processed": false
+        "id": 44178004778,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 191000,
+        "交易时间": "2015/04/09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44178004778.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "河南省 郑州市 新密市 新惠街10号楼东单元4楼东户",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市城区",
+        "建筑面积": 114.7,
+        "单价": 1665.21,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

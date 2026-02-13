@@ -611,9 +611,44 @@
         "detail_captured": true
     },
     {
-        "id": "959465982084",
-        "url": "https://sf-item.taobao.com/sf_item/959465982084.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
-        "end": 1756865083000,
+        "id": 959465982084,
+        "市场评估价": null,
+        "起拍价格": 510755,
+        "成交价格": 510755,
+        "交易时间": "2025-09-03 10:04:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/959465982084.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 梅州市 蕉岭县 蕉城镇恒塔大道新世纪花园B区紫薇苑1-601号",
+        "所属小区": "新世纪花园",
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "蕉城镇",
+        "建筑面积": 244.03,
+        "单价": 2093.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "965460901489",
+        "url": "https://sf-item.taobao.com/sf_item/965460901489.htm?track_id=9a405c8a-1c07-49bc-9bd5-0414da77ea78",
+        "end": 1756916072000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "966546208245",
+        "url": "https://sf-item.taobao.com/sf_item/966546208245.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1756866414000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "959560091946",
+        "url": "https://sf-item.taobao.com/sf_item/959560091946.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1756870958000,
         "status": "done",
         "is_processed": false
     }

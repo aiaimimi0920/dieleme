@@ -206,7 +206,7 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "内蒙古自治区 包头市 东河区 贵发山庄25-310号",
-        "所属小区": null,
+        "所属小区": "贵发山庄",
         "省份": "内蒙古自治区",
         "城市": "包头市",
         "区": "东河区",
@@ -214,7 +214,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 559958948274,
@@ -282,8 +283,57 @@
         "manual_checked": true
     },
     {
-        "id": "561825694361",
-        "url": "https://sf-item.taobao.com/sf_item/561825694361.htm?track_id=c8a98758-d89c-4119-9cd3-afa7a351cacb",
+        "id": 561825694361,
+        "市场评估价": null,
+        "起拍价格": 353080,
+        "成交价格": 353080,
+        "交易时间": "2017-12-27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561825694361.htm?track_id=c8a98758-d89c-4119-9cd3-afa7a351cacb",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省泉州市安溪县凤城镇大同路36-11号店面",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": null,
+        "建筑面积": 44.52,
+        "单价": 7931.84,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "560314014760",
+        "url": "https://sf-item.taobao.com/sf_item/560314014760.htm?track_id=9a405c8a-1c07-49bc-9bd5-0414da77ea78",
+        "end": 1514340000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561989191915",
+        "url": "https://sf-item.taobao.com/sf_item/561989191915.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1514340587000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561848677703",
+        "url": "https://sf-item.taobao.com/sf_item/561848677703.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1514340772000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561624060641",
+        "url": "https://sf-item.taobao.com/sf_item/561624060641.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1514348125000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561896505465",
+        "url": "https://sf-item.taobao.com/sf_item/561896505465.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
         "end": 1514340000000,
         "status": "done",
         "is_processed": false

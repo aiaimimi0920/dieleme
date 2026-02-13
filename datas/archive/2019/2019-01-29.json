@@ -650,15 +650,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "河南省驻马店市泌阳县泌阳县花园乡高辛庄村委岽子营",
-        "所属小区": null,
+        "所属小区": "高辛庄村委岽子营",
         "省份": "河南省",
         "城市": "驻马店市",
         "区": "泌阳县",
-        "最靠近商圈": null,
+        "最靠近商圈": "泌阳县城关镇中心商圈",
         "建筑面积": 98.79,
-        "单价": 1425.67,
+        "单价": 1425.63,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 584987786184,
@@ -696,11 +697,12 @@
         "省份": "河南省",
         "城市": "驻马店市",
         "区": "泌阳县",
-        "最靠近商圈": null,
+        "最靠近商圈": "泌阳县城商圈",
         "建筑面积": 148.33,
         "单价": 900.0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 585752921185,
@@ -717,11 +719,12 @@
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
-        "最靠近商圈": null,
+        "最靠近商圈": "鼓楼商圈",
         "建筑面积": 86.09,
-        "单价": 11708.45,
+        "单价": 11708.68,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 581839288469,
@@ -824,9 +827,10 @@
         "区": "淮安区",
         "最靠近商圈": "马甸镇",
         "建筑面积": 5286.35,
-        "单价": 1815.78,
+        "单价": 1816.0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 584561684745,
@@ -864,11 +868,12 @@
         "省份": "山东省",
         "城市": "菏泽市",
         "区": "单县",
-        "最靠近商圈": null,
+        "最靠近商圈": "舜师路商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": "584841734268",
@@ -952,15 +957,16 @@
         "竞拍人数": 1,
         "出价人数": 1,
         "地点": "湛江市坡头区官渡镇海滨路1号",
-        "所属小区": null,
+        "所属小区": "官渡镇海滨小区",
         "省份": "广东省",
         "城市": "湛江市",
         "区": "坡头区",
-        "最靠近商圈": "官渡镇",
+        "最靠近商圈": "官渡镇中心商圈",
         "建筑面积": 6970.9,
-        "单价": 2854.79,
+        "单价": 2854.72,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 584792446276,
@@ -973,15 +979,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "浙江省温州市泰顺县罗阳镇景园路191号",
-        "所属小区": null,
+        "所属小区": "景园小区",
         "省份": "浙江省",
         "城市": "温州市",
         "区": "泰顺县",
-        "最靠近商圈": null,
+        "最靠近商圈": "罗阳镇中心商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 585196215973,
@@ -1015,15 +1022,16 @@
         "竞拍人数": null,
         "出价人数": 1,
         "地点": "江苏省 苏州市 相城区 阳澄湖东路98号35幢",
-        "所属小区": null,
+        "所属小区": "华润橡树湾",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": null,
+        "最靠近商圈": "活力岛",
         "建筑面积": 355.4,
-        "单价": 16444.27,
+        "单价": 16432.19,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 585052366868,
@@ -1047,25 +1055,67 @@
         "detail_captured": true
     },
     {
-        "id": "585754265003",
-        "url": "https://sf-item.taobao.com/sf_item/585754265003.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
-        "end": 1548727200000,
-        "status": "done",
-        "is_processed": false
+        "id": 585754265003,
+        "市场评估价": 0,
+        "起拍价格": 93632,
+        "成交价格": 93632,
+        "交易时间": "2019/01/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585754265003.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 铁北路铁路小区3-15号3号楼1011",
+        "所属小区": "铁路小区",
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": null,
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": 20.8,
+        "单价": 4501.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "585721638328",
-        "url": "https://sf-item.taobao.com/sf_item/585721638328.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
-        "end": 1548728537000,
-        "status": "done",
-        "is_processed": false
+        "id": 585721638328,
+        "市场评估价": null,
+        "起拍价格": 3336000,
+        "成交价格": 3706000,
+        "交易时间": "2019/01/29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585721638328.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 19,
+        "地点": "陕西省 西安市 未央区 西安市未央区太华北路369号9幢12802号住宅",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "太华北路商圈",
+        "建筑面积": 232.85,
+        "单价": 15916.21,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "585725765867",
-        "url": "https://sf-item.taobao.com/sf_item/585725765867.htm?track_id=b5018658-43ad-4743-9746-2a7f3dbb32bf",
-        "end": 1548727988000,
-        "status": "done",
-        "is_processed": false
+        "id": 585725765867,
+        "市场评估价": null,
+        "起拍价格": 168896,
+        "成交价格": 194216,
+        "交易时间": "2019-01-29 10:13:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585725765867.htm?track_id=b5018658-43ad-4743-9746-2a7f3dbb32bf",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": null,
+        "地点": "广东省云浮市郁南县都城镇山桥路44号后一",
+        "所属小区": "山桥路44号",
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城",
+        "建筑面积": 135.08,
+        "单价": 1438.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "585008642240",
@@ -1078,6 +1128,34 @@
         "id": "584836702955",
         "url": "https://sf-item.taobao.com/sf_item/584836702955.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1548790288000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584938601485",
+        "url": "https://sf-item.taobao.com/sf_item/584938601485.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1548727200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585671253169",
+        "url": "https://sf-item.taobao.com/sf_item/585671253169.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "end": 1548727200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583635738463",
+        "url": "https://sf-item.taobao.com/sf_item/583635738463.htm?track_id=676e8b6a-5c40-4af8-b290-72ab5bcb4786",
+        "end": 1548750946000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584965494463",
+        "url": "https://sf-item.taobao.com/sf_item/584965494463.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
+        "end": 1548727200000,
         "status": "done",
         "is_processed": false
     }

@@ -63,12 +63,25 @@
         "detail_captured": true
     },
     {
-        "id": "696530723801",
-        "url": "https://sf-item.taobao.com/sf_item/696530723801.htm?track_id=36a057e7-5c17-467b-aaf1-c7e8a4db8dac",
-        "end": 1673748000000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/696530723801.htm"
+        "id": 696530723801,
+        "市场评估价": 1690500,
+        "起拍价格": 946680,
+        "成交价格": 946680,
+        "交易时间": "2023-01-15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696530723801.htm?track_id=36a057e7-5c17-467b-aaf1-c7e8a4db8dac",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省张家口市怀来县沙城镇董存瑞东大街南侧长城北路东侧万悦广场D1座10层",
+        "所属小区": "万悦广场",
+        "省份": "河北省",
+        "城市": "张家口市",
+        "区": "怀来县",
+        "最靠近商圈": "沙城镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 695975449653,
@@ -92,11 +105,25 @@
         "detail_captured": true
     },
     {
-        "id": "695451663274",
-        "url": "https://sf-item.taobao.com/sf_item/695451663274.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
-        "end": 1673748000000,
-        "status": "done",
-        "is_processed": false
+        "id": 695451663274,
+        "市场评估价": 83980,
+        "起拍价格": 58800,
+        "成交价格": 58800,
+        "交易时间": "2023/01/15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695451663274.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳镇榕溪路31号二座301房",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 64.6,
+        "单价": 910.22,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "696399343522",
@@ -106,9 +133,44 @@
         "is_processed": false
     },
     {
-        "id": "695974105629",
-        "url": "https://sf-item.taobao.com/sf_item/695974105629.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
-        "end": 1673749948000,
+        "id": 695974105629,
+        "市场评估价": null,
+        "起拍价格": 714000,
+        "成交价格": 750000,
+        "交易时间": "2023/01/15 10:32:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695974105629.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 13,
+        "地点": "河南省郑州市二七区绿城花园小区21号楼1单元8号",
+        "所属小区": "绿城花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "绿城广场商圈",
+        "建筑面积": 139.96,
+        "单价": 5359.53,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "696237478511",
+        "url": "https://sf-item.taobao.com/sf_item/696237478511.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1673748820000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696493123349",
+        "url": "https://sf-item.taobao.com/sf_item/696493123349.htm?track_id=ea4eb8ff-33af-48f0-9fc5-5c633b8347fe",
+        "end": 1673748000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696361323504",
+        "url": "https://sf-item.taobao.com/sf_item/696361323504.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "end": 1673753652000,
         "status": "done",
         "is_processed": false
     }

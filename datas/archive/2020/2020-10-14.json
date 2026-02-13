@@ -630,11 +630,25 @@
         "detail_captured": true
     },
     {
-        "id": "626294720968",
-        "url": "https://sf-item.taobao.com/sf_item/626294720968.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
-        "end": 1602641604000,
-        "status": "done",
-        "is_processed": false
+        "id": 626294720968,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 359829,
+        "交易时间": "2020-10-14 10:13:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/626294720968.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 团结大街16号街坊包七中2号楼-47号房产",
+        "所属小区": "包七中家属院",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "团结大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 628459210226,
@@ -658,11 +672,25 @@
         "detail_captured": true
     },
     {
-        "id": "628084950624",
-        "url": "https://sf-item.taobao.com/sf_item/628084950624.htm?track_id=0dd40b95-8471-4dcf-9346-f8ebf0b69c81",
-        "end": 1602640800000,
-        "status": "done",
-        "is_processed": false
+        "id": 628084950624,
+        "市场评估价": 966164,
+        "起拍价格": 652160,
+        "成交价格": 652160,
+        "交易时间": "2020/10/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/628084950624.htm?track_id=0dd40b95-8471-4dcf-9346-f8ebf0b69c81",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 惠民路666号香山小区3号楼3单元401",
+        "所属小区": "香山小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心",
+        "建筑面积": 143.86,
+        "单价": 4533.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "628827843223",
@@ -679,9 +707,37 @@
         "is_processed": false
     },
     {
-        "id": "626240733087",
-        "url": "https://sf-item.taobao.com/sf_item/626240733087.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
-        "end": 1602647356000,
+        "id": 626240733087,
+        "市场评估价": 6414000,
+        "起拍价格": 5132000,
+        "成交价格": 6957000,
+        "交易时间": "2020/10/14 11:49:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/626240733087.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
+        "是否成交": true,
+        "竞拍人数": 62,
+        "出价人数": 62,
+        "地点": "浙江省 杭州市 滨江区 温馨人家8幢",
+        "所属小区": "温馨人家",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江",
+        "建筑面积": 145.25,
+        "单价": 47918.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "628164050577",
+        "url": "https://sf-item.taobao.com/sf_item/628164050577.htm?track_id=bcfea102-99f4-4d3a-aa3e-f06b59c7474b",
+        "end": 1602640800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626812657802",
+        "url": "https://sf-item.taobao.com/sf_item/626812657802.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
+        "end": 1602640800000,
         "status": "done",
         "is_processed": false
     }

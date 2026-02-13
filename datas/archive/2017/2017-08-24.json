@@ -176,16 +176,37 @@
         "is_processed": false
     },
     {
-        "id": "556788319681",
-        "url": "https://sf-item.taobao.com/sf_item/556788319681.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
-        "end": 1503540756000,
-        "status": "done",
-        "is_processed": false
+        "id": 556788319681,
+        "市场评估价": null,
+        "起拍价格": 560000,
+        "成交价格": 698000,
+        "交易时间": "2017/08/24 10:12:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556788319681.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 16,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道城东路1666号盛世钱塘7幢503室",
+        "所属小区": "盛世钱塘",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 121.59,
+        "单价": 5741.26,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "555797903044",
         "url": "https://sf-item.taobao.com/sf_item/555797903044.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
         "end": 1503540267000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "555684420988",
+        "url": "https://sf-item.taobao.com/sf_item/555684420988.htm?track_id=c1122bc0-fff8-4176-9d60-e693e4959044",
+        "end": 1503540000000,
         "status": "done",
         "is_processed": false
     }

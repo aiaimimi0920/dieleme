@@ -545,15 +545,16 @@
         "竞拍人数": null,
         "出价人数": 68,
         "地点": "广西柳州市弯塘路东一巷14号2栋1单元6-3号",
-        "所属小区": null,
-        "省份": "广西壮族自治区",
+        "所属小区": "弯塘路东一巷14号",
+        "省份": "广西",
         "城市": "柳州市",
         "区": "城中区",
         "最靠近商圈": "五星商圈",
         "建筑面积": 84.25,
-        "单价": 6514.59,
+        "单价": 6516.32,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 574006266751,
@@ -745,23 +746,93 @@
         "detail_captured": true
     },
     {
-        "id": "573104897733",
-        "url": "https://sf-item.taobao.com/sf_item/573104897733.htm?track_id=1d2888d6-6fb7-43a3-9d32-48bb0f233bcb",
-        "end": 1533607200000,
-        "status": "done",
-        "is_processed": false
+        "id": 573104897733,
+        "市场评估价": 0,
+        "起拍价格": 901760,
+        "成交价格": 901760,
+        "交易时间": "2018/08/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/573104897733.htm?track_id=1d2888d6-6fb7-43a3-9d32-48bb0f233bcb",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 御庭风景小区住宅楼7号楼3单元202室",
+        "所属小区": "御庭风景小区",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁右翼前旗",
+        "建筑面积": 105.57,
+        "单价": 8543.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "572835749061",
-        "url": "https://sf-item.taobao.com/sf_item/572835749061.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
-        "end": 1533608025000,
-        "status": "done",
-        "is_processed": false
+        "id": 572835749061,
+        "市场评估价": 0,
+        "起拍价格": 680000,
+        "成交价格": 782000,
+        "交易时间": "2018/08/07 10:13:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572835749061.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 18,
+        "地点": "广东省 惠州市 博罗县 石湾镇石湾村姚屋村民小组南部三十五米路南侧帝庭国际花园13栋7层03号房",
+        "所属小区": "帝庭国际花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾镇",
+        "建筑面积": 120.54,
+        "单价": 6489.26,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "572737672114",
         "url": "https://sf-item.taobao.com/sf_item/572737672114.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
         "end": 1533613761000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573282199807",
+        "url": "https://sf-item.taobao.com/sf_item/573282199807.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1533607200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573855038237",
+        "url": "https://sf-item.taobao.com/sf_item/573855038237.htm?track_id=4c4eeb49-6d0a-4655-9e36-002074dab1e8",
+        "end": 1533607200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573849965930",
+        "url": "https://sf-item.taobao.com/sf_item/573849965930.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
+        "end": 1533607360000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573311899024",
+        "url": "https://sf-item.taobao.com/sf_item/573311899024.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1533630837000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573164139360",
+        "url": "https://sf-item.taobao.com/sf_item/573164139360.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1533619956000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573209083671",
+        "url": "https://sf-item.taobao.com/sf_item/573209083671.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1533607262000,
         "status": "done",
         "is_processed": false
     }

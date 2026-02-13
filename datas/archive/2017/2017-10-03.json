@@ -148,16 +148,79 @@
         "detail_captured": true
     },
     {
-        "id": "558325678563",
-        "url": "https://sf-item.taobao.com/sf_item/558325678563.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
-        "end": 1506999050000,
+        "id": 558325678563,
+        "市场评估价": 4303102,
+        "起拍价格": 3442482,
+        "成交价格": 5167258,
+        "交易时间": "2017/10/03 10:50:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558325678563.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 113,
+        "地点": "吉林省吉林市船营区西安路431-1号",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": null,
+        "建筑面积": 2068.6,
+        "单价": 2497.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 557942381156,
+        "市场评估价": 0,
+        "起拍价格": 514800,
+        "成交价格": 694800,
+        "交易时间": "2017/10/03 10:18:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557942381156.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 26,
+        "地点": "福建省 南平市 顺昌县 双溪城南东路6号A5幢1层106室",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪",
+        "建筑面积": 103.48,
+        "单价": 6712.72,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "558003326575",
+        "url": "https://sf-item.taobao.com/sf_item/558003326575.htm?track_id=a5509f1b-d0f1-4066-9e83-25810044a34d",
+        "end": 1506996000000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "557942381156",
-        "url": "https://sf-item.taobao.com/sf_item/557942381156.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
-        "end": 1506997113000,
+        "id": "558059539095",
+        "url": "https://sf-item.taobao.com/sf_item/558059539095.htm?track_id=a5509f1b-d0f1-4066-9e83-25810044a34d",
+        "end": 1506996000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557837631702",
+        "url": "https://sf-item.taobao.com/sf_item/557837631702.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1506997166000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557156381944",
+        "url": "https://sf-item.taobao.com/sf_item/557156381944.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1506997224000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557201270963",
+        "url": "https://sf-item.taobao.com/sf_item/557201270963.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1506997859000,
         "status": "done",
         "is_processed": false
     }

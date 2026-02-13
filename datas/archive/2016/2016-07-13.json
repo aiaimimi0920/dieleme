@@ -21,9 +21,30 @@
         "detail_captured": true
     },
     {
-        "id": "534564085719",
-        "url": "https://sf-item.taobao.com/sf_item/534564085719.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
-        "end": 1468375450000,
+        "id": 534564085719,
+        "市场评估价": null,
+        "起拍价格": 371000,
+        "成交价格": 375000,
+        "交易时间": "2016/07/13 10:04:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534564085719.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道谢家路1205号浅水湾小区15幢201室",
+        "所属小区": "浅水湾",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 106.02,
+        "单价": 3537.07,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "534431360217",
+        "url": "https://sf-item.taobao.com/sf_item/534431360217.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1468376942000,
         "status": "done",
         "is_processed": false
     }

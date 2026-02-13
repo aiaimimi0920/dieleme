@@ -105,9 +105,37 @@
         "detail_captured": true
     },
     {
-        "id": "989351624179",
-        "url": "https://sf-item.taobao.com/sf_item/989351624179.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
-        "end": 1762653865000,
+        "id": 989351624179,
+        "市场评估价": 479310,
+        "起拍价格": 268414,
+        "成交价格": 268414,
+        "交易时间": "2025/11/09 10:04:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/989351624179.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 吉林市 船营区 恒大城项目调整9#住宅1单元0115030",
+        "所属小区": "恒大城",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "船营区",
+        "建筑面积": 106.23,
+        "单价": 2527.17,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "988554065952",
+        "url": "https://sf-item.taobao.com/sf_item/988554065952.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1762654538000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "987303855566",
+        "url": "https://sf-item.taobao.com/sf_item/987303855566.htm?track_id=018cd2d0-3b33-4452-90a3-52a886cb2abb",
+        "end": 1762653600000,
         "status": "done",
         "is_processed": false
     }

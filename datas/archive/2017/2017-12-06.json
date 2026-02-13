@@ -207,9 +207,37 @@
         "is_processed": false
     },
     {
-        "id": "560925730512",
-        "url": "https://sf-item.taobao.com/sf_item/560925730512.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
-        "end": 1512534874000,
+        "id": 560925730512,
+        "市场评估价": 1365575,
+        "起拍价格": 873968,
+        "成交价格": 1028968,
+        "交易时间": "2017/12/06 12:34:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560925730512.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广东省 阳江市 阳春市 阳春市春城街道春州大道1号春江花园1幢5号",
+        "所属小区": "春江花园",
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": "春城街道",
+        "建筑面积": 191.43,
+        "单价": 5374.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "560834861573",
+        "url": "https://sf-item.taobao.com/sf_item/560834861573.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1512527154000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560958798718",
+        "url": "https://sf-item.taobao.com/sf_item/560958798718.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1512525770000,
         "status": "done",
         "is_processed": false
     }

@@ -262,16 +262,79 @@
         "detail_captured": true
     },
     {
-        "id": "662506500454",
-        "url": "https://sf-item.taobao.com/sf_item/662506500454.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
-        "end": 1641262388000,
+        "id": 662506500454,
+        "市场评估价": 309622,
+        "起拍价格": 173388.32,
+        "成交价格": 173388.32,
+        "交易时间": "2022-01-04 10:13:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/662506500454.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延吉市依兰镇兴安村七队3001",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "依兰镇",
+        "建筑面积": 94.11,
+        "单价": 1842.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 658917207616,
+        "市场评估价": null,
+        "起拍价格": 2592000,
+        "成交价格": 2592000,
+        "交易时间": "2022/01/04 09:53:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/658917207616.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 南平市 顺昌县 双溪街道城南东路16号金大地广场2幢2层201商业房地产",
+        "所属小区": "金大地广场",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "城南板块",
+        "建筑面积": 922.78,
+        "单价": 2808.91,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "664864778297",
+        "url": "https://sf-item.taobao.com/sf_item/664864778297.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1641263336000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "658917207616",
-        "url": "https://sf-item.taobao.com/sf_item/658917207616.htm?track_id=8b725ab1-1ddd-4c4f-9543-e290bd46a094",
-        "end": 1641261194000,
+        "id": "664514809075",
+        "url": "https://sf-item.taobao.com/sf_item/664514809075.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1641261600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "661140573753",
+        "url": "https://sf-item.taobao.com/sf_item/661140573753.htm?track_id=2bbb27f7-04ff-439c-a07f-e90655efe59b",
+        "end": 1641264842000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "660714248814",
+        "url": "https://sf-item.taobao.com/sf_item/660714248814.htm?track_id=2bbb27f7-04ff-439c-a07f-e90655efe59b",
+        "end": 1641264019000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "661555656897",
+        "url": "https://sf-item.taobao.com/sf_item/661555656897.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1641263414000,
         "status": "done",
         "is_processed": false
     }

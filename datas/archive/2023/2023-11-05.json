@@ -105,23 +105,72 @@
         "detail_captured": true
     },
     {
-        "id": "737294100280",
-        "url": "https://sf-item.taobao.com/sf_item/737294100280.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
-        "end": 1699144826000,
-        "status": "done",
-        "is_processed": false
+        "id": 737294100280,
+        "市场评估价": 0,
+        "起拍价格": 328225.6,
+        "成交价格": 328225.6,
+        "交易时间": "2023/11/05 08:40:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/737294100280.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 梅州市 蕉岭县 长潭镇新泉村帝景湾住宅小区1栋906房",
+        "所属小区": "帝景湾住宅小区",
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "长潭镇",
+        "建筑面积": 144.1,
+        "单价": 2277.76,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "743858382853",
-        "url": "https://sf-item.taobao.com/sf_item/743858382853.htm?track_id=f318f174-d213-49b5-88b0-0165640b650c",
-        "end": 1699149600000,
-        "status": "done",
-        "is_processed": false
+        "id": 743858382853,
+        "市场评估价": null,
+        "起拍价格": 769986,
+        "成交价格": 769986,
+        "交易时间": "2023-11-05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/743858382853.htm?track_id=f318f174-d213-49b5-88b0-0165640b650c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省信阳市平桥区羊山新区新七大道恒大名都10号楼1单元1802号",
+        "所属小区": "恒大名都",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "743588731941",
         "url": "https://sf-item.taobao.com/sf_item/743588731941.htm?track_id=714d6a20-14ce-4681-bdad-a5c0be12e883",
         "end": 1699149976000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743443752471",
+        "url": "https://sf-item.taobao.com/sf_item/743443752471.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1699151079000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743866286328",
+        "url": "https://sf-item.taobao.com/sf_item/743866286328.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1699149624000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743515793010",
+        "url": "https://sf-item.taobao.com/sf_item/743515793010.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1699149928000,
         "status": "done",
         "is_processed": false
     }

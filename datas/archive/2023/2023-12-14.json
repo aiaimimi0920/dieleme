@@ -316,18 +316,46 @@
         "detail_captured": true
     },
     {
-        "id": "751767027867",
-        "url": "https://sf-item.taobao.com/sf_item/751767027867.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
-        "end": 1702519955000,
-        "status": "done",
-        "is_processed": false
+        "id": 751767027867,
+        "市场评估价": null,
+        "起拍价格": 993863,
+        "成交价格": 1053863,
+        "交易时间": "2023/12/14 10:12:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/751767027867.htm?track_id=21c6e919-041b-4dfa-ba80-7c3fc98549bc",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "贵州省 遵义市 汇川区 遵义市汇川区厦门路天安星园银苑小区A栋2-11-3号房产",
+        "所属小区": "天安星园银苑小区",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "汇川区政府",
+        "建筑面积": 234.43,
+        "单价": 4496.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "751749986288",
-        "url": "https://sf-item.taobao.com/sf_item/751749986288.htm?track_id=0aa51a89-be2a-4b2d-a15e-840b4b7b2be4",
-        "end": 1702522691000,
-        "status": "done",
-        "is_processed": false
+        "id": 751749986288,
+        "市场评估价": null,
+        "起拍价格": 566256.6,
+        "成交价格": 614256.6,
+        "交易时间": "2023-12-14 10:58:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/751749986288.htm?track_id=0aa51a89-be2a-4b2d-a15e-840b4b7b2be4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 17,
+        "地点": "河南省郑州市新密市城区青屏大街西段北侧（新天地·商居园5号楼）16层西户",
+        "所属小区": "新天地·商居园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏大街商圈",
+        "建筑面积": 182.72,
+        "单价": 3361.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "751480728377",
@@ -337,18 +365,46 @@
         "is_processed": false
     },
     {
-        "id": "751906106112",
-        "url": "https://sf-item.taobao.com/sf_item/751906106112.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
-        "end": 1702519486000,
-        "status": "done",
-        "is_processed": false
+        "id": 751906106112,
+        "市场评估价": 777083,
+        "起拍价格": 510000,
+        "成交价格": 535000,
+        "交易时间": "2023/12/14 10:04:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/751906106112.htm?track_id=7b371166-b32d-4a82-8f75-5b268d00a58b",
+        "是否成交": true,
+        "竞拍人数": 6,
+        "出价人数": 6,
+        "地点": "湖北省 襄阳市 襄城区 松鹤路毛纺花园4幢3单元2层2室",
+        "所属小区": "毛纺花园",
+        "省份": "湖北省",
+        "城市": "襄阳市",
+        "区": "襄城区",
+        "最靠近商圈": "长虹路商圈",
+        "建筑面积": 82.83,
+        "单价": 6459.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "748126130634",
-        "url": "https://sf-item.taobao.com/sf_item/748126130634.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
-        "end": 1702520143000,
-        "status": "done",
-        "is_processed": false
+        "id": 748126130634,
+        "市场评估价": null,
+        "起拍价格": 3016953.1,
+        "成交价格": 4776953.1,
+        "交易时间": "2023/12/14 10:15:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/748126130634.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省厦门市同安区美峰三里19号1701室",
+        "所属小区": "美峰三里",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "同安区",
+        "最靠近商圈": "环东海域",
+        "建筑面积": 211.08,
+        "单价": 22630.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "751730158516",
@@ -361,6 +417,55 @@
         "id": "742137977537",
         "url": "https://sf-item.taobao.com/sf_item/742137977537.htm?track_id=a351b027-ffb1-477b-8259-d0deefb25d30",
         "end": 1702536959000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "751031630687",
+        "url": "https://sf-item.taobao.com/sf_item/751031630687.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1702519200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "750957473946",
+        "url": "https://sf-item.taobao.com/sf_item/750957473946.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1702526768000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "751853735079",
+        "url": "https://sf-item.taobao.com/sf_item/751853735079.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1702519200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "751756187811",
+        "url": "https://sf-item.taobao.com/sf_item/751756187811.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1702519215000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "748496245196",
+        "url": "https://sf-item.taobao.com/sf_item/748496245196.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1702520087000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "751713217569",
+        "url": "https://sf-item.taobao.com/sf_item/751713217569.htm?track_id=a104badb-d029-4a84-9853-223a95622272",
+        "end": 1702552945000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "746067710085",
+        "url": "https://sf-item.taobao.com/sf_item/746067710085.htm?track_id=1bfdf5f3-ff79-4ec0-acb3-c67a8bc42bdf",
+        "end": 1702520031000,
         "status": "done",
         "is_processed": false
     }

@@ -759,12 +759,25 @@
         "detail_captured": true
     },
     {
-        "id": "965053873539",
-        "url": "https://sf-item.taobao.com/sf_item/965053873539.htm?track_id=3bf896da-fda1-432e-baaf-0a8bf5bd01c9",
-        "end": 1756432810000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/965053873539.htm"
+        "id": 965053873539,
+        "市场评估价": null,
+        "起拍价格": 461776,
+        "成交价格": 464776,
+        "交易时间": "2025-08-29 10:00:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/965053873539.htm?track_id=3bf896da-fda1-432e-baaf-0a8bf5bd01c9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "四川省广元市利州区市中区嘉陵办事处地利2-3-2号",
+        "所属小区": null,
+        "省份": "四川",
+        "城市": "广元",
+        "区": "利州区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 963914286558,
@@ -893,11 +906,25 @@
         "detail_captured": true
     },
     {
-        "id": "963844651635",
-        "url": "https://sf-item.taobao.com/sf_item/963844651635.htm?track_id=8b62a118-5217-4938-94e5-3f574e023c8a",
-        "end": 1756434663000,
-        "status": "done",
-        "is_processed": false
+        "id": 963844651635,
+        "市场评估价": 745503.94,
+        "起拍价格": 420000,
+        "成交价格": 524000,
+        "交易时间": "2025/08/29 10:31:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/963844651635.htm?track_id=8b62a118-5217-4938-94e5-3f574e023c8a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 27,
+        "地点": "广东省 惠州市 博罗县 罗阳街道城东区云峰路139号云峰花园二期10栋商住楼16层03房",
+        "所属小区": "云峰花园二期",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳街道",
+        "建筑面积": 133.34,
+        "单价": 3930.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "962888572948",
@@ -907,30 +934,149 @@
         "is_processed": false
     },
     {
-        "id": "955388533494",
-        "url": "https://sf-item.taobao.com/sf_item/955388533494.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
-        "end": 1756456526000,
-        "status": "done",
-        "is_processed": false
+        "id": 955388533494,
+        "市场评估价": 0,
+        "起拍价格": 810000,
+        "成交价格": 1344600,
+        "交易时间": "2025/08/29 16:35:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/955388533494.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 249,
+        "地点": "广西壮族自治区 贵港市 桂平市 广西桂平市社坡镇中城街（201号）房地产一幢",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "社坡镇",
+        "建筑面积": 394.06,
+        "单价": 3412.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "965017749048",
-        "url": "https://sf-item.taobao.com/sf_item/965017749048.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
-        "end": 1756434033000,
-        "status": "done",
-        "is_processed": false
+        "id": 965017749048,
+        "市场评估价": null,
+        "起拍价格": 189784,
+        "成交价格": 218584,
+        "交易时间": "2025/08/29 10:20:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/965017749048.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 17,
+        "地点": "河南省 郑州市 二七区 柳江路67号4号楼2单元10层1017",
+        "所属小区": "亚星锦绣山河",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七新城",
+        "建筑面积": 49.95,
+        "单价": 4375.68,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "965014641111",
-        "url": "https://sf-item.taobao.com/sf_item/965014641111.htm?track_id=62a1c451-33f1-4a57-ba49-179a47e5bbaf",
-        "end": 1756432800000,
-        "status": "done",
-        "is_processed": false
+        "id": 965014641111,
+        "市场评估价": 0,
+        "起拍价格": 113730,
+        "成交价格": 113730,
+        "交易时间": "2025/08/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/965014641111.htm?track_id=62a1c451-33f1-4a57-ba49-179a47e5bbaf",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 二七区 柳江路67号1号楼8层834",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 32.02,
+        "单价": 3551.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "955702551689",
         "url": "https://sf-item.taobao.com/sf_item/955702551689.htm?track_id=ee1d551b-6eb7-44ee-be29-04b1de6e5e8f",
         "end": 1756433814000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "963781862813",
+        "url": "https://sf-item.taobao.com/sf_item/963781862813.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "end": 1756435336000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "963387559064",
+        "url": "https://sf-item.taobao.com/sf_item/963387559064.htm?track_id=38645221-478f-4c88-ae42-f8414519aee5",
+        "end": 1756432803000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "963881650951",
+        "url": "https://sf-item.taobao.com/sf_item/963881650951.htm?track_id=38645221-478f-4c88-ae42-f8414519aee5",
+        "end": 1756432800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "958034706153",
+        "url": "https://sf-item.taobao.com/sf_item/958034706153.htm?track_id=72941855-3cec-4df2-aa07-8f74679bfc2d",
+        "end": 1756432875000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "958482245798",
+        "url": "https://sf-item.taobao.com/sf_item/958482245798.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1756440929000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "964211550849",
+        "url": "https://sf-item.taobao.com/sf_item/964211550849.htm?track_id=802501ef-0ab0-410f-b5ee-43532bb45d13",
+        "end": 1756434259000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "963324091439",
+        "url": "https://sf-item.taobao.com/sf_item/963324091439.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1756433343000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "965697536547",
+        "url": "https://sf-item.taobao.com/sf_item/965697536547.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1756432800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "964257718653",
+        "url": "https://sf-item.taobao.com/sf_item/964257718653.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1756433381000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "956341080827",
+        "url": "https://sf-item.taobao.com/sf_item/956341080827.htm?track_id=743e6c95-df8d-4384-a1c1-434833f32b0b",
+        "end": 1756433074000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "938446516589",
+        "url": "https://sf-item.taobao.com/sf_item/938446516589.htm?track_id=eec62054-78a1-43b5-9022-1fa82f70b2cc",
+        "end": 1756448382000,
         "status": "done",
         "is_processed": false
     }

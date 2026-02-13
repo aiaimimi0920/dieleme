@@ -428,9 +428,30 @@
         "原始网站": "https://sf-item.taobao.com/sf_item/760021304382.htm"
     },
     {
-        "id": "763637864909",
-        "url": "https://sf-item.taobao.com/sf_item/763637864909.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
-        "end": 1707098400000,
+        "id": 763637864909,
+        "市场评估价": 1979600,
+        "起拍价格": 1266944,
+        "成交价格": 1272944,
+        "交易时间": "2024-02-05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/763637864909.htm?track_id=f56f1f16-d380-4a91-ac9b-42208bc8c05e",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "辽宁省 沈阳市 铁西区 燕塞湖街8-7号3-1-2",
+        "所属小区": "燕塞湖街8-7号",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "张士",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "763356562400",
+        "url": "https://sf-item.taobao.com/sf_item/763356562400.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1707098683000,
         "status": "done",
         "is_processed": false
     }

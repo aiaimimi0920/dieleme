@@ -378,12 +378,25 @@
         "detail_captured": true
     },
     {
-        "id": "663996648002",
-        "url": "https://sf-item.taobao.com/sf_item/663996648002.htm?track_id=b6dce3dc-7774-4ab1-b41b-efb6865cfbc5",
-        "end": 1642730666000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/663996648002.htm"
+        "id": 663996648002,
+        "市场评估价": 1192600,
+        "起拍价格": 834820,
+        "成交价格": 834820,
+        "交易时间": "2022/01/21 10:04:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/663996648002.htm?track_id=b6dce3dc-7774-4ab1-b41b-efb6865cfbc5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "湖南省 湘潭市 雨湖区 昭潭乡南岭南路12号2栋1楼14、15号门面",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 665444735638,
@@ -477,23 +490,93 @@
         "is_processed": false
     },
     {
-        "id": "666143407309",
-        "url": "https://sf-item.taobao.com/sf_item/666143407309.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
-        "end": 1642766786000,
-        "status": "done",
-        "is_processed": false
+        "id": 666143407309,
+        "市场评估价": 342628,
+        "起拍价格": 191872,
+        "成交价格": 191872,
+        "交易时间": "2022/01/21 20:06:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/666143407309.htm?track_id=0546a1eb-2dc2-417d-a0e3-a85c2bacae02",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 揽军路14号4-7-3",
+        "所属小区": "凌空五小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "兴华商圈",
+        "建筑面积": 65.89,
+        "单价": 2911.96,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "666159169303",
-        "url": "https://sf-item.taobao.com/sf_item/666159169303.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
-        "end": 1642730516000,
-        "status": "done",
-        "is_processed": false
+        "id": 666159169303,
+        "市场评估价": null,
+        "起拍价格": 225568.8,
+        "成交价格": 225568.8,
+        "交易时间": "2022/01/21 10:01:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/666159169303.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省惠州市博罗县汤泉赤竹坑村高尔夫度假公寓1E-012",
+        "所属小区": "高尔夫度假公寓",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "汤泉板块",
+        "建筑面积": 47.79,
+        "单价": 4720.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "664399374207",
         "url": "https://sf-item.taobao.com/sf_item/664399374207.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
         "end": 1642730693000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "666880511750",
+        "url": "https://sf-item.taobao.com/sf_item/666880511750.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1642730400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "664683237331",
+        "url": "https://sf-item.taobao.com/sf_item/664683237331.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1642732213000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665733308744",
+        "url": "https://sf-item.taobao.com/sf_item/665733308744.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1642730851000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "666851235494",
+        "url": "https://sf-item.taobao.com/sf_item/666851235494.htm?track_id=a8a7504e-6323-4c92-b93b-cd51b5436bd0",
+        "end": 1642732274000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "666565818016",
+        "url": "https://sf-item.taobao.com/sf_item/666565818016.htm?track_id=a104badb-d029-4a84-9853-223a95622272",
+        "end": 1642753187000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "664315036489",
+        "url": "https://sf-item.taobao.com/sf_item/664315036489.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1642730912000,
         "status": "done",
         "is_processed": false
     }

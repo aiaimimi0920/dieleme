@@ -126,23 +126,58 @@
         "detail_captured": true
     },
     {
-        "id": "603247815366",
-        "url": "https://sf-item.taobao.com/sf_item/603247815366.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
-        "end": 1571882735000,
-        "status": "done",
-        "is_processed": false
+        "id": 603247815366,
+        "市场评估价": 491471,
+        "起拍价格": 344030,
+        "成交价格": 400030,
+        "交易时间": "2019/10/24 10:05:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/603247815366.htm?track_id=74687eb8-f310-49d7-8772-bc8247da9274",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价次数": 23,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区十号路9甲2号-4（2-2-2）",
+        "所属小区": "阳光100果岭公馆",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西经济技术开发区",
+        "建筑面积": 70.04,
+        "单价": 5711.02,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "604248989763",
-        "url": "https://sf-item.taobao.com/sf_item/604248989763.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
-        "end": 1571891536000,
-        "status": "done",
-        "is_processed": false
+        "id": 604248989763,
+        "市场评估价": 0,
+        "起拍价格": 2616771,
+        "成交价格": 3261771,
+        "交易时间": "2019/10/24 12:32:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/604248989763.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 72,
+        "地点": "河南省 郑州市 二七区 合作路1号院23号楼2单元5层19号",
+        "所属小区": "合作路1号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "碧沙岗",
+        "建筑面积": 183.64,
+        "单价": 17760.19,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "603181286773",
         "url": "https://sf-item.taobao.com/sf_item/603181286773.htm?track_id=0739f089-7ac6-489d-ad38-282796f4890c",
         "end": 1571882427000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "603050914885",
+        "url": "https://sf-item.taobao.com/sf_item/603050914885.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1571887049000,
         "status": "done",
         "is_processed": false
     }

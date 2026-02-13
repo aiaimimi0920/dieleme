@@ -63,17 +63,58 @@
         "detail_captured": true
     },
     {
-        "id": "770489733540",
-        "url": "https://sf-item.taobao.com/sf_item/770489733540.htm?track_id=3acac2e5-4046-49d7-a750-fe434029436a",
-        "end": 1710640800000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/770489733540.htm"
+        "id": 770489733540,
+        "市场评估价": 599895,
+        "起拍价格": 479916,
+        "成交价格": 479916,
+        "交易时间": "2024/03/17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/770489733540.htm?track_id=3acac2e5-4046-49d7-a750-fe434029436a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "甘肃省 兰州市 七里河区 兰州市七里河区西湖街道体育街108号",
+        "所属小区": "西津村",
+        "省份": "甘肃省",
+        "城市": "兰州市",
+        "区": "七里河区",
+        "最靠近商圈": "西站商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "759016068997",
         "url": "https://sf-item.taobao.com/sf_item/759016068997.htm?track_id=a351b027-ffb1-477b-8259-d0deefb25d30",
         "end": 1710645942000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "770545423660",
+        "url": "https://sf-item.taobao.com/sf_item/770545423660.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1710640800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "770550333211",
+        "url": "https://sf-item.taobao.com/sf_item/770550333211.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1710640848000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "770639589368",
+        "url": "https://sf-item.taobao.com/sf_item/770639589368.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1710640800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "770463158543",
+        "url": "https://sf-item.taobao.com/sf_item/770463158543.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1710644788000,
         "status": "done",
         "is_processed": false
     }

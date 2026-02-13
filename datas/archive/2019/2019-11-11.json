@@ -403,25 +403,67 @@
         "detail_captured": true
     },
     {
-        "id": "606697722189",
-        "url": "https://sf-item.taobao.com/sf_item/606697722189.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
-        "end": 1573438704000,
-        "status": "done",
-        "is_processed": false
+        "id": 606697722189,
+        "市场评估价": 0,
+        "起拍价格": 6221000,
+        "成交价格": 7001000,
+        "交易时间": "2019/11/11 10:18:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606697722189.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 78,
+        "地点": "福建省 泉州市 安溪县 河滨西路380号至400号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "佳华傢私广场",
+        "建筑面积": 694.21,
+        "单价": 10084.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "606677722715",
-        "url": "https://sf-item.taobao.com/sf_item/606677722715.htm?track_id=bf5e837c-1970-4e55-99eb-ff5d9570bd55",
-        "end": 1573437895000,
-        "status": "done",
-        "is_processed": false
+        "id": 606677722715,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 314568,
+        "交易时间": "2019-11-11 10:04:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606677722715.htm?track_id=bf5e837c-1970-4e55-99eb-ff5d9570bd55",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区 苑陵街",
+        "所属小区": "万博商城",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 17.88,
+        "单价": 17584.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "605100401722",
-        "url": "https://sf-item.taobao.com/sf_item/605100401722.htm?track_id=6b04ce3c-2f80-41e6-9418-abb9d96f54be",
-        "end": 1573439264000,
-        "status": "done",
-        "is_processed": false
+        "id": 605100401722,
+        "市场评估价": null,
+        "起拍价格": 620000,
+        "成交价格": 716000,
+        "交易时间": "2019/11/11 10:27:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605100401722.htm?track_id=6b04ce3c-2f80-41e6-9418-abb9d96f54be",
+        "是否成交": true,
+        "竞拍人数": 17,
+        "出价人数": 17,
+        "地点": "河南省 郑州市 二七区 航海中路86号2号楼2单元1层16号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 64.56,
+        "单价": 11089.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "606462442635",
@@ -431,11 +473,25 @@
         "is_processed": false
     },
     {
-        "id": "606237645056",
-        "url": "https://sf-item.taobao.com/sf_item/606237645056.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1573442666000,
-        "status": "done",
-        "is_processed": false
+        "id": 606237645056,
+        "市场评估价": null,
+        "起拍价格": 1630000,
+        "成交价格": 2320000,
+        "交易时间": "2019-11-11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606237645056.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": 69,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 杭州市滨江区浦沿街道逸天广场1幢1单元703室房产",
+        "所属小区": "逸天广场",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 226.93,
+        "单价": 10222.26,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "606675527241",
@@ -468,6 +524,55 @@
     {
         "id": "606150884201",
         "url": "https://sf-item.taobao.com/sf_item/606150884201.htm?track_id=0739f089-7ac6-489d-ad38-282796f4890c",
+        "end": 1573437600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606463121498",
+        "url": "https://sf-item.taobao.com/sf_item/606463121498.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1573438679000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605372202400",
+        "url": "https://sf-item.taobao.com/sf_item/605372202400.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1573437731000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605520515816",
+        "url": "https://sf-item.taobao.com/sf_item/605520515816.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1573443391000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606443665748",
+        "url": "https://sf-item.taobao.com/sf_item/606443665748.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1573440255000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "603943698041",
+        "url": "https://sf-item.taobao.com/sf_item/603943698041.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1573438942000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605297342350",
+        "url": "https://sf-item.taobao.com/sf_item/605297342350.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1573441764000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "603207050763",
+        "url": "https://sf-item.taobao.com/sf_item/603207050763.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
         "end": 1573437600000,
         "status": "done",
         "is_processed": false

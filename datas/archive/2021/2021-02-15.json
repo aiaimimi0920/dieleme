@@ -148,9 +148,37 @@
         "detail_captured": true
     },
     {
-        "id": "636261457777",
-        "url": "https://sf-item.taobao.com/sf_item/636261457777.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
-        "end": 1613356436000,
+        "id": 636261457777,
+        "市场评估价": null,
+        "起拍价格": 424428.2,
+        "成交价格": 518428.2,
+        "交易时间": "2021-02-15T10:33:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636261457777.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
+        "是否成交": true,
+        "竞拍人数": 39,
+        "出价人数": 45,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 慷兴乐园小区",
+        "所属小区": "慷兴乐园",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁镇",
+        "建筑面积": 131.81,
+        "单价": 3931.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "637192477228",
+        "url": "https://sf-item.taobao.com/sf_item/637192477228.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
+        "end": 1613355501000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636762075444",
+        "url": "https://sf-item.taobao.com/sf_item/636762075444.htm?track_id=6f2bafaa-d7d3-4b31-aeeb-791dd7eba396",
+        "end": 1613354400000,
         "status": "done",
         "is_processed": false
     }

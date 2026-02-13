@@ -337,11 +337,12 @@
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": null,
+        "最靠近商圈": "相城万达广场",
         "建筑面积": 136.95,
-        "单价": 18286.29,
+        "单价": 18284.05,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 585974796269,
@@ -428,11 +429,25 @@
         "detail_captured": true
     },
     {
-        "id": "586367818437",
-        "url": "https://sf-item.taobao.com/sf_item/586367818437.htm?track_id=42fc7346-7816-4a0b-a9c5-920f24eb6c29",
-        "end": 1550628768000,
-        "status": "done",
-        "is_processed": false
+        "id": 586367818437,
+        "市场评估价": 0,
+        "起拍价格": 253610,
+        "成交价格": 316110,
+        "交易时间": "2019/02/20 10:12:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586367818437.htm?track_id=42fc7346-7816-4a0b-a9c5-920f24eb6c29",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 26,
+        "地点": "江西省 上饶市 铅山县 河口镇古镇新街",
+        "所属小区": "窑山煤矿宿舍",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "铅山县",
+        "最靠近商圈": "河口镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 586321250793,
@@ -477,25 +492,67 @@
         "detail_captured": true
     },
     {
-        "id": "585340100376",
-        "url": "https://sf-item.taobao.com/sf_item/585340100376.htm?track_id=4db99a87-2bd9-4030-b1fa-33492e39505c",
-        "end": 1550679121000,
-        "status": "done",
-        "is_processed": false
+        "id": 585340100376,
+        "市场评估价": null,
+        "起拍价格": 273240,
+        "成交价格": 273240,
+        "交易时间": "2019-02-21 00:12:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585340100376.htm?track_id=4db99a87-2bd9-4030-b1fa-33492e39505c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 七星路9号鼎源时代城（鼎源幸福里小区）7栋1单元5层附502号住房",
+        "所属小区": "鼎源时代城",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "七星路商圈",
+        "建筑面积": 94.3,
+        "单价": 2897.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "586315610431",
-        "url": "https://sf-item.taobao.com/sf_item/586315610431.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
-        "end": 1550628000000,
-        "status": "done",
-        "is_processed": false
+        "id": 586315610431,
+        "市场评估价": 0,
+        "起拍价格": 295072,
+        "成交价格": 315072,
+        "交易时间": "2019/02/20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586315610431.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 5,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 克东镇中兴街",
+        "所属小区": "博雅家园",
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": "克东镇",
+        "建筑面积": 92.21,
+        "单价": 3417.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "586159797844",
-        "url": "https://sf-item.taobao.com/sf_item/586159797844.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
-        "end": 1550628000000,
-        "status": "done",
-        "is_processed": false
+        "id": 586159797844,
+        "市场评估价": null,
+        "起拍价格": 167700,
+        "成交价格": 167700,
+        "交易时间": "2019-02-20T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586159797844.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 中兴街",
+        "所属小区": "博雅家园",
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": null,
+        "建筑面积": 32.25,
+        "单价": 52000,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586515359296",
@@ -522,6 +579,27 @@
         "id": "586309355108",
         "url": "https://sf-item.taobao.com/sf_item/586309355108.htm?track_id=e0cbd2e8-7004-4585-9259-25beae5cf5de",
         "end": 1550634941000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586312550409",
+        "url": "https://sf-item.taobao.com/sf_item/586312550409.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1550628000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586357843091",
+        "url": "https://sf-item.taobao.com/sf_item/586357843091.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1550630067000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586481680402",
+        "url": "https://sf-item.taobao.com/sf_item/586481680402.htm?track_id=b2a0791c-e94d-46c9-b7b2-e898b5ba78f0",
+        "end": 1550641597000,
         "status": "done",
         "is_processed": false
     }

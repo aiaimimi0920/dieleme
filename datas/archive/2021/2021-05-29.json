@@ -262,23 +262,128 @@
         "is_processed": false
     },
     {
-        "id": "642739648866",
-        "url": "https://sf-item.taobao.com/sf_item/642739648866.htm?track_id=1c95698b-0cb1-4ce8-a244-6b6fc38fc0f1",
-        "end": 1622259337000,
-        "status": "done",
-        "is_processed": false
+        "id": 642739648866,
+        "市场评估价": null,
+        "起拍价格": 154000,
+        "成交价格": 606000,
+        "交易时间": "2021/05/29 11:35:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642739648866.htm?track_id=1c95698b-0cb1-4ce8-a244-6b6fc38fc0f1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 230,
+        "地点": "四川省 乐山市 五通桥区 冠英镇七星镇351、353、355号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "乐山市",
+        "区": "五通桥区",
+        "最靠近商圈": "冠英镇",
+        "建筑面积": 338.36,
+        "单价": 1790.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "643472938448",
-        "url": "https://sf-item.taobao.com/sf_item/643472938448.htm?track_id=183882c5-0ed7-489b-ad05-3a3edf0e45f3",
+        "id": 643472938448,
+        "市场评估价": 214768,
+        "起拍价格": 214768,
+        "成交价格": 226768,
+        "交易时间": "2021/05/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/643472938448.htm?track_id=183882c5-0ed7-489b-ad05-3a3edf0e45f3",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 5,
+        "地点": "黑龙江省鹤岗市绥滨县绥滨镇裕丰小区4号楼3单元502室",
+        "所属小区": "裕丰小区",
+        "省份": "黑龙江省",
+        "城市": "鹤岗市",
+        "区": "绥滨县",
+        "最靠近商圈": "绥滨镇商圈",
+        "建筑面积": 81.29,
+        "单价": 2789.09,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 644640926264,
+        "市场评估价": 1677835,
+        "起拍价格": 1342268,
+        "成交价格": 1342268,
+        "交易时间": "2021-05-29 10:00:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/644640926264.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 霸州市 廊坊市大厂县潮白河孔雀城紫荆园22-2-501房产",
+        "所属小区": "孔雀城紫荆园",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "大厂县",
+        "最靠近商圈": "潮白河板块",
+        "建筑面积": 108.18,
+        "单价": 12407.54,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "644288097934",
+        "url": "https://sf-item.taobao.com/sf_item/644288097934.htm?track_id=83a69582-76f4-4489-bccb-41fc9b7b6cf6",
         "end": 1622253600000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "644640926264",
-        "url": "https://sf-item.taobao.com/sf_item/644640926264.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
-        "end": 1622253649000,
+        "id": "644289157253",
+        "url": "https://sf-item.taobao.com/sf_item/644289157253.htm?track_id=83a69582-76f4-4489-bccb-41fc9b7b6cf6",
+        "end": 1622253600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644976067950",
+        "url": "https://sf-item.taobao.com/sf_item/644976067950.htm?track_id=83a69582-76f4-4489-bccb-41fc9b7b6cf6",
+        "end": 1622253656000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644977543772",
+        "url": "https://sf-item.taobao.com/sf_item/644977543772.htm?track_id=83a69582-76f4-4489-bccb-41fc9b7b6cf6",
+        "end": 1622253612000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644978859128",
+        "url": "https://sf-item.taobao.com/sf_item/644978859128.htm?track_id=83a69582-76f4-4489-bccb-41fc9b7b6cf6",
+        "end": 1622253600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644979359668",
+        "url": "https://sf-item.taobao.com/sf_item/644979359668.htm?track_id=83a69582-76f4-4489-bccb-41fc9b7b6cf6",
+        "end": 1622253600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644105087309",
+        "url": "https://sf-item.taobao.com/sf_item/644105087309.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
+        "end": 1622277400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643520196943",
+        "url": "https://sf-item.taobao.com/sf_item/643520196943.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1622253600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643861652048",
+        "url": "https://sf-item.taobao.com/sf_item/643861652048.htm?track_id=3b36e442-fd18-4c67-9caf-4ea62c7a61cd",
+        "end": 1622253600000,
         "status": "done",
         "is_processed": false
     }

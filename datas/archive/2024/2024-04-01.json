@@ -378,16 +378,51 @@
         "detail_captured": true
     },
     {
-        "id": "774187678681",
-        "url": "https://sf-item.taobao.com/sf_item/774187678681.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
-        "end": 1711936953000,
-        "status": "done",
-        "is_processed": false
+        "id": 774187678681,
+        "市场评估价": 879900,
+        "起拍价格": 563136,
+        "成交价格": 563136,
+        "交易时间": "2024/04/01 10:02:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/774187678681.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "山东省潍坊市昌邑市昌邑市新兴街188号2幢一单元102",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": null,
+        "建筑面积": 135.29,
+        "单价": 4162.41,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "774169570692",
         "url": "https://sf-item.taobao.com/sf_item/774169570692.htm?track_id=7b04b434-ceff-470a-aefa-d328aa1bebd6",
         "end": 1711938964000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "774180257815",
+        "url": "https://sf-item.taobao.com/sf_item/774180257815.htm?track_id=9a405c8a-1c07-49bc-9bd5-0414da77ea78",
+        "end": 1711937056000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "770562552143",
+        "url": "https://sf-item.taobao.com/sf_item/770562552143.htm?track_id=a4454510-a7b4-4b05-a536-3635b364b17e",
+        "end": 1711936800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "773423537738",
+        "url": "https://sf-item.taobao.com/sf_item/773423537738.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1711936873000,
         "status": "done",
         "is_processed": false
     }

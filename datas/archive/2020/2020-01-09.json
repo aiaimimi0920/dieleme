@@ -337,18 +337,46 @@
         "detail_captured": true
     },
     {
-        "id": "610536958048",
-        "url": "https://sf-item.taobao.com/sf_item/610536958048.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
-        "end": 1578536763000,
-        "status": "done",
-        "is_processed": false
+        "id": 610536958048,
+        "市场评估价": 372416,
+        "起拍价格": 297933,
+        "成交价格": 337933,
+        "交易时间": "2020-01-09 10:26:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610536958048.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": 40,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 平桥南路4号广惠国际1号楼4单元19层附1904号",
+        "所属小区": "广惠国际",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "平桥",
+        "建筑面积": 84.64,
+        "单价": 3991.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "609189131640",
-        "url": "https://sf-item.taobao.com/sf_item/609189131640.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
-        "end": 1578535498000,
-        "status": "done",
-        "is_processed": false
+        "id": 609189131640,
+        "市场评估价": 0,
+        "起拍价格": 657914.13,
+        "成交价格": 657914.13,
+        "交易时间": "2020-01-09 10:04:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/609189131640.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 沈辽东路47-1号1-4-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈辽东路",
+        "建筑面积": 75.63,
+        "单价": 8699.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "610779967363",
@@ -358,9 +386,58 @@
         "is_processed": false
     },
     {
-        "id": "610296437339",
-        "url": "https://sf-item.taobao.com/sf_item/610296437339.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
-        "end": 1578535621000,
+        "id": 610296437339,
+        "市场评估价": null,
+        "起拍价格": 706400,
+        "成交价格": 860400,
+        "交易时间": "2020-01-09 10:07:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610296437339.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
+        "是否成交": true,
+        "竞拍人数": 19,
+        "出价人数": 19,
+        "地点": "福建省 南平市 顺昌县 南平市顺昌县双溪后山路华阳小区103号1-3层房产",
+        "所属小区": "华阳小区",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": null,
+        "建筑面积": 305.12,
+        "单价": 2820.97,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "609783839280",
+        "url": "https://sf-item.taobao.com/sf_item/609783839280.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1578537533000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608802200210",
+        "url": "https://sf-item.taobao.com/sf_item/608802200210.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1578536047000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608341764199",
+        "url": "https://sf-item.taobao.com/sf_item/608341764199.htm?track_id=4c84a2d9-638f-45a5-86b7-e8180a7a933f",
+        "end": 1578541923000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609380087354",
+        "url": "https://sf-item.taobao.com/sf_item/609380087354.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1578538359000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608655364309",
+        "url": "https://sf-item.taobao.com/sf_item/608655364309.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1578536647000,
         "status": "done",
         "is_processed": false
     }

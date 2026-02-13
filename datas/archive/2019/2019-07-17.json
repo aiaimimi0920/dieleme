@@ -336,9 +336,51 @@
         "detail_captured": true
     },
     {
-        "id": "596879645034",
-        "url": "https://sf-item.taobao.com/sf_item/596879645034.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
-        "end": 1563338612000,
+        "id": 596879645034,
+        "市场评估价": 188947,
+        "起拍价格": 120926.08,
+        "成交价格": 120926.08,
+        "交易时间": "2019/07/17 12:43:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/596879645034.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 青杨街",
+        "所属小区": "丹延小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心",
+        "建筑面积": 65.95,
+        "单价": 1833.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "597769627372",
+        "url": "https://sf-item.taobao.com/sf_item/597769627372.htm?track_id=62ad0d53-1f42-4565-affc-8bd7d5720e56",
+        "end": 1563330114000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596853859617",
+        "url": "https://sf-item.taobao.com/sf_item/596853859617.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1563329329000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596102370800",
+        "url": "https://sf-item.taobao.com/sf_item/596102370800.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1563336691000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595402175617",
+        "url": "https://sf-item.taobao.com/sf_item/595402175617.htm?track_id=750b58ad-ff75-4aee-b3f4-98c79d909aed",
+        "end": 1563340994000,
         "status": "done",
         "is_processed": false
     }

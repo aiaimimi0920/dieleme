@@ -548,9 +548,10 @@
         "区": "天山区",
         "最靠近商圈": null,
         "建筑面积": 67.06,
-        "单价": 18217.6,
+        "单价": 18214.09,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 576543752289,
@@ -595,11 +596,25 @@
         "detail_captured": true
     },
     {
-        "id": "577294719807",
-        "url": "https://sf-item.taobao.com/sf_item/577294719807.htm?track_id=f019ae24-a6bb-4a29-a585-e2709b5b8128",
-        "end": 1539310033000,
-        "status": "done",
-        "is_processed": false
+        "id": 577294719807,
+        "市场评估价": null,
+        "起拍价格": 124000,
+        "成交价格": 148000,
+        "交易时间": "2018/10/12 10:07:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/577294719807.htm?track_id=f019ae24-a6bb-4a29-a585-e2709b5b8128",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 13,
+        "地点": "内蒙古自治区 赤峰市 阿鲁科尔沁旗 天山镇北苑新居4单元503室",
+        "所属小区": "北苑新居",
+        "省份": "内蒙古自治区",
+        "城市": "赤峰市",
+        "区": "阿鲁科尔沁旗",
+        "最靠近商圈": "天山镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 576274825834,
@@ -707,18 +722,46 @@
         "detail_captured": true
     },
     {
-        "id": "576273370429",
-        "url": "https://sf-item.taobao.com/sf_item/576273370429.htm?track_id=1c95698b-0cb1-4ce8-a244-6b6fc38fc0f1",
-        "end": 1539333020000,
-        "status": "done",
-        "is_processed": false
+        "id": 576273370429,
+        "市场评估价": 4610415.92,
+        "起拍价格": 4574415.92,
+        "成交价格": 6110415.92,
+        "交易时间": "2018-10-12 16:30:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/576273370429.htm?track_id=1c95698b-0cb1-4ce8-a244-6b6fc38fc0f1",
+        "是否成交": true,
+        "竞拍人数": 371,
+        "出价人数": 371,
+        "地点": "四川省 乐山市 五通桥区",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "乐山市",
+        "区": "五通桥区",
+        "最靠近商圈": "五通桥区桥沟镇",
+        "建筑面积": 20376.72,
+        "单价": 300.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "576378283590",
-        "url": "https://sf-item.taobao.com/sf_item/576378283590.htm?track_id=1c95698b-0cb1-4ce8-a244-6b6fc38fc0f1",
-        "end": 1539310654000,
-        "status": "done",
-        "is_processed": false
+        "id": 576378283590,
+        "市场评估价": null,
+        "起拍价格": 1179350.79,
+        "成交价格": 1301350.79,
+        "交易时间": "2018/10/12 10:17:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/576378283590.htm?track_id=1c95698b-0cb1-4ce8-a244-6b6fc38fc0f1",
+        "是否成交": true,
+        "竞拍人数": 39,
+        "出价人数": 39,
+        "地点": "四川省 乐山市 五通桥区 桥沟镇十字街",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "乐山市",
+        "区": "五通桥区",
+        "最靠近商圈": null,
+        "建筑面积": 4541,
+        "单价": 286.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "577083645097",
@@ -728,16 +771,72 @@
         "is_processed": false
     },
     {
-        "id": "578232486152",
-        "url": "https://sf-item.taobao.com/sf_item/578232486152.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
-        "end": 1539309600000,
-        "status": "done",
-        "is_processed": false
+        "id": 578232486152,
+        "市场评估价": null,
+        "起拍价格": 400000,
+        "成交价格": 400000,
+        "交易时间": "2018/10/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/578232486152.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 淄博市 博山区 西冶街小区20号楼东2单元3层东户",
+        "所属小区": "西冶街小区",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "西冶街商圈",
+        "建筑面积": 130.94,
+        "单价": 3055.03,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "576900152984",
         "url": "https://sf-item.taobao.com/sf_item/576900152984.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1539309600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577313447201",
+        "url": "https://sf-item.taobao.com/sf_item/577313447201.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1539312650000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576695631624",
+        "url": "https://sf-item.taobao.com/sf_item/576695631624.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1539311605000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578217430902",
+        "url": "https://sf-item.taobao.com/sf_item/578217430902.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1539317011000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576518642343",
+        "url": "https://sf-item.taobao.com/sf_item/576518642343.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1539313088000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577865699247",
+        "url": "https://sf-item.taobao.com/sf_item/577865699247.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1539312452000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "577081657194",
+        "url": "https://sf-item.taobao.com/sf_item/577081657194.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1539309786000,
         "status": "done",
         "is_processed": false
     }

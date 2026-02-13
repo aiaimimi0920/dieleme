@@ -523,25 +523,54 @@
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
-        "最靠近商圈": "观前街",
+        "最靠近商圈": "观前街商圈",
         "建筑面积": 214.7,
-        "单价": 10544.81,
+        "单价": 10544.95,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 560808525700,
+        "市场评估价": null,
+        "起拍价格": 462315,
+        "成交价格": 462315,
+        "交易时间": "2017/12/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560808525700.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省 遵义市 汇川区 西安路",
+        "所属小区": "纳帕溪谷",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "西安路",
+        "建筑面积": 145.04,
+        "单价": 3187.47,
         "is_processed": true,
         "detail_captured": true
     },
     {
-        "id": "560808525700",
-        "url": "https://sf-item.taobao.com/sf_item/560808525700.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
-        "end": 1512093600000,
-        "status": "done",
-        "is_processed": false
-    },
-    {
-        "id": "560821650980",
-        "url": "https://sf-item.taobao.com/sf_item/560821650980.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
-        "end": 1512093600000,
-        "status": "done",
-        "is_processed": false
+        "id": 560821650980,
+        "市场评估价": null,
+        "起拍价格": 15616102,
+        "成交价格": 15616102,
+        "交易时间": "2017/12/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560821650980.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区",
+        "所属小区": "珠海广场",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "珠海路商圈",
+        "建筑面积": 2127.96,
+        "单价": 7339.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "560641672535",
@@ -554,6 +583,41 @@
         "id": "560788085583",
         "url": "https://sf-item.taobao.com/sf_item/560788085583.htm?track_id=c4b8e550-b589-43ac-b5b8-70dafb0f57bb",
         "end": 1512095644000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560819558899",
+        "url": "https://sf-item.taobao.com/sf_item/560819558899.htm?track_id=8991c5b1-871a-44f4-871d-3ba5c4f82a8e",
+        "end": 1512093600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561258080269",
+        "url": "https://sf-item.taobao.com/sf_item/561258080269.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1512108628000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560660972135",
+        "url": "https://sf-item.taobao.com/sf_item/560660972135.htm?track_id=c50edd57-1d55-4788-bc81-d598c484f17f",
+        "end": 1512093600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560659716394",
+        "url": "https://sf-item.taobao.com/sf_item/560659716394.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1512093600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561118980480",
+        "url": "https://sf-item.taobao.com/sf_item/561118980480.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
+        "end": 1512093600000,
         "status": "done",
         "is_processed": false
     }

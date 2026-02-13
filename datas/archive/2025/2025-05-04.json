@@ -147,16 +147,51 @@
         "detail_captured": true
     },
     {
-        "id": "905046438819",
-        "url": "https://sf-item.taobao.com/sf_item/905046438819.htm?track_id=0f7c79f6-1d57-4cd8-9a8d-0c8e235f582b",
-        "end": 1746324000000,
-        "status": "done",
-        "is_processed": false
+        "id": 905046438819,
+        "市场评估价": 657700,
+        "起拍价格": 527000,
+        "成交价格": 527000,
+        "交易时间": "2025/05/04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/905046438819.htm?track_id=0f7c79f6-1d57-4cd8-9a8d-0c8e235f582b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳镇水西村广汕公路以南地段博罗新城·金域华府17栋23层02房",
+        "所属小区": "博罗新城·金域华府",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "博罗新城",
+        "建筑面积": 131.54,
+        "单价": 4006.35,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "911817225363",
         "url": "https://sf-item.taobao.com/sf_item/911817225363.htm?track_id=b319858a-6c6f-4ef0-8884-082019134f32",
         "end": 1746320391000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "905008531410",
+        "url": "https://sf-item.taobao.com/sf_item/905008531410.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1746324000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "912782969238",
+        "url": "https://sf-item.taobao.com/sf_item/912782969238.htm?track_id=aa7c9499-83e3-4f8b-82a0-5b73185c82fb",
+        "end": 1746324000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "911931651127",
+        "url": "https://sf-item.taobao.com/sf_item/911931651127.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1746324849000,
         "status": "done",
         "is_processed": false
     }

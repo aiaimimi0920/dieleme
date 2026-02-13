@@ -294,12 +294,25 @@
         "detail_captured": true
     },
     {
-        "id": "718149745617",
-        "url": "https://sf-item.taobao.com/sf_item/718149745617.htm?track_id=9406cc88-21c0-48e6-bd86-5635bb3d9034",
-        "end": 1685325608000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/718149745617.htm"
+        "id": 718149745617,
+        "市场评估价": 7495724,
+        "起拍价格": 4197605.44,
+        "成交价格": 4217605.44,
+        "交易时间": "2023/05/29 10:00:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/718149745617.htm?track_id=9406cc88-21c0-48e6-bd86-5635bb3d9034",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "北京 北京市 东城区 王府井大街 99 号（世纪大厦）6 层 B617 公寓",
+        "所属小区": "世纪大厦",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "王府井",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 718151097798,
@@ -323,12 +336,25 @@
         "detail_captured": true
     },
     {
-        "id": "718331982242",
-        "url": "https://sf-item.taobao.com/sf_item/718331982242.htm?track_id=c5f0cb30-688f-4061-aecb-b7b78ae8793d",
-        "end": 1685325600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/718331982242.htm"
+        "id": 718331982242,
+        "市场评估价": 8103883,
+        "起拍价格": 4538174.48,
+        "成交价格": 4538174.48,
+        "交易时间": "2023/05/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/718331982242.htm?track_id=c5f0cb30-688f-4061-aecb-b7b78ae8793d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "北京市东城区王府井大街99号（世纪大厦）7层B701公寓",
+        "所属小区": "世纪大厦",
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "王府井商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 718364634067,
@@ -415,11 +441,25 @@
         "detail_captured": true
     },
     {
-        "id": "718282854954",
-        "url": "https://sf-item.taobao.com/sf_item/718282854954.htm?track_id=906011fd-fbbf-4f51-9330-3a43a4453aa5",
-        "end": 1685325813000,
-        "status": "done",
-        "is_processed": false
+        "id": 718282854954,
+        "市场评估价": 200072,
+        "起拍价格": 112040.32,
+        "成交价格": 112040.32,
+        "交易时间": "2023-05-29 10:03:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/718282854954.htm?track_id=906011fd-fbbf-4f51-9330-3a43a4453aa5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 长海胡同",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延边州气象局",
+        "建筑面积": 71.2,
+        "单价": 1572.9,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "718132917437",
@@ -439,6 +479,48 @@
         "id": "718346970353",
         "url": "https://sf-item.taobao.com/sf_item/718346970353.htm?track_id=38ff9499-8b6e-4751-ba19-1b5236d6f01f",
         "end": 1685325600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "718111063520",
+        "url": "https://sf-item.taobao.com/sf_item/718111063520.htm?track_id=be9d2ee5-ec98-4723-b69d-13c8370ef63e",
+        "end": 1685325600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "715266230966",
+        "url": "https://sf-item.taobao.com/sf_item/715266230966.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1685327100000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "714678820100",
+        "url": "https://sf-item.taobao.com/sf_item/714678820100.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1685325600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "718558895940",
+        "url": "https://sf-item.taobao.com/sf_item/718558895940.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1685327715000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "716918246647",
+        "url": "https://sf-item.taobao.com/sf_item/716918246647.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1685348084000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "714835704032",
+        "url": "https://sf-item.taobao.com/sf_item/714835704032.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1685331343000,
         "status": "done",
         "is_processed": false
     }

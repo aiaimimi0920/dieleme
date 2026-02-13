@@ -297,11 +297,25 @@
         "detail_captured": true
     },
     {
-        "id": "978000984163",
-        "url": "https://sf-item.taobao.com/sf_item/978000984163.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
-        "end": 1761202416000,
-        "status": "done",
-        "is_processed": false
+        "id": 978000984163,
+        "市场评估价": 530800,
+        "起拍价格": 360944,
+        "成交价格": 360944,
+        "交易时间": "2025/10/23 14:53:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/978000984163.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "湖北省 十堰市 茅箭区 东城经济开发区辽东路10号裕洋未来城3幢2-23-7",
+        "所属小区": "裕洋未来城",
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": "东城经济开发区",
+        "建筑面积": 121.85,
+        "单价": 2962.17,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "977975390230",
@@ -311,16 +325,86 @@
         "is_processed": false
     },
     {
-        "id": "977277994734",
-        "url": "https://sf-item.taobao.com/sf_item/977277994734.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
-        "end": 1761185780000,
+        "id": 977277994734,
+        "市场评估价": 828674,
+        "起拍价格": 662940,
+        "成交价格": 860940,
+        "交易时间": "2025-10-23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/977277994734.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
+        "是否成交": true,
+        "竞拍人数": 62,
+        "出价人数": 62,
+        "地点": "安徽省合肥市瑶海区龙岗路与长临路交口西北云溪湾13幢1902室",
+        "所属小区": "云溪湾",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "龙岗路商圈",
+        "建筑面积": 100.9,
+        "单价": 8535.96,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 966569239069,
+        "市场评估价": 5166232,
+        "起拍价格": 3000000,
+        "成交价格": 3110000,
+        "交易时间": "2025/10/23 13:41:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/966569239069.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
+        "是否成交": true,
+        "竞拍人数": 10,
+        "出价人数": 10,
+        "地点": "浙江省 温州市 龙湾区 星海街道滨海六路991号铂悦佳园1、2、3、4幢201室",
+        "所属小区": "铂悦佳园",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "滨海商圈",
+        "建筑面积": 759.74,
+        "单价": 4094.32,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "978596489516",
+        "url": "https://sf-item.taobao.com/sf_item/978596489516.htm?track_id=a8a7504e-6323-4c92-b93b-cd51b5436bd0",
+        "end": 1761184800000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "966569239069",
-        "url": "https://sf-item.taobao.com/sf_item/966569239069.htm?track_id=d92f8e99-2cc2-4183-b60c-585b35f6badc",
-        "end": 1761198110000,
+        "id": "977881898509",
+        "url": "https://sf-item.taobao.com/sf_item/977881898509.htm?track_id=270daa9e-b990-4124-b38a-5a1621dd3c7c",
+        "end": 1761184800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "980143244030",
+        "url": "https://sf-item.taobao.com/sf_item/980143244030.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1761185820000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "979805782280",
+        "url": "https://sf-item.taobao.com/sf_item/979805782280.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1761206959000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "979375988973",
+        "url": "https://sf-item.taobao.com/sf_item/979375988973.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1761192766000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "977223242060",
+        "url": "https://sf-item.taobao.com/sf_item/977223242060.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1761185962000,
         "status": "done",
         "is_processed": false
     }

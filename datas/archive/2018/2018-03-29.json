@@ -137,15 +137,16 @@
         "竞拍人数": 31,
         "出价人数": null,
         "地点": "河南省新乡市卫滨区自由路同乐巷20号1号楼南2单元4层北户",
-        "所属小区": "同乐小区",
+        "所属小区": "同乐巷小区",
         "省份": "河南省",
         "城市": "新乡市",
         "区": "卫滨区",
-        "最靠近商圈": null,
+        "最靠近商圈": "平原商场",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": "565467366175",
@@ -179,6 +180,20 @@
         "id": "565952023739",
         "url": "https://sf-item.taobao.com/sf_item/565952023739.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1522288800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565938495953",
+        "url": "https://sf-item.taobao.com/sf_item/565938495953.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1522290750000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565888722457",
+        "url": "https://sf-item.taobao.com/sf_item/565888722457.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1522288866000,
         "status": "done",
         "is_processed": false
     }

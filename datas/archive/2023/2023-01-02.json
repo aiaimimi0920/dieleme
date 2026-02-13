@@ -210,9 +210,30 @@
         "detail_captured": true
     },
     {
-        "id": "694301064404",
-        "url": "https://sf-item.taobao.com/sf_item/694301064404.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
-        "end": 1672629583000,
+        "id": 694301064404,
+        "市场评估价": 1360000,
+        "起拍价格": 1088000,
+        "成交价格": 1364000,
+        "交易时间": "2023/01/02 11:19:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/694301064404.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 92,
+        "地点": "河南省 郑州市 二七区 荆胡街9号6号楼1单元4层401号",
+        "所属小区": "泰宏建业城",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": 116.13,
+        "单价": 11744.65,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "695347610227",
+        "url": "https://sf-item.taobao.com/sf_item/695347610227.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
+        "end": 1672627382000,
         "status": "done",
         "is_processed": false
     }

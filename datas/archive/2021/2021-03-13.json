@@ -189,18 +189,46 @@
         "detail_captured": true
     },
     {
-        "id": "638575867716",
-        "url": "https://sf-item.taobao.com/sf_item/638575867716.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
-        "end": 1615600800000,
-        "status": "done",
-        "is_processed": false
+        "id": 638575867716,
+        "市场评估价": 0,
+        "起拍价格": 1172786.4,
+        "成交价格": 1172786.4,
+        "交易时间": "2021/03/13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/638575867716.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "内蒙古自治区 包头市 昆都仑区 民族西路69号金桂名园2-1210号房产",
+        "所属小区": "金桂名园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "昆都仑区中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "637902681846",
-        "url": "https://sf-item.taobao.com/sf_item/637902681846.htm?track_id=780393c9-c824-4b3f-9f9e-cac0c063a223",
-        "end": 1615605870000,
-        "status": "done",
-        "is_processed": false
+        "id": 637902681846,
+        "市场评估价": 3152565,
+        "起拍价格": 1766000,
+        "成交价格": 2258800,
+        "交易时间": "2021-03-13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637902681846.htm?track_id=780393c9-c824-4b3f-9f9e-cac0c063a223",
+        "是否成交": true,
+        "竞拍人数": 41,
+        "出价人数": 43,
+        "地点": "广东省 惠州市 博罗县 罗阳镇宝瑞路—瑞亨半山一号45栋5号",
+        "所属小区": "瑞亨半山一号",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 355.82,
+        "单价": 6348.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "638526011760",
@@ -220,6 +248,13 @@
         "id": "637903389723",
         "url": "https://sf-item.taobao.com/sf_item/637903389723.htm?track_id=645fbace-2a78-4783-9257-833921945028",
         "end": 1615604609000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638243426346",
+        "url": "https://sf-item.taobao.com/sf_item/638243426346.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1615603722000,
         "status": "done",
         "is_processed": false
     }

@@ -213,9 +213,30 @@
         "manual_checked": true
     },
     {
-        "id": "548024162417",
-        "url": "https://sf-item.taobao.com/sf_item/548024162417.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
-        "end": 1494124813000,
+        "id": 548024162417,
+        "市场评估价": null,
+        "起拍价格": 370000,
+        "成交价格": 550000,
+        "交易时间": "2017-05-07 10:40:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548024162417.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 32,
+        "地点": "河南省郑州市二七区航海中路97号台胞小区3号楼2单元29号",
+        "所属小区": "台胞小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "航海中路",
+        "建筑面积": 49.54,
+        "单价": 11111.11,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "548213171707",
+        "url": "https://sf-item.taobao.com/sf_item/548213171707.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1494126900000,
         "status": "done",
         "is_processed": false
     }

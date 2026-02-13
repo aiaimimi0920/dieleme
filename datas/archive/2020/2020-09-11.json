@@ -448,11 +448,25 @@
         "is_processed": false
     },
     {
-        "id": "624688150499",
-        "url": "https://sf-item.taobao.com/sf_item/624688150499.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
-        "end": 1599793291000,
-        "status": "done",
-        "is_processed": false
+        "id": 624688150499,
+        "市场评估价": 1483900,
+        "起拍价格": 1038730,
+        "成交价格": 1348730,
+        "交易时间": "2020/09/11 11:01:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624688150499.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 155,
+        "地点": "福建省 厦门市 同安区 西池二里57号301室",
+        "所属小区": "西池小区",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "同安区",
+        "最靠近商圈": "同安老城区",
+        "建筑面积": 102.16,
+        "单价": 13203.49,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "624751857596",
@@ -465,6 +479,27 @@
         "id": "624569041955",
         "url": "https://sf-item.taobao.com/sf_item/624569041955.htm?track_id=b11be64f-29a6-4dba-8035-2a2ffeff2505",
         "end": 1599790593000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624814330003",
+        "url": "https://sf-item.taobao.com/sf_item/624814330003.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1599795941000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625340292643",
+        "url": "https://sf-item.taobao.com/sf_item/625340292643.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1599789812000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626031454008",
+        "url": "https://sf-item.taobao.com/sf_item/626031454008.htm?track_id=6f2bafaa-d7d3-4b31-aeeb-791dd7eba396",
+        "end": 1599786226000,
         "status": "done",
         "is_processed": false
     }

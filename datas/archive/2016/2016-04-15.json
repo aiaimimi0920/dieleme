@@ -21,11 +21,25 @@
         "detail_captured": true
     },
     {
-        "id": "529032660561",
-        "url": "https://sf-item.taobao.com/sf_item/529032660561.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1460693234000,
-        "status": "done",
-        "is_processed": false
+        "id": 529032660561,
+        "市场评估价": null,
+        "起拍价格": 4002000,
+        "成交价格": 5106000,
+        "交易时间": "2016/04/15 12:07:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/529032660561.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 112,
+        "地点": "浙江省 杭州市 滨江区长河街道锦绣江南花园7幢3单元3101室",
+        "所属小区": "锦绣江南花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河",
+        "建筑面积": 319.55,
+        "单价": 15978.22,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "529020580974",
@@ -38,6 +52,34 @@
         "id": "529711674852",
         "url": "https://sf-item.taobao.com/sf_item/529711674852.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
         "end": 1460685600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528758989500",
+        "url": "https://sf-item.taobao.com/sf_item/528758989500.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1460687591000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528757421013",
+        "url": "https://sf-item.taobao.com/sf_item/528757421013.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1460687549000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528777716621",
+        "url": "https://sf-item.taobao.com/sf_item/528777716621.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1460688469000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528943559589",
+        "url": "https://sf-item.taobao.com/sf_item/528943559589.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1460690168000,
         "status": "done",
         "is_processed": false
     }

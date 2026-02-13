@@ -277,11 +277,25 @@
         "detail_captured": true
     },
     {
-        "id": "582557110553",
-        "url": "https://sf-item.taobao.com/sf_item/582557110553.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
-        "end": 1544580894000,
-        "status": "done",
-        "is_processed": false
+        "id": 582557110553,
+        "市场评估价": null,
+        "起拍价格": 1770420,
+        "成交价格": 2495420,
+        "交易时间": "2018/12/12 10:14:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/582557110553.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
+        "是否成交": true,
+        "竞拍人数": 146,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区 长江中路128号（六期）24号楼1单元18层71号的房产一套",
+        "所属小区": "亚星盛世家园A区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 187.8,
+        "单价": 13280.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "581639017033",
@@ -322,6 +336,20 @@
         "id": "582774823714",
         "url": "https://sf-item.taobao.com/sf_item/582774823714.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1544580247000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581728809928",
+        "url": "https://sf-item.taobao.com/sf_item/581728809928.htm?track_id=0d0a4b96-3475-41c6-be82-f884580aae77",
+        "end": 1544580230000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581202126536",
+        "url": "https://sf-item.taobao.com/sf_item/581202126536.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1544580470000,
         "status": "done",
         "is_processed": false
     }

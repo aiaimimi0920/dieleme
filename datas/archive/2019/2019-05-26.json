@@ -262,16 +262,72 @@
         "is_processed": false
     },
     {
-        "id": "592520541081",
-        "url": "https://sf-item.taobao.com/sf_item/592520541081.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
-        "end": 1558840137000,
+        "id": 592520541081,
+        "市场评估价": null,
+        "起拍价格": 2161600,
+        "成交价格": 2224600,
+        "交易时间": "2019-05-26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592520541081.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": 22,
+        "地点": "河南省 郑州市 二七区 二道街256号附11-12-13号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 105.96,
+        "单价": 20985.83,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 592624846317,
+        "市场评估价": 1393900,
+        "起拍价格": 1115120,
+        "成交价格": 1262120,
+        "交易时间": "2019-05-26 11:53:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592624846317.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
+        "是否成交": true,
+        "竞拍人数": 44,
+        "出价人数": 45,
+        "地点": "河南省郑州市二七区郑航街21号6号楼2单元12层1303号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学南路",
+        "建筑面积": 90.19,
+        "单价": 13993.01,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "592625466551",
+        "url": "https://sf-item.taobao.com/sf_item/592625466551.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "end": 1558839837000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "592624846317",
-        "url": "https://sf-item.taobao.com/sf_item/592624846317.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
-        "end": 1558842826000,
+        "id": "592860575209",
+        "url": "https://sf-item.taobao.com/sf_item/592860575209.htm?track_id=60276a66-e935-4686-ac2d-7b6b359940ee",
+        "end": 1558836000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592207276632",
+        "url": "https://sf-item.taobao.com/sf_item/592207276632.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1558837549000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593612364618",
+        "url": "https://sf-item.taobao.com/sf_item/593612364618.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1558837842000,
         "status": "done",
         "is_processed": false
     }

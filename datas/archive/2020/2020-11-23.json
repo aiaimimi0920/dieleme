@@ -463,11 +463,25 @@
         "detail_captured": true
     },
     {
-        "id": "630406790718",
-        "url": "https://sf-item.taobao.com/sf_item/630406790718.htm?track_id=dad1370c-5266-4d04-9930-6971897ea39d",
-        "end": 1606101681000,
-        "status": "done",
-        "is_processed": false
+        "id": 630406790718,
+        "市场评估价": 490000,
+        "起拍价格": 343000,
+        "成交价格": 390000,
+        "交易时间": "2020/11/23 11:21:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/630406790718.htm?track_id=dad1370c-5266-4d04-9930-6971897ea39d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "四川省 巴中市 南江县 南江镇红星街65号门市一套",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "巴中市",
+        "区": "南江县",
+        "最靠近商圈": "红星街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "629976881378",
@@ -477,16 +491,93 @@
         "is_processed": false
     },
     {
-        "id": "630708704256",
-        "url": "https://sf-item.taobao.com/sf_item/630708704256.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
-        "end": 1606097943000,
+        "id": 630708704256,
+        "市场评估价": 509800,
+        "起拍价格": 285488,
+        "成交价格": 333088,
+        "交易时间": "2020-11-23 10:19:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/630708704256.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 16,
+        "地点": "山东省淄博市博山区沿河东路16号青龙居6号楼1单元1层中户",
+        "所属小区": "青龙居",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "博山城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 631356482600,
+        "市场评估价": 433000,
+        "起拍价格": 242480,
+        "成交价格": 244880,
+        "交易时间": "2020/11/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/631356482600.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 2,
+        "地点": "山东省 淄博市 博山区 博山凤凰山路以北、晨光花园以西小顶家园7号住宅楼",
+        "所属小区": "小顶家园",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "博山区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "630708536533",
+        "url": "https://sf-item.taobao.com/sf_item/630708536533.htm?track_id=06d50902-4cb5-47c9-aa0d-987464c3d93f",
+        "end": 1606101293000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "631356482600",
-        "url": "https://sf-item.taobao.com/sf_item/631356482600.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
-        "end": 1606096800000,
+        "id": "629253136478",
+        "url": "https://sf-item.taobao.com/sf_item/629253136478.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1606103663000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "629546752428",
+        "url": "https://sf-item.taobao.com/sf_item/629546752428.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1606113975000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "629874433538",
+        "url": "https://sf-item.taobao.com/sf_item/629874433538.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1606098994000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "630406702174",
+        "url": "https://sf-item.taobao.com/sf_item/630406702174.htm?track_id=4c4eeb49-6d0a-4655-9e36-002074dab1e8",
+        "end": 1606097290000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "629763956944",
+        "url": "https://sf-item.taobao.com/sf_item/629763956944.htm?track_id=51ac8b9e-9dcd-4f34-9958-1d4a363cb642",
+        "end": 1606097341000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "630580563668",
+        "url": "https://sf-item.taobao.com/sf_item/630580563668.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "end": 1606097342000,
         "status": "done",
         "is_processed": false
     }

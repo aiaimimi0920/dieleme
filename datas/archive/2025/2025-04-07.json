@@ -147,12 +147,25 @@
         "detail_captured": true
     },
     {
-        "id": "895206273353",
-        "url": "https://sf-item.taobao.com/sf_item/895206273353.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
-        "end": 1743991997000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/895206273353.htm"
+        "id": 895206273353,
+        "市场评估价": 1235300,
+        "起拍价格": 864710,
+        "成交价格": 1080710,
+        "交易时间": "2025-04-07 10:13:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/895206273353.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
+        "是否成交": true,
+        "竞拍人数": 44,
+        "出价人数": null,
+        "地点": "江苏省 淮安市 淮安区 淮安市兴安华庭3号楼1105室",
+        "所属小区": "兴安华庭",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "翔宇中道商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 893180656671,
@@ -197,23 +210,79 @@
         "detail_captured": true
     },
     {
-        "id": "900256333194",
-        "url": "https://sf-item.taobao.com/sf_item/900256333194.htm?track_id=cc0a5801-ce4a-44a7-9efb-969714068cfc",
-        "end": 1743992033000,
-        "status": "done",
-        "is_processed": false
+        "id": 900256333194,
+        "市场评估价": 429937,
+        "起拍价格": 240764.72,
+        "成交价格": 312764.72,
+        "交易时间": "2025/04/07 10:13:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/900256333194.htm?track_id=cc0a5801-ce4a-44a7-9efb-969714068cfc",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 35,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延北路1192号丹虹小区2号楼1单元1502室",
+        "所属小区": "丹虹小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心商圈",
+        "建筑面积": 93.06,
+        "单价": 3361,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "900256401840",
-        "url": "https://sf-item.taobao.com/sf_item/900256401840.htm?track_id=6a59a740-b292-4c15-91ae-c099e20c1aab",
-        "end": 1743991200000,
-        "status": "done",
-        "is_processed": false
+        "id": 900256401840,
+        "市场评估价": 537133,
+        "起拍价格": 300794.48,
+        "成交价格": 300794.48,
+        "交易时间": "2025/04/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/900256401840.htm?track_id=6a59a740-b292-4c15-91ae-c099e20c1aab",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 海兰路4单元301室",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心商圈",
+        "建筑面积": 177.33,
+        "单价": 1696.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "896318484248",
         "url": "https://sf-item.taobao.com/sf_item/896318484248.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
         "end": 1743992250000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "895040375570",
+        "url": "https://sf-item.taobao.com/sf_item/895040375570.htm?track_id=c9d350ba-1b65-4e91-8615-aaa681af9d56",
+        "end": 1743995291000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "896527596770",
+        "url": "https://sf-item.taobao.com/sf_item/896527596770.htm?track_id=c9d350ba-1b65-4e91-8615-aaa681af9d56",
+        "end": 1744041600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "900842199754",
+        "url": "https://sf-item.taobao.com/sf_item/900842199754.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1743991200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "901870756451",
+        "url": "https://sf-item.taobao.com/sf_item/901870756451.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1743991971000,
         "status": "done",
         "is_processed": false
     }

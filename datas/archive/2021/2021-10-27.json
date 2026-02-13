@@ -357,12 +357,25 @@
         "detail_captured": true
     },
     {
-        "id": "657693995320",
-        "url": "https://sf-item.taobao.com/sf_item/657693995320.htm?track_id=2ba12959-8107-4bec-b52b-debc82af83ef",
-        "end": 1635300000000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/657693995320.htm"
+        "id": 657693995320,
+        "市场评估价": null,
+        "起拍价格": 120960,
+        "成交价格": 123960,
+        "交易时间": "2021-10-27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657693995320.htm?track_id=2ba12959-8107-4bec-b52b-debc82af83ef",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省淮安市淮安区华西路17号轻工商贸港街铺式产品交易区9号楼208室",
+        "所属小区": "轻工商贸港",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 655922593387,
@@ -386,12 +399,25 @@
         "detail_captured": true
     },
     {
-        "id": "657789423971",
-        "url": "https://sf-item.taobao.com/sf_item/657789423971.htm?track_id=a8e65ed9-334e-4142-9348-6dd695e17c4e",
-        "end": 1635300000000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/657789423971.htm"
+        "id": 657789423971,
+        "市场评估价": 0,
+        "起拍价格": 1240000,
+        "成交价格": 1240000,
+        "交易时间": "2021/10/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657789423971.htm?track_id=a8e65ed9-334e-4142-9348-6dd695e17c4e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "河南省 新乡市 卫滨区 五一路物华小区",
+        "所属小区": "物华小区",
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": "五一路",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 655863709119,
@@ -434,5 +460,19 @@
         "单价": 16362.29,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "656292258432",
+        "url": "https://sf-item.taobao.com/sf_item/656292258432.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "end": 1635300373000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656993721621",
+        "url": "https://sf-item.taobao.com/sf_item/656993721621.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1635301648000,
+        "status": "done",
+        "is_processed": false
     }
 ]

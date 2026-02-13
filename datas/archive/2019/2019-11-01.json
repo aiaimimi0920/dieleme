@@ -528,11 +528,25 @@
         "detail_captured": true
     },
     {
-        "id": "605458897071",
-        "url": "https://sf-item.taobao.com/sf_item/605458897071.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
-        "end": 1572574715000,
-        "status": "done",
-        "is_processed": false
+        "id": 605458897071,
+        "市场评估价": 0,
+        "起拍价格": 1117903.85,
+        "成交价格": 1242903.85,
+        "交易时间": "2019/11/01 10:18:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605458897071.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "内蒙古自治区 包头市 昆都仑区 少先路16街坊香港花园景华苑2-305号",
+        "所属小区": "香港花园景华苑",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 601883432309,
@@ -577,16 +591,79 @@
         "is_processed": false
     },
     {
-        "id": "605449456784",
-        "url": "https://sf-item.taobao.com/sf_item/605449456784.htm?track_id=071853d6-ddf2-4e6c-b06a-71a1cdc67745",
-        "end": 1572574227000,
-        "status": "done",
-        "is_processed": false
+        "id": 605449456784,
+        "市场评估价": null,
+        "起拍价格": 340943,
+        "成交价格": 360943,
+        "交易时间": "2019/11/01 10:10:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605449456784.htm?track_id=071853d6-ddf2-4e6c-b06a-71a1cdc67745",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": 11,
+        "地点": "云南省 丽江市 华坪县 荣将镇供销社院内B幢1-301号房屋",
+        "所属小区": "荣将供销社",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "荣将镇中心",
+        "建筑面积": 138.19,
+        "单价": 2610.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "605624455405",
         "url": "https://sf-item.taobao.com/sf_item/605624455405.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
         "end": 1572574654000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604256533333",
+        "url": "https://sf-item.taobao.com/sf_item/604256533333.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1572574159000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600518360273",
+        "url": "https://sf-item.taobao.com/sf_item/600518360273.htm?track_id=8991c5b1-871a-44f4-871d-3ba5c4f82a8e",
+        "end": 1572576541000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600752989515",
+        "url": "https://sf-item.taobao.com/sf_item/600752989515.htm?track_id=8991c5b1-871a-44f4-871d-3ba5c4f82a8e",
+        "end": 1572576524000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604480766809",
+        "url": "https://sf-item.taobao.com/sf_item/604480766809.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1572575565000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605416266906",
+        "url": "https://sf-item.taobao.com/sf_item/605416266906.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1572575161000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "603759716210",
+        "url": "https://sf-item.taobao.com/sf_item/603759716210.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1572574295000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605487506698",
+        "url": "https://sf-item.taobao.com/sf_item/605487506698.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1572580946000,
         "status": "done",
         "is_processed": false
     }

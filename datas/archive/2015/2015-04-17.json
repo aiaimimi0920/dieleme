@@ -42,16 +42,37 @@
         "detail_captured": true
     },
     {
-        "id": "44482283940",
-        "url": "https://sf-item.taobao.com/sf_item/44482283940.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1429236573000,
-        "status": "done",
-        "is_processed": false
+        "id": 44482283940,
+        "市场评估价": 0,
+        "起拍价格": 1000000,
+        "成交价格": 1645000,
+        "交易时间": "2015/04/17 10:09:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44482283940.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": 113,
+        "出价人数": 0,
+        "地点": "杭州市滨江区西兴镇固陵路113号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "西兴",
+        "建筑面积": 66.56,
+        "单价": 24713.45,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "44531997631",
         "url": "https://sf-item.taobao.com/sf_item/44531997631.htm?track_id=b11be64f-29a6-4dba-8035-2a2ffeff2505",
         "end": 1429238579000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "44440396772",
+        "url": "https://sf-item.taobao.com/sf_item/44440396772.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1429237010000,
         "status": "done",
         "is_processed": false
     }

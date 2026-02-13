@@ -149,23 +149,79 @@
         "detail_captured": true
     },
     {
-        "id": "529379714675",
-        "url": "https://sf-item.taobao.com/sf_item/529379714675.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
-        "end": 1461643164000,
-        "status": "done",
-        "is_processed": false
+        "id": 529379714675,
+        "市场评估价": 0,
+        "起拍价格": 11000000,
+        "成交价格": 15420000,
+        "交易时间": "2016/04/26 11:59:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/529379714675.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 238,
+        "地点": "北京市海淀区冷泉林语山庄一区76号楼-1至2层01号",
+        "所属小区": "冷泉林语山庄",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "海淀区",
+        "最靠近商圈": "西北旺",
+        "建筑面积": 451.7,
+        "单价": 34142.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "529328363042",
-        "url": "https://sf-item.taobao.com/sf_item/529328363042.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
-        "end": 1461639935000,
-        "status": "done",
-        "is_processed": false
+        "id": 529328363042,
+        "市场评估价": null,
+        "起拍价格": 11000000,
+        "成交价格": 14750000,
+        "交易时间": "2016-04-26 11:05:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/529328363042.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市海淀区冷泉林语山庄一区35号楼-1至2层01号",
+        "所属小区": "冷泉林语山庄一区",
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "海淀区",
+        "最靠近商圈": "西山商圈",
+        "建筑面积": 451.7,
+        "单价": 32655.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "529454269734",
         "url": "https://sf-item.taobao.com/sf_item/529454269734.htm?track_id=4ad87b93-3084-4bc2-9259-b6b0538f1145",
         "end": 1461637036000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529403447090",
+        "url": "https://sf-item.taobao.com/sf_item/529403447090.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1461637602000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529400039917",
+        "url": "https://sf-item.taobao.com/sf_item/529400039917.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1461636735000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "529470861940",
+        "url": "https://sf-item.taobao.com/sf_item/529470861940.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1461636778000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528946098723",
+        "url": "https://sf-item.taobao.com/sf_item/528946098723.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1461637171000,
         "status": "done",
         "is_processed": false
     }

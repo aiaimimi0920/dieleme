@@ -408,11 +408,25 @@
         "detail_captured": true
     },
     {
-        "id": "570691488111",
-        "url": "https://sf-item.taobao.com/sf_item/570691488111.htm?track_id=dd4d0805-6714-4a1f-88b3-815a5449302b",
-        "end": 1529637998000,
-        "status": "done",
-        "is_processed": false
+        "id": 570691488111,
+        "市场评估价": null,
+        "起拍价格": 1400000,
+        "成交价格": 2175000,
+        "交易时间": "2018-06-22T11:26:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570691488111.htm?track_id=dd4d0805-6714-4a1f-88b3-815a5449302b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广西壮族自治区 桂林市 阳朔县 阳朔镇大村门开发区城西路121号",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "桂林市",
+        "区": "阳朔县",
+        "最靠近商圈": null,
+        "建筑面积": 330.83,
+        "单价": 6573.24,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "569963247335",
@@ -432,6 +446,83 @@
         "id": "571036795034",
         "url": "https://sf-item.taobao.com/sf_item/571036795034.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1529679603000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569593672290",
+        "url": "https://sf-item.taobao.com/sf_item/569593672290.htm?track_id=c566893a-201b-4839-8262-2d73cb1d9a72",
+        "end": 1529635435000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569722041973",
+        "url": "https://sf-item.taobao.com/sf_item/569722041973.htm?track_id=c566893a-201b-4839-8262-2d73cb1d9a72",
+        "end": 1529637634000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570206766370",
+        "url": "https://sf-item.taobao.com/sf_item/570206766370.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1529634750000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570111785734",
+        "url": "https://sf-item.taobao.com/sf_item/570111785734.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1529635873000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570294747101",
+        "url": "https://sf-item.taobao.com/sf_item/570294747101.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1529633483000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570291039401",
+        "url": "https://sf-item.taobao.com/sf_item/570291039401.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1529635572000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570106761309",
+        "url": "https://sf-item.taobao.com/sf_item/570106761309.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1529634535000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570297723840",
+        "url": "https://sf-item.taobao.com/sf_item/570297723840.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1529635730000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570300447080",
+        "url": "https://sf-item.taobao.com/sf_item/570300447080.htm?track_id=73b21b75-417b-4dbf-b4d3-a7f778542859",
+        "end": 1529633538000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570560287370",
+        "url": "https://sf-item.taobao.com/sf_item/570560287370.htm?track_id=c1122bc0-fff8-4176-9d60-e693e4959044",
+        "end": 1529632800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569975096952",
+        "url": "https://sf-item.taobao.com/sf_item/569975096952.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
+        "end": 1529633058000,
         "status": "done",
         "is_processed": false
     }

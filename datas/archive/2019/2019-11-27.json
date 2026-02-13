@@ -424,16 +424,51 @@
         "detail_captured": true
     },
     {
-        "id": "605388348320",
-        "url": "https://sf-item.taobao.com/sf_item/605388348320.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
-        "end": 1574824331000,
-        "status": "done",
-        "is_processed": false
+        "id": 605388348320,
+        "市场评估价": null,
+        "起拍价格": 1300000,
+        "成交价格": 1505000,
+        "交易时间": "2019-11-27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605388348320.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 40,
+        "地点": "河南省郑州市二七区爱心路1号院6号楼2单元30层3002号",
+        "所属小区": "正商城裕园2号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 139.42,
+        "单价": 10787.96,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "606813483759",
         "url": "https://sf-item.taobao.com/sf_item/606813483759.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
         "end": 1574824133000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606254201281",
+        "url": "https://sf-item.taobao.com/sf_item/606254201281.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1574824977000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606474150799",
+        "url": "https://sf-item.taobao.com/sf_item/606474150799.htm?track_id=08271d2b-720b-4ac9-8bef-4716c7dea6e2",
+        "end": 1574821867000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607341109998",
+        "url": "https://sf-item.taobao.com/sf_item/607341109998.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1574820000000,
         "status": "done",
         "is_processed": false
     }

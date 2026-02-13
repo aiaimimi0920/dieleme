@@ -280,11 +280,25 @@
         "is_processed": false
     },
     {
-        "id": "646056705422",
-        "url": "https://sf-item.taobao.com/sf_item/646056705422.htm?track_id=83e68fed-9084-46cb-a950-7f8ce7e08692",
-        "end": 1623900629000,
-        "status": "done",
-        "is_processed": false
+        "id": 646056705422,
+        "市场评估价": null,
+        "起拍价格": 2102190,
+        "成交价格": 2582190,
+        "交易时间": "2021/06/17 11:30:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/646056705422.htm?track_id=83e68fed-9084-46cb-a950-7f8ce7e08692",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 72,
+        "地点": "陕西省 西安市 未央区 太元路华远君城18幢21703室房屋一套",
+        "所属小区": "华远君城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "大明宫商圈",
+        "建筑面积": 161.36,
+        "单价": 16000.25,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "645364220837",
@@ -294,16 +308,93 @@
         "is_processed": false
     },
     {
-        "id": "643984444951",
-        "url": "https://sf-item.taobao.com/sf_item/643984444951.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
-        "end": 1623900517000,
+        "id": 643984444951,
+        "市场评估价": null,
+        "起拍价格": 713440,
+        "成交价格": 811440,
+        "交易时间": "2021-06-17 11:28:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/643984444951.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 40,
+        "地点": "河南省 郑州市 二七区 丹枫路7号7号楼2单元10层112号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 81.64,
+        "单价": 9941.67,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 644068856629,
+        "市场评估价": null,
+        "起拍价格": 1480151,
+        "成交价格": 1605151,
+        "交易时间": "2021/06/17 10:57:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/644068856629.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
+        "是否成交": true,
+        "竞拍人数": 25,
+        "出价人数": 25,
+        "地点": "河南省 郑州市 二七区 人和路76号4号楼2单元13层1301号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 136.47,
+        "单价": 11756.35,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "645667248345",
+        "url": "https://sf-item.taobao.com/sf_item/645667248345.htm?track_id=b29a20ac-4526-4c00-8c7e-3478c2981281",
+        "end": 1623897348000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "644068856629",
-        "url": "https://sf-item.taobao.com/sf_item/644068856629.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
-        "end": 1623898635000,
+        "id": "644873350535",
+        "url": "https://sf-item.taobao.com/sf_item/644873350535.htm?track_id=5f9c48bc-c41a-40e6-a9da-79c3ecd64fa1",
+        "end": 1623898128000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646404006070",
+        "url": "https://sf-item.taobao.com/sf_item/646404006070.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1623898922000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644127660677",
+        "url": "https://sf-item.taobao.com/sf_item/644127660677.htm?track_id=f8fcb460-293d-4823-a6b8-e6d33c641f75",
+        "end": 1623896336000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644885331357",
+        "url": "https://sf-item.taobao.com/sf_item/644885331357.htm?track_id=51f06735-ea2e-48e1-a840-19b9b94eec10",
+        "end": 1623915187000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644159978451",
+        "url": "https://sf-item.taobao.com/sf_item/644159978451.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1623903421000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644426825324",
+        "url": "https://sf-item.taobao.com/sf_item/644426825324.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1623895200000,
         "status": "done",
         "is_processed": false
     }

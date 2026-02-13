@@ -280,9 +280,44 @@
         "is_processed": false
     },
     {
-        "id": "696904427206",
-        "url": "https://sf-item.taobao.com/sf_item/696904427206.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
-        "end": 1674526082000,
+        "id": 696904427206,
+        "市场评估价": 2225100,
+        "起拍价格": 1602072,
+        "成交价格": 1618072,
+        "交易时间": "2023/01/24 10:08:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696904427206.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道世融商业中心1幢817室不动产",
+        "所属小区": "世融商业中心",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 93.04,
+        "单价": 17389.65,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "691912180284",
+        "url": "https://sf-item.taobao.com/sf_item/691912180284.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1674523971000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697034283734",
+        "url": "https://sf-item.taobao.com/sf_item/697034283734.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
+        "end": 1674527840000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696524737776",
+        "url": "https://sf-item.taobao.com/sf_item/696524737776.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1674525600000,
         "status": "done",
         "is_processed": false
     }

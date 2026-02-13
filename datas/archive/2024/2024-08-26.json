@@ -336,11 +336,25 @@
         "detail_captured": true
     },
     {
-        "id": "823050955754",
-        "url": "https://sf-item.taobao.com/sf_item/823050955754.htm?track_id=120c06ff-9dc7-4d1a-9ec2-30133881bbba",
-        "end": 1724637600000,
-        "status": "done",
-        "is_processed": false
+        "id": 823050955754,
+        "市场评估价": 75072,
+        "起拍价格": 60057.6,
+        "成交价格": 62057.6,
+        "交易时间": "2024-08-26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/823050955754.htm?track_id=120c06ff-9dc7-4d1a-9ec2-30133881bbba",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "黑龙江省鹤岗市绥滨县绥滨农场场部四委十四栋1层5号",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "鹤岗市",
+        "区": "绥滨县",
+        "最靠近商圈": "绥滨农场场部",
+        "建筑面积": 102,
+        "单价": 608.41,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "819299492937",
@@ -353,6 +367,13 @@
         "id": "823308313863",
         "url": "https://sf-item.taobao.com/sf_item/823308313863.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
         "end": 1724641439000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "818774407037",
+        "url": "https://sf-item.taobao.com/sf_item/818774407037.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1724638355000,
         "status": "done",
         "is_processed": false
     }

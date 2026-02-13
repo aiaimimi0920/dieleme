@@ -954,11 +954,25 @@
         "detail_captured": true
     },
     {
-        "id": "620616070642",
-        "url": "https://sf-item.taobao.com/sf_item/620616070642.htm?track_id=10beff77-cbfd-4062-96ee-37ea0a0eb7cf",
-        "end": 1594865308000,
-        "status": "done",
-        "is_processed": false
+        "id": 620616070642,
+        "市场评估价": 228245,
+        "起拍价格": 159771.5,
+        "成交价格": 210771.5,
+        "交易时间": "2020/07/16 10:08:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/620616070642.htm?track_id=10beff77-cbfd-4062-96ee-37ea0a0eb7cf",
+        "是否成交": true,
+        "竞拍人数": 20,
+        "出价人数": 20,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 公园街1188号大学城2号楼10015",
+        "所属小区": "大学城",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "公园街",
+        "建筑面积": 30.6,
+        "单价": 6887.95,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "620633183904",
@@ -975,18 +989,46 @@
         "is_processed": false
     },
     {
-        "id": "622316515686",
-        "url": "https://sf-item.taobao.com/sf_item/622316515686.htm?track_id=50ef3e24-222c-4421-aae9-e417e102cb8b",
-        "end": 1594864800000,
-        "status": "done",
-        "is_processed": false
+        "id": 622316515686,
+        "市场评估价": 0,
+        "起拍价格": 440000,
+        "成交价格": 440000,
+        "交易时间": "2020/07/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622316515686.htm?track_id=50ef3e24-222c-4421-aae9-e417e102cb8b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 泉州市 安溪县 安溪县官桥镇环北大道1号海峡国际嘉苑3号楼905室",
+        "所属小区": "海峡国际嘉苑",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "官桥镇",
+        "建筑面积": 102.08,
+        "单价": 4309.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "619991416406",
-        "url": "https://sf-item.taobao.com/sf_item/619991416406.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
-        "end": 1594867918000,
-        "status": "done",
-        "is_processed": false
+        "id": 619991416406,
+        "市场评估价": 0,
+        "起拍价格": 910000,
+        "成交价格": 1105000,
+        "交易时间": "2020/07/16 10:51:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/619991416406.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 22,
+        "地点": "河南省 郑州市 二七区 解放路30号3号楼1单元17层1709号",
+        "所属小区": "金运大厦",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场",
+        "建筑面积": 105.29,
+        "单价": 10495.28,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "620517734259",
@@ -999,6 +1041,41 @@
         "id": "620573429166",
         "url": "https://sf-item.taobao.com/sf_item/620573429166.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
         "end": 1594867164000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620539827833",
+        "url": "https://sf-item.taobao.com/sf_item/620539827833.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
+        "end": 1594865031000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620176954916",
+        "url": "https://sf-item.taobao.com/sf_item/620176954916.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1594865504000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "622312927508",
+        "url": "https://sf-item.taobao.com/sf_item/622312927508.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1594864800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "622313555796",
+        "url": "https://sf-item.taobao.com/sf_item/622313555796.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1594864800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619231778379",
+        "url": "https://sf-item.taobao.com/sf_item/619231778379.htm?track_id=ec0864e8-1dfb-4aa2-9cc5-3a21f48d84d2",
+        "end": 1594867089000,
         "status": "done",
         "is_processed": false
     }

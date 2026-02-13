@@ -306,15 +306,16 @@
         "竞拍人数": 1,
         "出价人数": 1,
         "地点": "苏州市相城区渭塘镇珍珠湖路168号1号商铺101室、102室",
-        "所属小区": null,
+        "所属小区": "珍珠花园",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "相城区",
-        "最靠近商圈": "渭塘",
+        "最靠近商圈": "渭塘商圈",
         "建筑面积": 814.57,
-        "单价": 7750.83,
+        "单价": 7746.42,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 556055361198,
@@ -378,5 +379,19 @@
         "单价": 1978.76,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "555919957317",
+        "url": "https://sf-item.taobao.com/sf_item/555919957317.htm?track_id=7ec70b87-5ced-40d9-b4a5-cb74d5d60a97",
+        "end": 1503885686000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "555836296797",
+        "url": "https://sf-item.taobao.com/sf_item/555836296797.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1503887402000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -119,11 +119,12 @@
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "虎丘区",
-        "最靠近商圈": null,
+        "最靠近商圈": "浒墅关商圈",
         "建筑面积": 120.07,
-        "单价": 16565.26,
+        "单价": 16565.34,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 572969029833,
@@ -147,25 +148,67 @@
         "detail_captured": true
     },
     {
-        "id": "572067935030",
-        "url": "https://sf-item.taobao.com/sf_item/572067935030.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
-        "end": 1532138632000,
-        "status": "done",
-        "is_processed": false
+        "id": 572067935030,
+        "市场评估价": null,
+        "起拍价格": 448740,
+        "成交价格": 488740,
+        "交易时间": "2018/07/21 10:03:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572067935030.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 5,
+        "地点": "贵州省遵义市汇川区南京路",
+        "所属小区": "盈之宝家园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "南京路商圈",
+        "建筑面积": 84.57,
+        "单价": 5779.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "571611989394",
-        "url": "https://sf-item.taobao.com/sf_item/571611989394.htm?track_id=c902a72e-3d80-4d38-af05-f68239d878f6",
-        "end": 1532138400000,
-        "status": "done",
-        "is_processed": false
+        "id": 571611989394,
+        "市场评估价": 1193665,
+        "起拍价格": 835565.5,
+        "成交价格": 910565.5,
+        "交易时间": "2018-07-21T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571611989394.htm?track_id=c902a72e-3d80-4d38-af05-f68239d878f6",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "辽宁省 沈阳市 铁西区 启工街3甲1号4-11-1室",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "启工",
+        "建筑面积": 109.21,
+        "单价": 8335.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "572935505983",
-        "url": "https://sf-item.taobao.com/sf_item/572935505983.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
-        "end": 1532138400000,
-        "status": "done",
-        "is_processed": false
+        "id": 572935505983,
+        "市场评估价": null,
+        "起拍价格": 242575.76,
+        "成交价格": 242575.76,
+        "交易时间": "2018-07-21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572935505983.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "河南省 信阳市 平桥区 羊山新区南京路国际商城14号楼2层211号",
+        "所属小区": "羊山新区南京路国际商城",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": 41.45,
+        "单价": 5853.3,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "573018522820",
@@ -178,6 +221,27 @@
         "id": "569428551076",
         "url": "https://sf-item.taobao.com/sf_item/569428551076.htm?track_id=e0cbd2e8-7004-4585-9259-25beae5cf5de",
         "end": 1532159315000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573082658287",
+        "url": "https://sf-item.taobao.com/sf_item/573082658287.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1532139170000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571426447906",
+        "url": "https://sf-item.taobao.com/sf_item/571426447906.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1532140133000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572601813026",
+        "url": "https://sf-item.taobao.com/sf_item/572601813026.htm?track_id=5f9c48bc-c41a-40e6-a9da-79c3ecd64fa1",
+        "end": 1532138504000,
         "status": "done",
         "is_processed": false
     }

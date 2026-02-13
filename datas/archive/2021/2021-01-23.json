@@ -296,11 +296,25 @@
         "detail_captured": true
     },
     {
-        "id": "636395767593",
-        "url": "https://sf-item.taobao.com/sf_item/636395767593.htm?track_id=550b9314-3d9c-4ea4-be54-b1fbc20ac0c9",
-        "end": 1611367200000,
-        "status": "done",
-        "is_processed": false
+        "id": 636395767593,
+        "市场评估价": null,
+        "起拍价格": 16414181.84,
+        "成交价格": 16414181.84,
+        "交易时间": "2021-01-23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636395767593.htm?track_id=550b9314-3d9c-4ea4-be54-b1fbc20ac0c9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江西省上饶市铅山县河口镇城东社区鹅湖大道151号",
+        "所属小区": "铅山狮江矿业有限公司",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "铅山县",
+        "最靠近商圈": "河口镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 634607745207,
@@ -324,16 +338,86 @@
         "detail_captured": true
     },
     {
-        "id": "636006062444",
-        "url": "https://sf-item.taobao.com/sf_item/636006062444.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "id": 636006062444,
+        "市场评估价": 917270.67,
+        "起拍价格": 513671.58,
+        "成交价格": 513671.58,
+        "交易时间": "2021/01/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636006062444.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区沈辽西路65-6号2-5-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 187.79,
+        "单价": 2735.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 634315985650,
+        "市场评估价": 547300,
+        "起拍价格": 547300,
+        "成交价格": 691300,
+        "交易时间": "2021-01-23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634315985650.htm?track_id=44061c44-dccf-40bc-8c44-df06897af9b1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 73,
+        "地点": "安徽省 合肥市 瑶海区 合浦南村22幢304室住宅用房",
+        "所属小区": null,
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": null,
+        "建筑面积": 66.94,
+        "单价": 10330.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "635492019048",
+        "url": "https://sf-item.taobao.com/sf_item/635492019048.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1611384274000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634665442510",
+        "url": "https://sf-item.taobao.com/sf_item/634665442510.htm?track_id=f6103b53-b575-4181-920b-1934f9796e9b",
         "end": 1611367200000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "634315985650",
-        "url": "https://sf-item.taobao.com/sf_item/634315985650.htm?track_id=44061c44-dccf-40bc-8c44-df06897af9b1",
-        "end": 1611368695000,
+        "id": "636347935873",
+        "url": "https://sf-item.taobao.com/sf_item/636347935873.htm?track_id=d43679d7-7949-4fd9-9494-9b14b5ea692d",
+        "end": 1611367200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633600043717",
+        "url": "https://sf-item.taobao.com/sf_item/633600043717.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1611368890000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635329052286",
+        "url": "https://sf-item.taobao.com/sf_item/635329052286.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1611368046000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636026482177",
+        "url": "https://sf-item.taobao.com/sf_item/636026482177.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1611368649000,
         "status": "done",
         "is_processed": false
     }

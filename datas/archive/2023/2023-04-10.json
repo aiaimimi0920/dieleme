@@ -283,12 +283,25 @@
         "原始网站": "https://sf-item.taobao.com/sf_item/706666954610.htm"
     },
     {
-        "id": "706478834278",
-        "url": "https://sf-item.taobao.com/sf_item/706478834278.htm?track_id=ec1eaeae-da6e-4186-8aca-c61bb7aaee4b",
-        "end": 1681093622000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/706478834278.htm"
+        "id": 706478834278,
+        "市场评估价": 528400,
+        "起拍价格": 396300,
+        "成交价格": 454300,
+        "交易时间": "2023/04/10 10:27:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/706478834278.htm?track_id=ec1eaeae-da6e-4186-8aca-c61bb7aaee4b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 23,
+        "地点": "湖南省湘潭市雨湖区城正街熙春路688号华丰春城2号楼2单元040201号",
+        "所属小区": "华丰春城",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "城正街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 706696095834,
@@ -312,51 +325,296 @@
         "detail_captured": true
     },
     {
-        "id": "709394738269",
-        "url": "https://sf-item.taobao.com/sf_item/709394738269.htm?track_id=906011fd-fbbf-4f51-9330-3a43a4453aa5",
-        "end": 1681099580000,
-        "status": "done",
-        "is_processed": false
+        "id": 709394738269,
+        "市场评估价": 335277,
+        "起拍价格": 187755.12,
+        "成交价格": 187755.12,
+        "交易时间": "2023/04/10 12:06:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/709394738269.htm?track_id=906011fd-fbbf-4f51-9330-3a43a4453aa5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 太平街和泰小区",
+        "所属小区": "和泰小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心",
+        "建筑面积": 84.41,
+        "单价": 2226.28,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "709193837666",
-        "url": "https://sf-item.taobao.com/sf_item/709193837666.htm?track_id=e4b8560e-fcfc-4543-9b99-a367c22bc13f",
-        "end": 1681092658000,
-        "status": "done",
-        "is_processed": false
+        "id": 709193837666,
+        "市场评估价": null,
+        "起拍价格": 200650,
+        "成交价格": 220648,
+        "交易时间": "2023/04/10 10:10:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/709193837666.htm?track_id=e4b8560e-fcfc-4543-9b99-a367c22bc13f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 11,
+        "地点": "江苏省 无锡市 锡山区 厚桥街道锡沪东路88号8区A栋北幢120室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "厚桥",
+        "建筑面积": 35.83,
+        "单价": 6163.89,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "709193865603",
-        "url": "https://sf-item.taobao.com/sf_item/709193865603.htm?track_id=e4b8560e-fcfc-4543-9b99-a367c22bc13f",
-        "end": 1681092584000,
-        "status": "done",
-        "is_processed": false
+        "id": 709193865603,
+        "市场评估价": null,
+        "起拍价格": 200650,
+        "成交价格": 220648,
+        "交易时间": "2023-04-10 10:09:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/709193865603.htm?track_id=e4b8560e-fcfc-4543-9b99-a367c22bc13f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 锡山区 厚桥街道锡沪东路88号8区A栋北幢121室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "厚桥商圈",
+        "建筑面积": 35.83,
+        "单价": 6161.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "708923328143",
-        "url": "https://sf-item.taobao.com/sf_item/708923328143.htm?track_id=38ff9499-8b6e-4751-ba19-1b5236d6f01f",
-        "end": 1681092247000,
-        "status": "done",
-        "is_processed": false
+        "id": 708923328143,
+        "市场评估价": 0,
+        "起拍价格": 334530,
+        "成交价格": 334530,
+        "交易时间": "2023/04/10 10:04:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/708923328143.htm?track_id=38ff9499-8b6e-4751-ba19-1b5236d6f01f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 无锡市 锡山区 安镇镇锡沪东路88号8区A栋北幢406室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "安镇",
+        "建筑面积": 132.75,
+        "单价": 2520.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "706943462624",
-        "url": "https://sf-item.taobao.com/sf_item/706943462624.htm?track_id=9cbead34-beda-4b6e-a08c-fc7477352ff4",
-        "end": 1681093493000,
-        "status": "done",
-        "is_processed": false
+        "id": 706943462624,
+        "市场评估价": 4942600,
+        "起拍价格": 3460000,
+        "成交价格": 4060000,
+        "交易时间": "2023-04-10 10:24:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/706943462624.htm?track_id=9cbead34-beda-4b6e-a08c-fc7477352ff4",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 32,
+        "地点": "江苏省 无锡市 梁溪区 盛岸路211-13室",
+        "所属小区": "盛岸花园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "黄巷商圈",
+        "建筑面积": 120,
+        "单价": 33833.33,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "707073979732",
-        "url": "https://sf-item.taobao.com/sf_item/707073979732.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
-        "end": 1681093285000,
-        "status": "done",
-        "is_processed": false
+        "id": 707073979732,
+        "市场评估价": 0,
+        "起拍价格": 397195.83,
+        "成交价格": 451195.83,
+        "交易时间": "2023-04-10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/707073979732.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": 16,
+        "地点": "广东省梅州市蕉岭县蕉城镇蕉阳大道北碧桂园翡翠湾峰景一街16栋102号",
+        "所属小区": "碧桂园翡翠湾",
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "蕉城镇",
+        "建筑面积": 113.59,
+        "单价": 3972.18,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "705792974756",
         "url": "https://sf-item.taobao.com/sf_item/705792974756.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
         "end": 1681093224000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "706621365068",
+        "url": "https://sf-item.taobao.com/sf_item/706621365068.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "706623981436",
+        "url": "https://sf-item.taobao.com/sf_item/706623981436.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708949600907",
+        "url": "https://sf-item.taobao.com/sf_item/708949600907.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
+        "end": 1681095883000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709506571585",
+        "url": "https://sf-item.taobao.com/sf_item/709506571585.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1681092675000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709284830515",
+        "url": "https://sf-item.taobao.com/sf_item/709284830515.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1681093198000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708814084878",
+        "url": "https://sf-item.taobao.com/sf_item/708814084878.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708814156474",
+        "url": "https://sf-item.taobao.com/sf_item/708814156474.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708814256334",
+        "url": "https://sf-item.taobao.com/sf_item/708814256334.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708814256376",
+        "url": "https://sf-item.taobao.com/sf_item/708814256376.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708814260241",
+        "url": "https://sf-item.taobao.com/sf_item/708814260241.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708814268196",
+        "url": "https://sf-item.taobao.com/sf_item/708814268196.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708814272161",
+        "url": "https://sf-item.taobao.com/sf_item/708814272161.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708814340032",
+        "url": "https://sf-item.taobao.com/sf_item/708814340032.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709085497448",
+        "url": "https://sf-item.taobao.com/sf_item/709085497448.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709284798644",
+        "url": "https://sf-item.taobao.com/sf_item/709284798644.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709506527932",
+        "url": "https://sf-item.taobao.com/sf_item/709506527932.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709506591625",
+        "url": "https://sf-item.taobao.com/sf_item/709506591625.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709506595722",
+        "url": "https://sf-item.taobao.com/sf_item/709506595722.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709506619564",
+        "url": "https://sf-item.taobao.com/sf_item/709506619564.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709506631516",
+        "url": "https://sf-item.taobao.com/sf_item/709506631516.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709506719287",
+        "url": "https://sf-item.taobao.com/sf_item/709506719287.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709506787019",
+        "url": "https://sf-item.taobao.com/sf_item/709506787019.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1681092000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "706462997663",
+        "url": "https://sf-item.taobao.com/sf_item/706462997663.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
+        "end": 1681092000000,
         "status": "done",
         "is_processed": false
     }

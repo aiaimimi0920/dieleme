@@ -364,16 +364,65 @@
         "detail_captured": true
     },
     {
-        "id": "549623021948",
-        "url": "https://sf-item.taobao.com/sf_item/549623021948.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
-        "end": 1495682458000,
-        "status": "done",
-        "is_processed": false
+        "id": 549623021948,
+        "市场评估价": 1967300,
+        "起拍价格": 1377110,
+        "成交价格": 2027110,
+        "交易时间": "2017/05/25 11:20:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/549623021948.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 130,
+        "地点": "郑州市二七区长江中路129号2号楼15层103号",
+        "所属小区": "亚星城市山水",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "长江中路",
+        "建筑面积": 154.19,
+        "单价": 13150.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "549680803083",
         "url": "https://sf-item.taobao.com/sf_item/549680803083.htm?track_id=714d6a20-14ce-4681-bdad-a5c0be12e883",
         "end": 1495678761000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549187596973",
+        "url": "https://sf-item.taobao.com/sf_item/549187596973.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1495681835000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549253110473",
+        "url": "https://sf-item.taobao.com/sf_item/549253110473.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1495688244000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549336009293",
+        "url": "https://sf-item.taobao.com/sf_item/549336009293.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1495678945000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549361090616",
+        "url": "https://sf-item.taobao.com/sf_item/549361090616.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1495678927000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549391567581",
+        "url": "https://sf-item.taobao.com/sf_item/549391567581.htm?track_id=bc90718d-e65a-4467-9717-78b1a1bf1278",
+        "end": 1495678343000,
         "status": "done",
         "is_processed": false
     }

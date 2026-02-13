@@ -189,11 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "825262049582",
-        "url": "https://sf-item.taobao.com/sf_item/825262049582.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
-        "end": 1725157503000,
-        "status": "done",
-        "is_processed": false
+        "id": 825262049582,
+        "市场评估价": null,
+        "起拍价格": 383684,
+        "成交价格": 413684,
+        "交易时间": "2024-09-01 10:25:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/825262049582.htm?track_id=a605f8eb-61a8-402c-b72f-e9fa42d92660",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 21,
+        "地点": "内蒙古自治区 包头市 昆都仑区 民族东路以西、钢铁大街以北凯旋银河线1-2209",
+        "所属小区": "凯旋银河线",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "钢铁大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 820528162138,
@@ -217,9 +231,44 @@
         "detail_captured": true
     },
     {
-        "id": "816701696173",
-        "url": "https://sf-item.taobao.com/sf_item/816701696173.htm?track_id=c8e9871a-16d9-4594-8c9f-5feecf4c8a23",
-        "end": 1725180136000,
+        "id": 816701696173,
+        "市场评估价": 389600,
+        "起拍价格": 280512,
+        "成交价格": 280512,
+        "交易时间": "2024/09/01 16:42:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/816701696173.htm?track_id=c8e9871a-16d9-4594-8c9f-5feecf4c8a23",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 怀化市 芷江侗族自治县 河西舞水路芷金城住宅小区B13栋402号房屋",
+        "所属小区": "芷金城住宅小区",
+        "省份": "湖南省",
+        "城市": "怀化市",
+        "区": "芷江侗族自治县",
+        "最靠近商圈": "舞水路商圈",
+        "建筑面积": 117.21,
+        "单价": 2393.75,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "824731282048",
+        "url": "https://sf-item.taobao.com/sf_item/824731282048.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1725157481000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820783197435",
+        "url": "https://sf-item.taobao.com/sf_item/820783197435.htm?track_id=4c4eeb49-6d0a-4655-9e36-002074dab1e8",
+        "end": 1725156000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820771181184",
+        "url": "https://sf-item.taobao.com/sf_item/820771181184.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1725158285000,
         "status": "done",
         "is_processed": false
     }

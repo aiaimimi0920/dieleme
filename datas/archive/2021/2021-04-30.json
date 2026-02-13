@@ -1282,12 +1282,25 @@
         "detail_captured": true
     },
     {
-        "id": "642546094543",
-        "url": "https://sf-item.taobao.com/sf_item/642546094543.htm?track_id=f1eb5140-fbe3-4f0e-b1e0-7b321e3a1f62",
-        "end": 1619751445000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/642546094543.htm"
+        "id": 642546094543,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 2115000,
+        "交易时间": "2021/04/30 10:57:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642546094543.htm?track_id=f1eb5140-fbe3-4f0e-b1e0-7b321e3a1f62",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 54,
+        "地点": "江苏省 苏州市 吴中区 苏州市吴中区木渎镇大运商业广场6幢1401、1402、1403室不动产（含固定装修）",
+        "所属小区": "大运商业广场",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "木渎",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 642489806705,
@@ -1311,11 +1324,25 @@
         "detail_captured": true
     },
     {
-        "id": "641867463029",
-        "url": "https://sf-item.taobao.com/sf_item/641867463029.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
-        "end": 1619749927000,
-        "status": "done",
-        "is_processed": false
+        "id": 641867463029,
+        "市场评估价": 554000,
+        "起拍价格": 387800,
+        "成交价格": 457800,
+        "交易时间": "2021/04/30 10:32:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641867463029.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 24,
+        "地点": "四川省 资阳市 乐至县 天池镇帅乡大道状元府邸D栋31楼1号",
+        "所属小区": "状元府邸",
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 641705276731,
@@ -1339,11 +1366,25 @@
         "detail_captured": true
     },
     {
-        "id": "641209349978",
-        "url": "https://sf-item.taobao.com/sf_item/641209349978.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
-        "end": 1619749088000,
-        "status": "done",
-        "is_processed": false
+        "id": 641209349978,
+        "市场评估价": 595389,
+        "起拍价格": 381048.96,
+        "成交价格": 408048.96,
+        "交易时间": "2021-04-30 10:18:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641209349978.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
+        "是否成交": true,
+        "竞拍人数": 10,
+        "出价人数": 10,
+        "地点": "吉林省延边朝鲜族自治州延吉市延北路1192号丹虹小区8号楼1单元1302",
+        "所属小区": "丹虹小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延北路",
+        "建筑面积": 95.11,
+        "单价": 4290.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "642839155780",
@@ -1353,11 +1394,25 @@
         "is_processed": false
     },
     {
-        "id": "641186533710",
-        "url": "https://sf-item.taobao.com/sf_item/641186533710.htm?track_id=6b1ba342-958e-4517-b81b-61618a33239d",
-        "end": 1619740800000,
-        "status": "done",
-        "is_processed": false
+        "id": 641186533710,
+        "市场评估价": 735460,
+        "起拍价格": 735460,
+        "成交价格": 735460,
+        "交易时间": "2021/04/30 08:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641186533710.htm?track_id=6b1ba342-958e-4517-b81b-61618a33239d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 东元路7号201栋20701号房屋",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "东元路商圈",
+        "建筑面积": 66.86,
+        "单价": 10992.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "640881312396",
@@ -1367,16 +1422,58 @@
         "is_processed": false
     },
     {
-        "id": "641891623608",
-        "url": "https://sf-item.taobao.com/sf_item/641891623608.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
-        "end": 1619749623000,
-        "status": "done",
-        "is_processed": false
+        "id": 641891623608,
+        "市场评估价": null,
+        "起拍价格": 530034.5,
+        "成交价格": 701034.5,
+        "交易时间": "2021/04/30 10:27:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641891623608.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
+        "是否成交": true,
+        "竞拍人数": 24,
+        "出价人数": 33,
+        "地点": "河南省 郑州市 二七区 安泰路6号1号楼1单元24层2408号",
+        "所属小区": "安泰路6号1号楼",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 89.05,
+        "单价": 7876.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "641536726273",
         "url": "https://sf-item.taobao.com/sf_item/641536726273.htm?track_id=b83e9521-b8c5-4682-9703-1e8745dd3e14",
         "end": 1619752104000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641535830705",
+        "url": "https://sf-item.taobao.com/sf_item/641535830705.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1619748756000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "640836176085",
+        "url": "https://sf-item.taobao.com/sf_item/640836176085.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1619748184000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "640833562567",
+        "url": "https://sf-item.taobao.com/sf_item/640833562567.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1619749424000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642838439967",
+        "url": "https://sf-item.taobao.com/sf_item/642838439967.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1619752428000,
         "status": "done",
         "is_processed": false
     }

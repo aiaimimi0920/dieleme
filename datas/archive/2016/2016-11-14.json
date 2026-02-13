@@ -93,10 +93,24 @@
         "is_processed": false
     },
     {
-        "id": "541215333214",
-        "url": "https://sf-item.taobao.com/sf_item/541215333214.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
-        "end": 1479089019000,
-        "status": "done",
-        "is_processed": false
+        "id": 541215333214,
+        "市场评估价": null,
+        "起拍价格": 2125750,
+        "成交价格": 3075750,
+        "交易时间": "2016-11-14 10:03:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541215333214.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "是否成交": true,
+        "竞拍人数": 53,
+        "出价人数": null,
+        "地点": "无锡市新明中路68号-50、51号",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": null,
+        "建筑面积": 204.72,
+        "单价": 15012.26,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

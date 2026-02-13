@@ -168,9 +168,37 @@
         "detail_captured": true
     },
     {
-        "id": "639063789439",
-        "url": "https://sf-item.taobao.com/sf_item/639063789439.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
-        "end": 1620790511000,
+        "id": 639063789439,
+        "市场评估价": 245500,
+        "起拍价格": 137480,
+        "成交价格": 137480,
+        "交易时间": "2021-05-12 11:35:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/639063789439.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 长白路252号",
+        "所属小区": "安裕达小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延边大学商圈",
+        "建筑面积": 92.12,
+        "单价": 1490.88,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "642417900202",
+        "url": "https://sf-item.taobao.com/sf_item/642417900202.htm?track_id=bcfea102-99f4-4d3a-aa3e-f06b59c7474b",
+        "end": 1620786378000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642215450603",
+        "url": "https://sf-item.taobao.com/sf_item/642215450603.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1620791063000,
         "status": "done",
         "is_processed": false
     }

@@ -441,9 +441,44 @@
         "detail_captured": true
     },
     {
-        "id": "821110962767",
-        "url": "https://sf-item.taobao.com/sf_item/821110962767.htm?track_id=a15d7f98-3b05-4c1b-8448-8544b2b443ae",
-        "end": 1724032800000,
+        "id": 821110962767,
+        "市场评估价": 311900,
+        "起拍价格": 174664,
+        "成交价格": 174664,
+        "交易时间": "2024/08/19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/821110962767.htm?track_id=a15d7f98-3b05-4c1b-8448-8544b2b443ae",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 天池镇小东街35号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "821071609941",
+        "url": "https://sf-item.taobao.com/sf_item/821071609941.htm?track_id=addbb771-a109-4b32-8cec-541c849a16ea",
+        "end": 1724035925000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "821201184102",
+        "url": "https://sf-item.taobao.com/sf_item/821201184102.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1724032863000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820809861373",
+        "url": "https://sf-item.taobao.com/sf_item/820809861373.htm?track_id=1d7de8cb-3c6a-4ed4-af6a-105ce509c724",
+        "end": 1724032900000,
         "status": "done",
         "is_processed": false
     }

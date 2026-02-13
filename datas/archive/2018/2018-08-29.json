@@ -453,11 +453,25 @@
         "is_processed": false
     },
     {
-        "id": "574244241291",
-        "url": "https://sf-item.taobao.com/sf_item/574244241291.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
-        "end": 1535508717000,
-        "status": "done",
-        "is_processed": false
+        "id": 574244241291,
+        "市场评估价": null,
+        "起拍价格": 539000,
+        "成交价格": 584000,
+        "交易时间": "2018/08/29 10:11:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574244241291.htm?track_id=ea07006a-71fb-4387-a123-1c39b8420631",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 10,
+        "地点": "安溪县凤城镇金盾豪庭2号楼2619室",
+        "所属小区": "金盾豪庭",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城镇",
+        "建筑面积": 81.81,
+        "单价": 7138.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "575555243402",
@@ -470,6 +484,27 @@
         "id": "574303321580",
         "url": "https://sf-item.taobao.com/sf_item/574303321580.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
         "end": 1535514111000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574824780083",
+        "url": "https://sf-item.taobao.com/sf_item/574824780083.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1535509466000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573770392664",
+        "url": "https://sf-item.taobao.com/sf_item/573770392664.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1535510240000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574435746138",
+        "url": "https://sf-item.taobao.com/sf_item/574435746138.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1535511540000,
         "status": "done",
         "is_processed": false
     }

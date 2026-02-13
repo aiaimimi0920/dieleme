@@ -297,18 +297,46 @@
         "detail_captured": true
     },
     {
-        "id": "814557219396",
-        "url": "https://sf-item.taobao.com/sf_item/814557219396.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
-        "end": 1727229319000,
-        "status": "done",
-        "is_processed": false
+        "id": 814557219396,
+        "市场评估价": 315100,
+        "起拍价格": 176456,
+        "成交价格": 176456,
+        "交易时间": "2024/09/25 09:55:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/814557219396.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 天池镇农经路261号附3号（现门牌号：乐至县农经路237号1栋1单元3楼1号）",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "826283355311",
-        "url": "https://sf-item.taobao.com/sf_item/826283355311.htm?track_id=fa6217ee-c7e8-4543-a54b-06e989689ced",
-        "end": 1727230378000,
-        "status": "done",
-        "is_processed": false
+        "id": 826283355311,
+        "市场评估价": 1010200,
+        "起拍价格": 707200,
+        "成交价格": 742200,
+        "交易时间": "2024/09/25 10:12:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/826283355311.htm?track_id=fa6217ee-c7e8-4543-a54b-06e989689ced",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 6,
+        "地点": "陕西省西安市未央区经济技术开发区北三环以南、明光路以东（旭景崇盛园）7幢11203室",
+        "所属小区": "旭景崇盛园",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 83.22,
+        "单价": 8918.62,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "831294199219",
@@ -321,6 +349,27 @@
         "id": "831813327005",
         "url": "https://sf-item.taobao.com/sf_item/831813327005.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1727229600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "829055440210",
+        "url": "https://sf-item.taobao.com/sf_item/829055440210.htm?track_id=4e327adb-2757-4cd0-b4ad-e07602cdfdad",
+        "end": 1727227784000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "821013373938",
+        "url": "https://sf-item.taobao.com/sf_item/821013373938.htm?track_id=c5751350-0d08-4e6f-8844-09272e03da4d",
+        "end": 1727225718000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826766930953",
+        "url": "https://sf-item.taobao.com/sf_item/826766930953.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1727240594000,
         "status": "done",
         "is_processed": false
     }

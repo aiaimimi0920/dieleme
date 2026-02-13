@@ -189,12 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "736681345834",
-        "url": "https://sf-item.taobao.com/sf_item/736681345834.htm?track_id=99405413-c414-4fd1-b2d0-d88e84e4df58",
-        "end": 1696317617000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/736681345834.htm"
+        "id": 736681345834,
+        "市场评估价": null,
+        "起拍价格": 3221540,
+        "成交价格": 4251540,
+        "交易时间": "2023/10/03 15:20:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/736681345834.htm?track_id=99405413-c414-4fd1-b2d0-d88e84e4df58",
+        "是否成交": true,
+        "竞拍人数": 542,
+        "出价人数": null,
+        "地点": "河南省 新乡市 卫滨区 位于新乡市劳动南街608号绿地·迪亚庄园（上海新城）94号（A7型）",
+        "所属小区": "绿地·迪亚庄园",
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": "绿地迪亚庄园",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 739424415054,
@@ -268,16 +281,58 @@
         "detail_captured": true
     },
     {
-        "id": "737017223760",
-        "url": "https://sf-item.taobao.com/sf_item/737017223760.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
-        "end": 1696298400000,
-        "status": "done",
-        "is_processed": false
+        "id": 737017223760,
+        "市场评估价": 3896507,
+        "起拍价格": 2728000,
+        "成交价格": 2728000,
+        "交易时间": "2023-10-03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/737017223760.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "青云谱区城南大道南段西侧博学路399号生命树小区25号住宅101室",
+        "所属小区": "生命树小区",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "城南板块",
+        "建筑面积": 270.76,
+        "单价": 10075.7,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "738809928657",
         "url": "https://sf-item.taobao.com/sf_item/738809928657.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
         "end": 1696301429000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "736695445594",
+        "url": "https://sf-item.taobao.com/sf_item/736695445594.htm?track_id=4e327adb-2757-4cd0-b4ad-e07602cdfdad",
+        "end": 1696298400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "736504540813",
+        "url": "https://sf-item.taobao.com/sf_item/736504540813.htm?track_id=f3e6fb9d-e938-488c-9090-5238a2891f28",
+        "end": 1696299563000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "736694817260",
+        "url": "https://sf-item.taobao.com/sf_item/736694817260.htm?track_id=f3e6fb9d-e938-488c-9090-5238a2891f28",
+        "end": 1696299467000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "736504720107",
+        "url": "https://sf-item.taobao.com/sf_item/736504720107.htm?track_id=f3e6fb9d-e938-488c-9090-5238a2891f28",
+        "end": 1696299458000,
         "status": "done",
         "is_processed": false
     }

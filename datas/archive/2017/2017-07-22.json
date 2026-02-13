@@ -258,11 +258,25 @@
         "detail_captured": true
     },
     {
-        "id": "554736384825",
-        "url": "https://sf-item.taobao.com/sf_item/554736384825.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1500689600000,
-        "status": "done",
-        "is_processed": false
+        "id": 554736384825,
+        "市场评估价": null,
+        "起拍价格": 1080000,
+        "成交价格": 1330000,
+        "交易时间": "2017-07-22 10:13:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/554736384825.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": null,
+        "地点": "江西省 南昌市 青云谱区 青云谱路569号青云佳苑小区5栋1单元202室",
+        "所属小区": "青云佳苑",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "徐家坊",
+        "建筑面积": 216.02,
+        "单价": 6157.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "553248296473",
@@ -275,6 +289,13 @@
         "id": "553456641977",
         "url": "https://sf-item.taobao.com/sf_item/553456641977.htm?track_id=f0ab8160-a6c9-4731-aa8f-79271cd5c413",
         "end": 1500690048000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "554958595586",
+        "url": "https://sf-item.taobao.com/sf_item/554958595586.htm?track_id=1f756e4c-b012-46bd-9069-1a5d9bb4c457",
+        "end": 1500691485000,
         "status": "done",
         "is_processed": false
     }

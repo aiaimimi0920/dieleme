@@ -106,16 +106,72 @@
         "detail_captured": true
     },
     {
-        "id": "797053814869",
-        "url": "https://sf-item.taobao.com/sf_item/797053814869.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
-        "end": 1717380038000,
+        "id": 797053814869,
+        "市场评估价": 812262,
+        "起拍价格": 519847.68,
+        "成交价格": 519847.68,
+        "交易时间": "2024/06/03 10:00:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/797053814869.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 潍坊市 昌邑市 解放路452号D区南幢28号",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": null,
+        "建筑面积": 158.8,
+        "单价": 3275.57,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 797178041031,
+        "市场评估价": 0,
+        "起拍价格": 189504,
+        "成交价格": 189504,
+        "交易时间": "2024/06/03 10:04:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/797178041031.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 新密市诚信路东侧晴岚街南侧大鸿路西侧西大街北侧 T2 号楼 9 层 915 号（合同号：20383795）房产一处",
+        "所属小区": "中强光年",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "西大街",
+        "建筑面积": 40.1,
+        "单价": 4725.79,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "796599458201",
+        "url": "https://sf-item.taobao.com/sf_item/796599458201.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1717388289000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "797178041031",
-        "url": "https://sf-item.taobao.com/sf_item/797178041031.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
-        "end": 1717380278000,
+        "id": "789928212360",
+        "url": "https://sf-item.taobao.com/sf_item/789928212360.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1717380055000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "796691435379",
+        "url": "https://sf-item.taobao.com/sf_item/796691435379.htm?track_id=1b72c4a3-0a3f-4a49-a0ef-97c696656a04",
+        "end": 1717380000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "796137058663",
+        "url": "https://sf-item.taobao.com/sf_item/796137058663.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1717385528000,
         "status": "done",
         "is_processed": false
     }

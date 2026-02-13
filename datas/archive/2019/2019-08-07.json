@@ -317,9 +317,37 @@
         "detail_captured": true
     },
     {
-        "id": "597453006136",
-        "url": "https://sf-item.taobao.com/sf_item/597453006136.htm?track_id=bb65ed84-7144-485c-9338-fa746a2ca92a",
-        "end": 1565145196000,
+        "id": 597453006136,
+        "市场评估价": 770000,
+        "起拍价格": 770000,
+        "成交价格": 1183000,
+        "交易时间": "2019-08-07T10:33:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/597453006136.htm?track_id=bb65ed84-7144-485c-9338-fa746a2ca92a",
+        "是否成交": true,
+        "竞拍人数": 412,
+        "出价人数": 413,
+        "地点": "河南省 郑州市 二七区 郑州市二七区一马路51号恒泰童装商场1层52号房产",
+        "所属小区": "恒泰童装商场",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "德化街商圈",
+        "建筑面积": 16.02,
+        "单价": 73795.27,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "598033454675",
+        "url": "https://sf-item.taobao.com/sf_item/598033454675.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1565143200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "597666424294",
+        "url": "https://sf-item.taobao.com/sf_item/597666424294.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1565145600000,
         "status": "done",
         "is_processed": false
     }

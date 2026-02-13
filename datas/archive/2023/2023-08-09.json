@@ -610,9 +610,79 @@
         "detail_captured": true
     },
     {
-        "id": "730050841874",
-        "url": "https://sf-item.taobao.com/sf_item/730050841874.htm?track_id=1d2888d6-6fb7-43a3-9d32-48bb0f233bcb",
-        "end": 1691546650000,
+        "id": 730050841874,
+        "市场评估价": 382636,
+        "起拍价格": 309934.8,
+        "成交价格": 327934.8,
+        "交易时间": "2023/08/09 10:04:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/730050841874.htm?track_id=1d2888d6-6fb7-43a3-9d32-48bb0f233bcb",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 宇科多蓝花园小区一期22-2-301室",
+        "所属小区": "宇科多蓝花园小区",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": null,
+        "建筑面积": 82.75,
+        "单价": 3963.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "730781003806",
+        "url": "https://sf-item.taobao.com/sf_item/730781003806.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1691546647000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "728612603511",
+        "url": "https://sf-item.taobao.com/sf_item/728612603511.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1691582728000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "729841926235",
+        "url": "https://sf-item.taobao.com/sf_item/729841926235.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1691547374000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "729905453804",
+        "url": "https://sf-item.taobao.com/sf_item/729905453804.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "end": 1691550610000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "730725007645",
+        "url": "https://sf-item.taobao.com/sf_item/730725007645.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1691547476000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "728178087254",
+        "url": "https://sf-item.taobao.com/sf_item/728178087254.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1691576251000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "727654260013",
+        "url": "https://sf-item.taobao.com/sf_item/727654260013.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1691546400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "728177987374",
+        "url": "https://sf-item.taobao.com/sf_item/728177987374.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1691546400000,
         "status": "done",
         "is_processed": false
     }

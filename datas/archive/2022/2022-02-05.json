@@ -21,12 +21,25 @@
         "detail_captured": true
     },
     {
-        "id": "667104509340",
-        "url": "https://sf-item.taobao.com/sf_item/667104509340.htm?track_id=53cc33a9-b938-4753-8535-c78e7f955ada",
-        "end": 1644026400000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/667104509340.htm"
+        "id": 667104509340,
+        "市场评估价": 439826,
+        "起拍价格": 351860,
+        "成交价格": 351860,
+        "交易时间": "2022/02/05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/667104509340.htm?track_id=53cc33a9-b938-4753-8535-c78e7f955ada",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "甘肃省 平凉市 崇信县 位于崇信县滨河路2号小区7B粮食局家属楼2单元501室",
+        "所属小区": "粮食局家属楼",
+        "省份": "甘肃省",
+        "城市": "平凉市",
+        "区": "崇信县",
+        "最靠近商圈": "崇信县城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 667737167897,
@@ -50,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "667558511933",
-        "url": "https://sf-item.taobao.com/sf_item/667558511933.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
-        "end": 1644026400000,
-        "status": "done",
-        "is_processed": false
+        "id": 667558511933,
+        "市场评估价": null,
+        "起拍价格": 484633.62,
+        "成交价格": 484633.62,
+        "交易时间": "2022-02-05T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/667558511933.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 昆区白云路南端、校园路南侧、南排道东侧阳光尚品1-1305",
+        "所属小区": "阳光尚品",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

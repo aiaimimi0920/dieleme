@@ -21,11 +21,25 @@
         "detail_captured": true
     },
     {
-        "id": "523046152644",
-        "url": "https://sf-item.taobao.com/sf_item/523046152644.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
-        "end": 1446386851000,
-        "status": "done",
-        "is_processed": false
+        "id": 523046152644,
+        "市场评估价": null,
+        "起拍价格": 157100,
+        "成交价格": 213100,
+        "交易时间": "2015-11-01 22:07:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523046152644.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 泉州市 安溪县",
+        "所属小区": "宝龙城市广场",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "宝龙商圈",
+        "建筑面积": 44.44,
+        "单价": 4798.87,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "523052009355",

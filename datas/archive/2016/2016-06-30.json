@@ -135,23 +135,58 @@
         "is_processed": false
     },
     {
-        "id": "533870696180",
-        "url": "https://sf-item.taobao.com/sf_item/533870696180.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
-        "end": 1467252000000,
-        "status": "done",
-        "is_processed": false
+        "id": 533870696180,
+        "市场评估价": 3740000,
+        "起拍价格": 2393600,
+        "成交价格": 2393600,
+        "交易时间": "2016/06/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/533870696180.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省延边朝鲜族自治州延吉市依兰镇东兴村",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "依兰镇",
+        "建筑面积": 1445.36,
+        "单价": 1656.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "533888896374",
-        "url": "https://sf-item.taobao.com/sf_item/533888896374.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
-        "end": 1467296710000,
-        "status": "done",
-        "is_processed": false
+        "id": 533888896374,
+        "市场评估价": 0,
+        "起拍价格": 547000,
+        "成交价格": 622000,
+        "交易时间": "2016/06/30 22:25:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/533888896374.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 15,
+        "地点": "安溪县凤城镇中山街238号201室",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城镇",
+        "建筑面积": 97.75,
+        "单价": 6362.59,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "533918332069",
         "url": "https://sf-item.taobao.com/sf_item/533918332069.htm?track_id=9d62b742-b4d8-4891-b062-beb125515e21",
         "end": 1467252447000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533101860360",
+        "url": "https://sf-item.taobao.com/sf_item/533101860360.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1467254133000,
         "status": "done",
         "is_processed": false
     }

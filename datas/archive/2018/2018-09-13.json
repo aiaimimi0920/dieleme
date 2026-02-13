@@ -325,23 +325,72 @@
         "is_processed": false
     },
     {
-        "id": "576003954010",
-        "url": "https://sf-item.taobao.com/sf_item/576003954010.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
-        "end": 1536804000000,
-        "status": "done",
-        "is_processed": false
+        "id": 576003954010,
+        "市场评估价": 311841,
+        "起拍价格": 174630.96,
+        "成交价格": 174630.96,
+        "交易时间": "2018/09/13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/576003954010.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 北苑小区",
+        "所属小区": "北苑小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 82.15,
+        "单价": 2126,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "574451152590",
-        "url": "https://sf-item.taobao.com/sf_item/574451152590.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
-        "end": 1536804000000,
-        "status": "done",
-        "is_processed": false
+        "id": 574451152590,
+        "市场评估价": 923400,
+        "起拍价格": 923400,
+        "成交价格": 923400,
+        "交易时间": "2018/09/13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574451152590.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 肇工南街80-1号1-10-1",
+        "所属小区": "汇景园",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "肇工商圈",
+        "建筑面积": 102.09,
+        "单价": 9045.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "576040944870",
         "url": "https://sf-item.taobao.com/sf_item/576040944870.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
         "end": 1536807260000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576449723968",
+        "url": "https://sf-item.taobao.com/sf_item/576449723968.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1536805125000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576149173492",
+        "url": "https://sf-item.taobao.com/sf_item/576149173492.htm?track_id=a5509f1b-d0f1-4066-9e83-25810044a34d",
+        "end": 1536804000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576026576185",
+        "url": "https://sf-item.taobao.com/sf_item/576026576185.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1536804000000,
         "status": "done",
         "is_processed": false
     }

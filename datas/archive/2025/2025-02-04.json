@@ -189,9 +189,37 @@
         "detail_captured": true
     },
     {
-        "id": "871570905211",
-        "url": "https://sf-item.taobao.com/sf_item/871570905211.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1738634941000,
+        "id": 871570905211,
+        "市场评估价": null,
+        "起拍价格": 315000,
+        "成交价格": 319000,
+        "交易时间": "2025/02/04 10:09:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/871570905211.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "河南省 郑州市 新密市 新密市刘寨镇湖东路东侧御都17号楼1单元2层201室",
+        "所属小区": "御都",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "刘寨镇",
+        "建筑面积": 131.5,
+        "单价": 2424.27,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "876701435120",
+        "url": "https://sf-item.taobao.com/sf_item/876701435120.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1738634417000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "868945253474",
+        "url": "https://sf-item.taobao.com/sf_item/868945253474.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1738635489000,
         "status": "done",
         "is_processed": false
     }

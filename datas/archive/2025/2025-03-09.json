@@ -168,23 +168,72 @@
         "detail_captured": true
     },
     {
-        "id": "890040331946",
-        "url": "https://sf-item.taobao.com/sf_item/890040331946.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
-        "end": 1741485600000,
-        "status": "done",
-        "is_processed": false
+        "id": 890040331946,
+        "市场评估价": 988800,
+        "起拍价格": 632832,
+        "成交价格": 632832,
+        "交易时间": "2025-03-09T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/890040331946.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 潍坊市 昌邑市 昌邑市院校中街29号3幢1单元302室及储藏室",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": null,
+        "建筑面积": 146.33,
+        "单价": 4322.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "888157428934",
-        "url": "https://sf-item.taobao.com/sf_item/888157428934.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
-        "end": 1741522833000,
-        "status": "done",
-        "is_processed": false
+        "id": 888157428934,
+        "市场评估价": 487693,
+        "起拍价格": 352358,
+        "成交价格": 352358,
+        "交易时间": "2025/03/09 20:20:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/888157428934.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 香港路盛邦帝标D幢D4-13号",
+        "所属小区": "盛邦帝标",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "香港路商圈",
+        "建筑面积": 90.88,
+        "单价": 3876.96,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "891015616745",
         "url": "https://sf-item.taobao.com/sf_item/891015616745.htm?track_id=4b4e999e-3aac-478b-9b5f-a68739a27816",
         "end": 1741485600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "890806645549",
+        "url": "https://sf-item.taobao.com/sf_item/890806645549.htm?track_id=5fc4c768-6ab1-4407-acf9-835197b7645a",
+        "end": 1741485655000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "887855041829",
+        "url": "https://sf-item.taobao.com/sf_item/887855041829.htm?track_id=12595e19-a2b7-4cfb-8ff0-41928b638390",
+        "end": 1741527978000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "885696140456",
+        "url": "https://sf-item.taobao.com/sf_item/885696140456.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1741481078000,
         "status": "done",
         "is_processed": false
     }

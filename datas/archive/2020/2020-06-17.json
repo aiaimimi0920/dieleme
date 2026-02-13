@@ -358,11 +358,25 @@
         "detail_captured": true
     },
     {
-        "id": "618309745174",
-        "url": "https://sf-item.taobao.com/sf_item/618309745174.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
-        "end": 1592362010000,
-        "status": "done",
-        "is_processed": false
+        "id": 618309745174,
+        "市场评估价": null,
+        "起拍价格": 349520,
+        "成交价格": 407520,
+        "交易时间": "2020/06/17 10:46:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/618309745174.htm?track_id=82395867-94d7-430c-8b5d-8ddbbf2fefba",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 59,
+        "地点": "内蒙古自治区 包头市 昆都仑区 昆区友谊大街13号街坊4-26号房产",
+        "所属小区": "友谊大街13号街坊",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "友谊大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "618311674625",
@@ -372,23 +386,107 @@
         "is_processed": false
     },
     {
-        "id": "617900056240",
-        "url": "https://sf-item.taobao.com/sf_item/617900056240.htm?track_id=183882c5-0ed7-489b-ad05-3a3edf0e45f3",
-        "end": 1592359592000,
-        "status": "done",
-        "is_processed": false
+        "id": 617900056240,
+        "市场评估价": 126983,
+        "起拍价格": 126983,
+        "成交价格": 163983,
+        "交易时间": "2020/06/17 10:06:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/617900056240.htm?track_id=183882c5-0ed7-489b-ad05-3a3edf0e45f3",
+        "是否成交": true,
+        "竞拍人数": 45,
+        "出价人数": 45,
+        "地点": "黑龙江省 鹤岗市 绥滨县 绥滨镇",
+        "所属小区": "崧阳小区",
+        "省份": "黑龙江省",
+        "城市": "鹤岗市",
+        "区": "绥滨县",
+        "最靠近商圈": "绥滨镇商圈",
+        "建筑面积": 63.61,
+        "单价": 2577.96,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "618377834769",
-        "url": "https://sf-item.taobao.com/sf_item/618377834769.htm?track_id=3cd0e4d1-9631-49bf-9bf5-2e2d655dc96b",
-        "end": 1592359202000,
-        "status": "done",
-        "is_processed": false
+        "id": 618377834769,
+        "市场评估价": null,
+        "起拍价格": 3953300,
+        "成交价格": 3953300,
+        "交易时间": "2020-06-17T10:00:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/618377834769.htm?track_id=3cd0e4d1-9631-49bf-9bf5-2e2d655dc96b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 开发区龙山大道旺福大厦",
+        "所属小区": "旺福大厦",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "开发区",
+        "建筑面积": 925.62,
+        "单价": 4272.68,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "617900284027",
         "url": "https://sf-item.taobao.com/sf_item/617900284027.htm?track_id=d6e0451f-ec2c-4d96-88dc-d92bbcbf6515",
         "end": 1592360410000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "618473274292",
+        "url": "https://sf-item.taobao.com/sf_item/618473274292.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1592361776000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619475077869",
+        "url": "https://sf-item.taobao.com/sf_item/619475077869.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1592360793000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619527670792",
+        "url": "https://sf-item.taobao.com/sf_item/619527670792.htm?track_id=9370e9c3-7a71-4d89-8eb3-257be301ecff",
+        "end": 1592360522000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "618130169055",
+        "url": "https://sf-item.taobao.com/sf_item/618130169055.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1592363449000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "618130709161",
+        "url": "https://sf-item.taobao.com/sf_item/618130709161.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1592367109000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "618129253422",
+        "url": "https://sf-item.taobao.com/sf_item/618129253422.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1592365569000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617832720082",
+        "url": "https://sf-item.taobao.com/sf_item/617832720082.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1592361451000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "618899346654",
+        "url": "https://sf-item.taobao.com/sf_item/618899346654.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1592378108000,
         "status": "done",
         "is_processed": false
     }

@@ -106,11 +106,25 @@
         "detail_captured": true
     },
     {
-        "id": "520511312731",
-        "url": "https://sf-item.taobao.com/sf_item/520511312731.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
-        "end": 1437705278000,
-        "status": "done",
-        "is_processed": false
+        "id": 520511312731,
+        "市场评估价": null,
+        "起拍价格": 640000,
+        "成交价格": 754000,
+        "交易时间": "2015/07/24 10:34:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520511312731.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 55,
+        "地点": "常州市天宁区龙湖·香醍漫步115幢3201室",
+        "所属小区": "龙湖·香醍漫步",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "青龙板块",
+        "建筑面积": 137.74,
+        "单价": 5474.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "520512679264",
@@ -123,6 +137,13 @@
         "id": "520508246609",
         "url": "https://sf-item.taobao.com/sf_item/520508246609.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
         "end": 1437703200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520431875836",
+        "url": "https://sf-item.taobao.com/sf_item/520431875836.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1437703964000,
         "status": "done",
         "is_processed": false
     }

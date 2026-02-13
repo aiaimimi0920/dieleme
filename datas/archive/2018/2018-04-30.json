@@ -903,11 +903,12 @@
         "省份": "四川省",
         "城市": "广元市",
         "区": "利州区",
-        "最靠近商圈": null,
+        "最靠近商圈": "东坝商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 566806419327,
@@ -1022,10 +1023,24 @@
         "is_processed": false
     },
     {
-        "id": "566937864259",
-        "url": "https://sf-item.taobao.com/sf_item/566937864259.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
-        "end": 1525055168000,
-        "status": "done",
-        "is_processed": false
+        "id": 566937864259,
+        "市场评估价": null,
+        "起拍价格": 150142,
+        "成交价格": 163142,
+        "交易时间": "2018-04-30 10:26:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/566937864259.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 13,
+        "地点": "辽宁省 沈阳市 铁西区 红粉路70-1号3-6-4",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 38.5,
+        "单价": 4236.15,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

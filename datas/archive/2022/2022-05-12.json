@@ -592,12 +592,25 @@
         "detail_captured": true
     },
     {
-        "id": "672205737863",
-        "url": "https://sf-item.taobao.com/sf_item/672205737863.htm?track_id=e1aecd4a-d0cf-48eb-94c4-44b55208bbe1",
-        "end": 1652323798000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/672205737863.htm"
+        "id": 672205737863,
+        "市场评估价": 2771509,
+        "起拍价格": 1940100,
+        "成交价格": 2708100,
+        "交易时间": "2022/05/12 10:49:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/672205737863.htm?track_id=e1aecd4a-d0cf-48eb-94c4-44b55208bbe1",
+        "是否成交": true,
+        "竞拍人数": 71,
+        "出价人数": 71,
+        "地点": "江西省 上饶市 弋阳县 南岩镇城南区志敏大道旁辉煌路18号",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "弋阳县",
+        "最靠近商圈": "南岩镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 674040767833,
@@ -642,25 +655,67 @@
         "detail_captured": true
     },
     {
-        "id": "674025155261",
-        "url": "https://sf-item.taobao.com/sf_item/674025155261.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
-        "end": 1652320927000,
-        "status": "done",
-        "is_processed": false
+        "id": 674025155261,
+        "市场评估价": 417100,
+        "起拍价格": 300312,
+        "成交价格": 336312,
+        "交易时间": "2022/05/12 10:02:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/674025155261.htm?track_id=002f1e31-d149-48f5-b83d-a1a7876a98c1",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 13,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 长白山西路工行小区8号楼3单元202室",
+        "所属小区": "工行小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "长白山西路",
+        "建筑面积": 97,
+        "单价": 3467.13,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "673453410577",
-        "url": "https://sf-item.taobao.com/sf_item/673453410577.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
-        "end": 1652320800000,
-        "status": "done",
-        "is_processed": false
+        "id": 673453410577,
+        "市场评估价": 449423.5,
+        "起拍价格": 269655,
+        "成交价格": 269655,
+        "交易时间": "2022-05-12T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673453410577.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区开发二十一号路13-7号1-5-3",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 65.64,
+        "单价": 4110.3,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "673697022294",
-        "url": "https://sf-item.taobao.com/sf_item/673697022294.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
-        "end": 1652320800000,
-        "status": "done",
-        "is_processed": false
+        "id": 673697022294,
+        "市场评估价": null,
+        "起拍价格": 1080000,
+        "成交价格": 1080000,
+        "交易时间": "2022/05/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673697022294.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 太元路6幢42804室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": null,
+        "建筑面积": 87.85,
+        "单价": 12295.24,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "674093891709",
@@ -680,6 +735,69 @@
         "id": "671662888855",
         "url": "https://sf-item.taobao.com/sf_item/671662888855.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1652320820000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "672465094125",
+        "url": "https://sf-item.taobao.com/sf_item/672465094125.htm?track_id=b29a20ac-4526-4c00-8c7e-3478c2981281",
+        "end": 1652322056000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673373873611",
+        "url": "https://sf-item.taobao.com/sf_item/673373873611.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1652322103000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673358149925",
+        "url": "https://sf-item.taobao.com/sf_item/673358149925.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1652323881000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671518782938",
+        "url": "https://sf-item.taobao.com/sf_item/671518782938.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1652320800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673369187813",
+        "url": "https://sf-item.taobao.com/sf_item/673369187813.htm?track_id=e341233b-65c2-43b1-bd0f-fcc1f8161df1",
+        "end": 1652352037000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671736254320",
+        "url": "https://sf-item.taobao.com/sf_item/671736254320.htm?track_id=9e5aa186-34d7-4c0b-b267-9a643d674b9b",
+        "end": 1652325117000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671870609760",
+        "url": "https://sf-item.taobao.com/sf_item/671870609760.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1652345213000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673364117291",
+        "url": "https://sf-item.taobao.com/sf_item/673364117291.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1652325387000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671782288665",
+        "url": "https://sf-item.taobao.com/sf_item/671782288665.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1652325019000,
         "status": "done",
         "is_processed": false
     }

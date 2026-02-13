@@ -147,11 +147,25 @@
         "detail_captured": true
     },
     {
-        "id": "632511973799",
-        "url": "https://sf-item.taobao.com/sf_item/632511973799.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
-        "end": 1609029634000,
-        "status": "done",
-        "is_processed": false
+        "id": 632511973799,
+        "市场评估价": null,
+        "起拍价格": 238953,
+        "成交价格": 238953,
+        "交易时间": "2020/12/27 08:40:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/632511973799.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 友谊大街19号街坊5区33栋86号房屋",
+        "所属小区": "友谊大街19号街坊5区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "友谊大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 632215605759,
@@ -175,37 +189,156 @@
         "detail_captured": true
     },
     {
-        "id": "633770741751",
-        "url": "https://sf-item.taobao.com/sf_item/633770741751.htm?track_id=1eb0cba0-3dd8-407a-a997-3eb1b6789b1e",
-        "end": 1609035289000,
-        "status": "done",
-        "is_processed": false
+        "id": 633770741751,
+        "市场评估价": null,
+        "起拍价格": 544000,
+        "成交价格": 673000,
+        "交易时间": "2020-12-27 10:14:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/633770741751.htm?track_id=1eb0cba0-3dd8-407a-a997-3eb1b6789b1e",
+        "是否成交": true,
+        "竞拍人数": 37,
+        "出价人数": null,
+        "地点": "贵州省 遵义市 汇川区 南京路瑞港世纪城",
+        "所属小区": "瑞港世纪城",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "南京路商圈",
+        "建筑面积": 139.46,
+        "单价": 4826.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "632013088683",
-        "url": "https://sf-item.taobao.com/sf_item/632013088683.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
-        "end": 1609037104000,
-        "status": "done",
-        "is_processed": false
+        "id": 632013088683,
+        "市场评估价": null,
+        "起拍价格": 268633.4,
+        "成交价格": 341633.4,
+        "交易时间": "2020-12-27 10:45:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/632013088683.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
+        "是否成交": true,
+        "竞拍人数": 57,
+        "出价人数": 57,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 本街",
+        "所属小区": "金碧苑小区",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁镇",
+        "建筑面积": 100.33,
+        "单价": 3403.62,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "632652062898",
-        "url": "https://sf-item.taobao.com/sf_item/632652062898.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
-        "end": 1609039705000,
-        "status": "done",
-        "is_processed": false
+        "id": 632652062898,
+        "市场评估价": null,
+        "起拍价格": 370461,
+        "成交价格": 414461,
+        "交易时间": "2020/12/27 11:28:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/632652062898.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 44,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 本街",
+        "所属小区": "金碧苑小区",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁镇",
+        "建筑面积": 135.18,
+        "单价": 3065.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "633418768855",
-        "url": "https://sf-item.taobao.com/sf_item/633418768855.htm?track_id=5c3fd042-c684-4bcf-8fa2-cf27f98d7d60",
-        "end": 1609036199000,
-        "status": "done",
-        "is_processed": false
+        "id": 633418768855,
+        "市场评估价": 489600,
+        "起拍价格": 332928,
+        "成交价格": 456928,
+        "交易时间": "2020-12-26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/633418768855.htm?track_id=5c3fd042-c684-4bcf-8fa2-cf27f98d7d60",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 景星南街100号2-5-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "景星商圈",
+        "建筑面积": 105.97,
+        "单价": 4311.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "632365457423",
         "url": "https://sf-item.taobao.com/sf_item/632365457423.htm?track_id=bebec365-cf13-4469-bb0c-6c83f46205e0",
         "end": 1609034400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634058074488",
+        "url": "https://sf-item.taobao.com/sf_item/634058074488.htm?track_id=06d50902-4cb5-47c9-aa0d-987464c3d93f",
+        "end": 1609034400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632039992692",
+        "url": "https://sf-item.taobao.com/sf_item/632039992692.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "end": 1609034637000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633419708195",
+        "url": "https://sf-item.taobao.com/sf_item/633419708195.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1609034962000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634087842708",
+        "url": "https://sf-item.taobao.com/sf_item/634087842708.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1609034669000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634395907282",
+        "url": "https://sf-item.taobao.com/sf_item/634395907282.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1609034651000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633772449790",
+        "url": "https://sf-item.taobao.com/sf_item/633772449790.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1609035122000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633421076480",
+        "url": "https://sf-item.taobao.com/sf_item/633421076480.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1609034478000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634407283684",
+        "url": "https://sf-item.taobao.com/sf_item/634407283684.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1609034400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "631948536341",
+        "url": "https://sf-item.taobao.com/sf_item/631948536341.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1609039210000,
         "status": "done",
         "is_processed": false
     }

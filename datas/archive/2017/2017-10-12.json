@@ -316,7 +316,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 559014190022,
@@ -361,9 +362,44 @@
         "detail_captured": true
     },
     {
-        "id": "558224690308",
-        "url": "https://sf-item.taobao.com/sf_item/558224690308.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
-        "end": 1507778392000,
+        "id": 558224690308,
+        "市场评估价": 3067000,
+        "起拍价格": 2454000,
+        "成交价格": 4414000,
+        "交易时间": "2017/10/12 11:19:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558224690308.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
+        "是否成交": true,
+        "竞拍人数": 148,
+        "出价人数": 105,
+        "地点": "浙江省 杭州市 滨江区 长河街道",
+        "所属小区": "风景蝶院",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 144.06,
+        "单价": 30625.31,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "558047308382",
+        "url": "https://sf-item.taobao.com/sf_item/558047308382.htm?track_id=ea4eb8ff-33af-48f0-9fc5-5c633b8347fe",
+        "end": 1507773600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558241158946",
+        "url": "https://sf-item.taobao.com/sf_item/558241158946.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1507774328000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558269873317",
+        "url": "https://sf-item.taobao.com/sf_item/558269873317.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1507770000000,
         "status": "done",
         "is_processed": false
     }

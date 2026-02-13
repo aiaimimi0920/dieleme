@@ -43,10 +43,24 @@
         "detail_captured": true
     },
     {
-        "id": "44262224847",
-        "url": "https://sf-item.taobao.com/sf_item/44262224847.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
-        "end": 1428026400000,
-        "status": "done",
-        "is_processed": false
+        "id": 44262224847,
+        "市场评估价": 0,
+        "起拍价格": 600000,
+        "成交价格": 600000,
+        "交易时间": "2015/04/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44262224847.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "海盐县武原街道宜家花城61幢405室",
+        "所属小区": "宜家花城",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原商圈",
+        "建筑面积": 118.22,
+        "单价": 5075.28,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

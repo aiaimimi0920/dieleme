@@ -656,32 +656,88 @@
         "detail_captured": true
     },
     {
-        "id": "642074269079",
-        "url": "https://sf-item.taobao.com/sf_item/642074269079.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1620957830000,
-        "status": "done",
-        "is_processed": false
+        "id": 642074269079,
+        "市场评估价": 261855,
+        "起拍价格": 183299,
+        "成交价格": 183299,
+        "交易时间": "2021/05/14 10:03:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642074269079.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 艳粉街62-1号2-6-1",
+        "所属小区": "艳阳小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "艳粉板块",
+        "建筑面积": 52.9,
+        "单价": 3465.11,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "642492447173",
-        "url": "https://sf-item.taobao.com/sf_item/642492447173.htm?track_id=44061c44-dccf-40bc-8c44-df06897af9b1",
-        "end": 1620960177000,
-        "status": "done",
-        "is_processed": false
+        "id": 642492447173,
+        "市场评估价": 923547,
+        "起拍价格": 646483,
+        "成交价格": 796483,
+        "交易时间": "2021/05/14 10:42:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642492447173.htm?track_id=44061c44-dccf-40bc-8c44-df06897af9b1",
+        "是否成交": true,
+        "竞拍人数": 74,
+        "出价人数": 74,
+        "地点": "安徽省 合肥市 瑶海区 大通路116号6幢303室",
+        "所属小区": null,
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": null,
+        "建筑面积": 62.61,
+        "单价": 12720.17,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "643815527038",
-        "url": "https://sf-item.taobao.com/sf_item/643815527038.htm?track_id=8fa9c4cb-f3cd-40dc-b488-cc876c6a9da1",
-        "end": 1620957600000,
-        "status": "done",
-        "is_processed": false
+        "id": 643815527038,
+        "市场评估价": 2569700,
+        "起拍价格": 1618911,
+        "成交价格": 1618911,
+        "交易时间": "2021/05/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/643815527038.htm?track_id=8fa9c4cb-f3cd-40dc-b488-cc876c6a9da1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 3,
+        "地点": "辽宁省 沈阳市 浑南区 文溯街6-17号33门",
+        "所属小区": "东亚国际城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "浑南区",
+        "最靠近商圈": "奥体中心商圈",
+        "建筑面积": 232.87,
+        "单价": 6951.24,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "642745211781",
-        "url": "https://sf-item.taobao.com/sf_item/642745211781.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
-        "end": 1620957600000,
-        "status": "done",
-        "is_processed": false
+        "id": 642745211781,
+        "市场评估价": null,
+        "起拍价格": 176760.32,
+        "成交价格": 176760.32,
+        "交易时间": "2021/05/14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642745211781.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省梅州市蕉岭县蕉城镇新东北路二巷18-3号A栋601房",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "蕉城镇",
+        "建筑面积": 125.54,
+        "单价": 1408.09,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "641689776903",
@@ -701,6 +757,62 @@
         "id": "642087329345",
         "url": "https://sf-item.taobao.com/sf_item/642087329345.htm?track_id=6ae54ebd-72a6-469d-b121-c24b2586341e",
         "end": 1620961927000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642843584552",
+        "url": "https://sf-item.taobao.com/sf_item/642843584552.htm?track_id=b29a20ac-4526-4c00-8c7e-3478c2981281",
+        "end": 1620957600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643125069627",
+        "url": "https://sf-item.taobao.com/sf_item/643125069627.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1620957703000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643222097831",
+        "url": "https://sf-item.taobao.com/sf_item/643222097831.htm?track_id=4c4eeb49-6d0a-4655-9e36-002074dab1e8",
+        "end": 1620957959000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641706960134",
+        "url": "https://sf-item.taobao.com/sf_item/641706960134.htm?track_id=5f9c48bc-c41a-40e6-a9da-79c3ecd64fa1",
+        "end": 1620958340000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642873988122",
+        "url": "https://sf-item.taobao.com/sf_item/642873988122.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1620959607000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641709272860",
+        "url": "https://sf-item.taobao.com/sf_item/641709272860.htm?track_id=89143a92-a511-4287-9fd0-7f485c07af6e",
+        "end": 1620979200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642087469052",
+        "url": "https://sf-item.taobao.com/sf_item/642087469052.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1620958659000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641705456523",
+        "url": "https://sf-item.taobao.com/sf_item/641705456523.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1620959818000,
         "status": "done",
         "is_processed": false
     }

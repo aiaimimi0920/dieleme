@@ -657,15 +657,16 @@
         "竞拍人数": 47,
         "出价人数": 47,
         "地点": "江苏省苏州市虎丘区滨河里4幢",
-        "所属小区": null,
+        "所属小区": "滨河里",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "虎丘区",
-        "最靠近商圈": null,
+        "最靠近商圈": "狮山商圈",
         "建筑面积": 578.49,
-        "单价": 10318.8,
+        "单价": 10319.97,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 559782389963,
@@ -699,15 +700,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "江苏省 苏州市 姑苏区 苏州市西环路881号2幢906室",
-        "所属小区": null,
+        "所属小区": "西环大厦",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
-        "最靠近商圈": "西环路",
+        "最靠近商圈": "西环路商圈",
         "建筑面积": 150.26,
-        "单价": 14341.54,
+        "单价": 14341.81,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 559068776297,
@@ -738,23 +740,135 @@
         "is_processed": false
     },
     {
-        "id": "559263455546",
-        "url": "https://sf-item.taobao.com/sf_item/559263455546.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
-        "end": 1509076065000,
+        "id": 559263455546,
+        "市场评估价": null,
+        "起拍价格": 2400000,
+        "成交价格": 4910000,
+        "交易时间": "2017-10-27 11:47:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559263455546.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
+        "是否成交": true,
+        "竞拍人数": 90,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 梁溪区 无锡市阳光城市花园",
+        "所属小区": "无锡市阳光城市花园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "南禅寺商圈",
+        "建筑面积": 232.85,
+        "单价": 21095.61,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 559055452573,
+        "市场评估价": 1080000,
+        "起拍价格": 864000,
+        "成交价格": 894000,
+        "交易时间": "2017-10-27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559055452573.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
+        "是否成交": true,
+        "竞拍人数": 4,
+        "出价人数": 4,
+        "地点": "浙江省 杭州市 滨江区 江南大道",
+        "所属小区": "华荣时代大厦",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "江南大道",
+        "建筑面积": 72.66,
+        "单价": 12302.05,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 558936858243,
+        "市场评估价": 2152400,
+        "起拍价格": 1937160,
+        "成交价格": 1937160,
+        "交易时间": "2017/10/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558936858243.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "河南省郑州市二七区郑州市二七区政通路66号院5号楼2单元21层2105号",
+        "所属小区": "升龙国际中心",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "升龙国际商圈",
+        "建筑面积": 139.34,
+        "单价": 13904.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "559065268598",
+        "url": "https://sf-item.taobao.com/sf_item/559065268598.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "end": 1509071708000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "559055452573",
-        "url": "https://sf-item.taobao.com/sf_item/559055452573.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
-        "end": 1509069780000,
+        "id": "559769782744",
+        "url": "https://sf-item.taobao.com/sf_item/559769782744.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1509074413000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "558936858243",
-        "url": "https://sf-item.taobao.com/sf_item/558936858243.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "id": "559668624839",
+        "url": "https://sf-item.taobao.com/sf_item/559668624839.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
         "end": 1509069600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559760209704",
+        "url": "https://sf-item.taobao.com/sf_item/559760209704.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1509069600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559819366425",
+        "url": "https://sf-item.taobao.com/sf_item/559819366425.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1509069600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559887615490",
+        "url": "https://sf-item.taobao.com/sf_item/559887615490.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1509069600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558920160583",
+        "url": "https://sf-item.taobao.com/sf_item/558920160583.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1509069600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559130079296",
+        "url": "https://sf-item.taobao.com/sf_item/559130079296.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1509069600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559077024211",
+        "url": "https://sf-item.taobao.com/sf_item/559077024211.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1509093803000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559200962204",
+        "url": "https://sf-item.taobao.com/sf_item/559200962204.htm?track_id=eba88dd1-33f1-430f-afc6-b6c27ccbba5f",
+        "end": 1509070739000,
         "status": "done",
         "is_processed": false
     }

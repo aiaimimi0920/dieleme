@@ -273,11 +273,25 @@
         "detail_captured": true
     },
     {
-        "id": "811870765270",
-        "url": "https://sf-item.taobao.com/sf_item/811870765270.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
-        "end": 1721614850000,
-        "status": "done",
-        "is_processed": false
+        "id": 811870765270,
+        "市场评估价": null,
+        "起拍价格": 243000,
+        "成交价格": 331000,
+        "交易时间": "2024-07-22 10:20:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/811870765270.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": null,
+        "地点": "福建省 泉州市 安溪县 安溪县官桥镇官桥村悦城路55号2幢1梯1305室",
+        "所属小区": "悦城",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "官桥",
+        "建筑面积": 80.63,
+        "单价": 4105.99,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "812058350659",
@@ -290,6 +304,48 @@
         "id": "812223161434",
         "url": "https://sf-item.taobao.com/sf_item/812223161434.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
         "end": 1721615580000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "811638434065",
+        "url": "https://sf-item.taobao.com/sf_item/811638434065.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1721614079000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "792909275413",
+        "url": "https://sf-item.taobao.com/sf_item/792909275413.htm?track_id=f966165e-b876-4860-909d-4d7fffa42aec",
+        "end": 1721633992000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "811605371312",
+        "url": "https://sf-item.taobao.com/sf_item/811605371312.htm?track_id=f966165e-b876-4860-909d-4d7fffa42aec",
+        "end": 1721613600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "807943476020",
+        "url": "https://sf-item.taobao.com/sf_item/807943476020.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1721621322000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "811561992958",
+        "url": "https://sf-item.taobao.com/sf_item/811561992958.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1721618227000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "804888298517",
+        "url": "https://sf-item.taobao.com/sf_item/804888298517.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1721616530000,
         "status": "done",
         "is_processed": false
     }

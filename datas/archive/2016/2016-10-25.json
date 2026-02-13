@@ -106,11 +106,25 @@
         "detail_captured": true
     },
     {
-        "id": "539797892661",
-        "url": "https://sf-item.taobao.com/sf_item/539797892661.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
-        "end": 1477404186000,
-        "status": "done",
-        "is_processed": false
+        "id": 539797892661,
+        "市场评估价": null,
+        "起拍价格": 107200,
+        "成交价格": 107200,
+        "交易时间": "2016/10/25 22:03:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539797892661.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县",
+        "所属小区": "邮电局宿舍",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": null,
+        "建筑面积": 40.35,
+        "单价": 2656.29,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "539792692017",
@@ -120,11 +134,25 @@
         "is_processed": false
     },
     {
-        "id": "539727073312",
-        "url": "https://sf-item.taobao.com/sf_item/539727073312.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
-        "end": 1477406798000,
-        "status": "done",
-        "is_processed": false
+        "id": 539727073312,
+        "市场评估价": null,
+        "起拍价格": 1220000,
+        "成交价格": 1502000,
+        "交易时间": "2016/10/25 22:46:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539727073312.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "泉州市丰泽区东海中芸洲海景花园城高层高尚住宅区6#楼名锐1402房",
+        "所属小区": "中芸洲海景花园城",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "丰泽区",
+        "最靠近商圈": "东海",
+        "建筑面积": 196.92,
+        "单价": 7626.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "539783029905",

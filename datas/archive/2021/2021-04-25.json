@@ -84,12 +84,25 @@
         "detail_captured": true
     },
     {
-        "id": "641175786723",
-        "url": "https://sf-item.taobao.com/sf_item/641175786723.htm?track_id=00a8d63d-3334-4454-a1c9-d3ccb4eac2f9",
-        "end": 1619316809000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/641175786723.htm"
+        "id": 641175786723,
+        "市场评估价": 459292,
+        "起拍价格": 322000,
+        "成交价格": 3061200,
+        "交易时间": "2021-04-25 10:13:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641175786723.htm?track_id=00a8d63d-3334-4454-a1c9-d3ccb4eac2f9",
+        "是否成交": true,
+        "竞拍人数": 246,
+        "出价人数": 246,
+        "地点": "江苏省 苏州市 相城区 望亭镇马驿新邨51幢102号",
+        "所属小区": "望亭镇马驿新邨",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "望亭",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 642424903061,
@@ -113,18 +126,46 @@
         "detail_captured": true
     },
     {
-        "id": "641536435342",
-        "url": "https://sf-item.taobao.com/sf_item/641536435342.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
-        "end": 1619318279000,
-        "status": "done",
-        "is_processed": false
+        "id": 641536435342,
+        "市场评估价": 369301,
+        "起拍价格": 258510.7,
+        "成交价格": 285510.7,
+        "交易时间": "2021-04-25 10:37:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641536435342.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": 28,
+        "地点": "辽宁省 沈阳市 铁西区 建设中路68号16-3",
+        "所属小区": "铁西区建设中路",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 59.44,
+        "单价": 4805.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "641203458983",
-        "url": "https://sf-item.taobao.com/sf_item/641203458983.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1619316280000,
-        "status": "done",
-        "is_processed": false
+        "id": 641203458983,
+        "市场评估价": 413500,
+        "起拍价格": 289450,
+        "成交价格": 289450,
+        "交易时间": "2021/04/25 10:04:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641203458983.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 开发二十一号路13-1号3-6-4",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 82.46,
+        "单价": 3510.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "641524571663",
@@ -144,6 +185,20 @@
         "id": "638781723670",
         "url": "https://sf-item.taobao.com/sf_item/638781723670.htm?track_id=963d0425-54e8-4a01-88cf-6133f7f3e41c",
         "end": 1619335374000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642139082579",
+        "url": "https://sf-item.taobao.com/sf_item/642139082579.htm?track_id=895fcaa5-fb8d-48ba-9e9d-667dedb92adf",
+        "end": 1619316000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641417868071",
+        "url": "https://sf-item.taobao.com/sf_item/641417868071.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1619316182000,
         "status": "done",
         "is_processed": false
     }

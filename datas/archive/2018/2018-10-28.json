@@ -200,15 +200,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "贵州省 黔西南布依族苗族自治州 兴义市 铁匠街东路D区",
-        "所属小区": null,
+        "所属小区": "铁匠街小区",
         "省份": "贵州省",
-        "城市": "黔西南布依族苗族自治州",
-        "区": "兴义市",
-        "最靠近商圈": null,
+        "城市": "兴义市",
+        "区": "下五屯街道",
+        "最靠近商圈": "兴义中心商圈",
         "建筑面积": 27.08,
-        "单价": 8852.32,
+        "单价": 8844.46,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 578420511777,
@@ -274,9 +275,37 @@
         "detail_captured": true
     },
     {
-        "id": "575359505865",
-        "url": "https://sf-item.taobao.com/sf_item/575359505865.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
-        "end": 1540690136000,
+        "id": 575359505865,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 649800,
+        "交易时间": "2018-10-27T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/575359505865.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省 遵义市 汇川区 杭州路民生开发房13#幢501号",
+        "所属小区": "民生开发房",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "高桥",
+        "建筑面积": 139.33,
+        "单价": 4660.53,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "579138262416",
+        "url": "https://sf-item.taobao.com/sf_item/579138262416.htm?track_id=b2a0791c-e94d-46c9-b7b2-e898b5ba78f0",
+        "end": 1540692000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579394195242",
+        "url": "https://sf-item.taobao.com/sf_item/579394195242.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
+        "end": 1540692230000,
         "status": "done",
         "is_processed": false
     }

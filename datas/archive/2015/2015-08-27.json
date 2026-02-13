@@ -1,9 +1,23 @@
 [
     {
-        "id": "521219866121",
-        "url": "https://sf-item.taobao.com/sf_item/521219866121.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
-        "end": 1440642345000,
-        "status": "done",
-        "is_processed": false
+        "id": 521219866121,
+        "市场评估价": null,
+        "起拍价格": 650000,
+        "成交价格": 809000,
+        "交易时间": "2015-08-26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/521219866121.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道新桥北路202号盛世嘉园31幢802室",
+        "所属小区": "盛世嘉园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道商圈",
+        "建筑面积": 128.22,
+        "单价": 6309.47,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

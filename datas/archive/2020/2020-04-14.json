@@ -688,11 +688,25 @@
         "is_processed": false
     },
     {
-        "id": "614017652989",
-        "url": "https://sf-item.taobao.com/sf_item/614017652989.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
-        "end": 1586831660000,
-        "status": "done",
-        "is_processed": false
+        "id": 614017652989,
+        "市场评估价": 1745000,
+        "起拍价格": 636052.5,
+        "成交价格": 636052.5,
+        "交易时间": "2020/04/14 10:34:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/614017652989.htm?track_id=32fb225b-98ac-418c-9860-52c152595338",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 平顶山市 湛河区 新华路南段路东锦绣花园34#35楼间商业4号1-2层商铺的50%份额",
+        "所属小区": "锦绣花园",
+        "省份": "河南省",
+        "城市": "平顶山市",
+        "区": "湛河区",
+        "最靠近商圈": "新华路商圈",
+        "建筑面积": 64.66,
+        "单价": 9835.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "613768307574",
@@ -712,6 +726,34 @@
         "id": "613006792451",
         "url": "https://sf-item.taobao.com/sf_item/613006792451.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
         "end": 1586829847000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611873456207",
+        "url": "https://sf-item.taobao.com/sf_item/611873456207.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1586833550000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613702386399",
+        "url": "https://sf-item.taobao.com/sf_item/613702386399.htm?track_id=1f756e4c-b012-46bd-9069-1a5d9bb4c457",
+        "end": 1586830163000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "614191622073",
+        "url": "https://sf-item.taobao.com/sf_item/614191622073.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1586843748000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "612455299610",
+        "url": "https://sf-item.taobao.com/sf_item/612455299610.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1586865026000,
         "status": "done",
         "is_processed": false
     }

@@ -318,9 +318,72 @@
         "detail_captured": true
     },
     {
-        "id": "711880483784",
-        "url": "https://sf-item.taobao.com/sf_item/711880483784.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
-        "end": 1686704611000,
+        "id": 711880483784,
+        "市场评估价": 0,
+        "起拍价格": 11403775.8,
+        "成交价格": 11403775.8,
+        "交易时间": "2023/06/14 09:03:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/711880483784.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 凤城九路北侧42幢10103室商铺一套",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城商圈",
+        "建筑面积": 544.3,
+        "单价": 20955.54,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "718476370993",
+        "url": "https://sf-item.taobao.com/sf_item/718476370993.htm?track_id=addbb771-a109-4b32-8cec-541c849a16ea",
+        "end": 1686708717000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "718307026632",
+        "url": "https://sf-item.taobao.com/sf_item/718307026632.htm?track_id=f3e6fb9d-e938-488c-9090-5238a2891f28",
+        "end": 1686718751000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "718669875187",
+        "url": "https://sf-item.taobao.com/sf_item/718669875187.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1686708215000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "718676699479",
+        "url": "https://sf-item.taobao.com/sf_item/718676699479.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1686708135000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "718682855592",
+        "url": "https://sf-item.taobao.com/sf_item/718682855592.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1686708028000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "718174761859",
+        "url": "https://sf-item.taobao.com/sf_item/718174761859.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1686710184000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "717699692866",
+        "url": "https://sf-item.taobao.com/sf_item/717699692866.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1686708524000,
         "status": "done",
         "is_processed": false
     }

@@ -63,11 +63,25 @@
         "detail_captured": true
     },
     {
-        "id": "44837366683",
-        "url": "https://sf-item.taobao.com/sf_item/44837366683.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1432605611000,
-        "status": "done",
-        "is_processed": false
+        "id": 44837366683,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 661842,
+        "交易时间": "2015/05/26 10:00:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44837366683.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 新密市",
+        "所属小区": "金泊宫",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 182.93,
+        "单价": 3618.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "45306173444",

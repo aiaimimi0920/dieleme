@@ -253,9 +253,58 @@
         "detail_captured": true
     },
     {
-        "id": "927060743983",
-        "url": "https://sf-item.taobao.com/sf_item/927060743983.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
-        "end": 1750308640000,
+        "id": 927060743983,
+        "市场评估价": null,
+        "起拍价格": 463176,
+        "成交价格": 463176,
+        "交易时间": "2025/06/19 12:50:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/927060743983.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 人民路麒麟广场E栋1-17-1号房产",
+        "所属小区": "麒麟广场",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": 134.03,
+        "单价": 3455.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "918988261089",
+        "url": "https://sf-item.taobao.com/sf_item/918988261089.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1750303814000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "918465642589",
+        "url": "https://sf-item.taobao.com/sf_item/918465642589.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1750300168000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "934425532320",
+        "url": "https://sf-item.taobao.com/sf_item/934425532320.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1750300121000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "921426045421",
+        "url": "https://sf-item.taobao.com/sf_item/921426045421.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1750298464000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "921736716032",
+        "url": "https://sf-item.taobao.com/sf_item/921736716032.htm?track_id=d6b81b23-6b98-4054-93da-db45c73c9f79",
+        "end": 1750298402000,
         "status": "done",
         "is_processed": false
     }

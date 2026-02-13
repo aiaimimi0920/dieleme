@@ -105,20 +105,46 @@
         "detail_captured": true
     },
     {
-        "id": "714116910229",
-        "url": "https://sf-item.taobao.com/sf_item/714116910229.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
-        "end": 1685241472000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/714116910229.htm"
+        "id": 714116910229,
+        "市场评估价": 465900,
+        "起拍价格": 326130,
+        "成交价格": 398130,
+        "交易时间": "2023-05-28T10:37:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/714116910229.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 18,
+        "地点": "湘潭市雨湖区昭潭乡韶山西路阳光山庄雅园7栋201室",
+        "所属小区": "阳光山庄雅园",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "韶山商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "717732640244",
-        "url": "https://sf-item.taobao.com/sf_item/717732640244.htm?track_id=20e6829f-912f-49de-a426-a2394f1d095f",
-        "end": 1685240626000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/717732640244.htm"
+        "id": 717732640244,
+        "市场评估价": 1650000,
+        "起拍价格": 924000,
+        "成交价格": 993000,
+        "交易时间": "2023-05-28 10:23:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/717732640244.htm?track_id=20e6829f-912f-49de-a426-a2394f1d095f",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 18,
+        "地点": "江苏省 苏州市 吴中区 苏州太湖国家旅游度假区香山花园102幢403室",
+        "所属小区": "香山花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "苏州太湖国家旅游度假区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 717351040331,
@@ -161,5 +187,12 @@
         "单价": 5565.6,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "715059510853",
+        "url": "https://sf-item.taobao.com/sf_item/715059510853.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1685239200000,
+        "status": "done",
+        "is_processed": false
     }
 ]

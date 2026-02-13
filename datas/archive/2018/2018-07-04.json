@@ -406,18 +406,46 @@
         "detail_captured": true
     },
     {
-        "id": "571426447844",
-        "url": "https://sf-item.taobao.com/sf_item/571426447844.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
-        "end": 1530670877000,
-        "status": "done",
-        "is_processed": false
+        "id": 571426447844,
+        "市场评估价": 2809244,
+        "起拍价格": 1573177,
+        "成交价格": 1813177,
+        "交易时间": "2018/07/04 10:21:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571426447844.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
+        "是否成交": true,
+        "竞拍人数": 49,
+        "出价人数": 49,
+        "地点": "辽宁省 沈阳市 铁西区 齐贤北街28甲2（6门）",
+        "所属小区": "齐贤小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 172.23,
+        "单价": 10528.46,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "570473526934",
-        "url": "https://sf-item.taobao.com/sf_item/570473526934.htm?track_id=851581af-a6c5-4cfc-a0ec-51191b76b75c",
-        "end": 1530674286000,
-        "status": "done",
-        "is_processed": false
+        "id": 570473526934,
+        "市场评估价": null,
+        "起拍价格": 541730,
+        "成交价格": 891730,
+        "交易时间": "2018/07/04 11:18:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570473526934.htm?track_id=851581af-a6c5-4cfc-a0ec-51191b76b75c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 204,
+        "地点": "陕西省西安市灞桥区矿山路988号20幢11510号房屋",
+        "所属小区": "浐灞半岛",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "灞桥区",
+        "最靠近商圈": "浐灞",
+        "建筑面积": 67.79,
+        "单价": 13154.45,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "570473594940",
@@ -427,9 +455,51 @@
         "is_processed": false
     },
     {
-        "id": "571117523060",
-        "url": "https://sf-item.taobao.com/sf_item/571117523060.htm?track_id=8fa9c4cb-f3cd-40dc-b488-cc876c6a9da1",
-        "end": 1530677336000,
+        "id": 571117523060,
+        "市场评估价": 4358230,
+        "起拍价格": 1711124,
+        "成交价格": 1711124,
+        "交易时间": "2018/07/04 12:08:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571117523060.htm?track_id=8fa9c4cb-f3cd-40dc-b488-cc876c6a9da1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 浑南区 沈阳市东陵区高官台街20号6门",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "浑南区",
+        "最靠近商圈": null,
+        "建筑面积": 316.64,
+        "单价": 5406.96,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "570473582759",
+        "url": "https://sf-item.taobao.com/sf_item/570473582759.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1530670918000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570473526874",
+        "url": "https://sf-item.taobao.com/sf_item/570473526874.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1530671779000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570561043864",
+        "url": "https://sf-item.taobao.com/sf_item/570561043864.htm?track_id=1f756e4c-b012-46bd-9069-1a5d9bb4c457",
+        "end": 1530671410000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570560267685",
+        "url": "https://sf-item.taobao.com/sf_item/570560267685.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1530669764000,
         "status": "done",
         "is_processed": false
     }

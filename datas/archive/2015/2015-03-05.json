@@ -22,9 +22,30 @@
         "manual_checked": true
     },
     {
-        "id": "43834898930",
-        "url": "https://sf-item.taobao.com/sf_item/43834898930.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
-        "end": 1425521937000,
+        "id": 43834898930,
+        "市场评估价": null,
+        "起拍价格": 688926,
+        "成交价格": 762926,
+        "交易时间": "2015-03-05 10:18:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43834898930.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": null,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 沙包堡龙江村九组",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "沙包堡",
+        "建筑面积": 293.16,
+        "单价": 2600.31,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "43880852525",
+        "url": "https://sf-item.taobao.com/sf_item/43880852525.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1425522147000,
         "status": "done",
         "is_processed": false
     }

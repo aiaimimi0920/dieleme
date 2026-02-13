@@ -528,11 +528,12 @@
         "省份": "山东省",
         "城市": "威海市",
         "区": "荣成市",
-        "最靠近商圈": null,
+        "最靠近商圈": "荣成市区商圈",
         "建筑面积": 92.14,
-        "单价": 4992.41,
+        "单价": 4992.4,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 571152811080,
@@ -675,25 +676,54 @@
         "省份": "浙江省",
         "城市": "温州市",
         "区": "泰顺县",
-        "最靠近商圈": null,
+        "最靠近商圈": "罗阳镇中心商圈",
         "建筑面积": null,
         "单价": 0,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 570473526985,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 652770,
+        "交易时间": "2018/07/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570473526985.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 新密市城区青屏大街西段北侧（新天地·商居园5号楼）190001",
+        "所属小区": "新天地·商居园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏大街",
+        "建筑面积": 187.41,
+        "单价": 3482.52,
         "is_processed": true,
         "detail_captured": true
     },
     {
-        "id": "570473526985",
-        "url": "https://sf-item.taobao.com/sf_item/570473526985.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1530842400000,
-        "status": "done",
-        "is_processed": false
-    },
-    {
-        "id": "571117523004",
-        "url": "https://sf-item.taobao.com/sf_item/571117523004.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1530842400000,
-        "status": "done",
-        "is_processed": false
+        "id": 571117523004,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 1653250,
+        "交易时间": "2018/07/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571117523004.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 新密市城区青屏大街与平安路交叉口（东森凯悦园邸）1-3层自东向西第1户联排别墅一处",
+        "所属小区": "东森凯悦园邸",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏大街",
+        "建筑面积": 275.93,
+        "单价": 5993.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "571725158243",
@@ -703,23 +733,107 @@
         "is_processed": false
     },
     {
-        "id": "571617973258",
-        "url": "https://sf-item.taobao.com/sf_item/571617973258.htm?track_id=5984ec99-f57e-41fa-b161-c6b01e8eae21",
-        "end": 1530845214000,
-        "status": "done",
-        "is_processed": false
+        "id": 571617973258,
+        "市场评估价": null,
+        "起拍价格": 380000,
+        "成交价格": 497000,
+        "交易时间": "2018/07/06 10:46:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571617973258.htm?track_id=5984ec99-f57e-41fa-b161-c6b01e8eae21",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": 40,
+        "地点": "广西壮族自治区 贵港市 桂平市 桂平市西山镇兴宁街桂平商厦D幢402号房",
+        "所属小区": "桂平商厦",
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "桂平商厦",
+        "建筑面积": 139.95,
+        "单价": 3552.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "570373309810",
-        "url": "https://sf-item.taobao.com/sf_item/570373309810.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
-        "end": 1530847246000,
-        "status": "done",
-        "is_processed": false
+        "id": 570373309810,
+        "市场评估价": 1507100,
+        "起拍价格": 964544,
+        "成交价格": 1159544,
+        "交易时间": "2018/07/06 11:20:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570373309810.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 39,
+        "地点": "河南省 郑州市 二七区 兴华南街166号院8号楼3单元31号",
+        "所属小区": "绿云小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 122.34,
+        "单价": 9473.29,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "570838000011",
         "url": "https://sf-item.taobao.com/sf_item/570838000011.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
         "end": 1530846428000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571036795142",
+        "url": "https://sf-item.taobao.com/sf_item/571036795142.htm?track_id=c50edd57-1d55-4788-bc81-d598c484f17f",
+        "end": 1530845487000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570871629153",
+        "url": "https://sf-item.taobao.com/sf_item/570871629153.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1530846201000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570473570735",
+        "url": "https://sf-item.taobao.com/sf_item/570473570735.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1530846925000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570246096739",
+        "url": "https://sf-item.taobao.com/sf_item/570246096739.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1530848362000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570473594824",
+        "url": "https://sf-item.taobao.com/sf_item/570473594824.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1530848495000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570473594750",
+        "url": "https://sf-item.taobao.com/sf_item/570473594750.htm?track_id=6aabcd90-810d-43c8-9914-e7c57096882b",
+        "end": 1530845177000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571152811023",
+        "url": "https://sf-item.taobao.com/sf_item/571152811023.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
+        "end": 1530844453000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570772372018",
+        "url": "https://sf-item.taobao.com/sf_item/570772372018.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1530842960000,
         "status": "done",
         "is_processed": false
     }

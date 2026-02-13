@@ -422,16 +422,93 @@
         "detail_captured": true
     },
     {
-        "id": "617745241193",
-        "url": "https://sf-item.taobao.com/sf_item/617745241193.htm?track_id=2d93ff24-d2fd-490e-bf75-4ad6c170e512",
-        "end": 1591755064000,
+        "id": 617745241193,
+        "市场评估价": 656000,
+        "起拍价格": 520000,
+        "成交价格": 620000,
+        "交易时间": "2020-06-10 10:11:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/617745241193.htm?track_id=2d93ff24-d2fd-490e-bf75-4ad6c170e512",
+        "是否成交": true,
+        "竞拍人数": 35,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 中央大街20甲1-4-83号1-15-4",
+        "所属小区": "特变之家",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 119.66,
+        "单价": 5181.46,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 617830069184,
+        "市场评估价": 500000,
+        "起拍价格": 500000,
+        "成交价格": 805000,
+        "交易时间": "2020-06-10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/617830069184.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 56,
+        "地点": "浙江省温州市龙湾区永中街道永定路1188号万达商业广场5幢1201室",
+        "所属小区": "万达商业广场",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "龙湾区",
+        "最靠近商圈": "永中商圈",
+        "建筑面积": 59.96,
+        "单价": 13425.62,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "618084138680",
+        "url": "https://sf-item.taobao.com/sf_item/618084138680.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "end": 1591754400000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "617830069184",
-        "url": "https://sf-item.taobao.com/sf_item/617830069184.htm?track_id=0579d10a-8419-4e6c-b01d-ef51e11777ea",
-        "end": 1591755872000,
+        "id": "618321791423",
+        "url": "https://sf-item.taobao.com/sf_item/618321791423.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1591754946000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617527044801",
+        "url": "https://sf-item.taobao.com/sf_item/617527044801.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "end": 1591754945000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "618733001716",
+        "url": "https://sf-item.taobao.com/sf_item/618733001716.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1591754400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "618448162389",
+        "url": "https://sf-item.taobao.com/sf_item/618448162389.htm?track_id=7910db3a-160d-47d2-a0b9-9ea879422ee1",
+        "end": 1591756091000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617528092502",
+        "url": "https://sf-item.taobao.com/sf_item/617528092502.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1591756358000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "618339743850",
+        "url": "https://sf-item.taobao.com/sf_item/618339743850.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1591754400000,
         "status": "done",
         "is_processed": false
     }

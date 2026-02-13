@@ -463,23 +463,58 @@
         "detail_captured": true
     },
     {
-        "id": "997879358748",
-        "url": "https://sf-item.taobao.com/sf_item/997879358748.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
-        "end": 1765937045000,
-        "status": "done",
-        "is_processed": false
+        "id": 997879358748,
+        "市场评估价": null,
+        "起拍价格": 250648,
+        "成交价格": 250648,
+        "交易时间": "2025/12/17 10:04:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/997879358748.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "湖北省 十堰市 茅箭区 五堰街办柳林路黄花巷22号10幢1-1-1、1-1-2号",
+        "所属小区": null,
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": "五堰商圈",
+        "建筑面积": 81.65,
+        "单价": 3069.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "993288074870",
-        "url": "https://sf-item.taobao.com/sf_item/993288074870.htm?track_id=b100dc58-8747-482c-b3ec-c2a9c6284bae",
-        "end": 1765936800000,
-        "status": "done",
-        "is_processed": false
+        "id": 993288074870,
+        "市场评估价": 737084,
+        "起拍价格": 515959,
+        "成交价格": 515959,
+        "交易时间": "2025-12-17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/993288074870.htm?track_id=b100dc58-8747-482c-b3ec-c2a9c6284bae",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "贵州省黔东南苗族侗族自治州丹寨县龙泉镇兴泉路",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "黔东南苗族侗族自治州",
+        "区": "丹寨县",
+        "最靠近商圈": null,
+        "建筑面积": 30.74,
+        "单价": 16790.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "994278965490",
         "url": "https://sf-item.taobao.com/sf_item/994278965490.htm?track_id=f0ab8160-a6c9-4731-aa8f-79271cd5c413",
         "end": 1765938380000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "998420810585",
+        "url": "https://sf-item.taobao.com/sf_item/998420810585.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1765938352000,
         "status": "done",
         "is_processed": false
     }

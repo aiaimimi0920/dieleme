@@ -205,12 +205,25 @@
         "detail_captured": true
     },
     {
-        "id": "737251613203",
-        "url": "https://sf-item.taobao.com/sf_item/737251613203.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
-        "end": 1695261600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/737251613203.htm"
+        "id": 737251613203,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 535216,
+        "交易时间": "2023/09/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/737251613203.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "江苏省 淮安市 淮安区 翔宇南道1001号阳光广场2号楼502室",
+        "所属小区": "阳光广场",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 736951583969,
@@ -234,12 +247,25 @@
         "detail_captured": true
     },
     {
-        "id": "734215968652",
-        "url": "https://sf-item.taobao.com/sf_item/734215968652.htm?track_id=c8335557-dab5-4022-832a-6b1bc7c7410e",
-        "end": 1695268300000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/734215968652.htm"
+        "id": 734215968652,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 8168000,
+        "交易时间": "2023-09-21 11:51:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/734215968652.htm?track_id=c8335557-dab5-4022-832a-6b1bc7c7410e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省 苏州市 吴中区 苏州市吴中经济开发区郭巷街道独墅湖西玲珑花园26幢105室不动产",
+        "所属小区": "独墅湖西玲珑花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "郭巷",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 731450085506,
@@ -452,11 +478,25 @@
         "detail_captured": true
     },
     {
-        "id": "737298821249",
-        "url": "https://sf-item.taobao.com/sf_item/737298821249.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
-        "end": 1695262604000,
-        "status": "done",
-        "is_processed": false
+        "id": 737298821249,
+        "市场评估价": 381238,
+        "起拍价格": 213493.28,
+        "成交价格": 291493.28,
+        "交易时间": "2023/09/21 10:16:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/737298821249.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 40,
+        "地点": "四川省 资阳市 乐至县 迎宾大道393号1栋1单元32楼5号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "乐至县城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 737121488668,
@@ -480,9 +520,30 @@
         "detail_captured": true
     },
     {
-        "id": "737410906866",
-        "url": "https://sf-item.taobao.com/sf_item/737410906866.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
-        "end": 1695263459000,
+        "id": 737410906866,
+        "市场评估价": 0,
+        "起拍价格": 414272,
+        "成交价格": 442272,
+        "交易时间": "2023/09/21 10:30:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/737410906866.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 15,
+        "地点": "湖南省 常德市 鼎城区 郭家铺街道大湖路汉晨江南景园",
+        "所属小区": "汉晨江南景园",
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": "郭家铺街道",
+        "建筑面积": 119.48,
+        "单价": 3702.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "734457203939",
+        "url": "https://sf-item.taobao.com/sf_item/734457203939.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1695261600000,
         "status": "done",
         "is_processed": false
     }

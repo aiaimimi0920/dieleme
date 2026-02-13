@@ -1071,11 +1071,12 @@
         "省份": "山东省",
         "城市": "威海市",
         "区": "荣成市",
-        "最靠近商圈": null,
+        "最靠近商圈": "步行街商圈",
         "建筑面积": 71.2,
-        "单价": 13637.92,
+        "单价": 13637.64,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 570269518235,
@@ -1204,18 +1205,46 @@
         "detail_captured": true
     },
     {
-        "id": "570500967103",
-        "url": "https://sf-item.taobao.com/sf_item/570500967103.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
-        "end": 1529979574000,
-        "status": "done",
-        "is_processed": false
+        "id": 570500967103,
+        "市场评估价": 285145,
+        "起拍价格": 199602,
+        "成交价格": 263474,
+        "交易时间": "2018/06/26 10:19:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570500967103.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省 吉林市 船营区 理想家园1号楼A号农贸市场1单元4层7号",
+        "所属小区": "理想家园",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": null,
+        "建筑面积": 61.19,
+        "单价": 4305.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "569945111770",
-        "url": "https://sf-item.taobao.com/sf_item/569945111770.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
-        "end": 1529979748000,
-        "status": "done",
-        "is_processed": false
+        "id": 569945111770,
+        "市场评估价": null,
+        "起拍价格": 383600,
+        "成交价格": 451600,
+        "交易时间": "2018-06-26 10:22:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569945111770.htm?track_id=a43ebf2e-bd10-4693-9115-1bc509f9ab19",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省沈阳市铁西区经济技术开发区中央大街20甲1-4-26号2-4-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 77.65,
+        "单价": 5812.21,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "570560687048",
@@ -1232,9 +1261,93 @@
         "is_processed": false
     },
     {
-        "id": "571057993001",
-        "url": "https://sf-item.taobao.com/sf_item/571057993001.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
-        "end": 1529982775000,
+        "id": 571057993001,
+        "市场评估价": 6559800,
+        "起拍价格": 3673488,
+        "成交价格": 4363488,
+        "交易时间": "2018/06/26 11:12:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571057993001.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 70,
+        "地点": "厦门市思明区嘉禾路341号3306室",
+        "所属小区": "潇湘大厦",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "思明区",
+        "最靠近商圈": "莲坂商圈",
+        "建筑面积": 152.22,
+        "单价": 28662.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "570226221650",
+        "url": "https://sf-item.taobao.com/sf_item/570226221650.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "end": 1529979611000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570413855916",
+        "url": "https://sf-item.taobao.com/sf_item/570413855916.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1529984946000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570294433408",
+        "url": "https://sf-item.taobao.com/sf_item/570294433408.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1529980247000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570196108420",
+        "url": "https://sf-item.taobao.com/sf_item/570196108420.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
+        "end": 1529981320000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570096628493",
+        "url": "https://sf-item.taobao.com/sf_item/570096628493.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
+        "end": 1529979947000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570184969833",
+        "url": "https://sf-item.taobao.com/sf_item/570184969833.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1529985917000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570276894176",
+        "url": "https://sf-item.taobao.com/sf_item/570276894176.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "end": 1529980207000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569327869611",
+        "url": "https://sf-item.taobao.com/sf_item/569327869611.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1529980582000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570930128120",
+        "url": "https://sf-item.taobao.com/sf_item/570930128120.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1529979388000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570039771703",
+        "url": "https://sf-item.taobao.com/sf_item/570039771703.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1529985922000,
         "status": "done",
         "is_processed": false
     }

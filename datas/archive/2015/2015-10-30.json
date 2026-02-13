@@ -42,16 +42,44 @@
         "detail_captured": true
     },
     {
-        "id": "523056904858",
-        "url": "https://sf-item.taobao.com/sf_item/523056904858.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
-        "end": 1446172127000,
-        "status": "done",
-        "is_processed": false
+        "id": 523056904858,
+        "市场评估价": 0,
+        "起拍价格": 1000000,
+        "成交价格": 1072000,
+        "交易时间": "2015/10/30 10:28:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523056904858.htm?track_id=83333dca-cbb4-4586-abc4-355c415943cc",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 24,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道金域蓝湾17幢1002室",
+        "所属小区": "金域蓝湾",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 167.99,
+        "单价": 6381.71,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "523020973399",
         "url": "https://sf-item.taobao.com/sf_item/523020973399.htm?track_id=4ad87b93-3084-4bc2-9259-b6b0538f1145",
         "end": 1446171741000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "522989692236",
+        "url": "https://sf-item.taobao.com/sf_item/522989692236.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1446173788000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "522962583388",
+        "url": "https://sf-item.taobao.com/sf_item/522962583388.htm?track_id=ec0864e8-1dfb-4aa2-9cc5-3a21f48d84d2",
+        "end": 1446171306000,
         "status": "done",
         "is_processed": false
     }

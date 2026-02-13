@@ -344,16 +344,58 @@
         "is_processed": false
     },
     {
-        "id": "627815683981",
-        "url": "https://sf-item.taobao.com/sf_item/627815683981.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
-        "end": 1601776800000,
-        "status": "done",
-        "is_processed": false
+        "id": 627815683981,
+        "市场评估价": null,
+        "起拍价格": 256000,
+        "成交价格": 256000,
+        "交易时间": "2020/10/04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/627815683981.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 淄博市 博山区 博山区北神头凤凰花苑小区8号楼",
+        "所属小区": "凤凰花苑小区",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "北神头",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "627427930006",
         "url": "https://sf-item.taobao.com/sf_item/627427930006.htm?track_id=e9db07e5-7acb-4b43-9d9c-583daa52fdcf",
         "end": 1601776829000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626835603632",
+        "url": "https://sf-item.taobao.com/sf_item/626835603632.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1601779339000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626812843611",
+        "url": "https://sf-item.taobao.com/sf_item/626812843611.htm?track_id=0d0a4b96-3475-41c6-be82-f884580aae77",
+        "end": 1601777280000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625935980310",
+        "url": "https://sf-item.taobao.com/sf_item/625935980310.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "end": 1601776800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "627919779776",
+        "url": "https://sf-item.taobao.com/sf_item/627919779776.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1601777385000,
         "status": "done",
         "is_processed": false
     }

@@ -105,9 +105,58 @@
         "is_processed": false
     },
     {
-        "id": "773390544247",
-        "url": "https://sf-item.taobao.com/sf_item/773390544247.htm?track_id=909e3e03-2756-4d7b-84a1-406321c112b1",
-        "end": 1713060367000,
+        "id": 773390544247,
+        "市场评估价": null,
+        "起拍价格": 1572760,
+        "成交价格": 1872760,
+        "交易时间": "2024/04/14 10:06:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/773390544247.htm?track_id=909e3e03-2756-4d7b-84a1-406321c112b1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区 郑东新区七里河北路晖达新天地158号6号楼2单元29层2904号房产",
+        "所属小区": "晖达新天地",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "郑东新区商圈",
+        "建筑面积": 142.33,
+        "单价": 13158.23,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "778288263675",
+        "url": "https://sf-item.taobao.com/sf_item/778288263675.htm?track_id=6aabcd90-810d-43c8-9914-e7c57096882b",
+        "end": 1713064750000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "778320754203",
+        "url": "https://sf-item.taobao.com/sf_item/778320754203.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1713064247000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "778352237587",
+        "url": "https://sf-item.taobao.com/sf_item/778352237587.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "end": 1713062170000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "778352589995",
+        "url": "https://sf-item.taobao.com/sf_item/778352589995.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "end": 1713061149000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "777720852970",
+        "url": "https://sf-item.taobao.com/sf_item/777720852970.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
+        "end": 1713060009000,
         "status": "done",
         "is_processed": false
     }

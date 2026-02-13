@@ -422,37 +422,156 @@
         "detail_captured": true
     },
     {
-        "id": "601478477812",
-        "url": "https://sf-item.taobao.com/sf_item/601478477812.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
-        "end": 1568269448000,
-        "status": "done",
-        "is_processed": false
+        "id": 601478477812,
+        "市场评估价": 4141638,
+        "起拍价格": 2464275,
+        "成交价格": 3004275,
+        "交易时间": "2019-09-12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/601478477812.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 107,
+        "地点": "辽宁省沈阳市铁西区南八西路11号",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 364.1,
+        "单价": 8251.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "600161887089",
-        "url": "https://sf-item.taobao.com/sf_item/600161887089.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
-        "end": 1568253600000,
-        "status": "done",
-        "is_processed": false
+        "id": 600161887089,
+        "市场评估价": null,
+        "起拍价格": 1097672,
+        "成交价格": 1097672,
+        "交易时间": "2019-09-12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600161887089.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 霁虹街22巷1-1号2-3-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 159.88,
+        "单价": 6864.36,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "601035248701",
-        "url": "https://sf-item.taobao.com/sf_item/601035248701.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
-        "end": 1568253600000,
-        "status": "done",
-        "is_processed": false
+        "id": 601035248701,
+        "市场评估价": 404600,
+        "起拍价格": 226576,
+        "成交价格": 226576,
+        "交易时间": "2019/09/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/601035248701.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 保工南街79号2-8-3",
+        "所属小区": "佳富小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 66.11,
+        "单价": 3426.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "600328485560",
-        "url": "https://sf-item.taobao.com/sf_item/600328485560.htm?track_id=b5018658-43ad-4743-9746-2a7f3dbb32bf",
-        "end": 1568254867000,
-        "status": "done",
-        "is_processed": false
+        "id": 600328485560,
+        "市场评估价": 399444.14,
+        "起拍价格": 280000,
+        "成交价格": 310000,
+        "交易时间": "2019/09/12 10:21:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600328485560.htm?track_id=b5018658-43ad-4743-9746-2a7f3dbb32bf",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 16,
+        "地点": "广东省 云浮市 郁南县 都城镇城中西路32号后之五第三层",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "600128225233",
         "url": "https://sf-item.taobao.com/sf_item/600128225233.htm?track_id=0739f089-7ac6-489d-ad38-282796f4890c",
         "end": 1568253600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "599971260644",
+        "url": "https://sf-item.taobao.com/sf_item/599971260644.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1568256670000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601680782016",
+        "url": "https://sf-item.taobao.com/sf_item/601680782016.htm?track_id=d7e7fed1-5ee9-41d9-a436-532cca9b2243",
+        "end": 1568253682000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600170336789",
+        "url": "https://sf-item.taobao.com/sf_item/600170336789.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
+        "end": 1568253785000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598688387047",
+        "url": "https://sf-item.taobao.com/sf_item/598688387047.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1568280210000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "599677013421",
+        "url": "https://sf-item.taobao.com/sf_item/599677013421.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1568261267000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600384364135",
+        "url": "https://sf-item.taobao.com/sf_item/600384364135.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1568253639000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "599747125857",
+        "url": "https://sf-item.taobao.com/sf_item/599747125857.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1568255660000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600092727071",
+        "url": "https://sf-item.taobao.com/sf_item/600092727071.htm?track_id=ec0864e8-1dfb-4aa2-9cc5-3a21f48d84d2",
+        "end": 1568256882000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "599466692452",
+        "url": "https://sf-item.taobao.com/sf_item/599466692452.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1568254934000,
         "status": "done",
         "is_processed": false
     }

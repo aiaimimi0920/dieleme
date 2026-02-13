@@ -1146,15 +1146,16 @@
         "竞拍人数": 0,
         "出价人数": 0,
         "地点": "辽宁省 大连市 瓦房店市 岗店办事处西长春路西段 145-6 号 1 单元 11 层1 号",
-        "所属小区": null,
+        "所属小区": "隆源小区",
         "省份": "辽宁省",
         "城市": "大连市",
         "区": "瓦房店市",
-        "最靠近商圈": "瓦房店市区",
+        "最靠近商圈": "市中心",
         "建筑面积": 111.18,
-        "单价": 4532.99,
+        "单价": 4533.19,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 584455847251,
@@ -1388,11 +1389,25 @@
         "detail_captured": true
     },
     {
-        "id": "583320453386",
-        "url": "https://sf-item.taobao.com/sf_item/583320453386.htm?track_id=1700d9a2-f936-490b-8e6c-7a864551c62a",
-        "end": 1546914097000,
-        "status": "done",
-        "is_processed": false
+        "id": 583320453386,
+        "市场评估价": 0,
+        "起拍价格": 595980,
+        "成交价格": 680980,
+        "交易时间": "2019/01/08 10:21:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583320453386.htm?track_id=1700d9a2-f936-490b-8e6c-7a864551c62a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 15,
+        "地点": "江西省 上饶市 铅山县 河口镇信江龙庭B区13栋1单元301室",
+        "所属小区": "信江龙庭",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "铅山县",
+        "最靠近商圈": "河口镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 584601966839,
@@ -1437,25 +1452,67 @@
         "detail_captured": true
     },
     {
-        "id": "584247357155",
-        "url": "https://sf-item.taobao.com/sf_item/584247357155.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1546912800000,
-        "status": "done",
-        "is_processed": false
+        "id": 584247357155,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 146880,
+        "交易时间": "2019/01/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/584247357155.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 新密市城区东大街56号7层西户",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密城区",
+        "建筑面积": 132.42,
+        "单价": 1109.24,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "583156496269",
-        "url": "https://sf-item.taobao.com/sf_item/583156496269.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
-        "end": 1546914719000,
-        "status": "done",
-        "is_processed": false
+        "id": 583156496269,
+        "市场评估价": null,
+        "起拍价格": 3099800,
+        "成交价格": 4409800,
+        "交易时间": "2019-01-08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583156496269.htm?track_id=4afa9345-8f11-42ae-8e2c-c187593718e4",
+        "是否成交": true,
+        "竞拍人数": 102,
+        "出价人数": null,
+        "地点": "浙江省杭州市滨江区西兴街道东方郡公寓5-1-1501",
+        "所属小区": "东方郡公寓",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "西兴",
+        "建筑面积": 89.46,
+        "单价": 49240.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "583623019521",
-        "url": "https://sf-item.taobao.com/sf_item/583623019521.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1546914912000,
-        "status": "done",
-        "is_processed": false
+        "id": 583623019521,
+        "市场评估价": null,
+        "起拍价格": 3099800,
+        "成交价格": 4379800,
+        "交易时间": "2019-01-08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583623019521.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": 69,
+        "出价人数": null,
+        "地点": "浙江省杭州市滨江区西兴街道东方郡公寓5-2-1604",
+        "所属小区": "东方郡公寓",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区/西兴板块",
+        "建筑面积": 89.46,
+        "单价": 48907.19,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "583622503206",
@@ -1475,6 +1532,48 @@
         "id": "583504306041",
         "url": "https://sf-item.taobao.com/sf_item/583504306041.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
         "end": 1546912826000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583319144835",
+        "url": "https://sf-item.taobao.com/sf_item/583319144835.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1546915099000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584743191575",
+        "url": "https://sf-item.taobao.com/sf_item/584743191575.htm?track_id=022d996f-075c-4095-a007-6769f0bd4ad0",
+        "end": 1546912800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583494725960",
+        "url": "https://sf-item.taobao.com/sf_item/583494725960.htm?track_id=c50edd57-1d55-4788-bc81-d598c484f17f",
+        "end": 1546912800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584569918828",
+        "url": "https://sf-item.taobao.com/sf_item/584569918828.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1546915184000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583629251469",
+        "url": "https://sf-item.taobao.com/sf_item/583629251469.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1546913132000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583558167097",
+        "url": "https://sf-item.taobao.com/sf_item/583558167097.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1546912800000,
         "status": "done",
         "is_processed": false
     }

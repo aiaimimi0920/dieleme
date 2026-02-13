@@ -241,11 +241,25 @@
         "is_processed": false
     },
     {
-        "id": "663595492033",
-        "url": "https://sf-item.taobao.com/sf_item/663595492033.htm?track_id=3e1aa86f-6c7e-45f7-bc36-4374b6c4ccbc",
-        "end": 1642062135000,
-        "status": "done",
-        "is_processed": false
+        "id": 663595492033,
+        "市场评估价": 783020,
+        "起拍价格": 438500,
+        "成交价格": 438500,
+        "交易时间": "2022/01/13 16:22:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/663595492033.htm?track_id=3e1aa86f-6c7e-45f7-bc36-4374b6c4ccbc",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 厦门市 翔安区 厦门市翔安区2013XP02(龙郡中澳城)2#楼4层405单元",
+        "所属小区": "龙郡中澳城",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "翔安区",
+        "最靠近商圈": "翔安新店商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 662624232032,
@@ -269,23 +283,121 @@
         "detail_captured": true
     },
     {
-        "id": "665780962804",
-        "url": "https://sf-item.taobao.com/sf_item/665780962804.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
-        "end": 1642039401000,
-        "status": "done",
-        "is_processed": false
+        "id": 665780962804,
+        "市场评估价": 299947,
+        "起拍价格": 269952,
+        "成交价格": 269952,
+        "交易时间": "2022/01/13 10:03:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/665780962804.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 西安路高桥水泥厂经济适用房二期E2栋1-7-5号",
+        "所属小区": "高桥水泥厂经济适用房二期",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "高桥",
+        "建筑面积": 88.48,
+        "单价": 3050.57,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "665421317279",
-        "url": "https://sf-item.taobao.com/sf_item/665421317279.htm?track_id=e74a98ac-e47a-499f-8827-8d5ebe2b7b1e",
-        "end": 1642040684000,
-        "status": "done",
-        "is_processed": false
+        "id": 665421317279,
+        "市场评估价": 0,
+        "起拍价格": 1676160,
+        "成交价格": 1831160,
+        "交易时间": "2022/01/13 10:24:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/665421317279.htm?track_id=e74a98ac-e47a-499f-8827-8d5ebe2b7b1e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 28,
+        "地点": "河南省 信阳市 平桥区 信阳市平桥区312国道北侧（茶叶城大门门楼）南京大道东段一层101-104号、二层201-204号房产",
+        "所属小区": "茶叶城",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "茶叶城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "664382685037",
         "url": "https://sf-item.taobao.com/sf_item/664382685037.htm?track_id=b11be64f-29a6-4dba-8035-2a2ffeff2505",
         "end": 1642042064000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665140801707",
+        "url": "https://sf-item.taobao.com/sf_item/665140801707.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1642039200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665036448753",
+        "url": "https://sf-item.taobao.com/sf_item/665036448753.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1642040697000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665890598945",
+        "url": "https://sf-item.taobao.com/sf_item/665890598945.htm?track_id=d43679d7-7949-4fd9-9494-9b14b5ea692d",
+        "end": 1642061667000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "662087497239",
+        "url": "https://sf-item.taobao.com/sf_item/662087497239.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1642044741000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665810862741",
+        "url": "https://sf-item.taobao.com/sf_item/665810862741.htm?track_id=d38494fe-98ee-40f4-91fc-1e9253049bbf",
+        "end": 1642039322000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665805650463",
+        "url": "https://sf-item.taobao.com/sf_item/665805650463.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "end": 1642041737000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665037388922",
+        "url": "https://sf-item.taobao.com/sf_item/665037388922.htm?track_id=98c1f1ff-3bb1-407f-830c-58bff771157b",
+        "end": 1642040338000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "662085655740",
+        "url": "https://sf-item.taobao.com/sf_item/662085655740.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1642047539000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "662576273204",
+        "url": "https://sf-item.taobao.com/sf_item/662576273204.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1642043116000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "663285322439",
+        "url": "https://sf-item.taobao.com/sf_item/663285322439.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "end": 1642039200000,
         "status": "done",
         "is_processed": false
     }

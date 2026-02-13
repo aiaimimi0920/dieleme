@@ -567,15 +567,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "江苏省 苏州市 吴中区 龙西路267号406室不动产",
-        "所属小区": null,
+        "所属小区": "龙西新村",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "吴中区",
-        "最靠近商圈": null,
+        "最靠近商圈": "吴中主城区商圈",
         "建筑面积": 125.39,
-        "单价": 11962.43,
+        "单价": 11962.6,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": "567875678407",
@@ -585,9 +586,51 @@
         "is_processed": false
     },
     {
-        "id": "567952443564",
-        "url": "https://sf-item.taobao.com/sf_item/567952443564.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
-        "end": 1526611214000,
+        "id": 567952443564,
+        "市场评估价": null,
+        "起拍价格": 500000,
+        "成交价格": 731000,
+        "交易时间": "2018-05-18T10:40:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/567952443564.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
+        "是否成交": true,
+        "竞拍人数": 53,
+        "出价人数": 53,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道谢家路1205号浅水湾小区32幢403室",
+        "所属小区": "浅水湾小区",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 88.34,
+        "单价": 8275.93,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "567357273768",
+        "url": "https://sf-item.taobao.com/sf_item/567357273768.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1526615100000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567646976185",
+        "url": "https://sf-item.taobao.com/sf_item/567646976185.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1526614051000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567766053259",
+        "url": "https://sf-item.taobao.com/sf_item/567766053259.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1526611047000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568745915753",
+        "url": "https://sf-item.taobao.com/sf_item/568745915753.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "end": 1526608800000,
         "status": "done",
         "is_processed": false
     }

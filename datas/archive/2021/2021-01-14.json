@@ -358,16 +358,93 @@
         "detail_captured": true
     },
     {
-        "id": "635064725921",
-        "url": "https://sf-item.taobao.com/sf_item/635064725921.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
-        "end": 1610590244000,
-        "status": "done",
-        "is_processed": false
+        "id": 635064725921,
+        "市场评估价": 317471,
+        "起拍价格": 179000,
+        "成交价格": 275000,
+        "交易时间": "2021-01-14 10:10:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/635064725921.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
+        "是否成交": true,
+        "竞拍人数": 58,
+        "出价人数": 58,
+        "地点": "广东省 惠州市 博罗县 罗阳镇桥西二路华鸿楼三栋A902",
+        "所属小区": "华鸿楼",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 102.41,
+        "单价": 2687.78,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "635154827931",
         "url": "https://sf-item.taobao.com/sf_item/635154827931.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
         "end": 1610590492000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635078665013",
+        "url": "https://sf-item.taobao.com/sf_item/635078665013.htm?track_id=f6103b53-b575-4181-920b-1934f9796e9b",
+        "end": 1610589600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635147534882",
+        "url": "https://sf-item.taobao.com/sf_item/635147534882.htm?track_id=f6103b53-b575-4181-920b-1934f9796e9b",
+        "end": 1610589600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635393374168",
+        "url": "https://sf-item.taobao.com/sf_item/635393374168.htm?track_id=f6103b53-b575-4181-920b-1934f9796e9b",
+        "end": 1610589600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635393754908",
+        "url": "https://sf-item.taobao.com/sf_item/635393754908.htm?track_id=f6103b53-b575-4181-920b-1934f9796e9b",
+        "end": 1610589600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633825785665",
+        "url": "https://sf-item.taobao.com/sf_item/633825785665.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1610592945000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632541824412",
+        "url": "https://sf-item.taobao.com/sf_item/632541824412.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1610600613000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632892517129",
+        "url": "https://sf-item.taobao.com/sf_item/632892517129.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1610593398000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "633880882417",
+        "url": "https://sf-item.taobao.com/sf_item/633880882417.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1610590067000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632888713875",
+        "url": "https://sf-item.taobao.com/sf_item/632888713875.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1610591391000,
         "status": "done",
         "is_processed": false
     }

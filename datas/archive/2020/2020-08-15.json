@@ -168,16 +168,93 @@
         "detail_captured": true
     },
     {
-        "id": "622901401686",
-        "url": "https://sf-item.taobao.com/sf_item/622901401686.htm?track_id=2d93ff24-d2fd-490e-bf75-4ad6c170e512",
-        "end": 1597458087000,
+        "id": 622901401686,
+        "市场评估价": 0,
+        "起拍价格": 600000,
+        "成交价格": 668000,
+        "交易时间": "2020/08/15 10:21:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622901401686.htm?track_id=2d93ff24-d2fd-490e-bf75-4ad6c170e512",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 33,
+        "地点": "辽宁省 沈阳市 铁西区 景星南街104-1号1-8-3",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁百商圈",
+        "建筑面积": 100.05,
+        "单价": 6676.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 623737844074,
+        "市场评估价": null,
+        "起拍价格": 206925.6,
+        "成交价格": 206925.6,
+        "交易时间": "2020-08-15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/623737844074.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "广东省揭阳市惠来县惠城镇东安古社三街六巷",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "揭阳市",
+        "区": "惠来县",
+        "最靠近商圈": "惠城镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "624566659979",
+        "url": "https://sf-item.taobao.com/sf_item/624566659979.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1597457163000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "623737844074",
-        "url": "https://sf-item.taobao.com/sf_item/623737844074.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
-        "end": 1597457422000,
+        "id": "624237994058",
+        "url": "https://sf-item.taobao.com/sf_item/624237994058.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1597459679000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "622971643231",
+        "url": "https://sf-item.taobao.com/sf_item/622971643231.htm?track_id=a8a7504e-6323-4c92-b93b-cd51b5436bd0",
+        "end": 1597457821000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623331110544",
+        "url": "https://sf-item.taobao.com/sf_item/623331110544.htm?track_id=13522d09-c2bb-419f-9fee-29d88a0e165a",
+        "end": 1597459726000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624324394269",
+        "url": "https://sf-item.taobao.com/sf_item/624324394269.htm?track_id=cf957666-f844-4fc6-8d4f-5ff6a94a29bb",
+        "end": 1597453250000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623327346490",
+        "url": "https://sf-item.taobao.com/sf_item/623327346490.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1597457249000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623603759890",
+        "url": "https://sf-item.taobao.com/sf_item/623603759890.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1597456800000,
         "status": "done",
         "is_processed": false
     }

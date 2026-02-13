@@ -189,12 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "681850943550",
-        "url": "https://sf-item.taobao.com/sf_item/681850943550.htm?track_id=a7f348f0-d467-4d26-9001-2607f02270c7",
-        "end": 1663725600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/681850943550.htm"
+        "id": 681850943550,
+        "市场评估价": 503715,
+        "起拍价格": 352600.5,
+        "成交价格": 352600.5,
+        "交易时间": "2022/09/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/681850943550.htm?track_id=a7f348f0-d467-4d26-9001-2607f02270c7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省威海市荣成市那香海度假花园2号楼1802室",
+        "所属小区": "那香海度假花园",
+        "省份": "山东省",
+        "城市": "威海市",
+        "区": "荣成市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 680632180057,
@@ -281,16 +294,86 @@
         "detail_captured": true
     },
     {
-        "id": "680867612059",
-        "url": "https://sf-item.taobao.com/sf_item/680867612059.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
-        "end": 1663725600000,
-        "status": "done",
-        "is_processed": false
+        "id": 680867612059,
+        "市场评估价": 944435,
+        "起拍价格": 662000,
+        "成交价格": 668000,
+        "交易时间": "2022/09/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/680867612059.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "广东省 惠州市 博罗县 长宁镇埔筏村各前头小组长平路西边地段罗浮花园四期3栋商住楼9层04房",
+        "所属小区": "罗浮花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "长宁镇",
+        "建筑面积": 145.59,
+        "单价": 4586.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "682310024791",
         "url": "https://sf-item.taobao.com/sf_item/682310024791.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
         "end": 1663725680000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683965466156",
+        "url": "https://sf-item.taobao.com/sf_item/683965466156.htm?track_id=6aabcd90-810d-43c8-9914-e7c57096882b",
+        "end": 1663734284000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683964130964",
+        "url": "https://sf-item.taobao.com/sf_item/683964130964.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1663726485000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683963738846",
+        "url": "https://sf-item.taobao.com/sf_item/683963738846.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1663722485000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684273687675",
+        "url": "https://sf-item.taobao.com/sf_item/684273687675.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "end": 1663730040000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683324128681",
+        "url": "https://sf-item.taobao.com/sf_item/683324128681.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "end": 1663744101000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683323456859",
+        "url": "https://sf-item.taobao.com/sf_item/683323456859.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "end": 1663741523000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683965826932",
+        "url": "https://sf-item.taobao.com/sf_item/683965826932.htm?track_id=bd671c96-a855-4938-b47e-195ef1097e2d",
+        "end": 1663736936000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "680722942925",
+        "url": "https://sf-item.taobao.com/sf_item/680722942925.htm?track_id=13522d09-c2bb-419f-9fee-29d88a0e165a",
+        "end": 1663726784000,
         "status": "done",
         "is_processed": false
     }

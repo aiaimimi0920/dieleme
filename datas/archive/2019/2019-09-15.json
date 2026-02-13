@@ -133,9 +133,51 @@
         "is_processed": false
     },
     {
-        "id": "600888218867",
-        "url": "https://sf-item.taobao.com/sf_item/600888218867.htm?track_id=780393c9-c824-4b3f-9f9e-cac0c063a223",
-        "end": 1568513976000,
+        "id": 600888218867,
+        "市场评估价": null,
+        "起拍价格": 2842160,
+        "成交价格": 3674060,
+        "交易时间": "2019/09/15 10:19:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600888218867.htm?track_id=780393c9-c824-4b3f-9f9e-cac0c063a223",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 40,
+        "地点": "广东省 惠州市 博罗县 石湾镇永康大道旁龙湾新城棕榈园10号房产",
+        "所属小区": "龙湾新城棕榈园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾镇",
+        "建筑面积": 354.35,
+        "单价": 10368.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "602072267615",
+        "url": "https://sf-item.taobao.com/sf_item/602072267615.htm?track_id=895fcaa5-fb8d-48ba-9e9d-667dedb92adf",
+        "end": 1568515905000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598996224902",
+        "url": "https://sf-item.taobao.com/sf_item/598996224902.htm?track_id=d508163a-5597-4ea1-b5b2-0bc1005a5ace",
+        "end": 1568531537000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601879830184",
+        "url": "https://sf-item.taobao.com/sf_item/601879830184.htm?track_id=0d0a4b96-3475-41c6-be82-f884580aae77",
+        "end": 1568513272000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601893422217",
+        "url": "https://sf-item.taobao.com/sf_item/601893422217.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1568518820000,
         "status": "done",
         "is_processed": false
     }

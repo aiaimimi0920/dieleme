@@ -63,9 +63,30 @@
         "detail_captured": true
     },
     {
-        "id": "579791497857",
-        "url": "https://sf-item.taobao.com/sf_item/579791497857.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
-        "end": 1541299060000,
+        "id": 579791497857,
+        "市场评估价": 0,
+        "起拍价格": 824000,
+        "成交价格": 939000,
+        "交易时间": "2018/11/04 10:37:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/579791497857.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 24,
+        "地点": "河南省 郑州市 二七区 二环支路25号2号楼2单元3层20号",
+        "所属小区": "鑫苑国际城市花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 116.29,
+        "单价": 8076.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "575941174870",
+        "url": "https://sf-item.taobao.com/sf_item/575941174870.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1541303351000,
         "status": "done",
         "is_processed": false
     }

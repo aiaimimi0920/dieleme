@@ -715,12 +715,25 @@
         "detail_captured": true
     },
     {
-        "id": "687992342957",
-        "url": "https://sf-item.taobao.com/sf_item/687992342957.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
-        "end": 1667355774000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/687992342957.htm"
+        "id": 687992342957,
+        "市场评估价": 531152,
+        "起拍价格": 339938,
+        "成交价格": 384938,
+        "交易时间": "2022/11/02 10:22:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/687992342957.htm?track_id=7115c1d3-1fb0-47db-820d-046f4a92b1ac",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "湖南省 湘潭市 雨湖区 窑湾街道湘衡路2号新景西城上筑11栋1单元080104号",
+        "所属小区": "新景西城上筑",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "窑湾",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 684767205857,
@@ -856,32 +869,88 @@
         "is_processed": false
     },
     {
-        "id": "684465196534",
-        "url": "https://sf-item.taobao.com/sf_item/684465196534.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
-        "end": 1667356907000,
-        "status": "done",
-        "is_processed": false
+        "id": 684465196534,
+        "市场评估价": 848500,
+        "起拍价格": 848500,
+        "成交价格": 1236500,
+        "交易时间": "2022/11/02 10:41:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684465196534.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 103,
+        "地点": "安徽省 合肥市 瑶海区 龙岗开发区皇马花园（实勘为：文一名门皇马）B1幢405室",
+        "所属小区": "文一名门皇马",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "龙岗开发区",
+        "建筑面积": 96.91,
+        "单价": 12759.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "686817001695",
-        "url": "https://sf-item.taobao.com/sf_item/686817001695.htm?track_id=8f606913-277a-4987-a73c-79e8b9623e98",
-        "end": 1667357343000,
-        "status": "done",
-        "is_processed": false
+        "id": 686817001695,
+        "市场评估价": 559000,
+        "起拍价格": 313040,
+        "成交价格": 397040,
+        "交易时间": "2022-11-02 10:49:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/686817001695.htm?track_id=8f606913-277a-4987-a73c-79e8b9623e98",
+        "是否成交": true,
+        "竞拍人数": 43,
+        "出价人数": 43,
+        "地点": "湖北省黄冈市红安县杏花乡城东工业园东方名居6号楼2-1401号",
+        "所属小区": "东方名居",
+        "省份": "湖北省",
+        "城市": "黄冈市",
+        "区": "红安县",
+        "最靠近商圈": "城东工业园",
+        "建筑面积": 123.04,
+        "单价": 3227.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "684997017273",
-        "url": "https://sf-item.taobao.com/sf_item/684997017273.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
-        "end": 1667354760000,
-        "status": "done",
-        "is_processed": false
+        "id": 684997017273,
+        "市场评估价": null,
+        "起拍价格": 193135.2,
+        "成交价格": 214135.2,
+        "交易时间": "2022-11-02 10:06:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684997017273.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
+        "是否成交": true,
+        "竞拍人数": 8,
+        "出价人数": 8,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 春和街",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": null,
+        "建筑面积": 90.24,
+        "单价": 2371.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "686434484777",
-        "url": "https://sf-item.taobao.com/sf_item/686434484777.htm?track_id=8fa9c4cb-f3cd-40dc-b488-cc876c6a9da1",
-        "end": 1667360739000,
-        "status": "done",
-        "is_processed": false
+        "id": 686434484777,
+        "市场评估价": 464100,
+        "起拍价格": 312000,
+        "成交价格": 312000,
+        "交易时间": "2022/11/02 11:45:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/686434484777.htm?track_id=8fa9c4cb-f3cd-40dc-b488-cc876c6a9da1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 浑南区 天坛南街8-11号1-5-8",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "浑南区",
+        "最靠近商圈": "奥体中心",
+        "建筑面积": 53.96,
+        "单价": 5782.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "684459286924",
@@ -894,6 +963,62 @@
         "id": "688110199771",
         "url": "https://sf-item.taobao.com/sf_item/688110199771.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
         "end": 1667356292000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684884489950",
+        "url": "https://sf-item.taobao.com/sf_item/684884489950.htm?track_id=f484603b-057a-4a7b-809f-534da817f7bd",
+        "end": 1667382413000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "685253150604",
+        "url": "https://sf-item.taobao.com/sf_item/685253150604.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1667360932000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684716708970",
+        "url": "https://sf-item.taobao.com/sf_item/684716708970.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1667354492000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "685589327479",
+        "url": "https://sf-item.taobao.com/sf_item/685589327479.htm?track_id=0446e63e-c627-4515-9144-1e3ccb4cd3ce",
+        "end": 1667357153000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "685289342187",
+        "url": "https://sf-item.taobao.com/sf_item/685289342187.htm?track_id=0446e63e-c627-4515-9144-1e3ccb4cd3ce",
+        "end": 1667355685000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "685290218188",
+        "url": "https://sf-item.taobao.com/sf_item/685290218188.htm?track_id=0446e63e-c627-4515-9144-1e3ccb4cd3ce",
+        "end": 1667355780000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "685502679371",
+        "url": "https://sf-item.taobao.com/sf_item/685502679371.htm?track_id=9a575996-5fed-41aa-91ca-c7ec4c237ab0",
+        "end": 1667354400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "686222092861",
+        "url": "https://sf-item.taobao.com/sf_item/686222092861.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
+        "end": 1667355862000,
         "status": "done",
         "is_processed": false
     }

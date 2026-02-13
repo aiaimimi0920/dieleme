@@ -64,16 +64,37 @@
         "detail_captured": true
     },
     {
-        "id": "525936182406",
-        "url": "https://sf-item.taobao.com/sf_item/525936182406.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1453341600000,
-        "status": "done",
-        "is_processed": false
+        "id": 525936182406,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 399000,
+        "交易时间": "2016/01/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525936182406.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 0,
+        "地点": "河南省 郑州市 新密市 北密新路与育才街交叉口西北角自西向东第五单元四层西户",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 139.43,
+        "单价": 2863.1,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "525868827879",
         "url": "https://sf-item.taobao.com/sf_item/525868827879.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
         "end": 1453341600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525766141271",
+        "url": "https://sf-item.taobao.com/sf_item/525766141271.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1453344477000,
         "status": "done",
         "is_processed": false
     }

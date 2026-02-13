@@ -460,15 +460,16 @@
         "竞拍人数": 0,
         "出价人数": 0,
         "地点": "贵州省 黔西南布依族苗族自治州 兴义市 机场大道丽景湾小区丽海苑",
-        "所属小区": "丽景湾小区",
+        "所属小区": "丽景湾",
         "省份": "贵州省",
         "城市": "黔西南布依族苗族自治州",
         "区": "兴义市",
-        "最靠近商圈": null,
+        "最靠近商圈": "桔山",
         "建筑面积": 137.99,
-        "单价": 3144.33,
+        "单价": 3143.71,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569720668406,
@@ -597,18 +598,46 @@
         "detail_captured": true
     },
     {
-        "id": "569745794023",
-        "url": "https://sf-item.taobao.com/sf_item/569745794023.htm?track_id=851581af-a6c5-4cfc-a0ec-51191b76b75c",
-        "end": 1529382710000,
-        "status": "done",
-        "is_processed": false
+        "id": 569745794023,
+        "市场评估价": 0,
+        "起拍价格": 844970,
+        "成交价格": 2024970,
+        "交易时间": "2018/06/19 12:31:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569745794023.htm?track_id=851581af-a6c5-4cfc-a0ec-51191b76b75c",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 159,
+        "地点": "陕西省 西安市 未央区 太华北路199号开元一号第11幢1单元16层11604号",
+        "所属小区": "开元一号",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "大明宫板块",
+        "建筑面积": 126.09,
+        "单价": 16066.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "569700201433",
-        "url": "https://sf-item.taobao.com/sf_item/569700201433.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
-        "end": 1529373600000,
-        "status": "done",
-        "is_processed": false
+        "id": 569700201433,
+        "市场评估价": null,
+        "起拍价格": 165000,
+        "成交价格": 165000,
+        "交易时间": "2018-06-19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569700201433.htm?track_id=2889e536-878d-42ec-8714-4f0aeef1c1fe",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "黑龙江省 齐齐哈尔市 克东县 保安街",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "齐齐哈尔市",
+        "区": "克东县",
+        "最靠近商圈": null,
+        "建筑面积": 2215.36,
+        "单价": 74.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "569851285407",
@@ -618,18 +647,46 @@
         "is_processed": false
     },
     {
-        "id": "570083063019",
-        "url": "https://sf-item.taobao.com/sf_item/570083063019.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
-        "end": 1529373842000,
-        "status": "done",
-        "is_processed": false
+        "id": 570083063019,
+        "市场评估价": null,
+        "起拍价格": 700000,
+        "成交价格": 775000,
+        "交易时间": "2018/6/19 10:04:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570083063019.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": null,
+        "地点": "山东省 淄博市 博山区 青年路1号益杰龙凤缘1号楼1单元12层西户",
+        "所属小区": "益杰龙凤缘",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "博山中心",
+        "建筑面积": 140.33,
+        "单价": 5524.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "569922746072",
-        "url": "https://sf-item.taobao.com/sf_item/569922746072.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
-        "end": 1529381009000,
-        "status": "done",
-        "is_processed": false
+        "id": 569922746072,
+        "市场评估价": 0,
+        "起拍价格": 10500000,
+        "成交价格": 12960000,
+        "交易时间": "2018/06/19 12:03:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569922746072.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
+        "是否成交": true,
+        "竞拍人数": 75,
+        "出价人数": 0,
+        "地点": "浙江省 杭州市 滨江区 江南大道480号滨海大厦1801室",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江万达商圈",
+        "建筑面积": 785.31,
+        "单价": 16504.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "569722693601",
@@ -642,6 +699,48 @@
         "id": "570473594709",
         "url": "https://sf-item.taobao.com/sf_item/570473594709.htm?track_id=6ae54ebd-72a6-469d-b121-c24b2586341e",
         "end": 1529373966000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570560687833",
+        "url": "https://sf-item.taobao.com/sf_item/570560687833.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
+        "end": 1529373600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569726744518",
+        "url": "https://sf-item.taobao.com/sf_item/569726744518.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1529377351000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570006947387",
+        "url": "https://sf-item.taobao.com/sf_item/570006947387.htm?track_id=b8552efb-6f6f-4c89-927e-e1f595013524",
+        "end": 1529373600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570028963595",
+        "url": "https://sf-item.taobao.com/sf_item/570028963595.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1529373935000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569752422474",
+        "url": "https://sf-item.taobao.com/sf_item/569752422474.htm?track_id=30d808e3-d96d-4c20-b7c0-2a2a14a6d2bf",
+        "end": 1529375463000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569810674468",
+        "url": "https://sf-item.taobao.com/sf_item/569810674468.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1529373600000,
         "status": "done",
         "is_processed": false
     }

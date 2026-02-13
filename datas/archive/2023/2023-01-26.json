@@ -63,9 +63,44 @@
         "detail_captured": true
     },
     {
-        "id": "691877019871",
-        "url": "https://sf-item.taobao.com/sf_item/691877019871.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
-        "end": 1674774226000,
+        "id": 691877019871,
+        "市场评估价": 576677.67,
+        "起拍价格": 370000,
+        "成交价格": 370000,
+        "交易时间": "2023/01/27 07:03:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/691877019871.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省惠州市博罗县罗阳街道办城区曙光路68号江山美苑C7栋1单元15层06房",
+        "所属小区": "江山美苑",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳街道商圈",
+        "建筑面积": 80.75,
+        "单价": 4582.04,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "697261667384",
+        "url": "https://sf-item.taobao.com/sf_item/697261667384.htm?track_id=addbb771-a109-4b32-8cec-541c849a16ea",
+        "end": 1674700111000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696437276400",
+        "url": "https://sf-item.taobao.com/sf_item/696437276400.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1674699180000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696757093174",
+        "url": "https://sf-item.taobao.com/sf_item/696757093174.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1674700934000,
         "status": "done",
         "is_processed": false
     }

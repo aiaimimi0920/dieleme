@@ -316,9 +316,44 @@
         "detail_captured": true
     },
     {
-        "id": "737589666399",
-        "url": "https://sf-item.taobao.com/sf_item/737589666399.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
-        "end": 1697706931000,
+        "id": 737589666399,
+        "市场评估价": null,
+        "起拍价格": 124935.2,
+        "成交价格": 124935.2,
+        "交易时间": "2023-10-19 17:15:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/737589666399.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省梅州市蕉岭县长潭镇新泉村帝景湾住宅小区1栋2101房",
+        "所属小区": "帝景湾住宅小区",
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "长潭",
+        "建筑面积": 54.85,
+        "单价": 2278.54,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "741400042688",
+        "url": "https://sf-item.taobao.com/sf_item/741400042688.htm?track_id=ba7ff91c-543e-4e8e-a1cd-79a47a356bc3",
+        "end": 1697681602000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "741138936553",
+        "url": "https://sf-item.taobao.com/sf_item/741138936553.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1697680800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "739717743880",
+        "url": "https://sf-item.taobao.com/sf_item/739717743880.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1697680800000,
         "status": "done",
         "is_processed": false
     }

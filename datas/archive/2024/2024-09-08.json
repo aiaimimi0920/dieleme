@@ -189,16 +189,72 @@
         "detail_captured": true
     },
     {
-        "id": "827444352665",
-        "url": "https://sf-item.taobao.com/sf_item/827444352665.htm?track_id=a3cd332f-5949-489a-a288-73ceae2befa6",
-        "end": 1725760800000,
-        "status": "done",
-        "is_processed": false
+        "id": 827444352665,
+        "市场评估价": 171471.25,
+        "起拍价格": 137177,
+        "成交价格": 137177.04,
+        "交易时间": "2024/09/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/827444352665.htm?track_id=a3cd332f-5949-489a-a288-73ceae2befa6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区赤峰市阿鲁科尔沁旗天山镇红星路西胜利巷北33",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "赤峰市",
+        "区": "阿鲁科尔沁旗",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "827444380466",
         "url": "https://sf-item.taobao.com/sf_item/827444380466.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
         "end": 1725761317000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826538946411",
+        "url": "https://sf-item.taobao.com/sf_item/826538946411.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1725763841000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "827193708863",
+        "url": "https://sf-item.taobao.com/sf_item/827193708863.htm?track_id=f966165e-b876-4860-909d-4d7fffa42aec",
+        "end": 1725760800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826568703466",
+        "url": "https://sf-item.taobao.com/sf_item/826568703466.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1725760800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "827491948671",
+        "url": "https://sf-item.taobao.com/sf_item/827491948671.htm?track_id=a104badb-d029-4a84-9853-223a95622272",
+        "end": 1725780233000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "822360115558",
+        "url": "https://sf-item.taobao.com/sf_item/822360115558.htm?track_id=372083ae-219b-405a-b6f1-dd5cf7092ecf",
+        "end": 1725761964000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "827539144845",
+        "url": "https://sf-item.taobao.com/sf_item/827539144845.htm?track_id=372083ae-219b-405a-b6f1-dd5cf7092ecf",
+        "end": 1725762111000,
         "status": "done",
         "is_processed": false
     }

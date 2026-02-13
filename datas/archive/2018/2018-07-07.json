@@ -137,15 +137,16 @@
         "竞拍人数": 0,
         "出价人数": 77,
         "地点": "江苏省 苏州市 姑苏区 留园路289号19幢",
-        "所属小区": null,
+        "所属小区": "留园新村",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
         "最靠近商圈": "留园商圈",
         "建筑面积": 613.32,
-        "单价": 35921.83,
+        "单价": 35919.26,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": "571794718215",
@@ -155,18 +156,46 @@
         "is_processed": false
     },
     {
-        "id": "572187555317",
-        "url": "https://sf-item.taobao.com/sf_item/572187555317.htm?track_id=1d2888d6-6fb7-43a3-9d32-48bb0f233bcb",
-        "end": 1530928812000,
-        "status": "done",
-        "is_processed": false
+        "id": 572187555317,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 811181.55,
+        "交易时间": "2018/07/07 10:00:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572187555317.htm?track_id=1d2888d6-6fb7-43a3-9d32-48bb0f233bcb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 碧桂园小区喜居6号楼1单元1901室",
+        "所属小区": "碧桂园小区",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁右翼前旗",
+        "建筑面积": 193.71,
+        "单价": 4188.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "571226505236",
-        "url": "https://sf-item.taobao.com/sf_item/571226505236.htm?track_id=d3432e01-0f76-40f5-82d8-5786967034ed",
-        "end": 1530931104000,
-        "status": "done",
-        "is_processed": false
+        "id": 571226505236,
+        "市场评估价": null,
+        "起拍价格": 629301,
+        "成交价格": 739301,
+        "交易时间": "2018/07/07 10:38:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571226505236.htm?track_id=d3432e01-0f76-40f5-82d8-5786967034ed",
+        "是否成交": true,
+        "竞拍人数": 47,
+        "出价人数": 47,
+        "地点": "辽宁省 沈阳市 铁西区 兴工北街95-4号1-4-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "兴工",
+        "建筑面积": 105.14,
+        "单价": 7033.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "571145755186",
@@ -183,9 +212,58 @@
         "is_processed": false
     },
     {
-        "id": "572067935260",
-        "url": "https://sf-item.taobao.com/sf_item/572067935260.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
-        "end": 1530932332000,
+        "id": 572067935260,
+        "市场评估价": null,
+        "起拍价格": 836672,
+        "成交价格": 932672,
+        "交易时间": "2018/07/07 10:58:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572067935260.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 25,
+        "地点": "河南省郑州市二七区陇海中路154号1号楼7-8层南A8号",
+        "所属小区": "金域上郡",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 122.53,
+        "单价": 7611.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "571062410136",
+        "url": "https://sf-item.taobao.com/sf_item/571062410136.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1530929605000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570871629277",
+        "url": "https://sf-item.taobao.com/sf_item/570871629277.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1530930081000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570871629177",
+        "url": "https://sf-item.taobao.com/sf_item/570871629177.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1530932965000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570929896009",
+        "url": "https://sf-item.taobao.com/sf_item/570929896009.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1530932120000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571253595008",
+        "url": "https://sf-item.taobao.com/sf_item/571253595008.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1530929443000,
         "status": "done",
         "is_processed": false
     }

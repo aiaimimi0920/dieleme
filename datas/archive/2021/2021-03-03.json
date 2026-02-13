@@ -336,11 +336,25 @@
         "detail_captured": true
     },
     {
-        "id": "637935923824",
-        "url": "https://sf-item.taobao.com/sf_item/637935923824.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
-        "end": 1614737153000,
-        "status": "done",
-        "is_processed": false
+        "id": 637935923824,
+        "市场评估价": 580698,
+        "起拍价格": 406489,
+        "成交价格": 436489,
+        "交易时间": "2021/03/03 10:05:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637935923824.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": 16,
+        "地点": "辽宁省 沈阳市 铁西区 沈阳经济技术开发区沈辽路202-4号5-5-2",
+        "所属小区": "沈阳经济技术开发区沈辽路202-4号",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 94.53,
+        "单价": 4617.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "637904239641",
@@ -350,11 +364,25 @@
         "is_processed": false
     },
     {
-        "id": "637295373052",
-        "url": "https://sf-item.taobao.com/sf_item/637295373052.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
-        "end": 1614737306000,
-        "status": "done",
-        "is_processed": false
+        "id": 637295373052,
+        "市场评估价": null,
+        "起拍价格": 670000,
+        "成交价格": 674000,
+        "交易时间": "2021/03/03 10:08:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637295373052.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "浙江省 嘉兴市 海盐县 海盐经济开发区大桥新区泾海路536号大桥.海港花苑35幢404室",
+        "所属小区": "海港花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": null,
+        "建筑面积": 135.49,
+        "单价": 4974.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "637987927652",
@@ -367,6 +395,20 @@
         "id": "637656782614",
         "url": "https://sf-item.taobao.com/sf_item/637656782614.htm?track_id=2983f99a-2c1f-4c8c-8a28-f7b1e60ab457",
         "end": 1614740022000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636938081203",
+        "url": "https://sf-item.taobao.com/sf_item/636938081203.htm?track_id=d43679d7-7949-4fd9-9494-9b14b5ea692d",
+        "end": 1614769679000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637334153169",
+        "url": "https://sf-item.taobao.com/sf_item/637334153169.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1614740274000,
         "status": "done",
         "is_processed": false
     }

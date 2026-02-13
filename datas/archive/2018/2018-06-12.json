@@ -568,15 +568,16 @@
         "竞拍人数": 19,
         "出价人数": null,
         "地点": "贵州省 黔西南布依族苗族自治州 兴义市 延安路塞纳城小区",
-        "所属小区": "塞纳城小区",
+        "所属小区": "塞纳城",
         "省份": "贵州省",
-        "城市": "黔西南布依族苗族自治州",
-        "区": "兴义市",
-        "最靠近商圈": null,
+        "城市": "兴义市",
+        "区": "桔山街道",
+        "最靠近商圈": "万峰林路商圈",
         "建筑面积": 170.22,
-        "单价": 3232.93,
+        "单价": 3232.88,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569339944158,
@@ -748,15 +749,16 @@
         "竞拍人数": 56,
         "出价人数": 56,
         "地点": "江苏省淮安市淮安区永怀东路1号智诚.一品国际",
-        "所属小区": "一品国际",
+        "所属小区": "智诚一品国际",
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮安万达广场商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569621775792,
@@ -832,15 +834,16 @@
         "竞拍人数": 0,
         "出价人数": 49,
         "地点": "江苏省 淮安市 淮安区 淮安区永怀东路1号智诚.一品国际",
-        "所属小区": "智诚.一品国际",
+        "所属小区": "智诚一品国际",
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮安区商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569545734030,
@@ -916,15 +919,16 @@
         "竞拍人数": null,
         "出价人数": 38,
         "地点": "江苏省淮安市淮安区淮安区永怀东路1号智诚.一品国际",
-        "所属小区": "智诚.一品国际",
+        "所属小区": "智诚一品国际",
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "万达广场",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569544182790,
@@ -941,11 +945,12 @@
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮安区万达广场商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569320128498,
@@ -1021,15 +1026,16 @@
         "竞拍人数": null,
         "出价人数": 33,
         "地点": "江苏省淮安市淮安区永怀东路1号智诚.一品国际",
-        "所属小区": "智诚.一品国际",
+        "所属小区": "智诚一品国际",
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮安万达广场",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569544326678,
@@ -1126,15 +1132,16 @@
         "竞拍人数": 0,
         "出价人数": 13,
         "地点": "江苏省 淮安市 淮安区 淮安区永怀东路1号智诚.一品国际",
-        "所属小区": "一品国际",
+        "所属小区": "智诚一品国际",
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮安万达广场",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569321160205,
@@ -1151,11 +1158,12 @@
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "最靠近商圈": null,
+        "最靠近商圈": "淮安新城",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569628467552,
@@ -1189,15 +1197,16 @@
         "竞拍人数": 80,
         "出价人数": 82,
         "地点": "江苏省 苏州市 虎丘区 高新区滨河路333号3幢101室",
-        "所属小区": null,
+        "所属小区": "江枫花苑",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "虎丘区",
-        "最靠近商圈": "狮山",
+        "最靠近商圈": "狮山商圈",
         "建筑面积": 106.49,
-        "单价": 18120.92,
+        "单价": 18123.77,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569574639016,
@@ -1270,11 +1279,25 @@
         "is_processed": false
     },
     {
-        "id": "568894936690",
-        "url": "https://sf-item.taobao.com/sf_item/568894936690.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
-        "end": 1528768800000,
-        "status": "done",
-        "is_processed": false
+        "id": 568894936690,
+        "市场评估价": 879216,
+        "起拍价格": 615452,
+        "成交价格": 615452,
+        "交易时间": "2018/06/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/568894936690.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 肇工南街55号1-6-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场商圈",
+        "建筑面积": 135.16,
+        "单价": 4552.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "569082652420",
@@ -1284,30 +1307,128 @@
         "is_processed": false
     },
     {
-        "id": "569143552688",
-        "url": "https://sf-item.taobao.com/sf_item/569143552688.htm?track_id=ca140538-c6e4-48d5-9d5a-28b21db6a43b",
-        "end": 1528770629000,
-        "status": "done",
-        "is_processed": false
+        "id": 569143552688,
+        "市场评估价": null,
+        "起拍价格": 310000,
+        "成交价格": 418000,
+        "交易时间": "2018-06-12 10:30:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569143552688.htm?track_id=ca140538-c6e4-48d5-9d5a-28b21db6a43b",
+        "是否成交": true,
+        "竞拍人数": 55,
+        "出价人数": 49,
+        "地点": "江苏省 无锡市 梁溪区 广益路307-1901室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "广益板块",
+        "建筑面积": 57.13,
+        "单价": 7317.96,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "569527255107",
-        "url": "https://sf-item.taobao.com/sf_item/569527255107.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
-        "end": 1528768800000,
-        "status": "done",
-        "is_processed": false
+        "id": 569527255107,
+        "市场评估价": 0,
+        "起拍价格": 1266749,
+        "成交价格": 1266749,
+        "交易时间": "2018/06/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569527255107.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 阳江市 阳春市 春城街道阳春大道高冲岭地段B区东城金汇园A2A3幢103、104、105号商铺",
+        "所属小区": "东城金汇园",
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": "春城商圈",
+        "建筑面积": 164.11,
+        "单价": 7718.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "569007100267",
-        "url": "https://sf-item.taobao.com/sf_item/569007100267.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
-        "end": 1528771009000,
-        "status": "done",
-        "is_processed": false
+        "id": 569007100267,
+        "市场评估价": 1377000,
+        "起拍价格": 991440,
+        "成交价格": 1231440,
+        "交易时间": "2018/06/12 10:36:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569007100267.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 44,
+        "地点": "河南省 郑州市 二七区 嵩山路与政通路交叉口西南角",
+        "所属小区": "升龙2号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "升龙商圈",
+        "建筑面积": 134.41,
+        "单价": 9162.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "570360223198",
         "url": "https://sf-item.taobao.com/sf_item/570360223198.htm?track_id=fb36ca66-519f-47e0-8cf2-d020609c405d",
         "end": 1528771475000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569313482213",
+        "url": "https://sf-item.taobao.com/sf_item/569313482213.htm?track_id=c50edd57-1d55-4788-bc81-d598c484f17f",
+        "end": 1528771116000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569092632009",
+        "url": "https://sf-item.taobao.com/sf_item/569092632009.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1528770786000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569345850630",
+        "url": "https://sf-item.taobao.com/sf_item/569345850630.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1528771543000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569314897773",
+        "url": "https://sf-item.taobao.com/sf_item/569314897773.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1528768800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569330537346",
+        "url": "https://sf-item.taobao.com/sf_item/569330537346.htm?track_id=1bfdf5f3-ff79-4ec0-acb3-c67a8bc42bdf",
+        "end": 1528770441000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569552475050",
+        "url": "https://sf-item.taobao.com/sf_item/569552475050.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1528770540000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569282176008",
+        "url": "https://sf-item.taobao.com/sf_item/569282176008.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "end": 1528769511000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569333692572",
+        "url": "https://sf-item.taobao.com/sf_item/569333692572.htm?track_id=55c1cc05-4e69-4ba6-9889-416b52dc39e0",
+        "end": 1528774432000,
         "status": "done",
         "is_processed": false
     }

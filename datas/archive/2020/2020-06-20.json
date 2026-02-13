@@ -316,11 +316,25 @@
         "detail_captured": true
     },
     {
-        "id": "618836646228",
-        "url": "https://sf-item.taobao.com/sf_item/618836646228.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
-        "end": 1592618648000,
-        "status": "done",
-        "is_processed": false
+        "id": 618836646228,
+        "市场评估价": null,
+        "起拍价格": 717030,
+        "成交价格": 717030,
+        "交易时间": "2020-06-20 10:04:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/618836646228.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 青松小区三段-16-21",
+        "所属小区": "青松小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "昆区核心商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 618758386327,
@@ -344,18 +358,46 @@
         "detail_captured": true
     },
     {
-        "id": "619096399062",
-        "url": "https://sf-item.taobao.com/sf_item/619096399062.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
-        "end": 1592618519000,
-        "status": "done",
-        "is_processed": false
+        "id": 619096399062,
+        "市场评估价": null,
+        "起拍价格": 1095474.9,
+        "成交价格": 1095474.9,
+        "交易时间": "2020-06-20 10:01:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/619096399062.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 人民路乌江水电遵义基地乌江恬苑10B栋1-4-1号住宅用房",
+        "所属小区": "乌江恬苑",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": 165.23,
+        "单价": 6635.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "619536333745",
-        "url": "https://sf-item.taobao.com/sf_item/619536333745.htm?track_id=183882c5-0ed7-489b-ad05-3a3edf0e45f3",
-        "end": 1592618400000,
-        "status": "done",
-        "is_processed": false
+        "id": 619536333745,
+        "市场评估价": 254395,
+        "起拍价格": 228955.5,
+        "成交价格": 228955.5,
+        "交易时间": "2020/06/20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/619536333745.htm?track_id=183882c5-0ed7-489b-ad05-3a3edf0e45f3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 鹤岗市 绥滨县 绥滨农场场部三委十三栋",
+        "所属小区": "鑫辉小区",
+        "省份": "黑龙江省",
+        "城市": "鹤岗市",
+        "区": "绥滨县",
+        "最靠近商圈": "绥滨农场",
+        "建筑面积": 110.08,
+        "单价": 2079.9,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "618604001901",
@@ -368,6 +410,27 @@
         "id": "618839606274",
         "url": "https://sf-item.taobao.com/sf_item/618839606274.htm?track_id=e9db07e5-7acb-4b43-9d9c-583daa52fdcf",
         "end": 1592618400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620130479792",
+        "url": "https://sf-item.taobao.com/sf_item/620130479792.htm?track_id=5f9c48bc-c41a-40e6-a9da-79c3ecd64fa1",
+        "end": 1592622026000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619600417953",
+        "url": "https://sf-item.taobao.com/sf_item/619600417953.htm?track_id=5f9c48bc-c41a-40e6-a9da-79c3ecd64fa1",
+        "end": 1592621636000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619191227335",
+        "url": "https://sf-item.taobao.com/sf_item/619191227335.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1592625257000,
         "status": "done",
         "is_processed": false
     }

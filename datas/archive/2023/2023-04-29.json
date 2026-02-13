@@ -441,12 +441,25 @@
         "detail_captured": true
     },
     {
-        "id": "709617336741",
-        "url": "https://sf-item.taobao.com/sf_item/709617336741.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
-        "end": 1682733932000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/709617336741.htm"
+        "id": 709617336741,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 847462,
+        "交易时间": "2023-04-29 10:05:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/709617336741.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
+        "是否成交": true,
+        "竞拍人数": 7,
+        "出价人数": 7,
+        "地点": "江苏省淮安市淮安区富丽瑞锦苑12号住宅楼501",
+        "所属小区": "富丽瑞锦苑",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 709655556118,
@@ -491,11 +504,25 @@
         "detail_captured": true
     },
     {
-        "id": "709889093973",
-        "url": "https://sf-item.taobao.com/sf_item/709889093973.htm?track_id=15d3c34d-ea18-4beb-8082-c657542c2f90",
-        "end": 1682733996000,
-        "status": "done",
-        "is_processed": false
+        "id": 709889093973,
+        "市场评估价": 404306,
+        "起拍价格": 258755.84,
+        "成交价格": 292755.84,
+        "交易时间": "2023-04-29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/709889093973.htm?track_id=15d3c34d-ea18-4beb-8082-c657542c2f90",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": null,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 局子街2751号",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": "延吉市",
+        "最靠近商圈": "局子街商圈",
+        "建筑面积": 97.47,
+        "单价": 3002.79,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "709951105798",
@@ -505,11 +532,25 @@
         "is_processed": false
     },
     {
-        "id": "712092736712",
-        "url": "https://sf-item.taobao.com/sf_item/712092736712.htm?track_id=c88c49af-610a-41c6-8858-724a691484fb",
-        "end": 1682733600000,
-        "status": "done",
-        "is_processed": false
+        "id": 712092736712,
+        "市场评估价": 0,
+        "起拍价格": 884796,
+        "成交价格": 884796,
+        "交易时间": "2023/04/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/712092736712.htm?track_id=c88c49af-610a-41c6-8858-724a691484fb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 海璟·印象城1幢32907室",
+        "所属小区": "海璟·印象城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "辛家庙",
+        "建筑面积": 90.15,
+        "单价": 9811.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "709803745301",
@@ -519,16 +560,51 @@
         "is_processed": false
     },
     {
-        "id": "711715162481",
-        "url": "https://sf-item.taobao.com/sf_item/711715162481.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
-        "end": 1682738434000,
-        "status": "done",
-        "is_processed": false
+        "id": 711715162481,
+        "市场评估价": 564650,
+        "起拍价格": 465650,
+        "成交价格": 564650,
+        "交易时间": "2023-04-29 11:20:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/711715162481.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
+        "是否成交": true,
+        "竞拍人数": 51,
+        "出价人数": 50,
+        "地点": "河南省 郑州市 二七区 工人路456号5号楼13层74号",
+        "所属小区": null,
+        "省份": "河南",
+        "城市": "郑州",
+        "区": "二七区",
+        "最靠近商圈": "德化街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "711717466673",
         "url": "https://sf-item.taobao.com/sf_item/711717466673.htm?track_id=6b04ce3c-2f80-41e6-9418-abb9d96f54be",
         "end": 1682735305000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "710149235450",
+        "url": "https://sf-item.taobao.com/sf_item/710149235450.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
+        "end": 1682738042000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "712343129857",
+        "url": "https://sf-item.taobao.com/sf_item/712343129857.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1682736913000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "712827823852",
+        "url": "https://sf-item.taobao.com/sf_item/712827823852.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1682736922000,
         "status": "done",
         "is_processed": false
     }

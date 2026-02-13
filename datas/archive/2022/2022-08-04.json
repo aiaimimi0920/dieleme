@@ -420,12 +420,25 @@
         "detail_captured": true
     },
     {
-        "id": "676912868106",
-        "url": "https://sf-item.taobao.com/sf_item/676912868106.htm?track_id=45554b6b-9801-419f-9a2a-4417bfff5eb4",
-        "end": 1659579595000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/676912868106.htm"
+        "id": 676912868106,
+        "市场评估价": 5357376,
+        "起拍价格": 3000200,
+        "成交价格": 3000200,
+        "交易时间": "2022/08/04 10:19:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676912868106.htm?track_id=45554b6b-9801-419f-9a2a-4417bfff5eb4",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 上饶市 弋阳县 弋江镇广场路78号",
+        "所属小区": "弋江镇广场路78号",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "弋阳县",
+        "最靠近商圈": "弋江镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 677363388594,
@@ -540,9 +553,65 @@
         "is_processed": false
     },
     {
-        "id": "678569208810",
-        "url": "https://sf-item.taobao.com/sf_item/678569208810.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
-        "end": 1659579931000,
+        "id": 678569208810,
+        "市场评估价": 1375383.33,
+        "起拍价格": 935260.66,
+        "成交价格": 1123260.66,
+        "交易时间": "2022/08/04 10:25:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678569208810.htm?track_id=a911498f-a5bf-4e27-ac4c-df4cd0b89d57",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": 40,
+        "地点": "河南省 郑州市 二七区 中牟县小潘庄学苑路南、祥瑞路西泓泉宫小区2号楼2单元2层202",
+        "所属小区": "路劲九郡麒麟园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "中牟县",
+        "建筑面积": 156.96,
+        "单价": 7152.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "677740127945",
+        "url": "https://sf-item.taobao.com/sf_item/677740127945.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1659578968000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677094261679",
+        "url": "https://sf-item.taobao.com/sf_item/677094261679.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1659578906000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677072341179",
+        "url": "https://sf-item.taobao.com/sf_item/677072341179.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1659582766000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "676600520638",
+        "url": "https://sf-item.taobao.com/sf_item/676600520638.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1659578987000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677383646807",
+        "url": "https://sf-item.taobao.com/sf_item/677383646807.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1659580318000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677072465149",
+        "url": "https://sf-item.taobao.com/sf_item/677072465149.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1659580423000,
         "status": "done",
         "is_processed": false
     }

@@ -42,16 +42,72 @@
         "detail_captured": true
     },
     {
-        "id": "528280102651",
-        "url": "https://sf-item.taobao.com/sf_item/528280102651.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
-        "end": 1459865243000,
+        "id": 528280102651,
+        "市场评估价": 0,
+        "起拍价格": 276840,
+        "成交价格": 361840,
+        "交易时间": "2016/04/05 22:07:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528280102651.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 18,
+        "地点": "惠州市博罗县九村居委会上头塘居民小组高坑地段保利山水城D区D10栋4层01号房",
+        "所属小区": "保利山水城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 87,
+        "单价": 4159.09,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 528383051874,
+        "市场评估价": 0,
+        "起拍价格": 450432,
+        "成交价格": 675432,
+        "交易时间": "2016/04/05 22:18:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528383051874.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 44,
+        "地点": "福建省泉州市安溪县安溪县茶叶批发市场M幢132号店",
+        "所属小区": "安溪县茶叶批发市场",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "茶都广场",
+        "建筑面积": 36.47,
+        "单价": 18519.55,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "528395132589",
+        "url": "https://sf-item.taobao.com/sf_item/528395132589.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1459824082000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "528383051874",
-        "url": "https://sf-item.taobao.com/sf_item/528383051874.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
-        "end": 1459865893000,
+        "id": "528358986730",
+        "url": "https://sf-item.taobao.com/sf_item/528358986730.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1459823200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528362018164",
+        "url": "https://sf-item.taobao.com/sf_item/528362018164.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1459824191000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528375845992",
+        "url": "https://sf-item.taobao.com/sf_item/528375845992.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1459824325000,
         "status": "done",
         "is_processed": false
     }

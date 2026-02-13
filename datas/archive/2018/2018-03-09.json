@@ -251,15 +251,16 @@
         "竞拍人数": 2,
         "出价人数": 0,
         "地点": "四川省蒲江县西来镇两河村8组71号",
-        "所属小区": null,
+        "所属小区": "西来镇两河村安置房",
         "省份": "四川省",
         "城市": "成都市",
         "区": "蒲江县",
-        "最靠近商圈": "西来镇",
+        "最靠近商圈": "西来镇商业街",
         "建筑面积": 3028.47,
-        "单价": 1455.85,
+        "单价": 1456.18,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564866489099,
@@ -357,15 +358,16 @@
         "竞拍人数": null,
         "出价人数": 79,
         "地点": "浙江省温州市泰顺县罗阳镇泰庆北二路23号",
-        "所属小区": null,
+        "所属小区": "华鸿万盛众望城",
         "省份": "浙江省",
         "城市": "温州市",
         "区": "泰顺县",
-        "最靠近商圈": "罗阳镇",
+        "最靠近商圈": "罗阳新城商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564862713085,
@@ -378,15 +380,16 @@
         "竞拍人数": 12,
         "出价人数": 0,
         "地点": "浙江省 温州市 泰顺县 新城商务区6-7幢128室",
-        "所属小区": null,
+        "所属小区": "新城商务区",
         "省份": "浙江省",
         "城市": "温州市",
         "区": "泰顺县",
-        "最靠近商圈": "新城商务区",
+        "最靠近商圈": "新城商务区商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564937890438,
@@ -450,5 +453,54 @@
         "单价": 18394.59,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "564770614750",
+        "url": "https://sf-item.taobao.com/sf_item/564770614750.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1520562244000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564318562036",
+        "url": "https://sf-item.taobao.com/sf_item/564318562036.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1520563822000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564585544173",
+        "url": "https://sf-item.taobao.com/sf_item/564585544173.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1520563545000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564734785246",
+        "url": "https://sf-item.taobao.com/sf_item/564734785246.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1520561588000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564938322717",
+        "url": "https://sf-item.taobao.com/sf_item/564938322717.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "end": 1520560800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564754756806",
+        "url": "https://sf-item.taobao.com/sf_item/564754756806.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1520562356000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565019975595",
+        "url": "https://sf-item.taobao.com/sf_item/565019975595.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1520561394000,
+        "status": "done",
+        "is_processed": false
     }
 ]

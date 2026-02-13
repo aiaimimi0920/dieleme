@@ -84,16 +84,37 @@
         "detail_captured": true
     },
     {
-        "id": "613665196498",
-        "url": "https://sf-item.taobao.com/sf_item/613665196498.htm?track_id=d9d5cff6-76da-4d05-953f-bedf8efbb449",
-        "end": 1586054536000,
-        "status": "done",
-        "is_processed": false
+        "id": 613665196498,
+        "市场评估价": null,
+        "起拍价格": 1450000,
+        "成交价格": 1620000,
+        "交易时间": "2020/04/05 10:42:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/613665196498.htm?track_id=d9d5cff6-76da-4d05-953f-bedf8efbb449",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城十二路以北文景路东侧规划路以东汇通国际项目（太古城）5幢1单元11703室房产及车位（5-B201）",
+        "所属小区": "汇通国际项目（太古城）",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区商圈",
+        "建筑面积": 138.82,
+        "单价": 11668.59,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "613619908702",
         "url": "https://sf-item.taobao.com/sf_item/613619908702.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
         "end": 1586052013000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613897521143",
+        "url": "https://sf-item.taobao.com/sf_item/613897521143.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1586052000000,
         "status": "done",
         "is_processed": false
     }

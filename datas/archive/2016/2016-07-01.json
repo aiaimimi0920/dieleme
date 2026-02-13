@@ -21,9 +21,58 @@
         "detail_captured": true
     },
     {
-        "id": "534041636431",
-        "url": "https://sf-item.taobao.com/sf_item/534041636431.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
-        "end": 1467383195000,
+        "id": 534041636431,
+        "市场评估价": 0,
+        "起拍价格": 632080,
+        "成交价格": 773080,
+        "交易时间": "2016/07/01 22:26:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534041636431.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 48,
+        "地点": "福建省泉州市安溪县凤城中山街552号店及夹层房产",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "中山街商圈",
+        "建筑面积": 71.43,
+        "单价": 10820.85,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "533807103870",
+        "url": "https://sf-item.taobao.com/sf_item/533807103870.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1467340478000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533871356291",
+        "url": "https://sf-item.taobao.com/sf_item/533871356291.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1467338848000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533592151037",
+        "url": "https://sf-item.taobao.com/sf_item/533592151037.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1467341615000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533976438814",
+        "url": "https://sf-item.taobao.com/sf_item/533976438814.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1467338400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "533822130445",
+        "url": "https://sf-item.taobao.com/sf_item/533822130445.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1467341943000,
         "status": "done",
         "is_processed": false
     }

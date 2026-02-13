@@ -210,23 +210,72 @@
         "detail_captured": true
     },
     {
-        "id": "540737701944",
-        "url": "https://sf-item.taobao.com/sf_item/540737701944.htm?track_id=32ecdb41-ce90-492f-a9ea-1746b136c1b5",
-        "end": 1478829600000,
-        "status": "done",
-        "is_processed": false
+        "id": 540737701944,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 142800000,
+        "交易时间": "2016/11/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540737701944.htm?track_id=32ecdb41-ce90-492f-a9ea-1746b136c1b5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 18,
+        "地点": "贵州省遵义市汇川区上海路",
+        "所属小区": "新长征国际大酒店",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "上海路",
+        "建筑面积": 68987.43,
+        "单价": 2070.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "541182718022",
-        "url": "https://sf-item.taobao.com/sf_item/541182718022.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
-        "end": 1478832334000,
-        "status": "done",
-        "is_processed": false
+        "id": 541182718022,
+        "市场评估价": 1174100,
+        "起拍价格": 939280,
+        "成交价格": 1154280,
+        "交易时间": "2016/11/11 10:45:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541182718022.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市二七区桐柏路98号帝湖花园A区帝湖王府10号楼3单元10层东侧S号",
+        "所属小区": "帝湖王府",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "帝湖板块",
+        "建筑面积": 131.38,
+        "单价": 8793.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "540774817782",
         "url": "https://sf-item.taobao.com/sf_item/540774817782.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
         "end": 1478830584000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540687675665",
+        "url": "https://sf-item.taobao.com/sf_item/540687675665.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1478830036000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541369188835",
+        "url": "https://sf-item.taobao.com/sf_item/541369188835.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1478831327000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540388775321",
+        "url": "https://sf-item.taobao.com/sf_item/540388775321.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1478835825000,
         "status": "done",
         "is_processed": false
     }

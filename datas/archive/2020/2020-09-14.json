@@ -675,18 +675,46 @@
         "detail_captured": true
     },
     {
-        "id": "626523271798",
-        "url": "https://sf-item.taobao.com/sf_item/626523271798.htm?track_id=110cae27-78c2-4291-8b1b-70244e446202",
-        "end": 1600049706000,
-        "status": "done",
-        "is_processed": false
+        "id": 626523271798,
+        "市场评估价": 392791,
+        "起拍价格": 251386.24,
+        "成交价格": 271386.24,
+        "交易时间": "2020-09-14 10:15:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/626523271798.htm?track_id=110cae27-78c2-4291-8b1b-70244e446202",
+        "是否成交": true,
+        "竞拍人数": 29,
+        "出价人数": 29,
+        "地点": "辽宁省 沈阳市 铁西区 北三西路17甲3-1号1-18-8",
+        "所属小区": "美好愿景",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西",
+        "建筑面积": 47.45,
+        "单价": 5718.35,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "625859509786",
-        "url": "https://sf-item.taobao.com/sf_item/625859509786.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1600048800000,
-        "status": "done",
-        "is_processed": false
+        "id": 625859509786,
+        "市场评估价": 1153485,
+        "起拍价格": 784371,
+        "成交价格": 784371,
+        "交易时间": "2020/09/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625859509786.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 小五路54号2-5-1",
+        "所属小区": "小五路54号院",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场商圈",
+        "建筑面积": 150.96,
+        "单价": 5195.25,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "625217018360",
@@ -703,16 +731,44 @@
         "is_processed": false
     },
     {
-        "id": "625108438694",
-        "url": "https://sf-item.taobao.com/sf_item/625108438694.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
-        "end": 1600050926000,
-        "status": "done",
-        "is_processed": false
+        "id": 625108438694,
+        "市场评估价": 1100000,
+        "起拍价格": 1100000,
+        "成交价格": 1520000,
+        "交易时间": "2020/09/14 10:35:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625108438694.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
+        "是否成交": true,
+        "竞拍人数": 46,
+        "出价人数": 41,
+        "地点": "河南省 郑州市 二七区 碧云路23号院8号楼2单元14层111号的房产",
+        "所属小区": "盛世之都",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "长江路与碧云路交叉口商圈",
+        "建筑面积": 122.13,
+        "单价": 12448.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "624547228376",
         "url": "https://sf-item.taobao.com/sf_item/624547228376.htm?track_id=e9db07e5-7acb-4b43-9d9c-583daa52fdcf",
         "end": 1600048800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624613408141",
+        "url": "https://sf-item.taobao.com/sf_item/624613408141.htm?track_id=85d6e4c3-5841-4382-a02e-efc4156014e9",
+        "end": 1600049047000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624574052083",
+        "url": "https://sf-item.taobao.com/sf_item/624574052083.htm?track_id=1f756e4c-b012-46bd-9069-1a5d9bb4c457",
+        "end": 1600051703000,
         "status": "done",
         "is_processed": false
     }

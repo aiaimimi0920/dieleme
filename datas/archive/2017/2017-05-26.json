@@ -276,18 +276,46 @@
         "detail_captured": true
     },
     {
-        "id": "549397967289",
-        "url": "https://sf-item.taobao.com/sf_item/549397967289.htm?track_id=c6df0310-ebd5-4130-9d27-718efb9b09f3",
-        "end": 1495764000000,
-        "status": "done",
-        "is_processed": false
+        "id": 549397967289,
+        "市场评估价": null,
+        "起拍价格": 740100,
+        "成交价格": 740000,
+        "交易时间": "2017/05/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/549397967289.htm?track_id=c6df0310-ebd5-4130-9d27-718efb9b09f3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "西安市经济技术开发区凤城一路24号2幢C单元21301号",
+        "所属小区": "紫玉公馆",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "大明宫商圈",
+        "建筑面积": 111.11,
+        "单价": 6662.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "550398101706",
-        "url": "https://sf-item.taobao.com/sf_item/550398101706.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
-        "end": 1495764000000,
-        "status": "done",
-        "is_processed": false
+        "id": 550398101706,
+        "市场评估价": null,
+        "起拍价格": 171440,
+        "成交价格": 171440,
+        "交易时间": "2017/05/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/550398101706.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "博罗县罗阳镇义和横江尾村--义和商业广场7栋03号",
+        "所属小区": "义和商业广场",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "义和",
+        "建筑面积": 81.07,
+        "单价": 2114.6,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "549078872358",
@@ -349,6 +377,20 @@
         "id": "549101392292",
         "url": "https://sf-item.taobao.com/sf_item/549101392292.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1495764000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549984705130",
+        "url": "https://sf-item.taobao.com/sf_item/549984705130.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1495767436000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549932820527",
+        "url": "https://sf-item.taobao.com/sf_item/549932820527.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1495770331000,
         "status": "done",
         "is_processed": false
     }

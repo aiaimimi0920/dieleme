@@ -777,11 +777,25 @@
         "detail_captured": true
     },
     {
-        "id": "695431023167",
-        "url": "https://sf-item.taobao.com/sf_item/695431023167.htm?track_id=a7155322-1f8b-438d-b84c-02072d71caf5",
-        "end": 1676348670000,
-        "status": "done",
-        "is_processed": false
+        "id": 695431023167,
+        "市场评估价": 245384.0,
+        "起拍价格": 137415.04,
+        "成交价格": 137415.04,
+        "交易时间": "2023/02/14 12:24:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695431023167.htm?track_id=a7155322-1f8b-438d-b84c-02072d71caf5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 飞行路6号2单元201",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 79.67,
+        "单价": 1725.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "697967740380",
@@ -791,18 +805,46 @@
         "is_processed": false
     },
     {
-        "id": "696995882778",
-        "url": "https://sf-item.taobao.com/sf_item/696995882778.htm?track_id=6d5bf8f0-ec16-4236-92a5-30a11f0156b7",
-        "end": 1676340000000,
-        "status": "done",
-        "is_processed": false
+        "id": 696995882778,
+        "市场评估价": 2069701,
+        "起拍价格": 2069701,
+        "成交价格": 2069701,
+        "交易时间": "2023/02/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696995882778.htm?track_id=6d5bf8f0-ec16-4236-92a5-30a11f0156b7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 霸州市 兴华南路东侧南关村",
+        "所属小区": null,
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "兴华路商圈",
+        "建筑面积": 264.6,
+        "单价": 7823.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "696733262860",
-        "url": "https://sf-item.taobao.com/sf_item/696733262860.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
-        "end": 1676349563000,
-        "status": "done",
-        "is_processed": false
+        "id": 696733262860,
+        "市场评估价": 2160756.33,
+        "起拍价格": 1520000,
+        "成交价格": 2040000,
+        "交易时间": "2023-02-14 12:39:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696733262860.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
+        "是否成交": true,
+        "竞拍人数": 63,
+        "出价人数": 53,
+        "地点": "安徽省 合肥市 瑶海区 明光路339号古井丰水源15幢303室成套住宅",
+        "所属小区": "古井丰水源",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "明光路商圈",
+        "建筑面积": 129.25,
+        "单价": 15788.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "697401910741",
@@ -815,6 +857,55 @@
         "id": "697532710700",
         "url": "https://sf-item.taobao.com/sf_item/697532710700.htm?track_id=d8f63a09-ef84-4561-bc48-ff20ead59d2a",
         "end": 1676340000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697521894662",
+        "url": "https://sf-item.taobao.com/sf_item/697521894662.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1676340000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697479138538",
+        "url": "https://sf-item.taobao.com/sf_item/697479138538.htm?track_id=b29a20ac-4526-4c00-8c7e-3478c2981281",
+        "end": 1676363565000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697609059141",
+        "url": "https://sf-item.taobao.com/sf_item/697609059141.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1676345607000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695557274328",
+        "url": "https://sf-item.taobao.com/sf_item/695557274328.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
+        "end": 1676339571000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696945661607",
+        "url": "https://sf-item.taobao.com/sf_item/696945661607.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1676340002000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "698273521578",
+        "url": "https://sf-item.taobao.com/sf_item/698273521578.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1676340000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "696303809783",
+        "url": "https://sf-item.taobao.com/sf_item/696303809783.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
+        "end": 1676388853000,
         "status": "done",
         "is_processed": false
     }

@@ -203,16 +203,51 @@
         "is_processed": false
     },
     {
-        "id": "636584390884",
-        "url": "https://sf-item.taobao.com/sf_item/636584390884.htm?track_id=338e08a5-6097-4777-af8b-636880c2658c",
-        "end": 1612058400000,
-        "status": "done",
-        "is_processed": false
+        "id": 636584390884,
+        "市场评估价": 0,
+        "起拍价格": 1001756,
+        "成交价格": 1001756,
+        "交易时间": "2021/01/31 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636584390884.htm?track_id=338e08a5-6097-4777-af8b-636880c2658c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "顺昌县双溪街道中山西路180号富金景苑1幢1层114",
+        "所属小区": "富金景苑",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪街道",
+        "建筑面积": 80.96,
+        "单价": 12378.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "635797136774",
         "url": "https://sf-item.taobao.com/sf_item/635797136774.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
         "end": 1612059391000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635543046172",
+        "url": "https://sf-item.taobao.com/sf_item/635543046172.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1612058977000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635867559037",
+        "url": "https://sf-item.taobao.com/sf_item/635867559037.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1612058400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636200333122",
+        "url": "https://sf-item.taobao.com/sf_item/636200333122.htm?track_id=b193329e-97f5-4742-b05b-c53d815c428b",
+        "end": 1612062369000,
         "status": "done",
         "is_processed": false
     }

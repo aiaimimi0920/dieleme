@@ -420,11 +420,25 @@
         "detail_captured": true
     },
     {
-        "id": "676340948263",
-        "url": "https://sf-item.taobao.com/sf_item/676340948263.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
-        "end": 1658025138000,
-        "status": "done",
-        "is_processed": false
+        "id": 676340948263,
+        "市场评估价": null,
+        "起拍价格": 176149,
+        "成交价格": 193149,
+        "交易时间": "2022-07-17 10:32:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676340948263.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": 9,
+        "地点": "四川省 资阳市 乐至县 石湍镇长寿路（现地址：乐至县石湍镇长寿路90号1栋1单元2楼2号）",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "石湍镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 678326123797,
@@ -448,16 +462,44 @@
         "detail_captured": true
     },
     {
-        "id": "676310793139",
-        "url": "https://sf-item.taobao.com/sf_item/676310793139.htm?track_id=9ec7e7a4-d280-40ea-8302-422c00f4e23a",
-        "end": 1658023200000,
-        "status": "done",
-        "is_processed": false
+        "id": 676310793139,
+        "市场评估价": null,
+        "起拍价格": 589843.2,
+        "成交价格": 589843.2,
+        "交易时间": "2022/07/17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676310793139.htm?track_id=9ec7e7a4-d280-40ea-8302-422c00f4e23a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 城区西大街西段北侧（阳光花园1号楼）东单元4层东户房产一处",
+        "所属小区": "阳光花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "西大街",
+        "建筑面积": 158.56,
+        "单价": 3720.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "676623589479",
         "url": "https://sf-item.taobao.com/sf_item/676623589479.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
         "end": 1658025010000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "676771015161",
+        "url": "https://sf-item.taobao.com/sf_item/676771015161.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1658025275000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "676534265781",
+        "url": "https://sf-item.taobao.com/sf_item/676534265781.htm?track_id=bce7c78f-af18-4d86-a5d0-8036c9800db5",
+        "end": 1658024241000,
         "status": "done",
         "is_processed": false
     }

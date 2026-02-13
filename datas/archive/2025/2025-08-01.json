@@ -1369,19 +1369,46 @@
         "detail_captured": true
     },
     {
-        "id": "952870609321",
-        "url": "https://sf-item.taobao.com/sf_item/952870609321.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
-        "end": 1754014901000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/952870609321.htm"
+        "id": 952870609321,
+        "市场评估价": null,
+        "起拍价格": 160004,
+        "成交价格": 169004,
+        "交易时间": "2025/08/01 10:21:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/952870609321.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省淮安市淮安区新城市广场33号楼东塔楼1404室",
+        "所属小区": "新城市广场",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "953479968967",
-        "url": "https://sf-item.taobao.com/sf_item/953479968967.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
-        "end": 1754013600000,
-        "status": "done",
-        "is_processed": false
+        "id": 953479968967,
+        "市场评估价": 505845.4,
+        "起拍价格": 323741.06,
+        "成交价格": 323741.06,
+        "交易时间": "2025/08/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/953479968967.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省郑州市新密市城区荟萃南路6号（中盛景苑6号楼）1单元6层602室",
+        "所属小区": "中盛景苑",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "荟萃南路",
+        "建筑面积": 87.87,
+        "单价": 3684.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "945703879220",
@@ -1398,11 +1425,25 @@
         "is_processed": false
     },
     {
-        "id": "952222450590",
-        "url": "https://sf-item.taobao.com/sf_item/952222450590.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
-        "end": 1754016854000,
-        "status": "done",
-        "is_processed": false
+        "id": 952222450590,
+        "市场评估价": 745754.455,
+        "起拍价格": 417624,
+        "成交价格": 533624,
+        "交易时间": "2025/08/01 10:54:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/952222450590.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 29,
+        "地点": "福建省 南平市 顺昌县 城南中路48号2901单元",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "城南",
+        "建筑面积": 103.24,
+        "单价": 5168.78,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "952718389690",
@@ -1412,16 +1453,44 @@
         "is_processed": false
     },
     {
-        "id": "952770465231",
-        "url": "https://sf-item.taobao.com/sf_item/952770465231.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
-        "end": 1754014225000,
-        "status": "done",
-        "is_processed": false
+        "id": 952770465231,
+        "市场评估价": 1423800,
+        "起拍价格": 798000,
+        "成交价格": 826000,
+        "交易时间": "2025-08-01 10:10:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/952770465231.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 5,
+        "地点": "浙江省嘉兴市海盐县武原街道盐北路365号海盐国际紧固件五金城三排63、65号",
+        "所属小区": "海盐国际紧固件五金城",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 226,
+        "单价": 3654.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "952768845031",
         "url": "https://sf-item.taobao.com/sf_item/952768845031.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
         "end": 1754015072000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "953819096292",
+        "url": "https://sf-item.taobao.com/sf_item/953819096292.htm?track_id=7c737cf8-b427-44c7-8a5e-bd75d257223c",
+        "end": 1754013822000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "952262066451",
+        "url": "https://sf-item.taobao.com/sf_item/952262066451.htm?track_id=08271d2b-720b-4ac9-8bef-4716c7dea6e2",
+        "end": 1754016945000,
         "status": "done",
         "is_processed": false
     }

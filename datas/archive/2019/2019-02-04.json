@@ -85,11 +85,25 @@
         "detail_captured": true
     },
     {
-        "id": "584987064902",
-        "url": "https://sf-item.taobao.com/sf_item/584987064902.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
-        "end": 1549245818000,
-        "status": "done",
-        "is_processed": false
+        "id": 584987064902,
+        "市场评估价": 505300,
+        "起拍价格": 404240,
+        "成交价格": 404240,
+        "交易时间": "2019/02/04 10:03:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/584987064902.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 天池镇金穗路131、133号商业用房",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "585454423413",

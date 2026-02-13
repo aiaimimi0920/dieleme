@@ -396,16 +396,73 @@
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "虎丘区",
-        "最靠近商圈": null,
+        "最靠近商圈": "浒墅关",
         "建筑面积": 48.1,
         "单价": 13305.61,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 557356155265,
+        "市场评估价": null,
+        "起拍价格": 750600,
+        "成交价格": 825600,
+        "交易时间": "2017-09-20 10:08:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557356155265.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": 21,
+        "地点": "广东省惠州市博罗县罗阳镇江山美苑C1栋2单元601号",
+        "所属小区": "江山美苑",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 147.49,
+        "单价": 5597.66,
         "is_processed": true,
         "detail_captured": true
     },
     {
-        "id": "557356155265",
-        "url": "https://sf-item.taobao.com/sf_item/557356155265.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
-        "end": 1505873287000,
+        "id": "557337919931",
+        "url": "https://sf-item.taobao.com/sf_item/557337919931.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1505874058000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557170440148",
+        "url": "https://sf-item.taobao.com/sf_item/557170440148.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1505876731000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557359003005",
+        "url": "https://sf-item.taobao.com/sf_item/557359003005.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1505874954000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557358735005",
+        "url": "https://sf-item.taobao.com/sf_item/557358735005.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1505875489000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557358559895",
+        "url": "https://sf-item.taobao.com/sf_item/557358559895.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1505874241000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557256149645",
+        "url": "https://sf-item.taobao.com/sf_item/557256149645.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1505873751000,
         "status": "done",
         "is_processed": false
     }

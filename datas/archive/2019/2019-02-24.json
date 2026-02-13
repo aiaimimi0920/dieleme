@@ -100,11 +100,12 @@
         "省份": "内蒙古自治区",
         "城市": "呼伦贝尔市",
         "区": "满洲里市",
-        "最靠近商圈": null,
+        "最靠近商圈": "满洲里市中心商圈",
         "建筑面积": 86.57,
-        "单价": 2570.42,
+        "单价": 2570.17,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 586444501992,
@@ -170,11 +171,25 @@
         "detail_captured": true
     },
     {
-        "id": "586495042088",
-        "url": "https://sf-item.taobao.com/sf_item/586495042088.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
-        "end": 1550973600000,
-        "status": "done",
-        "is_processed": false
+        "id": 586495042088,
+        "市场评估价": 3362200,
+        "起拍价格": 2353540,
+        "成交价格": 2353540,
+        "交易时间": "2019/02/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586495042088.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 天池镇棉花沟村六社6幢3层1号营业用房",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 586685299011,
@@ -205,18 +220,46 @@
         "is_processed": false
     },
     {
-        "id": "585186777219",
-        "url": "https://sf-item.taobao.com/sf_item/585186777219.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
-        "end": 1551006572000,
-        "status": "done",
-        "is_processed": false
+        "id": 585186777219,
+        "市场评估价": null,
+        "起拍价格": 145536,
+        "成交价格": 161536,
+        "交易时间": "2019/02/24 19:09:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585186777219.htm?track_id=f42dfcd7-573f-455b-83d5-a76daee7e090",
+        "是否成交": true,
+        "竞拍人数": 7,
+        "出价人数": 14,
+        "地点": "江西省 鹰潭市 贵溪市 城南商贸广场B2栋3号商铺",
+        "所属小区": "城南商贸广场",
+        "省份": "江西省",
+        "城市": "鹰潭市",
+        "区": "贵溪市",
+        "最靠近商圈": "城南商贸广场",
+        "建筑面积": 43.89,
+        "单价": 3680.03,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "586205228160",
-        "url": "https://sf-item.taobao.com/sf_item/586205228160.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
-        "end": 1550976249000,
-        "status": "done",
-        "is_processed": false
+        "id": 586205228160,
+        "市场评估价": null,
+        "起拍价格": 1210000,
+        "成交价格": 1490000,
+        "交易时间": "2019-02-24T10:44:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586205228160.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
+        "是否成交": true,
+        "竞拍人数": 29,
+        "出价人数": 29,
+        "地点": "河南省 郑州市 二七区 郑密路西、清江路南、长江路北、卫民路东亚星盛世郦都小区2号楼2单元6层601（实为2号楼2单元605室）",
+        "所属小区": "东亚星盛世郦都",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 115.85,
+        "单价": 12856.91,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586202452733",
@@ -229,6 +272,13 @@
         "id": "586244026843",
         "url": "https://sf-item.taobao.com/sf_item/586244026843.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1550973620000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586228968716",
+        "url": "https://sf-item.taobao.com/sf_item/586228968716.htm?track_id=f9fba1dc-0a83-468f-bda8-aa92f58b8e7a",
+        "end": 1550973600000,
         "status": "done",
         "is_processed": false
     }

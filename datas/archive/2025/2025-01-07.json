@@ -1368,11 +1368,25 @@
         "detail_captured": true
     },
     {
-        "id": "860244719719",
-        "url": "https://sf-item.taobao.com/sf_item/860244719719.htm?track_id=f9d53f9a-35c4-4816-96c7-9774afd0b58c",
-        "end": 1736215200000,
-        "status": "done",
-        "is_processed": false
+        "id": 860244719719,
+        "市场评估价": null,
+        "起拍价格": 550000,
+        "成交价格": 550000,
+        "交易时间": "2025/01/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/860244719719.htm?track_id=f9d53f9a-35c4-4816-96c7-9774afd0b58c",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 团结大街13号街坊新元华庭-7-A9",
+        "所属小区": "新元华庭",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "团结大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 863880901527,
@@ -1396,18 +1410,46 @@
         "detail_captured": true
     },
     {
-        "id": "864892392448",
-        "url": "https://sf-item.taobao.com/sf_item/864892392448.htm?track_id=c91db458-86b2-4c54-b8e2-bb20970fae22",
-        "end": 1736215200000,
-        "status": "done",
-        "is_processed": false
+        "id": 864892392448,
+        "市场评估价": 520648,
+        "起拍价格": 374868,
+        "成交价格": 374868,
+        "交易时间": "2025-01-07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/864892392448.htm?track_id=c91db458-86b2-4c54-b8e2-bb20970fae22",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 南九中路43号2-5-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西商圈",
+        "建筑面积": 86.2,
+        "单价": 4349.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "860701373154",
-        "url": "https://sf-item.taobao.com/sf_item/860701373154.htm?track_id=0f7c79f6-1d57-4cd8-9a8d-0c8e235f582b",
-        "end": 1736215200000,
-        "status": "done",
-        "is_processed": false
+        "id": 860701373154,
+        "市场评估价": 815728,
+        "起拍价格": 653000,
+        "成交价格": 653000,
+        "交易时间": "2025/01/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/860701373154.htm?track_id=0f7c79f6-1d57-4cd8-9a8d-0c8e235f582b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳街道龙珠路288号锦绣一品花园7栋1单元8层02房",
+        "所属小区": "锦绣一品花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳商圈",
+        "建筑面积": 119.96,
+        "单价": 5443.15,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "859846171331",
@@ -1420,6 +1462,41 @@
         "id": "860579996679",
         "url": "https://sf-item.taobao.com/sf_item/860579996679.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
         "end": 1736218364000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "860709089938",
+        "url": "https://sf-item.taobao.com/sf_item/860709089938.htm?track_id=dd040ee0-d20e-434f-bd9b-5a877560a871",
+        "end": 1736217230000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "865336170120",
+        "url": "https://sf-item.taobao.com/sf_item/865336170120.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1736215201000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "864021479909",
+        "url": "https://sf-item.taobao.com/sf_item/864021479909.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1736219027000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "860970000156",
+        "url": "https://sf-item.taobao.com/sf_item/860970000156.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1736217953000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "863890102527",
+        "url": "https://sf-item.taobao.com/sf_item/863890102527.htm?track_id=a104badb-d029-4a84-9853-223a95622272",
+        "end": 1736221327000,
         "status": "done",
         "is_processed": false
     }

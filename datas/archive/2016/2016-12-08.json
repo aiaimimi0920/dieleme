@@ -128,11 +128,25 @@
         "detail_captured": true
     },
     {
-        "id": "541783396398",
-        "url": "https://sf-item.taobao.com/sf_item/541783396398.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
-        "end": 1481162400000,
-        "status": "done",
-        "is_processed": false
+        "id": 541783396398,
+        "市场评估价": null,
+        "起拍价格": 336883,
+        "成交价格": 336883,
+        "交易时间": "2016/12/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541783396398.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延吉市恒润三期16号楼3单元501室",
+        "所属小区": "恒润三期",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 90.56,
+        "单价": 3719.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "542457657448",
@@ -145,6 +159,20 @@
         "id": "542143467530",
         "url": "https://sf-item.taobao.com/sf_item/542143467530.htm?track_id=137a4dca-e387-408f-a8bf-387cec33a923",
         "end": 1481165092000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541962217228",
+        "url": "https://sf-item.taobao.com/sf_item/541962217228.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1481163865000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541952785292",
+        "url": "https://sf-item.taobao.com/sf_item/541952785292.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1481163863000,
         "status": "done",
         "is_processed": false
     }

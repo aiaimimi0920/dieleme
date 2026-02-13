@@ -150,16 +150,44 @@
         "detail_captured": true
     },
     {
-        "id": "537773349760",
-        "url": "https://sf-item.taobao.com/sf_item/537773349760.htm?track_id=10beff77-cbfd-4062-96ee-37ea0a0eb7cf",
-        "end": 1474337065000,
-        "status": "done",
-        "is_processed": false
+        "id": 537773349760,
+        "市场评估价": 157560,
+        "起拍价格": 157560,
+        "成交价格": 200760,
+        "交易时间": "2016/09/20 10:04:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537773349760.htm?track_id=10beff77-cbfd-4062-96ee-37ea0a0eb7cf",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": 21,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 龙井市龙河路天下玫瑰花园A02-1-103号",
+        "所属小区": "天下玫瑰花园",
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": "龙井市",
+        "最靠近商圈": "龙井市核心商圈",
+        "建筑面积": 78.78,
+        "单价": 2548.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "538366151978",
         "url": "https://sf-item.taobao.com/sf_item/538366151978.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
         "end": 1474337550000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537565572559",
+        "url": "https://sf-item.taobao.com/sf_item/537565572559.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1474339551000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537925888980",
+        "url": "https://sf-item.taobao.com/sf_item/537925888980.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1474339500000,
         "status": "done",
         "is_processed": false
     }

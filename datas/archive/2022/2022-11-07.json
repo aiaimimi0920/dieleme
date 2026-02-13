@@ -194,16 +194,51 @@
         "detail_captured": true
     },
     {
-        "id": "688423249476",
-        "url": "https://sf-item.taobao.com/sf_item/688423249476.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
-        "end": 1667787212000,
-        "status": "done",
-        "is_processed": false
+        "id": 688423249476,
+        "市场评估价": 400300,
+        "起拍价格": 224168,
+        "成交价格": 254168,
+        "交易时间": "2022-11-07 10:13:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/688423249476.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 16,
+        "地点": "辽宁省 沈阳市 铁西区 南七西路52-2号4-6-3",
+        "所属小区": "花苑小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西区",
+        "建筑面积": 67.56,
+        "单价": 3762.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "688325909435",
         "url": "https://sf-item.taobao.com/sf_item/688325909435.htm?track_id=bc44a8f3-b884-4d6c-b85a-fa1993dc6006",
         "end": 1667787799000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "689184407542",
+        "url": "https://sf-item.taobao.com/sf_item/689184407542.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1667790204000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "685335718235",
+        "url": "https://sf-item.taobao.com/sf_item/685335718235.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1667788153000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "685642859624",
+        "url": "https://sf-item.taobao.com/sf_item/685642859624.htm?track_id=750b58ad-ff75-4aee-b3f4-98c79d909aed",
+        "end": 1667786400000,
         "status": "done",
         "is_processed": false
     }

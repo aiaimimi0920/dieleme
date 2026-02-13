@@ -561,18 +561,46 @@
         "is_processed": false
     },
     {
-        "id": "586686956065",
-        "url": "https://sf-item.taobao.com/sf_item/586686956065.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
-        "end": 1551837776000,
-        "status": "done",
-        "is_processed": false
+        "id": 586686956065,
+        "市场评估价": 914619,
+        "起拍价格": 512188,
+        "成交价格": 512188,
+        "交易时间": "2019/03/06 10:02:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586686956065.htm?track_id=3e1aa857-2a6b-4275-abc4-3cf4b67a8491",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 沈阳经济技术开发区沈辽路198-5号1-5",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 264.8,
+        "单价": 1935.73,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "586994391164",
-        "url": "https://sf-item.taobao.com/sf_item/586994391164.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
-        "end": 1551837600000,
-        "status": "done",
-        "is_processed": false
+        "id": 586994391164,
+        "市场评估价": null,
+        "起拍价格": 1560000,
+        "成交价格": 1560000,
+        "交易时间": "2019/03/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586994391164.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江西省 南昌市 青云谱区 广州路博泰生态商务园12号商业楼101室",
+        "所属小区": "博泰生态商务园",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "广州路商圈",
+        "建筑面积": 234.98,
+        "单价": 6639.15,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586675981740",
@@ -599,6 +627,20 @@
         "id": "587155195403",
         "url": "https://sf-item.taobao.com/sf_item/587155195403.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1551837600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586703173601",
+        "url": "https://sf-item.taobao.com/sf_item/586703173601.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1551841396000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586990559610",
+        "url": "https://sf-item.taobao.com/sf_item/586990559610.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1551840005000,
         "status": "done",
         "is_processed": false
     }

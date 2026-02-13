@@ -441,11 +441,25 @@
         "detail_captured": true
     },
     {
-        "id": "599383416885",
-        "url": "https://sf-item.taobao.com/sf_item/599383416885.htm?track_id=592f94fa-d93e-488c-a277-64ba249fba39",
-        "end": 1567218206000,
-        "status": "done",
-        "is_processed": false
+        "id": 599383416885,
+        "市场评估价": 226875,
+        "起拍价格": 181500,
+        "成交价格": 249500,
+        "交易时间": "2019-08-31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/599383416885.htm?track_id=592f94fa-d93e-488c-a277-64ba249fba39",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 63,
+        "地点": "山东省潍坊市昌邑市昌邑市时代广场新嘉国际1503室",
+        "所属小区": "新嘉国际",
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": null,
+        "建筑面积": 41.28,
+        "单价": 6043.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 599611453525,
@@ -469,16 +483,51 @@
         "detail_captured": true
     },
     {
-        "id": "601408619280",
-        "url": "https://sf-item.taobao.com/sf_item/601408619280.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
-        "end": 1567217681000,
-        "status": "done",
-        "is_processed": false
+        "id": 601408619280,
+        "市场评估价": null,
+        "起拍价格": 1180148.4,
+        "成交价格": 1335148.4,
+        "交易时间": "2019/08/31 10:14:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/601408619280.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 32,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 碧桂园北国之春四街38栋-4号",
+        "所属小区": "碧桂园北国之春",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁镇",
+        "建筑面积": 205.88,
+        "单价": 6484.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "597006094118",
         "url": "https://sf-item.taobao.com/sf_item/597006094118.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
         "end": 1567236476000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "600432248673",
+        "url": "https://sf-item.taobao.com/sf_item/600432248673.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1567218153000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601056427700",
+        "url": "https://sf-item.taobao.com/sf_item/601056427700.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1567218299000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601056523206",
+        "url": "https://sf-item.taobao.com/sf_item/601056523206.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
+        "end": 1567216800000,
         "status": "done",
         "is_processed": false
     }

@@ -84,9 +84,37 @@
         "detail_captured": true
     },
     {
-        "id": "612147442264",
-        "url": "https://sf-item.taobao.com/sf_item/612147442264.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
-        "end": 1582855200000,
+        "id": 612147442264,
+        "市场评估价": 313710,
+        "起拍价格": 225871,
+        "成交价格": 225871,
+        "交易时间": "2020-02-28T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/612147442264.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省遵义市汇川区高坪镇吴家坝棚户区还房11号楼B单元13-5号房屋",
+        "所属小区": "吴家坝棚户区还房",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "高坪",
+        "建筑面积": 104.57,
+        "单价": 2158.71,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "610040234976",
+        "url": "https://sf-item.taobao.com/sf_item/610040234976.htm?track_id=9583dfdb-76e7-4339-9ab5-b262551224f2",
+        "end": 1582851951000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611905937902",
+        "url": "https://sf-item.taobao.com/sf_item/611905937902.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1582857122000,
         "status": "done",
         "is_processed": false
     }

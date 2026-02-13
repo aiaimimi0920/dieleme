@@ -966,12 +966,25 @@
         "detail_captured": true
     },
     {
-        "id": "709205453569",
-        "url": "https://sf-item.taobao.com/sf_item/709205453569.htm?track_id=0e752a1c-0657-4090-9e46-2da7501c92a5",
-        "end": 1682391610000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/709205453569.htm"
+        "id": 709205453569,
+        "市场评估价": null,
+        "起拍价格": 1073925,
+        "成交价格": 1349925,
+        "交易时间": "2023-04-25 11:00:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/709205453569.htm?track_id=0e752a1c-0657-4090-9e46-2da7501c92a5",
+        "是否成交": true,
+        "竞拍人数": 102,
+        "出价人数": null,
+        "地点": "江苏省 淮安市 淮安区 蓝惠首府8号楼601室",
+        "所属小区": "蓝惠首府",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "万达广场",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 710574800662,
@@ -1037,12 +1050,25 @@
         "detail_captured": true
     },
     {
-        "id": "709486539375",
-        "url": "https://sf-item.taobao.com/sf_item/709486539375.htm?track_id=00a8d63d-3334-4454-a1c9-d3ccb4eac2f9",
-        "end": 1682392145000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/709486539375.htm"
+        "id": 709486539375,
+        "市场评估价": 3280000,
+        "起拍价格": 2300000,
+        "成交价格": 4174500,
+        "交易时间": "2023/04/25 11:09:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/709486539375.htm?track_id=00a8d63d-3334-4454-a1c9-d3ccb4eac2f9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省苏州市相城区太平街道民墅巷3-1号",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "太平街道板块",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 708833516906,
@@ -1066,11 +1092,25 @@
         "detail_captured": true
     },
     {
-        "id": "711070064861",
-        "url": "https://sf-item.taobao.com/sf_item/711070064861.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
-        "end": 1682389969000,
-        "status": "done",
-        "is_processed": false
+        "id": 711070064861,
+        "市场评估价": 423903,
+        "起拍价格": 252224,
+        "成交价格": 271224,
+        "交易时间": "2023/04/25 10:32:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/711070064861.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 20,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 龙山大道伯爵国际花园3栋11层",
+        "所属小区": "伯爵国际花园",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "龙山片区",
+        "建筑面积": 88.85,
+        "单价": 3052.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "711195528855",
@@ -1087,11 +1127,25 @@
         "is_processed": false
     },
     {
-        "id": "708922476694",
-        "url": "https://sf-item.taobao.com/sf_item/708922476694.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
-        "end": 1682395370000,
-        "status": "done",
-        "is_processed": false
+        "id": 708922476694,
+        "市场评估价": 10247900,
+        "起拍价格": 7173530,
+        "成交价格": 11513530,
+        "交易时间": "2023-04-25 12:02:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/708922476694.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "是否成交": true,
+        "竞拍人数": 171,
+        "出价人数": 180,
+        "地点": "福建省 厦门市 同安区 厦门市同安区启辉九路45号房产",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "同安区",
+        "最靠近商圈": "同安中心",
+        "建筑面积": 494.09,
+        "单价": 23290.33,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "709613987837",
@@ -1101,11 +1155,25 @@
         "is_processed": false
     },
     {
-        "id": "709391762902",
-        "url": "https://sf-item.taobao.com/sf_item/709391762902.htm?track_id=c8a98758-d89c-4119-9cd3-afa7a351cacb",
-        "end": 1682388309000,
-        "status": "done",
-        "is_processed": false
+        "id": 709391762902,
+        "市场评估价": 1130000,
+        "起拍价格": 791000,
+        "成交价格": 857000,
+        "交易时间": "2023-04-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/709391762902.htm?track_id=c8a98758-d89c-4119-9cd3-afa7a351cacb",
+        "是否成交": true,
+        "竞拍人数": 12,
+        "出价人数": 12,
+        "地点": "福建省泉州市安溪县凤城镇金龙现代广场D幢1408室",
+        "所属小区": "金龙现代广场",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "金龙现代广场",
+        "建筑面积": 102.61,
+        "单价": 8348.6,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "708981144987",
@@ -1118,6 +1186,34 @@
         "id": "709674875883",
         "url": "https://sf-item.taobao.com/sf_item/709674875883.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
         "end": 1682388000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "709137274166",
+        "url": "https://sf-item.taobao.com/sf_item/709137274166.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1682395668000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708390274933",
+        "url": "https://sf-item.taobao.com/sf_item/708390274933.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1682388770000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "711754863380",
+        "url": "https://sf-item.taobao.com/sf_item/711754863380.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
+        "end": 1682393670000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "708807553672",
+        "url": "https://sf-item.taobao.com/sf_item/708807553672.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1682393183000,
         "status": "done",
         "is_processed": false
     }

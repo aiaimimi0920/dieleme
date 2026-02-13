@@ -295,16 +295,37 @@
         "detail_captured": true
     },
     {
-        "id": "564953366386",
-        "url": "https://sf-item.taobao.com/sf_item/564953366386.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
-        "end": 1520993998000,
-        "status": "done",
-        "is_processed": false
+        "id": 564953366386,
+        "市场评估价": 4999800,
+        "起拍价格": 3499900,
+        "成交价格": 3704900,
+        "交易时间": "2018/03/14 10:19:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564953366386.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 锡山区 东北塘街道芙蓉山庄B区195号",
+        "所属小区": "芙蓉山庄B区",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东北塘",
+        "建筑面积": 621.33,
+        "单价": 5964.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "565069311940",
         "url": "https://sf-item.taobao.com/sf_item/565069311940.htm?track_id=9f1a51d7-a1ed-4584-9725-78481b2754ff",
         "end": 1521042235000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564445100973",
+        "url": "https://sf-item.taobao.com/sf_item/564445100973.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1520993547000,
         "status": "done",
         "is_processed": false
     }

@@ -909,12 +909,25 @@
         "detail_captured": true
     },
     {
-        "id": "686558073420",
-        "url": "https://sf-item.taobao.com/sf_item/686558073420.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
-        "end": 1666663422000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/686558073420.htm"
+        "id": 686558073420,
+        "市场评估价": 1152200,
+        "起拍价格": 800000,
+        "成交价格": 800000,
+        "交易时间": "2022/10/25 10:03:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/686558073420.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 淮安市 淮安区 关天培路155号翡翠城29号楼1单元1503室",
+        "所属小区": "翡翠城",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 685119759307,
@@ -1001,12 +1014,25 @@
         "detail_captured": true
     },
     {
-        "id": "684850122146",
-        "url": "https://sf-item.taobao.com/sf_item/684850122146.htm?track_id=981a52e9-1739-4c5c-a824-8a04a960c47d",
-        "end": 1666664215000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/684850122146.htm"
+        "id": 684850122146,
+        "市场评估价": null,
+        "起拍价格": 4719960,
+        "成交价格": 6909960,
+        "交易时间": "2022/10/25 10:16:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684850122146.htm?track_id=981a52e9-1739-4c5c-a824-8a04a960c47d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 52,
+        "地点": "江苏省 苏州市 吴中区 苏州市吴中经济开发区郭巷街道湖居世家17幢104室不动产",
+        "所属小区": "湖居世家",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "郭巷",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 684787895490,
@@ -1072,25 +1098,67 @@
         "detail_captured": true
     },
     {
-        "id": "684551465241",
-        "url": "https://sf-item.taobao.com/sf_item/684551465241.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
-        "end": 1666663840000,
-        "status": "done",
-        "is_processed": false
+        "id": 684551465241,
+        "市场评估价": 486431,
+        "起拍价格": 340501.7,
+        "成交价格": 350701.7,
+        "交易时间": "2022-10-25 10:10:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684551465241.htm?track_id=e90788ff-c122-46a9-a95b-d4b4cc39d97b",
+        "是否成交": true,
+        "竞拍人数": 4,
+        "出价人数": 4,
+        "地点": "四川省 资阳市 乐至县 帅乡大道格林威治庄园11幢1单元2楼3号",
+        "所属小区": "格林威治庄园",
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "687222443257",
-        "url": "https://sf-item.taobao.com/sf_item/687222443257.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
-        "end": 1666663200000,
-        "status": "done",
-        "is_processed": false
+        "id": 687222443257,
+        "市场评估价": 245800,
+        "起拍价格": 137648,
+        "成交价格": 137648,
+        "交易时间": "2022/10/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/687222443257.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 童家镇童新路南街2单元5-4号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "童家镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "687222495269",
-        "url": "https://sf-item.taobao.com/sf_item/687222495269.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
-        "end": 1666663200000,
-        "status": "done",
-        "is_processed": false
+        "id": 687222495269,
+        "市场评估价": 139400,
+        "起拍价格": 78064,
+        "成交价格": 78064,
+        "交易时间": "2022-10-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/687222495269.htm?track_id=0de66a0b-6467-4598-ad98-3acc35bac91f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "四川省资阳市乐至县童家镇童新路南街10号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "童家镇商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 684564043879,
@@ -1114,11 +1182,25 @@
         "detail_captured": true
     },
     {
-        "id": "687145783867",
-        "url": "https://sf-item.taobao.com/sf_item/687145783867.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
-        "end": 1666663200000,
-        "status": "done",
-        "is_processed": false
+        "id": 687145783867,
+        "市场评估价": null,
+        "起拍价格": 607839,
+        "成交价格": 607839,
+        "交易时间": "2022/10/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/687145783867.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省遵义市汇川区珠海路曼哈顿时代广场住宅2-20-6号房产",
+        "所属小区": "曼哈顿时代广场",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "珠海路商圈",
+        "建筑面积": 95.4,
+        "单价": 6371.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "684466649215",
@@ -1128,9 +1210,100 @@
         "is_processed": false
     },
     {
-        "id": "685068271127",
-        "url": "https://sf-item.taobao.com/sf_item/685068271127.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
-        "end": 1666664084000,
+        "id": 685068271127,
+        "市场评估价": null,
+        "起拍价格": 65710,
+        "成交价格": 90310,
+        "交易时间": "2022/10/25 10:14:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/685068271127.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 76,
+        "地点": "广西壮族自治区 贵港市 桂平市 西山镇新岗村10队天将花苑A、B栋负一层车位037号",
+        "所属小区": "天将花苑",
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "人民广场",
+        "建筑面积": 51.57,
+        "单价": 1751.21,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "684559281004",
+        "url": "https://sf-item.taobao.com/sf_item/684559281004.htm?track_id=0b911ddb-ba97-4b09-9bc2-8d4a1f96b940",
+        "end": 1666664336000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684211616725",
+        "url": "https://sf-item.taobao.com/sf_item/684211616725.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1666663200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684211844738",
+        "url": "https://sf-item.taobao.com/sf_item/684211844738.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1666663200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684558493278",
+        "url": "https://sf-item.taobao.com/sf_item/684558493278.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1666663200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684558857148",
+        "url": "https://sf-item.taobao.com/sf_item/684558857148.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1666663311000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683000414540",
+        "url": "https://sf-item.taobao.com/sf_item/683000414540.htm?track_id=dd9b2ad6-0c16-4fa0-934f-94384d19c8fc",
+        "end": 1666663200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684839151746",
+        "url": "https://sf-item.taobao.com/sf_item/684839151746.htm?track_id=f8c5ea36-ddd7-4153-b247-5f9b39d53472",
+        "end": 1666664339000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684549901648",
+        "url": "https://sf-item.taobao.com/sf_item/684549901648.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1666664048000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683029488947",
+        "url": "https://sf-item.taobao.com/sf_item/683029488947.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1666668860000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684763051688",
+        "url": "https://sf-item.taobao.com/sf_item/684763051688.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1666688761000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684456958259",
+        "url": "https://sf-item.taobao.com/sf_item/684456958259.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1666671776000,
         "status": "done",
         "is_processed": false
     }

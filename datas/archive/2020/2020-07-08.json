@@ -274,11 +274,25 @@
         "detail_captured": true
     },
     {
-        "id": "620010221550",
-        "url": "https://sf-item.taobao.com/sf_item/620010221550.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
-        "end": 1594176417000,
-        "status": "done",
-        "is_processed": false
+        "id": 620010221550,
+        "市场评估价": 2390857.33,
+        "起拍价格": 1912685.86,
+        "成交价格": 1912685.86,
+        "交易时间": "2020/07/08 10:46:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/620010221550.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "陕西省 西安市 未央区 玄武路69号西安锦园新世纪花园社区第4幢1单元10801号",
+        "所属小区": "西安锦园新世纪花园社区",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "龙首原",
+        "建筑面积": 146.26,
+        "单价": 13078.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "619357028031",
@@ -298,6 +312,20 @@
         "id": "619923790088",
         "url": "https://sf-item.taobao.com/sf_item/619923790088.htm?track_id=2251861a-8fa8-42fa-a066-263dacf55468",
         "end": 1594175197000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619886882753",
+        "url": "https://sf-item.taobao.com/sf_item/619886882753.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1594177329000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619594057720",
+        "url": "https://sf-item.taobao.com/sf_item/619594057720.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1594174804000,
         "status": "done",
         "is_processed": false
     }

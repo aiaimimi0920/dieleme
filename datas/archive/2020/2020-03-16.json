@@ -42,11 +42,25 @@
         "detail_captured": true
     },
     {
-        "id": "611732496503",
-        "url": "https://sf-item.taobao.com/sf_item/611732496503.htm?track_id=8b62a118-5217-4938-94e5-3f574e023c8a",
-        "end": 1584324609000,
-        "status": "done",
-        "is_processed": false
+        "id": 611732496503,
+        "市场评估价": 630673.67,
+        "起拍价格": 441471.57,
+        "成交价格": 545471.57,
+        "交易时间": "2020-03-16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611732496503.htm?track_id=8b62a118-5217-4938-94e5-3f574e023c8a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省惠州市博罗县园洲镇刘屋村新塘口（土名）华悦名苑3栋7层06房",
+        "所属小区": "华悦名苑",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "园洲镇",
+        "建筑面积": 105.72,
+        "单价": 5160.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "613113839895",
@@ -56,16 +70,37 @@
         "is_processed": false
     },
     {
-        "id": "612872582617",
-        "url": "https://sf-item.taobao.com/sf_item/612872582617.htm?track_id=7b04b434-ceff-470a-aefa-d328aa1bebd6",
-        "end": 1584325994000,
-        "status": "done",
-        "is_processed": false
+        "id": 612872582617,
+        "市场评估价": null,
+        "起拍价格": 654441.3,
+        "成交价格": 702441.3,
+        "交易时间": "2020-03-16 10:33:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/612872582617.htm?track_id=7b04b434-ceff-470a-aefa-d328aa1bebd6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 9,
+        "地点": "陕西省 西安市 未央区 浐灞生态区玄武东路罗马嘉园7幢1单元13层11310号",
+        "所属小区": "罗马嘉园",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "浐灞生态区商圈",
+        "建筑面积": 113.1,
+        "单价": 6212.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "613262139373",
         "url": "https://sf-item.taobao.com/sf_item/613262139373.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
         "end": 1584326586000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611733796789",
+        "url": "https://sf-item.taobao.com/sf_item/611733796789.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "end": 1584324000000,
         "status": "done",
         "is_processed": false
     }

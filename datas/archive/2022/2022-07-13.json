@@ -359,12 +359,25 @@
         "detail_captured": true
     },
     {
-        "id": "676013872332",
-        "url": "https://sf-item.taobao.com/sf_item/676013872332.htm?track_id=feac1e17-67ae-4ff4-bc5f-4ef4cdcc8341",
-        "end": 1657678904000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/676013872332.htm"
+        "id": 676013872332,
+        "市场评估价": 642640.02,
+        "起拍价格": 449848.02,
+        "成交价格": 649848.02,
+        "交易时间": "2022-07-13 10:21:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676013872332.htm?track_id=feac1e17-67ae-4ff4-bc5f-4ef4cdcc8341",
+        "是否成交": true,
+        "竞拍人数": 51,
+        "出价人数": 51,
+        "地点": "河北省廊坊市香河县绣水街60号绣水经典小区4号楼1单元604室",
+        "所属小区": "绣水经典",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "香河县",
+        "最靠近商圈": "蒋辛屯",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 676015160371,
@@ -398,6 +411,13 @@
         "id": "675699658005",
         "url": "https://sf-item.taobao.com/sf_item/675699658005.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
         "end": 1657677600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "676902888604",
+        "url": "https://sf-item.taobao.com/sf_item/676902888604.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1657680278000,
         "status": "done",
         "is_processed": false
     }

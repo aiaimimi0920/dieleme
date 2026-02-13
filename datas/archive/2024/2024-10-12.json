@@ -778,12 +778,25 @@
         "detail_captured": true
     },
     {
-        "id": "833473094949",
-        "url": "https://sf-item.taobao.com/sf_item/833473094949.htm?track_id=1119b38f-2ac5-4841-9014-1438fab202a6",
-        "end": 1728699363000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/833473094949.htm"
+        "id": 833473094949,
+        "市场评估价": null,
+        "起拍价格": 1425849.25,
+        "成交价格": 1632849.25,
+        "交易时间": "2024/10/12 10:16:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/833473094949.htm?track_id=1119b38f-2ac5-4841-9014-1438fab202a6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 苏州市 相城区 澄阳街道康元路8号天境上辰花园19幢1802室",
+        "所属小区": "天境上辰花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "澄阳街道",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 833589993485,
@@ -898,25 +911,67 @@
         "is_processed": false
     },
     {
-        "id": "833135635244",
-        "url": "https://sf-item.taobao.com/sf_item/833135635244.htm?track_id=47596332-5b2b-49b8-80de-9414247b807b",
-        "end": 1728699349000,
-        "status": "done",
-        "is_processed": false
+        "id": 833135635244,
+        "市场评估价": 2048500,
+        "起拍价格": 1433950,
+        "成交价格": 1535950,
+        "交易时间": "2024-10-12 10:15:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/833135635244.htm?track_id=47596332-5b2b-49b8-80de-9414247b807b",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": 16,
+        "地点": "河北省 保定市 定兴县 定兴县东城区开放路北侧房产",
+        "所属小区": null,
+        "省份": "河北省",
+        "城市": "保定市",
+        "区": "定兴县",
+        "最靠近商圈": null,
+        "建筑面积": 226.8,
+        "单价": 6770.17,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "837743066260",
-        "url": "https://sf-item.taobao.com/sf_item/837743066260.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1728699297000,
-        "status": "done",
-        "is_processed": false
+        "id": 837743066260,
+        "市场评估价": 0,
+        "起拍价格": 552000,
+        "成交价格": 700500,
+        "交易时间": "2024/10/12 10:14:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/837743066260.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 28,
+        "地点": "江西省南昌市青云谱区施尧路999号水榭花都大厦B栋2201号房产",
+        "所属小区": "水榭花都",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "象湖",
+        "建筑面积": 114.43,
+        "单价": 6121.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "829376022847",
-        "url": "https://sf-item.taobao.com/sf_item/829376022847.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
-        "end": 1728700082000,
-        "status": "done",
-        "is_processed": false
+        "id": 829376022847,
+        "市场评估价": null,
+        "起拍价格": 474000,
+        "成交价格": 525000,
+        "交易时间": "2024-10-12 10:28:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/829376022847.htm?track_id=3903f422-9ebe-425b-9ee4-e9c6e1a59f7e",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": 15,
+        "地点": "福建省 泉州市 安溪县 城厢镇二环西路2号龙凤都城C14幢1-202室房产",
+        "所属小区": "龙凤都城",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "城厢商圈",
+        "建筑面积": 154.77,
+        "单价": 3391.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "838099324017",
@@ -926,9 +981,79 @@
         "is_processed": false
     },
     {
-        "id": "833505329224",
-        "url": "https://sf-item.taobao.com/sf_item/833505329224.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
-        "end": 1728702885000,
+        "id": 833505329224,
+        "市场评估价": null,
+        "起拍价格": 960000,
+        "成交价格": 960000,
+        "交易时间": "2024/10/12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/833505329224.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "浙江省嘉兴市海盐县武原街道出海路218号尚郡10幢101室",
+        "所属小区": "尚郡",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 89.96,
+        "单价": 10671.14,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "822034919816",
+        "url": "https://sf-item.taobao.com/sf_item/822034919816.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1728721224000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "822036523729",
+        "url": "https://sf-item.taobao.com/sf_item/822036523729.htm?track_id=5f3f49d8-7154-4f0b-83ab-01eaa14c68c7",
+        "end": 1728720861000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "831434901223",
+        "url": "https://sf-item.taobao.com/sf_item/831434901223.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1728699307000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "833711477039",
+        "url": "https://sf-item.taobao.com/sf_item/833711477039.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1728713028000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "838318977046",
+        "url": "https://sf-item.taobao.com/sf_item/838318977046.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1728699788000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "833722145717",
+        "url": "https://sf-item.taobao.com/sf_item/833722145717.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1728715925000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "837845571291",
+        "url": "https://sf-item.taobao.com/sf_item/837845571291.htm?track_id=f966165e-b876-4860-909d-4d7fffa42aec",
+        "end": 1728698452000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "836367019951",
+        "url": "https://sf-item.taobao.com/sf_item/836367019951.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1728704752000,
         "status": "done",
         "is_processed": false
     }

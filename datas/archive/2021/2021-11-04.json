@@ -273,9 +273,51 @@
         "detail_captured": true
     },
     {
-        "id": "657968497248",
-        "url": "https://sf-item.taobao.com/sf_item/657968497248.htm?track_id=32ecdb41-ce90-492f-a9ea-1746b136c1b5",
-        "end": 1635992432000,
+        "id": 657968497248,
+        "市场评估价": null,
+        "起拍价格": 1035470,
+        "成交价格": 1135470,
+        "交易时间": "2021/11/04 10:20:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657968497248.htm?track_id=32ecdb41-ce90-492f-a9ea-1746b136c1b5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 19,
+        "地点": "贵州省遵义市汇川区宁波路金色家园小区（维也纳春天）汇景菀C幢2-2号房产",
+        "所属小区": "金色家园小区（维也纳春天）",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "宁波路",
+        "建筑面积": 180.27,
+        "单价": 6299.09,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "657416648678",
+        "url": "https://sf-item.taobao.com/sf_item/657416648678.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
+        "end": 1635991447000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657900537745",
+        "url": "https://sf-item.taobao.com/sf_item/657900537745.htm?track_id=eba88dd1-33f1-430f-afc6-b6c27ccbba5f",
+        "end": 1635994778000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655190489486",
+        "url": "https://sf-item.taobao.com/sf_item/655190489486.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1635993205000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657896013016",
+        "url": "https://sf-item.taobao.com/sf_item/657896013016.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1635991200000,
         "status": "done",
         "is_processed": false
     }

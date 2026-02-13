@@ -210,12 +210,25 @@
         "detail_captured": true
     },
     {
-        "id": "716300796123",
-        "url": "https://sf-item.taobao.com/sf_item/716300796123.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
-        "end": 1685937757000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/716300796123.htm"
+        "id": 716300796123,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1051750,
+        "交易时间": "2023-06-05 12:02:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/716300796123.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
+        "是否成交": true,
+        "竞拍人数": 44,
+        "出价人数": null,
+        "地点": "江苏省 淮安市 淮安区 运东村小区5区8号",
+        "所属小区": "运东村小区",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 719426102621,
@@ -260,9 +273,37 @@
         "detail_captured": true
     },
     {
-        "id": "716594045606",
-        "url": "https://sf-item.taobao.com/sf_item/716594045606.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
-        "end": 1685930561000,
+        "id": 716594045606,
+        "市场评估价": 1055400,
+        "起拍价格": 750000,
+        "成交价格": 750000,
+        "交易时间": "2023/06/05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/716594045606.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省潍坊市昌邑市奎聚路369号3幢1单元201室",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": "奎聚路商圈",
+        "建筑面积": 135.25,
+        "单价": 5545.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "716736242409",
+        "url": "https://sf-item.taobao.com/sf_item/716736242409.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
+        "end": 1685931427000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "718980020548",
+        "url": "https://sf-item.taobao.com/sf_item/718980020548.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1685933972000,
         "status": "done",
         "is_processed": false
     }

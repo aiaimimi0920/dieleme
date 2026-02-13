@@ -168,16 +168,37 @@
         "detail_captured": true
     },
     {
-        "id": "545609376382",
-        "url": "https://sf-item.taobao.com/sf_item/545609376382.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
-        "end": 1490845747000,
-        "status": "done",
-        "is_processed": false
+        "id": 545609376382,
+        "市场评估价": 1748700,
+        "起拍价格": 1748700,
+        "成交价格": 2623700,
+        "交易时间": "2017/03/30 11:49:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545609376382.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 127,
+        "地点": "厦门市同安区联谊花园5号楼202室",
+        "所属小区": "联谊花园",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "同安区",
+        "最靠近商圈": "同安老城",
+        "建筑面积": 154.68,
+        "单价": 16960.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "546349081559",
         "url": "https://sf-item.taobao.com/sf_item/546349081559.htm?track_id=e17bfa31-568b-40b1-a430-6b187995b33f",
         "end": 1490860666000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "545876762172",
+        "url": "https://sf-item.taobao.com/sf_item/545876762172.htm?track_id=a046683c-5f92-4262-9bb6-2ac3be8e34dc",
+        "end": 1490845108000,
         "status": "done",
         "is_processed": false
     }

@@ -189,11 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "641964143313",
-        "url": "https://sf-item.taobao.com/sf_item/641964143313.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1618797600000,
-        "status": "done",
-        "is_processed": false
+        "id": 641964143313,
+        "市场评估价": 772900,
+        "起拍价格": 591269,
+        "成交价格": 591269,
+        "交易时间": "2021/04/19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641964143313.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 北三中路35甲4号1-4-3",
+        "所属小区": "假日蓝湾",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区区": "铁西区",
+        "最靠近商圈": "铁西商圈",
+        "建筑面积": 63.99,
+        "单价": 9242.29,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "640035464949",
@@ -206,6 +220,27 @@
         "id": "640036820193",
         "url": "https://sf-item.taobao.com/sf_item/640036820193.htm?track_id=963d0425-54e8-4a01-88cf-6133f7f3e41c",
         "end": 1618797600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642187931499",
+        "url": "https://sf-item.taobao.com/sf_item/642187931499.htm?track_id=ea4eb8ff-33af-48f0-9fc5-5c633b8347fe",
+        "end": 1618797600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642205155252",
+        "url": "https://sf-item.taobao.com/sf_item/642205155252.htm?track_id=a1e88249-cf80-4b2f-9976-1fd5bb01369a",
+        "end": 1618798432000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "640808639195",
+        "url": "https://sf-item.taobao.com/sf_item/640808639195.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
+        "end": 1618798180000,
         "status": "done",
         "is_processed": false
     }

@@ -406,11 +406,25 @@
         "is_processed": false
     },
     {
-        "id": "657163965981",
-        "url": "https://sf-item.taobao.com/sf_item/657163965981.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
-        "end": 1637558037000,
-        "status": "done",
-        "is_processed": false
+        "id": 657163965981,
+        "市场评估价": 17038500,
+        "起拍价格": 11926950,
+        "成交价格": 16216950,
+        "交易时间": "2021-11-22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657163965981.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "是否成交": true,
+        "竞拍人数": 344,
+        "出价人数": 344,
+        "地点": "北京 北京市 海淀区 板井路69号世纪金源国际公寓西区",
+        "所属小区": "世纪金源国际公寓西区",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "海淀区",
+        "最靠近商圈": "世纪金源商圈",
+        "建筑面积": 120,
+        "单价": 135140.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "657878712098",
@@ -420,9 +434,30 @@
         "is_processed": false
     },
     {
-        "id": "659018295506",
-        "url": "https://sf-item.taobao.com/sf_item/659018295506.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
-        "end": 1637549404000,
+        "id": 659018295506,
+        "市场评估价": 705000,
+        "起拍价格": 500000,
+        "成交价格": 600000,
+        "交易时间": "2021-11-22 10:50:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/659018295506.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
+        "是否成交": true,
+        "竞拍人数": 44,
+        "出价人数": 44,
+        "地点": "浙江省 嘉兴市 海盐县 于城镇滨河路215号湖畔首府3幢808室",
+        "所属小区": "湖畔首府",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "于城",
+        "建筑面积": 86.74,
+        "单价": 6917.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "658975415405",
+        "url": "https://sf-item.taobao.com/sf_item/658975415405.htm?track_id=d38494fe-98ee-40f4-91fc-1e9253049bbf",
+        "end": 1637546400000,
         "status": "done",
         "is_processed": false
     }

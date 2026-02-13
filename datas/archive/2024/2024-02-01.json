@@ -423,12 +423,25 @@
         "detail_captured": true
     },
     {
-        "id": "762998627684",
-        "url": "https://sf-item.taobao.com/sf_item/762998627684.htm?track_id=87695415-cecf-457b-add8-a6cf9bc25c90",
-        "end": 1706752807000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/762998627684.htm"
+        "id": 762998627684,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 183465,
+        "交易时间": "2024/02/01 10:00:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/762998627684.htm?track_id=87695415-cecf-457b-add8-a6cf9bc25c90",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 信阳市 息县 包信镇和平大道西侧",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "息县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 762933350895,
@@ -473,9 +486,79 @@
         "detail_captured": true
     },
     {
-        "id": "759003448710",
-        "url": "https://sf-item.taobao.com/sf_item/759003448710.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
-        "end": 1706758922000,
+        "id": 759003448710,
+        "市场评估价": 1240200,
+        "起拍价格": 868140,
+        "成交价格": 1408140,
+        "交易时间": "2024/02/01 11:42:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/759003448710.htm?track_id=1591aaa6-1db0-4a74-844a-86af156d63d1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 140,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道秀水路126号南塘琴苑藏琴苑3幢104、204号不动产",
+        "所属小区": "南塘琴苑藏琴苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 109.19,
+        "单价": 12893.72,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "762969909537",
+        "url": "https://sf-item.taobao.com/sf_item/762969909537.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1706752800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "762932734385",
+        "url": "https://sf-item.taobao.com/sf_item/762932734385.htm?track_id=7f7cdc43-da81-4050-aaf2-cc7df0a05d94",
+        "end": 1706755041000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "762942953318",
+        "url": "https://sf-item.taobao.com/sf_item/762942953318.htm?track_id=f966165e-b876-4860-909d-4d7fffa42aec",
+        "end": 1706752800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "749029321254",
+        "url": "https://sf-item.taobao.com/sf_item/749029321254.htm?track_id=53ecf66e-fff0-40e6-bfb1-10d37f267b1e",
+        "end": 1706752197000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "749184767351",
+        "url": "https://sf-item.taobao.com/sf_item/749184767351.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1706753335000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "763022163221",
+        "url": "https://sf-item.taobao.com/sf_item/763022163221.htm?track_id=51f06735-ea2e-48e1-a840-19b9b94eec10",
+        "end": 1706752800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "762940510988",
+        "url": "https://sf-item.taobao.com/sf_item/762940510988.htm?track_id=eba88dd1-33f1-430f-afc6-b6c27ccbba5f",
+        "end": 1706754187000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "760205575692",
+        "url": "https://sf-item.taobao.com/sf_item/760205575692.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1706753344000,
         "status": "done",
         "is_processed": false
     }

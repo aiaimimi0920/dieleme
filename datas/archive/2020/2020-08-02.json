@@ -231,9 +231,37 @@
         "detail_captured": true
     },
     {
-        "id": "622406923648",
-        "url": "https://sf-item.taobao.com/sf_item/622406923648.htm?track_id=bc44a8f3-b884-4d6c-b85a-fa1993dc6006",
-        "end": 1596334886000,
+        "id": 622406923648,
+        "市场评估价": 1871382.67,
+        "起拍价格": 1684244,
+        "成交价格": 1868244,
+        "交易时间": "2020/08/02 10:21:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622406923648.htm?track_id=bc44a8f3-b884-4d6c-b85a-fa1993dc6006",
+        "是否成交": true,
+        "竞拍人数": 24,
+        "出价人数": 9,
+        "地点": "陕西省 西安市 未央区 玄武路69号西安锦园新世纪花园社区14-11004",
+        "所属小区": "西安锦园新世纪花园社区",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "龙首原",
+        "建筑面积": 144.36,
+        "单价": 12938.99,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "621911691684",
+        "url": "https://sf-item.taobao.com/sf_item/621911691684.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1596346542000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "622092422956",
+        "url": "https://sf-item.taobao.com/sf_item/622092422956.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1596339037000,
         "status": "done",
         "is_processed": false
     }

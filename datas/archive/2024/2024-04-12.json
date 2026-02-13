@@ -567,12 +567,25 @@
         "detail_captured": true
     },
     {
-        "id": "777479673273",
-        "url": "https://sf-item.taobao.com/sf_item/777479673273.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
-        "end": 1712887418000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/777479673273.htm"
+        "id": 777479673273,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 326300.8,
+        "交易时间": "2024/04/12 10:03:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/777479673273.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "江苏省淮安市淮安区淮安市翔宇海棠广场5号楼1306室",
+        "所属小区": "翔宇海棠广场",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "翔宇海棠广场",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 773190685094,
@@ -638,11 +651,25 @@
         "detail_captured": true
     },
     {
-        "id": "777470110975",
-        "url": "https://sf-item.taobao.com/sf_item/777470110975.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
-        "end": 1712887200000,
-        "status": "done",
-        "is_processed": false
+        "id": 777470110975,
+        "市场评估价": 710331,
+        "起拍价格": 511438.32,
+        "成交价格": 511438.32,
+        "交易时间": "2024/04/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/777470110975.htm?track_id=473bd1d7-bb15-406f-884e-7acd048530d7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 南京路留馨花园",
+        "所属小区": "留馨花园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "南京路",
+        "建筑面积": 126.76,
+        "单价": 4034.7,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "775125377775",
@@ -669,6 +696,34 @@
         "id": "777520792835",
         "url": "https://sf-item.taobao.com/sf_item/777520792835.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
         "end": 1712888319000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "777502187506",
+        "url": "https://sf-item.taobao.com/sf_item/777502187506.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1712938377000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "775353353279",
+        "url": "https://sf-item.taobao.com/sf_item/775353353279.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1712890663000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "773098953603",
+        "url": "https://sf-item.taobao.com/sf_item/773098953603.htm?track_id=13522d09-c2bb-419f-9fee-29d88a0e165a",
+        "end": 1712898393000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "777433956423",
+        "url": "https://sf-item.taobao.com/sf_item/777433956423.htm?track_id=a801121e-5e95-40e5-81ec-2addd861f9d7",
+        "end": 1712888314000,
         "status": "done",
         "is_processed": false
     }

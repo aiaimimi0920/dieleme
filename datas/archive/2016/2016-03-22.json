@@ -70,9 +70,37 @@
         "is_processed": false
     },
     {
-        "id": "527896458820",
-        "url": "https://sf-item.taobao.com/sf_item/527896458820.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
-        "end": 1458612000000,
+        "id": 527896458820,
+        "市场评估价": null,
+        "起拍价格": 350000,
+        "成交价格": 352000,
+        "交易时间": "2016/03/22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527896458820.htm?track_id=9d40f12c-b5b4-442f-b09d-bf8a814a6d11",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": "南郊花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 93.88,
+        "单价": 3749.19,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "527663029250",
+        "url": "https://sf-item.taobao.com/sf_item/527663029250.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1458615985000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527651338710",
+        "url": "https://sf-item.taobao.com/sf_item/527651338710.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1458613357000,
         "status": "done",
         "is_processed": false
     }

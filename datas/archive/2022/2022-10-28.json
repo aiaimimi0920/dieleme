@@ -546,12 +546,25 @@
         "detail_captured": true
     },
     {
-        "id": "684434876434",
-        "url": "https://sf-item.taobao.com/sf_item/684434876434.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
-        "end": 1666922450000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/684434876434.htm"
+        "id": 684434876434,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 878000,
+        "交易时间": "2022-10-28T10:00:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684434876434.htm?track_id=7844847a-c5e0-471b-bdb5-a68636c10ba7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 2,
+        "地点": "江苏省淮安市淮安区盛世豪庭2-36号楼1单元102室",
+        "所属小区": "盛世豪庭",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安古城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 684397660392,
@@ -638,11 +651,25 @@
         "detail_captured": true
     },
     {
-        "id": "684759241156",
-        "url": "https://sf-item.taobao.com/sf_item/684759241156.htm?track_id=c902a72e-3d80-4d38-af05-f68239d878f6",
-        "end": 1666924677000,
-        "status": "done",
-        "is_processed": false
+        "id": 684759241156,
+        "市场评估价": 997723,
+        "起拍价格": 698407,
+        "成交价格": 749407,
+        "交易时间": "2022-10-28 10:37:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684759241156.htm?track_id=c902a72e-3d80-4d38-af05-f68239d878f6",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 17,
+        "地点": "辽宁省 沈阳市 铁西区 沈辽路2-80号1-16-3",
+        "所属小区": "龙湖西府原著",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈辽路商圈",
+        "建筑面积": 81.38,
+        "单价": 9212.52,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "684106328664",
@@ -659,11 +686,25 @@
         "is_processed": false
     },
     {
-        "id": "684108580234",
-        "url": "https://sf-item.taobao.com/sf_item/684108580234.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
-        "end": 1666922400000,
-        "status": "done",
-        "is_processed": false
+        "id": 684108580234,
+        "市场评估价": 0,
+        "起拍价格": 377000,
+        "成交价格": 377000,
+        "交易时间": "2022/10/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684108580234.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 淄博市 博山区 秋泉路15号水印蓝山小区院内41号楼2单元5层西户",
+        "所属小区": "水印蓝山小区",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "687609318350",
@@ -676,6 +717,48 @@
         "id": "685038634422",
         "url": "https://sf-item.taobao.com/sf_item/685038634422.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
         "end": 1666925669000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684415244826",
+        "url": "https://sf-item.taobao.com/sf_item/684415244826.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1666928356000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "687898291955",
+        "url": "https://sf-item.taobao.com/sf_item/687898291955.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1666922400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684556325273",
+        "url": "https://sf-item.taobao.com/sf_item/684556325273.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1666924595000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "685360459255",
+        "url": "https://sf-item.taobao.com/sf_item/685360459255.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "end": 1666923751000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "687888995397",
+        "url": "https://sf-item.taobao.com/sf_item/687888995397.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1666925021000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "684297963584",
+        "url": "https://sf-item.taobao.com/sf_item/684297963584.htm?track_id=55c1cc05-4e69-4ba6-9889-416b52dc39e0",
+        "end": 1666931090000,
         "status": "done",
         "is_processed": false
     }

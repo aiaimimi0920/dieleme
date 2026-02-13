@@ -316,9 +316,37 @@
         "detail_captured": true
     },
     {
-        "id": "729132683760",
-        "url": "https://sf-item.taobao.com/sf_item/729132683760.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
-        "end": 1692499258000,
+        "id": 729132683760,
+        "市场评估价": 1100000,
+        "起拍价格": 880000,
+        "成交价格": 964000,
+        "交易时间": "2023/08/20 10:40:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/729132683760.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 29,
+        "地点": "河南省 郑州市 二七区 政通路68号院5号楼1单元29层2901号",
+        "所属小区": "升龙国际中心C区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "大学路商圈",
+        "建筑面积": 89.92,
+        "单价": 10719.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "729887222744",
+        "url": "https://sf-item.taobao.com/sf_item/729887222744.htm?track_id=a5509f1b-d0f1-4066-9e83-25810044a34d",
+        "end": 1692496800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "731294916401",
+        "url": "https://sf-item.taobao.com/sf_item/731294916401.htm?track_id=a5509f1b-d0f1-4066-9e83-25810044a34d",
+        "end": 1692496800000,
         "status": "done",
         "is_processed": false
     }

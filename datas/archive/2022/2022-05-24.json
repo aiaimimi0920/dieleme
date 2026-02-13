@@ -1334,25 +1334,67 @@
         "detail_captured": true
     },
     {
-        "id": "672825408764",
-        "url": "https://sf-item.taobao.com/sf_item/672825408764.htm?track_id=b5d46ba2-6f8b-4a97-9fec-425fc00a9d71",
-        "end": 1653357600000,
-        "status": "done",
-        "is_processed": false
+        "id": 672825408764,
+        "市场评估价": 450900,
+        "起拍价格": 360720,
+        "成交价格": 360720,
+        "交易时间": "2022/05/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/672825408764.htm?track_id=b5d46ba2-6f8b-4a97-9fec-425fc00a9d71",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 贵和路2号帝景豪园11栋3单元1层附312号",
+        "所属小区": "帝景豪园",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "都匀市区",
+        "建筑面积": 132.78,
+        "单价": 2717.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "673531534208",
-        "url": "https://sf-item.taobao.com/sf_item/673531534208.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
-        "end": 1653357600000,
-        "status": "done",
-        "is_processed": false
+        "id": 673531534208,
+        "市场评估价": 27976339,
+        "起拍价格": 27976339,
+        "成交价格": 27976339,
+        "交易时间": "2022-05-24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673531534208.htm?track_id=6e881a38-1153-4b31-9f77-0740f46d2585",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省西安市未央区明光路与尚新路交汇西南角西部网货批发中心",
+        "所属小区": "西部网货批发中心",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "明光路商圈",
+        "建筑面积": 2699.39,
+        "单价": 10364.61,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "673361605620",
-        "url": "https://sf-item.taobao.com/sf_item/673361605620.htm?track_id=690ab7b0-9363-4dce-a4a7-8f04802e84b6",
-        "end": 1653357919000,
-        "status": "done",
-        "is_processed": false
+        "id": 673361605620,
+        "市场评估价": 1070900,
+        "起拍价格": 600000,
+        "成交价格": 600000,
+        "交易时间": "2022/05/24 10:05:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673361605620.htm?track_id=690ab7b0-9363-4dce-a4a7-8f04802e84b6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 南昌市 青云谱区 南昌市青云谱区解放西路49号明珠广场商务办公楼2103室",
+        "所属小区": "明珠广场",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "洪都商圈",
+        "建筑面积": 128.62,
+        "单价": 4663.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "671008659233",
@@ -1365,6 +1407,41 @@
         "id": "672654792107",
         "url": "https://sf-item.taobao.com/sf_item/672654792107.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
         "end": 1653359483000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "674091833129",
+        "url": "https://sf-item.taobao.com/sf_item/674091833129.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1653358510000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "672961165982",
+        "url": "https://sf-item.taobao.com/sf_item/672961165982.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1653357600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673052437962",
+        "url": "https://sf-item.taobao.com/sf_item/673052437962.htm?track_id=5d2028cd-85b5-4657-a6d6-1ff52559d487",
+        "end": 1653358744000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673178289719",
+        "url": "https://sf-item.taobao.com/sf_item/673178289719.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1653359563000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "672654200381",
+        "url": "https://sf-item.taobao.com/sf_item/672654200381.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1653361897000,
         "status": "done",
         "is_processed": false
     }

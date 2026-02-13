@@ -364,11 +364,25 @@
         "detail_captured": true
     },
     {
-        "id": "559157820950",
-        "url": "https://sf-item.taobao.com/sf_item/559157820950.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
-        "end": 1509243588000,
-        "status": "done",
-        "is_processed": false
+        "id": 559157820950,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 270000,
+        "交易时间": "2017/10/29 10:19:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559157820950.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 10,
+        "地点": "河南省 郑州市 新密市 新密市城区青屏大街西段北侧（世纪新村21号楼）东单元7楼东户",
+        "所属小区": "世纪新村",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏大街",
+        "建筑面积": 143.84,
+        "单价": 1877.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "558957818323",
@@ -378,23 +392,65 @@
         "is_processed": false
     },
     {
-        "id": "559367511161",
-        "url": "https://sf-item.taobao.com/sf_item/559367511161.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
-        "end": 1509247834000,
-        "status": "done",
-        "is_processed": false
+        "id": 559367511161,
+        "市场评估价": null,
+        "起拍价格": 1600000,
+        "成交价格": 2640000,
+        "交易时间": "2017-10-29 11:30:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559367511161.htm?track_id=057f7ca5-0534-4a6f-9118-e2c2525e8e6a",
+        "是否成交": true,
+        "竞拍人数": 83,
+        "出价人数": 83,
+        "地点": "江苏省 无锡市 梁溪区 无锡市朗诗未来之家36号202室房产",
+        "所属小区": "朗诗未来之家",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "梁溪区",
+        "建筑面积": 142.03,
+        "单价": 18586.78,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "559172752097",
-        "url": "https://sf-item.taobao.com/sf_item/559172752097.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
-        "end": 1509245053000,
-        "status": "done",
-        "is_processed": false
+        "id": 559172752097,
+        "市场评估价": 0,
+        "起拍价格": 2909520,
+        "成交价格": 4009520,
+        "交易时间": "2017/10/29 10:44:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559172752097.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 99,
+        "地点": "河南省郑州市二七区合作路1号院15号楼1单元2层3号",
+        "所属小区": "合作路1号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场商圈",
+        "建筑面积": 148.44,
+        "单价": 27010.78,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "559384203523",
         "url": "https://sf-item.taobao.com/sf_item/559384203523.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
         "end": 1509242658000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559308426367",
+        "url": "https://sf-item.taobao.com/sf_item/559308426367.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1509244952000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559328379614",
+        "url": "https://sf-item.taobao.com/sf_item/559328379614.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "end": 1509243074000,
         "status": "done",
         "is_processed": false
     }

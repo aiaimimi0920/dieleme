@@ -722,18 +722,46 @@
         "detail_captured": true
     },
     {
-        "id": "672469050208",
-        "url": "https://sf-item.taobao.com/sf_item/672469050208.htm?track_id=183882c5-0ed7-489b-ad05-3a3edf0e45f3",
-        "end": 1652148000000,
-        "status": "done",
-        "is_processed": false
+        "id": 672469050208,
+        "市场评估价": 158555,
+        "起拍价格": 158555,
+        "成交价格": 200555,
+        "交易时间": "2022/05/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/672469050208.htm?track_id=183882c5-0ed7-489b-ad05-3a3edf0e45f3",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 18,
+        "地点": "黑龙江省鹤岗市绥滨县绥滨镇富华小区2号楼5单元303室",
+        "所属小区": "富华小区",
+        "省份": "黑龙江省",
+        "城市": "鹤岗市",
+        "区": "绥滨县",
+        "最靠近商圈": "绥滨镇",
+        "建筑面积": 68.73,
+        "单价": 2918.58,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "672743048210",
-        "url": "https://sf-item.taobao.com/sf_item/672743048210.htm?track_id=b5d46ba2-6f8b-4a97-9fec-425fc00a9d71",
-        "end": 1652148000000,
-        "status": "done",
-        "is_processed": false
+        "id": 672743048210,
+        "市场评估价": 870333,
+        "起拍价格": 597827,
+        "成交价格": 597827,
+        "交易时间": "2022-05-10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/672743048210.htm?track_id=b5d46ba2-6f8b-4a97-9fec-425fc00a9d71",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 剑江南路181号聚林世纪城11栋25层附287号",
+        "所属小区": "聚林世纪城",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "剑江路商圈",
+        "建筑面积": 197.25,
+        "单价": 3031.22,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "673508506590",
@@ -750,15 +778,71 @@
         "is_processed": false
     },
     {
-        "id": "673868611809",
-        "url": "https://sf-item.taobao.com/sf_item/673868611809.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
+        "id": 673868611809,
+        "市场评估价": 0,
+        "起拍价格": 899696,
+        "成交价格": 899696,
+        "交易时间": "2022/05/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673868611809.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 三斗路17幢10102室",
+        "所属小区": "华宇·凤凰城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "未央湖",
+        "建筑面积": 83.39,
+        "单价": 10790.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "672151969546",
+        "url": "https://sf-item.taobao.com/sf_item/672151969546.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
         "end": 1652148000000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "672151969546",
-        "url": "https://sf-item.taobao.com/sf_item/672151969546.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
+        "id": "673053701873",
+        "url": "https://sf-item.taobao.com/sf_item/673053701873.htm?track_id=2aae7a99-698e-4407-8145-803f91390659",
+        "end": 1652148000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "672890509582",
+        "url": "https://sf-item.taobao.com/sf_item/672890509582.htm?track_id=509e97b7-5d45-4903-b9fd-d940082422e3",
+        "end": 1652156762000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673865351972",
+        "url": "https://sf-item.taobao.com/sf_item/673865351972.htm?track_id=51ac8b9e-9dcd-4f34-9958-1d4a363cb642",
+        "end": 1652148000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "672810620459",
+        "url": "https://sf-item.taobao.com/sf_item/672810620459.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "end": 1652152619000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "673268279651",
+        "url": "https://sf-item.taobao.com/sf_item/673268279651.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1652148000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "671753020123",
+        "url": "https://sf-item.taobao.com/sf_item/671753020123.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
         "end": 1652148000000,
         "status": "done",
         "is_processed": false

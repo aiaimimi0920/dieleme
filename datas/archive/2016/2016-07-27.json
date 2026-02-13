@@ -42,9 +42,30 @@
         "detail_captured": true
     },
     {
-        "id": "535451963442",
-        "url": "https://sf-item.taobao.com/sf_item/535451963442.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
-        "end": 1469588905000,
+        "id": 535451963442,
+        "市场评估价": null,
+        "起拍价格": 627000,
+        "成交价格": 847000,
+        "交易时间": "2016-07-27 11:08:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535451963442.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
+        "是否成交": true,
+        "竞拍人数": 98,
+        "出价人数": 19,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": "美林金色港湾",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 141.43,
+        "单价": 5987.14,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "534914583925",
+        "url": "https://sf-item.taobao.com/sf_item/534914583925.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1469585561000,
         "status": "done",
         "is_processed": false
     }

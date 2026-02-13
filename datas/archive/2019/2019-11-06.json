@@ -465,11 +465,25 @@
         "detail_captured": true
     },
     {
-        "id": "604113045269",
-        "url": "https://sf-item.taobao.com/sf_item/604113045269.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
-        "end": 1573006614000,
-        "status": "done",
-        "is_processed": false
+        "id": 604113045269,
+        "市场评估价": null,
+        "起拍价格": 566261,
+        "成交价格": 716261,
+        "交易时间": "2019-11-06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/604113045269.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 团结大街10号街坊",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 606094862871,
@@ -491,5 +505,26 @@
         "单价": 4551.66,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "605859429395",
+        "url": "https://sf-item.taobao.com/sf_item/605859429395.htm?track_id=5f9c48bc-c41a-40e6-a9da-79c3ecd64fa1",
+        "end": 1573009348000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "603453623312",
+        "url": "https://sf-item.taobao.com/sf_item/603453623312.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1573007959000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604007029414",
+        "url": "https://sf-item.taobao.com/sf_item/604007029414.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1573005600000,
+        "status": "done",
+        "is_processed": false
     }
 ]

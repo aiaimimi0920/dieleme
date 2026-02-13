@@ -676,15 +676,16 @@
         "竞拍人数": null,
         "出价人数": 52,
         "地点": "广西壮族自治区柳州市城中区长青路河边巷37号",
-        "所属小区": null,
+        "所属小区": "长青花园",
         "省份": "广西壮族自治区",
         "城市": "柳州市",
         "区": "城中区",
-        "最靠近商圈": "青云商圈",
+        "最靠近商圈": "河东商圈",
         "建筑面积": 176.86,
-        "单价": 6304.18,
+        "单价": 6304.42,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 565137264032,
@@ -855,23 +856,93 @@
         "is_processed": false
     },
     {
-        "id": "565640231804",
-        "url": "https://sf-item.taobao.com/sf_item/565640231804.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
-        "end": 1523326349000,
-        "status": "done",
-        "is_processed": false
+        "id": 565640231804,
+        "市场评估价": null,
+        "起拍价格": 1048000,
+        "成交价格": 1079200,
+        "交易时间": "2018-04-10 10:12:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565640231804.htm?track_id=79566b27-03b3-4257-92f4-a0c70da95637",
+        "是否成交": true,
+        "竞拍人数": 7,
+        "出价人数": 7,
+        "地点": "广东省揭阳市惠来县隆江（北区）岗前村金贤隆江新城翡翠庄园一期A幢103房",
+        "所属小区": "翡翠庄园",
+        "省份": "广东省",
+        "城市": "揭阳市",
+        "区": "惠来县",
+        "最靠近商圈": "隆江",
+        "建筑面积": 334.04,
+        "单价": 3230.76,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "565687651397",
-        "url": "https://sf-item.taobao.com/sf_item/565687651397.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
-        "end": 1523328153000,
-        "status": "done",
-        "is_processed": false
+        "id": 565687651397,
+        "市场评估价": 1582500,
+        "起拍价格": 1270000,
+        "成交价格": 1354000,
+        "交易时间": "2018/04/10 10:42:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565687651397.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
+        "是否成交": true,
+        "竞拍人数": 43,
+        "出价人数": 41,
+        "地点": "河南省 郑州市 二七区 长江路128号（七期）50号楼6层36号",
+        "所属小区": "鑫苑国际新城",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "京广南路商圈",
+        "建筑面积": 108.69,
+        "单价": 12451.09,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "565584843539",
         "url": "https://sf-item.taobao.com/sf_item/565584843539.htm?track_id=2983f99a-2c1f-4c8c-8a28-f7b1e60ab457",
         "end": 1523328969000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565371715351",
+        "url": "https://sf-item.taobao.com/sf_item/565371715351.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1523329168000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565633171695",
+        "url": "https://sf-item.taobao.com/sf_item/565633171695.htm?track_id=160912a9-ef59-46b3-ad63-21233d9c5b38",
+        "end": 1523329591000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565534477831",
+        "url": "https://sf-item.taobao.com/sf_item/565534477831.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1523325713000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565279172701",
+        "url": "https://sf-item.taobao.com/sf_item/565279172701.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "end": 1523326405000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565152236078",
+        "url": "https://sf-item.taobao.com/sf_item/565152236078.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "end": 1523325600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565570466830",
+        "url": "https://sf-item.taobao.com/sf_item/565570466830.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1523327954000,
         "status": "done",
         "is_processed": false
     }

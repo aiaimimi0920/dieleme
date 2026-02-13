@@ -232,11 +232,25 @@
         "detail_captured": true
     },
     {
-        "id": "714765386200",
-        "url": "https://sf-item.taobao.com/sf_item/714765386200.htm?track_id=b419122a-a755-456d-92ed-4993f4847ff1",
-        "end": 1685153716000,
-        "status": "done",
-        "is_processed": false
+        "id": 714765386200,
+        "市场评估价": null,
+        "起拍价格": 701700,
+        "成交价格": 911700,
+        "交易时间": "2023-05-27 10:15:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/714765386200.htm?track_id=b419122a-a755-456d-92ed-4993f4847ff1",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": 11,
+        "地点": "湖北省十堰市丹江口市武当山特区玉虚街44号1幢1-101室",
+        "所属小区": null,
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "丹江口市",
+        "最靠近商圈": "武当山特区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "710083008990",
@@ -291,6 +305,55 @@
         "id": "714798646042",
         "url": "https://sf-item.taobao.com/sf_item/714798646042.htm?track_id=3cedde01-2031-445f-8da9-46bac780bbec",
         "end": 1685152800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "714446641413",
+        "url": "https://sf-item.taobao.com/sf_item/714446641413.htm?track_id=2aae7a99-698e-4407-8145-803f91390659",
+        "end": 1685155287000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "715006015685",
+        "url": "https://sf-item.taobao.com/sf_item/715006015685.htm?track_id=2bb477cb-231e-4b85-83ae-5c068b3fdfad",
+        "end": 1685152843000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "714606913235",
+        "url": "https://sf-item.taobao.com/sf_item/714606913235.htm?track_id=2bb477cb-231e-4b85-83ae-5c068b3fdfad",
+        "end": 1685154315000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "714999259362",
+        "url": "https://sf-item.taobao.com/sf_item/714999259362.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1685154437000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "714608106630",
+        "url": "https://sf-item.taobao.com/sf_item/714608106630.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1685152800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "717390546853",
+        "url": "https://sf-item.taobao.com/sf_item/717390546853.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1685152800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "714993267731",
+        "url": "https://sf-item.taobao.com/sf_item/714993267731.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
+        "end": 1685154614000,
         "status": "done",
         "is_processed": false
     }

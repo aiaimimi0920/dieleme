@@ -357,16 +357,86 @@
         "detail_captured": true
     },
     {
-        "id": "965811473047",
-        "url": "https://sf-item.taobao.com/sf_item/965811473047.htm?track_id=387abf45-6362-446c-8eb1-f445a19238a7",
-        "end": 1756606426000,
+        "id": 965811473047,
+        "市场评估价": 979456,
+        "起拍价格": 548496,
+        "成交价格": 598496,
+        "交易时间": "2025-08-31 10:13:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/965811473047.htm?track_id=387abf45-6362-446c-8eb1-f445a19238a7",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 9,
+        "地点": "河北省邢台市宁晋县宁辉花园16#楼1单元202室",
+        "所属小区": "宁辉花园",
+        "省份": "河北省",
+        "城市": "邢台市",
+        "区": "宁晋县",
+        "最靠近商圈": "宁晋县城中心",
+        "建筑面积": 188.52,
+        "单价": 3174.3,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 964772563428,
+        "市场评估价": 3460000,
+        "起拍价格": 1937600,
+        "成交价格": 1937600,
+        "交易时间": "2025-08-31 10:00:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/964772563428.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 澉浦镇澉浦大道999号春风如意里1幢104室",
+        "所属小区": "春风如意里",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "澉浦镇",
+        "建筑面积": 248.46,
+        "单价": 7799.67,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "958667610397",
+        "url": "https://sf-item.taobao.com/sf_item/958667610397.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1756606969000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "964772563428",
-        "url": "https://sf-item.taobao.com/sf_item/964772563428.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
-        "end": 1756605631000,
+        "id": "958183375198",
+        "url": "https://sf-item.taobao.com/sf_item/958183375198.htm?track_id=a9afb993-f3c1-4f11-9e15-21f52bf7c564",
+        "end": 1756605600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "957536771106",
+        "url": "https://sf-item.taobao.com/sf_item/957536771106.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1756607745000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "951212957763",
+        "url": "https://sf-item.taobao.com/sf_item/951212957763.htm?track_id=bce7c78f-af18-4d86-a5d0-8036c9800db5",
+        "end": 1756608097000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947332215239",
+        "url": "https://sf-item.taobao.com/sf_item/947332215239.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1756605988000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "966002024097",
+        "url": "https://sf-item.taobao.com/sf_item/966002024097.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
+        "end": 1756609089000,
         "status": "done",
         "is_processed": false
     }

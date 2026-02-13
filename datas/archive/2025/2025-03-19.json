@@ -483,8 +483,36 @@
         "detail_captured": true
     },
     {
-        "id": "890443515420",
-        "url": "https://sf-item.taobao.com/sf_item/890443515420.htm?track_id=c91db458-86b2-4c54-b8e2-bb20970fae22",
+        "id": 890443515420,
+        "市场评估价": 503800,
+        "起拍价格": 322432,
+        "成交价格": 322432,
+        "交易时间": "2025-03-19T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/890443515420.htm?track_id=c91db458-86b2-4c54-b8e2-bb20970fae22",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 熊家岗路9号4-1-2",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 77.84,
+        "单价": 4144.92,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "888373812380",
+        "url": "https://sf-item.taobao.com/sf_item/888373812380.htm?track_id=5fc4c768-6ab1-4407-acf9-835197b7645a",
+        "end": 1742349600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "894018171377",
+        "url": "https://sf-item.taobao.com/sf_item/894018171377.htm?track_id=a4454510-a7b4-4b05-a536-3635b364b17e",
         "end": 1742349600000,
         "status": "done",
         "is_processed": false

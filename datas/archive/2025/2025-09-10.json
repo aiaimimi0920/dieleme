@@ -273,11 +273,25 @@
         "detail_captured": true
     },
     {
-        "id": "969151730052",
-        "url": "https://sf-item.taobao.com/sf_item/969151730052.htm?track_id=8eb32f9c-024d-4b36-a3cc-4e3c768f1341",
-        "end": 1757469810000,
-        "status": "done",
-        "is_processed": false
+        "id": 969151730052,
+        "市场评估价": 525038.54,
+        "起拍价格": 468859.41,
+        "成交价格": 468859.41,
+        "交易时间": "2025/09/10 10:03:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/969151730052.htm?track_id=8eb32f9c-024d-4b36-a3cc-4e3c768f1341",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 科尔沁镇府前街北、兴科路西侧锦绣花园17号楼4单元601室",
+        "所属小区": "锦绣花园",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁镇",
+        "建筑面积": 145.44,
+        "单价": 3222.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "968658173240",
@@ -301,16 +315,79 @@
         "is_processed": false
     },
     {
-        "id": "969143710126",
-        "url": "https://sf-item.taobao.com/sf_item/969143710126.htm?track_id=e7a54447-6924-4a88-8baa-334f0f068dfd",
-        "end": 1757469600000,
-        "status": "done",
-        "is_processed": false
+        "id": 969143710126,
+        "市场评估价": 726840,
+        "起拍价格": 524000,
+        "成交价格": 524000,
+        "交易时间": "2025-09-10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/969143710126.htm?track_id=e7a54447-6924-4a88-8baa-334f0f068dfd",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广东省 惠州市 博罗县 罗阳街道滨江东路98号恒福·山语海花园6栋住宅楼2单元8层02房",
+        "所属小区": "恒福·山语海",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳中心",
+        "建筑面积": 121.14,
+        "单价": 4321.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "963036510185",
         "url": "https://sf-item.taobao.com/sf_item/963036510185.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
         "end": 1757471351000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "969300668230",
+        "url": "https://sf-item.taobao.com/sf_item/969300668230.htm?track_id=5f9c48bc-c41a-40e6-a9da-79c3ecd64fa1",
+        "end": 1757472794000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "969299592425",
+        "url": "https://sf-item.taobao.com/sf_item/969299592425.htm?track_id=5f9c48bc-c41a-40e6-a9da-79c3ecd64fa1",
+        "end": 1757470384000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "968678177579",
+        "url": "https://sf-item.taobao.com/sf_item/968678177579.htm?track_id=6abd5223-c136-4fc7-bb7b-5c922dcc102a",
+        "end": 1757473226000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "967994666297",
+        "url": "https://sf-item.taobao.com/sf_item/967994666297.htm?track_id=f8fcb460-293d-4823-a6b8-e6d33c641f75",
+        "end": 1757470279000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "967483143533",
+        "url": "https://sf-item.taobao.com/sf_item/967483143533.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1757469681000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "969301276066",
+        "url": "https://sf-item.taobao.com/sf_item/969301276066.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1757469743000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947293342454",
+        "url": "https://sf-item.taobao.com/sf_item/947293342454.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1757527129000,
         "status": "done",
         "is_processed": false
     }

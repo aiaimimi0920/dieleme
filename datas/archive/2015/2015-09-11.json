@@ -63,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "521404341599",
-        "url": "https://sf-item.taobao.com/sf_item/521404341599.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
-        "end": 1441937921000,
-        "status": "done",
-        "is_processed": false
+        "id": 521404341599,
+        "市场评估价": null,
+        "起拍价格": 606800,
+        "成交价格": 720800,
+        "交易时间": "2015/09/11 10:18:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/521404341599.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "包头市昆都仑区民族西路69号金桂名园1-1604号",
+        "所属小区": "金桂名园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "包百商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

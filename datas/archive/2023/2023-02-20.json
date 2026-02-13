@@ -238,11 +238,25 @@
         "is_processed": false
     },
     {
-        "id": "697464528412",
-        "url": "https://sf-item.taobao.com/sf_item/697464528412.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
-        "end": 1676859333000,
-        "status": "done",
-        "is_processed": false
+        "id": 697464528412,
+        "市场评估价": 208309,
+        "起拍价格": 145816.3,
+        "成交价格": 153816.3,
+        "交易时间": "2023-02-20 10:15:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/697464528412.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 9,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 参花街瑞园小区1号楼5单元904室",
+        "所属小区": "瑞园小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "大千城",
+        "建筑面积": 40.37,
+        "单价": 3812.17,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "697726449298",
@@ -255,6 +269,34 @@
         "id": "697514496987",
         "url": "https://sf-item.taobao.com/sf_item/697514496987.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
         "end": 1676869286000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "697774485804",
+        "url": "https://sf-item.taobao.com/sf_item/697774485804.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1676865636000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "698274319301",
+        "url": "https://sf-item.taobao.com/sf_item/698274319301.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1676863305000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "699060802539",
+        "url": "https://sf-item.taobao.com/sf_item/699060802539.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1676859347000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "699296173819",
+        "url": "https://sf-item.taobao.com/sf_item/699296173819.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1676858400000,
         "status": "done",
         "is_processed": false
     }

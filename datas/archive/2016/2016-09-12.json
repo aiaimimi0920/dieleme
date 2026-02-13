@@ -65,9 +65,44 @@
         "manual_checked": true
     },
     {
-        "id": "537598926220",
-        "url": "https://sf-item.taobao.com/sf_item/537598926220.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
-        "end": 1473690085000,
+        "id": 537598926220,
+        "市场评估价": null,
+        "起拍价格": 270016,
+        "成交价格": 417016,
+        "交易时间": "2016/09/12 22:21:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537598926220.htm?track_id=cc00482b-9d58-4050-b936-626b832d2339",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 45,
+        "地点": "福建省 泉州市 安溪县",
+        "所属小区": "龙湖泉运安溪公司宿舍",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城",
+        "建筑面积": 127.83,
+        "单价": 3262.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "537544121027",
+        "url": "https://sf-item.taobao.com/sf_item/537544121027.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1473647507000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537546421240",
+        "url": "https://sf-item.taobao.com/sf_item/537546421240.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1473646619000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "537532139795",
+        "url": "https://sf-item.taobao.com/sf_item/537532139795.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1473643197000,
         "status": "done",
         "is_processed": false
     }

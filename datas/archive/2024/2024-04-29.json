@@ -504,18 +504,46 @@
         "detail_captured": true
     },
     {
-        "id": "783111106860",
-        "url": "https://sf-item.taobao.com/sf_item/783111106860.htm?track_id=e122e251-b97e-4821-a3d5-c33e23d3658a",
-        "end": 1714356102000,
-        "status": "done",
-        "is_processed": false
+        "id": 783111106860,
+        "市场评估价": null,
+        "起拍价格": 230524,
+        "成交价格": 94274,
+        "交易时间": "2024/04/29 10:01:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/783111106860.htm?track_id=e122e251-b97e-4821-a3d5-c33e23d3658a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 朝阳川镇",
+        "所属小区": "朝阳川家园",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "朝阳川",
+        "建筑面积": 82.33,
+        "单价": 1145.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "779583980160",
-        "url": "https://sf-item.taobao.com/sf_item/779583980160.htm?track_id=5ede635e-ee33-491b-94f8-6189342541ca",
-        "end": 1714356566000,
-        "status": "done",
-        "is_processed": false
+        "id": 779583980160,
+        "市场评估价": 2308229,
+        "起拍价格": 1477200,
+        "成交价格": 1477200,
+        "交易时间": "2024/04/29 10:09:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/779583980160.htm?track_id=5ede635e-ee33-491b-94f8-6189342541ca",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城十二路55号2幢10801室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城十二路",
+        "建筑面积": 151.27,
+        "单价": 9766.39,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "783012043633",
@@ -528,6 +556,41 @@
         "id": "776191819511",
         "url": "https://sf-item.taobao.com/sf_item/776191819511.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1714356011000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "777226849006",
+        "url": "https://sf-item.taobao.com/sf_item/777226849006.htm?track_id=bb7a356f-f90b-422c-910b-47b42d1399f4",
+        "end": 1714356271000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "782352286447",
+        "url": "https://sf-item.taobao.com/sf_item/782352286447.htm?track_id=f8fcb460-293d-4823-a6b8-e6d33c641f75",
+        "end": 1714357181000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "782736051843",
+        "url": "https://sf-item.taobao.com/sf_item/782736051843.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1714363074000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "783113001470",
+        "url": "https://sf-item.taobao.com/sf_item/783113001470.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1714366548000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "775308538102",
+        "url": "https://sf-item.taobao.com/sf_item/775308538102.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1714359803000,
         "status": "done",
         "is_processed": false
     }

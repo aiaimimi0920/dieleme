@@ -168,16 +168,37 @@
         "detail_captured": true
     },
     {
-        "id": "818999837760",
-        "url": "https://sf-item.taobao.com/sf_item/818999837760.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
-        "end": 1723341600000,
-        "status": "done",
-        "is_processed": false
+        "id": 818999837760,
+        "市场评估价": null,
+        "起拍价格": 1333294,
+        "成交价格": 1333294,
+        "交易时间": "2024/08/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/818999837760.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 风城五路北侧紫薇希望城10幢21003室",
+        "所属小区": "紫薇希望城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区商圈",
+        "建筑面积": 119.82,
+        "单价": 11125.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "814601300198",
         "url": "https://sf-item.taobao.com/sf_item/814601300198.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
         "end": 1723341600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "800779266233",
+        "url": "https://sf-item.taobao.com/sf_item/800779266233.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1723359690000,
         "status": "done",
         "is_processed": false
     }

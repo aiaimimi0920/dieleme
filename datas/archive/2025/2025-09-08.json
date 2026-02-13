@@ -336,16 +336,72 @@
         "detail_captured": true
     },
     {
-        "id": "958624046465",
-        "url": "https://sf-item.taobao.com/sf_item/958624046465.htm?track_id=a25eec90-12d0-4352-8462-de2de18a394a",
-        "end": 1757296972000,
-        "status": "done",
-        "is_processed": false
+        "id": 958624046465,
+        "市场评估价": null,
+        "起拍价格": 139000,
+        "成交价格": 139000,
+        "交易时间": "2025-09-08 10:02:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/958624046465.htm?track_id=a25eec90-12d0-4352-8462-de2de18a394a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 贵港市 桂平市 西山镇西山村（碧云天商住中心）A区2113号商铺",
+        "所属小区": "碧云天商住中心",
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "西山镇",
+        "建筑面积": 28.86,
+        "单价": 4816.32,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "967918816932",
         "url": "https://sf-item.taobao.com/sf_item/967918816932.htm?track_id=1d1bdaa0-b9b9-4b1d-822e-eb73ff42fe30",
         "end": 1757298844000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "962601058078",
+        "url": "https://sf-item.taobao.com/sf_item/962601058078.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1757298399000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "963355468644",
+        "url": "https://sf-item.taobao.com/sf_item/963355468644.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1757298491000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "963407172709",
+        "url": "https://sf-item.taobao.com/sf_item/963407172709.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1757297341000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "962578006460",
+        "url": "https://sf-item.taobao.com/sf_item/962578006460.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1757297114000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "963379592759",
+        "url": "https://sf-item.taobao.com/sf_item/963379592759.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1757297518000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "963860596274",
+        "url": "https://sf-item.taobao.com/sf_item/963860596274.htm?track_id=270daa9e-b990-4124-b38a-5a1621dd3c7c",
+        "end": 1757296800000,
         "status": "done",
         "is_processed": false
     }

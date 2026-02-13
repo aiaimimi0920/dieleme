@@ -217,16 +217,72 @@
         "is_processed": false
     },
     {
-        "id": "811979032702",
-        "url": "https://sf-item.taobao.com/sf_item/811979032702.htm?track_id=cdbf980c-d320-4bfa-9b01-0d39c92ee920",
-        "end": 1721788564000,
+        "id": 811979032702,
+        "市场评估价": null,
+        "起拍价格": 280600,
+        "成交价格": 363377,
+        "交易时间": "2024/07/24 10:36:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/811979032702.htm?track_id=cdbf980c-d320-4bfa-9b01-0d39c92ee920",
+        "是否成交": true,
+        "竞拍人数": 55,
+        "出价人数": null,
+        "地点": "广西壮族自治区 贵港市 桂平市 西山镇凤凰新区世纪名门D-10栋2单元11层1103号房",
+        "所属小区": "世纪名门",
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "西山镇",
+        "建筑面积": 107.02,
+        "单价": 3393.33,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 808219505168,
+        "市场评估价": null,
+        "起拍价格": 51674.25,
+        "成交价格": 51674.25,
+        "交易时间": "2024/07/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/808219505168.htm?track_id=9248c2f2-f3a2-476d-9b0d-890248cdd341",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "黑龙江省 佳木斯市 桦川县 苏家店朱家村",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "佳木斯市",
+        "区": "桦川县",
+        "最靠近商圈": null,
+        "建筑面积": 63,
+        "单价": 820.22,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "811530719105",
+        "url": "https://sf-item.taobao.com/sf_item/811530719105.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1721787946000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "808219505168",
-        "url": "https://sf-item.taobao.com/sf_item/808219505168.htm?track_id=9248c2f2-f3a2-476d-9b0d-890248cdd341",
-        "end": 1721786400000,
+        "id": "806606435825",
+        "url": "https://sf-item.taobao.com/sf_item/806606435825.htm?track_id=f966165e-b876-4860-909d-4d7fffa42aec",
+        "end": 1721780876000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "811128822255",
+        "url": "https://sf-item.taobao.com/sf_item/811128822255.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
+        "end": 1721791097000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "813176667642",
+        "url": "https://sf-item.taobao.com/sf_item/813176667642.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1721786695000,
         "status": "done",
         "is_processed": false
     }

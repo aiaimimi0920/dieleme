@@ -239,18 +239,46 @@
         "detail_captured": true
     },
     {
-        "id": "679553880703",
-        "url": "https://sf-item.taobao.com/sf_item/679553880703.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
-        "end": 1660788000000,
-        "status": "done",
-        "is_processed": false
+        "id": 679553880703,
+        "市场评估价": 545000,
+        "起拍价格": 392400,
+        "成交价格": 392400,
+        "交易时间": "2022-08-18 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/679553880703.htm?track_id=8425bb02-8ed9-45df-a51c-c629746fc5b1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 潍坊市 昌邑市 昌邑市山前街17号4幢2单元501室住宅及附房",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": null,
+        "建筑面积": 137.68,
+        "单价": 2849.89,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "679916817035",
-        "url": "https://sf-item.taobao.com/sf_item/679916817035.htm?track_id=7b04b434-ceff-470a-aefa-d328aa1bebd6",
-        "end": 1660788950000,
-        "status": "done",
-        "is_processed": false
+        "id": 679916817035,
+        "市场评估价": 1583956,
+        "起拍价格": 1346363,
+        "成交价格": 1365363,
+        "交易时间": "2022/08/18 10:15:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/679916817035.htm?track_id=7b04b434-ceff-470a-aefa-d328aa1bebd6",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": 11,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城八路南侧EE康城23幢3单元1003室",
+        "所属小区": "EE康城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城八路",
+        "建筑面积": 120.94,
+        "单价": 11289.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "677827776769",
@@ -263,6 +291,20 @@
         "id": "678189521831",
         "url": "https://sf-item.taobao.com/sf_item/678189521831.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
         "end": 1660808229000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "679535240754",
+        "url": "https://sf-item.taobao.com/sf_item/679535240754.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
+        "end": 1660788257000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "678037882928",
+        "url": "https://sf-item.taobao.com/sf_item/678037882928.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1660794983000,
         "status": "done",
         "is_processed": false
     }

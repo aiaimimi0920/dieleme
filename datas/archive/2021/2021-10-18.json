@@ -547,9 +547,44 @@
         "detail_captured": true
     },
     {
-        "id": "656813966059",
-        "url": "https://sf-item.taobao.com/sf_item/656813966059.htm?track_id=15d3c34d-ea18-4beb-8082-c657542c2f90",
-        "end": 1634523193000,
+        "id": 656813966059,
+        "市场评估价": null,
+        "起拍价格": 173712,
+        "成交价格": 199212,
+        "交易时间": "2021-10-18T10:13:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/656813966059.htm?track_id=15d3c34d-ea18-4beb-8082-c657542c2f90",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": 16,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 西山街爱得山庄15号楼",
+        "所属小区": "爱得山庄",
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": "延吉市",
+        "最靠近商圈": "西山街商圈",
+        "建筑面积": 65.71,
+        "单价": 3033.62,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "656439129099",
+        "url": "https://sf-item.taobao.com/sf_item/656439129099.htm?track_id=d43679d7-7949-4fd9-9494-9b14b5ea692d",
+        "end": 1634522400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655755634098",
+        "url": "https://sf-item.taobao.com/sf_item/655755634098.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1634526060000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655760498071",
+        "url": "https://sf-item.taobao.com/sf_item/655760498071.htm?track_id=7910db3a-160d-47d2-a0b9-9ea879422ee1",
+        "end": 1634524259000,
         "status": "done",
         "is_processed": false
     }

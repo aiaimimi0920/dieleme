@@ -21,18 +21,46 @@
         "detail_captured": true
     },
     {
-        "id": "535503723743",
-        "url": "https://sf-item.taobao.com/sf_item/535503723743.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
-        "end": 1469801015000,
-        "status": "done",
-        "is_processed": false
+        "id": 535503723743,
+        "市场评估价": null,
+        "起拍价格": 390960,
+        "成交价格": 390960,
+        "交易时间": "2016-07-29T22:03:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535503723743.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县",
+        "所属小区": "新苑花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 127.4,
+        "单价": 3068.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "535586173489",
-        "url": "https://sf-item.taobao.com/sf_item/535586173489.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
-        "end": 1469761385000,
-        "status": "done",
-        "is_processed": false
+        "id": 535586173489,
+        "市场评估价": null,
+        "起拍价格": 800000,
+        "成交价格": 900000,
+        "交易时间": "2016-07-29 11:03:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535586173489.htm?track_id=8bef80f3-407c-406d-a2ed-d5e5bb68db7e",
+        "是否成交": true,
+        "竞拍人数": 51,
+        "出价人数": 19,
+        "地点": "河南省 郑州市 二七区 合作路1号院10号楼1单元4层14号",
+        "所属小区": "合作路1号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 80.05,
+        "单价": 11240.44,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "535526963401",
@@ -45,6 +73,34 @@
         "id": "535573230365",
         "url": "https://sf-item.taobao.com/sf_item/535573230365.htm?track_id=9d62b742-b4d8-4891-b062-beb125515e21",
         "end": 1469758267000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535637520281",
+        "url": "https://sf-item.taobao.com/sf_item/535637520281.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "end": 1469757600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536029366592",
+        "url": "https://sf-item.taobao.com/sf_item/536029366592.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1469758851000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "536029190382",
+        "url": "https://sf-item.taobao.com/sf_item/536029190382.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1469761796000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535648689037",
+        "url": "https://sf-item.taobao.com/sf_item/535648689037.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1469757805000,
         "status": "done",
         "is_processed": false
     }

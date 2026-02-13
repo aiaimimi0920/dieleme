@@ -84,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "564182928831",
-        "url": "https://sf-item.taobao.com/sf_item/564182928831.htm?track_id=6721f6dc-cbea-4576-a232-d30a97e97665",
-        "end": 1519178400000,
-        "status": "done",
-        "is_processed": false
+        "id": 564182928831,
+        "市场评估价": 136900,
+        "起拍价格": 96000,
+        "成交价格": 120000,
+        "交易时间": "2018/02/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564182928831.htm?track_id=6721f6dc-cbea-4576-a232-d30a97e97665",
+        "是否成交": true,
+        "竞拍人数": 5,
+        "出价人数": 5,
+        "地点": "四川省乐至县天池镇东福街75号营业用房",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

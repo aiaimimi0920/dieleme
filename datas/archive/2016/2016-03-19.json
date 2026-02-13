@@ -1,24 +1,31 @@
 [
-  {
-    "id": 527666965539,
-    "市场评估价": 0,
-    "起拍价格": 70400,
-    "成交价格": 70400,
-    "交易时间": "2016/03/19 10:00:00",
-    "原始网站": "https://sf-item.taobao.com/sf_item/527666965539.htm?track_id=ffc63780-8a7c-488c-8d8e-05f540078c84",
-    "是否成交": true,
-    "竞拍人数": 1,
-    "出价人数": 1,
-    "地点": "江苏省 徐州市 泉山区",
-    "所属小区": null,
-    "省份": "江苏省",
-    "城市": "徐州市",
-    "区": "泉山区",
-    "最靠近商圈": null,
-    "建筑面积": null,
-    "单价": 0,
-    "is_processed": true,
-    "detail_captured": true,
-    "manual_checked": true
-  }
+    {
+        "id": 527666965539,
+        "市场评估价": 0,
+        "起拍价格": 70400,
+        "成交价格": 70400,
+        "交易时间": "2016/03/19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527666965539.htm?track_id=ffc63780-8a7c-488c-8d8e-05f540078c84",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 徐州市 泉山区",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "徐州市",
+        "区": "泉山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": "527651602023",
+        "url": "https://sf-item.taobao.com/sf_item/527651602023.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1458353868000,
+        "status": "done",
+        "is_processed": false
+    }
 ]

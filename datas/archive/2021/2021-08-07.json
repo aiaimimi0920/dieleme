@@ -190,9 +190,44 @@
         "is_processed": false
     },
     {
-        "id": "649397316108",
-        "url": "https://sf-item.taobao.com/sf_item/649397316108.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
-        "end": 1628311223000,
+        "id": 649397316108,
+        "市场评估价": 1202230,
+        "起拍价格": 845000,
+        "成交价格": 1027000,
+        "交易时间": "2021-08-07 12:40:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/649397316108.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "是否成交": true,
+        "竞拍人数": 177,
+        "出价人数": 171,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道城东路1665号御景城13幢2202室",
+        "所属小区": "御景城",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 105.09,
+        "单价": 9773.48,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "649903602156",
+        "url": "https://sf-item.taobao.com/sf_item/649903602156.htm?track_id=032141b6-17e2-4443-a78b-c8b7496ef1d3",
+        "end": 1628303185000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "649416616878",
+        "url": "https://sf-item.taobao.com/sf_item/649416616878.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1628306329000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "650564120404",
+        "url": "https://sf-item.taobao.com/sf_item/650564120404.htm?track_id=b4353959-2c75-46fd-ae3a-556685042bba",
+        "end": 1628302339000,
         "status": "done",
         "is_processed": false
     }

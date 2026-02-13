@@ -294,16 +294,72 @@
         "detail_captured": true
     },
     {
-        "id": "656464644391",
-        "url": "https://sf-item.taobao.com/sf_item/656464644391.htm?track_id=3e1aa86f-6c7e-45f7-bc36-4374b6c4ccbc",
-        "end": 1635905811000,
-        "status": "done",
-        "is_processed": false
+        "id": 656464644391,
+        "市场评估价": 0,
+        "起拍价格": 285504,
+        "成交价格": 361504,
+        "交易时间": "2021/11/03 10:16:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/656464644391.htm?track_id=3e1aa86f-6c7e-45f7-bc36-4374b6c4ccbc",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 20,
+        "地点": "福建省 厦门市 翔安区 新澳路1515号（信洲国际）733单元",
+        "所属小区": "信洲国际",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "翔安区",
+        "最靠近商圈": "翔安商务区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "655992244325",
         "url": "https://sf-item.taobao.com/sf_item/655992244325.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
         "end": 1635905059000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656362213914",
+        "url": "https://sf-item.taobao.com/sf_item/656362213914.htm?track_id=6abd5223-c136-4fc7-bb7b-5c922dcc102a",
+        "end": 1635906349000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655429736196",
+        "url": "https://sf-item.taobao.com/sf_item/655429736196.htm?track_id=7910db3a-160d-47d2-a0b9-9ea879422ee1",
+        "end": 1635906834000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "656255018984",
+        "url": "https://sf-item.taobao.com/sf_item/656255018984.htm?track_id=addbb771-a109-4b32-8cec-541c849a16ea",
+        "end": 1635906939000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "655903654007",
+        "url": "https://sf-item.taobao.com/sf_item/655903654007.htm?track_id=ef50c735-a371-4834-af1b-815806338e54",
+        "end": 1635908400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657863741344",
+        "url": "https://sf-item.taobao.com/sf_item/657863741344.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1635906246000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "658255699401",
+        "url": "https://sf-item.taobao.com/sf_item/658255699401.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1635912307000,
         "status": "done",
         "is_processed": false
     }

@@ -399,12 +399,25 @@
         "detail_captured": true
     },
     {
-        "id": "1003440704313",
-        "url": "https://sf-item.taobao.com/sf_item/1003440704313.htm?track_id=0db1aff7-83bd-45e8-a210-73296ccba900",
-        "end": 1767339134000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/1003440704313.htm"
+        "id": 1003440704313,
+        "市场评估价": 405000,
+        "起拍价格": 226800,
+        "成交价格": 226800,
+        "交易时间": "2026/01/02 15:32:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1003440704313.htm?track_id=0db1aff7-83bd-45e8-a210-73296ccba900",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "四川省 广元市 利州区 上西办事处金轮南路2-6-2号住房",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": "上西板块",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 1004360752827,
@@ -449,11 +462,25 @@
         "detail_captured": true
     },
     {
-        "id": "1004559584155",
-        "url": "https://sf-item.taobao.com/sf_item/1004559584155.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
-        "end": 1767320400000,
-        "status": "done",
-        "is_processed": false
+        "id": 1004559584155,
+        "市场评估价": 597452,
+        "起拍价格": 408658,
+        "成交价格": 408658,
+        "交易时间": "2026-01-02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1004559584155.htm?track_id=259b8f4f-9aba-4ebe-acfb-000a838293dc",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "湖北省十堰市茅箭区五堰街办山西路8-A号2幢1-4-3号",
+        "所属小区": null,
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": "五堰商圈",
+        "建筑面积": 114.63,
+        "单价": 3563.09,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "997967331342",
@@ -473,6 +500,69 @@
         "id": "1002489719088",
         "url": "https://sf-item.taobao.com/sf_item/1002489719088.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
         "end": 1767321995000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1003149186607",
+        "url": "https://sf-item.taobao.com/sf_item/1003149186607.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1767319259000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999966532269",
+        "url": "https://sf-item.taobao.com/sf_item/999966532269.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1767319916000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999951692175",
+        "url": "https://sf-item.taobao.com/sf_item/999951692175.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1767341248000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999951324894",
+        "url": "https://sf-item.taobao.com/sf_item/999951324894.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1767326516000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "998435102877",
+        "url": "https://sf-item.taobao.com/sf_item/998435102877.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1767319277000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999227145479",
+        "url": "https://sf-item.taobao.com/sf_item/999227145479.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1767333844000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999226225877",
+        "url": "https://sf-item.taobao.com/sf_item/999226225877.htm?track_id=f979e7d4-180a-4463-9ef9-1cb824f07466",
+        "end": 1767326400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999243793261",
+        "url": "https://sf-item.taobao.com/sf_item/999243793261.htm?track_id=f9fba1dc-0a83-468f-bda8-aa92f58b8e7a",
+        "end": 1767319200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "997833767925",
+        "url": "https://sf-item.taobao.com/sf_item/997833767925.htm?track_id=29741d11-d626-40b6-853d-7490b7dfc9dc",
+        "end": 1767333600000,
         "status": "done",
         "is_processed": false
     }

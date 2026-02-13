@@ -98,11 +98,25 @@
         "is_processed": false
     },
     {
-        "id": "553669660351",
-        "url": "https://sf-item.taobao.com/sf_item/553669660351.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1500861600000,
-        "status": "done",
-        "is_processed": false
+        "id": 553669660351,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 380430,
+        "交易时间": "2017/07/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/553669660351.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 新密市",
+        "所属小区": "阳光花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "西大街商圈",
+        "建筑面积": 132.1,
+        "单价": 2879.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "554896533412",

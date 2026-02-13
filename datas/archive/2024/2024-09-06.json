@@ -631,25 +631,67 @@
         "detail_captured": true
     },
     {
-        "id": "820895048334",
-        "url": "https://sf-item.taobao.com/sf_item/820895048334.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
-        "end": 1725589635000,
-        "status": "done",
-        "is_processed": false
+        "id": 820895048334,
+        "市场评估价": 1048699.5,
+        "起拍价格": 1048699.5,
+        "成交价格": 1552074.54,
+        "交易时间": "2024/09/06 10:27:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/820895048334.htm?track_id=9f6e7a05-dab1-427e-b204-e22df95f1146",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 40,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 科尔沁镇静水湾.沁园小区L06-03号及地下室及100平自建房及院落",
+        "所属小区": "静水湾.沁园小区",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": "科尔沁镇",
+        "建筑面积": 236.3,
+        "单价": 6570.31,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "826303523471",
-        "url": "https://sf-item.taobao.com/sf_item/826303523471.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
-        "end": 1725589136000,
-        "status": "done",
-        "is_processed": false
+        "id": 826303523471,
+        "市场评估价": 777659,
+        "起拍价格": 436000,
+        "成交价格": 532000,
+        "交易时间": "2024/09/06 10:18:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/826303523471.htm?track_id=88fd3fa6-3846-491b-8496-52625f527f18",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": 21,
+        "地点": "广东省 惠州市 博罗县 园洲镇上南村委会秀丽路大禾田（土名）地段名巨·新成花园2栋住宅楼6层04房",
+        "所属小区": "巨·新成花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "园洲",
+        "建筑面积": 110.15,
+        "单价": 4826.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "826782329080",
-        "url": "https://sf-item.taobao.com/sf_item/826782329080.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
-        "end": 1725589367000,
-        "status": "done",
-        "is_processed": false
+        "id": 826782329080,
+        "市场评估价": 1034346,
+        "起拍价格": 580000,
+        "成交价格": 680000,
+        "交易时间": "2024/09/06 10:22:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/826782329080.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 18,
+        "地点": "广东省 惠州市 博罗县 石湾镇中岗村委会兴业中路南侧新怡·豪门商住小区7号商住楼13层01房",
+        "所属小区": "新怡·豪门商住小区",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾",
+        "建筑面积": 124.62,
+        "单价": 5458.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "822381802000",
@@ -659,11 +701,25 @@
         "is_processed": false
     },
     {
-        "id": "820585062327",
-        "url": "https://sf-item.taobao.com/sf_item/820585062327.htm?track_id=c6681eeb-21d2-4ee1-8884-fbe9cb8310a9",
-        "end": 1725588000000,
-        "status": "done",
-        "is_processed": false
+        "id": 820585062327,
+        "市场评估价": null,
+        "起拍价格": 396933,
+        "成交价格": 396933,
+        "交易时间": "2024/09/06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/820585062327.htm?track_id=c6681eeb-21d2-4ee1-8884-fbe9cb8310a9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "山东省 淄博市 博山区 山头街道秋谷村转天岭96号纳福佳园1号楼1单元11层中户",
+        "所属小区": "纳福佳园",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "山头街道商圈",
+        "建筑面积": 85,
+        "单价": 4669.21,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "820773501344",
@@ -673,16 +729,100 @@
         "is_processed": false
     },
     {
-        "id": "826357071636",
-        "url": "https://sf-item.taobao.com/sf_item/826357071636.htm?track_id=31693a0f-4128-4650-bb22-1430e7d7bb2a",
-        "end": 1725591035000,
-        "status": "done",
-        "is_processed": false
+        "id": 826357071636,
+        "市场评估价": 237689,
+        "起拍价格": 152120.96,
+        "成交价格": 189620.96,
+        "交易时间": "2024/09/06 10:50:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/826357071636.htm?track_id=31693a0f-4128-4650-bb22-1430e7d7bb2a",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": 21,
+        "地点": "内蒙古自治区 通辽市 库伦旗 天骄时代小区5号楼二单元601室",
+        "所属小区": "天骄时代小区",
+        "省份": "内蒙古自治区",
+        "城市": "通辽市",
+        "区": "库伦旗",
+        "最靠近商圈": "库伦旗",
+        "建筑面积": 81.68,
+        "单价": 2320.88,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "826717949388",
         "url": "https://sf-item.taobao.com/sf_item/826717949388.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
         "end": 1725590454000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826852240023",
+        "url": "https://sf-item.taobao.com/sf_item/826852240023.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1725588000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826392779914",
+        "url": "https://sf-item.taobao.com/sf_item/826392779914.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1725588403000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "821331573778",
+        "url": "https://sf-item.taobao.com/sf_item/821331573778.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1725589309000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826430489991",
+        "url": "https://sf-item.taobao.com/sf_item/826430489991.htm?track_id=0c22d8db-c0c2-4583-acac-ea35aa4ef026",
+        "end": 1725588000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826436381789",
+        "url": "https://sf-item.taobao.com/sf_item/826436381789.htm?track_id=a8a7504e-6323-4c92-b93b-cd51b5436bd0",
+        "end": 1725588647000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826563876220",
+        "url": "https://sf-item.taobao.com/sf_item/826563876220.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1725588000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "826527454811",
+        "url": "https://sf-item.taobao.com/sf_item/826527454811.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1725609645000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "825676780787",
+        "url": "https://sf-item.taobao.com/sf_item/825676780787.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1725592219000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "825677016625",
+        "url": "https://sf-item.taobao.com/sf_item/825677016625.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1725595830000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "822176877706",
+        "url": "https://sf-item.taobao.com/sf_item/822176877706.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1725588000000,
         "status": "done",
         "is_processed": false
     }

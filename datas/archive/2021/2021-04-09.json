@@ -315,32 +315,88 @@
         "detail_captured": true
     },
     {
-        "id": "639696058279",
-        "url": "https://sf-item.taobao.com/sf_item/639696058279.htm?track_id=cc0a5801-ce4a-44a7-9efb-969714068cfc",
-        "end": 1617934919000,
-        "status": "done",
-        "is_processed": false
+        "id": 639696058279,
+        "市场评估价": 711235,
+        "起拍价格": 497864.5,
+        "成交价格": 572864.5,
+        "交易时间": "2021/04/09 10:21:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/639696058279.htm?track_id=cc0a5801-ce4a-44a7-9efb-969714068cfc",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": 26,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延吉市大宇路508号青城小区",
+        "所属小区": "青城小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市",
+        "建筑面积": 133.39,
+        "单价": 4295.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "637845319064",
-        "url": "https://sf-item.taobao.com/sf_item/637845319064.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1617937720000,
-        "status": "done",
-        "is_processed": false
+        "id": 637845319064,
+        "市场评估价": 501969,
+        "起拍价格": 281104,
+        "成交价格": 281104,
+        "交易时间": "2021/04/09 11:08:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637845319064.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "辽宁省 沈阳市 铁西区 壮工街52号2-7-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "工人村商圈",
+        "建筑面积": 82.29,
+        "单价": 3415.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "640053695067",
-        "url": "https://sf-item.taobao.com/sf_item/640053695067.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
-        "end": 1617933601000,
-        "status": "done",
-        "is_processed": false
+        "id": 640053695067,
+        "市场评估价": 551630,
+        "起拍价格": 386141,
+        "成交价格": 386141,
+        "交易时间": "2021/04/09 10:00:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/640053695067.htm?track_id=c55fa42b-77d0-4a1d-85b1-f1d44cf05eee",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 建设中路92号4-11-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 85.79,
+        "单价": 4500.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "637672282310",
-        "url": "https://sf-item.taobao.com/sf_item/637672282310.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
-        "end": 1617957750000,
-        "status": "done",
-        "is_processed": false
+        "id": 637672282310,
+        "市场评估价": null,
+        "起拍价格": 739526,
+        "成交价格": 739526.4,
+        "交易时间": "2021/04/09 16:42:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637672282310.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 霸州市 霸州市阿尔卡迪亚小区19号楼2单元502室房产一处",
+        "所属小区": "霸州阿尔卡迪亚",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "霸州市区",
+        "建筑面积": 119.24,
+        "单价": 6202.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "640395912581",
@@ -367,6 +423,62 @@
         "id": "639349282129",
         "url": "https://sf-item.taobao.com/sf_item/639349282129.htm?track_id=963d0425-54e8-4a01-88cf-6133f7f3e41c",
         "end": 1617933600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "639695226501",
+        "url": "https://sf-item.taobao.com/sf_item/639695226501.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1617934756000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "639012180807",
+        "url": "https://sf-item.taobao.com/sf_item/639012180807.htm?track_id=0d0a4b96-3475-41c6-be82-f884580aae77",
+        "end": 1617934469000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641114142696",
+        "url": "https://sf-item.taobao.com/sf_item/641114142696.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "end": 1617935267000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "639420462963",
+        "url": "https://sf-item.taobao.com/sf_item/639420462963.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "end": 1617942628000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641118166233",
+        "url": "https://sf-item.taobao.com/sf_item/641118166233.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1617933600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637744029449",
+        "url": "https://sf-item.taobao.com/sf_item/637744029449.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1617944716000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638122073964",
+        "url": "https://sf-item.taobao.com/sf_item/638122073964.htm?track_id=1bfdf5f3-ff79-4ec0-acb3-c67a8bc42bdf",
+        "end": 1617936524000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638996620976",
+        "url": "https://sf-item.taobao.com/sf_item/638996620976.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "end": 1617935350000,
         "status": "done",
         "is_processed": false
     }

@@ -154,9 +154,30 @@
         "is_processed": false
     },
     {
-        "id": "700043955592",
-        "url": "https://sf-item.taobao.com/sf_item/700043955592.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1678070163000,
+        "id": 700043955592,
+        "市场评估价": 2337040,
+        "起拍价格": 1870000,
+        "成交价格": 2367000,
+        "交易时间": "2023/03/06 10:36:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/700043955592.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 西兴街道缤纷北苑23幢3单元301室",
+        "所属小区": "缤纷北苑",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "西兴",
+        "建筑面积": 51.96,
+        "单价": 45550.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "699476310001",
+        "url": "https://sf-item.taobao.com/sf_item/699476310001.htm?track_id=b4353959-2c75-46fd-ae3a-556685042bba",
+        "end": 1678068000000,
         "status": "done",
         "is_processed": false
     }

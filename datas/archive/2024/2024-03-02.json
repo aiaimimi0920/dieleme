@@ -126,20 +126,46 @@
         "detail_captured": true
     },
     {
-        "id": "756700634248",
-        "url": "https://sf-item.taobao.com/sf_item/756700634248.htm?track_id=c00aeabb-8fd7-4407-b982-90eed337592f",
-        "end": 1709387332000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/756700634248.htm"
+        "id": 756700634248,
+        "市场评估价": 460000,
+        "起拍价格": 257600,
+        "成交价格": 257600,
+        "交易时间": "2024/03/02 21:48:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/756700634248.htm?track_id=c00aeabb-8fd7-4407-b982-90eed337592f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 威海市 荣成市 洲际假日广场14号楼1113",
+        "所属小区": "洲际假日广场",
+        "省份": "山东省",
+        "城市": "威海市",
+        "区": "荣成市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "765988243791",
-        "url": "https://sf-item.taobao.com/sf_item/765988243791.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
-        "end": 1709371898000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/765988243791.htm"
+        "id": 765988243791,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 324800,
+        "交易时间": "2024/03/02 17:31:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/765988243791.htm?track_id=df72a5eb-1209-49b6-b2d3-6e6c01fb4030",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省淮安市淮安区北门大街教师公寓1号楼502室",
+        "所属小区": "教师公寓",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 765691409041,
@@ -245,5 +271,54 @@
         "单价": 7209.78,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "766052992341",
+        "url": "https://sf-item.taobao.com/sf_item/766052992341.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1709348242000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766774252088",
+        "url": "https://sf-item.taobao.com/sf_item/766774252088.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1709360861000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "765767444173",
+        "url": "https://sf-item.taobao.com/sf_item/765767444173.htm?track_id=c1122bc0-fff8-4176-9d60-e693e4959044",
+        "end": 1709344800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "765871126968",
+        "url": "https://sf-item.taobao.com/sf_item/765871126968.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1709344800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "765871286806",
+        "url": "https://sf-item.taobao.com/sf_item/765871286806.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1709344812000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "756728406674",
+        "url": "https://sf-item.taobao.com/sf_item/756728406674.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1709394970000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "757582589800",
+        "url": "https://sf-item.taobao.com/sf_item/757582589800.htm?track_id=70463afb-f65a-4396-a5f5-01084d2c1570",
+        "end": 1709372784000,
+        "status": "done",
+        "is_processed": false
     }
 ]

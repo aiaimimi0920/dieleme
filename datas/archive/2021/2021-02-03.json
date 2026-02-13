@@ -148,12 +148,25 @@
         "detail_captured": true
     },
     {
-        "id": "635286949226",
-        "url": "https://sf-item.taobao.com/sf_item/635286949226.htm?track_id=a7f348f0-d467-4d26-9001-2607f02270c7",
-        "end": 1612317600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/635286949226.htm"
+        "id": 635286949226,
+        "市场评估价": null,
+        "起拍价格": 258800,
+        "成交价格": 258800,
+        "交易时间": "2021/02/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/635286949226.htm?track_id=a7f348f0-d467-4d26-9001-2607f02270c7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省威海市荣成市华悦新城小区11号302室",
+        "所属小区": "华悦新城",
+        "省份": "山东省",
+        "城市": "威海市",
+        "区": "荣成市",
+        "最靠近商圈": "荣成市区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 634906816796,
@@ -177,11 +190,25 @@
         "detail_captured": true
     },
     {
-        "id": "636661170301",
-        "url": "https://sf-item.taobao.com/sf_item/636661170301.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
-        "end": 1612317600000,
-        "status": "done",
-        "is_processed": false
+        "id": 636661170301,
+        "市场评估价": 1160641.44,
+        "起拍价格": 1160641.44,
+        "成交价格": 1160641.44,
+        "交易时间": "2021/02/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636661170301.htm?track_id=596b5e78-b76f-45e1-acf4-405060b43c87",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 昆都仑区 民族西路43号向阳商住楼1-1002号房产",
+        "所属小区": "向阳商住楼",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "团结大街商圈",
+        "建筑面积": 83.66,
+        "单价": 13884.57,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 636993743558,
@@ -205,16 +232,51 @@
         "detail_captured": true
     },
     {
-        "id": "634921804059",
-        "url": "https://sf-item.taobao.com/sf_item/634921804059.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
-        "end": 1612319545000,
-        "status": "done",
-        "is_processed": false
+        "id": 634921804059,
+        "市场评估价": 678000,
+        "起拍价格": 474600,
+        "成交价格": 500600,
+        "交易时间": "2021/02/03 10:32:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634921804059.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 14,
+        "地点": "都匀市民族路51号银河之都1栋1单元5层6号住宅用房",
+        "所属小区": "银河之都",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "市中心",
+        "建筑面积": 135.96,
+        "单价": 3682.55,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "635228705036",
         "url": "https://sf-item.taobao.com/sf_item/635228705036.htm?track_id=6b1ba342-958e-4517-b81b-61618a33239d",
         "end": 1612317600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636514050612",
+        "url": "https://sf-item.taobao.com/sf_item/636514050612.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1612319767000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635619026432",
+        "url": "https://sf-item.taobao.com/sf_item/635619026432.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "end": 1612359667000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635780543822",
+        "url": "https://sf-item.taobao.com/sf_item/635780543822.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1612319962000,
         "status": "done",
         "is_processed": false
     }

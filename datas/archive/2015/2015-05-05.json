@@ -106,9 +106,30 @@
         "detail_captured": true
     },
     {
-        "id": "44824815391",
-        "url": "https://sf-item.taobao.com/sf_item/44824815391.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
-        "end": 1430791784000,
+        "id": 44824815391,
+        "市场评估价": 0,
+        "起拍价格": 625000,
+        "成交价格": 659000,
+        "交易时间": "2015/05/05 10:09:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44824815391.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 15,
+        "地点": "海盐县武原街道长安北路海逸豪园8幢604室",
+        "所属小区": "海逸豪园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 116.26,
+        "单价": 5669.93,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "44790539610",
+        "url": "https://sf-item.taobao.com/sf_item/44790539610.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "end": 1430791200000,
         "status": "done",
         "is_processed": false
     }

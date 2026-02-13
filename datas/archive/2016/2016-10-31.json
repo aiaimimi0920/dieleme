@@ -86,9 +86,37 @@
         "detail_captured": true
     },
     {
-        "id": "539829228424",
-        "url": "https://sf-item.taobao.com/sf_item/539829228424.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
-        "end": 1477880626000,
+        "id": 539829228424,
+        "市场评估价": 445500,
+        "起拍价格": 445500,
+        "成交价格": 505500,
+        "交易时间": "2016/10/31 10:23:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539829228424.htm?track_id=77368566-69e5-4d92-80fb-73004ed19196",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 13,
+        "地点": "郑州市二七区京广南路51号院绿岛港湾1号楼6层112号",
+        "所属小区": "绿岛港湾",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七广场",
+        "建筑面积": 48.47,
+        "单价": 10429.7,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "540049810101",
+        "url": "https://sf-item.taobao.com/sf_item/540049810101.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1477881111000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "540021430126",
+        "url": "https://sf-item.taobao.com/sf_item/540021430126.htm?track_id=7efd5808-9eb6-46a0-81ee-9411fcb4f669",
+        "end": 1477880063000,
         "status": "done",
         "is_processed": false
     }

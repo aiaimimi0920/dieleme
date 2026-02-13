@@ -407,18 +407,46 @@
         "detail_captured": true
     },
     {
-        "id": "599056815785",
-        "url": "https://sf-item.taobao.com/sf_item/599056815785.htm?track_id=1d2888d6-6fb7-43a3-9d32-48bb0f233bcb",
-        "end": 1566094370000,
-        "status": "done",
-        "is_processed": false
+        "id": 599056815785,
+        "市场评估价": 0,
+        "起拍价格": 622000,
+        "成交价格": 662000,
+        "交易时间": "2019/08/18 10:12:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/599056815785.htm?track_id=1d2888d6-6fb7-43a3-9d32-48bb0f233bcb",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 9,
+        "地点": "内蒙古自治区 兴安盟 科尔沁右翼前旗 碧桂园囍居小区8号楼2单元901室",
+        "所属小区": "碧桂园囍居小区",
+        "省份": "内蒙古自治区",
+        "城市": "兴安盟",
+        "区": "科尔沁右翼前旗",
+        "最靠近商圈": null,
+        "建筑面积": 130.2,
+        "单价": 5084.48,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "599984034096",
-        "url": "https://sf-item.taobao.com/sf_item/599984034096.htm?track_id=c6df0310-ebd5-4130-9d27-718efb9b09f3",
-        "end": 1566093672000,
-        "status": "done",
-        "is_processed": false
+        "id": 599984034096,
+        "市场评估价": null,
+        "起拍价格": 1464699,
+        "成交价格": 1471699,
+        "交易时间": "2019/08/18 10:01:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/599984034096.htm?track_id=c6df0310-ebd5-4130-9d27-718efb9b09f3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 文景路东凤城九路北金源御景华府12-11301号房产一处",
+        "所属小区": "金源御景华府",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区商圈",
+        "建筑面积": 136.76,
+        "单价": 10763.37,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "599119387616",
@@ -431,6 +459,20 @@
         "id": "600223387292",
         "url": "https://sf-item.taobao.com/sf_item/600223387292.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
         "end": 1566094038000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "599772361407",
+        "url": "https://sf-item.taobao.com/sf_item/599772361407.htm?track_id=d5566e93-6667-4ee0-86bb-103d626c1c7d",
+        "end": 1566094605000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598911226652",
+        "url": "https://sf-item.taobao.com/sf_item/598911226652.htm?track_id=9a405c8a-1c07-49bc-9bd5-0414da77ea78",
+        "end": 1566093600000,
         "status": "done",
         "is_processed": false
     }

@@ -274,11 +274,25 @@
         "detail_captured": true
     },
     {
-        "id": "822330072888",
-        "url": "https://sf-item.taobao.com/sf_item/822330072888.htm?track_id=a15d7f98-3b05-4c1b-8448-8544b2b443ae",
-        "end": 1724292000000,
-        "status": "done",
-        "is_processed": false
+        "id": 822330072888,
+        "市场评估价": 2560100,
+        "起拍价格": 1433656,
+        "成交价格": 1433656,
+        "交易时间": "2024-08-22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/822330072888.htm?track_id=a15d7f98-3b05-4c1b-8448-8544b2b443ae",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 资阳市 乐至县 天池镇川鄂中路20号附4-8号(现门牌号：乐至县?川鄂东路4号、6号、8号）",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "821868215043",
@@ -312,6 +326,27 @@
         "id": "822089145535",
         "url": "https://sf-item.taobao.com/sf_item/822089145535.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
         "end": 1724293051000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "822124205847",
+        "url": "https://sf-item.taobao.com/sf_item/822124205847.htm?track_id=aa7c9499-83e3-4f8b-82a0-5b73185c82fb",
+        "end": 1724295600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "819165826812",
+        "url": "https://sf-item.taobao.com/sf_item/819165826812.htm?track_id=ec0864e8-1dfb-4aa2-9cc5-3a21f48d84d2",
+        "end": 1724293656000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "811179359909",
+        "url": "https://sf-item.taobao.com/sf_item/811179359909.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1724292149000,
         "status": "done",
         "is_processed": false
     }

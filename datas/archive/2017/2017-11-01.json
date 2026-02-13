@@ -579,9 +579,37 @@
         "is_processed": false
     },
     {
-        "id": "559527739599",
-        "url": "https://sf-item.taobao.com/sf_item/559527739599.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
-        "end": 1509501723000,
+        "id": 559527739599,
+        "市场评估价": null,
+        "起拍价格": 385500,
+        "成交价格": 590500,
+        "交易时间": "2017/11/01 10:02:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559527739599.htm?track_id=b07a1e19-eebc-4e3e-b4cc-008b79a49718",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 41,
+        "地点": "浙江省 嘉兴市 海盐县 海盐县武原街道海兴中路187号文曲佳苑",
+        "所属小区": "文曲佳苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 78.31,
+        "单价": 7540.85,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "559512919411",
+        "url": "https://sf-item.taobao.com/sf_item/559512919411.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1509502377000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559303702031",
+        "url": "https://sf-item.taobao.com/sf_item/559303702031.htm?track_id=6aabcd90-810d-43c8-9914-e7c57096882b",
+        "end": 1509507092000,
         "status": "done",
         "is_processed": false
     }

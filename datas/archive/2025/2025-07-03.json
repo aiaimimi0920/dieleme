@@ -386,12 +386,25 @@
         "detail_captured": true
     },
     {
-        "id": "941052336614",
-        "url": "https://sf-item.taobao.com/sf_item/941052336614.htm?track_id=d08581cf-7528-4c36-a90f-b5eef0ef438a",
-        "end": 1751509997000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/941052336614.htm"
+        "id": 941052336614,
+        "市场评估价": 1085634.48,
+        "起拍价格": 607955.31,
+        "成交价格": 767955.31,
+        "交易时间": "2025-07-03 10:33:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/941052336614.htm?track_id=d08581cf-7528-4c36-a90f-b5eef0ef438a",
+        "是否成交": true,
+        "竞拍人数": 30,
+        "出价人数": 30,
+        "地点": "江苏省 淮安市 淮安区 淮安市云河湾小区4号楼802室",
+        "所属小区": "云河湾小区",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安开发区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 941219076594,
@@ -434,5 +447,26 @@
         "单价": 11494.96,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "940447778157",
+        "url": "https://sf-item.taobao.com/sf_item/940447778157.htm?track_id=aa7c9499-83e3-4f8b-82a0-5b73185c82fb",
+        "end": 1751513109000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "930043961109",
+        "url": "https://sf-item.taobao.com/sf_item/930043961109.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1751511171000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "931598896200",
+        "url": "https://sf-item.taobao.com/sf_item/931598896200.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1751512863000,
+        "status": "done",
+        "is_processed": false
     }
 ]

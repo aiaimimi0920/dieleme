@@ -276,16 +276,37 @@
         "detail_captured": true
     },
     {
-        "id": "580369569795",
-        "url": "https://sf-item.taobao.com/sf_item/580369569795.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
-        "end": 1542247200000,
-        "status": "done",
-        "is_processed": false
+        "id": 580369569795,
+        "市场评估价": 424830,
+        "起拍价格": 237904.8,
+        "成交价格": 237904.8,
+        "交易时间": "2018-11-15T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/580369569795.htm?track_id=35f30ac2-625f-4c37-871f-5ad8a9b72bf8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 长白西路",
+        "所属小区": "辉远小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延边体育馆",
+        "建筑面积": 105.13,
+        "单价": 2261.67,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "581111231226",
         "url": "https://sf-item.taobao.com/sf_item/581111231226.htm?track_id=0473c4f1-2be1-4662-b171-8dd05ab05dd1",
         "end": 1542254335000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578255501223",
+        "url": "https://sf-item.taobao.com/sf_item/578255501223.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1542247200000,
         "status": "done",
         "is_processed": false
     }

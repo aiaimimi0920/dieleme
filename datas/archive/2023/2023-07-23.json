@@ -189,9 +189,44 @@
         "detail_captured": true
     },
     {
-        "id": "727896574843",
-        "url": "https://sf-item.taobao.com/sf_item/727896574843.htm?track_id=a7a12fb6-510c-4e58-8ea7-6b6afbc35576",
-        "end": 1690078501000,
+        "id": 727896574843,
+        "市场评估价": 0,
+        "起拍价格": 1628300,
+        "成交价格": 1884300,
+        "交易时间": "2023/07/23 10:15:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/727896574843.htm?track_id=a7a12fb6-510c-4e58-8ea7-6b6afbc35576",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 39,
+        "地点": "四川省 乐山市 五通桥区 竹根镇岷江大道北段（岷江花苑D区）545号、546号",
+        "所属小区": "岷江花苑",
+        "省份": "四川省",
+        "城市": "乐山市",
+        "区": "五通桥区",
+        "最靠近商圈": "竹根镇",
+        "建筑面积": 383.57,
+        "单价": 4913.07,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "720038012041",
+        "url": "https://sf-item.taobao.com/sf_item/720038012041.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1690078503000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "727762897877",
+        "url": "https://sf-item.taobao.com/sf_item/727762897877.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1690078594000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "727904790438",
+        "url": "https://sf-item.taobao.com/sf_item/727904790438.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1690077991000,
         "status": "done",
         "is_processed": false
     }

@@ -1,10 +1,24 @@
 [
     {
-        "id": "544391043486",
-        "url": "https://sf-item.taobao.com/sf_item/544391043486.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
-        "end": 1487130738000,
-        "status": "done",
-        "is_processed": false
+        "id": 544391043486,
+        "市场评估价": 1163600,
+        "起拍价格": 814600,
+        "成交价格": 1156600,
+        "交易时间": "2017-02-15 11:52:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544391043486.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "是否成交": true,
+        "竞拍人数": 109,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 锡山区",
+        "所属小区": "东坊雅居",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": 89.99,
+        "单价": 12855.32,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "544376956820",
@@ -24,6 +38,13 @@
         "id": "544435799371",
         "url": "https://sf-item.taobao.com/sf_item/544435799371.htm?track_id=e17bfa31-568b-40b1-a430-6b187995b33f",
         "end": 1487125717000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544004748648",
+        "url": "https://sf-item.taobao.com/sf_item/544004748648.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1487126996000,
         "status": "done",
         "is_processed": false
     }

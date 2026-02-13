@@ -1095,12 +1095,25 @@
         "detail_captured": true
     },
     {
-        "id": "678530254555",
-        "url": "https://sf-item.taobao.com/sf_item/678530254555.htm?track_id=d08581cf-7528-4c36-a90f-b5eef0ef438a",
-        "end": 1660011370000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/678530254555.htm"
+        "id": 678530254555,
+        "市场评估价": null,
+        "起拍价格": 4918690,
+        "成交价格": 6088690,
+        "交易时间": "2022/08/09 10:16:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678530254555.htm?track_id=d08581cf-7528-4c36-a90f-b5eef0ef438a",
+        "是否成交": true,
+        "竞拍人数": 29,
+        "出价人数": null,
+        "地点": "江苏省 淮安市 淮安区 淮安国际商城汽车站物流中心1号楼南4室，北3室等6套商业房地产",
+        "所属小区": "淮安国际商城",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安国际商城汽车站",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 678789512384,
@@ -1258,16 +1271,135 @@
         "detail_captured": true
     },
     {
-        "id": "679815903515",
-        "url": "https://sf-item.taobao.com/sf_item/679815903515.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
-        "end": 1660011458000,
+        "id": 679815903515,
+        "市场评估价": 1203500,
+        "起拍价格": 673960,
+        "成交价格": 861560,
+        "交易时间": "2022/08/09 10:17:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/679815903515.htm?track_id=1fdf3b34-5edd-4cb2-a7c5-a539830f8360",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 29,
+        "地点": "江西省 南昌市 青云谱区 城南大道南段西侧博学路生命树小区39#楼一单元801室",
+        "所属小区": "生命树小区",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "城南商圈",
+        "建筑面积": 118.47,
+        "单价": 7274.22,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 678353114240,
+        "市场评估价": null,
+        "起拍价格": 1905120,
+        "成交价格": 1905120,
+        "交易时间": "2022/08/09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678353114240.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省阳江市阳春市春城街道南新大道2号首层2号铺位（原1号、2号铺位）、春城街道南新大道2号首层3号之二B（原3号、5号铺位）",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "阳江市",
+        "区": "阳春市",
+        "最靠近商圈": null,
+        "建筑面积": 223.69,
+        "单价": 8520.01,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "678831671306",
+        "url": "https://sf-item.taobao.com/sf_item/678831671306.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1660010400000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "678353114240",
-        "url": "https://sf-item.taobao.com/sf_item/678353114240.htm?track_id=342b903c-9e94-4c2a-91d6-822e0c8a3c03",
+        "id": "677715272448",
+        "url": "https://sf-item.taobao.com/sf_item/677715272448.htm?track_id=4c4eeb49-6d0a-4655-9e36-002074dab1e8",
+        "end": 1660010654000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "679491018001",
+        "url": "https://sf-item.taobao.com/sf_item/679491018001.htm?track_id=ba7ff91c-543e-4e8e-a1cd-79a47a356bc3",
+        "end": 1660011751000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "678855556768",
+        "url": "https://sf-item.taobao.com/sf_item/678855556768.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "end": 1660010462000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "678437154261",
+        "url": "https://sf-item.taobao.com/sf_item/678437154261.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
         "end": 1660010400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "678494682227",
+        "url": "https://sf-item.taobao.com/sf_item/678494682227.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1660011682000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677780936604",
+        "url": "https://sf-item.taobao.com/sf_item/677780936604.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1660010400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "679825239551",
+        "url": "https://sf-item.taobao.com/sf_item/679825239551.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1660014000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677183108259",
+        "url": "https://sf-item.taobao.com/sf_item/677183108259.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1660013445000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "678191461154",
+        "url": "https://sf-item.taobao.com/sf_item/678191461154.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1660012011000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "678190869885",
+        "url": "https://sf-item.taobao.com/sf_item/678190869885.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "end": 1660010665000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "678917069750",
+        "url": "https://sf-item.taobao.com/sf_item/678917069750.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1660021036000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677699788979",
+        "url": "https://sf-item.taobao.com/sf_item/677699788979.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1660010717000,
         "status": "done",
         "is_processed": false
     }

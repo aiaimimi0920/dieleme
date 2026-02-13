@@ -337,12 +337,25 @@
         "detail_captured": true
     },
     {
-        "id": "661110957788",
-        "url": "https://sf-item.taobao.com/sf_item/661110957788.htm?track_id=2b7cafab-ad8b-43da-899c-d144c94318c5",
-        "end": 1639016343000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/661110957788.htm"
+        "id": 661110957788,
+        "市场评估价": 0,
+        "起拍价格": 544375,
+        "成交价格": 709375,
+        "交易时间": "2021/12/09 10:19:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/661110957788.htm?track_id=2b7cafab-ad8b-43da-899c-d144c94318c5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 53,
+        "地点": "江苏省 淮安市 淮安区 淮安市淮安区龙光小区3号商住楼203室",
+        "所属小区": "龙光小区",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "淮安区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 661967171399,
@@ -387,12 +400,25 @@
         "detail_captured": true
     },
     {
-        "id": "660865417951",
-        "url": "https://sf-item.taobao.com/sf_item/660865417951.htm?track_id=4439379b-a89e-4ccc-a00c-7e94a8106c63",
-        "end": 1639019228000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/660865417951.htm"
+        "id": 660865417951,
+        "市场评估价": null,
+        "起拍价格": 3877600,
+        "成交价格": 5087600,
+        "交易时间": "2021/12/09 11:07:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/660865417951.htm?track_id=4439379b-a89e-4ccc-a00c-7e94a8106c63",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 苏州市 虎丘区 嘉多利花园",
+        "所属小区": "嘉多利花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "虎丘区",
+        "最靠近商圈": "狮山",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 660727120375,
@@ -437,11 +463,25 @@
         "detail_captured": true
     },
     {
-        "id": "655400524699",
-        "url": "https://sf-item.taobao.com/sf_item/655400524699.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
-        "end": 1639012573000,
-        "status": "done",
-        "is_processed": false
+        "id": 655400524699,
+        "市场评估价": 1850000,
+        "起拍价格": 1480000,
+        "成交价格": 1480000,
+        "交易时间": "2021/12/09 09:16:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/655400524699.htm?track_id=c14f5819-9ea0-4624-9e7c-8e71b89fecef",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区 上海路龙泉常青藤国际花园G1幢3-2号",
+        "所属小区": "龙泉常青藤国际花园",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "上海路",
+        "建筑面积": 138.14,
+        "单价": 10713.45,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "660685264689",
@@ -468,6 +508,27 @@
         "id": "661754832422",
         "url": "https://sf-item.taobao.com/sf_item/661754832422.htm?track_id=793f6d55-c1d6-4b73-811d-561fd4dd006c",
         "end": 1639015200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "660095638359",
+        "url": "https://sf-item.taobao.com/sf_item/660095638359.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1639017973000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "660601495272",
+        "url": "https://sf-item.taobao.com/sf_item/660601495272.htm?track_id=89143a92-a511-4287-9fd0-7f485c07af6e",
+        "end": 1639023445000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "657565376729",
+        "url": "https://sf-item.taobao.com/sf_item/657565376729.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1639017994000,
         "status": "done",
         "is_processed": false
     }

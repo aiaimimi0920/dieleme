@@ -357,9 +357,37 @@
         "detail_captured": true
     },
     {
-        "id": "638001011679",
-        "url": "https://sf-item.taobao.com/sf_item/638001011679.htm?track_id=1d5d14b5-0c47-438b-96cc-fae3462ab3fc",
-        "end": 1614564002000,
+        "id": 638001011679,
+        "市场评估价": 443200,
+        "起拍价格": 310240,
+        "成交价格": 313240,
+        "交易时间": "2021-03-01 10:00:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/638001011679.htm?track_id=1d5d14b5-0c47-438b-96cc-fae3462ab3fc",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道联翔路883号润家商贸广场1幢302室",
+        "所属小区": "润家商贸广场",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 74.37,
+        "单价": 4210.98,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "637021864024",
+        "url": "https://sf-item.taobao.com/sf_item/637021864024.htm?track_id=f9fba1dc-0a83-468f-bda8-aa92f58b8e7a",
+        "end": 1614564000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636936028010",
+        "url": "https://sf-item.taobao.com/sf_item/636936028010.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1614569764000,
         "status": "done",
         "is_processed": false
     }

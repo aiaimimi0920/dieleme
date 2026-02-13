@@ -171,11 +171,25 @@
         "detail_captured": true
     },
     {
-        "id": "613220570123",
-        "url": "https://sf-item.taobao.com/sf_item/613220570123.htm?track_id=8bdc729f-339b-44d0-a182-bc2bca314fa6",
-        "end": 1585101814000,
-        "status": "done",
-        "is_processed": false
+        "id": 613220570123,
+        "市场评估价": 1316727,
+        "起拍价格": 737367.12,
+        "成交价格": 779367.12,
+        "交易时间": "2020/03/25 10:03:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/613220570123.htm?track_id=8bdc729f-339b-44d0-a182-bc2bca314fa6",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 7,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 新华街",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": null,
+        "最靠近商圈": "新华街商圈",
+        "建筑面积": 82.98,
+        "单价": 9393.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "612815695903",
@@ -188,6 +202,20 @@
         "id": "612574822075",
         "url": "https://sf-item.taobao.com/sf_item/612574822075.htm?track_id=e17bfa31-568b-40b1-a430-6b187995b33f",
         "end": 1585105129000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611651270889",
+        "url": "https://sf-item.taobao.com/sf_item/611651270889.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1585102031000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611037320581",
+        "url": "https://sf-item.taobao.com/sf_item/611037320581.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1585103418000,
         "status": "done",
         "is_processed": false
     }

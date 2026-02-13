@@ -672,23 +672,79 @@
         "detail_captured": true
     },
     {
-        "id": "615592191521",
-        "url": "https://sf-item.taobao.com/sf_item/615592191521.htm?track_id=0dd40b95-8471-4dcf-9346-f8ebf0b69c81",
-        "end": 1588903204000,
-        "status": "done",
-        "is_processed": false
+        "id": 615592191521,
+        "市场评估价": 324000,
+        "起拍价格": 226800,
+        "成交价格": 226800,
+        "交易时间": "2020/05/08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/615592191521.htm?track_id=0dd40b95-8471-4dcf-9346-f8ebf0b69c81",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 北大信合小区",
+        "所属小区": "北大信合小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "北大商圈",
+        "建筑面积": 90,
+        "单价": 2520,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "616176592692",
-        "url": "https://sf-item.taobao.com/sf_item/616176592692.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
-        "end": 1588903200000,
-        "status": "done",
-        "is_processed": false
+        "id": 616176592692,
+        "市场评估价": 0,
+        "起拍价格": 1410000,
+        "成交价格": 1410000,
+        "交易时间": "2020/05/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616176592692.htm?track_id=07feea9e-5e55-4fc4-a6c5-2eb6315ef9ab",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "信阳市羊山新区新七大道中乐百花B区5号楼1-801号",
+        "所属小区": "中乐百花B区",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": 173.18,
+        "单价": 8142.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "614726752915",
         "url": "https://sf-item.taobao.com/sf_item/614726752915.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
         "end": 1588903869000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616624755264",
+        "url": "https://sf-item.taobao.com/sf_item/616624755264.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "end": 1588911915000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "615123237989",
+        "url": "https://sf-item.taobao.com/sf_item/615123237989.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1588905313000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616967147822",
+        "url": "https://sf-item.taobao.com/sf_item/616967147822.htm?track_id=802501ef-0ab0-410f-b5ee-43532bb45d13",
+        "end": 1588904309000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616925283333",
+        "url": "https://sf-item.taobao.com/sf_item/616925283333.htm?track_id=51ac8b9e-9dcd-4f34-9958-1d4a363cb642",
+        "end": 1588903200000,
         "status": "done",
         "is_processed": false
     }

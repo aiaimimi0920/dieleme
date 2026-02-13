@@ -189,12 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "730183866622",
-        "url": "https://sf-item.taobao.com/sf_item/730183866622.htm?track_id=9406cc88-21c0-48e6-bd86-5635bb3d9034",
-        "end": 1692758383000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/730183866622.htm"
+        "id": 730183866622,
+        "市场评估价": 4755181,
+        "起拍价格": 3328626.7,
+        "成交价格": 4016626.7,
+        "交易时间": "2023/08/23 10:39:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/730183866622.htm?track_id=9406cc88-21c0-48e6-bd86-5635bb3d9034",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "北京 北京市 东城区 东四十条甲22号1号楼A1008号不动产",
+        "所属小区": null,
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "东四十条",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 730030234752,
@@ -309,18 +322,46 @@
         "is_processed": false
     },
     {
-        "id": "732140353969",
-        "url": "https://sf-item.taobao.com/sf_item/732140353969.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
-        "end": 1692758208000,
-        "status": "done",
-        "is_processed": false
+        "id": 732140353969,
+        "市场评估价": null,
+        "起拍价格": 327501.6,
+        "成交价格": 417101.6,
+        "交易时间": "2023-08-23 10:36:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/732140353969.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 29,
+        "地点": "广东省梅州市蕉岭县碧翠园六单元厚德苑1102号",
+        "所属小区": "碧翠园",
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "蕉城镇",
+        "建筑面积": 97.72,
+        "单价": 4267.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "732255443134",
-        "url": "https://sf-item.taobao.com/sf_item/732255443134.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
-        "end": 1692756000000,
-        "status": "done",
-        "is_processed": false
+        "id": 732255443134,
+        "市场评估价": null,
+        "起拍价格": 135357.6,
+        "成交价格": 135357.6,
+        "交易时间": "2023-08-23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/732255443134.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省梅州市蕉岭县蕉城镇向阳路49号聚兴楼101号",
+        "所属小区": "聚兴楼",
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "蕉城镇",
+        "建筑面积": 48.31,
+        "单价": 2802.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "731628368293",
@@ -333,6 +374,27 @@
         "id": "731796009166",
         "url": "https://sf-item.taobao.com/sf_item/731796009166.htm?track_id=fb36ca66-519f-47e0-8cf2-d020609c405d",
         "end": 1692762618000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "729740417460",
+        "url": "https://sf-item.taobao.com/sf_item/729740417460.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1692756000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "729918347476",
+        "url": "https://sf-item.taobao.com/sf_item/729918347476.htm?track_id=06df58cb-4221-469d-9bdc-7957ef315aed",
+        "end": 1692776284000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "729842645997",
+        "url": "https://sf-item.taobao.com/sf_item/729842645997.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1692759187000,
         "status": "done",
         "is_processed": false
     }

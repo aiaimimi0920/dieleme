@@ -386,16 +386,51 @@
         "detail_captured": true
     },
     {
-        "id": "635829904812",
-        "url": "https://sf-item.taobao.com/sf_item/635829904812.htm?track_id=e47d20ec-1d68-4f96-864f-1736db1ab045",
-        "end": 1611976492000,
-        "status": "done",
-        "is_processed": false
+        "id": 635829904812,
+        "市场评估价": 494068,
+        "起拍价格": 276679,
+        "成交价格": 314679,
+        "交易时间": "2021/01/30 11:14:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/635829904812.htm?track_id=e47d20ec-1d68-4f96-864f-1736db1ab045",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 39,
+        "地点": "辽宁省 沈阳市 铁西区 勋业一路14-3号1-6-1",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 82.62,
+        "单价": 3809.7,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "635767359049",
         "url": "https://sf-item.taobao.com/sf_item/635767359049.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
         "end": 1611974993000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634816272711",
+        "url": "https://sf-item.taobao.com/sf_item/634816272711.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "end": 1611973059000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635518466466",
+        "url": "https://sf-item.taobao.com/sf_item/635518466466.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1611977009000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635439446335",
+        "url": "https://sf-item.taobao.com/sf_item/635439446335.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1611972000000,
         "status": "done",
         "is_processed": false
     }

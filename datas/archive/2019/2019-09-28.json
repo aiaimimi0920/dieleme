@@ -233,25 +233,67 @@
         "detail_captured": true
     },
     {
-        "id": "601956415772",
-        "url": "https://sf-item.taobao.com/sf_item/601956415772.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
-        "end": 1569636000000,
-        "status": "done",
-        "is_processed": false
+        "id": 601956415772,
+        "市场评估价": 965000,
+        "起拍价格": 868500,
+        "成交价格": 868500,
+        "交易时间": "2019-09-28T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/601956415772.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省沈阳市铁西区贵和街26号2-10-1",
+        "所属小区": "盛世华城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 127.36,
+        "单价": 6820.16,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "602682814964",
-        "url": "https://sf-item.taobao.com/sf_item/602682814964.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
-        "end": 1569654122000,
-        "status": "done",
-        "is_processed": false
+        "id": 602682814964,
+        "市场评估价": 285217,
+        "起拍价格": 193947.56,
+        "成交价格": 193947.56,
+        "交易时间": "2019/09/28 15:02:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/602682814964.htm?track_id=5b54249b-4a60-4adf-b94c-616bc90202b7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区十三号路4甲3-28号144",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 63.95,
+        "单价": 3032.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "602485649561",
-        "url": "https://sf-item.taobao.com/sf_item/602485649561.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
-        "end": 1569636000000,
-        "status": "done",
-        "is_processed": false
+        "id": 602485649561,
+        "市场评估价": 746660.16,
+        "起拍价格": 477862.5,
+        "成交价格": 477862.5,
+        "交易时间": "2019/09/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/602485649561.htm?track_id=84d35348-0f14-4194-816c-5c1514004879",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广东省惠州市博罗县石湾镇历山路康居花园B座三层D号",
+        "所属小区": "康居花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾镇",
+        "建筑面积": 145.7,
+        "单价": 3279.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "601321092997",
@@ -264,6 +306,34 @@
         "id": "601316228919",
         "url": "https://sf-item.taobao.com/sf_item/601316228919.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
         "end": 1569636000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602672190377",
+        "url": "https://sf-item.taobao.com/sf_item/602672190377.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1569636000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601971419727",
+        "url": "https://sf-item.taobao.com/sf_item/601971419727.htm?track_id=9370e9c3-7a71-4d89-8eb3-257be301ecff",
+        "end": 1569636922000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "602743551495",
+        "url": "https://sf-item.taobao.com/sf_item/602743551495.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "end": 1569636171000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "601569993219",
+        "url": "https://sf-item.taobao.com/sf_item/601569993219.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1569636946000,
         "status": "done",
         "is_processed": false
     }

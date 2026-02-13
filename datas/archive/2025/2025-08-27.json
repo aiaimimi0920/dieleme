@@ -275,11 +275,25 @@
         "detail_captured": true
     },
     {
-        "id": "962377353745",
-        "url": "https://sf-item.taobao.com/sf_item/962377353745.htm?track_id=e7a54447-6924-4a88-8baa-334f0f068dfd",
-        "end": 1756260121000,
-        "status": "done",
-        "is_processed": false
+        "id": 962377353745,
+        "市场评估价": null,
+        "起拍价格": 149731,
+        "成交价格": 149731,
+        "交易时间": "2025-08-27 10:02:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/962377353745.htm?track_id=e7a54447-6924-4a88-8baa-334f0f068dfd",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 石湾镇鸾岗中村委会兴业大道东侧上河坊商业城Q4区F栋9层03房",
+        "所属小区": "上河坊商业城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾镇",
+        "建筑面积": 42.11,
+        "单价": 3556.31,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "961902545268",
@@ -289,9 +303,37 @@
         "is_processed": false
     },
     {
-        "id": "961505307003",
-        "url": "https://sf-item.taobao.com/sf_item/961505307003.htm?track_id=bd1a1615-af02-4f76-80ed-e42d6351de92",
+        "id": 961505307003,
+        "市场评估价": null,
+        "起拍价格": 334800,
+        "成交价格": 334800,
+        "交易时间": "2025-08-27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/961505307003.htm?track_id=bd1a1615-af02-4f76-80ed-e42d6351de92",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "福建省 泉州市 安溪县 凤城龙湖41幢501房产",
+        "所属小区": "龙湖",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城镇",
+        "建筑面积": 102.38,
+        "单价": 3272.17,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "950763993148",
+        "url": "https://sf-item.taobao.com/sf_item/950763993148.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
         "end": 1756260000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "957021030434",
+        "url": "https://sf-item.taobao.com/sf_item/957021030434.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1756264612000,
         "status": "done",
         "is_processed": false
     }

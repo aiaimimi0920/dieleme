@@ -191,11 +191,25 @@
         "detail_captured": true
     },
     {
-        "id": "571426447429",
-        "url": "https://sf-item.taobao.com/sf_item/571426447429.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
-        "end": 1532053513000,
-        "status": "done",
-        "is_processed": false
+        "id": 571426447429,
+        "市场评估价": 981100,
+        "起拍价格": 690000,
+        "成交价格": 960000,
+        "交易时间": "2018-07-20 10:25:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571426447429.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "是否成交": true,
+        "竞拍人数": 53,
+        "出价人数": 53,
+        "地点": "江苏省 无锡市 锡山区 芙蓉山庄A区36号1002室",
+        "所属小区": "芙蓉山庄A区",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": 120,
+        "单价": 8000,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "572894877709",
@@ -208,6 +222,34 @@
         "id": "573076927800",
         "url": "https://sf-item.taobao.com/sf_item/573076927800.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
         "end": 1532052000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571226505305",
+        "url": "https://sf-item.taobao.com/sf_item/571226505305.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1532054555000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571331962759",
+        "url": "https://sf-item.taobao.com/sf_item/571331962759.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1532054426000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572899629266",
+        "url": "https://sf-item.taobao.com/sf_item/572899629266.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1532056823000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570373817533",
+        "url": "https://sf-item.taobao.com/sf_item/570373817533.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "end": 1532058628000,
         "status": "done",
         "is_processed": false
     }

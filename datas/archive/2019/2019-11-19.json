@@ -1144,18 +1144,46 @@
         "detail_captured": true
     },
     {
-        "id": "606623584881",
-        "url": "https://sf-item.taobao.com/sf_item/606623584881.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
-        "end": 1574130509000,
-        "status": "done",
-        "is_processed": false
+        "id": 606623584881,
+        "市场评估价": 3090342,
+        "起拍价格": 1730592,
+        "成交价格": 2135592,
+        "交易时间": "2019-11-19 10:28:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606623584881.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 67,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区六号街19号13门",
+        "所属小区": "金地盛世",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "沈阳经济技术开发区",
+        "建筑面积": 342.8,
+        "单价": 6229.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "605381904815",
-        "url": "https://sf-item.taobao.com/sf_item/605381904815.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
-        "end": 1574177525000,
-        "status": "done",
-        "is_processed": false
+        "id": 605381904815,
+        "市场评估价": 141600,
+        "起拍价格": 79296,
+        "成交价格": 82296,
+        "交易时间": "2019/11/19 23:32:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605381904815.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 7,
+        "地点": "吉林省延边朝鲜族自治州延吉市东进街718号博雅小区1号楼10单元303",
+        "所属小区": "博雅小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "爱丹路商圈",
+        "建筑面积": 35.4,
+        "单价": 2324.41,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "605433069993",
@@ -1165,25 +1193,67 @@
         "is_processed": false
     },
     {
-        "id": "605871906421",
-        "url": "https://sf-item.taobao.com/sf_item/605871906421.htm?track_id=a111a0ce-52df-468f-b678-52855c23b066",
-        "end": 1574130254000,
-        "status": "done",
-        "is_processed": false
+        "id": 605871906421,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 1009730,
+        "交易时间": "2019/11/19 10:24:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605871906421.htm?track_id=a111a0ce-52df-468f-b678-52855c23b066",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 91,
+        "地点": "辽宁省 沈阳市 浑南区 浑南中路10-3号1-1-1",
+        "所属小区": "SR国际新城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "浑南区",
+        "最靠近商圈": "奥体中心",
+        "建筑面积": 89.97,
+        "单价": 11225.1,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "605656984336",
-        "url": "https://sf-item.taobao.com/sf_item/605656984336.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
-        "end": 1574128800000,
-        "status": "done",
-        "is_processed": false
+        "id": 605656984336,
+        "市场评估价": 0,
+        "起拍价格": 360000,
+        "成交价格": 360000,
+        "交易时间": "2019/11/19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605656984336.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 淄博市 博山区 博山区阳光花园",
+        "所属小区": "鼓浪屿南苑",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "博山区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "607193327740",
-        "url": "https://sf-item.taobao.com/sf_item/607193327740.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1574130690000,
-        "status": "done",
-        "is_processed": false
+        "id": 607193327740,
+        "市场评估价": 728300,
+        "起拍价格": 582640,
+        "成交价格": 715640,
+        "交易时间": "2019-11-19 10:31:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/607193327740.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": 77,
+        "出价人数": 77,
+        "地点": "云南省 丽江市 华坪县 中心镇",
+        "所属小区": "中和花园",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "中心镇",
+        "建筑面积": 90.57,
+        "单价": 7905.23,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "607099066434",
@@ -1210,6 +1280,76 @@
         "id": "605590807863",
         "url": "https://sf-item.taobao.com/sf_item/605590807863.htm?track_id=6ae54ebd-72a6-469d-b121-c24b2586341e",
         "end": 1574134571000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605595439396",
+        "url": "https://sf-item.taobao.com/sf_item/605595439396.htm?track_id=9a405c8a-1c07-49bc-9bd5-0414da77ea78",
+        "end": 1574152886000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604908264422",
+        "url": "https://sf-item.taobao.com/sf_item/604908264422.htm?track_id=4824147b-e3de-412f-8e3d-49617a10c479",
+        "end": 1574169740000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607174446551",
+        "url": "https://sf-item.taobao.com/sf_item/607174446551.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1574129970000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606744541959",
+        "url": "https://sf-item.taobao.com/sf_item/606744541959.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1574128898000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605922886136",
+        "url": "https://sf-item.taobao.com/sf_item/605922886136.htm?track_id=14514859-ffa4-42fb-a878-5cbee078be3d",
+        "end": 1574132908000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606217962582",
+        "url": "https://sf-item.taobao.com/sf_item/606217962582.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1574129726000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606684483371",
+        "url": "https://sf-item.taobao.com/sf_item/606684483371.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
+        "end": 1574136061000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605190769100",
+        "url": "https://sf-item.taobao.com/sf_item/605190769100.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1574128800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605944758165",
+        "url": "https://sf-item.taobao.com/sf_item/605944758165.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "end": 1574128800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605204024267",
+        "url": "https://sf-item.taobao.com/sf_item/605204024267.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1574139043000,
         "status": "done",
         "is_processed": false
     }

@@ -674,12 +674,25 @@
         "detail_captured": true
     },
     {
-        "id": "698060342462",
-        "url": "https://sf-item.taobao.com/sf_item/698060342462.htm?track_id=d2411bc4-384f-44ff-af4b-02b881f28598",
-        "end": 1677204000000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/698060342462.htm"
+        "id": 698060342462,
+        "市场评估价": null,
+        "起拍价格": 640000,
+        "成交价格": 640000,
+        "交易时间": "2023/02/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/698060342462.htm?track_id=d2411bc4-384f-44ff-af4b-02b881f28598",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 新乡市 卫滨区 胜利南路375号院12号楼2单元5201室",
+        "所属小区": "胜利南路375号院",
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 701222362237,
@@ -710,16 +723,100 @@
         "is_processed": false
     },
     {
-        "id": "698088544965",
-        "url": "https://sf-item.taobao.com/sf_item/698088544965.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
-        "end": 1677204664000,
+        "id": 698088544965,
+        "市场评估价": 511285,
+        "起拍价格": 286319.6,
+        "成交价格": 308719.6,
+        "交易时间": "2023-02-24 10:11:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/698088544965.htm?track_id=23e68f46-731b-4150-9791-0fcf6cc44254",
+        "是否成交": true,
+        "竞拍人数": 9,
+        "出价人数": 3,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 太平街46号",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": 141.2,
+        "单价": 2186.54,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 700896093028,
+        "市场评估价": 1123100,
+        "起拍价格": 632000,
+        "成交价格": 828000,
+        "交易时间": "2023/02/24 10:43:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/700896093028.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 66,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道华丰路1668号金洲阳光2幢3104室",
+        "所属小区": "金洲阳光",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原",
+        "建筑面积": 91.57,
+        "单价": 9040.5,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "697397148713",
+        "url": "https://sf-item.taobao.com/sf_item/697397148713.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1677214660000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "700896093028",
-        "url": "https://sf-item.taobao.com/sf_item/700896093028.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
-        "end": 1677206628000,
+        "id": "697703429838",
+        "url": "https://sf-item.taobao.com/sf_item/697703429838.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1677208161000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "700605020611",
+        "url": "https://sf-item.taobao.com/sf_item/700605020611.htm?track_id=a104badb-d029-4a84-9853-223a95622272",
+        "end": 1677209407000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701136678622",
+        "url": "https://sf-item.taobao.com/sf_item/701136678622.htm?track_id=a104badb-d029-4a84-9853-223a95622272",
+        "end": 1677209390000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "700938225842",
+        "url": "https://sf-item.taobao.com/sf_item/700938225842.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1677211610000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701171730710",
+        "url": "https://sf-item.taobao.com/sf_item/701171730710.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1677214271000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695935460887",
+        "url": "https://sf-item.taobao.com/sf_item/695935460887.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1677204677000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "698130499142",
+        "url": "https://sf-item.taobao.com/sf_item/698130499142.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1677204678000,
         "status": "done",
         "is_processed": false
     }

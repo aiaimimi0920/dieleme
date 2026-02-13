@@ -141,11 +141,12 @@
         "省份": "湖南省",
         "城市": "湘潭市",
         "区": "雨湖区",
-        "最靠近商圈": "姜畲镇板块",
+        "最靠近商圈": "姜畲镇商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 569435979489,
@@ -223,15 +224,16 @@
         "竞拍人数": 91,
         "出价人数": null,
         "地点": "江苏省 苏州市 虎丘区 横塘镇鑫苑路23号",
-        "所属小区": null,
+        "所属小区": "鑫苑国际城市花园",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "虎丘区",
         "最靠近商圈": "横塘商圈",
         "建筑面积": 285.56,
-        "单价": 12686.66,
+        "单价": 12676.85,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 570035816009,
@@ -321,6 +323,27 @@
         "id": "569239820420",
         "url": "https://sf-item.taobao.com/sf_item/569239820420.htm?track_id=c4b8e550-b589-43ac-b5b8-70dafb0f57bb",
         "end": 1528598112000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570483811645",
+        "url": "https://sf-item.taobao.com/sf_item/570483811645.htm?track_id=7ec70b87-5ced-40d9-b4a5-cb74d5d60a97",
+        "end": 1528596574000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568873111362",
+        "url": "https://sf-item.taobao.com/sf_item/568873111362.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1528597217000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "569179228356",
+        "url": "https://sf-item.taobao.com/sf_item/569179228356.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "end": 1528593176000,
         "status": "done",
         "is_processed": false
     }

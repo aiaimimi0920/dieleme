@@ -189,9 +189,51 @@
         "detail_captured": true
     },
     {
-        "id": "912576713553",
-        "url": "https://sf-item.taobao.com/sf_item/912576713553.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
-        "end": 1747620181000,
+        "id": 912576713553,
+        "市场评估价": 409650,
+        "起拍价格": 290000,
+        "成交价格": 290000,
+        "交易时间": "2025/05/19 10:03:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/912576713553.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道秦山路26号南幢305室",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道中心商圈",
+        "建筑面积": 83.09,
+        "单价": 3490.02,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "919044056550",
+        "url": "https://sf-item.taobao.com/sf_item/919044056550.htm?track_id=9370e9c3-7a71-4d89-8eb3-257be301ecff",
+        "end": 1747622971000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "918616117637",
+        "url": "https://sf-item.taobao.com/sf_item/918616117637.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1747620000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "908348564660",
+        "url": "https://sf-item.taobao.com/sf_item/908348564660.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1747620000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "907785302292",
+        "url": "https://sf-item.taobao.com/sf_item/907785302292.htm?track_id=2ac62aa9-1a14-4704-a230-f30171d59dfb",
+        "end": 1747620269000,
         "status": "done",
         "is_processed": false
     }

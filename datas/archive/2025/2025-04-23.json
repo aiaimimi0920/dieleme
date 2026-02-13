@@ -336,16 +336,37 @@
         "detail_captured": true
     },
     {
-        "id": "905347035070",
-        "url": "https://sf-item.taobao.com/sf_item/905347035070.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
-        "end": 1745373887000,
-        "status": "done",
-        "is_processed": false
+        "id": 905347035070,
+        "市场评估价": 1018074,
+        "起拍价格": 580000,
+        "成交价格": 771400,
+        "交易时间": "2025/04/23 10:04:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/905347035070.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 18,
+        "地点": "江西省 南昌市 青云谱区 何坊西路47号谱洋府8#住宅楼1单元2903室",
+        "所属小区": "谱洋府",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "何坊西路",
+        "建筑面积": 106.56,
+        "单价": 7239.49,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "887093145169",
         "url": "https://sf-item.taobao.com/sf_item/887093145169.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
         "end": 1745401497000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "901957776969",
+        "url": "https://sf-item.taobao.com/sf_item/901957776969.htm?track_id=dfd27f7b-bc7d-4bb9-a04a-63aa0958a58b",
+        "end": 1745373600000,
         "status": "done",
         "is_processed": false
     }

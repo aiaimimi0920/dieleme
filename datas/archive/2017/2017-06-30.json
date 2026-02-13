@@ -367,9 +367,51 @@
         "detail_captured": true
     },
     {
-        "id": "551382431363",
-        "url": "https://sf-item.taobao.com/sf_item/551382431363.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
-        "end": 1498789345000,
+        "id": 551382431363,
+        "市场评估价": 351400,
+        "起拍价格": 316260,
+        "成交价格": 391260,
+        "交易时间": "2017/06/30 10:22:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/551382431363.htm?track_id=35af1eab-0fc6-4d3a-9050-503447448fc8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "常德市鼎城区武陵镇善池社区一区东一巷",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": null,
+        "建筑面积": 38.24,
+        "单价": 10209.23,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "551811341119",
+        "url": "https://sf-item.taobao.com/sf_item/551811341119.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1498789152000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "551970571163",
+        "url": "https://sf-item.taobao.com/sf_item/551970571163.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1498789262000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "551971207714",
+        "url": "https://sf-item.taobao.com/sf_item/551971207714.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1498789801000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "552847276826",
+        "url": "https://sf-item.taobao.com/sf_item/552847276826.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1498788464000,
         "status": "done",
         "is_processed": false
     }

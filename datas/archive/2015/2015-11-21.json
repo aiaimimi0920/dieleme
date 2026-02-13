@@ -1,8 +1,29 @@
 [
     {
-        "id": "523928761032",
-        "url": "https://sf-item.taobao.com/sf_item/523928761032.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
-        "end": 1448071200000,
+        "id": 523928761032,
+        "市场评估价": 0,
+        "起拍价格": 468000,
+        "成交价格": 469000,
+        "交易时间": "2015/11/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523928761032.htm?track_id=1bb7e113-e55d-4615-a643-8eaf4a5e68b9",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 2,
+        "地点": "海盐县武原街道城东路588号海景苑26幢106室",
+        "所属小区": "海景苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": null,
+        "建筑面积": 125.95,
+        "单价": 3723.7,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "523872067207",
+        "url": "https://sf-item.taobao.com/sf_item/523872067207.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1448073824000,
         "status": "done",
         "is_processed": false
     }

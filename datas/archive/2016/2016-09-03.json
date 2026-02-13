@@ -85,9 +85,30 @@
         "detail_captured": true
     },
     {
-        "id": "537081902836",
-        "url": "https://sf-item.taobao.com/sf_item/537081902836.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
-        "end": 1472868000000,
+        "id": 537081902836,
+        "市场评估价": 2164039,
+        "起拍价格": 731908,
+        "成交价格": 731908,
+        "交易时间": "2016/09/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537081902836.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "顺昌县双溪城北路52号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪街道",
+        "建筑面积": 358.06,
+        "单价": 2043.72,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "536876859391",
+        "url": "https://sf-item.taobao.com/sf_item/536876859391.htm?track_id=cd1110db-c47f-432e-a06f-7ae3d5520196",
+        "end": 1472869529000,
         "status": "done",
         "is_processed": false
     }

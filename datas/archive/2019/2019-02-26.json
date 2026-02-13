@@ -533,11 +533,25 @@
         "detail_captured": true
     },
     {
-        "id": "585927958846",
-        "url": "https://sf-item.taobao.com/sf_item/585927958846.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
-        "end": 1551146400000,
-        "status": "done",
-        "is_processed": false
+        "id": 585927958846,
+        "市场评估价": null,
+        "起拍价格": 2341124,
+        "成交价格": 2341124,
+        "交易时间": "2019-02-26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585927958846.htm?track_id=2bcaec2b-0bc3-4181-aec8-a7bed93f1fb7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 市府西路包头宾馆东墙迎街底店7号房屋",
+        "所属小区": null,
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "583696977650",
@@ -547,23 +561,107 @@
         "is_processed": false
     },
     {
-        "id": "586779435628",
-        "url": "https://sf-item.taobao.com/sf_item/586779435628.htm?track_id=cdbf980c-d320-4bfa-9b01-0d39c92ee920",
-        "end": 1551150137000,
-        "status": "done",
-        "is_processed": false
+        "id": 586779435628,
+        "市场评估价": null,
+        "起拍价格": 760000,
+        "成交价格": 969000,
+        "交易时间": "2019/02/26 11:02:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586779435628.htm?track_id=cdbf980c-d320-4bfa-9b01-0d39c92ee920",
+        "是否成交": true,
+        "竞拍人数": 56,
+        "出价人数": null,
+        "地点": "广西壮族自治区 贵港市 桂平市 西山镇岭头村细纹垌",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "西山镇",
+        "建筑面积": 351.07,
+        "单价": 2759.34,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "586493085197",
-        "url": "https://sf-item.taobao.com/sf_item/586493085197.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
-        "end": 1551150562000,
-        "status": "done",
-        "is_processed": false
+        "id": 586493085197,
+        "市场评估价": null,
+        "起拍价格": 1454700,
+        "成交价格": 1932700,
+        "交易时间": "2019-02-26 11:09:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586493085197.htm?track_id=80e8fc39-f18a-4849-8ea7-ad1065887c4a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 190,
+        "地点": "河南省 郑州市 二七区 棉纺东路",
+        "所属小区": "棉纺东路66号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 106.85,
+        "单价": 18079.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586316732711",
         "url": "https://sf-item.taobao.com/sf_item/586316732711.htm?track_id=645fbace-2a78-4783-9257-833921945028",
         "end": 1551149388000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586661498140",
+        "url": "https://sf-item.taobao.com/sf_item/586661498140.htm?track_id=895fcaa5-fb8d-48ba-9e9d-667dedb92adf",
+        "end": 1551146498000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586517913652",
+        "url": "https://sf-item.taobao.com/sf_item/586517913652.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1551148100000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586666086770",
+        "url": "https://sf-item.taobao.com/sf_item/586666086770.htm?track_id=e83f5438-a247-4f92-a81c-abe51e7fe706",
+        "end": 1551147285000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586399273750",
+        "url": "https://sf-item.taobao.com/sf_item/586399273750.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1551160382000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586682915692",
+        "url": "https://sf-item.taobao.com/sf_item/586682915692.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1551149617000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586682831697",
+        "url": "https://sf-item.taobao.com/sf_item/586682831697.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1551148746000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586920747991",
+        "url": "https://sf-item.taobao.com/sf_item/586920747991.htm?track_id=eba88dd1-33f1-430f-afc6-b6c27ccbba5f",
+        "end": 1551147543000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586143546157",
+        "url": "https://sf-item.taobao.com/sf_item/586143546157.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "end": 1551154046000,
         "status": "done",
         "is_processed": false
     }

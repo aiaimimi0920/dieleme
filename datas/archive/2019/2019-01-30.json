@@ -123,11 +123,12 @@
         "省份": "辽宁省",
         "城市": "大连市",
         "区": "瓦房店市",
-        "最靠近商圈": null,
+        "最靠近商圈": "元台镇",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 585171299228,
@@ -214,11 +215,25 @@
         "detail_captured": true
     },
     {
-        "id": "584653992195",
-        "url": "https://sf-item.taobao.com/sf_item/584653992195.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
-        "end": 1548814784000,
-        "status": "done",
-        "is_processed": false
+        "id": 584653992195,
+        "市场评估价": 0,
+        "起拍价格": 260115,
+        "成交价格": 300115,
+        "交易时间": "2019/01/30 10:19:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/584653992195.htm?track_id=693bb21b-c66e-498e-931d-e32ad51c1bf6",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 31,
+        "地点": "内蒙古自治区 包头市 昆都仑区 少先路29号街坊",
+        "所属小区": "少先路29号街坊",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "昆都仑区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 584922445522,
@@ -252,6 +267,13 @@
         "id": "584697732209",
         "url": "https://sf-item.taobao.com/sf_item/584697732209.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1548813600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584587156415",
+        "url": "https://sf-item.taobao.com/sf_item/584587156415.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1548817916000,
         "status": "done",
         "is_processed": false
     }

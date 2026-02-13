@@ -93,11 +93,25 @@
         "is_processed": false
     },
     {
-        "id": "534610766875",
-        "url": "https://sf-item.taobao.com/sf_item/534610766875.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
-        "end": 1468551389000,
-        "status": "done",
-        "is_processed": false
+        "id": 534610766875,
+        "市场评估价": 2595000,
+        "起拍价格": 2490000,
+        "成交价格": 3510000,
+        "交易时间": "2016/07/15 10:56:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534610766875.htm?track_id=acc7d069-bb3e-478f-a56b-e9cded987e87",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 69,
+        "地点": "浙江省杭州市滨江区浦沿街道水晶城7幢1单元3201室",
+        "所属小区": "水晶城",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 89.38,
+        "单价": 39278.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "534684570248",
@@ -110,6 +124,76 @@
         "id": "534496459254",
         "url": "https://sf-item.taobao.com/sf_item/534496459254.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
         "end": 1468548000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534147403959",
+        "url": "https://sf-item.taobao.com/sf_item/534147403959.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "end": 1468550025000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534566413517",
+        "url": "https://sf-item.taobao.com/sf_item/534566413517.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1468550438000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534405842124",
+        "url": "https://sf-item.taobao.com/sf_item/534405842124.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1468550285000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534642114656",
+        "url": "https://sf-item.taobao.com/sf_item/534642114656.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1468548490000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534577491087",
+        "url": "https://sf-item.taobao.com/sf_item/534577491087.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1468548257000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534710648085",
+        "url": "https://sf-item.taobao.com/sf_item/534710648085.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1468548000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534711004298",
+        "url": "https://sf-item.taobao.com/sf_item/534711004298.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1468548248000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534675025299",
+        "url": "https://sf-item.taobao.com/sf_item/534675025299.htm?track_id=39a0e028-4649-4754-9424-baf90d4e42c6",
+        "end": 1468548000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "535541493063",
+        "url": "https://sf-item.taobao.com/sf_item/535541493063.htm?track_id=21dbc4b6-5738-456b-a33c-1c5f58386048",
+        "end": 1468548369000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "534296270592",
+        "url": "https://sf-item.taobao.com/sf_item/534296270592.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1468551348000,
         "status": "done",
         "is_processed": false
     }

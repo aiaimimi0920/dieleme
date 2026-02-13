@@ -714,18 +714,46 @@
         "detail_captured": true
     },
     {
-        "id": "774226808770",
-        "url": "https://sf-item.taobao.com/sf_item/774226808770.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
-        "end": 1717065810000,
-        "status": "done",
-        "is_processed": false
+        "id": 774226808770,
+        "市场评估价": 0,
+        "起拍价格": 195228,
+        "成交价格": 195228,
+        "交易时间": "2024/05/30 18:43:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/774226808770.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 富民路北侧密登堡安置小区7号楼1单元18层1803（现1-1903）（合同号：18339383）房产一处",
+        "所属小区": "密登堡安置小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 124.64,
+        "单价": 1566.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "788585969169",
-        "url": "https://sf-item.taobao.com/sf_item/788585969169.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
-        "end": 1717034400000,
-        "status": "done",
-        "is_processed": false
+        "id": 788585969169,
+        "市场评估价": 799574,
+        "起拍价格": 799574,
+        "成交价格": 799574,
+        "交易时间": "2024/05/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/788585969169.htm?track_id=5f2da3d4-0770-4ea3-9afa-7aef18a45ae8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 霸州市 阿尔卡迪亚",
+        "所属小区": "阿尔卡迪亚",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "阿尔卡迪亚",
+        "建筑面积": 138.81,
+        "单价": 5398.49,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "794734722572",
@@ -735,11 +763,25 @@
         "is_processed": false
     },
     {
-        "id": "788360931164",
-        "url": "https://sf-item.taobao.com/sf_item/788360931164.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
-        "end": 1717034400000,
-        "status": "done",
-        "is_processed": false
+        "id": 788360931164,
+        "市场评估价": null,
+        "起拍价格": 156169,
+        "成交价格": 156169,
+        "交易时间": "2024/05/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/788360931164.htm?track_id=19a4123c-1cc6-4c06-91a9-68cc3a3510d9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省梅州市蕉岭县长潭镇新泉村帝景湾住宅小区1栋1901房",
+        "所属小区": "帝景湾住宅小区",
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "长潭镇",
+        "建筑面积": 54.85,
+        "单价": 2848.22,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "789257298130",
@@ -749,16 +791,79 @@
         "is_processed": false
     },
     {
-        "id": "795466277579",
-        "url": "https://sf-item.taobao.com/sf_item/795466277579.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
-        "end": 1717036605000,
-        "status": "done",
-        "is_processed": false
+        "id": 795466277579,
+        "市场评估价": 819700,
+        "起拍价格": 470000,
+        "成交价格": 587000,
+        "交易时间": "2024-05-30 10:36:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/795466277579.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市海盐县武原街道常绿景苑3幢102室",
+        "所属小区": "常绿景苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原商圈",
+        "建筑面积": 117.2,
+        "单价": 5011.26,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "789452592862",
         "url": "https://sf-item.taobao.com/sf_item/789452592862.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
         "end": 1717038727000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "788083928235",
+        "url": "https://sf-item.taobao.com/sf_item/788083928235.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1717035869000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "794356448035",
+        "url": "https://sf-item.taobao.com/sf_item/794356448035.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "end": 1717036915000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "794476131941",
+        "url": "https://sf-item.taobao.com/sf_item/794476131941.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1717042306000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "789561187326",
+        "url": "https://sf-item.taobao.com/sf_item/789561187326.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1717034586000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "789697921040",
+        "url": "https://sf-item.taobao.com/sf_item/789697921040.htm?track_id=1d7de8cb-3c6a-4ed4-af6a-105ce509c724",
+        "end": 1717034400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "795633332739",
+        "url": "https://sf-item.taobao.com/sf_item/795633332739.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
+        "end": 1717038499000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "795295091964",
+        "url": "https://sf-item.taobao.com/sf_item/795295091964.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
+        "end": 1717034400000,
         "status": "done",
         "is_processed": false
     }

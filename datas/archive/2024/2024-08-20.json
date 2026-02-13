@@ -1240,11 +1240,25 @@
         "detail_captured": true
     },
     {
-        "id": "816952721993",
-        "url": "https://sf-item.taobao.com/sf_item/816952721993.htm?track_id=4f440ecd-a246-4dcb-a3a6-c8deab71317f",
-        "end": 1724122877000,
-        "status": "done",
-        "is_processed": false
+        "id": 816952721993,
+        "市场评估价": null,
+        "起拍价格": 303639,
+        "成交价格": 677639,
+        "交易时间": "2024-08-20 11:01:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/816952721993.htm?track_id=4f440ecd-a246-4dcb-a3a6-c8deab71317f",
+        "是否成交": true,
+        "竞拍人数": 200,
+        "出价人数": 97,
+        "地点": "广东省 云浮市 郁南县 都城镇星湖南路12号甘露.天御公馆2栋1301房",
+        "所属小区": "甘露.天御公馆",
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城",
+        "建筑面积": 167.77,
+        "单价": 4038.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "815993403905",
@@ -1257,6 +1271,55 @@
         "id": "820993971005",
         "url": "https://sf-item.taobao.com/sf_item/820993971005.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
         "end": 1724125560000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "816606151803",
+        "url": "https://sf-item.taobao.com/sf_item/816606151803.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1724119200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820154783659",
+        "url": "https://sf-item.taobao.com/sf_item/820154783659.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1724119459000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "821120620868",
+        "url": "https://sf-item.taobao.com/sf_item/821120620868.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "end": 1724119366000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "820596252128",
+        "url": "https://sf-item.taobao.com/sf_item/820596252128.htm?track_id=72941855-3cec-4df2-aa07-8f74679bfc2d",
+        "end": 1724119200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "819849119752",
+        "url": "https://sf-item.taobao.com/sf_item/819849119752.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1724120294000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "816466390092",
+        "url": "https://sf-item.taobao.com/sf_item/816466390092.htm?track_id=f966165e-b876-4860-909d-4d7fffa42aec",
+        "end": 1724119209000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "816443882651",
+        "url": "https://sf-item.taobao.com/sf_item/816443882651.htm?track_id=8aff2cad-797b-46cd-a4eb-8b5f6ed552eb",
+        "end": 1724119280000,
         "status": "done",
         "is_processed": false
     }

@@ -357,37 +357,170 @@
         "detail_captured": true
     },
     {
-        "id": "848016966538",
-        "url": "https://sf-item.taobao.com/sf_item/848016966538.htm?track_id=f7a9b79e-4dfb-4e7d-8594-cf69c8750ee0",
-        "end": 1732933104000,
-        "status": "done",
-        "is_processed": false
+        "id": 848016966538,
+        "市场评估价": 312900.5,
+        "起拍价格": 219030.35,
+        "成交价格": 293030.35,
+        "交易时间": "2024/11/30 10:18:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/848016966538.htm?track_id=f7a9b79e-4dfb-4e7d-8594-cf69c8750ee0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 30,
+        "地点": "四川省 巴中市 南江县 集州街道光雾山大道朝阳段广达虹景花园1幢3单元16层1号住宅",
+        "所属小区": "广达虹景花园",
+        "省份": "四川省",
+        "城市": "巴中市",
+        "区": "南江县",
+        "最靠近商圈": "集州街道",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "852607959723",
-        "url": "https://sf-item.taobao.com/sf_item/852607959723.htm?track_id=0aa51a89-be2a-4b2d-a15e-840b4b7b2be4",
-        "end": 1732933484000,
-        "status": "done",
-        "is_processed": false
+        "id": 852607959723,
+        "市场评估价": 0,
+        "起拍价格": 571476,
+        "成交价格": 613476,
+        "交易时间": "2024/11/30 10:24:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/852607959723.htm?track_id=0aa51a89-be2a-4b2d-a15e-840b4b7b2be4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 15,
+        "地点": "河南省 郑州市 新密市 新密市城区青屏大街西段北侧（新天地商居园5号楼）8层西户",
+        "所属小区": "新天地商居园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "青屏大街",
+        "建筑面积": 182.72,
+        "单价": 3357.46,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "852746606443",
-        "url": "https://sf-item.taobao.com/sf_item/852746606443.htm?track_id=a28acb3e-6e02-47e6-a44b-f1c8dd4bb86e",
-        "end": 1732932000000,
-        "status": "done",
-        "is_processed": false
+        "id": 852746606443,
+        "市场评估价": 280401,
+        "起拍价格": 214506.77,
+        "成交价格": 214506.77,
+        "交易时间": "2024/11/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/852746606443.htm?track_id=a28acb3e-6e02-47e6-a44b-f1c8dd4bb86e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省建平县三家乡御河新城小区G04幢05061号",
+        "所属小区": "御河新城",
+        "省份": "辽宁省",
+        "城市": "朝阳市",
+        "区": "建平县",
+        "最靠近商圈": "三家乡",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "852716434001",
-        "url": "https://sf-item.taobao.com/sf_item/852716434001.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
-        "end": 1732933728000,
-        "status": "done",
-        "is_processed": false
+        "id": 852716434001,
+        "市场评估价": null,
+        "起拍价格": 368116,
+        "成交价格": 414916,
+        "交易时间": "2024/11/30 10:28:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/852716434001.htm?track_id=8e1606d1-39f8-4f9d-af85-152a77eae657",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 14,
+        "地点": "辽宁省 沈阳市 铁西区 经济技术开发区沈辽西路107-2号4-9-2房产",
+        "所属小区": "张士小区",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "张士",
+        "建筑面积": 99.38,
+        "单价": 4175.29,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "853195952024",
         "url": "https://sf-item.taobao.com/sf_item/853195952024.htm?track_id=b319858a-6c6f-4ef0-8884-082019134f32",
         "end": 1732932000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "852665554561",
+        "url": "https://sf-item.taobao.com/sf_item/852665554561.htm?track_id=5fc4c768-6ab1-4407-acf9-835197b7645a",
+        "end": 1732932000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "853035061317",
+        "url": "https://sf-item.taobao.com/sf_item/853035061317.htm?track_id=5fc4c768-6ab1-4407-acf9-835197b7645a",
+        "end": 1732932000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "847682643098",
+        "url": "https://sf-item.taobao.com/sf_item/847682643098.htm?track_id=c566893a-201b-4839-8262-2d73cb1d9a72",
+        "end": 1732933727000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "852622606293",
+        "url": "https://sf-item.taobao.com/sf_item/852622606293.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "end": 1732934395000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "852618366422",
+        "url": "https://sf-item.taobao.com/sf_item/852618366422.htm?track_id=06d50902-4cb5-47c9-aa0d-987464c3d93f",
+        "end": 1732934882000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "852493507303",
+        "url": "https://sf-item.taobao.com/sf_item/852493507303.htm?track_id=06d50902-4cb5-47c9-aa0d-987464c3d93f",
+        "end": 1732933268000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "852618174761",
+        "url": "https://sf-item.taobao.com/sf_item/852618174761.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1732932000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "848770896044",
+        "url": "https://sf-item.taobao.com/sf_item/848770896044.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1732933951000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "852606947325",
+        "url": "https://sf-item.taobao.com/sf_item/852606947325.htm?track_id=743e6c95-df8d-4384-a1c1-434833f32b0b",
+        "end": 1732932036000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "853293540010",
+        "url": "https://sf-item.taobao.com/sf_item/853293540010.htm?track_id=7c270c20-f554-4fd5-93e2-ab168397dfeb",
+        "end": 1732940127000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "846830702841",
+        "url": "https://sf-item.taobao.com/sf_item/846830702841.htm?track_id=018cd2d0-3b33-4452-90a3-52a886cb2abb",
+        "end": 1732938729000,
         "status": "done",
         "is_processed": false
     }

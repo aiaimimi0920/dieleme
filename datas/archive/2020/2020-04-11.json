@@ -189,16 +189,44 @@
         "detail_captured": true
     },
     {
-        "id": "613438132395",
-        "url": "https://sf-item.taobao.com/sf_item/613438132395.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
-        "end": 1586596317000,
-        "status": "done",
-        "is_processed": false
+        "id": 613438132395,
+        "市场评估价": 1839400,
+        "起拍价格": 1324400,
+        "成交价格": 1324400,
+        "交易时间": "2020/04/11 17:11:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/613438132395.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 位于西安市未央区经济开发区凤城五路89号“中登家园”1幢20702室住宅",
+        "所属小区": "中登家园",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区商圈",
+        "建筑面积": 134.95,
+        "单价": 9829.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "613528422231",
         "url": "https://sf-item.taobao.com/sf_item/613528422231.htm?track_id=a698a9e5-cfa5-48e0-86bd-280315dc7c24",
         "end": 1586577015000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "612947162925",
+        "url": "https://sf-item.taobao.com/sf_item/612947162925.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1586570400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "613255039208",
+        "url": "https://sf-item.taobao.com/sf_item/613255039208.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "end": 1586601223000,
         "status": "done",
         "is_processed": false
     }

@@ -43,9 +43,30 @@
         "manual_checked": true
     },
     {
-        "id": "534075464991",
-        "url": "https://sf-item.taobao.com/sf_item/534075464991.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
-        "end": 1467468000000,
+        "id": 534075464991,
+        "市场评估价": null,
+        "起拍价格": 283904,
+        "成交价格": 283904,
+        "交易时间": "2016-07-02 22:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534075464991.htm?track_id=2c61f4cd-5c2f-4084-9b24-738f5d4b38dd",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省 惠州市 博罗县",
+        "所属小区": "横江尾村",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 121.89,
+        "单价": 2327.76,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "534036414049",
+        "url": "https://sf-item.taobao.com/sf_item/534036414049.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "end": 1467460800000,
         "status": "done",
         "is_processed": false
     }

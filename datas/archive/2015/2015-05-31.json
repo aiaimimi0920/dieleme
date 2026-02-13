@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "45282732512",
-        "url": "https://sf-item.taobao.com/sf_item/45282732512.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
-        "end": 1433040255000,
-        "status": "done",
-        "is_processed": false
+        "id": 45282732512,
+        "市场评估价": 690200,
+        "起拍价格": 586670,
+        "成交价格": 628670,
+        "交易时间": "2015-05-31 10:44:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45282732512.htm?track_id=b575ab4c-e43a-4a5b-b93b-f662c3b0f6b9",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": "五彩社区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "交通路商圈",
+        "建筑面积": 92.65,
+        "单价": 6783.89,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

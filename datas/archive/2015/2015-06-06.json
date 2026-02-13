@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "45434724299",
-        "url": "https://sf-item.taobao.com/sf_item/45434724299.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
-        "end": 1433599200000,
-        "status": "done",
-        "is_processed": false
+        "id": 45434724299,
+        "市场评估价": null,
+        "起拍价格": 1015000,
+        "成交价格": 1015000,
+        "交易时间": "2015-06-06 22:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45434724299.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "福建省 泉州市 安溪县参内乡罗内村工业开发小区",
+        "所属小区": "安溪县罗内纸袋厂",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "参内乡",
+        "建筑面积": 1586.13,
+        "单价": 639.92,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

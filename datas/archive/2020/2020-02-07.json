@@ -553,9 +553,58 @@
         "is_processed": false
     },
     {
-        "id": "611014963864",
-        "url": "https://sf-item.taobao.com/sf_item/611014963864.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
-        "end": 1581045667000,
+        "id": 611014963864,
+        "市场评估价": 1417000,
+        "起拍价格": 910480,
+        "成交价格": 1075480,
+        "交易时间": "2020/02/07 11:21:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611014963864.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 31,
+        "地点": "河南省 郑州市 二七区 华中路14号8单元2层92号",
+        "所属小区": "广兴洁云花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "京广南路",
+        "建筑面积": 116.1,
+        "单价": 9265.12,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "611442157670",
+        "url": "https://sf-item.taobao.com/sf_item/611442157670.htm?track_id=6283d7ca-4170-4a97-ae1e-a6988a4768ae",
+        "end": 1581040982000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "610703730347",
+        "url": "https://sf-item.taobao.com/sf_item/610703730347.htm?track_id=c5e8daac-0a0b-4ddd-b8a4-ba4a54b3e957",
+        "end": 1581042097000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611810307107",
+        "url": "https://sf-item.taobao.com/sf_item/611810307107.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
+        "end": 1581044273000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611912855120",
+        "url": "https://sf-item.taobao.com/sf_item/611912855120.htm?track_id=81d4ca18-9163-44ce-bfee-2cb18faeaf34",
+        "end": 1581043136000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611224345768",
+        "url": "https://sf-item.taobao.com/sf_item/611224345768.htm?track_id=7c151630-b847-4af4-a435-456209157b57",
+        "end": 1581051571000,
         "status": "done",
         "is_processed": false
     }

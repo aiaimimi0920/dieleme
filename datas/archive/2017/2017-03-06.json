@@ -42,10 +42,24 @@
         "detail_captured": true
     },
     {
-        "id": "544681667110",
-        "url": "https://sf-item.taobao.com/sf_item/544681667110.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
-        "end": 1488767655000,
-        "status": "done",
-        "is_processed": false
+        "id": 544681667110,
+        "市场评估价": 0,
+        "起拍价格": 360000,
+        "成交价格": 428000,
+        "交易时间": "2017/03/06 10:34:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544681667110.htm?track_id=cccb4ccb-23e9-4cbd-8965-edd0ec9fa5aa",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 29,
+        "地点": "海盐县武原街道枣园西路213号502室",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原商圈",
+        "建筑面积": 98.57,
+        "单价": 4342.66,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

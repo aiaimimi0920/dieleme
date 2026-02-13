@@ -308,16 +308,51 @@
         "is_processed": false
     },
     {
-        "id": "665067309142",
-        "url": "https://sf-item.taobao.com/sf_item/665067309142.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
-        "end": 1642991714000,
-        "status": "done",
-        "is_processed": false
+        "id": 665067309142,
+        "市场评估价": 6197000,
+        "起拍价格": 4350000,
+        "成交价格": 5330000,
+        "交易时间": "2022/01/24 10:35:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/665067309142.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 长河街道滨兴家园2幢3单元1803室",
+        "所属小区": "滨兴家园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河板块",
+        "建筑面积": 149.09,
+        "单价": 35751.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "666743222578",
         "url": "https://sf-item.taobao.com/sf_item/666743222578.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
         "end": 1642990636000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "666740338282",
+        "url": "https://sf-item.taobao.com/sf_item/666740338282.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1642991547000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665880464376",
+        "url": "https://sf-item.taobao.com/sf_item/665880464376.htm?track_id=f9fba1dc-0a83-468f-bda8-aa92f58b8e7a",
+        "end": 1642989600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665970324091",
+        "url": "https://sf-item.taobao.com/sf_item/665970324091.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1642989600000,
         "status": "done",
         "is_processed": false
     }

@@ -273,11 +273,25 @@
         "detail_captured": true
     },
     {
-        "id": "653868792508",
-        "url": "https://sf-item.taobao.com/sf_item/653868792508.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
-        "end": 1633226811000,
-        "status": "done",
-        "is_processed": false
+        "id": 653868792508,
+        "市场评估价": null,
+        "起拍价格": 596900,
+        "成交价格": 620900,
+        "交易时间": "2021/10/03 10:06:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/653868792508.htm?track_id=1b5a8df2-4fef-4ee0-ae6c-9224de063dca",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 9,
+        "地点": "贵州省 遵义市 汇川区 贵州省遵义市汇川区昆明路世贸城13幢34-2号房产",
+        "所属小区": "世贸城",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "昆明路商圈",
+        "建筑面积": 99.54,
+        "单价": 6238.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "655753774811",
@@ -290,6 +304,13 @@
         "id": "654358533337",
         "url": "https://sf-item.taobao.com/sf_item/654358533337.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
         "end": 1633234046000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "654766950249",
+        "url": "https://sf-item.taobao.com/sf_item/654766950249.htm?track_id=36a42928-60c7-47c7-9506-b875907c16ad",
+        "end": 1633230196000,
         "status": "done",
         "is_processed": false
     }

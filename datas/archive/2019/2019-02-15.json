@@ -764,18 +764,33 @@
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "吴中区",
-        "最靠近商圈": null,
+        "最靠近商圈": "越溪商圈",
         "建筑面积": 121.28,
-        "单价": 14726.3,
+        "单价": 14723.33,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
-        "id": "586912059744",
-        "url": "https://sf-item.taobao.com/sf_item/586912059744.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
-        "end": 1550205520000,
-        "status": "done",
-        "is_processed": false
+        "id": 586912059744,
+        "市场评估价": null,
+        "起拍价格": 360000,
+        "成交价格": 360000,
+        "交易时间": "2019/02/15 12:38:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586912059744.htm?track_id=169714b3-19ce-4535-9903-b5e237eabeea",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 淄博市 博山区 珑山路10号翡翠园",
+        "所属小区": "翡翠园",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "博山核心商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "586550730285",
@@ -785,11 +800,25 @@
         "is_processed": false
     },
     {
-        "id": "586885631719",
-        "url": "https://sf-item.taobao.com/sf_item/586885631719.htm?track_id=071853d6-ddf2-4e6c-b06a-71a1cdc67745",
-        "end": 1550240914000,
-        "status": "done",
-        "is_processed": false
+        "id": 586885631719,
+        "市场评估价": 40100,
+        "起拍价格": 32080,
+        "成交价格": 32080,
+        "交易时间": "2019/02/15 22:28:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586885631719.htm?track_id=071853d6-ddf2-4e6c-b06a-71a1cdc67745",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "云南省 丽江市 华坪县 蓝色港湾小区",
+        "所属小区": "蓝色港湾小区",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "华坪县",
+        "建筑面积": 15.6,
+        "单价": 2058.97,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "585544661890",
@@ -809,6 +838,48 @@
         "id": "585896494552",
         "url": "https://sf-item.taobao.com/sf_item/585896494552.htm?track_id=507ef004-bfcf-4834-b327-0ce419a26089",
         "end": 1550196232000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586744262396",
+        "url": "https://sf-item.taobao.com/sf_item/586744262396.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1550196012000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585670649976",
+        "url": "https://sf-item.taobao.com/sf_item/585670649976.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1550198685000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585589480204",
+        "url": "https://sf-item.taobao.com/sf_item/585589480204.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1550197809000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586887507187",
+        "url": "https://sf-item.taobao.com/sf_item/586887507187.htm?track_id=08271d2b-720b-4ac9-8bef-4716c7dea6e2",
+        "end": 1550196377000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586418712845",
+        "url": "https://sf-item.taobao.com/sf_item/586418712845.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "end": 1550198381000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586423100447",
+        "url": "https://sf-item.taobao.com/sf_item/586423100447.htm?track_id=cc446b31-a2f1-46a2-a1aa-5253932888a4",
+        "end": 1550196000000,
         "status": "done",
         "is_processed": false
     }

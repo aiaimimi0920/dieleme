@@ -175,9 +175,30 @@
         "is_processed": false
     },
     {
-        "id": "534017823528",
-        "url": "https://sf-item.taobao.com/sf_item/534017823528.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
-        "end": 1467727200000,
+        "id": 534017823528,
+        "市场评估价": null,
+        "起拍价格": 1138560,
+        "成交价格": 1138560,
+        "交易时间": "2016/07/05 22:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534017823528.htm?track_id=8bac2789-9470-45dc-84ac-54e8ce13455b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省泉州市安溪县凤城龙湖益民街",
+        "所属小区": "林美新区",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城",
+        "建筑面积": 71.7,
+        "单价": 15878.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "534091900464",
+        "url": "https://sf-item.taobao.com/sf_item/534091900464.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1467684593000,
         "status": "done",
         "is_processed": false
     }

@@ -358,11 +358,25 @@
         "detail_captured": true
     },
     {
-        "id": "894738073745",
-        "url": "https://sf-item.taobao.com/sf_item/894738073745.htm?track_id=c91db458-86b2-4c54-b8e2-bb20970fae22",
-        "end": 1743732000000,
-        "status": "done",
-        "is_processed": false
+        "id": 894738073745,
+        "市场评估价": 219325,
+        "起拍价格": 175460,
+        "成交价格": 175460,
+        "交易时间": "2025-04-04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/894738073745.htm?track_id=c91db458-86b2-4c54-b8e2-bb20970fae22",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 建设东路35号1014",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 43.83,
+        "单价": 4002.96,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "899623723156",
@@ -372,16 +386,79 @@
         "is_processed": false
     },
     {
-        "id": "894306674007",
-        "url": "https://sf-item.taobao.com/sf_item/894306674007.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
+        "id": 894306674007,
+        "市场评估价": 565900,
+        "起拍价格": 396200,
+        "成交价格": 511200,
+        "交易时间": "2025/04/04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/894306674007.htm?track_id=0acc904a-b6a4-40c7-86d7-36e1e469d666",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 19,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道盐丰路330号海云间小区6幢1705室",
+        "所属小区": "海云间小区",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 90.07,
+        "单价": 5676.1,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 895135548272,
+        "市场评估价": 980000,
+        "起拍价格": 686000,
+        "成交价格": 686000,
+        "交易时间": "2025/04/04 10:03:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/895135548272.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道海西路135号城西逸豪15幢401室",
+        "所属小区": "城西逸豪",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原",
+        "建筑面积": 120.65,
+        "单价": 5685.5,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "894866621279",
+        "url": "https://sf-item.taobao.com/sf_item/894866621279.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1743735505000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "883850089744",
+        "url": "https://sf-item.taobao.com/sf_item/883850089744.htm?track_id=dfd27f7b-bc7d-4bb9-a04a-63aa0958a58b",
+        "end": 1743779441000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "899449219223",
+        "url": "https://sf-item.taobao.com/sf_item/899449219223.htm?track_id=b2a0791c-e94d-46c9-b7b2-e898b5ba78f0",
         "end": 1743732000000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "895135548272",
-        "url": "https://sf-item.taobao.com/sf_item/895135548272.htm?track_id=a4015704-aae4-43f0-bfbf-b7a838f65471",
-        "end": 1743732202000,
+        "id": "897683299957",
+        "url": "https://sf-item.taobao.com/sf_item/897683299957.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1743737553000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "893533649339",
+        "url": "https://sf-item.taobao.com/sf_item/893533649339.htm?track_id=7c151630-b847-4af4-a435-456209157b57",
+        "end": 1743732039000,
         "status": "done",
         "is_processed": false
     }

@@ -273,12 +273,25 @@
         "detail_captured": true
     },
     {
-        "id": "648574351047",
-        "url": "https://sf-item.taobao.com/sf_item/648574351047.htm?track_id=a8e65ed9-334e-4142-9348-6dd695e17c4e",
-        "end": 1625277600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/648574351047.htm"
+        "id": 648574351047,
+        "市场评估价": null,
+        "起拍价格": 675000,
+        "成交价格": 675000,
+        "交易时间": "2021-07-03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/648574351047.htm?track_id=a8e65ed9-334e-4142-9348-6dd695e17c4e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "河南省新乡市卫滨区胜利路与华兰大道交叉口梦萦小区(胜利南街)8号楼东2单元4层西户",
+        "所属小区": "梦萦小区",
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": "胜利路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 646149857450,
@@ -323,11 +336,25 @@
         "detail_captured": true
     },
     {
-        "id": "646486702261",
-        "url": "https://sf-item.taobao.com/sf_item/646486702261.htm?track_id=1ccd398d-0e76-4922-abd9-f907fe3a4fd7",
-        "end": 1625277600000,
-        "status": "done",
-        "is_processed": false
+        "id": 646486702261,
+        "市场评估价": null,
+        "起拍价格": 448400,
+        "成交价格": 448400,
+        "交易时间": "2021/07/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/646486702261.htm?track_id=1ccd398d-0e76-4922-abd9-f907fe3a4fd7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 榆林市 清涧县 德益雅商住楼2单元8层A1号房产",
+        "所属小区": "德益雅商住楼",
+        "省份": "陕西省",
+        "城市": "榆林市",
+        "区": "清涧县",
+        "最靠近商圈": null,
+        "建筑面积": 119.55,
+        "单价": 3749.79,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "646489278711",
@@ -344,9 +371,65 @@
         "is_processed": false
     },
     {
-        "id": "645552729793",
-        "url": "https://sf-item.taobao.com/sf_item/645552729793.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
-        "end": 1625280833000,
+        "id": 645552729793,
+        "市场评估价": null,
+        "起拍价格": 540470,
+        "成交价格": 624470,
+        "交易时间": "2021/07/03 10:53:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/645552729793.htm?track_id=3e2fd4ff-cdfb-40e9-8ac0-69fadc02dcc4",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": null,
+        "地点": "山东省 淄博市 博山区 博山区中心路40号财富大厦",
+        "所属小区": "财富大厦",
+        "省份": "山东省",
+        "城市": "淄博市",
+        "区": "博山区",
+        "最靠近商圈": "博山中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "648096555000",
+        "url": "https://sf-item.taobao.com/sf_item/648096555000.htm?track_id=06d50902-4cb5-47c9-aa0d-987464c3d93f",
+        "end": 1625279916000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646142589562",
+        "url": "https://sf-item.taobao.com/sf_item/646142589562.htm?track_id=30ec0264-7046-43db-a67b-acd224b88c75",
+        "end": 1625280096000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "647483796827",
+        "url": "https://sf-item.taobao.com/sf_item/647483796827.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1625277600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "645736052300",
+        "url": "https://sf-item.taobao.com/sf_item/645736052300.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1625279606000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "648283922264",
+        "url": "https://sf-item.taobao.com/sf_item/648283922264.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1625314994000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646148985604",
+        "url": "https://sf-item.taobao.com/sf_item/646148985604.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "end": 1625279404000,
         "status": "done",
         "is_processed": false
     }

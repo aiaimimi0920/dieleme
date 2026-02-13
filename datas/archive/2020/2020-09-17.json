@@ -344,30 +344,121 @@
         "detail_captured": true
     },
     {
-        "id": "625658821811",
-        "url": "https://sf-item.taobao.com/sf_item/625658821811.htm?track_id=80b9189b-7b09-495c-973d-3d28af41e2ce",
-        "end": 1600331363000,
-        "status": "done",
-        "is_processed": false
+        "id": 625658821811,
+        "市场评估价": 2928631,
+        "起拍价格": 2108615,
+        "成交价格": 2108615,
+        "交易时间": "2020/09/17 16:29:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625658821811.htm?track_id=80b9189b-7b09-495c-973d-3d28af41e2ce",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 吉林市 船营区 解放西路98号",
+        "所属小区": "广泽.澜香",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "解放西路",
+        "建筑面积": 256.47,
+        "单价": 8222.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "626093913353",
-        "url": "https://sf-item.taobao.com/sf_item/626093913353.htm?track_id=6b1ba342-958e-4517-b81b-61618a33239d",
-        "end": 1600308088000,
-        "status": "done",
-        "is_processed": false
+        "id": 626093913353,
+        "市场评估价": null,
+        "起拍价格": 1085139,
+        "成交价格": 1085139,
+        "交易时间": "2020-09-17T10:01:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/626093913353.htm?track_id=6b1ba342-958e-4517-b81b-61618a33239d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省西安市未央区经济技术开发区凤城一路177号鼎新花园12幢2单元18层21802室",
+        "所属小区": "鼎新花园",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区",
+        "建筑面积": 90.2,
+        "单价": 12027.71,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "625532755456",
-        "url": "https://sf-item.taobao.com/sf_item/625532755456.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
-        "end": 1600308267000,
-        "status": "done",
-        "is_processed": false
+        "id": 625532755456,
+        "市场评估价": null,
+        "起拍价格": 845200,
+        "成交价格": 1125200,
+        "交易时间": "2020/09/17 10:04:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625532755456.htm?track_id=eef96235-7e65-4755-9d0d-cb13c9c1ef38",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 23,
+        "地点": "福建省 泉州市 安溪县 城厢镇永安路800号君悦华庭10幢2梯505室房产",
+        "所属小区": "君悦华庭",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "城厢镇",
+        "建筑面积": 96.79,
+        "单价": 11625.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "623425987522",
         "url": "https://sf-item.taobao.com/sf_item/623425987522.htm?track_id=6ae54ebd-72a6-469d-b121-c24b2586341e",
         "end": 1600308822000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625632032092",
+        "url": "https://sf-item.taobao.com/sf_item/625632032092.htm?track_id=5e2a5302-2df2-450f-80c6-9108d153a607",
+        "end": 1600308602000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623026369628",
+        "url": "https://sf-item.taobao.com/sf_item/623026369628.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1600313145000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625021997459",
+        "url": "https://sf-item.taobao.com/sf_item/625021997459.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "end": 1600315578000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626111929485",
+        "url": "https://sf-item.taobao.com/sf_item/626111929485.htm?track_id=0325d051-9ed9-45e3-9665-737da5de0e65",
+        "end": 1600309847000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624565627165",
+        "url": "https://sf-item.taobao.com/sf_item/624565627165.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1600316073000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624565247269",
+        "url": "https://sf-item.taobao.com/sf_item/624565247269.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1600319963000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623998101310",
+        "url": "https://sf-item.taobao.com/sf_item/623998101310.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "end": 1600308000000,
         "status": "done",
         "is_processed": false
     }

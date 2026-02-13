@@ -336,16 +336,93 @@
         "detail_captured": true
     },
     {
-        "id": "759160282745",
-        "url": "https://sf-item.taobao.com/sf_item/759160282745.htm?track_id=7cc7040a-9604-45a8-8944-4f43c49da988",
-        "end": 1707359870000,
+        "id": 759160282745,
+        "市场评估价": 1188134,
+        "起拍价格": 831694,
+        "成交价格": 926694,
+        "交易时间": "2024/02/08 10:37:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/759160282745.htm?track_id=7cc7040a-9604-45a8-8944-4f43c49da988",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 24,
+        "地点": "河北省保定市定兴县老107国道东侧（御颐园）8号楼1单元1002号",
+        "所属小区": "御颐园",
+        "省份": "河北省",
+        "城市": "保定市",
+        "区": "定兴县",
+        "最靠近商圈": "定兴县城区",
+        "建筑面积": 143.14,
+        "单价": 6474.18,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 764344885665,
+        "市场评估价": 719900,
+        "起拍价格": 403144,
+        "成交价格": 483144,
+        "交易时间": "2024-02-08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/764344885665.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
+        "是否成交": true,
+        "竞拍人数": 36,
+        "出价人数": 36,
+        "地点": "浙江省 嘉兴市 海盐县 经济开发区大桥新区泾海路535号大桥·港湾花苑8幢401室",
+        "所属小区": "大桥·港湾花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "经济开发区",
+        "建筑面积": 122.28,
+        "单价": 3952.82,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "763400153169",
+        "url": "https://sf-item.taobao.com/sf_item/763400153169.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "end": 1707358901000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "764344885665",
-        "url": "https://sf-item.taobao.com/sf_item/764344885665.htm?track_id=a2909cbe-3776-43a0-958a-b4f17ca3fe32",
-        "end": 1707359737000,
+        "id": "764450397850",
+        "url": "https://sf-item.taobao.com/sf_item/764450397850.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "end": 1707359199000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "764457758105",
+        "url": "https://sf-item.taobao.com/sf_item/764457758105.htm?track_id=a8a7504e-6323-4c92-b93b-cd51b5436bd0",
+        "end": 1707357600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "764450929127",
+        "url": "https://sf-item.taobao.com/sf_item/764450929127.htm?track_id=23b41d43-a66d-4854-8110-feb7462db538",
+        "end": 1707357722000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "759797292135",
+        "url": "https://sf-item.taobao.com/sf_item/759797292135.htm?track_id=6f2bafaa-d7d3-4b31-aeeb-791dd7eba396",
+        "end": 1707357600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "760856391652",
+        "url": "https://sf-item.taobao.com/sf_item/760856391652.htm?track_id=fb35d09c-9591-40f4-8668-e4abba953bf0",
+        "end": 1707357600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "760811882750",
+        "url": "https://sf-item.taobao.com/sf_item/760811882750.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
+        "end": 1707357600000,
         "status": "done",
         "is_processed": false
     }

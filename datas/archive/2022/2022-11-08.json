@@ -486,12 +486,25 @@
         "detail_captured": true
     },
     {
-        "id": "688231332265",
-        "url": "https://sf-item.taobao.com/sf_item/688231332265.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
-        "end": 1667873358000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/688231332265.htm"
+        "id": 688231332265,
+        "市场评估价": 679293,
+        "起拍价格": 213026.32,
+        "成交价格": 267026.32,
+        "交易时间": "2022/11/08 10:09:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/688231332265.htm?track_id=80cc0f85-73bc-4511-96b6-1c5bf84ccfaf",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 19,
+        "地点": "河北省 张家口市 怀来县 金秋家园二期12-1-101",
+        "所属小区": "金秋家园二期",
+        "省份": "河北省",
+        "城市": "张家口市",
+        "区": "怀来县",
+        "最靠近商圈": "怀来县",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 688293425055,
@@ -578,9 +591,37 @@
         "detail_captured": true
     },
     {
-        "id": "687832238069",
-        "url": "https://sf-item.taobao.com/sf_item/687832238069.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
-        "end": 1667896348000,
+        "id": 687832238069,
+        "市场评估价": 250700,
+        "起拍价格": 140392,
+        "成交价格": 140392,
+        "交易时间": "2022/11/08 16:32:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/687832238069.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 红粉路23号4-8-1",
+        "所属小区": "艳璐2期",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西商圈",
+        "建筑面积": 55.4,
+        "单价": 2534.3,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "688918026546",
+        "url": "https://sf-item.taobao.com/sf_item/688918026546.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1667880953000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "688554165024",
+        "url": "https://sf-item.taobao.com/sf_item/688554165024.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
+        "end": 1667874671000,
         "status": "done",
         "is_processed": false
     }

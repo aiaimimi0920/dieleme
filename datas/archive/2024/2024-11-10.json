@@ -231,16 +231,79 @@
         "detail_captured": true
     },
     {
-        "id": "846578041935",
-        "url": "https://sf-item.taobao.com/sf_item/846578041935.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
-        "end": 1731204127000,
+        "id": 846578041935,
+        "市场评估价": 1975151,
+        "起拍价格": 1106085,
+        "成交价格": 1106085,
+        "交易时间": "2024-11-10 10:02:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/846578041935.htm?track_id=73d786d5-961e-4b63-8516-f45d16c08b25",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "吉林省 吉林市 船营区 松江中路69号翠江锦苑小区2号楼6单元16层264号",
+        "所属小区": "翠江锦苑",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "松江中路",
+        "建筑面积": 173.35,
+        "单价": 6383.31,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 846724848195,
+        "市场评估价": 520194,
+        "起拍价格": 397948.41,
+        "成交价格": 467948.41,
+        "交易时间": "2024-11-10 10:21:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/846724848195.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 36,
+        "地点": "云南省丽江市华坪县中心镇狮山路森林公安集资房201室",
+        "所属小区": "森林公安集资房",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "华坪县中心镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "845606299490",
+        "url": "https://sf-item.taobao.com/sf_item/845606299490.htm?track_id=5fc4c768-6ab1-4407-acf9-835197b7645a",
+        "end": 1731213147000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "846724848195",
-        "url": "https://sf-item.taobao.com/sf_item/846724848195.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1731205262000,
+        "id": "846574517939",
+        "url": "https://sf-item.taobao.com/sf_item/846574517939.htm?track_id=c566893a-201b-4839-8262-2d73cb1d9a72",
+        "end": 1731213194000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "846733040931",
+        "url": "https://sf-item.taobao.com/sf_item/846733040931.htm?track_id=b29a20ac-4526-4c00-8c7e-3478c2981281",
+        "end": 1731206621000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "847119877387",
+        "url": "https://sf-item.taobao.com/sf_item/847119877387.htm?track_id=efb4342c-0c1c-4486-9308-1ed5553b53ca",
+        "end": 1731204474000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "847015004688",
+        "url": "https://sf-item.taobao.com/sf_item/847015004688.htm?track_id=aa7c9499-83e3-4f8b-82a0-5b73185c82fb",
+        "end": 1731204000000,
         "status": "done",
         "is_processed": false
     }

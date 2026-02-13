@@ -383,25 +383,67 @@
         "detail_captured": true
     },
     {
-        "id": "635454265675",
-        "url": "https://sf-item.taobao.com/sf_item/635454265675.htm?track_id=80b9189b-7b09-495c-973d-3d28af41e2ce",
-        "end": 1609986063000,
-        "status": "done",
-        "is_processed": false
+        "id": 635454265675,
+        "市场评估价": null,
+        "起拍价格": 147044.88,
+        "成交价格": 147044.88,
+        "交易时间": "2021/01/07 10:21:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/635454265675.htm?track_id=80b9189b-7b09-495c-973d-3d28af41e2ce",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省 吉林市 船营区",
+        "所属小区": "馨港湾",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "长春路商圈",
+        "建筑面积": 41.51,
+        "单价": 3545.87,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "632829957469",
-        "url": "https://sf-item.taobao.com/sf_item/632829957469.htm?track_id=cc0a5801-ce4a-44a7-9efb-969714068cfc",
-        "end": 1609985263000,
-        "status": "done",
-        "is_processed": false
+        "id": 632829957469,
+        "市场评估价": 449433,
+        "起拍价格": 314603.1,
+        "成交价格": 402523.1,
+        "交易时间": "2021/01/07 10:07:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/632829957469.htm?track_id=cc0a5801-ce4a-44a7-9efb-969714068cfc",
+        "是否成交": true,
+        "竞拍人数": 29,
+        "出价人数": 26,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延北路1192号楼丹虹小区4号楼1单元701房屋",
+        "所属小区": "丹虹小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延北路",
+        "建筑面积": 99.41,
+        "单价": 4049.12,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "634175537602",
-        "url": "https://sf-item.taobao.com/sf_item/634175537602.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
-        "end": 1609984800000,
-        "status": "done",
-        "is_processed": false
+        "id": 634175537602,
+        "市场评估价": 2755917,
+        "起拍价格": 1543314,
+        "成交价格": 1543314,
+        "交易时间": "2021-01-07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634175537602.htm?track_id=800a479d-5b1e-415b-ae2e-95ee7c19919a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 沈阳市 铁西区 北一东路81号8门",
+        "所属小区": "北一东路81号",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 203.84,
+        "单价": 7566.88,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "634175492877",
@@ -411,9 +453,72 @@
         "is_processed": false
     },
     {
-        "id": "634833614002",
-        "url": "https://sf-item.taobao.com/sf_item/634833614002.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
-        "end": 1609986671000,
+        "id": 634833614002,
+        "市场评估价": null,
+        "起拍价格": 268905,
+        "成交价格": 340905,
+        "交易时间": "2021-01-07 10:31:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/634833614002.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 36,
+        "地点": "江西省南昌市青云谱区解放西路49号明珠广场B栋1508室",
+        "所属小区": "明珠广场",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "解放西路商圈",
+        "建筑面积": 51.94,
+        "单价": 6565.48,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "634172840214",
+        "url": "https://sf-item.taobao.com/sf_item/634172840214.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1609986073000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632839032459",
+        "url": "https://sf-item.taobao.com/sf_item/632839032459.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "end": 1609986513000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632581450966",
+        "url": "https://sf-item.taobao.com/sf_item/632581450966.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "end": 1609990325000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "631000427763",
+        "url": "https://sf-item.taobao.com/sf_item/631000427763.htm?track_id=1ae08123-f71f-491f-b25f-fb72c852fcb2",
+        "end": 1610011037000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634833214988",
+        "url": "https://sf-item.taobao.com/sf_item/634833214988.htm?track_id=c0a878f4-aa96-4703-8c1a-b4e65b8a4f96",
+        "end": 1609987214000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632890579160",
+        "url": "https://sf-item.taobao.com/sf_item/632890579160.htm?track_id=946ef4f8-983c-4efe-8b30-f3d90e10db82",
+        "end": 1609987165000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632582718911",
+        "url": "https://sf-item.taobao.com/sf_item/632582718911.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "end": 1609987386000,
         "status": "done",
         "is_processed": false
     }

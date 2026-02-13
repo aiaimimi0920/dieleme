@@ -253,12 +253,25 @@
         "detail_captured": true
     },
     {
-        "id": "684529859710",
-        "url": "https://sf-item.taobao.com/sf_item/684529859710.htm?track_id=66fd86c7-f291-430a-991f-bba0a5785803",
-        "end": 1668561661000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/684529859710.htm"
+        "id": 684529859710,
+        "市场评估价": 1428300,
+        "起拍价格": 914112,
+        "成交价格": 914112,
+        "交易时间": "2022/11/16 09:21:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/684529859710.htm?track_id=66fd86c7-f291-430a-991f-bba0a5785803",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "四川省 广元市 利州区 大石镇前进村建联香颂湾25栋",
+        "所属小区": "建联香颂湾",
+        "省份": "四川省",
+        "城市": "广元市",
+        "区": "利州区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 687322221576,
@@ -373,18 +386,46 @@
         "is_processed": false
     },
     {
-        "id": "689620290755",
-        "url": "https://sf-item.taobao.com/sf_item/689620290755.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
-        "end": 1668577218000,
-        "status": "done",
-        "is_processed": false
+        "id": 689620290755,
+        "市场评估价": 995296,
+        "起拍价格": 676802,
+        "成交价格": 840802,
+        "交易时间": "2022/11/16 13:40:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/689620290755.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 60,
+        "地点": "安徽省 合肥市 瑶海区 临泉东路丽水天锦苑9幢404室",
+        "所属小区": "丽水天锦苑",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "临泉东路",
+        "建筑面积": 88.54,
+        "单价": 9497.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "687100338720",
-        "url": "https://sf-item.taobao.com/sf_item/687100338720.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
-        "end": 1668566005000,
-        "status": "done",
-        "is_processed": false
+        "id": 687100338720,
+        "市场评估价": 1052200,
+        "起拍价格": 673408,
+        "成交价格": 748408,
+        "交易时间": "2022/11/16 10:33:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/687100338720.htm?track_id=b65be8c6-d7d1-4a08-9266-0e4c384f216b",
+        "是否成交": true,
+        "竞拍人数": 23,
+        "出价人数": 23,
+        "地点": "河南省 郑州市 二七区 丹枫路6号院3号楼2单元3层302号",
+        "所属小区": "御景台",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "德化街商圈",
+        "建筑面积": 86.6,
+        "单价": 8635.57,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "686478196849",
@@ -404,6 +445,27 @@
         "id": "687624874926",
         "url": "https://sf-item.taobao.com/sf_item/687624874926.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
         "end": 1668565474000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "688683124321",
+        "url": "https://sf-item.taobao.com/sf_item/688683124321.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1668564763000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "691277459089",
+        "url": "https://sf-item.taobao.com/sf_item/691277459089.htm?track_id=addbb771-a109-4b32-8cec-541c849a16ea",
+        "end": 1668568658000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "687214896725",
+        "url": "https://sf-item.taobao.com/sf_item/687214896725.htm?track_id=78ed9cc2-9a3a-4334-bd0f-6fd541afdd08",
+        "end": 1668564000000,
         "status": "done",
         "is_processed": false
     }

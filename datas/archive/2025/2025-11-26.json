@@ -295,20 +295,46 @@
         "detail_captured": true
     },
     {
-        "id": "992864952509",
-        "url": "https://sf-item.taobao.com/sf_item/992864952509.htm?track_id=bff32116-8aa3-4161-b54d-4a53a67ed7dc",
-        "end": 1764125401000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/992864952509.htm"
+        "id": 992864952509,
+        "市场评估价": 6376063.2,
+        "起拍价格": 3570596,
+        "成交价格": 4962896,
+        "交易时间": "2025-11-26 10:50:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/992864952509.htm?track_id=bff32116-8aa3-4161-b54d-4a53a67ed7dc",
+        "是否成交": true,
+        "竞拍人数": 79,
+        "出价人数": 64,
+        "地点": "北京市东城区安定门东大街丙2号楼805号",
+        "所属小区": "安定门东大街丙2号楼",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "东城区",
+        "最靠近商圈": "安定门",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "991402110965",
-        "url": "https://sf-item.taobao.com/sf_item/991402110965.htm?track_id=4296822d-7a68-46d7-9ea3-699d42ae4575",
-        "end": 1764123851000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/991402110965.htm"
+        "id": 991402110965,
+        "市场评估价": 9393058.62,
+        "起拍价格": 5260114,
+        "成交价格": 7337814,
+        "交易时间": "2025/11/26 10:24:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/991402110965.htm?track_id=4296822d-7a68-46d7-9ea3-699d42ae4575",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 58,
+        "地点": "北京市东城区东直门内大街14号楼1单元1201号",
+        "所属小区": "海运仓小区",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "东城区",
+        "最靠近商圈": "东直门",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 989132321498,
@@ -332,9 +358,58 @@
         "detail_captured": true
     },
     {
-        "id": "987051098716",
-        "url": "https://sf-item.taobao.com/sf_item/987051098716.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
-        "end": 1764128226000,
+        "id": 987051098716,
+        "市场评估价": 394322,
+        "起拍价格": 394322,
+        "成交价格": 830322,
+        "交易时间": "2025-11-26 11:37:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/987051098716.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
+        "是否成交": true,
+        "竞拍人数": 185,
+        "出价人数": 185,
+        "地点": "安徽省合肥市瑶海区明光路425号1幢602室",
+        "所属小区": "明光路425号1幢",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "明光路商圈",
+        "建筑面积": 53.5,
+        "单价": 15525.93,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "991403126361",
+        "url": "https://sf-item.taobao.com/sf_item/991403126361.htm?track_id=69e73da1-9844-4e22-80d5-44d18631979f",
+        "end": 1764122400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "988781576226",
+        "url": "https://sf-item.taobao.com/sf_item/988781576226.htm?track_id=bb7a356f-f90b-422c-910b-47b42d1399f4",
+        "end": 1764124968000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "989831848231",
+        "url": "https://sf-item.taobao.com/sf_item/989831848231.htm?track_id=bce7c78f-af18-4d86-a5d0-8036c9800db5",
+        "end": 1764123177000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "987831855665",
+        "url": "https://sf-item.taobao.com/sf_item/987831855665.htm?track_id=a41ec165-a35c-4de2-a126-575a6918ac0b",
+        "end": 1764123015000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "988669633959",
+        "url": "https://sf-item.taobao.com/sf_item/988669633959.htm?track_id=743e6c95-df8d-4384-a1c1-434833f32b0b",
+        "end": 1764122400000,
         "status": "done",
         "is_processed": false
     }

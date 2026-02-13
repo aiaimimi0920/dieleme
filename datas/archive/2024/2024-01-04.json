@@ -442,12 +442,25 @@
         "detail_captured": true
     },
     {
-        "id": "756604985777",
-        "url": "https://sf-item.taobao.com/sf_item/756604985777.htm?track_id=1fa19d04-0b14-4381-a4d8-4ce2a1d21ccd",
-        "end": 1704334016000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/756604985777.htm"
+        "id": 756604985777,
+        "市场评估价": null,
+        "起拍价格": 612651.6,
+        "成交价格": 902651.6,
+        "交易时间": "2024-01-04 10:06:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/756604985777.htm?track_id=1fa19d04-0b14-4381-a4d8-4ce2a1d21ccd",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": null,
+        "地点": "内蒙古自治区 呼和浩特市 回民区 公园东路62号五四商城1至2层N135号房屋",
+        "所属小区": "五四商城",
+        "省份": "内蒙古自治区",
+        "城市": "呼和浩特市",
+        "区": "回民区",
+        "最靠近商圈": "中山西路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 756943974829,
@@ -534,11 +547,25 @@
         "detail_captured": true
     },
     {
-        "id": "756467432449",
-        "url": "https://sf-item.taobao.com/sf_item/756467432449.htm?track_id=b5067d3b-a8a7-456b-852f-55dbd2272063",
-        "end": 1704333600000,
-        "status": "done",
-        "is_processed": false
+        "id": 756467432449,
+        "市场评估价": null,
+        "起拍价格": 273655,
+        "成交价格": 273655,
+        "交易时间": "2024/01/04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/756467432449.htm?track_id=b5067d3b-a8a7-456b-852f-55dbd2272063",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "辽宁省 沈阳市 铁西区 齐贤南街192号1-14-4房产",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": null,
+        "建筑面积": 67.67,
+        "单价": 4045.05,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "752515516003",
@@ -551,6 +578,62 @@
         "id": "755751683951",
         "url": "https://sf-item.taobao.com/sf_item/755751683951.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
         "end": 1704335938000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "756691499500",
+        "url": "https://sf-item.taobao.com/sf_item/756691499500.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "end": 1704334443000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743953447823",
+        "url": "https://sf-item.taobao.com/sf_item/743953447823.htm?track_id=dfd27f7b-bc7d-4bb9-a04a-63aa0958a58b",
+        "end": 1704332385000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "756702399930",
+        "url": "https://sf-item.taobao.com/sf_item/756702399930.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "end": 1704334905000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "756688650587",
+        "url": "https://sf-item.taobao.com/sf_item/756688650587.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1704336216000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "753570384475",
+        "url": "https://sf-item.taobao.com/sf_item/753570384475.htm?track_id=fa46ca20-e44b-4707-ac92-cfc59603f6e1",
+        "end": 1704336754000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "753570336422",
+        "url": "https://sf-item.taobao.com/sf_item/753570336422.htm?track_id=ec0864e8-1dfb-4aa2-9cc5-3a21f48d84d2",
+        "end": 1704337795000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "750525886988",
+        "url": "https://sf-item.taobao.com/sf_item/750525886988.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "end": 1704334207000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "753570208654",
+        "url": "https://sf-item.taobao.com/sf_item/753570208654.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1704333621000,
         "status": "done",
         "is_processed": false
     }

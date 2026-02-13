@@ -840,9 +840,30 @@
         "detail_captured": true
     },
     {
-        "id": "622371365791",
-        "url": "https://sf-item.taobao.com/sf_item/622371365791.htm?track_id=6b420920-de29-4df5-8b8e-ab244cccd0e8",
-        "end": 1596852000000,
+        "id": 622371365791,
+        "市场评估价": 446000,
+        "起拍价格": 484416,
+        "成交价格": 484416,
+        "交易时间": "2020/08/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622371365791.htm?track_id=6b420920-de29-4df5-8b8e-ab244cccd0e8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 鸡西市 密山市 密山镇新和村3组",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "密山市",
+        "最靠近商圈": null,
+        "建筑面积": 280,
+        "单价": 1730.05,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "618934740138",
+        "url": "https://sf-item.taobao.com/sf_item/618934740138.htm?track_id=ea4eb8ff-33af-48f0-9fc5-5c633b8347fe",
+        "end": 1596854651000,
         "status": "done",
         "is_processed": false
     }

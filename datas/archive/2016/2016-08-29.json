@@ -42,10 +42,24 @@
         "detail_captured": true
     },
     {
-        "id": "536936942035",
-        "url": "https://sf-item.taobao.com/sf_item/536936942035.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
-        "end": 1472436911000,
-        "status": "done",
-        "is_processed": false
+        "id": 536936942035,
+        "市场评估价": null,
+        "起拍价格": 900000,
+        "成交价格": 1102000,
+        "交易时间": "2016-08-29T10:15:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536936942035.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 76,
+        "地点": "河南省郑州市二七区解放路30号",
+        "所属小区": "汇港新城",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 101.23,
+        "单价": 10886.94,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

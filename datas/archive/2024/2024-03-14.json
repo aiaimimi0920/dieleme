@@ -421,11 +421,25 @@
         "detail_captured": true
     },
     {
-        "id": "769688884431",
-        "url": "https://sf-item.taobao.com/sf_item/769688884431.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
-        "end": 1710382081000,
-        "status": "done",
-        "is_processed": false
+        "id": 769688884431,
+        "市场评估价": 610067,
+        "起拍价格": 341637.5,
+        "成交价格": 400637.52,
+        "交易时间": "2024/03/14 10:08:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/769688884431.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
+        "是否成交": true,
+        "竞拍人数": 40,
+        "出价人数": 40,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延吉河畔小区",
+        "所属小区": "延吉河畔小区",
+        "省份": "吉林省",
+        "城市": "延吉市",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市商圈",
+        "建筑面积": 96.79,
+        "单价": 4139.71,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "768996872321",
@@ -435,11 +449,25 @@
         "is_processed": false
     },
     {
-        "id": "769620680238",
-        "url": "https://sf-item.taobao.com/sf_item/769620680238.htm?track_id=ef6df7ca-1a71-4a99-9fe3-19f84526c73b",
-        "end": 1710381729000,
-        "status": "done",
-        "is_processed": false
+        "id": 769620680238,
+        "市场评估价": 64981,
+        "起拍价格": 36389.36,
+        "成交价格": 36389.36,
+        "交易时间": "2024/03/14 10:02:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/769620680238.htm?track_id=ef6df7ca-1a71-4a99-9fe3-19f84526c73b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 鸡西市 密山市 珍铭一品",
+        "所属小区": "珍铭一品小区",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "密山市",
+        "最靠近商圈": null,
+        "建筑面积": 18.55,
+        "单价": 1961.93,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "769680446412",
@@ -449,18 +477,46 @@
         "is_processed": false
     },
     {
-        "id": "769693265846",
-        "url": "https://sf-item.taobao.com/sf_item/769693265846.htm?track_id=ef6df7ca-1a71-4a99-9fe3-19f84526c73b",
-        "end": 1710381650000,
-        "status": "done",
-        "is_processed": false
+        "id": 769693265846,
+        "市场评估价": 81145,
+        "起拍价格": 45441.2,
+        "成交价格": 45441.2,
+        "交易时间": "2024/03/14 10:00:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/769693265846.htm?track_id=ef6df7ca-1a71-4a99-9fe3-19f84526c73b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "黑龙江省 鸡西市 密山市 珍铭一品小区",
+        "所属小区": "珍铭一品小区",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "密山市",
+        "最靠近商圈": "密山市中心商圈",
+        "建筑面积": 76.05,
+        "单价": 597.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "769693467901",
-        "url": "https://sf-item.taobao.com/sf_item/769693467901.htm?track_id=ef6df7ca-1a71-4a99-9fe3-19f84526c73b",
-        "end": 1710381995000,
-        "status": "done",
-        "is_processed": false
+        "id": 769693467901,
+        "市场评估价": 72343,
+        "起拍价格": 40512.08,
+        "成交价格": 40512.08,
+        "交易时间": "2024/03/14 10:06:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/769693467901.htm?track_id=ef6df7ca-1a71-4a99-9fe3-19f84526c73b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 鸡西市 密山市 珍铭一品小区",
+        "所属小区": "珍铭一品小区",
+        "省份": "黑龙江",
+        "城市": "鸡西",
+        "区": "密山",
+        "最靠近商圈": "密山",
+        "建筑面积": 67.8,
+        "单价": 597.21,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "769693684158",
@@ -473,6 +529,27 @@
         "id": "769766917659",
         "url": "https://sf-item.taobao.com/sf_item/769766917659.htm?track_id=b7b0a0af-43ae-4489-a337-0ac43b0ac199",
         "end": 1710381600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "764370361869",
+        "url": "https://sf-item.taobao.com/sf_item/764370361869.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1710379047000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "768680835100",
+        "url": "https://sf-item.taobao.com/sf_item/768680835100.htm?track_id=a104badb-d029-4a84-9853-223a95622272",
+        "end": 1710389745000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "766611701999",
+        "url": "https://sf-item.taobao.com/sf_item/766611701999.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1710383593000,
         "status": "done",
         "is_processed": false
     }

@@ -252,11 +252,25 @@
         "detail_captured": true
     },
     {
-        "id": "957853582100",
-        "url": "https://sf-item.taobao.com/sf_item/957853582100.htm?track_id=0c6c3b23-1827-40d5-9ba8-72269ac60a97",
-        "end": 1755137863000,
-        "status": "done",
-        "is_processed": false
+        "id": 957853582100,
+        "市场评估价": 360918,
+        "起拍价格": 231200,
+        "成交价格": 265200,
+        "交易时间": "2025/08/14 10:17:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/957853582100.htm?track_id=0c6c3b23-1827-40d5-9ba8-72269ac60a97",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 18,
+        "地点": "湖北省宜昌市点军区孝子岩东路3号1栋1单元503号",
+        "所属小区": "江南URD那溪谷",
+        "省份": "湖北省",
+        "城市": "宜昌市",
+        "区": "点军区",
+        "最靠近商圈": "五龙商圈",
+        "建筑面积": 82.31,
+        "单价": 3221.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "951295017149",
@@ -266,11 +280,25 @@
         "is_processed": false
     },
     {
-        "id": "956035511445",
-        "url": "https://sf-item.taobao.com/sf_item/956035511445.htm?track_id=e0094841-bb62-45c7-9b58-c8edf58d1a71",
-        "end": 1755139040000,
-        "status": "done",
-        "is_processed": false
+        "id": 956035511445,
+        "市场评估价": 2281900,
+        "起拍价格": 1280000,
+        "成交价格": 1585000,
+        "交易时间": "2025-08-14T10:37:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/956035511445.htm?track_id=e0094841-bb62-45c7-9b58-c8edf58d1a71",
+        "是否成交": true,
+        "竞拍人数": 41,
+        "出价人数": 26,
+        "地点": "江苏省 无锡市 锡山区 无锡市长泰国际社区18-2301室",
+        "所属小区": "长泰国际社区",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "太湖新城",
+        "建筑面积": 128.0,
+        "单价": 12383.59,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "951856272022",
@@ -280,9 +308,44 @@
         "is_processed": false
     },
     {
-        "id": "957371459950",
-        "url": "https://sf-item.taobao.com/sf_item/957371459950.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
-        "end": 1755139248000,
+        "id": 957371459950,
+        "市场评估价": 5128600,
+        "起拍价格": 2873000,
+        "成交价格": 3802500,
+        "交易时间": "2025/08/14 10:40:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/957371459950.htm?track_id=c3237c5c-3056-4408-892f-45b3478225a9",
+        "是否成交": true,
+        "竞拍人数": 65,
+        "出价人数": 28,
+        "地点": "浙江省 杭州市 滨江区 西兴街道迎春小区8幢1单元701室",
+        "所属小区": "迎春小区",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "西兴",
+        "建筑面积": 159.22,
+        "单价": 23871.41,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "957961058618",
+        "url": "https://sf-item.taobao.com/sf_item/957961058618.htm?track_id=69e73da1-9844-4e22-80d5-44d18631979f",
+        "end": 1755137008000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947858590669",
+        "url": "https://sf-item.taobao.com/sf_item/947858590669.htm?track_id=464d3b98-b48f-4fae-9da9-f05e77c9eda2",
+        "end": 1755157043000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947604877194",
+        "url": "https://sf-item.taobao.com/sf_item/947604877194.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1755136800000,
         "status": "done",
         "is_processed": false
     }

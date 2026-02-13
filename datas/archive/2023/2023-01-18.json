@@ -357,18 +357,46 @@
         "detail_captured": true
     },
     {
-        "id": "694517548445",
-        "url": "https://sf-item.taobao.com/sf_item/694517548445.htm?track_id=b5018658-43ad-4743-9746-2a7f3dbb32bf",
-        "end": 1674008148000,
-        "status": "done",
-        "is_processed": false
+        "id": 694517548445,
+        "市场评估价": 0,
+        "起拍价格": 307319,
+        "成交价格": 365706,
+        "交易时间": "2023/01/18 10:15:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/694517548445.htm?track_id=b5018658-43ad-4743-9746-2a7f3dbb32bf",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广东省 云浮市 郁南县 都城镇一环西路139号甘露里3栋1201房",
+        "所属小区": "甘露里",
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城镇商圈",
+        "建筑面积": 141.85,
+        "单价": 2578.71,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "693650178482",
-        "url": "https://sf-item.taobao.com/sf_item/693650178482.htm?track_id=b319858a-6c6f-4ef0-8884-082019134f32",
-        "end": 1674057943000,
-        "status": "done",
-        "is_processed": false
+        "id": 693650178482,
+        "市场评估价": null,
+        "起拍价格": 575865.48,
+        "成交价格": 575865.48,
+        "交易时间": "2023/01/19 00:05:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/693650178482.htm?track_id=b319858a-6c6f-4ef0-8884-082019134f32",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省南平市顺昌县城南东路16号金大地1幢1梯1301室",
+        "所属小区": "金大地",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "城南",
+        "建筑面积": 126.19,
+        "单价": 4563.02,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "696423039488",
@@ -381,6 +409,20 @@
         "id": "695192198029",
         "url": "https://sf-item.taobao.com/sf_item/695192198029.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
         "end": 1674011830000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695304517661",
+        "url": "https://sf-item.taobao.com/sf_item/695304517661.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1674045769000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695595591362",
+        "url": "https://sf-item.taobao.com/sf_item/695595591362.htm?track_id=9dd7c5ea-7173-4af5-9ceb-987607532695",
+        "end": 1674008002000,
         "status": "done",
         "is_processed": false
     }

@@ -105,16 +105,44 @@
         "detail_captured": true
     },
     {
-        "id": "528587439709",
-        "url": "https://sf-item.taobao.com/sf_item/528587439709.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
-        "end": 1460080800000,
-        "status": "done",
-        "is_processed": false
+        "id": 528587439709,
+        "市场评估价": 141905,
+        "起拍价格": 120619,
+        "成交价格": 120619,
+        "交易时间": "2016/04/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528587439709.htm?track_id=cf8568f6-1af2-41f6-a5ec-7d99c97aca13",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "延吉市站前街182号1单元1307号",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": null,
+        "建筑面积": 34.51,
+        "单价": 3495.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "527994069742",
         "url": "https://sf-item.taobao.com/sf_item/527994069742.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
         "end": 1460081770000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528588470128",
+        "url": "https://sf-item.taobao.com/sf_item/528588470128.htm?track_id=4c4acbb1-c962-43e3-aff4-e356815171ae",
+        "end": 1460082786000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528543551018",
+        "url": "https://sf-item.taobao.com/sf_item/528543551018.htm?track_id=9e7fb618-f068-48b8-b911-382e21eca865",
+        "end": 1460082606000,
         "status": "done",
         "is_processed": false
     }

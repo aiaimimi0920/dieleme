@@ -323,11 +323,25 @@
         "is_processed": false
     },
     {
-        "id": "648414871768",
-        "url": "https://sf-item.taobao.com/sf_item/648414871768.htm?track_id=1c95698b-0cb1-4ce8-a244-6b6fc38fc0f1",
-        "end": 1626401327000,
-        "status": "done",
-        "is_processed": false
+        "id": 648414871768,
+        "市场评估价": 0,
+        "起拍价格": 2223900,
+        "成交价格": 4963900,
+        "交易时间": "2021/07/16 10:08:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/648414871768.htm?track_id=1c95698b-0cb1-4ce8-a244-6b6fc38fc0f1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 215,
+        "地点": "四川省 乐山市 五通桥区 杨柳镇杨柳街4组（交通街1号）",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "乐山市",
+        "区": "五通桥区",
+        "最靠近商圈": "杨柳镇",
+        "建筑面积": 562.17,
+        "单价": 8830.33,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "647311068068",
@@ -340,6 +354,69 @@
         "id": "649416714203",
         "url": "https://sf-item.taobao.com/sf_item/649416714203.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
         "end": 1626401080000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "648660920335",
+        "url": "https://sf-item.taobao.com/sf_item/648660920335.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1626408252000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "648685484844",
+        "url": "https://sf-item.taobao.com/sf_item/648685484844.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1626402028000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643479878361",
+        "url": "https://sf-item.taobao.com/sf_item/643479878361.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
+        "end": 1626407923000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646630268969",
+        "url": "https://sf-item.taobao.com/sf_item/646630268969.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
+        "end": 1626400872000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "650064059150",
+        "url": "https://sf-item.taobao.com/sf_item/650064059150.htm?track_id=e6f244c7-3e66-4550-bb2d-f3405983d090",
+        "end": 1626404674000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "649268361838",
+        "url": "https://sf-item.taobao.com/sf_item/649268361838.htm?track_id=08271d2b-720b-4ac9-8bef-4716c7dea6e2",
+        "end": 1626401495000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "649399053234",
+        "url": "https://sf-item.taobao.com/sf_item/649399053234.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1626402734000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "649725682729",
+        "url": "https://sf-item.taobao.com/sf_item/649725682729.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
+        "end": 1626401078000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "647265421504",
+        "url": "https://sf-item.taobao.com/sf_item/647265421504.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "end": 1626408242000,
         "status": "done",
         "is_processed": false
     }

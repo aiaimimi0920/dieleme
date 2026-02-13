@@ -208,15 +208,16 @@
         "竞拍人数": 112,
         "出价人数": 68,
         "地点": "贵州省 黔西南布依族苗族自治州 兴义市 杨柳街7幢101号",
-        "所属小区": null,
+        "所属小区": "杨柳街小区",
         "省份": "贵州省",
         "城市": "黔西南布依族苗族自治州",
         "区": "兴义市",
-        "最靠近商圈": null,
+        "最靠近商圈": "杨柳街商圈",
         "建筑面积": 58.64,
-        "单价": 4712.52,
+        "单价": 4713.65,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 557118120284,
@@ -250,15 +251,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "北京市东城区竹杆胡同8号楼1单元502号",
-        "所属小区": null,
+        "所属小区": "竹杆胡同",
         "省份": "北京市",
         "城市": "北京市",
         "区": "东城区",
-        "最靠近商圈": "朝阳门",
+        "最靠近商圈": "东单",
         "建筑面积": 55.47,
-        "单价": 103056.61,
+        "单价": 103046.69,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 557194939714,
@@ -345,18 +347,46 @@
         "detail_captured": true
     },
     {
-        "id": "557922149375",
-        "url": "https://sf-item.taobao.com/sf_item/557922149375.htm?track_id=0c6c3b23-1827-40d5-9ba8-72269ac60a97",
-        "end": 1505959200000,
-        "status": "done",
-        "is_processed": false
+        "id": 557922149375,
+        "市场评估价": 5604936,
+        "起拍价格": 3370000,
+        "成交价格": 3370000,
+        "交易时间": "2017/09/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557922149375.htm?track_id=0c6c3b23-1827-40d5-9ba8-72269ac60a97",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖北省 宜昌市 点军区",
+        "所属小区": null,
+        "省份": "湖北省",
+        "城市": "宜昌市",
+        "区": "点军区",
+        "最靠近商圈": "江南大道",
+        "建筑面积": 740.61,
+        "单价": 4549.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "558083229900",
-        "url": "https://sf-item.taobao.com/sf_item/558083229900.htm?track_id=39151f44-c8e6-4909-a96a-5342e8b2e652",
-        "end": 1505960826000,
-        "status": "done",
-        "is_processed": false
+        "id": 558083229900,
+        "市场评估价": 1105264,
+        "起拍价格": 7957896,
+        "成交价格": 895789.6,
+        "交易时间": "2017/09/21 10:27:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558083229900.htm?track_id=39151f44-c8e6-4909-a96a-5342e8b2e652",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 101,
+        "地点": "内蒙古自治区 包头市 土默特右旗 工业大街",
+        "所属小区": "天晟嘉园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "土默特右旗",
+        "最靠近商圈": "萨拉齐镇",
+        "建筑面积": 149.36,
+        "单价": 6000,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "557145834383",
@@ -366,9 +396,51 @@
         "is_processed": false
     },
     {
-        "id": "557898769856",
-        "url": "https://sf-item.taobao.com/sf_item/557898769856.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
-        "end": 1505963066000,
+        "id": 557898769856,
+        "市场评估价": null,
+        "起拍价格": 1104535.9,
+        "成交价格": 1377535.9,
+        "交易时间": "2017/09/21 11:04:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557898769856.htm?track_id=e15c0f13-885c-484f-b33f-b394c8d55522",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市二七区政通路62号院3号楼1单元25层2501号",
+        "所属小区": "升龙国际中心",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "升龙商业广场",
+        "建筑面积": 92.72,
+        "单价": 14857.24,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "556854701661",
+        "url": "https://sf-item.taobao.com/sf_item/556854701661.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
+        "end": 1505959200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558033047824",
+        "url": "https://sf-item.taobao.com/sf_item/558033047824.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "end": 1505959200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557250695374",
+        "url": "https://sf-item.taobao.com/sf_item/557250695374.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1505960572000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557259053513",
+        "url": "https://sf-item.taobao.com/sf_item/557259053513.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "end": 1505960834000,
         "status": "done",
         "is_processed": false
     }

@@ -48,5 +48,12 @@
         "status": "done",
         "is_processed": false,
         "原始网站": "https://sf-item.taobao.com/sf_item/667188146656.htm"
+    },
+    {
+        "id": "666130950563",
+        "url": "https://sf-item.taobao.com/sf_item/666130950563.htm?track_id=d29c70e8-fa2d-4151-931a-086cda439a3c",
+        "end": 1643767200000,
+        "status": "done",
+        "is_processed": false
     }
 ]

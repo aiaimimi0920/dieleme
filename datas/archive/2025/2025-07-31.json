@@ -599,25 +599,67 @@
         "detail_captured": true
     },
     {
-        "id": "944159803444",
-        "url": "https://sf-item.taobao.com/sf_item/944159803444.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
-        "end": 1753929631000,
-        "status": "done",
-        "is_processed": false
+        "id": 944159803444,
+        "市场评估价": 630849,
+        "起拍价格": 450000,
+        "成交价格": 762000,
+        "交易时间": "2025/07/31 10:40:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/944159803444.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 58,
+        "地点": "安徽省 合肥市 瑶海区 新站区扶疏路618号水漾花园11幢1604室房产",
+        "所属小区": "水漾花园",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "新站区",
+        "建筑面积": 81.11,
+        "单价": 9395.8,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "951737330625",
-        "url": "https://sf-item.taobao.com/sf_item/951737330625.htm?track_id=5baf48a3-a205-49b8-a1a3-203446422497",
-        "end": 1753929681000,
-        "status": "done",
-        "is_processed": false
+        "id": 951737330625,
+        "市场评估价": 76228,
+        "起拍价格": 42688,
+        "成交价格": 63688,
+        "交易时间": "2025/07/31 10:41:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/951737330625.htm?track_id=5baf48a3-a205-49b8-a1a3-203446422497",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 28,
+        "地点": "广东省 肇庆市 德庆县 德庆县德城街道文兰北路翠湖帝景小区地下室B07汽车位",
+        "所属小区": "翠湖帝景小区",
+        "省份": "广东省",
+        "城市": "肇庆市",
+        "区": "德庆县",
+        "最靠近商圈": "德城街道",
+        "建筑面积": 30.54,
+        "单价": 2085.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "952941868317",
-        "url": "https://sf-item.taobao.com/sf_item/952941868317.htm?track_id=5baf48a3-a205-49b8-a1a3-203446422497",
-        "end": 1753927200000,
-        "status": "done",
-        "is_processed": false
+        "id": 952941868317,
+        "市场评估价": 85164,
+        "起拍价格": 47692,
+        "成交价格": 47692,
+        "交易时间": "2025/07/31 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/952941868317.htm?track_id=5baf48a3-a205-49b8-a1a3-203446422497",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 肇庆市 德庆县 德庆县德城街道文兰北路翠湖帝景小区地下室A12汽车位",
+        "所属小区": "翠湖帝景",
+        "省份": "广东省",
+        "城市": "肇庆市",
+        "区": "德庆县",
+        "最靠近商圈": "德城街道",
+        "建筑面积": 34.12,
+        "单价": 1397.77,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "953042244860",
@@ -637,6 +679,41 @@
         "id": "952336997493",
         "url": "https://sf-item.taobao.com/sf_item/952336997493.htm?track_id=2983f99a-2c1f-4c8c-8a28-f7b1e60ab457",
         "end": 1753929790000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "951723630583",
+        "url": "https://sf-item.taobao.com/sf_item/951723630583.htm?track_id=72941855-3cec-4df2-aa07-8f74679bfc2d",
+        "end": 1753927357000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "951730086586",
+        "url": "https://sf-item.taobao.com/sf_item/951730086586.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1753933640000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "940671093850",
+        "url": "https://sf-item.taobao.com/sf_item/940671093850.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1753929072000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947791326859",
+        "url": "https://sf-item.taobao.com/sf_item/947791326859.htm?track_id=d977b45d-d4b4-4df7-8736-20a097b97665",
+        "end": 1753928906000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "940572350836",
+        "url": "https://sf-item.taobao.com/sf_item/940572350836.htm?track_id=c1aa6a1f-4533-4c62-bb29-92f2ef2730d8",
+        "end": 1753927200000,
         "status": "done",
         "is_processed": false
     }

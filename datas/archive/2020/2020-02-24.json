@@ -275,23 +275,65 @@
         "detail_captured": true
     },
     {
-        "id": "611973339574",
-        "url": "https://sf-item.taobao.com/sf_item/611973339574.htm?track_id=729154e2-c3fe-4cc3-8d6c-6f797f011ba7",
-        "end": 1582509874000,
-        "status": "done",
-        "is_processed": false
+        "id": 611973339574,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 532000,
+        "交易时间": "2020/02/24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611973339574.htm?track_id=729154e2-c3fe-4cc3-8d6c-6f797f011ba7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河南省郑州市新密市平安路北段西侧（锦绣花园5号楼）自东向西2单元2层东户",
+        "所属小区": "锦绣花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密市城区",
+        "建筑面积": 148.78,
+        "单价": 3575.75,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "611143476302",
-        "url": "https://sf-item.taobao.com/sf_item/611143476302.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
-        "end": 1582510376000,
-        "status": "done",
-        "is_processed": false
+        "id": 611143476302,
+        "市场评估价": 0,
+        "起拍价格": 664164,
+        "成交价格": 809164,
+        "交易时间": "2020/02/24 10:12:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611143476302.htm?track_id=ec2fce6e-03f1-4bca-aeda-dc807b0cf568",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 26,
+        "地点": "河南省 郑州市 二七区 工人路413号院蔚蓝港湾9号楼11层87号",
+        "所属小区": "蔚蓝港湾",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "碧沙岗",
+        "建筑面积": 63.71,
+        "单价": 12705.74,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "610946848136",
         "url": "https://sf-item.taobao.com/sf_item/610946848136.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
         "end": 1582509912000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611061388913",
+        "url": "https://sf-item.taobao.com/sf_item/611061388913.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1582509600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611810427121",
+        "url": "https://sf-item.taobao.com/sf_item/611810427121.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1582509600000,
         "status": "done",
         "is_processed": false
     }

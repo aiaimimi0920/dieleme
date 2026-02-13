@@ -189,11 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "679990669732",
-        "url": "https://sf-item.taobao.com/sf_item/679990669732.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
-        "end": 1662175859000,
-        "status": "done",
-        "is_processed": false
+        "id": 679990669732,
+        "市场评估价": null,
+        "起拍价格": 551014,
+        "成交价格": 728014,
+        "交易时间": "2022-09-03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/679990669732.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "是否成交": true,
+        "竞拍人数": 137,
+        "出价人数": 146,
+        "地点": "内蒙古自治区 包头市 昆都仑区 钢铁大街甲24号街坊24-1",
+        "所属小区": "青松小区",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "钢铁大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "681558655324",
@@ -210,11 +224,25 @@
         "is_processed": false
     },
     {
-        "id": "679990325586",
-        "url": "https://sf-item.taobao.com/sf_item/679990325586.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
-        "end": 1662170400000,
-        "status": "done",
-        "is_processed": false
+        "id": 679990325586,
+        "市场评估价": 1703364,
+        "起拍价格": 1500000,
+        "成交价格": 1500000,
+        "交易时间": "2022/09/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/679990325586.htm?track_id=b93d657a-3fc8-475c-8bdd-397edaab80fb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省沈阳市铁西区保工北街52-6号1-11-1",
+        "所属小区": "保工北街52-6号",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "保工北街商圈",
+        "建筑面积": 139.62,
+        "单价": 10738.11,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "679643712013",
@@ -224,9 +252,51 @@
         "is_processed": false
     },
     {
-        "id": "680746780842",
-        "url": "https://sf-item.taobao.com/sf_item/680746780842.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
-        "end": 1662174775000,
+        "id": 680746780842,
+        "市场评估价": 6389900,
+        "起拍价格": 3832000,
+        "成交价格": 4507000,
+        "交易时间": "2022/09/03 11:12:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/680746780842.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 103,
+        "地点": "杭州市滨江区春晓路544号商业房地产",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江区政府",
+        "建筑面积": 165.77,
+        "单价": 27180.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "681723935401",
+        "url": "https://sf-item.taobao.com/sf_item/681723935401.htm?track_id=a2310158-35e2-4801-9127-ffcf6669337c",
+        "end": 1662173869000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "681368654043",
+        "url": "https://sf-item.taobao.com/sf_item/681368654043.htm?track_id=2b5d6863-90f6-409f-acf4-bb0fcd2f5f68",
+        "end": 1662177396000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "679913265674",
+        "url": "https://sf-item.taobao.com/sf_item/679913265674.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "end": 1662177088000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "677250572088",
+        "url": "https://sf-item.taobao.com/sf_item/677250572088.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "end": 1662217859000,
         "status": "done",
         "is_processed": false
     }

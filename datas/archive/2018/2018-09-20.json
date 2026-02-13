@@ -250,9 +250,10 @@
         "区": "相城区",
         "最靠近商圈": "阊胥路板块",
         "建筑面积": 124.57,
-        "单价": 7000.48,
+        "单价": 7000.08,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 576459176587,
@@ -265,15 +266,16 @@
         "竞拍人数": 73,
         "出价人数": 74,
         "地点": "江苏省 苏州市 姑苏区 阊胥路251号313室",
-        "所属小区": null,
+        "所属小区": "阊胥路251号小区",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
-        "最靠近商圈": "石路商圈",
+        "最靠近商圈": "观前商圈",
         "建筑面积": 103.77,
-        "单价": 6995.52,
+        "单价": 6996.24,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 576620185782,
@@ -297,16 +299,58 @@
         "detail_captured": true
     },
     {
-        "id": "576816023783",
-        "url": "https://sf-item.taobao.com/sf_item/576816023783.htm?track_id=b04c8370-e80e-4212-9eff-cc325f75098a",
-        "end": 1537408800000,
+        "id": 576816023783,
+        "市场评估价": null,
+        "起拍价格": 1967460,
+        "成交价格": 1967460,
+        "交易时间": "2018/09/20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/576816023783.htm?track_id=b04c8370-e80e-4212-9eff-cc325f75098a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广东省 云浮市 郁南县 云浮市郁南县都城镇中山路136、138号前座首层",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": null,
+        "建筑面积": 130.64,
+        "单价": 15060.31,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 576744850434,
+        "市场评估价": 0,
+        "起拍价格": 1700000,
+        "成交价格": 1700000,
+        "交易时间": "2018-09-20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/576744850434.htm?track_id=d0061311-1feb-4c56-91d7-2d2fa7310ed8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "福建省 南平市 顺昌县 顺昌县双溪中山中路13号1层",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪商圈",
+        "建筑面积": 80.4,
+        "单价": 21149.5,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "576889231600",
+        "url": "https://sf-item.taobao.com/sf_item/576889231600.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1537409723000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "576744850434",
-        "url": "https://sf-item.taobao.com/sf_item/576744850434.htm?track_id=d0061311-1feb-4c56-91d7-2d2fa7310ed8",
-        "end": 1537408813000,
+        "id": "575619275734",
+        "url": "https://sf-item.taobao.com/sf_item/575619275734.htm?track_id=14860c73-967b-4460-90e6-0c41ac23ecbe",
+        "end": 1537408803000,
         "status": "done",
         "is_processed": false
     }

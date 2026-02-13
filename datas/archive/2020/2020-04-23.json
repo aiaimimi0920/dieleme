@@ -315,11 +315,25 @@
         "detail_captured": true
     },
     {
-        "id": "615646418846",
-        "url": "https://sf-item.taobao.com/sf_item/615646418846.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
-        "end": 1587607658000,
-        "status": "done",
-        "is_processed": false
+        "id": 615646418846,
+        "市场评估价": 982158,
+        "起拍价格": 628600,
+        "成交价格": 786600,
+        "交易时间": "2020/04/23 10:07:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/615646418846.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 63,
+        "地点": "山东省 潍坊市 昌邑市 昌邑市新昌路198号35幢4单元308室(现302室)",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": null,
+        "建筑面积": 135.28,
+        "单价": 5815.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 613893685462,
@@ -362,5 +376,19 @@
         "单价": 7814.67,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "612644081898",
+        "url": "https://sf-item.taobao.com/sf_item/612644081898.htm?track_id=4f45e991-c541-4754-9a48-b27bac550d1e",
+        "end": 1587611705000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "612658443140",
+        "url": "https://sf-item.taobao.com/sf_item/612658443140.htm?track_id=e70abb10-b03d-49ae-88d3-ac34a6a8ed29",
+        "end": 1587609862000,
+        "status": "done",
+        "is_processed": false
     }
 ]

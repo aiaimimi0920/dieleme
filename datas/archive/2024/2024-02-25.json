@@ -147,23 +147,65 @@
         "detail_captured": true
     },
     {
-        "id": "766949926362",
-        "url": "https://sf-item.taobao.com/sf_item/766949926362.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
-        "end": 1708827162000,
-        "status": "done",
-        "is_processed": false
+        "id": 766949926362,
+        "市场评估价": 537700,
+        "起拍价格": 344000,
+        "成交价格": 372500,
+        "交易时间": "2024/02/25 10:12:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/766949926362.htm?track_id=33f4c0be-b747-46c1-9914-2b5e17ce150d",
+        "是否成交": true,
+        "竞拍人数": 20,
+        "出价人数": 20,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 东来尚城小区",
+        "所属小区": "东来尚城",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "斗蓬山路商圈",
+        "建筑面积": 129.07,
+        "单价": 2885.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "764791706206",
-        "url": "https://sf-item.taobao.com/sf_item/764791706206.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
-        "end": 1708838547000,
-        "status": "done",
-        "is_processed": false
+        "id": 764791706206,
+        "市场评估价": 854585,
+        "起拍价格": 598210,
+        "成交价格": 1110210,
+        "交易时间": "2024-02-25 13:22:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/764791706206.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
+        "是否成交": true,
+        "竞拍人数": 264,
+        "出价人数": 0,
+        "地点": "安徽省合肥市瑶海区胜利路大窑湾18幢501室",
+        "所属小区": null,
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "胜利路商圈",
+        "建筑面积": 65.06,
+        "单价": 17073.13,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "766683908930",
         "url": "https://sf-item.taobao.com/sf_item/766683908930.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
         "end": 1708826426000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "764857242181",
+        "url": "https://sf-item.taobao.com/sf_item/764857242181.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1708827427000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "764772333196",
+        "url": "https://sf-item.taobao.com/sf_item/764772333196.htm?track_id=bd671c96-a855-4938-b47e-195ef1097e2d",
+        "end": 1708827137000,
         "status": "done",
         "is_processed": false
     }

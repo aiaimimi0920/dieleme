@@ -189,9 +189,65 @@
         "detail_captured": true
     },
     {
-        "id": "919025445242",
-        "url": "https://sf-item.taobao.com/sf_item/919025445242.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
-        "end": 1747447442000,
+        "id": 919025445242,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 571591,
+        "交易时间": "2025/05/17 10:04:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/919025445242.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 城区溱水路与诚信路交会处（金桂园3号楼）2单元9层903号房产",
+        "所属小区": "金桂园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "新密城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "911676573215",
+        "url": "https://sf-item.taobao.com/sf_item/911676573215.htm?track_id=69e73da1-9844-4e22-80d5-44d18631979f",
+        "end": 1747447338000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "919147233833",
+        "url": "https://sf-item.taobao.com/sf_item/919147233833.htm?track_id=bcfea102-99f4-4d3a-aa3e-f06b59c7474b",
+        "end": 1747450150000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "919562636770",
+        "url": "https://sf-item.taobao.com/sf_item/919562636770.htm?track_id=72941855-3cec-4df2-aa07-8f74679bfc2d",
+        "end": 1747447327000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "911798781844",
+        "url": "https://sf-item.taobao.com/sf_item/911798781844.htm?track_id=dd9b2ad6-0c16-4fa0-934f-94384d19c8fc",
+        "end": 1747447200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "911714885967",
+        "url": "https://sf-item.taobao.com/sf_item/911714885967.htm?track_id=98567983-42db-4b7e-86fc-8d7aa57f687c",
+        "end": 1747447272000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "912203808769",
+        "url": "https://sf-item.taobao.com/sf_item/912203808769.htm?track_id=3e277872-f2f4-460e-bf9c-f12a169b8795",
+        "end": 1747449294000,
         "status": "done",
         "is_processed": false
     }

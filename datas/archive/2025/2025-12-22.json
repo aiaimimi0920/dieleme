@@ -485,12 +485,25 @@
         "detail_captured": true
     },
     {
-        "id": "1001286292762",
-        "url": "https://sf-item.taobao.com/sf_item/1001286292762.htm?track_id=2b7cafab-ad8b-43da-899c-d144c94318c5",
-        "end": 1766373599000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/1001286292762.htm"
+        "id": 1001286292762,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1193896,
+        "交易时间": "2025-12-22 11:19:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1001286292762.htm?track_id=2b7cafab-ad8b-43da-899c-d144c94318c5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 淮安市 淮安区 金奥国际中心一期9号楼2004室",
+        "所属小区": "金奥国际中心",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": "金奥国际中心商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 996059301757,
@@ -514,25 +527,67 @@
         "detail_captured": true
     },
     {
-        "id": "1001178112342",
-        "url": "https://sf-item.taobao.com/sf_item/1001178112342.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
-        "end": 1766368800000,
-        "status": "done",
-        "is_processed": false
+        "id": 1001178112342,
+        "市场评估价": null,
+        "起拍价格": 650607,
+        "成交价格": 650607,
+        "交易时间": "2025-12-22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1001178112342.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 新密市 曲梁镇蒋坡街79号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": "曲梁镇",
+        "建筑面积": 137.47,
+        "单价": 4735.31,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "999169619113",
-        "url": "https://sf-item.taobao.com/sf_item/999169619113.htm?track_id=e7a54447-6924-4a88-8baa-334f0f068dfd",
-        "end": 1766368800000,
-        "status": "done",
-        "is_processed": false
+        "id": 999169619113,
+        "市场评估价": 2837620,
+        "起拍价格": 1589068,
+        "成交价格": 1589068,
+        "交易时间": "2025/12/22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/999169619113.htm?track_id=e7a54447-6924-4a88-8baa-334f0f068dfd",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 博罗县罗阳街道城东区曙光路68号江山美苑三期C18栋30-31层01房及地下室B区B2层381车位",
+        "所属小区": "江山美苑三期",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "城东区",
+        "建筑面积": 319.09,
+        "单价": 4980.03,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "1000468845121",
-        "url": "https://sf-item.taobao.com/sf_item/1000468845121.htm?track_id=e7a54447-6924-4a88-8baa-334f0f068dfd",
-        "end": 1766368804000,
-        "status": "done",
-        "is_processed": false
+        "id": 1000468845121,
+        "市场评估价": 613600,
+        "起拍价格": 498000,
+        "成交价格": 498000,
+        "交易时间": "2025/12/22 10:00:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1000468845121.htm?track_id=e7a54447-6924-4a88-8baa-334f0f068dfd",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 园洲镇下南村委会园洲大道北面地段汇园国际花园二期15栋商住楼9层03房",
+        "所属小区": "汇园国际花园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "园洲镇",
+        "建筑面积": 115.7,
+        "单价": 4304.24,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "994912350524",
@@ -542,30 +597,205 @@
         "is_processed": false
     },
     {
-        "id": "994581231566",
-        "url": "https://sf-item.taobao.com/sf_item/994581231566.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
-        "end": 1766370213000,
-        "status": "done",
-        "is_processed": false
+        "id": 994581231566,
+        "市场评估价": 578000,
+        "起拍价格": 404600,
+        "成交价格": 471600,
+        "交易时间": "2025-12-22 10:23:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/994581231566.htm?track_id=cd8d7ec0-f6af-4588-a844-c293ad62596f",
+        "是否成交": true,
+        "竞拍人数": 68,
+        "出价人数": 68,
+        "地点": "浙江省 嘉兴市 海盐县 海盐县武原街道盐丰路330号海云间小区9幢1405室",
+        "所属小区": "海云间小区",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道商圈",
+        "建筑面积": 90.03,
+        "单价": 5237.68,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "1001255416813",
-        "url": "https://sf-item.taobao.com/sf_item/1001255416813.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
-        "end": 1766373241000,
-        "status": "done",
-        "is_processed": false
+        "id": 1001255416813,
+        "市场评估价": null,
+        "起拍价格": 1174765.57,
+        "成交价格": 1394765.57,
+        "交易时间": "2025/12/22 11:14:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1001255416813.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 44,
+        "地点": "浙江省杭州市滨江区长河街道环亚航银座6幢101室",
+        "所属小区": "环亚航银座",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江商圈",
+        "建筑面积": 199.17,
+        "单价": 7002.42,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "999131199179",
-        "url": "https://sf-item.taobao.com/sf_item/999131199179.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
-        "end": 1766371825000,
-        "status": "done",
-        "is_processed": false
+        "id": 999131199179,
+        "市场评估价": null,
+        "起拍价格": 1837367.3,
+        "成交价格": 1987367.3,
+        "交易时间": "2025-12-22T10:50:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/999131199179.htm?track_id=b377c580-a7f5-43e9-b72c-93bf73c0fa42",
+        "是否成交": true,
+        "竞拍人数": 25,
+        "出价人数": 25,
+        "地点": "浙江省 杭州市 滨江区 长河街道环亚航银座6幢201室",
+        "所属小区": "环亚航银座",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江高新",
+        "建筑面积": 304.74,
+        "单价": 6522.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "1000528765907",
         "url": "https://sf-item.taobao.com/sf_item/1000528765907.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
         "end": 1766370856000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999063427448",
+        "url": "https://sf-item.taobao.com/sf_item/999063427448.htm?track_id=f3e6fb9d-e938-488c-9090-5238a2891f28",
+        "end": 1766369152000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999658170523",
+        "url": "https://sf-item.taobao.com/sf_item/999658170523.htm?track_id=0d8930f8-84b8-488e-b35c-8ea04456fd1b",
+        "end": 1766368800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999126279153",
+        "url": "https://sf-item.taobao.com/sf_item/999126279153.htm?track_id=270daa9e-b990-4124-b38a-5a1621dd3c7c",
+        "end": 1766369091000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999879978415",
+        "url": "https://sf-item.taobao.com/sf_item/999879978415.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "end": 1766369797000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1000567153681",
+        "url": "https://sf-item.taobao.com/sf_item/1000567153681.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1766370041000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999267235105",
+        "url": "https://sf-item.taobao.com/sf_item/999267235105.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1766370318000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999851106523",
+        "url": "https://sf-item.taobao.com/sf_item/999851106523.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1766370594000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1001393548946",
+        "url": "https://sf-item.taobao.com/sf_item/1001393548946.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1766369270000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999099247439",
+        "url": "https://sf-item.taobao.com/sf_item/999099247439.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1766369701000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999190003972",
+        "url": "https://sf-item.taobao.com/sf_item/999190003972.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1766368800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999267035474",
+        "url": "https://sf-item.taobao.com/sf_item/999267035474.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1766368800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999267263070",
+        "url": "https://sf-item.taobao.com/sf_item/999267263070.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1766368800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999785986252",
+        "url": "https://sf-item.taobao.com/sf_item/999785986252.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1766368800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "999851054428",
+        "url": "https://sf-item.taobao.com/sf_item/999851054428.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1766368800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1000558165220",
+        "url": "https://sf-item.taobao.com/sf_item/1000558165220.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1766368800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1000577533535",
+        "url": "https://sf-item.taobao.com/sf_item/1000577533535.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1766368800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1000577801740",
+        "url": "https://sf-item.taobao.com/sf_item/1000577801740.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1766368800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1000665037784",
+        "url": "https://sf-item.taobao.com/sf_item/1000665037784.htm?track_id=28e60be4-916f-4210-b04b-4de12abb78d2",
+        "end": 1766368800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1001176572931",
+        "url": "https://sf-item.taobao.com/sf_item/1001176572931.htm?track_id=fb35d09c-9591-40f4-8668-e4abba953bf0",
+        "end": 1766370014000,
         "status": "done",
         "is_processed": false
     }

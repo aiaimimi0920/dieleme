@@ -483,25 +483,67 @@
         "detail_captured": true
     },
     {
-        "id": "758824433219",
-        "url": "https://sf-item.taobao.com/sf_item/758824433219.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
-        "end": 1706666400000,
-        "status": "done",
-        "is_processed": false
+        "id": 758824433219,
+        "市场评估价": null,
+        "起拍价格": 650000,
+        "成交价格": 650000,
+        "交易时间": "2024/01/31 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/758824433219.htm?track_id=6dc6b681-e861-4d87-b0a6-412cefd8608b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 新密市 城区富民路2号（密登堡桂苑）11号楼1单元7层703（合同号：18334504）",
+        "所属小区": "密登堡桂苑",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 127.3,
+        "单价": 5104.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "758478398530",
-        "url": "https://sf-item.taobao.com/sf_item/758478398530.htm?track_id=375f93c0-4a0c-406a-a015-a7462976ee1c",
-        "end": 1706669631000,
-        "status": "done",
-        "is_processed": false
+        "id": 758478398530,
+        "市场评估价": 831882,
+        "起拍价格": 665506,
+        "成交价格": 917506,
+        "交易时间": "2024/01/31 10:53:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/758478398530.htm?track_id=375f93c0-4a0c-406a-a015-a7462976ee1c",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 90,
+        "地点": "安徽省 合肥市 瑶海区 合肥市瑶海区大兴镇裕溪路228号合肥大兴周谷堆农产品物流园7幢商121/商121上室",
+        "所属小区": "合肥大兴周谷堆农产品物流园",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "大兴镇",
+        "建筑面积": 66.34,
+        "单价": 13829.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "758132672278",
-        "url": "https://sf-item.taobao.com/sf_item/758132672278.htm?track_id=ed45c085-6979-434d-b5f5-48502876b866",
-        "end": 1706666400000,
-        "status": "done",
-        "is_processed": false
+        "id": 758132672278,
+        "市场评估价": 0,
+        "起拍价格": 1114050,
+        "成交价格": 1114050,
+        "交易时间": "2024/01/31 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/758132672278.htm?track_id=ed45c085-6979-434d-b5f5-48502876b866",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "湖北省 襄阳市 襄城区 高新区长虹北路民发天地13幢1单元15层1室房产",
+        "所属小区": "民发天地",
+        "省份": "湖北省",
+        "城市": "襄阳市",
+        "区": "襄城区",
+        "最靠近商圈": "长虹北路商圈",
+        "建筑面积": 161.4,
+        "单价": 6900.9,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "759177702344",
@@ -514,6 +556,34 @@
         "id": "759781844304",
         "url": "https://sf-item.taobao.com/sf_item/759781844304.htm?track_id=a351b027-ffb1-477b-8259-d0deefb25d30",
         "end": 1706666509000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "748881152954",
+        "url": "https://sf-item.taobao.com/sf_item/748881152954.htm?track_id=53ecf66e-fff0-40e6-bfb1-10d37f267b1e",
+        "end": 1706685010000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "749184319543",
+        "url": "https://sf-item.taobao.com/sf_item/749184319543.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1706674190000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "749184543345",
+        "url": "https://sf-item.taobao.com/sf_item/749184543345.htm?track_id=ddd64408-701c-4be8-9c96-d0e3cbe0b0fa",
+        "end": 1706685238000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "757009104766",
+        "url": "https://sf-item.taobao.com/sf_item/757009104766.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "end": 1706670158000,
         "status": "done",
         "is_processed": false
     }

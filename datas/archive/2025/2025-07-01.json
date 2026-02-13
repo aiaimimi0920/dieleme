@@ -1565,11 +1565,25 @@
         "原始网站": "https://sf-item.taobao.com/sf_item/929659243735.htm"
     },
     {
-        "id": "930597319799",
-        "url": "https://sf-item.taobao.com/sf_item/930597319799.htm?track_id=550b9314-3d9c-4ea4-be54-b1fbc20ac0c9",
-        "end": 1751335200000,
-        "status": "done",
-        "is_processed": false
+        "id": 930597319799,
+        "市场评估价": null,
+        "起拍价格": 476000,
+        "成交价格": 476000,
+        "交易时间": "2025/07/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/930597319799.htm?track_id=550b9314-3d9c-4ea4-be54-b1fbc20ac0c9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江西省上饶市铅山县河口镇城东社区复兴南路东侧12直（天赐家园对面）",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "铅山县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 930593102974,
@@ -1593,11 +1607,25 @@
         "detail_captured": true
     },
     {
-        "id": "939785956694",
-        "url": "https://sf-item.taobao.com/sf_item/939785956694.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
-        "end": 1751335204000,
-        "status": "done",
-        "is_processed": false
+        "id": 939785956694,
+        "市场评估价": 169997.24,
+        "起拍价格": 135997.8,
+        "成交价格": 137997.8,
+        "交易时间": "2025/07/01 10:00:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/939785956694.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "河北省 廊坊市 霸州市 燕城益津湾小区1号车库139室",
+        "所属小区": "燕城益津湾",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "益津湾",
+        "建筑面积": 22.57,
+        "单价": 6111.56,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "932725408694",
@@ -1617,6 +1645,62 @@
         "id": "937540689439",
         "url": "https://sf-item.taobao.com/sf_item/937540689439.htm?track_id=59e63ae0-8744-458a-8d62-3648aa0e3c75",
         "end": 1751342412000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "930037991111",
+        "url": "https://sf-item.taobao.com/sf_item/930037991111.htm?track_id=464d3b98-b48f-4fae-9da9-f05e77c9eda2",
+        "end": 1751335200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "931189502060",
+        "url": "https://sf-item.taobao.com/sf_item/931189502060.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1751338321000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "938654086884",
+        "url": "https://sf-item.taobao.com/sf_item/938654086884.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "end": 1751340775000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "937928745647",
+        "url": "https://sf-item.taobao.com/sf_item/937928745647.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "end": 1751337288000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "930618883432",
+        "url": "https://sf-item.taobao.com/sf_item/930618883432.htm?track_id=f9fba1dc-0a83-468f-bda8-aa92f58b8e7a",
+        "end": 1751336562000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "939221033932",
+        "url": "https://sf-item.taobao.com/sf_item/939221033932.htm?track_id=be1a606a-6125-4df8-889e-7032b2fbb82a",
+        "end": 1751336706000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "931608454999",
+        "url": "https://sf-item.taobao.com/sf_item/931608454999.htm?track_id=08271d2b-720b-4ac9-8bef-4716c7dea6e2",
+        "end": 1751337056000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "928588456820",
+        "url": "https://sf-item.taobao.com/sf_item/928588456820.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1751348049000,
         "status": "done",
         "is_processed": false
     }

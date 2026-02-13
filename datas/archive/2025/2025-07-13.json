@@ -210,16 +210,51 @@
         "detail_captured": true
     },
     {
-        "id": "944038395234",
-        "url": "https://sf-item.taobao.com/sf_item/944038395234.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
-        "end": 1752375967000,
-        "status": "done",
-        "is_processed": false
+        "id": 944038395234,
+        "市场评估价": 156153,
+        "起拍价格": 87445.68,
+        "成交价格": 120945.68,
+        "交易时间": "2025-07-13 11:06:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/944038395234.htm?track_id=a0078cd3-88cf-4e92-a843-751343a560d5",
+        "是否成交": true,
+        "竞拍人数": 61,
+        "出价人数": 64,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 爱丹路育才小区5号楼1单元203",
+        "所属小区": "育才小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市爱丹路商圈",
+        "建筑面积": 56.99,
+        "单价": 2121.15,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "945196761070",
         "url": "https://sf-item.taobao.com/sf_item/945196761070.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
         "end": 1752372035000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "939025612937",
+        "url": "https://sf-item.taobao.com/sf_item/939025612937.htm?track_id=f1ff17f2-ecc2-4537-a574-f646ca8d0355",
+        "end": 1752372042000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "934596896318",
+        "url": "https://sf-item.taobao.com/sf_item/934596896318.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "end": 1752372029000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "934592792437",
+        "url": "https://sf-item.taobao.com/sf_item/934592792437.htm?track_id=0446e63e-c627-4515-9144-1e3ccb4cd3ce",
+        "end": 1752374980000,
         "status": "done",
         "is_processed": false
     }

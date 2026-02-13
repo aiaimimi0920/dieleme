@@ -329,18 +329,46 @@
         "is_processed": false
     },
     {
-        "id": "624675955489",
-        "url": "https://sf-item.taobao.com/sf_item/624675955489.htm?track_id=e74a98ac-e47a-499f-8827-8d5ebe2b7b1e",
-        "end": 1598840876000,
-        "status": "done",
-        "is_processed": false
+        "id": 624675955489,
+        "市场评估价": 0,
+        "起拍价格": 648000,
+        "成交价格": 768000,
+        "交易时间": "2020/08/31 10:27:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624675955489.htm?track_id=e74a98ac-e47a-499f-8827-8d5ebe2b7b1e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 24,
+        "地点": "河南省 信阳市 平桥区 中心大道",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "平桥中心大道",
+        "建筑面积": 68.42,
+        "单价": 11225.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "625305659000",
-        "url": "https://sf-item.taobao.com/sf_item/625305659000.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
-        "end": 1598844009000,
-        "status": "done",
-        "is_processed": false
+        "id": 625305659000,
+        "市场评估价": 7730000,
+        "起拍价格": 5300000,
+        "成交价格": 6160000,
+        "交易时间": "2020-08-31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625305659000.htm?track_id=ae5c8f1c-a668-4489-9007-756eb08b0fa2",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 82,
+        "地点": "浙江省杭州市滨江区西兴街道滨盛路1509号天恒大厦1704室",
+        "所属小区": "天恒大厦",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江商圈",
+        "建筑面积": 338.21,
+        "单价": 18215.07,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "624087933959",
@@ -360,6 +388,13 @@
         "id": "623733472397",
         "url": "https://sf-item.taobao.com/sf_item/623733472397.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
         "end": 1598842217000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "623796272724",
+        "url": "https://sf-item.taobao.com/sf_item/623796272724.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1598845426000,
         "status": "done",
         "is_processed": false
     }

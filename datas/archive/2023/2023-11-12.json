@@ -112,16 +112,65 @@
         "is_processed": false
     },
     {
-        "id": "745059211453",
-        "url": "https://sf-item.taobao.com/sf_item/745059211453.htm?track_id=5ede635e-ee33-491b-94f8-6189342541ca",
-        "end": 1699758150000,
-        "status": "done",
-        "is_processed": false
+        "id": 745059211453,
+        "市场评估价": 0,
+        "起拍价格": 1776080,
+        "成交价格": 1776080,
+        "交易时间": "2023/11/12 11:02:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/745059211453.htm?track_id=5ede635e-ee33-491b-94f8-6189342541ca",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城九路79号（现鼎正·中央领郡）4幢20201室",
+        "所属小区": "鼎正·中央领郡",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 112.52,
+        "单价": 15785.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "740849857546",
         "url": "https://sf-item.taobao.com/sf_item/740849857546.htm?track_id=a351b027-ffb1-477b-8259-d0deefb25d30",
         "end": 1699790674000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "742891615046",
+        "url": "https://sf-item.taobao.com/sf_item/742891615046.htm?track_id=bb7a356f-f90b-422c-910b-47b42d1399f4",
+        "end": 1699754633000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "742354979757",
+        "url": "https://sf-item.taobao.com/sf_item/742354979757.htm?track_id=3401c2af-2705-4b5d-a95a-3f8fafeeaca1",
+        "end": 1699755271000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "738512708813",
+        "url": "https://sf-item.taobao.com/sf_item/738512708813.htm?track_id=9804c2de-0abf-4081-be9f-4ca17db7e6a3",
+        "end": 1699822515000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "742766083205",
+        "url": "https://sf-item.taobao.com/sf_item/742766083205.htm?track_id=57ebabcd-28ac-405a-a636-47bdb8bc5f01",
+        "end": 1699754400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "742566385890",
+        "url": "https://sf-item.taobao.com/sf_item/742566385890.htm?track_id=372083ae-219b-405a-b6f1-dd5cf7092ecf",
+        "end": 1699754400000,
         "status": "done",
         "is_processed": false
     }

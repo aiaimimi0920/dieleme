@@ -423,11 +423,25 @@
         "detail_captured": true
     },
     {
-        "id": "747440851039",
-        "url": "https://sf-item.taobao.com/sf_item/747440851039.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
-        "end": 1703061944000,
-        "status": "done",
-        "is_processed": false
+        "id": 747440851039,
+        "市场评估价": null,
+        "起拍价格": 300000,
+        "成交价格": 1550000,
+        "交易时间": "2023-12-20 16:45:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/747440851039.htm?track_id=a54c07b6-18cf-4e65-b502-7e3fbdc014b5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 南昌市 青云谱区 三店西路丝网塘5号象湖源A3栋2单元703室",
+        "所属小区": "象湖源",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "象湖新城",
+        "建筑面积": 235.38,
+        "单价": 6589.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "749466133976",
@@ -437,11 +451,25 @@
         "is_processed": false
     },
     {
-        "id": "748774577345",
-        "url": "https://sf-item.taobao.com/sf_item/748774577345.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
-        "end": 1703039740000,
-        "status": "done",
-        "is_processed": false
+        "id": 748774577345,
+        "市场评估价": 588490,
+        "起拍价格": 441368,
+        "成交价格": 561368,
+        "交易时间": "2023/12/20 10:35:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/748774577345.htm?track_id=38660b1f-8013-4f96-a1b8-b2c0d39a48c8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 61,
+        "地点": "合肥市瑶海区采石路23号钢北文明大院小区13幢2单元204室",
+        "所属小区": "钢北文明大院",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "龙岗",
+        "建筑面积": 56.78,
+        "单价": 9889.6,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "748876452278",
@@ -451,9 +479,37 @@
         "is_processed": false
     },
     {
-        "id": "749323508194",
-        "url": "https://sf-item.taobao.com/sf_item/749323508194.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
-        "end": 1703040903000,
+        "id": 749323508194,
+        "市场评估价": 0,
+        "起拍价格": 219600,
+        "成交价格": 265600,
+        "交易时间": "2023/12/20 10:55:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/749323508194.htm?track_id=0d9622d4-fdee-446b-ab91-df58bb3470a7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 24,
+        "地点": "河南省郑州市二七区一马路1号8号楼1层M1596",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": 28.3,
+        "单价": 9385.16,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "742299271090",
+        "url": "https://sf-item.taobao.com/sf_item/742299271090.htm?track_id=4a35f8b2-5184-4e42-8379-d057d09c3d9c",
+        "end": 1703049462000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "743776452386",
+        "url": "https://sf-item.taobao.com/sf_item/743776452386.htm?track_id=f1ff17f2-ecc2-4537-a574-f646ca8d0355",
+        "end": 1703050156000,
         "status": "done",
         "is_processed": false
     }

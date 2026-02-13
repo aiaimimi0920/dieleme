@@ -189,12 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "637519346420",
-        "url": "https://sf-item.taobao.com/sf_item/637519346420.htm?track_id=d45c34f4-0f53-47d9-ac99-23fc46900cd3",
-        "end": 1613872800000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/637519346420.htm"
+        "id": 637519346420,
+        "市场评估价": null,
+        "起拍价格": 232000,
+        "成交价格": 320000,
+        "交易时间": "2021-02-21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637519346420.htm?track_id=d45c34f4-0f53-47d9-ac99-23fc46900cd3",
+        "是否成交": true,
+        "竞拍人数": 44,
+        "出价人数": 44,
+        "地点": "湖南省 湘潭市 雨湖区 九华经开区桃李南路2号万隆清坊6栋1单元0701001号房屋",
+        "所属小区": "万隆清坊",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "九华经开区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 636334652327,
@@ -358,9 +371,37 @@
         "is_processed": false
     },
     {
-        "id": "636830945417",
-        "url": "https://sf-item.taobao.com/sf_item/636830945417.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
+        "id": 636830945417,
+        "市场评估价": null,
+        "起拍价格": 808080,
+        "成交价格": 833080,
+        "交易时间": "2021/02/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636830945417.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 6,
+        "地点": "河南省 信阳市 平桥区 羊山新区新七大道东方今典E区3号楼2单元24层2405号房屋",
+        "所属小区": "东方今典E区",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区",
+        "建筑面积": 111.35,
+        "单价": 7483.61,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "637046590387",
+        "url": "https://sf-item.taobao.com/sf_item/637046590387.htm?track_id=bd671c96-a855-4938-b47e-195ef1097e2d",
         "end": 1613872800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636205416027",
+        "url": "https://sf-item.taobao.com/sf_item/636205416027.htm?track_id=98c1f1ff-3bb1-407f-830c-58bff771157b",
+        "end": 1613874134000,
         "status": "done",
         "is_processed": false
     }

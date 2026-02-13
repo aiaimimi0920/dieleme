@@ -126,16 +126,65 @@
         "detail_captured": true
     },
     {
-        "id": "800062010580",
-        "url": "https://sf-item.taobao.com/sf_item/800062010580.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
-        "end": 1719453600000,
-        "status": "done",
-        "is_processed": false
+        "id": 800062010580,
+        "市场评估价": 839020,
+        "起拍价格": 672000,
+        "成交价格": 672000,
+        "交易时间": "2024/06/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/800062010580.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳镇惠博大道999号华泓·星岸城10号楼26层02房",
+        "所属小区": "华泓·星岸城",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "惠博大道",
+        "建筑面积": 129.08,
+        "单价": 5206.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "783003563357",
         "url": "https://sf-item.taobao.com/sf_item/783003563357.htm?track_id=5ede635e-ee33-491b-94f8-6189342541ca",
         "end": 1719473634000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "798481403326",
+        "url": "https://sf-item.taobao.com/sf_item/798481403326.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
+        "end": 1719455141000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "797131664819",
+        "url": "https://sf-item.taobao.com/sf_item/797131664819.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1719457996000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "800670066961",
+        "url": "https://sf-item.taobao.com/sf_item/800670066961.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "end": 1719455302000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "794518354906",
+        "url": "https://sf-item.taobao.com/sf_item/794518354906.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1719479351000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "800202998687",
+        "url": "https://sf-item.taobao.com/sf_item/800202998687.htm?track_id=7c151630-b847-4af4-a435-456209157b57",
+        "end": 1719456727000,
         "status": "done",
         "is_processed": false
     }

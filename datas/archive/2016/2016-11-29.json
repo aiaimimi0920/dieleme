@@ -504,18 +504,46 @@
         "detail_captured": true
     },
     {
-        "id": "541585812391",
-        "url": "https://sf-item.taobao.com/sf_item/541585812391.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
-        "end": 1480389312000,
-        "status": "done",
-        "is_processed": false
+        "id": 541585812391,
+        "市场评估价": null,
+        "起拍价格": 624000,
+        "成交价格": 855500,
+        "交易时间": "2016/11/29 11:15:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541585812391.htm?track_id=69212830-7d3f-4e0c-a004-2f7a990b8cd0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 109,
+        "地点": "安徽省 合肥市 瑶海区",
+        "所属小区": "君临大厦",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "站西路",
+        "建筑面积": 77.51,
+        "单价": 11038.06,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "541574049843",
-        "url": "https://sf-item.taobao.com/sf_item/541574049843.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
-        "end": 1480386338000,
-        "status": "done",
-        "is_processed": false
+        "id": 541574049843,
+        "市场评估价": 782600,
+        "起拍价格": 532168,
+        "成交价格": 601168,
+        "交易时间": "2016-11-29 10:25:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541574049843.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 锡山区",
+        "所属小区": "枫情家园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "锡北镇",
+        "建筑面积": 173.47,
+        "单价": 3467.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "542215585320",
@@ -541,6 +569,27 @@
     {
         "id": "542198160096",
         "url": "https://sf-item.taobao.com/sf_item/542198160096.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
+        "end": 1480384800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541733960732",
+        "url": "https://sf-item.taobao.com/sf_item/541733960732.htm?track_id=a541b9a7-dcb0-469a-b59e-522f7b27c71e",
+        "end": 1480385674000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541761425861",
+        "url": "https://sf-item.taobao.com/sf_item/541761425861.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "end": 1480384800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541587607645",
+        "url": "https://sf-item.taobao.com/sf_item/541587607645.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
         "end": 1480384800000,
         "status": "done",
         "is_processed": false

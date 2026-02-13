@@ -231,16 +231,65 @@
         "detail_captured": true
     },
     {
-        "id": "795846244825",
-        "url": "https://sf-item.taobao.com/sf_item/795846244825.htm?track_id=75efc7d9-1c15-436a-a771-a5622ac43bf7",
-        "end": 1717297488000,
-        "status": "done",
-        "is_processed": false
+        "id": 795846244825,
+        "市场评估价": null,
+        "起拍价格": 777004,
+        "成交价格": 933004,
+        "交易时间": "2024/06/02 11:04:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/795846244825.htm?track_id=75efc7d9-1c15-436a-a771-a5622ac43bf7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 未央区 北二环东段南侧136号1幢22001室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "未央湖/凤城五路",
+        "建筑面积": 123.44,
+        "单价": 7558.86,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "796853313715",
         "url": "https://sf-item.taobao.com/sf_item/796853313715.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
         "end": 1717293600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "796291336696",
+        "url": "https://sf-item.taobao.com/sf_item/796291336696.htm?track_id=c3164e4f-6acd-4d84-8c1c-27a59c913fde",
+        "end": 1717294789000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "796142302415",
+        "url": "https://sf-item.taobao.com/sf_item/796142302415.htm?track_id=bce7c78f-af18-4d86-a5d0-8036c9800db5",
+        "end": 1717294703000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "796615286866",
+        "url": "https://sf-item.taobao.com/sf_item/796615286866.htm?track_id=1f756e4c-b012-46bd-9069-1a5d9bb4c457",
+        "end": 1717295824000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "789436333473",
+        "url": "https://sf-item.taobao.com/sf_item/789436333473.htm?track_id=efb4342c-0c1c-4486-9308-1ed5553b53ca",
+        "end": 1717293860000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "796810117509",
+        "url": "https://sf-item.taobao.com/sf_item/796810117509.htm?track_id=a026e066-c153-466b-b34a-d5b096614835",
+        "end": 1717296086000,
         "status": "done",
         "is_processed": false
     }

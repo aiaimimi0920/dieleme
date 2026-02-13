@@ -401,12 +401,25 @@
         "detail_captured": true
     },
     {
-        "id": "778325620909",
-        "url": "https://sf-item.taobao.com/sf_item/778325620909.htm?track_id=f69c765d-fc25-4022-9320-eff31581ed33",
-        "end": 1713146400000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/778325620909.htm"
+        "id": 778325620909,
+        "市场评估价": 0,
+        "起拍价格": 480000,
+        "成交价格": 480000,
+        "交易时间": "2024/04/15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/778325620909.htm?track_id=f69c765d-fc25-4022-9320-eff31581ed33",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 呼和浩特市 回民区 中山西路海亮广场一期Ⅱ项目3号楼9层9019号",
+        "所属小区": "海亮广场",
+        "省份": "内蒙古自治区",
+        "城市": "呼和浩特市",
+        "区": "回民区",
+        "最靠近商圈": "中山西路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 778288151616,
@@ -430,11 +443,25 @@
         "detail_captured": true
     },
     {
-        "id": "778396671643",
-        "url": "https://sf-item.taobao.com/sf_item/778396671643.htm?track_id=0473c4f1-2be1-4662-b171-8dd05ab05dd1",
-        "end": 1713146400000,
-        "status": "done",
-        "is_processed": false
+        "id": 778396671643,
+        "市场评估价": 0,
+        "起拍价格": 117748.28,
+        "成交价格": 137748.28,
+        "交易时间": "2024/04/15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/778396671643.htm?track_id=0473c4f1-2be1-4662-b171-8dd05ab05dd1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 11,
+        "地点": "江苏省 淮安市 涟水县 东鼎小镇",
+        "所属小区": "东鼎小镇",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "涟水县",
+        "最靠近商圈": "东鼎商圈",
+        "建筑面积": 110.73,
+        "单价": 1243.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "772377451525",
@@ -447,6 +474,20 @@
         "id": "773972287042",
         "url": "https://sf-item.taobao.com/sf_item/773972287042.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
         "end": 1713149021000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "769942538716",
+        "url": "https://sf-item.taobao.com/sf_item/769942538716.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "end": 1713167602000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "778387605154",
+        "url": "https://sf-item.taobao.com/sf_item/778387605154.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1713148573000,
         "status": "done",
         "is_processed": false
     }

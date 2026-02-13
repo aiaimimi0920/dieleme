@@ -86,11 +86,25 @@
         "detail_captured": true
     },
     {
-        "id": "630988491090",
-        "url": "https://sf-item.taobao.com/sf_item/630988491090.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
-        "end": 1606630012000,
-        "status": "done",
-        "is_processed": false
+        "id": 630988491090,
+        "市场评估价": 0,
+        "起拍价格": 2239894,
+        "成交价格": 2770894,
+        "交易时间": "2020-11-29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/630988491090.htm?track_id=526aadfb-478c-4aa2-9ec5-699273ccd64b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 327,
+        "地点": "内蒙古自治区 包头市 昆都仑区 少先路16号街坊香港花园景庭轩6-4号",
+        "所属小区": "香港花园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "少先路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 630117428173,
@@ -114,11 +128,25 @@
         "detail_captured": true
     },
     {
-        "id": "631397769127",
-        "url": "https://sf-item.taobao.com/sf_item/631397769127.htm?track_id=136b1d57-1667-400c-b563-3a47d58cb4c6",
-        "end": 1606618927000,
-        "status": "done",
-        "is_processed": false
+        "id": 631397769127,
+        "市场评估价": null,
+        "起拍价格": 585280,
+        "成交价格": 885280,
+        "交易时间": "2020-11-29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/631397769127.htm?track_id=136b1d57-1667-400c-b563-3a47d58cb4c6",
+        "是否成交": true,
+        "竞拍人数": 42,
+        "出价人数": 51,
+        "地点": "福建省 厦门市 翔安区 马巷镇书院路45号B楼701室",
+        "所属小区": "翔安区马巷镇书院路45号B楼",
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "翔安区",
+        "最靠近商圈": "马巷",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "631397589002",
@@ -128,18 +156,46 @@
         "is_processed": false
     },
     {
-        "id": "631703050076",
-        "url": "https://sf-item.taobao.com/sf_item/631703050076.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
-        "end": 1606616053000,
-        "status": "done",
-        "is_processed": false
+        "id": 631703050076,
+        "市场评估价": 250000,
+        "起拍价格": 220000,
+        "成交价格": 261000,
+        "交易时间": "2020-11-29 10:14:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/631703050076.htm?track_id=33a92d98-5a97-4aff-b201-17b2debf5505",
+        "是否成交": true,
+        "竞拍人数": 42,
+        "出价人数": 42,
+        "地点": "山东省 潍坊市 昌邑市 昌邑市市府街6号时代广场新嘉国际1512号",
+        "所属小区": "时代广场新嘉国际",
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "昌邑市",
+        "最靠近商圈": "市府街商圈",
+        "建筑面积": 41,
+        "单价": 6365.85,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "631062123767",
-        "url": "https://sf-item.taobao.com/sf_item/631062123767.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
-        "end": 1606617109000,
-        "status": "done",
-        "is_processed": false
+        "id": 631062123767,
+        "市场评估价": null,
+        "起拍价格": 1100188.6,
+        "成交价格": 1149188.6,
+        "交易时间": "2020-11-29 10:31:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/631062123767.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
+        "是否成交": true,
+        "竞拍人数": 37,
+        "出价人数": 37,
+        "地点": "吉林省 吉林市 船营区 和龙一号街",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "631096507910",
@@ -149,16 +205,79 @@
         "is_processed": false
     },
     {
-        "id": "630309821559",
-        "url": "https://sf-item.taobao.com/sf_item/630309821559.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
-        "end": 1606616648000,
-        "status": "done",
-        "is_processed": false
+        "id": 630309821559,
+        "市场评估价": null,
+        "起拍价格": 1597000,
+        "成交价格": 2347000,
+        "交易时间": "2020/11/29 10:24:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/630309821559.htm?track_id=e1e240db-c4ea-4cc7-8c00-cd175ea8ee89",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 129,
+        "地点": "福建省 泉州市 安溪县 鸿业华庭华辉楼3#D25室",
+        "所属小区": "鸿业华庭",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "鸿业嘉辉广场",
+        "建筑面积": 115.87,
+        "单价": 20255.38,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "630118480534",
         "url": "https://sf-item.taobao.com/sf_item/630118480534.htm?track_id=d0061311-1feb-4c56-91d7-2d2fa7310ed8",
         "end": 1606615506000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "630837758612",
+        "url": "https://sf-item.taobao.com/sf_item/630837758612.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "end": 1606616826000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "631085332282",
+        "url": "https://sf-item.taobao.com/sf_item/631085332282.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1606617778000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "631084520424",
+        "url": "https://sf-item.taobao.com/sf_item/631084520424.htm?track_id=a419aa6a-7718-4b70-8a57-e8155e86c306",
+        "end": 1606617357000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "631085000526",
+        "url": "https://sf-item.taobao.com/sf_item/631085000526.htm?track_id=85d6e4c3-5841-4382-a02e-efc4156014e9",
+        "end": 1606615200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632041191098",
+        "url": "https://sf-item.taobao.com/sf_item/632041191098.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1606615397000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "632041591626",
+        "url": "https://sf-item.taobao.com/sf_item/632041591626.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1606615368000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "630137812003",
+        "url": "https://sf-item.taobao.com/sf_item/630137812003.htm?track_id=91c50173-0f11-401f-968d-e3c9c2113021",
+        "end": 1606617641000,
         "status": "done",
         "is_processed": false
     }

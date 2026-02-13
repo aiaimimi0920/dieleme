@@ -1271,11 +1271,25 @@
         "is_processed": false
     },
     {
-        "id": "598453334109",
-        "url": "https://sf-item.taobao.com/sf_item/598453334109.htm?track_id=2a4dbcbf-581b-4c65-afa5-e01fe29ed290",
-        "end": 1565576864000,
-        "status": "done",
-        "is_processed": false
+        "id": 598453334109,
+        "市场评估价": null,
+        "起拍价格": 1068000,
+        "成交价格": 1203000,
+        "交易时间": "2019/08/12 10:27:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/598453334109.htm?track_id=2a4dbcbf-581b-4c65-afa5-e01fe29ed290",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 22,
+        "地点": "陕西省 西安市 未央区 西安市未央区太元路华远君城12幢20109室房屋",
+        "所属小区": "华远君城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "大明宫",
+        "建筑面积": 83.71,
+        "单价": 14374.27,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "598457674324",
@@ -1288,6 +1302,20 @@
         "id": "598270505072",
         "url": "https://sf-item.taobao.com/sf_item/598270505072.htm?track_id=583307e6-8155-4978-9811-3b08dfa48f32",
         "end": 1565578189000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598102232277",
+        "url": "https://sf-item.taobao.com/sf_item/598102232277.htm?track_id=97e5bd05-8658-4930-ad3a-2ee3169df215",
+        "end": 1565577469000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598039524640",
+        "url": "https://sf-item.taobao.com/sf_item/598039524640.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
+        "end": 1565576738000,
         "status": "done",
         "is_processed": false
     }

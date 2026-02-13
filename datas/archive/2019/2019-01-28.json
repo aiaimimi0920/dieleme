@@ -185,11 +185,12 @@
         "省份": "四川省",
         "城市": "成都市",
         "区": "郫都区",
-        "最靠近商圈": null,
+        "最靠近商圈": "犀浦商圈",
         "建筑面积": 68.76,
-        "单价": 8792.73,
+        "单价": 8785.92,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 585611516721,
@@ -467,9 +468,44 @@
         "detail_captured": true
     },
     {
-        "id": "585060827142",
-        "url": "https://sf-item.taobao.com/sf_item/585060827142.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
-        "end": 1548641383000,
+        "id": 585060827142,
+        "市场评估价": 0,
+        "起拍价格": 2151240,
+        "成交价格": 3501240,
+        "交易时间": "2019/01/28 10:09:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585060827142.htm?track_id=b86dbb63-d3a1-41b0-8a7c-4cbbfdd06731",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 203,
+        "地点": "北京 北京市 海淀区 阜石路甲69号院12号楼2层2单元218号房地产",
+        "所属小区": "阜石路甲69号院",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "海淀",
+        "最靠近商圈": "西钓鱼台",
+        "建筑面积": 58.09,
+        "单价": 60285.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "585141591548",
+        "url": "https://sf-item.taobao.com/sf_item/585141591548.htm?track_id=88a5f1dc-6ecd-43f0-a5dc-1598dff69053",
+        "end": 1548664135000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584768221145",
+        "url": "https://sf-item.taobao.com/sf_item/584768221145.htm?track_id=bc90718d-e65a-4467-9717-78b1a1bf1278",
+        "end": 1548641961000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "584598104214",
+        "url": "https://sf-item.taobao.com/sf_item/584598104214.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
+        "end": 1548644400000,
         "status": "done",
         "is_processed": false
     }

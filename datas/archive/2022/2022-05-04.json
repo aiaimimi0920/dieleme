@@ -106,10 +106,24 @@
         "detail_captured": true
     },
     {
-        "id": "672260019357",
-        "url": "https://sf-item.taobao.com/sf_item/672260019357.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
-        "end": 1651631841000,
-        "status": "done",
-        "is_processed": false
+        "id": 672260019357,
+        "市场评估价": null,
+        "起拍价格": 305807.6,
+        "成交价格": 318807.6,
+        "交易时间": "2022/05/04 10:37:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/672260019357.htm?track_id=190c41fa-13b2-4c2d-a0a1-561311d6e087",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 新密市 城区文峰小区20号楼106号房产一处",
+        "所属小区": "文峰小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": 149,
+        "单价": 2139.65,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

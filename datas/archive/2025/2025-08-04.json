@@ -252,16 +252,72 @@
         "detail_captured": true
     },
     {
-        "id": "952883479772",
-        "url": "https://sf-item.taobao.com/sf_item/952883479772.htm?track_id=10beff77-cbfd-4062-96ee-37ea0a0eb7cf",
-        "end": 1754272952000,
+        "id": 952883479772,
+        "市场评估价": 412170,
+        "起拍价格": 230815.2,
+        "成交价格": 254815.2,
+        "交易时间": "2025-08-04 10:02:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/952883479772.htm?track_id=10beff77-cbfd-4062-96ee-37ea0a0eb7cf",
+        "是否成交": true,
+        "竞拍人数": 23,
+        "出价人数": null,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延北路1192号丹虹小区7号楼1单元1402室",
+        "所属小区": "丹虹小区",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延北路商圈",
+        "建筑面积": 94.73,
+        "单价": 2690.9,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 954024489867,
+        "市场评估价": 707335.38,
+        "起拍价格": 396107.84,
+        "成交价格": 514107.84,
+        "交易时间": "2025/08/04 10:20:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/954024489867.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 46,
+        "地点": "河南省 郑州市 二七区 环翠路138号院 12号楼 2单元29层2903号房产",
+        "所属小区": "亚星盛世悦都",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七新城",
+        "建筑面积": 88.3,
+        "单价": 5822.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "954145101530",
+        "url": "https://sf-item.taobao.com/sf_item/954145101530.htm?track_id=92da65c3-5d9d-4b96-b159-68208a73d697",
+        "end": 1754273321000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "954024489867",
-        "url": "https://sf-item.taobao.com/sf_item/954024489867.htm?track_id=8ef4afff-37ae-4118-8746-f136391a4d4f",
-        "end": 1754274054000,
+        "id": "953754116332",
+        "url": "https://sf-item.taobao.com/sf_item/953754116332.htm?track_id=e0647b2f-b847-499a-b35e-3fe5fd092d80",
+        "end": 1754274431000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "947752398837",
+        "url": "https://sf-item.taobao.com/sf_item/947752398837.htm?track_id=a104badb-d029-4a84-9853-223a95622272",
+        "end": 1754280896000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "946190491202",
+        "url": "https://sf-item.taobao.com/sf_item/946190491202.htm?track_id=33c12eca-632b-41e0-b04f-30305bc638a2",
+        "end": 1754272800000,
         "status": "done",
         "is_processed": false
     }

@@ -65,10 +65,24 @@
         "detail_captured": true
     },
     {
-        "id": "526007707293",
-        "url": "https://sf-item.taobao.com/sf_item/526007707293.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
-        "end": 1453687200000,
-        "status": "done",
-        "is_processed": false
+        "id": 526007707293,
+        "市场评估价": null,
+        "起拍价格": 500800,
+        "成交价格": 500800,
+        "交易时间": "2016/01/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526007707293.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省南平市顺昌县双溪镇城北路天天花园4幢701室",
+        "所属小区": "天天花园",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": null,
+        "建筑面积": 142.93,
+        "单价": 3503.94,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

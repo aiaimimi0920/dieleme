@@ -315,11 +315,25 @@
         "detail_captured": true
     },
     {
-        "id": "733340134938",
-        "url": "https://sf-item.taobao.com/sf_item/733340134938.htm?track_id=b5018658-43ad-4743-9746-2a7f3dbb32bf",
-        "end": 1693362304000,
-        "status": "done",
-        "is_processed": false
+        "id": 733340134938,
+        "市场评估价": null,
+        "起拍价格": 375292,
+        "成交价格": 431572,
+        "交易时间": "2023/08/30 10:25:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/733340134938.htm?track_id=b5018658-43ad-4743-9746-2a7f3dbb32bf",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 15,
+        "地点": "广东省 云浮市 郁南县 都城镇江滨中路10号201房",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "733489003519",
@@ -336,23 +350,86 @@
         "is_processed": false
     },
     {
-        "id": "733018440341",
-        "url": "https://sf-item.taobao.com/sf_item/733018440341.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
-        "end": 1693360800000,
-        "status": "done",
-        "is_processed": false
+        "id": 733018440341,
+        "市场评估价": null,
+        "起拍价格": 184280,
+        "成交价格": 187964,
+        "交易时间": "2023/08/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/733018440341.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省云浮市郁南县都城镇江滨中路10号1001房",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "733336994428",
-        "url": "https://sf-item.taobao.com/sf_item/733336994428.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
-        "end": 1693360800000,
-        "status": "done",
-        "is_processed": false
+        "id": 733336994428,
+        "市场评估价": 0,
+        "起拍价格": 184280,
+        "成交价格": 187964,
+        "交易时间": "2023/08/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/733336994428.htm?track_id=a0b01144-2a13-4dcf-b69a-62f3a79c6e6e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "广东省 云浮市 郁南县 都城镇江滨中路10号1002房",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "733190639553",
         "url": "https://sf-item.taobao.com/sf_item/733190639553.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
         "end": 1693362530000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "730412536194",
+        "url": "https://sf-item.taobao.com/sf_item/730412536194.htm?track_id=1443392f-eda5-4485-ae3d-1971546ce964",
+        "end": 1693364405000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "730757334450",
+        "url": "https://sf-item.taobao.com/sf_item/730757334450.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "end": 1693365703000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "730919577246",
+        "url": "https://sf-item.taobao.com/sf_item/730919577246.htm?track_id=f9fba1dc-0a83-468f-bda8-aa92f58b8e7a",
+        "end": 1693360800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "732751608038",
+        "url": "https://sf-item.taobao.com/sf_item/732751608038.htm?track_id=791d5004-636e-455b-be66-a197a46b170f",
+        "end": 1693364290000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "730764598756",
+        "url": "https://sf-item.taobao.com/sf_item/730764598756.htm?track_id=018cd2d0-3b33-4452-90a3-52a886cb2abb",
+        "end": 1693375513000,
         "status": "done",
         "is_processed": false
     }

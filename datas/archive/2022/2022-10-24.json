@@ -210,9 +210,44 @@
         "detail_captured": true
     },
     {
-        "id": "685077399022",
-        "url": "https://sf-item.taobao.com/sf_item/685077399022.htm?track_id=5984ec99-f57e-41fa-b161-c6b01e8eae21",
-        "end": 1666577370000,
+        "id": 685077399022,
+        "市场评估价": 0,
+        "起拍价格": 299004,
+        "成交价格": 361794,
+        "交易时间": "2022/10/24 10:09:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/685077399022.htm?track_id=5984ec99-f57e-41fa-b161-c6b01e8eae21",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 42,
+        "地点": "广西壮族自治区 贵港市 桂平市 西山镇大坑口江滨领航小区8#-303号房",
+        "所属小区": "江滨领航小区",
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "西山镇",
+        "建筑面积": 84.25,
+        "单价": 4294.51,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "683900648875",
+        "url": "https://sf-item.taobao.com/sf_item/683900648875.htm?track_id=6403f058-7156-41fa-b24c-b2c06801fe6b",
+        "end": 1666578911000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683900828035",
+        "url": "https://sf-item.taobao.com/sf_item/683900828035.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "end": 1666577834000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "683249173427",
+        "url": "https://sf-item.taobao.com/sf_item/683249173427.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1666579124000,
         "status": "done",
         "is_processed": false
     }

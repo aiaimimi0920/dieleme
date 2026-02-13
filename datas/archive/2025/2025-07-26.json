@@ -336,24 +336,86 @@
         "detail_captured": true
     },
     {
-        "id": "949285603957",
-        "url": "https://sf-item.taobao.com/sf_item/949285603957.htm?track_id=4abbc7fa-5c0e-4fa5-8e8e-db852f0811d6",
-        "end": 1753519651000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/949285603957.htm"
+        "id": 949285603957,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 134288,
+        "交易时间": "2025/07/26 16:47:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/949285603957.htm?track_id=4abbc7fa-5c0e-4fa5-8e8e-db852f0811d6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 淮安市 淮安区 伟盛豪庭7号住宅楼308室",
+        "所属小区": "伟盛豪庭",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "淮安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "932191776010",
-        "url": "https://sf-item.taobao.com/sf_item/932191776010.htm?track_id=0f7c79f6-1d57-4cd8-9a8d-0c8e235f582b",
-        "end": 1753521872000,
-        "status": "done",
-        "is_processed": false
+        "id": 932191776010,
+        "市场评估价": 919950,
+        "起拍价格": 746000,
+        "成交价格": 746000,
+        "交易时间": "2025/07/26 17:24:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/932191776010.htm?track_id=0f7c79f6-1d57-4cd8-9a8d-0c8e235f582b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 石湾镇兴业一路南侧聚龙湾商住小区一期6号商住楼1单元15层03房",
+        "所属小区": "聚龙湾商住小区",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾镇",
+        "建筑面积": 107.31,
+        "单价": 6950.0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "949762838495",
         "url": "https://sf-item.taobao.com/sf_item/949762838495.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
         "end": 1753495438000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "944821044061",
+        "url": "https://sf-item.taobao.com/sf_item/944821044061.htm?track_id=c566893a-201b-4839-8262-2d73cb1d9a72",
+        "end": 1753504083000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "948909054346",
+        "url": "https://sf-item.taobao.com/sf_item/948909054346.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1753495200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "943288207981",
+        "url": "https://sf-item.taobao.com/sf_item/943288207981.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
+        "end": 1753495357000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "949284543804",
+        "url": "https://sf-item.taobao.com/sf_item/949284543804.htm?track_id=8aff2cad-797b-46cd-a4eb-8b5f6ed552eb",
+        "end": 1753495473000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "949861554585",
+        "url": "https://sf-item.taobao.com/sf_item/949861554585.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1753499729000,
         "status": "done",
         "is_processed": false
     }

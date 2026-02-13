@@ -467,9 +467,30 @@
         "detail_captured": true
     },
     {
-        "id": "600023304230",
-        "url": "https://sf-item.taobao.com/sf_item/600023304230.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
-        "end": 1567995812000,
+        "id": 600023304230,
+        "市场评估价": null,
+        "起拍价格": 2050000,
+        "成交价格": 2450000,
+        "交易时间": "2019/09/09 10:23:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600023304230.htm?track_id=787ee7fa-9cf6-4e61-9f8f-f69e1d9e4a68",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市海盐县武原街道海丰西路283号保利一品1幢304室",
+        "所属小区": "保利一品",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "海盐城西板块",
+        "建筑面积": 142.66,
+        "单价": 17173.14,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "599316228807",
+        "url": "https://sf-item.taobao.com/sf_item/599316228807.htm?track_id=8d629256-0070-4abe-85e7-e821a435f449",
+        "end": 1567997425000,
         "status": "done",
         "is_processed": false
     }

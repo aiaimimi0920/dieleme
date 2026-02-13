@@ -801,25 +801,67 @@
         "detail_captured": true
     },
     {
-        "id": "677099765642",
-        "url": "https://sf-item.taobao.com/sf_item/677099765642.htm?track_id=a7155322-1f8b-438d-b84c-02072d71caf5",
-        "end": 1661507025000,
-        "status": "done",
-        "is_processed": false
+        "id": 677099765642,
+        "市场评估价": 271692,
+        "起拍价格": 152147.52,
+        "成交价格": 152147.52,
+        "交易时间": "2022/08/26 17:43:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/677099765642.htm?track_id=a7155322-1f8b-438d-b84c-02072d71caf5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 爱丹路光进花苑1号楼地下1015",
+        "所属小区": "光进花苑",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延吉市中心商圈",
+        "建筑面积": 62.34,
+        "单价": 2440.83,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "676947895078",
-        "url": "https://sf-item.taobao.com/sf_item/676947895078.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
-        "end": 1661486174000,
-        "status": "done",
-        "is_processed": false
+        "id": 676947895078,
+        "市场评估价": null,
+        "起拍价格": 765000,
+        "成交价格": 765000,
+        "交易时间": "2022/08/26 11:56:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676947895078.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 区枣园南岭海洋花园小区5幢50302室",
+        "所属小区": "枣园南岭海洋花园小区",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "枣园商圈",
+        "建筑面积": 90.63,
+        "单价": 8441.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "678698376049",
-        "url": "https://sf-item.taobao.com/sf_item/678698376049.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
-        "end": 1661487134000,
-        "status": "done",
-        "is_processed": false
+        "id": 678698376049,
+        "市场评估价": 0,
+        "起拍价格": 404588,
+        "成交价格": 570392,
+        "交易时间": "2022/08/26 12:12:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678698376049.htm?track_id=25120503-66a0-47ac-b189-82c466c22c44",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 77,
+        "地点": "广西壮族自治区 贵港市 桂平市 登记在被继承人徐坚名下位于桂平市西山镇新岗村鑫炎·凤凰城5#-2-1203号商品房",
+        "所属小区": "鑫炎·凤凰城",
+        "省份": "广西壮族自治区",
+        "城市": "贵港市",
+        "区": "桂平市",
+        "最靠近商圈": "大龙城市广场",
+        "建筑面积": 109.57,
+        "单价": 5206.72,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "679025254737",
@@ -846,6 +888,55 @@
         "id": "679700567722",
         "url": "https://sf-item.taobao.com/sf_item/679700567722.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
         "end": 1661480055000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "679037048258",
+        "url": "https://sf-item.taobao.com/sf_item/679037048258.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "end": 1661479200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "678215861966",
+        "url": "https://sf-item.taobao.com/sf_item/678215861966.htm?track_id=ca04b3c1-2fd6-4642-9612-493c851873ab",
+        "end": 1661481362000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "680064680437",
+        "url": "https://sf-item.taobao.com/sf_item/680064680437.htm?track_id=e060ffc2-3fe3-43ca-bf44-12c2e06c793c",
+        "end": 1661480324000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "680126764466",
+        "url": "https://sf-item.taobao.com/sf_item/680126764466.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1661479200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "680761990657",
+        "url": "https://sf-item.taobao.com/sf_item/680761990657.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1661487593000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "680455817895",
+        "url": "https://sf-item.taobao.com/sf_item/680455817895.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1661479200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "681079819195",
+        "url": "https://sf-item.taobao.com/sf_item/681079819195.htm?track_id=e26e09c8-59a4-4233-a492-ec5d900b02bb",
+        "end": 1661479225000,
         "status": "done",
         "is_processed": false
     }

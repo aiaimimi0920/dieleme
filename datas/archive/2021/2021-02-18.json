@@ -320,9 +320,30 @@
         "detail_captured": true
     },
     {
-        "id": "638286359767",
-        "url": "https://sf-item.taobao.com/sf_item/638286359767.htm?track_id=5a15746b-789d-4db3-a5ce-2efeceda8852",
-        "end": 1613615266000,
+        "id": 638286359767,
+        "市场评估价": null,
+        "起拍价格": 1232000,
+        "成交价格": 1503040,
+        "交易时间": "2021/02/18 10:27:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/638286359767.htm?track_id=5a15746b-789d-4db3-a5ce-2efeceda8852",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 44,
+        "地点": "陕西省 西安市 未央区 西安市未央区明光路177号荣成?名苑5幢11804室房产",
+        "所属小区": "荣成·名苑",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经济技术开发区",
+        "建筑面积": 104.39,
+        "单价": 14398.54,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "638274883933",
+        "url": "https://sf-item.taobao.com/sf_item/638274883933.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "end": 1613614941000,
         "status": "done",
         "is_processed": false
     }

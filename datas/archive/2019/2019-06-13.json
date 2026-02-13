@@ -553,18 +553,46 @@
         "detail_captured": true
     },
     {
-        "id": "595151860839",
-        "url": "https://sf-item.taobao.com/sf_item/595151860839.htm?track_id=4db99a87-2bd9-4030-b1fa-33492e39505c",
-        "end": 1560391200000,
-        "status": "done",
-        "is_processed": false
+        "id": 595151860839,
+        "市场评估价": 346896,
+        "起拍价格": 235889.28,
+        "成交价格": 235889.28,
+        "交易时间": "2019-06-13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595151860839.htm?track_id=4db99a87-2bd9-4030-b1fa-33492e39505c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 剑江北路74号公交大厦1-18-4号",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "剑江北路",
+        "建筑面积": 95.04,
+        "单价": 2480.65,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "595381477794",
-        "url": "https://sf-item.taobao.com/sf_item/595381477794.htm?track_id=4db99a87-2bd9-4030-b1fa-33492e39505c",
-        "end": 1560391200000,
-        "status": "done",
-        "is_processed": false
+        "id": 595381477794,
+        "市场评估价": 541512,
+        "起拍价格": 368228.16,
+        "成交价格": 368228.16,
+        "交易时间": "2019/06/13 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595381477794.htm?track_id=4db99a87-2bd9-4030-b1fa-33492e39505c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 剑江北路74号公交大厦1-9-5号",
+        "所属小区": "公交大厦",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "剑江北路",
+        "建筑面积": 150.42,
+        "单价": 2447.95,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "595152812175",
@@ -595,11 +623,25 @@
         "is_processed": false
     },
     {
-        "id": "593629125689",
-        "url": "https://sf-item.taobao.com/sf_item/593629125689.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
-        "end": 1560392267000,
-        "status": "done",
-        "is_processed": false
+        "id": 593629125689,
+        "市场评估价": 516600,
+        "起拍价格": 516600,
+        "成交价格": 736600,
+        "交易时间": "2019/06/13 10:17:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/593629125689.htm?track_id=c114762a-da00-4b65-8255-85d49aa4b8e7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 59,
+        "地点": "福建省 泉州市 安溪县 凤城镇祥云路523-533金盾豪庭1号楼12店",
+        "所属小区": "金盾豪庭",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "凤城镇",
+        "建筑面积": 30.38,
+        "单价": 24245.89,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "594171792480",
@@ -609,9 +651,58 @@
         "is_processed": false
     },
     {
-        "id": "593772960456",
-        "url": "https://sf-item.taobao.com/sf_item/593772960456.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
-        "end": 1560395271000,
+        "id": 593772960456,
+        "市场评估价": 0,
+        "起拍价格": 1800000,
+        "成交价格": 2456000,
+        "交易时间": "2019/06/13 11:07:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/593772960456.htm?track_id=ac7de872-c13c-48aa-817a-128e25a841d7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 78,
+        "地点": "郑州市二七区航海路97号台胞小区161号院",
+        "所属小区": "台胞小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "595290642331",
+        "url": "https://sf-item.taobao.com/sf_item/595290642331.htm?track_id=e489d9f9-cb2c-4b5a-8356-830a0514d014",
+        "end": 1560387926000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595721383640",
+        "url": "https://sf-item.taobao.com/sf_item/595721383640.htm?track_id=149b08ac-863f-4638-b314-644bc2a15f08",
+        "end": 1560391200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595156610577",
+        "url": "https://sf-item.taobao.com/sf_item/595156610577.htm?track_id=372083ae-219b-405a-b6f1-dd5cf7092ecf",
+        "end": 1560392284000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594483917611",
+        "url": "https://sf-item.taobao.com/sf_item/594483917611.htm?track_id=372083ae-219b-405a-b6f1-dd5cf7092ecf",
+        "end": 1560391212000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594660402154",
+        "url": "https://sf-item.taobao.com/sf_item/594660402154.htm?track_id=372083ae-219b-405a-b6f1-dd5cf7092ecf",
+        "end": 1560391246000,
         "status": "done",
         "is_processed": false
     }

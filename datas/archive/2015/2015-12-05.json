@@ -42,10 +42,24 @@
         "detail_captured": true
     },
     {
-        "id": "524136688491",
-        "url": "https://sf-item.taobao.com/sf_item/524136688491.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
-        "end": 1449326448000,
-        "status": "done",
-        "is_processed": false
+        "id": 524136688491,
+        "市场评估价": null,
+        "起拍价格": 525600,
+        "成交价格": 720600,
+        "交易时间": "2015/12/05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524136688491.htm?track_id=15edec5c-e7cd-46e6-a79e-744dcf8f8bf4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 37,
+        "地点": "福建省泉州市安溪县",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "新华路商圈",
+        "建筑面积": 108.2,
+        "单价": 6657.11,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

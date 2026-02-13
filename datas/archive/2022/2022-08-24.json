@@ -840,12 +840,25 @@
         "detail_captured": true
     },
     {
-        "id": "676912828114",
-        "url": "https://sf-item.taobao.com/sf_item/676912828114.htm?track_id=93f5b1ce-1034-4c5d-ba15-3ba24f721dae",
-        "end": 1661334620000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/676912828114.htm"
+        "id": 676912828114,
+        "市场评估价": 1004371,
+        "起拍价格": 562500,
+        "成交价格": 562500,
+        "交易时间": "2022-08-24 17:50:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676912828114.htm?track_id=93f5b1ce-1034-4c5d-ba15-3ba24f721dae",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省上饶市弋阳县南岩镇康伯花园北区西1幢12号",
+        "所属小区": "康伯花园",
+        "省份": "江西省",
+        "城市": "上饶市",
+        "区": "弋阳县",
+        "最靠近商圈": "南岩镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 678843604565,
@@ -953,11 +966,25 @@
         "detail_captured": true
     },
     {
-        "id": "679997889667",
-        "url": "https://sf-item.taobao.com/sf_item/679997889667.htm?track_id=b04c8370-e80e-4212-9eff-cc325f75098a",
-        "end": 1661306400000,
-        "status": "done",
-        "is_processed": false
+        "id": 679997889667,
+        "市场评估价": null,
+        "起拍价格": 62844.16,
+        "成交价格": 62844.16,
+        "交易时间": "2022/08/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/679997889667.htm?track_id=b04c8370-e80e-4212-9eff-cc325f75098a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "广东省 云浮市 郁南县 都城镇城中路七巷52号富临轩首层A101商铺",
+        "所属小区": "富临轩",
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "都城镇中心",
+        "建筑面积": 16.93,
+        "单价": 3713.3,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "679047597320",
@@ -970,6 +997,20 @@
         "id": "680385814421",
         "url": "https://sf-item.taobao.com/sf_item/680385814421.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
         "end": 1661332631000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "679683787469",
+        "url": "https://sf-item.taobao.com/sf_item/679683787469.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1661309517000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "680842451195",
+        "url": "https://sf-item.taobao.com/sf_item/680842451195.htm?track_id=f9fba1dc-0a83-468f-bda8-aa92f58b8e7a",
+        "end": 1661306400000,
         "status": "done",
         "is_processed": false
     }

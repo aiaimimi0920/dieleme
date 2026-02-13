@@ -484,9 +484,51 @@
         "detail_captured": true
     },
     {
-        "id": "669630871014",
-        "url": "https://sf-item.taobao.com/sf_item/669630871014.htm?track_id=36cbdafc-c7f2-4969-8855-cd1ae91bfdc9",
-        "end": 1647057639000,
+        "id": 669630871014,
+        "市场评估价": 2302700,
+        "起拍价格": 1290000,
+        "成交价格": 1905000,
+        "交易时间": "2022/03/12 12:00:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669630871014.htm?track_id=36cbdafc-c7f2-4969-8855-cd1ae91bfdc9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 121,
+        "地点": "无锡市宁海里312-1502不动产",
+        "所属小区": "宁海里",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "江海商圈",
+        "建筑面积": 120,
+        "单价": 15875,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "668936469172",
+        "url": "https://sf-item.taobao.com/sf_item/668936469172.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "end": 1647048431000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "668547604128",
+        "url": "https://sf-item.taobao.com/sf_item/668547604128.htm?track_id=b469f7a8-95ec-4dd5-b6d3-548d550cc022",
+        "end": 1647053435000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "665155288071",
+        "url": "https://sf-item.taobao.com/sf_item/665155288071.htm?track_id=ef50c735-a371-4834-af1b-815806338e54",
+        "end": 1647061935000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "666254079576",
+        "url": "https://sf-item.taobao.com/sf_item/666254079576.htm?track_id=2a8d98d3-fe47-47f3-a78a-7bac19827358",
+        "end": 1647064386000,
         "status": "done",
         "is_processed": false
     }

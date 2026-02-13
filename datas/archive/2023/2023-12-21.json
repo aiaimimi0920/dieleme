@@ -294,30 +294,121 @@
         "detail_captured": true
     },
     {
-        "id": "749595583185",
-        "url": "https://sf-item.taobao.com/sf_item/749595583185.htm?track_id=a964952a-39d1-47ef-967c-21a68995e6ee",
-        "end": 1703126216000,
-        "status": "done",
-        "is_processed": false
+        "id": 749595583185,
+        "市场评估价": 2572600,
+        "起拍价格": 1801000,
+        "成交价格": 2261000,
+        "交易时间": "2023/12/21 10:36:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/749595583185.htm?track_id=a964952a-39d1-47ef-967c-21a68995e6ee",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 78,
+        "地点": "福建省 漳州市 平和县 小溪镇东大路金盛楼107店面",
+        "所属小区": "金盛楼",
+        "省份": "福建省",
+        "城市": "漳州市",
+        "区": "平和县",
+        "最靠近商圈": "小溪镇",
+        "建筑面积": 129.93,
+        "单价": 17398.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "748108506878",
-        "url": "https://sf-item.taobao.com/sf_item/748108506878.htm?track_id=d5f892bf-8cd0-4b5f-b29c-66f68324d079",
-        "end": 1703171301000,
-        "status": "done",
-        "is_processed": false
+        "id": 748108506878,
+        "市场评估价": 718821.46,
+        "起拍价格": 402541,
+        "成交价格": 468541,
+        "交易时间": "2023/12/21 23:08:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/748108506878.htm?track_id=d5f892bf-8cd0-4b5f-b29c-66f68324d079",
+        "是否成交": true,
+        "竞拍人数": 10,
+        "出价人数": 10,
+        "地点": "辽宁省 沈阳市 铁西区 洪湖二街1-2号4-6-1",
+        "所属小区": "珠江馨苑",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "铁西广场",
+        "建筑面积": 100.31,
+        "单价": 4672.54,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "753441607539",
-        "url": "https://sf-item.taobao.com/sf_item/753441607539.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
-        "end": 1703124000000,
-        "status": "done",
-        "is_processed": false
+        "id": 753441607539,
+        "市场评估价": 927384,
+        "起拍价格": 594000,
+        "成交价格": 594000,
+        "交易时间": "2023/12/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/753441607539.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳镇城市山麓三期6栋20层01房",
+        "所属小区": "城市山麓三期",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": 136.38,
+        "单价": 4355.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "746181141544",
         "url": "https://sf-item.taobao.com/sf_item/746181141544.htm?track_id=b319858a-6c6f-4ef0-8884-082019134f32",
         "end": 1703149059000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "749092220034",
+        "url": "https://sf-item.taobao.com/sf_item/749092220034.htm?track_id=14806c98-c91f-44ad-a066-f3ee2a67be60",
+        "end": 1703124021000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "753444119181",
+        "url": "https://sf-item.taobao.com/sf_item/753444119181.htm?track_id=f8fcb460-293d-4823-a6b8-e6d33c641f75",
+        "end": 1703125378000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "753443915391",
+        "url": "https://sf-item.taobao.com/sf_item/753443915391.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "end": 1703124074000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "749842549134",
+        "url": "https://sf-item.taobao.com/sf_item/749842549134.htm?track_id=e64349ce-3027-4f31-9d26-9c53b048c24f",
+        "end": 1703138140000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "746512646408",
+        "url": "https://sf-item.taobao.com/sf_item/746512646408.htm?track_id=c942b978-6435-4083-a290-aabb7d4f8fc7",
+        "end": 1703127147000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747485053324",
+        "url": "https://sf-item.taobao.com/sf_item/747485053324.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "end": 1703127806000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "747557990586",
+        "url": "https://sf-item.taobao.com/sf_item/747557990586.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "end": 1703124000000,
         "status": "done",
         "is_processed": false
     }

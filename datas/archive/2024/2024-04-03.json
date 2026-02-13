@@ -105,11 +105,25 @@
         "detail_captured": true
     },
     {
-        "id": "773156207471",
-        "url": "https://sf-item.taobao.com/sf_item/773156207471.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
-        "end": 1712109600000,
-        "status": "done",
-        "is_processed": false
+        "id": 773156207471,
+        "市场评估价": 0,
+        "起拍价格": 163989,
+        "成交价格": 163989,
+        "交易时间": "2024/04/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/773156207471.htm?track_id=0d4d92e9-2e5f-4c43-917c-e1e5dda6fc98",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 长宁镇罗浮山白云大道地段嘉逸阁520室",
+        "所属小区": "嘉逸阁",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗浮山",
+        "建筑面积": 46.15,
+        "单价": 3553.08,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "769928773343",
@@ -122,6 +136,20 @@
         "id": "769855664057",
         "url": "https://sf-item.taobao.com/sf_item/769855664057.htm?track_id=b04c8370-e80e-4212-9eff-cc325f75098a",
         "end": 1712111323000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "770715787089",
+        "url": "https://sf-item.taobao.com/sf_item/770715787089.htm?track_id=f013eb3a-d76b-4cb1-9f95-b142415f8da5",
+        "end": 1712109600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "769909628418",
+        "url": "https://sf-item.taobao.com/sf_item/769909628418.htm?track_id=7c151630-b847-4af4-a435-456209157b57",
+        "end": 1712111239000,
         "status": "done",
         "is_processed": false
     }

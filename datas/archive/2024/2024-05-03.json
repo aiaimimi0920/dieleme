@@ -189,19 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "779166232729",
-        "url": "https://sf-item.taobao.com/sf_item/779166232729.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
-        "end": 1714704554000,
-        "status": "done",
-        "is_processed": true,
-        "原始网站": "https://sf-item.taobao.com/sf_item/779166232729.htm",
+        "id": 779166232729,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 837493.2,
+        "交易时间": "2024/05/03 10:49:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/779166232729.htm?track_id=b3560186-6bc5-4e8b-a238-f122192fe39e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 淮安市 淮安区 新城市广场1号楼303室",
         "所属小区": "新城市广场",
         "省份": "江苏省",
         "城市": "淮安市",
         "区": "淮安区",
-        "是否成交": false,
-        "manual_checked": true,
-        "最靠近商圈": "新城市广场商圈"
+        "最靠近商圈": "新城市广场",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 779282833516,
@@ -225,16 +231,51 @@
         "detail_captured": true
     },
     {
-        "id": "784360802479",
-        "url": "https://sf-item.taobao.com/sf_item/784360802479.htm?track_id=780393c9-c824-4b3f-9f9e-cac0c063a223",
-        "end": 1714703371000,
-        "status": "done",
-        "is_processed": false
+        "id": 784360802479,
+        "市场评估价": 0,
+        "起拍价格": 668080,
+        "成交价格": 875080,
+        "交易时间": "2024/05/03 10:29:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/784360802479.htm?track_id=780393c9-c824-4b3f-9f9e-cac0c063a223",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 45,
+        "地点": "广东省 惠州市 博罗县 龙溪镇夏寮村第九村民小组大田尾的房地产",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": null,
+        "建筑面积": 378.74,
+        "单价": 2310.82,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "784652814090",
         "url": "https://sf-item.taobao.com/sf_item/784652814090.htm?track_id=a0234ec9-cc55-4428-869e-0613b6c1445c",
         "end": 1714701714000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "784700885448",
+        "url": "https://sf-item.taobao.com/sf_item/784700885448.htm?track_id=08271d2b-720b-4ac9-8bef-4716c7dea6e2",
+        "end": 1714702069000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "784616623315",
+        "url": "https://sf-item.taobao.com/sf_item/784616623315.htm?track_id=7f141910-db51-45a3-9231-296c59c964d5",
+        "end": 1714706642000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "784832920725",
+        "url": "https://sf-item.taobao.com/sf_item/784832920725.htm?track_id=484c1d3b-445f-48dc-a919-19b299929c83",
+        "end": 1714701630000,
         "status": "done",
         "is_processed": false
     }

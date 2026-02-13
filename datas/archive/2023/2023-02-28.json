@@ -294,12 +294,25 @@
         "detail_captured": true
     },
     {
-        "id": "702245451280",
-        "url": "https://sf-item.taobao.com/sf_item/702245451280.htm?track_id=d2411bc4-384f-44ff-af4b-02b881f28598",
-        "end": 1677549600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/702245451280.htm"
+        "id": 702245451280,
+        "市场评估价": null,
+        "起拍价格": 174024,
+        "成交价格": 174024,
+        "交易时间": "2023/02/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/702245451280.htm?track_id=d2411bc4-384f-44ff-af4b-02b881f28598",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 新乡市 卫滨区 新乡市李村小学十字路北第二胡同南邻李长城房后大门朝南东边第一套房屋",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "新乡市",
+        "区": "卫滨区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 701422831900,
@@ -323,11 +336,25 @@
         "detail_captured": true
     },
     {
-        "id": "701510725589",
-        "url": "https://sf-item.taobao.com/sf_item/701510725589.htm?track_id=b5d46ba2-6f8b-4a97-9fec-425fc00a9d71",
-        "end": 1677549600000,
-        "status": "done",
-        "is_processed": false
+        "id": 701510725589,
+        "市场评估价": 487586,
+        "起拍价格": 312056,
+        "成交价格": 312056,
+        "交易时间": "2023/02/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/701510725589.htm?track_id=b5d46ba2-6f8b-4a97-9fec-425fc00a9d71",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 天乐路10号全欣大厦",
+        "所属小区": "全欣大厦",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "天乐路",
+        "建筑面积": 106.02,
+        "单价": 2943.63,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "701993946213",
@@ -340,6 +367,48 @@
         "id": "700699840873",
         "url": "https://sf-item.taobao.com/sf_item/700699840873.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
         "end": 1677550192000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "703287959047",
+        "url": "https://sf-item.taobao.com/sf_item/703287959047.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1677555566000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "703263807144",
+        "url": "https://sf-item.taobao.com/sf_item/703263807144.htm?track_id=3dbaf92b-33e8-4ecd-8d17-12828da30e28",
+        "end": 1677552646000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701991654551",
+        "url": "https://sf-item.taobao.com/sf_item/701991654551.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "end": 1677552853000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "695037518422",
+        "url": "https://sf-item.taobao.com/sf_item/695037518422.htm?track_id=f9fba1dc-0a83-468f-bda8-aa92f58b8e7a",
+        "end": 1677569178000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701737290825",
+        "url": "https://sf-item.taobao.com/sf_item/701737290825.htm?track_id=d587fa4a-2506-44d8-850b-24108ce94457",
+        "end": 1677549600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "698335619692",
+        "url": "https://sf-item.taobao.com/sf_item/698335619692.htm?track_id=8ffeb664-fc36-4e76-b8e5-413758bb262c",
+        "end": 1677553454000,
         "status": "done",
         "is_processed": false
     }

@@ -281,25 +281,67 @@
         "is_processed": false
     },
     {
-        "id": "856721655812",
-        "url": "https://sf-item.taobao.com/sf_item/856721655812.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
-        "end": 1733968804000,
-        "status": "done",
-        "is_processed": false
+        "id": 856721655812,
+        "市场评估价": 1345078,
+        "起拍价格": 1200000,
+        "成交价格": 1200000,
+        "交易时间": "2024/12/12 10:00:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/856721655812.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "陕西省 西安市 未央区 浐灞一号海景北部湾",
+        "所属小区": "浐灞一号",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "浐灞生态区",
+        "建筑面积": 96.65,
+        "单价": 12420.69,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "855065635979",
-        "url": "https://sf-item.taobao.com/sf_item/855065635979.htm?track_id=4bbd9341-f670-46ef-81f2-86bf5d2f46cc",
-        "end": 1733973664000,
-        "status": "done",
-        "is_processed": false
+        "id": 855065635979,
+        "市场评估价": 395300,
+        "起拍价格": 230000,
+        "成交价格": 261000,
+        "交易时间": "2024-12-12 11:21:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/855065635979.htm?track_id=4bbd9341-f670-46ef-81f2-86bf5d2f46cc",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 32,
+        "地点": "江苏省 无锡市 锡山区 无锡市中堂院墅189-507",
+        "所属小区": "中堂院墅",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "锡东新城",
+        "建筑面积": 115,
+        "单价": 2269.57,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "855201830187",
-        "url": "https://sf-item.taobao.com/sf_item/855201830187.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
-        "end": 1733973874000,
-        "status": "done",
-        "is_processed": false
+        "id": 855201830187,
+        "市场评估价": 1471600,
+        "起拍价格": 840000,
+        "成交价格": 1112000,
+        "交易时间": "2024-12-12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/855201830187.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "是否成交": true,
+        "竞拍人数": 56,
+        "出价人数": 56,
+        "地点": "江苏省 无锡市 锡山区 二泉东路16号",
+        "所属小区": "知澜园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "二泉东路商圈",
+        "建筑面积": 89.92,
+        "单价": 12353.33,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "855057367194",
@@ -312,6 +354,48 @@
         "id": "857305776277",
         "url": "https://sf-item.taobao.com/sf_item/857305776277.htm?track_id=9d62b742-b4d8-4891-b062-beb125515e21",
         "end": 1733971799000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "850935810601",
+        "url": "https://sf-item.taobao.com/sf_item/850935810601.htm?track_id=538e65e5-c5d2-4d7d-84ef-e17944f49415",
+        "end": 1733969633000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "850813683605",
+        "url": "https://sf-item.taobao.com/sf_item/850813683605.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1733968800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "855432087363",
+        "url": "https://sf-item.taobao.com/sf_item/855432087363.htm?track_id=e44f4d79-faa1-4a99-b80a-c2d93f330ff8",
+        "end": 1733968923000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "855284965645",
+        "url": "https://sf-item.taobao.com/sf_item/855284965645.htm?track_id=8aff2cad-797b-46cd-a4eb-8b5f6ed552eb",
+        "end": 1733968800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "850956338309",
+        "url": "https://sf-item.taobao.com/sf_item/850956338309.htm?track_id=599f0548-7337-4064-a0a2-c669e108d062",
+        "end": 1733968800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "856826090602",
+        "url": "https://sf-item.taobao.com/sf_item/856826090602.htm?track_id=2b2bafd9-1b69-4ea4-9afa-a1768fda15a0",
+        "end": 1733970208000,
         "status": "done",
         "is_processed": false
     }

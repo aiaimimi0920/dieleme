@@ -273,23 +273,58 @@
         "detail_captured": true
     },
     {
-        "id": "652263590222",
-        "url": "https://sf-item.taobao.com/sf_item/652263590222.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
-        "end": 1629363946000,
-        "status": "done",
-        "is_processed": false
+        "id": 652263590222,
+        "市场评估价": null,
+        "起拍价格": 226097.6,
+        "成交价格": 226097.6,
+        "交易时间": "2021-08-19 17:05:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652263590222.htm?track_id=d99215cb-276c-4293-9532-693ad2edf3e3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "四川省 资阳市 乐至县 曙光路186号2栋1单元6楼1号",
+        "所属小区": "天池镇曙光路住宅",
+        "省份": "四川省",
+        "城市": "资阳市",
+        "区": "乐至县",
+        "最靠近商圈": "天池镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "651237899280",
-        "url": "https://sf-item.taobao.com/sf_item/651237899280.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
-        "end": 1629338400000,
-        "status": "done",
-        "is_processed": false
+        "id": 651237899280,
+        "市场评估价": 1512950,
+        "起拍价格": 1059065,
+        "成交价格": 1059065,
+        "交易时间": "2021/08/19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/651237899280.htm?track_id=f96a8d50-8ece-4f44-8c23-e950681baca6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市 延河路8689号碧水园林小区14号楼1单元502室",
+        "所属小区": "碧水园林",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "延河路",
+        "建筑面积": 224.74,
+        "单价": 4712.94,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "651943217541",
         "url": "https://sf-item.taobao.com/sf_item/651943217541.htm?track_id=5e6c2db1-e58c-4261-9130-fede5b693e40",
         "end": 1629340070000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "651031236029",
+        "url": "https://sf-item.taobao.com/sf_item/651031236029.htm?track_id=89143a92-a511-4287-9fd0-7f485c07af6e",
+        "end": 1629342000000,
         "status": "done",
         "is_processed": false
     }

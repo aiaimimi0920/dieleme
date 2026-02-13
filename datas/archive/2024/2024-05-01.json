@@ -40,5 +40,19 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": "784198926867",
+        "url": "https://sf-item.taobao.com/sf_item/784198926867.htm?track_id=82196956-9870-4cf7-bd42-a3ecac2d7959",
+        "end": 1714528800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "778304227886",
+        "url": "https://sf-item.taobao.com/sf_item/778304227886.htm?track_id=1f756e4c-b012-46bd-9069-1a5d9bb4c457",
+        "end": 1714530298000,
+        "status": "done",
+        "is_processed": false
     }
 ]

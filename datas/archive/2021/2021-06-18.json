@@ -294,12 +294,25 @@
         "detail_captured": true
     },
     {
-        "id": "643348423753",
-        "url": "https://sf-item.taobao.com/sf_item/643348423753.htm?track_id=214ea52d-853d-4f31-befa-cca8abf4631c",
-        "end": 1624002387000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/643348423753.htm"
+        "id": 643348423753,
+        "市场评估价": 248300,
+        "起拍价格": 190000,
+        "成交价格": 190000,
+        "交易时间": "2021/06/18 15:46:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/643348423753.htm?track_id=214ea52d-853d-4f31-befa-cca8abf4631c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 泰安市 宁阳县 磁窑镇中行家属院",
+        "所属小区": "中行家属院",
+        "省份": "山东省",
+        "城市": "泰安市",
+        "区": "宁阳县",
+        "最靠近商圈": "磁窑镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 645710956198,
@@ -323,18 +336,46 @@
         "detail_captured": true
     },
     {
-        "id": "644684017077",
-        "url": "https://sf-item.taobao.com/sf_item/644684017077.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
-        "end": 1623983803000,
-        "status": "done",
-        "is_processed": false
+        "id": 644684017077,
+        "市场评估价": 1132665.5,
+        "起拍价格": 804193,
+        "成交价格": 930193,
+        "交易时间": "2021/06/18 10:36:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/644684017077.htm?track_id=dca23c81-ff05-4ca0-8023-68a71e06864a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 42,
+        "地点": "河北省 廊坊市 霸州市 安泰家园怡景园3-1-1104",
+        "所属小区": "安泰家园怡景园",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": null,
+        "建筑面积": 98.39,
+        "单价": 9456.84,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "644699294760",
-        "url": "https://sf-item.taobao.com/sf_item/644699294760.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
-        "end": 1623990017000,
-        "status": "done",
-        "is_processed": false
+        "id": 644699294760,
+        "市场评估价": 1267400,
+        "起拍价格": 1267400,
+        "成交价格": 2117400,
+        "交易时间": "2021-06-18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/644699294760.htm?track_id=dd09a1e4-bd9d-42c4-b888-f456416a6f4e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 124,
+        "地点": "安徽省 合肥市 瑶海区 大通路6号恒盛豪庭B7幢204室",
+        "所属小区": "恒盛豪庭",
+        "省份": "安徽省",
+        "城市": "合肥市",
+        "区": "瑶海区",
+        "最靠近商圈": "大东门",
+        "建筑面积": 105.26,
+        "单价": 20113.73,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "644038924115",
@@ -351,18 +392,46 @@
         "is_processed": false
     },
     {
-        "id": "646487790531",
-        "url": "https://sf-item.taobao.com/sf_item/646487790531.htm?track_id=1d5d14b5-0c47-438b-96cc-fae3462ab3fc",
-        "end": 1623981709000,
-        "status": "done",
-        "is_processed": false
+        "id": 646487790531,
+        "市场评估价": null,
+        "起拍价格": 4720000,
+        "成交价格": 4720000,
+        "交易时间": "2021/06/18 10:01:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/646487790531.htm?track_id=1d5d14b5-0c47-438b-96cc-fae3462ab3fc",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道朝阳西路95号商铺",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原商圈",
+        "建筑面积": 545.73,
+        "单价": 8649.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "644467673396",
-        "url": "https://sf-item.taobao.com/sf_item/644467673396.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
-        "end": 1623983907000,
-        "status": "done",
-        "is_processed": false
+        "id": 644467673396,
+        "市场评估价": 1621409.66,
+        "起拍价格": 1297127.73,
+        "成交价格": 1767127.73,
+        "交易时间": "2021-06-18 10:38:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/644467673396.htm?track_id=c39b83dd-24d2-4ea2-9576-ea2f9f60e3a6",
+        "是否成交": true,
+        "竞拍人数": 62,
+        "出价人数": 62,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": "环翠路140号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 89.9,
+        "单价": 19651.95,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "646396470563",
@@ -382,6 +451,55 @@
         "id": "644976587909",
         "url": "https://sf-item.taobao.com/sf_item/644976587909.htm?track_id=e17bfa31-568b-40b1-a430-6b187995b33f",
         "end": 1623987332000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646147513536",
+        "url": "https://sf-item.taobao.com/sf_item/646147513536.htm?track_id=32eb1e63-e53e-4f08-ab37-78c418148b67",
+        "end": 1623984690000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "645035786575",
+        "url": "https://sf-item.taobao.com/sf_item/645035786575.htm?track_id=9a15e6c6-c356-47a8-8bad-209c3233d954",
+        "end": 1623981600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "645019578486",
+        "url": "https://sf-item.taobao.com/sf_item/645019578486.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1623986590000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643805652104",
+        "url": "https://sf-item.taobao.com/sf_item/643805652104.htm?track_id=76719f97-8552-487b-9c5c-a975c0dc2e0c",
+        "end": 1623986114000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "646488798285",
+        "url": "https://sf-item.taobao.com/sf_item/646488798285.htm?track_id=5ac6b8c5-236c-4762-8350-062a297a411a",
+        "end": 1623981600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "645624604885",
+        "url": "https://sf-item.taobao.com/sf_item/645624604885.htm?track_id=762f7f74-df31-4cde-a2ba-746313b77ffe",
+        "end": 1623987542000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644121524620",
+        "url": "https://sf-item.taobao.com/sf_item/644121524620.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "end": 1623982424000,
         "status": "done",
         "is_processed": false
     }

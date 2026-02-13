@@ -119,11 +119,12 @@
         "省份": "湖南省",
         "城市": "长沙市",
         "区": "岳麓区",
-        "最靠近商圈": null,
+        "最靠近商圈": "市政府商圈",
         "建筑面积": 82.65,
-        "单价": 6555.53,
+        "单价": 6557.77,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 561704364652,
@@ -142,9 +143,10 @@
         "区": "吴桥县",
         "最靠近商圈": null,
         "建筑面积": 269.21,
-        "单价": 5429.56,
+        "单价": 5425.36,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 561118068598,
@@ -157,15 +159,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "江苏省苏州市姑苏区城北西路1588号26幢109室",
-        "所属小区": null,
+        "所属小区": "万科金域平江",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "姑苏区",
-        "最靠近商圈": null,
+        "最靠近商圈": "平江新城商圈",
         "建筑面积": 53.93,
-        "单价": 24104.6,
+        "单价": 24105.32,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 561296683685,
@@ -189,30 +192,100 @@
         "detail_captured": true
     },
     {
-        "id": "561722540194",
-        "url": "https://sf-item.taobao.com/sf_item/561722540194.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
-        "end": 1513138699000,
-        "status": "done",
-        "is_processed": false
+        "id": 561722540194,
+        "市场评估价": 2906800,
+        "起拍价格": 1627900,
+        "成交价格": 2371900,
+        "交易时间": "2017/12/13 12:18:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561722540194.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 156,
+        "地点": "江苏省 无锡市 锡山区 锡北镇张泾泾皋新村186号",
+        "所属小区": "泾皋新村",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "锡北镇",
+        "建筑面积": 312.52,
+        "单价": 7588.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "561116000246",
-        "url": "https://sf-item.taobao.com/sf_item/561116000246.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
-        "end": 1513134297000,
-        "status": "done",
-        "is_processed": false
+        "id": 561116000246,
+        "市场评估价": 1260000,
+        "起拍价格": 882000,
+        "成交价格": 1184000,
+        "交易时间": "2017/12/13 11:04:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561116000246.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "是否成交": true,
+        "竞拍人数": 102,
+        "出价人数": 110,
+        "地点": "江苏省无锡市锡山区映月华府46-1101室",
+        "所属小区": "映月华府",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": 99.42,
+        "单价": 11913.66,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "561397083203",
-        "url": "https://sf-item.taobao.com/sf_item/561397083203.htm?track_id=d6e0451f-ec2c-4d96-88dc-d92bbcbf6515",
-        "end": 1513132697000,
-        "status": "done",
-        "is_processed": false
+        "id": 561397083203,
+        "市场评估价": null,
+        "起拍价格": 9020000,
+        "成交价格": 13140000,
+        "交易时间": "2017-12-13 10:38:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561397083203.htm?track_id=d6e0451f-ec2c-4d96-88dc-d92bbcbf6515",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 173,
+        "地点": "江苏省 无锡市 梁溪区 县前西街",
+        "所属小区": "县前西街95号",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "中山路商圈",
+        "建筑面积": 657.33,
+        "单价": 19990.31,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "561702864862",
         "url": "https://sf-item.taobao.com/sf_item/561702864862.htm?track_id=2983f99a-2c1f-4c8c-8a28-f7b1e60ab457",
         "end": 1513138894000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561146172034",
+        "url": "https://sf-item.taobao.com/sf_item/561146172034.htm?track_id=d11d3ac0-022c-4954-8551-7bbe829b7eda",
+        "end": 1513134511000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561309898048",
+        "url": "https://sf-item.taobao.com/sf_item/561309898048.htm?track_id=1104a23a-e264-4cea-ac37-135b0cffdbe4",
+        "end": 1513132215000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561375815340",
+        "url": "https://sf-item.taobao.com/sf_item/561375815340.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "end": 1513133425000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561301667003",
+        "url": "https://sf-item.taobao.com/sf_item/561301667003.htm?track_id=1fb0e051-b7d7-4b25-84e7-2bf92f7c2152",
+        "end": 1513133059000,
         "status": "done",
         "is_processed": false
     }

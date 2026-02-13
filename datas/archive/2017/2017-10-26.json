@@ -239,15 +239,67 @@
         "detail_captured": true
     },
     {
-        "id": "559643500765",
-        "url": "https://sf-item.taobao.com/sf_item/559643500765.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
-        "end": 1508984519000,
+        "id": 559643500765,
+        "市场评估价": null,
+        "起拍价格": [
+            317520
+        ],
+        "成交价格": [
+            377520
+        ],
+        "交易时间": "2017-10-26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559643500765.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": [
+            13
+        ],
+        "地点": "福建省 南平市 顺昌县 双溪街道龙山路西侧2幢6层603室",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": null,
+        "建筑面积": [
+            114.16
+        ],
+        "单价": [
+            3306.42
+        ],
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 558606919311,
+        "市场评估价": 822700,
+        "起拍价格": 658160,
+        "成交价格": 658160,
+        "交易时间": "2017/10/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558606919311.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "郑州市二七区政通路62号院5号楼19层1908号",
+        "所属小区": "升龙国际中心",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "升龙商业广场",
+        "建筑面积": 52.05,
+        "单价": 12646.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "558409113291",
+        "url": "https://sf-item.taobao.com/sf_item/558409113291.htm?track_id=ed7b6246-6e4e-4e84-9070-58460e362510",
+        "end": 1508984172000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "558606919311",
-        "url": "https://sf-item.taobao.com/sf_item/558606919311.htm?track_id=5a014736-bbd1-4b3c-9205-67e457905ec3",
+        "id": "559627008251",
+        "url": "https://sf-item.taobao.com/sf_item/559627008251.htm?track_id=96cf16fc-29d8-448c-85b9-0a353daa4fe1",
         "end": 1508983200000,
         "status": "done",
         "is_processed": false

@@ -721,30 +721,163 @@
         "detail_captured": true
     },
     {
-        "id": "589887306702",
-        "url": "https://sf-item.taobao.com/sf_item/589887306702.htm?track_id=3cd0e4d1-9631-49bf-9bf5-2e2d655dc96b",
-        "end": 1555036170000,
-        "status": "done",
-        "is_processed": false
+        "id": 589887306702,
+        "市场评估价": 718600,
+        "起拍价格": 517500,
+        "成交价格": 517500,
+        "交易时间": "2019-04-12 10:29:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/589887306702.htm?track_id=3cd0e4d1-9631-49bf-9bf5-2e2d655dc96b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 民族路现代城1层",
+        "所属小区": "现代城",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "人民广场",
+        "建筑面积": 34.48,
+        "单价": 15026.46,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "589976635606",
-        "url": "https://sf-item.taobao.com/sf_item/589976635606.htm?track_id=3cd0e4d1-9631-49bf-9bf5-2e2d655dc96b",
-        "end": 1555036394000,
-        "status": "done",
-        "is_processed": false
+        "id": 589976635606,
+        "市场评估价": 1555800,
+        "起拍价格": 1120300,
+        "成交价格": 1120300,
+        "交易时间": "2019/04/12 10:33:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/589976635606.htm?track_id=3cd0e4d1-9631-49bf-9bf5-2e2d655dc96b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 民族路现代城1层香17号",
+        "所属小区": "现代城",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "人民广场",
+        "建筑面积": 72.76,
+        "单价": 15388.04,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "588862558137",
-        "url": "https://sf-item.taobao.com/sf_item/588862558137.htm?track_id=b4163aa6-d768-4bf1-a06b-e4d196abe393",
+        "id": 588862558137,
+        "市场评估价": 350000,
+        "起拍价格": 350000,
+        "成交价格": 350000,
+        "交易时间": "2019/04/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588862558137.htm?track_id=b4163aa6-d768-4bf1-a06b-e4d196abe393",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 常德市 鼎城区 玉霞街道双潭路嘉美江南大院",
+        "所属小区": "嘉美江南大院",
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "鼎城区",
+        "最靠近商圈": "常德市区",
+        "建筑面积": 44.5,
+        "单价": 7865.17,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 588850742310,
+        "市场评估价": null,
+        "起拍价格": 900000,
+        "成交价格": 1215000,
+        "交易时间": "2019/04/12 10:10:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588850742310.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
+        "是否成交": true,
+        "竞拍人数": 49,
+        "出价人数": 49,
+        "地点": "浙江省 嘉兴市 海盐县 武原街道城东路1268号明珠苑24幢503室",
+        "所属小区": "明珠苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": 110.18,
+        "单价": 11026.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "590068873127",
+        "url": "https://sf-item.taobao.com/sf_item/590068873127.htm?track_id=b87f0e36-0c79-48d1-a180-2a9e21b50870",
         "end": 1555034400000,
         "status": "done",
         "is_processed": false
     },
     {
-        "id": "588850742310",
-        "url": "https://sf-item.taobao.com/sf_item/588850742310.htm?track_id=06aee5ac-42e7-410e-9b89-5e8ad6d8ad3a",
-        "end": 1555035033000,
+        "id": "588830334345",
+        "url": "https://sf-item.taobao.com/sf_item/588830334345.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "end": 1555041934000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588334637880",
+        "url": "https://sf-item.taobao.com/sf_item/588334637880.htm?track_id=53bcb49e-b88d-4ee6-b1aa-5a4e702b7501",
+        "end": 1555035117000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590020449213",
+        "url": "https://sf-item.taobao.com/sf_item/590020449213.htm?track_id=c5751350-0d08-4e6f-8844-09272e03da4d",
+        "end": 1555034675000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "589316039451",
+        "url": "https://sf-item.taobao.com/sf_item/589316039451.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "end": 1555051626000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588826762889",
+        "url": "https://sf-item.taobao.com/sf_item/588826762889.htm?track_id=06d26c41-d678-4a89-a714-253b4a6a8c36",
+        "end": 1555035318000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "589428736804",
+        "url": "https://sf-item.taobao.com/sf_item/589428736804.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "end": 1555055523000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590262283497",
+        "url": "https://sf-item.taobao.com/sf_item/590262283497.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
+        "end": 1555034867000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "587541620198",
+        "url": "https://sf-item.taobao.com/sf_item/587541620198.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "end": 1555039795000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "587680077212",
+        "url": "https://sf-item.taobao.com/sf_item/587680077212.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "end": 1555037435000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588698819033",
+        "url": "https://sf-item.taobao.com/sf_item/588698819033.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "end": 1555034400000,
         "status": "done",
         "is_processed": false
     }

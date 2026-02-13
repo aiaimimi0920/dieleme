@@ -357,12 +357,25 @@
         "detail_captured": true
     },
     {
-        "id": "702353721553",
-        "url": "https://sf-item.taobao.com/sf_item/702353721553.htm?track_id=6b56c8f7-18e3-4f90-bf71-270f2f377bfd",
-        "end": 1677722443000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/702353721553.htm"
+        "id": 702353721553,
+        "市场评估价": null,
+        "起拍价格": 476518,
+        "成交价格": 476518,
+        "交易时间": "2023/03/02 10:00:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/702353721553.htm?track_id=6b56c8f7-18e3-4f90-bf71-270f2f377bfd",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 包头市 东河区 工业路63号东方嘉园2-204",
+        "所属小区": "东方嘉园",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "东河区",
+        "最靠近商圈": "东河商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 698463689643,
@@ -470,16 +483,72 @@
         "detail_captured": true
     },
     {
-        "id": "702329393109",
-        "url": "https://sf-item.taobao.com/sf_item/702329393109.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
-        "end": 1677724734000,
-        "status": "done",
-        "is_processed": false
+        "id": 702329393109,
+        "市场评估价": 1125457,
+        "起拍价格": 630256,
+        "成交价格": 786256,
+        "交易时间": "2023/03/02 10:38:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/702329393109.htm?track_id=cc5ee0fc-a484-4326-819f-fd9b05f6c37d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 69,
+        "地点": "辽宁省 沈阳市 铁西区 北二西路26号甲26（8门）",
+        "所属小区": "瑞盛国际汽配城",
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "铁西区",
+        "最靠近商圈": "北二路商圈",
+        "建筑面积": 160.24,
+        "单价": 4907.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "697726077383",
         "url": "https://sf-item.taobao.com/sf_item/697726077383.htm?track_id=5e23912e-74e4-422f-b8fb-0baf9798c3a6",
         "end": 1677723341000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "700950728825",
+        "url": "https://sf-item.taobao.com/sf_item/700950728825.htm?track_id=c9d350ba-1b65-4e91-8615-aaa681af9d56",
+        "end": 1677743064000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "702774275790",
+        "url": "https://sf-item.taobao.com/sf_item/702774275790.htm?track_id=1ee68e2c-17de-46fd-b3a8-93641718d5c6",
+        "end": 1677726542000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "702907327253",
+        "url": "https://sf-item.taobao.com/sf_item/702907327253.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "end": 1677722787000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701797754220",
+        "url": "https://sf-item.taobao.com/sf_item/701797754220.htm?track_id=c1122bc0-fff8-4176-9d60-e693e4959044",
+        "end": 1677722666000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "701570201637",
+        "url": "https://sf-item.taobao.com/sf_item/701570201637.htm?track_id=b056638d-dd4d-4857-8139-634230f4e917",
+        "end": 1677722406000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "698453097607",
+        "url": "https://sf-item.taobao.com/sf_item/698453097607.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
+        "end": 1677724243000,
         "status": "done",
         "is_processed": false
     }

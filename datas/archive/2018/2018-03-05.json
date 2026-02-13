@@ -355,11 +355,12 @@
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "鼓楼区",
-        "最靠近商圈": null,
+        "最靠近商圈": "鼓楼广场",
         "建筑面积": 72.53,
-        "单价": 4412.06,
+        "单价": 4411.97,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 564261246945,
@@ -404,10 +405,24 @@
         "detail_captured": true
     },
     {
-        "id": "564941511127",
-        "url": "https://sf-item.taobao.com/sf_item/564941511127.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
-        "end": 1520215200000,
-        "status": "done",
-        "is_processed": false
+        "id": 564941511127,
+        "市场评估价": 0,
+        "起拍价格": 657860,
+        "成交价格": 657860,
+        "交易时间": "2018-03-05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564941511127.htm?track_id=b3cd79e9-ff70-4c78-a546-870b9d5b7643",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 南昌市 青云谱区 三店西路14号26栋3号、4号店面",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "三店西路",
+        "建筑面积": 35.68,
+        "单价": 18440.81,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]
