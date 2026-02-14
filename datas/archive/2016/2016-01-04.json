@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "525386924550",
-        "url": "https://sf-item.taobao.com/sf_item/525386924550.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
-        "end": 1451873831000,
-        "status": "done",
-        "is_processed": false
+        "id": 525386924550,
+        "市场评估价": null,
+        "起拍价格": 1800000,
+        "成交价格": 2390000,
+        "交易时间": "2016/01/04 10:17:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525386924550.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区",
+        "所属小区": "铂金时代公寓",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江商圈",
+        "建筑面积": 132.34,
+        "单价": 18061.66,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

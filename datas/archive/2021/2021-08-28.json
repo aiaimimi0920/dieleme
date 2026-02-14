@@ -231,12 +231,25 @@
         "detail_captured": true
     },
     {
-        "id": "651424261033",
-        "url": "https://sf-item.taobao.com/sf_item/651424261033.htm?track_id=179585d7-fa87-44c7-a4fd-4827e6735d1f",
-        "end": 1630119322000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/651424261033.htm"
+        "id": 651424261033,
+        "市场评估价": null,
+        "起拍价格": 1610000,
+        "成交价格": 1955600,
+        "交易时间": "2021/08/28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/651424261033.htm?track_id=179585d7-fa87-44c7-a4fd-4827e6735d1f",
+        "是否成交": true,
+        "竞拍人数": 55,
+        "出价人数": null,
+        "地点": "江苏省苏州市相城区渭塘镇澄阳路2558号俪珠华庭12幢401室",
+        "所属小区": "俪珠华庭",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "相城区",
+        "最靠近商圈": "渭塘",
+        "建筑面积": 119.12,
+        "单价": 16416.53,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 652935702794,
@@ -302,10 +315,24 @@
         "detail_captured": true
     },
     {
-        "id": "652933950811",
-        "url": "https://sf-item.taobao.com/sf_item/652933950811.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
-        "end": 1630118693000,
-        "status": "done",
-        "is_processed": false
+        "id": 652933950811,
+        "市场评估价": 296700,
+        "起拍价格": 240327,
+        "成交价格": 240327,
+        "交易时间": "2021-08-28 10:44:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652933950811.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "湖南省 娄底市 娄星区 月塘街（城建开发公司）0014幢222室",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "娄底市",
+        "区": "娄星区",
+        "最靠近商圈": null,
+        "建筑面积": 59.39,
+        "单价": 4049.41,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

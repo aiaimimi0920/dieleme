@@ -42,10 +42,24 @@
         "detail_captured": true
     },
     {
-        "id": "544196935451",
-        "url": "https://sf-item.taobao.com/sf_item/544196935451.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
-        "end": 1485224966000,
-        "status": "done",
-        "is_processed": false
+        "id": 544196935451,
+        "市场评估价": null,
+        "起拍价格": 800000,
+        "成交价格": 1350000,
+        "交易时间": "2017-01-24 10:29:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544196935451.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
+        "是否成交": true,
+        "竞拍人数": 47,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 长河街道江南星座1幢1单元609室",
+        "所属小区": "江南星座",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 88.66,
+        "单价": 15229.05,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

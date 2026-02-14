@@ -483,10 +483,24 @@
         "detail_captured": true
     },
     {
-        "id": "648632323733",
-        "url": "https://sf-item.taobao.com/sf_item/648632323733.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
-        "end": 1625451103000,
-        "status": "done",
-        "is_processed": false
+        "id": 648632323733,
+        "市场评估价": null,
+        "起拍价格": 300000,
+        "成交价格": 304000,
+        "交易时间": "2021/07/05 10:11:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/648632323733.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 5,
+        "地点": "四川省 泸州市 叙永县 叙永镇宝珠社区和平大道473号",
+        "所属小区": "御景东城",
+        "省份": "四川省",
+        "城市": "泸州市",
+        "区": "叙永县",
+        "最靠近商圈": "叙永镇",
+        "建筑面积": 68.93,
+        "单价": 4410.72,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -106,10 +106,24 @@
         "detail_captured": true
     },
     {
-        "id": "45324995765",
-        "url": "https://sf-item.taobao.com/sf_item/45324995765.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
-        "end": 1433299525000,
-        "status": "done",
-        "is_processed": false
+        "id": 45324995765,
+        "市场评估价": null,
+        "起拍价格": 333000,
+        "成交价格": 607000,
+        "交易时间": "2015/06/03 10:45:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45324995765.htm?track_id=31771605-2f9e-4bb4-9dc5-c92681877c2a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 65,
+        "地点": "嘉兴市百墅花园综合楼40号商店",
+        "所属小区": "百墅花园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "南湖新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

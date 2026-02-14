@@ -253,11 +253,25 @@
         "detail_captured": true
     },
     {
-        "id": "541749085263",
-        "url": "https://sf-item.taobao.com/sf_item/541749085263.htm?track_id=b5018658-43ad-4743-9746-2a7f3dbb32bf",
-        "end": 1493517600000,
-        "status": "done",
-        "is_processed": false
+        "id": 541749085263,
+        "市场评估价": null,
+        "起拍价格": 1540649.6,
+        "成交价格": 1600649.6,
+        "交易时间": "2017-04-30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541749085263.htm?track_id=b5018658-43ad-4743-9746-2a7f3dbb32bf",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": null,
+        "地点": "广东省 云浮市 郁南县",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "郁南县",
+        "最靠近商圈": "建城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 547461232746,

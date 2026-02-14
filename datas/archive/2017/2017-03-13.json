@@ -128,10 +128,24 @@
         "detail_captured": true
     },
     {
-        "id": "541793729145",
-        "url": "https://sf-item.taobao.com/sf_item/541793729145.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
-        "end": 1489367846000,
-        "status": "done",
-        "is_processed": false
+        "id": 541793729145,
+        "市场评估价": null,
+        "起拍价格": 353241,
+        "成交价格": 413241,
+        "交易时间": "2017/03/13 09:17:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541793729145.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
+        "是否成交": true,
+        "竞拍人数": 27,
+        "出价人数": 30,
+        "地点": "山东省 聊城市 阳谷县",
+        "所属小区": "万达家园",
+        "省份": "山东省",
+        "城市": "聊城市",
+        "区": "阳谷县",
+        "最靠近商圈": "运河东路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

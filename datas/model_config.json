@@ -1,47 +1,47 @@
 {
   "GLM-4.7-Base-Original": {
-    "max_concurrent": 20
+    "max_concurrent": 3
   },
   "GLM-4.7-Flash-Original": {
     "max_concurrent": 20
   },
   "MiniMax-M2.1-Original": {
-    "max_concurrent": 20
+    "max_concurrent": 10
   },
   "GLM-4.7-Base-NewUserAdded": {
     "max_concurrent": 20
   },
   "GLM-4.7-Flash-NewUserAdded": {
-    "max_concurrent": 20
+    "max_concurrent": 10
   },
   "MiniMax-M2.1-NewUserAdded": {
-    "max_concurrent": 20
+    "max_concurrent": 3
   },
   "GLM-4.7-Base-NewUserAdded2": {
     "max_concurrent": 20
   },
   "GLM-4.7-Flash-NewUserAdded2": {
-    "max_concurrent": 20
+    "max_concurrent": 19
   },
   "MiniMax-M2.1-NewUserAdded2": {
-    "max_concurrent": 20
+    "max_concurrent": 14
   },
   "GLM-4.7-Base-NewUserAdded3": {
-    "max_concurrent": 20
+    "max_concurrent": 3
   },
   "GLM-4.7-Flash-NewUserAdded3": {
     "max_concurrent": 20
   },
   "MiniMax-M2.1-NewUserAdded3": {
-    "max_concurrent": 20
+    "max_concurrent": 8
   },
   "GLM-4.7-Base-NewUserAdded4": {
-    "max_concurrent": 20
+    "max_concurrent": 6
   },
   "GLM-4.7-Flash-NewUserAdded4": {
     "max_concurrent": 20
   },
   "MiniMax-M2.1-NewUserAdded4": {
-    "max_concurrent": 20
+    "max_concurrent": 13
   }
 }

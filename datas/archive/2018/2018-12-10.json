@@ -575,11 +575,25 @@
         "detail_captured": true
     },
     {
-        "id": "581911195739",
-        "url": "https://sf-item.taobao.com/sf_item/581911195739.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
-        "end": 1544410712000,
-        "status": "done",
-        "is_processed": false
+        "id": 581911195739,
+        "市场评估价": 302800,
+        "起拍价格": 220000,
+        "成交价格": 646000,
+        "交易时间": "2018/12/10 10:58:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581911195739.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 218,
+        "地点": "江苏省无锡市锡山区鸿运街1号",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": "581655753731",
@@ -589,10 +603,24 @@
         "is_processed": false
     },
     {
-        "id": "581442284236",
-        "url": "https://sf-item.taobao.com/sf_item/581442284236.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
-        "end": 1544409640000,
-        "status": "done",
-        "is_processed": false
+        "id": 581442284236,
+        "市场评估价": 0,
+        "起拍价格": 271490,
+        "成交价格": 554990,
+        "交易时间": "2018-12-10 10:40:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581442284236.htm?track_id=165e0bfb-ab16-43dc-a8d6-063c103c5a3f",
+        "是否成交": true,
+        "竞拍人数": 51,
+        "出价人数": 0,
+        "地点": "广西壮族自治区贺州市八步区鞍山路75号德兴花园1栋1单元1607号",
+        "所属小区": "德兴花园",
+        "省份": "广西壮族自治区",
+        "城市": "贺州市",
+        "区": "八步区",
+        "最靠近商圈": "德兴花园商圈",
+        "建筑面积": 149.17,
+        "单价": 3720.62,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

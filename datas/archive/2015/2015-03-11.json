@@ -1,9 +1,23 @@
 [
     {
-        "id": "43874672142",
-        "url": "https://sf-item.taobao.com/sf_item/43874672142.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
-        "end": 1426040476000,
-        "status": "done",
-        "is_processed": false
+        "id": 43874672142,
+        "市场评估价": null,
+        "起拍价格": 290000,
+        "成交价格": 403000,
+        "交易时间": "2015-03-11 10:21:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43874672142.htm?track_id=01bd42e5-fdf3-4e5c-9c45-84da1e001cf5",
+        "是否成交": true,
+        "竞拍人数": 48,
+        "出价人数": 6,
+        "地点": "江西省九江市濂溪区温泉镇",
+        "所属小区": "天沐·美庐荟",
+        "省份": "江西省",
+        "城市": "九江市",
+        "区": "濂溪区",
+        "最靠近商圈": null,
+        "建筑面积": 72.12,
+        "单价": 5586.93,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

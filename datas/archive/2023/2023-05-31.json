@@ -758,11 +758,25 @@
         "detail_captured": true
     },
     {
-        "id": "715529383212",
-        "url": "https://sf-item.taobao.com/sf_item/715529383212.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
-        "end": 1685501802000,
-        "status": "done",
-        "is_processed": false
+        "id": 715529383212,
+        "市场评估价": 1072600,
+        "起拍价格": 760000,
+        "成交价格": 898000,
+        "交易时间": "2023/05/31 10:56:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/715529383212.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 47,
+        "地点": "江苏省 无锡市 锡山区 和泽佳苑54-1503室",
+        "所属小区": "和泽佳苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 717353528794,
@@ -807,10 +821,24 @@
         "detail_captured": true
     },
     {
-        "id": "715463527343",
-        "url": "https://sf-item.taobao.com/sf_item/715463527343.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
-        "end": 1685498644000,
-        "status": "done",
-        "is_processed": false
+        "id": 715463527343,
+        "市场评估价": 787064.67,
+        "起拍价格": 550946,
+        "成交价格": 550946,
+        "交易时间": "2023/05/31 10:04:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/715463527343.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 济南市 天桥区 北关北路3号楼2-203室",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "济南市",
+        "区": "天桥区",
+        "最靠近商圈": null,
+        "建筑面积": 62.17,
+        "单价": 8859.69,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

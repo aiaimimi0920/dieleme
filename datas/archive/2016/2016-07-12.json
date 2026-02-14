@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "534325165774",
-        "url": "https://sf-item.taobao.com/sf_item/534325165774.htm?track_id=137a4dca-e387-408f-a8bf-387cec33a923",
-        "end": 1468290196000,
-        "status": "done",
-        "is_processed": false
+        "id": 534325165774,
+        "市场评估价": null,
+        "起拍价格": 2400000,
+        "成交价格": 3770000,
+        "交易时间": "2016/07/12 10:23:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534325165774.htm?track_id=137a4dca-e387-408f-a8bf-387cec33a923",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省杭州市滨江区长河街道春江时代花园8幢1单元1101室",
+        "所属小区": "春江时代花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河商圈",
+        "建筑面积": 168.12,
+        "单价": 22420.54,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

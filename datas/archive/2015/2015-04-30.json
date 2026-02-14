@@ -170,10 +170,24 @@
         "detail_captured": true
     },
     {
-        "id": "44697490350",
-        "url": "https://sf-item.taobao.com/sf_item/44697490350.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
-        "end": 1430360895000,
-        "status": "done",
-        "is_processed": false
+        "id": 44697490350,
+        "市场评估价": null,
+        "起拍价格": 705000,
+        "成交价格": 937000,
+        "交易时间": "2015-04-30 10:28:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44697490350.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "是否成交": true,
+        "竞拍人数": 73,
+        "出价人数": 8,
+        "地点": "浙江省 嘉兴市 南湖区",
+        "所属小区": "丽景苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "嘉兴市区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

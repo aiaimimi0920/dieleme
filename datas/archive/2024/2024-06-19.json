@@ -336,11 +336,25 @@
         "detail_captured": true
     },
     {
-        "id": "795699915410",
-        "url": "https://sf-item.taobao.com/sf_item/795699915410.htm?track_id=9cbead34-beda-4b6e-a08c-fc7477352ff4",
-        "end": 1718763068000,
-        "status": "done",
-        "is_processed": false
+        "id": 795699915410,
+        "市场评估价": 974019,
+        "起拍价格": 1,
+        "成交价格": 465001,
+        "交易时间": "2024/06/19 10:11:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/795699915410.htm?track_id=9cbead34-beda-4b6e-a08c-fc7477352ff4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 41,
+        "地点": "江苏省无锡市梁溪区运河东路556-2121室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "太湖广场商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 794441002042,
@@ -385,10 +399,24 @@
         "detail_captured": true
     },
     {
-        "id": "800659367073",
-        "url": "https://sf-item.taobao.com/sf_item/800659367073.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
-        "end": 1718764156000,
-        "status": "done",
-        "is_processed": false
+        "id": 800659367073,
+        "市场评估价": null,
+        "起拍价格": 470000,
+        "成交价格": 525000,
+        "交易时间": "2024-06-19 10:29:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/800659367073.htm?track_id=3ac694ec-f2e1-43a9-b46a-de090216a4bb",
+        "是否成交": true,
+        "竞拍人数": 48,
+        "出价人数": 48,
+        "地点": "江苏省 常州市 天宁区 丽华新村46幢甲单元101室",
+        "所属小区": "丽华新村",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "丽华商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -451,10 +451,24 @@
         "detail_captured": true
     },
     {
-        "id": "589743579588",
-        "url": "https://sf-item.taobao.com/sf_item/589743579588.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
-        "end": 1555301367000,
-        "status": "done",
-        "is_processed": false
+        "id": 589743579588,
+        "市场评估价": null,
+        "起拍价格": 5200000,
+        "成交价格": 5200000,
+        "交易时间": "2019/04/15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/589743579588.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道盛元慧谷花园2幢4单元2702室",
+        "所属小区": "盛元慧谷花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

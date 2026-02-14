@@ -378,10 +378,24 @@
         "detail_captured": true
     },
     {
-        "id": "721791235592",
-        "url": "https://sf-item.taobao.com/sf_item/721791235592.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
-        "end": 1688176876000,
-        "status": "done",
-        "is_processed": false
+        "id": 721791235592,
+        "市场评估价": 507500,
+        "起拍价格": 380000,
+        "成交价格": 413000,
+        "交易时间": "2023/07/01 10:01:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/721791235592.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 衢州市 衢江区 衢州市衢江区东城华庭522室房地产",
+        "所属小区": "东城华庭",
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "衢江区",
+        "最靠近商圈": "东城",
+        "建筑面积": 48.15,
+        "单价": 8577.36,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

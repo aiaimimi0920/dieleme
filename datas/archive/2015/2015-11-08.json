@@ -43,10 +43,24 @@
         "manual_checked": true
     },
     {
-        "id": "523236994089",
-        "url": "https://sf-item.taobao.com/sf_item/523236994089.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
-        "end": 1446951671000,
-        "status": "done",
-        "is_processed": false
+        "id": 523236994089,
+        "市场评估价": null,
+        "起拍价格": 2356992,
+        "成交价格": 2621992,
+        "交易时间": "2015/11/08 11:01:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523236994089.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 45,
+        "地点": "浙江省杭州市滨江区",
+        "所属小区": "锦绣江南花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河街道",
+        "建筑面积": 184.14,
+        "单价": 14240.26,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

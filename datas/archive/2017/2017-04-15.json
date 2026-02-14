@@ -191,10 +191,24 @@
         "detail_captured": true
     },
     {
-        "id": "546677026042",
-        "url": "https://sf-item.taobao.com/sf_item/546677026042.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
-        "end": 1492228168000,
-        "status": "done",
-        "is_processed": false
+        "id": 546677026042,
+        "市场评估价": null,
+        "起拍价格": 1890000,
+        "成交价格": 4314000,
+        "交易时间": "2017-04-15 11:49:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546677026042.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "是否成交": true,
+        "竞拍人数": 525,
+        "出价人数": 532,
+        "地点": "浙江省 嘉兴市 南湖区",
+        "所属小区": "中创电气商贸园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "南湖商圈",
+        "建筑面积": 174.17,
+        "单价": 24762.63,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

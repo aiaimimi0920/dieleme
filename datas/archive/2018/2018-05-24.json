@@ -363,10 +363,24 @@
         "detail_captured": true
     },
     {
-        "id": "567937051538",
-        "url": "https://sf-item.taobao.com/sf_item/567937051538.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
-        "end": 1527127200000,
-        "status": "done",
-        "is_processed": false
+        "id": 567937051538,
+        "市场评估价": null,
+        "起拍价格": 5761502,
+        "成交价格": 5761502,
+        "交易时间": "2018-05-24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/567937051538.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "广东省 汕头市 潮阳区 和平镇下寨居委新和惠路东鱼场西北洋万欣华庭",
+        "所属小区": "万欣华庭",
+        "省份": "广东省",
+        "城市": "汕头市",
+        "区": "潮阳区",
+        "最靠近商圈": "和平镇",
+        "建筑面积": 60.0,
+        "单价": 96025.03,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -42,10 +42,24 @@
         "detail_captured": true
     },
     {
-        "id": "523812010900",
-        "url": "https://sf-item.taobao.com/sf_item/523812010900.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
-        "end": 1447899167000,
-        "status": "done",
-        "is_processed": false
+        "id": 523812010900,
+        "市场评估价": null,
+        "起拍价格": 307000,
+        "成交价格": 420000,
+        "交易时间": "2015-11-19 10:12:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523812010900.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 南湖区 大桥镇平湖塘花苑9幢505室及车库505C",
+        "所属小区": "平湖塘花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "大桥镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

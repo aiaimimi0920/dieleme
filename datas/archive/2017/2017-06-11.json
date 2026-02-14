@@ -252,11 +252,25 @@
         "detail_captured": true
     },
     {
-        "id": "550253668052",
-        "url": "https://sf-item.taobao.com/sf_item/550253668052.htm?track_id=a111a0ce-52df-468f-b678-52855c23b066",
-        "end": 1497150970000,
-        "status": "done",
-        "is_processed": false
+        "id": 550253668052,
+        "市场评估价": 4246000,
+        "起拍价格": 2377760,
+        "成交价格": 3382760,
+        "交易时间": "2017-06-11 11:16:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/550253668052.htm?track_id=a111a0ce-52df-468f-b678-52855c23b066",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 126,
+        "地点": "辽宁省 沈阳市 浑南区",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "沈阳市",
+        "区": "浑南区",
+        "最靠近商圈": null,
+        "建筑面积": 441.33,
+        "单价": 7662.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 550308162390,
@@ -322,10 +336,24 @@
         "detail_captured": true
     },
     {
-        "id": "551893158449",
-        "url": "https://sf-item.taobao.com/sf_item/551893158449.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
-        "end": 1497147151000,
-        "status": "done",
-        "is_processed": false
+        "id": 551893158449,
+        "市场评估价": 1261300,
+        "起拍价格": 1009000,
+        "成交价格": 1059000,
+        "交易时间": "2017-06-11 10:12:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/551893158449.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": 11,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 110.6,
+        "单价": 9570.45,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

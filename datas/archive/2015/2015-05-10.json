@@ -43,10 +43,24 @@
         "detail_captured": true
     },
     {
-        "id": "45025864970",
-        "url": "https://sf-item.taobao.com/sf_item/45025864970.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
-        "end": 1431223200000,
-        "status": "done",
-        "is_processed": false
+        "id": 45025864970,
+        "市场评估价": null,
+        "起拍价格": 817020,
+        "成交价格": 817020,
+        "交易时间": "2015/05/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45025864970.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "常州市银河湾第一城1幢1504室",
+        "所属小区": "银河湾第一城",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "钟楼区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

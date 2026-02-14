@@ -168,10 +168,24 @@
         "detail_captured": true
     },
     {
-        "id": "680508494129",
-        "url": "https://sf-item.taobao.com/sf_item/680508494129.htm?track_id=6f2bafaa-d7d3-4b31-aeeb-791dd7eba396",
-        "end": 1666228789000,
-        "status": "done",
-        "is_processed": false
+        "id": 680508494129,
+        "市场评估价": null,
+        "起拍价格": 4213049.68,
+        "成交价格": 4213049.68,
+        "交易时间": "2022/10/20 09:19:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/680508494129.htm?track_id=6f2bafaa-d7d3-4b31-aeeb-791dd7eba396",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 青岛市 崂山区 青大一路38号18号楼2单元303户",
+        "所属小区": "青岛大学家属院",
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "崂山区",
+        "最靠近商圈": "青岛大学商圈",
+        "建筑面积": 166.25,
+        "单价": 25346.82,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

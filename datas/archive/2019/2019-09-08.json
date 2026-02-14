@@ -213,10 +213,24 @@
         "detail_captured": true
     },
     {
-        "id": "600556663766",
-        "url": "https://sf-item.taobao.com/sf_item/600556663766.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
-        "end": 1567908760000,
-        "status": "done",
-        "is_processed": false
+        "id": 600556663766,
+        "市场评估价": 257250,
+        "起拍价格": 257250,
+        "成交价格": 287250,
+        "交易时间": "2019-09-08 10:12:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600556663766.htm?track_id=95478d3e-450f-48d8-81b3-3a519baf74e2",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": 16,
+        "地点": "陕西省 榆林市 定边县 定边镇",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "榆林市",
+        "区": "定边县",
+        "最靠近商圈": "定边镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

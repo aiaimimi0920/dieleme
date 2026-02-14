@@ -1,0 +1,103 @@
+{
+  "all_done": false,
+  "411426": {
+    "50025969": {
+      "now_session_id": "sniff_s1_1771055697632_jn6a0",
+      "all_done": false,
+      "last_update_time": "2026-02-14 15:56:22",
+      "st_param": {
+        "2": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 1
+        },
+        "1": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 0
+        },
+        "0": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 0
+        },
+        "3": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 0
+        },
+        "4": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 0
+        },
+        "5": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 0
+        }
+      }
+    },
+    "200782003": {
+      "now_session_id": "sniff_s1_1771055700801_57xjr",
+      "all_done": false,
+      "last_update_time": "2026-02-14 15:56:22",
+      "st_param": {
+        "2": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 1
+        },
+        "1": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 0
+        },
+        "0": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 0
+        },
+        "3": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 0
+        },
+        "4": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 0
+        },
+        "5": {
+          "need_try": true,
+          "pages": [],
+          "max_page": -1,
+          "is_done": false,
+          "dispatched_page": 0
+        }
+      }
+    }
+  }
+}

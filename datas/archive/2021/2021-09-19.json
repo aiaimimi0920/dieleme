@@ -126,10 +126,24 @@
         "detail_captured": true
     },
     {
-        "id": "654017200586",
-        "url": "https://sf-item.taobao.com/sf_item/654017200586.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
-        "end": 1632024471000,
-        "status": "done",
-        "is_processed": false
+        "id": 654017200586,
+        "市场评估价": 1712700,
+        "起拍价格": 1370160,
+        "成交价格": 1608160,
+        "交易时间": "2021/09/19 12:07:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/654017200586.htm?track_id=78e90eae-be90-456e-bc88-83e853c20808",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 118,
+        "地点": "云南省 丽江市 华坪县 华坪县荣将镇个私园区鑫华苑片区房屋一幢",
+        "所属小区": "鑫华苑",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": "荣将镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

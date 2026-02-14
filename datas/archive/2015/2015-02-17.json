@@ -147,10 +147,24 @@
         "detail_captured": true
     },
     {
-        "id": "43731267945",
-        "url": "https://sf-item.taobao.com/sf_item/43731267945.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
-        "end": 1424138405000,
-        "status": "done",
-        "is_processed": false
+        "id": 43731267945,
+        "市场评估价": 630000,
+        "起拍价格": 454000,
+        "成交价格": 454000,
+        "交易时间": "2015/02/17 10:00:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43731267945.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 常州市 天宁区",
+        "所属小区": "翡翠锦园",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "常州市中心商圈",
+        "建筑面积": 86.84,
+        "单价": 5228.05,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

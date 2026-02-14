@@ -168,10 +168,24 @@
         "detail_captured": true
     },
     {
-        "id": "525655391747",
-        "url": "https://sf-item.taobao.com/sf_item/525655391747.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
-        "end": 1452911860000,
-        "status": "done",
-        "is_processed": false
+        "id": 525655391747,
+        "市场评估价": null,
+        "起拍价格": 700000,
+        "成交价格": 1000000,
+        "交易时间": "2016/01/16 10:37:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525655391747.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市南湖区新气象路蓝天嘉苑12幢201室",
+        "所属小区": "蓝天嘉苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "南湖新区",
+        "建筑面积": 149.3,
+        "单价": 6697.92,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

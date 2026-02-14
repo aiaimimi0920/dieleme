@@ -364,11 +364,25 @@
         "detail_captured": true
     },
     {
-        "id": "583315439633",
-        "url": "https://sf-item.taobao.com/sf_item/583315439633.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
-        "end": 1546308000000,
-        "status": "done",
-        "is_processed": false
+        "id": 583315439633,
+        "市场评估价": null,
+        "起拍价格": 550000,
+        "成交价格": 550000,
+        "交易时间": "2019-01-01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583315439633.htm?track_id=7aee7004-d21a-46e3-a59d-644f49faed62",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省梅州市蕉岭县蕉城镇蕉阳大道以东体育新村B栋302号",
+        "所属小区": "体育新村",
+        "省份": "广东省",
+        "城市": "梅州市",
+        "区": "蕉岭县",
+        "最靠近商圈": "蕉城镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 583074517616,
@@ -413,10 +427,24 @@
         "detail_captured": true
     },
     {
-        "id": "582946274997",
-        "url": "https://sf-item.taobao.com/sf_item/582946274997.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
-        "end": 1546316241000,
-        "status": "done",
-        "is_processed": false
+        "id": 582946274997,
+        "市场评估价": 2863000,
+        "起拍价格": 2863000,
+        "成交价格": 4068000,
+        "交易时间": "2019/01/01 12:17:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/582946274997.htm?track_id=93f1ab73-4d40-4b54-aa9f-531eb59533b7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 242,
+        "地点": "上海市宝山区友谊路1869弄11号1503室",
+        "所属小区": null,
+        "省份": "上海",
+        "城市": "上海",
+        "区": "宝山",
+        "最靠近商圈": "友谊路",
+        "建筑面积": 124.08,
+        "单价": 32785.46,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

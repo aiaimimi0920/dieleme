@@ -445,11 +445,25 @@
         "detail_captured": true
     },
     {
-        "id": "556364272308",
-        "url": "https://sf-item.taobao.com/sf_item/556364272308.htm?track_id=83e68fed-9084-46cb-a950-7f8ce7e08692",
-        "end": 1504752668000,
-        "status": "done",
-        "is_processed": false
+        "id": 556364272308,
+        "市场评估价": null,
+        "起拍价格": 1263464,
+        "成交价格": 2187464,
+        "交易时间": "2017-09-07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556364272308.htm?track_id=83e68fed-9084-46cb-a950-7f8ce7e08692",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 84,
+        "地点": "陕西省 西安市 未央区 凤城九路南侧白桦林间25幢1单元11903室",
+        "所属小区": "白桦林间",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 557445030244,
@@ -473,10 +487,24 @@
         "detail_captured": true
     },
     {
-        "id": "556593791061",
-        "url": "https://sf-item.taobao.com/sf_item/556593791061.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
-        "end": 1504752100000,
-        "status": "done",
-        "is_processed": false
+        "id": 556593791061,
+        "市场评估价": null,
+        "起拍价格": 150000,
+        "成交价格": 167000,
+        "交易时间": "2017/09/07 10:41:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556593791061.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江西省 九江市 武宁县 黄塘巷3栋1单元2楼2室",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "九江市",
+        "区": "武宁县",
+        "最靠近商圈": "女人街",
+        "建筑面积": 89.88,
+        "单价": 1858.03,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

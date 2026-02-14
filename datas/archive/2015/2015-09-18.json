@@ -64,10 +64,24 @@
         "detail_captured": true
     },
     {
-        "id": "521401163382",
-        "url": "https://sf-item.taobao.com/sf_item/521401163382.htm?track_id=6b04ce3c-2f80-41e6-9418-abb9d96f54be",
-        "end": 1442542184000,
-        "status": "done",
-        "is_processed": false
+        "id": 521401163382,
+        "市场评估价": 324500,
+        "起拍价格": 259600,
+        "成交价格": 304600,
+        "交易时间": "2015/09/18 10:09:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/521401163382.htm?track_id=6b04ce3c-2f80-41e6-9418-abb9d96f54be",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省郑州市二七区长江东路6号1号楼16层176号",
+        "所属小区": "金海京江花园",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "长江路商圈",
+        "建筑面积": 39.28,
+        "单价": 7756.09,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

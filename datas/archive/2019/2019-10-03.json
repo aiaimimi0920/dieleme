@@ -94,7 +94,7 @@
         "竞拍人数": 103,
         "出价人数": 109,
         "地点": "重庆市石柱土家族自治县西沱镇月台路112号",
-        "所属小区": null,
+        "所属小区": "云天花园",
         "省份": "重庆市",
         "城市": "重庆市",
         "区": "石柱土家族自治县",
@@ -102,7 +102,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 602541756846,
@@ -123,7 +124,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 602548228402,
@@ -161,6 +163,28 @@
         "省份": "山东省",
         "城市": "威海市",
         "区": "荣成市",
+        "最靠近商圈": "崖头商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 602130106003,
+        "市场评估价": 3866760.43,
+        "起拍价格": 2707000,
+        "成交价格": 3762000,
+        "交易时间": "2019/10/03 11:58:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/602130106003.htm?track_id=e17bfa31-568b-40b1-a430-6b187995b33f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 常州市 天宁区 常州市天宁区御翠园40栋乙单元3202室",
+        "所属小区": "御翠园",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
         "最靠近商圈": null,
         "建筑面积": null,
         "单价": 0,
@@ -168,24 +192,45 @@
         "detail_captured": true
     },
     {
-        "id": "602130106003",
-        "url": "https://sf-item.taobao.com/sf_item/602130106003.htm?track_id=e17bfa31-568b-40b1-a430-6b187995b33f",
-        "end": 1570075089000,
-        "status": "done",
-        "is_processed": false
+        "id": 603201643166,
+        "市场评估价": 0,
+        "起拍价格": 2640000,
+        "成交价格": 2935000,
+        "交易时间": "2019/10/03 11:11:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/603201643166.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 56,
+        "地点": "江苏省 常州市 天宁区 青山湾花园1幢2307室",
+        "所属小区": "青山湾花园",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "红梅板块",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "603201643166",
-        "url": "https://sf-item.taobao.com/sf_item/603201643166.htm?track_id=8863105b-03b5-4346-88af-00577a34dabb",
-        "end": 1570072285000,
-        "status": "done",
-        "is_processed": false
-    },
-    {
-        "id": "602835209852",
-        "url": "https://sf-item.taobao.com/sf_item/602835209852.htm?track_id=ba7ff91c-543e-4e8e-a1cd-79a47a356bc3",
-        "end": 1570068767000,
-        "status": "done",
-        "is_processed": false
+        "id": 602835209852,
+        "市场评估价": null,
+        "起拍价格": 739822,
+        "成交价格": 798222,
+        "交易时间": "2019/10/03 10:12:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/602835209852.htm?track_id=ba7ff91c-543e-4e8e-a1cd-79a47a356bc3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 9,
+        "地点": "广西壮族自治区 贺州市 八步区 江北中路208号广裕.帝景湾第16幢第7层704号房屋",
+        "所属小区": "广裕.帝景湾",
+        "省份": "广西壮族自治区",
+        "城市": "贺州市",
+        "区": "八步区",
+        "最靠近商圈": "八步区",
+        "建筑面积": 125.94,
+        "单价": 6337.66,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

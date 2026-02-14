@@ -170,10 +170,24 @@
         "detail_captured": true
     },
     {
-        "id": "564890082724",
-        "url": "https://sf-item.taobao.com/sf_item/564890082724.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
-        "end": 1519005660000,
-        "status": "done",
-        "is_processed": false
+        "id": 564890082724,
+        "市场评估价": 0,
+        "起拍价格": 301900,
+        "成交价格": 323900,
+        "交易时间": "2018/02/19 10:01:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564890082724.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 12,
+        "地点": "山东省 济宁市 微山县 微山县星月成小区13号楼东单元4楼东户的房产一处",
+        "所属小区": "星月成小区",
+        "省份": "山东省",
+        "城市": "济宁市",
+        "区": "微山县",
+        "最靠近商圈": "微山县",
+        "建筑面积": 101.67,
+        "单价": 3185.59,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

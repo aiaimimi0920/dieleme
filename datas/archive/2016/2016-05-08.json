@@ -42,10 +42,24 @@
         "detail_captured": true
     },
     {
-        "id": "530536374591",
-        "url": "https://sf-item.taobao.com/sf_item/530536374591.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
-        "end": 1462672800000,
-        "status": "done",
-        "is_processed": false
+        "id": 530536374591,
+        "市场评估价": null,
+        "起拍价格": 2610000,
+        "成交价格": 2610000,
+        "交易时间": "2016-05-08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530536374591.htm?track_id=801ce94f-e44d-4cd9-87c9-88cf22854f52",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "上海市宝山区友谊路1869弄59号801室",
+        "所属小区": null,
+        "省份": "上海市",
+        "城市": "上海市",
+        "区": "宝山区",
+        "最靠近商圈": null,
+        "建筑面积": 107.25,
+        "单价": 24345.79,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

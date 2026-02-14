@@ -31,15 +31,16 @@
         "竞拍人数": 1,
         "出价人数": 1,
         "地点": "四川省 成都市 金牛区 抚琴西路185号22栋1层6、7号、2层4号",
-        "所属小区": null,
+        "所属小区": "抚琴西路一院",
         "省份": "四川省",
         "城市": "成都市",
         "区": "金牛区",
-        "最靠近商圈": "抚琴西路",
+        "最靠近商圈": "抚琴商圈",
         "建筑面积": 231.98,
-        "单价": 16244.63,
+        "单价": 16242.78,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 608229573287,
@@ -205,9 +206,10 @@
         "区": "兴义市",
         "最靠近商圈": "凤仪路",
         "建筑面积": 71.44,
-        "单价": 2391.43,
+        "单价": 2391.38,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 608690035979,
@@ -399,11 +401,25 @@
         "detail_captured": true
     },
     {
-        "id": "608468714997",
-        "url": "https://sf-item.taobao.com/sf_item/608468714997.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
-        "end": 1576980084000,
-        "status": "done",
-        "is_processed": false
+        "id": 608468714997,
+        "市场评估价": null,
+        "起拍价格": 156600,
+        "成交价格": 228600,
+        "交易时间": "2019-12-22 10:01:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/608468714997.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
+        "是否成交": true,
+        "竞拍人数": 25,
+        "出价人数": null,
+        "地点": "福建省 南平市 顺昌县",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 609322277896,
@@ -427,17 +443,45 @@
         "detail_captured": true
     },
     {
-        "id": "609061828693",
-        "url": "https://sf-item.taobao.com/sf_item/609061828693.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
-        "end": 1576980491000,
-        "status": "done",
-        "is_processed": false
+        "id": 609061828693,
+        "市场评估价": 3917500,
+        "起拍价格": 3173175,
+        "成交价格": 3603175,
+        "交易时间": "2019/12/22 10:08:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/609061828693.htm?track_id=771570a1-2d01-4223-8a90-d8ea0f4043f1",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": 11,
+        "地点": "郑州市二七区勤劳街5号5号楼20层2002号",
+        "所属小区": "康桥金域上郡",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "淮河路商圈",
+        "建筑面积": 192.41,
+        "单价": 18724.5,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "607968068192",
-        "url": "https://sf-item.taobao.com/sf_item/607968068192.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
-        "end": 1576980000000,
-        "status": "done",
-        "is_processed": false
+        "id": 607968068192,
+        "市场评估价": null,
+        "起拍价格": 350000,
+        "成交价格": 350000,
+        "交易时间": "2019-12-22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/607968068192.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 济宁市 微山县 冠亚星城E公寓一单元十三层01-1331号",
+        "所属小区": "冠亚星城",
+        "省份": "山东省",
+        "城市": "济宁市",
+        "区": "微山县",
+        "最靠近商圈": "微山湖商圈",
+        "建筑面积": 48.22,
+        "单价": 7260.89,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

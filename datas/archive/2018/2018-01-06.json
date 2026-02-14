@@ -893,5 +893,26 @@
         "单价": 11010.17,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 563554779557,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 80000000,
+        "交易时间": "2018/01/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563554779557.htm?track_id=ff36099d-5fdf-464c-be59-c5e79caddb6d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "辽宁省大连市西岗区海运街12号",
+        "所属小区": null,
+        "省份": "辽宁省",
+        "城市": "大连市",
+        "区": "西岗区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

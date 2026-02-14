@@ -64,10 +64,24 @@
         "manual_checked": true
     },
     {
-        "id": "43689897744",
-        "url": "https://sf-item.taobao.com/sf_item/43689897744.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
-        "end": 1423706401000,
-        "status": "done",
-        "is_processed": false
+        "id": 43689897744,
+        "市场评估价": null,
+        "起拍价格": 2650000,
+        "成交价格": 2650000,
+        "交易时间": "2015-02-12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43689897744.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "杭州市滨江区",
+        "所属小区": "钱塘春晓花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区/江滨",
+        "建筑面积": 169.62,
+        "单价": 15631.38,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

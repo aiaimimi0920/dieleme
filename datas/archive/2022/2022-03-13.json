@@ -189,10 +189,24 @@
         "detail_captured": true
     },
     {
-        "id": "668096473859",
-        "url": "https://sf-item.taobao.com/sf_item/668096473859.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
-        "end": 1647136849000,
-        "status": "done",
-        "is_processed": false
+        "id": 668096473859,
+        "市场评估价": 1184800,
+        "起拍价格": 947840,
+        "成交价格": 947840,
+        "交易时间": "2022/03/13 10:00:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/668096473859.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 二七区 工人路413号院蔚蓝港湾",
+        "所属小区": "蔚蓝港湾",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 95.03,
+        "单价": 9975.17,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -128,10 +128,24 @@
         "detail_captured": true
     },
     {
-        "id": "548903208926",
-        "url": "https://sf-item.taobao.com/sf_item/548903208926.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
-        "end": 1494036181000,
-        "status": "done",
-        "is_processed": false
+        "id": 548903208926,
+        "市场评估价": null,
+        "起拍价格": 1717248,
+        "成交价格": 1797248,
+        "交易时间": "2017-05-06 10:03:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548903208926.htm?track_id=2c330ae2-3af2-4528-b94e-25ce4cdf4ec7",
+        "是否成交": true,
+        "竞拍人数": 7,
+        "出价人数": null,
+        "地点": "河南省郑州市二七区沙口路二环支路308号院1号楼1层25号商铺",
+        "所属小区": "启泰小区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "沙口路商圈",
+        "建筑面积": 134.16,
+        "单价": 13403.81,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -105,10 +105,24 @@
         "detail_captured": true
     },
     {
-        "id": "652058258257",
-        "url": "https://sf-item.taobao.com/sf_item/652058258257.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
-        "end": 1630466843000,
-        "status": "done",
-        "is_processed": false
+        "id": 652058258257,
+        "市场评估价": null,
+        "起拍价格": 866530,
+        "成交价格": 1111530,
+        "交易时间": "2021/09/01 11:27:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/652058258257.htm?track_id=46db1267-6afc-473e-81ca-8bcd4d5170ef",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 42,
+        "地点": "江苏省 常州市 天宁区 金百商业广场1幢2406室",
+        "所属小区": "金百商业广场",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "文化宫/南大街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

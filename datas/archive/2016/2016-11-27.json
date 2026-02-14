@@ -84,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "541862823509",
-        "url": "https://sf-item.taobao.com/sf_item/541862823509.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
-        "end": 1480220933000,
-        "status": "done",
-        "is_processed": false
+        "id": 541862823509,
+        "市场评估价": null,
+        "起拍价格": 1970000,
+        "成交价格": 2200000,
+        "交易时间": "2016/11/27 12:28:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541862823509.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 47,
+        "地点": "江苏省无锡市锡山区芙蓉山庄B区179号",
+        "所属小区": "芙蓉山庄",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "锡东新城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

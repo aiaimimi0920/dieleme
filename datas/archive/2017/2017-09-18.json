@@ -573,10 +573,24 @@
         "detail_captured": true
     },
     {
-        "id": "557182586802",
-        "url": "https://sf-item.taobao.com/sf_item/557182586802.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
-        "end": 1505701730000,
-        "status": "done",
-        "is_processed": false
+        "id": 557182586802,
+        "市场评估价": null,
+        "起拍价格": 1445800,
+        "成交价格": 1765800,
+        "交易时间": "2017/09/18 10:28:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557182586802.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "是否成交": true,
+        "竞拍人数": 55,
+        "出价人数": 55,
+        "地点": "山东省 济南市 天桥区 西泺河路18号君逸左岸花园",
+        "所属小区": "君逸左岸花园",
+        "省份": "山东省",
+        "城市": "济南市",
+        "区": "天桥区",
+        "最靠近商圈": "北园大街商圈",
+        "建筑面积": 125.71,
+        "单价": 14045.62,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

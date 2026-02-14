@@ -84,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "536920216500",
-        "url": "https://sf-item.taobao.com/sf_item/536920216500.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
-        "end": 1472263200000,
-        "status": "done",
-        "is_processed": false
+        "id": 536920216500,
+        "市场评估价": null,
+        "起拍价格": 255000,
+        "成交价格": 325000,
+        "交易时间": "2016/08/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536920216500.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 15,
+        "地点": "舟山市嵊泗县菜园镇横山园15幢四单元307室",
+        "所属小区": "横山园",
+        "省份": "浙江省",
+        "城市": "舟山市",
+        "区": "嵊泗县",
+        "最靠近商圈": "菜园镇",
+        "建筑面积": 59.66,
+        "单价": 5448.54,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -380,10 +380,24 @@
         "detail_captured": true
     },
     {
-        "id": "674391014772",
-        "url": "https://sf-item.taobao.com/sf_item/674391014772.htm?track_id=0473c4f1-2be1-4662-b171-8dd05ab05dd1",
-        "end": 1653276142000,
-        "status": "done",
-        "is_processed": false
+        "id": 674391014772,
+        "市场评估价": null,
+        "起拍价格": 364280,
+        "成交价格": 400280,
+        "交易时间": "2022-05-23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/674391014772.htm?track_id=0473c4f1-2be1-4662-b171-8dd05ab05dd1",
+        "是否成交": true,
+        "竞拍人数": 37,
+        "出价人数": null,
+        "地点": "江苏省 淮安市 涟水县 涟水县金城北路西侧金城名门小区A6幢11-7号商业不动产",
+        "所属小区": "金城名门",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "涟水县",
+        "最靠近商圈": "金城北路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -85,10 +85,24 @@
         "detail_captured": true
     },
     {
-        "id": "520182487774",
-        "url": "https://sf-item.taobao.com/sf_item/520182487774.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
-        "end": 1436234400000,
-        "status": "done",
-        "is_processed": false
+        "id": 520182487774,
+        "市场评估价": null,
+        "起拍价格": 600000,
+        "成交价格": 655000,
+        "交易时间": "2015/07/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520182487774.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 10,
+        "地点": "衢州市开化县城关镇岙滩新区愚泰46幢3-302室",
+        "所属小区": "凤翔苑",
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "开化县",
+        "最靠近商圈": "岙滩板块",
+        "建筑面积": 88.19,
+        "单价": 7428.62,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

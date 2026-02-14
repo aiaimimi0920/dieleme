@@ -466,10 +466,24 @@
         "detail_captured": true
     },
     {
-        "id": "560114944471",
-        "url": "https://sf-item.taobao.com/sf_item/560114944471.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
-        "end": 1511146874000,
-        "status": "done",
-        "is_processed": false
+        "id": 560114944471,
+        "市场评估价": null,
+        "起拍价格": 1150000,
+        "成交价格": 1486000,
+        "交易时间": "2017-11-20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560114944471.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 113,
+        "地点": "浙江省 嘉兴市 南湖区 府南花园",
+        "所属小区": "府南花园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "府南花园",
+        "建筑面积": 154.04,
+        "单价": 9647.23,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

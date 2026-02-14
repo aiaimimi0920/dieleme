@@ -875,11 +875,25 @@
         "detail_captured": true
     },
     {
-        "id": "577384591341",
-        "url": "https://sf-item.taobao.com/sf_item/577384591341.htm?track_id=9662dc8a-155d-4344-9d83-8dbab508b9f6",
-        "end": 1543282637000,
-        "status": "done",
-        "is_processed": false
+        "id": 577384591341,
+        "市场评估价": 0,
+        "起拍价格": 1692000,
+        "成交价格": 1692000,
+        "交易时间": "2018-11-27 09:37:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/577384591341.htm?track_id=9662dc8a-155d-4344-9d83-8dbab508b9f6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 新华路3号白领衫大厦1层6号",
+        "所属小区": "白领衫大厦",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "新华路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 581963863108,
@@ -924,10 +938,24 @@
         "detail_captured": true
     },
     {
-        "id": "581952199997",
-        "url": "https://sf-item.taobao.com/sf_item/581952199997.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
-        "end": 1543284000000,
-        "status": "done",
-        "is_processed": false
+        "id": 581952199997,
+        "市场评估价": null,
+        "起拍价格": 3320000,
+        "成交价格": 3320000,
+        "交易时间": "2018-11-27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581952199997.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省青岛市崂山区香港东路395号30号楼2单元301户",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "崂山区",
+        "最靠近商圈": null,
+        "建筑面积": 132.99,
+        "单价": 24957.97,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -277,10 +277,24 @@
         "detail_captured": true
     },
     {
-        "id": "552246560597",
-        "url": "https://sf-item.taobao.com/sf_item/552246560597.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
-        "end": 1497666213000,
-        "status": "done",
-        "is_processed": false
+        "id": 552246560597,
+        "市场评估价": null,
+        "起拍价格": 4684681,
+        "成交价格": 6334681,
+        "交易时间": "2017/06/17 10:23:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/552246560597.htm?track_id=dd8436f7-fe1a-4cf9-981c-caafce8f9b0f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省常州市武进区郑陆镇常郑路88号",
+        "所属小区": "吉春大酒店",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "武进区",
+        "最靠近商圈": "郑陆镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

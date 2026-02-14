@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "523769638218",
-        "url": "https://sf-item.taobao.com/sf_item/523769638218.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
-        "end": 1447552800000,
-        "status": "done",
-        "is_processed": false
+        "id": 523769638218,
+        "市场评估价": null,
+        "起拍价格": 1053000,
+        "成交价格": 1053000,
+        "交易时间": "2015/11/15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523769638218.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省郑州市二七区沿河路6号16号楼1单元6层11号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "铭功路",
+        "建筑面积": 172.85,
+        "单价": 6093.65,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

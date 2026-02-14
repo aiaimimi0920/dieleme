@@ -21,12 +21,25 @@
         "detail_captured": true
     },
     {
-        "id": "737108500059",
-        "url": "https://sf-item.taobao.com/sf_item/737108500059.htm?track_id=f2d1751e-1239-49fe-a4a1-6bdba0f7840a",
-        "end": 1695261600000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/737108500059.htm"
+        "id": 737108500059,
+        "市场评估价": null,
+        "起拍价格": 1112000,
+        "成交价格": 1112000,
+        "交易时间": "2023/09/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/737108500059.htm?track_id=f2d1751e-1239-49fe-a4a1-6bdba0f7840a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省 成都市 武侯区 武侯大道双楠段197号2栋2单元6楼12号房屋",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "成都市",
+        "区": "武侯区",
+        "最靠近商圈": "双楠",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 737349710835,
@@ -541,10 +554,24 @@
         "detail_captured": true
     },
     {
-        "id": "734457203939",
-        "url": "https://sf-item.taobao.com/sf_item/734457203939.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
-        "end": 1695261600000,
-        "status": "done",
-        "is_processed": false
+        "id": 734457203939,
+        "市场评估价": 11364800,
+        "起拍价格": 7955360,
+        "成交价格": 7955360,
+        "交易时间": "2023/09/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/734457203939.htm?track_id=65c4c002-2334-451e-b9c8-a651929fdae5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "上海 上海市 宝山区 纬地路88弄76号1101室",
+        "所属小区": "阳光水岸家园",
+        "省份": "上海",
+        "城市": "上海",
+        "区": "宝山区",
+        "最靠近商圈": "友谊西路",
+        "建筑面积": 136.18,
+        "单价": 58456.59,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -107,11 +107,25 @@
         "detail_captured": true
     },
     {
-        "id": "585795558084",
-        "url": "https://sf-item.taobao.com/sf_item/585795558084.htm?track_id=4e9d30fd-516e-4692-99a0-fcad258b6345",
-        "end": 1549859171000,
-        "status": "done",
-        "is_processed": false
+        "id": 585795558084,
+        "市场评估价": 0,
+        "起拍价格": 119784,
+        "成交价格": 184784,
+        "交易时间": "2019/02/11 12:26:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585795558084.htm?track_id=4e9d30fd-516e-4692-99a0-fcad258b6345",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 51,
+        "地点": "贵州省 遵义市 汇川区 花园路3号楼民生公司开发房",
+        "所属小区": "民生公司开发房",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": null,
+        "建筑面积": 27.18,
+        "单价": 6796.32,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 585660653806,
@@ -240,10 +254,24 @@
         "detail_captured": true
     },
     {
-        "id": "586314778734",
-        "url": "https://sf-item.taobao.com/sf_item/586314778734.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
-        "end": 1549851472000,
-        "status": "done",
-        "is_processed": false
+        "id": 586314778734,
+        "市场评估价": null,
+        "起拍价格": 403563,
+        "成交价格": 463563,
+        "交易时间": "2019/02/11 10:17:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586314778734.htm?track_id=795b7e33-3843-4912-be3c-1857ac081cd7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省烟台市牟平区师范路409号16幢1单元1004号",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "烟台市",
+        "区": "牟平区",
+        "最靠近商圈": null,
+        "建筑面积": 124.93,
+        "单价": 3711.24,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

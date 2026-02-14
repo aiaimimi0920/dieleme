@@ -295,10 +295,24 @@
         "detail_captured": true
     },
     {
-        "id": "569579239511",
-        "url": "https://sf-item.taobao.com/sf_item/569579239511.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
-        "end": 1528949479000,
-        "status": "done",
-        "is_processed": false
+        "id": 569579239511,
+        "市场评估价": null,
+        "起拍价格": 7770000,
+        "成交价格": 9190000,
+        "交易时间": "2018-06-14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569579239511.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 国信嘉园32幢二单元302室",
+        "所属小区": "国信嘉园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江商圈",
+        "建筑面积": 242.87,
+        "单价": 37841.52,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

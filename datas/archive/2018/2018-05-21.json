@@ -657,10 +657,24 @@
         "detail_captured": true
     },
     {
-        "id": "566872108684",
-        "url": "https://sf-item.taobao.com/sf_item/566872108684.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
-        "end": 1526870482000,
-        "status": "done",
-        "is_processed": false
+        "id": 566872108684,
+        "市场评估价": 2200000,
+        "起拍价格": 1540000,
+        "成交价格": 2400000,
+        "交易时间": "2018-05-21 10:41:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/566872108684.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "是否成交": true,
+        "竞拍人数": 63,
+        "出价人数": null,
+        "地点": "上海市宝山区宝林八村78号601室",
+        "所属小区": "宝林八村",
+        "省份": "上海",
+        "城市": "上海",
+        "区": "宝山区",
+        "最靠近商圈": "淞宝",
+        "建筑面积": 50.81,
+        "单价": 47223.36,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

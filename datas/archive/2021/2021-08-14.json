@@ -210,10 +210,24 @@
         "detail_captured": true
     },
     {
-        "id": "651102467400",
-        "url": "https://sf-item.taobao.com/sf_item/651102467400.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
-        "end": 1628907216000,
-        "status": "done",
-        "is_processed": false
+        "id": 651102467400,
+        "市场评估价": null,
+        "起拍价格": 280000,
+        "成交价格": 338000,
+        "交易时间": "2021-08-14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/651102467400.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "是否成交": true,
+        "竞拍人数": 23,
+        "出价人数": 23,
+        "地点": "嘉兴市嘉悦大厦1207室",
+        "所属小区": "嘉兴市嘉悦大厦",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "南湖商圈",
+        "建筑面积": 45.39,
+        "单价": 7451.66,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -84,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "524783677807",
-        "url": "https://sf-item.taobao.com/sf_item/524783677807.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
-        "end": 1450231207000,
-        "status": "done",
-        "is_processed": false
+        "id": 524783677807,
+        "市场评估价": null,
+        "起拍价格": 29365,
+        "成交价格": 30265,
+        "交易时间": "2015-12-16 10:00:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524783677807.htm?track_id=b959b5a2-d631-4725-a231-0a9105b1c6e9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "吉林省 延边朝鲜族自治州 延吉市",
+        "所属小区": "朝阳川镇",
+        "省份": "吉林省",
+        "城市": "延边朝鲜族自治州",
+        "区": "延吉市",
+        "最靠近商圈": "朝阳川镇",
+        "建筑面积": 35,
+        "单价": 864.43,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

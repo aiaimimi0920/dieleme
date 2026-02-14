@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "43521557373",
-        "url": "https://sf-item.taobao.com/sf_item/43521557373.htm?track_id=a698a9e5-cfa5-48e0-86bd-280315dc7c24",
-        "end": 1423018620000,
-        "status": "done",
-        "is_processed": false
+        "id": 43521557373,
+        "市场评估价": 0,
+        "起拍价格": 700000,
+        "成交价格": 775000,
+        "交易时间": "2015/02/04 10:57:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43521557373.htm?track_id=a698a9e5-cfa5-48e0-86bd-280315dc7c24",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 75,
+        "地点": "江苏省 无锡市 锡山区 宝城花园22-801",
+        "所属小区": "宝城花园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

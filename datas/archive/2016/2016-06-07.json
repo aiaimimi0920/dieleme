@@ -84,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "532847711229",
-        "url": "https://sf-item.taobao.com/sf_item/532847711229.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
-        "end": 1465264985000,
-        "status": "done",
-        "is_processed": false
+        "id": 532847711229,
+        "市场评估价": null,
+        "起拍价格": 673216,
+        "成交价格": 773216,
+        "交易时间": "2016/06/07 10:03:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/532847711229.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省常州市通江中路288-1幢乙单元2003室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "新北区",
+        "最靠近商圈": "新北万达商圈",
+        "建筑面积": 149.29,
+        "单价": 5179.22,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

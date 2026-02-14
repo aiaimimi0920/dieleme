@@ -295,10 +295,24 @@
         "detail_captured": true
     },
     {
-        "id": "549042542505",
-        "url": "https://sf-item.taobao.com/sf_item/549042542505.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
-        "end": 1495504800000,
-        "status": "done",
-        "is_processed": false
+        "id": 549042542505,
+        "市场评估价": null,
+        "起拍价格": 1201900,
+        "成交价格": 1201900,
+        "交易时间": "2017/05/23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/549042542505.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江苏省 常州市 天宁区 郑陆镇焦溪溪河路12-7号",
+        "所属小区": "焦溪老街",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "郑陆镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

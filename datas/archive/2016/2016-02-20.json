@@ -85,10 +85,24 @@
         "detail_captured": true
     },
     {
-        "id": "526567768959",
-        "url": "https://sf-item.taobao.com/sf_item/526567768959.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
-        "end": 1455934913000,
-        "status": "done",
-        "is_processed": false
+        "id": 526567768959,
+        "市场评估价": null,
+        "起拍价格": 3187000,
+        "成交价格": 4007000,
+        "交易时间": "2016-02-20 10:21:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526567768959.htm?track_id=a8603f24-44c4-440a-ac92-d4a78db10afe",
+        "是否成交": true,
+        "竞拍人数": 42,
+        "出价人数": 42,
+        "地点": "上海 上海市 宝山区",
+        "所属小区": null,
+        "省份": "上海",
+        "城市": "上海",
+        "区": "宝山区",
+        "最靠近商圈": "淞宝",
+        "建筑面积": 139.84,
+        "单价": 28642.76,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -338,10 +338,24 @@
         "detail_captured": true
     },
     {
-        "id": "544335316410",
-        "url": "https://sf-item.taobao.com/sf_item/544335316410.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
-        "end": 1487037600000,
-        "status": "done",
-        "is_processed": false
+        "id": 544335316410,
+        "市场评估价": null,
+        "起拍价格": 6020000,
+        "成交价格": 6020000,
+        "交易时间": "2017-02-14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544335316410.htm?track_id=c98c782b-3d80-4657-8ccd-f936150ccb2b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河北省三河市燕郊开发区规划路南侧夏威夷小区Y132",
+        "所属小区": "夏威夷小区",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "三河市",
+        "最靠近商圈": "燕郊开发区",
+        "建筑面积": 214.68,
+        "单价": 28040.53,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

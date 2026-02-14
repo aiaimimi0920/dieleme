@@ -35,11 +35,12 @@
         "省份": "江苏省",
         "城市": "徐州市",
         "区": "泉山区",
-        "最靠近商圈": null,
+        "最靠近商圈": "大学路",
         "建筑面积": 266.19,
-        "单价": 17205.06,
+        "单价": 17205.4,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 610684506958,
@@ -63,11 +64,25 @@
         "detail_captured": true
     },
     {
-        "id": "611592503222",
-        "url": "https://sf-item.taobao.com/sf_item/611592503222.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
-        "end": 1580090424000,
-        "status": "done",
-        "is_processed": false
+        "id": 611592503222,
+        "市场评估价": 2980000,
+        "起拍价格": 1700000,
+        "成交价格": 1700000,
+        "交易时间": "2020/01/27 10:00:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611592503222.htm?track_id=3864682c-1879-4bd4-9176-d9f88e0e3dbf",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城二路1幢\"第五国际\"A座11205室、11206室",
+        "所属小区": "第五国际",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城五路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 610753272975,
@@ -112,17 +127,45 @@
         "detail_captured": true
     },
     {
-        "id": "611367618886",
-        "url": "https://sf-item.taobao.com/sf_item/611367618886.htm?track_id=e6a72cdd-662b-4c8a-8ab6-5435bad4446c",
-        "end": 1580091649000,
-        "status": "done",
-        "is_processed": false
+        "id": 611367618886,
+        "市场评估价": null,
+        "起拍价格": 254520,
+        "成交价格": 297700,
+        "交易时间": "2020-01-27 10:20:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611367618886.htm?track_id=e6a72cdd-662b-4c8a-8ab6-5435bad4446c",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": null,
+        "地点": "四川省 攀枝花市 米易县 攀莲镇顺墙南街133号",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "攀枝花市",
+        "区": "米易县",
+        "最靠近商圈": null,
+        "建筑面积": 56.37,
+        "单价": 5281.31,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
-        "id": "611364594729",
-        "url": "https://sf-item.taobao.com/sf_item/611364594729.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
-        "end": 1580090400000,
-        "status": "done",
-        "is_processed": false
+        "id": 611364594729,
+        "市场评估价": 725000,
+        "起拍价格": 554625,
+        "成交价格": 554625,
+        "交易时间": "2020/01/27 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611364594729.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 济宁市 微山县 星月城小区16号楼1单元202室",
+        "所属小区": "星月城小区",
+        "省份": "山东省",
+        "城市": "济宁市",
+        "区": "微山县",
+        "最靠近商圈": "红荷路商圈",
+        "建筑面积": 132.87,
+        "单价": 4173.74,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

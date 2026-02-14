@@ -399,10 +399,24 @@
         "detail_captured": true
     },
     {
-        "id": "667455378987",
-        "url": "https://sf-item.taobao.com/sf_item/667455378987.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
-        "end": 1644199214000,
-        "status": "done",
-        "is_processed": false
+        "id": 667455378987,
+        "市场评估价": null,
+        "起拍价格": 242824,
+        "成交价格": 247624,
+        "交易时间": "2022/02/07 10:00:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/667455378987.htm?track_id=533a8089-f63a-460c-a7e6-8edb6e0ea8f5",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 贺州市 八步区 钟山西路5号9号楼2单元603号房的不动产",
+        "所属小区": "光明花园",
+        "省份": "广西壮族自治区",
+        "城市": "贺州市",
+        "区": "八步区",
+        "最靠近商圈": null,
+        "建筑面积": 104.32,
+        "单价": 2373.78,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

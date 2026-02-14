@@ -86,10 +86,24 @@
         "detail_captured": true
     },
     {
-        "id": "565413000594",
-        "url": "https://sf-item.taobao.com/sf_item/565413000594.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
-        "end": 1521945131000,
-        "status": "done",
-        "is_processed": false
+        "id": 565413000594,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1736358,
+        "交易时间": "2018/03/25 10:32:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565413000594.htm?track_id=e75e7e87-d0bd-4be9-b87d-3c5fa77111af",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 51,
+        "地点": "山东省 济南市 天桥区 无影山中路121号天福苑富华居6-501房产",
+        "所属小区": "天福苑富华居",
+        "省份": "山东省",
+        "城市": "济南市",
+        "区": "天桥区",
+        "最靠近商圈": "无影山",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

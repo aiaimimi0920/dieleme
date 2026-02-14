@@ -189,17 +189,24 @@
         "detail_captured": true
     },
     {
-        "id": "814601300198",
-        "url": "https://sf-item.taobao.com/sf_item/814601300198.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
-        "end": 1723341600000,
-        "status": "done",
-        "is_processed": false
-    },
-    {
-        "id": "800779266233",
-        "url": "https://sf-item.taobao.com/sf_item/800779266233.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
-        "end": 1723359690000,
-        "status": "done",
-        "is_processed": false
+        "id": 800779266233,
+        "市场评估价": null,
+        "起拍价格": 458360,
+        "成交价格": 458360,
+        "交易时间": "2024/08/11 15:01:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/800779266233.htm?track_id=e0959419-f758-4c5b-bde5-5beccff8f6cc",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "山东省 济南市 天桥区 山东省济南市天桥区天桥区舜清苑16号楼1-202",
+        "所属小区": "舜清苑",
+        "省份": "山东省",
+        "城市": "济南市",
+        "区": "天桥区",
+        "最靠近商圈": "无",
+        "建筑面积": 63.68,
+        "单价": 7197.31,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

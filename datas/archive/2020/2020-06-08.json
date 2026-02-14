@@ -336,10 +336,24 @@
         "detail_captured": true
     },
     {
-        "id": "617867574737",
-        "url": "https://sf-item.taobao.com/sf_item/617867574737.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
-        "end": 1591583440000,
-        "status": "done",
-        "is_processed": false
+        "id": 617867574737,
+        "市场评估价": 218989,
+        "起拍价格": 175191,
+        "成交价格": 241191,
+        "交易时间": "2020/06/08 10:30:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/617867574737.htm?track_id=3bd126eb-2fff-4c66-b898-bfdc476cca62",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 29,
+        "地点": "山东省 济宁市 微山县 文化街8号农业局宿舍1号楼2-102室",
+        "所属小区": "农业局宿舍",
+        "省份": "山东省",
+        "城市": "济宁市",
+        "区": "微山县",
+        "最靠近商圈": "文化街",
+        "建筑面积": 89.02,
+        "单价": 2709.33,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

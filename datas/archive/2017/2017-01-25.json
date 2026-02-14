@@ -42,10 +42,24 @@
         "detail_captured": true
     },
     {
-        "id": "544141279517",
-        "url": "https://sf-item.taobao.com/sf_item/544141279517.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
-        "end": 1485309600000,
-        "status": "done",
-        "is_processed": false
+        "id": 544141279517,
+        "市场评估价": null,
+        "起拍价格": 546000,
+        "成交价格": 546000,
+        "交易时间": "2017-01-25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544141279517.htm?track_id=e83efa40-2c23-4073-98f0-8f1416b32e56",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 常州市 天宁区",
+        "所属小区": "横山桥镇美士隆17号",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

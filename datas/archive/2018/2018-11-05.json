@@ -63,11 +63,25 @@
         "detail_captured": true
     },
     {
-        "id": "579979234528",
-        "url": "https://sf-item.taobao.com/sf_item/579979234528.htm?track_id=5e6c2db1-e58c-4261-9130-fede5b693e40",
-        "end": 1541385851000,
-        "status": "done",
-        "is_processed": false
+        "id": 579979234528,
+        "市场评估价": null,
+        "起拍价格": 467060,
+        "成交价格": 519059.6,
+        "交易时间": "2018-11-05 10:44:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/579979234528.htm?track_id=5e6c2db1-e58c-4261-9130-fede5b693e40",
+        "是否成交": true,
+        "竞拍人数": 27,
+        "出价人数": 26,
+        "地点": "江西省鹰潭市贵溪市交通路16号",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "鹰潭市",
+        "区": "贵溪市",
+        "最靠近商圈": null,
+        "建筑面积": 184.26,
+        "单价": 2818.28,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 579935673184,

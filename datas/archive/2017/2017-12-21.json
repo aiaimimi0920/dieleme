@@ -345,11 +345,25 @@
         "detail_captured": true
     },
     {
-        "id": "560979570824",
-        "url": "https://sf-item.taobao.com/sf_item/560979570824.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
-        "end": 1513840313000,
-        "status": "done",
-        "is_processed": false
+        "id": 560979570824,
+        "市场评估价": null,
+        "起拍价格": 561560,
+        "成交价格": 561560,
+        "交易时间": "2017/12/21 15:11:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560979570824.htm?track_id=b2793e5b-06fa-457e-87d1-6651a24591e8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省 遵义市 汇川区",
+        "所属小区": "长新军港",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 562467895570,

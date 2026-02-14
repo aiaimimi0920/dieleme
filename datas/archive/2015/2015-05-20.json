@@ -64,10 +64,24 @@
         "manual_checked": true
     },
     {
-        "id": "45150145537",
-        "url": "https://sf-item.taobao.com/sf_item/45150145537.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
-        "end": 1432083600000,
-        "status": "done",
-        "is_processed": false
+        "id": 45150145537,
+        "市场评估价": null,
+        "起拍价格": 2000000,
+        "成交价格": 2000000,
+        "交易时间": "2015-05-20 09:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45150145537.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市昌平区东小口镇佳运园12号楼6层5单元562号",
+        "所属小区": "佳运园",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "昌平区",
+        "最靠近商圈": "东小口",
+        "建筑面积": 85.45,
+        "单价": 23416.89,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -106,10 +106,24 @@
         "detail_captured": true
     },
     {
-        "id": "531494387601",
-        "url": "https://sf-item.taobao.com/sf_item/531494387601.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
-        "end": 1464402198000,
-        "status": "done",
-        "is_processed": false
+        "id": 531494387601,
+        "市场评估价": null,
+        "起拍价格": 1650000,
+        "成交价格": 2010000,
+        "交易时间": "2016/05/28 10:23:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531494387601.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区",
+        "所属小区": "杭州临江花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿街道",
+        "建筑面积": 144.86,
+        "单价": 13875.97,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

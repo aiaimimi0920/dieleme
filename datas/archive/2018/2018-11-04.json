@@ -84,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "575941174870",
-        "url": "https://sf-item.taobao.com/sf_item/575941174870.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
-        "end": 1541303351000,
-        "status": "done",
-        "is_processed": false
+        "id": 575941174870,
+        "市场评估价": null,
+        "起拍价格": 1140000,
+        "成交价格": 1140000,
+        "交易时间": "2018/11/04 11:49:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/575941174870.htm?track_id=d8acb489-0be2-498b-a789-d313a5a5601f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市昌平区小汤山镇沙顺路87号院2号楼1层西单元102号房地产",
+        "所属小区": null,
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "昌平区",
+        "最靠近商圈": "小汤山",
+        "建筑面积": 40.15,
+        "单价": 28393.52,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

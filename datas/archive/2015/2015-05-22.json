@@ -44,10 +44,24 @@
         "manual_checked": true
     },
     {
-        "id": "45215285242",
-        "url": "https://sf-item.taobao.com/sf_item/45215285242.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
-        "end": 1432260377000,
-        "status": "done",
-        "is_processed": false
+        "id": 45215285242,
+        "市场评估价": null,
+        "起拍价格": 350000,
+        "成交价格": 540000,
+        "交易时间": "2015/05/22 10:06:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45215285242.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 19,
+        "地点": "浙江省开化县马金镇马金路（崇化一弄2号）1-3层住宅",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "开化县",
+        "最靠近商圈": "马金镇",
+        "建筑面积": 221.48,
+        "单价": 2437.97,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

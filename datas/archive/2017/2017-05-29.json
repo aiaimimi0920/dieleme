@@ -591,11 +591,25 @@
         "detail_captured": true
     },
     {
-        "id": "550657478106",
-        "url": "https://sf-item.taobao.com/sf_item/550657478106.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
-        "end": 1496024969000,
-        "status": "done",
-        "is_processed": false
+        "id": 550657478106,
+        "市场评估价": 0,
+        "起拍价格": 459120,
+        "成交价格": 511120,
+        "交易时间": "2017/05/29 10:29:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/550657478106.htm?track_id=71180d0d-adba-49a1-bced-8bb6c8ac51a5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 45,
+        "地点": "贵州省 黔南布依族苗族自治州 都匀市 剑江中路83号都市龙庭1栋1单元16层1604号住房",
+        "所属小区": "都市龙庭",
+        "省份": "贵州省",
+        "城市": "黔南布依族苗族自治州",
+        "区": "都匀市",
+        "最靠近商圈": "剑江中路",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 549109010700,
@@ -640,10 +654,24 @@
         "detail_captured": true
     },
     {
-        "id": "549621103032",
-        "url": "https://sf-item.taobao.com/sf_item/549621103032.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
-        "end": 1496026108000,
-        "status": "done",
-        "is_processed": false
+        "id": 549621103032,
+        "市场评估价": 3038700,
+        "起拍价格": 2130000,
+        "成交价格": 2540000,
+        "交易时间": "2017/05/29 10:48:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/549621103032.htm?track_id=0537d21b-6be4-4f9f-b977-be410be358eb",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 42,
+        "地点": "南京市延龄巷5号2幢1单元202室房产",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "南京市",
+        "区": "秦淮区",
+        "最靠近商圈": "新街口",
+        "建筑面积": 92.25,
+        "单价": 27533.61,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

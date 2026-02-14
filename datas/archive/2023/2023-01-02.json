@@ -231,10 +231,24 @@
         "detail_captured": true
     },
     {
-        "id": "695347610227",
-        "url": "https://sf-item.taobao.com/sf_item/695347610227.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
-        "end": 1672627382000,
-        "status": "done",
-        "is_processed": false
+        "id": 695347610227,
+        "市场评估价": null,
+        "起拍价格": 502888,
+        "成交价格": 592888,
+        "交易时间": "2023/01/02 10:43:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/695347610227.htm?track_id=b9c1bcd7-59c0-471e-bbe8-21a97161a6dd",
+        "是否成交": true,
+        "竞拍人数": 17,
+        "出价人数": 17,
+        "地点": "江西省 九江市 濂溪区 怡康路与九星路交汇处东方紫薇城【8栋】502",
+        "所属小区": "东方紫薇城",
+        "省份": "江西省",
+        "城市": "九江市",
+        "区": "濂溪区",
+        "最靠近商圈": "万达广场",
+        "建筑面积": 119.43,
+        "单价": 4965.83,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

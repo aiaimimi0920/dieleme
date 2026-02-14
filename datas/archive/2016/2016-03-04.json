@@ -106,10 +106,24 @@
         "detail_captured": true
     },
     {
-        "id": "527085852552",
-        "url": "https://sf-item.taobao.com/sf_item/527085852552.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
-        "end": 1457056800000,
-        "status": "done",
-        "is_processed": false
+        "id": 527085852552,
+        "市场评估价": 0,
+        "起拍价格": 21347000,
+        "成交价格": 21347000,
+        "交易时间": "2016/03/04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527085852552.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省常州市新北区新民东路8号",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "新北区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

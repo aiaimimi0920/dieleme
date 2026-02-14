@@ -216,10 +216,24 @@
         "detail_captured": true
     },
     {
-        "id": "557106189609",
-        "url": "https://sf-item.taobao.com/sf_item/557106189609.htm?track_id=4ad87b93-3084-4bc2-9259-b6b0538f1145",
-        "end": 1505529476000,
-        "status": "done",
-        "is_processed": false
+        "id": 557106189609,
+        "市场评估价": null,
+        "起拍价格": 5600000,
+        "成交价格": 6820000,
+        "交易时间": "2017/09/16 10:37:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557106189609.htm?track_id=4ad87b93-3084-4bc2-9259-b6b0538f1145",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 40,
+        "地点": "浙江省 杭州市 滨江区 伟业路481号",
+        "所属小区": "银色港湾公寓",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江区政府",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

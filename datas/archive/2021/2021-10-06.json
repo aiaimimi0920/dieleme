@@ -42,11 +42,25 @@
         "detail_captured": true
     },
     {
-        "id": "651741955781",
-        "url": "https://sf-item.taobao.com/sf_item/651741955781.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
-        "end": 1633482394000,
-        "status": "done",
-        "is_processed": false
+        "id": 651741955781,
+        "市场评估价": null,
+        "起拍价格": 426701,
+        "成交价格": 426701,
+        "交易时间": "2021/10/06 09:06:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/651741955781.htm?track_id=98d77ec4-62b2-4eed-aa60-a110b6de6c18",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "内蒙古自治区 包头市 昆都仑区 黄河4号街坊 5-30号房屋",
+        "所属小区": "黄河4号街坊",
+        "省份": "内蒙古自治区",
+        "城市": "包头市",
+        "区": "昆都仑区",
+        "最靠近商圈": "友谊大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 655306593110,

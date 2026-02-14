@@ -277,10 +277,24 @@
         "detail_captured": true
     },
     {
-        "id": "562342109723",
-        "url": "https://sf-item.taobao.com/sf_item/562342109723.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
-        "end": 1515290400000,
-        "status": "done",
-        "is_processed": false
+        "id": 562342109723,
+        "市场评估价": null,
+        "起拍价格": 2866000,
+        "成交价格": 2866000,
+        "交易时间": "2018-01-07T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562342109723.htm?track_id=02e045bc-3be2-4bc9-b092-08aaf04fbc84",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 青岛市 崂山区 海尔路31号6号楼1605户",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "崂山区",
+        "最靠近商圈": null,
+        "建筑面积": 125.43,
+        "单价": 22848.14,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

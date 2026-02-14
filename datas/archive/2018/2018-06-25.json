@@ -593,10 +593,24 @@
         "detail_captured": true
     },
     {
-        "id": "571119937016",
-        "url": "https://sf-item.taobao.com/sf_item/571119937016.htm?track_id=eba88dd1-33f1-430f-afc6-b6c27ccbba5f",
-        "end": 1529895851000,
-        "status": "done",
-        "is_processed": false
+        "id": 571119937016,
+        "市场评估价": 0,
+        "起拍价格": 2817344,
+        "成交价格": 3757344,
+        "交易时间": "2018/06/25 11:04:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571119937016.htm?track_id=eba88dd1-33f1-430f-afc6-b6c27ccbba5f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 170,
+        "地点": "山东省 青岛市 崂山区 劲松七路228号7号楼2单元502",
+        "所属小区": "鲁信长春花园",
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "崂山区",
+        "最靠近商圈": "金家岭",
+        "建筑面积": 109.12,
+        "单价": 34430.17,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

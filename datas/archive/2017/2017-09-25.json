@@ -168,11 +168,25 @@
         "detail_captured": true
     },
     {
-        "id": "557421972536",
-        "url": "https://sf-item.taobao.com/sf_item/557421972536.htm?track_id=5f2f7b24-55f0-472d-89a7-52767b724665",
-        "end": 1506304800000,
-        "status": "done",
-        "is_processed": false
+        "id": 557421972536,
+        "市场评估价": null,
+        "起拍价格": 475000,
+        "成交价格": 475000,
+        "交易时间": "2017/09/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557421972536.htm?track_id=5f2f7b24-55f0-472d-89a7-52767b724665",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 邢台市 巨鹿县 万盛南街东侧，健康东路南侧天成国际小区",
+        "所属小区": "天成国际小区",
+        "省份": "河北省",
+        "城市": "邢台市",
+        "区": "巨鹿县",
+        "最靠近商圈": "巨鹿县城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 557573799344,
@@ -217,11 +231,25 @@
         "detail_captured": true
     },
     {
-        "id": "557379680582",
-        "url": "https://sf-item.taobao.com/sf_item/557379680582.htm?track_id=c6df0310-ebd5-4130-9d27-718efb9b09f3",
-        "end": 1506304800000,
-        "status": "done",
-        "is_processed": false
+        "id": 557379680582,
+        "市场评估价": null,
+        "起拍价格": 1006282,
+        "成交价格": 1006282,
+        "交易时间": "2017-09-25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557379680582.htm?track_id=c6df0310-ebd5-4130-9d27-718efb9b09f3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 广运潭大道南段1559号5幢1单元18层11802室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "浐灞生态区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 557658647474,
@@ -245,10 +273,24 @@
         "detail_captured": true
     },
     {
-        "id": "557471624896",
-        "url": "https://sf-item.taobao.com/sf_item/557471624896.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
-        "end": 1506304800000,
-        "status": "done",
-        "is_processed": false
+        "id": 557471624896,
+        "市场评估价": null,
+        "起拍价格": 585000,
+        "成交价格": 585000,
+        "交易时间": "2017-09-25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557471624896.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "四川省泸州市叙永县西大街杨武坊广场",
+        "所属小区": "杨武坊广场",
+        "省份": "四川省",
+        "城市": "泸州市",
+        "区": "叙永县",
+        "最靠近商圈": "叙永县城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -318,11 +318,25 @@
         "detail_captured": true
     },
     {
-        "id": "582126824852",
-        "url": "https://sf-item.taobao.com/sf_item/582126824852.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
-        "end": 1544066055000,
-        "status": "done",
-        "is_processed": false
+        "id": 582126824852,
+        "市场评估价": 868481,
+        "起拍价格": 486349.36,
+        "成交价格": 584349.36,
+        "交易时间": "2018/12/06 11:14:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/582126824852.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 59,
+        "地点": "广东省 惠州市 博罗县 惠州市博罗县石湾镇宏明西路北侧一品中央珑园7栋1105房",
+        "所属小区": "一品中央珑园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾镇板块",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 582090876102,
@@ -346,10 +360,24 @@
         "detail_captured": true
     },
     {
-        "id": "581013712279",
-        "url": "https://sf-item.taobao.com/sf_item/581013712279.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
-        "end": 1544062325000,
-        "status": "done",
-        "is_processed": false
+        "id": 581013712279,
+        "市场评估价": null,
+        "起拍价格": 500000,
+        "成交价格": 630000,
+        "交易时间": "2018-12-06 10:12:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581013712279.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": 25,
+        "地点": "江西省 九江市 武宁县 宋溪集镇",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "九江市",
+        "区": "武宁县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

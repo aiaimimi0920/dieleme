@@ -64,11 +64,25 @@
         "detail_captured": true
     },
     {
-        "id": "537196131470",
-        "url": "https://sf-item.taobao.com/sf_item/537196131470.htm?track_id=0c00c899-c0ca-4cde-9de0-12bba8db97b1",
-        "end": 1472352017000,
-        "status": "done",
-        "is_processed": false
+        "id": 537196131470,
+        "市场评估价": null,
+        "起拍价格": 340736,
+        "成交价格": 550736,
+        "交易时间": "2016-08-28 10:40:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537196131470.htm?track_id=0c00c899-c0ca-4cde-9de0-12bba8db97b1",
+        "是否成交": true,
+        "竞拍人数": 64,
+        "出价人数": 11,
+        "地点": "江苏省无锡市锡山区",
+        "所属小区": "鸿景华庭",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 535387390340,

@@ -399,10 +399,24 @@
         "detail_captured": true
     },
     {
-        "id": "1004666496196",
-        "url": "https://sf-item.taobao.com/sf_item/1004666496196.htm?track_id=5724ee14-58ff-4ecc-b16a-be51c4d3b278",
-        "end": 1768701846000,
-        "status": "done",
-        "is_processed": false
+        "id": 1004666496196,
+        "市场评估价": null,
+        "起拍价格": 1001490,
+        "成交价格": 1001490,
+        "交易时间": "2026/01/18 10:04:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1004666496196.htm?track_id=5724ee14-58ff-4ecc-b16a-be51c4d3b278",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "上海市宝山区美平路999弄15号701室",
+        "所属小区": "美平苑",
+        "省份": "上海",
+        "城市": "上海",
+        "区": "宝山区",
+        "最靠近商圈": "罗店商圈",
+        "建筑面积": 68.82,
+        "单价": 14552.48,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

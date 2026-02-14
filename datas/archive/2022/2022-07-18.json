@@ -399,11 +399,25 @@
         "detail_captured": true
     },
     {
-        "id": "677662753896",
-        "url": "https://sf-item.taobao.com/sf_item/677662753896.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
-        "end": 1658109659000,
-        "status": "done",
-        "is_processed": false
+        "id": 677662753896,
+        "市场评估价": null,
+        "起拍价格": 1052879,
+        "成交价格": 1052879,
+        "交易时间": "2022/07/18 10:00:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/677662753896.htm?track_id=cf6749c3-8d99-4130-8794-f78ec91928ff",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 北二环东段路北2幢10405室",
+        "所属小区": "锦园新世纪",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "北二环",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 676764013929,
@@ -427,10 +441,24 @@
         "detail_captured": true
     },
     {
-        "id": "677355715213",
-        "url": "https://sf-item.taobao.com/sf_item/677355715213.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
-        "end": 1658109628000,
-        "status": "done",
-        "is_processed": false
+        "id": 677355715213,
+        "市场评估价": null,
+        "起拍价格": 1122576.47,
+        "成交价格": 1122576.47,
+        "交易时间": "2022/07/18 10:00:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/677355715213.htm?track_id=ac5d6dda-a940-4e2f-812c-86dcd3878b4d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省汕头市潮阳区文光街道西门居委石珠路茵悦豪苑第6幢第1单元402A、B号房",
+        "所属小区": "茵悦豪苑",
+        "省份": "广东省",
+        "城市": "汕头市",
+        "区": "潮阳区",
+        "最靠近商圈": null,
+        "建筑面积": 181.55,
+        "单价": 6185.45,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -21,11 +21,25 @@
         "detail_captured": true
     },
     {
-        "id": "520642143836",
-        "url": "https://sf-item.taobao.com/sf_item/520642143836.htm?track_id=260a9d3f-8c3f-4758-b6e0-eb9e92a8298e",
-        "end": 1438224962000,
-        "status": "done",
-        "is_processed": false
+        "id": 520642143836,
+        "市场评估价": null,
+        "起拍价格": 3800000,
+        "成交价格": 5380000,
+        "交易时间": "2015-07-30 10:56:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520642143836.htm?track_id=260a9d3f-8c3f-4758-b6e0-eb9e92a8298e",
+        "是否成交": true,
+        "竞拍人数": 111,
+        "出价人数": 111,
+        "地点": "浙江省 台州市 天台县",
+        "所属小区": "杨家山1号",
+        "省份": "浙江省",
+        "城市": "台州市",
+        "区": "天台县",
+        "最靠近商圈": null,
+        "建筑面积": 410.15,
+        "单价": 13120.92,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 520646450171,
@@ -49,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "520547718770",
-        "url": "https://sf-item.taobao.com/sf_item/520547718770.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
-        "end": 1438221600000,
-        "status": "done",
-        "is_processed": false
+        "id": 520547718770,
+        "市场评估价": 0,
+        "起拍价格": 1006200,
+        "成交价格": 1006200,
+        "交易时间": "2015/07/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520547718770.htm?track_id=a9f96bde-dfc4-427e-8238-00b8934a1e27",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "常州市广化街200号丙单元504室",
+        "所属小区": "广化小区",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "南大街",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -231,10 +231,24 @@
         "detail_captured": true
     },
     {
-        "id": "553212108071",
-        "url": "https://sf-item.taobao.com/sf_item/553212108071.htm?track_id=6aabcd90-810d-43c8-9914-e7c57096882b",
-        "end": 1500518658000,
-        "status": "done",
-        "is_processed": false
+        "id": 553212108071,
+        "市场评估价": null,
+        "起拍价格": 1750000,
+        "成交价格": 2092000,
+        "交易时间": "2017/07/20 10:44:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/553212108071.htm?track_id=6aabcd90-810d-43c8-9914-e7c57096882b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 41,
+        "地点": "嘉兴市佳源都市36幢商铺3号室",
+        "所属小区": "佳源都市",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "南湖新区",
+        "建筑面积": 288,
+        "单价": 7263.89,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

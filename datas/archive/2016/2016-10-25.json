@@ -127,11 +127,25 @@
         "detail_captured": true
     },
     {
-        "id": "539792692017",
-        "url": "https://sf-item.taobao.com/sf_item/539792692017.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
-        "end": 1477368232000,
-        "status": "done",
-        "is_processed": false
+        "id": 539792692017,
+        "市场评估价": null,
+        "起拍价格": 728100,
+        "成交价格": 846100,
+        "交易时间": "2016/10/25 12:03:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539792692017.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 105,
+        "地点": "江苏省 无锡市 锡山区",
+        "所属小区": "桑达园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 539727073312,
@@ -155,10 +169,24 @@
         "detail_captured": true
     },
     {
-        "id": "539783029905",
-        "url": "https://sf-item.taobao.com/sf_item/539783029905.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
-        "end": 1477360800000,
-        "status": "done",
-        "is_processed": false
+        "id": 539783029905,
+        "市场评估价": 13650000,
+        "起拍价格": 8740000,
+        "成交价格": 8740000,
+        "交易时间": "2016/10/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539783029905.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "杭州市滨江区江晖路1757号中兴大厦1201室",
+        "所属小区": "中兴大厦",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 974.85,
+        "单价": 8967.45,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

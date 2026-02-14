@@ -84,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "533710632563",
-        "url": "https://sf-item.taobao.com/sf_item/533710632563.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
-        "end": 1466820712000,
-        "status": "done",
-        "is_processed": false
+        "id": 533710632563,
+        "市场评估价": null,
+        "起拍价格": 340000,
+        "成交价格": 523000,
+        "交易时间": "2016-06-25 10:11:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/533710632563.htm?track_id=d3239a27-597d-455e-bee9-57eb24f4b1aa",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市南湖区都市文涛苑9幢302室",
+        "所属小区": "都市文涛苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

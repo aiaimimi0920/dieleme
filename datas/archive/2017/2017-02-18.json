@@ -64,10 +64,24 @@
         "detail_captured": true
     },
     {
-        "id": "544541608543",
-        "url": "https://sf-item.taobao.com/sf_item/544541608543.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
-        "end": 1487392358000,
-        "status": "done",
-        "is_processed": false
+        "id": 544541608543,
+        "市场评估价": null,
+        "起拍价格": 2380000,
+        "成交价格": 3547000,
+        "交易时间": "2017/02/18 12:32:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544541608543.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 375,
+        "地点": "浙江省嘉兴市南湖区少年路130-132号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "少年路商圈",
+        "建筑面积": 119.5,
+        "单价": 29682.01,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

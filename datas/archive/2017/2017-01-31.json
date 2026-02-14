@@ -1,9 +1,23 @@
 [
     {
-        "id": "543249992311",
-        "url": "https://sf-item.taobao.com/sf_item/543249992311.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
-        "end": 1485829984000,
-        "status": "done",
-        "is_processed": false
+        "id": 543249992311,
+        "市场评估价": 1291600,
+        "起拍价格": 950000,
+        "成交价格": 1500000,
+        "交易时间": "2017/01/31 10:33:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/543249992311.htm?track_id=aad9e5de-7974-4ac8-be3e-4dccdf6888e1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省 南京市 秦淮区",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "南京市",
+        "区": "秦淮区",
+        "最靠近商圈": "新街口",
+        "建筑面积": 55.65,
+        "单价": 26954.17,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

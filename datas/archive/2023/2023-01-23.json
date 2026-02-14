@@ -126,10 +126,24 @@
         "detail_captured": true
     },
     {
-        "id": "696747582234",
-        "url": "https://sf-item.taobao.com/sf_item/696747582234.htm?track_id=98eb697e-cdfd-41f3-907d-82339c528e8c",
-        "end": 1674440766000,
-        "status": "done",
-        "is_processed": false
+        "id": 696747582234,
+        "市场评估价": null,
+        "起拍价格": 754928.8,
+        "成交价格": 996496.8,
+        "交易时间": "2023/01/23 10:26:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/696747582234.htm?track_id=98eb697e-cdfd-41f3-907d-82339c528e8c",
+        "是否成交": true,
+        "竞拍人数": 46,
+        "出价人数": null,
+        "地点": "云南省 保山市 龙陵县 龙山镇龙华社区龙山中路凤凰小区8幢8-7A",
+        "所属小区": "凤凰小区",
+        "省份": "云南省",
+        "城市": "保山市",
+        "区": "龙陵县",
+        "最靠近商圈": "龙山中路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

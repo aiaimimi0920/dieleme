@@ -147,10 +147,24 @@
         "detail_captured": true
     },
     {
-        "id": "545014477682",
-        "url": "https://sf-item.taobao.com/sf_item/545014477682.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
-        "end": 1488333600000,
-        "status": "done",
-        "is_processed": false
+        "id": 545014477682,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 1412537,
+        "交易时间": "2017/03/01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545014477682.htm?track_id=01256bff-2adf-480d-8649-c136650ab791",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "河南省 郑州市 新密市",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

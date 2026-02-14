@@ -63,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "544549220989",
-        "url": "https://sf-item.taobao.com/sf_item/544549220989.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
-        "end": 1487988000000,
-        "status": "done",
-        "is_processed": false
+        "id": 544549220989,
+        "市场评估价": null,
+        "起拍价格": 1400000,
+        "成交价格": 1400000,
+        "交易时间": "2017/02/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544549220989.htm?track_id=c9b71c10-d365-40fc-897d-9f21beaae047",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道逸天广场2幢2单元2003室",
+        "所属小区": "逸天广场",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -484,10 +484,24 @@
         "detail_captured": true
     },
     {
-        "id": "555739127066",
-        "url": "https://sf-item.taobao.com/sf_item/555739127066.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
-        "end": 1503281080000,
-        "status": "done",
-        "is_processed": false
+        "id": 555739127066,
+        "市场评估价": null,
+        "起拍价格": 472600,
+        "成交价格": 502600,
+        "交易时间": "2017/08/21 10:04:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/555739127066.htm?track_id=58bb604b-37f0-4e1f-8c8b-85a3fc7fe918",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 16,
+        "地点": "黑龙江省 哈尔滨市 南岗区 铁岭街73号2单元3层3号",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "哈尔滨市",
+        "区": "南岗区",
+        "最靠近商圈": "铁岭街/大直街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

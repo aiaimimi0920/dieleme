@@ -148,11 +148,25 @@
         "detail_captured": true
     },
     {
-        "id": "657399481767",
-        "url": "https://sf-item.taobao.com/sf_item/657399481767.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
-        "end": 1636855263000,
-        "status": "done",
-        "is_processed": false
+        "id": 657399481767,
+        "市场评估价": 633182,
+        "起拍价格": 444000,
+        "成交价格": 444000,
+        "交易时间": "2021/11/14 10:01:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/657399481767.htm?track_id=75d47166-e5ef-41a8-a904-4c3da29ee819",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 罗阳镇商业东街富力现代广场D5栋23层04房",
+        "所属小区": "富力现代广场",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "罗阳镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 658697501027,
@@ -176,10 +190,24 @@
         "detail_captured": true
     },
     {
-        "id": "659390315463",
-        "url": "https://sf-item.taobao.com/sf_item/659390315463.htm?track_id=714d6a20-14ce-4681-bdad-a5c0be12e883",
-        "end": 1636856615000,
-        "status": "done",
-        "is_processed": false
+        "id": 659390315463,
+        "市场评估价": null,
+        "起拍价格": 502924,
+        "成交价格": 532924,
+        "交易时间": "2021-11-14T10:23:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/659390315463.htm?track_id=714d6a20-14ce-4681-bdad-a5c0be12e883",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区 航海南路2号院66号楼4单元48号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

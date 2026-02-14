@@ -43,11 +43,25 @@
         "detail_captured": true
     },
     {
-        "id": "526236188145",
-        "url": "https://sf-item.taobao.com/sf_item/526236188145.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
-        "end": 1454384254000,
-        "status": "done",
-        "is_processed": false
+        "id": 526236188145,
+        "市场评估价": null,
+        "起拍价格": 640000,
+        "成交价格": 756500,
+        "交易时间": "2016-02-02 11:37:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526236188145.htm?track_id=35b83ae8-887a-42d0-a711-b1326b48a654",
+        "是否成交": true,
+        "竞拍人数": 145,
+        "出价人数": 145,
+        "地点": "江苏省 无锡市 锡山区",
+        "所属小区": "君怡花苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 526301604939,

@@ -424,10 +424,24 @@
         "detail_captured": true
     },
     {
-        "id": "566001017536",
-        "url": "https://sf-item.taobao.com/sf_item/566001017536.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
-        "end": 1523504757000,
-        "status": "done",
-        "is_processed": false
+        "id": 566001017536,
+        "市场评估价": 4550000,
+        "起拍价格": 4550000,
+        "成交价格": 5610000,
+        "交易时间": "2018-04-12T11:45:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/566001017536.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市昌平区东小口镇天通苑东苑二区3号楼5单元1号",
+        "所属小区": "天通苑东苑",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "昌平区",
+        "最靠近商圈": "天通苑",
+        "建筑面积": 201.21,
+        "单价": 27880.66,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

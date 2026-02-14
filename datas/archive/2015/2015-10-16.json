@@ -194,10 +194,24 @@
         "detail_captured": true
     },
     {
-        "id": "522643905134",
-        "url": "https://sf-item.taobao.com/sf_item/522643905134.htm?track_id=714d6a20-14ce-4681-bdad-a5c0be12e883",
-        "end": 1444960801000,
-        "status": "done",
-        "is_processed": false
+        "id": 522643905134,
+        "市场评估价": null,
+        "起拍价格": 273440,
+        "成交价格": 285440,
+        "交易时间": "2015/10/16 10:00:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/522643905134.htm?track_id=714d6a20-14ce-4681-bdad-a5c0be12e883",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "郑州市二七区长江中路128号40号楼3单元4层78号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 37.46,
+        "单价": 7620.5,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -128,10 +128,24 @@
         "detail_captured": true
     },
     {
-        "id": "537748474126",
-        "url": "https://sf-item.taobao.com/sf_item/537748474126.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
-        "end": 1473820046000,
-        "status": "done",
-        "is_processed": false
+        "id": 537748474126,
+        "市场评估价": 752018,
+        "起拍价格": 753000,
+        "成交价格": 1060000,
+        "交易时间": "2016/09/14 10:27:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/537748474126.htm?track_id=fff907fc-9082-441c-9cfe-01040c89fab3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 8,
+        "地点": "吉林省 吉林市 船营区 临江街9号",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": null,
+        "建筑面积": 82.44,
+        "单价": 12858.81,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

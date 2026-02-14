@@ -405,10 +405,24 @@
         "detail_captured": true
     },
     {
-        "id": "548452250182",
-        "url": "https://sf-item.taobao.com/sf_item/548452250182.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
-        "end": 1494643417000,
-        "status": "done",
-        "is_processed": false
+        "id": 548452250182,
+        "市场评估价": null,
+        "起拍价格": 2190000,
+        "成交价格": 3258000,
+        "交易时间": "2017-05-13 10:43:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548452250182.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 287,
+        "地点": "浙江省嘉兴市南湖区绿溪玫瑰园3幢3-2室",
+        "所属小区": "绿溪玫瑰园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "南湖新区",
+        "建筑面积": 221.6,
+        "单价": 14702.16,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

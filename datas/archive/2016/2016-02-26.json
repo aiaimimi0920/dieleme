@@ -42,11 +42,25 @@
         "detail_captured": true
     },
     {
-        "id": "526975209814",
-        "url": "https://sf-item.taobao.com/sf_item/526975209814.htm?track_id=0c00c899-c0ca-4cde-9de0-12bba8db97b1",
-        "end": 1456453006000,
-        "status": "done",
-        "is_processed": false
+        "id": 526975209814,
+        "市场评估价": 1120200,
+        "起拍价格": 717000,
+        "成交价格": 865000,
+        "交易时间": "2016/02/26 10:16:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526975209814.htm?track_id=0c00c899-c0ca-4cde-9de0-12bba8db97b1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 66,
+        "地点": "无锡市锡山区东亭街道隽府园60-401号",
+        "所属小区": "隽府园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 526990668104,
@@ -70,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "527097809225",
-        "url": "https://sf-item.taobao.com/sf_item/527097809225.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
-        "end": 1456495835000,
-        "status": "done",
-        "is_processed": false
+        "id": 527097809225,
+        "市场评估价": 0,
+        "起拍价格": 608320,
+        "成交价格": 650320,
+        "交易时间": "2016/02/26 22:10:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527097809225.htm?track_id=35c84dea-3154-47d1-b7a1-8b5e290b89ee",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江苏省常州市天宁区",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

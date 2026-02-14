@@ -43,10 +43,24 @@
         "manual_checked": true
     },
     {
-        "id": "527031295410",
-        "url": "https://sf-item.taobao.com/sf_item/527031295410.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
-        "end": 1457316250000,
-        "status": "done",
-        "is_processed": false
+        "id": 527031295410,
+        "市场评估价": null,
+        "起拍价格": 2489024,
+        "成交价格": 3239024,
+        "交易时间": "2016-03-07 10:04:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527031295410.htm?track_id=078ab2ee-7e69-4124-8ae8-821ab36be87f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省 惠州市 博罗县 柏塘镇罗塘村寨岭山",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

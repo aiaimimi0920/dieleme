@@ -232,10 +232,24 @@
         "detail_captured": true
     },
     {
-        "id": "669384501669",
-        "url": "https://sf-item.taobao.com/sf_item/669384501669.htm?track_id=6f2bafaa-d7d3-4b31-aeeb-791dd7eba396",
-        "end": 1648000800000,
-        "status": "done",
-        "is_processed": false
+        "id": 669384501669,
+        "市场评估价": null,
+        "起拍价格": 3618828.16,
+        "成交价格": 3618828.16,
+        "交易时间": "2022-03-23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669384501669.htm?track_id=6f2bafaa-d7d3-4b31-aeeb-791dd7eba396",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 青岛市 崂山区 同安路888号1号楼2单元1003户",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "崂山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -360,10 +360,24 @@
         "detail_captured": true
     },
     {
-        "id": "547755768162",
-        "url": "https://sf-item.taobao.com/sf_item/547755768162.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
-        "end": 1492390800000,
-        "status": "done",
-        "is_processed": false
+        "id": 547755768162,
+        "市场评估价": null,
+        "起拍价格": 16663047,
+        "成交价格": 16663047,
+        "交易时间": "2017/04/17 09:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/547755768162.htm?track_id=da61cf28-3bd0-42eb-9d32-d384385cd75c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "黑龙江省 哈尔滨市 南岗区",
+        "所属小区": "中浩华尔街",
+        "省份": "黑龙江省",
+        "城市": "哈尔滨市",
+        "区": "南岗区",
+        "最靠近商圈": "长江路商圈",
+        "建筑面积": 1975.67,
+        "单价": 8430.48,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

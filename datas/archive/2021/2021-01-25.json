@@ -610,10 +610,24 @@
         "detail_captured": true
     },
     {
-        "id": "636101762522",
-        "url": "https://sf-item.taobao.com/sf_item/636101762522.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
-        "end": 1611541622000,
-        "status": "done",
-        "is_processed": false
+        "id": 636101762522,
+        "市场评估价": null,
+        "起拍价格": 4786056.62,
+        "成交价格": 5486056.62,
+        "交易时间": "2021-01-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636101762522.htm?track_id=d04b2fe1-fb1b-4e13-8b2a-55444c80033f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市丰台区南四环西路128号院2号楼18层2108-2109号",
+        "所属小区": "鹏润家园",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "丰台区",
+        "最靠近商圈": "丰台科技园",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

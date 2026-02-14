@@ -315,10 +315,24 @@
         "detail_captured": true
     },
     {
-        "id": "610446713612",
-        "url": "https://sf-item.taobao.com/sf_item/610446713612.htm?track_id=c8e9871a-16d9-4594-8c9f-5feecf4c8a23",
-        "end": 1578794400000,
-        "status": "done",
-        "is_processed": false
+        "id": 610446713612,
+        "市场评估价": null,
+        "起拍价格": 348000,
+        "成交价格": 348000,
+        "交易时间": "2020/01/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610446713612.htm?track_id=c8e9871a-16d9-4594-8c9f-5feecf4c8a23",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省怀化市芷江侗族自治县南街下马路下马路综合楼1栋503房",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "怀化市",
+        "区": "芷江侗族自治县",
+        "最靠近商圈": null,
+        "建筑面积": 117.69,
+        "单价": 2956.68,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

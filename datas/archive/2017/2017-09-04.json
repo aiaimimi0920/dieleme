@@ -170,10 +170,24 @@
         "detail_captured": true
     },
     {
-        "id": "556442682952",
-        "url": "https://sf-item.taobao.com/sf_item/556442682952.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
-        "end": 1504493407000,
-        "status": "done",
-        "is_processed": false
+        "id": 556442682952,
+        "市场评估价": null,
+        "起拍价格": 250000,
+        "成交价格": 490000,
+        "交易时间": "2017-09-04 10:50:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556442682952.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 101,
+        "地点": "山东省 聊城市 阳谷县 博济桥办事处岳海村",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "聊城市",
+        "区": "阳谷县",
+        "最靠近商圈": null,
+        "建筑面积": 593.28,
+        "单价": 825.82,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

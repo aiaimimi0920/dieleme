@@ -1471,11 +1471,25 @@
         "detail_captured": true
     },
     {
-        "id": "676578218398",
-        "url": "https://sf-item.taobao.com/sf_item/676578218398.htm?track_id=bc44a8f3-b884-4d6c-b85a-fa1993dc6006",
-        "end": 1656382980000,
-        "status": "done",
-        "is_processed": false
+        "id": 676578218398,
+        "市场评估价": null,
+        "起拍价格": 1645441,
+        "成交价格": 1853441,
+        "交易时间": "2022-06-28 10:23:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676578218398.htm?track_id=bc44a8f3-b884-4d6c-b85a-fa1993dc6006",
+        "是否成交": true,
+        "竞拍人数": 20,
+        "出价人数": 23,
+        "地点": "陕西省 西安市 未央区 太华北路甲字88号25幢31301室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "经开区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 674918076098,
@@ -1604,10 +1618,24 @@
         "detail_captured": true
     },
     {
-        "id": "676003751689",
-        "url": "https://sf-item.taobao.com/sf_item/676003751689.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
-        "end": 1656382666000,
-        "status": "done",
-        "is_processed": false
+        "id": 676003751689,
+        "市场评估价": 1415000,
+        "起拍价格": 1000000,
+        "成交价格": 1140000,
+        "交易时间": "2022-06-28T10:17:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/676003751689.htm?track_id=53f00a9c-39be-44c2-bfdf-07a25bc546ac",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": 15,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道君景庭7幢2601室",
+        "所属小区": "君景庭",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": 68.49,
+        "单价": 16646.81,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

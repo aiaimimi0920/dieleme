@@ -189,10 +189,24 @@
         "detail_captured": true
     },
     {
-        "id": "680127041556",
-        "url": "https://sf-item.taobao.com/sf_item/680127041556.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
-        "end": 1661052861000,
-        "status": "done",
-        "is_processed": false
+        "id": 680127041556,
+        "市场评估价": null,
+        "起拍价格": 2320000,
+        "成交价格": 2475000,
+        "交易时间": "2022-08-21 11:34:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/680127041556.htm?track_id=e54c66a1-1b9d-4b7f-a48b-8e2421d8027c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 32,
+        "地点": "山东省青岛市崂山区银川东路1号1号楼3单元2502户",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "崂山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

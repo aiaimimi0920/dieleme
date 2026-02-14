@@ -514,10 +514,24 @@
         "detail_captured": true
     },
     {
-        "id": "565331335383",
-        "url": "https://sf-item.taobao.com/sf_item/565331335383.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
-        "end": 1521252831000,
-        "status": "done",
-        "is_processed": false
+        "id": 565331335383,
+        "市场评估价": 0,
+        "起拍价格": 244204.8,
+        "成交价格": 306204.8,
+        "交易时间": "2018/03/17 10:13:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565331335383.htm?track_id=c52f1daf-1360-4ea1-ba96-ff4ab0d61ebb",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 32,
+        "地点": "广西壮族自治区 贺州市 八步区 万兴路83号湖广大市场A区20栋29号",
+        "所属小区": "湖广大市场",
+        "省份": "广西壮族自治区",
+        "城市": "贺州市",
+        "区": "八步区",
+        "最靠近商圈": "湖广大市场",
+        "建筑面积": 132.72,
+        "单价": 2306.92,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

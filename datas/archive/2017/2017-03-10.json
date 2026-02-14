@@ -107,11 +107,25 @@
         "manual_checked": true
     },
     {
-        "id": "545516606146",
-        "url": "https://sf-item.taobao.com/sf_item/545516606146.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
-        "end": 1489111200000,
-        "status": "done",
-        "is_processed": false
+        "id": 545516606146,
+        "市场评估价": 0,
+        "起拍价格": 39060537,
+        "成交价格": 39060537,
+        "交易时间": "2017-03-10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545516606146.htm?track_id=aa65bfbc-94f5-49eb-9515-5ff428a6c0eb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "吉林省 吉林市 船营区",
+        "所属小区": "吉东托斯卡纳",
+        "省份": "吉林省",
+        "城市": "吉林市",
+        "区": "船营区",
+        "最靠近商圈": "船营商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 545453546903,

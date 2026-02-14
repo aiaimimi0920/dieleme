@@ -42,11 +42,25 @@
         "detail_captured": true
     },
     {
-        "id": "529039659855",
-        "url": "https://sf-item.taobao.com/sf_item/529039659855.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
-        "end": 1460773180000,
-        "status": "done",
-        "is_processed": false
+        "id": 529039659855,
+        "市场评估价": null,
+        "起拍价格": 770000,
+        "成交价格": 978000,
+        "交易时间": "2016/04/16 10:19:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/529039659855.htm?track_id=2f161e33-c412-4804-b345-b90b5cabe257",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 53,
+        "地点": "无锡市东亭街道君怡花苑40号1301室",
+        "所属小区": "君怡花苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 529000562246,

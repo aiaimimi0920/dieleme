@@ -64,10 +64,24 @@
         "detail_captured": true
     },
     {
-        "id": "539411656631",
-        "url": "https://sf-item.taobao.com/sf_item/539411656631.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
-        "end": 1476583200000,
-        "status": "done",
-        "is_processed": false
+        "id": 539411656631,
+        "市场评估价": null,
+        "起拍价格": 356876,
+        "成交价格": 358376,
+        "交易时间": "2016-10-16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539411656631.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "四川省泸州市叙永县叙永镇永宁新城二期工程7号楼1-3-1号",
+        "所属小区": "永宁新城二期",
+        "省份": "四川省",
+        "城市": "泸州市",
+        "区": "叙永县",
+        "最靠近商圈": "叙永镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

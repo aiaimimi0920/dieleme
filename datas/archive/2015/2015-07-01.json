@@ -43,10 +43,24 @@
         "manual_checked": true
     },
     {
-        "id": "45907125129",
-        "url": "https://sf-item.taobao.com/sf_item/45907125129.htm?track_id=e0094841-bb62-45c7-9b58-c8edf58d1a71",
-        "end": 1435716779000,
-        "status": "done",
-        "is_processed": false
+        "id": 45907125129,
+        "市场评估价": 548000,
+        "起拍价格": 350720,
+        "成交价格": 434720,
+        "交易时间": "2015/07/01 10:12:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45907125129.htm?track_id=e0094841-bb62-45c7-9b58-c8edf58d1a71",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 38,
+        "地点": "无锡市锡山区安镇华夏名都A19-3-601室",
+        "所属小区": "华夏名都",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "安镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

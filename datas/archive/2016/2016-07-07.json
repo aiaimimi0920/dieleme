@@ -66,10 +66,24 @@
         "manual_checked": true
     },
     {
-        "id": "534214894195",
-        "url": "https://sf-item.taobao.com/sf_item/534214894195.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
-        "end": 1467856800000,
-        "status": "done",
-        "is_processed": false
+        "id": 534214894195,
+        "市场评估价": null,
+        "起拍价格": 1280000,
+        "成交价格": 1365000,
+        "交易时间": "2016/07/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534214894195.htm?track_id=005a0bc1-9fdc-4df1-8cbc-fe5f243c8f21",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 9,
+        "地点": "浙江省衢州市衢江区信安大道355号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "衢江区",
+        "最靠近商圈": "衢江城区",
+        "建筑面积": 363.6,
+        "单价": 3754.12,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

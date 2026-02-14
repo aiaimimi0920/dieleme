@@ -63,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "534914583925",
-        "url": "https://sf-item.taobao.com/sf_item/534914583925.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
-        "end": 1469585561000,
-        "status": "done",
-        "is_processed": false
+        "id": 534914583925,
+        "市场评估价": null,
+        "起拍价格": 171000,
+        "成交价格": 272000,
+        "交易时间": "2016/07/27 10:12:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534914583925.htm?track_id=e927743c-540c-409d-8cac-ed0b8a91f3aa",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市南湖区燕语林苑5幢1005室",
+        "所属小区": "燕语林苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": null,
+        "建筑面积": 39.18,
+        "单价": 6942.32,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

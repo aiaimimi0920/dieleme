@@ -147,10 +147,24 @@
         "detail_captured": true
     },
     {
-        "id": "796205066373",
-        "url": "https://sf-item.taobao.com/sf_item/796205066373.htm?track_id=8aff2cad-797b-46cd-a4eb-8b5f6ed552eb",
-        "end": 1717552800000,
-        "status": "done",
-        "is_processed": false
+        "id": 796205066373,
+        "市场评估价": 0,
+        "起拍价格": 600000,
+        "成交价格": 600000,
+        "交易时间": "2024/06/05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/796205066373.htm?track_id=8aff2cad-797b-46cd-a4eb-8b5f6ed552eb",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省嘉兴市南湖区万好家居B-409室",
+        "所属小区": "万好家居",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "万好家居",
+        "建筑面积": 143.85,
+        "单价": 4171.89,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

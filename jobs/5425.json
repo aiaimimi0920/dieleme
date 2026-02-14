@@ -51,8 +51,8 @@
       }
     },
     "200782003": {
-      "now_session_id": "sniff_s0_1770842974245_8ek3c",
-      "all_done": false,
+      "now_session_id": "",
+      "all_done": true,
       "last_update_time": "2026-02-12 09:30:59",
       "st_param": {
         "2": {
@@ -63,38 +63,38 @@
           "dispatched_page": 1
         },
         "1": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "0": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "3": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "4": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "5": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         }
       }

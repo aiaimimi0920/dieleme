@@ -42,11 +42,25 @@
         "detail_captured": true
     },
     {
-        "id": "540024804337",
-        "url": "https://sf-item.taobao.com/sf_item/540024804337.htm?track_id=7429b7b4-87ab-47b3-8aa3-9be14e592e2a",
-        "end": 1477750534000,
-        "status": "done",
-        "is_processed": false
+        "id": 540024804337,
+        "市场评估价": 14913,
+        "起拍价格": 14913,
+        "成交价格": 21913,
+        "交易时间": "2016/10/29 22:15:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540024804337.htm?track_id=7429b7b4-87ab-47b3-8aa3-9be14e592e2a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 8,
+        "地点": "广东省 惠州市 博罗县",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "龙溪镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 540333292298,

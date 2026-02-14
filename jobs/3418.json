@@ -2,57 +2,57 @@
   "all_done": false,
   "341882": {
     "50025969": {
-      "now_session_id": "sniff_s2_1770906238906_6lm6o",
-      "all_done": false,
-      "last_update_time": "2026-02-13 09:59:21",
+      "now_session_id": "",
+      "all_done": true,
+      "last_update_time": "2026-02-14 15:27:54",
       "st_param": {
         "2": {
           "need_try": true,
-          "pages": [1],
-          "max_page": -1,
-          "is_done": false,
-          "dispatched_page": 1
+          "pages": [1, 2],
+          "max_page": 2,
+          "is_done": true,
+          "dispatched_page": 2
         },
         "1": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "0": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "3": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "4": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "5": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         }
       }
     },
     "200782003": {
-      "now_session_id": "sniff_s0_1770906238906_15tvu",
-      "all_done": false,
+      "now_session_id": "",
+      "all_done": true,
       "last_update_time": "2026-02-13 09:59:15",
       "st_param": {
         "2": {
@@ -63,38 +63,138 @@
           "dispatched_page": 1
         },
         "1": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "0": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "3": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "4": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
           "dispatched_page": 0
         },
         "5": {
-          "need_try": true,
+          "need_try": false,
           "pages": [],
           "max_page": -1,
-          "is_done": false,
+          "is_done": true,
+          "dispatched_page": 0
+        }
+      }
+    }
+  },
+  "341824": {
+    "50025969": {
+      "now_session_id": "",
+      "all_done": true,
+      "last_update_time": "2026-02-14 15:29:25",
+      "st_param": {
+        "2": {
+          "need_try": true,
+          "pages": [1],
+          "max_page": 1,
+          "is_done": true,
+          "dispatched_page": 1
+        },
+        "1": {
+          "need_try": false,
+          "pages": [],
+          "max_page": -1,
+          "is_done": true,
+          "dispatched_page": 0
+        },
+        "0": {
+          "need_try": false,
+          "pages": [],
+          "max_page": -1,
+          "is_done": true,
+          "dispatched_page": 0
+        },
+        "3": {
+          "need_try": false,
+          "pages": [],
+          "max_page": -1,
+          "is_done": true,
+          "dispatched_page": 0
+        },
+        "4": {
+          "need_try": false,
+          "pages": [],
+          "max_page": -1,
+          "is_done": true,
+          "dispatched_page": 0
+        },
+        "5": {
+          "need_try": false,
+          "pages": [],
+          "max_page": -1,
+          "is_done": true,
+          "dispatched_page": 0
+        }
+      }
+    },
+    "200782003": {
+      "now_session_id": "",
+      "all_done": true,
+      "last_update_time": "2026-02-14 15:29:35",
+      "st_param": {
+        "2": {
+          "need_try": true,
+          "pages": [1],
+          "max_page": 1,
+          "is_done": true,
+          "dispatched_page": 1
+        },
+        "1": {
+          "need_try": false,
+          "pages": [],
+          "max_page": -1,
+          "is_done": true,
+          "dispatched_page": 0
+        },
+        "0": {
+          "need_try": false,
+          "pages": [],
+          "max_page": -1,
+          "is_done": true,
+          "dispatched_page": 0
+        },
+        "3": {
+          "need_try": false,
+          "pages": [],
+          "max_page": -1,
+          "is_done": true,
+          "dispatched_page": 0
+        },
+        "4": {
+          "need_try": false,
+          "pages": [],
+          "max_page": -1,
+          "is_done": true,
+          "dispatched_page": 0
+        },
+        "5": {
+          "need_try": false,
+          "pages": [],
+          "max_page": -1,
+          "is_done": true,
           "dispatched_page": 0
         }
       }

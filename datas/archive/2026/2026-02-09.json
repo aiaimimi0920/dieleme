@@ -357,12 +357,25 @@
         "detail_captured": true
     },
     {
-        "id": "1014542523408",
-        "url": "https://sf-item.taobao.com/sf_item/1014542523408.htm?track_id=f4ff38ca-85e8-4807-b5b0-71340caff5d9",
-        "end": 1770602400000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/1014542523408.htm"
+        "id": 1014542523408,
+        "市场评估价": null,
+        "起拍价格": 516000,
+        "成交价格": 515200,
+        "交易时间": "2026-02-09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1014542523408.htm?track_id=f4ff38ca-85e8-4807-b5b0-71340caff5d9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广西壮族自治区 玉林市 福绵区 福绵管理区服装工业小区（楼栋序号12242）的不动产",
+        "所属小区": "福绵管理区服装工业小区",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "福绵区",
+        "最靠近商圈": null,
+        "建筑面积": 314.72,
+        "单价": 1637.01,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 1003147868198,
@@ -512,10 +525,24 @@
         "detail_captured": true
     },
     {
-        "id": "1013016469553",
-        "url": "https://sf-item.taobao.com/sf_item/1013016469553.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
-        "end": 1770604607000,
-        "status": "done",
-        "is_processed": false
+        "id": 1013016469553,
+        "市场评估价": 1700000,
+        "起拍价格": 960000,
+        "成交价格": 1120000,
+        "交易时间": "2026-02-09 10:36:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1013016469553.htm?track_id=9a8e80c7-5e61-4c01-b0c1-3070931b7eff",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": 22,
+        "地点": "上海市宝山区泗塘三村24号503室",
+        "所属小区": "泗塘三村",
+        "省份": "上海",
+        "城市": "上海市",
+        "区": "宝山区",
+        "最靠近商圈": "淞宝",
+        "建筑面积": 47.3,
+        "单价": 23680.27,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

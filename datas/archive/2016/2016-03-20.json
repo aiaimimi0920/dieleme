@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "527412032102",
-        "url": "https://sf-item.taobao.com/sf_item/527412032102.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
-        "end": 1458441265000,
-        "status": "done",
-        "is_processed": false
+        "id": 527412032102,
+        "市场评估价": null,
+        "起拍价格": 3208000,
+        "成交价格": 5008000,
+        "交易时间": "2016/03/20 10:34:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527412032102.htm?track_id=25fa6b08-6440-4cac-a87a-2d1fe1985d10",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "上海市宝山区长逸路388弄20号401室",
+        "所属小区": null,
+        "省份": "上海",
+        "城市": "上海市",
+        "区": "宝山区",
+        "最靠近商圈": null,
+        "建筑面积": 233.42,
+        "单价": 21454.54,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

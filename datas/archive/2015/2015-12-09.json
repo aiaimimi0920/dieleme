@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "524406436059",
-        "url": "https://sf-item.taobao.com/sf_item/524406436059.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
-        "end": 1449626400000,
-        "status": "done",
-        "is_processed": false
+        "id": 524406436059,
+        "市场评估价": null,
+        "起拍价格": 603300,
+        "成交价格": 604300,
+        "交易时间": "2015/12/09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/524406436059.htm?track_id=c16d1566-b8aa-48fa-8f6e-851fe048c64c",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "常州市天宁区兰陵街道浦前社区潘家村40号",
+        "所属小区": "潘家村",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "兰陵板块",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

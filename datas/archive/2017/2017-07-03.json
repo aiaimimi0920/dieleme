@@ -273,10 +273,24 @@
         "detail_captured": true
     },
     {
-        "id": "552394846125",
-        "url": "https://sf-item.taobao.com/sf_item/552394846125.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
-        "end": 1499047200000,
-        "status": "done",
-        "is_processed": false
+        "id": 552394846125,
+        "市场评估价": null,
+        "起拍价格": 250000,
+        "成交价格": 250000,
+        "交易时间": "2017/07/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/552394846125.htm?track_id=f8b6b272-53c7-4d67-8e4b-3494c11d1de6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 九江市 武宁县",
+        "所属小区": "九岭小区",
+        "省份": "江西省",
+        "城市": "九江市",
+        "区": "武宁县",
+        "最靠近商圈": "武宁县中心",
+        "建筑面积": 128.57,
+        "单价": 1944.93,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

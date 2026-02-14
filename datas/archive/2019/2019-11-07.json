@@ -98,11 +98,12 @@
         "省份": "河南省",
         "城市": "周口市",
         "区": "郸城县",
-        "最靠近商圈": null,
+        "最靠近商圈": "郸城中心商业区",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 603120430530,
@@ -231,10 +232,24 @@
         "detail_captured": true
     },
     {
-        "id": "604106341711",
-        "url": "https://sf-item.taobao.com/sf_item/604106341711.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
-        "end": 1573095057000,
-        "status": "done",
-        "is_processed": false
+        "id": 604106341711,
+        "市场评估价": null,
+        "起拍价格": 1300000,
+        "成交价格": 1690000,
+        "交易时间": "2019/11/07 10:50:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/604106341711.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 95,
+        "地点": "浙江省 嘉兴市 南湖区 嘉兴市名仕花苑14幢1304室",
+        "所属小区": "名仕花苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "南湖新区",
+        "建筑面积": 141.37,
+        "单价": 11954.93,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

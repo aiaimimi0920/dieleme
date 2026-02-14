@@ -85,10 +85,24 @@
         "manual_checked": true
     },
     {
-        "id": "521803636585",
-        "url": "https://sf-item.taobao.com/sf_item/521803636585.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
-        "end": 1443060000000,
-        "status": "done",
-        "is_processed": false
+        "id": 521803636585,
+        "市场评估价": 0,
+        "起拍价格": 7000000,
+        "成交价格": 7160000,
+        "交易时间": "2015/09/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/521803636585.htm?track_id=4b2a13b4-0e62-43ec-acba-704a647eb7d1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "浙江省开化县工业园区茶园路3号",
+        "所属小区": "开化县同欣硅业有限公司",
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "开化县",
+        "最靠近商圈": "工业园区",
+        "建筑面积": 9201.01,
+        "单价": 778.19,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -252,11 +252,25 @@
         "detail_captured": true
     },
     {
-        "id": "693818633583",
-        "url": "https://sf-item.taobao.com/sf_item/693818633583.htm?track_id=5f2f7b24-55f0-472d-89a7-52767b724665",
-        "end": 1671242400000,
-        "status": "done",
-        "is_processed": false
+        "id": 693818633583,
+        "市场评估价": null,
+        "起拍价格": 666714.4,
+        "成交价格": 666714.4,
+        "交易时间": "2022-12-17T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/693818633583.htm?track_id=5f2f7b24-55f0-472d-89a7-52767b724665",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河北省邢台市巨鹿县健康西路南侧世纪康城9号楼1单元102室及附房",
+        "所属小区": "世纪康城",
+        "省份": "河北省",
+        "城市": "邢台市",
+        "区": "巨鹿县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 693508152888,
@@ -301,11 +315,25 @@
         "detail_captured": true
     },
     {
-        "id": "692273120150",
-        "url": "https://sf-item.taobao.com/sf_item/692273120150.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
-        "end": 1671242400000,
-        "status": "done",
-        "is_processed": false
+        "id": 692273120150,
+        "市场评估价": 542068,
+        "起拍价格": 542068,
+        "成交价格": 542068,
+        "交易时间": "2022/12/17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/692273120150.htm?track_id=8043aad0-9e41-4c3a-8edd-31ba4cb3bda1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "贵州省遵义市汇川区人民路天安幸福里二期5栋2-29-4号",
+        "所属小区": "天安幸福里二期",
+        "省份": "贵州省",
+        "城市": "遵义市",
+        "区": "汇川区",
+        "最靠近商圈": "人民路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 692310597559,
@@ -329,9 +357,30 @@
         "detail_captured": true
     },
     {
-        "id": "692861382728",
-        "url": "https://sf-item.taobao.com/sf_item/692861382728.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
-        "end": 1671243486000,
+        "id": 692861382728,
+        "市场评估价": 5638000,
+        "起拍价格": 4000000,
+        "成交价格": 4980000,
+        "交易时间": "2022/12/17 10:18:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/692861382728.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
+        "是否成交": true,
+        "竞拍人数": 23,
+        "出价人数": 23,
+        "地点": "浙江省 杭州市 滨江区 西兴街道缤纷北苑18幢1单元1903室",
+        "所属小区": "缤纷北苑",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江商圈",
+        "建筑面积": 155.29,
+        "单价": 32069.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "694079138416",
+        "url": "https://sf-item.taobao.com/sf_item/694079138416.htm?track_id=e74dcb3a-f912-4a90-94df-3dd908b003d7",
+        "end": 1671245133000,
         "status": "done",
         "is_processed": false
     }

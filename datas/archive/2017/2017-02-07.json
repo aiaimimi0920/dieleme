@@ -85,10 +85,24 @@
         "detail_captured": true
     },
     {
-        "id": "544235171238",
-        "url": "https://sf-item.taobao.com/sf_item/544235171238.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
-        "end": 1486433569000,
-        "status": "done",
-        "is_processed": false
+        "id": 544235171238,
+        "市场评估价": null,
+        "起拍价格": 840293,
+        "成交价格": 872293,
+        "交易时间": "2017-02-07 10:12:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544235171238.htm?track_id=a39c9303-93d2-417a-a469-1da641b4486c",
+        "是否成交": true,
+        "竞拍人数": 29,
+        "出价人数": 33,
+        "地点": "河南省信阳市平桥区",
+        "所属小区": "恒大名都",
+        "省份": "河南省",
+        "城市": "信阳市",
+        "区": "平桥区",
+        "最靠近商圈": "羊山新区商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

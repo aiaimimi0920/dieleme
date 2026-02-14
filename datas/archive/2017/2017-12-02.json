@@ -576,10 +576,24 @@
         "detail_captured": true
     },
     {
-        "id": "560722700325",
-        "url": "https://sf-item.taobao.com/sf_item/560722700325.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
-        "end": 1512183195000,
-        "status": "done",
-        "is_processed": false
+        "id": 560722700325,
+        "市场评估价": 0,
+        "起拍价格": 3960000,
+        "成交价格": 5140000,
+        "交易时间": "2017/12/02 10:53:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560722700325.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 46,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道天寓",
+        "所属小区": "六合天寓",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

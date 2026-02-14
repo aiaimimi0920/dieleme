@@ -43,11 +43,25 @@
         "detail_captured": true
     },
     {
-        "id": "530897073167",
-        "url": "https://sf-item.taobao.com/sf_item/530897073167.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
-        "end": 1463193525000,
-        "status": "done",
-        "is_processed": false
+        "id": 530897073167,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1457700,
+        "交易时间": "2016/05/14 10:38:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530897073167.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "厦门市同安区祥桥二里65号610室",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "同安区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 530836583445,
@@ -71,10 +85,24 @@
         "detail_captured": true
     },
     {
-        "id": "530725090024",
-        "url": "https://sf-item.taobao.com/sf_item/530725090024.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
-        "end": 1463192518000,
-        "status": "done",
-        "is_processed": false
+        "id": 530725090024,
+        "市场评估价": 1275100,
+        "起拍价格": 1275100,
+        "成交价格": 2067100,
+        "交易时间": "2016/05/14 10:21:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530725090024.htm?track_id=9c154dfa-10fa-469d-8f26-b5db5d6d86a2",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 6,
+        "地点": "上海市宝山区行知路572弄华鹏花苑42号101室",
+        "所属小区": "华鹏花苑",
+        "省份": "上海市",
+        "城市": "上海市",
+        "区": "宝山区",
+        "最靠近商圈": "行知路板块",
+        "建筑面积": 44.66,
+        "单价": 46281.77,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

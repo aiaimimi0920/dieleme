@@ -322,11 +322,25 @@
         "detail_captured": true
     },
     {
-        "id": "557129218636",
-        "url": "https://sf-item.taobao.com/sf_item/557129218636.htm?track_id=5fc178f6-abfd-43b1-b67c-4152e09fcd07",
-        "end": 1504146421000,
-        "status": "done",
-        "is_processed": false
+        "id": 557129218636,
+        "市场评估价": 910338,
+        "起拍价格": 728300,
+        "成交价格": 983300,
+        "交易时间": "2017/08/31 10:27:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557129218636.htm?track_id=5fc178f6-abfd-43b1-b67c-4152e09fcd07",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "湖南省 常德市 临澧县 安福镇迎宾路怡安居",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "常德市",
+        "区": "临澧县",
+        "最靠近商圈": "安福镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 556166315833,
@@ -371,10 +385,24 @@
         "detail_captured": true
     },
     {
-        "id": "556950905406",
-        "url": "https://sf-item.taobao.com/sf_item/556950905406.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
-        "end": 1504144800000,
-        "status": "done",
-        "is_processed": false
+        "id": 556950905406,
+        "市场评估价": null,
+        "起拍价格": 250000,
+        "成交价格": 250000,
+        "交易时间": "2017-08-31 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556950905406.htm?track_id=34ac57ef-13b7-4cd3-9616-19572553ec4e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省城固县朝阳路朝阳综合小区C号楼1单元301号",
+        "所属小区": "朝阳综合小区",
+        "省份": "陕西省",
+        "城市": "汉中市",
+        "区": "城固县",
+        "最靠近商圈": null,
+        "建筑面积": 129.75,
+        "单价": 1926.76,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

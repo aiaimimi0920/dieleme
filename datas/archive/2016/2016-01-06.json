@@ -151,10 +151,24 @@
         "detail_captured": true
     },
     {
-        "id": "525335155772",
-        "url": "https://sf-item.taobao.com/sf_item/525335155772.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
-        "end": 1452046941000,
-        "status": "done",
-        "is_processed": false
+        "id": 525335155772,
+        "市场评估价": null,
+        "起拍价格": 6130000,
+        "成交价格": 7590000,
+        "交易时间": "2016/01/06 10:22:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525335155772.htm?track_id=40ec9afb-83ec-43a8-bd7f-345b400e7073",
+        "是否成交": true,
+        "竞拍人数": 69,
+        "出价人数": null,
+        "地点": "北京市昌平区沙河镇小寨村玫瑰园别墅266幢1至2层",
+        "所属小区": "玫瑰园",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "昌平区",
+        "最靠近商圈": "沙河高教园",
+        "建筑面积": 237.85,
+        "单价": 31888.73,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -85,10 +85,24 @@
         "detail_captured": true
     },
     {
-        "id": "43886596796",
-        "url": "https://sf-item.taobao.com/sf_item/43886596796.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
-        "end": 1425607970000,
-        "status": "done",
-        "is_processed": false
+        "id": 43886596796,
+        "市场评估价": 2600000,
+        "起拍价格": 1705600,
+        "成交价格": 2585600,
+        "交易时间": "2015-03-06 10:12:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43886596796.htm?track_id=134bbfc5-b0d3-4c47-bff3-25af199384d3",
+        "是否成交": true,
+        "竞拍人数": 46,
+        "出价人数": 46,
+        "地点": "浙江省杭州市滨江区",
+        "所属小区": "钱江湾花园",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江核心区",
+        "建筑面积": 165.63,
+        "单价": 15606.15,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -105,10 +105,24 @@
         "detail_captured": true
     },
     {
-        "id": "752340401574",
-        "url": "https://sf-item.taobao.com/sf_item/752340401574.htm?track_id=6d54c8e1-78b5-49d8-b1b2-0cb744dcdd01",
-        "end": 1707962018000,
-        "status": "done",
-        "is_processed": false
+        "id": 752340401574,
+        "市场评估价": null,
+        "起拍价格": 611111,
+        "成交价格": 611111,
+        "交易时间": "2024/02/15 09:53:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/752340401574.htm?track_id=6d54c8e1-78b5-49d8-b1b2-0cb744dcdd01",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "四川省泸州市叙永县叙永镇南大街滨江商城5号楼2-1号",
+        "所属小区": "滨江商城",
+        "省份": "四川省",
+        "城市": "泸州市",
+        "区": "叙永县",
+        "最靠近商圈": "叙永县城区",
+        "建筑面积": 350.89,
+        "单价": 1741.75,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "538598159900",
-        "url": "https://sf-item.taobao.com/sf_item/538598159900.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
-        "end": 1476066081000,
-        "status": "done",
-        "is_processed": false
+        "id": 538598159900,
+        "市场评估价": null,
+        "起拍价格": 552000,
+        "成交价格": 787000,
+        "交易时间": "2016/10/10 10:21:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538598159900.htm?track_id=c02ffe03-c354-4be1-a7ee-124d4371e9d9",
+        "是否成交": true,
+        "竞拍人数": 48,
+        "出价人数": 48,
+        "地点": "上海市宝山区水产西路680弄4号804室",
+        "所属小区": null,
+        "省份": "上海市",
+        "城市": "上海市",
+        "区": "宝山区",
+        "最靠近商圈": "顾村",
+        "建筑面积": 48.33,
+        "单价": 16287.65,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

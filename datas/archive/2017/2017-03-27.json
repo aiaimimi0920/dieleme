@@ -169,11 +169,25 @@
         "detail_captured": true
     },
     {
-        "id": "546685135395",
-        "url": "https://sf-item.taobao.com/sf_item/546685135395.htm?track_id=c4b8e550-b589-43ac-b5b8-70dafb0f57bb",
-        "end": 1490584366000,
-        "status": "done",
-        "is_processed": false
+        "id": 546685135395,
+        "市场评估价": null,
+        "起拍价格": 2355600,
+        "成交价格": 3925570,
+        "交易时间": "2017/03/27 11:12:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546685135395.htm?track_id=c4b8e550-b589-43ac-b5b8-70dafb0f57bb",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 124,
+        "地点": "江苏省淮安市涟水县朱码镇工业集中区富民路2-2号",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "涟水县",
+        "最靠近商圈": "朱码镇工业集中区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 546416880237,

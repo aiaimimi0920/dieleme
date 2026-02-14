@@ -337,11 +337,25 @@
         "detail_captured": true
     },
     {
-        "id": "713289604946",
-        "url": "https://sf-item.taobao.com/sf_item/713289604946.htm?track_id=c4b8e550-b589-43ac-b5b8-70dafb0f57bb",
-        "end": 1684551298000,
-        "status": "done",
-        "is_processed": false
+        "id": 713289604946,
+        "市场评估价": null,
+        "起拍价格": 551600,
+        "成交价格": 668600,
+        "交易时间": "2023-05-20 10:54:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/713289604946.htm?track_id=c4b8e550-b589-43ac-b5b8-70dafb0f57bb",
+        "是否成交": true,
+        "竞拍人数": 78,
+        "出价人数": null,
+        "地点": "江苏省 淮安市 涟水县 涟水县领秀花都小区15幢306室房屋及不可移动部分",
+        "所属小区": "领秀花都小区",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "涟水县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 713562398958,

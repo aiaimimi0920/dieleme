@@ -64,10 +64,24 @@
         "detail_captured": true
     },
     {
-        "id": "527047194502",
-        "url": "https://sf-item.taobao.com/sf_item/527047194502.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
-        "end": 1456884185000,
-        "status": "done",
-        "is_processed": false
+        "id": 527047194502,
+        "市场评估价": null,
+        "起拍价格": 500000,
+        "成交价格": 556000,
+        "交易时间": "2016/03/02 10:03:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527047194502.htm?track_id=f0a7da56-24b1-4ef5-a6d2-33056436bb24",
+        "是否成交": true,
+        "竞拍人数": 29,
+        "出价人数": 1,
+        "地点": "浙江省 衢州市 衢江区",
+        "所属小区": "兴华东区",
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "衢江区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

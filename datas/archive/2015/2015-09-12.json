@@ -84,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "521405937132",
-        "url": "https://sf-item.taobao.com/sf_item/521405937132.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
-        "end": 1442023200000,
-        "status": "done",
-        "is_processed": false
+        "id": 521405937132,
+        "市场评估价": null,
+        "起拍价格": 453211,
+        "成交价格": 453211,
+        "交易时间": "2015/09/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/521405937132.htm?track_id=f7679832-e18f-4519-a5bf-26ecefc739cc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "福寿街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

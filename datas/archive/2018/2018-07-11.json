@@ -364,11 +364,25 @@
         "detail_captured": true
     },
     {
-        "id": "571318751240",
-        "url": "https://sf-item.taobao.com/sf_item/571318751240.htm?track_id=c4b8e550-b589-43ac-b5b8-70dafb0f57bb",
-        "end": 1531275745000,
-        "status": "done",
-        "is_processed": false
+        "id": 571318751240,
+        "市场评估价": null,
+        "起拍价格": 318290,
+        "成交价格": 600290,
+        "交易时间": "2018/07/11 10:22:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571318751240.htm?track_id=c4b8e550-b589-43ac-b5b8-70dafb0f57bb",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省淮安市涟水县涟城镇永兴上御15幢206室",
+        "所属小区": "永兴上御",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "涟水县",
+        "最靠近商圈": "涟城镇中心商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 571227638034,

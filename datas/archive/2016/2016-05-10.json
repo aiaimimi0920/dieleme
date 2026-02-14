@@ -168,10 +168,24 @@
         "detail_captured": true
     },
     {
-        "id": "528886008279",
-        "url": "https://sf-item.taobao.com/sf_item/528886008279.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
-        "end": 1462846644000,
-        "status": "done",
-        "is_processed": false
+        "id": 528886008279,
+        "市场评估价": null,
+        "起拍价格": 473200,
+        "成交价格": 768200,
+        "交易时间": "2016/05/10 10:17:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528886008279.htm?track_id=3d13b04c-9040-45e6-a608-e5dee2f1757e",
+        "是否成交": true,
+        "竞拍人数": 41,
+        "出价人数": 5,
+        "地点": "浙江省 舟山市 嵊泗县 嵊山镇民主村",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "舟山市",
+        "区": "嵊泗县",
+        "最靠近商圈": null,
+        "建筑面积": 194.75,
+        "单价": 3946.67,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

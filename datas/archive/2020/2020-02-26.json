@@ -147,10 +147,24 @@
         "detail_captured": true
     },
     {
-        "id": "611409117595",
-        "url": "https://sf-item.taobao.com/sf_item/611409117595.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
-        "end": 1582686193000,
-        "status": "done",
-        "is_processed": false
+        "id": 611409117595,
+        "市场评估价": 7265400,
+        "起拍价格": 5812320,
+        "成交价格": 6912320,
+        "交易时间": "2020/02/26 11:03:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611409117595.htm?track_id=cbaaf05e-aca7-4977-ae65-fc52fc0e7521",
+        "是否成交": true,
+        "竞拍人数": 25,
+        "出价人数": 25,
+        "地点": "上海市宝山区共和新路5308弄68支弄21号801室",
+        "所属小区": "丽都雅苑",
+        "省份": "上海",
+        "城市": "上海",
+        "区": "宝山区",
+        "最靠近商圈": "共康",
+        "建筑面积": 132.64,
+        "单价": 52103.68,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

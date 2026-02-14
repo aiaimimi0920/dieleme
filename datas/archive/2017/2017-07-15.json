@@ -194,10 +194,24 @@
         "detail_captured": true
     },
     {
-        "id": "553247127699",
-        "url": "https://sf-item.taobao.com/sf_item/553247127699.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
-        "end": 1500084000000,
-        "status": "done",
-        "is_processed": false
+        "id": 553247127699,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 173275.2,
+        "交易时间": "2017-07-15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/553247127699.htm?track_id=26aa3b80-ceb1-431c-89c0-7c0462b749b7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "黑龙江省 双鸭山市 集贤县",
+        "所属小区": "集贤县建辉大厦",
+        "省份": "黑龙江省",
+        "城市": "双鸭山市",
+        "区": "集贤县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

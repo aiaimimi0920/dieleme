@@ -234,10 +234,24 @@
         "detail_captured": true
     },
     {
-        "id": "548213171707",
-        "url": "https://sf-item.taobao.com/sf_item/548213171707.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
-        "end": 1494126900000,
-        "status": "done",
-        "is_processed": false
+        "id": 548213171707,
+        "市场评估价": 6896390,
+        "起拍价格": 6896390,
+        "成交价格": 8861390,
+        "交易时间": "2017-05-07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548213171707.htm?track_id=7a163bd7-f0d8-49b3-ad2d-e3fa7367cfbf",
+        "是否成交": true,
+        "竞拍人数": 288,
+        "出价人数": 288,
+        "地点": "北京市丰台区芳古园二区14号楼10层1006号",
+        "所属小区": "芳古园二区",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "丰台区",
+        "最靠近商圈": "方庄",
+        "建筑面积": 170,
+        "单价": 52125.82,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

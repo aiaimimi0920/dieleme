@@ -295,10 +295,24 @@
         "detail_captured": true
     },
     {
-        "id": "611707862976",
-        "url": "https://sf-item.taobao.com/sf_item/611707862976.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
-        "end": 1584494917000,
-        "status": "done",
-        "is_processed": false
+        "id": 611707862976,
+        "市场评估价": null,
+        "起拍价格": 616000,
+        "成交价格": 622000,
+        "交易时间": "2020/03/18 09:28:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611707862976.htm?track_id=301aadf9-8a48-4c0f-a0ae-f02ea0174c95",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河北省 衡水市 深州市 蛋禽市场",
+        "所属小区": null,
+        "省份": "河北省",
+        "城市": "衡水市",
+        "区": "深州市",
+        "最靠近商圈": null,
+        "建筑面积": 261.85,
+        "单价": 2375.42,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

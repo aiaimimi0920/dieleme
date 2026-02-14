@@ -63,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "538864246218",
-        "url": "https://sf-item.taobao.com/sf_item/538864246218.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
-        "end": 1475893470000,
-        "status": "done",
-        "is_processed": false
+        "id": 538864246218,
+        "市场评估价": 335200,
+        "起拍价格": 335200,
+        "成交价格": 1465200,
+        "交易时间": "2016/10/08 10:24:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538864246218.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 80,
+        "地点": "哈尔滨市南岗区邮政街57号一单元地下室",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "哈尔滨市",
+        "区": "南岗区",
+        "最靠近商圈": "秋林商圈",
+        "建筑面积": 133.6,
+        "单价": 10966.47,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

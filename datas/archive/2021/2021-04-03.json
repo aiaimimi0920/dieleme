@@ -378,10 +378,24 @@
         "detail_captured": true
     },
     {
-        "id": "639659360094",
-        "url": "https://sf-item.taobao.com/sf_item/639659360094.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
-        "end": 1617441198000,
-        "status": "done",
-        "is_processed": false
+        "id": 639659360094,
+        "市场评估价": 332328,
+        "起拍价格": 254230.92,
+        "成交价格": 254230.92,
+        "交易时间": "2021-04-03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/639659360094.htm?track_id=a60cd30f-cbc2-4f11-9168-c73774d3e208",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "宁夏回族自治区吴忠市青铜峡市小坝古峡西街3#楼04031室",
+        "所属小区": null,
+        "省份": "宁夏回族自治区",
+        "城市": "吴忠市",
+        "区": "青铜峡市",
+        "最靠近商圈": null,
+        "建筑面积": 113.5,
+        "单价": 2239.21,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

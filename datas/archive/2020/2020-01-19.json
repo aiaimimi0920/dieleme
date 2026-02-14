@@ -189,11 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "611037050467",
-        "url": "https://sf-item.taobao.com/sf_item/611037050467.htm?track_id=d7fb5123-41c2-4c97-bee6-a5fc75a34146",
-        "end": 1579399956000,
-        "status": "done",
-        "is_processed": false
+        "id": 611037050467,
+        "市场评估价": 2831800,
+        "起拍价格": 1925624,
+        "成交价格": 2042624,
+        "交易时间": "2020/01/19 10:12:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611037050467.htm?track_id=d7fb5123-41c2-4c97-bee6-a5fc75a34146",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 12,
+        "地点": "湖北省 十堰市 茅箭区 二堰街办澳门南街10号紫薇阁NO.02幢1-（1-3）-1号",
+        "所属小区": "紫薇阁",
+        "省份": "湖北省",
+        "城市": "十堰市",
+        "区": "茅箭区",
+        "最靠近商圈": "二堰",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 609978078774,
@@ -217,10 +231,24 @@
         "detail_captured": true
     },
     {
-        "id": "610502056886",
-        "url": "https://sf-item.taobao.com/sf_item/610502056886.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
-        "end": 1579399372000,
-        "status": "done",
-        "is_processed": false
+        "id": 610502056886,
+        "市场评估价": 180000,
+        "起拍价格": 130000,
+        "成交价格": 139000,
+        "交易时间": "2020-01-19T10:02:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610502056886.htm?track_id=7cd19e3f-cfbb-439d-8ede-3f6355f25efc",
+        "是否成交": true,
+        "竞拍人数": 7,
+        "出价人数": 10,
+        "地点": "重庆市巫山县巫峡镇广东西路84号4号门市",
+        "所属小区": null,
+        "省份": "重庆",
+        "城市": "重庆市",
+        "区": "巫山县",
+        "最靠近商圈": null,
+        "建筑面积": 31.69,
+        "单价": 4380.96,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

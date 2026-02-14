@@ -63,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "533696558888",
-        "url": "https://sf-item.taobao.com/sf_item/533696558888.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
-        "end": 1467087282000,
-        "status": "done",
-        "is_processed": false
+        "id": 533696558888,
+        "市场评估价": null,
+        "起拍价格": 1600000,
+        "成交价格": 1820000,
+        "交易时间": "2016-06-28T12:14:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/533696558888.htm?track_id=5b37fd21-88fe-4946-919c-f4c6ab9f9968",
+        "是否成交": true,
+        "竞拍人数": 92,
+        "出价人数": 35,
+        "地点": "浙江省 杭州市 滨江区",
+        "所属小区": "柏悦轩",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

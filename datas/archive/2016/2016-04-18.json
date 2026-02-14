@@ -1,9 +1,23 @@
 [
     {
-        "id": "529105767757",
-        "url": "https://sf-item.taobao.com/sf_item/529105767757.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
-        "end": 1460945396000,
-        "status": "done",
-        "is_processed": false
+        "id": 529105767757,
+        "市场评估价": null,
+        "起拍价格": 800000,
+        "成交价格": 905000,
+        "交易时间": "2016/04/18 10:09:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/529105767757.htm?track_id=d84ae04e-a39d-4388-a934-302ac070eba1",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 22,
+        "地点": "浙江省 杭州市 滨江区 明志路95号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": null,
+        "建筑面积": 76.66,
+        "单价": 11805.74,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

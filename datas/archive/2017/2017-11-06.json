@@ -85,10 +85,24 @@
         "detail_captured": true
     },
     {
-        "id": "560269589270",
-        "url": "https://sf-item.taobao.com/sf_item/560269589270.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
-        "end": 1509933600000,
-        "status": "done",
-        "is_processed": false
+        "id": 560269589270,
+        "市场评估价": null,
+        "起拍价格": 887220,
+        "成交价格": 887220,
+        "交易时间": "2017-11-06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560269589270.htm?track_id=839f8c90-9742-4cf3-8f4b-77ea42adf474",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 碑林区",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "碑林区",
+        "最靠近商圈": "钟楼",
+        "建筑面积": 186.91,
+        "单价": 4745.06,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

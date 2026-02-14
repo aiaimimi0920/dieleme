@@ -128,10 +128,24 @@
         "detail_captured": true
     },
     {
-        "id": "526460160826",
-        "url": "https://sf-item.taobao.com/sf_item/526460160826.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
-        "end": 1454637600000,
-        "status": "done",
-        "is_processed": false
+        "id": 526460160826,
+        "市场评估价": 0,
+        "起拍价格": 232531,
+        "成交价格": 232531,
+        "交易时间": "2016/02/05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526460160826.htm?track_id=2bf31870-ada7-427c-83b2-fd5a316df145",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广东省云浮市新兴县簕竹镇圩镇农民街",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "新兴县",
+        "最靠近商圈": "簕竹镇",
+        "建筑面积": 201.85,
+        "单价": 1151.92,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

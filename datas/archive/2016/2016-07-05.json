@@ -168,11 +168,25 @@
         "detail_captured": true
     },
     {
-        "id": "534006335845",
-        "url": "https://sf-item.taobao.com/sf_item/534006335845.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
-        "end": 1467685229000,
-        "status": "done",
-        "is_processed": false
+        "id": 534006335845,
+        "市场评估价": 1954800,
+        "起拍价格": 0,
+        "成交价格": 2934800,
+        "交易时间": "2016/07/05 10:20:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534006335845.htm?track_id=9c996a9c-fc8a-4fc9-970a-917416029d9c",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 79,
+        "地点": "福建省厦门市同安区启辉八路2号102室住宅",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "厦门市",
+        "区": "同安区",
+        "最靠近商圈": "同安工业集中区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 534017823528,
@@ -196,10 +210,24 @@
         "detail_captured": true
     },
     {
-        "id": "534091900464",
-        "url": "https://sf-item.taobao.com/sf_item/534091900464.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
-        "end": 1467684593000,
-        "status": "done",
-        "is_processed": false
+        "id": 534091900464,
+        "市场评估价": 0,
+        "起拍价格": 260000,
+        "成交价格": 370000,
+        "交易时间": "2016/07/05 10:09:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534091900464.htm?track_id=1d7d0d74-24a7-4c67-907b-6dfbfea98b1e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 22,
+        "地点": "衢州市衢江区振兴西路三巷127号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "衢江区",
+        "最靠近商圈": "衢江城区",
+        "建筑面积": 95.52,
+        "单价": 3873.52,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

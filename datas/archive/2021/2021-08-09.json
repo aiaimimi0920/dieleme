@@ -273,12 +273,25 @@
         "detail_captured": true
     },
     {
-        "id": "651066797246",
-        "url": "https://sf-item.taobao.com/sf_item/651066797246.htm?track_id=af45bf8c-90d7-4d1b-8240-79cb621a3ec3",
-        "end": 1628474483000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/651066797246.htm"
+        "id": 651066797246,
+        "市场评估价": 38000000,
+        "起拍价格": 21280000,
+        "成交价格": 21599200,
+        "交易时间": "2021-08-09T10:01:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/651066797246.htm?track_id=af45bf8c-90d7-4d1b-8240-79cb621a3ec3",
+        "是否成交": true,
+        "竞拍人数": 4,
+        "出价人数": 4,
+        "地点": "江苏省 苏州市 吴中区 工业园区苏惠路88号环球财富广场1幢",
+        "所属小区": "环球财富广场",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "工业园区",
+        "最靠近商圈": "湖东CBD",
+        "建筑面积": 305.58,
+        "单价": 70659.47,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 650563731425,

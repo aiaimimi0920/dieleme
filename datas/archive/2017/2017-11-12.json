@@ -340,10 +340,24 @@
         "detail_captured": true
     },
     {
-        "id": "559835066442",
-        "url": "https://sf-item.taobao.com/sf_item/559835066442.htm?track_id=bc90718d-e65a-4467-9717-78b1a1bf1278",
-        "end": 1510452821000,
-        "status": "done",
-        "is_processed": false
+        "id": 559835066442,
+        "市场评估价": null,
+        "起拍价格": 273700,
+        "成交价格": 299700,
+        "交易时间": "2017-11-12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559835066442.htm?track_id=bc90718d-e65a-4467-9717-78b1a1bf1278",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 碑林区 德福巷小区D西区11号楼4幢3单元30202室住宅房",
+        "所属小区": "德福巷小区",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "碑林区",
+        "最靠近商圈": "南门商圈",
+        "建筑面积": 51.4,
+        "单价": 5833.33,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

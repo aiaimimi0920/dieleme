@@ -214,10 +214,24 @@
         "detail_captured": true
     },
     {
-        "id": "564087900110",
-        "url": "https://sf-item.taobao.com/sf_item/564087900110.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
-        "end": 1522042174000,
-        "status": "done",
-        "is_processed": false
+        "id": 564087900110,
+        "市场评估价": 0,
+        "起拍价格": 340000,
+        "成交价格": 340000,
+        "交易时间": "2018/03/26 13:29:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564087900110.htm?track_id=8267d274-f3bc-4ddc-82c6-512bf9b390a6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 九江市 濂溪区 十里大道1460号南二路栋1-702",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "九江市",
+        "区": "濂溪区",
+        "最靠近商圈": "十里大道",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

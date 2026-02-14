@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "521879516939",
-        "url": "https://sf-item.taobao.com/sf_item/521879516939.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
-        "end": 1443580776000,
-        "status": "done",
-        "is_processed": false
+        "id": 521879516939,
+        "市场评估价": null,
+        "起拍价格": 740000,
+        "成交价格": 1012000,
+        "交易时间": "2015/09/30 10:39:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/521879516939.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 90,
+        "地点": "浙江省嘉兴市南湖区七星镇七星花园12幢310F410室及310C车库",
+        "所属小区": "七星花园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "七星镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

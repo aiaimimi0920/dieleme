@@ -189,11 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "625868080954",
-        "url": "https://sf-item.taobao.com/sf_item/625868080954.htm?track_id=0473c4f1-2be1-4662-b171-8dd05ab05dd1",
-        "end": 1601693631000,
-        "status": "done",
-        "is_processed": false
+        "id": 625868080954,
+        "市场评估价": 0,
+        "起拍价格": 1225000,
+        "成交价格": 1663000,
+        "交易时间": "2020/10/03 10:53:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625868080954.htm?track_id=0473c4f1-2be1-4662-b171-8dd05ab05dd1",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 154,
+        "地点": "江苏省 淮安市 涟水县 涟城镇",
+        "所属小区": "香山公馆",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "涟水县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 625935536252,
@@ -238,11 +252,25 @@
         "detail_captured": true
     },
     {
-        "id": "626834963473",
-        "url": "https://sf-item.taobao.com/sf_item/626834963473.htm?track_id=d6e0451f-ec2c-4d96-88dc-d92bbcbf6515",
-        "end": 1601697716000,
-        "status": "done",
-        "is_processed": false
+        "id": 626834963473,
+        "市场评估价": 226900,
+        "起拍价格": 0,
+        "成交价格": 852900,
+        "交易时间": "2020/10/03 12:01:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/626834963473.htm?track_id=d6e0451f-ec2c-4d96-88dc-d92bbcbf6515",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 125,
+        "地点": "江苏省无锡市梁溪区健康路81-4号",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "梁溪区",
+        "最靠近商圈": "南禅寺商圈",
+        "建筑面积": 58.65,
+        "单价": 14539.64,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 626159177895,

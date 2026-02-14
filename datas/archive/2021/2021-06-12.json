@@ -210,10 +210,24 @@
         "detail_captured": true
     },
     {
-        "id": "646149847602",
-        "url": "https://sf-item.taobao.com/sf_item/646149847602.htm?track_id=1b72c4a3-0a3f-4a49-a0ef-97c696656a04",
-        "end": 1623463200000,
-        "status": "done",
-        "is_processed": false
+        "id": 646149847602,
+        "市场评估价": null,
+        "起拍价格": 399338.8,
+        "成交价格": 399338.8,
+        "交易时间": "2021/06/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/646149847602.htm?track_id=1b72c4a3-0a3f-4a49-a0ef-97c696656a04",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河北省廊坊市三河市燕郊开发区京榆大街1号意华广场写字楼公寓1-1512",
+        "所属小区": "意华广场",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "三河市",
+        "最靠近商圈": "燕郊开发区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

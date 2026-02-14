@@ -421,11 +421,25 @@
         "detail_captured": true
     },
     {
-        "id": "637333656269",
-        "url": "https://sf-item.taobao.com/sf_item/637333656269.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
-        "end": 1615087298000,
-        "status": "done",
-        "is_processed": false
+        "id": 637333656269,
+        "市场评估价": 1339708,
+        "起拍价格": 937800,
+        "成交价格": 1167800,
+        "交易时间": "2021/03/07 11:21:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637333656269.htm?track_id=357af098-d5be-459b-97ae-573061d2ea72",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 锡山区 宜东苑103-301室",
+        "所属小区": "宜东苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "锡东新城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 638373190152,
@@ -449,10 +463,24 @@
         "detail_captured": true
     },
     {
-        "id": "637563796946",
-        "url": "https://sf-item.taobao.com/sf_item/637563796946.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
-        "end": 1615083901000,
-        "status": "done",
-        "is_processed": false
+        "id": 637563796946,
+        "市场评估价": 0,
+        "起拍价格": 488000,
+        "成交价格": 653920,
+        "交易时间": "2021/03/07 10:25:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637563796946.htm?track_id=9e7f76ec-57d1-4f8b-89a1-468ecaa0520c",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 32,
+        "地点": "广东省 云浮市 新兴县 新兴县新城镇文建路新豪轩城市花园7幢13FC房、车库A117号小车位、车库M52号摩托车位",
+        "所属小区": "新豪轩城市花园",
+        "省份": "广东省",
+        "城市": "云浮市",
+        "区": "新兴县",
+        "最靠近商圈": "新城镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

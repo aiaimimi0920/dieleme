@@ -233,11 +233,25 @@
         "detail_captured": true
     },
     {
-        "id": "587182500714",
-        "url": "https://sf-item.taobao.com/sf_item/587182500714.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
-        "end": 1552270262000,
-        "status": "done",
-        "is_processed": false
+        "id": 587182500714,
+        "市场评估价": null,
+        "起拍价格": 207368,
+        "成交价格": 233368,
+        "交易时间": "2019/03/11 10:11:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/587182500714.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 14,
+        "地点": "江西省 南昌市 青云谱区 南昌市青云谱区解放西路360号东方明珠城铂金区1栋2020室",
+        "所属小区": "东方明珠城",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": "洪都",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 587198100695,

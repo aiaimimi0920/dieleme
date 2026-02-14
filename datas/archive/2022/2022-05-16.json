@@ -756,10 +756,24 @@
         "detail_captured": true
     },
     {
-        "id": "674028143820",
-        "url": "https://sf-item.taobao.com/sf_item/674028143820.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
-        "end": 1652667825000,
-        "status": "done",
-        "is_processed": false
+        "id": 674028143820,
+        "市场评估价": null,
+        "起拍价格": 232529,
+        "成交价格": 274529,
+        "交易时间": "2022/05/16 10:23:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/674028143820.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 22,
+        "地点": "江苏省 常州市 天宁区 青洋北路99号17号楼226、227号",
+        "所属小区": "天宁时代广场",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "青龙板块",
+        "建筑面积": 69.2,
+        "单价": 3967.17,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

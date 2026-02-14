@@ -126,10 +126,24 @@
         "detail_captured": true
     },
     {
-        "id": "546029473167",
-        "url": "https://sf-item.taobao.com/sf_item/546029473167.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
-        "end": 1491965829000,
-        "status": "done",
-        "is_processed": false
+        "id": 546029473167,
+        "市场评估价": null,
+        "起拍价格": 4450000,
+        "成交价格": 5910000,
+        "交易时间": "2017/04/12 10:57:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546029473167.htm?track_id=48530b34-bfaf-4fc0-a793-ad3aa28b88c4",
+        "是否成交": true,
+        "竞拍人数": 239,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市南湖区罗马都市44幢901F1001室",
+        "所属小区": "罗马都市",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "南湖新区",
+        "建筑面积": 386.97,
+        "单价": 15272.06,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

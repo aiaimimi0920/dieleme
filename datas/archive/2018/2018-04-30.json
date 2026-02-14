@@ -1016,11 +1016,25 @@
         "detail_captured": true
     },
     {
-        "id": "567648986354",
-        "url": "https://sf-item.taobao.com/sf_item/567648986354.htm?track_id=b4c557e7-fc5c-41c6-870a-802edfde1442",
-        "end": 1525054456000,
-        "status": "done",
-        "is_processed": false
+        "id": 567648986354,
+        "市场评估价": null,
+        "起拍价格": 618300,
+        "成交价格": 666300,
+        "交易时间": "2018-04-30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/567648986354.htm?track_id=b4c557e7-fc5c-41c6-870a-802edfde1442",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河北省邢台市巨鹿县建设大街西侧",
+        "所属小区": null,
+        "省份": "河北省",
+        "城市": "邢台市",
+        "区": "巨鹿县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 566937864259,

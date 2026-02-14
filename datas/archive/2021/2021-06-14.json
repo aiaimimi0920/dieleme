@@ -63,11 +63,25 @@
         "detail_captured": true
     },
     {
-        "id": "643916112378",
-        "url": "https://sf-item.taobao.com/sf_item/643916112378.htm?track_id=83e68fed-9084-46cb-a950-7f8ce7e08692",
-        "end": 1623636573000,
-        "status": "done",
-        "is_processed": false
+        "id": 643916112378,
+        "市场评估价": null,
+        "起拍价格": 4941027,
+        "成交价格": 7005027,
+        "交易时间": "2021/06/14 10:09:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/643916112378.htm?track_id=83e68fed-9084-46cb-a950-7f8ce7e08692",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 85,
+        "地点": "陕西省 西安市 未央区 经济技术开发区凤城八路158号风景御园13幢32802室",
+        "所属小区": "风景御园",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "凤城八路",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 644202505338,
@@ -112,10 +126,24 @@
         "detail_captured": true
     },
     {
-        "id": "646038406397",
-        "url": "https://sf-item.taobao.com/sf_item/646038406397.htm?track_id=c8a98758-d89c-4119-9cd3-afa7a351cacb",
-        "end": 1623637057000,
-        "status": "done",
-        "is_processed": false
+        "id": 646038406397,
+        "市场评估价": 0,
+        "起拍价格": 256000,
+        "成交价格": 272000,
+        "交易时间": "2021/06/14 10:17:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/646038406397.htm?track_id=c8a98758-d89c-4119-9cd3-afa7a351cacb",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "福建省 泉州市 安溪县 官桥镇弘桥花园5幢30店房产",
+        "所属小区": "弘桥花园",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "官桥镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

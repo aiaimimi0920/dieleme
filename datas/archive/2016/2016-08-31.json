@@ -85,10 +85,24 @@
         "detail_captured": true
     },
     {
-        "id": "536878247398",
-        "url": "https://sf-item.taobao.com/sf_item/536878247398.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
-        "end": 1472617217000,
-        "status": "done",
-        "is_processed": false
+        "id": 536878247398,
+        "市场评估价": null,
+        "起拍价格": 8800000,
+        "成交价格": 10590000,
+        "交易时间": "2016/08/31 12:20:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536878247398.htm?track_id=37cb7b2c-acb6-4359-9083-a8cdc642d71e",
+        "是否成交": true,
+        "竞拍人数": 127,
+        "出价人数": 40,
+        "地点": "上海 上海市 宝山区",
+        "所属小区": "东方帕堤欧",
+        "省份": "上海",
+        "城市": "上海",
+        "区": "宝山区",
+        "最靠近商圈": null,
+        "建筑面积": 265.25,
+        "单价": 39925.47,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -148,11 +148,25 @@
         "detail_captured": true
     },
     {
-        "id": "558854652566",
-        "url": "https://sf-item.taobao.com/sf_item/558854652566.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
-        "end": 1508729369000,
-        "status": "done",
-        "is_processed": false
+        "id": 558854652566,
+        "市场评估价": null,
+        "起拍价格": 2800000,
+        "成交价格": 4420000,
+        "交易时间": "2017/10/23 11:29:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558854652566.htm?track_id=484a8eb9-c40e-40de-b9b7-963476b2d7e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 133,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道积家2幢2103室",
+        "所属小区": "积家",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 558872664717,

@@ -315,11 +315,25 @@
         "detail_captured": true
     },
     {
-        "id": "546705185455",
-        "url": "https://sf-item.taobao.com/sf_item/546705185455.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
-        "end": 1490928665000,
-        "status": "done",
-        "is_processed": false
+        "id": 546705185455,
+        "市场评估价": 3394900,
+        "起拍价格": 1901100,
+        "成交价格": 2924100,
+        "交易时间": "2017-03-31 10:51:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546705185455.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 208,
+        "地点": "江苏省无锡市锡山区",
+        "所属小区": "世纪锦园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 546712485949,
@@ -385,10 +399,24 @@
         "detail_captured": true
     },
     {
-        "id": "546446901227",
-        "url": "https://sf-item.taobao.com/sf_item/546446901227.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
-        "end": 1490927488000,
-        "status": "done",
-        "is_processed": false
+        "id": 546446901227,
+        "市场评估价": 1063700,
+        "起拍价格": 851000,
+        "成交价格": 1266000,
+        "交易时间": "2017-03-31 10:31:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546446901227.htm?track_id=8abe7f16-eb72-4b4a-a9b8-084ba8b43179",
+        "是否成交": true,
+        "竞拍人数": 33,
+        "出价人数": 82,
+        "地点": "江苏省 南京市 秦淮区 汇景西路33号8幢402室",
+        "所属小区": "汇景家园",
+        "省份": "江苏省",
+        "城市": "南京市",
+        "区": "秦淮区",
+        "最靠近商圈": "大报恩寺/夫子庙",
+        "建筑面积": 57.92,
+        "单价": 21867.82,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

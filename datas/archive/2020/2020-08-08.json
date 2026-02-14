@@ -861,10 +861,24 @@
         "detail_captured": true
     },
     {
-        "id": "618934740138",
-        "url": "https://sf-item.taobao.com/sf_item/618934740138.htm?track_id=ea4eb8ff-33af-48f0-9fc5-5c633b8347fe",
-        "end": 1596854651000,
-        "status": "done",
-        "is_processed": false
+        "id": 618934740138,
+        "市场评估价": null,
+        "起拍价格": 161280,
+        "成交价格": 161280,
+        "交易时间": "2020/08/08 10:44:11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/618934740138.htm?track_id=ea4eb8ff-33af-48f0-9fc5-5c633b8347fe",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "重庆市巫山县官渡镇官渡村2组156号6-2房屋",
+        "所属小区": null,
+        "省份": "重庆",
+        "城市": "重庆",
+        "区": "巫山县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

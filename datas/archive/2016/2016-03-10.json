@@ -105,10 +105,24 @@
         "detail_captured": true
     },
     {
-        "id": "527105561272",
-        "url": "https://sf-item.taobao.com/sf_item/527105561272.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
-        "end": 1457579043000,
-        "status": "done",
-        "is_processed": false
+        "id": 527105561272,
+        "市场评估价": 0,
+        "起拍价格": 550000,
+        "成交价格": 750000,
+        "交易时间": "2016/03/10 11:04:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527105561272.htm?track_id=c0d9bee5-1b8e-4fb0-9605-8edfe4c2337d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 87,
+        "地点": "浙江省 嘉兴市 南湖区",
+        "所属小区": "鹿都景苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "南湖新区",
+        "建筑面积": 81.86,
+        "单价": 9161.59,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

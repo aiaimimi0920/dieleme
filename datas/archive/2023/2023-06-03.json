@@ -168,10 +168,24 @@
         "detail_captured": true
     },
     {
-        "id": "718907937033",
-        "url": "https://sf-item.taobao.com/sf_item/718907937033.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
-        "end": 1685757600000,
-        "status": "done",
-        "is_processed": false
+        "id": 718907937033,
+        "市场评估价": null,
+        "起拍价格": 3265240,
+        "成交价格": 3265240,
+        "交易时间": "2023-06-03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/718907937033.htm?track_id=c5c018f0-0fa6-47f3-8662-2a0b45ca12ea",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市昌平区顺沙路96号院39号楼3至4层39-303",
+        "所属小区": "天通苑",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "昌平区",
+        "最靠近商圈": "天通苑",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

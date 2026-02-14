@@ -336,10 +336,24 @@
         "detail_captured": true
     },
     {
-        "id": "723092539115",
-        "url": "https://sf-item.taobao.com/sf_item/723092539115.htm?track_id=a1c6ef29-5f2c-4846-80d3-fe041cc09cd5",
-        "end": 1688868000000,
-        "status": "done",
-        "is_processed": false
+        "id": 723092539115,
+        "市场评估价": 1585924,
+        "起拍价格": 1585924,
+        "成交价格": 1585924,
+        "交易时间": "2023-07-08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/723092539115.htm?track_id=a1c6ef29-5f2c-4846-80d3-fe041cc09cd5",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "云南省丽江市华坪县华坪县荣将个私开发园区鑫华苑房屋一幢",
+        "所属小区": "鑫华苑",
+        "省份": "云南省",
+        "城市": "丽江市",
+        "区": "华坪县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

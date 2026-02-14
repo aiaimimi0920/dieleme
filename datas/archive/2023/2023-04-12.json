@@ -277,11 +277,25 @@
         "detail_captured": true
     },
     {
-        "id": "710118391265",
-        "url": "https://sf-item.taobao.com/sf_item/710118391265.htm?track_id=fc9ec664-def6-4384-8f58-12dfefce15ff",
-        "end": 1681264800000,
-        "status": "done",
-        "is_processed": false
+        "id": 710118391265,
+        "市场评估价": 0,
+        "起拍价格": 69795,
+        "成交价格": 69795,
+        "交易时间": "2023/04/12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/710118391265.htm?track_id=fc9ec664-def6-4384-8f58-12dfefce15ff",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "内蒙古自治区 乌兰察布市 丰镇市 丰镇市富邦小区红楼C区8号面向南从西数第四间车库",
+        "所属小区": "富邦小区",
+        "省份": "内蒙古自治区",
+        "城市": "乌兰察布市",
+        "区": "丰镇市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 708813982177,
@@ -305,10 +319,24 @@
         "detail_captured": true
     },
     {
-        "id": "709491187107",
-        "url": "https://sf-item.taobao.com/sf_item/709491187107.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
-        "end": 1681272065000,
-        "status": "done",
-        "is_processed": false
+        "id": 709491187107,
+        "市场评估价": 3300000,
+        "起拍价格": 2244000,
+        "成交价格": 3004500,
+        "交易时间": "2023-04-12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/709491187107.htm?track_id=80e41bd5-9e57-4e02-83e7-4c6eddc71f38",
+        "是否成交": true,
+        "竞拍人数": 111,
+        "出价人数": 118,
+        "地点": "江苏省 南京市 秦淮区 中山东路218号长安国际中心",
+        "所属小区": "长安国际中心",
+        "省份": "江苏省",
+        "城市": "南京市",
+        "区": "秦淮区",
+        "最靠近商圈": "新街口",
+        "建筑面积": 60.0,
+        "单价": 50075.0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

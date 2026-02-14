@@ -148,10 +148,24 @@
         "detail_captured": true
     },
     {
-        "id": "536712656937",
-        "url": "https://sf-item.taobao.com/sf_item/536712656937.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
-        "end": 1472095279000,
-        "status": "done",
-        "is_processed": false
+        "id": 536712656937,
+        "市场评估价": null,
+        "起拍价格": 708000,
+        "成交价格": 918000,
+        "交易时间": "2016-08-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536712656937.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "是否成交": true,
+        "竞拍人数": 106,
+        "出价人数": null,
+        "地点": "浙江省 嘉兴市 南湖区",
+        "所属小区": "佳源都市",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "南湖商圈",
+        "建筑面积": 90.98,
+        "单价": 10091.49,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

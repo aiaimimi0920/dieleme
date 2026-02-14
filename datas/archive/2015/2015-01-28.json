@@ -1,9 +1,23 @@
 [
     {
-        "id": "43452136373",
-        "url": "https://sf-item.taobao.com/sf_item/43452136373.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
-        "end": 1422413957000,
-        "status": "done",
-        "is_processed": false
+        "id": 43452136373,
+        "市场评估价": null,
+        "起拍价格": 992000,
+        "成交价格": 1418000,
+        "交易时间": "2015-01-28T10:59:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43452136373.htm?track_id=03580c93-9fc3-44b8-91e9-7ccfedfeaa24",
+        "是否成交": true,
+        "竞拍人数": 102,
+        "出价人数": null,
+        "地点": "浙江省嘉兴市南湖区",
+        "所属小区": "裕隆公寓",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "洪仁路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

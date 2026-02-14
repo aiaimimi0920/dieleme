@@ -42,10 +42,24 @@
         "detail_captured": true
     },
     {
-        "id": "541593591844",
-        "url": "https://sf-item.taobao.com/sf_item/541593591844.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
-        "end": 1479608933000,
-        "status": "done",
-        "is_processed": false
+        "id": 541593591844,
+        "市场评估价": null,
+        "起拍价格": 939000,
+        "成交价格": 1169000,
+        "交易时间": "2016/11/20 10:28:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541593591844.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 锡山区",
+        "所属小区": "隽府园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "东亭商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

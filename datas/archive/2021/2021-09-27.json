@@ -546,10 +546,24 @@
         "detail_captured": true
     },
     {
-        "id": "650292213749",
-        "url": "https://sf-item.taobao.com/sf_item/650292213749.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
-        "end": 1632739313000,
-        "status": "done",
-        "is_processed": false
+        "id": 650292213749,
+        "市场评估价": 0,
+        "起拍价格": 931500,
+        "成交价格": 931500,
+        "交易时间": "2021/09/27 18:41:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/650292213749.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "河南省 郑州市 二七区 代庄西街1号3号楼东单元6层12号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

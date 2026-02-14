@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "526003311073",
-        "url": "https://sf-item.taobao.com/sf_item/526003311073.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
-        "end": 1453600990000,
-        "status": "done",
-        "is_processed": false
+        "id": 526003311073,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 174000,
+        "交易时间": "2016/01/24 10:03:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526003311073.htm?track_id=0d285f3d-ec52-4398-a892-15588dce301d",
+        "是否成交": true,
+        "竞拍人数": 4,
+        "出价人数": null,
+        "地点": "郑州市二七区一马路西、火车站南266号2层13号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "火车站商圈",
+        "建筑面积": 27.62,
+        "单价": 6290.91,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

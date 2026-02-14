@@ -86,11 +86,25 @@
         "detail_captured": true
     },
     {
-        "id": "541149372613",
-        "url": "https://sf-item.taobao.com/sf_item/541149372613.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
-        "end": 1479090627000,
-        "status": "done",
-        "is_processed": false
+        "id": 541149372613,
+        "市场评估价": 983000,
+        "起拍价格": 786400,
+        "成交价格": 1086400,
+        "交易时间": "2016-11-14 10:30:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541149372613.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "是否成交": true,
+        "竞拍人数": 184,
+        "出价人数": 8,
+        "地点": "江苏省无锡市锡山区",
+        "所属小区": "君怡花苑",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 541215333214,

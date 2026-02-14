@@ -232,10 +232,24 @@
         "detail_captured": true
     },
     {
-        "id": "547709793257",
-        "url": "https://sf-item.taobao.com/sf_item/547709793257.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
-        "end": 1492308000000,
-        "status": "done",
-        "is_processed": false
+        "id": 547709793257,
+        "市场评估价": null,
+        "起拍价格": 292170,
+        "成交价格": 292170,
+        "交易时间": "2017/04/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/547709793257.htm?track_id=cd8fcf85-e251-4e1b-93b6-b8f604092e1a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "四川省泸州市叙永县和平大道岭南尚品二批次16幢2单元302号",
+        "所属小区": "岭南尚品",
+        "省份": "四川省",
+        "城市": "泸州市",
+        "区": "叙永县",
+        "最靠近商圈": "叙永县城中心商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

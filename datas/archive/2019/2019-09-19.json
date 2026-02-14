@@ -206,9 +206,10 @@
         "区": "成华区",
         "最靠近商圈": "建设路商圈",
         "建筑面积": 77.63,
-        "单价": 11388.63,
+        "单价": 11388.28,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 602322787919,
@@ -347,15 +348,16 @@
         "竞拍人数": 96,
         "出价人数": 96,
         "地点": "苏州市吴中区木渎镇西街80号3幢208室",
-        "所属小区": null,
+        "所属小区": "西街小区",
         "省份": "江苏省",
         "城市": "苏州市",
         "区": "吴中区",
-        "最靠近商圈": "木渎",
+        "最靠近商圈": "木渎商圈",
         "建筑面积": 35.04,
-        "单价": 36000.57,
+        "单价": 35998.86,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 601073827225,
@@ -505,11 +507,25 @@
         "detail_captured": true
     },
     {
-        "id": "601708656196",
-        "url": "https://sf-item.taobao.com/sf_item/601708656196.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
-        "end": 1568858992000,
-        "status": "done",
-        "is_processed": false
+        "id": 601708656196,
+        "市场评估价": null,
+        "起拍价格": 765000,
+        "成交价格": 980000,
+        "交易时间": "2019/09/19 10:09:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/601708656196.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 南平市 顺昌县",
+        "所属小区": "熙景花园",
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪街道",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 600978333411,
@@ -533,10 +549,24 @@
         "detail_captured": true
     },
     {
-        "id": "600317700354",
-        "url": "https://sf-item.taobao.com/sf_item/600317700354.htm?track_id=714d6a20-14ce-4681-bdad-a5c0be12e883",
-        "end": 1568858911000,
-        "status": "done",
-        "is_processed": false
+        "id": 600317700354,
+        "市场评估价": null,
+        "起拍价格": 1448876,
+        "成交价格": 1478876,
+        "交易时间": "2019/09/19 10:08:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/600317700354.htm?track_id=714d6a20-14ce-4681-bdad-a5c0be12e883",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 7,
+        "地点": "河南省郑州市二七区政通路66号院4号楼2单元5层506号",
+        "所属小区": "政通路66号院",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "政通路商圈",
+        "建筑面积": 123.54,
+        "单价": 11971.16,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

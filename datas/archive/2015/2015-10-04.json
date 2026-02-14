@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "522054155967",
-        "url": "https://sf-item.taobao.com/sf_item/522054155967.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
-        "end": 1443925229000,
-        "status": "done",
-        "is_processed": false
+        "id": 522054155967,
+        "市场评估价": null,
+        "起拍价格": 1990000,
+        "成交价格": 2640000,
+        "交易时间": "2015-10-04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/522054155967.htm?track_id=ce4874f6-fe3a-4517-9572-b573522580b2",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 32,
+        "地点": "杭州市滨江区长河街道水印城10幢1单元2102室",
+        "所属小区": "水印城",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "滨江区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -189,11 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "630758378507",
-        "url": "https://sf-item.taobao.com/sf_item/630758378507.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
-        "end": 1605406646000,
-        "status": "done",
-        "is_processed": false
+        "id": 630758378507,
+        "市场评估价": null,
+        "起拍价格": 1123275,
+        "成交价格": 1222275,
+        "交易时间": "2020-11-15 10:17:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/630758378507.htm?track_id=782e9114-fd3f-4451-9b47-738af369bb61",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省西安市未央区北二环中段6号金仕华城2幢20309室",
+        "所属小区": "金仕华城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "北二环",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 628893208781,
@@ -217,10 +231,24 @@
         "detail_captured": true
     },
     {
-        "id": "631144603599",
-        "url": "https://sf-item.taobao.com/sf_item/631144603599.htm?track_id=372083ae-219b-405a-b6f1-dd5cf7092ecf",
-        "end": 1605405607000,
-        "status": "done",
-        "is_processed": false
+        "id": 631144603599,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 331560.88,
+        "交易时间": "2020/11/15 10:00:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/631144603599.htm?track_id=372083ae-219b-405a-b6f1-dd5cf7092ecf",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "宁夏回族自治区吴忠市青铜峡市青铜峡市惠泽苑38幢22号房产",
+        "所属小区": "惠泽苑",
+        "省份": "宁夏回族自治区",
+        "城市": "吴忠市",
+        "区": "青铜峡市",
+        "最靠近商圈": null,
+        "建筑面积": 139.97,
+        "单价": 2368.84,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

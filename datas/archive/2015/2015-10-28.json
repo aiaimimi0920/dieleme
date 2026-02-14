@@ -63,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "522963642521",
-        "url": "https://sf-item.taobao.com/sf_item/522963642521.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
-        "end": 1445997600000,
-        "status": "done",
-        "is_processed": false
+        "id": 522963642521,
+        "市场评估价": null,
+        "起拍价格": 164305000,
+        "成交价格": 164605000,
+        "交易时间": "2015/10/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/522963642521.htm?track_id=26afcb14-a9d9-46ea-bf45-6ba7de713de7",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 2,
+        "地点": "上海市宝山区沪太路8017号",
+        "所属小区": null,
+        "省份": "上海",
+        "城市": "上海市",
+        "区": "宝山区",
+        "最靠近商圈": "宝山工业园区",
+        "建筑面积": 51192.92,
+        "单价": 3215.45,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

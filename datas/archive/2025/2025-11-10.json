@@ -546,10 +546,24 @@
         "detail_captured": true
     },
     {
-        "id": "984706752922",
-        "url": "https://sf-item.taobao.com/sf_item/984706752922.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
-        "end": 1762742426000,
-        "status": "done",
-        "is_processed": false
+        "id": 984706752922,
+        "市场评估价": null,
+        "起拍价格": 276000,
+        "成交价格": 460000,
+        "交易时间": "2025/11/10 10:40:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/984706752922.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "是否成交": true,
+        "竞拍人数": 84,
+        "出价人数": null,
+        "地点": "黑龙江省 哈尔滨市 南岗区 征仪路298号102栋1单元5层1号",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "哈尔滨市",
+        "区": "南岗区",
+        "最靠近商圈": "征仪路商圈",
+        "建筑面积": 103.39,
+        "单价": 4446.97,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

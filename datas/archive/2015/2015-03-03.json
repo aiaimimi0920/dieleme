@@ -192,10 +192,24 @@
         "detail_captured": true
     },
     {
-        "id": "43821650937",
-        "url": "https://sf-item.taobao.com/sf_item/43821650937.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
-        "end": 1425349029000,
-        "status": "done",
-        "is_processed": false
+        "id": 43821650937,
+        "市场评估价": 0,
+        "起拍价格": 750000,
+        "成交价格": 940000,
+        "交易时间": "2015/03/03 10:17:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/43821650937.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 20,
+        "地点": "溧阳市水韵华庭2幢甲单元301室",
+        "所属小区": "水韵华庭",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "溧阳市",
+        "最靠近商圈": "溧阳市",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

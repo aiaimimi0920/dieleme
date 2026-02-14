@@ -170,10 +170,24 @@
         "detail_captured": true
     },
     {
-        "id": "558146644094",
-        "url": "https://sf-item.taobao.com/sf_item/558146644094.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
-        "end": 1506218643000,
-        "status": "done",
-        "is_processed": false
+        "id": 558146644094,
+        "市场评估价": 0,
+        "起拍价格": 543280,
+        "成交价格": 693280,
+        "交易时间": "2017/09/24 10:04:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558146644094.htm?track_id=f35386e8-d91c-49df-bda8-931031d63e8b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 26,
+        "地点": "福建省 南平市 顺昌县 双溪城南东路6号A4幢103室",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "南平市",
+        "区": "顺昌县",
+        "最靠近商圈": "双溪",
+        "建筑面积": 124.79,
+        "单价": 5556.72,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

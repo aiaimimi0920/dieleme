@@ -597,11 +597,25 @@
         "detail_captured": true
     },
     {
-        "id": "564268295163",
-        "url": "https://sf-item.taobao.com/sf_item/564268295163.htm?track_id=260a9d3f-8c3f-4758-b6e0-eb9e92a8298e",
-        "end": 1519440036000,
-        "status": "done",
-        "is_processed": false
+        "id": 564268295163,
+        "市场评估价": null,
+        "起拍价格": 610000,
+        "成交价格": 1195000,
+        "交易时间": "2018/02/24 10:40:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564268295163.htm?track_id=260a9d3f-8c3f-4758-b6e0-eb9e92a8298e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 台州市 天台县 福溪街道幸福花苑5幢204室",
+        "所属小区": "幸福花苑",
+        "省份": "浙江省",
+        "城市": "台州市",
+        "区": "天台县",
+        "最靠近商圈": "福溪街道",
+        "建筑面积": 133.67,
+        "单价": 8941.3,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 564549874236,
@@ -625,10 +639,24 @@
         "detail_captured": true
     },
     {
-        "id": "564422005730",
-        "url": "https://sf-item.taobao.com/sf_item/564422005730.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
-        "end": 1519437600000,
-        "status": "done",
-        "is_processed": false
+        "id": 564422005730,
+        "市场评估价": null,
+        "起拍价格": 269600,
+        "成交价格": 269600,
+        "交易时间": "2018/02/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564422005730.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 常州市 天宁区 丽华一村11幢乙单元203室",
+        "所属小区": "丽华一村",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": "丽华板块",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -43,10 +43,24 @@
         "manual_checked": true
     },
     {
-        "id": "521557190176",
-        "url": "https://sf-item.taobao.com/sf_item/521557190176.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
-        "end": 1442196000000,
-        "status": "done",
-        "is_processed": false
+        "id": 521557190176,
+        "市场评估价": null,
+        "起拍价格": 955000,
+        "成交价格": 965000,
+        "交易时间": "2015/09/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/521557190176.htm?track_id=6f9ef7be-8ac3-401f-8e44-8e8bbb7de5df",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "浙江省 杭州市 滨江区 浦沿街道逸天广场1幢1单元402室",
+        "所属小区": "逸天广场",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "浦沿板块",
+        "建筑面积": 126.89,
+        "单价": 7609.28,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

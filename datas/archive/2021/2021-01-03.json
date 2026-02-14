@@ -294,11 +294,25 @@
         "detail_captured": true
     },
     {
-        "id": "632560620464",
-        "url": "https://sf-item.taobao.com/sf_item/632560620464.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
-        "end": 1609647542000,
-        "status": "done",
-        "is_processed": false
+        "id": 632560620464,
+        "市场评估价": 6606800,
+        "起拍价格": 4624800,
+        "成交价格": 6439800,
+        "交易时间": "2021-01-03 12:19:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/632560620464.htm?track_id=d384dc1c-b720-4c2e-a1ad-d968a4f0ed24",
+        "是否成交": true,
+        "竞拍人数": 160,
+        "出价人数": 152,
+        "地点": "江苏省 无锡市 锡山区 九里香醍庄园375号房产",
+        "所属小区": "九里香醍庄园",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "九里香醍商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 632836998843,

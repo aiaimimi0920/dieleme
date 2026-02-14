@@ -273,10 +273,24 @@
         "detail_captured": true
     },
     {
-        "id": "892596055020",
-        "url": "https://sf-item.taobao.com/sf_item/892596055020.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
-        "end": 1742091947000,
-        "status": "done",
-        "is_processed": false
+        "id": 892596055020,
+        "市场评估价": 3124735.33,
+        "起拍价格": 1749851.8,
+        "成交价格": 1932551.8,
+        "交易时间": "2025/03/16 10:25:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/892596055020.htm?track_id=247476a7-aacf-4dfe-8c41-471130f9ed57",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省青岛市崂山区辽阳东路16号18号楼1403户",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "崂山区",
+        "最靠近商圈": "辽阳东路商圈",
+        "建筑面积": 129.58,
+        "单价": 14913.5,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

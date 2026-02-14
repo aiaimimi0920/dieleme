@@ -321,10 +321,24 @@
         "detail_captured": true
     },
     {
-        "id": "555242921635",
-        "url": "https://sf-item.taobao.com/sf_item/555242921635.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
-        "end": 1502589978000,
-        "status": "done",
-        "is_processed": false
+        "id": 555242921635,
+        "市场评估价": 560253.6,
+        "起拍价格": 560253.6,
+        "成交价格": 569253.6,
+        "交易时间": "2017/08/13 10:06:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/555242921635.htm?track_id=b1a2558c-2ab0-434a-aa84-29f18e4bd451",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 3,
+        "地点": "河北省 衡水市 深州市 贸易城",
+        "所属小区": null,
+        "省份": "河北省",
+        "城市": "衡水市",
+        "区": "深州市",
+        "最靠近商圈": "贸易城",
+        "建筑面积": 304.32,
+        "单价": 1870.65,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

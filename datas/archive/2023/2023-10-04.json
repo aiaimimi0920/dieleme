@@ -105,10 +105,24 @@
         "detail_captured": true
     },
     {
-        "id": "739050208095",
-        "url": "https://sf-item.taobao.com/sf_item/739050208095.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
-        "end": 1696384800000,
-        "status": "done",
-        "is_processed": false
+        "id": 739050208095,
+        "市场评估价": null,
+        "起拍价格": 429156,
+        "成交价格": 429156,
+        "交易时间": "2023-10-04T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/739050208095.htm?track_id=544ea4ce-936e-4f81-a055-1bd026e4b1d0",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 贺州市 八步区 钟山中路46号10幢1205号房",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "贺州市",
+        "区": "八步区",
+        "最靠近商圈": "贺州老城",
+        "建筑面积": 119.21,
+        "单价": 3600.59,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -105,10 +105,24 @@
         "detail_captured": true
     },
     {
-        "id": "528391928749",
-        "url": "https://sf-item.taobao.com/sf_item/528391928749.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
-        "end": 1459908986000,
-        "status": "done",
-        "is_processed": false
+        "id": 528391928749,
+        "市场评估价": null,
+        "起拍价格": 1600000,
+        "成交价格": 2255000,
+        "交易时间": "2016-04-06T10:16:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528391928749.htm?track_id=b1453d3d-c48f-4e70-b6d0-7a91f1a1828c",
+        "是否成交": true,
+        "竞拍人数": 56,
+        "出价人数": null,
+        "地点": "浙江省 衢州市 衢江区 湖南镇 破石村",
+        "所属小区": "施家有机茶厂",
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "衢江区",
+        "最靠近商圈": "湖南镇",
+        "建筑面积": 1801.88,
+        "单价": 1251.47,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

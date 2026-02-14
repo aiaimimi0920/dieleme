@@ -357,10 +357,24 @@
         "detail_captured": true
     },
     {
-        "id": "674679496129",
-        "url": "https://sf-item.taobao.com/sf_item/674679496129.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
-        "end": 1656468000000,
-        "status": "done",
-        "is_processed": false
+        "id": 674679496129,
+        "市场评估价": 600000,
+        "起拍价格": 600000,
+        "成交价格": 600000,
+        "交易时间": "2022-06-29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/674679496129.htm?track_id=db67ce7a-7b6b-4321-9e74-7f521349dc47",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "江苏省 常州市 天宁区 锦绣花园20幢乙单元302室",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": null,
+        "建筑面积": 60,
+        "单价": 10000,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

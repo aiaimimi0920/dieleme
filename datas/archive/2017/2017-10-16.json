@@ -725,11 +725,25 @@
         "detail_captured": true
     },
     {
-        "id": "558626306628",
-        "url": "https://sf-item.taobao.com/sf_item/558626306628.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
-        "end": 1508120504000,
-        "status": "done",
-        "is_processed": false
+        "id": 558626306628,
+        "市场评估价": null,
+        "起拍价格": 762000,
+        "成交价格": 872000,
+        "交易时间": "2017-10-16T10:21:44",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558626306628.htm?track_id=de9a9622-1bb8-4da7-a2aa-8761a2d1a387",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 12,
+        "地点": "江西省 南昌市 青云谱区 广州路博泰魏玛峰尚27号楼二单元204室房屋",
+        "所属小区": "博泰魏玛峰尚",
+        "省份": "江西省",
+        "城市": "南昌市",
+        "区": "青云谱区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 558594555348,

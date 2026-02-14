@@ -84,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "552698553096",
-        "url": "https://sf-item.taobao.com/sf_item/552698553096.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
-        "end": 1499650933000,
-        "status": "done",
-        "is_processed": false
+        "id": 552698553096,
+        "市场评估价": 0,
+        "起拍价格": 1273985.6,
+        "成交价格": 1808985.6,
+        "交易时间": "2017/07/10 09:42:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/552698553096.htm?track_id=9ae5f6ee-1cac-4970-a3e6-04292545201d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 84,
+        "地点": "黑龙江省 哈尔滨市 南岗区",
+        "所属小区": "壹品新境",
+        "省份": "黑龙江省",
+        "城市": "哈尔滨市",
+        "区": "南岗区",
+        "最靠近商圈": "哈西商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

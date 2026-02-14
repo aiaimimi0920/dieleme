@@ -211,12 +211,25 @@
         "detail_captured": true
     },
     {
-        "id": "648110706983",
-        "url": "https://sf-item.taobao.com/sf_item/648110706983.htm?track_id=0406ca91-74e6-4cdb-92b1-b5d8396c569c",
-        "end": 1626488398000,
-        "status": "done",
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/648110706983.htm"
+        "id": 648110706983,
+        "市场评估价": 20000000,
+        "起拍价格": 14000000,
+        "成交价格": 27230000,
+        "交易时间": "2021-07-17 10:19:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/648110706983.htm?track_id=0406ca91-74e6-4cdb-92b1-b5d8396c569c",
+        "是否成交": true,
+        "竞拍人数": 70,
+        "出价人数": 42,
+        "地点": "江苏省 苏州市 吴中区 玲珑湾花园38幢3102室不动产",
+        "所属小区": "玲珑湾花园",
+        "省份": "江苏省",
+        "城市": "苏州市",
+        "区": "吴中区",
+        "最靠近商圈": "独墅湖",
+        "建筑面积": 355.63,
+        "单价": 76560.43,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 647346036665,
@@ -366,11 +379,25 @@
         "detail_captured": true
     },
     {
-        "id": "647766325509",
-        "url": "https://sf-item.taobao.com/sf_item/647766325509.htm?track_id=19c10d1a-aefc-4d0f-a385-532173897a49",
-        "end": 1626489805000,
-        "status": "done",
-        "is_processed": false
+        "id": 647766325509,
+        "市场评估价": null,
+        "起拍价格": 840727.6,
+        "成交价格": 1080727.6,
+        "交易时间": "2021-07-17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/647766325509.htm?track_id=19c10d1a-aefc-4d0f-a385-532173897a49",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 31,
+        "地点": "陕西省西安市未央区浐灞生态区玄武东路999号6幢11109室",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": "浐灞生态区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 647546830748,
@@ -415,11 +442,25 @@
         "detail_captured": true
     },
     {
-        "id": "648091602802",
-        "url": "https://sf-item.taobao.com/sf_item/648091602802.htm?track_id=d8f63a09-ef84-4561-bc48-ff20ead59d2a",
-        "end": 1626487200000,
-        "status": "done",
-        "is_processed": false
+        "id": 648091602802,
+        "市场评估价": 2360000,
+        "起拍价格": 1880000,
+        "成交价格": 1880000,
+        "交易时间": "2021/07/17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/648091602802.htm?track_id=d8f63a09-ef84-4561-bc48-ff20ead59d2a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "浙江省 杭州市 滨江区 西兴街道绿地旭辉大厦2001室",
+        "所属小区": "绿地旭辉大厦",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "西兴板块",
+        "建筑面积": 71.21,
+        "单价": 26411.51,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 647299788112,
@@ -443,10 +484,24 @@
         "detail_captured": true
     },
     {
-        "id": "649699322552",
-        "url": "https://sf-item.taobao.com/sf_item/649699322552.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
-        "end": 1626487333000,
-        "status": "done",
-        "is_processed": false
+        "id": 649699322552,
+        "市场评估价": null,
+        "起拍价格": 895828,
+        "成交价格": 895828,
+        "交易时间": "2021-07-17 10:02:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/649699322552.htm?track_id=a3a4d3f6-5a2f-4eab-8d97-66eb37b60eb6",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 郑州市 二七区 宝溪路北、同德路西绿地城九区",
+        "所属小区": "绿地城九区",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": 115.1,
+        "单价": 7782.65,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

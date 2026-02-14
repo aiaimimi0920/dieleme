@@ -998,10 +998,24 @@
         "detail_captured": true
     },
     {
-        "id": "673018670558",
-        "url": "https://sf-item.taobao.com/sf_item/673018670558.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
-        "end": 1651543208000,
-        "status": "done",
-        "is_processed": false
+        "id": 673018670558,
+        "市场评估价": null,
+        "起拍价格": 1108038.4,
+        "成交价格": 1108038.4,
+        "交易时间": "2022/05/03 10:00:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/673018670558.htm?track_id=e5ea6900-f056-4b61-aae7-063e79768c30",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 二七区 王立砦北街18号4号楼东2单元6层24号房产",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": null,
+        "建筑面积": 124.91,
+        "单价": 8870.71,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

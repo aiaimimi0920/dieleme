@@ -300,11 +300,25 @@
         "detail_captured": true
     },
     {
-        "id": "559735849481",
-        "url": "https://sf-item.taobao.com/sf_item/559735849481.htm?track_id=c4b8e550-b589-43ac-b5b8-70dafb0f57bb",
-        "end": 1510280593000,
-        "status": "done",
-        "is_processed": false
+        "id": 559735849481,
+        "市场评估价": null,
+        "起拍价格": 343840,
+        "成交价格": 477840,
+        "交易时间": "2017-11-10 10:23:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559735849481.htm?track_id=c4b8e550-b589-43ac-b5b8-70dafb0f57bb",
+        "是否成交": true,
+        "竞拍人数": 83,
+        "出价人数": 83,
+        "地点": "江苏省 淮安市 涟水县 涟城镇",
+        "所属小区": "翰林苑",
+        "省份": "江苏省",
+        "城市": "淮安市",
+        "区": "涟水县",
+        "最靠近商圈": "涟城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 560566359415,

@@ -341,10 +341,24 @@
         "detail_captured": true
     },
     {
-        "id": "638274883933",
-        "url": "https://sf-item.taobao.com/sf_item/638274883933.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
-        "end": 1613614941000,
-        "status": "done",
-        "is_processed": false
+        "id": 638274883933,
+        "市场评估价": 458010,
+        "起拍价格": 350378,
+        "成交价格": 434378,
+        "交易时间": "2021/02/18 10:22:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/638274883933.htm?track_id=d2c722fd-9999-4bf0-a9da-bcf7af56de36",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "江西省 九江市 武宁县 湖滨北路202号5栋2-102室",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "九江市",
+        "区": "武宁县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

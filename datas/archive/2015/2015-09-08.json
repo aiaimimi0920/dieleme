@@ -170,11 +170,25 @@
         "detail_captured": true
     },
     {
-        "id": "521339197452",
-        "url": "https://sf-item.taobao.com/sf_item/521339197452.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
-        "end": 1441677600000,
-        "status": "done",
-        "is_processed": false
+        "id": 521339197452,
+        "市场评估价": null,
+        "起拍价格": 490000,
+        "成交价格": 490000,
+        "交易时间": "2015-09-08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/521339197452.htm?track_id=d3ff4b5d-6141-48c9-adc5-d687d57abe63",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 郑州市 新密市",
+        "所属小区": "中强国际",
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "新密市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 521410149227,

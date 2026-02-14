@@ -475,10 +475,24 @@
         "detail_captured": true
     },
     {
-        "id": "562694001258",
-        "url": "https://sf-item.taobao.com/sf_item/562694001258.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
-        "end": 1516155767000,
-        "status": "done",
-        "is_processed": false
+        "id": 562694001258,
+        "市场评估价": null,
+        "起拍价格": 453560,
+        "成交价格": 501560,
+        "交易时间": "2018/01/17 10:22:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562694001258.htm?track_id=b473cfa8-817e-4577-95e7-61f43a505953",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 聊城市 阳谷县 水慕华府小区",
+        "所属小区": "水慕华府小区",
+        "省份": "山东省",
+        "城市": "聊城市",
+        "区": "阳谷县",
+        "最靠近商圈": "阳谷县城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

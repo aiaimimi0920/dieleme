@@ -63,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "830542134427",
-        "url": "https://sf-item.taobao.com/sf_item/830542134427.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
-        "end": 1728011587000,
-        "status": "done",
-        "is_processed": false
+        "id": 830542134427,
+        "市场评估价": 202695,
+        "起拍价格": 202695,
+        "成交价格": 322695,
+        "交易时间": "2024/10/04 11:13:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/830542134427.htm?track_id=ea70d6d1-969e-48b5-abf5-4516470614d4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 34,
+        "地点": "山东省 潍坊市 临朐县 城关街办高垣墙村中心大街东侧",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "潍坊市",
+        "区": "临朐县",
+        "最靠近商圈": null,
+        "建筑面积": 156.66,
+        "单价": 2059.65,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

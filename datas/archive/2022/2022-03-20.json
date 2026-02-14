@@ -295,10 +295,24 @@
         "detail_captured": true
     },
     {
-        "id": "669837386929",
-        "url": "https://sf-item.taobao.com/sf_item/669837386929.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
-        "end": 1647745661000,
-        "status": "done",
-        "is_processed": false
+        "id": 669837386929,
+        "市场评估价": 1305400,
+        "起拍价格": 731024,
+        "成交价格": 966024,
+        "交易时间": "2022/03/20 11:07:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/669837386929.htm?track_id=9617577b-c8b5-4b11-8eb2-c6acf851425f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 46,
+        "地点": "江苏省 无锡市 锡山区 无锡市锡山区梓旺新村80-201",
+        "所属小区": "梓旺新村",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "锡东新城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

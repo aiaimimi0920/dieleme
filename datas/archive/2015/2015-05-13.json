@@ -22,10 +22,24 @@
         "manual_checked": true
     },
     {
-        "id": "44865024482",
-        "url": "https://sf-item.taobao.com/sf_item/44865024482.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
-        "end": 1431484492000,
-        "status": "done",
-        "is_processed": false
+        "id": 44865024482,
+        "市场评估价": 0,
+        "起拍价格": 436000,
+        "成交价格": 552000,
+        "交易时间": "2015/05/13 10:34:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44865024482.htm?track_id=cdb71883-91cb-433a-8060-8ab30beb979b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 111,
+        "地点": "嘉兴市城南路瀛洲花园南幢102-1室",
+        "所属小区": "瀛洲花园",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "城南",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

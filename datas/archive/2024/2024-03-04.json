@@ -231,10 +231,24 @@
         "detail_captured": true
     },
     {
-        "id": "766178087172",
-        "url": "https://sf-item.taobao.com/sf_item/766178087172.htm?track_id=2a4dbcbf-581b-4c65-afa5-e01fe29ed290",
-        "end": 1709519646000,
-        "status": "done",
-        "is_processed": false
+        "id": 766178087172,
+        "市场评估价": null,
+        "起拍价格": 1941629.9,
+        "成交价格": 2302629.9,
+        "交易时间": "2024/03/04 10:34:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/766178087172.htm?track_id=2a4dbcbf-581b-4c65-afa5-e01fe29ed290",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 37,
+        "地点": "陕西省 西安市 未央区 西安市雁塔区唐延路1号旺座国际城1幢32204室房屋",
+        "所属小区": "旺座国际城",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "雁塔区",
+        "最靠近商圈": "高新",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

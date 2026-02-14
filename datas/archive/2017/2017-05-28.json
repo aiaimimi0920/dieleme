@@ -486,11 +486,25 @@
         "detail_captured": true
     },
     {
-        "id": "545227702324",
-        "url": "https://sf-item.taobao.com/sf_item/545227702324.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
-        "end": 1495939839000,
-        "status": "done",
-        "is_processed": false
+        "id": 545227702324,
+        "市场评估价": null,
+        "起拍价格": 7425500,
+        "成交价格": 18125500,
+        "交易时间": "2017-05-28 10:50:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545227702324.htm?track_id=521b59f0-9c2c-4e53-b739-62285ae83e90",
+        "是否成交": true,
+        "竞拍人数": 102,
+        "出价人数": 104,
+        "地点": "广东省 惠州市 博罗县",
+        "所属小区": "金华康乐园",
+        "省份": "广东省",
+        "城市": "惠州市",
+        "区": "博罗县",
+        "最靠近商圈": "石湾镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 550475778624,
@@ -535,10 +549,24 @@
         "detail_captured": true
     },
     {
-        "id": "549562610855",
-        "url": "https://sf-item.taobao.com/sf_item/549562610855.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
-        "end": 1495937912000,
-        "status": "done",
-        "is_processed": false
+        "id": 549562610855,
+        "市场评估价": null,
+        "起拍价格": 220000,
+        "成交价格": 328000,
+        "交易时间": "2017/05/28 10:18:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/549562610855.htm?track_id=3ba7ac56-3862-4ac4-abe9-6c571e11eddd",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 32,
+        "地点": "郑州市二七区二马路68号27层2728号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "郑州市",
+        "区": "二七区",
+        "最靠近商圈": "二七商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -294,10 +294,24 @@
         "detail_captured": true
     },
     {
-        "id": "678252514432",
-        "url": "https://sf-item.taobao.com/sf_item/678252514432.htm?track_id=8b419dc7-cda7-4057-8901-42ba60db8b13",
-        "end": 1660960918000,
-        "status": "done",
-        "is_processed": false
+        "id": 678252514432,
+        "市场评估价": 0,
+        "起拍价格": 740152,
+        "成交价格": 851152,
+        "交易时间": "2022/08/20 10:01:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678252514432.htm?track_id=8b419dc7-cda7-4057-8901-42ba60db8b13",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 37,
+        "地点": "黑龙江省 哈尔滨市 南岗区 宣化街400号7栋2单元7层2号",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "哈尔滨市",
+        "区": "南岗区",
+        "最靠近商圈": "秋林商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

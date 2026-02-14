@@ -42,11 +42,25 @@
         "detail_captured": true
     },
     {
-        "id": "535481143007",
-        "url": "https://sf-item.taobao.com/sf_item/535481143007.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
-        "end": 1469673599000,
-        "status": "done",
-        "is_processed": false
+        "id": 535481143007,
+        "市场评估价": null,
+        "起拍价格": 1530900,
+        "成交价格": 1920900,
+        "交易时间": "2016-07-28 10:39:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535481143007.htm?track_id=de744011-67ed-42e4-865b-b21da4614965",
+        "是否成交": true,
+        "竞拍人数": 76,
+        "出价人数": 12,
+        "地点": "浙江省 嘉兴市 海盐县",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "海盐县",
+        "最靠近商圈": "武原街道",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 535482379180,
@@ -70,10 +84,24 @@
         "detail_captured": true
     },
     {
-        "id": "535016165590",
-        "url": "https://sf-item.taobao.com/sf_item/535016165590.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
-        "end": 1469676265000,
-        "status": "done",
-        "is_processed": false
+        "id": 535016165590,
+        "市场评估价": 0,
+        "起拍价格": 2850000,
+        "成交价格": 3570000,
+        "交易时间": "2016/07/28 11:24:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/535016165590.htm?track_id=f475690c-bd6b-4eb2-a869-3003e3e66641",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 134,
+        "地点": "浙江省 嘉兴市 南湖区",
+        "所属小区": "加州长岛牡丹苑",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": null,
+        "建筑面积": 372.36,
+        "单价": 9587.72,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

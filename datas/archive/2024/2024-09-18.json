@@ -147,11 +147,25 @@
         "detail_captured": true
     },
     {
-        "id": "825578753502",
-        "url": "https://sf-item.taobao.com/sf_item/825578753502.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
-        "end": 1726624804000,
-        "status": "done",
-        "is_processed": false
+        "id": 825578753502,
+        "市场评估价": null,
+        "起拍价格": 1427734,
+        "成交价格": 1427734,
+        "交易时间": "2024-09-18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/825578753502.htm?track_id=fbed06eb-46ac-4e36-9539-14f4e2ad71a5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 未央区 西安市浐灞生态区浐灞大道北11幢12501室房产",
+        "所属小区": null,
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "未央区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 824593411174,
@@ -175,10 +189,24 @@
         "detail_captured": true
     },
     {
-        "id": "830926284041",
-        "url": "https://sf-item.taobao.com/sf_item/830926284041.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
-        "end": 1726684339000,
-        "status": "done",
-        "is_processed": false
+        "id": 830926284041,
+        "市场评估价": null,
+        "起拍价格": 640512.08,
+        "成交价格": 680512.08,
+        "交易时间": "2024-09-19T02:32:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/830926284041.htm?track_id=fefa6b2a-255e-4e08-8ede-28609361fafc",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 常州市 天宁区 豪郡花园52幢甲单元1004室",
+        "所属小区": "豪郡花园",
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

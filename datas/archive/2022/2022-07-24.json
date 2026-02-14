@@ -260,10 +260,24 @@
         "detail_captured": true
     },
     {
-        "id": "678109413468",
-        "url": "https://sf-item.taobao.com/sf_item/678109413468.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
-        "end": 1658632341000,
-        "status": "done",
-        "is_processed": false
+        "id": 678109413468,
+        "市场评估价": null,
+        "起拍价格": 385032,
+        "成交价格": 391032,
+        "交易时间": "2022/07/24 11:12:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/678109413468.htm?track_id=23071baf-12ce-4e29-b8ce-f4c01bc73dc7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 7,
+        "地点": "新疆维吾尔自治区 乌鲁木齐市 新市区 迎宾路21号迎宾花园小区",
+        "所属小区": "迎宾花园小区",
+        "省份": "新疆维吾尔自治区",
+        "城市": "乌鲁木齐市",
+        "区": "新市区",
+        "最靠近商圈": "迎宾路商圈",
+        "建筑面积": 77.69,
+        "单价": 5033.44,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

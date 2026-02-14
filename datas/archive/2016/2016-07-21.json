@@ -21,10 +21,24 @@
         "detail_captured": true
     },
     {
-        "id": "534852748554",
-        "url": "https://sf-item.taobao.com/sf_item/534852748554.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
-        "end": 1469068237000,
-        "status": "done",
-        "is_processed": false
+        "id": 534852748554,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1661000,
+        "交易时间": "2016/07/21 10:30:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534852748554.htm?track_id=5ac78277-98e5-4547-800f-549c6f8788db",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "江苏省 常州市 天宁区",
+        "所属小区": null,
+        "省份": "江苏省",
+        "城市": "常州市",
+        "区": "天宁区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

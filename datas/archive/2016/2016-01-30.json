@@ -65,10 +65,24 @@
         "manual_checked": true
     },
     {
-        "id": "526222897065",
-        "url": "https://sf-item.taobao.com/sf_item/526222897065.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
-        "end": 1454120228000,
-        "status": "done",
-        "is_processed": false
+        "id": 526222897065,
+        "市场评估价": null,
+        "起拍价格": 1410000,
+        "成交价格": 1800000,
+        "交易时间": "2016/01/30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526222897065.htm?track_id=ed7c5184-863d-4460-ab07-882ffab7ac33",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 27,
+        "地点": "浙江省 杭州市 滨江区",
+        "所属小区": "滨兴小区",
+        "省份": "浙江省",
+        "城市": "杭州市",
+        "区": "滨江区",
+        "最靠近商圈": "长河",
+        "建筑面积": 156.7,
+        "单价": 11491.55,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

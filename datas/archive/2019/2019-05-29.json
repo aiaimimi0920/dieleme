@@ -419,9 +419,10 @@
         "区": "兴义市",
         "最靠近商圈": null,
         "建筑面积": 272.07,
-        "单价": 3214.64,
+        "单价": 3214.61,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 592785626008,
@@ -508,11 +509,25 @@
         "detail_captured": true
     },
     {
-        "id": "592499512545",
-        "url": "https://sf-item.taobao.com/sf_item/592499512545.htm?track_id=6d5bf8f0-ec16-4236-92a5-30a11f0156b7",
-        "end": 1559095200000,
-        "status": "done",
-        "is_processed": false
+        "id": 592499512545,
+        "市场评估价": null,
+        "起拍价格": 10460200,
+        "成交价格": 10460200,
+        "交易时间": "2019/05/29 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592499512545.htm?track_id=6d5bf8f0-ec16-4236-92a5-30a11f0156b7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河北省 廊坊市 霸州市 津保路南东关九街",
+        "所属小区": "东关九街",
+        "省份": "河北省",
+        "城市": "廊坊市",
+        "区": "霸州市",
+        "最靠近商圈": "霸州市区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 593064463631,
@@ -557,10 +572,24 @@
         "detail_captured": true
     },
     {
-        "id": "593331111218",
-        "url": "https://sf-item.taobao.com/sf_item/593331111218.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
-        "end": 1559096389000,
-        "status": "done",
-        "is_processed": false
+        "id": 593331111218,
+        "市场评估价": 0,
+        "起拍价格": 66400,
+        "成交价格": 88400,
+        "交易时间": "2019/05/29 10:19:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/593331111218.htm?track_id=f3656c20-a66f-46fb-b46d-b10bb851cbfb",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 23,
+        "地点": "浙江省 嘉兴市 南湖区 中港商贸中心（商贸城）40654号",
+        "所属小区": "中港商贸中心",
+        "省份": "浙江省",
+        "城市": "嘉兴市",
+        "区": "南湖区",
+        "最靠近商圈": "中港商贸中心",
+        "建筑面积": 21.53,
+        "单价": 4105.39,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

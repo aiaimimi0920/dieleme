@@ -22,10 +22,24 @@
         "manual_checked": true
     },
     {
-        "id": "520549770850",
-        "url": "https://sf-item.taobao.com/sf_item/520549770850.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
-        "end": 1437963241000,
-        "status": "done",
-        "is_processed": false
+        "id": 520549770850,
+        "市场评估价": 1158000,
+        "起拍价格": 760000,
+        "成交价格": 1000000,
+        "交易时间": "2015-07-27 10:14:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520549770850.htm?track_id=de4931e0-86f5-4aa0-ae93-16abdda2d7ab",
+        "是否成交": true,
+        "竞拍人数": 92,
+        "出价人数": 92,
+        "地点": "浙江省舟山市普陀区东港街道海华路921号东方铭苑15幢105室",
+        "所属小区": "东方铭苑",
+        "省份": "浙江省",
+        "城市": "舟山市",
+        "区": "普陀区",
+        "最靠近商圈": "东港",
+        "建筑面积": 117.64,
+        "单价": 8499.15,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

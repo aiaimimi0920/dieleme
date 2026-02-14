@@ -63,10 +63,24 @@
         "detail_captured": true
     },
     {
-        "id": "527271345326",
-        "url": "https://sf-item.taobao.com/sf_item/527271345326.htm?track_id=a698a9e5-cfa5-48e0-86bd-280315dc7c24",
-        "end": 1457923324000,
-        "status": "done",
-        "is_processed": false
+        "id": 527271345326,
+        "市场评估价": null,
+        "起拍价格": 1020000,
+        "成交价格": 1101000,
+        "交易时间": "2016-03-14 10:42:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527271345326.htm?track_id=a698a9e5-cfa5-48e0-86bd-280315dc7c24",
+        "是否成交": true,
+        "竞拍人数": 80,
+        "出价人数": null,
+        "地点": "江苏省 无锡市 锡山区",
+        "所属小区": "芙蓉山庄",
+        "省份": "江苏省",
+        "城市": "无锡市",
+        "区": "锡山区",
+        "最靠近商圈": "二泉广场",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

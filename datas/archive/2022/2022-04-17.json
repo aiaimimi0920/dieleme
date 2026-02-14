@@ -189,11 +189,25 @@
         "detail_captured": true
     },
     {
-        "id": "670656594239",
-        "url": "https://sf-item.taobao.com/sf_item/670656594239.htm?track_id=4ce8ca8c-e77d-47de-9d85-a0d9996e956a",
-        "end": 1650167847000,
-        "status": "done",
-        "is_processed": false
+        "id": 670656594239,
+        "市场评估价": 406725,
+        "起拍价格": 325380,
+        "成交价格": 325380,
+        "交易时间": "2022/04/17 11:57:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/670656594239.htm?track_id=4ce8ca8c-e77d-47de-9d85-a0d9996e956a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 泉州市 安溪县 海峡国际城?雅苑",
+        "所属小区": "海峡国际城•雅苑",
+        "省份": "福建省",
+        "城市": "泉州市",
+        "区": "安溪县",
+        "最靠近商圈": "安溪县城厢商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     },
     {
         "id": 670830104019,
@@ -217,10 +231,24 @@
         "detail_captured": true
     },
     {
-        "id": "671224661938",
-        "url": "https://sf-item.taobao.com/sf_item/671224661938.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
-        "end": 1650205955000,
-        "status": "done",
-        "is_processed": false
+        "id": 671224661938,
+        "市场评估价": 346000,
+        "起拍价格": 264690,
+        "成交价格": 264690,
+        "交易时间": "2022-04-17 22:32:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/671224661938.htm?track_id=eba04202-6365-423c-8cc5-2e082165ffd3",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 娄底市 娄星区 乐坪东街乡镇企业局侧",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "娄底市",
+        "区": "娄星区",
+        "最靠近商圈": null,
+        "建筑面积": 91.07,
+        "单价": 2907.28,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

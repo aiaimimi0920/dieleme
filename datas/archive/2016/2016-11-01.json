@@ -169,10 +169,24 @@
         "detail_captured": true
     },
     {
-        "id": "540222244616",
-        "url": "https://sf-item.taobao.com/sf_item/540222244616.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
-        "end": 1477966027000,
-        "status": "done",
-        "is_processed": false
+        "id": 540222244616,
+        "市场评估价": 1051000,
+        "起拍价格": 600000,
+        "成交价格": 665000,
+        "交易时间": "2016-11-01 10:07:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540222244616.htm?track_id=345f88d9-68f8-47b8-adb7-3b28239d66e8",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 2,
+        "地点": "浙江省 衢州市 衢江区",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "衢州市",
+        "区": "衢江区",
+        "最靠近商圈": null,
+        "建筑面积": 252.19,
+        "单价": 2637.28,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]
