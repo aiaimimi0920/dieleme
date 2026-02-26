@@ -78,11 +78,12 @@
         "省份": "浙江省",
         "城市": "嘉兴市",
         "区": "海盐县",
-        "最靠近商圈": null,
+        "最靠近商圈": "城北商贸区",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 527304038938,
@@ -95,15 +96,16 @@
         "竞拍人数": 113,
         "出价人数": null,
         "地点": "浙江省嘉兴市海盐县武原街道城北西路163号110号店铺",
-        "所属小区": null,
+        "所属小区": "锦绣苑",
         "省份": "浙江省",
         "城市": "嘉兴市",
         "区": "海盐县",
-        "最靠近商圈": "武原街道",
+        "最靠近商圈": "海盐城北商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 527261935301,
@@ -116,15 +118,16 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "海盐县武原街道城北西路163号104号店铺",
-        "所属小区": null,
+        "所属小区": "常和小区",
         "省份": "浙江省",
         "城市": "嘉兴市",
         "区": "海盐县",
-        "最靠近商圈": null,
+        "最靠近商圈": "城北商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 527261799441,
@@ -145,7 +148,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 527261399694,
@@ -166,7 +170,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 527313377937,
@@ -187,7 +192,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 527328172646,
@@ -225,11 +231,12 @@
         "省份": "浙江省",
         "城市": "嘉兴市",
         "区": "海盐县",
-        "最靠近商圈": null,
+        "最靠近商圈": "海盐城北商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 527056491129,
@@ -249,6 +256,48 @@
         "最靠近商圈": "七星镇",
         "建筑面积": 138.73,
         "单价": 3307.77,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 527239058142,
+        "市场评估价": null,
+        "起拍价格": 127050,
+        "成交价格": 127050,
+        "交易时间": "2016/03/09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527239058142.htm?track_id=f24818ea-f650-4b23-add0-e490167bee4a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "吉林省 白城市 镇赉县",
+        "所属小区": null,
+        "省份": "吉林省",
+        "城市": "白城市",
+        "区": "镇赉县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 527148816131,
+        "市场评估价": null,
+        "起拍价格": 432000,
+        "成交价格": 530000,
+        "交易时间": "2016/03/09 10:09:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527148816131.htm?track_id=bf7cb6db-afe7-4ebc-95a3-eaedc60dc1e0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 40,
+        "地点": "浙江省宁波市江北区颐和名苑11幢59号1506室",
+        "所属小区": "颐和名苑",
+        "省份": "浙江省",
+        "城市": "宁波市",
+        "区": "江北区",
+        "最靠近商圈": "江北万达商圈",
+        "建筑面积": 84.04,
+        "单价": 6306.52,
         "is_processed": true,
         "detail_captured": true
     }

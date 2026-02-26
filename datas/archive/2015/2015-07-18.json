@@ -83,5 +83,27 @@
     "is_processed": true,
     "detail_captured": true,
     "manual_checked": true
+  },
+  {
+    "id": 520422558214,
+    "市场评估价": 0,
+    "起拍价格": 9800000,
+    "成交价格": 10020000,
+    "交易时间": "2015/07/18 10:00:00",
+    "原始网站": "https://sf-item.taobao.com/sf_item/520422558214.htm?track_id=b744c851-62e0-42ab-9ccc-77dd300c813b",
+    "是否成交": true,
+    "竞拍人数": 0,
+    "出价人数": 10,
+    "地点": "浙江省 金华市 磐安县",
+    "所属小区": null,
+    "省份": "浙江省",
+    "城市": "金华市",
+    "区": "磐安县",
+    "最靠近商圈": "尖山镇",
+    "建筑面积": 11331.79,
+    "单价": 884.24,
+    "is_processed": true,
+    "detail_captured": true,
+    "manual_checked": true
   }
 ]

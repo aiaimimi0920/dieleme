@@ -438,6 +438,12 @@
                     <button id="uni-btn-resume" style="display:none; flex:1; padding:8px; background:#e67700; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; animation: pulse 2s infinite;">
                         ⚠️ 恢复服务 (Resume)
                     </button>
+                    <button id="uni-btn-force-unlock" style="padding:8px; background:#e03131; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;" title="当系统卡在验证码状态时，强制解除锁定">
+                        🛠️ 解锁拉平
+                    </button>
+                    <button id="uni-btn-worker" style="padding:8px; background:#673ab7; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;" title="打开验证码专属打工页面">
+                        🤖 解密页
+                    </button>
                     ${currentMode === 'REVIEW_SLOW' || currentMode === 'SNIFF' ? 
                         `<button id="uni-btn-window" style="padding:8px; background:#1c7ed6; color:white; border:none; border-radius:4px; cursor:pointer;" title="打开新窗口">🪟</button>` 
                         : ''}
@@ -519,6 +525,12 @@
             
             const winBtn = document.getElementById('uni-btn-window');
             if (winBtn) winBtn.onclick = () => window.open(window.location.href, '_blank');
+            
+            const workerBtn = document.getElementById('uni-btn-worker');
+            if (workerBtn) workerBtn.onclick = () => window.open('https://sf.taobao.com/?__captcha_worker_master=1', '_blank', 'width=800,height=600');
+
+            const btnForceUnlock = document.getElementById('uni-btn-force-unlock');
+            if (btnForceUnlock) btnForceUnlock.onclick = forceUnlockCaptcha;
         };
 
         document.body.appendChild(dashboardPanel);
@@ -594,6 +606,24 @@
             log('正在停止...', 'info');
             stopLogic();
         }
+    }
+    
+    function forceUnlockCaptcha() {
+        log('🛠️ 手动强制解除验证码锁定...', 'warning');
+        fastReviewState.captchaMode = false;
+        GM_setValue('uni_captcha_lock', 0);
+        GM_setValue('uni_captcha_force_unlock', Date.now()); // Broadcast unlock to all worker tabs
+        GM_deleteValue('uni_captcha_worker_active'); // Clean up any stale worker identities
+        
+        document.getElementById('uni-status-text').textContent = '已强制解锁';
+        
+        // AUTO-RESUME BACKEND
+        fetchApi('/resume', {}, () => {
+             log('🔄 已通知服务器解除暂停状态', 'success');
+             if (isRunning && currentMode === 'REVIEW_FAST') {
+                 fastReviewLoop(); // Resume
+             }
+        });
     }
 
     // --- Logic Dispatcher ---
@@ -850,9 +880,24 @@
     }
     
     function handleFastCaptcha(targetUrl) {
-        if (fastReviewState.captchaMode) return;
+        log('🚨 handleFastCaptcha 被调用! captchaMode=' + fastReviewState.captchaMode + ' targetUrl=' + (targetUrl || 'default'), 'error');
+        
+        if (fastReviewState.captchaMode) {
+            log('⏭️ captchaMode 已激活，跳过重复触发（等待上一轮解决）', 'warning');
+            return;
+        }
         fastReviewState.captchaMode = true;
-        log('🔒 检测到验证码/异常，暂停请求...', 'warning');
+        const captchaModeStartTime = Date.now();
+        log('🔒 检测到验证码/异常，暂停请求流水线...', 'warning');
+        
+        // SAFETY: captchaMode auto-reset after 120s to prevent permanent freeze
+        setTimeout(() => {
+            if (fastReviewState.captchaMode) {
+                log('⚠️ captchaMode 超时 120 秒未解除，强制重置！', 'error');
+                fastReviewState.captchaMode = false;
+                GM_setValue('uni_captcha_lock', 0);
+            }
+        }, 120 * 1000);
         
         // REPORT TO SERVER (Heartbeat)
         const reportHeartbeat = setInterval(() => {
@@ -869,58 +914,78 @@
         // Fire first one immediately
         fetchApi('/report_captcha', {});
 
-        // Global Lock Check to prevent multiple windows
-        // Random Backoff to prevent Thundering Herd
-        setTimeout(() => {
-            const now = Date.now();
-            const lastLock = GM_getValue('uni_captcha_lock', 0);
-            
-            // Double Check: If locked within last 60 seconds by someone else, assume a window is already open
-            if (now - lastLock < 60 * 1000) {
-                log('🔒 [延迟检] 全局锁生效中，跳过打开新窗口', 'info');
-            } else {
-                log('🔒 [Winner] 获取全局锁，打开验证窗口...', 'error');
-                GM_setValue('uni_captcha_lock', now);
-                // Open verification window
-                const urlToOpen = targetUrl || 'https://sf-item.taobao.com/sf_item/1015214534677.htm';
-                window.open(urlToOpen, 'fw_captcha_popup');
-            }
-        }, Math.random() * 2000);
+        // Push task to Worker Queue IMMEDIATELY (no random delay!)
+        const now = Date.now();
+        const lastLock = GM_getValue('uni_captcha_lock', 0);
+        const lockAge = now - lastLock;
+        log(`🔍 全局锁检查: lockAge=${lockAge}ms (阈值: 30000ms)`, 'info');
         
+        if (lockAge < 30 * 1000) {
+            log('🔒 全局锁生效中 (另一个工人在处理)，本次不推送新任务', 'info');
+        } else {
+            log('🔒 [Winner] 获取全局锁！推送验证码任务到打工窗口...', 'error');
+            GM_setValue('uni_captcha_lock', now);
+            
+            const urlToOpen = targetUrl || 'https://sf-item.taobao.com/sf_item/1015214534677.htm';
+            const sep = urlToOpen.includes('?') ? '&' : '?';
+            const bgUrl = urlToOpen + sep + '__captcha_solver_bg=1';
+            
+            const task = { url: bgUrl, timestamp: now };
+            GM_setValue('uni_captcha_queue', task);
+            log('✅ 任务已推送到后台队列 uni_captcha_queue', 'success');
+            
+            // --- FAILSAFE / FALLBACK 强弹窗保底方案 ---
+            // If the automated worker doesn't pick it up quickly (or is broken),
+            // forcefully open a visible window so the user can manually solve it and unblock the pipeline.
+            log('⚠️ 启动强制保底弹窗 (如果打工页失效，请在此处手动验证)...', 'warning');
+            setTimeout(() => {
+                // Open a direct, visible popup to the target URL (without bg params so solver doesn't close it instantly)
+                window.open(urlToOpen, '_blank', 'width=800,height=600,left=100,top=100');
+            }, 500);
+            log('✅ 任务已推送: ' + bgUrl, 'success');
+        }
+        
+        // Poll to check if captcha is cleared
         const check = setInterval(() => {
-            if (!isRunning || currentMode !== 'REVIEW_FAST') {
+            if (!isRunning || currentMode !== 'REVIEW_FAST' || !fastReviewState.captchaMode) {
+                log('🛑 探针检测到终止信号或收到解除指令，退出循环。', 'info');
                 clearInterval(check);
+                fastReviewState.captchaMode = false;
                 return;
             }
-            // Probe to see if captcha is cleared
+            
+            const elapsed = Math.round((Date.now() - captchaModeStartTime) / 1000);
+            log(`🔄 验证码探针检测中... (${elapsed}s)`, 'info');
+            
             GM_xmlhttpRequest({
                 method: "GET",
                 url: 'https://sf-item.taobao.com/sf_item/1.htm',
                 onload: (r) => {
                     if (r.responseText.indexOf('RGV587_ERROR') === -1) {
-                        // FIX: Check if we already resumed (race condition protection)
                         if (!fastReviewState.captchaMode) return;
                         
-                        log('✅ 验证码已解除，恢复工作', 'success');
+                        log('✅ 验证码已解除！恢复流水线...', 'success');
                         fastReviewState.captchaMode = false;
-                        // Release lock (optional, but good practice to reset timestamp or just let it expire)
                         GM_setValue('uni_captcha_lock', 0);
+                        GM_setValue('uni_captcha_worker_active', false); // Reset worker flag
                         clearInterval(check);
                         
-                        // AUTO-RESUME BACKEND
                         fetchApi('/resume', {}, () => {
                              log('🔄 已通知服务器解除暂停状态', 'success');
-                             fastReviewLoop(); // Resume
+                             fastReviewLoop();
                         });
                     } else {
-                        // Refresh lock timestamp to keep other windows suppressed while we wait
-                         if (Date.now() - GM_getValue('uni_captcha_lock', 0) > 30000) {
-                             GM_setValue('uni_captcha_lock', Date.now());
-                         }
+                        // Keep lock alive
+                        if (Date.now() - GM_getValue('uni_captcha_lock', 0) > 30000) {
+                            GM_setValue('uni_captcha_lock', Date.now());
+                        }
                     }
+                },
+                onerror: () => {
+                    log('⚠️ 探针请求失败（网络错误）', 'warning');
                 }
             });
-        }, 3000); // Check every 3s
+        }, 5000); // Check every 5s
     }
 
     // ==========================================
@@ -1012,8 +1077,21 @@
          GM_setValue('uni_captcha_lock', now);
          logToMaster('🔒 [Worker] 已设置全局锁，开启心跳保活...', 'error');
          
+         const workerStartTime = Date.now();
+         
          // HEARTBEAT LOOP: Keep lock alive while captcha exists
          const heartbeat = setInterval(() => {
+             // Check if Master forcibly unlocked the system
+             const forceUnlockTime = GM_getValue('uni_captcha_force_unlock', 0);
+             if (forceUnlockTime > workerStartTime) {
+                 clearInterval(heartbeat);
+                 GM_setValue('uni_captcha_lock', 0);
+                 logToMaster('🛑 [Worker] 接收到强制解锁指令，中止验证循环 (3秒后自动关闭此工作页)', 'warning');
+                 // If the master force unlocked, we should kill this tab so it stops disrupting the flow
+                 setTimeout(() => window.close(), 3000);
+                 return;
+             }
+         
              // Check if captcha elements still exist
              const hasCaptcha = document.body.innerText.indexOf('RGV587_ERROR') !== -1 || document.querySelector('#nocaptcha') || document.querySelector('.nc-container');
              
@@ -1711,6 +1789,113 @@
     }
 
     // --- Main Entry ---
+    
+    // --- WORKER IDENTITY CHECK (Phase 3.1) ---
+    // We use window.name (persists across same-tab navigations, even cross-origin!) to track the worker tab.
+    // CRITICAL: DO NOT use GM_setValue for this — it's global and would poison ALL tabs!
+    const IS_WORKER_TAB = (window.name === 'captcha_worker');
+    const IS_WORKER_STANDBY = window.location.href.includes('__captcha_worker_master=1');
+    const IS_SOLVER_BG = window.location.href.includes('__captcha_solver_bg=1');
+    
+    console.log(`[Fapaifang] Identity Check: IS_WORKER_TAB=${IS_WORKER_TAB}, IS_WORKER_STANDBY=${IS_WORKER_STANDBY}, IS_SOLVER_BG=${IS_SOLVER_BG}, hostname=${window.location.hostname}`);
+    
+    // Clean up stale global flag from previous buggy version
+    GM_deleteValue('uni_captcha_worker_active');
+    
+    // PRIORITY 1: Captcha Standby Worker Page (Phase 3.1)
+    if (IS_WORKER_STANDBY) {
+        // Mark this tab as the worker via window.name (survives cross-origin navigation!)
+        window.name = 'captcha_worker';
+        
+        document.body.innerHTML = `
+            <div style="padding:40px; text-align:center; font-family:sans-serif;">
+                <h2>🤖 法拍房：验证码专属打工页面 🤖</h2>
+                <div id="cw-status" style="font-size:24px; color:#2196F3; font-weight:bold; margin:20px 0;">🟢 空闲待命处理中...</div>
+                <p style="color:#666;">（此页面用于接收静默验证码请求。您可以将其脱离成独立窗口，放在屏幕边缘或第二显示器。<br>只要<b>不完全最小化</b>它就能生效。验证时这会跳转，验证完毕会自动跳回此处。）</p>
+                <div id="cw-log" style="text-align:left; background:#1e1e1e; color:#a5d6ff; padding:15px; border-radius:8px; height:200px; overflow-y:auto; font-family:monospace; margin:20px auto; max-width:800px;"></div>
+            </div>
+        `;
+        document.title = "🤖 验证码打工窗口";
+        
+        const cwLog = (msg) => {
+            const el = document.getElementById('cw-log');
+            if (el) {
+                el.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${msg}</div>`;
+                el.scrollTop = el.scrollHeight;
+            }
+        };
+        
+        cwLog("打工页已就绪！window.name='" + window.name + "' — 监听 uni_captcha_queue...");
+        
+        // Polling loop for queue
+        setInterval(() => {
+            const task = GM_getValue('uni_captcha_queue', null);
+            if (task && task.url) {
+                const age = Date.now() - task.timestamp;
+                if (age < 60 * 1000) { // Process tasks up to 60s old (was 30s, too aggressive)
+                    const statusEl = document.getElementById('cw-status');
+                    if (statusEl) {
+                        statusEl.innerText = "🚨 接收到验证任务，准备出击！";
+                        statusEl.style.color = "#f44336";
+                    }
+                    cwLog(`收到跳转任务: ${task.url}`);
+                    
+                    // Consume the task
+                    GM_deleteValue('uni_captcha_queue');
+                    
+                    // Jump! window.name persists through this navigation!
+                    setTimeout(() => { window.location.href = task.url; }, 500);
+                } else {
+                    // Stale task, clean it up
+                    cwLog(`丢弃过期任务 (age=${Math.round(age/1000)}s)`);
+                    GM_deleteValue('uni_captcha_queue');
+                }
+            }
+        }, 1000);
+        
+        return; // HALT — don't run dashboard/detail logic in this tab
+    }
+    
+    // PRIORITY 2: Active Background Solver Page
+    // Matches if: URL has __captcha_solver_bg param, OR this tab was previously the worker (window.name survives redirect)
+    if (IS_SOLVER_BG || IS_WORKER_TAB) {
+        console.log('[Worker] 背景验证码求解页面! IS_SOLVER_BG=' + IS_SOLVER_BG + ', IS_WORKER_TAB=' + IS_WORKER_TAB + ', URL=' + window.location.href);
+        const workerStartTime = Date.now();
+        
+        // Wait 10s for page to fully load, then start checking if captcha is gone
+        let returnAttempts = 0;
+        setTimeout(() => {
+            setInterval(() => {
+                // Check if Master forcibly unlocked the system
+                const forceUnlockTime = GM_getValue('uni_captcha_force_unlock', 0);
+                if (forceUnlockTime > workerStartTime) {
+                    console.log('[Worker] 🛑 接收到强制解锁信号，无条件中止工作并返回待命池！');
+                    GM_setValue('uni_captcha_lock', 0);
+                    window.location.href = 'https://sf.taobao.com/?__captcha_worker_master=1';
+                    return;
+                }
+            
+                const slider = document.querySelector('#nc_1_n1z');
+                const wrapper = document.querySelector('.nc-lang-cnt');
+                
+                if (slider || wrapper) {
+                    returnAttempts = 0;
+                    return; // Captcha still present, solver is working
+                }
+                
+                returnAttempts++;
+                if (returnAttempts >= 3) { // 3 consecutive checks = 9s with no captcha
+                    console.log('[Worker] 验证完毕，返回待命池...');
+                    GM_setValue('uni_captcha_lock', 0);
+                    window.location.href = 'https://sf.taobao.com/?__captcha_worker_master=1';
+                }
+            }, 3000);
+        }, 10000);
+        
+        initCaptchaDetector();
+        return; // HALT
+    }
+
     // 1. If Master Page -> Show Dashboard
     if (isMaster) {
         window.addEventListener('load', createDashboard);
@@ -1725,10 +1910,6 @@
         log('检测到验证/登录页面', 'warning');
         initCaptchaDetector();
     }
-    
-    // Always run captcha detector just in case it pops up elsewhere
-    setTimeout(initCaptchaDetector, 2000);
-
     // --- TAB Identity ---
     const TAB_ID = 'tab_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     console.log(`[Fapaifang] Init Tab ID: ${TAB_ID}`);
@@ -1755,8 +1936,8 @@
                      if (lockTabId && lockTabId !== TAB_ID) {
                          log(`⚠️ 验证码正在由页签 ${lockTabId} 处理，本页签 (${TAB_ID}) 自动避让。`, 'warning');
                          
-                         // If I am a dedicated captcha page (Login/Sec), I should die.
-                         if (isLoginOrSec) {
+                         // If I am a dedicated captcha page (Login/Sec) AND NOT the persistent worker, I should die.
+                         if (isLoginOrSec && !IS_WORKER_TAB && !IS_SOLVER_BG) {
                              log('检测到多余验证窗口，3秒后自动关闭...', 'error');
                              setTimeout(() => window.close(), 3000); // Give user a moment to see why
                          }

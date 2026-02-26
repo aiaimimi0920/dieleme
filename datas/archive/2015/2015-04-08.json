@@ -60,7 +60,8 @@
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 44295077649,
@@ -77,11 +78,12 @@
         "省份": "江苏省",
         "城市": "常州市",
         "区": "新北区",
-        "最靠近商圈": null,
+        "最靠近商圈": "新北万达商圈",
         "建筑面积": null,
         "单价": 0,
         "is_processed": true,
-        "detail_captured": true
+        "detail_captured": true,
+        "manual_checked": true
     },
     {
         "id": 44281797728,
@@ -115,13 +117,35 @@
         "竞拍人数": null,
         "出价人数": null,
         "地点": "浙江省衢州市开化县城关镇芹南路69号",
-        "所属小区": null,
+        "所属小区": "芹南一区",
         "省份": "浙江省",
         "城市": "衢州市",
         "区": "开化县",
-        "最靠近商圈": "城关商圈",
+        "最靠近商圈": "南湖商圈",
         "建筑面积": 233.6,
         "单价": 5136.99,
+        "is_processed": true,
+        "detail_captured": true,
+        "manual_checked": true
+    },
+    {
+        "id": 44324684071,
+        "市场评估价": null,
+        "起拍价格": 1560000,
+        "成交价格": 1560000,
+        "交易时间": "2015/04/08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44324684071.htm?track_id=a13094b3-5398-44d0-8d37-16be33ee4d66",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省温州市瑞安市安阳街道",
+        "所属小区": "聚鑫城",
+        "省份": "浙江省",
+        "城市": "温州市",
+        "区": "瑞安市",
+        "最靠近商圈": "瑞祥大道商圈",
+        "建筑面积": 212.14,
+        "单价": 7356.14,
         "is_processed": true,
         "detail_captured": true
     }

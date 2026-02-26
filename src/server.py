@@ -1329,12 +1329,11 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
         update_file_global(file_path, item_id, new_data)
         
     def run_solver(self):
-        """Run the captcha solver in background."""
-        global PAUSED, SOLVER_LOCK
-        # We use a conceptual lock with timeout instead of raw threading.Lock because we need to break it if it hangs
+        """Run the captcha solver in background with server-level retry."""
+        global PAUSED
         global SOLVER_RUNNING, SOLVER_START_TIME
         
-        # Initialize if not present (hack for hot-reload or first run if not defined globally yet)
+        # Initialize if not present (hack for hot-reload or first run)
         if 'SOLVER_RUNNING' not in globals():
             SOLVER_RUNNING = False
             SOLVER_START_TIME = 0
@@ -1342,33 +1341,46 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
         # Check existing lock state
         if SOLVER_RUNNING:
             elapsed = time.time() - SOLVER_START_TIME
-            if elapsed < 60:
+            if elapsed < 120:  # Extended timeout for retries
                 print(f"\033[93m[SOLVER] Solver already running for {int(elapsed)}s. Skipping.\033[0m")
                 return
             else:
                 print(f"\033[91m[SOLVER] Solver hung for {int(elapsed)}s. FORCE BREAKING LOCK.\033[0m")
         
+        SERVER_MAX_ATTEMPTS = 2  # Server-level retries (solver has its own internal retries)
+        
         try:
-            # Set Lock
             SOLVER_RUNNING = True
             SOLVER_START_TIME = time.time()
             PAUSED = True
             print("\033[93m[SOLVER] Starting solver...\033[0m")
             
-            success = solver.solve()
+            success = False
+            for server_attempt in range(SERVER_MAX_ATTEMPTS):
+                if server_attempt > 0:
+                    print(f"\033[93m[SOLVER] Server retry {server_attempt + 1}/{SERVER_MAX_ATTEMPTS} after delay...\033[0m")
+                    time.sleep(3)
+                
+                success = solver.solve()
+                if success:
+                    break
             
             if success:
-                print("\033[92m[SOLVER] Captcha Solved! Resuming...\033[0m")
+                print("\033[92m[SOLVER] ✅ Captcha Solved! Resuming system...\033[0m")
                 PAUSED = False
             else:
-                print("\033[91m[SOLVER] Failed to solve captcha.\033[0m")
-                # Leave PAUSED=True for safety
+                print("\033[91m[SOLVER] ❌ All solve attempts failed. System remains PAUSED.\033[0m")
+                print("\033[91m[SOLVER] Manual intervention may be required.\033[0m")
+                # Leave PAUSED=True — user needs to solve manually and hit /resume
                 
         except Exception as e:
             print(f"[SOLVER] Error: {e}")
+            import traceback
+            traceback.print_exc()
         finally:
             SOLVER_RUNNING = False
-            print("[SOLVER] Finished.")
+            elapsed = time.time() - SOLVER_START_TIME
+            print(f"[SOLVER] Finished. Total time: {elapsed:.1f}s")
 
     def log_message(self, format, *args):
         return

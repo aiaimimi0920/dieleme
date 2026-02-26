@@ -8295,28 +8295,7 @@
         "区": "邕宁区",
         "最靠近商圈": "龙岗商圈",
         "建筑面积": 171.67,
-        "单价": 17212.03,
-        "is_processed": true,
-        "detail_captured": true
-    },
-    {
-        "id": 1007400176872,
-        "市场评估价": 2975175.57,
-        "起拍价格": 1904112.37,
-        "成交价格": 1904112.37,
-        "交易时间": "2026/02/07 18:19:47",
-        "原始网站": "https://sf-item.taobao.com/sf_item/1007400176872.htm?track_id=b6e3c7ea-ebc0-48c2-ae40-da40b46be7c4",
-        "是否成交": true,
-        "竞拍人数": 1,
-        "出价人数": 1,
-        "地点": "广东省 深圳市 宝安区 光明区光明高新西区科发路西侧、十七号路南侧盛迪嘉光明壹号花园（一期）4号楼B座203房",
-        "所属小区": "盛迪嘉光明壹号花园（一期）",
-        "省份": "广东省",
-        "城市": "深圳市",
-        "区": "光明区",
-        "最靠近商圈": "光明高新西区",
-        "建筑面积": null,
-        "单价": 0,
+        "单价": 17220.34,
         "is_processed": true,
         "detail_captured": true
     },
@@ -8333,20 +8312,6 @@
         "applyCount": 22,
         "is_processed": false,
         "原始网站": "https://sf-item.taobao.com/sf_item/1011125044540.htm"
-    },
-    {
-        "id": 1007400176872,
-        "title": "关于变卖广东省深圳市光明区光明高新西区科发路西侧、十七号路南侧盛迪嘉光明壹号花园（一期）4号楼B座203房",
-        "currentPrice": 1904112.37,
-        "initialPrice": 1904112.37,
-        "auction_date": "2026-02-07 10:19:47",
-        "total_amount": 1904112.37,
-        "url": "https://sf-item.taobao.com/sf_item/1007400176872.htm?track_id=b6e3c7ea-ebc0-48c2-ae40-da40b46be7c4",
-        "status": "done",
-        "bidCount": 1,
-        "applyCount": 1,
-        "is_processed": false,
-        "原始网站": "https://sf-item.taobao.com/sf_item/1007400176872.htm"
     },
     {
         "id": 1002357625962,
@@ -8657,5 +8622,26 @@
         "is_processed": true,
         "detail_captured": true,
         "status": "done"
+    },
+    {
+        "id": 1008944040207,
+        "市场评估价": 2960000,
+        "起拍价格": 1670000,
+        "成交价格": 1680000,
+        "交易时间": "2026-02-07 18:24:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1008944040207.htm?track_id=ec956fed-782e-40a0-ab06-ea38d23189bd",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "上海市黄浦区巨鹿路417号1103室",
+        "所属小区": null,
+        "省份": "上海",
+        "城市": "上海",
+        "区": "黄浦区",
+        "最靠近商圈": "淮海中路商圈",
+        "建筑面积": 105.08,
+        "单价": 15980.95,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

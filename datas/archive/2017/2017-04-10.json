@@ -314,5 +314,26 @@
         "单价": 55634.33,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 547273114269,
+        "市场评估价": null,
+        "起拍价格": 6371250,
+        "成交价格": 6371250,
+        "交易时间": "2017/04/10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/547273114269.htm?track_id=cbb1f04d-5e5f-4b7d-a698-7d17f131ab2a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "泸县福集镇香源路158号房屋及泸县工业园区C区宗地",
+        "所属小区": null,
+        "省份": "四川省",
+        "城市": "泸州市",
+        "区": "泸县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]
