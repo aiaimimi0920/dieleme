@@ -768,6 +768,180 @@ def extract_auction_data(html_content, item_id=None):
             
     return ai_response
 
+
+AVM_RISK_BOOLEAN_FIELDS = {
+    "has_elevator",
+    "is_occupied",
+    "has_long_lease",
+    "clear_delivery",
+    "is_haunted",
+    "has_keys",
+    "property_fee_owed",
+    "special_school_tag",
+    "is_restricted_purchase",
+    "includes_parking",
+    "is_fractional_share",
+    "tax_is_company_owned",
+    "has_lease_before_mortgage",
+}
+
+AVM_RISK_NUMERIC_FIELDS = {
+    "build_year",
+    "total_floors",
+    "evaluation_price",
+}
+
+AVM_RISK_ENUM_FIELDS = {
+    "floor_level": {"低区", "中区", "高区", "顶层", "底层", "独栋"},
+    "orientation": {"南", "南北", "东", "西", "北", "未知"},
+    "land_right_type": {"出让", "划拨", "未知"},
+    "tax_burden": {"买受人承担全部", "各自承担", "未知"},
+    "housing_type": {"住宅", "别墅", "商业", "办公", "工业", "车位", "其他"},
+}
+
+AVM_RISK_KEYS = [
+    "community_name",
+    "build_year",
+    "total_floors",
+    "floor_level",
+    "has_elevator",
+    "orientation",
+    "land_right_type",
+    "is_occupied",
+    "has_long_lease",
+    "clear_delivery",
+    "tax_burden",
+    "is_haunted",
+    "housing_type",
+    "has_keys",
+    "property_fee_owed",
+    "special_school_tag",
+    "evaluation_price",
+    "layout",
+    "is_restricted_purchase",
+    "includes_parking",
+    "is_fractional_share",
+    "tax_is_company_owned",
+    "has_lease_before_mortgage",
+]
+
+
+def validate_avm_risk_features_schema(features, item_id=None):
+    """
+    Hand-written schema validation for AVM risk extraction.
+    Returns (passed, errors).
+    """
+    errors = []
+    item_label = item_id if item_id is not None else "unknown"
+
+    if not isinstance(features, dict):
+        return False, [f"item={item_label}: payload is not a dict"]
+
+    for key in AVM_RISK_KEYS:
+        if key not in features:
+            errors.append(f"item={item_label}: missing key '{key}'")
+
+    for key in AVM_RISK_BOOLEAN_FIELDS:
+        value = features.get(key)
+        if value is not None and not isinstance(value, bool):
+            errors.append(f"item={item_label}: '{key}' expects bool/null, got {type(value).__name__}")
+
+    for key in AVM_RISK_NUMERIC_FIELDS:
+        value = features.get(key)
+        if value is not None and not isinstance(value, (int, float)):
+            errors.append(f"item={item_label}: '{key}' expects number/null, got {type(value).__name__}")
+
+    for key, allowed in AVM_RISK_ENUM_FIELDS.items():
+        value = features.get(key)
+        if value is not None and value not in allowed:
+            errors.append(f"item={item_label}: '{key}' enum invalid value '{value}'")
+
+    if "evidence_source" in features:
+        source = features.get("evidence_source")
+        allowed_sources = {"公告", "须知", "评估报告", "页面主文"}
+        if source is not None and source not in allowed_sources:
+            errors.append(f"item={item_label}: 'evidence_source' invalid value '{source}'")
+
+    passed = len(errors) == 0
+    if passed:
+        print(f"[AVM-RISK][SCHEMA PASS] item={item_label}")
+    else:
+        print(f"[AVM-RISK][SCHEMA FAILED] item={item_label}; errors={errors}")
+
+    return passed, errors
+
+
+def extract_avm_risk_features(page_text, item_id=None):
+    """
+    Independent AVM risk feature extraction based on docs/AVM_Data_Schema.md Section 4.
+    """
+    item_label = item_id if item_id is not None else "unknown"
+    if not page_text or not str(page_text).strip():
+        print(f"[AVM-RISK] Empty page text for item={item_label}")
+        return None
+
+    prompt = f"""
+你是一个专业的真实房地产估价师与法拍房风控专家。你的任务是从法院复杂的拍卖公告、须知以及页面详情中，像侦探一样精准提取出房屋的核心属性与潜在风险（雷区）。你必须保持绝对的客观，如果文中没有提及某项信息，请将其对应的值设置为 null。
+
+请仔细阅读以下法拍房网页的文本内容，帮我提取以下结构化字段。
+
+提取规则：
+1. `community_name`：尽最大努力从地址中提取其规范的小区/楼盘名称（不含具体的门牌号），例如将“上海市浦东新区张江镇郭守敬路111弄xx号”提取为“张江汤臣豪园”。无法判断则提取为 null。
+2. `build_year`：房屋建成年份，提取纯数字（如 2010）。如果没写，请尝试根据周边楼盘或证号年份推测，无法确定则返回 null。
+3. `total_floors`：这栋楼一共有多少层。
+4. `floor_level`：该房产所在的楼层，请归一化为 ["低区", "中区", "高区", "顶层", "底层", "独栋"]。
+5. `has_elevator`：是否带电梯。true/false。
+6. `orientation`：房屋的主要朝向。归一化为 ["南", "南北", "东", "西", "北", "未知"]。
+7. `land_right_type`：土地权利性质。如果写了“出让”返回"出让"，如果写了“划拨”返回"划拨"，否则返回"未知"。注意，划拨极其危险需要补交土地出让金。
+8. `is_occupied`：房屋目前是否有人居住、占用、或者未腾空状态？如果是，返回 true，否则 false。
+9. `has_long_lease`：公告中是否提到“带租约”、“设立了租赁权”等？如果是，返回 true。
+10. `clear_delivery`：法院是否明确表示“负责清场”、“按现状交付且已腾空”？如果是返回 true。如果写着“买受人自行腾退”、“自行解决”、“法院不负责交付”，则务必返回 false！
+11. `tax_burden`：历史欠费和交易税费是由谁承担？归一化为 ["买受人承担全部", "各自承担", "未知"]。当写明“标的物转让登记手续所涉及的一切税费及明确或不明确的欠费均由买受人承担”时为买受人承担全部。
+12. `is_haunted`：公告是否提到“发生过非正常死亡”、“涉嫌刑事案”等凶宅特征？如果是，返回 true。
+13. `housing_type`：这套房子的用途是什么？归一化为 ["住宅", "别墅", "商业", "办公", "工业", "车位", "其他"]。
+14. `has_keys`：法院是否持有钥匙？是否能正常安排看样？如果是返回 true，如果写明“无钥匙”返回 false。
+15. `property_fee_owed`：公告中是否提及存在（或可能存在）物业费、水费、电费欠缴？提到了就返回 true。
+16. `special_school_tag`：公告中是否把“带学位”、“学区房”、“对口XX小学”作为卖点提及？如果是返回 true。
+17. `evaluation_price`：法院给出的“评估价”或“市场价”是多少万元？请提取纯数字（如果原文是2300000元，请转换为 230）。如无则返回 null。
+18. `layout`：房屋的户型结构。提取如“3室2厅1厨2卫”这样的格式。找不到则返回 null。
+19. `is_restricted_purchase`：公告中是否明确标明该房产“受当地限购政策限制”或“需具备购房资格”？如果是真正的限购，返回 true；如果不限购或没提，返回 false。
+20. `includes_parking`：此次拍卖的标的物，是否附带了真实的地下车位/车库一起拍卖？（注意：不是指小区内有公共停车位，而是这个拍品本身包含了车位产权或使用权）。如果是，返回 true，寻找不到直接证据返回 false。
+21. `is_fractional_share`：拍卖的标的物是否为“部分产权”（例如：某某房屋 50% 的份额、二分之一产权）？如果是部分产权，请务必返回 true，否则返回 false。
+22. `tax_is_company_owned`：标的物的原所有人（即被执行人）是否为一家“公司”、“企业法人”或者挂在企业名下？如果是，返回 true（意味着买受人需承担极高的土地增值税），如果是个人则返回 false。
+23. `has_lease_before_mortgage`：公告中是否有明确表述如：“该租赁关系设立于抵押权之后”、“不能对抗抵押权”、“法院负责带租清场”？如果是这种其实可以强制赶走租客的“假长租”，必须精准识别并返回 true；如果是普通无法清场的租约，或没有租约，均返回 false。
+
+请务必仅返回一段合法的 JSON 对象，不要包含任何额外的多余说明文字或 Markdown 标记。JSON 的 key 必须与上述英文名完全一致。
+
+以下是目标网页的文本内容：
+```
+{str(page_text)[:100000]}
+```
+"""
+
+    try:
+        raw = chat_with_glm(prompt)
+        features = json.loads(raw)
+    except Exception as e:
+        print(f"[AVM-RISK] LLM parse error item={item_label}: {e}")
+        return None
+
+    if not isinstance(features, dict):
+        print(f"[AVM-RISK] Non-dict response item={item_label}: {type(features).__name__}")
+        return None
+
+    for key in AVM_RISK_KEYS:
+        if key not in features:
+            features[key] = None
+
+    features["extraction_version"] = "avm_risk_v1"
+    features["evidence_source"] = features.get("evidence_source") or "页面主文"
+
+    passed, errors = validate_avm_risk_features_schema(features, item_id=item_id)
+    if not passed:
+        return None
+
+    return features
+
 def chat_with_glm(content):
     """
     Send content to GLM-4.7 (MaaS via WebSocket) and return response.
