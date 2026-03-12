@@ -27,6 +27,8 @@ DISPATCH_COOLDOWN_SECONDS = 20  # Task redispatch cooldown (aggressive profile)
 # Global Thread Pool for AI tasks (Limit 32 to prevent API overload)
 executor = ThreadPoolExecutor(max_workers=32)
 DATA_DIR = "datas"
+AVM_DIR = os.path.join(DATA_DIR, "avm")
+AVM_ALERTS_PATH = os.path.join(AVM_DIR, "alerts.json")
 
 # Global state
 SEEN_IDS = {}  # id -> {file_path, status, data}
@@ -39,6 +41,15 @@ DATA_LOCK = threading.Lock() # Protects SEEN_IDS and PENDING_TASKS
 CURRENT_PROCESSING = set() # Track running tasks to avoid duplicate submission
 SOLVER_RUNNING = False
 SOLVER_START_TIME = 0
+
+DEFAULT_MARGIN_THRESHOLD = 0.15
+MALIGNANT_RISK_LABELS = {
+    "is_haunted": "疑似凶宅/刑事案件",
+    "is_occupied": "房屋疑似被占用未腾空",
+    "has_long_lease": "存在长租约风险",
+    "is_fractional_share": "标的为部分产权",
+    "tax_is_company_owned": "企业产权潜在高税费",
+}
 
 # --- Watchdog for Service Continuity ---
 LAST_REQUEST_TIME = time.time()
@@ -155,6 +166,118 @@ def submit_task(file_path):
     except Exception as e:
         print(f"Failed to submit task {file_path}: {e}")
         CURRENT_PROCESSING.discard(file_path)
+
+
+def parse_price(raw_value):
+    """Parse price-like fields to float (RMB Yuan)."""
+    if raw_value is None:
+        return None
+
+    if isinstance(raw_value, (int, float)):
+        return float(raw_value)
+
+    if not isinstance(raw_value, str):
+        return None
+
+    text = raw_value.strip().replace(",", "")
+    if not text:
+        return None
+
+    multiplier = 1.0
+    if "万元" in text:
+        multiplier = 10000.0
+
+    numeric_text = re.sub(r"[^0-9.]", "", text)
+    if not numeric_text:
+        return None
+
+    try:
+        return float(numeric_text) * multiplier
+    except ValueError:
+        return None
+
+
+def get_starting_price(item):
+    return (
+        parse_price(item.get("starting_price"))
+        or parse_price(item.get("起拍价格"))
+    )
+
+
+def get_predicted_price(item):
+    return (
+        parse_price(item.get("predicted_price"))
+        or parse_price(item.get("估值"))
+        or parse_price(item.get("市场评估价"))
+        or parse_price(item.get("evaluation_price"))
+        or parse_price(item.get("transaction_price"))
+        or parse_price(item.get("成交价格"))
+    )
+
+
+def compute_margin(predicted_price, starting_price):
+    """margin = (predicted_price - starting_price) / predicted_price"""
+    if not predicted_price or predicted_price <= 0 or starting_price is None:
+        return None
+    return (predicted_price - starting_price) / predicted_price
+
+
+def extract_risk_signals(item):
+    major_risks = []
+
+    for key, label in MALIGNANT_RISK_LABELS.items():
+        if item.get(key) is True:
+            major_risks.append(label)
+
+    if item.get("clear_delivery") is False:
+        major_risks.append("法院不负责清场交付")
+
+    if item.get("land_right_type") == "划拨":
+        major_risks.append("土地性质为划拨")
+
+    return major_risks
+
+
+def build_avm_result(item_id, item):
+    predicted_price = get_predicted_price(item)
+    starting_price = get_starting_price(item)
+    margin = compute_margin(predicted_price, starting_price)
+    major_risks = extract_risk_signals(item)
+
+    return {
+        "id": str(item_id),
+        "predicted_price": predicted_price,
+        "starting_price": starting_price,
+        "margin": margin,
+        "is_malignant_risk": len(major_risks) > 0,
+        "major_risks": major_risks,
+        "risk_summary": "；".join(major_risks) if major_risks else "未发现恶性风控标签",
+    }
+
+
+def write_avm_alerts(alerts):
+    if not alerts:
+        return
+
+    os.makedirs(AVM_DIR, exist_ok=True)
+
+    with FILE_LOCK:
+        existing = []
+        if os.path.exists(AVM_ALERTS_PATH):
+            try:
+                with open(AVM_ALERTS_PATH, "r", encoding="utf-8") as f:
+                    loaded = json.load(f)
+                    if isinstance(loaded, list):
+                        existing = loaded
+            except Exception:
+                existing = []
+
+        existing_by_id = {str(alert.get("id")): alert for alert in existing}
+        for alert in alerts:
+            existing_by_id[str(alert["id"])] = alert
+
+        with open(AVM_ALERTS_PATH, "w", encoding="utf-8") as f:
+            json.dump(list(existing_by_id.values()), f, ensure_ascii=False, indent=2)
 
 
 
@@ -797,6 +920,30 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     "message": "所有嗅探任务已完成"
                 })
         
+
+        elif self.path.startswith('/api/avm/predict'):
+            query = urlparse(self.path).query
+            params = parse_qs(query)
+            item_id = str(params.get('id', [''])[0]).strip()
+
+            if not item_id:
+                self.send_error(400, "Missing query param: id")
+                return
+
+            with DATA_LOCK:
+                entry = SEEN_IDS.get(item_id)
+
+            if not entry:
+                self.send_error(404, "Item not found")
+                return
+
+            result = build_avm_result(item_id, entry.get("data", {}))
+            if result["predicted_price"] is None or result["starting_price"] is None:
+                self.send_error(422, "Insufficient price fields for AVM prediction")
+                return
+
+            self.send_json(result)
+
         elif self.path == '/api/get_tasks':
             if PAUSED:
                 self.send_json({"tasks": []})
@@ -1140,6 +1287,73 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             except Exception as e:
                 print(f"Error processing save: {e}")
                 self.send_error(500, str(e))
+
+
+        elif self.path == '/api/avm/screen':
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length) if content_length > 0 else b'{}'
+            try:
+                payload = json.loads(post_data.decode('utf-8')) if post_data else {}
+            except Exception:
+                self.send_error(400, "Invalid JSON body")
+                return
+
+            items = payload.get("items", [])
+            if not isinstance(items, list):
+                self.send_error(400, "items must be a list")
+                return
+
+            threshold = payload.get("margin_threshold", DEFAULT_MARGIN_THRESHOLD)
+            try:
+                threshold = float(threshold)
+            except Exception:
+                threshold = DEFAULT_MARGIN_THRESHOLD
+
+            results = []
+            for raw in items:
+                if isinstance(raw, dict):
+                    item_id = str(raw.get("id", "")).strip()
+                else:
+                    item_id = str(raw).strip()
+
+                if not item_id:
+                    continue
+
+                with DATA_LOCK:
+                    entry = SEEN_IDS.get(item_id)
+
+                source_data = dict(entry.get("data", {})) if entry else {}
+                if isinstance(raw, dict):
+                    source_data.update(raw)
+
+                result = build_avm_result(item_id, source_data)
+                result["meets_alert_threshold"] = (
+                    result["margin"] is not None
+                    and result["margin"] >= threshold
+                    and not result["is_malignant_risk"]
+                )
+                results.append(result)
+
+            results.sort(key=lambda x: x.get("margin") if x.get("margin") is not None else -999, reverse=True)
+
+            alerts = []
+            now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            for result in results:
+                if result["meets_alert_threshold"]:
+                    alert = dict(result)
+                    alert["created_at"] = now
+                    alert["margin_threshold"] = threshold
+                    alerts.append(alert)
+
+            write_avm_alerts(alerts)
+
+            self.send_json({
+                "margin_formula": "(predicted_price - starting_price) / predicted_price",
+                "margin_threshold": threshold,
+                "total": len(results),
+                "alerts_written": len(alerts),
+                "results": results
+            })
 
         elif self.path == '/api/report_captcha':
             print("CAPTCHA REPORTED! Triggering Solver...")
