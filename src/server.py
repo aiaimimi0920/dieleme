@@ -349,6 +349,7 @@ def process_single_file(file_path):
 
         # 1. AI Extraction
         print(f"Processing {item_id}...")
+        predict_started_at = time.time()
         json_str = llm_helper.extract_auction_data(content, item_id=item_id)
         
         if json_str:
@@ -475,6 +476,22 @@ def process_single_file(file_path):
                 q_color = "\033[93m"
             
             print(f"{q_color}Success {item_id}: Saved to {target_json_path} (Area: {new_data.get('建筑面积')}, Comm: {new_data.get('所属小区')}, Price: {new_data.get('单价')})\033[0m")
+
+            recall_count = new_data.get("recall_count")
+            if recall_count is None:
+                recall_count = new_data.get("召回数")
+            final_confidence = new_data.get("final_confidence")
+            if final_confidence is None:
+                final_confidence = new_data.get("置信度") or new_data.get("最终置信度") or new_data.get("extraction_confidence")
+            llm_helper.log_prediction_event(
+                task_type="analyze_html",
+                item_id=item_id,
+                duration_ms=(time.time() - predict_started_at) * 1000,
+                recall_count=recall_count,
+                final_confidence=final_confidence,
+                success=True,
+                failure_reason=None
+            )
         
         try: os.remove(file_path)
         except: pass
@@ -495,7 +512,19 @@ def process_single_file(file_path):
         except: pass
 
     except Exception as e:
-        print(f"\033[91mError processing {item_id}: {e}\033[0m") 
+        print(f"\033[91mError processing {item_id}: {e}\033[0m")
+        duration_ms = None
+        if 'predict_started_at' in locals():
+            duration_ms = (time.time() - predict_started_at) * 1000
+        llm_helper.log_prediction_event(
+            task_type="analyze_html",
+            item_id=item_id,
+            duration_ms=duration_ms,
+            recall_count=0,
+            final_confidence=None,
+            success=False,
+            failure_reason=str(e)
+        )
         failed_once = os.path.exists(failed_marker_path)
         
         if failed_once:
@@ -718,6 +747,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
 
             # Task Queue Status (Sniffing)
             status_info = job_manager.get_status()
+            api_metrics = llm_helper.get_api_metrics()
 
             self.send_json({
                 "paused": PAUSED,
@@ -726,7 +756,11 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 "ai_finalized_count": ai_finalized_count,
                 "sniff_queue_count": status_info.get("pending_locations", 0),
                 "sniff_done_count": status_info.get("done_locations", 0),
-                "next_batch_preview": next_batch
+                "next_batch_preview": next_batch,
+                "api_success_rate": api_metrics.get("success_rate", 0.0),
+                "api_avg_response_time_ms": api_metrics.get("avg_response_time_ms", 0.0),
+                "api_total_calls": api_metrics.get("total_calls", 0),
+                "api_success_calls": api_metrics.get("success_calls", 0)
             })
 
         # --- Single Task Dispatch for Detail Helper (Auto Fix) ---
@@ -1013,6 +1047,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
 """
                 try:
                     # Invoke LLM (GLM-4.7)
+                    infer_started_at = time.time()
                     resp = llm_helper.chat_with_glm(prompt)
                     
                     # Clean response
@@ -1022,9 +1057,27 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                         resp = resp.split("```")[1].split("```")[0]
                     
                     result = json.loads(resp.strip())
+                    llm_helper.log_prediction_event(
+                        task_type="infer_location",
+                        item_id=data.get("id"),
+                        duration_ms=(time.time() - infer_started_at) * 1000,
+                        recall_count=None,
+                        final_confidence=None,
+                        success=True,
+                        failure_reason=None
+                    )
                     self.send_json(result)
                 except Exception as e:
                     print(f"Error calling LLM: {e}")
+                    llm_helper.log_prediction_event(
+                        task_type="infer_location",
+                        item_id=data.get("id"),
+                        duration_ms=(time.time() - infer_started_at) * 1000 if 'infer_started_at' in locals() else None,
+                        recall_count=0,
+                        final_confidence=None,
+                        success=False,
+                        failure_reason=str(e)
+                    )
                     self.send_json({})
                     
             except Exception as e:
