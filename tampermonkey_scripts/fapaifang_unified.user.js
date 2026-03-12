@@ -149,6 +149,7 @@
 
     // Determine current mode early
     const modeParam = initialUrlParams.get('uni_mode');
+    const autoStartParam = initialUrlParams.get('uni_autostart') === '1';
 
     // Auto-Run Workers (Sniff Worker)
     if (modeParam === 'SNIFF_WORKER') {
@@ -243,10 +244,12 @@
              const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
              const currentPos = window.scrollY + window.innerHeight;
              
-             if (currentPos >= scrollHeight - 100 || steps > maxSteps) {
-                 log("滚动完成，开始解析数据...", 'success');
-                 scrapeAndSave((hasZeroBid) => {
-                     checkForNextPageAndReport(hasZeroBid);
+             const isNoResult = document.body && (document.body.innerText.includes('很抱歉，没有您要找的标的物') || document.body.innerText.includes('很抱歉'));
+             
+             if (currentPos >= scrollHeight - 100 || steps > maxSteps || isNoResult) {
+                 log("滚动/检查完成，开始解析数据...", 'success');
+                 scrapeAndSave((hasZeroBid, isListEmpty) => {
+                     checkForNextPageAndReport(hasZeroBid, isListEmpty || isNoResult);
                      log('任务完成，关闭标签页...', 'success');
                      setTimeout(() => window.close(), 1000);
                  });
@@ -264,7 +267,7 @@
     // Placeholder for fetchNextSniffTask since it was removed
     function fetchNextSniffTask() {}
     
-    function checkForNextPageAndReport(hasZeroBid = false) {
+    function checkForNextPageAndReport(hasZeroBid = false, isListEmpty = false) {
         // Logic to determine if there is a next page based on URL and DOM
         // This is simplified for brevity; full logic mirrors taobao_monitor
         let pageNum = 1;
@@ -272,15 +275,20 @@
         const p = url.searchParams.get('page');
         if (p) pageNum = parseInt(p);
         
+        let isNoResultText = false;
+        if (document.body && (document.body.innerText.includes('很抱歉，没有您要找的标的物') || document.body.innerText.includes('很抱歉'))) {
+             isNoResultText = true;
+        }
+
         const items = document.querySelectorAll('.sf-item-list li, .pai-item');
         const hasItems = items.length > 0;
-        let hasNext = hasItems && !hasZeroBid; 
+        let hasNext = hasItems && !hasZeroBid && !isNoResultText && !isListEmpty; 
         
         // Report status to backend (to update JobManager)
         fetchApi('/report_sniff_status', {
             url: window.location.href,
             has_next: hasNext,
-            is_empty: !hasNext,
+            is_empty: !hasNext || isListEmpty || isNoResultText,
             page_num: pageNum,
             zero_bid_detected: hasZeroBid
         });
@@ -293,6 +301,7 @@
                 const json = JSON.parse(scriptData.innerText);
                 if (json.data && Array.isArray(json.data)) {
                         const totalRaw = json.data.length;
+                        const isListEmpty = (totalRaw === 0);
                         
                         // Check for zero-bid items
                         const hasZeroBidItem = json.data.some(item => item.bidCount === 0);
@@ -323,32 +332,36 @@
                                 log(`[Sniff] 保存成功: ${res.new} 新增`, 'success');
                                 // Auto-resume server if it was paused (User solved captcha manually)
                                 resumeServer(true);
-                                if (onDone) onDone(hasZeroBidItem);
+                                if (onDone) onDone(hasZeroBidItem, isListEmpty);
                             }, () => {
                                 log("保存失败!", 'error');
-                                if (onDone) onDone(hasZeroBidItem);
+                                if (onDone) onDone(hasZeroBidItem, isListEmpty);
                             });
                         } else {
                             log("本页无有效成交物品", 'info');
-                            if (onDone) onDone(hasZeroBidItem);
+                            if (onDone) onDone(hasZeroBidItem, isListEmpty);
                         }
                 } else {
-                    if (onDone) onDone(false);
+                    if (onDone) onDone(false, true); // No data means empty
                 }
             } catch (e) { 
                 log("JSON解析失败", 'error'); 
-                if (onDone) onDone(false);
+                if (onDone) onDone(false, true); // Error parsing implies we don't have good data, safer to treat as empty to prevent loops
             }
         } else {
              log("未找到数据脚本 (sf-item-list-data)", 'error');
-             if (onDone) onDone(false);
+             if (onDone) onDone(false, true); // No script means empty
         }
     }
     
     // --- State Management ---
     // Mode: 'IDLE' | 'SNIFF' | 'REVIEW_FAST' | 'REVIEW_SLOW'
-    let currentMode = GM_getValue('unified_mode', 'IDLE'); 
-    let isRunning = false; 
+    let currentMode = GM_getValue('unified_mode', 'IDLE');
+    // 当页面通过 URL 指定模式时，优先使用页面模式（避免双开页面互相覆盖全局模式）
+    if (modeParam === 'SNIFF' || modeParam === 'REVIEW_FAST' || modeParam === 'REVIEW_SLOW' || modeParam === 'IDLE') {
+        currentMode = modeParam;
+    }
+    let isRunning = false;
     let dashboardPanel = null;
     
     // Page Type Detection
@@ -358,6 +371,46 @@
 
     const urlParams = initialUrlParams; // Reuse parsed params
     const autoWorkerMode = urlParams.get('auto_worker'); // 1 = enabled
+
+    // --- Captcha Detector Helpers ---
+    function hasCaptchaChallenge(doc = document) {
+        try {
+            const selectors = [
+                '#nc_1_n1z', '#nc_2_n1z', '[id^="nc_"][id$="_n1z"]',
+                '#nocaptcha', '.nc-container', '.nc_wrapper', '.nc_scale',
+                '[id^="nc_"][id$="_n1t"]', '.btn_slide', '.nc_iconfont.btn_slide'
+            ];
+
+            const isVisible = (el) => {
+                if (!el) return false;
+                const rect = el.getBoundingClientRect();
+                return el.offsetParent !== null && rect.width > 2 && rect.height > 2;
+            };
+
+            for (const sel of selectors) {
+                const el = doc.querySelector(sel);
+                if (isVisible(el)) return true;
+            }
+
+            const bodyText = doc.body ? (doc.body.innerText || '') : '';
+            if (bodyText.includes('RGV587_ERROR')) return true;
+
+            const frames = doc.querySelectorAll('iframe');
+            for (const frame of frames) {
+                try {
+                    const fd = frame.contentDocument;
+                    if (!fd) continue;
+                    for (const sel of selectors) {
+                        const fel = fd.querySelector(sel);
+                        if (isVisible(fel)) return true;
+                    }
+                    const fText = fd.body ? (fd.body.innerText || '') : '';
+                    if (fText.includes('RGV587_ERROR')) return true;
+                } catch(e) {}
+            }
+        } catch(e) {}
+        return false;
+    }
 
     // --- Worker Logging Helper ---
     function logToMaster(msg, type = 'info') {
@@ -444,9 +497,9 @@
                     <button id="uni-btn-worker" style="padding:8px; background:#673ab7; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;" title="打开验证码专属打工页面">
                         🤖 解密页
                     </button>
-                    ${currentMode === 'REVIEW_SLOW' || currentMode === 'SNIFF' ? 
-                        `<button id="uni-btn-window" style="padding:8px; background:#1c7ed6; color:white; border:none; border-radius:4px; cursor:pointer;" title="打开新窗口">🪟</button>` 
-                        : ''}
+                    <button id="uni-btn-dual" style="padding:8px; background:#1c7ed6; color:white; border:none; border-radius:4px; cursor:pointer;" title="一键双开：嗅探+快速检阅（自动启动）">
+                        🚀 双开
+                    </button>
                 </div>
 
                 <div id="uni-stats-area" style="margin-bottom:10px; font-size:12px; color:#aaa; line-height:1.5;">
@@ -523,8 +576,19 @@
                 });
             }
             
-            const winBtn = document.getElementById('uni-btn-window');
-            if (winBtn) winBtn.onclick = () => window.open(window.location.href, '_blank');
+            const dualBtn = document.getElementById('uni-btn-dual');
+            if (dualBtn) {
+                dualBtn.onclick = () => {
+                    const base = 'https://sf.taobao.com/';
+                    const port = GM_getValue('uni_api_port', '8001');
+                    const sniffUrl = `${base}?uni_mode=SNIFF&uni_autostart=1&uni_port=${encodeURIComponent(port)}`;
+                    const fastUrl = `${base}?uni_mode=REVIEW_FAST&uni_autostart=1&uni_port=${encodeURIComponent(port)}`;
+
+                    GM_openInTab(sniffUrl, { active: false, insert: true });
+                    GM_openInTab(fastUrl, { active: false, insert: true });
+                    log('🚀 已双开：嗅探 + 快速检阅（自动进入模式）', 'success');
+                };
+            }
             
             const workerBtn = document.getElementById('uni-btn-worker');
             if (workerBtn) workerBtn.onclick = () => window.open('https://sf.taobao.com/?__captcha_worker_master=1', '_blank', 'width=800,height=600');
@@ -536,6 +600,19 @@
         document.body.appendChild(dashboardPanel);
         render();
         log('面板已加载，等待指令...');
+
+        // URL 自动启动：用于“打开即进入嗅探/快速检阅”
+        if (autoStartParam && isMaster && (modeParam === 'SNIFF' || modeParam === 'REVIEW_FAST' || modeParam === 'REVIEW_SLOW')) {
+            setTimeout(() => {
+                if (!isRunning) {
+                    const modeSelect = document.getElementById('uni-mode-select');
+                    if (modeSelect) modeSelect.value = modeParam;
+                    currentMode = modeParam;
+                    toggleRunState();
+                    log(`🚀 URL自动启动已执行: ${modeParam}`, 'success');
+                }
+            }, 1200);
+        }
         
         // Listen for Worker Logs
         GM_addValueChangeListener('uni_worker_log', (name, oldVal, newVal, remote) => {
@@ -647,10 +724,19 @@
     }
 
     function stopLogic() {
-        // Stop signals for all modes
-        // sniffState.active = false;
-        // fastReviewState.active = false;
-        // slowReviewState.active = false;
+        // 停止 Fast Review 相关计时器，避免残留状态干扰下次启动
+        if (fastReviewState.pulseTimer) {
+            clearInterval(fastReviewState.pulseTimer);
+            fastReviewState.pulseTimer = null;
+        }
+        if (fastReviewState.recoveryTimer) {
+            clearInterval(fastReviewState.recoveryTimer);
+            fastReviewState.recoveryTimer = null;
+        }
+        clearFastCaptchaTimers();
+        fastReviewState.captchaMode = false;
+        fastReviewState.captchaStartAt = 0;
+        fastReviewState.recovering = false;
     }
 
     // ==========================================
@@ -662,15 +748,35 @@
     // ==========================================
     // MODULE 2: FAST REVIEW (Master Page - No Tabs)
     // ==========================================
-    let fastReviewState = { 
-        activeCount: 0, 
+    let fastReviewState = {
+        activeCount: 0,
         stats: { fetched: 0, success: 0, failed: 0 },
-        concurrency: 120,    // High concurrency for 5 accounts x 3 models x 10 threads
+        concurrency: 100,    // Adaptive concurrency current value (aggressive profile initial)
+        minConcurrency: 20,
+        initialConcurrency: 100,
+        maxConcurrency: 120,
+        dropMultiplier: 0.75,
+        recoverStep: 5,
+        recoverIntervalMs: 30000,
+        cooldownMs: 3 * 60 * 1000,
+        lastCaptchaAt: 0,
+        recoveryTimer: null,
         batchSize: 200,      // Larger refill size
         taskQueue: [],       // Local buffer
         fetching: false,     // Refill lock
         pulseTimer: null,
-        captchaMode: false
+        captchaMode: false,
+        captchaStartAt: 0,
+        captchaHeartbeatTimer: null,
+        captchaCheckTimer: null,
+        captchaWatchdogTimer: null,
+        captchaProbeFailCount: 0,
+        recovering: false,
+        manualPopupTimer: null,
+        // Token Bucket Rate Limiter
+        tokens: 0,
+        tokenRate: 10,        // Emit max 10 requests per second
+        lastTokenUpdate: 0
     };
 
     function startFastReview() {
@@ -680,10 +786,177 @@
         fastReviewState.taskQueue = [];
         fastReviewState.fetching = false;
         fastReviewState.captchaMode = false;
+        fastReviewState.lastCaptchaAt = 0;
+        fastReviewState.concurrency = fastReviewState.initialConcurrency;
+        fastReviewState.tokens = fastReviewState.tokenRate; // Start with 1 second's worth
+        fastReviewState.lastTokenUpdate = Date.now();
         if (fastReviewState.pulseTimer) clearInterval(fastReviewState.pulseTimer);
         fastReviewState.pulseTimer = null;
+        if (fastReviewState.recoveryTimer) {
+            clearInterval(fastReviewState.recoveryTimer);
+            fastReviewState.recoveryTimer = null;
+        }
         
+        log(`⚙️ 快速检阅并发初始化为 ${fastReviewState.concurrency}（上限 ${fastReviewState.maxConcurrency}）`, 'info');
+        ensureFastCaptchaWatchdog();
         fastReviewLoop();
+    }
+    
+    function clearFastCaptchaTimers() {
+        if (fastReviewState.captchaHeartbeatTimer) {
+            clearInterval(fastReviewState.captchaHeartbeatTimer);
+            fastReviewState.captchaHeartbeatTimer = null;
+        }
+        if (fastReviewState.captchaCheckTimer) {
+            clearInterval(fastReviewState.captchaCheckTimer);
+            fastReviewState.captchaCheckTimer = null;
+        }
+        if (fastReviewState.manualPopupTimer) {
+            clearTimeout(fastReviewState.manualPopupTimer);
+            fastReviewState.manualPopupTimer = null;
+        }
+    }
+
+    function applyFastReviewConcurrencyDrop(reason = 'captcha') {
+        const now = Date.now();
+        fastReviewState.lastCaptchaAt = now;
+
+        const prev = fastReviewState.concurrency;
+        const dropped = Math.max(
+            fastReviewState.minConcurrency,
+            Math.floor(prev * 0.6) // Drop by 40% instead of 25% for steeper punishment
+        );
+        fastReviewState.concurrency = dropped;
+
+        if (fastReviewState.recoveryTimer) {
+            clearInterval(fastReviewState.recoveryTimer);
+            fastReviewState.recoveryTimer = null;
+        }
+
+        log(`📉 并发降速(${reason}): ${prev} -> ${dropped}，冷却 ${Math.round(fastReviewState.cooldownMs / 1000)}s`, 'warning');
+    }
+
+    function startFastReviewRecoveryRamp() {
+        if (fastReviewState.recoveryTimer) {
+            clearInterval(fastReviewState.recoveryTimer);
+            fastReviewState.recoveryTimer = null;
+        }
+
+        fastReviewState.recoveryTimer = setInterval(() => {
+            if (!isRunning || currentMode !== 'REVIEW_FAST') {
+                clearInterval(fastReviewState.recoveryTimer);
+                fastReviewState.recoveryTimer = null;
+                return;
+            }
+
+            const elapsed = Date.now() - fastReviewState.lastCaptchaAt;
+            if (elapsed < fastReviewState.cooldownMs) {
+                return;
+            }
+
+            const prev = fastReviewState.concurrency;
+            if (prev >= fastReviewState.maxConcurrency) {
+                clearInterval(fastReviewState.recoveryTimer);
+                fastReviewState.recoveryTimer = null;
+                return;
+            }
+
+            fastReviewState.concurrency = Math.min(
+                fastReviewState.maxConcurrency,
+                prev + fastReviewState.recoverStep
+            );
+
+            log(`📈 并发恢复: ${prev} -> ${fastReviewState.concurrency}`, 'info');
+
+            if (fastReviewState.concurrency >= fastReviewState.maxConcurrency) {
+                clearInterval(fastReviewState.recoveryTimer);
+                fastReviewState.recoveryTimer = null;
+                log(`✅ 并发已恢复到上限 ${fastReviewState.maxConcurrency}`, 'success');
+            }
+        }, fastReviewState.recoverIntervalMs);
+    }
+
+    function releaseCaptchaAndResume(reason, opts = {}) {
+        const notifyServer = opts.notifyServer !== false;
+        const silent = opts.silent === true;
+
+        if (fastReviewState.recovering) return;
+        fastReviewState.recovering = true;
+
+        clearFastCaptchaTimers();
+        fastReviewState.captchaMode = false;
+        fastReviewState.captchaStartAt = 0;
+        fastReviewState.captchaProbeFailCount = 0;
+
+        // 全局锁与旧版锁标记都清理，防止“看起来已过码但系统仍认为在验证”
+        GM_setValue('uni_captcha_lock', 0);
+        GM_setValue('uni_captcha_worker_active', false);
+        GM_setValue('last_captcha_global_time', 0);
+        GM_setValue('captcha_solving_tab_id', '');
+        GM_deleteValue('uni_captcha_queue');
+
+        if (!silent) {
+            log(`✅ 验证码状态已解除: ${reason}`, 'success');
+        }
+
+        const done = () => {
+            fastReviewState.recovering = false;
+            startFastReviewRecoveryRamp();
+            if (isRunning && currentMode === 'REVIEW_FAST') {
+                refillTaskQueue();
+                fastReviewLoop();
+            }
+        };
+
+        if (!notifyServer) {
+            done();
+            return;
+        }
+
+        fetchApi('/resume', {}, () => {
+            if (!silent) log('🔄 已通知服务器解除暂停状态', 'success');
+            done();
+        }, () => {
+            if (!silent) log('⚠️ 通知服务器恢复失败，已先恢复前端流水线', 'warning');
+            done();
+        });
+    }
+
+    function ensureFastCaptchaWatchdog() {
+        if (fastReviewState.captchaWatchdogTimer) return;
+
+        fastReviewState.captchaWatchdogTimer = setInterval(() => {
+            if (!isRunning || currentMode !== 'REVIEW_FAST') {
+                return;
+            }
+
+            const lockTs = parseInt(GM_getValue('uni_captcha_lock', 0) || 0);
+            const lockAge = lockTs ? (Date.now() - lockTs) : 0;
+
+            if (fastReviewState.captchaMode) {
+                // 情况1：人工在其他页签过码后，worker已释放锁，但主控探针没感知到
+                if (!lockTs) {
+                    releaseCaptchaAndResume('检测到全局锁已释放（可能已手动过码）');
+                    return;
+                }
+
+                // 情况2：锁长期不刷新，疑似死锁
+                if (lockAge > 90 * 1000) {
+                    releaseCaptchaAndResume(`全局锁超时 ${Math.round(lockAge / 1000)}s，触发自愈恢复`);
+                    return;
+                }
+
+                // 情况3：验证码模式过长，强制兜底恢复
+                if (fastReviewState.captchaStartAt && (Date.now() - fastReviewState.captchaStartAt > 180 * 1000)) {
+                    releaseCaptchaAndResume('验证码模式超过180秒，触发兜底恢复');
+                }
+            } else {
+                // 非验证码模式下清理陈旧锁，避免后续误判
+                if (lockTs && lockAge > 90 * 1000) {
+                    GM_setValue('uni_captcha_lock', 0);
+                }
+            }
+        }, 3000);
     }
     
     // --- Pipeline Logic ---
@@ -717,13 +990,24 @@
             status.innerText = `Pipeline: ${fastReviewState.taskQueue.length} queued | Active: ${fastReviewState.activeCount}/${fastReviewState.concurrency} | ${fastReviewState.stats.success} OK`;
         }
 
+        // Token accumulation
+        const now = Date.now();
+        const deltaSec = (now - fastReviewState.lastTokenUpdate) / 1000;
+        fastReviewState.tokens += deltaSec * fastReviewState.tokenRate;
+        // Cap tokens to prevent massive bursts if left idle
+        if (fastReviewState.tokens > fastReviewState.tokenRate * 2) { 
+            fastReviewState.tokens = fastReviewState.tokenRate * 2;
+        }
+        fastReviewState.lastTokenUpdate = now;
+
         // Refill trigger (Aggressive)
         if (fastReviewState.taskQueue.length < 50 && !fastReviewState.fetching) {
             refillTaskQueue();
         }
 
-        // Launch trigger
-        while (fastReviewState.activeCount < fastReviewState.concurrency && fastReviewState.taskQueue.length > 0) {
+        // Launch trigger with Token Limit
+        while (fastReviewState.activeCount < fastReviewState.concurrency && fastReviewState.taskQueue.length > 0 && fastReviewState.tokens >= 1) {
+            fastReviewState.tokens -= 1;
             const task = fastReviewState.taskQueue.shift();
             fastReviewState.activeCount++;
             processItemFast(task);
@@ -887,24 +1171,16 @@
             return;
         }
         fastReviewState.captchaMode = true;
-        const captchaModeStartTime = Date.now();
+        fastReviewState.captchaStartAt = Date.now();
+        fastReviewState.captchaProbeFailCount = 0;
+        applyFastReviewConcurrencyDrop('captcha');
+        ensureFastCaptchaWatchdog();
         log('🔒 检测到验证码/异常，暂停请求流水线...', 'warning');
-        
-        // SAFETY: captchaMode auto-reset after 120s to prevent permanent freeze
-        setTimeout(() => {
-            if (fastReviewState.captchaMode) {
-                log('⚠️ captchaMode 超时 120 秒未解除，强制重置！', 'error');
-                fastReviewState.captchaMode = false;
-                GM_setValue('uni_captcha_lock', 0);
-            }
-        }, 120 * 1000);
-        
+
         // REPORT TO SERVER (Heartbeat)
-        const reportHeartbeat = setInterval(() => {
-            if (!fastReviewState.captchaMode) {
-                clearInterval(reportHeartbeat);
-                return;
-            }
+        clearFastCaptchaTimers();
+        fastReviewState.captchaHeartbeatTimer = setInterval(() => {
+            if (!fastReviewState.captchaMode) return;
             fetchApi('/report_captcha', {}, (res) => {
                  if (res.status === 'solving') {
                      log('🤖 服务器正在解决验证码...', 'info');
@@ -934,46 +1210,61 @@
             GM_setValue('uni_captcha_queue', task);
             log('✅ 任务已推送到后台队列 uni_captcha_queue', 'success');
             
-            // --- FAILSAFE / FALLBACK 强弹窗保底方案 ---
-            // If the automated worker doesn't pick it up quickly (or is broken),
-            // forcefully open a visible window so the user can manually solve it and unblock the pipeline.
-            log('⚠️ 启动强制保底弹窗 (如果打工页失效，请在此处手动验证)...', 'warning');
-            setTimeout(() => {
-                // Open a direct, visible popup to the target URL (without bg params so solver doesn't close it instantly)
-                window.open(urlToOpen, '_blank', 'width=800,height=600,left=100,top=100');
-            }, 500);
+            // --- FAILSAFE / FALLBACK 单实例弹窗方案 ---
+            // 不再立即弹窗：先给打工页机会处理，避免积累大量未处理弹窗
+            if (fastReviewState.manualPopupTimer) {
+                clearTimeout(fastReviewState.manualPopupTimer);
+                fastReviewState.manualPopupTimer = null;
+            }
+
+            fastReviewState.manualPopupTimer = setTimeout(() => {
+                if (!fastReviewState.captchaMode) return;
+
+                // 若队列已被打工页消费，说明它在处理，不再弹人工窗
+                const pendingTask = GM_getValue('uni_captcha_queue', null);
+                if (!pendingTask || !pendingTask.url) {
+                    log('✅ 打工页已接手验证码任务，跳过人工弹窗', 'info');
+                    return;
+                }
+
+                // 全局节流：同一时段只允许一个人工验证码弹窗
+                const nowTs = Date.now();
+                const lastPopupOpen = parseInt(GM_getValue('uni_captcha_popup_last_open', 0) || 0);
+                const popupCooldownMs = 180 * 1000; // 3分钟内不重复弹
+                if (nowTs - lastPopupOpen < popupCooldownMs) {
+                    log('⏭️ 人工验证码弹窗冷却中，跳过重复弹窗', 'warning');
+                    return;
+                }
+
+                const sep2 = urlToOpen.includes('?') ? '&' : '?';
+                const manualUrl = urlToOpen + sep2 + '__captcha_manual_popup=1';
+                GM_setValue('uni_captcha_popup_last_open', nowTs);
+                window.open(manualUrl, '_blank', 'width=900,height=700,left=100,top=100');
+                log('⚠️ 打工页未接手，已打开单实例人工验证码弹窗', 'warning');
+            }, 15000); // 15s 后才兜底
+
             log('✅ 任务已推送: ' + bgUrl, 'success');
         }
         
         // Poll to check if captcha is cleared
-        const check = setInterval(() => {
+        fastReviewState.captchaCheckTimer = setInterval(() => {
             if (!isRunning || currentMode !== 'REVIEW_FAST' || !fastReviewState.captchaMode) {
                 log('🛑 探针检测到终止信号或收到解除指令，退出循环。', 'info');
-                clearInterval(check);
-                fastReviewState.captchaMode = false;
+                clearFastCaptchaTimers();
                 return;
             }
             
-            const elapsed = Math.round((Date.now() - captchaModeStartTime) / 1000);
+            const elapsed = Math.round((Date.now() - fastReviewState.captchaStartAt) / 1000);
             log(`🔄 验证码探针检测中... (${elapsed}s)`, 'info');
             
             GM_xmlhttpRequest({
                 method: "GET",
                 url: 'https://sf-item.taobao.com/sf_item/1.htm',
                 onload: (r) => {
+                    if (!fastReviewState.captchaMode) return;
+
                     if (r.responseText.indexOf('RGV587_ERROR') === -1) {
-                        if (!fastReviewState.captchaMode) return;
-                        
-                        log('✅ 验证码已解除！恢复流水线...', 'success');
-                        fastReviewState.captchaMode = false;
-                        GM_setValue('uni_captcha_lock', 0);
-                        GM_setValue('uni_captcha_worker_active', false); // Reset worker flag
-                        clearInterval(check);
-                        
-                        fetchApi('/resume', {}, () => {
-                             log('🔄 已通知服务器解除暂停状态', 'success');
-                             fastReviewLoop();
-                        });
+                        releaseCaptchaAndResume('探针确认验证码已解除');
                     } else {
                         // Keep lock alive
                         if (Date.now() - GM_getValue('uni_captcha_lock', 0) > 30000) {
@@ -982,7 +1273,9 @@
                     }
                 },
                 onerror: () => {
-                    log('⚠️ 探针请求失败（网络错误）', 'warning');
+                    fastReviewState.captchaProbeFailCount++;
+                    log(`⚠️ 探针请求失败（网络错误，第${fastReviewState.captchaProbeFailCount}次）`, 'warning');
+                    // 连续失败时，交给看门狗根据锁状态兜底恢复
                 }
             });
         }, 5000); // Check every 5s
@@ -1064,6 +1357,14 @@
                 }, 200);
             }
         });
+
+        // 关键恢复链路：当任何页面释放全局验证码锁时，主控立即恢复流水线
+        GM_addValueChangeListener('uni_captcha_lock', function(name, oldVal, newVal, remote) {
+            if (!remote) return;
+            if (currentMode === 'REVIEW_FAST' && isRunning && fastReviewState.captchaMode && (!newVal || parseInt(newVal) === 0)) {
+                releaseCaptchaAndResume('收到全局锁释放信号（跨页签）');
+            }
+        });
     }
 
     function handleSlowCaptcha() {
@@ -1093,7 +1394,7 @@
              }
          
              // Check if captcha elements still exist
-             const hasCaptcha = document.body.innerText.indexOf('RGV587_ERROR') !== -1 || document.querySelector('#nocaptcha') || document.querySelector('.nc-container');
+             const hasCaptcha = hasCaptchaChallenge(document);
              
              if (hasCaptcha) {
                  // Refresh lock to prevent expiry
@@ -1132,7 +1433,7 @@
             }, 3000);
         } else {
             // Check for Captcha immediately
-            if (document.body.innerText.indexOf('RGV587_ERROR') !== -1 || document.querySelector('#nocaptcha')) {
+            if (hasCaptchaChallenge(document)) {
                 handleSlowCaptcha();
             }
         }
@@ -1796,6 +2097,7 @@
     const IS_WORKER_TAB = (window.name === 'captcha_worker');
     const IS_WORKER_STANDBY = window.location.href.includes('__captcha_worker_master=1');
     const IS_SOLVER_BG = window.location.href.includes('__captcha_solver_bg=1');
+    const IS_MANUAL_POPUP = window.location.href.includes('__captcha_manual_popup=1');
     
     console.log(`[Fapaifang] Identity Check: IS_WORKER_TAB=${IS_WORKER_TAB}, IS_WORKER_STANDBY=${IS_WORKER_STANDBY}, IS_SOLVER_BG=${IS_SOLVER_BG}, hostname=${window.location.hostname}`);
     
@@ -1875,10 +2177,9 @@
                     return;
                 }
             
-                const slider = document.querySelector('#nc_1_n1z');
-                const wrapper = document.querySelector('.nc-lang-cnt');
+                const hasCaptcha = hasCaptchaChallenge(document);
                 
-                if (slider || wrapper) {
+                if (hasCaptcha) {
                     returnAttempts = 0;
                     return; // Captcha still present, solver is working
                 }
@@ -1894,6 +2195,32 @@
         
         initCaptchaDetector();
         return; // HALT
+    }
+
+    // PRIORITY 2.5: Manual captcha popup page (single-instance fallback)
+    if (IS_MANUAL_POPUP) {
+        console.log('[Worker] 人工验证码弹窗页面已启动');
+
+        let clearCount = 0;
+        setInterval(() => {
+            const forceUnlockTime = GM_getValue('uni_captcha_force_unlock', 0);
+            if (forceUnlockTime > 0 && Date.now() - forceUnlockTime < 2 * 60 * 1000) {
+                window.close();
+                return;
+            }
+
+            const hasCaptcha = hasCaptchaChallenge(document);
+            if (hasCaptcha) {
+                clearCount = 0;
+                return;
+            }
+
+            clearCount++;
+            // 连续两轮无验证码则自动关闭，防止弹窗堆积
+            if (clearCount >= 2) {
+                window.close();
+            }
+        }, 5000);
     }
 
     // 1. If Master Page -> Show Dashboard
@@ -1920,10 +2247,9 @@
         window.captcha_monitor_active = true;
         
         setInterval(() => {
-            const slider = document.querySelector('#nc_1_n1z');
-            const wrapper = document.querySelector('.nc-lang-cnt');
+            const hasCaptcha = hasCaptchaChallenge(document);
             
-            if ((slider && slider.offsetParent !== null) || (wrapper && wrapper.offsetParent !== null)) {
+            if (hasCaptcha) {
                 
                 // --- Global Lock Check (Winner Takes All) ---
                 const lastGlobalReport = GM_getValue('last_captcha_global_time', 0);

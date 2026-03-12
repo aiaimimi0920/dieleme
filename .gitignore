@@ -26,8 +26,7 @@ install_log.txt
 .idea/
 
 # Ignore temporary data folders
-datas/html/
-datas/retry/
+datas/
 
 # Excel Reports & Temp Files
 *.xlsx

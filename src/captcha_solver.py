@@ -8,8 +8,16 @@ import math
 
 class CaptchaSolver:
     # Multiple selectors for different captcha variants
-    SLIDER_SELECTORS = ['#nc_1_n1z', '#nc_2_n1z', '.btn_slide', '.nc-lang-cnt .btn_ok', '.btn_ok']
-    TRACK_SELECTORS = ['#nc_1_n1t', '#nc_2_n1t', '.nc-lang-cnt', '.scale_text', '.slidetounlock']
+    SLIDER_SELECTORS = [
+        '#nc_1_n1z', '#nc_2_n1z', '[id^="nc_"][id$="_n1z"]',
+        '.btn_slide', '.nc_iconfont.btn_slide', '.nc_scale .btn_slide', '.nc_wrapper .btn_slide',
+        '.nc-slider-btn', '.slider-btn', '.nc-lang-cnt .btn_ok', '.btn_ok'
+    ]
+    TRACK_SELECTORS = [
+        '#nc_1_n1t', '#nc_2_n1t', '[id^="nc_"][id$="_n1t"]',
+        '.nc_scale', '.nc-lang-cnt', '.scale_text', '.slidetounlock', '.nc_wrapper',
+        '.nc_scale_text', '[id^="nc_"][id*="scale_text"]'
+    ]
 
     def __init__(self, port=9222):
         self.port = port
@@ -130,9 +138,30 @@ class CaptchaSolver:
             self._send_cdp("DOM.enable")
             self._send_cdp("Runtime.enable")
             self._send_cdp("Page.enable")
+            
+            # CDP Stealth Injection: Overwrite navigator.webdriver to hide automation fingerprint
+            self._send_cdp("Page.addScriptToEvaluateOnNewDocument", {
+                "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined});"
+            })
+            
             return True
         except Exception as e:
             print(f"[SOLVER] WS Connection failed: {e}")
+            return False
+
+    def _bring_to_front(self):
+        """Bring captcha page to foreground to ensure mouse events hit the target."""
+        try:
+            self._send_cdp("Page.bringToFront")
+            # Best-effort focus; some Chromium builds still need explicit window focus.
+            self._send_cdp("Runtime.evaluate", {
+                "expression": "try { window.focus(); document.body && document.body.focus && document.body.focus(); } catch(e) {}",
+                "returnByValue": True
+            })
+            time.sleep(0.15)
+            return True
+        except Exception as e:
+            print(f"[SOLVER] bringToFront failed: {e}")
             return False
 
     def _find_slider(self):
@@ -254,52 +283,96 @@ class CaptchaSolver:
         return 340
 
     def _verify_success(self):
-        """Check if captcha was actually solved after dragging."""
+        """Check if captcha was actually solved after dragging.
+        Important: avoid false-positive when challenge still exists but text lacks RGV587.
+        """
         js_check = """
         (function() {
-            // Check 1: Slider element gone or hidden
-            var slider = document.querySelector('#nc_1_n1z') || document.querySelector('#nc_2_n1z');
-            var sliderVisible = slider && slider.offsetParent !== null;
-            
-            // Check 2: Success class/text appeared
-            var container = document.querySelector('.nc-lang-cnt') || document.querySelector('#nocaptcha');
-            var hasSuccess = false;
-            if (container) {
-                var text = container.innerText || '';
-                var cls = container.className || '';
-                hasSuccess = text.indexOf('验证通过') !== -1 || 
-                             cls.indexOf('nc-right') !== -1 ||
-                             text.indexOf('通过') !== -1;
+            var sliderSelectors = [
+                '#nc_1_n1z', '#nc_2_n1z', '[id^="nc_"][id$="_n1z"]',
+                '.btn_slide', '.nc_iconfont.btn_slide', '.nc_scale .btn_slide', '.nc_wrapper .btn_slide',
+                '.nc-slider-btn', '.slider-btn'
+            ];
+            var challengeSelectors = [
+                '#nocaptcha', '.nc-container', '.nc_wrapper', '.nc_scale',
+                '[id^="nc_"][id$="_n1t"]', '[id^="nc_"][id$="_n1z"]'
+            ];
+            var successKeywords = ['验证通过', '通过验证', '验证成功', '验证已通过'];
+
+            function visible(el) {
+                if (!el) return false;
+                var rect = el.getBoundingClientRect();
+                return el.offsetParent !== null && rect.width > 2 && rect.height > 2;
             }
-            
-            // Check 3: No more RGV587 error
-            var noError = document.body.innerText.indexOf('RGV587_ERROR') === -1;
-            
-            // Check in iframes too
+
+            function scanDoc(doc) {
+                var sliderVisible = false;
+                var challengePresent = false;
+                var successDetected = false;
+
+                for (var i = 0; i < sliderSelectors.length; i++) {
+                    var s = doc.querySelector(sliderSelectors[i]);
+                    if (visible(s)) {
+                        sliderVisible = true;
+                        challengePresent = true;
+                        break;
+                    }
+                }
+
+                for (var j = 0; j < challengeSelectors.length; j++) {
+                    var c = doc.querySelector(challengeSelectors[j]);
+                    if (visible(c)) {
+                        challengePresent = true;
+                        break;
+                    }
+                }
+
+                var text = (doc.body && doc.body.innerText) ? doc.body.innerText : '';
+                for (var k = 0; k < successKeywords.length; k++) {
+                    if (text.indexOf(successKeywords[k]) !== -1) {
+                        successDetected = true;
+                        break;
+                    }
+                }
+
+                var okNode = doc.querySelector('.nc-lang-cnt, #nocaptcha, .nc-container');
+                if (okNode) {
+                    var cls = okNode.className || '';
+                    var t = okNode.innerText || '';
+                    if (cls.indexOf('nc-right') !== -1 || cls.indexOf('success') !== -1 || t.indexOf('通过') !== -1) {
+                        successDetected = true;
+                    }
+                }
+
+                var hasError = text.indexOf('RGV587_ERROR') !== -1 || text.indexOf('验证码') !== -1;
+                return {
+                    sliderVisible: sliderVisible,
+                    challengePresent: challengePresent,
+                    successDetected: successDetected,
+                    hasError: hasError
+                };
+            }
+
+            var agg = scanDoc(document);
             var frames = document.getElementsByTagName('iframe');
             for (var i = 0; i < frames.length; i++) {
                 try {
                     var doc = frames[i].contentDocument;
-                    if (doc) {
-                        var fs = doc.querySelector('#nc_1_n1z') || doc.querySelector('#nc_2_n1z');
-                        if (fs && !fs.offsetParent) sliderVisible = false;
-                        
-                        var fc = doc.querySelector('.nc-lang-cnt');
-                        if (fc) {
-                            var ft = fc.innerText || '';
-                            var fcls = fc.className || '';
-                            if (ft.indexOf('验证通过') !== -1 || fcls.indexOf('nc-right') !== -1 || ft.indexOf('通过') !== -1) {
-                                hasSuccess = true;
-                            }
-                        }
-                    }
+                    if (!doc) continue;
+                    var r = scanDoc(doc);
+                    agg.sliderVisible = agg.sliderVisible || r.sliderVisible;
+                    agg.challengePresent = agg.challengePresent || r.challengePresent;
+                    agg.successDetected = agg.successDetected || r.successDetected;
+                    agg.hasError = agg.hasError || r.hasError;
                 } catch(e) {}
             }
-            
+
             return {
-                sliderGone: !sliderVisible,
-                successDetected: hasSuccess,
-                noError: noError
+                sliderGone: !agg.sliderVisible,
+                challengeGone: !agg.challengePresent,
+                successDetected: agg.successDetected,
+                hasError: agg.hasError,
+                noError: !agg.hasError
             };
         })()
         """
@@ -311,16 +384,20 @@ class CaptchaSolver:
         
         if ret and "result" in ret and ret["result"].get("value"):
             result = ret["result"]["value"]
-            print(f"[SOLVER] Verification: sliderGone={result.get('sliderGone')}, "
-                  f"successDetected={result.get('successDetected')}, noError={result.get('noError')}")
-            
-            if result.get("successDetected"):
+            print(
+                "[SOLVER] Verification: "
+                f"sliderGone={result.get('sliderGone')}, "
+                f"challengeGone={result.get('challengeGone')}, "
+                f"successDetected={result.get('successDetected')}, "
+                f"hasError={result.get('hasError')}"
+            )
+
+            # 必须更严格：有成功信号，或挑战已消失且无错误
+            if result.get("successDetected") and result.get("noError"):
                 return True
-            if result.get("sliderGone") and result.get("noError"):
+            if result.get("challengeGone") and result.get("sliderGone") and result.get("noError"):
                 return True
-            if result.get("noError") and not result.get("sliderGone"):
-                return True
-        
+
         return False
 
     def _generate_bezier_path(self, start_x, start_y, target_x, target_y):
@@ -379,6 +456,7 @@ class CaptchaSolver:
         time.sleep(random.uniform(0.2, 0.6))  # Random pre-click delay (human hesitation)
         
         # Mouse Down
+        time.sleep(random.uniform(0.1, 0.3)) # Micro hesitation before click
         self._send_cdp("Input.dispatchMouseEvent", {
             "type": "mousePressed", "x": start_x, "y": start_y, "button": "left", "clickCount": 1
         })
@@ -464,90 +542,107 @@ class CaptchaSolver:
             pass
 
     def solve(self):
-        """Main solve method with retry logic."""
-        MAX_RETRIES = 3
-        
+        """Main solve method with unlimited retry until success."""
         with self.lock:
-            if not self.connect_tab():
-                return False
+            attempt = 0
 
-            print("[SOLVER] Connected to browser. Starting solve loop...")
-            
-            try:
-                for attempt in range(MAX_RETRIES):
-                    print(f"\n[SOLVER] === Attempt {attempt + 1}/{MAX_RETRIES} ===")
-                    
+            while True:
+                attempt += 1
+                print(f"\n[SOLVER] === Attempt {attempt} (unlimited) ===")
+
+                # 每一轮都重新连接目标页签，避免 ws 失效后卡死
+                if not self.connect_tab():
+                    print("[SOLVER] ❌ connect_tab 失败，5秒后无限重试...")
+                    time.sleep(5)
+                    continue
+
+                print("[SOLVER] Connected to browser. Starting solve loop...")
+                self._bring_to_front()
+
+                try:
                     # Step 1: Find Slider
                     slider_info = self._find_slider()
                     if not slider_info:
-                        print("[SOLVER] Slider not found after retries.")
-                        if attempt < MAX_RETRIES - 1:
-                            print("[SOLVER] Reloading page and retrying...")
-                            self._reload_page()
-                            continue
-                        else:
-                            break
-                    
+                        print("[SOLVER] Slider not found after retries. Reload + continue...")
+                        self._reload_page()
+                        time.sleep(random.uniform(1, 2))
+                        if self.ws:
+                            try:
+                                self.ws.close()
+                            except:
+                                pass
+                        continue
+
                     start_x = slider_info["x"] + (slider_info["width"] / 2)
                     start_y = slider_info["y"] + (slider_info["height"] / 2)
-                    
+
                     # Sanity check
                     if start_x < 10 or start_y < 10:
-                        print(f"[SOLVER] Invalid coordinates: ({start_x}, {start_y})")
-                        if attempt < MAX_RETRIES - 1:
-                            self._reload_page()
-                            continue
-                        else:
-                            break
-                    
+                        print(f"[SOLVER] Invalid coordinates: ({start_x}, {start_y}) -> reload + continue")
+                        self._reload_page()
+                        time.sleep(random.uniform(1, 2))
+                        if self.ws:
+                            try:
+                                self.ws.close()
+                            except:
+                                pass
+                        continue
+
+                    # Human hesitation before getting track width
+                    time.sleep(random.uniform(0.2, 0.5))
+
                     print(f"[SOLVER] Slider found at ({start_x:.0f}, {start_y:.0f}) "
                           f"[Selector: {slider_info.get('selector')}, Context: {slider_info.get('context')}]")
-                    
+
                     # Step 2: Get Track Width (dynamic)
                     track_width = self._get_track_width()
                     distance = track_width - slider_info["width"]
-                    
+
                     # Clamp distance to reasonable range
                     distance = max(100, min(distance, 500))
                     print(f"[SOLVER] Drag distance (base): {distance:.0f}px (track: {track_width:.0f}px, slider: {slider_info['width']:.0f}px)")
-                    
+
                     # Step 3: Execute Bezier Drag
+                    self._bring_to_front()
                     self._do_drag(start_x, start_y, distance)
                     print("[SOLVER] Drag complete. Verifying...")
-                    
+
                     # Step 4: Verify Success
                     time.sleep(3)  # Wait for captcha response animation
-                    
+
                     if self._verify_success():
                         print("\033[92m[SOLVER] ✅ Verified: Captcha solved!\033[0m")
-                        
-                        # Phase 3.1: We DO NOT close the page anymore. 
+
+                        # Phase 3.1: We DO NOT close the page anymore.
                         # The userscript handles redirecting it back to standby.
                         print("[SOLVER] Leaving worker tab alive for userscript redirect.")
-                        
-                        self.ws.close()
-                        return True
-                    else:
-                        print(f"\033[93m[SOLVER] ❌ Verification failed (attempt {attempt + 1})\033[0m")
-                        if attempt < MAX_RETRIES - 1:
-                            print("[SOLVER] Reloading page for retry...")
-                            self._reload_page()
-                            time.sleep(random.uniform(1, 2))
-                
-                # All attempts exhausted
-                print("\033[91m[SOLVER] ❌ All attempts exhausted. Captcha not solved.\033[0m")
-                # Do NOT close the tab here so the user can see it and manually solve it if needed
-                self.ws.close()
-                return False
 
-            except Exception as e:
-                print(f"[SOLVER] Error during steps: {e}")
-                import traceback
-                traceback.print_exc()
-                if self.ws: 
-                    try: self.ws.close()
-                    except: pass
-                return False
+                        if self.ws:
+                            self.ws.close()
+                        return True
+
+                    print("\033[93m[SOLVER] ❌ Verification failed. Reload + unlimited retry...\033[0m")
+                    self._reload_page()
+                    self._bring_to_front()
+                    time.sleep(random.uniform(1, 2))
+                    if self.ws:
+                        try:
+                            self.ws.close()
+                        except:
+                            pass
+
+                except Exception as e:
+                    print(f"[SOLVER] Error during steps: {e}")
+                    import traceback
+                    traceback.print_exc()
+                    if self.ws:
+                        try:
+                            self.ws.close()
+                        except:
+                            pass
+                    print("[SOLVER] Exception branch, 3秒后继续无限重试...")
+                    time.sleep(3)
+                    continue
 
 if __name__ == "__main__":
     s = CaptchaSolver()

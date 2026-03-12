@@ -23,6 +23,7 @@ from jobs.job_manager import JobManager
 
 PORT = 8001
 BATCH_SIZE = 8  # User Configurable Concurrency
+DISPATCH_COOLDOWN_SECONDS = 20  # Task redispatch cooldown (aggressive profile)
 # Global Thread Pool for AI tasks (Limit 32 to prevent API overload)
 executor = ThreadPoolExecutor(max_workers=32)
 DATA_DIR = "datas"
@@ -67,19 +68,19 @@ def watchdog_thread():
                 
                 # Step 2: Open 3 independent Edge windows with Remote Debugging
                 # Window 1: Sniff Tab #1
-                subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--new-window', 
+                subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 
                                  'https://sf.taobao.com/list/50025969.htm?auto_recovery=1'], 
                                 shell=True)
                 time.sleep(2)
                 
                 # Window 2: Sniff Tab #2
-                subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--new-window', 
+                subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 
                                  'https://sf.taobao.com/list/50025969.htm?auto_recovery=2'], 
                                 shell=True)
                 time.sleep(2)
                 
                 # Window 3: Worker Tab
-                subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--new-window', 
+                subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 
                                  'https://sf.taobao.com/?auto_worker=1'], 
                                 shell=True)
                 
@@ -112,11 +113,11 @@ def check_and_launch_browser():
              time.sleep(2)
              
              # Launch windows
-             subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--new-window', 'https://sf.taobao.com/list/50025969.htm?auto_recovery=1'], shell=True)
+             subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 'https://sf.taobao.com/list/50025969.htm?auto_recovery=1'], shell=True)
              time.sleep(2)
-             subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--new-window', 'https://sf.taobao.com/list/50025969.htm?auto_recovery=2'], shell=True)
+             subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 'https://sf.taobao.com/list/50025969.htm?auto_recovery=2'], shell=True)
              time.sleep(2)
-             subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--new-window', 'https://sf.taobao.com/?auto_worker=1'], shell=True)
+             subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 'https://sf.taobao.com/?auto_worker=1'], shell=True)
              print("[STARTUP] Edge launched with debug port 9222.")
         except Exception as e:
             print(f"[STARTUP] Error launching browser: {e}")
@@ -712,7 +713,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 for tid in PENDING_TASKS[:100]: # Check first 100 for dispatchable ones
                     if len(next_batch) >= 10: break
                     last_time = DISPATCHED_TASKS.get(tid)
-                    if not last_time or (now - last_time).total_seconds() >= 60:
+                    if not last_time or (now - last_time).total_seconds() >= DISPATCH_COOLDOWN_SECONDS:
                         next_batch.append(tid)
 
             # Task Queue Status (Sniffing)
@@ -744,7 +745,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 for tid in check_candidates:
                     # Check dispatch throttle
                     last_time = DISPATCHED_TASKS.get(tid)
-                    if last_time and (now - last_time).total_seconds() < 60:
+                    if last_time and (now - last_time).total_seconds() < DISPATCH_COOLDOWN_SECONDS:
                         continue
                         
                     if tid in SEEN_IDS:
@@ -833,8 +834,8 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             for tid in PENDING_TASKS:
                 last_time = DISPATCHED_TASKS.get(tid)
                 if last_time:
-                    # Retry after 60 seconds of silence
-                    if (now - last_time).total_seconds() < 60:
+                    # Retry after configured cooldown silence window
+                    if (now - last_time).total_seconds() < DISPATCH_COOLDOWN_SECONDS:
                         skipped_cooldown += 1
                         continue
                 candidates.append(tid)
@@ -866,7 +867,12 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             
         elif self.path == '/api/resume':
             PAUSED = False
-            print("System RESUMED.")
+            # Clear emergency flag if it exists
+            flag_path = os.path.join(DATA_DIR, 'force_unlock.flag')
+            if os.path.exists(flag_path):
+                try: os.remove(flag_path)
+                except: pass
+            print("System RESUMED (via API).")
             self.send_json({"status": "resumed"})
             
         else:
@@ -1255,7 +1261,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                         continue
                         
                     last_time = DISPATCHED_TASKS.get(item_id)
-                    if last_time and (now - last_time).total_seconds() < 60:
+                    if last_time and (now - last_time).total_seconds() < DISPATCH_COOLDOWN_SECONDS:
                         continue
                         
                     target_id = item_id
@@ -1370,8 +1376,22 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 PAUSED = False
             else:
                 print("\033[91m[SOLVER] ❌ All solve attempts failed. System remains PAUSED.\033[0m")
-                print("\033[91m[SOLVER] Manual intervention may be required.\033[0m")
-                # Leave PAUSED=True — user needs to solve manually and hit /resume
+                print("\033[91m[SOLVER] Manual intervention required. Please solve in Edge, then click 'Resume' or delete 'force_unlock.flag'.\033[0m")
+                
+                # Create a lock flag file for easy manual resuming via file system if API is stuck
+                flag_path = os.path.join(DATA_DIR, 'force_unlock.flag')
+                try:
+                    with open(flag_path, 'w') as f:
+                        f.write("Delete this file to force resume the queue after manual solving")
+                except: pass
+                
+                # Wait for user to either hit API resume or delete the file
+                while PAUSED:
+                    if not os.path.exists(flag_path):
+                        print("\033[92m[SOLVER] 🟢 Force unlock flag removed! Auto-resuming system...\033[0m")
+                        PAUSED = False
+                        break
+                    time.sleep(2)
                 
         except Exception as e:
             print(f"[SOLVER] Error: {e}")
