@@ -9,6 +9,7 @@ import threading
 import time
 import re
 import re
+from avm_config import AVM_CONFIG_MANAGER
 from urllib.parse import urlparse, parse_qs, unquote
 from concurrent.futures import ThreadPoolExecutor
 
@@ -1411,6 +1412,11 @@ class ReusableTCPServer(socketserver.TCPServer):
 if __name__ == "__main__":
     print(f"Starting Data Receiver on port {PORT}...")
     print(f"Serving Pending Tasks from: {os.path.abspath(DATA_DIR)}")
+
+    # Load AVM parameters at startup and enable hot-reload.
+    AVM_CONFIG_MANAGER.load_on_startup()
+    AVM_CONFIG_MANAGER.start_hot_reload_watcher()
+    print(f"[AVM-CONFIG] Active config: {AVM_CONFIG_MANAGER.get_config()}")
     
     # Start the background AI processor
     import threading
