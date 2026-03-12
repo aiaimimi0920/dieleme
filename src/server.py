@@ -11,6 +11,7 @@ import re
 import re
 from urllib.parse import urlparse, parse_qs, unquote
 from concurrent.futures import ThreadPoolExecutor
+from avm.service import AVMItemNotFoundError, predict_by_item_id
 
 # Import Captcha Solver
 from captcha_solver import CaptchaSolver
@@ -769,6 +770,26 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_json(SEEN_IDS[item_id]["data"])
             else:
                 self.send_json({})
+
+        elif self.path.startswith('/api/avm/predict'):
+            params = parse_qs(urlparse(self.path).query)
+            item_id = params.get('item_id', [''])[0]
+
+            if not item_id:
+                self.send_error(400, "Missing item_id")
+                return
+
+            try:
+                result = predict_by_item_id(item_id)
+            except AVMItemNotFoundError as e:
+                self.send_error(404, str(e))
+                return
+            except Exception as e:
+                print(f"[AVM] predict_by_item_id failed: {e}")
+                self.send_error(500, "AVM predict failed")
+                return
+
+            self.send_json(result)
 
         # --- Sniffing API (legacy endpoint removed, use /api/get_or_create_sniff_task) ---
         
