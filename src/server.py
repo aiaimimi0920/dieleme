@@ -12,6 +12,9 @@ import re
 from urllib.parse import urlparse, parse_qs, unquote
 from concurrent.futures import ThreadPoolExecutor
 
+# AVM module placeholder import (not wired into main flow yet)
+from avm import service as avm_service  # noqa: F401
+
 # Import Captcha Solver
 from captcha_solver import CaptchaSolver
 solver = CaptchaSolver(port=9222)
