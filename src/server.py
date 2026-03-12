@@ -374,6 +374,14 @@ def process_single_file(file_path):
         if "id" not in new_data:
             new_data["id"] = found_id
 
+        # 2. AVM Risk Feature Extraction (append-only field)
+        avm_risk_features = llm_helper.extract_avm_risk_features(content, item_id=item_id)
+        if avm_risk_features:
+            new_data["avm_risk_features"] = avm_risk_features
+            print(f"[AVM-RISK] Attached risk features for item={item_id}")
+        else:
+            print(f"[AVM-RISK] Extraction failed for item={item_id}; skipped attachment")
+
         # Determine target path
         original_record = SEEN_IDS.get(str(item_id))
         target_json_path = None
