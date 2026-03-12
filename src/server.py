@@ -21,12 +21,18 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from jobs.job_manager import JobManager
 
+from src.avm.service import AVMService
+from src.avm.pipeline import AVMPipelineManager, AVMPipelineConfig
+
 PORT = 8001
 BATCH_SIZE = 8  # User Configurable Concurrency
 DISPATCH_COOLDOWN_SECONDS = 20  # Task redispatch cooldown (aggressive profile)
 # Global Thread Pool for AI tasks (Limit 32 to prevent API overload)
 executor = ThreadPoolExecutor(max_workers=32)
 DATA_DIR = "datas"
+
+AVM_SERVICE = AVMService(data_dir=DATA_DIR)
+AVM_PIPELINE = AVMPipelineManager(data_dir=DATA_DIR)
 
 # Global state
 SEEN_IDS = {}  # id -> {file_path, status, data}
@@ -760,6 +766,30 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_json({}) # Empty object means no task
 
         # --- Get Item Data (for Detail Helper) ---
+
+        elif self.path.startswith('/api/avm/predict'):
+            parsed_url = urlparse(self.path)
+            params = parse_qs(parsed_url.query)
+            item_id = params.get('id', [''])[0]
+
+            if not item_id:
+                self.send_json({"error": "missing_id"})
+                return
+
+            try:
+                result = AVM_SERVICE.predict_by_item_id(item_id)
+                self.send_json(result)
+            except Exception as e:
+                print(f"[AVM] Predict error: {e}")
+                self.send_json({"error": "predict_failed", "message": str(e), "item_id": str(item_id)})
+
+
+        elif self.path.startswith('/api/avm/pipeline_status'):
+            self.send_json(AVM_PIPELINE.status())
+
+        elif self.path.startswith('/api/avm/merge_check'):
+            self.send_json(AVM_PIPELINE.verify_merge_completeness())
+
         elif self.path.startswith('/api/get_item'):
             query = urlparse(self.path).query
             params = parse_qs(query)
@@ -911,6 +941,34 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                  self.send_error(500)
 
 
+
+
+
+        elif self.path == '/api/avm/run':
+            content_length = int(self.headers['Content-Length']) if self.headers.get('Content-Length') else 0
+            payload = {}
+            if content_length > 0:
+                try:
+                    payload = json.loads(self.rfile.read(content_length).decode('utf-8'))
+                except Exception:
+                    payload = {}
+
+            mode = str(payload.get("mode", "async")).lower()
+            config = AVMPipelineConfig(
+                data_dir=payload.get("data_dir", DATA_DIR),
+                alerts_threshold=float(payload.get("alerts_threshold", 0.15)),
+                alerts_limit=int(payload.get("alerts_limit", 500)),
+            )
+            result = AVM_PIPELINE.run(async_mode=(mode != "sync"), config=config)
+            self.send_json(result)
+
+        elif self.path == '/api/avm/start_all_subtasks':
+            result = AVM_PIPELINE.run(async_mode=True, config=AVMPipelineConfig(data_dir=DATA_DIR))
+            self.send_json(result)
+
+        elif self.path == '/api/avm/run_all_subtasks_sync':
+            result = AVM_PIPELINE.run(async_mode=False, config=AVMPipelineConfig(data_dir=DATA_DIR))
+            self.send_json(result)
 
         elif self.path == '/api/save_locations':
             content_length = int(self.headers['Content-Length'])
