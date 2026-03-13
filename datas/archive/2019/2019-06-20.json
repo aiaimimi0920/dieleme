@@ -828,5 +828,33 @@
         "单价": 4321.35,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 595917489967,
+        "市场评估价": 470000,
+        "起拍价格": 423000,
+        "成交价格": 423000,
+        "交易时间": "2019-06-20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595917489967.htm?track_id=efdeb53a-a245-47ab-91cd-3398808d1b2c",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省辽源市东丰县天星书苑",
+        "所属小区": "天星书苑",
+        "省份": "吉林省",
+        "城市": "辽源市",
+        "区": "东丰县",
+        "最靠近商圈": "东丰县城区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "594611207570",
+        "url": "https://sf-item.taobao.com/sf_item/594611207570.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1561001476000,
+        "status": "done",
+        "is_processed": false
     }
 ]

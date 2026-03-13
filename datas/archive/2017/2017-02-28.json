@@ -1060,5 +1060,33 @@
         "单价": 4526.61,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 544674531914,
+        "市场评估价": null,
+        "起拍价格": 535776,
+        "成交价格": 535776,
+        "交易时间": "2017-02-28T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544674531914.htm?track_id=1d9ed0e5-eada-4f04-9a1d-60bfade8d355",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省许昌市禹州市夏都办滨河大道西段北侧城上城花园住宅小区6幢2单元4层402号",
+        "所属小区": "城上城花园",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "夏都商圈",
+        "建筑面积": 173.87,
+        "单价": 3079.7,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "544825356790",
+        "url": "https://sf-item.taobao.com/sf_item/544825356790.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1488248274000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -1014,5 +1014,33 @@
         "单价": 18295.08,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 597401844929,
+        "市场评估价": null,
+        "起拍价格": 1224000,
+        "成交价格": 1344000,
+        "交易时间": "2019/07/18 10:05:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/597401844929.htm?track_id=8d480b32-1a24-480f-87d8-760f1f642ec7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 17,
+        "地点": "湖南省 湘潭市 湘潭县 易俗河镇大鹏路243号住房",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "湘潭县",
+        "最靠近商圈": "易俗河镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "596318428672",
+        "url": "https://sf-item.taobao.com/sf_item/596318428672.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1563419691000,
+        "status": "done",
+        "is_processed": false
     }
 ]

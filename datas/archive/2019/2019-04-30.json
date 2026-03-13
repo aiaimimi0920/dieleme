@@ -4487,5 +4487,96 @@
         "单价": 11176.45,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 590048124972,
+        "市场评估价": null,
+        "起拍价格": 360000,
+        "成交价格": 390000,
+        "交易时间": "2019/04/30 10:13:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/590048124972.htm?track_id=3903ec54-6efd-4f14-a446-dd56c37bba3e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 福州市 福清市 福清市融城西云村音西街道音西村阳光锦城4号楼",
+        "所属小区": "阳光锦城",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "融城",
+        "建筑面积": 43.34,
+        "单价": 8998.62,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 591277836983,
+        "市场评估价": null,
+        "起拍价格": 1241464,
+        "成交价格": 1516464,
+        "交易时间": "2019-04-30 10:15:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/591277836983.htm?track_id=70879970-c3ee-45e7-ab92-894ade9216c5",
+        "是否成交": true,
+        "竞拍人数": 56,
+        "出价人数": 56,
+        "地点": "山东省 青岛市 黄岛区 滨海大道路1288号1栋1单元3808室房屋1套",
+        "所属小区": "那鲁湾",
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "那鲁湾",
+        "建筑面积": 145.15,
+        "单价": 10447.06,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "590292426914",
+        "url": "https://sf-item.taobao.com/sf_item/590292426914.htm?track_id=d81f6b19-6a53-4414-a881-cb5db5551075",
+        "end": 1556589600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590454706829",
+        "url": "https://sf-item.taobao.com/sf_item/590454706829.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1556590671000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590457302412",
+        "url": "https://sf-item.taobao.com/sf_item/590457302412.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1556591005000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590086492103",
+        "url": "https://sf-item.taobao.com/sf_item/590086492103.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1556590678000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590459771628",
+        "url": "https://sf-item.taobao.com/sf_item/590459771628.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1556591647000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590078760850",
+        "url": "https://sf-item.taobao.com/sf_item/590078760850.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1556590350000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590621707575",
+        "url": "https://sf-item.taobao.com/sf_item/590621707575.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1556590978000,
+        "status": "done",
+        "is_processed": false
     }
 ]

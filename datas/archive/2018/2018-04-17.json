@@ -2380,5 +2380,124 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 566695575646,
+        "市场评估价": null,
+        "起拍价格": 78750.4,
+        "成交价格": 107750.4,
+        "交易时间": "2018-04-17T10:02:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/566695575646.htm?track_id=5e5bd875-050c-499b-823f-5b51de5f2ae5",
+        "是否成交": true,
+        "竞拍人数": 30,
+        "出价人数": 30,
+        "地点": "黑龙江省 鸡西市 鸡冠区 鸡冠区东山阳光家园7号楼2单元202室住宅房屋",
+        "所属小区": "东山阳光家园",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "鸡冠区",
+        "最靠近商圈": "鸡冠区",
+        "建筑面积": 60.68,
+        "单价": 1774.94,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 566864574848,
+        "市场评估价": null,
+        "起拍价格": 1162880,
+        "成交价格": 1632680,
+        "交易时间": "2018/04/17 10:59:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/566864574848.htm?track_id=3520cd55-ea9f-4854-9fd1-099b9dc0447d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 82,
+        "地点": "山东省 青岛市 黄岛区",
+        "所属小区": "天悦建材城商务楼",
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "保税区商圈",
+        "建筑面积": 208.79,
+        "单价": 7819.05,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "565705548192",
+        "url": "https://sf-item.taobao.com/sf_item/565705548192.htm?track_id=02f3e140-b528-49f2-9f0e-8f7f41926300",
+        "end": 1523931818000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565858596100",
+        "url": "https://sf-item.taobao.com/sf_item/565858596100.htm?track_id=0c4d060f-2e9d-4d5d-9db5-bf7a6a9f075d",
+        "end": 1523934035000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565973269457",
+        "url": "https://sf-item.taobao.com/sf_item/565973269457.htm?track_id=671fb627-9cbf-4c21-8704-7010cc79e63c",
+        "end": 1523932983000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565860440315",
+        "url": "https://sf-item.taobao.com/sf_item/565860440315.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1523932908000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566794217367",
+        "url": "https://sf-item.taobao.com/sf_item/566794217367.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1523932186000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566055959717",
+        "url": "https://sf-item.taobao.com/sf_item/566055959717.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1523931779000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566876778353",
+        "url": "https://sf-item.taobao.com/sf_item/566876778353.htm?track_id=8e74a30b-ddb8-4c16-be92-5c43279efed6",
+        "end": 1523930735000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566050934260",
+        "url": "https://sf-item.taobao.com/sf_item/566050934260.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1523934099000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565964714223",
+        "url": "https://sf-item.taobao.com/sf_item/565964714223.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1523932530000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566052083886",
+        "url": "https://sf-item.taobao.com/sf_item/566052083886.htm?track_id=c675ba72-5ca4-4fb3-9f6d-61217ccfad4b",
+        "end": 1523932270000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "565374444645",
+        "url": "https://sf-item.taobao.com/sf_item/565374444645.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1523935309000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -990,5 +990,26 @@
         "单价": 5444.84,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 539739898749,
+        "市场评估价": null,
+        "起拍价格": 513910,
+        "成交价格": 513910,
+        "交易时间": "2016-11-01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539739898749.htm?track_id=1d9ed0e5-eada-4f04-9a1d-60bfade8d355",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 许昌市 禹州市",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": null,
+        "建筑面积": 146.46,
+        "单价": 3508.34,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

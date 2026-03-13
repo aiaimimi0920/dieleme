@@ -1877,5 +1877,75 @@
         "单价": 13772.58,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 632671162181,
+        "市场评估价": null,
+        "起拍价格": 500000,
+        "成交价格": 515000,
+        "交易时间": "2021/02/08 21:42:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/632671162181.htm?track_id=9dbccf2d-88f3-415e-8247-83812e4c99a9",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "福建省 福州市 福清市 海口镇海口村东岳花园3号楼1305单元",
+        "所属小区": "东岳花园",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "海口镇",
+        "建筑面积": 178.88,
+        "单价": 2878.94,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 635673257451,
+        "市场评估价": 2314125,
+        "起拍价格": 2314125,
+        "成交价格": 2314125,
+        "交易时间": "2021-02-08T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/635673257451.htm?track_id=4d058e16-150c-4ce2-a129-56882d425666",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 鸡西市 鸡冠区 鸡冠区向阳办胜亚开发3-（1-2）-2门市房屋",
+        "所属小区": "胜亚开发",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "鸡冠区",
+        "最靠近商圈": "向阳办",
+        "建筑面积": 185.3,
+        "单价": 12487.88,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "636224303655",
+        "url": "https://sf-item.taobao.com/sf_item/636224303655.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1612760315000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635899314006",
+        "url": "https://sf-item.taobao.com/sf_item/635899314006.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1612760245000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "635581473200",
+        "url": "https://sf-item.taobao.com/sf_item/635581473200.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1612750476000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636806209613",
+        "url": "https://sf-item.taobao.com/sf_item/636806209613.htm?track_id=8f5d3f61-c0b9-468a-9d5e-6c0df3400471",
+        "end": 1612750412000,
+        "status": "done",
+        "is_processed": false
     }
 ]

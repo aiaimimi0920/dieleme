@@ -864,5 +864,33 @@
         "单价": 2109.59,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 565328442823,
+        "市场评估价": null,
+        "起拍价格": 551546,
+        "成交价格": 719546,
+        "交易时间": "2018-04-04 10:11:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/565328442823.htm?track_id=3520cd55-ea9f-4854-9fd1-099b9dc0447d",
+        "是否成交": true,
+        "竞拍人数": 85,
+        "出价人数": 85,
+        "地点": "山东省 青岛市 黄岛区 海西路138号6幢2单元301室",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "滨海大道/两河路商圈",
+        "建筑面积": 94.54,
+        "单价": 7613.32,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "565031588995",
+        "url": "https://sf-item.taobao.com/sf_item/565031588995.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1522809536000,
+        "status": "done",
+        "is_processed": false
     }
 ]

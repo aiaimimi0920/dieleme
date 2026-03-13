@@ -343,5 +343,33 @@
         "单价": 5169.46,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 536835704140,
+        "市场评估价": 583540,
+        "起拍价格": 472000,
+        "成交价格": 472500,
+        "交易时间": "2016-08-24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536835704140.htm?track_id=b182b173-f6ce-46ae-9b46-3eaf49a1962a",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "河南省 许昌市 鄢陵县 乾明寺路西段北侧康桥半岛11号楼1单元1楼西户",
+        "所属小区": "康桥半岛",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": "鄢陵县城中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "536594330416",
+        "url": "https://sf-item.taobao.com/sf_item/536594330416.htm?track_id=d3a6e94f-bd89-49e6-abd5-efaf6c356b71",
+        "end": 1472004860000,
+        "status": "done",
+        "is_processed": false
     }
 ]

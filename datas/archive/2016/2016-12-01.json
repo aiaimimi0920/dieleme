@@ -362,5 +362,75 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 541837772751,
+        "市场评估价": 253100,
+        "起拍价格": 208000,
+        "成交价格": 233000,
+        "交易时间": "2016-12-01 10:03:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541837772751.htm?track_id=aa036177-f011-40e0-a860-14dde3619a05",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 6,
+        "地点": "福建省 福州市 福清市",
+        "所属小区": "海洋大厦",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "融城商圈",
+        "建筑面积": 41.82,
+        "单价": 5567.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 541827511051,
+        "市场评估价": null,
+        "起拍价格": 623327.4,
+        "成交价格": 623327.4,
+        "交易时间": "2016-12-01T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541827511051.htm?track_id=1d9ed0e5-eada-4f04-9a1d-60bfade8d355",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 许昌市 禹州市",
+        "所属小区": "万丰.铂金翰宫",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "颍北商圈",
+        "建筑面积": 142.59,
+        "单价": 4370.96,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "541804426165",
+        "url": "https://sf-item.taobao.com/sf_item/541804426165.htm?track_id=d3a6e94f-bd89-49e6-abd5-efaf6c356b71",
+        "end": 1480557783000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541804054637",
+        "url": "https://sf-item.taobao.com/sf_item/541804054637.htm?track_id=f892f3cf-32ac-4027-8c20-73105e0b1472",
+        "end": 1480557853000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541780900594",
+        "url": "https://sf-item.taobao.com/sf_item/541780900594.htm?track_id=f892f3cf-32ac-4027-8c20-73105e0b1472",
+        "end": 1480557600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541823510633",
+        "url": "https://sf-item.taobao.com/sf_item/541823510633.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1480558784000,
+        "status": "done",
+        "is_processed": false
     }
 ]

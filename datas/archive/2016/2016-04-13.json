@@ -124,5 +124,33 @@
         "单价": 12385.36,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 528646009049,
+        "市场评估价": null,
+        "起拍价格": 13000000,
+        "成交价格": 15820000,
+        "交易时间": "2016-04-13 11:41:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528646009049.htm?track_id=6ceb8279-329b-4586-8a35-09a0dd614066",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 214,
+        "地点": "北京市西城区崇善里13号",
+        "所属小区": "崇善里",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "金融街",
+        "建筑面积": 122.9,
+        "单价": 128724.33,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "528833096043",
+        "url": "https://sf-item.taobao.com/sf_item/528833096043.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1460514105000,
+        "status": "done",
+        "is_processed": false
     }
 ]

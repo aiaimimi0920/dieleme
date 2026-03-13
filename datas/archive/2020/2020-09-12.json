@@ -1157,5 +1157,61 @@
         "单价": 9495.45,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 625785445418,
+        "市场评估价": null,
+        "起拍价格": 432481,
+        "成交价格": 432481,
+        "交易时间": "2020-09-12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625785445418.htm?track_id=43e5f82d-1627-437b-811a-895a5f3315bf",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "湖南省 湘潭市 湘潭县 俗河镇雪松北路205号锦绣滨江B栋010102号房",
+        "所属小区": "锦绣滨江",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "湘潭县",
+        "最靠近商圈": "易俗河",
+        "建筑面积": 139.51,
+        "单价": 3099.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 624479088466,
+        "市场评估价": null,
+        "起拍价格": 820000,
+        "成交价格": 945000,
+        "交易时间": "2020/09/12 10:22:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624479088466.htm?track_id=b3d11407-c4e5-4c5d-8856-db9225972845",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 宁德市 福安市 赛岐镇虹桥街永安东路35号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "赛岐镇",
+        "建筑面积": 315.39,
+        "单价": 2997.15,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "625111558495",
+        "url": "https://sf-item.taobao.com/sf_item/625111558495.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1599876000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624799918122",
+        "url": "https://sf-item.taobao.com/sf_item/624799918122.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1599879428000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -1120,5 +1120,82 @@
         "单价": 2628.65,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 561402004578,
+        "市场评估价": 0,
+        "起拍价格": 0,
+        "成交价格": 212000,
+        "交易时间": "2017/12/03 02:40:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561402004578.htm?track_id=cceae429-34ae-4df1-9928-039b48cecd6a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广西壮族自治区 梧州市 龙圩区 龙圩镇西南大道329号第1幢1座601房",
+        "所属小区": "时代花园",
+        "省份": "广西壮族自治区",
+        "城市": "梧州市",
+        "区": "龙圩区",
+        "最靠近商圈": "龙圩镇",
+        "建筑面积": 83.64,
+        "单价": 2534.05,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 560855222886,
+        "市场评估价": null,
+        "起拍价格": 384160,
+        "成交价格": 401660,
+        "交易时间": "2017/12/02 10:10:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560855222886.htm?track_id=f4e58f0a-8b0a-4cbb-b773-b76eb209681c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 6,
+        "地点": "河南省 许昌市 禹州市 禹州市钧台办泰山庙街东段北侧（富贵苑4号楼东1单元3层东户）",
+        "所属小区": "富贵苑",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "禹州钧台办",
+        "建筑面积": 148.68,
+        "单价": 2701.5,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "560715572206",
+        "url": "https://sf-item.taobao.com/sf_item/560715572206.htm?track_id=1cfcb80d-b814-4531-90ca-8524fc57af47",
+        "end": 1512180289000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560698712079",
+        "url": "https://sf-item.taobao.com/sf_item/560698712079.htm?track_id=221bf921-92f2-4ebc-b6fc-d8f9be5d3375",
+        "end": 1512180000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560710448755",
+        "url": "https://sf-item.taobao.com/sf_item/560710448755.htm?track_id=221bf921-92f2-4ebc-b6fc-d8f9be5d3375",
+        "end": 1512180000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560788841937",
+        "url": "https://sf-item.taobao.com/sf_item/560788841937.htm?track_id=221bf921-92f2-4ebc-b6fc-d8f9be5d3375",
+        "end": 1512180000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560788001929",
+        "url": "https://sf-item.taobao.com/sf_item/560788001929.htm?track_id=2772e5f4-cbd3-4273-a7f7-12a8740e5278",
+        "end": 1512183501000,
+        "status": "done",
+        "is_processed": false
     }
 ]

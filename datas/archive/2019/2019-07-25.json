@@ -822,5 +822,40 @@
         "单价": 12897.21,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 594840360320,
+        "市场评估价": null,
+        "起拍价格": 375289.2,
+        "成交价格": 378289.2,
+        "交易时间": "2019-07-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594840360320.htm?track_id=ba28d8e3-cfd4-411d-8bf3-72c28227171b",
+        "是否成交": true,
+        "竞拍人数": 2,
+        "出价人数": 2,
+        "地点": "黑龙江省鸡西市鸡冠区红军办文明委中北4-营业房-6商业房屋",
+        "所属小区": null,
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "鸡冠区",
+        "最靠近商圈": "鸡冠区商圈",
+        "建筑面积": 81,
+        "单价": 4670.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "597880832724",
+        "url": "https://sf-item.taobao.com/sf_item/597880832724.htm?track_id=345e163d-01bf-4d38-9e6a-82c54d3a6d29",
+        "end": 1564020000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "598160053867",
+        "url": "https://sf-item.taobao.com/sf_item/598160053867.htm?track_id=221bf921-92f2-4ebc-b6fc-d8f9be5d3375",
+        "end": 1564030908000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -2343,5 +2343,103 @@
         "单价": 956.63,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 623695197143,
+        "市场评估价": null,
+        "起拍价格": 600000,
+        "成交价格": 650000,
+        "交易时间": "2020/09/01 10:40:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/623695197143.htm?track_id=3903ec54-6efd-4f14-a446-dd56c37bba3e",
+        "是否成交": true,
+        "竞拍人数": 11,
+        "出价人数": 11,
+        "地点": "福建省 福州市 福清市 融城镇小桥街中段",
+        "所属小区": "中联名城",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "融侨万达商圈",
+        "建筑面积": 150.77,
+        "单价": 4315.89,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 620676665941,
+        "市场评估价": 194520,
+        "起拍价格": 194520,
+        "成交价格": 194520,
+        "交易时间": "2020/09/01 12:18:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/620676665941.htm?track_id=c8b795e7-3963-46af-9244-10c360707022",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 玉林市 玉州区 大南路鸿发花园南区6幢502房",
+        "所属小区": "鸿发花园南区",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "大南路商圈",
+        "建筑面积": 78.29,
+        "单价": 2484.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 625523535277,
+        "市场评估价": null,
+        "起拍价格": 1400000,
+        "成交价格": 1630000,
+        "交易时间": "2020-09-01 10:25:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625523535277.htm?track_id=8090aeea-d449-4473-918e-2b3143277658",
+        "是否成交": true,
+        "竞拍人数": 27,
+        "出价人数": 27,
+        "地点": "天津市东丽区东丽区绿洲花园10-1-601",
+        "所属小区": "绿洲花园",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "东丽湖",
+        "建筑面积": 172.3,
+        "单价": 9465.93,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "624603323789",
+        "url": "https://sf-item.taobao.com/sf_item/624603323789.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1598929234000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625230786228",
+        "url": "https://sf-item.taobao.com/sf_item/625230786228.htm?track_id=7398cc8f-67f4-4cf0-ab9f-ff77efb44d5b",
+        "end": 1598926923000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624947837109",
+        "url": "https://sf-item.taobao.com/sf_item/624947837109.htm?track_id=3182bcf8-47d4-42fb-a451-bd502ba4f00b",
+        "end": 1598925600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625278514846",
+        "url": "https://sf-item.taobao.com/sf_item/625278514846.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1598929029000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624644819033",
+        "url": "https://sf-item.taobao.com/sf_item/624644819033.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1598927500000,
+        "status": "done",
+        "is_processed": false
     }
 ]

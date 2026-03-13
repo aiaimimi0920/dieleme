@@ -911,5 +911,40 @@
         "单价": 2697.32,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 574548308365,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1000000,
+        "交易时间": "2018/10/01 17:45:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574548308365.htm?track_id=679cbc13-350a-4749-8467-1a295fd1801e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 梧州市 龙圩区 龙圩镇龙新南巷1号",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "梧州市",
+        "区": "龙圩区",
+        "最靠近商圈": "龙圩镇",
+        "建筑面积": 596.91,
+        "单价": 1675.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "576505222821",
+        "url": "https://sf-item.taobao.com/sf_item/576505222821.htm?track_id=d81f6b19-6a53-4414-a881-cb5db5551075",
+        "end": 1538359506000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576515610990",
+        "url": "https://sf-item.taobao.com/sf_item/576515610990.htm?track_id=2ba4606a-7e86-480b-875e-e6ea7a267827",
+        "end": 1538361900000,
+        "status": "done",
+        "is_processed": false
     }
 ]

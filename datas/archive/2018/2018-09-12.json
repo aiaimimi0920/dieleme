@@ -948,5 +948,75 @@
         "单价": 17625.82,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 576181957367,
+        "市场评估价": 363100,
+        "起拍价格": 203336,
+        "成交价格": 203336,
+        "交易时间": "2018-09-12 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/576181957367.htm?track_id=a8fb37f1-d270-44a4-9a1c-b484f8e30ed8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "河南省 许昌市 鄢陵县 鄢陶路植物油厂家属院南单元",
+        "所属小区": "植物油厂家属院",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": "鄢陵县中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "575001645353",
+        "url": "https://sf-item.taobao.com/sf_item/575001645353.htm?track_id=671fb627-9cbf-4c21-8704-7010cc79e63c",
+        "end": 1536718010000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576146497282",
+        "url": "https://sf-item.taobao.com/sf_item/576146497282.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1536721683000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "576370735616",
+        "url": "https://sf-item.taobao.com/sf_item/576370735616.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1536719324000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574901940048",
+        "url": "https://sf-item.taobao.com/sf_item/574901940048.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1536725091000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575067565644",
+        "url": "https://sf-item.taobao.com/sf_item/575067565644.htm?track_id=ce679841-39b9-4da8-b6a4-8ab34a8d2789",
+        "end": 1536718912000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575181394245",
+        "url": "https://sf-item.taobao.com/sf_item/575181394245.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1536722245000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574974973815",
+        "url": "https://sf-item.taobao.com/sf_item/574974973815.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1536718487000,
+        "status": "done",
+        "is_processed": false
     }
 ]

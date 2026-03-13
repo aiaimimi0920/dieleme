@@ -1720,5 +1720,61 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 631442252588,
+        "市场评估价": null,
+        "起拍价格": 465120,
+        "成交价格": 555120,
+        "交易时间": "2020/12/04 10:58:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/631442252588.htm?track_id=04bd0675-fd74-4b7a-b52e-6d3f30f984a0",
+        "是否成交": true,
+        "竞拍人数": 46,
+        "出价人数": null,
+        "地点": "湖南省 郴州市 宜章县 玉溪镇文明南路158-133栋101号",
+        "所属小区": "文明南路158-133栋",
+        "省份": "湖南省",
+        "城市": "郴州市",
+        "区": "宜章县",
+        "最靠近商圈": "玉溪镇",
+        "建筑面积": 169.89,
+        "单价": 3270.51,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 630683818207,
+        "市场评估价": 0,
+        "起拍价格": 504800,
+        "成交价格": 504800,
+        "交易时间": "2020/12/04 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/630683818207.htm?track_id=3ee473d3-5eee-45e8-a539-306e719b5215",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 驻马店市 上蔡县 李斯路东段北侧锦尚公寓",
+        "所属小区": "锦尚公寓",
+        "省份": "河南省",
+        "城市": "驻马店市",
+        "区": "上蔡县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "631796001595",
+        "url": "https://sf-item.taobao.com/sf_item/631796001595.htm?track_id=c5d4b8af-48be-40ca-8d7c-17f089acf0f4",
+        "end": 1607048800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "631112890485",
+        "url": "https://sf-item.taobao.com/sf_item/631112890485.htm?track_id=2772e5f4-cbd3-4273-a7f7-12a8740e5278",
+        "end": 1607050154000,
+        "status": "done",
+        "is_processed": false
     }
 ]

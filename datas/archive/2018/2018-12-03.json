@@ -934,5 +934,68 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 582083721559,
+        "市场评估价": null,
+        "起拍价格": 836000,
+        "成交价格": 916000,
+        "交易时间": "2018/12/03 22:24:17",
+        "原始网站": "https://sf-item.taobao.com/sf_item/582083721559.htm?track_id=22961a03-fb96-4972-9d77-9847171fa060",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": null,
+        "地点": "福建省福州市福清市高山镇府西路高山侨乡特区9号楼123店面",
+        "所属小区": "高山侨乡特区",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "高山镇商圈",
+        "建筑面积": 89.95,
+        "单价": 10183.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 582343351698,
+        "市场评估价": null,
+        "起拍价格": 472000,
+        "成交价格": 500000,
+        "交易时间": "2018/12/03 22:35:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/582343351698.htm?track_id=345c7cdc-7e90-4be0-9a95-a98ff9c8b5f7",
+        "是否成交": true,
+        "竞拍人数": 6,
+        "出价人数": 6,
+        "地点": "福建省 福州市 福清市 福清市高山镇府西路高山侨乡特区9号楼122店面",
+        "所属小区": "高山侨乡特区",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "高山镇商圈",
+        "建筑面积": 48.67,
+        "单价": 10261.6,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "581888232563",
+        "url": "https://sf-item.taobao.com/sf_item/581888232563.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1543810547000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582081625986",
+        "url": "https://sf-item.taobao.com/sf_item/582081625986.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1543810564000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582082241837",
+        "url": "https://sf-item.taobao.com/sf_item/582082241837.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1543810582000,
+        "status": "done",
+        "is_processed": false
     }
 ]

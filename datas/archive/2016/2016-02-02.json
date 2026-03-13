@@ -231,5 +231,54 @@
         "单价": 2134.71,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 526167519394,
+        "市场评估价": null,
+        "起拍价格": 1040000,
+        "成交价格": 2050000,
+        "交易时间": "2016-02-02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526167519394.htm?track_id=d66242ae-6452-4919-8353-b3eefa9c357b",
+        "是否成交": true,
+        "竞拍人数": 131,
+        "出价人数": 131,
+        "地点": "福建省 福州市 福清市 城头镇新街道117号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "城头镇",
+        "建筑面积": 444,
+        "单价": 4617.17,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "526301680498",
+        "url": "https://sf-item.taobao.com/sf_item/526301680498.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1454380979000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "526282562816",
+        "url": "https://sf-item.taobao.com/sf_item/526282562816.htm?track_id=e86c2fb3-2358-433a-97e5-a8af55fae3ba",
+        "end": 1454379959000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "526301936529",
+        "url": "https://sf-item.taobao.com/sf_item/526301936529.htm?track_id=0854805c-e1e7-462f-94cb-395690db362d",
+        "end": 1454379201000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "526289225661",
+        "url": "https://sf-item.taobao.com/sf_item/526289225661.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1454379596000,
+        "status": "done",
+        "is_processed": false
     }
 ]

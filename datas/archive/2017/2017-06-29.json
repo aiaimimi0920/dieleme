@@ -657,5 +657,117 @@
         "单价": 12033.55,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 552793396792,
+        "市场评估价": null,
+        "起拍价格": 482560,
+        "成交价格": 642560,
+        "交易时间": "2017-06-29 10:30:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/552793396792.htm?track_id=20bdb917-e78a-4cb6-b091-05db6ba5e76c",
+        "是否成交": true,
+        "竞拍人数": 81,
+        "出价人数": null,
+        "地点": "福建省宁德市福安市城北富春路185号B-201号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": null,
+        "建筑面积": 165.31,
+        "单价": 3886.99,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 551698554781,
+        "市场评估价": null,
+        "起拍价格": 636500,
+        "成交价格": 692500,
+        "交易时间": "2017/06/29 10:08:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/551698554781.htm?track_id=b3d11407-c4e5-4c5d-8856-db9225972845",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 29,
+        "地点": "福建省宁德市福安市阳头街道阳春小区33幢B-401号",
+        "所属小区": "阳春小区",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头",
+        "建筑面积": 143.68,
+        "单价": 4820.23,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 551787327557,
+        "市场评估价": null,
+        "起拍价格": 687200,
+        "成交价格": 687200,
+        "交易时间": "2017-06-29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/551787327557.htm?track_id=30c717ff-3387-418f-af36-ccc85c69d17a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省宁德市福安市鹤兴中路凯兴大厦8层802号",
+        "所属小区": "凯兴大厦",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "福安市区",
+        "建筑面积": 124.58,
+        "单价": 5515.34,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "551998299242",
+        "url": "https://sf-item.taobao.com/sf_item/551998299242.htm?track_id=c4483fcd-3594-4770-b22e-4dbbb33f35db",
+        "end": 1498701600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "553133278940",
+        "url": "https://sf-item.taobao.com/sf_item/553133278940.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1498702443000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "553037116489",
+        "url": "https://sf-item.taobao.com/sf_item/553037116489.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1498702602000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "553182583446",
+        "url": "https://sf-item.taobao.com/sf_item/553182583446.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1498702470000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "553103245769",
+        "url": "https://sf-item.taobao.com/sf_item/553103245769.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1498702655000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "553102825822",
+        "url": "https://sf-item.taobao.com/sf_item/553102825822.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1498702572000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "553034952672",
+        "url": "https://sf-item.taobao.com/sf_item/553034952672.htm?track_id=8f5d3f61-c0b9-468a-9d5e-6c0df3400471",
+        "end": 1498702125000,
+        "status": "done",
+        "is_processed": false
     }
 ]

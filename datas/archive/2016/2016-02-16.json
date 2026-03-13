@@ -485,5 +485,33 @@
         "单价": 1306.43,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 526877363184,
+        "市场评估价": 0,
+        "起拍价格": 696000,
+        "成交价格": 912000,
+        "交易时间": "2016/02/16 10:37:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526877363184.htm?track_id=3dfab2ae-c0a9-481b-b9fd-7be1c5637ae2",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 97,
+        "地点": "福建省宁德市福安市城北街道棠兴路418号瑞景名仕城9号楼704号",
+        "所属小区": "瑞景名仕城",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城北街道",
+        "建筑面积": 163.62,
+        "单价": 5573.96,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "526447559239",
+        "url": "https://sf-item.taobao.com/sf_item/526447559239.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1455588750000,
+        "status": "done",
+        "is_processed": false
     }
 ]

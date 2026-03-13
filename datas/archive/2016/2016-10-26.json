@@ -589,5 +589,33 @@
         "单价": 4943.53,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 538821897367,
+        "市场评估价": null,
+        "起拍价格": 6407200,
+        "成交价格": 7907200,
+        "交易时间": "2016/10/26 10:38:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538821897367.htm?track_id=63ee1d58-231f-4d8f-a254-d76317cc3225",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 70,
+        "地点": "北京市西城区京畿道11号楼4层2门402号",
+        "所属小区": "京畿道小区",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "西单商圈",
+        "建筑面积": 44.6,
+        "单价": 177292.11,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "539747075588",
+        "url": "https://sf-item.taobao.com/sf_item/539747075588.htm?track_id=2772e5f4-cbd3-4273-a7f7-12a8740e5278",
+        "end": 1477449699000,
+        "status": "done",
+        "is_processed": false
     }
 ]

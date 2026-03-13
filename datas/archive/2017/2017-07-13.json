@@ -274,5 +274,40 @@
         "单价": 3992.45,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 553814117280,
+        "市场评估价": null,
+        "起拍价格": 565696,
+        "成交价格": 725696,
+        "交易时间": "2017/07/13 10:19:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/553814117280.htm?track_id=88aec900-3e21-4219-98a4-2102ba9c8b6c",
+        "是否成交": true,
+        "竞拍人数": 41,
+        "出价人数": 7,
+        "地点": "福安市阳头工业路15号龙城锦江花园4号楼305号及杂物间",
+        "所属小区": "龙城锦江花园",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头街道",
+        "建筑面积": 170.01,
+        "单价": 4268.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "554255238890",
+        "url": "https://sf-item.taobao.com/sf_item/554255238890.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1499911632000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "554221565073",
+        "url": "https://sf-item.taobao.com/sf_item/554221565073.htm?track_id=afd087fd-d280-4c92-87b8-fcea075d7588",
+        "end": 1499911200000,
+        "status": "done",
+        "is_processed": false
     }
 ]

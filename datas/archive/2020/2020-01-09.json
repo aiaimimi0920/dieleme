@@ -823,5 +823,54 @@
         "单价": 55043.41,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 609528847140,
+        "市场评估价": 1008190,
+        "起拍价格": 806552,
+        "成交价格": 806552,
+        "交易时间": "2020-01-09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/609528847140.htm?track_id=a8fb37f1-d270-44a4-9a1c-b484f8e30ed8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 许昌市 鄢陵县 陈化店镇建业生态新城112幢3单元101号",
+        "所属小区": "建业生态新城",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": "陈化店镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "609786791760",
+        "url": "https://sf-item.taobao.com/sf_item/609786791760.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1578543467000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609156933539",
+        "url": "https://sf-item.taobao.com/sf_item/609156933539.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1578540055000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609573158046",
+        "url": "https://sf-item.taobao.com/sf_item/609573158046.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1578539337000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "609173336836",
+        "url": "https://sf-item.taobao.com/sf_item/609173336836.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1578537903000,
+        "status": "done",
+        "is_processed": false
     }
 ]

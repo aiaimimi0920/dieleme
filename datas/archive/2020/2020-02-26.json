@@ -271,5 +271,33 @@
         "单价": 8106.31,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 611214286551,
+        "市场评估价": null,
+        "起拍价格": 530000,
+        "成交价格": 622000,
+        "交易时间": "2020-02-26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611214286551.htm?track_id=52473588-0db7-414c-b80e-7269f574c683",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 26,
+        "地点": "福建省宁德市福安市甘棠镇海峡茶都第8幢125L号",
+        "所属小区": "海峡茶都",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "甘棠镇商圈",
+        "建筑面积": 335.13,
+        "单价": 1856.37,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "611135868682",
+        "url": "https://sf-item.taobao.com/sf_item/611135868682.htm?track_id=c675ba72-5ca4-4fb3-9f6d-61217ccfad4b",
+        "end": 1582684647000,
+        "status": "done",
+        "is_processed": false
     }
 ]

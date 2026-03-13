@@ -337,5 +337,47 @@
         "单价": 7904.57,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 520108611543,
+        "市场评估价": null,
+        "起拍价格": 472000,
+        "成交价格": 472000,
+        "交易时间": "2015/06/30 10:00:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520108611543.htm?track_id=9040e763-7add-4763-bdd3-7df442268acf",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福安市鹤兴中路凯兴大厦7层705号",
+        "所属小区": "凯兴大厦",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头商圈",
+        "建筑面积": 58.56,
+        "单价": 8062.76,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "520055305869",
+        "url": "https://sf-item.taobao.com/sf_item/520055305869.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1435631846000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520056546582",
+        "url": "https://sf-item.taobao.com/sf_item/520056546582.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1435630512000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520039218940",
+        "url": "https://sf-item.taobao.com/sf_item/520039218940.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1435632390000,
+        "status": "done",
+        "is_processed": false
     }
 ]

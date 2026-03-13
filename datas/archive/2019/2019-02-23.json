@@ -675,5 +675,33 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 586693935814,
+        "市场评估价": null,
+        "起拍价格": 566400,
+        "成交价格": 576400,
+        "交易时间": "2019-02-23T10:02:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586693935814.htm?track_id=f4e58f0a-8b0a-4cbb-b773-b76eb209681c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 3,
+        "地点": "河南省许昌市禹州市颍川办劳动路东段路北",
+        "所属小区": "公职员小区",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "颍川商圈",
+        "建筑面积": 125.58,
+        "单价": 4590.53,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "586736386760",
+        "url": "https://sf-item.taobao.com/sf_item/586736386760.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1550913997000,
+        "status": "done",
+        "is_processed": false
     }
 ]

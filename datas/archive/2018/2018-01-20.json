@@ -611,5 +611,61 @@
         "单价": 3631.06,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 563731363432,
+        "市场评估价": null,
+        "起拍价格": 264500,
+        "成交价格": 298500,
+        "交易时间": "2018-01-20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563731363432.htm?track_id=07d591ca-5d2e-49d4-82ca-e20da79a7a7e",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": null,
+        "地点": "黑龙江省 鸡西市 虎林市 虎林镇",
+        "所属小区": "花园小区",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "虎林市",
+        "最靠近商圈": "虎林镇中心",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 563638262738,
+        "市场评估价": null,
+        "起拍价格": 267626,
+        "成交价格": 267626,
+        "交易时间": "2018/01/20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563638262738.htm?track_id=679cbc13-350a-4749-8467-1a295fd1801e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 梧州市 龙圩区 梧州市龙圩镇龙城西路1号8幢303号房",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "梧州市",
+        "区": "龙圩区",
+        "最靠近商圈": "龙城路",
+        "建筑面积": 122.04,
+        "单价": 2192.86,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "563731207213",
+        "url": "https://sf-item.taobao.com/sf_item/563731207213.htm?track_id=02f3e140-b528-49f2-9f0e-8f7f41926300",
+        "end": 1516414690000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562978721539",
+        "url": "https://sf-item.taobao.com/sf_item/562978721539.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1516413843000,
+        "status": "done",
+        "is_processed": false
     }
 ]

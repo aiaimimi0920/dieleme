@@ -1119,5 +1119,103 @@
         "单价": 10404.43,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 561575840824,
+        "市场评估价": null,
+        "起拍价格": 825643,
+        "成交价格": 825643,
+        "交易时间": "2017-12-23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561575840824.htm?track_id=ca7aebc9-fc6a-4546-9662-3ddd74de7f33",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "黑龙江省 鸡西市 虎林市 虎林市虎林镇佳信小区",
+        "所属小区": "佳信小区",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "虎林市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 562577663467,
+        "市场评估价": null,
+        "起拍价格": 472500,
+        "成交价格": 552500,
+        "交易时间": "2017-12-23T10:25:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562577663467.htm?track_id=e828063e-6f45-4840-b5b3-289c4a605c32",
+        "是否成交": true,
+        "竞拍人数": 17,
+        "出价人数": 17,
+        "地点": "天津市 东丽区 空港经济区中心大道与东五道交口东北侧颐景公寓7-1-410号房屋",
+        "所属小区": "颐景公寓",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "空港经济区",
+        "建筑面积": 70.01,
+        "单价": 7892.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "561702957339",
+        "url": "https://sf-item.taobao.com/sf_item/561702957339.htm?track_id=2e4f8837-a2a5-490e-b8bf-2deb3e302d28",
+        "end": 1513995445000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": 561834282862,
+        "市场评估价": null,
+        "起拍价格": 1221120,
+        "成交价格": 1677120,
+        "交易时间": "2017-12-23 11:06:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561834282862.htm?track_id=70879970-c3ee-45e7-ab92-894ade9216c5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 144,
+        "地点": "山东省 青岛市 黄岛区 滨海大道路1288号1栋1单元3311室",
+        "所属小区": "滨海大道1288号",
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "滨海大道商圈",
+        "建筑面积": 147.78,
+        "单价": 11348.48,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "561670069278",
+        "url": "https://sf-item.taobao.com/sf_item/561670069278.htm?track_id=1de1c79e-ea3e-4158-983f-e5699323e89c",
+        "end": 1513994887000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561577540637",
+        "url": "https://sf-item.taobao.com/sf_item/561577540637.htm?track_id=1de1c79e-ea3e-4158-983f-e5699323e89c",
+        "end": 1513995095000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "561569728727",
+        "url": "https://sf-item.taobao.com/sf_item/561569728727.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1513994400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560161048291",
+        "url": "https://sf-item.taobao.com/sf_item/560161048291.htm?track_id=221bf921-92f2-4ebc-b6fc-d8f9be5d3375",
+        "end": 1514031709000,
+        "status": "done",
+        "is_processed": false
     }
 ]

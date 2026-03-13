@@ -1329,5 +1329,40 @@
         "单价": 3154.89,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 558374928062,
+        "市场评估价": null,
+        "起拍价格": 622672,
+        "成交价格": 720172,
+        "交易时间": "2017-10-14 10:19:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558374928062.htm?track_id=7a9d51c7-d128-41ef-9fa6-f5e1fb6d2759",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": 16,
+        "地点": "河南省 许昌市 禹州市 禹州市华夏大道东段路南（公职员B区9号楼）1单元4层住宅房地产",
+        "所属小区": "公职员B区",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "华夏大道商圈",
+        "建筑面积": 167.35,
+        "单价": 4303.6,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "558029692709",
+        "url": "https://sf-item.taobao.com/sf_item/558029692709.htm?track_id=f640d2ba-dacc-453f-a102-f491a7ac41f1",
+        "end": 1507947405000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558483949922",
+        "url": "https://sf-item.taobao.com/sf_item/558483949922.htm?track_id=c5fe033e-1c10-4016-a74f-c0c5570b233f",
+        "end": 1507947540000,
+        "status": "done",
+        "is_processed": false
     }
 ]

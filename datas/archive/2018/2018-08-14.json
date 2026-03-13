@@ -2821,5 +2821,131 @@
         "单价": 12407.52,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 574142469785,
+        "市场评估价": 870000,
+        "起拍价格": 696000,
+        "成交价格": 696000,
+        "交易时间": "2018/08/14 11:21:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574142469785.htm?track_id=79dc2805-9e0b-4d65-be06-4948e2cfae71",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "天津市东丽区蓝庭轩6号楼-1-615号",
+        "所属小区": "蓝庭轩",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "空港经济区",
+        "建筑面积": 51.93,
+        "单价": 13404.9,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 573672995614,
+        "市场评估价": 360349,
+        "起拍价格": 360349,
+        "成交价格": 360349,
+        "交易时间": "2018/08/14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/573672995614.htm?track_id=a8be1e38-fc20-4f06-8b16-81840098456f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "河南省洛阳市汝阳县凤山路",
+        "所属小区": "左岸贵都",
+        "省份": "河南省",
+        "城市": "洛阳市",
+        "区": "汝阳县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 574277279473,
+        "市场评估价": null,
+        "起拍价格": 1180000,
+        "成交价格": 1565000,
+        "交易时间": "2018-08-14 11:06:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574277279473.htm?track_id=76b18245-a4a9-45a2-b72d-7d6036192a93",
+        "是否成交": true,
+        "竞拍人数": 54,
+        "出价人数": 78,
+        "地点": "广东省 肇庆市 怀集县 怀城镇解放北路莲花庄怀集碧桂园芳邻六街10号房屋",
+        "所属小区": "怀集碧桂园芳邻",
+        "省份": "广东省",
+        "城市": "肇庆市",
+        "区": "怀集县",
+        "最靠近商圈": "怀集城东商圈",
+        "建筑面积": 260.42,
+        "单价": 6009.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "573365648481",
+        "url": "https://sf-item.taobao.com/sf_item/573365648481.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1534213164000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573383888139",
+        "url": "https://sf-item.taobao.com/sf_item/573383888139.htm?track_id=b38c3788-9664-4c59-abf2-a8e2c9a21926",
+        "end": 1534218581000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573536649575",
+        "url": "https://sf-item.taobao.com/sf_item/573536649575.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1534214112000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573609090747",
+        "url": "https://sf-item.taobao.com/sf_item/573609090747.htm?track_id=e86c2fb3-2358-433a-97e5-a8af55fae3ba",
+        "end": 1534213107000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573636918060",
+        "url": "https://sf-item.taobao.com/sf_item/573636918060.htm?track_id=5bdb3ece-bea2-4367-a143-eeb0d06ddbbd",
+        "end": 1534214581000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573366092223",
+        "url": "https://sf-item.taobao.com/sf_item/573366092223.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1534212579000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573382476406",
+        "url": "https://sf-item.taobao.com/sf_item/573382476406.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1534214591000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573383444298",
+        "url": "https://sf-item.taobao.com/sf_item/573383444298.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1534213301000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573513107996",
+        "url": "https://sf-item.taobao.com/sf_item/573513107996.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1534215120000,
+        "status": "done",
+        "is_processed": false
     }
 ]

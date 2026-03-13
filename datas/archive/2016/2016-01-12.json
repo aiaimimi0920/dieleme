@@ -442,5 +442,33 @@
         "单价": 17264.07,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 525271203422,
+        "市场评估价": 0,
+        "起拍价格": 450000,
+        "成交价格": 450000,
+        "交易时间": "2016/01/12 10:00:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525271203422.htm?track_id=1d9ed0e5-eada-4f04-9a1d-60bfade8d355",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "河南省许昌市禹州市颍川办劳动路东段路北公职员A区13号楼五单元四层东户",
+        "所属小区": "公职员A区",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "劳动路商圈",
+        "建筑面积": 145.15,
+        "单价": 3100.24,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "525568309159",
+        "url": "https://sf-item.taobao.com/sf_item/525568309159.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1452564241000,
+        "status": "done",
+        "is_processed": false
     }
 ]

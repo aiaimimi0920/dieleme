@@ -320,5 +320,33 @@
         "单价": 2845.78,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 605864001209,
+        "市场评估价": null,
+        "起拍价格": 810000,
+        "成交价格": 990000,
+        "交易时间": "2019-11-04T10:37:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605864001209.htm?track_id=9b91cae5-87be-45ef-b843-2647b0f40b10",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 70,
+        "地点": "福建省 宁德市 福安市 福安城区棠兴路422号瑞景名仕城11幢9层804号",
+        "所属小区": "瑞景名仕城",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "福安城区",
+        "建筑面积": 163.66,
+        "单价": 6046.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "606097906264",
+        "url": "https://sf-item.taobao.com/sf_item/606097906264.htm?track_id=edf0094e-3ded-47af-9337-3fd42694247a",
+        "end": 1572833843000,
+        "status": "done",
+        "is_processed": false
     }
 ]

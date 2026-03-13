@@ -1114,5 +1114,68 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 559397370325,
+        "市场评估价": null,
+        "起拍价格": 455850,
+        "成交价格": 455850,
+        "交易时间": "2017/11/17 10:02:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559397370325.htm?track_id=1d9ed0e5-eada-4f04-9a1d-60bfade8d355",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 许昌市 禹州市 韩城办远航路中段南侧易居米兰春天12幢",
+        "所属小区": "易居米兰春天",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": null,
+        "建筑面积": 167.15,
+        "单价": 2727.25,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 559414534262,
+        "市场评估价": 6200000,
+        "起拍价格": 6200000,
+        "成交价格": 4160000,
+        "交易时间": "2017/11/17 11:40:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559414534262.htm?track_id=05a1488b-df67-44d4-b7f8-84a92950ca9d",
+        "是否成交": true,
+        "竞拍人数": 56,
+        "出价人数": 57,
+        "地点": "广东省深圳市盐田区沙头角海景路西段东埔海景花园8栋6D",
+        "所属小区": "东埔海景花园",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "沙头角",
+        "建筑面积": 94.06,
+        "单价": 44226.45,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "560104453978",
+        "url": "https://sf-item.taobao.com/sf_item/560104453978.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1510885263000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560187179337",
+        "url": "https://sf-item.taobao.com/sf_item/560187179337.htm?track_id=c675ba72-5ca4-4fb3-9f6d-61217ccfad4b",
+        "end": 1510885578000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560856586286",
+        "url": "https://sf-item.taobao.com/sf_item/560856586286.htm?track_id=f892f3cf-32ac-4027-8c20-73105e0b1472",
+        "end": 1510884000000,
+        "status": "done",
+        "is_processed": false
     }
 ]

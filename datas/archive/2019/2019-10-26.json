@@ -1289,5 +1289,40 @@
         "单价": 3330.57,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 605083913433,
+        "市场评估价": null,
+        "起拍价格": 560000,
+        "成交价格": 712000,
+        "交易时间": "2019/10/26 10:36:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605083913433.htm?track_id=6b11f1bf-d5f6-4d7d-95a5-1c121faf908b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广西壮族自治区玉林市玉州区人民东路体育中心北侧奥园康城花园8栋C单元503号房",
+        "所属小区": "奥园康城花园",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "体育中心板块",
+        "建筑面积": 172.26,
+        "单价": 4132.76,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "604212967545",
+        "url": "https://sf-item.taobao.com/sf_item/604212967545.htm?track_id=f892f3cf-32ac-4027-8c20-73105e0b1472",
+        "end": 1572055202000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605560231217",
+        "url": "https://sf-item.taobao.com/sf_item/605560231217.htm?track_id=c6cf3881-0779-4493-a55a-73882efce6fd",
+        "end": 1572055739000,
+        "status": "done",
+        "is_processed": false
     }
 ]

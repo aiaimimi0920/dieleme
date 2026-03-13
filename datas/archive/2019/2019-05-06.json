@@ -2985,5 +2985,124 @@
         "单价": 36740.1,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 590118821289,
+        "市场评估价": 455000,
+        "起拍价格": 380000,
+        "成交价格": 446000,
+        "交易时间": "2019/05/06 10:25:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/590118821289.htm?track_id=38f94912-b1ec-404e-9e1f-2666af2f01c0",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": 21,
+        "地点": "湖南省 湘潭市 湘潭县 易俗河镇龙江路碧龙江畔5栋050101号",
+        "所属小区": "碧龙江畔",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "湘潭县",
+        "最靠近商圈": "易俗河商圈",
+        "建筑面积": 89.5,
+        "单价": 4983.24,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 590986179181,
+        "市场评估价": 2090000,
+        "起拍价格": 1672000,
+        "成交价格": 2072000,
+        "交易时间": "2019-05-06 10:18:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/590986179181.htm?track_id=fedb1c12-59ff-43bb-8d24-225b7a3c1df7",
+        "是否成交": true,
+        "竞拍人数": 36,
+        "出价人数": 21,
+        "地点": "福建省 福州市 福清市 宏路街道石门村",
+        "所属小区": "中联.江滨御景",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "宏路",
+        "建筑面积": 136.12,
+        "单价": 15230.19,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 590597136055,
+        "市场评估价": 653100,
+        "起拍价格": 522500,
+        "成交价格": 567500,
+        "交易时间": "2019/05/06 10:17:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/590597136055.htm?track_id=b182b173-f6ce-46ae-9b46-3eaf49a1962a",
+        "是否成交": true,
+        "竞拍人数": 10,
+        "出价人数": 10,
+        "地点": "河南省 许昌市 鄢陵县 翠柳路水岸映像",
+        "所属小区": "水岸映像",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "590430231616",
+        "url": "https://sf-item.taobao.com/sf_item/590430231616.htm?track_id=76b18245-a4a9-45a2-b72d-7d6036192a93",
+        "end": 1557109308000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592027037318",
+        "url": "https://sf-item.taobao.com/sf_item/592027037318.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1557112895000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "591810320752",
+        "url": "https://sf-item.taobao.com/sf_item/591810320752.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1557108429000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "591810952417",
+        "url": "https://sf-item.taobao.com/sf_item/591810952417.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1557110109000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592028553017",
+        "url": "https://sf-item.taobao.com/sf_item/592028553017.htm?track_id=c5fe033e-1c10-4016-a74f-c0c5570b233f",
+        "end": 1557111603000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592034401823",
+        "url": "https://sf-item.taobao.com/sf_item/592034401823.htm?track_id=ce679841-39b9-4da8-b6a4-8ab34a8d2789",
+        "end": 1557109037000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592188890946",
+        "url": "https://sf-item.taobao.com/sf_item/592188890946.htm?track_id=ce679841-39b9-4da8-b6a4-8ab34a8d2789",
+        "end": 1557109001000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "592361103109",
+        "url": "https://sf-item.taobao.com/sf_item/592361103109.htm?track_id=ce679841-39b9-4da8-b6a4-8ab34a8d2789",
+        "end": 1557108486000,
+        "status": "done",
+        "is_processed": false
     }
 ]

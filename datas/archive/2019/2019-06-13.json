@@ -1123,5 +1123,47 @@
         "单价": 9266.5,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 595738739250,
+        "市场评估价": null,
+        "起拍价格": 320000,
+        "成交价格": 320000,
+        "交易时间": "2019/06/13 10:31:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595738739250.htm?track_id=a961ca93-0cd4-45aa-a924-0cf1a194c4b1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 许昌市 禹州市 钧台办东政巷80号",
+        "所属小区": "钧台办东政巷80号",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": null,
+        "建筑面积": 129.7,
+        "单价": 2467.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "595548658899",
+        "url": "https://sf-item.taobao.com/sf_item/595548658899.htm?track_id=671fb627-9cbf-4c21-8704-7010cc79e63c",
+        "end": 1560394678000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595548062555",
+        "url": "https://sf-item.taobao.com/sf_item/595548062555.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1560409783000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593703480518",
+        "url": "https://sf-item.taobao.com/sf_item/593703480518.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1560398096000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -1179,5 +1179,33 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 622313095208,
+        "市场评估价": 0,
+        "起拍价格": 3380795,
+        "成交价格": 5510795,
+        "交易时间": "2020/07/30 11:02:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622313095208.htm?track_id=71c47fa7-9c0e-4f7f-9216-afa242845d8e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 99,
+        "地点": "北京 北京市 西城区 复兴门外大街29号楼5层512",
+        "所属小区": null,
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "金融街",
+        "建筑面积": 38.3,
+        "单价": 143895.55,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "622043014180",
+        "url": "https://sf-item.taobao.com/sf_item/622043014180.htm?track_id=bbcebf4c-5ec0-435e-afec-d32f10840871",
+        "end": 1596074400000,
+        "status": "done",
+        "is_processed": false
     }
 ]

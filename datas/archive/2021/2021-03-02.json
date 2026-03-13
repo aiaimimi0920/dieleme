@@ -2643,5 +2643,82 @@
         "单价": 16020.23,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 637851899022,
+        "市场评估价": 1850000,
+        "起拍价格": 1480000,
+        "成交价格": 1705000,
+        "交易时间": "2021-03-02 10:24:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637851899022.htm?track_id=86207ab3-3c8c-4cfb-9691-9a69be92065c",
+        "是否成交": true,
+        "竞拍人数": 46,
+        "出价人数": 46,
+        "地点": "福建省 福州市 福清市 宏路街道上郑金辉华府16号楼1501单元房屋及金辉华府（一期）地下室0614车位",
+        "所属小区": "金辉华府",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "宏路商圈",
+        "建筑面积": 147.24,
+        "单价": 11579.99,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 636885714827,
+        "市场评估价": null,
+        "起拍价格": 1190000,
+        "成交价格": 1495000,
+        "交易时间": "2021/03/02 10:32:52",
+        "原始网站": "https://sf-item.taobao.com/sf_item/636885714827.htm?track_id=0c0439d3-7dcd-43e6-96af-87fde9d774e6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 57,
+        "地点": "天津市东丽区秀悦园2-2-802",
+        "所属小区": "秀悦园",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "东丽开发区",
+        "建筑面积": 93.07,
+        "单价": 16061.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "637884583711",
+        "url": "https://sf-item.taobao.com/sf_item/637884583711.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1614652407000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636971080932",
+        "url": "https://sf-item.taobao.com/sf_item/636971080932.htm?track_id=e86c2fb3-2358-433a-97e5-a8af55fae3ba",
+        "end": 1614651065000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637553650441",
+        "url": "https://sf-item.taobao.com/sf_item/637553650441.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1614654641000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638047419225",
+        "url": "https://sf-item.taobao.com/sf_item/638047419225.htm?track_id=2ba4606a-7e86-480b-875e-e6ea7a267827",
+        "end": 1614653139000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637046604709",
+        "url": "https://sf-item.taobao.com/sf_item/637046604709.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1614650928000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -316,5 +316,40 @@
         "单价": 15206.16,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 539997109720,
+        "市场评估价": null,
+        "起拍价格": 417865,
+        "成交价格": 417865,
+        "交易时间": "2016/10/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539997109720.htm?track_id=ba28d8e3-cfd4-411d-8bf3-72c28227171b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "黑龙江省鸡西市鸡冠区园林B一单元4层401室",
+        "所属小区": "园林B",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "鸡冠区",
+        "最靠近商圈": "园林路商圈",
+        "建筑面积": 151.62,
+        "单价": 2754.83,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "539739020957",
+        "url": "https://sf-item.taobao.com/sf_item/539739020957.htm?track_id=0854805c-e1e7-462f-94cb-395690db362d",
+        "end": 1477362280000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "539731650945",
+        "url": "https://sf-item.taobao.com/sf_item/539731650945.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1477361257000,
+        "status": "done",
+        "is_processed": false
     }
 ]

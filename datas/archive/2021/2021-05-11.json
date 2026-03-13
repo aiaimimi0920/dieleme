@@ -2636,5 +2636,103 @@
         "单价": 2376.07,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 641362264891,
+        "市场评估价": null,
+        "起拍价格": 984200,
+        "成交价格": 1049200,
+        "交易时间": "2021-05-11 10:25:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641362264891.htm?track_id=3d700cfd-35f7-4007-aaa5-5800010e9513",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 13,
+        "地点": "天津市东丽区华明家园岭泽里7-2-402号",
+        "所属小区": "华明家园",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "华明",
+        "建筑面积": 144.06,
+        "单价": 7281.89,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 641758405377,
+        "市场评估价": null,
+        "起拍价格": 626960,
+        "成交价格": 626960,
+        "交易时间": "2021/05/11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641758405377.htm?track_id=c89d9d41-aca0-4c3c-9d56-917e24ba1eb8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 许昌市 禹州市 颍川办兴盛街西段南侧",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": null,
+        "建筑面积": 326.64,
+        "单价": 1918.9,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "643164766247",
+        "url": "https://sf-item.taobao.com/sf_item/643164766247.htm?track_id=671fb627-9cbf-4c21-8704-7010cc79e63c",
+        "end": 1620699033000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642435888686",
+        "url": "https://sf-item.taobao.com/sf_item/642435888686.htm?track_id=7398cc8f-67f4-4cf0-ab9f-ff77efb44d5b",
+        "end": 1620699834000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642815205077",
+        "url": "https://sf-item.taobao.com/sf_item/642815205077.htm?track_id=569da56e-9783-444e-9e87-0bf3f46845ae",
+        "end": 1620698835000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642434304417",
+        "url": "https://sf-item.taobao.com/sf_item/642434304417.htm?track_id=569da56e-9783-444e-9e87-0bf3f46845ae",
+        "end": 1620700178000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642219946980",
+        "url": "https://sf-item.taobao.com/sf_item/642219946980.htm?track_id=70afca07-b60e-4b1f-b59b-048e5ebc630c",
+        "end": 1620701808000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641743569487",
+        "url": "https://sf-item.taobao.com/sf_item/641743569487.htm?track_id=c5fe033e-1c10-4016-a74f-c0c5570b233f",
+        "end": 1620707330000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641798669019",
+        "url": "https://sf-item.taobao.com/sf_item/641798669019.htm?track_id=edf0094e-3ded-47af-9337-3fd42694247a",
+        "end": 1620699213000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "641481148705",
+        "url": "https://sf-item.taobao.com/sf_item/641481148705.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1620702424000,
+        "status": "done",
+        "is_processed": false
     }
 ]

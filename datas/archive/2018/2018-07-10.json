@@ -2436,5 +2436,82 @@
         "单价": 17041.2,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 571921214255,
+        "市场评估价": null,
+        "起拍价格": 265344,
+        "成交价格": 265344,
+        "交易时间": "2018-07-10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571921214255.htm?track_id=31bc9bf9-ed15-4df4-961f-0cd8e6355901",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 福州市 福清市 福清市融城镇官塘乾成龙花园4号楼2层233店面",
+        "所属小区": "乾成龙花园",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "融城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "571117523224",
+        "url": "https://sf-item.taobao.com/sf_item/571117523224.htm?track_id=76b18245-a4a9-45a2-b72d-7d6036192a93",
+        "end": 1531188895000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571226745020",
+        "url": "https://sf-item.taobao.com/sf_item/571226745020.htm?track_id=bbcebf4c-5ec0-435e-afec-d32f10840871",
+        "end": 1531188000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571255614707",
+        "url": "https://sf-item.taobao.com/sf_item/571255614707.htm?track_id=2e4f8837-a2a5-490e-b8bf-2deb3e302d28",
+        "end": 1531189912000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570871629019",
+        "url": "https://sf-item.taobao.com/sf_item/570871629019.htm?track_id=1cfcb80d-b814-4531-90ca-8524fc57af47",
+        "end": 1531189068000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571317143049",
+        "url": "https://sf-item.taobao.com/sf_item/571317143049.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1531188000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571119749168",
+        "url": "https://sf-item.taobao.com/sf_item/571119749168.htm?track_id=c675ba72-5ca4-4fb3-9f6d-61217ccfad4b",
+        "end": 1531193060000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570993088048",
+        "url": "https://sf-item.taobao.com/sf_item/570993088048.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1531190094000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572215547003",
+        "url": "https://sf-item.taobao.com/sf_item/572215547003.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1531188546000,
+        "status": "done",
+        "is_processed": false
     }
 ]

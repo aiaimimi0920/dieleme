@@ -1038,5 +1038,82 @@
         "单价": 4278.61,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 545246774020,
+        "市场评估价": null,
+        "起拍价格": 6000000,
+        "成交价格": 11120000,
+        "交易时间": "2017/03/21 11:03:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545246774020.htm?track_id=6ceb8279-329b-4586-8a35-09a0dd614066",
+        "是否成交": true,
+        "竞拍人数": 204,
+        "出价人数": null,
+        "地点": "北京市西城区莲花河胡同2号院1号楼14层1单元1402号房屋",
+        "所属小区": "莲花河胡同2号院",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "西城区",
+        "最靠近商圈": "金融街",
+        "建筑面积": 103.1,
+        "单价": 107839.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 545195339112,
+        "市场评估价": 0,
+        "起拍价格": 1261040,
+        "成交价格": 1841040,
+        "交易时间": "2017/03/21 11:30:36",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545195339112.htm?track_id=2421957e-f6c9-4b2b-8a1a-6bfdf3ec0990",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 59,
+        "地点": "青岛市黄岛区五台山路840号",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": null,
+        "建筑面积": 220.43,
+        "单价": 8352.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "545133016080",
+        "url": "https://sf-item.taobao.com/sf_item/545133016080.htm?track_id=02f3e140-b528-49f2-9f0e-8f7f41926300",
+        "end": 1490063305000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "545195583119",
+        "url": "https://sf-item.taobao.com/sf_item/545195583119.htm?track_id=1cfcb80d-b814-4531-90ca-8524fc57af47",
+        "end": 1490066043000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "545165605488",
+        "url": "https://sf-item.taobao.com/sf_item/545165605488.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1490063360000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "546003135421",
+        "url": "https://sf-item.taobao.com/sf_item/546003135421.htm?track_id=8e74a30b-ddb8-4c16-be92-5c43279efed6",
+        "end": 1490062661000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "545968829475",
+        "url": "https://sf-item.taobao.com/sf_item/545968829475.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1490062223000,
+        "status": "done",
+        "is_processed": false
     }
 ]

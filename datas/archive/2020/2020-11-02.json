@@ -2341,5 +2341,75 @@
         "单价": 3985.38,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 628748118981,
+        "市场评估价": 2352998,
+        "起拍价格": 1650000,
+        "成交价格": 1906000,
+        "交易时间": "2020/11/02 10:51:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/628748118981.htm?track_id=9456b9b2-9a68-46a6-b3c3-1d28b6eeda4f",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 27,
+        "地点": "江西省 抚州市 黎川县 东方红大道（建筑公司院内）",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "抚州市",
+        "区": "黎川县",
+        "最靠近商圈": "东方红大道",
+        "建筑面积": 392.69,
+        "单价": 4854.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 628959461395,
+        "市场评估价": 627045,
+        "起拍价格": 351146,
+        "成交价格": 373146,
+        "交易时间": "2020/11/02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/628959461395.htm?track_id=b182b173-f6ce-46ae-9b46-3eaf49a1962a",
+        "是否成交": true,
+        "竞拍人数": 8,
+        "出价人数": 8,
+        "地点": "河南省许昌市鄢陵县温泉桂花苑小区",
+        "所属小区": "温泉桂花苑",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": "鄢陵县中心",
+        "建筑面积": 120,
+        "单价": 3109.55,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "630071503680",
+        "url": "https://sf-item.taobao.com/sf_item/630071503680.htm?track_id=7398cc8f-67f4-4cf0-ab9f-ff77efb44d5b",
+        "end": 1604283980000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "629133468008",
+        "url": "https://sf-item.taobao.com/sf_item/629133468008.htm?track_id=7398cc8f-67f4-4cf0-ab9f-ff77efb44d5b",
+        "end": 1604283842000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "629135884262",
+        "url": "https://sf-item.taobao.com/sf_item/629135884262.htm?track_id=ab81058b-8ec4-4c63-a6cb-007849b4bdb6",
+        "end": 1604283216000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "629470473684",
+        "url": "https://sf-item.taobao.com/sf_item/629470473684.htm?track_id=dbdaa981-0120-4f16-a770-994046a44c2c",
+        "end": 1604283367000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -356,5 +356,47 @@
         "单价": 3577.27,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 531278040745,
+        "市场评估价": null,
+        "起拍价格": 765600,
+        "成交价格": 797600,
+        "交易时间": "2016-05-24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531278040745.htm?track_id=5312ecbd-5da7-4118-867c-e27ded1f142e",
+        "是否成交": true,
+        "竞拍人数": 12,
+        "出价人数": 4,
+        "地点": "福建省 宁德市 福安市",
+        "所属小区": "秦溪洋教师新村",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "秦溪洋",
+        "建筑面积": 212.3,
+        "单价": 3755.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "531318069000",
+        "url": "https://sf-item.taobao.com/sf_item/531318069000.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1464058525000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531267510987",
+        "url": "https://sf-item.taobao.com/sf_item/531267510987.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1464055640000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "531290405407",
+        "url": "https://sf-item.taobao.com/sf_item/531290405407.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1464055446000,
+        "status": "done",
+        "is_processed": false
     }
 ]

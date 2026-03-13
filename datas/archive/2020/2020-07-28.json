@@ -1516,5 +1516,96 @@
         "单价": 2538.59,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 622138412753,
+        "市场评估价": 756364,
+        "起拍价格": 560000,
+        "成交价格": 825000,
+        "交易时间": "2020/07/28 10:17:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622138412753.htm?track_id=93f368d6-7b68-4e80-8fa3-a4993523af16",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 51,
+        "地点": "广西壮族自治区 玉林市 玉州区 教育东路东南侧富林?金桂丽湾香樟园18幢2804号房",
+        "所属小区": "富林金桂丽湾香樟园",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "玉东新区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 622849999921,
+        "市场评估价": 768900,
+        "起拍价格": 553608,
+        "成交价格": 553608,
+        "交易时间": "2020-07-28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622849999921.htm?track_id=a8fb37f1-d270-44a4-9a1c-b484f8e30ed8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "河南省许昌市鄢陵县陈化店镇",
+        "所属小区": "建业生态新城",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": "陈化店",
+        "建筑面积": 0,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "622582741146",
+        "url": "https://sf-item.taobao.com/sf_item/622582741146.htm?track_id=76b18245-a4a9-45a2-b72d-7d6036192a93",
+        "end": 1595902336000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "621040736269",
+        "url": "https://sf-item.taobao.com/sf_item/621040736269.htm?track_id=8c2902b8-a44e-49bb-b458-ef6e7f17ba50",
+        "end": 1595904687000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620792481430",
+        "url": "https://sf-item.taobao.com/sf_item/620792481430.htm?track_id=c5d4b8af-48be-40ca-8d7c-17f089acf0f4",
+        "end": 1595902518000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620482660868",
+        "url": "https://sf-item.taobao.com/sf_item/620482660868.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1595904371000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "621530923413",
+        "url": "https://sf-item.taobao.com/sf_item/621530923413.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1595902755000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "621238061345",
+        "url": "https://sf-item.taobao.com/sf_item/621238061345.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1595906798000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "621521946602",
+        "url": "https://sf-item.taobao.com/sf_item/621521946602.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1595902654000,
+        "status": "done",
+        "is_processed": false
     }
 ]

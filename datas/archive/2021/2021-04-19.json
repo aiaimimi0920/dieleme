@@ -613,5 +613,33 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 639896596471,
+        "市场评估价": null,
+        "起拍价格": 410000,
+        "成交价格": 606000,
+        "交易时间": "2021/04/19 10:11:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/639896596471.htm?track_id=20bdb917-e78a-4cb6-b091-05db6ba5e76c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 85,
+        "地点": "福建省 宁德市 福安市 赛岐和平街上岐头60号望江花苑2幢11层D单元1102号房",
+        "所属小区": "望江花苑",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "赛岐",
+        "建筑面积": 98.2,
+        "单价": 6171.08,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "641255818958",
+        "url": "https://sf-item.taobao.com/sf_item/641255818958.htm?track_id=8d85ac88-a4a0-4bd1-bd58-e9f0057884bf",
+        "end": 1618799057000,
+        "status": "done",
+        "is_processed": false
     }
 ]

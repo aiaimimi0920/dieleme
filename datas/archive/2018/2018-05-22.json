@@ -1881,5 +1881,201 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 568954809957,
+        "市场评估价": null,
+        "起拍价格": 384000,
+        "成交价格": 478000,
+        "交易时间": "2018/05/22 10:39:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/568954809957.htm?track_id=ad54bc7e-87a4-48a5-b9e5-2ed7c5ee19f2",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广西壮族自治区 玉林市 玉州区 玉林市二环北路与民主北路交叉口东南侧嘉和国际城3幢1201房",
+        "所属小区": "嘉和国际城",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": null,
+        "建筑面积": 139.65,
+        "单价": 3423.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 567873120834,
+        "市场评估价": 1270000,
+        "起拍价格": 889000,
+        "成交价格": 889000,
+        "交易时间": "2018-05-22 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/567873120834.htm?track_id=83a37df6-370e-42b7-854a-d3c4349f1b33",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "天津市东丽区丽新里1-3-401",
+        "所属小区": "丽新里",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "金钟河大街商圈",
+        "建筑面积": 65.3,
+        "单价": 13607.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 568188474218,
+        "市场评估价": null,
+        "起拍价格": 1638000,
+        "成交价格": 2640140,
+        "交易时间": "2018/05/22 13:21:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/568188474218.htm?track_id=2e4f8837-a2a5-490e-b8bf-2deb3e302d28",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 325,
+        "地点": "山东省青岛市黄岛区青岛市开发区珠江路106号（凤凰城）6栋2单元901室",
+        "所属小区": "凤凰城",
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "唐岛湾",
+        "建筑面积": 118.31,
+        "单价": 22327.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "567732424999",
+        "url": "https://sf-item.taobao.com/sf_item/567732424999.htm?track_id=2e4f8837-a2a5-490e-b8bf-2deb3e302d28",
+        "end": 1526958109000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": 567856018342,
+        "市场评估价": 1584000,
+        "起拍价格": 1320000,
+        "成交价格": 1980000,
+        "交易时间": "2018/05/22 11:30:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/567856018342.htm?track_id=3520cd55-ea9f-4854-9fd1-099b9dc0447d",
+        "是否成交": true,
+        "竞拍人数": 70,
+        "出价人数": 70,
+        "地点": "山东省 青岛市 黄岛区 青岛市黄岛区天目山路369号楼1单元102室房产",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "长江路商圈",
+        "建筑面积": 129.98,
+        "单价": 15232.5,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "568265543755",
+        "url": "https://sf-item.taobao.com/sf_item/568265543755.htm?track_id=f3673a4a-b762-4b5e-95f2-b9c1040f8c03",
+        "end": 1526954400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567838805135",
+        "url": "https://sf-item.taobao.com/sf_item/567838805135.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1526962254000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568087806938",
+        "url": "https://sf-item.taobao.com/sf_item/568087806938.htm?track_id=7a807e00-fdf4-4ee6-84d9-b303b24f393d",
+        "end": 1526957390000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567896100141",
+        "url": "https://sf-item.taobao.com/sf_item/567896100141.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1526954882000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567877344127",
+        "url": "https://sf-item.taobao.com/sf_item/567877344127.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1526958397000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568187459751",
+        "url": "https://sf-item.taobao.com/sf_item/568187459751.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1526955077000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568104258541",
+        "url": "https://sf-item.taobao.com/sf_item/568104258541.htm?track_id=ab81058b-8ec4-4c63-a6cb-007849b4bdb6",
+        "end": 1526954979000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568280779960",
+        "url": "https://sf-item.taobao.com/sf_item/568280779960.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1526954444000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567891444174",
+        "url": "https://sf-item.taobao.com/sf_item/567891444174.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1526955691000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567879340282",
+        "url": "https://sf-item.taobao.com/sf_item/567879340282.htm?track_id=8e74a30b-ddb8-4c16-be92-5c43279efed6",
+        "end": 1526956434000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568175155294",
+        "url": "https://sf-item.taobao.com/sf_item/568175155294.htm?track_id=8e74a30b-ddb8-4c16-be92-5c43279efed6",
+        "end": 1526955284000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568174747516",
+        "url": "https://sf-item.taobao.com/sf_item/568174747516.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1526958834000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "568007875496",
+        "url": "https://sf-item.taobao.com/sf_item/568007875496.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1526956806000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567870108132",
+        "url": "https://sf-item.taobao.com/sf_item/567870108132.htm?track_id=edf0094e-3ded-47af-9337-3fd42694247a",
+        "end": 1526955045000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "567891264801",
+        "url": "https://sf-item.taobao.com/sf_item/567891264801.htm?track_id=2ba4606a-7e86-480b-875e-e6ea7a267827",
+        "end": 1526956920000,
+        "status": "done",
+        "is_processed": false
     }
 ]

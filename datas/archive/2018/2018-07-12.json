@@ -800,5 +800,40 @@
         "单价": 5600.02,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 571227638549,
+        "市场评估价": null,
+        "起拍价格": 35090000,
+        "成交价格": 46140000,
+        "交易时间": "2018-07-12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571227638549.htm?track_id=353620a7-60c8-4499-8e4b-e64ce878d6e2",
+        "是否成交": true,
+        "竞拍人数": 217,
+        "出价人数": 222,
+        "地点": "福建省 福州市 福清市 福清市音西街道西云村福清兴融娱乐有限公司兴融娱乐城整座",
+        "所属小区": "兴融娱乐城",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "音西商圈",
+        "建筑面积": 8982.33,
+        "单价": 5132.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "572269351908",
+        "url": "https://sf-item.taobao.com/sf_item/572269351908.htm?track_id=345e163d-01bf-4d38-9e6a-82c54d3a6d29",
+        "end": 1531360800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571318751142",
+        "url": "https://sf-item.taobao.com/sf_item/571318751142.htm?track_id=2ba4606a-7e86-480b-875e-e6ea7a267827",
+        "end": 1531364800000,
+        "status": "done",
+        "is_processed": false
     }
 ]

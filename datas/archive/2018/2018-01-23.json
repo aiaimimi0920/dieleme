@@ -2145,5 +2145,75 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 563811883835,
+        "市场评估价": null,
+        "起拍价格": 449280,
+        "成交价格": 449280,
+        "交易时间": "2018-01-23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563811883835.htm?track_id=3896a102-e7a8-4d3f-a376-da8fa579f0a8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省宁德市福安市城南街道金山商贸大厦B幢7层501室以及3层杂物间",
+        "所属小区": "金山商贸大厦",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城南商圈",
+        "建筑面积": 135.28,
+        "单价": 3321.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 563076491414,
+        "市场评估价": 787840,
+        "起拍价格": 707840,
+        "成交价格": 1367840,
+        "交易时间": "2018-01-23 10:25:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563076491414.htm?track_id=2421957e-f6c9-4b2b-8a1a-6bfdf3ec0990",
+        "是否成交": true,
+        "竞拍人数": 58,
+        "出价人数": 38,
+        "地点": "山东省 青岛市 黄岛区 太行山路387号",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": null,
+        "建筑面积": 146.3,
+        "单价": 9352.7,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "563821099369",
+        "url": "https://sf-item.taobao.com/sf_item/563821099369.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1516680235000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562983021858",
+        "url": "https://sf-item.taobao.com/sf_item/562983021858.htm?track_id=c33d4d15-780d-4500-b888-c4ef19f538a0",
+        "end": 1516675420000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562873160475",
+        "url": "https://sf-item.taobao.com/sf_item/562873160475.htm?track_id=2ba4606a-7e86-480b-875e-e6ea7a267827",
+        "end": 1516674418000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563073335686",
+        "url": "https://sf-item.taobao.com/sf_item/563073335686.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1516674363000,
+        "status": "done",
+        "is_processed": false
     }
 ]

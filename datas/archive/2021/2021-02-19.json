@@ -1930,5 +1930,180 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 637283869655,
+        "市场评估价": null,
+        "起拍价格": 783000,
+        "成交价格": 783000,
+        "交易时间": "2021/02/19 10:03:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637283869655.htm?track_id=f5641ff4-e31b-4100-b2b7-61a7c76adb64",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "天津市东丽区 维尔蓝堤花园5-3-302",
+        "所属小区": "维尔蓝堤花园",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": null,
+        "建筑面积": 129.66,
+        "单价": 6038.65,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 637386805032,
+        "市场评估价": null,
+        "起拍价格": 3340288,
+        "成交价格": 3340288,
+        "交易时间": "2021/02/19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637386805032.htm?track_id=aef1f8bb-427d-4719-8e74-3ec2dd472364",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "广东省 肇庆市 怀集县 怀城镇工业大道明珠花园",
+        "所属小区": "明珠花园",
+        "省份": "广东省",
+        "城市": "肇庆市",
+        "区": "怀集县",
+        "最靠近商圈": "怀城工业区",
+        "建筑面积": 954.37,
+        "单价": 3498.11,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 637716262590,
+        "市场评估价": null,
+        "起拍价格": 3360560,
+        "成交价格": 3360560,
+        "交易时间": "2021-02-19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637716262590.htm?track_id=aef1f8bb-427d-4719-8e74-3ec2dd472364",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省 肇庆市 怀集县 怀城镇工业大道明珠花园",
+        "所属小区": "明珠花园",
+        "省份": "广东省",
+        "城市": "肇庆市",
+        "区": "怀集县",
+        "最靠近商圈": "怀城",
+        "建筑面积": 959.36,
+        "单价": 3502.33,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "636355397005",
+        "url": "https://sf-item.taobao.com/sf_item/636355397005.htm?track_id=ce2e63f0-8b37-4998-a8c7-ce9ff00dfedb",
+        "end": 1613702130000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636495041054",
+        "url": "https://sf-item.taobao.com/sf_item/636495041054.htm?track_id=7e4b5ad1-d262-45aa-86a6-8d7e0ced257e",
+        "end": 1613701656000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636822066879",
+        "url": "https://sf-item.taobao.com/sf_item/636822066879.htm?track_id=7e4b5ad1-d262-45aa-86a6-8d7e0ced257e",
+        "end": 1613701087000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637148567638",
+        "url": "https://sf-item.taobao.com/sf_item/637148567638.htm?track_id=7e4b5ad1-d262-45aa-86a6-8d7e0ced257e",
+        "end": 1613700438000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636038929139",
+        "url": "https://sf-item.taobao.com/sf_item/636038929139.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1613701987000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636380174769",
+        "url": "https://sf-item.taobao.com/sf_item/636380174769.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1613704716000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636758091463",
+        "url": "https://sf-item.taobao.com/sf_item/636758091463.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1613700430000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637566794811",
+        "url": "https://sf-item.taobao.com/sf_item/637566794811.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1613704183000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637237217224",
+        "url": "https://sf-item.taobao.com/sf_item/637237217224.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1613704270000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637897615106",
+        "url": "https://sf-item.taobao.com/sf_item/637897615106.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1613702104000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637567290317",
+        "url": "https://sf-item.taobao.com/sf_item/637567290317.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1613702974000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637897887959",
+        "url": "https://sf-item.taobao.com/sf_item/637897887959.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1613701314000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637237293521",
+        "url": "https://sf-item.taobao.com/sf_item/637237293521.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1613703246000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636694111630",
+        "url": "https://sf-item.taobao.com/sf_item/636694111630.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1613705304000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636108629939",
+        "url": "https://sf-item.taobao.com/sf_item/636108629939.htm?track_id=2ba4606a-7e86-480b-875e-e6ea7a267827",
+        "end": 1613702431000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636365314001",
+        "url": "https://sf-item.taobao.com/sf_item/636365314001.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1613704759000,
+        "status": "done",
+        "is_processed": false
     }
 ]

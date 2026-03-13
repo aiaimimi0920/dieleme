@@ -824,5 +824,33 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 573083313996,
+        "市场评估价": null,
+        "起拍价格": 989100,
+        "成交价格": 1097890,
+        "交易时间": "2018-08-09T10:16:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/573083313996.htm?track_id=8c724a3c-78f0-4b36-8c4a-4461e4ee20b3",
+        "是否成交": true,
+        "竞拍人数": 12,
+        "出价人数": 12,
+        "地点": "浙江省 丽水市 云和县 云和县凤凰山街道解放街320号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": null,
+        "建筑面积": 259.79,
+        "单价": 4228.6,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "573158514680",
+        "url": "https://sf-item.taobao.com/sf_item/573158514680.htm?track_id=c675ba72-5ca4-4fb3-9f6d-61217ccfad4b",
+        "end": 1533784126000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -1483,5 +1483,61 @@
         "单价": 1171.86,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 594420789494,
+        "市场评估价": null,
+        "起拍价格": 2190000,
+        "成交价格": 2190000,
+        "交易时间": "2019/06/04 10:02:59",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594420789494.htm?track_id=c475a14d-82ee-4c5b-befb-45f885074445",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "云南省 德宏傣族景颇族自治州 瑞丽市 人民路22号",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "德宏傣族景颇族自治州",
+        "区": "瑞丽市",
+        "最靠近商圈": null,
+        "建筑面积": 326.07,
+        "单价": 6716.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "593051549797",
+        "url": "https://sf-item.taobao.com/sf_item/593051549797.htm?track_id=7a807e00-fdf4-4ee6-84d9-b303b24f393d",
+        "end": 1559619629000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593152618983",
+        "url": "https://sf-item.taobao.com/sf_item/593152618983.htm?track_id=7398cc8f-67f4-4cf0-ab9f-ff77efb44d5b",
+        "end": 1559614397000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593883774931",
+        "url": "https://sf-item.taobao.com/sf_item/593883774931.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1559635170000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594290661527",
+        "url": "https://sf-item.taobao.com/sf_item/594290661527.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1559613600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "593053885215",
+        "url": "https://sf-item.taobao.com/sf_item/593053885215.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1559615339000,
+        "status": "done",
+        "is_processed": false
     }
 ]

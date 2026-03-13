@@ -550,5 +550,40 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 564794188653,
+        "市场评估价": null,
+        "起拍价格": 376640,
+        "成交价格": 337312,
+        "交易时间": "2018/03/03 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564794188653.htm?track_id=5e5bd875-050c-499b-823f-5b51de5f2ae5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 13,
+        "地点": "黑龙江省 鸡西市 鸡冠区 东风办熙雅寓D-8-4-1号房屋",
+        "所属小区": "熙雅寓",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "鸡冠区",
+        "最靠近商圈": "新玛特",
+        "建筑面积": 149.46,
+        "单价": 2258.53,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "564804434464",
+        "url": "https://sf-item.taobao.com/sf_item/564804434464.htm?track_id=02f3e140-b528-49f2-9f0e-8f7f41926300",
+        "end": 1520050833000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564734413767",
+        "url": "https://sf-item.taobao.com/sf_item/564734413767.htm?track_id=c5d4b8af-48be-40ca-8d7c-17f089acf0f4",
+        "end": 1520048366000,
+        "status": "done",
+        "is_processed": false
     }
 ]

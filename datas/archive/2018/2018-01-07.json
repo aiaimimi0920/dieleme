@@ -508,5 +508,61 @@
         "单价": 2220.22,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 562582295323,
+        "市场评估价": null,
+        "起拍价格": 456645,
+        "成交价格": 525645,
+        "交易时间": "2018-01-07 11:19:27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562582295323.htm?track_id=3ad239ed-e533-49af-8175-953b7ed08f8a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 70,
+        "地点": "福建省 福州市 福清市 宏路镇福隆购物中心4#1-302及302杂",
+        "所属小区": "福隆购物中心",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "宏路镇",
+        "建筑面积": 133.48,
+        "单价": 3938.01,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 562875710891,
+        "市场评估价": 1272000,
+        "起拍价格": 814080,
+        "成交价格": 814080,
+        "交易时间": "2018-01-07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562875710891.htm?track_id=61c9c5f0-7226-4dc0-ba39-78a125e4ed19",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 许昌市 鄢陵县 乾明寺路西段北侧",
+        "所属小区": "康桥半岛",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": "鄢陵县城",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "562925388322",
+        "url": "https://sf-item.taobao.com/sf_item/562925388322.htm?track_id=b9b5e17a-b04b-43a6-9e93-f5ad471394d1",
+        "end": 1515295707000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563028653138",
+        "url": "https://sf-item.taobao.com/sf_item/563028653138.htm?track_id=b9b5e17a-b04b-43a6-9e93-f5ad471394d1",
+        "end": 1515291900000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -1315,5 +1315,68 @@
         "单价": 5805.68,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 562544628165,
+        "市场评估价": 688846,
+        "起拍价格": 550000,
+        "成交价格": 595000,
+        "交易时间": "2018-01-17T10:10:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562544628165.htm?track_id=38f94912-b1ec-404e-9e1f-2666af2f01c0",
+        "是否成交": true,
+        "竞拍人数": 10,
+        "出价人数": 10,
+        "地点": "湖南省湘潭市湘潭县易俗河镇雪松北路江岸名城常青阁1栋",
+        "所属小区": "江岸名城",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "湘潭县",
+        "最靠近商圈": "易俗河",
+        "建筑面积": 177.1,
+        "单价": 3357.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 562697764602,
+        "市场评估价": null,
+        "起拍价格": 216114,
+        "成交价格": 216114,
+        "交易时间": "2018-01-17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562697764602.htm?track_id=43e5f82d-1627-437b-811a-895a5f3315bf",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "湖南省湘潭市湘潭县易俗河镇玉兰路35号",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "湘潭县",
+        "最靠近商圈": "易俗河商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "562542358460",
+        "url": "https://sf-item.taobao.com/sf_item/562542358460.htm?track_id=70afca07-b60e-4b1f-b59b-048e5ebc630c",
+        "end": 1516156459000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562083680922",
+        "url": "https://sf-item.taobao.com/sf_item/562083680922.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1516157370000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562541006693",
+        "url": "https://sf-item.taobao.com/sf_item/562541006693.htm?track_id=ae73874c-e939-427f-bb2b-54d0c32a04bf",
+        "end": 1516157222000,
+        "status": "done",
+        "is_processed": false
     }
 ]

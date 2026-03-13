@@ -1200,5 +1200,33 @@
         "单价": 1853.19,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 538301449138,
+        "市场评估价": null,
+        "起拍价格": 842000,
+        "成交价格": 1219400,
+        "交易时间": "2016/09/27 10:15:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/538301449138.htm?track_id=0c0439d3-7dcd-43e6-96af-87fde9d774e6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 51,
+        "地点": "天津市东丽区华明家园怀园8-1-401",
+        "所属小区": "华明家园怀园",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "华明镇",
+        "建筑面积": 149.1,
+        "单价": 8177.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "538252281848",
+        "url": "https://sf-item.taobao.com/sf_item/538252281848.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1474941993000,
+        "status": "done",
+        "is_processed": false
     }
 ]

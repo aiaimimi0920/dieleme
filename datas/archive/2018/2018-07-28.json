@@ -1095,5 +1095,33 @@
         "单价": 3182.93,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 573592799547,
+        "市场评估价": null,
+        "起拍价格": 485651.7,
+        "成交价格": 514451.7,
+        "交易时间": "2018-07-28T10:02:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/573592799547.htm?track_id=4338945c-5ce4-4949-8783-725645b066a4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 7,
+        "地点": "云南省 德宏傣族景颇族自治州 瑞丽市 姐岗南路166-19-2-502号",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "德宏傣族景颇族自治州",
+        "区": "瑞丽市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "573263265232",
+        "url": "https://sf-item.taobao.com/sf_item/573263265232.htm?track_id=99ca9073-bdda-48e3-bf8b-d8d30b61bd2e",
+        "end": 1532743840000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -1518,5 +1518,124 @@
         "单价": 10973.98,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 606465805872,
+        "市场评估价": null,
+        "起拍价格": 400000,
+        "成交价格": 400000,
+        "交易时间": "2019/11/29 10:03:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606465805872.htm?track_id=9d4c1acb-89de-4b42-b0ca-fb745b4f7f4f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 郴州市 宜章县 玉溪镇普化寺136-2-203房",
+        "所属小区": "湘粤学校家属房",
+        "省份": "湖南省",
+        "城市": "郴州市",
+        "区": "宜章县",
+        "最靠近商圈": "玉溪镇板块",
+        "建筑面积": 128.61,
+        "单价": 3108.62,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 606464106762,
+        "市场评估价": null,
+        "起拍价格": 504000,
+        "成交价格": 504000,
+        "交易时间": "2019-11-29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606464106762.htm?track_id=fa91a14d-3b39-4a2a-95a8-069906e46f45",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 郴州市 宜章县 城关镇府兴街119-109号",
+        "所属小区": "府兴街119-109号",
+        "省份": "湖南省",
+        "城市": "郴州市",
+        "区": "宜章县",
+        "最靠近商圈": "城关镇",
+        "建筑面积": 28.25,
+        "单价": 17865.17,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "607467417791",
+        "url": "https://sf-item.taobao.com/sf_item/607467417791.htm?track_id=70afca07-b60e-4b1f-b59b-048e5ebc630c",
+        "end": 1575001340000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607913511920",
+        "url": "https://sf-item.taobao.com/sf_item/607913511920.htm?track_id=70afca07-b60e-4b1f-b59b-048e5ebc630c",
+        "end": 1575004408000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607467181708",
+        "url": "https://sf-item.taobao.com/sf_item/607467181708.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1574997735000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607913575903",
+        "url": "https://sf-item.taobao.com/sf_item/607913575903.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1574997290000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607210020420",
+        "url": "https://sf-item.taobao.com/sf_item/607210020420.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1574997273000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607913851705",
+        "url": "https://sf-item.taobao.com/sf_item/607913851705.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1575000165000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607696154443",
+        "url": "https://sf-item.taobao.com/sf_item/607696154443.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1574996791000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607696718667",
+        "url": "https://sf-item.taobao.com/sf_item/607696718667.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1574994260000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607211304936",
+        "url": "https://sf-item.taobao.com/sf_item/607211304936.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1574995841000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607210440547",
+        "url": "https://sf-item.taobao.com/sf_item/607210440547.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1574992800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607491313592",
+        "url": "https://sf-item.taobao.com/sf_item/607491313592.htm?track_id=c6cf3881-0779-4493-a55a-73882efce6fd",
+        "end": 1574992800000,
+        "status": "done",
+        "is_processed": false
     }
 ]

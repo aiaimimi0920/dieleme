@@ -337,5 +337,40 @@
         "单价": 4640.53,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 532594404497,
+        "市场评估价": null,
+        "起拍价格": 315200,
+        "成交价格": 317200,
+        "交易时间": "2016-06-10 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/532594404497.htm?track_id=9040e763-7add-4763-bdd3-7df442268acf",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 宁德市 福安市 赛岐镇",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": null,
+        "建筑面积": 98.62,
+        "单价": 3218.83,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "532556462053",
+        "url": "https://sf-item.taobao.com/sf_item/532556462053.htm?track_id=b38c3788-9664-4c59-abf2-a8e2c9a21926",
+        "end": 1465525802000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "532661274665",
+        "url": "https://sf-item.taobao.com/sf_item/532661274665.htm?track_id=c4483fcd-3594-4770-b22e-4dbbb33f35db",
+        "end": 1465567413000,
+        "status": "done",
+        "is_processed": false
     }
 ]

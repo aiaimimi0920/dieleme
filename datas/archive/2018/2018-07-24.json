@@ -2642,5 +2642,75 @@
         "单价": 5200.83,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 572217659910,
+        "市场评估价": null,
+        "起拍价格": 779180,
+        "成交价格": 912180,
+        "交易时间": "2018/07/24 10:17:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572217659910.htm?track_id=92ffb0b2-b844-4365-af53-96315beee24f",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 17,
+        "地点": "广西壮族自治区 玉林市 玉州区 玉林市玉州区一环北路法院村",
+        "所属小区": "法院村",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "一环北路",
+        "建筑面积": 78.28,
+        "单价": 11650.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 572014701645,
+        "市场评估价": null,
+        "起拍价格": 779180,
+        "成交价格": 779180,
+        "交易时间": "2018/07/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572014701645.htm?track_id=f2d009c6-4e7f-4098-81b2-fe148150f971",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广西壮族自治区玉林市玉州区一环北路法院村",
+        "所属小区": "法院村",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "玉林市中心商圈",
+        "建筑面积": 78.28,
+        "单价": 9948.72,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "572066741842",
+        "url": "https://sf-item.taobao.com/sf_item/572066741842.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1532399522000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571950104072",
+        "url": "https://sf-item.taobao.com/sf_item/571950104072.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1532398338000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "572111342455",
+        "url": "https://sf-item.taobao.com/sf_item/572111342455.htm?track_id=c4c6f977-daa9-41ae-b76e-693ed5d8964f",
+        "end": 1532409278000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "573141110829",
+        "url": "https://sf-item.taobao.com/sf_item/573141110829.htm?track_id=221bf921-92f2-4ebc-b6fc-d8f9be5d3375",
+        "end": 1532397692000,
+        "status": "done",
+        "is_processed": false
     }
 ]

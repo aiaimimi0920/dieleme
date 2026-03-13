@@ -885,5 +885,61 @@
         "单价": 28679.45,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 584367105073,
+        "市场评估价": 1565000,
+        "起拍价格": 1001600,
+        "成交价格": 1156600,
+        "交易时间": "2019-01-06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/584367105073.htm?track_id=b5c2f80f-65ca-4f2d-ad04-735f827a5fa6",
+        "是否成交": true,
+        "竞拍人数": 32,
+        "出价人数": 27,
+        "地点": "福建省 福州市 福清市 融城镇鸿商路6号富丽华花园",
+        "所属小区": "富丽华花园",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "融城",
+        "建筑面积": 257.06,
+        "单价": 4500.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "584502550088",
+        "url": "https://sf-item.taobao.com/sf_item/584502550088.htm?track_id=bbcebf4c-5ec0-435e-afec-d32f10840871",
+        "end": 1546741532000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583186764592",
+        "url": "https://sf-item.taobao.com/sf_item/583186764592.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1546742264000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583185948690",
+        "url": "https://sf-item.taobao.com/sf_item/583185948690.htm?track_id=edf0094e-3ded-47af-9337-3fd42694247a",
+        "end": 1546742246000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583516570930",
+        "url": "https://sf-item.taobao.com/sf_item/583516570930.htm?track_id=edf0094e-3ded-47af-9337-3fd42694247a",
+        "end": 1546741857000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "583387225876",
+        "url": "https://sf-item.taobao.com/sf_item/583387225876.htm?track_id=8f5d3f61-c0b9-468a-9d5e-6c0df3400471",
+        "end": 1546740163000,
+        "status": "done",
+        "is_processed": false
     }
 ]

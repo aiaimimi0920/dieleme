@@ -973,5 +973,68 @@
         "单价": 8090.98,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 544844629994,
+        "市场评估价": null,
+        "起拍价格": 8500000,
+        "成交价格": 11900000,
+        "交易时间": "2017/03/14 12:09:42",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544844629994.htm?track_id=6ceb8279-329b-4586-8a35-09a0dd614066",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 145,
+        "地点": "北京市西城区太平街6号6层D-705号房屋",
+        "所属小区": "中海·紫御公馆",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "西城区",
+        "最靠近商圈": "金融街",
+        "建筑面积": 293.89,
+        "单价": 40500.05,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "544866542707",
+        "url": "https://sf-item.taobao.com/sf_item/544866542707.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1489462659000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544859321457",
+        "url": "https://sf-item.taobao.com/sf_item/544859321457.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1489458048000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544858113426",
+        "url": "https://sf-item.taobao.com/sf_item/544858113426.htm?track_id=5bdb3ece-bea2-4367-a143-eeb0d06ddbbd",
+        "end": 1489458462000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544887151308",
+        "url": "https://sf-item.taobao.com/sf_item/544887151308.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1489459196000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544829664267",
+        "url": "https://sf-item.taobao.com/sf_item/544829664267.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1489460427000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544787084165",
+        "url": "https://sf-item.taobao.com/sf_item/544787084165.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1489461454000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -2498,5 +2498,124 @@
         "单价": 2637.45,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 592394456179,
+        "市场评估价": null,
+        "起拍价格": 332829,
+        "成交价格": 332829,
+        "交易时间": "2019/06/18 12:53:08",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592394456179.htm?track_id=9d4c1acb-89de-4b42-b0ca-fb745b4f7f4f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 郴州市 宜章县 城关镇南京洞开发区南京路",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "郴州市",
+        "区": "宜章县",
+        "最靠近商圈": "南京洞开发区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 595420832474,
+        "市场评估价": null,
+        "起拍价格": 690000,
+        "成交价格": 815000,
+        "交易时间": "2019-06-18 10:53:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/595420832474.htm?track_id=287f0535-1bcd-42b4-afc9-cef15828ceea",
+        "是否成交": true,
+        "竞拍人数": 23,
+        "出价人数": 23,
+        "地点": "河南省 驻马店市 上蔡县 蔡都街道办事处北关街383号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "驻马店市",
+        "区": "上蔡县",
+        "最靠近商圈": "北关街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 594978226873,
+        "市场评估价": 104222.72,
+        "起拍价格": 104222.72,
+        "成交价格": 104222.72,
+        "交易时间": "2019-06-18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594978226873.htm?track_id=979a9c0c-8c37-42cb-ac76-0e41f03887c4",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "辽宁省 辽阳市 宏伟区 朝阳街小区14栋1组08号",
+        "所属小区": "朝阳街小区",
+        "省份": "辽宁省",
+        "城市": "辽阳市",
+        "区": "宏伟区",
+        "最靠近商圈": "胜利路商圈",
+        "建筑面积": 50.89,
+        "单价": 2046.21,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "595426828597",
+        "url": "https://sf-item.taobao.com/sf_item/595426828597.htm?track_id=02f3e140-b528-49f2-9f0e-8f7f41926300",
+        "end": 1560827621000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595284412885",
+        "url": "https://sf-item.taobao.com/sf_item/595284412885.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1560823200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595284648505",
+        "url": "https://sf-item.taobao.com/sf_item/595284648505.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1560823200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595866603757",
+        "url": "https://sf-item.taobao.com/sf_item/595866603757.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1560823200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594168697509",
+        "url": "https://sf-item.taobao.com/sf_item/594168697509.htm?track_id=c675ba72-5ca4-4fb3-9f6d-61217ccfad4b",
+        "end": 1560826217000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595528125445",
+        "url": "https://sf-item.taobao.com/sf_item/595528125445.htm?track_id=c675ba72-5ca4-4fb3-9f6d-61217ccfad4b",
+        "end": 1560824231000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "594652030008",
+        "url": "https://sf-item.taobao.com/sf_item/594652030008.htm?track_id=ae73874c-e939-427f-bb2b-54d0c32a04bf",
+        "end": 1560824225000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595528565369",
+        "url": "https://sf-item.taobao.com/sf_item/595528565369.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1560824418000,
+        "status": "done",
+        "is_processed": false
     }
 ]

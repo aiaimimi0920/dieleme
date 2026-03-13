@@ -591,5 +591,47 @@
         "单价": 7564.14,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 564803918923,
+        "市场评估价": null,
+        "起拍价格": 7000000,
+        "成交价格": 9270000,
+        "交易时间": "2018/03/07 10:19:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/564803918923.htm?track_id=ed209e8c-cff3-409f-9550-65ca0ce6698c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 37,
+        "地点": "北京市西城区小马厂1号院7号楼6层601",
+        "所属小区": "小马厂1号院",
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "西直门",
+        "建筑面积": 136.72,
+        "单价": 67780.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "564694711131",
+        "url": "https://sf-item.taobao.com/sf_item/564694711131.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1520395760000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564865562459",
+        "url": "https://sf-item.taobao.com/sf_item/564865562459.htm?track_id=c5fe033e-1c10-4016-a74f-c0c5570b233f",
+        "end": 1520390637000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564878774999",
+        "url": "https://sf-item.taobao.com/sf_item/564878774999.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1520390435000,
+        "status": "done",
+        "is_processed": false
     }
 ]

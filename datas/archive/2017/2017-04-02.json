@@ -298,5 +298,82 @@
         "单价": 5811.38,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 546734782655,
+        "市场评估价": null,
+        "起拍价格": 2309760,
+        "成交价格": 2311760,
+        "交易时间": "2017-04-02T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546734782655.htm?track_id=9040e763-7add-4763-bdd3-7df442268acf",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 2,
+        "地点": "福建省 宁德市 福安市",
+        "所属小区": "罗江商贸区88幢",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "罗江商贸区",
+        "建筑面积": 1332.06,
+        "单价": 1736.49,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 546755103569,
+        "市场评估价": null,
+        "起拍价格": 723840,
+        "成交价格": 723840,
+        "交易时间": "2017-04-02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546755103569.htm?track_id=30c717ff-3387-418f-af36-ccc85c69d17a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 宁德市 福安市 穆阳镇苏堤村苏堤尾路161号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "穆阳镇",
+        "建筑面积": 699.23,
+        "单价": 1035.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "546719366527",
+        "url": "https://sf-item.taobao.com/sf_item/546719366527.htm?track_id=8e74a30b-ddb8-4c16-be92-5c43279efed6",
+        "end": 1491099904000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "546738843942",
+        "url": "https://sf-item.taobao.com/sf_item/546738843942.htm?track_id=8e74a30b-ddb8-4c16-be92-5c43279efed6",
+        "end": 1491099895000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "546699049796",
+        "url": "https://sf-item.taobao.com/sf_item/546699049796.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1491100210000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "546718862260",
+        "url": "https://sf-item.taobao.com/sf_item/546718862260.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1491100408000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "546666708268",
+        "url": "https://sf-item.taobao.com/sf_item/546666708268.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1491099920000,
+        "status": "done",
+        "is_processed": false
     }
 ]

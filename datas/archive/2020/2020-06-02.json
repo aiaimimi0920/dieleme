@@ -2109,5 +2109,103 @@
         "单价": 8801.87,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 617806648227,
+        "市场评估价": 92293800,
+        "起拍价格": 66451536,
+        "成交价格": 83101536,
+        "交易时间": "2020/06/02 10:55:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/617806648227.htm?track_id=520609f0-d271-4103-8515-e2410e3d04d5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 37,
+        "地点": "福建省 福州市 福清市 宏路镇石门村",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "宏路商圈",
+        "建筑面积": 14198.87,
+        "单价": 5852.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 617539871052,
+        "市场评估价": 502000,
+        "起拍价格": 410000,
+        "成交价格": 410000,
+        "交易时间": "2020/06/02 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/617539871052.htm?track_id=79330b8a-c283-4846-8826-fb6c828b27da",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 福州市 福清市 玉屏街道后埔街阳春巷",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": null,
+        "建筑面积": 102.51,
+        "单价": 4000.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 617033265055,
+        "市场评估价": null,
+        "起拍价格": 4958724.54,
+        "成交价格": 7910724.54,
+        "交易时间": "2020-06-02 10:26:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/617033265055.htm?track_id=b73737f4-5af2-4d91-8728-229efd7daa1d",
+        "是否成交": true,
+        "竞拍人数": 81,
+        "出价人数": 94,
+        "地点": "广东省 深圳市 盐田区 大梅沙西北面山边万科东海岸社区（三区）1标段32#楼（海逸居商业B、C、D）C101房产",
+        "所属小区": "万科东海岸",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "大梅沙",
+        "建筑面积": 164.78,
+        "单价": 48028.85,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "617188753581",
+        "url": "https://sf-item.taobao.com/sf_item/617188753581.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1591071212000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617188121975",
+        "url": "https://sf-item.taobao.com/sf_item/617188121975.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1591066334000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617702683299",
+        "url": "https://sf-item.taobao.com/sf_item/617702683299.htm?track_id=7a807e00-fdf4-4ee6-84d9-b303b24f393d",
+        "end": 1591065422000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617189513111",
+        "url": "https://sf-item.taobao.com/sf_item/617189513111.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1591063957000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "617468150390",
+        "url": "https://sf-item.taobao.com/sf_item/617468150390.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1591064973000,
+        "status": "done",
+        "is_processed": false
     }
 ]

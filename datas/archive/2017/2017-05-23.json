@@ -864,5 +864,40 @@
         "单价": 11008.67,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 548847848405,
+        "市场评估价": null,
+        "起拍价格": 9000000,
+        "成交价格": 9200000,
+        "交易时间": "2017/05/23 10:22:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548847848405.htm?track_id=e160820c-3ca0-4bf2-a8d4-a48cec87dbb5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 13,
+        "地点": "福建省 福州市 福清市",
+        "所属小区": "龙旺名城",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "融城",
+        "建筑面积": 1270.31,
+        "单价": 7243.45,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "549013965489",
+        "url": "https://sf-item.taobao.com/sf_item/549013965489.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1495506255000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549035984359",
+        "url": "https://sf-item.taobao.com/sf_item/549035984359.htm?track_id=2ba4606a-7e86-480b-875e-e6ea7a267827",
+        "end": 1495506156000,
+        "status": "done",
+        "is_processed": false
     }
 ]

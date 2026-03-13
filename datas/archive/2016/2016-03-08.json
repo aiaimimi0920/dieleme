@@ -442,5 +442,47 @@
         "单价": 1345.77,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 527047731537,
+        "市场评估价": null,
+        "起拍价格": 5460000,
+        "成交价格": 7150000,
+        "交易时间": "2016/03/08 10:35:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527047731537.htm?track_id=71c47fa7-9c0e-4f7f-9216-afa242845d8e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市西城区马连道路6号院3号楼13层①-13-1605号",
+        "所属小区": "马连道路6号院",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "马连道",
+        "建筑面积": 104.94,
+        "单价": 68134.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "527181156720",
+        "url": "https://sf-item.taobao.com/sf_item/527181156720.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1457403121000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527119547456",
+        "url": "https://sf-item.taobao.com/sf_item/527119547456.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1457403175000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527170129462",
+        "url": "https://sf-item.taobao.com/sf_item/527170129462.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1457402766000,
+        "status": "done",
+        "is_processed": false
     }
 ]

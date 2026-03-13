@@ -613,5 +613,54 @@
         "单价": 5961.43,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 545489603748,
+        "市场评估价": null,
+        "起拍价格": 182700,
+        "成交价格": 192700,
+        "交易时间": "2017/03/16 10:07:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/545489603748.htm?track_id=f4e58f0a-8b0a-4cbb-b773-b76eb209681c",
+        "是否成交": true,
+        "竞拍人数": 6,
+        "出价人数": 6,
+        "地点": "河南省 许昌市 禹州市",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": null,
+        "建筑面积": 127.51,
+        "单价": 1510.44,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "545879350420",
+        "url": "https://sf-item.taobao.com/sf_item/545879350420.htm?track_id=76b18245-a4a9-45a2-b72d-7d6036192a93",
+        "end": 1489631329000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "545772908923",
+        "url": "https://sf-item.taobao.com/sf_item/545772908923.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1489634181000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "545056091551",
+        "url": "https://sf-item.taobao.com/sf_item/545056091551.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1489632878000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "545840467950",
+        "url": "https://sf-item.taobao.com/sf_item/545840467950.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1489630355000,
+        "status": "done",
+        "is_processed": false
     }
 ]

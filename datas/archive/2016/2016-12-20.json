@@ -924,5 +924,68 @@
         "单价": 5492.78,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 542586915900,
+        "市场评估价": null,
+        "起拍价格": 700000,
+        "成交价格": 785000,
+        "交易时间": "2016-12-20 10:34:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542586915900.htm?track_id=9456b9b2-9a68-46a6-b3c3-1d28b6eeda4f",
+        "是否成交": true,
+        "竞拍人数": 18,
+        "出价人数": 18,
+        "地点": "江西省 抚州市 黎川县",
+        "所属小区": "冠建B区",
+        "省份": "江西省",
+        "城市": "抚州市",
+        "区": "黎川县",
+        "最靠近商圈": "日峰镇",
+        "建筑面积": 276.07,
+        "单价": 2843.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 542264088642,
+        "市场评估价": null,
+        "起拍价格": 643800,
+        "成交价格": 643800,
+        "交易时间": "2016/12/20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542264088642.htm?track_id=1d9ed0e5-eada-4f04-9a1d-60bfade8d355",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "河南省许昌市禹州市颍川办劳动路北侧维也纳阳光8号楼2单元10层西户",
+        "所属小区": "维也纳阳光",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "颍川",
+        "建筑面积": 152.71,
+        "单价": 4215.49,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "542594624461",
+        "url": "https://sf-item.taobao.com/sf_item/542594624461.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1482199608000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542621242012",
+        "url": "https://sf-item.taobao.com/sf_item/542621242012.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1482199777000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542661461258",
+        "url": "https://sf-item.taobao.com/sf_item/542661461258.htm?track_id=d3a6e94f-bd89-49e6-abd5-efaf6c356b71",
+        "end": 1482201624000,
+        "status": "done",
+        "is_processed": false
     }
 ]

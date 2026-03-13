@@ -2217,5 +2217,68 @@
         "单价": 43666.67,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 570473570990,
+        "市场评估价": 157800,
+        "起拍价格": 157800,
+        "成交价格": 195800,
+        "交易时间": "2018-07-03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570473570990.htm?track_id=61a8abf4-b500-4145-ae33-ddee8d5a7620",
+        "是否成交": true,
+        "竞拍人数": 20,
+        "出价人数": 20,
+        "地点": "广西壮族自治区玉林市玉州区金港路西南侧金港国际名城商住小区1栋2单元522号",
+        "所属小区": "金港国际名城",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "金港路商圈",
+        "建筑面积": 43.48,
+        "单价": 4502.76,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 569071982608,
+        "市场评估价": 0,
+        "起拍价格": 600000,
+        "成交价格": 600000,
+        "交易时间": "2018/07/04 01:11:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/569071982608.htm?track_id=f2d009c6-4e7f-4098-81b2-fe148150f971",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 玉林市 玉州区 玉林市人民中路45号D座1单元1803号房",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "玉林市市中心商住综合圈",
+        "建筑面积": 166.82,
+        "单价": 3597.55,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "570560287855",
+        "url": "https://sf-item.taobao.com/sf_item/570560287855.htm?track_id=bbcebf4c-5ec0-435e-afec-d32f10840871",
+        "end": 1530583200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570560267926",
+        "url": "https://sf-item.taobao.com/sf_item/570560267926.htm?track_id=2e4f8837-a2a5-490e-b8bf-2deb3e302d28",
+        "end": 1530584388000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570473582605",
+        "url": "https://sf-item.taobao.com/sf_item/570473582605.htm?track_id=c5fe033e-1c10-4016-a74f-c0c5570b233f",
+        "end": 1530585358000,
+        "status": "done",
+        "is_processed": false
     }
 ]

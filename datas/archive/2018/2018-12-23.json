@@ -484,5 +484,40 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 583033356562,
+        "市场评估价": null,
+        "起拍价格": 623440,
+        "成交价格": 623440,
+        "交易时间": "2018-12-23 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/583033356562.htm?track_id=f92c3cee-1753-458c-8892-e88cd3e1d334",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "陕西省 西安市 阎良区 航空三路南段西侧锦业6号府邸",
+        "所属小区": "锦业6号府邸",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "阎良区",
+        "最靠近商圈": "阎良城区",
+        "建筑面积": 125.74,
+        "单价": 4958.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "583458909166",
+        "url": "https://sf-item.taobao.com/sf_item/583458909166.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1545530400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582261336434",
+        "url": "https://sf-item.taobao.com/sf_item/582261336434.htm?track_id=c6cf3881-0779-4493-a55a-73882efce6fd",
+        "end": 1545530400000,
+        "status": "done",
+        "is_processed": false
     }
 ]

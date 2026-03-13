@@ -1734,5 +1734,61 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 557652666835,
+        "市场评估价": null,
+        "起拍价格": 1730000,
+        "成交价格": 1730000,
+        "交易时间": "2017-09-30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557652666835.htm?track_id=83a37df6-370e-42b7-854a-d3c4349f1b33",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "天津市东丽区绿洲花园10-1-303",
+        "所属小区": "绿洲花园",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "空港经济区",
+        "建筑面积": 150.91,
+        "单价": 11462.16,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 558462061959,
+        "市场评估价": 805866,
+        "起拍价格": 805866,
+        "成交价格": 451284.96,
+        "交易时间": "2017/09/30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558462061959.htm?track_id=4d058e16-150c-4ce2-a129-56882d425666",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "黑龙江省 鸡西市 鸡冠区 文化路",
+        "所属小区": "红运家园",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "鸡冠区",
+        "最靠近商圈": "红运家园商圈",
+        "建筑面积": 94.43,
+        "单价": 4776.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "557907807420",
+        "url": "https://sf-item.taobao.com/sf_item/557907807420.htm?track_id=70afca07-b60e-4b1f-b59b-048e5ebc630c",
+        "end": 1506738403000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557839950552",
+        "url": "https://sf-item.taobao.com/sf_item/557839950552.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1506738798000,
+        "status": "done",
+        "is_processed": false
     }
 ]

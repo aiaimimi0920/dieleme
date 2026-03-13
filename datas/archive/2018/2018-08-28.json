@@ -2371,5 +2371,208 @@
         "单价": 1203.01,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 574311062723,
+        "市场评估价": null,
+        "起拍价格": 236618,
+        "成交价格": 236618,
+        "交易时间": "2018-08-28 14:20:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574311062723.htm?track_id=07d591ca-5d2e-49d4-82ca-e20da79a7a7e",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 鸡西市 虎林市 虎林镇",
+        "所属小区": "富城华苑金座",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "虎林市",
+        "最靠近商圈": null,
+        "建筑面积": 77.29,
+        "单价": 3063.46,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 574049200981,
+        "市场评估价": null,
+        "起拍价格": 358863,
+        "成交价格": 358863,
+        "交易时间": "2018-08-28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574049200981.htm?track_id=ba28d8e3-cfd4-411d-8bf3-72c28227171b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省鸡西市鸡冠区京宏名苑小区1号楼1-401",
+        "所属小区": "京宏名苑",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "鸡冠区",
+        "最靠近商圈": "鸡冠区",
+        "建筑面积": 129.32,
+        "单价": 2773.09,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 574308062724,
+        "市场评估价": null,
+        "起拍价格": 145601.25,
+        "成交价格": 145601.25,
+        "交易时间": "2018-08-28T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574308062724.htm?track_id=ba28d8e3-cfd4-411d-8bf3-72c28227171b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省鸡西市鸡冠区 京宏名苑小区",
+        "所属小区": "京宏名苑",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "鸡冠区",
+        "最靠近商圈": null,
+        "建筑面积": 61.63,
+        "单价": 2360.21,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 574448539876,
+        "市场评估价": 0,
+        "起拍价格": 273753,
+        "成交价格": 273753,
+        "交易时间": "2018/08/28 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574448539876.htm?track_id=ba28d8e3-cfd4-411d-8bf3-72c28227171b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "黑龙江省 鸡西市 鸡冠区 鸡西市京宏名苑小区10号楼3-401房屋",
+        "所属小区": "京宏名苑小区",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "鸡冠区",
+        "最靠近商圈": null,
+        "建筑面积": 101.39,
+        "单价": 2699.55,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 574259098936,
+        "市场评估价": 0,
+        "起拍价格": 420000,
+        "成交价格": 610000,
+        "交易时间": "2018/08/28 10:07:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574259098936.htm?track_id=31a4041b-4808-45ee-bb04-adcff0db910e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "福建省宁德市福安市福安市阳头街道鹤翔新城群祥路43号4单元101号房及底层杂物间",
+        "所属小区": "鹤翔新城",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头街道",
+        "建筑面积": 95.55,
+        "单价": 6384.09,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "574118848121",
+        "url": "https://sf-item.taobao.com/sf_item/574118848121.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1535424250000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574293230358",
+        "url": "https://sf-item.taobao.com/sf_item/574293230358.htm?track_id=671fb627-9cbf-4c21-8704-7010cc79e63c",
+        "end": 1535424470000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574313326765",
+        "url": "https://sf-item.taobao.com/sf_item/574313326765.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1535423958000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574078989185",
+        "url": "https://sf-item.taobao.com/sf_item/574078989185.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1535421600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574379322068",
+        "url": "https://sf-item.taobao.com/sf_item/574379322068.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1535422798000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574203781405",
+        "url": "https://sf-item.taobao.com/sf_item/574203781405.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1535422568000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574441614459",
+        "url": "https://sf-item.taobao.com/sf_item/574441614459.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1535422561000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574411707534",
+        "url": "https://sf-item.taobao.com/sf_item/574411707534.htm?track_id=5bdb3ece-bea2-4367-a143-eeb0d06ddbbd",
+        "end": 1535424062000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574118848202",
+        "url": "https://sf-item.taobao.com/sf_item/574118848202.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1535424911000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575180390734",
+        "url": "https://sf-item.taobao.com/sf_item/575180390734.htm?track_id=c4c6f977-daa9-41ae-b76e-693ed5d8964f",
+        "end": 1535424874000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575180350903",
+        "url": "https://sf-item.taobao.com/sf_item/575180350903.htm?track_id=c4c6f977-daa9-41ae-b76e-693ed5d8964f",
+        "end": 1535422623000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574125248629",
+        "url": "https://sf-item.taobao.com/sf_item/574125248629.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1535423881000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575064425811",
+        "url": "https://sf-item.taobao.com/sf_item/575064425811.htm?track_id=c5fe033e-1c10-4016-a74f-c0c5570b233f",
+        "end": 1535423615000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "574120149059",
+        "url": "https://sf-item.taobao.com/sf_item/574120149059.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1535423080000,
+        "status": "done",
+        "is_processed": false
     }
 ]

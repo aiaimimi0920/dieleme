@@ -2227,5 +2227,103 @@
         "单价": 2643.72,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 572185512543,
+        "市场评估价": null,
+        "起拍价格": 328322.4,
+        "成交价格": 328322.4,
+        "交易时间": "2018-09-04 15:08:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/572185512543.htm?track_id=79dc2805-9e0b-4d65-be06-4948e2cfae71",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "天津市空港经济区中环西路与西二道交口丽港大厦3-914号房屋",
+        "所属小区": "丽港大厦",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "空港经济区",
+        "建筑面积": 68.38,
+        "单价": 4803.32,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 574584660624,
+        "市场评估价": 471324,
+        "起拍价格": 471324,
+        "成交价格": 675324,
+        "交易时间": "2018-09-04 10:50:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574584660624.htm?track_id=8c19ae71-9e4b-4282-a0d6-66645bd06ff0",
+        "是否成交": true,
+        "竞拍人数": 47,
+        "出价人数": 47,
+        "地点": "河南省 许昌市 禹州市 颍川办劳动路东段路北公职员A区12号楼西起1单元四层西户",
+        "所属小区": "公职员A区",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "颍川街道",
+        "建筑面积": 145.74,
+        "单价": 4635.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 574726339050,
+        "市场评估价": null,
+        "起拍价格": 219590,
+        "成交价格": 403590,
+        "交易时间": "2018-09-04T10:21:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/574726339050.htm?track_id=3520cd55-ea9f-4854-9fd1-099b9dc0447d",
+        "是否成交": true,
+        "竞拍人数": 74,
+        "出价人数": null,
+        "地点": "山东省 青岛市 黄岛区 青岛市开发区海南岛路68号楼内2号楼（海南岛路38号内9号楼）1单元702户",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "开发区/薛家岛",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "574592648685",
+        "url": "https://sf-item.taobao.com/sf_item/574592648685.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1536030018000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575724258516",
+        "url": "https://sf-item.taobao.com/sf_item/575724258516.htm?track_id=569da56e-9783-444e-9e87-0bf3f46845ae",
+        "end": 1536026993000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575448440373",
+        "url": "https://sf-item.taobao.com/sf_item/575448440373.htm?track_id=569da56e-9783-444e-9e87-0bf3f46845ae",
+        "end": 1536028068000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575724074709",
+        "url": "https://sf-item.taobao.com/sf_item/575724074709.htm?track_id=ab81058b-8ec4-4c63-a6cb-007849b4bdb6",
+        "end": 1536026881000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "575706075558",
+        "url": "https://sf-item.taobao.com/sf_item/575706075558.htm?track_id=c4c6f977-daa9-41ae-b76e-693ed5d8964f",
+        "end": 1536034419000,
+        "status": "done",
+        "is_processed": false
     }
 ]

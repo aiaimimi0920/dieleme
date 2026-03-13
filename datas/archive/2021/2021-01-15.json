@@ -1648,5 +1648,40 @@
         "单价": 11971.53,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 635700211394,
+        "市场评估价": null,
+        "起拍价格": 2290000,
+        "成交价格": 2310000,
+        "交易时间": "2021-01-15 10:01:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/635700211394.htm?track_id=3896a102-e7a8-4d3f-a376-da8fa579f0a8",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "福建省 宁德市 福安市 阳头福星花园8-10号楼商场D1区第2层",
+        "所属小区": "阳头福星花园",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头",
+        "建筑面积": 540.35,
+        "单价": 4279.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "634022449027",
+        "url": "https://sf-item.taobao.com/sf_item/634022449027.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1610679531000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "634659987976",
+        "url": "https://sf-item.taobao.com/sf_item/634659987976.htm?track_id=6731f999-732b-47ab-930b-fe206b0b237f",
+        "end": 1610678256000,
+        "status": "done",
+        "is_processed": false
     }
 ]

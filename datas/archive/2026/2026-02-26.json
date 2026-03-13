@@ -1,0 +1,93 @@
+[
+    {
+        "id": 1014285090994,
+        "市场评估价": null,
+        "起拍价格": 585000,
+        "成交价格": 675000,
+        "交易时间": "2026-02-26 13:08:38",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1014285090994.htm?track_id=ecf9cb72-7bb8-4e4f-850c-18432ac8d0df",
+        "是否成交": true,
+        "竞拍人数": 76,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 玉林市 玉州区 金玉路290号首成·天悦小区5幢1单元301房",
+        "所属小区": "首成·天悦",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "玉州商圈",
+        "建筑面积": 174.28,
+        "单价": 3875.08,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 1018863722286,
+        "市场评估价": null,
+        "起拍价格": 1724233,
+        "成交价格": 1724233,
+        "交易时间": "2026/02/26 10:59:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1018863722286.htm?track_id=3cc50877-cf88-4a66-865e-16a58a505c4a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 郴州市 宜章县 玉溪镇环城西路附188-003栋101、201、301、401、501号",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "郴州市",
+        "区": "宜章县",
+        "最靠近商圈": null,
+        "建筑面积": 876.98,
+        "单价": 1966.15,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 1015167649445,
+        "市场评估价": null,
+        "起拍价格": 414000,
+        "成交价格": 426000,
+        "交易时间": "2026-02-26 10:19:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1015167649445.htm?track_id=56e11286-00dd-4423-9bcb-1abc53877ce5",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 13,
+        "地点": "广西壮族自治区 玉林市 玉州区 金玉路290号首成·天悦二区9幢1单元1402房",
+        "所属小区": "首成·天悦二区",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": null,
+        "建筑面积": 117.7,
+        "单价": 3618.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "1013267077674",
+        "url": "https://sf-item.taobao.com/sf_item/1013267077674.htm?track_id=7398cc8f-67f4-4cf0-ab9f-ff77efb44d5b",
+        "end": 1772072952000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1012406602250",
+        "url": "https://sf-item.taobao.com/sf_item/1012406602250.htm?track_id=a0c5eb90-82ea-4611-b3f6-4ac9f997381e",
+        "end": 1772071200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1021243220862",
+        "url": "https://sf-item.taobao.com/sf_item/1021243220862.htm?track_id=802de3db-1cd4-4ece-af98-8a85277e2ed2",
+        "end": 1772071210000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1017301482330",
+        "url": "https://sf-item.taobao.com/sf_item/1017301482330.htm?track_id=99ca9073-bdda-48e3-bf8b-d8d30b61bd2e",
+        "end": 1772071200000,
+        "status": "done",
+        "is_processed": false
+    }
+]

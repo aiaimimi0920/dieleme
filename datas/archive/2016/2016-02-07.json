@@ -1,0 +1,30 @@
+[
+    {
+        "id": 526429339572,
+        "市场评估价": null,
+        "起拍价格": 941440,
+        "成交价格": 947440,
+        "交易时间": "2016/02/07 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/526429339572.htm?track_id=6aea7c12-6657-4b38-bcc8-bf22ff92ea3c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "宁德市蕉城区蕉城南路16号嘉和楼A幢507室、508室",
+        "所属小区": "嘉和楼",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "蕉城区",
+        "最靠近商圈": null,
+        "建筑面积": 267.26,
+        "单价": 3544.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "526483868296",
+        "url": "https://sf-item.taobao.com/sf_item/526483868296.htm?track_id=c6cf3881-0779-4493-a55a-73882efce6fd",
+        "end": 1454810400000,
+        "status": "done",
+        "is_processed": false
+    }
+]

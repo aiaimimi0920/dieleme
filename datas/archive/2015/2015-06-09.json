@@ -335,5 +335,33 @@
         "单价": 17547.43,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 45655181703,
+        "市场评估价": null,
+        "起拍价格": 460000,
+        "成交价格": 506000,
+        "交易时间": "2015/06/09 10:18:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45655181703.htm?track_id=52473588-0db7-414c-b80e-7269f574c683",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 24,
+        "地点": "福安市城南街道金山商贸大厦C幢403号",
+        "所属小区": "金山商贸大厦",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城南街道",
+        "建筑面积": 102.65,
+        "单价": 4928.34,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "45478463619",
+        "url": "https://sf-item.taobao.com/sf_item/45478463619.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1433816056000,
+        "status": "done",
+        "is_processed": false
     }
 ]

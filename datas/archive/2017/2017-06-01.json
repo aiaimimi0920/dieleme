@@ -593,5 +593,61 @@
         "单价": 22273.04,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 550345327917,
+        "市场评估价": null,
+        "起拍价格": 216432,
+        "成交价格": 216432,
+        "交易时间": "2017-06-01 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/550345327917.htm?track_id=1d9ed0e5-eada-4f04-9a1d-60bfade8d355",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 许昌市 禹州市",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 550828872882,
+        "市场评估价": 1000000,
+        "起拍价格": 560000,
+        "成交价格": 897000,
+        "交易时间": "2017/06/01 10:50:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/550828872882.htm?track_id=2e4f8837-a2a5-490e-b8bf-2deb3e302d28",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 148,
+        "地点": "山东省青岛市黄岛区井冈山路东侧、珠江路南侧157号南办公1911室",
+        "所属小区": "唐岛金湾",
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "唐岛湾",
+        "建筑面积": 55.71,
+        "单价": 16102.24,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "550568166917",
+        "url": "https://sf-item.taobao.com/sf_item/550568166917.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1496282901000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549491644743",
+        "url": "https://sf-item.taobao.com/sf_item/549491644743.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1496283718000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -335,5 +335,61 @@
         "单价": 16486.47,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 528412062574,
+        "市场评估价": 716000,
+        "起拍价格": 600000,
+        "成交价格": 760000,
+        "交易时间": "2016/04/06 10:09:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528412062574.htm?track_id=48e7370f-0e2b-4dc8-a313-2279234d92b7",
+        "是否成交": true,
+        "竞拍人数": 14,
+        "出价人数": 14,
+        "地点": "浙江省 丽水市 云和县",
+        "所属小区": "白龙山村",
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": "白龙山街道",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 528392088317,
+        "市场评估价": 877000,
+        "起拍价格": 700000,
+        "成交价格": 900000,
+        "交易时间": "2016-04-06T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/528392088317.htm?track_id=8c724a3c-78f0-4b36-8c4a-4461e4ee20b3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "浙江省 丽水市 云和县",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": null,
+        "建筑面积": 185.16,
+        "单价": 4858.75,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "528394196244",
+        "url": "https://sf-item.taobao.com/sf_item/528394196244.htm?track_id=7a807e00-fdf4-4ee6-84d9-b303b24f393d",
+        "end": 1459915417000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528448164793",
+        "url": "https://sf-item.taobao.com/sf_item/528448164793.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1459909303000,
+        "status": "done",
+        "is_processed": false
     }
 ]

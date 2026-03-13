@@ -1459,5 +1459,33 @@
         "单价": 6429.83,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 586841670465,
+        "市场评估价": null,
+        "起拍价格": 1384000,
+        "成交价格": 1384000,
+        "交易时间": "2019/03/27 15:51:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586841670465.htm?track_id=83a37df6-370e-42b7-854a-d3c4349f1b33",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "天津市东丽区东丽湖街美鹃道与瀚景路交口处西南侧绿洲馨园1-2-703",
+        "所属小区": "绿洲馨园",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "东丽湖",
+        "建筑面积": 144.17,
+        "单价": 9598.79,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "588767087071",
+        "url": "https://sf-item.taobao.com/sf_item/588767087071.htm?track_id=2772e5f4-cbd3-4273-a7f7-12a8740e5278",
+        "end": 1553652993000,
+        "status": "done",
+        "is_processed": false
     }
 ]

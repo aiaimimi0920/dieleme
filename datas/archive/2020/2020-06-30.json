@@ -2936,5 +2936,159 @@
         "单价": 2525.17,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 619540514703,
+        "市场评估价": 205388,
+        "起拍价格": 143800,
+        "成交价格": 254400,
+        "交易时间": "2020-06-30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/619540514703.htm?track_id=04bd0675-fd74-4b7a-b52e-6d3f30f984a0",
+        "是否成交": true,
+        "竞拍人数": 54,
+        "出价人数": 37,
+        "地点": "湖南省 郴州市 宜章县 文明南路134-024栋202号",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "郴州市",
+        "区": "宜章县",
+        "最靠近商圈": null,
+        "建筑面积": 70.58,
+        "单价": 3605.04,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 619009740079,
+        "市场评估价": null,
+        "起拍价格": 73700,
+        "成交价格": 73700,
+        "交易时间": "2020-06-30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/619009740079.htm?track_id=c8b795e7-3963-46af-9244-10c360707022",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 玉林市 玉州区 新民大道民新小区B1幢北面13号库房",
+        "所属小区": "民新小区",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "玉州商圈",
+        "建筑面积": 19.89,
+        "单价": 3704.28,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 619599246833,
+        "市场评估价": null,
+        "起拍价格": 799900,
+        "成交价格": 847300,
+        "交易时间": "2020/06/30 10:11:05",
+        "原始网站": "https://sf-item.taobao.com/sf_item/619599246833.htm?track_id=4338945c-5ce4-4949-8783-725645b066a4",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 7,
+        "地点": "云南省 德宏傣族景颇族自治州 瑞丽市 姐岗南路168-206-3-1号及姐岗南路168-206-3号",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "德宏傣族景颇族自治州",
+        "区": "瑞丽市",
+        "最靠近商圈": "姐岗",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 619189771683,
+        "市场评估价": 2586006,
+        "起拍价格": 2068900,
+        "成交价格": 2808900,
+        "交易时间": "2020/06/30 10:40:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/619189771683.htm?track_id=2a285587-76ee-48d7-b5f4-0ccab3564ccb",
+        "是否成交": true,
+        "竞拍人数": 35,
+        "出价人数": 35,
+        "地点": "浙江省 丽水市 云和县 浮云街道解放东街183号",
+        "所属小区": "云和县浮云街道解放东街183号房产",
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": "浮云街道",
+        "建筑面积": 161.59,
+        "单价": 17372.17,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "620007206535",
+        "url": "https://sf-item.taobao.com/sf_item/620007206535.htm?track_id=76b18245-a4a9-45a2-b72d-7d6036192a93",
+        "end": 1593482941000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619578494220",
+        "url": "https://sf-item.taobao.com/sf_item/619578494220.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1593488019000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619315437856",
+        "url": "https://sf-item.taobao.com/sf_item/619315437856.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1593484410000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619059929815",
+        "url": "https://sf-item.taobao.com/sf_item/619059929815.htm?track_id=341ff115-3de4-4447-9f4d-b674940bd1c7",
+        "end": 1593482400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620115705268",
+        "url": "https://sf-item.taobao.com/sf_item/620115705268.htm?track_id=c4c6f977-daa9-41ae-b76e-693ed5d8964f",
+        "end": 1593488784000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619237917375",
+        "url": "https://sf-item.taobao.com/sf_item/619237917375.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1593484431000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620115121082",
+        "url": "https://sf-item.taobao.com/sf_item/620115121082.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1593484857000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619815536318",
+        "url": "https://sf-item.taobao.com/sf_item/619815536318.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1593485135000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619498398486",
+        "url": "https://sf-item.taobao.com/sf_item/619498398486.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1593485225000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619700043043",
+        "url": "https://sf-item.taobao.com/sf_item/619700043043.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1593487491000,
+        "status": "done",
+        "is_processed": false
     }
 ]

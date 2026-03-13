@@ -2332,5 +2332,159 @@
         "单价": 7255.73,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 579064085829,
+        "市场评估价": null,
+        "起拍价格": 280000,
+        "成交价格": 314000,
+        "交易时间": "2018-10-30 11:16:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/579064085829.htm?track_id=8d480b32-1a24-480f-87d8-760f1f642ec7",
+        "是否成交": true,
+        "竞拍人数": 33,
+        "出价人数": null,
+        "地点": "湖南省 湘潭市 湘潭县 易俗河镇瑞莲路西侧的商业房产一处",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "湘潭县",
+        "最靠近商圈": "易俗河",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 578910964523,
+        "市场评估价": 1002715,
+        "起拍价格": 724462,
+        "成交价格": 724462,
+        "交易时间": "2018-10-30 10:03:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/578910964523.htm?track_id=2892b633-8100-40d6-841e-30f5c9930171",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "宁夏回族自治区吴忠市利通区明珠路北侧金茂苑商业楼8号楼22号商业房产",
+        "所属小区": "金茂苑",
+        "省份": "宁夏回族自治区",
+        "城市": "吴忠市",
+        "区": "利通区",
+        "最靠近商圈": null,
+        "建筑面积": 137.49,
+        "单价": 5270.16,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 579093417049,
+        "市场评估价": 1107069,
+        "起拍价格": 799858,
+        "成交价格": 799858,
+        "交易时间": "2018/10/30 10:03:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/579093417049.htm?track_id=2892b633-8100-40d6-841e-30f5c9930171",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "宁夏回族自治区 吴忠市 利通区 明珠路北侧金茂苑商业楼8号楼29号商业房产",
+        "所属小区": "金茂苑",
+        "省份": "宁夏回族自治区",
+        "城市": "吴忠市",
+        "区": "利通区",
+        "最靠近商圈": "明珠路商圈",
+        "建筑面积": 137.49,
+        "单价": 5818.18,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 575827121024,
+        "市场评估价": 377143,
+        "起拍价格": 288515,
+        "成交价格": 238344,
+        "交易时间": "2018-10-30 15:30:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/575827121024.htm?track_id=bf4105a2-36a9-47d1-bc01-70cc68fdd836",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "宁夏回族自治区 吴忠市 利通区 吴忠市利通区开元大道南侧文化街东侧福林商业广场七号公馆二十二套住宅房产及四套商业房产",
+        "所属小区": "福林商业广场七号公馆",
+        "省份": "宁夏回族自治区",
+        "城市": "吴忠市",
+        "区": "利通区",
+        "最靠近商圈": "吴忠万达广场",
+        "建筑面积": 97.15,
+        "单价": 2452.16,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "579487567501",
+        "url": "https://sf-item.taobao.com/sf_item/579487567501.htm?track_id=76b18245-a4a9-45a2-b72d-7d6036192a93",
+        "end": 1540866857000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578332221696",
+        "url": "https://sf-item.taobao.com/sf_item/578332221696.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1540870184000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578334265028",
+        "url": "https://sf-item.taobao.com/sf_item/578334265028.htm?track_id=ce2e63f0-8b37-4998-a8c7-ce9ff00dfedb",
+        "end": 1540876916000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578435239745",
+        "url": "https://sf-item.taobao.com/sf_item/578435239745.htm?track_id=7a807e00-fdf4-4ee6-84d9-b303b24f393d",
+        "end": 1540877432000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579062960441",
+        "url": "https://sf-item.taobao.com/sf_item/579062960441.htm?track_id=7398cc8f-67f4-4cf0-ab9f-ff77efb44d5b",
+        "end": 1540866476000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579063112335",
+        "url": "https://sf-item.taobao.com/sf_item/579063112335.htm?track_id=569da56e-9783-444e-9e87-0bf3f46845ae",
+        "end": 1540865779000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578577119412",
+        "url": "https://sf-item.taobao.com/sf_item/578577119412.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1540864800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579063052317",
+        "url": "https://sf-item.taobao.com/sf_item/579063052317.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1540864800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579369134868",
+        "url": "https://sf-item.taobao.com/sf_item/579369134868.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1540864950000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "578258229635",
+        "url": "https://sf-item.taobao.com/sf_item/578258229635.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1540865888000,
+        "status": "done",
+        "is_processed": false
     }
 ]

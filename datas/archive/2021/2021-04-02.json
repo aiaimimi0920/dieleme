@@ -1644,5 +1644,40 @@
         "单价": 7110.0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 640369290882,
+        "市场评估价": null,
+        "起拍价格": 350000,
+        "成交价格": 350000,
+        "交易时间": "2021-04-02 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/640369290882.htm?track_id=3ee473d3-5eee-45e8-a539-306e719b5215",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 驻马店市 上蔡县 上蔡县蔡都大道西段北侧",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "驻马店市",
+        "区": "上蔡县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "640466190066",
+        "url": "https://sf-item.taobao.com/sf_item/640466190066.htm?track_id=ce2e63f0-8b37-4998-a8c7-ce9ff00dfedb",
+        "end": 1617331538000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638289064263",
+        "url": "https://sf-item.taobao.com/sf_item/638289064263.htm?track_id=c5fe033e-1c10-4016-a74f-c0c5570b233f",
+        "end": 1617332983000,
+        "status": "done",
+        "is_processed": false
     }
 ]

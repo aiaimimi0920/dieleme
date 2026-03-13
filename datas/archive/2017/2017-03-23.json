@@ -420,5 +420,40 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 546258739810,
+        "市场评估价": 541470,
+        "起拍价格": 433176,
+        "成交价格": 601176,
+        "交易时间": "2017-03-23T10:55:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/546258739810.htm?track_id=55c635e4-1bc5-4b16-b216-ac34d4222699",
+        "是否成交": true,
+        "竞拍人数": 82,
+        "出价人数": 82,
+        "地点": "河南省 洛阳市 汝阳县",
+        "所属小区": "滨河小区",
+        "省份": "河南省",
+        "城市": "洛阳市",
+        "区": "汝阳县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "546247711853",
+        "url": "https://sf-item.taobao.com/sf_item/546247711853.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1490235453000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542620190229",
+        "url": "https://sf-item.taobao.com/sf_item/542620190229.htm?track_id=e86c2fb3-2358-433a-97e5-a8af55fae3ba",
+        "end": 1490235977000,
+        "status": "done",
+        "is_processed": false
     }
 ]

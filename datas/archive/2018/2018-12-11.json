@@ -3632,5 +3632,117 @@
         "单价": 28194.03,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 581565170828,
+        "市场评估价": null,
+        "起拍价格": 380000,
+        "成交价格": 380000,
+        "交易时间": "2018-12-11 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581565170828.htm?track_id=9d4c1acb-89de-4b42-b0ca-fb745b4f7f4f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 郴州市 宜章县 玉溪镇城北街104-035栋301",
+        "所属小区": "玉溪镇城关镇",
+        "省份": "湖南省",
+        "城市": "郴州市",
+        "区": "宜章县",
+        "最靠近商圈": "玉溪镇",
+        "建筑面积": 146,
+        "单价": 2602.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 581753739741,
+        "市场评估价": 1500000,
+        "起拍价格": 720000,
+        "成交价格": 1514000,
+        "交易时间": "2018-12-11",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581753739741.htm?track_id=7483eb02-82e6-44d1-93aa-96ec4477e7f8",
+        "是否成交": true,
+        "竞拍人数": 215,
+        "出价人数": 226,
+        "地点": "福建省宁德市福安市天湖东路8-1号（金龙商住小区）3幢9层908、909号",
+        "所属小区": "金龙商住小区",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "天湖东路商圈",
+        "建筑面积": 125.45,
+        "单价": 12061.15,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 581293144457,
+        "市场评估价": null,
+        "起拍价格": 210000,
+        "成交价格": 210000,
+        "交易时间": "2018-12-11 14:02:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581293144457.htm?track_id=a961ca93-0cd4-45aa-a924-0cf1a194c4b1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 许昌市 禹州市 夏都办山林街65号",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "夏都办",
+        "建筑面积": 103.06,
+        "单价": 2038.85,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "581640730637",
+        "url": "https://sf-item.taobao.com/sf_item/581640730637.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1544495678000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581912951496",
+        "url": "https://sf-item.taobao.com/sf_item/581912951496.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1544494650000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581323792445",
+        "url": "https://sf-item.taobao.com/sf_item/581323792445.htm?track_id=569da56e-9783-444e-9e87-0bf3f46845ae",
+        "end": 1544494672000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581768354926",
+        "url": "https://sf-item.taobao.com/sf_item/581768354926.htm?track_id=e86c2fb3-2358-433a-97e5-a8af55fae3ba",
+        "end": 1544497857000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581644154534",
+        "url": "https://sf-item.taobao.com/sf_item/581644154534.htm?track_id=e86c2fb3-2358-433a-97e5-a8af55fae3ba",
+        "end": 1544495897000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581448908690",
+        "url": "https://sf-item.taobao.com/sf_item/581448908690.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1544495027000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581826546775",
+        "url": "https://sf-item.taobao.com/sf_item/581826546775.htm?track_id=2ba4606a-7e86-480b-875e-e6ea7a267827",
+        "end": 1544496374000,
+        "status": "done",
+        "is_processed": false
     }
 ]

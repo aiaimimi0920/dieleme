@@ -2676,5 +2676,159 @@
         "单价": 1996.38,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 571059285107,
+        "市场评估价": 4220200,
+        "起拍价格": 2380000,
+        "成交价格": 2380000,
+        "交易时间": "2018-06-26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571059285107.htm?track_id=31bc9bf9-ed15-4df4-961f-0cd8e6355901",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 福州市 福清市 福清市宏路镇棋山村义明综合楼一层7#-15#",
+        "所属小区": "义明综合楼",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "宏路商圈",
+        "建筑面积": 333.91,
+        "单价": 7130.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 571080938149,
+        "市场评估价": 0,
+        "起拍价格": 936800,
+        "成交价格": 936800,
+        "交易时间": "2018/06/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571080938149.htm?track_id=31bc9bf9-ed15-4df4-961f-0cd8e6355901",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 福州市 福清市 福清市音西镇音西村、宏路镇石门村",
+        "所属小区": "融侨城（三期）",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "音西商圈",
+        "建筑面积": 47.75,
+        "单价": 19623.56,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 571145755235,
+        "市场评估价": null,
+        "起拍价格": 968000,
+        "成交价格": 968000,
+        "交易时间": "2018/06/26 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571145755235.htm?track_id=31bc9bf9-ed15-4df4-961f-0cd8e6355901",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 福州市 福清市 福清市音西镇音西村、宏路镇石门村融侨城（三期）17号楼1层12店面",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": null,
+        "建筑面积": 49.14,
+        "单价": 19704.11,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 570270390605,
+        "市场评估价": null,
+        "起拍价格": 850000,
+        "成交价格": 1114000,
+        "交易时间": "2018-06-26 10:18:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/570270390605.htm?track_id=8c19ae71-9e4b-4282-a0d6-66645bd06ff0",
+        "是否成交": true,
+        "竞拍人数": 34,
+        "出价人数": null,
+        "地点": "河南省许昌市禹州市颍川办中华药城南十路12号",
+        "所属小区": "中华药城",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "中华药城",
+        "建筑面积": 300.69,
+        "单价": 3703.59,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "570373817082",
+        "url": "https://sf-item.taobao.com/sf_item/570373817082.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1529980622000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571117523154",
+        "url": "https://sf-item.taobao.com/sf_item/571117523154.htm?track_id=f640d2ba-dacc-453f-a102-f491a7ac41f1",
+        "end": 1529979662000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570245724012",
+        "url": "https://sf-item.taobao.com/sf_item/570245724012.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1529980247000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570473582091",
+        "url": "https://sf-item.taobao.com/sf_item/570473582091.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1529979160000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570294501308",
+        "url": "https://sf-item.taobao.com/sf_item/570294501308.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1529982259000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570349646009",
+        "url": "https://sf-item.taobao.com/sf_item/570349646009.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1529980883000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570119888078",
+        "url": "https://sf-item.taobao.com/sf_item/570119888078.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1529980021000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570521227950",
+        "url": "https://sf-item.taobao.com/sf_item/570521227950.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1529982691000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570117468604",
+        "url": "https://sf-item.taobao.com/sf_item/570117468604.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1529979162000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "570246017311",
+        "url": "https://sf-item.taobao.com/sf_item/570246017311.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1529978841000,
+        "status": "done",
+        "is_processed": false
     }
 ]

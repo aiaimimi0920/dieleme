@@ -733,5 +733,61 @@
         "单价": 17923.96,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 641348688896,
+        "市场评估价": null,
+        "起拍价格": 780000,
+        "成交价格": 1084000,
+        "交易时间": "2021/05/09 10:08:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/641348688896.htm?track_id=9b91cae5-87be-45ef-b843-2647b0f40b10",
+        "是否成交": true,
+        "竞拍人数": 72,
+        "出价人数": 72,
+        "地点": "福建省 宁德市 福安市 城区阳头广场北路127号广益街4幢3层302号",
+        "所属小区": "广益街4幢",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头商圈",
+        "建筑面积": 160.84,
+        "单价": 6744.88,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "642441296545",
+        "url": "https://sf-item.taobao.com/sf_item/642441296545.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1620528666000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643513703745",
+        "url": "https://sf-item.taobao.com/sf_item/643513703745.htm?track_id=5bdb3ece-bea2-4367-a143-eeb0d06ddbbd",
+        "end": 1620528084000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642440340718",
+        "url": "https://sf-item.taobao.com/sf_item/642440340718.htm?track_id=0854805c-e1e7-462f-94cb-395690db362d",
+        "end": 1620527180000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643172998022",
+        "url": "https://sf-item.taobao.com/sf_item/643172998022.htm?track_id=0854805c-e1e7-462f-94cb-395690db362d",
+        "end": 1620527559000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "642439916799",
+        "url": "https://sf-item.taobao.com/sf_item/642439916799.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1620527230000,
+        "status": "done",
+        "is_processed": false
     }
 ]

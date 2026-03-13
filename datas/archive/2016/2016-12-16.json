@@ -1097,5 +1097,68 @@
         "单价": 2037.86,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 536223428080,
+        "市场评估价": 0,
+        "起拍价格": 5655900,
+        "成交价格": 7555900,
+        "交易时间": "2016/12/16 10:16:57",
+        "原始网站": "https://sf-item.taobao.com/sf_item/536223428080.htm?track_id=55d33a9a-1826-40f2-84b8-07e9e98e27ba",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 24,
+        "地点": "北京市西城区新街口西里一区6号楼5门302号",
+        "所属小区": "新街口西里一区",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "新街口",
+        "建筑面积": 70.42,
+        "单价": 107273.65,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 542581855093,
+        "市场评估价": null,
+        "起拍价格": 3450000,
+        "成交价格": 3450000,
+        "交易时间": "2016-12-16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542581855093.htm?track_id=968646e3-525a-4a6b-b9c1-312c2ac2a97b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "贵州省 黔西南布依族苗族自治州 贞丰县 珉谷镇南环路安置区东一号路",
+        "所属小区": null,
+        "省份": "贵州省",
+        "城市": "黔西南布依族苗族自治州",
+        "区": "贞丰县",
+        "最靠近商圈": null,
+        "建筑面积": 972.5,
+        "单价": 3548.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "542535639248",
+        "url": "https://sf-item.taobao.com/sf_item/542535639248.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1481858364000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542517001708",
+        "url": "https://sf-item.taobao.com/sf_item/542517001708.htm?track_id=0854805c-e1e7-462f-94cb-395690db362d",
+        "end": 1481854277000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542443324661",
+        "url": "https://sf-item.taobao.com/sf_item/542443324661.htm?track_id=2772e5f4-cbd3-4273-a7f7-12a8740e5278",
+        "end": 1481856356000,
+        "status": "done",
+        "is_processed": false
     }
 ]

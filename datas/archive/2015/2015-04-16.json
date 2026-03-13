@@ -189,5 +189,33 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 44380813202,
+        "市场评估价": null,
+        "起拍价格": 2946400,
+        "成交价格": 3396400,
+        "交易时间": "2015-04-16T10:06:25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/44380813202.htm?track_id=71f570dc-94fb-4c8e-b0ec-81e6da1fca8b",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 13,
+        "地点": "北京市西城区六铺炕二区2号楼10层1006号",
+        "所属小区": "六铺炕二区",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "西城区",
+        "最靠近商圈": "金融街",
+        "建筑面积": 48.1,
+        "单价": 70616.53,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "44509109496",
+        "url": "https://sf-item.taobao.com/sf_item/44509109496.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1429151167000,
+        "status": "done",
+        "is_processed": false
     }
 ]

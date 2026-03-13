@@ -1864,5 +1864,131 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 563202599131,
+        "市场评估价": 722000,
+        "起拍价格": 462080,
+        "成交价格": 522080,
+        "交易时间": "2018-01-09 10:13:10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563202599131.htm?track_id=e160820c-3ca0-4bf2-a8d4-a48cec87dbb5",
+        "是否成交": true,
+        "竞拍人数": 13,
+        "出价人数": 12,
+        "地点": "福建省 福州市 福清市 福清市龙田镇龙田商贸城一期C区",
+        "所属小区": "龙田商贸城",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "龙田镇中心",
+        "建筑面积": 164.87,
+        "单价": 3166.75,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 562492038480,
+        "市场评估价": 474500,
+        "起拍价格": 379600,
+        "成交价格": 379600,
+        "交易时间": "2018/01/09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562492038480.htm?track_id=a8fb37f1-d270-44a4-9a1c-b484f8e30ed8",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "河南省许昌市鄢陵县花都大道北花博大道西侧花博小区森海豪庭",
+        "所属小区": "森海豪庭",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": "花博园",
+        "建筑面积": 132.18,
+        "单价": 2871.77,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 562519586506,
+        "市场评估价": null,
+        "起拍价格": 312800,
+        "成交价格": 312800,
+        "交易时间": "2018/01/09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562519586506.htm?track_id=aef1f8bb-427d-4719-8e74-3ec2dd472364",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省 肇庆市 怀集县 怀城镇西区沿江路与三江路交汇处“锦竹豪苑”第3幢603号",
+        "所属小区": "锦竹豪苑",
+        "省份": "广东省",
+        "城市": "肇庆市",
+        "区": "怀集县",
+        "最靠近商圈": null,
+        "建筑面积": 118.12,
+        "单价": 2649.83,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "562527621654",
+        "url": "https://sf-item.taobao.com/sf_item/562527621654.htm?track_id=bbcebf4c-5ec0-435e-afec-d32f10840871",
+        "end": 1515463295000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562578027684",
+        "url": "https://sf-item.taobao.com/sf_item/562578027684.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1515466989000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562586086905",
+        "url": "https://sf-item.taobao.com/sf_item/562586086905.htm?track_id=ce2e63f0-8b37-4998-a8c7-ce9ff00dfedb",
+        "end": 1515465929000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562582186772",
+        "url": "https://sf-item.taobao.com/sf_item/562582186772.htm?track_id=7a807e00-fdf4-4ee6-84d9-b303b24f393d",
+        "end": 1515467005000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562518491533",
+        "url": "https://sf-item.taobao.com/sf_item/562518491533.htm?track_id=671fb627-9cbf-4c21-8704-7010cc79e63c",
+        "end": 1515467411000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563028993893",
+        "url": "https://sf-item.taobao.com/sf_item/563028993893.htm?track_id=7398cc8f-67f4-4cf0-ab9f-ff77efb44d5b",
+        "end": 1515463602000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562511645937",
+        "url": "https://sf-item.taobao.com/sf_item/562511645937.htm?track_id=afd087fd-d280-4c92-87b8-fcea075d7588",
+        "end": 1515463200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562567815670",
+        "url": "https://sf-item.taobao.com/sf_item/562567815670.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1515464047000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562595546457",
+        "url": "https://sf-item.taobao.com/sf_item/562595546457.htm?track_id=c5fe033e-1c10-4016-a74f-c0c5570b233f",
+        "end": 1515467106000,
+        "status": "done",
+        "is_processed": false
     }
 ]

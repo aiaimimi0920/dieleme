@@ -1329,5 +1329,110 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 605308833506,
+        "市场评估价": null,
+        "起拍价格": 677351,
+        "成交价格": 847351,
+        "交易时间": "2019-11-14 10:41:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/605308833506.htm?track_id=ad54bc7e-87a4-48a5-b9e5-2ed7c5ee19f2",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 49,
+        "地点": "广西壮族自治区 玉林市 玉州区 玉林市石牛路200号华泰城商住小区2幢1单元1902号",
+        "所属小区": "华泰城商住小区",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "玉州商圈",
+        "建筑面积": 152.68,
+        "单价": 5546.52,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 602220502855,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 1755162,
+        "交易时间": "2019/11/14 21:48:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/602220502855.htm?track_id=2892b633-8100-40d6-841e-30f5c9930171",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "宁夏回族自治区 吴忠市 利通区 利通南街西侧南一环南侧恒美国际家具广场C1号",
+        "所属小区": null,
+        "省份": "宁夏回族自治区",
+        "城市": "吴忠市",
+        "区": "利通区",
+        "最靠近商圈": "利通南街商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 607120471375,
+        "市场评估价": 0,
+        "起拍价格": 5300140.61,
+        "成交价格": 6740140.61,
+        "交易时间": "2019/11/14 10:51:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/607120471375.htm?track_id=b73737f4-5af2-4d91-8728-229efd7daa1d",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 73,
+        "地点": "广东省 深圳市 盐田区 大梅沙高速公路北侧万科东海岸社区云山居202栋702房产",
+        "所属小区": "万科东海岸",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "大梅沙",
+        "建筑面积": 190.51,
+        "单价": 35380.45,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "605212253290",
+        "url": "https://sf-item.taobao.com/sf_item/605212253290.htm?track_id=c4483fcd-3594-4770-b22e-4dbbb33f35db",
+        "end": 1573697408000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604485610710",
+        "url": "https://sf-item.taobao.com/sf_item/604485610710.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1573718198000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605213637213",
+        "url": "https://sf-item.taobao.com/sf_item/605213637213.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1573697044000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605136417381",
+        "url": "https://sf-item.taobao.com/sf_item/605136417381.htm?track_id=70afca07-b60e-4b1f-b59b-048e5ebc630c",
+        "end": 1573699217000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604902484033",
+        "url": "https://sf-item.taobao.com/sf_item/604902484033.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1573697687000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605211737870",
+        "url": "https://sf-item.taobao.com/sf_item/605211737870.htm?track_id=8f5d3f61-c0b9-468a-9d5e-6c0df3400471",
+        "end": 1573697021000,
+        "status": "done",
+        "is_processed": false
     }
 ]

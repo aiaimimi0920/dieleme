@@ -612,5 +612,33 @@
         "单价": 11464.81,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 567088831898,
+        "市场评估价": 343400,
+        "起拍价格": 274720,
+        "成交价格": 274720,
+        "交易时间": "2018/04/19 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/567088831898.htm?track_id=a8be1e38-fc20-4f06-8b16-81840098456f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 洛阳市 汝阳县 杜康大道",
+        "所属小区": "天伦嘉苑",
+        "省份": "河南省",
+        "城市": "洛阳市",
+        "区": "汝阳县",
+        "最靠近商圈": "杜康大道",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "566067590118",
+        "url": "https://sf-item.taobao.com/sf_item/566067590118.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1524104859000,
+        "status": "done",
+        "is_processed": false
     }
 ]

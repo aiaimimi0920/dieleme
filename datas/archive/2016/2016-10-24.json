@@ -229,5 +229,26 @@
         "单价": 2239.53,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 539740462408,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 7120000,
+        "交易时间": "2016/10/24 10:25:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/539740462408.htm?track_id=ed209e8c-cff3-409f-9550-65ca0ce6698c",
+        "是否成交": true,
+        "竞拍人数": 53,
+        "出价人数": 7,
+        "地点": "北京 北京市 西城区",
+        "所属小区": null,
+        "省份": "北京",
+        "城市": "北京",
+        "区": "西城区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

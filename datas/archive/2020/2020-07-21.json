@@ -3531,5 +3531,96 @@
         "单价": 2315.08,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 622065381286,
+        "市场评估价": null,
+        "起拍价格": 575469.44,
+        "成交价格": 575469.44,
+        "交易时间": "2020-07-21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/622065381286.htm?track_id=9456b9b2-9a68-46a6-b3c3-1d28b6eeda4f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 抚州市 黎川县 日峰镇黎海花苑",
+        "所属小区": "黎海花苑",
+        "省份": "江西省",
+        "城市": "抚州市",
+        "区": "黎川县",
+        "最靠近商圈": "黎川县城",
+        "建筑面积": 219.31,
+        "单价": 2626.21,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 620897166780,
+        "市场评估价": 495600,
+        "起拍价格": 347000,
+        "成交价格": 428000,
+        "交易时间": "2020-07-21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/620897166780.htm?track_id=fdd227b9-cec9-4192-ac78-dafba35063d6",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 15,
+        "地点": "福建省 福州市 福清市 福清市宏路街506号粮站综合楼209单元及附属33#杂物间",
+        "所属小区": "粮站综合楼",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "宏路街商圈",
+        "建筑面积": 110.02,
+        "单价": 3889.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "621719524529",
+        "url": "https://sf-item.taobao.com/sf_item/621719524529.htm?track_id=dbdaa981-0120-4f16-a770-994046a44c2c",
+        "end": 1595297807000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620291788123",
+        "url": "https://sf-item.taobao.com/sf_item/620291788123.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1595297798000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "621325363550",
+        "url": "https://sf-item.taobao.com/sf_item/621325363550.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1595300373000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620345660682",
+        "url": "https://sf-item.taobao.com/sf_item/620345660682.htm?track_id=ae73874c-e939-427f-bb2b-54d0c32a04bf",
+        "end": 1595298708000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620432424241",
+        "url": "https://sf-item.taobao.com/sf_item/620432424241.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1595298838000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620398888476",
+        "url": "https://sf-item.taobao.com/sf_item/620398888476.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1595298007000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620646753507",
+        "url": "https://sf-item.taobao.com/sf_item/620646753507.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1595297879000,
+        "status": "done",
+        "is_processed": false
     }
 ]

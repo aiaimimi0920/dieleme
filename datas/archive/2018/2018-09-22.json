@@ -973,5 +973,33 @@
         "单价": 15834.94,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 576608196301,
+        "市场评估价": null,
+        "起拍价格": 590433,
+        "成交价格": 590433,
+        "交易时间": "2018-09-22T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/576608196301.htm?track_id=ba28d8e3-cfd4-411d-8bf3-72c28227171b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 1,
+        "地点": "黑龙江省 鸡西市 鸡冠区 鸡西市鸡冠区中兴大厦-4-10-1",
+        "所属小区": "中兴大厦",
+        "省份": "黑龙江省",
+        "城市": "鸡西市",
+        "区": "鸡冠区",
+        "最靠近商圈": "鸡冠区中心商圈",
+        "建筑面积": 214.08,
+        "单价": 2758.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "576981983867",
+        "url": "https://sf-item.taobao.com/sf_item/576981983867.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1537581600000,
+        "status": "done",
+        "is_processed": false
     }
 ]

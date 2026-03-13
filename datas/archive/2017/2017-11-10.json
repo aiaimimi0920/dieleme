@@ -761,5 +761,40 @@
         "单价": 6602.56,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 560502366754,
+        "市场评估价": 15200800,
+        "起拍价格": 10000000,
+        "成交价格": 11120000,
+        "交易时间": "2017-11-10",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560502366754.htm?track_id=ed209e8c-cff3-409f-9550-65ca0ce6698c",
+        "是否成交": true,
+        "竞拍人数": 55,
+        "出价人数": 55,
+        "地点": "北京市西城区小马厂路1号院7号楼27层2704室",
+        "所属小区": "小马厂路1号院",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "西单/金融街",
+        "建筑面积": 159.79,
+        "单价": 69610.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "560386681811",
+        "url": "https://sf-item.taobao.com/sf_item/560386681811.htm?track_id=c4c6f977-daa9-41ae-b76e-693ed5d8964f",
+        "end": 1510281956000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560129124666",
+        "url": "https://sf-item.taobao.com/sf_item/560129124666.htm?track_id=221bf921-92f2-4ebc-b6fc-d8f9be5d3375",
+        "end": 1510307426000,
+        "status": "done",
+        "is_processed": false
     }
 ]

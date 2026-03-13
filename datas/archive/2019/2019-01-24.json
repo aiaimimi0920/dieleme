@@ -1855,5 +1855,33 @@
         "单价": 4019.23,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 585109816016,
+        "市场评估价": null,
+        "起拍价格": 845760,
+        "成交价格": 965760,
+        "交易时间": "2019-01-24 10:07:24",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585109816016.htm?track_id=b182b173-f6ce-46ae-9b46-3eaf49a1962a",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": null,
+        "地点": "河南省许昌市鄢陵县陈化店镇311国道路北建业生态新城132号楼东1号房",
+        "所属小区": "建业生态新城",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": "陈化店",
+        "建筑面积": 120,
+        "单价": 8048,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "585820351029",
+        "url": "https://sf-item.taobao.com/sf_item/585820351029.htm?track_id=d81f6b19-6a53-4414-a881-cb5db5551075",
+        "end": 1548297610000,
+        "status": "done",
+        "is_processed": false
     }
 ]

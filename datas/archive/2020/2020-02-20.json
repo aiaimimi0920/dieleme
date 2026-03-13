@@ -554,5 +554,40 @@
         "单价": 828.42,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 611938650722,
+        "市场评估价": null,
+        "起拍价格": 400000,
+        "成交价格": 460000,
+        "交易时间": "2020/02/20 10:39:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611938650722.htm?track_id=61a8abf4-b500-4145-ae33-ddee8d5a7620",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 21,
+        "地点": "广西壮族自治区 玉林市 玉州区 江南开发区华商国际香港城5幢C102号",
+        "所属小区": "华商国际香港城",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "江南开发区",
+        "建筑面积": 131.74,
+        "单价": 3492.25,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "610761960357",
+        "url": "https://sf-item.taobao.com/sf_item/610761960357.htm?track_id=1cfcb80d-b814-4531-90ca-8524fc57af47",
+        "end": 1582166383000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "611279835755",
+        "url": "https://sf-item.taobao.com/sf_item/611279835755.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1582164229000,
+        "status": "done",
+        "is_processed": false
     }
 ]

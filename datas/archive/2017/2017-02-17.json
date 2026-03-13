@@ -903,5 +903,47 @@
         "单价": 2247.34,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 544574365460,
+        "市场评估价": null,
+        "起拍价格": 487200,
+        "成交价格": 487200,
+        "交易时间": "2017/02/17 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/544574365460.htm?track_id=30c717ff-3387-418f-af36-ccc85c69d17a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 宁德市 福安市 赛岐镇凯旋街太和路二巷16号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "赛岐",
+        "建筑面积": 177.39,
+        "单价": 2747.32,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "544488136599",
+        "url": "https://sf-item.taobao.com/sf_item/544488136599.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1487297428000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544542135818",
+        "url": "https://sf-item.taobao.com/sf_item/544542135818.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1487298694000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "544514357405",
+        "url": "https://sf-item.taobao.com/sf_item/544514357405.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1487297693000,
+        "status": "done",
+        "is_processed": false
     }
 ]

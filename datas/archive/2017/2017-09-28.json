@@ -640,5 +640,124 @@
         "单价": 19543.66,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 557287599652,
+        "市场评估价": null,
+        "起拍价格": 304200,
+        "成交价格": 391200,
+        "交易时间": "2017-09-28T10:18:15",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557287599652.htm?track_id=38dcfd85-0cec-4db8-913c-7018bdab6074",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 崇左市 大新县 桃城镇伦那路熙龙国际小区5号楼3单元5-3-101号房",
+        "所属小区": "熙龙国际小区",
+        "省份": "广西壮族自治区",
+        "城市": "崇左市",
+        "区": "大新县",
+        "最靠近商圈": "桃城镇",
+        "建筑面积": 121.68,
+        "单价": 3214.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 557638004047,
+        "市场评估价": null,
+        "起拍价格": 1734574,
+        "成交价格": 2864574,
+        "交易时间": "2017/09/28 22:31:30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557638004047.htm?track_id=a0928af9-23e5-49f6-b5e1-b4167f11ffed",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 155,
+        "地点": "云南省大理白族自治州剑川县剑川县金华镇永丰北路16号",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "大理白族自治州",
+        "区": "剑川县",
+        "最靠近商圈": "金华镇",
+        "建筑面积": 490.69,
+        "单价": 5837.52,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "558531295023",
+        "url": "https://sf-item.taobao.com/sf_item/558531295023.htm?track_id=7a807e00-fdf4-4ee6-84d9-b303b24f393d",
+        "end": 1506569792000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557587189488",
+        "url": "https://sf-item.taobao.com/sf_item/557587189488.htm?track_id=0c4d060f-2e9d-4d5d-9db5-bf7a6a9f075d",
+        "end": 1506568501000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558330392580",
+        "url": "https://sf-item.taobao.com/sf_item/558330392580.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1506565162000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558416709394",
+        "url": "https://sf-item.taobao.com/sf_item/558416709394.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1506565147000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558464942995",
+        "url": "https://sf-item.taobao.com/sf_item/558464942995.htm?track_id=8e74a30b-ddb8-4c16-be92-5c43279efed6",
+        "end": 1506567023000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558466630500",
+        "url": "https://sf-item.taobao.com/sf_item/558466630500.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1506564975000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558417565142",
+        "url": "https://sf-item.taobao.com/sf_item/558417565142.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1506565378000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558414613827",
+        "url": "https://sf-item.taobao.com/sf_item/558414613827.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1506565609000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558526151300",
+        "url": "https://sf-item.taobao.com/sf_item/558526151300.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1506565955000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558464442580",
+        "url": "https://sf-item.taobao.com/sf_item/558464442580.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1506565791000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558530155837",
+        "url": "https://sf-item.taobao.com/sf_item/558530155837.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1506564825000,
+        "status": "done",
+        "is_processed": false
     }
 ]

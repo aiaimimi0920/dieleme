@@ -2803,5 +2803,82 @@
         "单价": 4174.97,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 606696758172,
+        "市场评估价": 500000,
+        "起拍价格": 500000,
+        "成交价格": 605000,
+        "交易时间": "2019-11-26T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606696758172.htm?track_id=cee1b38e-b562-443b-8dcc-92d5c9887260",
+        "是否成交": true,
+        "竞拍人数": 35,
+        "出价人数": 35,
+        "地点": "福建省宁德市福安市福安市城区城阳金湖路京都美景花园1幢3层206号",
+        "所属小区": "京都美景花园",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城阳",
+        "建筑面积": 112.19,
+        "单价": 5395.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "605988017327",
+        "url": "https://sf-item.taobao.com/sf_item/605988017327.htm?track_id=75e810c1-9dc6-4f7e-96ab-428af5ed9de5",
+        "end": 1574735301000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606196812703",
+        "url": "https://sf-item.taobao.com/sf_item/606196812703.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1574734113000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607611647220",
+        "url": "https://sf-item.taobao.com/sf_item/607611647220.htm?track_id=c4c6f977-daa9-41ae-b76e-693ed5d8964f",
+        "end": 1574741079000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606526962513",
+        "url": "https://sf-item.taobao.com/sf_item/606526962513.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1574734796000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605987744591",
+        "url": "https://sf-item.taobao.com/sf_item/605987744591.htm?track_id=c5fe033e-1c10-4016-a74f-c0c5570b233f",
+        "end": 1574735754000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606052396264",
+        "url": "https://sf-item.taobao.com/sf_item/606052396264.htm?track_id=8f5d3f61-c0b9-468a-9d5e-6c0df3400471",
+        "end": 1574734073000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607072196892",
+        "url": "https://sf-item.taobao.com/sf_item/607072196892.htm?track_id=8f5d3f61-c0b9-468a-9d5e-6c0df3400471",
+        "end": 1574733988000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "607329185443",
+        "url": "https://sf-item.taobao.com/sf_item/607329185443.htm?track_id=8f5d3f61-c0b9-468a-9d5e-6c0df3400471",
+        "end": 1574733887000,
+        "status": "done",
+        "is_processed": false
     }
 ]

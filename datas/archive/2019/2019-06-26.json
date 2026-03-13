@@ -973,5 +973,68 @@
         "单价": 3484.66,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 594368189907,
+        "市场评估价": 1537400,
+        "起拍价格": 1229920,
+        "成交价格": 1714920,
+        "交易时间": "2019-06-26 12:53:58",
+        "原始网站": "https://sf-item.taobao.com/sf_item/594368189907.htm?track_id=d66242ae-6452-4919-8353-b3eefa9c357b",
+        "是否成交": true,
+        "竞拍人数": 233,
+        "出价人数": 229,
+        "地点": "福建省 福州市 福清市 音西街道音西村凯景新天地",
+        "所属小区": "凯景新天地",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "音西商圈",
+        "建筑面积": 163.31,
+        "单价": 10501.81,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 596357795544,
+        "市场评估价": 15190077,
+        "起拍价格": 9569800,
+        "成交价格": 13369800,
+        "交易时间": "2019/06/26 12:59:18",
+        "原始网站": "https://sf-item.taobao.com/sf_item/596357795544.htm?track_id=63ee1d58-231f-4d8f-a254-d76317cc3225",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 74,
+        "地点": "北京 北京市 西城区 白塔寺庆丰胡同7号院内正式房屋及自建房屋（126.4㎡）",
+        "所属小区": null,
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "阜外",
+        "建筑面积": 126.4,
+        "单价": 105774.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "595218858919",
+        "url": "https://sf-item.taobao.com/sf_item/595218858919.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1561519695000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595388807880",
+        "url": "https://sf-item.taobao.com/sf_item/595388807880.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1561519131000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595290302769",
+        "url": "https://sf-item.taobao.com/sf_item/595290302769.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1561518188000,
+        "status": "done",
+        "is_processed": false
     }
 ]

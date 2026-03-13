@@ -381,5 +381,40 @@
         "单价": 1726.54,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 520396156731,
+        "市场评估价": null,
+        "起拍价格": 599100,
+        "成交价格": 1605100,
+        "交易时间": "2015/07/17 11:29:34",
+        "原始网站": "https://sf-item.taobao.com/sf_item/520396156731.htm?track_id=7483eb02-82e6-44d1-93aa-96ec4477e7f8",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福安市阳头祥和里38号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": null,
+        "建筑面积": 589.04,
+        "单价": 2725.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "520391911476",
+        "url": "https://sf-item.taobao.com/sf_item/520391911476.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1437102351000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "520385330886",
+        "url": "https://sf-item.taobao.com/sf_item/520385330886.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1437099349000,
+        "status": "done",
+        "is_processed": false
     }
 ]

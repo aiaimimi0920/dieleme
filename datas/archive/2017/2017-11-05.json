@@ -590,5 +590,33 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 559307816720,
+        "市场评估价": 0,
+        "起拍价格": 301000,
+        "成交价格": 301000,
+        "交易时间": "2017/11/05 10:01:04",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559307816720.htm?track_id=f92c3cee-1753-458c-8892-e88cd3e1d334",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "陕西省 西安市 阎良区 迎宾路中段东侧（西飞21区2141栋）",
+        "所属小区": "鸿飞小区",
+        "省份": "陕西省",
+        "城市": "西安市",
+        "区": "阎良区",
+        "最靠近商圈": "西飞生活区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "560266210146",
+        "url": "https://sf-item.taobao.com/sf_item/560266210146.htm?track_id=221bf921-92f2-4ebc-b6fc-d8f9be5d3375",
+        "end": 1509845842000,
+        "status": "done",
+        "is_processed": false
     }
 ]

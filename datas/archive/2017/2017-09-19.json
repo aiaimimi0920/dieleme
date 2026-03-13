@@ -2149,5 +2149,187 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 557133062929,
+        "市场评估价": null,
+        "起拍价格": 2320000,
+        "成交价格": 3160000,
+        "交易时间": "2017-09-19 10:26:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557133062929.htm?track_id=2a285587-76ee-48d7-b5f4-0ccab3564ccb",
+        "是否成交": true,
+        "竞拍人数": 68,
+        "出价人数": 68,
+        "地点": "浙江省 丽水市 云和县 红光路166-1号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": null,
+        "建筑面积": 582.96,
+        "单价": 5422.82,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 557086769186,
+        "市场评估价": null,
+        "起拍价格": 837600,
+        "成交价格": 949600,
+        "交易时间": "2017/09/19 10:30:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557086769186.htm?track_id=3798485d-22d6-4b2d-a160-1d827ba028eb",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 57,
+        "地点": "福建省 宁德市 福安市 福安市城区阳头工业路150号荣宏外滩C幢11层1106号",
+        "所属小区": "荣宏外滩",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头",
+        "建筑面积": 154.39,
+        "单价": 6151.92,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 557097616639,
+        "市场评估价": null,
+        "起拍价格": 1170000,
+        "成交价格": 1290000,
+        "交易时间": "2017-09-19 10:13:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557097616639.htm?track_id=94054949-e797-4feb-a366-38399a2eb164",
+        "是否成交": true,
+        "竞拍人数": 6,
+        "出价人数": 7,
+        "地点": "广东省 深圳市 盐田区",
+        "所属小区": "心海玥雅居",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "大梅沙",
+        "建筑面积": 59.62,
+        "单价": 21633.6,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 557655564304,
+        "市场评估价": null,
+        "起拍价格": 6618400,
+        "成交价格": 9228400,
+        "交易时间": "2017-09-19 10:41:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557655564304.htm?track_id=3520cd55-ea9f-4854-9fd1-099b9dc0447d",
+        "是否成交": true,
+        "竞拍人数": 78,
+        "出价人数": null,
+        "地点": "山东省 青岛市 黄岛区 前湾港东路777号11栋101户",
+        "所属小区": null,
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "前湾港",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "557134050523",
+        "url": "https://sf-item.taobao.com/sf_item/557134050523.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1505788449000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557193655356",
+        "url": "https://sf-item.taobao.com/sf_item/557193655356.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1505789660000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557005192104",
+        "url": "https://sf-item.taobao.com/sf_item/557005192104.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1505789410000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557135326152",
+        "url": "https://sf-item.taobao.com/sf_item/557135326152.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1505791055000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557193539091",
+        "url": "https://sf-item.taobao.com/sf_item/557193539091.htm?track_id=c33d4d15-780d-4500-b888-c4ef19f538a0",
+        "end": 1505788433000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557190445321",
+        "url": "https://sf-item.taobao.com/sf_item/557190445321.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1505786450000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557193879445",
+        "url": "https://sf-item.taobao.com/sf_item/557193879445.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1505787800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557134622916",
+        "url": "https://sf-item.taobao.com/sf_item/557134622916.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1505787578000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557091229257",
+        "url": "https://sf-item.taobao.com/sf_item/557091229257.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1505788076000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557194271922",
+        "url": "https://sf-item.taobao.com/sf_item/557194271922.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1505786539000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557195163133",
+        "url": "https://sf-item.taobao.com/sf_item/557195163133.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1505787826000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557105589308",
+        "url": "https://sf-item.taobao.com/sf_item/557105589308.htm?track_id=ce679841-39b9-4da8-b6a4-8ab34a8d2789",
+        "end": 1505788726000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557260407618",
+        "url": "https://sf-item.taobao.com/sf_item/557260407618.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1505789800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557290103795",
+        "url": "https://sf-item.taobao.com/sf_item/557290103795.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1505787250000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -655,5 +655,33 @@
         "单价": 9200,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 642348084792,
+        "市场评估价": 400000,
+        "起拍价格": 400000,
+        "成交价格": 403000,
+        "交易时间": "2021-05-23 10:03:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642348084792.htm?track_id=a8be1e38-fc20-4f06-8b16-81840098456f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 2,
+        "地点": "河南省 洛阳市 汝阳县 城关镇",
+        "所属小区": "城关镇新华路西二胡同",
+        "省份": "河南省",
+        "城市": "洛阳市",
+        "区": "汝阳县",
+        "最靠近商圈": "城关镇",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "643139930601",
+        "url": "https://sf-item.taobao.com/sf_item/643139930601.htm?track_id=d81f6b19-6a53-4414-a881-cb5db5551075",
+        "end": 1621737161000,
+        "status": "done",
+        "is_processed": false
     }
 ]

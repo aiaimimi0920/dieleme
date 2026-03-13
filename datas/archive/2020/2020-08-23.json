@@ -820,5 +820,40 @@
         "单价": 9832.85,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 624530801193,
+        "市场评估价": null,
+        "起拍价格": 356560,
+        "成交价格": 422560,
+        "交易时间": "2020/08/23 10:26:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624530801193.htm?track_id=81b45f56-ec7a-4f39-92ba-b8c7215612fd",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 19,
+        "地点": "福建省 福州市 福清市 沙埔镇高牛路西侧天鑫海景7号楼702单元",
+        "所属小区": "天鑫海景",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "沙埔镇",
+        "建筑面积": 146.71,
+        "单价": 2879.35,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "624392077864",
+        "url": "https://sf-item.taobao.com/sf_item/624392077864.htm?track_id=edf0094e-3ded-47af-9337-3fd42694247a",
+        "end": 1598148753000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624962591947",
+        "url": "https://sf-item.taobao.com/sf_item/624962591947.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1598149243000,
+        "status": "done",
+        "is_processed": false
     }
 ]

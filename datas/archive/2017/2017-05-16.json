@@ -2006,5 +2006,82 @@
         "单价": 3945.62,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 548621663558,
+        "市场评估价": null,
+        "起拍价格": 902400,
+        "成交价格": 1250400,
+        "交易时间": "2017-05-14T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548621663558.htm?track_id=00248bae-2e74-4ffa-816a-f86543014e76",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省宁德市福安市",
+        "所属小区": "华兴中环一号",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头商圈",
+        "建筑面积": 144.42,
+        "单价": 8662.56,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 548517977131,
+        "市场评估价": 1834800,
+        "起拍价格": 1651320,
+        "成交价格": 1651320,
+        "交易时间": "2017/05/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548517977131.htm?track_id=b182b173-f6ce-46ae-9b46-3eaf49a1962a",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 1,
+        "地点": "河南省许昌市鄢陵县陈化店镇西311国道北汤泉公馆B区31栋C号房",
+        "所属小区": "汤泉公馆B区",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": "陈化店镇",
+        "建筑面积": 233.44,
+        "单价": 7077.27,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "548695243226",
+        "url": "https://sf-item.taobao.com/sf_item/548695243226.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1494903493000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548695579023",
+        "url": "https://sf-item.taobao.com/sf_item/548695579023.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1494902401000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548692899156",
+        "url": "https://sf-item.taobao.com/sf_item/548692899156.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1494901567000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548595748407",
+        "url": "https://sf-item.taobao.com/sf_item/548595748407.htm?track_id=0854805c-e1e7-462f-94cb-395690db362d",
+        "end": 1494900931000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548637433465",
+        "url": "https://sf-item.taobao.com/sf_item/548637433465.htm?track_id=6580302c-5555-4bab-b055-9cb243a6d672",
+        "end": 1494902402000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -2171,5 +2171,89 @@
         "单价": 31380.92,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 620061409342,
+        "市场评估价": null,
+        "起拍价格": 16506672,
+        "成交价格": 21106672,
+        "交易时间": "2020-07-14 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/620061409342.htm?track_id=71c47fa7-9c0e-4f7f-9216-afa242845d8e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市 西城区 真武庙路二条10号楼12层8单元1501、1503",
+        "所属小区": null,
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "金融街",
+        "建筑面积": 182.42,
+        "单价": 115741.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 620783079132,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 612214.7,
+        "交易时间": "2020/07/14 10:41:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/620783079132.htm?track_id=8050f683-1e9e-4c17-a0d0-499815bfb54b",
+        "是否成交": true,
+        "竞拍人数": 22,
+        "出价人数": 50,
+        "地点": "宁夏回族自治区 吴忠市 利通区 上桥人家小区八号楼2702号",
+        "所属小区": "上桥人家小区",
+        "省份": "宁夏回族自治区",
+        "城市": "吴忠市",
+        "区": "利通区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "620508242901",
+        "url": "https://sf-item.taobao.com/sf_item/620508242901.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1594693464000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620255967065",
+        "url": "https://sf-item.taobao.com/sf_item/620255967065.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1594692000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620968998837",
+        "url": "https://sf-item.taobao.com/sf_item/620968998837.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1594692000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "619939744731",
+        "url": "https://sf-item.taobao.com/sf_item/619939744731.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1594693204000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620370574308",
+        "url": "https://sf-item.taobao.com/sf_item/620370574308.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1594693131000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "620473850792",
+        "url": "https://sf-item.taobao.com/sf_item/620473850792.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1594694942000,
+        "status": "done",
+        "is_processed": false
     }
 ]

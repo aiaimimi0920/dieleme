@@ -3274,5 +3274,110 @@
         "单价": 1476.35,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 625048100738,
+        "市场评估价": 1012000,
+        "起拍价格": 810000,
+        "成交价格": 935000,
+        "交易时间": "2020-09-22 10:15:22",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625048100738.htm?track_id=6ca7bebe-3211-4422-896e-fdb3434e23e0",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": 26,
+        "地点": "福建省 福州市 福清市 音西镇霞盛村景观豪庭",
+        "所属小区": "景观豪庭",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "音西商圈",
+        "建筑面积": 66.51,
+        "单价": 14059.99,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 625365453385,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 501601.2,
+        "交易时间": "2020/09/22 10:10:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/625365453385.htm?track_id=f4450736-9621-4a71-abbb-5d295ef880e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 19,
+        "地点": "宁夏回族自治区 吴忠市 利通区 宏泰清水湾十八号楼1501号",
+        "所属小区": "宏泰清水湾",
+        "省份": "宁夏回族自治区",
+        "城市": "吴忠市",
+        "区": "利通区",
+        "最靠近商圈": "市中心",
+        "建筑面积": 128.59,
+        "单价": 3901.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 626387389764,
+        "市场评估价": null,
+        "起拍价格": 550000,
+        "成交价格": 724000,
+        "交易时间": "2020-09-22 10:12:23",
+        "原始网站": "https://sf-item.taobao.com/sf_item/626387389764.htm?track_id=20bdb917-e78a-4cb6-b091-05db6ba5e76c",
+        "是否成交": true,
+        "竞拍人数": 80,
+        "出价人数": 80,
+        "地点": "福建省 宁德市 福安市 福安市城阳金湖路京都美景花园6幢4层406号",
+        "所属小区": "京都美景花园",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城阳",
+        "建筑面积": 129.57,
+        "单价": 5585.97,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "626037443801",
+        "url": "https://sf-item.taobao.com/sf_item/626037443801.htm?track_id=0c4d060f-2e9d-4d5d-9db5-bf7a6a9f075d",
+        "end": 1600742411000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625115668314",
+        "url": "https://sf-item.taobao.com/sf_item/625115668314.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1600741812000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625718814730",
+        "url": "https://sf-item.taobao.com/sf_item/625718814730.htm?track_id=8e74a30b-ddb8-4c16-be92-5c43279efed6",
+        "end": 1600741537000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624951421372",
+        "url": "https://sf-item.taobao.com/sf_item/624951421372.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1600744129000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626064980821",
+        "url": "https://sf-item.taobao.com/sf_item/626064980821.htm?track_id=70afca07-b60e-4b1f-b59b-048e5ebc630c",
+        "end": 1600745113000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625466793453",
+        "url": "https://sf-item.taobao.com/sf_item/625466793453.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1600742595000,
+        "status": "done",
+        "is_processed": false
     }
 ]

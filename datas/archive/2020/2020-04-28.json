@@ -2471,5 +2471,54 @@
         "单价": 7321.13,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 615340364806,
+        "市场评估价": 213252,
+        "起拍价格": 136482,
+        "成交价格": 136482,
+        "交易时间": "2020/04/28 10:01:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/615340364806.htm?track_id=ba49c68e-3ed9-44b2-92c2-1bcf6dbbcd16",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 福州市 福清市 福清市融城镇官塘墘成龙花园9号楼",
+        "所属小区": "成龙花园",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "官塘墘商圈",
+        "建筑面积": 34.49,
+        "单价": 3957.03,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "614855527332",
+        "url": "https://sf-item.taobao.com/sf_item/614855527332.htm?track_id=b38c3788-9664-4c59-abf2-a8e2c9a21926",
+        "end": 1588042616000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "614856191168",
+        "url": "https://sf-item.taobao.com/sf_item/614856191168.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1588041791000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "614255871664",
+        "url": "https://sf-item.taobao.com/sf_item/614255871664.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1588043517000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "614617975706",
+        "url": "https://sf-item.taobao.com/sf_item/614617975706.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1588040101000,
+        "status": "done",
+        "is_processed": false
     }
 ]

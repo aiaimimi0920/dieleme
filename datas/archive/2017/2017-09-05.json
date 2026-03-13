@@ -2399,5 +2399,96 @@
         "单价": 6774.15,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 556453342445,
+        "市场评估价": null,
+        "起拍价格": 450000,
+        "成交价格": 564000,
+        "交易时间": "2017-09-05T10:06:41",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556453342445.htm?track_id=e5881511-f4c8-402e-90fd-801da2840d1e",
+        "是否成交": true,
+        "竞拍人数": 39,
+        "出价人数": null,
+        "地点": "湖南省 湘潭市 湘潭县 响水乡石马村",
+        "所属小区": "湖南科技大学教师住宅小区",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "雨湖区",
+        "最靠近商圈": "响水乡",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 556328808187,
+        "市场评估价": null,
+        "起拍价格": 170000,
+        "成交价格": 291500,
+        "交易时间": "2017-09-05 10:32:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/556328808187.htm?track_id=2a285587-76ee-48d7-b5f4-0ccab3564ccb",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 80,
+        "地点": "浙江省丽水市云和县车站路65号西单元201室",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": null,
+        "建筑面积": 48.14,
+        "单价": 6055.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "557257387266",
+        "url": "https://sf-item.taobao.com/sf_item/557257387266.htm?track_id=0c4d060f-2e9d-4d5d-9db5-bf7a6a9f075d",
+        "end": 1504583210000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557071444030",
+        "url": "https://sf-item.taobao.com/sf_item/557071444030.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1504578054000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557256983480",
+        "url": "https://sf-item.taobao.com/sf_item/557256983480.htm?track_id=0854805c-e1e7-462f-94cb-395690db362d",
+        "end": 1504578074000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556249976390",
+        "url": "https://sf-item.taobao.com/sf_item/556249976390.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1504578688000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556304236583",
+        "url": "https://sf-item.taobao.com/sf_item/556304236583.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1504580377000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556348433122",
+        "url": "https://sf-item.taobao.com/sf_item/556348433122.htm?track_id=ce679841-39b9-4da8-b6a4-8ab34a8d2789",
+        "end": 1504577426000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556378748212",
+        "url": "https://sf-item.taobao.com/sf_item/556378748212.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1504579602000,
+        "status": "done",
+        "is_processed": false
     }
 ]

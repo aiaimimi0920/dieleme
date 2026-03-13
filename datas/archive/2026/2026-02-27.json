@@ -1,0 +1,65 @@
+[
+    {
+        "id": 1020099287297,
+        "市场评估价": 1453413,
+        "起拍价格": 813911.28,
+        "成交价格": 908911.28,
+        "交易时间": "2026/02/27 10:09:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1020099287297.htm?track_id=f4450736-9621-4a71-abbb-5d295ef880e7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "宁夏回族自治区 吴忠市 利通区 世纪大道北侧花园街西侧恒昌未来城小区十七号住宅楼11001号",
+        "所属小区": "恒昌未来城",
+        "省份": "宁夏回族自治区",
+        "城市": "吴忠市",
+        "区": "利通区",
+        "最靠近商圈": null,
+        "建筑面积": 171.03,
+        "单价": 5313.08,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 1016172670919,
+        "市场评估价": null,
+        "起拍价格": 213952,
+        "成交价格": 213952,
+        "交易时间": "2026/02/27 14:57:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/1016172670919.htm?track_id=c9d3b7e7-27bb-4bf9-9b71-ac3ebfc4edcd",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 宁德市 福安市 城阳镇岩湖金湖路1号龙芝·富春茶城1-3幢2层2002号商铺",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": null,
+        "建筑面积": 60.36,
+        "单价": 3543.68,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "1022199088635",
+        "url": "https://sf-item.taobao.com/sf_item/1022199088635.htm?track_id=bbcebf4c-5ec0-435e-afec-d32f10840871",
+        "end": 1772157600000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1021620625863",
+        "url": "https://sf-item.taobao.com/sf_item/1021620625863.htm?track_id=dda2ee0e-45c9-447b-99cf-f3db51daf829",
+        "end": 1772157841000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "1012438794606",
+        "url": "https://sf-item.taobao.com/sf_item/1012438794606.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1772160128000,
+        "status": "done",
+        "is_processed": false
+    }
+]

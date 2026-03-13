@@ -1178,5 +1178,40 @@
         "单价": 9668.24,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 581662557397,
+        "市场评估价": 0,
+        "起拍价格": 480600,
+        "成交价格": 608600,
+        "交易时间": "2018/11/28 10:21:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581662557397.htm?track_id=8c19ae71-9e4b-4282-a0d6-66645bd06ff0",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 47,
+        "地点": "河南省 许昌市 禹州市 夏都办滨河大道西段北侧城上城花园住宅小区2幢2单元2-301房",
+        "所属小区": "城上城花园",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "夏都",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "580807163462",
+        "url": "https://sf-item.taobao.com/sf_item/580807163462.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1543370400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "579752457124",
+        "url": "https://sf-item.taobao.com/sf_item/579752457124.htm?track_id=3077c8ee-4bf2-4c5d-a106-d2b8f60965a8",
+        "end": 1543372590000,
+        "status": "done",
+        "is_processed": false
     }
 ]

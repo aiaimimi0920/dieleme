@@ -2943,5 +2943,89 @@
         "单价": 2880.54,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 624417148438,
+        "市场评估价": null,
+        "起拍价格": 655000,
+        "成交价格": 655000,
+        "交易时间": "2020-09-15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624417148438.htm?track_id=ba49c68e-3ed9-44b2-92c2-1bcf6dbbcd16",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 福州市 福清市 玉屏街道小桥街中段商住楼101店面",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": null,
+        "建筑面积": 41.72,
+        "单价": 15693.85,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 624543980638,
+        "市场评估价": 1091364,
+        "起拍价格": 764000,
+        "成交价格": 984000,
+        "交易时间": "2020-09-15 10:42:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/624543980638.htm?track_id=2a285587-76ee-48d7-b5f4-0ccab3564ccb",
+        "是否成交": true,
+        "竞拍人数": 45,
+        "出价人数": 45,
+        "地点": "浙江省 丽水市 云和县 凤凰山街道新华路288号402室",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": "凤凰山街道",
+        "建筑面积": 158.29,
+        "单价": 6216.44,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "625108026570",
+        "url": "https://sf-item.taobao.com/sf_item/625108026570.htm?track_id=8c2902b8-a44e-49bb-b458-ef6e7f17ba50",
+        "end": 1600136206000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624824721324",
+        "url": "https://sf-item.taobao.com/sf_item/624824721324.htm?track_id=8c2902b8-a44e-49bb-b458-ef6e7f17ba50",
+        "end": 1600135200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624825345171",
+        "url": "https://sf-item.taobao.com/sf_item/624825345171.htm?track_id=6db391f6-1c05-48f2-ad2d-5e5e28f2e721",
+        "end": 1600135200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624947685872",
+        "url": "https://sf-item.taobao.com/sf_item/624947685872.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1600137026000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "624467037244",
+        "url": "https://sf-item.taobao.com/sf_item/624467037244.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1600135200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625567375371",
+        "url": "https://sf-item.taobao.com/sf_item/625567375371.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1600137232000,
+        "status": "done",
+        "is_processed": false
     }
 ]

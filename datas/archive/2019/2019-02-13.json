@@ -2791,5 +2791,68 @@
         "单价": 13166.52,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 585476632162,
+        "市场评估价": null,
+        "起拍价格": 640000,
+        "成交价格": 864000,
+        "交易时间": "2019-02-13 10:15:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/585476632162.htm?track_id=dc3988ae-498f-4d29-87e6-c99e7f0af735",
+        "是否成交": true,
+        "竞拍人数": 35,
+        "出价人数": null,
+        "地点": "广西壮族自治区 梧州市 龙圩区 龙圩镇西南大道378号A幢12号",
+        "所属小区": null,
+        "省份": "广西壮族自治区",
+        "城市": "梧州市",
+        "区": "龙圩区",
+        "最靠近商圈": null,
+        "建筑面积": 191.96,
+        "单价": 4498.32,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 586369421871,
+        "市场评估价": 6591300,
+        "起拍价格": 3691200,
+        "成交价格": 4755200,
+        "交易时间": "2019-02-13 11:12:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/586369421871.htm?track_id=2e4f8837-a2a5-490e-b8bf-2deb3e302d28",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 青岛市 黄岛区 石雀滩路1号内（石雀小筑）12号楼1单元101室",
+        "所属小区": "石雀小筑",
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "唐岛湾",
+        "建筑面积": 201.94,
+        "单价": 23547.59,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "585051944290",
+        "url": "https://sf-item.taobao.com/sf_item/585051944290.htm?track_id=ce2e63f0-8b37-4998-a8c7-ce9ff00dfedb",
+        "end": 1550026016000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "585129920727",
+        "url": "https://sf-item.taobao.com/sf_item/585129920727.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1550023272000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "586358509326",
+        "url": "https://sf-item.taobao.com/sf_item/586358509326.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1550023200000,
+        "status": "done",
+        "is_processed": false
     }
 ]

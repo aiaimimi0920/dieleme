@@ -544,5 +544,33 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 610462327872,
+        "市场评估价": null,
+        "起拍价格": 1470000,
+        "成交价格": 1582000,
+        "交易时间": "2020/01/19 11:43:37",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610462327872.htm?track_id=e79a5fcd-da1a-43c2-b053-1597e3a6fc7b",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 45,
+        "地点": "福建省 宁德市 福安市 福安市城南街道南郊鹤山东路65号",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城南街道",
+        "建筑面积": 401.28,
+        "单价": 3942.33,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "609789012299",
+        "url": "https://sf-item.taobao.com/sf_item/609789012299.htm?track_id=02f3e140-b528-49f2-9f0e-8f7f41926300",
+        "end": 1579400688000,
+        "status": "done",
+        "is_processed": false
     }
 ]

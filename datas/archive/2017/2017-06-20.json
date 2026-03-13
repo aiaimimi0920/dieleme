@@ -1397,5 +1397,68 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 551025617711,
+        "市场评估价": null,
+        "起拍价格": 623600,
+        "成交价格": 818600,
+        "交易时间": "2017-06-20 10:29:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/551025617711.htm?track_id=cee1b38e-b562-443b-8dcc-92d5c9887260",
+        "是否成交": true,
+        "竞拍人数": 38,
+        "出价人数": 37,
+        "地点": "福建省宁德市福安市城区城南天马南路88号天马山庄B幢5层602号",
+        "所属小区": "天马山庄",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城南商圈",
+        "建筑面积": 124.42,
+        "单价": 6579.29,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 550551758201,
+        "市场评估价": null,
+        "起拍价格": 1465600,
+        "成交价格": 1465600,
+        "交易时间": "2017-06-20 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/550551758201.htm?track_id=30c717ff-3387-418f-af36-ccc85c69d17a",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省宁德市福安市",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "赛岐",
+        "建筑面积": 1079.32,
+        "单价": 1357.39,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "551212223894",
+        "url": "https://sf-item.taobao.com/sf_item/551212223894.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1497929158000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "551093500242",
+        "url": "https://sf-item.taobao.com/sf_item/551093500242.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1497926927000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "551086907686",
+        "url": "https://sf-item.taobao.com/sf_item/551086907686.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1497927196000,
+        "status": "done",
+        "is_processed": false
     }
 ]

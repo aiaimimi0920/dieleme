@@ -2827,5 +2827,103 @@
         "单价": 2347.74,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 642712153354,
+        "市场评估价": null,
+        "起拍价格": 9148045,
+        "成交价格": 9148045,
+        "交易时间": "2021/05/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/642712153354.htm?track_id=9456b9b2-9a68-46a6-b3c3-1d28b6eeda4f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "江西省 抚州市 黎川县 日峰镇五一村刘家1-5层",
+        "所属小区": null,
+        "省份": "江西省",
+        "城市": "抚州市",
+        "区": "黎川县",
+        "最靠近商圈": null,
+        "建筑面积": 2870.14,
+        "单价": 3186.6,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 643427923506,
+        "市场评估价": 859300,
+        "起拍价格": 600000,
+        "成交价格": 600000,
+        "交易时间": "2021-05-25",
+        "原始网站": "https://sf-item.taobao.com/sf_item/643427923506.htm?track_id=c89d9d41-aca0-4c3c-9d56-917e24ba1eb8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省 许昌市 禹州市 行政北路法院小区1幢1单元14层1-1402",
+        "所属小区": "法院小区",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": null,
+        "建筑面积": 143.7,
+        "单价": 4174.57,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 643259550775,
+        "市场评估价": null,
+        "起拍价格": 2288527.65,
+        "成交价格": 2552427.65,
+        "交易时间": "2021/05/25 11:14:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/643259550775.htm?track_id=cd2d3560-602a-4ff4-b450-ea5590835aa0",
+        "是否成交": true,
+        "竞拍人数": 30,
+        "出价人数": null,
+        "地点": "广东省 深圳市 盐田区 盐田路与东海道交界西南金港盛世华庭6栋20H",
+        "所属小区": "金港盛世华庭",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "盐田",
+        "建筑面积": 60.09,
+        "单价": 42476.08,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "643557460493",
+        "url": "https://sf-item.taobao.com/sf_item/643557460493.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1621908593000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643565931741",
+        "url": "https://sf-item.taobao.com/sf_item/643565931741.htm?track_id=0854805c-e1e7-462f-94cb-395690db362d",
+        "end": 1621910997000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "643005598070",
+        "url": "https://sf-item.taobao.com/sf_item/643005598070.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1621913148000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644645627743",
+        "url": "https://sf-item.taobao.com/sf_item/644645627743.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1621908502000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "644243014460",
+        "url": "https://sf-item.taobao.com/sf_item/644243014460.htm?track_id=814993d5-3e29-471b-bfbf-8c49ccb8ee43",
+        "end": 1621908647000,
+        "status": "done",
+        "is_processed": false
     }
 ]

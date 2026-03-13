@@ -973,5 +973,40 @@
         "单价": 1756.59,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 542162032573,
+        "市场评估价": null,
+        "起拍价格": 1320000,
+        "成交价格": 1320000,
+        "交易时间": "2016/12/09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/542162032573.htm?track_id=9dbccf2d-88f3-415e-8247-83812e4c99a9",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福清市宏路街道宏路、石门村中庚·香山美地15号楼2303单元",
+        "所属小区": "中庚·香山美地",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "宏路街道",
+        "建筑面积": 109.6,
+        "单价": 12043.8,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "542231283646",
+        "url": "https://sf-item.taobao.com/sf_item/542231283646.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1481251165000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "542200268854",
+        "url": "https://sf-item.taobao.com/sf_item/542200268854.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1481251581000,
+        "status": "done",
+        "is_processed": false
     }
 ]

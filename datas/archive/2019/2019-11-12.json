@@ -2494,5 +2494,110 @@
         "单价": 13815.83,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 606303505749,
+        "市场评估价": null,
+        "起拍价格": 9730425.6,
+        "成交价格": 11350425.6,
+        "交易时间": "2019-11-12T10:21:14",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606303505749.htm?track_id=cd2d3560-602a-4ff4-b450-ea5590835aa0",
+        "是否成交": true,
+        "竞拍人数": 37,
+        "出价人数": 37,
+        "地点": "广东省深圳市盐田区天麓三区莱茵庄园56栋1房产",
+        "所属小区": "莱茵庄园",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "盐田港",
+        "建筑面积": 241.33,
+        "单价": 47025.38,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 606601318005,
+        "市场评估价": null,
+        "起拍价格": 21174272,
+        "成交价格": 24774272,
+        "交易时间": "2019-11-12 10:34:12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606601318005.htm?track_id=cd2d3560-602a-4ff4-b450-ea5590835aa0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 37,
+        "地点": "广东省深圳市盐田区君临海域名园（一期）A栋A103",
+        "所属小区": "君临海域名园",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "盐田港",
+        "建筑面积": 236.32,
+        "单价": 104892.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 606812099325,
+        "市场评估价": null,
+        "起拍价格": 21174272,
+        "成交价格": 23174272,
+        "交易时间": "2019-11-12 10:37:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606812099325.htm?track_id=2d285c84-59a0-4993-a64c-0cb8a417e2de",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": null,
+        "地点": "广东省 深圳市 盐田区 君临海域名园（一期）A栋A105",
+        "所属小区": "君临海域名园",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "盐田港",
+        "建筑面积": 236.32,
+        "单价": 98093.69,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "605642424552",
+        "url": "https://sf-item.taobao.com/sf_item/605642424552.htm?track_id=c5d4b8af-48be-40ca-8d7c-17f089acf0f4",
+        "end": 1573524926000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604948824347",
+        "url": "https://sf-item.taobao.com/sf_item/604948824347.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1573531640000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604846324603",
+        "url": "https://sf-item.taobao.com/sf_item/604846324603.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1573525567000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604916760614",
+        "url": "https://sf-item.taobao.com/sf_item/604916760614.htm?track_id=f892f3cf-32ac-4027-8c20-73105e0b1472",
+        "end": 1573524000000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605368862408",
+        "url": "https://sf-item.taobao.com/sf_item/605368862408.htm?track_id=6bbd162c-1f00-480c-bb9e-b5bf25da9622",
+        "end": 1573528595000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605369518415",
+        "url": "https://sf-item.taobao.com/sf_item/605369518415.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1573525463000,
+        "status": "done",
+        "is_processed": false
     }
 ]

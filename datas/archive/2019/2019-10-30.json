@@ -1141,5 +1141,40 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 604106569385,
+        "市场评估价": 6000718.31,
+        "起拍价格": 4200502.82,
+        "成交价格": 5440502.82,
+        "交易时间": "2019-10-30",
+        "原始网站": "https://sf-item.taobao.com/sf_item/604106569385.htm?track_id=63ee1d58-231f-4d8f-a254-d76317cc3225",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 63,
+        "地点": "北京市西城区槐柏树街南里8号楼3层10-3-302",
+        "所属小区": "槐柏树街南里",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "宣武门商圈",
+        "建筑面积": 96.58,
+        "单价": 56331.66,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "603845236588",
+        "url": "https://sf-item.taobao.com/sf_item/603845236588.htm?track_id=ae73874c-e939-427f-bb2b-54d0c32a04bf",
+        "end": 1572403109000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "604087201475",
+        "url": "https://sf-item.taobao.com/sf_item/604087201475.htm?track_id=ae73874c-e939-427f-bb2b-54d0c32a04bf",
+        "end": 1572402185000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -2071,5 +2071,110 @@
         "单价": 10435.26,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 581294766233,
+        "市场评估价": null,
+        "起拍价格": null,
+        "成交价格": 578516.8,
+        "交易时间": "2018/12/04 10:32:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581294766233.htm?track_id=f4450736-9621-4a71-abbb-5d295ef880e7",
+        "是否成交": true,
+        "竞拍人数": 23,
+        "出价人数": null,
+        "地点": "宁夏回族自治区 吴忠市 利通区 黎明街永昌城市花园二期小高层五号楼31102号",
+        "所属小区": "永昌城市花园二期",
+        "省份": "宁夏回族自治区",
+        "城市": "吴忠市",
+        "区": "利通区",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 581322162879,
+        "市场评估价": null,
+        "起拍价格": 194397,
+        "成交价格": 194397,
+        "交易时间": "2018-12-04 10:02:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581322162879.htm?track_id=45b23859-acc8-4bee-aba2-9619fbcf9171",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "吉林省辽源市东丰县东丰镇兴达盛世嘉苑小区一期07-03门企房",
+        "所属小区": "兴达盛世嘉苑",
+        "省份": "吉林省",
+        "城市": "辽源市",
+        "区": "东丰县",
+        "最靠近商圈": "东丰镇",
+        "建筑面积": 63.28,
+        "单价": 3070.19,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 581885556332,
+        "市场评估价": 775656,
+        "起拍价格": 775656,
+        "成交价格": 785656,
+        "交易时间": "2018-12-04 10:04:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/581885556332.htm?track_id=9040e763-7add-4763-bdd3-7df442268acf",
+        "是否成交": true,
+        "竞拍人数": 3,
+        "出价人数": 3,
+        "地点": "福建省 宁德市 福安市 阳头阳下斗园里111号",
+        "所属小区": "阳下斗园里",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头",
+        "建筑面积": 276.3,
+        "单价": 2841.82,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "582367187742",
+        "url": "https://sf-item.taobao.com/sf_item/582367187742.htm?track_id=671fb627-9cbf-4c21-8704-7010cc79e63c",
+        "end": 1543891705000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "580948297005",
+        "url": "https://sf-item.taobao.com/sf_item/580948297005.htm?track_id=ab81058b-8ec4-4c63-a6cb-007849b4bdb6",
+        "end": 1543889303000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582367783694",
+        "url": "https://sf-item.taobao.com/sf_item/582367783694.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1543888800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "582337067416",
+        "url": "https://sf-item.taobao.com/sf_item/582337067416.htm?track_id=ae73874c-e939-427f-bb2b-54d0c32a04bf",
+        "end": 1543891832000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581086877059",
+        "url": "https://sf-item.taobao.com/sf_item/581086877059.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1543890214000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "581084234662",
+        "url": "https://sf-item.taobao.com/sf_item/581084234662.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1543890638000,
+        "status": "done",
+        "is_processed": false
     }
 ]

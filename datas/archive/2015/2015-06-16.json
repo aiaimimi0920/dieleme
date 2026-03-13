@@ -233,5 +233,33 @@
         "单价": 18580.56,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 45763268230,
+        "市场评估价": null,
+        "起拍价格": 757980,
+        "成交价格": 807980,
+        "交易时间": "2015-06-16 10:07:06",
+        "原始网站": "https://sf-item.taobao.com/sf_item/45763268230.htm?track_id=3903ec54-6efd-4f14-a446-dd56c37bba3e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 10,
+        "地点": "福建省 福州市 福清市",
+        "所属小区": "融侨城",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "融侨城商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "45616319393",
+        "url": "https://sf-item.taobao.com/sf_item/45616319393.htm?track_id=c33d4d15-780d-4500-b888-c4ef19f538a0",
+        "end": 1434421739000,
+        "status": "done",
+        "is_processed": false
     }
 ]

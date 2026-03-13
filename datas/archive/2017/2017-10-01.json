@@ -698,5 +698,33 @@
         "单价": 33678.5,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 557845470322,
+        "市场评估价": 183200,
+        "起拍价格": 155720,
+        "成交价格": 278720,
+        "交易时间": "2017/10/01 11:26:45",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557845470322.htm?track_id=9568ca36-4ebb-4726-b403-d45bdc78a3d4",
+        "是否成交": true,
+        "竞拍人数": 80,
+        "出价人数": 62,
+        "地点": "河南省 许昌市 鄢陵县 文明路西泰山路南",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "557905891858",
+        "url": "https://sf-item.taobao.com/sf_item/557905891858.htm?track_id=aef1f8bb-427d-4719-8e74-3ec2dd472364",
+        "end": 1506823321000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -2434,5 +2434,61 @@
         "单价": 2527.14,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 610361716021,
+        "市场评估价": null,
+        "起拍价格": 1580000,
+        "成交价格": 1910000,
+        "交易时间": "2020/02/04 10:17:54",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610361716021.htm?track_id=3d700cfd-35f7-4007-aaa5-5800010e9513",
+        "是否成交": true,
+        "竞拍人数": 15,
+        "出价人数": 15,
+        "地点": "天津市东丽区嘉悦园8-2-102",
+        "所属小区": "金隅悦城嘉悦园",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "张贵庄",
+        "建筑面积": 114.81,
+        "单价": 16630.15,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 610855412793,
+        "市场评估价": null,
+        "起拍价格": 2003736,
+        "成交价格": 2003736,
+        "交易时间": "2020-02-04 22:15:53",
+        "原始网站": "https://sf-item.taobao.com/sf_item/610855412793.htm?track_id=c475a14d-82ee-4c5b-befb-45f885074445",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "云南省 德宏傣族景颇族自治州 瑞丽市 瑞丽江生态旅游休闲运动中心A20号",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "德宏傣族景颇族自治州",
+        "区": "瑞丽市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "610397130043",
+        "url": "https://sf-item.taobao.com/sf_item/610397130043.htm?track_id=e86c2fb3-2358-433a-97e5-a8af55fae3ba",
+        "end": 1580782591000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "610030044117",
+        "url": "https://sf-item.taobao.com/sf_item/610030044117.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1580781600000,
+        "status": "done",
+        "is_processed": false
     }
 ]

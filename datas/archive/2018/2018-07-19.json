@@ -1000,5 +1000,47 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 571532036065,
+        "市场评估价": 1670000,
+        "起拍价格": 1202400,
+        "成交价格": 1376400,
+        "交易时间": "2018/07/19 10:22:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/571532036065.htm?track_id=8090aeea-d449-4473-918e-2b3143277658",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": 30,
+        "地点": "天津市东丽区万隆花园小区4区1#4-501-503号",
+        "所属小区": "万隆花园",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "空港经济区",
+        "建筑面积": 91.33,
+        "单价": 15068.83,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "571119737510",
+        "url": "https://sf-item.taobao.com/sf_item/571119737510.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1531966173000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571226745697",
+        "url": "https://sf-item.taobao.com/sf_item/571226745697.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1531971340000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "571333286547",
+        "url": "https://sf-item.taobao.com/sf_item/571333286547.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1531967961000,
+        "status": "done",
+        "is_processed": false
     }
 ]

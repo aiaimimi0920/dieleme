@@ -3958,5 +3958,166 @@
         "单价": 1158.32,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 628412315202,
+        "市场评估价": 0,
+        "起拍价格": 9613629,
+        "成交价格": 12853629,
+        "交易时间": "2020-10-13 11:39:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/628412315202.htm?track_id=6ceb8279-329b-4586-8a35-09a0dd614066",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 251,
+        "地点": "北京市 西城区 新华里16号院2号楼1301号",
+        "所属小区": "新华里16号院",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "西城区",
+        "最靠近商圈": "金融街",
+        "建筑面积": 177.15,
+        "单价": 72580.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 627326864417,
+        "市场评估价": 0,
+        "起拍价格": 1735200,
+        "成交价格": 2271200,
+        "交易时间": "2020/10/13 10:24:20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/627326864417.htm?track_id=0c0439d3-7dcd-43e6-96af-87fde9d774e6",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "天津市东丽区朗钜天域水镜天苑25-6",
+        "所属小区": "朗钜天域",
+        "省份": "天津",
+        "城市": "天津",
+        "区": "东丽",
+        "最靠近商圈": "东丽商圈",
+        "建筑面积": 283.76,
+        "单价": 8004.23,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 628104474318,
+        "市场评估价": null,
+        "起拍价格": 5451968,
+        "成交价格": 6811968,
+        "交易时间": "2020/10/13 10:31:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/628104474318.htm?track_id=ed209e8c-cff3-409f-9550-65ca0ce6698c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 48,
+        "地点": "北京 北京市 西城区 马连道南街1号院1号楼17层2004房屋",
+        "所属小区": "信和嘉园",
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "马连道",
+        "建筑面积": 97.05,
+        "单价": 70190.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 626844846387,
+        "市场评估价": null,
+        "起拍价格": 2550856.86,
+        "成交价格": 3100856.86,
+        "交易时间": "2020/10/13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/626844846387.htm?track_id=05a1488b-df67-44d4-b7f8-84a92950ca9d",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广东省深圳市盐田区沙头角园林路山海阳光园（二期）A单元2C房",
+        "所属小区": "山海阳光园（二期）",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "沙头角",
+        "建筑面积": 70.61,
+        "单价": 43927.63,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "627050758608",
+        "url": "https://sf-item.taobao.com/sf_item/627050758608.htm?track_id=c33d4d15-780d-4500-b888-c4ef19f538a0",
+        "end": 1602557248000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626966906836",
+        "url": "https://sf-item.taobao.com/sf_item/626966906836.htm?track_id=dbdaa981-0120-4f16-a770-994046a44c2c",
+        "end": 1602555481000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626433652283",
+        "url": "https://sf-item.taobao.com/sf_item/626433652283.htm?track_id=8e74a30b-ddb8-4c16-be92-5c43279efed6",
+        "end": 1602555350000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626350596324",
+        "url": "https://sf-item.taobao.com/sf_item/626350596324.htm?track_id=3182bcf8-47d4-42fb-a451-bd502ba4f00b",
+        "end": 1602554512000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "627254511670",
+        "url": "https://sf-item.taobao.com/sf_item/627254511670.htm?track_id=3182bcf8-47d4-42fb-a451-bd502ba4f00b",
+        "end": 1602554400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "627255669807",
+        "url": "https://sf-item.taobao.com/sf_item/627255669807.htm?track_id=c4c6f977-daa9-41ae-b76e-693ed5d8964f",
+        "end": 1602557827000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626921054073",
+        "url": "https://sf-item.taobao.com/sf_item/626921054073.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1602560335000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "625932320856",
+        "url": "https://sf-item.taobao.com/sf_item/625932320856.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1602557894000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626907583417",
+        "url": "https://sf-item.taobao.com/sf_item/626907583417.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1602557641000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "628261035648",
+        "url": "https://sf-item.taobao.com/sf_item/628261035648.htm?track_id=d3a6e94f-bd89-49e6-abd5-efaf6c356b71",
+        "end": 1602556257000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "626932792592",
+        "url": "https://sf-item.taobao.com/sf_item/626932792592.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1602556075000,
+        "status": "done",
+        "is_processed": false
     }
 ]

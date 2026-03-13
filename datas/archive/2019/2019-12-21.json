@@ -1855,5 +1855,40 @@
         "单价": 5958.86,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 609302450517,
+        "市场评估价": null,
+        "起拍价格": 6800000,
+        "成交价格": 6800000,
+        "交易时间": "2019-12-21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/609302450517.htm?track_id=cd9c32e5-11af-4736-b9e3-30ac0e838183",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 张家界市 桑植县 利福塔镇苦竹河村",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "张家界市",
+        "区": "桑植县",
+        "最靠近商圈": "利福塔镇",
+        "建筑面积": 1558.38,
+        "单价": 4363.57,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "607743516021",
+        "url": "https://sf-item.taobao.com/sf_item/607743516021.htm?track_id=75e810c1-9dc6-4f7e-96ab-428af5ed9de5",
+        "end": 1576893739000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "608214890100",
+        "url": "https://sf-item.taobao.com/sf_item/608214890100.htm?track_id=1de1c79e-ea3e-4158-983f-e5699323e89c",
+        "end": 1576893673000,
+        "status": "done",
+        "is_processed": false
     }
 ]

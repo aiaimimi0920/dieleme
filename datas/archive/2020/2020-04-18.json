@@ -337,5 +337,33 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 614936001494,
+        "市场评估价": null,
+        "起拍价格": 28201544,
+        "成交价格": 28201544,
+        "交易时间": "2020-04-18T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/614936001494.htm?track_id=61c9c5f0-7226-4dc0-ba39-78a125e4ed19",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 许昌市 鄢陵县 柏梁镇荷兰风情花街花市1号楼",
+        "所属小区": "荷兰风情花街",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "鄢陵县",
+        "最靠近商圈": "柏梁镇",
+        "建筑面积": 8148.68,
+        "单价": 3463.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "612823570047",
+        "url": "https://sf-item.taobao.com/sf_item/612823570047.htm?track_id=3182bcf8-47d4-42fb-a451-bd502ba4f00b",
+        "end": 1587170522000,
+        "status": "done",
+        "is_processed": false
     }
 ]

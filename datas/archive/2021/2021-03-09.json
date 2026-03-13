@@ -2790,5 +2790,152 @@
         "单价": 12802.3,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 637385500275,
+        "市场评估价": null,
+        "起拍价格": 382760,
+        "成交价格": 403760,
+        "交易时间": "2021/03/09 10:27:33",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637385500275.htm?track_id=c53157d4-3523-4c6f-9fff-24591ae757f9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 8,
+        "地点": "广西壮族自治区 玉林市 玉州区 玉林市玉州区中山路202号",
+        "所属小区": "华商国际",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "中山路商圈",
+        "建筑面积": 115.6,
+        "单价": 3492.73,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 637022384386,
+        "市场评估价": 1247000,
+        "起拍价格": 998000,
+        "成交价格": 998000,
+        "交易时间": "2021-03-09T10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637022384386.htm?track_id=79330b8a-c283-4846-8826-fb6c828b27da",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "福建省 福州市 福清市 音西街道音西村宏路镇石门村融侨城23号楼1811单元",
+        "所属小区": "融侨城",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "音西街道",
+        "建筑面积": 77.08,
+        "单价": 12953.84,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 638374935397,
+        "市场评估价": null,
+        "起拍价格": 5590000,
+        "成交价格": 6110000,
+        "交易时间": "2021-03-09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/638374935397.htm?track_id=5bc92ced-6064-47c4-ab89-70255a5f840c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 27,
+        "地点": "福建省宁德市福安市城北冠后路华景园3号楼2区第2层",
+        "所属小区": "华景园",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城北商圈",
+        "建筑面积": 987.59,
+        "单价": 6186.88,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 637374884493,
+        "市场评估价": null,
+        "起拍价格": 2622481.5,
+        "成交价格": 2862481.5,
+        "交易时间": "2021-03-09 11:12:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/637374884493.htm?track_id=2d285c84-59a0-4993-a64c-0cb8a417e2de",
+        "是否成交": true,
+        "竞拍人数": 25,
+        "出价人数": 23,
+        "地点": "广东省 深圳市 盐田区 大梅沙内环路西北侧优品艺墅雅居A栋703房产",
+        "所属小区": "优品艺墅",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "大梅沙",
+        "建筑面积": 91.5,
+        "单价": 31268.72,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "637383740396",
+        "url": "https://sf-item.taobao.com/sf_item/637383740396.htm?track_id=ce2e63f0-8b37-4998-a8c7-ce9ff00dfedb",
+        "end": 1615256167000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638740347024",
+        "url": "https://sf-item.taobao.com/sf_item/638740347024.htm?track_id=3182bcf8-47d4-42fb-a451-bd502ba4f00b",
+        "end": 1615255200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638041462996",
+        "url": "https://sf-item.taobao.com/sf_item/638041462996.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1615263804000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638460823740",
+        "url": "https://sf-item.taobao.com/sf_item/638460823740.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1615262363000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "636979844862",
+        "url": "https://sf-item.taobao.com/sf_item/636979844862.htm?track_id=70afca07-b60e-4b1f-b59b-048e5ebc630c",
+        "end": 1615257602000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637337017841",
+        "url": "https://sf-item.taobao.com/sf_item/637337017841.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1615258846000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638308115190",
+        "url": "https://sf-item.taobao.com/sf_item/638308115190.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1615259098000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638405438800",
+        "url": "https://sf-item.taobao.com/sf_item/638405438800.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1615257912000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "637346728591",
+        "url": "https://sf-item.taobao.com/sf_item/637346728591.htm?track_id=2ba4606a-7e86-480b-875e-e6ea7a267827",
+        "end": 1615258528000,
+        "status": "done",
+        "is_processed": false
     }
 ]

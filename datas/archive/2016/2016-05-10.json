@@ -378,5 +378,40 @@
         "单价": 3990.46,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 530578134668,
+        "市场评估价": 0,
+        "起拍价格": 1050000,
+        "成交价格": 1362000,
+        "交易时间": "2016-05-10 10:16:02",
+        "原始网站": "https://sf-item.taobao.com/sf_item/530578134668.htm?track_id=a2b11719-0d5a-4853-9393-4499502ebc42",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 102,
+        "地点": "福安市城区阳头广场北路6号水岸明珠1幢24层28-D号房",
+        "所属小区": "水岸明珠",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头广场",
+        "建筑面积": 162.02,
+        "单价": 8406.36,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "530484527929",
+        "url": "https://sf-item.taobao.com/sf_item/530484527929.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1462852451000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "530557561361",
+        "url": "https://sf-item.taobao.com/sf_item/530557561361.htm?track_id=2de28756-2d01-4451-b7eb-a52719fdfc13",
+        "end": 1462848649000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -1859,5 +1859,166 @@
         "单价": 3304.62,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 616118517426,
+        "市场评估价": 1053900,
+        "起拍价格": 590400,
+        "成交价格": 590400,
+        "交易时间": "2020-05-07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616118517426.htm?track_id=8d480b32-1a24-480f-87d8-760f1f642ec7",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 湘潭市 湘潭县 湘潭县易俗河镇京广市场C街29-30号",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "湘潭县",
+        "最靠近商圈": "京广市场",
+        "建筑面积": 219.84,
+        "单价": 2685.59,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 616669171905,
+        "市场评估价": 2533000,
+        "起拍价格": 1630000,
+        "成交价格": 2206000,
+        "交易时间": "2020/05/07 10:28:35",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616669171905.htm?track_id=3ad239ed-e533-49af-8175-953b7ed08f8a",
+        "是否成交": true,
+        "竞拍人数": 69,
+        "出价人数": null,
+        "地点": "福建省 福州市 福清市 音西镇音西村宏路镇石门村融侨城",
+        "所属小区": "融侨城",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "融侨商圈",
+        "建筑面积": 164.41,
+        "单价": 13415.19,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 616127176331,
+        "市场评估价": null,
+        "起拍价格": 803600,
+        "成交价格": 859600,
+        "交易时间": "2020-05-07T10:07:40",
+        "原始网站": "https://sf-item.taobao.com/sf_item/616127176331.htm?track_id=4338945c-5ce4-4949-8783-725645b066a4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "云南省 德宏傣族景颇族自治州 瑞丽市 目脑路58-34号",
+        "所属小区": null,
+        "省份": "云南省",
+        "城市": "德宏傣族景颇族自治州",
+        "区": "瑞丽市",
+        "最靠近商圈": "瑞丽市区",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 615551229477,
+        "市场评估价": 805400,
+        "起拍价格": 452000,
+        "成交价格": 713000,
+        "交易时间": "2020/05/07 10:14:50",
+        "原始网站": "https://sf-item.taobao.com/sf_item/615551229477.htm?track_id=31a4041b-4808-45ee-bb04-adcff0db910e",
+        "是否成交": true,
+        "竞拍人数": 17,
+        "出价人数": 17,
+        "地点": "福建省宁德市福安市城区城北新华北路26号韩城.盛世豪廷4幢102号",
+        "所属小区": "韩城.盛世豪廷",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "韩城商圈",
+        "建筑面积": 100.94,
+        "单价": 7066.56,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "615361574850",
+        "url": "https://sf-item.taobao.com/sf_item/615361574850.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1588822550000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "614748096145",
+        "url": "https://sf-item.taobao.com/sf_item/614748096145.htm?track_id=b38c3788-9664-4c59-abf2-a8e2c9a21926",
+        "end": 1588818216000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "615031673308",
+        "url": "https://sf-item.taobao.com/sf_item/615031673308.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1588818464000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616890175338",
+        "url": "https://sf-item.taobao.com/sf_item/616890175338.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1588816800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616890527263",
+        "url": "https://sf-item.taobao.com/sf_item/616890527263.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1588816800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616382461180",
+        "url": "https://sf-item.taobao.com/sf_item/616382461180.htm?track_id=d3a6e94f-bd89-49e6-abd5-efaf6c356b71",
+        "end": 1588817449000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616084937654",
+        "url": "https://sf-item.taobao.com/sf_item/616084937654.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1588817286000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616085557910",
+        "url": "https://sf-item.taobao.com/sf_item/616085557910.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1588817329000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616085765693",
+        "url": "https://sf-item.taobao.com/sf_item/616085765693.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1588818940000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616593567472",
+        "url": "https://sf-item.taobao.com/sf_item/616593567472.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1588818935000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "616593115790",
+        "url": "https://sf-item.taobao.com/sf_item/616593115790.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1588818853000,
+        "status": "done",
+        "is_processed": false
     }
 ]

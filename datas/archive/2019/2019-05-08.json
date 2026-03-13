@@ -863,5 +863,33 @@
         "单价": 4152.05,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 590491704782,
+        "市场评估价": null,
+        "起拍价格": 860000,
+        "成交价格": 990000,
+        "交易时间": "2019-05-08 10:14:49",
+        "原始网站": "https://sf-item.taobao.com/sf_item/590491704782.htm?track_id=4338945c-5ce4-4949-8783-725645b066a4",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "云南省德宏傣族景颇族自治州瑞丽市姐告路33-110-A1号",
+        "所属小区": "瑞丽市姐告路房地产",
+        "省份": "云南省",
+        "城市": "德宏傣族景颇族自治州",
+        "区": "瑞丽市",
+        "最靠近商圈": "姐告",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "592135117311",
+        "url": "https://sf-item.taobao.com/sf_item/592135117311.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1557280806000,
+        "status": "done",
+        "is_processed": false
     }
 ]

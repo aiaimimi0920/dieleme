@@ -632,5 +632,33 @@
         "单价": 10744.65,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 541581536290,
+        "市场评估价": null,
+        "起拍价格": 5574100,
+        "成交价格": 6554100,
+        "交易时间": "2016-12-13 10:33:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541581536290.htm?track_id=63ee1d58-231f-4d8f-a254-d76317cc3225",
+        "是否成交": true,
+        "竞拍人数": 81,
+        "出价人数": 11,
+        "地点": "北京市 西城区 车公庄大街北里41号楼6层1门603号",
+        "所属小区": null,
+        "省份": "北京",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "车公庄",
+        "建筑面积": 80.68,
+        "单价": 81202.44,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "542253264939",
+        "url": "https://sf-item.taobao.com/sf_item/542253264939.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1481598493000,
+        "status": "done",
+        "is_processed": false
     }
 ]

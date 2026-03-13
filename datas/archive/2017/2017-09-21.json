@@ -943,5 +943,68 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 557164464973,
+        "市场评估价": null,
+        "起拍价格": 669840,
+        "成交价格": 669840,
+        "交易时间": "2017/09/21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557164464973.htm?track_id=b603ae60-699f-4492-a482-c53b57320d87",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 青岛市 黄岛区 珠海东路266号",
+        "所属小区": "西海岸壹号",
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "长江路",
+        "建筑面积": 107.35,
+        "单价": 6233.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 557355815059,
+        "市场评估价": null,
+        "起拍价格": 1113360,
+        "成交价格": 1113360,
+        "交易时间": "2017-09-21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/557355815059.htm?track_id=b603ae60-699f-4492-a482-c53b57320d87",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "山东省 青岛市 黄岛区 珠海东路266号",
+        "所属小区": "西海岸壹号",
+        "省份": "山东省",
+        "城市": "青岛市",
+        "区": "黄岛区",
+        "最靠近商圈": "黄岛中心",
+        "建筑面积": 154.63,
+        "单价": 7193.88,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "557355315964",
+        "url": "https://sf-item.taobao.com/sf_item/557355315964.htm?track_id=02f3e140-b528-49f2-9f0e-8f7f41926300",
+        "end": 1505959673000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558180151161",
+        "url": "https://sf-item.taobao.com/sf_item/558180151161.htm?track_id=b9b5e17a-b04b-43a6-9e93-f5ad471394d1",
+        "end": 1505959200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "557360047824",
+        "url": "https://sf-item.taobao.com/sf_item/557360047824.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1505963359000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -1423,5 +1423,47 @@
         "单价": 23847.42,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 567968743565,
+        "市场评估价": null,
+        "起拍价格": 352000,
+        "成交价格": 532000,
+        "交易时间": "2018/05/03 14:36:19",
+        "原始网站": "https://sf-item.taobao.com/sf_item/567968743565.htm?track_id=fedb1c12-59ff-43bb-8d24-225b7a3c1df7",
+        "是否成交": true,
+        "竞拍人数": 37,
+        "出价人数": 35,
+        "地点": "福建省 福州市 福清市 融城镇龙山综合2号楼208单元",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": null,
+        "建筑面积": 104.3,
+        "单价": 5100.67,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "566521616422",
+        "url": "https://sf-item.taobao.com/sf_item/566521616422.htm?track_id=ab81058b-8ec4-4c63-a6cb-007849b4bdb6",
+        "end": 1525313611000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566717482916",
+        "url": "https://sf-item.taobao.com/sf_item/566717482916.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1525314292000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "566515340264",
+        "url": "https://sf-item.taobao.com/sf_item/566515340264.htm?track_id=c5fe033e-1c10-4016-a74f-c0c5570b233f",
+        "end": 1525315742000,
+        "status": "done",
+        "is_processed": false
     }
 ]

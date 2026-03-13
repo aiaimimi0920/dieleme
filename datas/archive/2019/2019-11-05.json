@@ -1774,5 +1774,82 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 604195657014,
+        "市场评估价": null,
+        "起拍价格": 282824.76,
+        "成交价格": 298824.76,
+        "交易时间": "2019/11/05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/604195657014.htm?track_id=38dcfd85-0cec-4db8-913c-7018bdab6074",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 崇左市 大新县 新县城东开发区福满地花园第一幢1402号",
+        "所属小区": "福满地花园",
+        "省份": "广西壮族自治区",
+        "城市": "崇左市",
+        "区": "大新县",
+        "最靠近商圈": "德天广场",
+        "建筑面积": 111.48,
+        "单价": 2680.8,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 606437051920,
+        "市场评估价": 26063000,
+        "起拍价格": 21952000,
+        "成交价格": 29032000,
+        "交易时间": "2019-11-05 12:14:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/606437051920.htm?track_id=6ceb8279-329b-4586-8a35-09a0dd614066",
+        "是否成交": true,
+        "竞拍人数": 236,
+        "出价人数": 236,
+        "地点": "北京市西城区宣武区陶然亭路",
+        "所属小区": "天宁寺西里",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "西城区",
+        "最靠近商圈": "牛街",
+        "建筑面积": 260.63,
+        "单价": 111429.07,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "605637691372",
+        "url": "https://sf-item.taobao.com/sf_item/605637691372.htm?track_id=75e810c1-9dc6-4f7e-96ab-428af5ed9de5",
+        "end": 1572919596000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606003157329",
+        "url": "https://sf-item.taobao.com/sf_item/606003157329.htm?track_id=c4483fcd-3594-4770-b22e-4dbbb33f35db",
+        "end": 1572919396000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605638539689",
+        "url": "https://sf-item.taobao.com/sf_item/605638539689.htm?track_id=c4483fcd-3594-4770-b22e-4dbbb33f35db",
+        "end": 1572919200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "606441367472",
+        "url": "https://sf-item.taobao.com/sf_item/606441367472.htm?track_id=c4483fcd-3594-4770-b22e-4dbbb33f35db",
+        "end": 1572919376000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "605754160690",
+        "url": "https://sf-item.taobao.com/sf_item/605754160690.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1572919200000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -1525,5 +1525,33 @@
         "单价": 2900.03,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 596541232842,
+        "市场评估价": 0,
+        "起拍价格": 745840,
+        "成交价格": 810840,
+        "交易时间": "2019/07/05 10:09:55",
+        "原始网站": "https://sf-item.taobao.com/sf_item/596541232842.htm?track_id=c910a271-cb0f-414b-9ace-e6c3e269ae9b",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 14,
+        "地点": "山东省 聊城市 东阿县 曙光街北前进街路东企业局家属楼",
+        "所属小区": "企业局家属楼",
+        "省份": "山东省",
+        "城市": "聊城市",
+        "区": "东阿县",
+        "最靠近商圈": "曙光街",
+        "建筑面积": 163.68,
+        "单价": 4953.06,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "596537208442",
+        "url": "https://sf-item.taobao.com/sf_item/596537208442.htm?track_id=1fef82ec-4ef9-4ee9-ac67-09c1a3910e11",
+        "end": 1562292000000,
+        "status": "done",
+        "is_processed": false
     }
 ]

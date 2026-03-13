@@ -337,5 +337,26 @@
         "单价": 15862.87,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 547058111148,
+        "市场评估价": null,
+        "起拍价格": 20778800,
+        "成交价格": 20778800,
+        "交易时间": "2017-04-12",
+        "原始网站": "https://sf-item.taobao.com/sf_item/547058111148.htm?track_id=9dbccf2d-88f3-415e-8247-83812e4c99a9",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 福州市 福清市",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
     }
 ]

@@ -442,5 +442,40 @@
         "单价": 2421.82,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 523801957109,
+        "市场评估价": null,
+        "起拍价格": 2120000,
+        "成交价格": 2126000,
+        "交易时间": "2015-11-17 10:00:01",
+        "原始网站": "https://sf-item.taobao.com/sf_item/523801957109.htm?track_id=6aea7c12-6657-4b38-bcc8-bf22ff92ea3c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 4,
+        "地点": "福建省 宁德市 福安市",
+        "所属小区": "棠发洋",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城北",
+        "建筑面积": 350.4,
+        "单价": 6065.47,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "523808606217",
+        "url": "https://sf-item.taobao.com/sf_item/523808606217.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1447726543000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "523808146516",
+        "url": "https://sf-item.taobao.com/sf_item/523808146516.htm?track_id=0854805c-e1e7-462f-94cb-395690db362d",
+        "end": 1447728036000,
+        "status": "done",
+        "is_processed": false
     }
 ]

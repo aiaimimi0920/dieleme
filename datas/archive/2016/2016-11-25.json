@@ -443,5 +443,75 @@
         "单价": 7600.16,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 540401501927,
+        "市场评估价": null,
+        "起拍价格": 5190000,
+        "成交价格": 7170000,
+        "交易时间": "2016-11-25 11:09:09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/540401501927.htm?track_id=6ceb8279-329b-4586-8a35-09a0dd614066",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": 145,
+        "地点": "北京市西城区马连道南街2号院2号楼7层704号",
+        "所属小区": "马连道南街2号院",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "西城区",
+        "最靠近商圈": "马连道",
+        "建筑面积": 91.68,
+        "单价": 78198.78,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 541538675207,
+        "市场评估价": 1380000,
+        "起拍价格": 1173000,
+        "成交价格": 1173000,
+        "交易时间": "2016/11/25 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/541538675207.htm?track_id=83a37df6-370e-42b7-854a-d3c4349f1b33",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "天津 天津市 东丽区",
+        "所属小区": "颐景公寓",
+        "省份": "天津市",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "天津空港",
+        "建筑面积": 149.9,
+        "单价": 7825.22,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "541526789209",
+        "url": "https://sf-item.taobao.com/sf_item/541526789209.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1480040537000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541535450335",
+        "url": "https://sf-item.taobao.com/sf_item/541535450335.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1480041183000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541540271600",
+        "url": "https://sf-item.taobao.com/sf_item/541540271600.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1480041189000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "541535650864",
+        "url": "https://sf-item.taobao.com/sf_item/541535650864.htm?track_id=0854805c-e1e7-462f-94cb-395690db362d",
+        "end": 1480041760000,
+        "status": "done",
+        "is_processed": false
     }
 ]

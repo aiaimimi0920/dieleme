@@ -2564,5 +2564,159 @@
         "单价": 22312.94,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 590485686806,
+        "市场评估价": 1072258,
+        "起拍价格": 696000,
+        "成交价格": 1006000,
+        "交易时间": "2019/04/16 10:19:07",
+        "原始网站": "https://sf-item.taobao.com/sf_item/590485686806.htm?track_id=86207ab3-3c8c-4cfb-9691-9a69be92065c",
+        "是否成交": true,
+        "竞拍人数": 44,
+        "出价人数": 44,
+        "地点": "福建省 福州市 福清市 融城镇东门街北段20号西201单元",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": null,
+        "建筑面积": 191.68,
+        "单价": 5249.43,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 588710093872,
+        "市场评估价": null,
+        "起拍价格": 441500,
+        "成交价格": 631500,
+        "交易时间": "2019-04-16T10:43:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588710093872.htm?track_id=ad54bc7e-87a4-48a5-b9e5-2ed7c5ee19f2",
+        "是否成交": true,
+        "竞拍人数": 46,
+        "出价人数": null,
+        "地点": "广西壮族自治区 玉林市 玉州区 金玉路377号万昌·东方巴黎",
+        "所属小区": "万昌·东方巴黎",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "玉州商圈",
+        "建筑面积": 98.03,
+        "单价": 6443.62,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 588958061021,
+        "市场评估价": null,
+        "起拍价格": 137285,
+        "成交价格": 340285,
+        "交易时间": "2019-04-16 10:25:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588958061021.htm?track_id=8c19ae71-9e4b-4282-a0d6-66645bd06ff0",
+        "是否成交": true,
+        "竞拍人数": 33,
+        "出价人数": null,
+        "地点": "河南省 许昌市 禹州市 钧州大街北段",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "钧州大街北段",
+        "建筑面积": 15.03,
+        "单价": 22624.58,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 588874789087,
+        "市场评估价": null,
+        "起拍价格": 4314000,
+        "成交价格": 4314000,
+        "交易时间": "2019/04/16 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/588874789087.htm?track_id=0e92724c-8f52-45b0-9436-4a7459f06c03",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 许昌市 禹州市 禹州市夏都办画圣路北段路西",
+        "所属小区": null,
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": null,
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "589147862103",
+        "url": "https://sf-item.taobao.com/sf_item/589147862103.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1555381897000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "589310695030",
+        "url": "https://sf-item.taobao.com/sf_item/589310695030.htm?track_id=671fb627-9cbf-4c21-8704-7010cc79e63c",
+        "end": 1555382224000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "589310927882",
+        "url": "https://sf-item.taobao.com/sf_item/589310927882.htm?track_id=7398cc8f-67f4-4cf0-ab9f-ff77efb44d5b",
+        "end": 1555382390000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "589148982264",
+        "url": "https://sf-item.taobao.com/sf_item/589148982264.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1555381373000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588788432912",
+        "url": "https://sf-item.taobao.com/sf_item/588788432912.htm?track_id=8e74a30b-ddb8-4c16-be92-5c43279efed6",
+        "end": 1555381251000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "590234421189",
+        "url": "https://sf-item.taobao.com/sf_item/590234421189.htm?track_id=5bdb3ece-bea2-4367-a143-eeb0d06ddbbd",
+        "end": 1555381305000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588857998298",
+        "url": "https://sf-item.taobao.com/sf_item/588857998298.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1555384751000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588572604879",
+        "url": "https://sf-item.taobao.com/sf_item/588572604879.htm?track_id=c675ba72-5ca4-4fb3-9f6d-61217ccfad4b",
+        "end": 1555385470000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "589983476804",
+        "url": "https://sf-item.taobao.com/sf_item/589983476804.htm?track_id=ae73874c-e939-427f-bb2b-54d0c32a04bf",
+        "end": 1555382246000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "588902135000",
+        "url": "https://sf-item.taobao.com/sf_item/588902135000.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1555382379000,
+        "status": "done",
+        "is_processed": false
     }
 ]

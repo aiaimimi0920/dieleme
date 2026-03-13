@@ -1687,5 +1687,33 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 592511776634,
+        "市场评估价": null,
+        "起拍价格": 419189,
+        "成交价格": 419188.8,
+        "交易时间": "2019-05-31 02:11:21",
+        "原始网站": "https://sf-item.taobao.com/sf_item/592511776634.htm?track_id=3730690f-d1ec-4e06-84dd-989dd2c1d441",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 福州市 福清市 玉屏街道西大北路48号音西供销社2号楼703单元及703杂物间",
+        "所属小区": null,
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": null,
+        "建筑面积": 112.13,
+        "单价": 3738.89,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "590775661624",
+        "url": "https://sf-item.taobao.com/sf_item/590775661624.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1559200538000,
+        "status": "done",
+        "is_processed": false
     }
 ]

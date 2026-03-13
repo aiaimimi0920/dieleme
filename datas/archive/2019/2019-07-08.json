@@ -1097,5 +1097,40 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 596426215800,
+        "市场评估价": null,
+        "起拍价格": 610000,
+        "成交价格": 716000,
+        "交易时间": "2019/07/08 10:41:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/596426215800.htm?track_id=f1af0a57-bc75-4d1b-b0fb-0593c2dd4676",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 54,
+        "地点": "福建省 宁德市 福安市 福安市棠兴路424号瑞景名仕城12号楼7层605号",
+        "所属小区": "瑞景名仕城",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "阳头",
+        "建筑面积": 105.27,
+        "单价": 6801.7,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "596977145439",
+        "url": "https://sf-item.taobao.com/sf_item/596977145439.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1562551200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "597347215846",
+        "url": "https://sf-item.taobao.com/sf_item/597347215846.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1562551200000,
+        "status": "done",
+        "is_processed": false
     }
 ]

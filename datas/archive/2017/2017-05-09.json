@@ -5130,5 +5130,110 @@
         "单价": 6649.34,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 548102714506,
+        "市场评估价": null,
+        "起拍价格": 11523624,
+        "成交价格": 17923624,
+        "交易时间": "2017-05-08 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548102714506.htm?track_id=b73737f4-5af2-4d91-8728-229efd7daa1d",
+        "是否成交": true,
+        "竞拍人数": 188,
+        "出价人数": 188,
+        "地点": "广东省 深圳市 盐田区 沙头角沙盐路北侧海鹏苑101、102、103、104号",
+        "所属小区": "海鹏苑",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "沙头角",
+        "建筑面积": 587.94,
+        "单价": 30482.78,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 548074257959,
+        "市场评估价": null,
+        "起拍价格": 1329300,
+        "成交价格": 1929300,
+        "交易时间": "2017-05-09 10:10:26",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548074257959.htm?track_id=cd2d3560-602a-4ff4-b450-ea5590835aa0",
+        "是否成交": true,
+        "竞拍人数": 28,
+        "出价人数": null,
+        "地点": "广东省 深圳市 盐田区",
+        "所属小区": "新世界倚山花园商业中心",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "沙头角",
+        "建筑面积": 75.96,
+        "单价": 25397.14,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 548126719792,
+        "市场评估价": null,
+        "起拍价格": 835800,
+        "成交价格": 1255800,
+        "交易时间": "2017/05/09 10:11:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/548126719792.htm?track_id=2d285c84-59a0-4993-a64c-0cb8a417e2de",
+        "是否成交": true,
+        "竞拍人数": 21,
+        "出价人数": 21,
+        "地点": "广东省 深圳市 盐田区",
+        "所属小区": "新世界倚山花园商业中心",
+        "省份": "广东省",
+        "城市": "深圳市",
+        "区": "盐田区",
+        "最靠近商圈": "沙头角",
+        "建筑面积": 47.76,
+        "单价": 26287.71,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "549104456593",
+        "url": "https://sf-item.taobao.com/sf_item/549104456593.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1494299151000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548127207590",
+        "url": "https://sf-item.taobao.com/sf_item/548127207590.htm?track_id=b38c3788-9664-4c59-abf2-a8e2c9a21926",
+        "end": 1494296825000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548072237367",
+        "url": "https://sf-item.taobao.com/sf_item/548072237367.htm?track_id=57de72a3-4a5b-4213-86be-43f6ac4aa4df",
+        "end": 1494297348000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548128571105",
+        "url": "https://sf-item.taobao.com/sf_item/548128571105.htm?track_id=c33d4d15-780d-4500-b888-c4ef19f538a0",
+        "end": 1494296749000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "549174122562",
+        "url": "https://sf-item.taobao.com/sf_item/549174122562.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1494298853000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "548035372895",
+        "url": "https://sf-item.taobao.com/sf_item/548035372895.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1494297511000,
+        "status": "done",
+        "is_processed": false
     }
 ]

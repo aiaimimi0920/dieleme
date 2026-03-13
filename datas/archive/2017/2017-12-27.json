@@ -765,5 +765,33 @@
         "单价": 23482.57,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 561849785924,
+        "市场评估价": null,
+        "起拍价格": 690000,
+        "成交价格": 765000,
+        "交易时间": "2017-12-27 10:26:32",
+        "原始网站": "https://sf-item.taobao.com/sf_item/561849785924.htm?track_id=76b18245-a4a9-45a2-b72d-7d6036192a93",
+        "是否成交": true,
+        "竞拍人数": 16,
+        "出价人数": 16,
+        "地点": "广东省 肇庆市 怀集县 怀城镇河南上高洲",
+        "所属小区": null,
+        "省份": "广东省",
+        "城市": "肇庆市",
+        "区": "怀集县",
+        "最靠近商圈": "怀城",
+        "建筑面积": 403.69,
+        "单价": 1894.96,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "561555182429",
+        "url": "https://sf-item.taobao.com/sf_item/561555182429.htm?track_id=75e810c1-9dc6-4f7e-96ab-428af5ed9de5",
+        "end": 1514340490000,
+        "status": "done",
+        "is_processed": false
     }
 ]

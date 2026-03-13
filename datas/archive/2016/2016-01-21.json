@@ -209,5 +209,47 @@
         "单价": 2434.01,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 525898753687,
+        "市场评估价": 976400,
+        "起拍价格": 750000,
+        "成交价格": 800000,
+        "交易时间": "2016-01-21 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/525898753687.htm?track_id=8c724a3c-78f0-4b36-8c4a-4461e4ee20b3",
+        "是否成交": true,
+        "竞拍人数": 6,
+        "出价人数": 6,
+        "地点": "浙江省丽水市云和县",
+        "所属小区": "富锦园",
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": "云和县城",
+        "建筑面积": 128.21,
+        "单价": 6239.19,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "525865499506",
+        "url": "https://sf-item.taobao.com/sf_item/525865499506.htm?track_id=3c29432e-52db-4998-8be1-d188f00d86f2",
+        "end": 1453342680000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525905973966",
+        "url": "https://sf-item.taobao.com/sf_item/525905973966.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1453343809000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "525906501302",
+        "url": "https://sf-item.taobao.com/sf_item/525906501302.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1453342712000,
+        "status": "done",
+        "is_processed": false
     }
 ]

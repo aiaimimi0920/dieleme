@@ -1163,5 +1163,47 @@
         "单价": 5600.41,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 562199767195,
+        "市场评估价": 390800,
+        "起拍价格": 280000,
+        "成交价格": 280000,
+        "交易时间": "2018/01/05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/562199767195.htm?track_id=43e5f82d-1627-437b-811a-895a5f3315bf",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "湖南省 湘潭市 湘潭县 湘潭县易俗河镇大鹏路西侧玉兰花城050102号",
+        "所属小区": "玉兰花城",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "湘潭县",
+        "最靠近商圈": "易俗河镇",
+        "建筑面积": 128.97,
+        "单价": 2171.65,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "562255322957",
+        "url": "https://sf-item.taobao.com/sf_item/562255322957.htm?track_id=2246d9dc-f51c-4cb2-b46c-df56134aeae2",
+        "end": 1515119253000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562185817800",
+        "url": "https://sf-item.taobao.com/sf_item/562185817800.htm?track_id=671fb627-9cbf-4c21-8704-7010cc79e63c",
+        "end": 1515119446000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "562195549216",
+        "url": "https://sf-item.taobao.com/sf_item/562195549216.htm?track_id=2a2eb82e-c461-4e15-9b45-1baadd976a66",
+        "end": 1515119217000,
+        "status": "done",
+        "is_processed": false
     }
 ]

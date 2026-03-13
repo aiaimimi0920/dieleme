@@ -1950,5 +1950,103 @@
         "单价": 4965.44,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 555748886744,
+        "市场评估价": 597600,
+        "起拍价格": 420000,
+        "成交价格": 556000,
+        "交易时间": "2017-08-22 10:40:13",
+        "原始网站": "https://sf-item.taobao.com/sf_item/555748886744.htm?track_id=079738f1-c2e6-46ad-b099-aaa22081ae2f",
+        "是否成交": true,
+        "竞拍人数": 34,
+        "出价人数": 34,
+        "地点": "浙江省丽水市云和县浮云街道后溪东路94号",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": null,
+        "建筑面积": 59.32,
+        "单价": 9375.21,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 555749086730,
+        "市场评估价": 614800,
+        "起拍价格": 440000,
+        "成交价格": 592000,
+        "交易时间": "2017-08-22T10:15:29",
+        "原始网站": "https://sf-item.taobao.com/sf_item/555749086730.htm?track_id=079738f1-c2e6-46ad-b099-aaa22081ae2f",
+        "是否成交": true,
+        "竞拍人数": 26,
+        "出价人数": 26,
+        "地点": "浙江省 丽水市 云和县 浮云街道后溪东路96号",
+        "所属小区": "浮云街道后溪东路96号",
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": "浮云街道",
+        "建筑面积": 61.02,
+        "单价": 9702.95,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "555622048208",
+        "url": "https://sf-item.taobao.com/sf_item/555622048208.htm?track_id=0c4d060f-2e9d-4d5d-9db5-bf7a6a9f075d",
+        "end": 1503368770000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "555681159773",
+        "url": "https://sf-item.taobao.com/sf_item/555681159773.htm?track_id=0c4d060f-2e9d-4d5d-9db5-bf7a6a9f075d",
+        "end": 1503369147000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "555797203450",
+        "url": "https://sf-item.taobao.com/sf_item/555797203450.htm?track_id=671fb627-9cbf-4c21-8704-7010cc79e63c",
+        "end": 1503371373000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "555691774380",
+        "url": "https://sf-item.taobao.com/sf_item/555691774380.htm?track_id=c4483fcd-3594-4770-b22e-4dbbb33f35db",
+        "end": 1503367378000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "555651853124",
+        "url": "https://sf-item.taobao.com/sf_item/555651853124.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1503367450000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "555625170888",
+        "url": "https://sf-item.taobao.com/sf_item/555625170888.htm?track_id=afd087fd-d280-4c92-87b8-fcea075d7588",
+        "end": 1503367200000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "555651183366",
+        "url": "https://sf-item.taobao.com/sf_item/555651183366.htm?track_id=198c9807-6010-4c5d-870b-f2877e133c3b",
+        "end": 1503368326000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "556483618720",
+        "url": "https://sf-item.taobao.com/sf_item/556483618720.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1503369890000,
+        "status": "done",
+        "is_processed": false
     }
 ]

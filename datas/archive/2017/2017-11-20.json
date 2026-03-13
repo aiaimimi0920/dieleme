@@ -674,5 +674,103 @@
         "单价": 0,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 560201801069,
+        "市场评估价": null,
+        "起拍价格": 441740,
+        "成交价格": 569740,
+        "交易时间": "2017-11-20",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560201801069.htm?track_id=93f368d6-7b68-4e80-8fa3-a4993523af16",
+        "是否成交": true,
+        "竞拍人数": 62,
+        "出价人数": 1,
+        "地点": "玉林市江南路233号厦工奥利华园居住小区1栋3单元303号房屋",
+        "所属小区": "厦工奥利华园",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "江南路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 560264154808,
+        "市场评估价": null,
+        "起拍价格": 339600,
+        "成交价格": 423600,
+        "交易时间": "2017-11-20T11:07:46",
+        "原始网站": "https://sf-item.taobao.com/sf_item/560264154808.htm?track_id=ad54bc7e-87a4-48a5-b9e5-2ed7c5ee19f2",
+        "是否成交": true,
+        "竞拍人数": 43,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 玉林市 玉州区 玉林市清宁路213号的桃源花园3#203房产",
+        "所属小区": "桃源花园",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "清宁路商圈",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "560280146577",
+        "url": "https://sf-item.taobao.com/sf_item/560280146577.htm?track_id=c5d4b8af-48be-40ca-8d7c-17f089acf0f4",
+        "end": 1511145210000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560280098487",
+        "url": "https://sf-item.taobao.com/sf_item/560280098487.htm?track_id=c5d4b8af-48be-40ca-8d7c-17f089acf0f4",
+        "end": 1511144715000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560280374943",
+        "url": "https://sf-item.taobao.com/sf_item/560280374943.htm?track_id=c5d4b8af-48be-40ca-8d7c-17f089acf0f4",
+        "end": 1511145400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560280410144",
+        "url": "https://sf-item.taobao.com/sf_item/560280410144.htm?track_id=c5d4b8af-48be-40ca-8d7c-17f089acf0f4",
+        "end": 1511144311000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560218909781",
+        "url": "https://sf-item.taobao.com/sf_item/560218909781.htm?track_id=32f4f022-9494-4b7e-a548-6d47eb8b76c0",
+        "end": 1511144558000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560347131087",
+        "url": "https://sf-item.taobao.com/sf_item/560347131087.htm?track_id=32f4f022-9494-4b7e-a548-6d47eb8b76c0",
+        "end": 1511144002000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560347687519",
+        "url": "https://sf-item.taobao.com/sf_item/560347687519.htm?track_id=75e810c1-9dc6-4f7e-96ab-428af5ed9de5",
+        "end": 1511144947000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "560347959124",
+        "url": "https://sf-item.taobao.com/sf_item/560347959124.htm?track_id=75e810c1-9dc6-4f7e-96ab-428af5ed9de5",
+        "end": 1511143968000,
+        "status": "done",
+        "is_processed": false
     }
 ]

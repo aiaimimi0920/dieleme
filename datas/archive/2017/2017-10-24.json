@@ -1759,5 +1759,117 @@
         "单价": 16098.2,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 558965429346,
+        "市场评估价": 414700,
+        "起拍价格": 311025,
+        "成交价格": 464025,
+        "交易时间": "2017-10-24 10:18:51",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558965429346.htm?track_id=e5881511-f4c8-402e-90fd-801da2840d1e",
+        "是否成交": true,
+        "竞拍人数": 103,
+        "出价人数": 103,
+        "地点": "湖南省 湘潭市 湘潭县 易俗河镇凤凰东路宏通御景湘",
+        "所属小区": "宏通御景湘",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "湘潭县",
+        "最靠近商圈": "易俗河",
+        "建筑面积": 146.09,
+        "单价": 3178.04,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 559091475137,
+        "市场评估价": null,
+        "起拍价格": 5728000,
+        "成交价格": 5728000,
+        "交易时间": "2017-10-24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/559091475137.htm?track_id=345c7cdc-7e90-4be0-9a95-a98ff9c8b5f7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 福州市 福清市 福清市融城镇后埔街环球广场三层商场（西侧）",
+        "所属小区": "环球广场",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "融城商圈",
+        "建筑面积": 1940.64,
+        "单价": 2952.16,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 558919039169,
+        "市场评估价": null,
+        "起拍价格": 880800,
+        "成交价格": 880800,
+        "交易时间": "2017/10/24 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/558919039169.htm?track_id=3896a102-e7a8-4d3f-a376-da8fa579f0a8",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "福建省 宁德市 福安市 福安市城区城北棠兴路264号凯兴小区6号楼6、7号楼602号房、1层5号杂物间",
+        "所属小区": "凯兴小区",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城北",
+        "建筑面积": 185.68,
+        "单价": 4744.35,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "558846998436",
+        "url": "https://sf-item.taobao.com/sf_item/558846998436.htm?track_id=0a0da276-7f50-44df-ab3b-266ab6a0d35a",
+        "end": 1508810400000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558937698279",
+        "url": "https://sf-item.taobao.com/sf_item/558937698279.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1508811553000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558904450356",
+        "url": "https://sf-item.taobao.com/sf_item/558904450356.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1508814501000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558900637893",
+        "url": "https://sf-item.taobao.com/sf_item/558900637893.htm?track_id=70afca07-b60e-4b1f-b59b-048e5ebc630c",
+        "end": 1508821929000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "559053094258",
+        "url": "https://sf-item.taobao.com/sf_item/559053094258.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1508812230000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558997301843",
+        "url": "https://sf-item.taobao.com/sf_item/558997301843.htm?track_id=2ba4606a-7e86-480b-875e-e6ea7a267827",
+        "end": 1508810953000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "558907330372",
+        "url": "https://sf-item.taobao.com/sf_item/558907330372.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1508812094000,
+        "status": "done",
+        "is_processed": false
     }
 ]

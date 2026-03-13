@@ -1646,5 +1646,47 @@
         "单价": 36265.57,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 631313081667,
+        "市场评估价": null,
+        "起拍价格": 221119,
+        "成交价格": 221119,
+        "交易时间": "2020/11/27",
+        "原始网站": "https://sf-item.taobao.com/sf_item/631313081667.htm?track_id=a961ca93-0cd4-45aa-a924-0cf1a194c4b1",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "河南省许昌市禹州市钧州大街东侧迎宾东路南侧博雅苑小区",
+        "所属小区": "博雅苑",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "颍川办",
+        "建筑面积": 73.86,
+        "单价": 2994.64,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "630052501535",
+        "url": "https://sf-item.taobao.com/sf_item/630052501535.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1606445549000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "629593877518",
+        "url": "https://sf-item.taobao.com/sf_item/629593877518.htm?track_id=ae73874c-e939-427f-bb2b-54d0c32a04bf",
+        "end": 1606445516000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "630503131761",
+        "url": "https://sf-item.taobao.com/sf_item/630503131761.htm?track_id=dbc369da-8dd7-4892-8eda-e28c89ebe9cd",
+        "end": 1606447805000,
+        "status": "done",
+        "is_processed": false
     }
 ]

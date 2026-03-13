@@ -547,5 +547,33 @@
         "单价": 3577.85,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 534124660272,
+        "市场评估价": 635000,
+        "起拍价格": 500000,
+        "成交价格": 670000,
+        "交易时间": "2016/07/05 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/534124660272.htm?track_id=48e7370f-0e2b-4dc8-a313-2279234d92b7",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 15,
+        "地点": "丽水市莲都区城东路188号1幢204室",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "莲都区",
+        "最靠近商圈": "城东路板块",
+        "建筑面积": 74.9,
+        "单价": 8945.26,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "534006687590",
+        "url": "https://sf-item.taobao.com/sf_item/534006687590.htm?track_id=c33d4d15-780d-4500-b888-c4ef19f538a0",
+        "end": 1467686135000,
+        "status": "done",
+        "is_processed": false
     }
 ]

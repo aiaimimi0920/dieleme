@@ -1976,5 +1976,89 @@
         "单价": 1979.99,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 563141766951,
+        "市场评估价": 12618100,
+        "起拍价格": 12618100,
+        "成交价格": 12618100,
+        "交易时间": "2018-01-30 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563141766951.htm?track_id=71f570dc-94fb-4c8e-b0ec-81e6da1fca8b",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "北京 北京市 西城区 南滨河路23号3号楼",
+        "所属小区": null,
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": null,
+        "建筑面积": 282.02,
+        "单价": 44781.18,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "564122819533",
+        "url": "https://sf-item.taobao.com/sf_item/564122819533.htm?track_id=0c4d060f-2e9d-4d5d-9db5-bf7a6a9f075d",
+        "end": 1517279812000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563317292424",
+        "url": "https://sf-item.taobao.com/sf_item/563317292424.htm?track_id=e86c2fb3-2358-433a-97e5-a8af55fae3ba",
+        "end": 1517278959000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563381533844",
+        "url": "https://sf-item.taobao.com/sf_item/563381533844.htm?track_id=e84db06b-1604-41bb-8084-00101d3ae958",
+        "end": 1517279118000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563285257215",
+        "url": "https://sf-item.taobao.com/sf_item/563285257215.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1517278130000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564091619311",
+        "url": "https://sf-item.taobao.com/sf_item/564091619311.htm?track_id=daef3e96-03f7-43e8-96ca-22f5035c9a7d",
+        "end": 1517279638000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563835916379",
+        "url": "https://sf-item.taobao.com/sf_item/563835916379.htm?track_id=ce679841-39b9-4da8-b6a4-8ab34a8d2789",
+        "end": 1517278894000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "564091019505",
+        "url": "https://sf-item.taobao.com/sf_item/564091019505.htm?track_id=ce679841-39b9-4da8-b6a4-8ab34a8d2789",
+        "end": 1517278585000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563942801088",
+        "url": "https://sf-item.taobao.com/sf_item/563942801088.htm?track_id=edf0094e-3ded-47af-9337-3fd42694247a",
+        "end": 1517279062000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "563942221574",
+        "url": "https://sf-item.taobao.com/sf_item/563942221574.htm?track_id=6587395a-bb56-4ec8-8b31-98d627359062",
+        "end": 1517278880000,
+        "status": "done",
+        "is_processed": false
     }
 ]

@@ -3672,5 +3672,180 @@
         "单价": 911.32,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 596377567858,
+        "市场评估价": null,
+        "起拍价格": 630000,
+        "成交价格": 632000,
+        "交易时间": "2019-07-09",
+        "原始网站": "https://sf-item.taobao.com/sf_item/596377567858.htm?track_id=38f94912-b1ec-404e-9e1f-2666af2f01c0",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 2,
+        "地点": "湖南省 湘潭市 湘潭县 易俗河镇飞羊路北侧龙盛华府7栋080101号房产",
+        "所属小区": "龙盛华府",
+        "省份": "湖南省",
+        "城市": "湘潭市",
+        "区": "湘潭县",
+        "最靠近商圈": "易俗河",
+        "建筑面积": null,
+        "单价": 0,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 596247518240,
+        "市场评估价": 0,
+        "起拍价格": 420000,
+        "成交价格": 625000,
+        "交易时间": "2019/07/09 10:30:31",
+        "原始网站": "https://sf-item.taobao.com/sf_item/596247518240.htm?track_id=ad54bc7e-87a4-48a5-b9e5-2ed7c5ee19f2",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 0,
+        "地点": "广西壮族自治区 玉林市 玉州区 德兴花园B区德望苑306号",
+        "所属小区": "德兴花园B区",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": null,
+        "建筑面积": 108.15,
+        "单价": 5779.01,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 596066761935,
+        "市场评估价": null,
+        "起拍价格": 580000,
+        "成交价格": 760000,
+        "交易时间": "2019-07-09 10:38:47",
+        "原始网站": "https://sf-item.taobao.com/sf_item/596066761935.htm?track_id=6b11f1bf-d5f6-4d7d-95a5-1c121faf908b",
+        "是否成交": true,
+        "竞拍人数": 37,
+        "出价人数": 1,
+        "地点": "广西壮族自治区 玉林市 玉州区 德兴花园B区德子苑302房",
+        "所属小区": "德兴花园",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "玉州商圈",
+        "建筑面积": 151.27,
+        "单价": 5023.15,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 596250518929,
+        "市场评估价": null,
+        "起拍价格": 260000,
+        "成交价格": 260000,
+        "交易时间": "2019/07/09 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/596250518929.htm?track_id=9d4c1acb-89de-4b42-b0ca-fb745b4f7f4f",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 0,
+        "地点": "湖南省 郴州市 宜章县 城关镇南京洞165-1-204号",
+        "所属小区": null,
+        "省份": "湖南省",
+        "城市": "郴州市",
+        "区": "宜章县",
+        "最靠近商圈": "城关镇南京洞",
+        "建筑面积": 97.75,
+        "单价": 2660.1,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "595995729229",
+        "url": "https://sf-item.taobao.com/sf_item/595995729229.htm?track_id=b38c3788-9664-4c59-abf2-a8e2c9a21926",
+        "end": 1562638982000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595708096628",
+        "url": "https://sf-item.taobao.com/sf_item/595708096628.htm?track_id=7a807e00-fdf4-4ee6-84d9-b303b24f393d",
+        "end": 1562641270000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595921893122",
+        "url": "https://sf-item.taobao.com/sf_item/595921893122.htm?track_id=7398cc8f-67f4-4cf0-ab9f-ff77efb44d5b",
+        "end": 1562641353000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595940901994",
+        "url": "https://sf-item.taobao.com/sf_item/595940901994.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1562639259000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596123082043",
+        "url": "https://sf-item.taobao.com/sf_item/596123082043.htm?track_id=f474ebf9-df51-425c-a35d-8b5c3ad5ce2b",
+        "end": 1562638693000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595997733554",
+        "url": "https://sf-item.taobao.com/sf_item/595997733554.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1562638104000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596299803322",
+        "url": "https://sf-item.taobao.com/sf_item/596299803322.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1562639273000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596028146400",
+        "url": "https://sf-item.taobao.com/sf_item/596028146400.htm?track_id=c4c6f977-daa9-41ae-b76e-693ed5d8964f",
+        "end": 1562643800000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595449968195",
+        "url": "https://sf-item.taobao.com/sf_item/595449968195.htm?track_id=c4bf6625-b331-44e3-8e82-c3f4896870f6",
+        "end": 1562642034000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596423371879",
+        "url": "https://sf-item.taobao.com/sf_item/596423371879.htm?track_id=09d2f0a8-f1e1-440b-9f6e-28eac5a683b8",
+        "end": 1562639799000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "597002974386",
+        "url": "https://sf-item.taobao.com/sf_item/597002974386.htm?track_id=d3a6e94f-bd89-49e6-abd5-efaf6c356b71",
+        "end": 1562639144000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "595998593956",
+        "url": "https://sf-item.taobao.com/sf_item/595998593956.htm?track_id=0c277651-3930-49c6-aa2c-6510d7690aad",
+        "end": 1562640558000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "596014849724",
+        "url": "https://sf-item.taobao.com/sf_item/596014849724.htm?track_id=55e838cc-a478-4258-bb6b-be38ab94d065",
+        "end": 1562640493000,
+        "status": "done",
+        "is_processed": false
     }
 ]

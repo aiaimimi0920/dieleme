@@ -1797,5 +1797,33 @@
         "单价": 3880.07,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 531143157232,
+        "市场评估价": null,
+        "起拍价格": 450000,
+        "成交价格": 505000,
+        "交易时间": "2016-05-20 10:03:16",
+        "原始网站": "https://sf-item.taobao.com/sf_item/531143157232.htm?track_id=8c724a3c-78f0-4b36-8c4a-4461e4ee20b3",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 8,
+        "地点": "浙江省 丽水市 云和县",
+        "所属小区": null,
+        "省份": "浙江省",
+        "城市": "丽水市",
+        "区": "云和县",
+        "最靠近商圈": null,
+        "建筑面积": 73.51,
+        "单价": 6871.7,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "531126981185",
+        "url": "https://sf-item.taobao.com/sf_item/531126981185.htm?track_id=7c0ff2d6-27ed-45b7-8d98-f24e0146369c",
+        "end": 1463711939000,
+        "status": "done",
+        "is_processed": false
     }
 ]

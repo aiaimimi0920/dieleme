@@ -867,5 +867,33 @@
         "单价": 9339.11,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 611469878045,
+        "市场评估价": 1894700,
+        "起拍价格": 1440000,
+        "成交价格": 1450000,
+        "交易时间": "2020/02/06 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/611469878045.htm?track_id=838d60a4-a9ce-451b-9efa-5bdd2ddca282",
+        "是否成交": true,
+        "竞拍人数": 1,
+        "出价人数": 1,
+        "地点": "天津市东丽区丽东苑25-1-1103号",
+        "所属小区": "丽东苑",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": "东丽商圈",
+        "建筑面积": 86.87,
+        "单价": 16691.93,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "611647690144",
+        "url": "https://sf-item.taobao.com/sf_item/611647690144.htm?track_id=95c666be-37a8-4353-ac74-66dccc740f8c",
+        "end": 1580954400000,
+        "status": "done",
+        "is_processed": false
     }
 ]

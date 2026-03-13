@@ -2211,5 +2211,61 @@
         "单价": 1445.78,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 638731833040,
+        "市场评估价": null,
+        "起拍价格": 2009600,
+        "成交价格": 2454600,
+        "交易时间": "2021-03-23 10:57:03",
+        "原始网站": "https://sf-item.taobao.com/sf_item/638731833040.htm?track_id=cdc4b54a-4c16-42d7-9011-f5246068a776",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "福建省 福州市 福清市 宏路街道上郑村中联城五期26号楼2105单元房产",
+        "所属小区": "中联城",
+        "省份": "福建省",
+        "城市": "福州市",
+        "区": "福清市",
+        "最靠近商圈": "宏路街道",
+        "建筑面积": 198.06,
+        "单价": 12393.01,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 639431786002,
+        "市场评估价": null,
+        "起拍价格": 330860,
+        "成交价格": 420860,
+        "交易时间": "2021-03-23T10:15:48",
+        "原始网站": "https://sf-item.taobao.com/sf_item/639431786002.htm?track_id=ddca2342-9c1e-4e09-8dda-9c84def2884a",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "广西壮族自治区 玉林市 玉州区 苗园路372-1号江南康城住宅小区1幢2单元1804房",
+        "所属小区": "江南康城",
+        "省份": "广西壮族自治区",
+        "城市": "玉林市",
+        "区": "玉州区",
+        "最靠近商圈": "火车站",
+        "建筑面积": 146.97,
+        "单价": 2863.05,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "638703031806",
+        "url": "https://sf-item.taobao.com/sf_item/638703031806.htm?track_id=c5d4b8af-48be-40ca-8d7c-17f089acf0f4",
+        "end": 1616469815000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "638446538735",
+        "url": "https://sf-item.taobao.com/sf_item/638446538735.htm?track_id=409d8ada-4ed8-4298-a287-12ccaa83b0ae",
+        "end": 1616470092000,
+        "status": "done",
+        "is_processed": false
     }
 ]

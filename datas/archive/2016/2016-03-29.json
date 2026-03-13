@@ -568,5 +568,61 @@
         "单价": 2327.84,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 527886323781,
+        "市场评估价": null,
+        "起拍价格": 12400000,
+        "成交价格": 15200000,
+        "交易时间": "2016-03-29 10:18:39",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527886323781.htm?track_id=6ceb8279-329b-4586-8a35-09a0dd614066",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "北京市西城区龙爪槐胡同6号1幢6层P62号",
+        "所属小区": "龙爪槐胡同",
+        "省份": "北京市",
+        "城市": "北京市",
+        "区": "西城区",
+        "最靠近商圈": "陶然亭",
+        "建筑面积": 257.11,
+        "单价": 59118.5,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 527958684611,
+        "市场评估价": null,
+        "起拍价格": 983070,
+        "成交价格": 1563070,
+        "交易时间": "2016-03-29 10:21:56",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527958684611.htm?track_id=0c0439d3-7dcd-43e6-96af-87fde9d774e6",
+        "是否成交": true,
+        "竞拍人数": 50,
+        "出价人数": 6,
+        "地点": "天津市东丽区归航路312号",
+        "所属小区": "润风家园",
+        "省份": "天津",
+        "城市": "天津市",
+        "区": "东丽区",
+        "最靠近商圈": null,
+        "建筑面积": 118.56,
+        "单价": 13176.85,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "528078198011",
+        "url": "https://sf-item.taobao.com/sf_item/528078198011.htm?track_id=5255e6ac-1966-4580-984b-ad0cd43bb29e",
+        "end": 1459217351000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "528003011942",
+        "url": "https://sf-item.taobao.com/sf_item/528003011942.htm?track_id=e1506661-d0b5-40d2-851e-3ae87d4fbb0e",
+        "end": 1459217276000,
+        "status": "done",
+        "is_processed": false
     }
 ]

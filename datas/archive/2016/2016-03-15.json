@@ -650,5 +650,68 @@
         "单价": 3594.8,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 527366080430,
+        "市场评估价": 0,
+        "起拍价格": 4030000,
+        "成交价格": 5710000,
+        "交易时间": "2016/03/15 11:23:28",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527366080430.htm?track_id=71c47fa7-9c0e-4f7f-9216-afa242845d8e",
+        "是否成交": true,
+        "竞拍人数": 0,
+        "出价人数": 118,
+        "地点": "北京市西城区（原宣武区）马连道路甲10号楼①-1804号",
+        "所属小区": "信和嘉园",
+        "省份": "北京",
+        "城市": "北京",
+        "区": "西城区",
+        "最靠近商圈": "马连道",
+        "建筑面积": 109.35,
+        "单价": 52217.21,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": 527075247905,
+        "市场评估价": null,
+        "起拍价格": 426240,
+        "成交价格": 438240,
+        "交易时间": "2016/03/15 10:00:00",
+        "原始网站": "https://sf-item.taobao.com/sf_item/527075247905.htm?track_id=f4e58f0a-8b0a-4cbb-b773-b76eb209681c",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": null,
+        "地点": "河南省 许昌市 禹州市 颖川办劳动路东段路北公职员C区C7号楼东1单元5层西户",
+        "所属小区": "公职员C区",
+        "省份": "河南省",
+        "城市": "许昌市",
+        "区": "禹州市",
+        "最靠近商圈": "劳动路商圈",
+        "建筑面积": 166.24,
+        "单价": 2636.42,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "527382371911",
+        "url": "https://sf-item.taobao.com/sf_item/527382371911.htm?track_id=b38c3788-9664-4c59-abf2-a8e2c9a21926",
+        "end": 1458008792000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527303067318",
+        "url": "https://sf-item.taobao.com/sf_item/527303067318.htm?track_id=c33d4d15-780d-4500-b888-c4ef19f538a0",
+        "end": 1458008855000,
+        "status": "done",
+        "is_processed": false
+    },
+    {
+        "id": "527303719476",
+        "url": "https://sf-item.taobao.com/sf_item/527303719476.htm?track_id=3ad3cfac-0e56-4d19-8a3f-4fdb9249034f",
+        "end": 1458007805000,
+        "status": "done",
+        "is_processed": false
     }
 ]

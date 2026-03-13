@@ -804,5 +804,33 @@
         "单价": 6508.33,
         "is_processed": true,
         "detail_captured": true
+    },
+    {
+        "id": 563162363133,
+        "市场评估价": null,
+        "起拍价格": 305000,
+        "成交价格": 371000,
+        "交易时间": "2018-01-24 10:21:43",
+        "原始网站": "https://sf-item.taobao.com/sf_item/563162363133.htm?track_id=31a4041b-4808-45ee-bb04-adcff0db910e",
+        "是否成交": true,
+        "竞拍人数": null,
+        "出价人数": 18,
+        "地点": "福建省 宁德市 福安市 福安市城北新华中路3号天恒国际大厦8层806号",
+        "所属小区": "天恒国际大厦",
+        "省份": "福建省",
+        "城市": "宁德市",
+        "区": "福安市",
+        "最靠近商圈": "城北商圈",
+        "建筑面积": 58.71,
+        "单价": 6319.74,
+        "is_processed": true,
+        "detail_captured": true
+    },
+    {
+        "id": "563130243119",
+        "url": "https://sf-item.taobao.com/sf_item/563130243119.htm?track_id=9d1882ed-3ef1-42fe-93c2-c29e832fcbdf",
+        "end": 1516771797000,
+        "status": "done",
+        "is_processed": false
     }
 ]
