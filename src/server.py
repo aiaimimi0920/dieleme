@@ -1,6 +1,7 @@
 import http.server
 import socketserver
 import json
+import ast
 import os
 import datetime
 import glob
@@ -39,6 +40,67 @@ DATA_LOCK = threading.Lock() # Protects SEEN_IDS and PENDING_TASKS
 CURRENT_PROCESSING = set() # Track running tasks to avoid duplicate submission
 SOLVER_RUNNING = False
 SOLVER_START_TIME = 0
+
+
+def strip_markdown_code_fence(content: str) -> str:
+    """Strip markdown code fence and return the inner payload."""
+    if not isinstance(content, str):
+        return content
+
+    text = content.strip()
+    fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text, re.IGNORECASE)
+    if fence_match:
+        return fence_match.group(1).strip()
+    return text
+
+
+def _minimal_json_repair(text: str) -> str:
+    """Apply minimal repair only: trailing commas + single/double quotes normalization."""
+    # Remove trailing commas before object/array closing
+    repaired = re.sub(r",\s*([}\]])", r"\1", text)
+    return repaired
+
+
+def parse_json_with_minimal_repair(content: str):
+    """
+    Parse model response as JSON after fence removal.
+    On parse failure, try minimal repair (trailing commas + quote style).
+    """
+    cleaned = strip_markdown_code_fence(content)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError as first_error:
+        repaired = _minimal_json_repair(cleaned)
+        try:
+            return json.loads(repaired)
+        except json.JSONDecodeError:
+            # Single-quote payload fallback via literal_eval, then normalize to JSON-compatible structure
+            try:
+                literal = ast.literal_eval(repaired)
+                return json.loads(json.dumps(literal, ensure_ascii=False))
+            except Exception as second_error:
+                raise ValueError(
+                    f"JSON parse failed after minimal repair: {first_error}; fallback failed: {second_error}"
+                )
+
+
+def validate_risk_features(data: dict):
+    """Validate risk features before persistence."""
+    if not isinstance(data, dict):
+        return False, "payload must be dict"
+
+    risk_features = data.get("risk_features", data.get("风险特征"))
+    if risk_features is None:
+        return False, "missing risk_features/风险特征"
+
+    if not isinstance(risk_features, list):
+        return False, "risk_features must be list"
+
+    for idx, feature in enumerate(risk_features):
+        if not isinstance(feature, str) or not feature.strip():
+            return False, f"risk_features[{idx}] must be non-empty string"
+
+    return True, None
 
 # --- Watchdog for Service Continuity ---
 LAST_REQUEST_TIME = time.time()
@@ -357,12 +419,7 @@ def process_single_file(file_path):
         if not json_str:
             raise ValueError("Empty response from AI")
         
-        if "```json" in json_str:
-            json_str = json_str.split("```json")[1].split("```")[0].strip()
-        elif "```" in json_str:
-            json_str = json_str.split("```")[1].split("```")[0].strip()
-
-        new_data = json.loads(json_str)
+        new_data = parse_json_with_minimal_repair(json_str)
         
         if not isinstance(new_data, dict):
                 raise ValueError("AI did not return a dictionary")
@@ -373,6 +430,10 @@ def process_single_file(file_path):
         
         if "id" not in new_data:
             new_data["id"] = found_id
+
+        risk_ok, risk_error = validate_risk_features(new_data)
+        if not risk_ok:
+            raise ValueError(f"validate_risk_features failed: {risk_error}")
 
         # Determine target path
         original_record = SEEN_IDS.get(str(item_id))
@@ -1015,13 +1076,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     # Invoke LLM (GLM-4.7)
                     resp = llm_helper.chat_with_glm(prompt)
                     
-                    # Clean response
-                    if "```json" in resp:
-                        resp = resp.split("```json")[1].split("```")[0]
-                    elif "```" in resp:
-                        resp = resp.split("```")[1].split("```")[0]
-                    
-                    result = json.loads(resp.strip())
+                    result = parse_json_with_minimal_repair(resp)
                     self.send_json(result)
                 except Exception as e:
                     print(f"Error calling LLM: {e}")
