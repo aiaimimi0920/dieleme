@@ -63,6 +63,7 @@ def _distance_weight(distance_km: float, method: str = "hybrid", idw_power: floa
     d = max(distance_km, 0.03)
     idw_w = 1.0 / (d**idw_power)
     gauss_w = math.exp(-0.5 * (distance_km / max(sigma_km, 1e-3)) ** 2)
+
     if method == "idw":
         return idw_w
     if method == "gaussian":
@@ -93,7 +94,6 @@ def _fit_polynomial(xs: Sequence[float], ys: Sequence[float], degree: int = 1) -
         a = (sy - b * sx) / n
         return (a, b)
 
-    # degree=2 正规方程求解
     sx = sum(xs)
     sx2 = sum(x**2 for x in xs)
     sx3 = sum(x**3 for x in xs)
@@ -141,6 +141,99 @@ def _eval_poly(coeffs: Sequence[float], x: float) -> float:
     return coeffs[0] + coeffs[1] * x + coeffs[2] * x * x
 
 
+def _normalize_record(comp: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    price = _to_float(_get(comp, "actual_paid_price") or _get(comp, "transaction_price"), 0.0)
+    area = max(_to_float(_get(comp, "area_sqm"), 0.0), 0.0)
+    lat = _to_float(_get(comp, "latitude"), float("nan"))
+    lon = _to_float(_get(comp, "longitude"), float("nan"))
+    if price <= 0 or area <= 0 or math.isnan(lat) or math.isnan(lon):
+        return None
+
+    rec = dict(comp)
+    rec["_unit_price"] = price / area
+    rec["_lat"] = lat
+    rec["_lon"] = lon
+    return rec
+
+
+def _spatial_filter_and_weight(subject: Dict[str, Any], normalized: Iterable[Dict[str, Any]]) -> List[Tuple[Dict[str, Any], float]]:
+    subject_lat = _to_float(_get(subject, "latitude"), float("nan"))
+    subject_lon = _to_float(_get(subject, "longitude"), float("nan"))
+    if math.isnan(subject_lat) or math.isnan(subject_lon):
+        return []
+
+    subject_community = _get(subject, "community_name")
+    subject_business = _get(subject, "business_district") or _get(subject, "biz_circle")
+    subject_district = _get(subject, "district")
+
+    selected: List[Tuple[Dict[str, Any], float]] = []
+    for rec in normalized:
+        dist = _haversine_km(subject_lat, subject_lon, rec["_lat"], rec["_lon"])
+        if dist > DEFAULT_SEARCH_RADIUS_KM:
+            continue
+
+        w = _distance_weight(dist, method="hybrid")
+        if subject_community and _get(rec, "community_name") == subject_community:
+            w *= 1.8
+        if subject_business and (_get(rec, "business_district") == subject_business or _get(rec, "biz_circle") == subject_business):
+            w *= 1.35
+        if subject_district and _get(rec, "district") and _get(rec, "district") != subject_district:
+            w *= 0.72
+
+        selected.append((rec, w))
+
+    return selected
+
+
+def _build_temporal_factor(subject: Dict[str, Any], normalized: Iterable[Dict[str, Any]]) -> Tuple[float, str, int]:
+    """
+    时间校准：按(区, 商圈)聚合历史成交，并做线性/二次回归。
+    返回: (factor, explain, sample_count)
+    """
+    grouped: Dict[Tuple[Any, Any], List[Tuple[datetime, float]]] = defaultdict(list)
+    for rec in normalized:
+        dt = _parse_dt(_get(rec, "auction_date"))
+        if not dt:
+            continue
+        key = (_get(rec, "district"), _get(rec, "business_district") or _get(rec, "biz_circle"))
+        grouped[key].append((dt, rec["_unit_price"]))
+
+    subject_district = _get(subject, "district")
+    subject_business = _get(subject, "business_district") or _get(subject, "biz_circle")
+
+    # 先同区同商圈，再降级到同区，再降级全局
+    trend_points = grouped.get((subject_district, subject_business))
+    if not trend_points:
+        trend_points = []
+        for (district, _), points in grouped.items():
+            if district == subject_district:
+                trend_points.extend(points)
+    if not trend_points:
+        for points in grouped.values():
+            trend_points.extend(points)
+
+    if len(trend_points) < 2:
+        return 1.0, "时间趋势样本不足，使用空间层基线", len(trend_points)
+
+    trend_points.sort(key=lambda x: x[0])
+    start = trend_points[0][0]
+    xs = [max((dt - start).days, 0) / 30.0 for dt, _ in trend_points]
+    ys = [price for _, price in trend_points]
+
+    degree = 2 if len(xs) >= 6 else 1
+    coeffs = _fit_polynomial(xs, ys, degree=degree)
+    now_x = max((datetime.now() - start).days, 0) / 30.0
+    latest_x = xs[-1]
+
+    latest_pred = _eval_poly(coeffs, latest_x)
+    now_pred = _eval_poly(coeffs, now_x)
+    if latest_pred <= 0 or now_pred <= 0:
+        return 1.0, "时间趋势异常，回退空间层基线", len(trend_points)
+
+    factor = max(0.75, min(1.25, now_pred / latest_pred))
+    return factor, f"时间趋势校准系数={factor:.3f}", len(trend_points)
+
+
 def _risk_adjustment(subject: Dict[str, Any]) -> Tuple[float, List[str]]:
     factor = 1.0
     reasons: List[str] = []
@@ -173,54 +266,20 @@ def _risk_adjustment(subject: Dict[str, Any]) -> Tuple[float, List[str]]:
 def predict_fair_price(subject: Dict[str, Any], comparables: Iterable[Dict[str, Any]]) -> Dict[str, Any]:
     """
     估值主函数（空间加权 -> 时间校准 -> 风控修正）
-
-    Args:
-        subject: 待估标的（至少需包含经纬度/面积/区域标签）
-        comparables: 历史成交样本列表
-
-    Returns:
-        {
-          predicted_price: 预测总价（元）,
-          confidence: 0~1,
-          comparable_count: 参与估值的样本数,
-          top_factors: 可解释性因子列表
-        }
     """
-    subject_lat = _to_float(_get(subject, "latitude"), float("nan"))
-    subject_lon = _to_float(_get(subject, "longitude"), float("nan"))
-    subject_area = max(_to_float(_get(subject, "area_sqm"), 0.0), 1e-6)
-    subject_community = _get(subject, "community_name")
-    subject_business = _get(subject, "business_district") or _get(subject, "biz_circle")
-    subject_district = _get(subject, "district")
+    subject_area = _to_float(_get(subject, "area_sqm"), 0.0)
+    if subject_area <= 0:
+        return {
+            "predicted_price": None,
+            "confidence": 0.0,
+            "comparable_count": 0,
+            "top_factors": ["标的面积缺失或非法，无法估值"],
+        }
 
-    filtered: List[Tuple[Dict[str, Any], float, float]] = []
-    for comp in comparables:
-        lat = _to_float(_get(comp, "latitude"), float("nan"))
-        lon = _to_float(_get(comp, "longitude"), float("nan"))
-        if math.isnan(subject_lat) or math.isnan(subject_lon) or math.isnan(lat) or math.isnan(lon):
-            continue
-        dist = _haversine_km(subject_lat, subject_lon, lat, lon)
-        if dist > DEFAULT_SEARCH_RADIUS_KM:
-            continue
+    normalized = [rec for rec in (_normalize_record(c) for c in comparables) if rec is not None]
+    spatial_samples = _spatial_filter_and_weight(subject, normalized)
 
-        price = _to_float(_get(comp, "actual_paid_price") or _get(comp, "transaction_price"), 0.0)
-        area = max(_to_float(_get(comp, "area_sqm"), 0.0), 1e-6)
-        if price <= 0:
-            continue
-
-        unit_price = price / area
-        weight = _distance_weight(dist, method="hybrid")
-
-        if subject_community and _get(comp, "community_name") == subject_community:
-            weight *= 1.8
-        if subject_business and (_get(comp, "business_district") == subject_business or _get(comp, "biz_circle") == subject_business):
-            weight *= 1.35
-        if subject_district and _get(comp, "district") and _get(comp, "district") != subject_district:
-            weight *= 0.72
-
-        filtered.append((comp, unit_price, weight))
-
-    if not filtered:
+    if not spatial_samples:
         return {
             "predicted_price": None,
             "confidence": 0.0,
@@ -228,64 +287,39 @@ def predict_fair_price(subject: Dict[str, Any], comparables: Iterable[Dict[str, 
             "top_factors": ["3km范围内缺少有效可比样本"],
         }
 
-    # 1) 空间层结果
-    sum_w = sum(w for _, _, w in filtered)
-    spatial_unit_price = sum(up * w for _, up, w in filtered) / max(sum_w, 1e-12)
+    # 1) 空间层
+    weight_sum = sum(weight for _, weight in spatial_samples)
+    spatial_unit_price = sum(rec["_unit_price"] * weight for rec, weight in spatial_samples) / max(weight_sum, 1e-12)
 
-    # 2) 时间层：按(区, 商圈)聚合后做趋势回归，并校准到当前时点
-    grouped: Dict[Tuple[Any, Any], List[Tuple[datetime, float]]] = defaultdict(list)
-    for comp, up, _ in filtered:
-        key = (_get(comp, "district"), _get(comp, "business_district") or _get(comp, "biz_circle"))
-        dt = _parse_dt(_get(comp, "auction_date"))
-        if dt is not None:
-            grouped[key].append((dt, up))
-
-    target_key = (subject_district, subject_business)
-    trend_points = grouped.get(target_key) or grouped.get((subject_district, None))
-
-    temporal_factor = 1.0
-    temporal_note = "时间趋势样本不足，使用空间层基线"
-
-    if trend_points and len(trend_points) >= 2:
-        trend_points.sort(key=lambda x: x[0])
-        start = trend_points[0][0]
-        xs = [max((dt - start).days, 0) / 30.0 for dt, _ in trend_points]
-        ys = [p for _, p in trend_points]
-        coeffs = _fit_polynomial(xs, ys, degree=2 if len(xs) >= 5 else 1)
-        latest_x = xs[-1]
-        now_x = max((datetime.now() - start).days, 0) / 30.0
-
-        base_now = _eval_poly(coeffs, now_x)
-        base_latest = _eval_poly(coeffs, latest_x)
-        if base_latest > 0:
-            temporal_factor = max(0.75, min(1.25, base_now / base_latest))
-            temporal_note = f"时间趋势校准系数={temporal_factor:.3f}"
-
+    # 2) 时间层（使用全量历史规范样本，不局限3km，提高稳定性）
+    temporal_factor, temporal_note, trend_count = _build_temporal_factor(subject, normalized)
     temporal_unit_price = spatial_unit_price * temporal_factor
 
-    # 3) 风控层修正
+    # 3) 风控层
     risk_factor, risk_reasons = _risk_adjustment(subject)
     adjusted_unit_price = temporal_unit_price * risk_factor
     predicted_price = adjusted_unit_price * subject_area
 
-    # 置信度：样本量 + 权重集中度 + 时间有效性
-    n = len(filtered)
+    n = len(spatial_samples)
     sample_conf = min(1.0, n / 20.0)
-    weight_entropy = 0.0
-    for _, _, w in filtered:
-        p = w / max(sum_w, 1e-12)
+
+    entropy = 0.0
+    for _, w in spatial_samples:
+        p = w / max(weight_sum, 1e-12)
         if p > 0:
-            weight_entropy -= p * math.log(p)
+            entropy -= p * math.log(p)
     max_entropy = math.log(max(n, 2))
-    concentration = 1.0 - min(1.0, weight_entropy / max(max_entropy, 1e-12))
-    trend_conf = 1.0 if temporal_note.startswith("时间趋势校准") else 0.6
-    confidence = 0.45 * sample_conf + 0.30 * (1.0 - concentration) + 0.25 * trend_conf
+    concentration = 1.0 - min(1.0, entropy / max(max_entropy, 1e-12))
+
+    trend_conf = min(1.0, trend_count / 12.0)
+    confidence = 0.45 * sample_conf + 0.30 * concentration + 0.25 * trend_conf
     confidence = max(0.0, min(1.0, confidence))
 
     top_factors = [
         f"空间加权单价={spatial_unit_price:.0f}元/㎡",
         temporal_note,
         f"风控修正系数={risk_factor:.3f}",
+        f"空间样本数={n}",
     ]
     top_factors.extend(risk_reasons[:3])
 
