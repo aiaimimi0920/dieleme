@@ -465,6 +465,14 @@ def process_single_file(file_path):
             new_data["detail_captured"] = True
             new_data["is_processed"] = True
             new_data["id"] = int(item_id) if item_id.isdigit() else item_id
+
+            # AVM extension fields (backward compatible):
+            # only append/set defaults, never overwrite existing core extraction fields.
+            existing_data = (original_record or {}).get("data", {}) if isinstance(original_record, dict) else {}
+            if "avm_risk_features" not in new_data:
+                new_data["avm_risk_features"] = existing_data.get("avm_risk_features", {})
+            if "avm_extraction_version" not in new_data:
+                new_data["avm_extraction_version"] = existing_data.get("avm_extraction_version")
             
             update_item_in_json(target_json_path, str(item_id), new_data)
             
