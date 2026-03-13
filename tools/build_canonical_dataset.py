@@ -1,125 +1,202 @@
+#!/usr/bin/env python3
+"""Build canonical AVM dataset from raw JSON files under datas/."""
+
+from __future__ import annotations
+
 import argparse
-import glob
 import json
-import os
 import sys
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any, Dict, Iterable
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
-if str(ROOT_DIR) not in sys.path:
-    sys.path.insert(0, str(ROOT_DIR))
+REPO_ROOT = Path(__file__).resolve().parents[1]
+SRC_DIR = REPO_ROOT / "src"
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
 
-from src.avm.canonical_mapper import map_raw_to_canonical
+from avm.canonical_mapper import map_raw_to_canonical
 
 
-SKIP_FILES = {
-    "all_locations.json",
-    "sniff_progress.json",
-    "collected_locations.json",
-    "model_config.json",
-    "tuning_history.json",
-    "seen_ids.json",
+@dataclass
+class FieldQuality:
+    total: int = 0
+    non_null: int = 0
+    type_errors: int = 0
+
+
+@dataclass
+class QualityReport:
+    records_total: int = 0
+    file_error_count: int = 0
+    failed_records: int = 0
+    fields: Dict[str, FieldQuality] = field(default_factory=dict)
+
+    def init_fields(self, names: Iterable[str]) -> None:
+        for name in names:
+            self.fields.setdefault(name, FieldQuality())
+
+
+EXPECTED_TYPES = {
+    "item_id": str,
+    "source_url": str,
+    "transaction_price": (int, float),
+    "starting_price": (int, float),
+    "area_sqm": (int, float),
+    "auction_date": str,
 }
 
 
-def iter_input_files(data_dir: str):
-    root_files = glob.glob(os.path.join(data_dir, "*.json"))
-    archive_files = glob.glob(os.path.join(data_dir, "archive", "**", "*.json"), recursive=True)
-    for path in root_files + archive_files:
-        if os.path.basename(path) in SKIP_FILES:
-            continue
-        yield path
+SKIP_NAMES = {
+    "all_locations.json",
+    "collected_locations.json",
+    "model_config.json",
+    "manual_priority_locations.json",
+    "seen_ids.json",
+    "sniff_progress.json",
+    "tuning_history.json",
+}
 
 
-def quality_template() -> Dict[str, Any]:
-    return {
-        "total_records": 0,
-        "success_records": 0,
-        "failed_records": 0,
-        "non_null": {
-            "item_id": 0,
-            "transaction_price": 0,
-            "starting_price": 0,
-            "area_sqm": 0,
-            "auction_date": 0,
-            "community_name": 0,
-            "city": 0,
-            "district": 0,
-            "latitude": 0,
-            "longitude": 0,
-        },
-    }
+def iter_raw_items(path: Path) -> Iterable[Dict[str, Any]]:
+    with path.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    if isinstance(data, list):
+        for item in data:
+            if isinstance(item, dict):
+                yield item
+    elif isinstance(data, dict):
+        if "id" in data or "item_id" in data:
+            yield data
+        elif isinstance(data.get("items"), list):
+            for item in data["items"]:
+                if isinstance(item, dict):
+                    yield item
 
 
-def build_canonical_dataset(data_dir: str = "datas", output_dir: str = "datas/canonical") -> Dict[str, Any]:
-    os.makedirs(output_dir, exist_ok=True)
-    canonical_path = os.path.join(output_dir, "canonical.jsonl")
-    failed_path = os.path.join(output_dir, "failed_records.jsonl")
-    quality_path = os.path.join(output_dir, "quality_report.json")
+def should_skip(path: Path) -> bool:
+    parts = set(path.parts)
+    if "canonical" in parts:
+        return True
+    return path.name in SKIP_NAMES
 
-    quality = quality_template()
 
-    with open(canonical_path, "w", encoding="utf-8") as c_out, open(failed_path, "w", encoding="utf-8") as f_out:
-        for path in iter_input_files(data_dir):
+def update_quality(report: QualityReport, record: Dict[str, Any]) -> None:
+    report.records_total += 1
+    for field_name, expected in EXPECTED_TYPES.items():
+        q = report.fields[field_name]
+        q.total += 1
+        value = record.get(field_name)
+        if value is not None:
+            q.non_null += 1
+            if not isinstance(value, expected):
+                q.type_errors += 1
+
+
+def build_canonical_dataset(
+    data_dir: str | Path = "datas",
+    output_dir: str | Path = "datas/canonical",
+    limit_files: int | None = None,
+    datas_dir: Path | None = None,
+) -> Dict[str, Any]:
+    datas_root = Path(datas_dir) if datas_dir is not None else Path(data_dir)
+    output_root = Path(output_dir)
+    output_root.mkdir(parents=True, exist_ok=True)
+
+    canonical_path = output_root / "canonical.jsonl"
+    dataset_path = output_root / "dataset.jsonl"
+    failed_path = output_root / "failed_records.jsonl"
+    quality_path = output_root / "quality_report.json"
+
+    files = sorted(p for p in datas_root.glob("**/*.json") if not should_skip(p))
+    if limit_files is not None:
+        files = files[:limit_files]
+
+    quality = QualityReport()
+    quality.init_fields(EXPECTED_TYPES.keys())
+    processed_files = 0
+    errored_files: list[dict[str, str]] = []
+
+    with canonical_path.open("w", encoding="utf-8") as c_out, dataset_path.open("w", encoding="utf-8") as d_out, failed_path.open("w", encoding="utf-8") as f_out:
+        for file_path in files:
             try:
-                with open(path, "r", encoding="utf-8") as f:
-                    payload = json.load(f)
-            except Exception as exc:
-                f_out.write(json.dumps({"file": path, "error": f"load_error: {exc}"}, ensure_ascii=False) + "\n")
-                continue
-
-            if not isinstance(payload, list):
-                continue
-
-            for record in payload:
-                quality["total_records"] += 1
-                try:
-                    mapped = map_raw_to_canonical(record)
-                    c_out.write(json.dumps(mapped, ensure_ascii=False) + "\n")
-                    quality["success_records"] += 1
-
-                    for key in quality["non_null"]:
-                        if mapped.get(key) not in (None, ""):
-                            quality["non_null"][key] += 1
-                except Exception as exc:
-                    quality["failed_records"] += 1
-                    f_out.write(
-                        json.dumps(
-                            {
-                                "file": path,
-                                "record_id": record.get("id") or record.get("唯一id") or record.get("item_id"),
-                                "error": str(exc),
-                            },
-                            ensure_ascii=False,
+                for raw_item in iter_raw_items(file_path):
+                    try:
+                        canonical = map_raw_to_canonical(raw_item)
+                        update_quality(quality, canonical)
+                        line = json.dumps(canonical, ensure_ascii=False) + "\n"
+                        c_out.write(line)
+                        d_out.write(line)
+                    except Exception as exc:
+                        quality.failed_records += 1
+                        f_out.write(
+                            json.dumps(
+                                {
+                                    "file": str(file_path),
+                                    "record_id": raw_item.get("id") or raw_item.get("唯一id") or raw_item.get("item_id"),
+                                    "error": str(exc),
+                                },
+                                ensure_ascii=False,
+                            )
+                            + "\n"
                         )
-                        + "\n"
-                    )
+                processed_files += 1
+            except Exception as exc:
+                quality.file_error_count += 1
+                errored_files.append({"path": str(file_path), "error": str(exc)})
+                continue
 
-    total = max(1, quality["success_records"])
-    quality["non_null_rate"] = {k: round(v / total, 4) for k, v in quality["non_null"].items()}
+    success_total = max(1, quality.records_total)
+    report_json = {
+        "processed_files": processed_files,
+        "file_error_count": quality.file_error_count,
+        "records_total": quality.records_total,
+        "failed_records": quality.failed_records,
+        "fields": {
+            name: {
+                "non_null_rate": round((f.non_null / f.total), 6) if f.total else 0.0,
+                "type_error_count": f.type_errors,
+                "non_null": f.non_null,
+                "total": f.total,
+            }
+            for name, f in quality.fields.items()
+        },
+        "non_null_rate": {
+            name: round((f.non_null / success_total), 4) for name, f in quality.fields.items()
+        },
+        "errored_files": errored_files[:50],
+    }
 
-    with open(quality_path, "w", encoding="utf-8") as q_out:
-        json.dump(quality, q_out, ensure_ascii=False, indent=2)
+    with quality_path.open("w", encoding="utf-8") as f:
+        json.dump(report_json, f, ensure_ascii=False, indent=2)
 
     return {
-        "canonical_path": canonical_path,
-        "failed_path": failed_path,
-        "quality_path": quality_path,
-        "quality": quality,
+        "canonical_path": str(canonical_path),
+        "dataset_path": str(dataset_path),
+        "failed_path": str(failed_path),
+        "quality_path": str(quality_path),
+        "processed_files": processed_files,
+        "file_error_count": quality.file_error_count,
+        "records_total": quality.records_total,
+        "failed_records": quality.failed_records,
+        "quality": report_json,
     }
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Build AVM canonical dataset from raw datas/*.json files")
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Build AVM canonical dataset")
     parser.add_argument("--data-dir", default="datas", help="Input raw data directory")
-    parser.add_argument("--output-dir", default="datas/canonical", help="Output directory")
+    parser.add_argument("--output-dir", default="datas/canonical", help="Output canonical dir")
+    parser.add_argument("--limit-files", type=int, default=None, help="Only process first N files")
     args = parser.parse_args()
 
-    result = build_canonical_dataset(data_dir=args.data_dir, output_dir=args.output_dir)
-    print(f"Canonical dataset written: {result['canonical_path']}")
-    print(f"Failed records log: {result['failed_path']}")
-    print(f"Quality report: {result['quality_path']}")
+    result = build_canonical_dataset(
+        data_dir=args.data_dir,
+        output_dir=args.output_dir,
+        limit_files=args.limit_files,
+    )
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
