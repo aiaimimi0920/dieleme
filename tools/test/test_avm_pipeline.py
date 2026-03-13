@@ -8,6 +8,7 @@ from src.avm.pipeline import AVMPipelineManager, AVMPipelineConfig
 from tools.build_canonical_dataset import build_canonical_dataset
 from tools.build_avm_features import build_avm_features
 from tools.generate_avm_alerts import generate_avm_alerts
+from tools.run_avm_pipeline import run_pipeline
 
 
 class TestAVMPipeline(unittest.TestCase):
@@ -56,6 +57,21 @@ class TestAVMPipeline(unittest.TestCase):
             limit=20,
         )
         self.assertTrue(os.path.exists(a["output_path"]))
+
+
+    def test_run_pipeline_repeatable_and_ordered(self):
+        first = run_pipeline(data_dir=self.data_dir, alerts_threshold=0.01, predict_limit=20)
+        second = run_pipeline(data_dir=self.data_dir, alerts_threshold=0.01, predict_limit=20)
+
+        self.assertEqual([s["name"] for s in first["stages"]], ["canonical", "risk", "feature", "predict", "alert"])
+        self.assertEqual([s["name"] for s in second["stages"]], ["canonical", "risk", "feature", "predict", "alert"])
+
+        first_summary = [s["summary"] for s in first["stages"]]
+        second_summary = [s["summary"] for s in second["stages"]]
+        self.assertEqual(first_summary, second_summary)
+
+        for stage in first["stages"]:
+            self.assertTrue(os.path.exists(stage["artifact"]))
 
     def test_unified_run_sync_and_async(self):
         mgr = AVMPipelineManager(data_dir=self.data_dir)
