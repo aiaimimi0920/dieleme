@@ -773,7 +773,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
 
         elif self.path.startswith('/api/avm/predict'):
             params = parse_qs(urlparse(self.path).query)
-            item_id = params.get('item_id', [''])[0]
+            item_id = params.get('item_id', [''])[0].strip()
 
             if not item_id:
                 self.send_error(400, "Missing item_id")

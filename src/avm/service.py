@@ -2,7 +2,7 @@ import datetime
 import glob
 import json
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Iterable, Optional
 
 DATA_DIR = "datas"
 
@@ -11,12 +11,17 @@ class AVMItemNotFoundError(ValueError):
     """Raised when a requested item id cannot be found in data files."""
 
 
-def _iter_data_files(data_dir: str = DATA_DIR):
+def _iter_data_files(data_dir: str = DATA_DIR) -> Iterable[str]:
     root_pattern = os.path.join(data_dir, "*.json")
     archive_pattern = os.path.join(data_dir, "archive", "**", "*.json")
 
+    # Keep consistent with existing data loader exclusions in server.py.
     skip_files = {
         "all_locations.json",
+        "sniff_queue",
+        "sniff_status",
+        "sniff_history",
+        "sniff_done",
         "manual_priority_locations.json",
         "sniff_progress.json",
         "collected_locations.json",
@@ -33,7 +38,7 @@ def _iter_data_files(data_dir: str = DATA_DIR):
 
 
 def _read_item_by_id(item_id: str, data_dir: str = DATA_DIR) -> Dict[str, Any]:
-    target_id = str(item_id)
+    target_id = str(item_id).strip()
 
     for file_path in _iter_data_files(data_dir):
         try:
@@ -44,7 +49,9 @@ def _read_item_by_id(item_id: str, data_dir: str = DATA_DIR) -> Dict[str, Any]:
 
         rows = content if isinstance(content, list) else [content]
         for row in rows:
-            if str(row.get("id")) == target_id:
+            if not isinstance(row, dict):
+                continue
+            if str(row.get("id")).strip() == target_id:
                 return row
 
     raise AVMItemNotFoundError(f"Item not found: {target_id}")
@@ -78,7 +85,7 @@ def _to_float(value: Any) -> Optional[float]:
 
 def _map_raw_to_canonical(raw: Dict[str, Any]) -> Dict[str, Any]:
     return {
-        "item_id": str(raw.get("id", "")),
+        "item_id": str(raw.get("id", "")).strip(),
         "source_url": raw.get("url"),
         "transaction_price": _to_float(raw.get("成交价格")),
         "starting_price": _to_float(raw.get("起拍价格")),
@@ -96,11 +103,11 @@ def _build_features(canonical: Dict[str, Any]) -> Dict[str, Any]:
     area_sqm = canonical.get("area_sqm")
 
     unit_price = None
-    if transaction_price and area_sqm and area_sqm > 0:
+    if transaction_price is not None and area_sqm is not None and area_sqm > 0:
         unit_price = transaction_price / area_sqm
 
     premium_rate = None
-    if transaction_price and starting_price and starting_price > 0:
+    if transaction_price is not None and starting_price is not None and starting_price > 0:
         premium_rate = (transaction_price - starting_price) / starting_price
 
     has_geo = canonical.get("latitude") is not None and canonical.get("longitude") is not None
@@ -114,7 +121,7 @@ def _build_features(canonical: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _predict(features: Dict[str, Any]) -> Dict[str, Any]:
-    # Phase-0 baseline predictor: use transaction unit price as current fair unit price anchor
+    # Phase-0 baseline predictor: use transaction unit price as current fair unit price anchor.
     fair_unit_price = features.get("unit_price")
 
     confidence = 0.4
@@ -136,14 +143,15 @@ def _predict(features: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def predict_by_item_id(item_id: str, data_dir: str = DATA_DIR) -> Dict[str, Any]:
-    """Read data -> map -> feature engineering -> predict by item id."""
-    raw = _read_item_by_id(item_id=item_id, data_dir=data_dir)
+    """Read data -> mapping -> features -> prediction by item id."""
+    normalized_item_id = str(item_id).strip()
+    raw = _read_item_by_id(item_id=normalized_item_id, data_dir=data_dir)
     canonical = _map_raw_to_canonical(raw)
     features = _build_features(canonical)
     prediction = _predict(features)
 
     return {
-        "item_id": str(item_id),
+        "item_id": normalized_item_id,
         "canonical": canonical,
         "features": features,
         "prediction": prediction,
