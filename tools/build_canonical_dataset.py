@@ -8,7 +8,7 @@ import json
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, Iterable, List
+from typing import Any, Dict, Iterable
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_DIR = REPO_ROOT / "src"
@@ -28,6 +28,7 @@ class FieldQuality:
 @dataclass
 class QualityReport:
     records_total: int = 0
+    file_error_count: int = 0
     fields: Dict[str, FieldQuality] = field(default_factory=dict)
 
     def init_fields(self, names: Iterable[str]) -> None:
@@ -102,6 +103,7 @@ def build_canonical_dataset(limit_files: int | None = None) -> Dict[str, Any]:
     quality.init_fields(EXPECTED_TYPES.keys())
 
     processed_files = 0
+    errored_files = []
     with output_jsonl.open("w", encoding="utf-8") as out:
         for file_path in files:
             try:
@@ -110,12 +112,15 @@ def build_canonical_dataset(limit_files: int | None = None) -> Dict[str, Any]:
                     update_quality(quality, canonical)
                     out.write(json.dumps(canonical, ensure_ascii=False) + "\n")
                 processed_files += 1
-            except Exception:
+            except Exception as exc:
                 # Keep offline batch resilient to corrupted files.
+                quality.file_error_count += 1
+                errored_files.append({"path": str(file_path), "error": str(exc)})
                 continue
 
     report_json = {
         "processed_files": processed_files,
+        "file_error_count": quality.file_error_count,
         "records_total": quality.records_total,
         "fields": {
             name: {
@@ -126,6 +131,7 @@ def build_canonical_dataset(limit_files: int | None = None) -> Dict[str, Any]:
             }
             for name, f in quality.fields.items()
         },
+        "errored_files": errored_files[:50],
     }
 
     with quality_path.open("w", encoding="utf-8") as f:
@@ -135,6 +141,7 @@ def build_canonical_dataset(limit_files: int | None = None) -> Dict[str, Any]:
         "output_jsonl": str(output_jsonl),
         "quality_report": str(quality_path),
         "processed_files": processed_files,
+        "file_error_count": quality.file_error_count,
         "records_total": quality.records_total,
     }
 

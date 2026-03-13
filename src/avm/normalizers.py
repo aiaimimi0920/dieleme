@@ -6,7 +6,7 @@ import re
 from typing import Any, Optional
 
 
-_AMOUNT_CLEAN_RE = re.compile(r"[^\d.\-万亿元]", re.UNICODE)
+_AMOUNT_CLEAN_RE = re.compile(r"[^\d.\-万亿元整约余]", re.UNICODE)
 _NUMBER_RE = re.compile(r"-?\d+(?:\.\d+)?")
 
 
@@ -35,17 +35,21 @@ def parse_price_to_yuan(value: Any) -> Optional[float]:
     if cleaned is None:
         return None
 
+    original_text = str(value)
     multiplier = 1.0
-    if "万元" in str(value) or "万" in cleaned:
+    if "万元" in original_text or ("万" in cleaned and "亿" not in cleaned):
         multiplier = 10000.0
-    elif "亿元" in str(value) or "亿" in cleaned:
+    elif "亿元" in original_text or "亿" in cleaned:
         multiplier = 100000000.0
 
     number_match = _NUMBER_RE.search(cleaned)
     if not number_match:
         return None
 
-    return float(number_match.group(0)) * multiplier
+    amount = float(number_match.group(0)) * multiplier
+    if amount < 0:
+        return None
+    return amount
 
 
 def parse_area_sqm(value: Any) -> Optional[float]:
@@ -62,4 +66,7 @@ def parse_area_sqm(value: Any) -> Optional[float]:
     match = _NUMBER_RE.search(text)
     if not match:
         return None
-    return float(match.group(0))
+    area = float(match.group(0))
+    if area <= 0:
+        return None
+    return area

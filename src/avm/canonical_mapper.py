@@ -10,6 +10,7 @@ from .normalizers import parse_area_sqm, parse_price_to_yuan
 
 FIELD_CANDIDATES = {
     "item_id": ["item_id", "id", "source_item_id"],
+    "source_item_id": ["source_item_id", "id", "item_id"],
     "source_url": ["source_url", "url", "原始网站"],
     "transaction_price": ["transaction_price", "成交价格"],
     "starting_price": ["starting_price", "起拍价格"],
@@ -31,6 +32,23 @@ def _normalize_datetime(value: Any) -> Optional[str]:
     text = str(value).strip()
     if not text:
         return None
+
+    # Unix timestamp (seconds / milliseconds)
+    if text.isdigit():
+        stamp = int(text)
+        if stamp > 10**12:
+            stamp //= 1000
+        try:
+            return datetime.fromtimestamp(stamp).strftime("%Y-%m-%d %H:%M:%S")
+        except (ValueError, OSError):
+            pass
+
+    text = (
+        text.replace("年", "-")
+        .replace("月", "-")
+        .replace("日", "")
+        .replace("T", " ")
+    )
 
     known_formats = [
         "%Y-%m-%d %H:%M:%S",
@@ -55,11 +73,13 @@ def _normalize_datetime(value: Any) -> Optional[str]:
 def map_raw_to_canonical(raw_item: dict) -> dict:
     """Map one raw item into AVM canonical schema fields."""
     item_id = _first_present(raw_item, FIELD_CANDIDATES["item_id"])
+    source_item_id = _first_present(raw_item, FIELD_CANDIDATES["source_item_id"])
+    source_url = _first_present(raw_item, FIELD_CANDIDATES["source_url"])
 
     canonical = {
         "item_id": str(item_id) if item_id is not None else None,
-        "source_item_id": str(item_id) if item_id is not None else None,
-        "source_url": _first_present(raw_item, FIELD_CANDIDATES["source_url"]),
+        "source_item_id": str(source_item_id) if source_item_id is not None else None,
+        "source_url": str(source_url).strip() if source_url is not None else None,
         "transaction_price": parse_price_to_yuan(
             _first_present(raw_item, FIELD_CANDIDATES["transaction_price"])
         ),
