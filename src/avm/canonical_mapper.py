@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Iterable, Optional
 
 from .normalizers import parse_area_sqm, parse_price_to_yuan
@@ -17,6 +17,8 @@ FIELD_CANDIDATES = {
     "area_sqm": ["area_sqm", "建筑面积"],
     "auction_date": ["auction_date", "交易时间"],
 }
+
+CN_TIMEZONE = timezone(timedelta(hours=8))
 
 
 def _first_present(raw_item: Dict[str, Any], keys: Iterable[str]) -> Any:
@@ -34,20 +36,22 @@ def _normalize_datetime(value: Any) -> Optional[str]:
         return None
 
     # Unix timestamp (seconds / milliseconds)
-    if text.isdigit():
-        stamp = int(text)
-        if stamp > 10**12:
-            stamp //= 1000
-        try:
-            return datetime.fromtimestamp(stamp).strftime("%Y-%m-%d %H:%M:%S")
-        except (ValueError, OSError):
-            pass
+    try:
+        ts = float(text)
+        if ts > 10**12:
+            ts /= 1000
+        if ts > 0 and ts < 10**11:
+            dt = datetime.fromtimestamp(ts, tz=timezone.utc).astimezone(CN_TIMEZONE)
+            return dt.strftime("%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        pass
 
     text = (
         text.replace("年", "-")
         .replace("月", "-")
         .replace("日", "")
         .replace("T", " ")
+        .replace("Z", "")
     )
 
     known_formats = [

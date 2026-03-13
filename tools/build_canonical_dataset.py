@@ -57,6 +57,10 @@ def iter_raw_items(path: Path) -> Iterable[Dict[str, Any]]:
     elif isinstance(data, dict):
         if "id" in data or "item_id" in data:
             yield data
+        elif isinstance(data.get("items"), list):
+            for item in data["items"]:
+                if isinstance(item, dict):
+                    yield item
 
 
 def should_skip(path: Path) -> bool:
@@ -87,9 +91,13 @@ def update_quality(report: QualityReport, record: Dict[str, Any]) -> None:
                 q.type_errors += 1
 
 
-def build_canonical_dataset(limit_files: int | None = None) -> Dict[str, Any]:
-    datas_dir = REPO_ROOT / "datas"
-    output_dir = datas_dir / "canonical"
+def build_canonical_dataset(
+    limit_files: int | None = None,
+    datas_dir: Path | None = None,
+    output_dir: Path | None = None,
+) -> Dict[str, Any]:
+    datas_dir = datas_dir or (REPO_ROOT / "datas")
+    output_dir = output_dir or (datas_dir / "canonical")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     output_jsonl = output_dir / "dataset.jsonl"
@@ -113,7 +121,6 @@ def build_canonical_dataset(limit_files: int | None = None) -> Dict[str, Any]:
                     out.write(json.dumps(canonical, ensure_ascii=False) + "\n")
                 processed_files += 1
             except Exception as exc:
-                # Keep offline batch resilient to corrupted files.
                 quality.file_error_count += 1
                 errored_files.append({"path": str(file_path), "error": str(exc)})
                 continue
@@ -149,9 +156,15 @@ def build_canonical_dataset(limit_files: int | None = None) -> Dict[str, Any]:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build AVM canonical dataset")
     parser.add_argument("--limit-files", type=int, default=None, help="Only process first N files")
+    parser.add_argument("--datas-dir", type=Path, default=None, help="Input datas root (default: repo datas)")
+    parser.add_argument("--output-dir", type=Path, default=None, help="Output canonical dir")
     args = parser.parse_args()
 
-    result = build_canonical_dataset(limit_files=args.limit_files)
+    result = build_canonical_dataset(
+        limit_files=args.limit_files,
+        datas_dir=args.datas_dir,
+        output_dir=args.output_dir,
+    )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
