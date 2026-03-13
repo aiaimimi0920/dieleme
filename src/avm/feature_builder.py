@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any
+from typing import Any, Mapping
 
 
 EPOCH_YEAR = 1970
@@ -83,7 +83,14 @@ def _to_bool(value: Any) -> bool:
     return False
 
 
-def build_features(record: dict[str, Any], risk: dict[str, Any]) -> dict[str, Any]:
+def _pick(data: Mapping[str, Any], *keys: str) -> Any:
+    for key in keys:
+        if key in data and data.get(key) not in (None, ""):
+            return data.get(key)
+    return None
+
+
+def build_features(record: Mapping[str, Any] | None, risk: Mapping[str, Any] | None) -> dict[str, Any]:
     """构建首版 AVM 特征。
 
     首版特征：
@@ -102,16 +109,23 @@ def build_features(record: dict[str, Any], risk: dict[str, Any]) -> dict[str, An
         统一 dict，可直接用于 parquet/jsonl 写盘。
     """
 
+    record = record or {}
+    risk = risk or {}
+
     features: dict[str, Any] = {
-        "month_index": _month_index(record.get("auction_date")),
+        "month_index": _month_index(_pick(record, "auction_date", "交易时间")),
         "price": _to_float(
-            record.get("transaction_price")
-            if record.get("transaction_price") is not None
-            else record.get("actual_paid_price")
+            _pick(
+                record,
+                "transaction_price",
+                "actual_paid_price",
+                "成交价格",
+                "成交价",
+            )
         ),
-        "area_sqm": _to_float(record.get("area_sqm")),
-        "district": record.get("district") or record.get("admin_district"),
-        "community_name": record.get("community_name"),
+        "area_sqm": _to_float(_pick(record, "area_sqm", "建筑面积")),
+        "district": _pick(record, "district", "admin_district", "行政区"),
+        "community_name": _pick(record, "community_name", "小区", "小区名称"),
     }
 
     for key in RISK_BOOL_FIELDS:
