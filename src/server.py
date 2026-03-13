@@ -4,6 +4,7 @@ import json
 import os
 import datetime
 import glob
+import math
 import llm_helper
 import threading
 import time
@@ -725,6 +726,170 @@ def auto_tuner_thread():
         except Exception as e:
             print(f"[AUTO-TUNER] Error: {e}")
 
+
+
+def _safe_float(value):
+    """Best-effort numeric parser for mixed Chinese/number text."""
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+
+    text = str(value).strip()
+    if not text:
+        return None
+
+    text = text.replace(',', '').replace('，', '')
+    multiplier = 1.0
+    if '万元/㎡' in text or '万/㎡' in text:
+        multiplier = 10000.0
+    elif '万元' in text or (text.endswith('万') and '万/㎡' not in text):
+        multiplier = 10000.0
+
+    match = re.search(r'-?\d+(?:\.\d+)?', text)
+    if not match:
+        return None
+
+    try:
+        return float(match.group(0)) * multiplier
+    except Exception:
+        return None
+
+
+def _extract_area(item):
+    for key in ("建筑面积", "建设面积", "area_sqm"):
+        area = _safe_float(item.get(key))
+        if area and area > 0:
+            return area
+    return None
+
+
+def _extract_unit_price(item):
+    unit_price = _safe_float(item.get("单价"))
+    if unit_price and unit_price > 0:
+        return unit_price
+
+    for key in ("成交价格", "transaction_price", "actual_paid_price", "evaluation_price"):
+        total_price = _safe_float(item.get(key))
+        area = _extract_area(item)
+        if total_price and total_price > 0 and area and area > 0:
+            return total_price / area
+    return None
+
+
+def build_avm_prediction(item_id):
+    with DATA_LOCK:
+        target_entry = SEEN_IDS.get(item_id)
+        all_items = [entry.get("data", {}) for entry in SEEN_IDS.values()]
+
+    if not target_entry:
+        return None, {
+            "code": "AVM_NOT_FOUND",
+            "message": f"ID={item_id} 不存在",
+            "details": {"id": item_id}
+        }
+
+    target = target_entry.get("data", {})
+    target_area = _extract_area(target)
+    if not target_area:
+        return None, {
+            "code": "AVM_MISSING_AREA",
+            "message": "目标房源缺少可用面积，无法估值",
+            "details": {"id": item_id}
+        }
+
+    target_community = (target.get("所属小区") or target.get("community_name") or "").strip()
+
+    comparables = []
+    for item in all_items:
+        current_id = str(item.get("id", ""))
+        if current_id == item_id:
+            continue
+
+        area = _extract_area(item)
+        unit_price = _extract_unit_price(item)
+        if not area or not unit_price:
+            continue
+
+        community = (item.get("所属小区") or item.get("community_name") or "").strip()
+        comparables.append({
+            "community": community,
+            "area": area,
+            "unit_price": unit_price,
+        })
+
+    if not comparables:
+        return None, {
+            "code": "AVM_NO_COMPARABLES",
+            "message": "缺少可比样本，无法估值",
+            "details": {"id": item_id}
+        }
+
+    use_fallback_scope = False
+    scoped = comparables
+    if target_community:
+        same_community = [c for c in comparables if c["community"] == target_community]
+        if same_community:
+            scoped = same_community
+        else:
+            use_fallback_scope = True
+    else:
+        use_fallback_scope = True
+
+    if not scoped:
+        return None, {
+            "code": "AVM_NO_COMPARABLES",
+            "message": "筛选后无可比样本，无法估值",
+            "details": {"id": item_id}
+        }
+
+    weighted_sum = 0.0
+    total_weight = 0.0
+    units = []
+    for c in scoped:
+        area_gap = abs(c["area"] - target_area) / max(target_area, 1.0)
+        weight = 1.0 / (1.0 + area_gap)
+        weighted_sum += c["unit_price"] * weight
+        total_weight += weight
+        units.append(c["unit_price"])
+
+    if total_weight <= 0:
+        return None, {
+            "code": "AVM_CALCULATION_FAILED",
+            "message": "估值计算失败（权重异常）",
+            "details": {"id": item_id}
+        }
+
+    estimated_unit_price = weighted_sum / total_weight
+    estimated_value = round(estimated_unit_price * target_area, 2)
+
+    sample_count = len(scoped)
+    mean = sum(units) / len(units)
+    variance = sum((u - mean) ** 2 for u in units) / len(units) if units else 0.0
+    std = math.sqrt(variance)
+    cv = (std / mean) if mean > 0 else 1.0
+
+    confidence = 0.45 + min(0.35, 0.08 * math.log2(sample_count + 1)) + max(0.0, 0.2 * (1 - min(cv, 1.0)))
+    confidence = round(max(0.05, min(confidence, 0.98)), 4)
+
+    risk_reasons = []
+    if sample_count < 5:
+        risk_reasons.append("样本数量偏少")
+    if cv > 0.35:
+        risk_reasons.append("可比样本价格波动较大")
+    if use_fallback_scope:
+        risk_reasons.append("未匹配到同小区样本，已使用更宽范围样本")
+    if not risk_reasons:
+        risk_reasons.append("样本充足且波动可控")
+
+    return {
+        "id": item_id,
+        "估值": estimated_value,
+        "置信度": confidence,
+        "风险摘要": "；".join(risk_reasons),
+        "样本数量": sample_count
+    }, None
+
 class DataHandler(http.server.SimpleHTTPRequestHandler):
     def do_OPTIONS(self):
         self.send_response(200)
@@ -850,6 +1015,42 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_json(SEEN_IDS[item_id]["data"])
             else:
                 self.send_json({})
+
+        elif self.path.startswith('/api/avm/predict'):
+            try:
+                parsed_url = urlparse(self.path)
+                params = parse_qs(parsed_url.query)
+                item_id = (params.get('id', [''])[0] or '').strip()
+
+                if not item_id:
+                    self.send_error_json(
+                        status=400,
+                        code="AVM_INVALID_ID",
+                        message="缺少必填参数 id",
+                        details={"required": ["id"]}
+                    )
+                    return
+
+                result, err = build_avm_prediction(item_id)
+                if err:
+                    status = 404 if err.get("code") == "AVM_NOT_FOUND" else 422
+                    self.send_error_json(
+                        status=status,
+                        code=err.get("code", "AVM_PREDICT_ERROR"),
+                        message=err.get("message", "估值失败"),
+                        details=err.get("details", {})
+                    )
+                    return
+
+                self.send_json(result)
+            except Exception as e:
+                print(f"[AVM] Predict failed: {e}")
+                self.send_error_json(
+                    status=500,
+                    code="AVM_INTERNAL_ERROR",
+                    message="服务器内部错误",
+                    details={"error": str(e)}
+                )
 
         # --- Sniffing API (legacy endpoint removed, use /api/get_or_create_sniff_task) ---
         
@@ -1458,6 +1659,20 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Content-Type', 'application/json')
         self.end_headers()
         self.wfile.write(json.dumps(data).encode('utf-8'))
+
+    def send_error_json(self, status, code, message, details=None):
+        self.send_response(status)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+        payload = {
+            "error": {
+                "code": code,
+                "message": message,
+                "details": details or {}
+            }
+        }
+        self.wfile.write(json.dumps(payload).encode('utf-8'))
 
     def update_file(self, file_path, item_id, new_data):
         update_file_global(file_path, item_id, new_data)
