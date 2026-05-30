@@ -1,15 +1,24 @@
 @echo off
-cd /d "%~dp0.."
+pushd "%~dp0.." >nul
 
-:: 1. 尝试使用项目内 venv (推荐)
-if exist "venv\Scripts\python.exe" (
-    set "PYTHON_CMD=venv\Scripts\python.exe"
+REM 1. Prefer externally injected PYTHON_CMD for smoke/wrapper overrides
+if defined PYTHON_CMD (
+    echo [INFO] Using preset PYTHON_CMD: %PYTHON_CMD%
 ) else (
-    :: 2. 回退到系统全局 Python
-    echo [INFO] 未检测到 venv，尝试使用系统 Python...
-    set "PYTHON_CMD=python"
+    REM 2. Prefer the project-local venv when available
+    if exist "venv\Scripts\python.exe" (
+        set "PYTHON_CMD=venv\Scripts\python.exe"
+    ) else (
+        REM 3. Fallback to system Python
+        echo [INFO] Local venv not found, falling back to system Python...
+        set "PYTHON_CMD=python"
+    )
 )
 
-:: 执行
-"%PYTHON_CMD%" src/data_fixer.py
+REM Execute
+call "%PYTHON_CMD%" src/data_fixer.py
+set "FAPAI_DATA_FIXER_EXIT_CODE=%ERRORLEVEL%"
+echo [INFO] data_fixer.bat finished with exit code %FAPAI_DATA_FIXER_EXIT_CODE%
+popd >nul
 pause
+exit /b %FAPAI_DATA_FIXER_EXIT_CODE%
