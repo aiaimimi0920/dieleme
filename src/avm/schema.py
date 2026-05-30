@@ -58,6 +58,7 @@ class RiskFeatures:
     clear_delivery: bool | None = None
     tax_burden: TaxBurden | None = None
     is_haunted: bool | None = None
+    housing_type: HousingType | None = None
     has_keys: bool | None = None
     property_fee_owed: bool | None = None
     special_school_tag: bool | None = None
@@ -68,6 +69,10 @@ class RiskFeatures:
     is_fractional_share: bool | None = None
     tax_is_company_owned: bool | None = None
     has_lease_before_mortgage: bool | None = None
+    extraction_confidence: float | None = None
+    evidence_span: str | list[str] | None = None
+    evidence_source: str | None = None
+    extraction_version: str | None = None
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)

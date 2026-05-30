@@ -9,6 +9,16 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Iterable
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+import sys
+
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from src.avm_config import AVM_CONFIG_MANAGER, get_effective_alert_threshold
+from src.avm.alert_policy import build_alert_blockers
+from tools.avm_data_loader import load_recent_analysis_ready_rows
+
 ARCHIVE_DIR = Path("datas/archive")
 OUTPUT_PATH = Path("datas/avm/alerts.json")
 
@@ -130,60 +140,109 @@ def load_json_list(path: Path) -> list[dict[str, Any]]:
     return []
 
 
-def main() -> None:
-    args = parse_args()
-    files = find_recent_files(args.archive_dir, args.recent_days)
+def generate_avm_alerts(
+    data_dir: str | Path = "datas",
+    output_path: str | Path = OUTPUT_PATH,
+    threshold: float | None = 0.2,
+    limit: int = 500,
+    recent_days: int = 7,
+) -> dict[str, Any]:
+    archive_dir = Path(data_dir) / "archive"
+    output = Path(output_path)
+    recent_rows = load_recent_analysis_ready_rows(Path(data_dir), recent_days, prefer_db=True)
+    files = find_recent_files(archive_dir, recent_days) if not recent_rows else []
 
     alerts: list[dict[str, Any]] = []
     scanned = 0
+    blocked_reason_counts: dict[str, int] = {}
+    effective_threshold = get_effective_alert_threshold(0.2) if threshold is None else threshold
 
-    for file_path in files:
-        for item in load_json_list(file_path):
-            scanned += 1
-            predicted = get_first_numeric(item, PREDICTED_KEYS)
-            starting = get_first_numeric(item, STARTING_KEYS)
-            if not predicted or predicted <= 0 or starting is None:
-                continue
+    def _iter_items():
+        if recent_rows:
+            for row in recent_rows:
+                yield row, row.get("__file_path") or "db://recent_rows"
+        else:
+            for file_path in files:
+                for item in load_json_list(file_path):
+                    yield item, str(file_path)
 
-            margin = (predicted - starting) / predicted
-            if margin < args.threshold:
-                continue
-            if has_malignant_risk(item):
-                continue
+    for item, source_file in _iter_items():
+        scanned += 1
+        predicted = get_first_numeric(item, PREDICTED_KEYS)
+        starting = get_first_numeric(item, STARTING_KEYS)
+        if not predicted or predicted <= 0 or starting is None:
+            continue
 
-            alerts.append(
-                {
-                    "id": item.get("id"),
-                    "source_file": str(file_path),
-                    "starting_price": round(starting, 2),
-                    "predicted_price": round(predicted, 2),
-                    "margin": round(margin, 6),
-                    "city": item.get("城市") or item.get("city"),
-                    "district": item.get("区") or item.get("district"),
-                    "community": item.get("所属小区") or item.get("community"),
-                    "listing_time": item.get("交易时间") or item.get("listing_time"),
-                }
-            )
+        margin = (predicted - starting) / predicted
+        blockers = build_alert_blockers(
+            margin=margin,
+            threshold=effective_threshold,
+            is_malignant_risk=has_malignant_risk(item),
+            payload=item,
+        )
+        if blockers:
+            for blocker in blockers:
+                blocked_reason_counts[blocker] = int(blocked_reason_counts.get(blocker, 0) or 0) + 1
+            continue
+
+        alerts.append(
+            {
+                "id": item.get("id"),
+                "source_file": source_file,
+                "starting_price": round(starting, 2),
+                "predicted_price": round(predicted, 2),
+                "margin": round(margin, 6),
+                "city": item.get("城市") or item.get("city"),
+                "district": item.get("区") or item.get("district"),
+                "community": item.get("所属小区") or item.get("community"),
+                "listing_time": item.get("交易时间") or item.get("listing_time"),
+            }
+        )
 
     alerts.sort(key=lambda x: x["margin"], reverse=True)
+    if limit > 0:
+        alerts = alerts[:limit]
 
     payload = {
         "generated_at": datetime.now().isoformat(timespec="seconds"),
-        "recent_days": args.recent_days,
-        "threshold": args.threshold,
-        "scanned_files": [str(f) for f in files],
+        "recent_days": recent_days,
+        "threshold": effective_threshold,
+        "scanned_files": [str(f) for f in files] if files else (["db://recent_rows"] if recent_rows else []),
         "scanned_records": scanned,
         "alerts_count": len(alerts),
+        "blocked_reason_counts": dict(sorted(blocked_reason_counts.items())),
         "alerts": alerts,
     }
 
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    with args.output.open("w", encoding="utf-8") as fh:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=2)
 
+    return {
+        "output_path": str(output),
+        "summary": {
+            "scanned_records": scanned,
+            "alerts_count": len(alerts),
+            "blocked_reason_counts": dict(sorted(blocked_reason_counts.items())),
+            "recent_days": recent_days,
+            "threshold": effective_threshold,
+        },
+        "payload": payload,
+    }
+
+
+def main() -> None:
+    args = parse_args()
+    result = generate_avm_alerts(
+        data_dir=args.archive_dir.parent,
+        output_path=args.output,
+        threshold=args.threshold,
+        recent_days=args.recent_days,
+    )
+
     print(
-        f"Generated {len(alerts)} alerts from {scanned} records "
-        f"across {len(files)} files -> {args.output}"
+        f"Generated {result['summary']['alerts_count']} alerts from {result['summary']['scanned_records']} records "
+        f"across {len(result['payload']['scanned_files'])} files -> {args.output}"
     )
 
 

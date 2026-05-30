@@ -17,6 +17,8 @@ class TrendModel:
     degree: int
     coefficients: Tuple[float, ...]
     anchor_date: date
+    latest_date: date
+    sample_count: int
 
     def predict(self, target_date: date) -> float:
         t = _months_between(self.anchor_date, target_date)
@@ -32,27 +34,57 @@ class TrendModel:
 class TemporalAdjuster:
     """Aggregate historical deals by city/district/business_area and estimate trend."""
 
-    def __init__(self, records: Iterable[Record], current_date: Optional[date] = None):
+    def __init__(self, records: Iterable[Record], current_date: Optional[date] = None, time_decay: float = 1.0):
         self.current_date = current_date or date.today()
+        self.time_decay = _normalize_time_decay(time_decay)
         self._models: Dict[Tuple[str, str, str], TrendModel] = {}
         self._build(records)
 
     def temporal_adjust(self, price: float, subject_date: object, region: Region) -> float:
+        factor, _ = self.trend_factor(
+            region=region,
+            target_date=self.current_date,
+            reference_date=subject_date,
+            clamp=None,
+        )
+        if factor <= 0:
+            return float(price)
+        return float(price) * factor
+
+    def trend_factor(
+        self,
+        region: Region,
+        target_date: object,
+        reference_date: object | None = None,
+        clamp: Tuple[float, float] | None = None,
+    ) -> Tuple[float, int]:
         model = self._select_model(region)
         if model is None:
-            return float(price)
+            return 1.0, 0
 
-        sub_date = _parse_date(subject_date)
-        if not sub_date:
-            return float(price)
+        target = _parse_date(target_date)
+        if not target:
+            return 1.0, model.sample_count
 
-        current_value = max(model.predict(self.current_date), 1.0)
-        subject_value = max(model.predict(sub_date), 1.0)
-        coefficient = current_value / subject_value
-        return float(price) * coefficient
+        reference = _parse_date(reference_date) if reference_date is not None else model.latest_date
+        if not reference:
+            return 1.0, model.sample_count
+
+        target_value = max(model.predict(target), 1.0)
+        reference_value = max(model.predict(reference), 1.0)
+        factor = target_value / reference_value
+        month_gap = abs(_months_between(reference, target))
+        if month_gap > 0 and self.time_decay < 1.0:
+            dampening = self.time_decay ** month_gap
+            factor = 1.0 + (factor - 1.0) * dampening
+        if clamp is not None:
+            low, high = clamp
+            factor = max(low, min(high, factor))
+        return float(factor), model.sample_count
 
     def _build(self, records: Iterable[Record]) -> None:
         grouped: Dict[Tuple[str, str, str], Dict[date, List[float]]] = defaultdict(lambda: defaultdict(list))
+        raw_counts: Dict[Tuple[str, str, str], int] = defaultdict(int)
 
         for row in records:
             normalized = _normalize_region(
@@ -73,15 +105,17 @@ class TemporalAdjuster:
                 normalized,
                 (city, district, "*"),
                 (city, "*", "*"),
+                ("*", "*", "*"),
             }
             for region_key in keys:
                 grouped[region_key][month_date].append(unit_price)
+                raw_counts[region_key] += 1
 
         for region_key, month_map in grouped.items():
             points = sorted((month, sum(values) / len(values)) for month, values in month_map.items())
             if not points:
                 continue
-            self._models[region_key] = _fit_model(points)
+            self._models[region_key] = _fit_model(points, sample_count=raw_counts[region_key])
 
     def _select_model(self, region: Region) -> Optional[TrendModel]:
         city = (region.get("city") or "").strip().lower()
@@ -92,6 +126,7 @@ class TemporalAdjuster:
             (city, district, business_area),
             (city, district, "*"),
             (city, "*", "*"),
+            ("*", "*", "*"),
         ]
 
         for key in candidates:
@@ -101,8 +136,9 @@ class TemporalAdjuster:
         return None
 
 
-def _fit_model(points: List[Tuple[date, float]]) -> TrendModel:
+def _fit_model(points: List[Tuple[date, float]], sample_count: int) -> TrendModel:
     anchor_date = points[0][0]
+    latest_date = points[-1][0]
     x = [_months_between(anchor_date, d) for d, _ in points]
     y = [v for _, v in points]
 
@@ -116,7 +152,13 @@ def _fit_model(points: List[Tuple[date, float]]) -> TrendModel:
         coeffs = (float(y[0]),)
         degree = 0
 
-    return TrendModel(degree=degree, coefficients=coeffs, anchor_date=anchor_date)
+    return TrendModel(
+        degree=degree,
+        coefficients=coeffs,
+        anchor_date=anchor_date,
+        latest_date=latest_date,
+        sample_count=sample_count,
+    )
 
 
 def _polyfit_linear(x: List[int], y: List[float]) -> Tuple[float, float]:
@@ -178,7 +220,7 @@ def _gaussian_elimination(matrix: List[List[float]]) -> List[float]:
 
 
 def _extract_unit_price(row: Record) -> Optional[float]:
-    for key in ("unit_price", "单价"):
+    for key in ("_neutral_unit_price", "neutral_unit_price", "unit_price", "单价"):
         value = row.get(key)
         if isinstance(value, (int, float)) and value > 0:
             return float(value)
@@ -223,6 +265,18 @@ def _parse_date(value: object) -> Optional[date]:
     return None
 
 
+def _normalize_time_decay(value: object) -> float:
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return 1.0
+    if numeric < 0:
+        return 0.0
+    if numeric > 1:
+        return 1.0
+    return numeric
+
+
 def _months_between(start: date, end: date) -> int:
     return (end.year - start.year) * 12 + (end.month - start.month)
 
@@ -241,3 +295,20 @@ def temporal_adjust(price: float, subject_date: object, region: Region) -> float
     if _DEFAULT_ADJUSTER is None:
         raise RuntimeError("Temporal adjuster is not configured. Call configure_temporal_adjuster(records) first.")
     return _DEFAULT_ADJUSTER.temporal_adjust(price, subject_date, region)
+
+
+def temporal_factor(
+    target_date: object,
+    region: Region,
+    reference_date: object | None = None,
+    clamp: Tuple[float, float] | None = None,
+) -> Tuple[float, int]:
+    """Public API: compute a regional temporal coefficient and sample count."""
+    if _DEFAULT_ADJUSTER is None:
+        raise RuntimeError("Temporal adjuster is not configured. Call configure_temporal_adjuster(records) first.")
+    return _DEFAULT_ADJUSTER.trend_factor(
+        region=region,
+        target_date=target_date,
+        reference_date=reference_date,
+        clamp=clamp,
+    )

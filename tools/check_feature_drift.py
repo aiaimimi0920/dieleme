@@ -12,6 +12,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from tools.avm_data_loader import load_analysis_ready_rows, load_raw_record_rows, normalize_data_root
+
 ARCHIVE_DIR = Path("datas/archive")
 OUTPUT_PATH = Path("datas/avm/drift_alerts.json")
 
@@ -83,30 +85,26 @@ def parse_trade_date(record: dict[str, Any], fallback: datetime | None) -> datet
     return fallback
 
 
-def parse_date_from_filename(file_path: Path) -> datetime | None:
-    try:
-        return datetime.strptime(file_path.stem, "%Y-%m-%d")
-    except ValueError:
-        return None
-
-
 def load_records(archive_dir: Path) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
-    for path in sorted(archive_dir.glob("*/*.json")):
-        file_date = parse_date_from_filename(path)
-        try:
-            payload = json.loads(path.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, OSError):
+    data_root = normalize_data_root(archive_dir)
+    preferred_rows = load_analysis_ready_rows(data_root, prefer_db=True)
+    source_rows = preferred_rows if preferred_rows else load_raw_record_rows(data_root, prefer_db=True)
+    for item in source_rows:
+        if not isinstance(item, dict):
             continue
-        if not isinstance(payload, list):
-            continue
-
-        for item in payload:
-            if not isinstance(item, dict):
-                continue
-            item = item.copy()
-            item["__trade_date"] = parse_trade_date(item, file_date)
-            records.append(item)
+        item = item.copy()
+        fallback = None
+        raw_date = item.get("auction_date") or item.get("交易时间")
+        if raw_date:
+            for fmt in ("%Y/%m/%d %H:%M:%S", "%Y-%m-%d %H:%M:%S", "%Y/%m/%d", "%Y-%m-%d"):
+                try:
+                    fallback = datetime.strptime(str(raw_date), fmt)
+                    break
+                except ValueError:
+                    continue
+        item["__trade_date"] = parse_trade_date(item, fallback)
+        records.append(item)
     return records
 
 
@@ -237,10 +235,15 @@ def build_metrics(recent: list[dict[str, Any]], historical: list[dict[str, Any]]
     return metrics
 
 
-def main() -> None:
-    args = parse_args()
-    records = load_records(args.archive_dir)
-    recent, historical, max_date = split_recent_historical(records, args.window_days)
+def generate_drift_report(
+    archive_dir: Path = ARCHIVE_DIR,
+    output_path: Path = OUTPUT_PATH,
+    window_days: int = 30,
+    psi_threshold: float = PSI_ALERT_THRESHOLD,
+    drift_threshold: float = DRIFT_SCORE_ALERT_THRESHOLD,
+) -> dict[str, Any]:
+    records = load_records(archive_dir)
+    recent, historical, max_date = split_recent_historical(records, window_days)
     metrics = build_metrics(recent, historical)
 
     alerts = [
@@ -252,37 +255,49 @@ def main() -> None:
             "reasons": [
                 reason
                 for reason, triggered in (
-                    ("psi_exceeded", m.psi >= args.psi_threshold),
-                    ("drift_score_exceeded", m.drift_score >= args.drift_threshold),
+                    ("psi_exceeded", m.psi >= psi_threshold),
+                    ("drift_score_exceeded", m.drift_score >= drift_threshold),
                 )
                 if triggered
             ],
         }
         for m in metrics
-        if m.psi >= args.psi_threshold or m.drift_score >= args.drift_threshold
+        if m.psi >= psi_threshold or m.drift_score >= drift_threshold
     ]
 
     output = {
         "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "window_days": args.window_days,
+        "window_days": window_days,
         "recent_period": {
-            "start": (max_date - timedelta(days=args.window_days - 1)).strftime("%Y-%m-%d"),
+            "start": (max_date - timedelta(days=window_days - 1)).strftime("%Y-%m-%d"),
             "end": max_date.strftime("%Y-%m-%d"),
             "count": len(recent),
         },
         "historical_count": len(historical),
         "thresholds": {
-            "psi": args.psi_threshold,
-            "drift_score": args.drift_threshold,
+            "psi": psi_threshold,
+            "drift_score": drift_threshold,
         },
         "feature_metrics": [m.to_dict() for m in metrics],
         "alerts": alerts,
     }
 
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
+    return output
+
+
+def main() -> None:
+    args = parse_args()
+    output = generate_drift_report(
+        archive_dir=args.archive_dir,
+        output_path=args.output,
+        window_days=args.window_days,
+        psi_threshold=args.psi_threshold,
+        drift_threshold=args.drift_threshold,
+    )
     print(f"Drift report saved to: {args.output}")
-    print(f"Metrics: {len(metrics)}, Alerts: {len(alerts)}")
+    print(f"Metrics: {len(output['feature_metrics'])}, Alerts: {len(output['alerts'])}")
 
 
 if __name__ == "__main__":

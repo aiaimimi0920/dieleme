@@ -1,0 +1,1698 @@
+from __future__ import annotations
+
+from copy import deepcopy
+import re
+from typing import Any, Dict, List, Optional
+
+from .normalize import parse_area_sqm, parse_money_to_yuan, safe_float
+
+
+def _field(
+    key: str,
+    label: str,
+    priority: str,
+    section: str,
+    source_stage: str,
+    current_keys: List[str],
+    used_by: List[str],
+    note: str,
+    example: Any = None,
+    current_capture_status: str = "planned",
+) -> Dict[str, Any]:
+    return {
+        "key": key,
+        "label": label,
+        "priority": priority,
+        "section": section,
+        "source_stage": source_stage,
+        "current_keys": current_keys,
+        "used_by": used_by,
+        "note": note,
+        "example": example,
+        "current_capture_status": current_capture_status,
+    }
+
+
+def get_collection_template() -> Dict[str, Any]:
+    groups: List[Dict[str, Any]] = [
+        {
+            "id": "identity_trace",
+            "label": "标识与回放",
+            "goal": "保证一套房源可唯一追踪、可重放详情页、可回填历史数据。",
+            "fields": [
+                _field(
+                    key="item_id",
+                    label="平台房源ID",
+                    priority="P0-必填",
+                    section="identity",
+                    source_stage="list_page",
+                    current_keys=["id", "item_id", "唯一id", "source_item_id"],
+                    used_by=["subject_lookup", "dedupe", "replay"],
+                    note="规范层主键；采集器和后端所有去重、回放、估值查询都依赖它。",
+                    example="864984339365",
+                    current_capture_status="stable",
+                ),
+                _field(
+                    key="source_url",
+                    label="详情页原始链接",
+                    priority="P0-必填",
+                    section="identity",
+                    source_stage="list_page",
+                    current_keys=["url", "source_url", "原始网站"],
+                    used_by=["replay", "archive_recovery", "audit"],
+                    note="历史补抓、详情页回放、排查异常样本都需要原始链接。",
+                    example="https://sf-item.taobao.com/sf_item/864984339365.htm",
+                    current_capture_status="stable",
+                ),
+                _field(
+                    key="title",
+                    label="房源标题",
+                    priority="P1-强烈建议",
+                    section="identity",
+                    source_stage="list_page",
+                    current_keys=["title", "标题", "标的物名称"],
+                    used_by=["housing_type_inference", "community_inference", "manual_review"],
+                    note="当结构化字段缺失时，标题仍然是用途、小区、资产类型推断的重要兜底来源。",
+                    example="瑞安市陶山镇石坑村201室房地产",
+                    current_capture_status="stable",
+                ),
+                _field(
+                    key="source_platform",
+                    label="来源平台",
+                    priority="P2-可选",
+                    section="identity",
+                    source_stage="list_page",
+                    current_keys=["source_platform", "platform"],
+                    used_by=["audit", "future_multi_source_support"],
+                    note="当前默认可固定为 taobao_sf；如果未来接入多平台，建议从一开始预留该字段。",
+                    example="taobao_sf",
+                    current_capture_status="planned",
+                ),
+                _field(
+                    key="detail_archive_path",
+                    label="详情页归档路径",
+                    priority="P1-强烈建议",
+                    section="audit",
+                    source_stage="detail_page",
+                    current_keys=["detail_archive_path"],
+                    used_by=["archive_replay", "risk_backfill", "coordinate_backfill"],
+                    note="一旦 AI enrich 失败，后续回放和补抽取都依赖它。",
+                    example="html_archive/2026/2026-05-11/item-864984339365.html",
+                    current_capture_status="server_generated_only",
+                ),
+            ],
+        },
+        {
+            "id": "raw_archive",
+            "label": "原始归档与再抽取材料",
+            "goal": "避免未来为补字段而回源重抓；即使当前抽取不完善，也保留足够原始材料供离线重抽。",
+            "fields": [
+                _field(
+                    key="list_payload_path",
+                    label="列表页原始 payload 路径",
+                    priority="P1-强烈建议",
+                    section="archive",
+                    source_stage="list_page",
+                    current_keys=["list_payload_path"],
+                    used_by=["offline_reparse", "collector_debug", "future_fields"],
+                    note="保存列表页原始 JSON 或其 sidecar 路径，便于后续补字段而不重刷列表页。",
+                    example="archive_payloads/2026-05-11/list-20260511-001.json",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="detail_text_path",
+                    label="详情页纯文本归档路径",
+                    priority="P1-强烈建议",
+                    section="archive",
+                    source_stage="detail_page",
+                    current_keys=["detail_text_path"],
+                    used_by=["offline_reparse", "llm_reextract"],
+                    note="保存 HTML 过滤后的纯文本版本，便于后续低成本重抽。",
+                    example="html_archive/2026/2026-05-11/item-864984339365.txt",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="component_payload_path",
+                    label="详情页组件 JSON 归档路径",
+                    priority="P1-强烈建议",
+                    section="archive",
+                    source_stage="detail_page",
+                    current_keys=["component_payload_path"],
+                    used_by=["offline_reparse", "source_specific_debug"],
+                    note="保存 `J_COMPONENT`、notice API 等源站结构化 payload，便于未来精确重抽。",
+                    example="html_archive/2026/2026-05-11/item-864984339365.components.json",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="notice_text_path",
+                    label="公告正文归档路径",
+                    priority="P1-强烈建议",
+                    section="archive",
+                    source_stage="detail_page",
+                    current_keys=["notice_text_path"],
+                    used_by=["llm_reextract", "risk_backfill"],
+                    note="单独保存公告正文，便于后续专门针对风险字段重抽。",
+                    example="html_archive/2026/2026-05-11/item-864984339365.notice.txt",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="desc_text_path",
+                    label="标的描述归档路径",
+                    priority="P1-强烈建议",
+                    section="archive",
+                    source_stage="detail_page",
+                    current_keys=["desc_text_path"],
+                    used_by=["llm_reextract", "property_backfill"],
+                    note="单独保存标的描述区域，便于后续补面积、户型、装修、配套。",
+                    example="html_archive/2026/2026-05-11/item-864984339365.desc.txt",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="attachment_manifest_path",
+                    label="附件清单归档路径",
+                    priority="P1-强烈建议",
+                    section="archive",
+                    source_stage="detail_page",
+                    current_keys=["attachment_manifest_path"],
+                    used_by=["report_download", "future_ocr"],
+                    note="保存评估报告、公告附件、PDF 等下载链接和元数据清单。",
+                    example="html_archive/2026/2026-05-11/item-864984339365.attachments.json",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="image_manifest_path",
+                    label="图片清单归档路径",
+                    priority="P2-可选",
+                    section="archive",
+                    source_stage="detail_page",
+                    current_keys=["image_manifest_path"],
+                    used_by=["future_visual_analysis", "condition_review"],
+                    note="保存现场图片 URL 或下载清单，未来若做图像质量分析无需回源。",
+                    example="html_archive/2026/2026-05-11/item-864984339365.images.json",
+                    current_capture_status="missing",
+                ),
+            ],
+        },
+        {
+            "id": "auction_core",
+            "label": "拍卖核心交易信息",
+            "goal": "这些字段直接构成估值主链或价格锚点，是采集器最优先保证的部分。",
+            "fields": [
+                _field(
+                    key="transaction_price",
+                    label="成交价/落槌价",
+                    priority="P0-必填",
+                    section="auction",
+                    source_stage="list_page",
+                    current_keys=["transaction_price", "成交价格", "currentPrice"],
+                    used_by=["direct_price_chain", "backtest"],
+                    note="必须统一为元；这是训练样本和回测标签的核心价格字段。",
+                    example=124880,
+                    current_capture_status="stable",
+                ),
+                _field(
+                    key="starting_price",
+                    label="起拍价",
+                    priority="P0-必填",
+                    section="auction",
+                    source_stage="list_page",
+                    current_keys=["starting_price", "起拍价格", "initialPrice"],
+                    used_by=["starting_price_guard", "margin_of_safety"],
+                    note="当前长期校准里，起拍价护栏是压制 broad fallback 高估的重要锚点。",
+                    example=234048,
+                    current_capture_status="stable",
+                ),
+                _field(
+                    key="auction_date",
+                    label="成交时间",
+                    priority="P0-必填",
+                    section="auction",
+                    source_stage="list_page",
+                    current_keys=["auction_date", "交易时间", "end"],
+                    used_by=["temporal_trend", "backtest_split"],
+                    note="需要统一为北京时间 YYYY-MM-DD HH:mm:ss。",
+                    example="2025-02-16 15:28:34",
+                    current_capture_status="stable",
+                ),
+                _field(
+                    key="auction_start_time",
+                    label="开拍时间",
+                    priority="P2-可选",
+                    section="auction",
+                    source_stage="list_page_or_detail_page",
+                    current_keys=["auction_start_time", "startTime", "开拍时间"],
+                    used_by=["future_behavior_analysis", "duration_analysis"],
+                    note="当前主链暂不消费，但未来可用于拍卖时长、延时行为分析。",
+                    example="2025-02-15 10:00:00",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="area_sqm",
+                    label="建筑面积",
+                    priority="P0-必填",
+                    section="subject",
+                    source_stage="detail_page",
+                    current_keys=["area_sqm", "建筑面积", "建设面积", "building_area"],
+                    used_by=["unit_price", "area_scale_guard", "regime_calibration"],
+                    note="必须统一成平方米数值；这是所有单价与尺度护栏的基础。",
+                    example=159.02,
+                    current_capture_status="detail_only",
+                ),
+                _field(
+                    key="actual_paid_price",
+                    label="实际支付总价",
+                    priority="P1-强烈建议",
+                    section="auction",
+                    source_stage="detail_page_or_compute",
+                    current_keys=["actual_paid_price", "实际支付总价"],
+                    used_by=["direct_price_chain"],
+                    note="如果能估出成交价+税费+欠费后的真实总成本，会优于单纯落槌价。",
+                    example=132380,
+                    current_capture_status="usually_missing",
+                ),
+                _field(
+                    key="evaluation_price",
+                    label="评估价/市场价",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["evaluation_price", "市场评估价"],
+                    used_by=["evaluation_anchor", "quality_check"],
+                    note="当前主链会把它作为软锚点，但前提是单位和量纲正确。",
+                    example=367000,
+                    current_capture_status="mixed_quality",
+                ),
+                _field(
+                    key="auction_round",
+                    label="拍卖轮次",
+                    priority="P1-强烈建议",
+                    section="auction",
+                    source_stage="list_page",
+                    current_keys=["auction_round", "拍卖轮次", "round"],
+                    used_by=["attribute_adjustment", "manual_review"],
+                    note="一拍/二拍/变卖在价格形成上有明显差异。",
+                    example=2,
+                    current_capture_status="stable",
+                ),
+                _field(
+                    key="deposit",
+                    label="保证金",
+                    priority="P2-可选",
+                    section="auction",
+                    source_stage="detail_page",
+                    current_keys=["deposit", "保证金"],
+                    used_by=["future_calibration"],
+                    note="当前服务层接受该字段，但主链尚未显式消费；后续可用于流动性和参与门槛建模。",
+                    example=50000,
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="watch_count",
+                    label="围观人数",
+                    priority="P2-可选",
+                    section="auction",
+                    source_stage="list_page_or_detail_page",
+                    current_keys=["watch_count", "watchCount", "围观人数"],
+                    used_by=["future_market_interest"],
+                    note="未来若做市场热度、冷门资产识别会有价值。",
+                    example=1200,
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="reminder_count",
+                    label="提醒人数",
+                    priority="P2-可选",
+                    section="auction",
+                    source_stage="list_page_or_detail_page",
+                    current_keys=["reminder_count", "remindCount", "提醒人数"],
+                    used_by=["future_market_interest"],
+                    note="是另一类弱监督热度信号。",
+                    example=23,
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="view_count",
+                    label="浏览次数",
+                    priority="P2-可选",
+                    section="auction",
+                    source_stage="list_page_or_detail_page",
+                    current_keys=["view_count", "viewCount", "浏览次数"],
+                    used_by=["future_market_interest"],
+                    note="若源站给出则建议保留，后续可和竞拍热度联动。",
+                    example=5400,
+                    current_capture_status="missing",
+                ),
+            ],
+        },
+        {
+            "id": "location_spatial",
+            "label": "位置与空间定位",
+            "goal": "这些字段决定 comparables 的优先级与 fallback 路径，是误差收敛最敏感的维度之一。",
+            "fields": [
+                _field(
+                    key="city",
+                    label="城市",
+                    priority="P0-必填",
+                    section="subject",
+                    source_stage="list_page",
+                    current_keys=["city", "城市"],
+                    used_by=["spatial_partition", "fallback_strategy"],
+                    note="至少要稳定到城市，否则只能退到全局 fallback。",
+                    example="温州市",
+                    current_capture_status="stable",
+                ),
+                _field(
+                    key="district",
+                    label="行政区/县",
+                    priority="P0-必填",
+                    section="subject",
+                    source_stage="list_page",
+                    current_keys=["district", "区", "行政区"],
+                    used_by=["spatial_partition", "locality_guard"],
+                    note="区/县是当前 district_fallback 的关键分桶字段。",
+                    example="瑞安市",
+                    current_capture_status="stable",
+                ),
+                _field(
+                    key="business_area",
+                    label="商圈/镇街",
+                    priority="P0-必填",
+                    section="subject",
+                    source_stage="list_page_or_detail_page",
+                    current_keys=["business_area", "最靠近商圈", "business_area_name"],
+                    used_by=["business_area_fallback", "locality_guard"],
+                    note="对于县镇/乡村标的尤其重要；当前 broad fallback 长尾高度依赖这层粒度。",
+                    example="陶山镇",
+                    current_capture_status="mixed",
+                ),
+                _field(
+                    key="community_name",
+                    label="小区/楼盘名",
+                    priority="P0-必填",
+                    section="subject",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["community_name", "所属小区", "小区", "小区名称"],
+                    used_by=["community_fallback", "manual_review"],
+                    note="缺这个字段时，当前引擎会明显提高 uncertainty blend 和人工复核概率。",
+                    example="东方广场",
+                    current_capture_status="unstable",
+                ),
+                _field(
+                    key="latitude",
+                    label="纬度",
+                    priority="P0-必填",
+                    section="subject",
+                    source_stage="list_page_or_detail_page",
+                    current_keys=["latitude", "lat", "纬度"],
+                    used_by=["spatial_filter", "centroid_stats"],
+                    note="只要有稳定坐标，就能显著减少 broad fallback；请确保和经度不反。",
+                    example=27.908123,
+                    current_capture_status="unstable_recent",
+                ),
+                _field(
+                    key="longitude",
+                    label="经度",
+                    priority="P0-必填",
+                    section="subject",
+                    source_stage="list_page_or_detail_page",
+                    current_keys=["longitude", "lng", "经度"],
+                    used_by=["spatial_filter", "centroid_stats"],
+                    note="和纬度配对提供；当前中国坐标有效范围校验已在后端实现。",
+                    example=120.523456,
+                    current_capture_status="unstable_recent",
+                ),
+                _field(
+                    key="coordinate_source",
+                    label="坐标来源",
+                    priority="P2-可选",
+                    section="audit",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["coordinate_source"],
+                    used_by=["audit", "manual_review"],
+                    note="建议保留来源，如 list/html/meta/script/llm/centroid，方便后续排查坐标质量。",
+                    example="html",
+                    current_capture_status="detail_only",
+                ),
+            ],
+        },
+        {
+            "id": "asset_profile",
+            "label": "资产属性",
+            "goal": "这些字段决定可比样本权重、资产 regime 和属性修正。",
+            "fields": [
+                _field(
+                    key="housing_type",
+                    label="用途/资产类型",
+                    priority="P0-必填",
+                    section="subject",
+                    source_stage="list_page_or_llm",
+                    current_keys=["housing_type", "房屋用途", "housingType"],
+                    used_by=["asset_regime", "uncertainty_blend", "manual_review"],
+                    note="必须归一化为 [住宅, 别墅, 商业, 办公, 工业, 车位, 其他]。",
+                    example="住宅",
+                    current_capture_status="mixed",
+                ),
+                _field(
+                    key="gross_area_sqm",
+                    label="原始产权建筑面积",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["gross_area_sqm", "产权建筑面积", "原始建筑面积"],
+                    used_by=["audit", "share_adjustment"],
+                    note="记录产权证或公告里的原始建筑面积；如果存在部分产权，不能只保留调整后的面积。",
+                    example=120.0,
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="interior_area_sqm",
+                    label="套内面积",
+                    priority="P2-可选",
+                    section="subject",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["interior_area_sqm", "套内面积"],
+                    used_by=["future_density_analysis", "residential_quality"],
+                    note="当前主链暂不消费，但未来住宅精细估值可能会用到。",
+                    example=98.0,
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="land_area_sqm",
+                    label="土地/占地面积",
+                    priority="P2-可选",
+                    section="subject",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["land_area_sqm", "土地面积", "占地面积"],
+                    used_by=["villa_industrial_future_model"],
+                    note="别墅、工业、独栋类资产后续往往需要该字段。",
+                    example=300.0,
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="ownership_share_ratio",
+                    label="产权份额比例",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["ownership_share_ratio", "产权份额比例"],
+                    used_by=["share_adjustment", "audit", "manual_review"],
+                    note="0~1 浮点值；全产权=1.0，二分之一产权=0.5，十二分之一产权=0.0833。",
+                    example=0.5,
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="layout",
+                    label="户型",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="llm",
+                    current_keys=["layout"],
+                    used_by=["layout_similarity"],
+                    note="同面积下户型差异会显著影响可比权重。",
+                    example="3室2厅1卫",
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="includes_parking",
+                    label="是否附带车位",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="llm",
+                    current_keys=["includes_parking"],
+                    used_by=["parking_similarity", "manual_review"],
+                    note="附带车位会显著扭曲单价；当前引擎已经直接吃这个字段。",
+                    example=True,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="build_year",
+                    label="建成年份",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="llm",
+                    current_keys=["build_year"],
+                    used_by=["attribute_adjustment"],
+                    note="用于房龄折旧与同类标的可比性判断。",
+                    example=2008,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="total_floors",
+                    label="总楼层",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="llm",
+                    current_keys=["total_floors"],
+                    used_by=["attribute_adjustment"],
+                    note="配合所在楼层判断顶底层风险。",
+                    example=18,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="floor_level",
+                    label="所在楼层归一化",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="llm",
+                    current_keys=["floor_level", "floor"],
+                    used_by=["attribute_adjustment"],
+                    note="归一化建议值：[底层, 低区, 中区, 高区, 顶层, 独栋]。",
+                    example="高区",
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="has_elevator",
+                    label="是否有电梯",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="llm",
+                    current_keys=["has_elevator"],
+                    used_by=["attribute_adjustment"],
+                    note="老小区和高层住宅对此字段很敏感。",
+                    example=True,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="orientation",
+                    label="朝向",
+                    priority="P2-可选",
+                    section="subject",
+                    source_stage="llm",
+                    current_keys=["orientation"],
+                    used_by=["attribute_adjustment"],
+                    note="对住宅更有意义，但当前主链已经支持。",
+                    example="南北",
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="special_school_tag",
+                    label="学区/学位标签",
+                    priority="P2-可选",
+                    section="subject",
+                    source_stage="llm",
+                    current_keys=["special_school_tag"],
+                    used_by=["attribute_adjustment"],
+                    note="在核心城区住宅里通常是溢价项。",
+                    example=False,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="has_keys",
+                    label="法院是否持钥匙/可看样",
+                    priority="P2-可选",
+                    section="subject",
+                    source_stage="llm",
+                    current_keys=["has_keys"],
+                    used_by=["attribute_adjustment"],
+                    note="盲盒房源通常应更保守。",
+                    example=True,
+                    current_capture_status="llm_only",
+                ),
+            ],
+        },
+        {
+            "id": "legal_context",
+            "label": "法务上下文与报告索引",
+            "goal": "这些字段当前不直接进价格主链，但对回溯、法务分层和未来重抽评估报告非常重要。",
+            "fields": [
+                _field(
+                    key="court_name",
+                    label="执行法院",
+                    priority="P2-可选",
+                    section="legal_context",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["court_name", "法院名称", "执行法院"],
+                    used_by=["future_partitioning", "legal_audit"],
+                    note="后续若按法院、地区、案件风格做质量分析会有价值。",
+                    example="瑞安市人民法院",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="case_number",
+                    label="案件号",
+                    priority="P2-可选",
+                    section="legal_context",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["case_number", "案号"],
+                    used_by=["dedupe", "legal_audit"],
+                    note="用于追踪同案多标的、补抓评估报告与人工排错。",
+                    example="(2025)浙0381执恢123号",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="appraisal_agency_name",
+                    label="评估机构",
+                    priority="P2-可选",
+                    section="legal_context",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["appraisal_agency_name", "评估机构"],
+                    used_by=["future_bias_analysis"],
+                    note="未来若需要评估价偏差分析，这个字段很有价值。",
+                    example="某某房地产评估有限公司",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="appraisal_benchmark_date",
+                    label="评估基准日",
+                    priority="P2-可选",
+                    section="legal_context",
+                    source_stage="detail_page_or_llm",
+                    current_keys=["appraisal_benchmark_date", "评估基准日"],
+                    used_by=["future_time_alignment"],
+                    note="评估价如果来自较早基准日，后续需要时间校正。",
+                    example="2024-12-31",
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="appraisal_report_urls",
+                    label="评估报告链接列表",
+                    priority="P1-强烈建议",
+                    section="legal_context",
+                    source_stage="detail_page",
+                    current_keys=["appraisal_report_urls", "评估报告链接"],
+                    used_by=["offline_report_download", "future_ocr"],
+                    note="即使现在不下载 PDF，也建议先把 URL 列出来。",
+                    example=["https://.../report.pdf"],
+                    current_capture_status="missing",
+                ),
+                _field(
+                    key="announcement_attachment_urls",
+                    label="公告附件链接列表",
+                    priority="P1-强烈建议",
+                    section="legal_context",
+                    source_stage="detail_page",
+                    current_keys=["announcement_attachment_urls", "附件链接"],
+                    used_by=["offline_report_download", "future_ocr"],
+                    note="包括须知、公告、清单、评估报告、视频等所有附件 URL。",
+                    example=["https://.../notice.pdf", "https://.../inventory.xlsx"],
+                    current_capture_status="missing",
+                ),
+            ],
+        },
+        {
+            "id": "market_heat_and_risk",
+            "label": "市场热度与法务风险",
+            "goal": "这些字段决定风险折价、人工复核与长期模型校准的稳定性。",
+            "fields": [
+                _field(
+                    key="bid_count",
+                    label="出价次数",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="list_page",
+                    current_keys=["bid_count", "bidCount", "出价次数", "出价人数"],
+                    used_by=["confidence", "weak_market_engagement_guard"],
+                    note="当前长期校准已把弱市场参与度接进 guard 和 manual review。",
+                    example=1,
+                    current_capture_status="mixed",
+                ),
+                _field(
+                    key="bidder_count",
+                    label="出价人数",
+                    priority="P2-可选",
+                    section="subject",
+                    source_stage="list_page_or_detail_page",
+                    current_keys=["bidder_count", "bidderCount", "bidUserNumber", "出价人数"],
+                    used_by=["future_calibration", "audit"],
+                    note="建议和出价次数分开存储，避免人数与次数语义混淆。",
+                    example=1,
+                    current_capture_status="mixed",
+                ),
+                _field(
+                    key="apply_count",
+                    label="报名人数",
+                    priority="P1-强烈建议",
+                    section="subject",
+                    source_stage="list_page",
+                    current_keys=["apply_count", "applyCount", "竞拍人数", "报名人数"],
+                    used_by=["confidence", "weak_market_engagement_guard"],
+                    note="和出价次数配合判断流动性与弱成交。",
+                    example=1,
+                    current_capture_status="mixed",
+                ),
+                _field(
+                    key="is_occupied",
+                    label="是否被占用/有人居住",
+                    priority="P0-必填",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["is_occupied"],
+                    used_by=["risk_discount", "manual_review"],
+                    note="法拍房里最重要的风险字段之一。",
+                    example=True,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="has_long_lease",
+                    label="是否存在长期租约",
+                    priority="P0-必填",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["has_long_lease"],
+                    used_by=["risk_discount", "manual_review"],
+                    note="买卖不破租赁会显著拉低真实价值。",
+                    example=False,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="clear_delivery",
+                    label="法院是否负责清场交付",
+                    priority="P0-必填",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["clear_delivery"],
+                    used_by=["risk_discount", "manual_review"],
+                    note="如果法院不负责清场，必须直接计入折价。",
+                    example=False,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="tax_burden",
+                    label="税费承担方式",
+                    priority="P1-强烈建议",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["tax_burden"],
+                    used_by=["risk_discount", "evaluate_request"],
+                    note="请归一化为：买受人承担全部 / 各自承担 / 未知。",
+                    example="买受人承担全部",
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="land_right_type",
+                    label="土地性质",
+                    priority="P1-强烈建议",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["land_right_type"],
+                    used_by=["risk_discount"],
+                    note="划拨地通常意味着潜在补地价风险。",
+                    example="划拨",
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="property_fee_owed",
+                    label="是否存在物业/水电欠费",
+                    priority="P1-强烈建议",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["property_fee_owed"],
+                    used_by=["risk_discount"],
+                    note="当前主链已经直接对其折价。",
+                    example=True,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="is_restricted_purchase",
+                    label="是否受限购约束",
+                    priority="P1-强烈建议",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["is_restricted_purchase"],
+                    used_by=["risk_discount"],
+                    note="限购会压缩潜在买家池，影响法拍流动性。",
+                    example=False,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="tax_is_company_owned",
+                    label="原产权人是否为公司",
+                    priority="P0-必填",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["tax_is_company_owned"],
+                    used_by=["risk_discount", "manual_review"],
+                    note="企业产权常伴随额外税费，影响非常大。",
+                    example=False,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="is_fractional_share",
+                    label="是否为部分产权/共有份额",
+                    priority="P0-必填",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["is_fractional_share"],
+                    used_by=["risk_discount", "manual_review"],
+                    note="部分产权是强致命风险，必须显式识别。",
+                    example=False,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="is_haunted",
+                    label="是否涉及凶宅/刑案",
+                    priority="P0-必填",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["is_haunted"],
+                    used_by=["risk_discount", "manual_review"],
+                    note="即便样本稀少，也应保留显式风险标签。",
+                    example=False,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="has_lease_before_mortgage",
+                    label="是否属于先抵后租可清场假租约",
+                    priority="P1-强烈建议",
+                    section="risk_flags",
+                    source_stage="llm",
+                    current_keys=["has_lease_before_mortgage"],
+                    used_by=["risk_discount"],
+                    note="这是带有套利性质的特殊字段，当前主链已直接消费。",
+                    example=False,
+                    current_capture_status="llm_only",
+                ),
+            ],
+        },
+        {
+            "id": "audit_and_llm_quality",
+            "label": "抽取审计与质量元数据",
+            "goal": "这些字段不直接定价，但决定我们能否回溯、纠错、复跑模型。",
+            "fields": [
+                _field(
+                    key="extraction_confidence",
+                    label="抽取置信度",
+                    priority="P1-强烈建议",
+                    section="audit",
+                    source_stage="llm",
+                    current_keys=["extraction_confidence"],
+                    used_by=["evaluation_anchor", "manual_review"],
+                    note="当前评估价软锚点已经读取这个字段调节 blend。",
+                    example=0.82,
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="evidence_span",
+                    label="证据片段",
+                    priority="P2-可选",
+                    section="audit",
+                    source_stage="llm",
+                    current_keys=["evidence_span"],
+                    used_by=["audit"],
+                    note="建议保存命中的公告原文片段，方便人工复核。",
+                    example="标的物现由他人占有使用，法院不负责清场。",
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="evidence_source",
+                    label="证据来源",
+                    priority="P2-可选",
+                    section="audit",
+                    source_stage="llm",
+                    current_keys=["evidence_source"],
+                    used_by=["audit"],
+                    note="建议值：公告 / 须知 / 评估报告 / 页面主文 / html。",
+                    example="公告",
+                    current_capture_status="llm_only",
+                ),
+                _field(
+                    key="extraction_version",
+                    label="抽取版本号",
+                    priority="P2-可选",
+                    section="audit",
+                    source_stage="llm",
+                    current_keys=["extraction_version"],
+                    used_by=["compatibility", "replay"],
+                    note="模型升级后回放历史数据需要这个字段。",
+                    example="avm_risk_v2",
+                    current_capture_status="llm_only",
+                ),
+            ],
+        },
+    ]
+
+    final_template = {
+        "source": {
+            "item_id": "",
+            "source_item_id": "",
+            "source_url": "",
+            "source_title": "",
+            "source_platform": "taobao_sf",
+            "detail_archive_path": "",
+        },
+        "archive": {
+            "list_payload_path": "",
+            "detail_text_path": "",
+            "component_payload_path": "",
+            "notice_text_path": "",
+            "desc_text_path": "",
+            "attachment_manifest_path": "",
+            "image_manifest_path": "",
+        },
+        "auction": {
+            "status": "done",
+            "auction_date": "",
+            "auction_start_time": "",
+            "auction_round": None,
+            "transaction_price": None,
+            "starting_price": None,
+            "actual_paid_price": None,
+            "evaluation_price": None,
+            "deposit": None,
+            "apply_count": None,
+            "bid_count": None,
+            "bidder_count": None,
+            "watch_count": None,
+            "reminder_count": None,
+            "view_count": None,
+        },
+        "location": {
+            "full_address": "",
+            "province": "",
+            "city": "",
+            "district": "",
+            "business_area": "",
+            "community_name": "",
+            "latitude": None,
+            "longitude": None,
+            "coordinate_source": "",
+        },
+        "property": {
+            "housing_type": "",
+            "area_sqm": None,
+            "gross_area_sqm": None,
+            "interior_area_sqm": None,
+            "land_area_sqm": None,
+            "ownership_share_ratio": 1.0,
+            "layout": "",
+            "build_year": None,
+            "total_floors": None,
+            "floor_level": "",
+            "has_elevator": None,
+            "orientation": "",
+            "includes_parking": None,
+            "special_school_tag": None,
+            "has_keys": None,
+        },
+        "legal_context": {
+            "court_name": "",
+            "case_number": "",
+            "appraisal_agency_name": "",
+            "appraisal_benchmark_date": "",
+            "appraisal_report_urls": [],
+            "announcement_attachment_urls": [],
+        },
+        "risk_flags": {
+            "land_right_type": "",
+            "is_occupied": None,
+            "has_long_lease": None,
+            "clear_delivery": None,
+            "tax_burden": "",
+            "property_fee_owed": None,
+            "is_restricted_purchase": None,
+            "is_fractional_share": None,
+            "tax_is_company_owned": None,
+            "is_haunted": None,
+            "has_lease_before_mortgage": None,
+        },
+        "audit": {
+            "extraction_confidence": None,
+            "evidence_span": "",
+            "evidence_source": "",
+            "extraction_version": "",
+            "is_processed": False,
+            "detail_captured": False,
+        },
+    }
+
+    authoritative_fields = {
+        "source": ["item_id", "source_item_id", "source_url", "source_title", "source_platform", "detail_archive_path"],
+        "archive": [
+            "list_payload_path",
+            "detail_text_path",
+            "component_payload_path",
+            "notice_text_path",
+            "desc_text_path",
+            "attachment_manifest_path",
+            "image_manifest_path",
+        ],
+        "auction": [
+            "status",
+            "auction_date",
+            "auction_start_time",
+            "auction_round",
+            "transaction_price",
+            "starting_price",
+            "actual_paid_price",
+            "evaluation_price",
+            "deposit",
+            "apply_count",
+            "bid_count",
+            "bidder_count",
+            "watch_count",
+            "reminder_count",
+            "view_count",
+        ],
+        "location": [
+            "full_address",
+            "province",
+            "city",
+            "district",
+            "business_area",
+            "community_name",
+            "latitude",
+            "longitude",
+            "coordinate_source",
+        ],
+        "property": [
+            "housing_type",
+            "area_sqm",
+            "gross_area_sqm",
+            "interior_area_sqm",
+            "land_area_sqm",
+            "ownership_share_ratio",
+            "layout",
+            "build_year",
+            "total_floors",
+            "floor_level",
+            "has_elevator",
+            "orientation",
+            "includes_parking",
+            "special_school_tag",
+            "has_keys",
+        ],
+        "legal_context": [
+            "court_name",
+            "case_number",
+            "appraisal_agency_name",
+            "appraisal_benchmark_date",
+            "appraisal_report_urls",
+            "announcement_attachment_urls",
+        ],
+        "risk_flags": [
+            "land_right_type",
+            "is_occupied",
+            "has_long_lease",
+            "clear_delivery",
+            "tax_burden",
+            "property_fee_owed",
+            "is_restricted_purchase",
+            "is_fractional_share",
+            "tax_is_company_owned",
+            "is_haunted",
+            "has_lease_before_mortgage",
+        ],
+        "audit": [
+            "extraction_confidence",
+            "evidence_span",
+            "evidence_source",
+            "extraction_version",
+            "is_processed",
+            "detail_captured",
+        ],
+    }
+
+    legacy_aliases = {
+        "item_id": ["id", "唯一id"],
+        "source_item_id": ["source_item_id", "id", "item_id"],
+        "source_url": ["url", "原始网站"],
+        "source_title": ["title", "标题", "标的物名称"],
+        "source_platform": ["source_platform", "platform"],
+        "list_payload_path": ["list_payload_path"],
+        "detail_text_path": ["detail_text_path"],
+        "component_payload_path": ["component_payload_path"],
+        "notice_text_path": ["notice_text_path"],
+        "desc_text_path": ["desc_text_path"],
+        "attachment_manifest_path": ["attachment_manifest_path"],
+        "image_manifest_path": ["image_manifest_path"],
+        "status": ["status", "状态"],
+        "auction_date": ["交易时间", "end"],
+        "auction_start_time": ["auction_start_time", "startTime", "开拍时间"],
+        "transaction_price": ["成交价格", "currentPrice"],
+        "starting_price": ["起拍价格", "initialPrice"],
+        "actual_paid_price": ["实际支付总价"],
+        "evaluation_price": ["市场评估价"],
+        "deposit": ["保证金"],
+        "apply_count": ["applyCount", "竞拍人数", "报名人数"],
+        "bid_count": ["bidCount", "出价次数"],
+        "bidder_count": ["bidderCount", "bidUserNumber", "出价人数"],
+        "watch_count": ["watch_count", "watchCount", "围观人数"],
+        "reminder_count": ["reminder_count", "remindCount", "提醒人数"],
+        "view_count": ["view_count", "viewCount", "浏览次数"],
+        "full_address": ["地点", "location", "完整地址"],
+        "province": ["省份"],
+        "city": ["城市"],
+        "district": ["区", "行政区"],
+        "business_area": ["最靠近商圈", "business_area_name"],
+        "community_name": ["所属小区", "小区", "小区名称"],
+        "latitude": ["纬度", "lat"],
+        "longitude": ["经度", "lng"],
+        "housing_type": ["房屋用途", "housingType"],
+        "area_sqm": ["建筑面积", "建设面积", "building_area", "area_sqm"],
+        "gross_area_sqm": ["gross_area_sqm", "产权建筑面积", "原始建筑面积"],
+        "interior_area_sqm": ["interior_area_sqm", "套内面积"],
+        "land_area_sqm": ["land_area_sqm", "土地面积", "占地面积"],
+        "ownership_share_ratio": ["ownership_share_ratio", "产权份额比例"],
+        "layout": ["layout", "户型"],
+        "build_year": ["build_year", "建成年份"],
+        "total_floors": ["total_floors", "总楼层"],
+        "floor_level": ["floor_level", "楼层归一"],
+        "has_elevator": ["has_elevator", "是否有电梯"],
+        "orientation": ["orientation", "朝向"],
+        "includes_parking": ["includes_parking", "是否附带车位"],
+        "special_school_tag": ["special_school_tag", "学区标签"],
+        "has_keys": ["has_keys", "是否持钥匙"],
+        "court_name": ["court_name", "法院名称", "执行法院"],
+        "case_number": ["case_number", "案号"],
+        "appraisal_agency_name": ["appraisal_agency_name", "评估机构"],
+        "appraisal_benchmark_date": ["appraisal_benchmark_date", "评估基准日"],
+        "appraisal_report_urls": ["appraisal_report_urls", "评估报告链接"],
+        "announcement_attachment_urls": ["announcement_attachment_urls", "附件链接"],
+        "land_right_type": ["land_right_type", "土地性质"],
+        "is_occupied": ["is_occupied", "是否被占用"],
+        "has_long_lease": ["has_long_lease", "是否存在长期租约"],
+        "clear_delivery": ["clear_delivery", "法院是否负责清场交付"],
+        "tax_burden": ["tax_burden", "税费承担方式"],
+        "property_fee_owed": ["property_fee_owed", "是否存在物业欠费"],
+        "is_restricted_purchase": ["is_restricted_purchase", "是否限购"],
+        "is_fractional_share": ["is_fractional_share", "是否部分产权"],
+        "tax_is_company_owned": ["tax_is_company_owned", "原产权人是否公司"],
+        "is_haunted": ["is_haunted", "是否凶宅"],
+        "has_lease_before_mortgage": ["has_lease_before_mortgage", "是否先抵后租可清场"],
+        "extraction_confidence": ["extraction_confidence"],
+        "evidence_span": ["evidence_span"],
+        "evidence_source": ["evidence_source"],
+        "extraction_version": ["extraction_version"],
+    }
+
+    return {
+        "version": "avm_collection_contract_v1_frozen",
+        "frozen_contract": True,
+        "contract_status": "finalized_for_collector_work",
+        "change_policy": {
+            "breaking_changes_require_new_version": True,
+            "allowed_changes_in_place": [
+                "append_new_optional_audit_fields",
+                "append_legacy_aliases",
+                "clarify_notes_without_semantic_change",
+            ],
+            "disallowed_changes_in_place": [
+                "rename_authoritative_keys",
+                "change_units_or_boolean_semantics",
+                "merge_bid_count_and_bidder_count",
+                "reuse_title_as_full_address",
+                "turn_derived_fields_into_collected_fields",
+            ],
+        },
+        "final_template": final_template,
+        "authoritative_fields": authoritative_fields,
+        "legacy_aliases": legacy_aliases,
+        "derived_fields_not_to_collect": [
+            "unit_price",
+            "auction_month_index",
+            "predicted_price",
+            "predicted_unit_price",
+            "margin_of_safety",
+            "coordinate_strategy",
+            "manual_review_recommended",
+            "manual_review_reasons",
+        ],
+        "consumer_payload_shape": {
+            "source": [
+                "item_id",
+                "source_item_id",
+                "source_url",
+                "source_title",
+                "source_platform",
+                "detail_archive_path",
+            ],
+            "archive": [
+                "list_payload_path",
+                "detail_text_path",
+                "component_payload_path",
+                "notice_text_path",
+                "desc_text_path",
+                "attachment_manifest_path",
+                "image_manifest_path",
+            ],
+            "subject": [
+                "city",
+                "district",
+                "business_area",
+                "community_name",
+                "latitude",
+                "longitude",
+                "area_sqm",
+                "gross_area_sqm",
+                "interior_area_sqm",
+                "land_area_sqm",
+                "ownership_share_ratio",
+                "build_year",
+                "total_floors",
+                "floor_level",
+                "housing_type",
+                "has_elevator",
+                "orientation",
+                "layout",
+                "includes_parking",
+                "special_school_tag",
+                "has_keys",
+                "bid_count",
+                "bidder_count",
+                "apply_count",
+            ],
+            "auction": [
+                "starting_price",
+                "auction_date",
+                "auction_start_time",
+                "actual_paid_price",
+                "evaluation_price",
+                "deposit",
+                "auction_round",
+                "watch_count",
+                "reminder_count",
+                "view_count",
+                "bid_count",
+                "bidder_count",
+                "apply_count",
+            ],
+            "legal_context": [
+                "court_name",
+                "case_number",
+                "appraisal_agency_name",
+                "appraisal_benchmark_date",
+                "appraisal_report_urls",
+                "announcement_attachment_urls",
+            ],
+            "risk_flags": [
+                "is_occupied",
+                "has_long_lease",
+                "clear_delivery",
+                "land_right_type",
+                "tax_burden",
+                "property_fee_owed",
+                "tax_is_company_owned",
+                "is_fractional_share",
+                "is_haunted",
+                "has_lease_before_mortgage",
+                "is_restricted_purchase",
+            ],
+            "audit": [
+                "source_url",
+                "detail_archive_path",
+                "coordinate_source",
+                "extraction_confidence",
+                "evidence_span",
+                "evidence_source",
+                "extraction_version",
+            ],
+        },
+        "collector_priorities": {
+            "list_page_must_capture": [
+                "item_id",
+                "source_platform",
+                "source_url",
+                "title",
+                "full_address",
+                "transaction_price",
+                "starting_price",
+                "auction_date",
+                "auction_start_time",
+                "city",
+                "district",
+                "business_area",
+                "latitude",
+                "longitude",
+                "coordinate_source",
+                "auction_round",
+                "bid_count",
+                "bidder_count",
+                "apply_count",
+                "housing_type",
+                "watch_count",
+                "reminder_count",
+                "view_count",
+                "list_payload_path",
+            ],
+            "detail_page_must_capture": [
+                "area_sqm",
+                "gross_area_sqm",
+                "interior_area_sqm",
+                "land_area_sqm",
+                "ownership_share_ratio",
+                "community_name",
+                "evaluation_price",
+                "deposit",
+                "detail_archive_path",
+                "detail_text_path",
+                "component_payload_path",
+                "notice_text_path",
+                "desc_text_path",
+                "attachment_manifest_path",
+                "image_manifest_path",
+                "court_name",
+                "case_number",
+                "appraisal_report_urls",
+                "announcement_attachment_urls",
+            ],
+            "llm_risk_extraction_targets": [
+                "is_occupied",
+                "has_long_lease",
+                "clear_delivery",
+                "tax_burden",
+                "land_right_type",
+                "property_fee_owed",
+                "tax_is_company_owned",
+                "is_fractional_share",
+                "is_haunted",
+                "has_lease_before_mortgage",
+                "is_restricted_purchase",
+                "layout",
+                "includes_parking",
+                "build_year",
+                "total_floors",
+                "floor_level",
+                "has_elevator",
+                "orientation",
+                "special_school_tag",
+                "has_keys",
+                "extraction_confidence",
+                "evidence_span",
+                "evidence_source",
+                "extraction_version",
+            ],
+        },
+        "notes": [
+            "这是采集器改造的冻结版合同。后续若需要改 authoritative key、单位或语义，必须升新版本，不允许原地改名。",
+            "area_sqm 表示最终用于估值的可交易有效面积；如果是部分产权，建议 = gross_area_sqm * ownership_share_ratio。",
+            "即使当前不使用，也建议优先把 raw archive 和 legal_context 相关材料存下来，避免百万量级数据未来需要回源重抓。",
+            "P0-必填：当前价格主链直接依赖，不建议继续缺失。",
+            "P1-强烈建议：当前已经进入估值、置信度或 guard，但短期还能容忍部分缺失。",
+            "P2-可选：当前更多用于审计、人工复核或下一阶段模型升级。",
+            "collector 端以后只应以 authoritative key 为主；中文字段与旧字段仅保留为兼容 alias。",
+            "full_address 与 source_title 必须严格拆开；不要再用标题顶替地址。",
+            "bid_count=出价次数，bidder_count=出价人数；两者以后不允许再混用。",
+            "所有价格字段统一为元；evaluation_price 也统一存元，不允许再混万元口径。",
+            "如果采集器只能先改一轮，请优先补齐：坐标、business_area、community_name、area_sqm、起拍价、bid_count/apply_count、核心风险字段。",
+        ],
+        "groups": groups,
+    }
+
+
+_CONTRACT = get_collection_template()
+_FINAL_TEMPLATE = _CONTRACT["final_template"]
+_AUTHORITATIVE_FIELDS = _CONTRACT["authoritative_fields"]
+_LEGACY_ALIASES = _CONTRACT["legacy_aliases"]
+
+_MONEY_FIELDS = {
+    "transaction_price",
+    "starting_price",
+    "actual_paid_price",
+    "evaluation_price",
+    "deposit",
+}
+_AREA_FIELDS = {"area_sqm", "gross_area_sqm", "interior_area_sqm", "land_area_sqm"}
+_FLOAT_FIELDS = {"latitude", "longitude", "ownership_share_ratio", "extraction_confidence"}
+_INT_FIELDS = {
+    "auction_round",
+    "apply_count",
+    "bid_count",
+    "bidder_count",
+    "watch_count",
+    "reminder_count",
+    "view_count",
+    "build_year",
+    "total_floors",
+}
+_BOOL_FIELDS = {
+    "includes_parking",
+    "special_school_tag",
+    "has_keys",
+    "has_elevator",
+    "is_occupied",
+    "has_long_lease",
+    "clear_delivery",
+    "property_fee_owed",
+    "is_restricted_purchase",
+    "is_fractional_share",
+    "tax_is_company_owned",
+    "is_haunted",
+    "has_lease_before_mortgage",
+    "detail_captured",
+    "is_processed",
+}
+_LIST_FIELDS = {"appraisal_report_urls", "announcement_attachment_urls"}
+_STRING_FIELDS = {
+    "item_id",
+    "source_item_id",
+    "source_url",
+    "source_title",
+    "source_platform",
+    "detail_archive_path",
+    "list_payload_path",
+    "detail_text_path",
+    "component_payload_path",
+    "notice_text_path",
+    "desc_text_path",
+    "attachment_manifest_path",
+    "image_manifest_path",
+    "status",
+    "auction_date",
+    "auction_start_time",
+    "full_address",
+    "province",
+    "city",
+    "district",
+    "business_area",
+    "community_name",
+    "coordinate_source",
+    "housing_type",
+    "layout",
+    "floor_level",
+    "orientation",
+    "court_name",
+    "case_number",
+    "appraisal_agency_name",
+    "appraisal_benchmark_date",
+    "land_right_type",
+    "tax_burden",
+    "evidence_span",
+    "evidence_source",
+    "extraction_version",
+}
+
+
+def get_empty_collection_record() -> Dict[str, Any]:
+    return deepcopy(_FINAL_TEMPLATE)
+
+
+def _normalized_non_empty(value: Any) -> Any:
+    if value is None:
+        return None
+    if isinstance(value, str):
+        text = value.strip()
+        return text if text else None
+    return value
+
+
+def _get_risk_payload(item: Dict[str, Any]) -> Dict[str, Any]:
+    payload = item.get("avm_risk_features")
+    return payload if isinstance(payload, dict) else {}
+
+
+def _iter_candidate_values(item: Dict[str, Any], field: str) -> List[Any]:
+    values: List[Any] = []
+    risk_payload = _get_risk_payload(item)
+
+    for section_name, section_fields in _AUTHORITATIVE_FIELDS.items():
+        if field not in section_fields:
+            continue
+        section = item.get(section_name)
+        if isinstance(section, dict):
+            values.append(section.get(field))
+
+    values.append(item.get(field))
+    for alias in _LEGACY_ALIASES.get(field, []):
+        values.append(item.get(alias))
+
+    if field in risk_payload:
+        values.append(risk_payload.get(field))
+
+    return values
+
+
+def _first_value(item: Dict[str, Any], field: str) -> Any:
+    for value in _iter_candidate_values(item, field):
+        normalized = _normalized_non_empty(value)
+        if normalized is not None:
+            return normalized
+    return None
+
+
+def _coerce_bool(value: Any) -> Optional[bool]:
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return bool(value)
+    text = str(value).strip().lower()
+    if text in {"true", "1", "yes", "y", "done", "成交"}:
+        return True
+    if text in {"false", "0", "no", "n", "pending", "unknown", "null"}:
+        return False
+    return None
+
+
+def _coerce_int(value: Any) -> Optional[int]:
+    number = safe_float(value)
+    if number is None:
+        return None
+    try:
+        return int(number)
+    except (TypeError, ValueError):
+        return None
+
+
+def _coerce_float(value: Any) -> Optional[float]:
+    number = safe_float(value)
+    if number is None:
+        return None
+    return float(number)
+
+
+def _coerce_ratio(value: Any, item: Dict[str, Any]) -> Optional[float]:
+    if value in (None, ""):
+        fractional = _coerce_bool(_first_value(item, "is_fractional_share"))
+        return None if fractional else 1.0
+    if isinstance(value, (int, float)):
+        number = float(value)
+    else:
+        text = str(value).strip()
+        if not text:
+            return None
+        fraction_match = re.fullmatch(r"(\d+)\s*/\s*(\d+)", text)
+        if fraction_match:
+            numerator = float(fraction_match.group(1))
+            denominator = float(fraction_match.group(2))
+            if denominator == 0:
+                return None
+            number = numerator / denominator
+        elif text.endswith("%"):
+            number = (safe_float(text[:-1]) or 0.0) / 100.0
+        else:
+            number = safe_float(text)
+            if number is None:
+                return None
+    if number > 1.0 and number <= 100.0:
+        number = number / 100.0
+    if number <= 0:
+        return None
+    return round(min(number, 1.0), 6)
+
+
+def _coerce_list(value: Any) -> List[str]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+    text = str(value).strip()
+    if not text:
+        return []
+    parts = re.split(r"[\r\n,;]+", text)
+    return [part.strip() for part in parts if part.strip()]
+
+
+def _coerce_string(value: Any) -> str:
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def build_collection_record(item: Dict[str, Any]) -> Dict[str, Any]:
+    record = get_empty_collection_record()
+
+    for section_name, fields in _AUTHORITATIVE_FIELDS.items():
+        for field in fields:
+            raw_value = _first_value(item, field)
+            if field in _MONEY_FIELDS:
+                value = parse_money_to_yuan(raw_value)
+            elif field in _AREA_FIELDS:
+                value = parse_area_sqm(raw_value)
+            elif field == "ownership_share_ratio":
+                value = _coerce_ratio(raw_value, item)
+            elif field in _FLOAT_FIELDS:
+                value = _coerce_float(raw_value)
+            elif field in _INT_FIELDS:
+                value = _coerce_int(raw_value)
+            elif field in _BOOL_FIELDS:
+                value = _coerce_bool(raw_value)
+            elif field in _LIST_FIELDS:
+                value = _coerce_list(raw_value)
+            else:
+                value = _coerce_string(raw_value)
+            if value not in (None, "", []):
+                record[section_name][field] = value
+
+    risk_flags = record["risk_flags"]
+    property_section = record["property"]
+
+    ratio = property_section.get("ownership_share_ratio")
+    gross_area = property_section.get("gross_area_sqm")
+    area = property_section.get("area_sqm")
+    if gross_area is None and area is not None and ratio not in (None, 0):
+        if ratio and ratio < 1:
+            property_section["gross_area_sqm"] = round(area / ratio, 2)
+        else:
+            property_section["gross_area_sqm"] = area
+            gross_area = area
+    if area is None and gross_area is not None and ratio not in (None, 0):
+        property_section["area_sqm"] = round(gross_area * ratio, 2)
+    if property_section.get("ownership_share_ratio") is None and risk_flags.get("is_fractional_share") is not True:
+        property_section["ownership_share_ratio"] = 1.0
+
+    if not record["source"].get("source_item_id") and record["source"].get("item_id"):
+        record["source"]["source_item_id"] = record["source"]["item_id"]
+    if not record["source"].get("source_platform"):
+        record["source"]["source_platform"] = "taobao_sf"
+
+    return record
+
+
+def sync_collection_record(item: Dict[str, Any]) -> Dict[str, Any]:
+    record = build_collection_record(item)
+    item.update(record)
+    if record["source"].get("source_item_id"):
+        item.setdefault("source_item_id", record["source"]["source_item_id"])
+    if record["source"].get("source_url"):
+        item.setdefault("source_url", record["source"]["source_url"])
+    if record["source"].get("source_title"):
+        item.setdefault("source_title", record["source"]["source_title"])
+    if record["location"].get("full_address"):
+        item.setdefault("full_address", record["location"]["full_address"])
+        item.setdefault("完整地址", record["location"]["full_address"])
+        item.setdefault("地点", record["location"]["full_address"])
+    if record["location"].get("city"):
+        item.setdefault("城市", record["location"]["city"])
+    if record["location"].get("district"):
+        item.setdefault("区", record["location"]["district"])
+    if record["location"].get("business_area"):
+        item.setdefault("最靠近商圈", record["location"]["business_area"])
+    if record["location"].get("community_name"):
+        item.setdefault("所属小区", record["location"]["community_name"])
+    if record["auction"].get("transaction_price") is not None:
+        item.setdefault("成交价格", record["auction"]["transaction_price"])
+        item.setdefault("transaction_price", record["auction"]["transaction_price"])
+    if record["auction"].get("starting_price") is not None:
+        item.setdefault("起拍价格", record["auction"]["starting_price"])
+        item.setdefault("starting_price", record["auction"]["starting_price"])
+    if record["auction"].get("evaluation_price") is not None:
+        item.setdefault("市场评估价", record["auction"]["evaluation_price"])
+    if record["auction"].get("deposit") is not None:
+        item.setdefault("保证金", record["auction"]["deposit"])
+        item.setdefault("deposit", record["auction"]["deposit"])
+    if record["auction"].get("auction_date"):
+        item.setdefault("交易时间", record["auction"]["auction_date"])
+        item.setdefault("auction_date", record["auction"]["auction_date"])
+    if record["auction"].get("bid_count") is not None:
+        item.setdefault("出价次数", record["auction"]["bid_count"])
+        item.setdefault("bid_count", record["auction"]["bid_count"])
+    if record["auction"].get("bidder_count") is not None:
+        item.setdefault("出价人数", record["auction"]["bidder_count"])
+        item.setdefault("bidder_count", record["auction"]["bidder_count"])
+    if record["auction"].get("apply_count") is not None:
+        item.setdefault("竞拍人数", record["auction"]["apply_count"])
+        item.setdefault("apply_count", record["auction"]["apply_count"])
+    if record["property"].get("area_sqm") is not None:
+        item.setdefault("建筑面积", record["property"]["area_sqm"])
+    return item

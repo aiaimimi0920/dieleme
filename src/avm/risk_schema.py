@@ -45,6 +45,10 @@ RISK_FEATURE_RULES = {
     "is_fractional_share": {"type": "bool", "required": True},
     "tax_is_company_owned": {"type": "bool", "required": True},
     "has_lease_before_mortgage": {"type": "bool", "required": True},
+    "extraction_confidence": {"type": "number", "required": False, "min": 0, "max": 1},
+    "evidence_span": {"type": "string_or_list", "required": False},
+    "evidence_source": {"type": "string", "required": False},
+    "extraction_version": {"type": "string", "required": False},
 }
 
 
@@ -107,6 +111,10 @@ def validate_risk_features(data: dict) -> tuple[bool, list[str]]:
         elif field_type == "string":
             if not isinstance(value, str):
                 errors.append(f"{field}: 期望字符串，实际为 {type(value).__name__}")
+
+        elif field_type == "string_or_list":
+            if not isinstance(value, (str, list)):
+                errors.append(f"{field}: 期望字符串或列表，实际为 {type(value).__name__}")
 
         else:
             errors.append(f"{field}: 未知规则类型 {field_type!r}")

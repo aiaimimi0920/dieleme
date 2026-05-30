@@ -13,7 +13,38 @@ DEFAULT_AVM_CONFIG = {
     },
     "risk_discount_factor": 0.9,
     "alert_threshold": 0.25,
+    "risk_factor_overrides": {},
 }
+
+
+def _coerce_positive_number(value, fallback):
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return float(fallback)
+    if numeric <= 0:
+        return float(fallback)
+    return float(numeric)
+
+
+def _coerce_nonnegative_number(value, fallback):
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return float(fallback)
+    if numeric < 0:
+        return float(fallback)
+    return float(numeric)
+
+
+def _coerce_time_decay(value, fallback):
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        numeric = float(fallback)
+    if numeric < 0:
+        numeric = float(fallback)
+    return max(0.0, min(1.0, float(numeric)))
 
 
 class AvmConfigManager:
@@ -49,6 +80,15 @@ class AvmConfigManager:
 
         if not isinstance(config["alert_threshold"], (int, float)) or config["alert_threshold"] < 0:
             raise ValueError("alert_threshold must be a non-negative number")
+
+        overrides = config.get("risk_factor_overrides", {})
+        if not isinstance(overrides, dict):
+            raise ValueError("risk_factor_overrides must be an object")
+        for key, value in overrides.items():
+            if not isinstance(key, str):
+                raise ValueError("risk_factor_overrides keys must be strings")
+            if not isinstance(value, (int, float)) or value <= 0:
+                raise ValueError("risk_factor_overrides values must be positive numbers")
 
     def _read_and_validate(self):
         with open(self.config_path, "r", encoding="utf-8") as f:
@@ -119,3 +159,48 @@ class AvmConfigManager:
 
 _CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "datas", "avm", "config.json")
 AVM_CONFIG_MANAGER = AvmConfigManager(_CONFIG_PATH)
+
+
+def get_effective_alert_threshold(default: float) -> float:
+    try:
+        config = AVM_CONFIG_MANAGER.get_config()
+    except Exception:
+        config = {}
+    return _coerce_nonnegative_number((config or {}).get("alert_threshold"), default)
+
+
+def get_effective_radius_km(default: float) -> float:
+    try:
+        config = AVM_CONFIG_MANAGER.get_config()
+    except Exception:
+        config = {}
+    return _coerce_positive_number((config or {}).get("radius_km"), default)
+
+
+def get_effective_risk_discount_factor(default: float) -> float:
+    try:
+        config = AVM_CONFIG_MANAGER.get_config()
+    except Exception:
+        config = {}
+    return _coerce_nonnegative_number((config or {}).get("risk_discount_factor"), default)
+
+
+def get_effective_weighting(defaults=None):
+    base = copy.deepcopy(DEFAULT_AVM_CONFIG["weighting"])
+    if isinstance(defaults, dict):
+        base.update(defaults)
+
+    try:
+        config = AVM_CONFIG_MANAGER.get_config()
+    except Exception:
+        config = {}
+
+    weighting = (config or {}).get("weighting")
+    if isinstance(weighting, dict):
+        for key, fallback in base.items():
+            if key == "time_decay":
+                base[key] = _coerce_time_decay(weighting.get(key), fallback)
+            else:
+                base[key] = _coerce_positive_number(weighting.get(key), fallback)
+
+    return base

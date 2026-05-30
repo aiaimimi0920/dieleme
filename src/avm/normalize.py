@@ -36,7 +36,8 @@ def parse_money_to_yuan(value: NumberLike) -> Optional[float]:
     if value is None:
         return None
     if isinstance(value, (int, float)):
-        return float(value)
+        amount = float(value)
+        return round(amount, 2) if amount > 0 else None
 
     s = str(value).strip()
     if not s:
@@ -52,7 +53,10 @@ def parse_money_to_yuan(value: NumberLike) -> Optional[float]:
     num = safe_float(s)
     if num is None:
         return None
-    return round(num * multiplier, 2)
+    amount = num * multiplier
+    if amount <= 0:
+        return None
+    return round(amount, 2)
 
 
 def parse_area_sqm(value: NumberLike) -> Optional[float]:
