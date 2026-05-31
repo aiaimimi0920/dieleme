@@ -1,11 +1,11 @@
-import requests
 import json
-import time
+import requests
+
 
 API_URL = "http://127.0.0.1:8001/api/analyze_html"
 ITEM_ID = "1010786604345"
 
-html_content = """
+HTML_CONTENT = """
 <html>
 <body>
     <h1>标的物名称: 杭州市西湖区某房产 (REAL AI TEST)</h1>
@@ -24,27 +24,33 @@ html_content = """
 </html>
 """
 
-payload = {
-    "id": ITEM_ID,
-    "html": html_content
-}
 
-print(f"Sending request to {API_URL} for ID {ITEM_ID}...")
-try:
-    response = requests.post(API_URL, json=payload)
-    print(f"Status Code: {response.status_code}")
-    print("Response Body:")
-    print(response.text)
-    
-    if response.status_code == 200:
-        data = response.json()
-        if data.get("status") == "ok":
-            print("SUCCESS: specific keys found in response:")
-            print(json.dumps(data.get("data"), indent=2, ensure_ascii=False))
+def main():
+    payload = {
+        "id": ITEM_ID,
+        "html": HTML_CONTENT,
+    }
+
+    print(f"Sending request to {API_URL} for ID {ITEM_ID}...")
+    try:
+        response = requests.post(API_URL, json=payload)
+        print(f"Status Code: {response.status_code}")
+        print("Response Body:")
+        print(response.text)
+
+        if response.status_code == 200:
+            data = response.json()
+            if data.get("status") == "ok":
+                print("SUCCESS: specific keys found in response:")
+                print(json.dumps(data.get("data"), indent=2, ensure_ascii=False))
+            else:
+                print("FAILED: status not ok")
         else:
-            print("FAILED: status not ok")
-    else:
-        print("FAILED: HTTP error")
+            print("FAILED: HTTP error")
 
-except Exception as e:
-    print(f"ERROR: {e}")
+    except Exception as e:
+        print(f"ERROR: {e}")
+
+
+if __name__ == "__main__":
+    main()
