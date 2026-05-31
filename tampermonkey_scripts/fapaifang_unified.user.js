@@ -72,6 +72,13 @@
         });
     }
 
+    function formatLocalDateTime(input) {
+        const d = new Date(input);
+        if (Number.isNaN(d.getTime())) return '';
+        const pad = (v) => String(v).padStart(2, '0');
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    }
+
     // ==========================================
     // MODULE 1: SNIFFING (Master Page)
     // ==========================================
@@ -192,7 +199,7 @@
              const sessionId = sniffSessions[sniffState.currSessionIdx % sniffSessions.length];
              sniffState.currSessionIdx++;
 
-             fetchApi('/get_or_create_sniff_task?session_id=' + encodeURIComponent(sessionId), {}, (res) => {
+             fetchApi('/collection/seeds/next_task?session_id=' + encodeURIComponent(sessionId), {}, (res) => {
                 if (res.task && res.task.url) {
                     log(`分配任务: ${res.task.desc || res.task.url}`, 'success');
                     
@@ -284,8 +291,8 @@
         const hasItems = items.length > 0;
         let hasNext = hasItems && !hasZeroBid && !isNoResultText && !isListEmpty; 
         
-        // Report status to backend (to update JobManager)
-        fetchApi('/report_sniff_status', {
+        // Report status to backend (to advance collection search task state)
+        fetchApi('/collection/seeds/report_progress', {
             url: window.location.href,
             has_next: hasNext,
             is_empty: !hasNext || isListEmpty || isNoResultText,
@@ -317,18 +324,33 @@
                             title: item.title,
                             currentPrice: item.currentPrice,
                             initialPrice: item.initialPrice,
-                            auction_date: new Date(item.end).toISOString().replace('T', ' ').split('.')[0],
+                            auction_date: formatLocalDateTime(item.end),
+                            auction_start_time: formatLocalDateTime(item.startTime),
                             end: item.end, 
                             url: item.itemUrl ? "https:" + item.itemUrl : "",
                             status: item.status,
                             bidCount: item.bidCount,
+                            bidderCount: item.bidUserNumber ?? item.bidderCount,
                             applyCount: item.applyCount,
+                            watchCount: item.watchCount ?? item.pv,
+                            remindCount: item.remindCount ?? item.reminderCount,
+                            viewCount: item.viewCount ?? item.pv,
+                            location: item.itemAddress || item.address || item.location,
+                            full_address: item.itemAddress || item.address || item.location,
+                            district: item.district,
+                            city: item.city,
+                            latitude: item.latitude ?? item.lat,
+                            longitude: item.longitude ?? item.lng,
+                            coordinate_source: (item.latitude ?? item.lat) != null && (item.longitude ?? item.lng) != null ? 'list' : undefined,
+                            auction_round: item.auctionRound ?? item.round,
+                            housing_type: item.housingType || item.categoryName,
+                            deposit: item.deposit,
                             is_processed: false 
                         }));
                         
                         if (items.length > 0) {
                             log(`发现 ${items.length} 个有效(已成交)物品，保存中...`, 'success');
-                            fetchApi('/save', { items: items }, (res) => {
+                            fetchApi('/collection/seeds/batch', { items: items, raw_payload: json.data, source_page_url: window.location.href }, (res) => {
                                 log(`[Sniff] 保存成功: ${res.new} 新增`, 'success');
                                 // Auto-resume server if it was paused (User solved captcha manually)
                                 resumeServer(true);
@@ -443,6 +465,54 @@
             // Limit log lines
             if (logEl.children.length > 50) logEl.removeChild(logEl.firstChild);
         }
+    }
+
+    function refreshGlobalStats() {
+        fetchApi('/status', {}, (res) => {
+            const el = document.getElementById('uni-global-stats');
+            const statusEl = document.getElementById('uni-status-text');
+            const startBtn = document.getElementById('uni-btn-start');
+            const resumeBtn = document.getElementById('uni-btn-resume');
+
+            if (res.paused) {
+                if(statusEl) {
+                    statusEl.textContent = '🛑 服务暂停 (无需验证码)';
+                    statusEl.style.color = '#ff6b6b';
+                }
+                if(resumeBtn) resumeBtn.style.display = 'block';
+                if(startBtn) startBtn.style.display = 'none';
+            } else {
+                if(statusEl) {
+                    if (statusEl.innerText.includes("暂停") || statusEl.innerText.includes("Running")) {
+                         statusEl.textContent = isRunning ? '运行中...' : '已就绪';
+                         statusEl.style.color = isRunning ? '#51cf66' : '#ffd43b';
+                    }
+                }
+                if(resumeBtn) resumeBtn.style.display = 'none';
+                if(startBtn) startBtn.style.display = 'block';
+
+                GM_deleteValue('last_captcha_global_time');
+                GM_deleteValue('captcha_solving_tab_id');
+                GM_deleteValue('captcha_solving_tab_id');
+            }
+
+            if (el) {
+                el.innerHTML = `📊 总量: <span style="color:white">${res.total_ids || 0}</span> | 📝 已探测: <span style="color:#ffec99">${res.captured_count || 0}</span> | 🤖 AI定稿: <span style="color:#63e6be">${res.ai_finalized_count || 0}</span>`;
+            }
+        }, () => {
+             // Squelch errors for stats to avoid log spam
+        });
+    }
+
+    function resumeServer(isAuto) {
+        fetchApi('/resume', {}, () => {
+             if (!isAuto) {
+                 log('✅ 服务已恢复 (Resumed)', 'success');
+                 refreshGlobalStats();
+             } else {
+                 refreshGlobalStats();
+             }
+        });
     }
 
     // --- Dashboard UI (Only on Master Page) ---
@@ -564,18 +634,6 @@
                 resumeServer(false);
             };
             
-            function resumeServer(isAuto) {
-                fetchApi('/resume', {}, (res) => {
-                     if (!isAuto) {
-                         log('✅ 服务已恢复 (Resumed)', 'success');
-                         refreshGlobalStats();
-                     } else {
-                         // Silent resume for auto-mode, just refresh stats to update UI
-                         refreshGlobalStats();
-                     }
-                });
-            }
-            
             const dualBtn = document.getElementById('uni-btn-dual');
             if (dualBtn) {
                 dualBtn.onclick = () => {
@@ -620,46 +678,6 @@
                 log(newVal.msg, newVal.type);
             }
         });
-
-        // Auto Refresh Global Stats
-        function refreshGlobalStats() {
-            fetchApi('/status', {}, (res) => {
-                const el = document.getElementById('uni-global-stats');
-                const statusEl = document.getElementById('uni-status-text');
-                const startBtn = document.getElementById('uni-btn-start');
-                const resumeBtn = document.getElementById('uni-btn-resume');
-
-                if (res.paused) {
-                    if(statusEl) {
-                        statusEl.textContent = '🛑 服务暂停 (无需验证码)';
-                        statusEl.style.color = '#ff6b6b';
-                    }
-                    if(resumeBtn) resumeBtn.style.display = 'block';
-                    if(startBtn) startBtn.style.display = 'none';
-                } else {
-                    if(statusEl) {
-                        // Check if we should update text (don't overwrite 'Stopped')
-                        if (statusEl.innerText.includes("暂停") || statusEl.innerText.includes("Running")) {
-                             statusEl.textContent = isRunning ? '运行中...' : '已就绪';
-                             statusEl.style.color = isRunning ? '#51cf66' : '#ffd43b';
-                        }
-                    }
-                    if(resumeBtn) resumeBtn.style.display = 'none';
-                    if(startBtn) startBtn.style.display = 'block';
-                    
-                    // Clear captcha cooldown if we are getting tasks
-                    GM_deleteValue('last_captcha_global_time');
-                    GM_deleteValue('captcha_solving_tab_id');
-                    GM_deleteValue('captcha_solving_tab_id');
-                }
-                
-                if (el) {
-                    el.innerHTML = `📊 总量: <span style="color:white">${res.total_ids || 0}</span> | 📝 已探测: <span style="color:#ffec99">${res.captured_count || 0}</span> | 🤖 AI定稿: <span style="color:#63e6be">${res.ai_finalized_count || 0}</span>`;
-                }
-            }, (err) => {
-                 // Squelch errors for stats to avoid log spam
-            });
-        }
         setInterval(refreshGlobalStats, 5000);
         refreshGlobalStats();
     }
@@ -1019,7 +1037,7 @@
         fastReviewState.fetching = true;
         
         log("流水线: 补充任务中...", 'info');
-        fetchApi('/get_tasks', {}, (res) => {
+        fetchApi('/collection/details/tasks', {}, (res) => {
             fastReviewState.fetching = false;
             if (fastReviewState.captchaMode) return;
             
@@ -1148,7 +1166,7 @@
     }
     
     function submitItemResult(itemId, htmlContent) {
-        fetchApi('/analyze_html', {
+        fetchApi('/collection/details/html', {
             id: itemId,
             html: htmlContent,
             status: 'done'
@@ -1540,18 +1558,29 @@
             { key: '市场评估价', label: '市场评估价', type: 'number' },
             { key: '起拍价格', label: '起拍价格', type: 'number' },
             { key: '成交价格', label: '成交价格', type: 'number' },
+            { key: '保证金', label: '保证金', type: 'number' },
             { key: '交易时间', label: '交易时间', type: 'text' }, // yyyy/MM/dd HH:mm:ss
+            { key: '开拍时间', label: '开拍时间', type: 'text' },
             { key: '原始网站', label: '原始网站', type: 'text', readonly: true },
             { key: '是否成交', label: '是否成交', type: 'checkbox' },
             { key: '竞拍人数', label: '竞拍人数', type: 'number' },
+            { key: '出价次数', label: '出价次数', type: 'number' },
             { key: '出价人数', label: '出价人数', type: 'number' },
+            { key: '围观人数', label: '围观人数', type: 'number' },
+            { key: '提醒人数', label: '提醒人数', type: 'number' },
+            { key: '浏览次数', label: '浏览次数', type: 'number' },
             { key: '地点', label: '地点', type: 'text' },
+            { key: '完整地址', label: '完整地址', type: 'text' },
             { key: '所属小区', label: '所属小区', type: 'text' },
             { key: '省份', label: '省份', type: 'text' },
             { key: '城市', label: '城市', type: 'text' },
             { key: '区', label: '区', type: 'text' },
             { key: '最靠近商圈', label: '最靠近商圈', type: 'text' },
             { key: '建筑面积', label: '建筑面积', type: 'number', step: 0.01 },
+            { key: '产权建筑面积', label: '产权建筑面积', type: 'number', step: 0.01 },
+            { key: '产权份额比例', label: '产权份额比例', type: 'number', step: 0.0001 },
+            { key: '法院名称', label: '法院名称', type: 'text' },
+            { key: '案号', label: '案号', type: 'text' },
             { key: '单价', label: '单价', type: 'number', readonly: true }, // Auto-calculated
         ];
 
@@ -1588,6 +1617,7 @@
             let data = {
                 id: id,
                 title: title,
+                标题: title,
                 context: getCleanContext(),
                 原始网站: url,
                 is_processed: true,
@@ -1595,9 +1625,19 @@
                 '成交价格': 0,
                 '市场评估价': 0,
                 '起拍价格': 0,
+                '保证金': 0,
                 '竞拍人数': 0,
+                '出价次数': 0,
                 '出价人数': 0,
-                '建筑面积': 0
+                '围观人数': 0,
+                '提醒人数': 0,
+                '浏览次数': 0,
+                '建筑面积': 0,
+                '产权建筑面积': 0,
+                '产权份额比例': 1,
+                '完整地址': '',
+                '法院名称': '',
+                '案号': ''
             };
 
             // Strategy 1: Parse J_COMPONENT script tags
@@ -1614,6 +1654,10 @@
                             const ds = json.dataSource;
                             if (ds.applyNumber !== undefined && ds.applyNumber >= 0) data['竞拍人数'] = parseInt(ds.applyNumber) || 0;
                             if (ds.bidUserNumber !== undefined && ds.bidUserNumber >= 0) data['出价人数'] = parseInt(ds.bidUserNumber) || 0;
+                            if (ds.bidCount !== undefined && ds.bidCount >= 0) data['出价次数'] = parseInt(ds.bidCount) || 0;
+                            if (ds.watchCount !== undefined && ds.watchCount >= 0) data['围观人数'] = parseInt(ds.watchCount) || 0;
+                            if (ds.remindCount !== undefined && ds.remindCount >= 0) data['提醒人数'] = parseInt(ds.remindCount) || 0;
+                            if (ds.viewCount !== undefined && ds.viewCount >= 0) data['浏览次数'] = parseInt(ds.viewCount) || 0;
                         }
 
                         if (json.key === 'AUCTION_RULE' && json.dataSource && json.dataSource.bidRuleFields) {
@@ -1626,21 +1670,30 @@
                                     data['市场评估价'] = numVal;
                                 } else if (field.title.includes('起拍价')) {
                                     data['起拍价格'] = numVal;
+                                } else if (field.title.includes('保证金')) {
+                                    data['保证金'] = numVal;
                                 }
                             }
                         }
 
                         if (json.key === 'BID_CONTROL' && json.dataSource) {
                             const ds = json.dataSource;
+                            if (ds.startTime) {
+                                const startDate = new Date(ds.startTime);
+                                data['开拍时间'] = formatLocalDateTime(startDate);
+                            }
                             if (ds.endTime) {
                                 const endDate = new Date(ds.endTime);
-                                data['交易时间'] = endDate.toISOString().replace('T', ' ').split('.')[0];
+                                data['交易时间'] = formatLocalDateTime(endDate);
                             }
                             if (ds.currentPrice) {
                                 data['成交价格'] = parseFloat(ds.currentPrice) || 0;
                             }
                             if (ds.bidCount !== undefined && ds.bidCount >= 0) {
-                                data['出价人数'] = parseInt(ds.bidCount) || 0;
+                                data['出价次数'] = parseInt(ds.bidCount) || 0;
+                            }
+                            if (ds.bidUserNumber !== undefined && ds.bidUserNumber >= 0) {
+                                data['出价人数'] = parseInt(ds.bidUserNumber) || 0;
                             }
                             if (ds.status === 'done' || ds.status === 'succ') {
                                 data['是否成交'] = true;
@@ -1649,7 +1702,7 @@
 
                         if ((json.key === 'ITEM_INFO' || json.key === 'HEADER') && json.dataSource) {
                             const ds = json.dataSource;
-                            if (ds.title && !data['地点']) data['地点'] = ds.title;
+                            if (ds.title && !data['标题']) data['标题'] = ds.title;
                         }
 
                     } catch (e) { /* ignore */ }
@@ -1674,20 +1727,37 @@
                     if (m) { data['竞拍人数'] = parseInt(m[1]); break; }
                 }
             }
+            if (!data['出价次数']) {
+                const bidCountMatch = pageText.match(/(?:出价次数|竞价次数)[：:\s]*(\d+)/);
+                if (bidCountMatch) data['出价次数'] = parseInt(bidCountMatch[1]) || 0;
+            }
+            if (!data['出价人数']) {
+                const bidderMatch = pageText.match(/(?:出价人数|竞买记录中共有|共有)\s*(\d+)\s*(?:人出价|位出价人|人参与出价)/);
+                if (bidderMatch) data['出价人数'] = parseInt(bidderMatch[1]) || 0;
+            }
 
             if (!data['是否成交'] && (pageText.includes('已成交') || pageText.includes('竞价成功'))) {
                 data['是否成交'] = true;
             }
 
-            if (!data['地点'] || data['地点'] === title) {
+            if (!data['地点']) {
                 const addressMatch = pageText.match(/标的物(?:所在)?位置[：:\s]*([\S\s]+?)[\r\n]/) || pageText.match(/坐落(?:于)?[：:\s]*([\S\s]+?)[\r\n]/);
                 if (addressMatch) data['地点'] = addressMatch[1].trim();
-                else data['地点'] = title;
+            }
+            if (data['地点'] && !data['完整地址']) data['完整地址'] = data['地点'];
+
+            if (!data['法院名称']) {
+                const courtMatch = pageText.match(/([\u4e00-\u9fa5]{2,30}人民法院)/);
+                if (courtMatch) data['法院名称'] = courtMatch[1];
+            }
+            if (!data['案号']) {
+                const caseMatch = pageText.match(/[（(]\d{4}[)）][^\s，。,；;:：]{2,40}号/);
+                if (caseMatch) data['案号'] = caseMatch[0];
             }
             
             // Parse Address Components
-            if (data['地点']) {
-                const addr = data['地点'];
+            if (data['完整地址'] || data['地点']) {
+                const addr = data['完整地址'] || data['地点'];
                 const provMatch = addr.match(/(.+?省)/);
                 if (provMatch) data['省份'] = provMatch[1];
 
@@ -1727,6 +1797,25 @@
                         break;
                     }
                 }
+            }
+            if (!data['产权建筑面积'] && data['建筑面积']) data['产权建筑面积'] = data['建筑面积'];
+
+            const ratioPatterns = [
+                /(\d+)\s*\/\s*(\d+)\s*(?:产权|份额)/,
+                /(\d+(?:\.\d+)?)\s*%\s*(?:产权|份额)/,
+                /二分之一产权/,
+                /三分之一产权/,
+                /四分之一产权/
+            ];
+            for (const pattern of ratioPatterns) {
+                const match = pageText.match(pattern);
+                if (!match) continue;
+                if (pattern === ratioPatterns[2]) data['产权份额比例'] = 0.5;
+                else if (pattern === ratioPatterns[3]) data['产权份额比例'] = 1 / 3;
+                else if (pattern === ratioPatterns[4]) data['产权份额比例'] = 0.25;
+                else if (match.length >= 3) data['产权份额比例'] = (parseFloat(match[1]) || 0) / (parseFloat(match[2]) || 1);
+                else data['产权份额比例'] = (parseFloat(match[1]) || 0) / 100;
+                break;
             }
 
             return data;
@@ -1947,7 +2036,7 @@
         }
         
         function inferLocation(callback) {
-            const address = document.getElementById('dh-input-地点')?.value.trim();
+            const address = document.getElementById('dh-input-完整地址')?.value.trim() || document.getElementById('dh-input-地点')?.value.trim();
             if (!address) { updateStatus('⚠️ 需要地址', '#ff9800'); return; }
             
             updateStatus('🔍 AI推断位置中...', '#9c27b0');
@@ -1981,6 +2070,7 @@
             data.id = itemIdMatch ? itemIdMatch[1] : 'unknown';
             data.url = url;
             data.title = document.title;
+            data.source_title = document.title;
             data.context = getCleanContext();
             
             FIELDS.forEach(field => {
@@ -1991,6 +2081,27 @@
                     else data[field.key] = input.value;
                 }
             });
+            const fullAddress = (data['完整地址'] || data['地点'] || '').trim();
+            if (fullAddress) {
+                data['地点'] = fullAddress;
+                data['完整地址'] = fullAddress;
+                data.full_address = fullAddress;
+            }
+            data['出价次数'] = parseFloat(data['出价次数']) || 0;
+            data['出价人数'] = parseFloat(data['出价人数']) || 0;
+            data.bidCount = data['出价次数'];
+            data.bid_count = data['出价次数'];
+            data.bidderCount = data['出价人数'];
+            data.bidder_count = data['出价人数'];
+            data.deposit = parseFloat(data['保证金']) || 0;
+            data.auction_start_time = data['开拍时间'];
+            data.watch_count = parseFloat(data['围观人数']) || 0;
+            data.reminder_count = parseFloat(data['提醒人数']) || 0;
+            data.view_count = parseFloat(data['浏览次数']) || 0;
+            data.gross_area_sqm = parseFloat(data['产权建筑面积']) || 0;
+            data.ownership_share_ratio = parseFloat(data['产权份额比例']) || 1;
+            data.court_name = data['法院名称'];
+            data.case_number = data['案号'];
             return data;
         }
 
@@ -2037,7 +2148,7 @@
             if (forceNext) {
                  setTimeout(() => {
                      updateStatus('🔄 获取下一任务...', '#2196f3');
-                     fetchApi('/next_task', {}, (task) => {
+                     fetchApi('/collection/details/next_task', {}, (task) => {
                          if (task && task.url) {
                              let nextUrl = task.url;
                              let separator = nextUrl.includes('?') ? '&' : '?';
