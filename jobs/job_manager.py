@@ -1,6 +1,14 @@
 """
 Job Manager - 嗅探任务管理模块
 
+LEGACY NOTICE:
+本模块保留为历史 `jobs/*.json` 文件体系的参考实现。
+当前运行态主链已经迁移到数据库 `property_search_task` +
+`src.collection.seed_service.SeedCollectionService`。
+如需把旧 jobs 快照导入数据库，请优先使用：
+- `src.collection.search_bootstrap`
+- `tools/import_search_jobs_to_db.py`
+
 管理 jobs/ 目录下的任务文件，提供：
 1. 扫描所有任务状态
 2. 考虑优先城市排序
@@ -94,6 +102,48 @@ class JobManager:
                 if key != "all_done" and len(key) == 6:
                     known.add(key)
         return known
+
+    def get_priority_codes(self) -> List[str]:
+        return list(self.priority_codes)
+
+    def get_all_location_codes(self) -> List[str]:
+        return list(self._get_all_district_codes())
+
+    def iter_task_snapshots(self) -> List[Dict]:
+        snapshots: List[Dict] = []
+        for filename in os.listdir(self.jobs_dir):
+            if not filename.endswith('.json') or filename == 'priority.json':
+                continue
+            file_path = os.path.join(self.jobs_dir, filename)
+            data = self._load_job_file(file_path)
+            for loc_code, loc_data in data.items():
+                if loc_code == "all_done":
+                    continue
+                for category, cat_data in loc_data.items():
+                    if not isinstance(cat_data, dict):
+                        continue
+                    now_session_id = cat_data.get("now_session_id", "")
+                    last_update_time = cat_data.get("last_update_time", "")
+                    for sort_param, st_data in (cat_data.get("st_param") or {}).items():
+                        if not isinstance(st_data, dict):
+                            continue
+                        pages = st_data.get("pages", []) or []
+                        snapshots.append(
+                            {
+                                "location_code": loc_code,
+                                "category": category,
+                                "sort_param": sort_param,
+                                "pages": list(pages),
+                                "max_page": st_data.get("max_page", -1),
+                                "is_done": bool(st_data.get("is_done", False)),
+                                "need_try": bool(st_data.get("need_try", True)),
+                                "dispatched_page": st_data.get("dispatched_page", 0),
+                                "now_session_id": now_session_id,
+                                "last_update_time": last_update_time,
+                                "category_all_done": bool(cat_data.get("all_done", False)),
+                            }
+                        )
+        return snapshots
     
     def _get_job_file(self, location_code: str) -> str:
         """根据城市代码获取对应的job文件路径"""

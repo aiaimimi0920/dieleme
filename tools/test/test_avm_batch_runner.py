@@ -1,7 +1,8 @@
 import logging
 import unittest
+from unittest import mock
 
-from src.avm_batch_runner import batch_evaluate_item_ids
+from src.avm_batch_runner import AVMService, batch_evaluate_item_ids
 
 
 class FakeAVMService:
@@ -13,6 +14,20 @@ class FakeAVMService:
 
 
 class TestBatchAvmRunner(unittest.TestCase):
+    def test_avm_service_evaluate_uses_predict_endpoint(self):
+        response = mock.Mock()
+        response.json.return_value = {"item_id": "3001", "margin_of_safety": 0.25}
+        with mock.patch("src.avm_batch_runner.requests.get", return_value=response) as mocked_get:
+            result = AVMService("http://127.0.0.1:8001/").evaluate("3001")
+
+        mocked_get.assert_called_once_with(
+            "http://127.0.0.1:8001/api/avm/predict",
+            params={"id": "3001"},
+            timeout=10,
+        )
+        response.raise_for_status.assert_called_once()
+        self.assertEqual(result["margin_of_safety"], 0.25)
+
     def test_sort_by_margin_of_safety_desc(self):
         service = FakeAVMService(
             {

@@ -27,9 +27,9 @@ class AVMService:
         self.timeout = timeout
 
     def evaluate(self, item_id: str) -> Dict[str, Any]:
-        resp = requests.post(
-            f"{self.base_url}/api/avm/evaluate",
-            json={"item_id": item_id},
+        resp = requests.get(
+            f"{self.base_url}/api/avm/predict",
+            params={"id": item_id},
             timeout=self.timeout,
         )
         resp.raise_for_status()
