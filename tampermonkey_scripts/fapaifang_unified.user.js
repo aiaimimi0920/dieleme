@@ -1094,7 +1094,7 @@
                         // Step 2: Fetch Notice Detail API
                         fetchNoticeDetail(projectId, task.id, (noticeData) => {
                             // Step 3: Build & Submit
-                            // TODO: Full extraction logic here? For speed we might just send raw or minified.
+                            // Keep extraction server-side: submit raw detail HTML plus notice content.
                             // Reusing logic from taobao_fast_worker: we build HTML combined with notice.
                             const content = buildContent(task.id, detailUrl, resp.responseText, noticeData);
                             submitItemResult(task.id, content);

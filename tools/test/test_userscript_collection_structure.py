@@ -21,3 +21,12 @@ def test_userscript_declares_resume_server_helper_once():
     source = _userscript_source()
 
     assert source.count("function resumeServer(") == 1
+
+
+def test_fast_review_submits_raw_detail_html_to_collection_detail_endpoint():
+    source = _userscript_source()
+
+    assert "TODO: Full extraction logic" not in source
+    assert "function buildContent(itemId, itemUrl, pageHtml, noticeData)" in source
+    assert "fetchApi('/collection/details/html'" in source
+    assert "html: htmlContent" in source

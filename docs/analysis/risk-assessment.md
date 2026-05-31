@@ -48,14 +48,15 @@
 
 - 结果频繁退化成弱估值或直接无法估值
 
-### 5. API 重复分支
+### 5. 历史 API 分支漂移
 
-- `src/server.py` 中 `/api/avm/predict` 分支重复
+- `/api/avm/predict` 当前已收敛到 `AVMService.predict_by_item_id`
+- `/api/avm/screen` 仍保留 `build_avm_result()` 作为 alert 包装层
 
 影响：
 
-- 后续改动极易漏改
-- 外部调用难以判断真实契约
+- 若后续在 screen 包装层重新加入估值逻辑，仍可能再次出现主链漂移
+- 外部主契约应继续以 `/api/avm/predict`、`/api/avm/evaluate` 和 `AVMService` 为准
 
 ## P2 风险
 

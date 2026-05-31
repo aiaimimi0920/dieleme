@@ -63,11 +63,11 @@
   - `/api/save` 只落极少数字段
   - `/api/analyze_html` 负责详情 HTML 入队
 - 问题：
-  - `/api/avm/predict` 存在重复分支
-  - `build_avm_prediction()`、`build_avm_result()` 与 `AVMService` 三套逻辑并存
+  - `/api/avm/predict` 已收敛到 `AVMService.predict_by_item_id`
+  - `build_avm_result()` 仍服务 `/api/avm/screen` 的 alert 包装层，应继续避免新增第三套估值主链
 
 ### `src/llm_helper.py`
 
 - 责任：LLM 调用、拍卖字段抽取、AVM 风控抽取
-- 现状：已支持 AVM 风控字段抽取
-- 问题：`extract_avm_risk_features` 存在重复定义，维护成本高
+- 现状：已支持 AVM 风控字段抽取，公开入口为 `extract_avm_risk_features`
+- 问题：历史 raw helper 仍保留为内部辅助，后续不要再新增并行公开入口
