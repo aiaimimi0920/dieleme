@@ -4,20 +4,22 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "npm run build:runtime-css && vite",
+    "build:runtime-css": "tailwindcss -i ./runtime-tailwind.css -o ./public/runtime-tailwind.css --minify",
+    "build": "npm run build:runtime-css && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",
     "matter-js": "^0.20.0",
-    "vue": "^3.5.25"
+    "vue": "^3.5.34"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.1",
-    "autoprefixer": "^10.4.24",
-    "postcss": "^8.5.6",
+    "@tailwindcss/cli": "^4.3.0",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.14",
     "tailwindcss": "^4.1.18",
-    "vite": "^5.4.11"
+    "vite": "^8.0.13"
   }
 }
