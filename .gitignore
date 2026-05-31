@@ -21,6 +21,10 @@ temp_chrome_profile/
 *.log
 install_log.txt
 
+# Local debug and generated run artifacts
+.debug/
+output/
+
 # IDE
 .vscode/
 .idea/
