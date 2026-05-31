@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: fapaifang-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fapaifang
+      POSTGRES_USER: fapaifang
+      POSTGRES_PASSWORD: fapaifang
+    ports:
+      - "55432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fapaifang -d fapaifang"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:
