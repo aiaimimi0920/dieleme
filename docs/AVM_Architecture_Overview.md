@@ -19,14 +19,18 @@
 |---|---|---|
 | 采集主链路（任务分发、页面抓取、数据回传） | ✅ 已实现并在用 | 已有 `/api/next_task`、`/api/submit_data`、`/api/status` 等接口支撑现网采集。 |
 | 面积与位置修复链路 | ✅ 已实现并在用 | 已有 `/api/area_result`、`/api/approve_area`、`/api/infer_location` 等流程。 |
-| AVM Canonical 规范（字段口径） | ✅ 文档已定义 | 规范与字段口径见 `docs/AVM_Data_Schema.md`，用于新链路和离线治理。 |
-| AVM 时空估值引擎（3km IDW + 时间趋势） | 🚧 规划/构建中 | 架构和数学逻辑已明确，需在 Canonical 数据集上完成训练、评估与上线。 |
+| DB-first / dual-write 索引层 | ✅ 已实现并在用 | 当前运行态已支持 JSON + PostgreSQL dual-write，以及 DB-first pending / stage / readiness 统计。 |
+| AVM Canonical 规范（字段口径） | ✅ 文档已定义 | 规范与字段口径见 `docs/analysis/final-collection-contract.md` 与 `docs/analysis/final-collection-template.json`，用于新链路和离线治理。 |
+| recent enrich maintenance / 自动恢复闭环 | ✅ 已实现并在用 | 当前已支持 recent gap audit、coordinate/detail replay backfill、analysis-side reconcile 与 optimization loop。 |
+| manual review receipt control-plane | ✅ 已实现并在用 | 当前已支持 receipt CRUD、async maintenance jobs、operation audit、status / gate summary surface。 |
+| AVM 时空估值引擎（3km IDW + 时间趋势） | 🚧 规划/构建中 | 当前已有在线 AVM 骨架与部分估值能力，但完整时间趋势与风险修正闭环仍在持续收口。 |
 | 风控标签对估值修正 | 🚧 规划/构建中 | 风控轨道规范已定义，待与估值引擎联动形成线上推理闭环。 |
 | 对外 AVM 估值 API | 🚧 规划/联调中 | 建议接口样例与发布流程见 `docs/AVM_Runbook.md`。 |
 
 ### 2.1 当前阶段边界
 
 - 现网系统以“采集与数据治理能力”为主，估值能力处于从文档规范走向工程实现阶段。
+- 现网已经具备 operator-facing control-plane，并已进入 DB-backed first phase；在 repository disabled 场景下仍保留 JSON fallback。
 - 所有对外承诺应以“已实现状态”为准，不将规划能力当作已上线能力。
 - 新功能上线需遵循 Runbook 的构建、评估、灰度、回滚流程（见 `docs/AVM_Runbook.md`）。
 
@@ -49,7 +53,7 @@
 
 ## 四、 工程数据流 (Data Pipeline)
 
-为了支撑上述算法，系统规定了极度严格的双轨数据准备机制（详情请见 `docs/AVM_Data_Schema.md`）。其他接手开发的 Agent **必须严格遵循此规范提取数据**：
+为了支撑上述算法，系统规定了极度严格的双轨数据准备机制（详情请见 `docs/analysis/final-collection-contract.md`）。其他接手开发的 Agent **必须严格遵循此规范提取数据**：
 
 *   **计算轨道 (硬数据)**：强结构化抓取（坐标、确切落槌价 $transaction\_price$、实际需支付总价 $actual\_paid\_price$、面积 $area\_sqm$）。
 *   **风控轨道 (软数据转硬标签)**：基于抓取到的《拍卖公告》、《须查报告》HTML 原文，使用大语言模型无情提取决定差价的 10 大雷区（如：凶宅、占用不腾退、划拨土地、企业产权税费、假长租套利）。该结果必须为严谨的 Boolean 或枚举 JSON。
@@ -107,4 +111,4 @@ E --> F
   - 高风险标签命中样本具备可解释证据。
 
 ---
-请其他 Agent 在阅读本架构书后，先完成规划口径评审，再结合 `docs/AVM_Data_Schema.md` 进入数据治理与算法构建。
+请其他 Agent 在阅读本架构书后，先完成规划口径评审，再结合 `docs/analysis/final-collection-contract.md` 与 `docs/analysis/final-collection-template.json` 进入数据治理与算法构建。

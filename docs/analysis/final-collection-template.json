@@ -1,0 +1,100 @@
+{
+  "_meta": {
+    "version": "avm_collection_contract_v1_frozen",
+    "frozen_contract": true,
+    "contract_status": "finalized_for_collector_work"
+  },
+  "template": {
+    "source": {
+      "item_id": "",
+      "source_item_id": "",
+      "source_url": "",
+      "source_title": "",
+      "source_platform": "taobao_sf",
+      "detail_archive_path": ""
+    },
+    "archive": {
+      "list_payload_path": "",
+      "detail_text_path": "",
+      "component_payload_path": "",
+      "notice_text_path": "",
+      "desc_text_path": "",
+      "attachment_manifest_path": "",
+      "image_manifest_path": ""
+    },
+    "auction": {
+      "status": "done",
+      "auction_date": "",
+      "auction_start_time": "",
+      "auction_round": null,
+      "transaction_price": null,
+      "starting_price": null,
+      "actual_paid_price": null,
+      "evaluation_price": null,
+      "deposit": null,
+      "apply_count": null,
+      "bid_count": null,
+      "bidder_count": null,
+      "watch_count": null,
+      "reminder_count": null,
+      "view_count": null
+    },
+    "location": {
+      "full_address": "",
+      "province": "",
+      "city": "",
+      "district": "",
+      "business_area": "",
+      "community_name": "",
+      "latitude": null,
+      "longitude": null,
+      "coordinate_source": ""
+    },
+    "property": {
+      "housing_type": "",
+      "area_sqm": null,
+      "gross_area_sqm": null,
+      "interior_area_sqm": null,
+      "land_area_sqm": null,
+      "ownership_share_ratio": 1.0,
+      "layout": "",
+      "build_year": null,
+      "total_floors": null,
+      "floor_level": "",
+      "has_elevator": null,
+      "orientation": "",
+      "includes_parking": null,
+      "special_school_tag": null,
+      "has_keys": null
+    },
+    "legal_context": {
+      "court_name": "",
+      "case_number": "",
+      "appraisal_agency_name": "",
+      "appraisal_benchmark_date": "",
+      "appraisal_report_urls": [],
+      "announcement_attachment_urls": []
+    },
+    "risk_flags": {
+      "land_right_type": "",
+      "is_occupied": null,
+      "has_long_lease": null,
+      "clear_delivery": null,
+      "tax_burden": "",
+      "property_fee_owed": null,
+      "is_restricted_purchase": null,
+      "is_fractional_share": null,
+      "tax_is_company_owned": null,
+      "is_haunted": null,
+      "has_lease_before_mortgage": null
+    },
+    "audit": {
+      "extraction_confidence": null,
+      "evidence_span": "",
+      "evidence_source": "",
+      "extraction_version": "",
+      "is_processed": false,
+      "detail_captured": false
+    }
+  }
+}

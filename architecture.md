@@ -1,341 +1,374 @@
-# 法拍房数据采集与分析系统 — 架构文档
+# 法拍房采集与 AVM 系统 — 当前实现架构
 
-> 最后更新: 2026-02-10
-
----
-
-## 一、系统概览
-
-本系统的目标是采集全中国淘宝司法拍卖平台的法拍房数据，通过 AI 模型提取结构化信息，并对数据进行修复和增值处理。
-
-系统采用**浏览器油猴脚本 + Python 后端**的协作架构，前端（Tampermonkey 脚本）负责在真实浏览器环境中完成爬取，后端（Python HTTP 服务）负责任务调度、数据存储和 AI 分析。
+> 最后更新：2026-05-15
+> 本文档描述 **当前仓库已经实现的工程结构与数据/控制流**。
+> 如果你需要看 AVM 的长期目标蓝图，请阅读 `docs/AVM_Architecture_Overview.md`。
 
 ---
 
-## 二、系统架构图
+## 1. 系统概览
+
+当前系统已经不再只是“抓网页 + 落 JSON”的单链路，而是由四层能力组成：
+
+1. **Collection**：浏览器脚本 + Python HTTP 服务，完成搜索、详情抓取与归档。
+2. **Storage / Index**：JSON 归档 + PostgreSQL dual-write / DB-first 索引。
+3. **AVM / Analysis**：Canonical、feature、evaluate、alert、release gate 工具链。
+4. **Operator control-plane**：manual review receipt、async maintenance job、audit log、status/gate 观察面。
+
+当前主入口：
+
+- 服务入口：`src/server.py`
+- 采集脚本：`tampermonkey_scripts/fapaifang_unified.user.js`
+- 维护工具：
+  - `tools/run_recent_enrich_maintenance.py`
+  - `tools/run_data_supply_optimization_loop.py`
+  - `tools/avm_release_gate.py`
+
+---
+
+## 2. 顶层组件
 
 ```mermaid
-graph TB
-    subgraph 浏览器端["🌐 浏览器端 (Tampermonkey 油猴脚本)"]
-        TM["taobao_monitor.user.js<br>慢爬虫 · 嗅探器 · Master"]
-        TFW["taobao_fast_worker.user.js<br>快爬虫 · API驱动"]
-        AF["area_fixer.user.js<br>面积提取脚本"]
-    end
+graph TD
+    TM["Tampermonkey 脚本<br/>fapaifang_unified.user.js"]
+    API["src/server.py<br/>HTTP 服务 / 状态面 / control-plane"]
+    COL["src/collection/*<br/>seed/detail collection services"]
+    STORE["src/storage/*<br/>repository + models"]
+    JSON["datas/<br/>archive / avm / receipt state"]
+    DB["PostgreSQL<br/>dual-write / DB-first index"]
+    AVM["src/avm/*<br/>service / engine / pipeline"]
+    MAINT["tools/run_recent_enrich_maintenance.py<br/>recent enrich maintenance"]
+    LOOP["tools/run_data_supply_optimization_loop.py<br/>optimization loop"]
+    GATE["tools/avm_release_gate.py<br/>release gate"]
+    RECEIPT["manual review control-plane<br/>receipt / jobs / audit"]
 
-    subgraph 后端["🖥️ Python 后端服务"]
-        DR["data_receiver.py<br>HTTP API Server :8001<br>──────────<br>SniffTaskManager<br>LocationManager<br>DataHandler<br>BackgroundProcessor"]
-        LLM["llm_helper.py<br>──────────<br>ModelSelector 模型池<br>AIService WebSocket"]
-        JM["job_manager.py<br>──────────<br>任务文件管理<br>优先城市调度"]
-    end
-
-    subgraph 数据修复["🔧 数据修复工具"]
-        BAF["batch_area_fixer.py<br>批量面积修复 GUI :5001"]
-        MF["manual_fixer.py<br>手动数据修复 GUI"]
-        ACF["auto_community_fixer.py<br>小区名自动修复"]
-    end
-
-    subgraph 数据存储["💾 数据存储"]
-        DATAS["datas/<br>按日期 JSON 文件<br>(3800+ 文件)"]
-        JOBS["jobs/<br>按城市代码 JSON<br>(任务进度)"]
-        DB["fapaifang.db<br>SQLite"]
-    end
-
-    subgraph 遗留模块["📦 遗留模块 (src/)"]
-        SA["scraper_ali.py<br>Playwright 列表爬虫"]
-        SD["scraper_detail.py<br>Playwright 详情爬虫"]
-        PROC["processor.py<br>成本计算器"]
-        CB["custom_browser.py<br>反检测浏览器"]
-        DBM["db.py<br>数据库初始化"]
-    end
-
-    TM -->|"POST /api/submit_data<br>POST /api/sniff_done"| DR
-    TFW -->|"POST /api/submit_data<br>GET /api/next_task"| DR
-    AF -->|"POST /api/receive_area"| BAF
-
-    DR --> LLM
-    DR --> JM
-    DR --> DATAS
-    JM --> JOBS
-
-    BAF --> DATAS
-    MF --> DATAS
-    ACF --> DATAS
-
-    SA -.->|"已被 TM 替代"| DATAS
-    SD -.->|"已被 TM/TFW 替代"| DATAS
-    PROC --> DB
+    TM --> API
+    API --> COL
+    COL --> STORE
+    STORE --> JSON
+    STORE --> DB
+    API --> AVM
+    API --> RECEIPT
+    RECEIPT --> MAINT
+    MAINT --> STORE
+    LOOP --> MAINT
+    GATE --> AVM
+    GATE --> RECEIPT
+    API --> GATE
 ```
 
 ---
 
-## 三、子系统详解
+## 3. Collection 层
 
-### 子系统 A：数据采集（爬虫系统）
+### 3.1 浏览器侧
 
-数据采集分为两个阶段：**URL 发现**（嗅探）和**详情页采集**。
+浏览器侧仍然是现网采集入口：
 
-#### A1. URL 发现（列表页嗅探）
+- `tampermonkey_scripts/fapaifang_unified.user.js`
 
-| 属性 | 说明 |
-|------|------|
-| **前端** | `taobao_monitor.user.js` 中的嗅探模式 (`masterLoop`) |
-| **后端** | `SniffTaskManager` + `JobManager` |
-| **方式** | 慢爬虫（界面驱动），滚动列表页收集商品 URL |
-| **存储** | 商品 ID 写入 `datas/` 下的日期 JSON 文件 |
-| **特点** | 支持多位置并发、断点续爬、83页自动扩展排序参数 |
+主要职责：
 
-**数据流：**
-```
-后端分配嗅探任务 (location + category + page)
-    → 油猴脚本导航到列表页
-    → 滚动加载所有商品
-    → 提取 item_id + item_url
-    → POST /api/submit_data 发送到后端
-    → 后端保存到 datas/YYYY-MM-DD.json
-    → POST /api/sniff_done 标记页面完成
-```
+- 搜索/列表页嗅探
+- 详情页抓取与回传
+- 向后端上报进度、数据和状态
 
-#### A2. 详情页采集
+### 3.2 后端采集服务
 
-提供两种策略，可根据场景切换：
+后端采集逻辑已经从“单个超大脚本里的散乱流程”逐步收进 collection services：
 
-##### 慢爬虫（界面驱动） — `taobao_monitor.user.js`
+- `src/collection/seed_service.py`
+- `src/collection/detail_service.py`
+- `src/collection/search_bootstrap.py`
+- `src/collection/stage_state.py`
 
-```
-后端分配待爬 URL → Master 开新标签页 → 等待页面加载完成
-→ cleanHTML() 过滤 DOM → POST /api/submit_data → 关闭标签页
-```
+它们负责：
 
-- **适用性**：通用，任何网页结构
-- **并发**：受标签页数限制（约2-3个并发）
-- **速度**：~7 URL/分钟
-- **可靠性**：高（完整 DOM）
+- 搜索任务调度
+- 详情 pending task 管理
+- HTML / payload / working item 提交
+- stage status 推导与更新
 
-##### 快爬虫（API 驱动） — `taobao_fast_worker.user.js`
+### 3.3 主 HTTP 服务
 
-```
-后端分配批量 URL(BATCH_SIZE=20) → 并发 HTTP 请求(CONCURRENCY=5)
-→ Step1: fetchDetailPage() 提取 project_id + J_desc URL
-→ Step2: fetchNoticeDetail() 调淘宝内部 API 获取公告数据
-→ Step2b: fetchDescContent() 获取标的物描述
-→ Step3: buildAndSendContent() 拼装等效 HTML → POST /api/submit_data
-```
+`src/server.py` 当前承担：
 
-- **适用性**：**仅限淘宝司法拍卖**（高度定制化）
-- **并发**：5 个并行 HTTP 请求，无需开标签页
-- **速度**：比慢爬虫快 5-10 倍
-- **可靠性**：依赖淘宝 API 结构不变
+- collection API
+- status / health surface
+- AVM 接口
+- maintenance / pipeline 触发
+- manual review control-plane
+
+这是当前系统的统一外部入口。
 
 ---
 
-### 子系统 B：任务调度（编排系统）
+## 4. Storage / Index 层
 
-任务调度是整个系统的中枢，负责协调前端爬虫和后端处理之间的工作流。
+### 4.1 JSON 归档
 
-#### B1. HTTP API 服务 — `data_receiver.py` (`DataHandler`)
+JSON 仍然保留，主要用于：
 
-运行在端口 **8001**，提供以下 API：
+- 历史原始数据归档
+- HTML / payload / 附件路径
+- 离线回放与审计
+- 部分本地无 DB 场景运行
 
-| 端点 | 方法 | 功能 |
-|------|------|------|
-| `/api/next_task` | GET | 分配下一个待爬详情页 URL |
-| `/api/next_sniff_task` | GET | 分配下一个嗅探任务 |
-| `/api/submit_data` | POST | 接收爬取的 HTML/数据 |
-| `/api/sniff_done` | POST | 标记嗅探页面完成 |
-| `/api/heartbeat` | POST | 前端心跳保活 |
-| `/api/status` | GET | 当前系统状态 |
-| `/api/approve_area` | POST | 面积修复审批 |
+典型目录：
 
-#### B2. 嗅探任务管理 — `SniffTaskManager` + `JobManager`
+- `datas/archive/`
+- `datas/avm/`
 
-```mermaid
-graph LR
-    A["LocationManager<br>地理位置管理"] --> B["JobManager<br>任务文件管理<br>(jobs/*.json)"]
-    B --> C["SniffTaskManager<br>任务队列调度"]
-    C --> D["油猴脚本<br>执行嗅探"]
-    D -->|"mark_done"| C
-```
+### 4.2 PostgreSQL / DB-first
 
-- **LocationManager**：管理全国地区代码，支持优先城市配置
-- **JobManager**：每个城市一个 JSON 文件，跟踪每个 (城市, 类别, 排序参数) 的分页进度
-- **SniffTaskManager**：维护任务队列，支持多会话并发、断点续爬、密集区域自动扩展
+当前已支持：
 
-#### B3. 服务保活 — Watchdog
+- dual-write
+- DB-first pending task 读取
+- stage / readiness / search task 统计
 
-```python
-# 10 分钟无请求 → 自动重启 Edge 浏览器带恢复 URL
-WATCHDOG_TIMEOUT = 10 * 60
-```
+关键实现：
 
-#### B4. 启动脚本 — `auto/`
+- `src/storage/models.py`
+- `src/storage/repository.py`
 
-| 脚本 | 功能 |
-|------|------|
-| `3-数据接收.bat` | 启动 `data_receiver.py` 后端 |
-| `5-批量面积修复.bat` | 启动 `batch_area_fixer.py` 面积修复 |
-| `4-系统防休眠.bat` | 阻止系统休眠 |
-| `1-面积重写.bat` | 面积数据重写 |
-| `2-小区改名.bat` | 小区名称修正 |
+系统当前策略是：
+
+> **JSON 负责归档与文件型证据，DB 负责主索引、pending 状态、stage/readiness 统计。**
 
 ---
 
-### 子系统 C：AI 分析（数据处理系统）
+## 5. AVM / Analysis 层
 
-#### C1. 模型池管理 — `llm_helper.py`
+### 5.1 在线服务
 
-```
-ModelSelector
-├── GLM-4.7-Base (讯飞星火 WebSocket API)
-├── GLM-4.7-Base-2 (第二实例)
-└── ... (可扩展)
+`src/avm/` 当前包括：
 
-功能：
-- 并发槽位管理 (acquire/release)
-- 运行时动态调整并发限制
-- 按任务类型路由模型
-- 错误率统计与配置持久化
-```
+- `service.py`
+- `engine.py`
+- `pipeline.py`
+- `schema.py`
+- `risk_schema.py`
+- `canonical_mapper.py`
+- `feature_builder.py`
+- `collection_template.py`
+- `quality.py`
 
-#### C2. 后台处理流程 — `data_receiver.py`
+在线接口集中由 `src/server.py` 对外暴露。
 
-```
-DATAS 目录
-  ├── item-*.txt / item-*.html (待处理原始文件)
-  │
-  └── background_file_processor() ← 每3秒检查
-        │
-        ├── process_single_file()
-        │     ├── 读取 HTML 内容
-        │     ├── 构建 AI Prompt
-        │     ├── AIService.get_response() → 讯飞星火 API
-        │     ├── 解析 AI 返回的 JSON
-        │     └── update_item_in_json() → 写入日期 JSON 文件
-        │
-        └── ThreadPoolExecutor (并发受 ModelSelector 限流)
-```
+### 5.2 离线工具链
 
-#### C3. 自动调优 — `auto_tune_concurrency.py`
+分析侧工具主要位于 `tools/`：
 
-每 5 分钟分析 API 成功率和并发错误率，自动调整模型并发限额。
+- `build_canonical_dataset.py`
+- `check_feature_drift.py`
+- `evaluate_avm.py`
+- `generate_avm_alerts.py`
+- `avm_release_gate.py`
+- `avm_data_loader.py`
 
----
+这层负责：
 
-### 子系统 D：数据修复（后处理系统）
+- Canonical 数据构建
+- 漂移检查
+- 离线评估
+- 告警生成
+- 发布门禁
 
-用于修复 AI 分析遗漏或错误的字段（主要是建筑面积）。
+### 5.3 analysis-ready / collection-stage
 
-| 工具 | 文件 | 端口 | 功能 |
-|------|------|------|------|
-| 批量面积修复 | `batch_area_fixer.py` + `area_fixer.user.js` | 5001 | Tkinter GUI + 油猴脚本协作，自动/手动提取面积 |
-| 手动数据修复 | `manual_fixer.py` | - | Tkinter GUI，逐条修复缺失字段 |
-| 小区名修复 | `auto_community_fixer.py` | - | AI 驱动的小区名标准化 |
+当前系统的一个核心抽象是：
 
----
+- **collection-stage**
+- **analysis-ready**
 
-### 子系统 E：遗留模块 (`src/`)
+相关状态汇总会在：
 
-这些是项目早期开发的模块，功能已被 `tb_adapter/` 中的实现替代：
+- `/api/status`
+- `/api/avm/health`
+- `/api/analysis/health`
+- `tools/avm_release_gate.py`
 
-| 文件 | 原功能 | 现状 |
-|------|--------|------|
-| `scraper_ali.py` | Playwright 驱动的列表页爬虫 | 已被 `taobao_monitor.user.js` 嗅探替代 |
-| `scraper_detail.py` | Playwright 驱动的详情页爬虫 | 已被慢/快爬虫替代 |
-| `processor.py` | 成本计算器 | 可复用，暂时未活跃调用 |
-| `custom_browser.py` | 反检测浏览器会话 | 仅 `scraper_ali.py` 使用 |
-| `db.py` | SQLite 初始化 | 被 JSON 文件存储替代 |
-| `query.py` | 估值查询 | 暂时未活跃调用 |
-
-> ⚠️ `main.py`（根目录）是这些遗留模块的入口，编排 `AliScraper → DetailScraper → Processor` 流程。
+中统一暴露。
 
 ---
 
-## 四、数据流全景
+## 6. Maintenance 与自动恢复层
 
-```mermaid
-sequenceDiagram
-    participant S as 嗅探脚本<br>(taobao_monitor)
-    participant B as 后端<br>(data_receiver)
-    participant J as 任务管理<br>(JobManager)
-    participant W as 采集脚本<br>(fast_worker / monitor)
-    participant AI as AI 服务<br>(llm_helper)
-    participant D as 数据存储<br>(datas/*.json)
-    participant F as 面积修复<br>(batch_area_fixer)
+### 6.1 recent enrich maintenance
 
-    S->>B: GET /api/next_sniff_task
-    B->>J: get_next_job(session_id)
-    J-->>B: {location, category, page, url}
-    B-->>S: 嗅探任务
+主要入口：
 
-    S->>S: 导航到列表页, 滚动收集
-    S->>B: POST /api/submit_data (item_ids)
-    B->>D: 保存到 YYYY-MM-DD.json
-    S->>B: POST /api/sniff_done
+- `tools/run_recent_enrich_maintenance.py`
 
-    W->>B: GET /api/next_task
-    B-->>W: {item_id, item_url}
-    W->>W: 爬取详情页 (慢/快)
-    W->>B: POST /api/submit_data (HTML)
-    B->>D: 保存 item-*.html
+负责统一编排以下动作：
 
-    Note over B,AI: 后台异步处理
-    B->>AI: process_single_file → AI Prompt
-    AI-->>B: 结构化 JSON
-    B->>D: 更新日期 JSON 文件
+- detail archive fetch
+- archived detail backfill
+- recent coordinate backfill
+- detail replay preparation
+- analysis ready recheck
+- stage state reconcile
 
-    Note over F,D: 数据修复（按需）
-    F->>D: 扫描缺失面积的条目
-    F->>F: GUI 审批 / AI 辅助
-    F->>D: 更新面积字段
-```
+### 6.2 optimization loop
 
----
+主要入口：
 
-## 五、文件清单与归属
+- `tools/run_data_supply_optimization_loop.py`
 
-### 活跃核心文件
+职责：
 
-| 子系统 | 文件 | 行数 | 职责 |
-|--------|------|------|------|
-| **采集-慢** | `tb_adapter/taobao_monitor.user.js` | 1205 | 慢爬虫 + 嗅探器 + Master |
-| **采集-快** | `tb_adapter/taobao_fast_worker.user.js` | 576 | API 驱动快爬虫 |
-| **调度** | `tb_adapter/data_receiver.py` | 2226 | 后端核心服务 |
-| **AI** | `tb_adapter/llm_helper.py` | 634 | AI 模型池管理 |
-| **任务** | `jobs/job_manager.py` | 627 | 嗅探任务管理 |
-| **修复** | `batch_area_fixer.py` | 1014 | 批量面积修复 GUI |
-| **修复** | `tb_adapter/area_fixer.user.js` | 410 | 面积提取油猴脚本 |
-| **修复** | `manual_fixer.py` | 340 | 手动数据修复 GUI |
-| **修复** | `auto_community_fixer.py` | ~200 | 小区名自动修复 |
-| **调优** | `auto_tune_concurrency.py` | 212 | AI 并发自动调优 |
-| **工具** | `extract_notice_text.py` | 56 | 公告文本提取 |
-| **保活** | `keep_awake.py` | ~60 | 系统防休眠 |
+- 多轮运行 maintenance
+- 汇总 action effectiveness
+- 根据 handoff lifecycle 决定继续、等待、停止
 
-### 调试/检查脚本（可归档）
+### 6.3 shared planning
 
-| 文件 | 用途 |
-|------|------|
-| `analyze_data_quality.py` | 数据质量分析 |
-| `analyze_failed_html.py` | 失败 HTML 分析 |
-| `debug_missing_ids.py` | 缺失 ID 调试 |
-| `inspect_db_*.py` | 数据库检查系列 |
-| `inspect_valid_data.py` | 有效数据检查 |
-| `test_*.py` | 测试脚本系列 |
-| `clean_locations.py` | 位置数据清理 |
-| `cleanup_sniff_done.py` | 嗅探完成文件清理 |
+核心 planner：
+
+- `tools/analysis_stage_planner.py`
+
+它统一生成：
+
+- `recommended_actions`
+- `recoverability_summary`
+- `manual_review_backlog_summary`
+- `manual_review_receipt_summary`
+- `manual_review_reentry_application_summary`
+- `operator_overview`
+- `scheduler_feedback_summary`
+
+当前这些语义已经不只在 maintenance 里使用，也被：
+
+- status
+- health
+- release gate
+- optimization loop
+
+共同复用。
 
 ---
 
-## 六、当前架构总结
+## 7. Manual review control-plane
 
-### 系统优势
+这是当前系统区别于旧版“只会抓数据”的最重要新增层之一。
 
-1. **双模爬虫策略**：慢爬虫保证通用性和容错，快爬虫提供速度
-2. **完善的断点续爬**：嗅探任务有完整的进度持久化和恢复机制
-3. **AI 并发池管理**：支持多模型、动态调优、运行时调整
-4. **全国覆盖调度**：`LocationManager` + `JobManager` 支持按城市优先级全国扫描
-5. **数据修复闭环**：自动 + 半自动 + 手动三级修复体系
+### 7.1 三类状态文件
 
-### 可改进方向
+当前 control-plane 已进入 **DB-backed first phase**：
 
-1. **`data_receiver.py` 过于庞大**（2226行）：集中了调度、API、数据处理等多重职责
-2. **遗留模块未清理**：`src/` 下的模块大部分已不活跃
-3. **辅助脚本散落**：调试/检查/测试脚本散布在根目录
+- repository enabled 时，当前 receipt / jobs / audit 会优先持久化到数据库
+- repository disabled 时，仍回退到本地文件：
+  - `datas/avm/manual_review_receipts.json`
+  - `datas/avm/manual_review_receipt_jobs.json`
+  - `datas/avm/manual_review_receipt_operations.jsonl`
+
+### 7.2 代码组件
+
+- `tools/manual_review_receipt_store.py`
+- `tools/manual_review_receipt_jobs.py`
+- `tools/manual_review_receipt_audit.py`
+
+### 7.3 对外接口
+
+当前 operator-facing 接口包括：
+
+- `GET/POST/DELETE /api/avm/manual_review_receipts`
+- `GET /api/avm/manual_review_receipt_jobs`
+- `GET /api/avm/manual_review_receipt_operations`
+
+以及 `analysis` 前缀别名。
+
+### 7.4 语义层
+
+control-plane 当前已经支持：
+
+- receipt validation
+- invalid taxonomy
+- repair hints
+- async maintenance jobs
+- operation audit trail
+- status / gate summaries
+
+因此它已经不是“手改 JSON 文件”的脚手架，而是一个实际可用的 operator control-plane。
+
+---
+
+## 8. 状态面与发布面
+
+### 8.1 在线状态面
+
+由 `src/server.py` 提供：
+
+- `/api/status`
+- `/api/avm/health`
+- `/api/analysis/health`
+
+这些接口会统一暴露：
+
+- collection-stage
+- analysis blockers
+- recommended actions
+- receipt summary
+- reentry summary
+- job summary
+- operation summary
+- operator overview
+
+### 8.2 发布门禁
+
+由：
+
+- `tools/avm_release_gate.py`
+
+负责发布前的：
+
+- readiness snapshot
+- drift
+- eval
+- smoke
+- receipt / handoff surface
+
+它不是独立语义体系，而是尽量复用 shared planner 和 shared summaries。
+
+---
+
+## 9. 当前实现与目标蓝图的关系
+
+当前仓库里有两类文档：
+
+1. **当前实现文档**
+   - `README.md`
+   - `architecture.md`
+   - `docs/AVM_API.md`
+   - `docs/AVM_Runbook.md`
+
+2. **目标蓝图文档**
+   - `docs/AVM_Architecture_Overview.md`
+   - `docs/analysis/final-collection-contract.md`
+   - `docs/analysis/final-collection-template.json`
+
+理解方式应该是：
+
+- 当前实现文档回答：**现在代码真实是什么**
+- 目标蓝图文档回答：**系统最终准备收口成什么**
+
+不要把蓝图文档误当成“所有能力已经上线”的事实描述。
+
+---
+
+## 10. 当前主要边界与下一步方向
+
+### 当前边界
+
+- receipt / jobs / audit 已进入 DB-backed first phase，但仍保留 JSON fallback 与旧状态文件兼容层
+- live DB migration 与 alembic 不是默认路径
+- 一些历史采集叙事仍留在老文档和旧脚本心智里，正在逐步对齐
+
+### 当前最稳定的主线
+
+如果你要继续接手开发，建议默认沿下面这条主线理解系统：
+
+> **Collection -> DB-first stage tracking -> analysis-ready / AVM -> maintenance / recovery -> manual review control-plane -> status / gate**
+
+这条线最符合当前代码的真实中心。
