@@ -45,6 +45,9 @@ class DetailWorkerConfig:
 
 
 ProcessItemFunc = Callable[[Any, dict[str, Any], dict[str, tuple[str, str]], Any], dict[str, Any]]
+RuntimeContext = tuple[Any, dict[str, tuple[str, str]]]
+RuntimeContextFactory = Callable[[], RuntimeContext]
+ProgressEmitFunc = Callable[[dict[str, Any]], None]
 
 
 def _clean_text(value: Any, default: str = "") -> str:
@@ -84,6 +87,32 @@ def _live_config(config: DetailWorkerConfig, *, target_url: str) -> LiveSmokeCon
 def _write_runtime_summary(output_dir: Path, summary: dict[str, Any]) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     write_json(output_dir / "detail_worker_summary.json", summary)
+
+
+def _build_runtime_context(config: DetailWorkerConfig) -> RuntimeContext:
+    cookies = export_cookies(config.cdp_endpoint)
+    return build_http(cookies), fetch_open_browser_pages(config.cdp_endpoint)
+
+
+def _emit_progress_event(event: dict[str, Any]) -> None:
+    print(json.dumps(event, ensure_ascii=False), flush=True)
+
+
+def _detail_batch_progress_event(run: int, result: dict[str, Any]) -> dict[str, Any]:
+    results = result.get("results") if isinstance(result.get("results"), list) else []
+    last_result = results[-1] if results and isinstance(results[-1], dict) else {}
+    return {
+        "event": "detail_worker_batch",
+        "run": run,
+        "decision": result.get("decision"),
+        "attempts": result.get("attempts"),
+        "completed": result.get("completed"),
+        "target_success": result.get("target_success"),
+        "max_attempts": result.get("max_attempts"),
+        "last_result_decision": last_result.get("decision"),
+        "last_item_id": last_result.get("item_id"),
+        "counts": result.get("counts"),
+    }
 
 
 def _load_final_item(output_dir: Path, item_id: str) -> dict[str, Any] | None:
@@ -212,23 +241,66 @@ def run_detail_worker_loop(
     config: DetailWorkerConfig,
     *,
     repository: PropertyRepository,
-    http_session: Any,
-    browser_pages: dict[str, tuple[str, str]],
+    http_session: Any | None = None,
+    browser_pages: dict[str, tuple[str, str]] | None = None,
+    runtime_context_factory: RuntimeContextFactory | None = None,
+    progress_emit_func: ProgressEmitFunc | None = None,
 ) -> dict[str, Any]:
+    if runtime_context_factory is None:
+        if http_session is None or browser_pages is None:
+            runtime_context_factory = lambda: _build_runtime_context(config)
+        else:
+            runtime_context_factory = lambda: (http_session, browser_pages)
+    emit_progress = progress_emit_func or _emit_progress_event
     results: list[dict[str, Any]] = []
     runs = 0
     while True:
         runs += 1
+        try:
+            current_http_session, current_browser_pages = runtime_context_factory()
+        except Exception as exc:
+            failure_event = {
+                "event": "detail_worker_runtime_refresh_failed",
+                "run": runs,
+                "decision": "detail_runtime_refresh_failed",
+                "error": repr(exc),
+                "counts": repository.seed_queue_counts(),
+            }
+            emit_progress(failure_event)
+            _write_runtime_summary(config.output_dir, failure_event)
+            if config.max_runs is not None and runs >= config.max_runs:
+                break
+            sleep_seconds = max(config.loop_interval_seconds, 0)
+            emit_progress(
+                {
+                    "event": "detail_worker_sleep",
+                    "run": runs,
+                    "sleep_seconds": sleep_seconds,
+                    "counts": failure_event.get("counts"),
+                }
+            )
+            time.sleep(sleep_seconds)
+            continue
         result = run_detail_worker_batch(
             config,
             repository=repository,
-            http_session=http_session,
-            browser_pages=browser_pages,
+            http_session=current_http_session,
+            browser_pages=current_browser_pages,
         )
         results.append(result)
+        emit_progress(_detail_batch_progress_event(runs, result))
         if config.max_runs is not None and runs >= config.max_runs:
             break
-        time.sleep(max(config.loop_interval_seconds, 0))
+        sleep_seconds = max(config.loop_interval_seconds, 0)
+        emit_progress(
+            {
+                "event": "detail_worker_sleep",
+                "run": runs,
+                "sleep_seconds": sleep_seconds,
+                "counts": result.get("counts"),
+            }
+        )
+        time.sleep(sleep_seconds)
     summary = {
         "decision": "detail_worker_loop_finished",
         "runs": runs,
@@ -294,17 +366,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     if not repository.enabled:
         raise RuntimeError("FAPAI_DB_URL must be set for detail-worker mode")
 
-    cookies = export_cookies(config.cdp_endpoint)
-    http_session = build_http(cookies)
-    browser_pages = fetch_open_browser_pages(config.cdp_endpoint)
     if loop:
         summary = run_detail_worker_loop(
             config,
             repository=repository,
-            http_session=http_session,
-            browser_pages=browser_pages,
+            runtime_context_factory=lambda: _build_runtime_context(config),
         )
     else:
+        http_session, browser_pages = _build_runtime_context(config)
         summary = run_detail_worker_batch(
             config,
             repository=repository,

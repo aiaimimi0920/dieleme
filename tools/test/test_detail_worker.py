@@ -149,3 +149,158 @@ def test_run_detail_worker_once_exits_cleanly_when_queue_is_empty(tmp_path: Path
     )
 
     assert summary == {"decision": "detail_queue_empty"}
+
+
+def test_run_detail_worker_loop_refreshes_runtime_context_each_batch(tmp_path: Path, monkeypatch) -> None:
+    repo = _make_repo(tmp_path)
+    contexts: list[tuple[str, dict[str, tuple[str, str]]]] = []
+    batches: list[tuple[str, dict[str, tuple[str, str]]]] = []
+
+    def _runtime_context_factory():
+        run = len(contexts) + 1
+        context = (f"http-{run}", {"page": (f"title-{run}", f"url-{run}")})
+        contexts.append(context)
+        return context
+
+    def _run_batch(_config, *, repository, http_session, browser_pages, process_item_func=detail_worker.process_item):
+        batches.append((http_session, browser_pages))
+        return {
+            "decision": "detail_worker_batch_finished",
+            "attempts": 0,
+            "completed": 0,
+            "counts": repository.seed_queue_counts(),
+        }
+
+    monkeypatch.setattr(detail_worker, "run_detail_worker_batch", _run_batch)
+    monkeypatch.setattr(detail_worker.time, "sleep", lambda _seconds: None)
+
+    summary = detail_worker.run_detail_worker_loop(
+        detail_worker.DetailWorkerConfig(
+            output_dir=tmp_path,
+            cdp_endpoint="http://127.0.0.1:9223",
+            target_success=1,
+            max_attempts=1,
+            worker_id="detail-test",
+            do_risk=False,
+            loop_interval_seconds=1,
+            max_runs=2,
+        ),
+        repository=repo,
+        runtime_context_factory=_runtime_context_factory,
+        progress_emit_func=lambda _event: None,
+    )
+
+    assert summary["decision"] == "detail_worker_loop_finished"
+    assert len(contexts) == 2
+    assert batches == contexts
+
+
+def test_run_detail_worker_loop_emits_compact_batch_and_sleep_events(tmp_path: Path, monkeypatch) -> None:
+    repo = _make_repo(tmp_path)
+    events: list[dict[str, Any]] = []
+    sleep_calls: list[int] = []
+
+    def _run_batch(_config, *, repository, http_session, browser_pages, process_item_func=detail_worker.process_item):
+        return {
+            "decision": "detail_worker_batch_finished",
+            "attempts": 2,
+            "completed": 1,
+            "target_success": 3,
+            "max_attempts": 4,
+            "results": [
+                {"decision": "detail_item_completed", "item_id": "3001"},
+            ],
+            "counts": repository.seed_queue_counts(),
+        }
+
+    monkeypatch.setattr(detail_worker, "run_detail_worker_batch", _run_batch)
+    monkeypatch.setattr(detail_worker.time, "sleep", lambda seconds: sleep_calls.append(seconds))
+
+    detail_worker.run_detail_worker_loop(
+        detail_worker.DetailWorkerConfig(
+            output_dir=tmp_path,
+            cdp_endpoint="http://127.0.0.1:9223",
+            target_success=3,
+            max_attempts=4,
+            worker_id="detail-test",
+            do_risk=False,
+            loop_interval_seconds=7,
+            max_runs=2,
+        ),
+        repository=repo,
+        http_session=object(),
+        browser_pages={},
+        progress_emit_func=events.append,
+    )
+
+    assert sleep_calls == [7]
+    assert [event["event"] for event in events] == [
+        "detail_worker_batch",
+        "detail_worker_sleep",
+        "detail_worker_batch",
+    ]
+    assert events[0]["run"] == 1
+    assert events[0]["decision"] == "detail_worker_batch_finished"
+    assert events[0]["completed"] == 1
+    assert events[0]["last_result_decision"] == "detail_item_completed"
+    assert events[0]["last_item_id"] == "3001"
+    assert events[1] == {
+        "event": "detail_worker_sleep",
+        "run": 1,
+        "sleep_seconds": 7,
+        "counts": events[0]["counts"],
+    }
+
+
+def test_run_detail_worker_loop_retries_after_runtime_context_refresh_failure(tmp_path: Path, monkeypatch) -> None:
+    repo = _make_repo(tmp_path)
+    events: list[dict[str, Any]] = []
+    sleep_calls: list[int] = []
+    contexts: list[str] = []
+
+    def _runtime_context_factory():
+        if not contexts:
+            contexts.append("failed")
+            raise RuntimeError("cdp unavailable")
+        contexts.append("ok")
+        return "http-ok", {}
+
+    def _run_batch(_config, *, repository, http_session, browser_pages, process_item_func=detail_worker.process_item):
+        return {
+            "decision": "detail_worker_batch_finished",
+            "attempts": 0,
+            "completed": 0,
+            "counts": repository.seed_queue_counts(),
+        }
+
+    monkeypatch.setattr(detail_worker, "run_detail_worker_batch", _run_batch)
+    monkeypatch.setattr(detail_worker.time, "sleep", lambda seconds: sleep_calls.append(seconds))
+
+    summary = detail_worker.run_detail_worker_loop(
+        detail_worker.DetailWorkerConfig(
+            output_dir=tmp_path,
+            cdp_endpoint="http://127.0.0.1:9223",
+            target_success=1,
+            max_attempts=1,
+            worker_id="detail-test",
+            do_risk=False,
+            loop_interval_seconds=5,
+            max_runs=2,
+        ),
+        repository=repo,
+        runtime_context_factory=_runtime_context_factory,
+        progress_emit_func=events.append,
+    )
+
+    assert contexts == ["failed", "ok"]
+    assert sleep_calls == [5]
+    assert [event["event"] for event in events] == [
+        "detail_worker_runtime_refresh_failed",
+        "detail_worker_sleep",
+        "detail_worker_batch",
+    ]
+    assert events[0]["run"] == 1
+    assert events[0]["decision"] == "detail_runtime_refresh_failed"
+    assert "cdp unavailable" in events[0]["error"]
+    assert summary["runs"] == 2
+    assert summary["last_decision"] == "detail_worker_batch_finished"

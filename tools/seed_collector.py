@@ -8,7 +8,7 @@ import time
 import traceback
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable, Sequence
+from typing import Any, Callable, Iterable, Sequence
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -72,6 +72,10 @@ class SeedCollectorConfig:
     loop_interval_seconds: int = 1800
     max_runs: int | None = None
     pages_per_run: int = 10
+
+
+SeedRuntimeContextFactory = Callable[[], Any]
+SeedProgressEmitFunc = Callable[[dict[str, Any]], None]
 
 
 def _clean_text(value: Any, default: str = "") -> str:
@@ -144,6 +148,27 @@ def _extract_seed_items(browserless_seed_probe: Any, html: str, *, final_url: st
 def _write_runtime_summary(output_dir: Path, summary: dict[str, Any]) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     write_json(output_dir / "seed_collector_summary.json", summary)
+
+
+def _build_runtime_context(config: SeedCollectorConfig) -> Any:
+    cookies = export_cookies(config.cdp_endpoint)
+    return build_http(cookies)
+
+
+def _emit_progress_event(event: dict[str, Any]) -> None:
+    print(json.dumps(event, ensure_ascii=False), flush=True)
+
+
+def _seed_run_progress_event(run: int, run_results: list[dict[str, Any]]) -> dict[str, Any]:
+    last_result = run_results[-1] if run_results else {}
+    return {
+        "event": "seed_collector_run",
+        "run": run,
+        "pages_attempted": sum(1 for result in run_results if result.get("decision") != "seed_scan_queue_empty"),
+        "last_decision": last_result.get("decision"),
+        "last_item_count": last_result.get("item_count"),
+        "counts": last_result.get("counts"),
+    }
 
 
 def run_seed_collector_once(
@@ -252,33 +277,75 @@ def run_seed_collector_loop(
     config: SeedCollectorConfig,
     *,
     repository: PropertyRepository,
-    http_session: Any,
+    http_session: Any | None = None,
     browserless_seed_probe: Any,
+    runtime_context_factory: SeedRuntimeContextFactory | None = None,
+    progress_emit_func: SeedProgressEmitFunc | None = None,
 ) -> dict[str, Any]:
+    if runtime_context_factory is None:
+        if http_session is None:
+            runtime_context_factory = lambda: _build_runtime_context(config)
+        else:
+            runtime_context_factory = lambda: http_session
+    emit_progress = progress_emit_func or _emit_progress_event
     results: list[dict[str, Any]] = []
     runs = 0
     pages_attempted = 0
-    stop_loop = False
     while True:
         runs += 1
+        try:
+            current_http_session = runtime_context_factory()
+        except Exception as exc:
+            failure_event = {
+                "event": "seed_collector_runtime_refresh_failed",
+                "run": runs,
+                "decision": "seed_runtime_refresh_failed",
+                "error": repr(exc),
+                "counts": repository.seed_queue_counts(),
+            }
+            emit_progress(failure_event)
+            _write_runtime_summary(config.output_dir, failure_event)
+            if config.max_runs is not None and runs >= config.max_runs:
+                break
+            sleep_seconds = max(config.loop_interval_seconds, 0)
+            emit_progress(
+                {
+                    "event": "seed_collector_sleep",
+                    "run": runs,
+                    "sleep_seconds": sleep_seconds,
+                    "counts": failure_event.get("counts"),
+                }
+            )
+            time.sleep(sleep_seconds)
+            continue
+        run_results: list[dict[str, Any]] = []
         for _page_index in range(max(int(config.pages_per_run or 1), 1)):
             result = run_seed_collector_once(
                 config,
                 repository=repository,
-                http_session=http_session,
+                http_session=current_http_session,
                 browserless_seed_probe=browserless_seed_probe,
             )
             results.append(result)
+            run_results.append(result)
             if result.get("decision") != "seed_scan_queue_empty":
                 pages_attempted += 1
             if result.get("decision") == "seed_scan_queue_empty":
-                stop_loop = True
                 break
+        run_event = _seed_run_progress_event(runs, run_results)
+        emit_progress(run_event)
         if config.max_runs is not None and runs >= config.max_runs:
             break
-        if stop_loop:
-            break
-        time.sleep(max(config.loop_interval_seconds, 0))
+        sleep_seconds = max(config.loop_interval_seconds, 0)
+        emit_progress(
+            {
+                "event": "seed_collector_sleep",
+                "run": runs,
+                "sleep_seconds": sleep_seconds,
+                "counts": run_event.get("counts"),
+            }
+        )
+        time.sleep(sleep_seconds)
     summary = {
         "decision": "seed_collector_loop_finished",
         "runs": runs,
@@ -343,16 +410,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         raise RuntimeError("FAPAI_DB_URL must be set for seed-collector mode")
     from tools import browserless_seed_probe
 
-    cookies = export_cookies(config.cdp_endpoint)
-    http_session = build_http(cookies)
     if loop:
         summary = run_seed_collector_loop(
             config,
             repository=repository,
-            http_session=http_session,
             browserless_seed_probe=browserless_seed_probe,
+            runtime_context_factory=lambda: _build_runtime_context(config),
         )
     else:
+        http_session = _build_runtime_context(config)
         summary = run_seed_collector_once(
             config,
             repository=repository,
