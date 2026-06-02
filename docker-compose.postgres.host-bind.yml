@@ -1,0 +1,6 @@
+services:
+  postgres:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/postgres
+        target: /var/lib/postgresql/data

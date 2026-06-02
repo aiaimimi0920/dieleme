@@ -4,6 +4,11 @@ from copy import deepcopy
 import re
 from typing import Any, Dict, List, Optional
 
+from .community_resolver import (
+    apply_community_resolution,
+    load_default_community_index,
+    resolve_community_name,
+)
 from .normalize import parse_area_sqm, parse_money_to_yuan, safe_float
 
 
@@ -1010,6 +1015,11 @@ def get_collection_template() -> Dict[str, Any]:
             "evidence_span": "",
             "evidence_source": "",
             "extraction_version": "",
+            "community_name_source": "",
+            "community_name_confidence": None,
+            "community_stable_key": "",
+            "community_raw_name": "",
+            "beike_community_id": "",
             "is_processed": False,
             "detail_captured": False,
         },
@@ -1097,6 +1107,11 @@ def get_collection_template() -> Dict[str, Any]:
             "evidence_span",
             "evidence_source",
             "extraction_version",
+            "community_name_source",
+            "community_name_confidence",
+            "community_stable_key",
+            "community_raw_name",
+            "beike_community_id",
             "is_processed",
             "detail_captured",
         ],
@@ -1173,6 +1188,11 @@ def get_collection_template() -> Dict[str, Any]:
         "evidence_span": ["evidence_span"],
         "evidence_source": ["evidence_source"],
         "extraction_version": ["extraction_version"],
+        "community_name_source": ["community_name_source"],
+        "community_name_confidence": ["community_name_confidence"],
+        "community_stable_key": ["community_stable_key"],
+        "community_raw_name": ["community_raw_name"],
+        "beike_community_id": ["beike_community_id"],
     }
 
     return {
@@ -1295,6 +1315,11 @@ def get_collection_template() -> Dict[str, Any]:
                 "evidence_span",
                 "evidence_source",
                 "extraction_version",
+                "community_name_source",
+                "community_name_confidence",
+                "community_stable_key",
+                "community_raw_name",
+                "beike_community_id",
             ],
         },
         "collector_priorities": {
@@ -1403,6 +1428,7 @@ _MONEY_FIELDS = {
 }
 _AREA_FIELDS = {"area_sqm", "gross_area_sqm", "interior_area_sqm", "land_area_sqm"}
 _FLOAT_FIELDS = {"latitude", "longitude", "ownership_share_ratio", "extraction_confidence"}
+_FLOAT_FIELDS.add("community_name_confidence")
 _INT_FIELDS = {
     "auction_round",
     "apply_count",
@@ -1469,6 +1495,10 @@ _STRING_FIELDS = {
     "evidence_span",
     "evidence_source",
     "extraction_version",
+    "community_name_source",
+    "community_stable_key",
+    "community_raw_name",
+    "beike_community_id",
 }
 
 
@@ -1652,6 +1682,11 @@ def build_collection_record(item: Dict[str, Any]) -> Dict[str, Any]:
 def sync_collection_record(item: Dict[str, Any]) -> Dict[str, Any]:
     record = build_collection_record(item)
     item.update(record)
+    resolution = resolve_community_name(item, load_default_community_index())
+    if resolution:
+        apply_community_resolution(item, resolution)
+        record = build_collection_record(item)
+        item.update(record)
     if record["source"].get("source_item_id"):
         item.setdefault("source_item_id", record["source"]["source_item_id"])
     if record["source"].get("source_url"):

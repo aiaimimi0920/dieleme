@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from sqlalchemy import JSON, Boolean, DateTime, Float, ForeignKey, Integer, Numeric, String, Text, func
+from sqlalchemy import JSON, Boolean, DateTime, Float, ForeignKey, Integer, Numeric, String, Text, UniqueConstraint, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -128,6 +128,11 @@ class PropertyAudit(Base, TimestampMixin):
     evidence_span: Mapped[str | None] = mapped_column(Text)
     evidence_source: Mapped[str | None] = mapped_column(String(64))
     extraction_version: Mapped[str | None] = mapped_column(String(64))
+    community_name_source: Mapped[str | None] = mapped_column(String(64))
+    community_name_confidence: Mapped[float | None] = mapped_column(Numeric(6, 4))
+    community_stable_key: Mapped[str | None] = mapped_column(String(512), index=True)
+    community_raw_name: Mapped[str | None] = mapped_column(String(256))
+    beike_community_id: Mapped[str | None] = mapped_column(String(128), index=True)
     is_processed: Mapped[bool | None] = mapped_column(Boolean)
     detail_captured: Mapped[bool | None] = mapped_column(Boolean)
     detail_fetch_status: Mapped[str | None] = mapped_column(String(64))
@@ -166,6 +171,94 @@ class PropertySearchTask(Base, TimestampMixin):
     retry_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     last_error: Mapped[str | None] = mapped_column(Text)
     last_seen_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=False))
+
+
+class FapaiSeedScanJob(Base, TimestampMixin):
+    __tablename__ = "fapai_seed_scan_job"
+
+    job_key: Mapped[str] = mapped_column(String(192), primary_key=True)
+    province: Mapped[str | None] = mapped_column(String(64), index=True)
+    city: Mapped[str | None] = mapped_column(String(64), index=True)
+    district: Mapped[str | None] = mapped_column(String(64), index=True)
+    location_code: Mapped[str] = mapped_column(String(32), index=True)
+    category: Mapped[str] = mapped_column(String(32), index=True)
+    status: Mapped[str] = mapped_column(String(32), nullable=False, default="pending", index=True)
+    source_url_template: Mapped[str | None] = mapped_column(Text)
+    metadata_json: Mapped[dict | None] = mapped_column(JSON)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=False), index=True)
+
+
+class FapaiSeedScanProgress(Base, TimestampMixin):
+    __tablename__ = "fapai_seed_scan_progress"
+
+    progress_key: Mapped[str] = mapped_column(String(256), primary_key=True)
+    job_key: Mapped[str] = mapped_column(
+        String(192),
+        ForeignKey("fapai_seed_scan_job.job_key", ondelete="CASCADE"),
+        index=True,
+    )
+    sort_key: Mapped[str] = mapped_column(String(64), index=True)
+    sort_name: Mapped[str | None] = mapped_column(String(128))
+    st_param: Mapped[str] = mapped_column(String(16), index=True)
+    sort_order: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    next_page: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
+    max_page: Mapped[int | None] = mapped_column(Integer)
+    last_success_page: Mapped[int | None] = mapped_column(Integer)
+    status: Mapped[str] = mapped_column(String(32), nullable=False, default="pending", index=True)
+    leased_by: Mapped[str | None] = mapped_column(String(128), index=True)
+    lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=False), index=True)
+    last_fetch_url: Mapped[str | None] = mapped_column(Text)
+    last_item_count: Mapped[int | None] = mapped_column(Integer)
+    retry_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    last_error: Mapped[str | None] = mapped_column(Text)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=False), index=True)
+
+    __table_args__ = (UniqueConstraint("job_key", "sort_key", name="uq_fapai_seed_scan_progress_job_sort"),)
+
+
+class FapaiSeedItem(Base, TimestampMixin):
+    __tablename__ = "fapai_seed_item"
+
+    item_id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    source_item_id: Mapped[str | None] = mapped_column(String(64), index=True)
+    source_url: Mapped[str | None] = mapped_column(Text)
+    title: Mapped[str | None] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(32), nullable=False, default="pending_detail", index=True)
+    first_seen_job_key: Mapped[str | None] = mapped_column(String(192), index=True)
+    first_seen_sort_key: Mapped[str | None] = mapped_column(String(64), index=True)
+    first_seen_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=False), index=True)
+    last_seen_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=False), index=True)
+    source_payload: Mapped[dict | None] = mapped_column(JSON)
+    detail_attempt_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    detail_last_error: Mapped[str | None] = mapped_column(Text)
+    detail_leased_by: Mapped[str | None] = mapped_column(String(128), index=True)
+    detail_lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=False), index=True)
+    detail_completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=False), index=True)
+    final_json_path: Mapped[str | None] = mapped_column(Text)
+    selected_json_path: Mapped[str | None] = mapped_column(Text)
+
+
+class FapaiSeedOccurrence(Base):
+    __tablename__ = "fapai_seed_occurrence"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    occurrence_key: Mapped[str] = mapped_column(String(128), nullable=False, unique=True, index=True)
+    item_id: Mapped[str] = mapped_column(
+        String(64),
+        ForeignKey("fapai_seed_item.item_id", ondelete="CASCADE"),
+        index=True,
+    )
+    job_key: Mapped[str] = mapped_column(String(192), index=True)
+    progress_key: Mapped[str] = mapped_column(String(256), index=True)
+    sort_key: Mapped[str] = mapped_column(String(64), index=True)
+    sort_name: Mapped[str | None] = mapped_column(String(128))
+    st_param: Mapped[str] = mapped_column(String(16), index=True)
+    page: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
+    rank: Mapped[int | None] = mapped_column(Integer)
+    source_page_url: Mapped[str | None] = mapped_column(Text)
+    source_final_url: Mapped[str | None] = mapped_column(Text)
+    raw_item: Mapped[dict | None] = mapped_column(JSON)
+    seen_at: Mapped[datetime] = mapped_column(DateTime(timezone=False), server_default=func.now(), nullable=False, index=True)
 
 
 class PropertyIngestEvent(Base):

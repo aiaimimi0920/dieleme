@@ -123,6 +123,25 @@ try:
 except ImportError as e:
     print(f"[WARNING] AI verification disabled: {e}")
 
+try:
+    from avm.community_resolver import apply_community_resolution, load_default_community_index, resolve_community_name
+except ImportError:
+    apply_community_resolution = None
+    load_default_community_index = None
+    resolve_community_name = None
+
+
+def normalize_community_fields(item):
+    if not (apply_community_resolution and load_default_community_index and resolve_community_name):
+        return item
+    try:
+        resolution = resolve_community_name(item, load_default_community_index())
+        if resolution:
+            apply_community_resolution(item, resolution)
+    except Exception as exc:
+        print(f"[COMMUNITY_NORMALIZE_WARN] {exc}")
+    return item
+
 # Lightweight Tooltip for tkinter
 class ToolTip:
     def __init__(self, widget, text='', wrap_length=400):
@@ -1065,7 +1084,7 @@ class DataFixerApp:
 {context[:2000]}
 
 请仔细分析以上信息，返回以下字段的JSON数据：
-1. "所属小区"：标准小区名称（参考贝壳网数据库）。
+1. "所属小区"：稳定位置索引名，优先输出小区、楼盘或院落名称；不要求官方名称，但同一小区或同一片房源应尽量输出同一个名字。不要输出城市、区县、道路门牌号、楼号、单元号、房号；如果无法稳定识别小区，可输出商圈、镇街或片区名。
 2. "最靠近商圈"：该地址所属的商圈名称。
 3. "建筑面积"：数字（平方米），无需单位。
 4. "户型"：如“三室两厅”。
@@ -1176,7 +1195,7 @@ class DataFixerApp:
 标题：{title}
 
 要求：
-1. 所属小区：请参考贝壳网小区大全数据库，返回该地址对应的标准小区名称。
+1. 所属小区：返回稳定位置索引名，优先输出小区、楼盘或院落名称；不要求官方名称，但同一小区或同一片房源应尽量输出同一个名字。不要输出城市、区县、道路门牌号、楼号、单元号、房号；如果无法稳定识别小区，可输出商圈、镇街或片区名。
 2. 最靠近商圈：返回该地址最靠近的商圈名称（如：望京、国贸、五道口等）。
 
 返回JSON格式：{{"所属小区": "xxx", "最靠近商圈": "xxx"}}"""
@@ -1457,7 +1476,7 @@ class DataFixerApp:
 标题：{item.get('title', '')}
 
 要求：
-1. 小区名称：根据地址推断最可能的小区，使用标准小区名称（参考贝壳网数据库）。
+1. 小区名称：返回稳定位置索引名，优先输出小区、楼盘或院落名称；不要求官方名称，但同一小区或同一片房源应尽量输出同一个名字。不要输出城市、区县、道路门牌号、楼号、单元号、房号；如果无法稳定识别小区，可输出商圈、镇街或片区名。
 2. 最靠近商圈：根据地址所在区域，推断最近的商业圈/商圈名。
 3. 省份、城市、区：从地址中提取行政区划。
 4. 如果某项无法确定，返回 null。
@@ -1548,7 +1567,7 @@ class DataFixerApp:
 标题：{item.get('title', '')}
 
 要求：
-1. 小区名称：如果地址中包含小区名，直接提取；否则根据地址推断最可能的小区。
+1. 小区名称：如果地址中包含小区、楼盘或院落名，直接提取为稳定位置索引名；否则输出可稳定复用的商圈、镇街或片区名。不要求官方名称，但同一小区或同一片房源应尽量输出同一个名字。不要输出城市、区县、道路门牌号、楼号、单元号、房号。
 2. 最靠近商圈：根据地址所在区域，推断最近的商业圈/商圈名。
 3. 省份、城市、区：从地址中提取行政区划。
 4. 如果某项无法确定，返回 null。
@@ -2035,6 +2054,7 @@ class DataFixerApp:
                         for k, v in new_data.items():
                             if k not in ['id', 'json_file']: # Don't overwrite metadata unless necessary
                                 record[k] = v
+                        normalize_community_fields(record)
                         
                         # Special handling for automatic fields
                         record['is_processed'] = True

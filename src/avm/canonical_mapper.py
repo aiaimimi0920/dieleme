@@ -99,6 +99,11 @@ RISK_FEATURE_KEYS = {
     "evidence_span",
     "evidence_source",
     "extraction_version",
+    "community_name_source",
+    "community_name_confidence",
+    "community_stable_key",
+    "community_raw_name",
+    "beike_community_id",
 }
 
 INT_KEYS = {"auction_round", "bid_count", "apply_count", "build_year", "total_floors"}

@@ -1,0 +1,297 @@
+from __future__ import annotations
+
+import os
+import subprocess
+import sys
+import importlib.util
+import warnings
+from pathlib import Path
+from typing import Mapping
+
+from sqlalchemy import create_engine, inspect
+from sqlalchemy.exc import SAWarning
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+TRUE_VALUES = {"1", "true", "yes", "y", "on"}
+
+
+def env_text(env: Mapping[str, str], key: str, default: str | None = None) -> str | None:
+    value = env.get(key)
+    if value is None:
+        return default
+    normalized = str(value).strip()
+    return normalized if normalized else default
+
+
+def env_flag(env: Mapping[str, str], key: str, default: bool = False) -> bool:
+    value = env_text(env, key)
+    if value is None:
+        return default
+    return value.lower() in TRUE_VALUES
+
+
+def append_option(command: list[str], option: str, value: str | None) -> None:
+    if value is not None:
+        command.extend([option, value])
+
+
+def build_live_command(env: Mapping[str, str]) -> list[str]:
+    run_mode = (env_text(env, "FAPAI_RUN_MODE", "live-loop") or "live-loop").lower()
+    output_dir = env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/live_batch_smoke")
+    resume_state = env_text(env, "FAPAI_RESUME_STATE", f"{output_dir}/resume_state.json")
+
+    command = [
+        sys.executable,
+        "tools/live_batch_smoke.py",
+        "--output-dir",
+        str(output_dir),
+        "--cdp-endpoint",
+        env_text(env, "FAPAI_CDP_ENDPOINT", "http://host.docker.internal:9223") or "http://host.docker.internal:9223",
+        "--url",
+        env_text(env, "FAPAI_TARGET_URL", "https://sf.taobao.com/list/50025969__2.htm?location_code=110101&st_param=2&auction_start_seg=-1&page=1")
+        or "",
+        "--target-success",
+        env_text(env, "FAPAI_TARGET_SUCCESS", "5") or "5",
+        "--max-attempts",
+        env_text(env, "FAPAI_MAX_ATTEMPTS", "50") or "50",
+    ]
+
+    if env_flag(env, "FAPAI_ENABLE_RISK", False):
+        command.append("--risk")
+    if env_flag(env, "FAPAI_DISABLE_RESUME", False):
+        command.append("--no-resume")
+    else:
+        append_option(command, "--resume-state", resume_state)
+
+    append_option(command, "--list-st-params", env_text(env, "FAPAI_LIST_ST_PARAMS", "2,1,0,3,4,5"))
+    append_option(command, "--list-location-codes", env_text(env, "FAPAI_LIST_LOCATION_CODES"))
+    append_option(command, "--list-categories", env_text(env, "FAPAI_LIST_CATEGORIES"))
+    append_option(command, "--list-max-pages", env_text(env, "FAPAI_LIST_MAX_PAGES", "83"))
+    if not env_flag(env, "FAPAI_LIST_STOP_ON_EMPTY", True):
+        command.append("--no-list-stop-on-empty")
+    if env_flag(env, "FAPAI_LLM_PREFLIGHT", True):
+        command.append("--llm-preflight")
+        append_option(command, "--llm-preflight-timeout-seconds", env_text(env, "FAPAI_LLM_PREFLIGHT_TIMEOUT_SECONDS", "15"))
+
+    if run_mode == "live-loop":
+        command.append("--loop")
+        append_option(command, "--loop-interval-seconds", env_text(env, "FAPAI_LOOP_INTERVAL_SECONDS", "300"))
+        append_option(command, "--max-runs", env_text(env, "FAPAI_MAX_RUNS"))
+    return command
+
+
+def build_api_command(env: Mapping[str, str]) -> list[str]:
+    command = [
+        sys.executable,
+        "tools/run_isolated_collection_api.py",
+        "--port",
+        env_text(env, "FAPAI_API_PORT", "8001") or "8001",
+    ]
+    append_option(command, "--db-url", env_text(env, "FAPAI_DB_URL"))
+    raw_codes = env_text(env, "FAPAI_SEED_LOCATION_CODES")
+    if raw_codes:
+        for code in raw_codes.replace(";", ",").split(","):
+            normalized = code.strip()
+            if normalized:
+                command.extend(["--seed-location-code", normalized])
+    return command
+
+
+def build_area_followup_command(env: Mapping[str, str]) -> list[str]:
+    output_dir = env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/live_batch_smoke")
+    command = [
+        sys.executable,
+        "tools/area_followup_runner.py",
+        "--queue",
+        env_text(env, "FAPAI_AREA_QUEUE", f"{output_dir}/area_followup_queue.json") or "",
+        "--output-dir",
+        str(output_dir),
+    ]
+    append_option(command, "--cdp-endpoint", env_text(env, "FAPAI_CDP_ENDPOINT"))
+    if env_flag(env, "FAPAI_AREA_APPLY_PATCHES", False):
+        command.append("--apply-patches")
+    append_option(command, "--push-area-result", env_text(env, "FAPAI_AREA_PUSH_URL"))
+    return command
+
+
+def build_seed_collector_command(env: Mapping[str, str]) -> list[str]:
+    command = [
+        sys.executable,
+        "tools/seed_collector.py",
+        "--output-dir",
+        env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/seed_collector") or "/data/output/seed_collector",
+        "--cdp-endpoint",
+        env_text(env, "FAPAI_CDP_ENDPOINT", "http://host.docker.internal:9223") or "http://host.docker.internal:9223",
+        "--job-key",
+        env_text(env, "FAPAI_SEED_JOB_KEY", "guangdong-guangzhou-nansha-50025969") or "guangdong-guangzhou-nansha-50025969",
+        "--province",
+        env_text(env, "FAPAI_SEED_PROVINCE", "广东省") or "广东省",
+        "--city",
+        env_text(env, "FAPAI_SEED_CITY", "广州市") or "广州市",
+        "--district",
+        env_text(env, "FAPAI_SEED_DISTRICT", "南沙区") or "南沙区",
+        "--location-code",
+        env_text(env, "FAPAI_SEED_LOCATION_CODE", "440115") or "440115",
+        "--category",
+        env_text(env, "FAPAI_SEED_CATEGORY", "50025969") or "50025969",
+        "--sorts",
+        env_text(
+            env,
+            "FAPAI_SEED_SORTS",
+            "bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远,sort_0:0:排序0,sort_3:3:排序3,sort_4:4:排序4,sort_5:5:排序5",
+        )
+        or "",
+        "--max-page",
+        env_text(env, "FAPAI_SEED_MAX_PAGE", env_text(env, "FAPAI_LIST_MAX_PAGES", "83")) or "83",
+    ]
+    append_option(command, "--worker-id", env_text(env, "FAPAI_SEED_WORKER_ID"))
+    append_option(command, "--lease-seconds", env_text(env, "FAPAI_SEED_LEASE_SECONDS"))
+    append_option(command, "--pages-per-run", env_text(env, "FAPAI_SEED_PAGES_PER_RUN", "10"))
+    if (env_text(env, "FAPAI_RUN_MODE", "seed-collector") or "").lower() == "seed-collector":
+        command.append("--loop")
+        append_option(command, "--loop-interval-seconds", env_text(env, "FAPAI_SEED_LOOP_INTERVAL_SECONDS", env_text(env, "FAPAI_LOOP_INTERVAL_SECONDS", "1800")))
+        append_option(command, "--max-runs", env_text(env, "FAPAI_SEED_MAX_RUNS"))
+    return command
+
+
+def build_detail_worker_command(env: Mapping[str, str]) -> list[str]:
+    command = [
+        sys.executable,
+        "tools/detail_worker.py",
+        "--output-dir",
+        env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/detail_worker") or "/data/output/detail_worker",
+        "--cdp-endpoint",
+        env_text(env, "FAPAI_CDP_ENDPOINT", "http://host.docker.internal:9223") or "http://host.docker.internal:9223",
+        "--target-success",
+        env_text(env, "FAPAI_DETAIL_TARGET_SUCCESS", env_text(env, "FAPAI_TARGET_SUCCESS", "5")) or "5",
+        "--max-attempts",
+        env_text(env, "FAPAI_DETAIL_MAX_ATTEMPTS", env_text(env, "FAPAI_MAX_ATTEMPTS", "20")) or "20",
+    ]
+    append_option(command, "--worker-id", env_text(env, "FAPAI_DETAIL_WORKER_ID"))
+    append_option(command, "--lease-seconds", env_text(env, "FAPAI_DETAIL_LEASE_SECONDS"))
+    if env_flag(env, "FAPAI_ENABLE_RISK", False):
+        command.append("--risk")
+    if env_flag(env, "FAPAI_LLM_PREFLIGHT", True):
+        command.append("--llm-preflight")
+        append_option(command, "--llm-preflight-timeout-seconds", env_text(env, "FAPAI_LLM_PREFLIGHT_TIMEOUT_SECONDS", "15"))
+    if (env_text(env, "FAPAI_RUN_MODE", "detail-worker") or "").lower() == "detail-worker":
+        command.append("--loop")
+        append_option(command, "--loop-interval-seconds", env_text(env, "FAPAI_DETAIL_LOOP_INTERVAL_SECONDS", env_text(env, "FAPAI_LOOP_INTERVAL_SECONDS", "900")))
+        append_option(command, "--max-runs", env_text(env, "FAPAI_DETAIL_MAX_RUNS"))
+    return command
+
+
+def build_command(env: Mapping[str, str]) -> list[str]:
+    mode = (env_text(env, "FAPAI_RUN_MODE", "live-loop") or "live-loop").lower()
+    if mode in {"api", "server"}:
+        return build_api_command(env)
+    if mode == "area-followup":
+        return build_area_followup_command(env)
+    if mode in {"seed-collector", "seed-batch"}:
+        return build_seed_collector_command(env)
+    if mode in {"detail-worker", "detail-batch"}:
+        return build_detail_worker_command(env)
+    if mode in {"live-loop", "live-batch"}:
+        return build_live_command(env)
+    if mode == "sleep":
+        return ["sleep", "infinity"]
+    raise ValueError(f"Unsupported FAPAI_RUN_MODE: {mode}")
+
+
+def _load_storage_model_metadata():
+    module_name = "_fapaifang_storage_models_for_entrypoint"
+    loaded = sys.modules.get(module_name)
+    if loaded is not None:
+        return loaded.Base.metadata
+
+    model_path = REPO_ROOT / "src" / "storage" / "models.py"
+    spec = importlib.util.spec_from_file_location(module_name, model_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Unable to load storage models from {model_path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    try:
+        spec.loader.exec_module(module)
+    except Exception:
+        sys.modules.pop(module_name, None)
+        raise
+    return module.Base.metadata
+
+
+def _expected_database_schema() -> dict[str, set[str]]:
+    metadata = _load_storage_model_metadata()
+    return {table.name: {column.name for column in table.columns} for table in metadata.sorted_tables}
+
+
+def _actual_database_schema(db_url: str) -> dict[str, set[str]]:
+    engine = create_engine(db_url, future=True)
+    try:
+        inspector = inspect(engine)
+        table_names = set(inspector.get_table_names())
+        schema: dict[str, set[str]] = {}
+        for table_name in table_names:
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", message="Did not recognize type .*", category=SAWarning)
+                columns = inspector.get_columns(table_name)
+            schema[table_name] = {column["name"] for column in columns}
+        return schema
+    finally:
+        engine.dispose()
+
+
+def _format_schema_gaps(missing_tables: list[str], missing_columns: dict[str, list[str]]) -> str:
+    lines = [
+        "database schema is not compatible with current application models.",
+        "Run database migrations before starting workers, for example: python -m alembic upgrade head",
+    ]
+    if missing_tables:
+        lines.append("missing tables:")
+        lines.extend(f"  - {table_name}" for table_name in missing_tables)
+    if missing_columns:
+        lines.append("missing columns:")
+        for table_name, columns in missing_columns.items():
+            lines.append(f"  - {table_name}: {', '.join(columns)}")
+    return "\n".join(lines)
+
+
+def guard_database_schema(env: Mapping[str, str]) -> None:
+    if not env_flag(env, "FAPAI_DB_ENABLED", True):
+        return
+    if not env_flag(env, "FAPAI_DB_SCHEMA_GUARD", True):
+        return
+    db_url = env_text(env, "FAPAI_DB_URL")
+    if not db_url:
+        return
+
+    expected = _expected_database_schema()
+    actual = _actual_database_schema(db_url)
+    if not set(actual).intersection(expected):
+        return
+    missing_tables = sorted(table_name for table_name in expected if table_name not in actual)
+    missing_columns = {
+        table_name: sorted(columns - actual[table_name])
+        for table_name, columns in sorted(expected.items())
+        if table_name in actual and columns - actual[table_name]
+    }
+    if missing_tables or missing_columns:
+        raise RuntimeError(_format_schema_gaps(missing_tables, missing_columns))
+
+
+def run_startup_checks(env: Mapping[str, str]) -> None:
+    guard_database_schema(env)
+
+
+def main() -> int:
+    try:
+        run_startup_checks(os.environ)
+    except Exception as exc:
+        print(f"[docker-entrypoint] startup check failed: {exc}", file=sys.stderr, flush=True)
+        return 1
+    command = build_command(os.environ)
+    print(f"[docker-entrypoint] exec: {' '.join(command)}", flush=True)
+    return subprocess.call(command)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

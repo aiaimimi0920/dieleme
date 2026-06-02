@@ -280,3 +280,28 @@ def test_map_raw_to_canonical_accepts_bidder_count_alias_for_bid_count():
 
     assert mapped["bid_count"] == 1
     assert mapped["apply_count"] == 1
+
+
+def test_map_raw_to_canonical_keeps_standardized_community_audit_fields():
+    raw = {
+        "id": "community-audit-1",
+        "成交价格": "20万",
+        "起拍价格": "18万",
+        "建筑面积": "30㎡",
+        "交易时间": "2024-02-01 10:00:00",
+        "所属小区": "远洋天地",
+        "community_name_source": "beike_alias",
+        "community_name_confidence": 0.98,
+        "community_stable_key": "beike::北京市::朝阳区::远洋天地",
+        "community_raw_name": "远洋天地小区",
+        "beike_community_id": "bj-test-002",
+    }
+
+    mapped = map_raw_to_canonical(raw)
+
+    assert mapped["community_name"] == "远洋天地"
+    assert mapped["community_name_source"] == "beike_alias"
+    assert mapped["community_name_confidence"] == 0.98
+    assert mapped["community_stable_key"] == "beike::北京市::朝阳区::远洋天地"
+    assert mapped["community_raw_name"] == "远洋天地小区"
+    assert mapped["beike_community_id"] == "bj-test-002"

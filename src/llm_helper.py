@@ -5,6 +5,7 @@ import datetime
 import hashlib
 import hmac
 import json
+from html import unescape
 from urllib.parse import urlparse
 import ssl
 from datetime import datetime
@@ -12,6 +13,8 @@ from time import mktime
 from wsgiref.handlers import format_date_time
 import websocket  # pip install websocket-client
 import re
+import requests
+import time
 
 # ==================== MODEL POOL CONFIGURATION ====================
 # Credentials are loaded from secrets.json (not committed to git).
@@ -22,11 +25,21 @@ import json as _json
 
 _SECRETS_FILE = _os.path.join(_os.path.dirname(__file__), "..", "secrets.json")
 
+def _has_openai_compatible_env():
+    base_url = (
+        _os.environ.get("OPENAI_BASE_URL")
+        or _os.environ.get("OPENAI_API_BASE")
+        or _os.environ.get("OPENAI_COMPATIBLE_BASE_URL")
+    )
+    return bool(base_url and _os.environ.get("OPENAI_API_KEY"))
+
+
 def _load_secrets():
     """Load API credentials from secrets.json."""
     if not _os.path.exists(_SECRETS_FILE):
-        print(f"[ERROR] secrets.json not found at {_SECRETS_FILE}")
-        print("[ERROR] Please copy secrets.example.json to secrets.json and fill in your API keys.")
+        if not _has_openai_compatible_env():
+            print(f"[ERROR] secrets.json not found at {_SECRETS_FILE}")
+            print("[ERROR] Please copy secrets.example.json to secrets.json and fill in your API keys.")
         return None
     with open(_SECRETS_FILE, 'r', encoding='utf-8') as f:
         return _json.load(f)
@@ -365,11 +378,12 @@ def get_model_for_task(task_type=None):
     return model_selector.get_next(task_type)
 
 # Legacy compatibility - default to first model
-APP_ID = MODEL_POOL[0]["app_id"]
-API_KEY = MODEL_POOL[0]["api_key"]
-API_SECRET = MODEL_POOL[0]["api_secret"]
-WS_URL = MODEL_POOL[0]["ws_url"]
-MODEL_ID = MODEL_POOL[0]["model_id"]
+_LEGACY_DEFAULT_MODEL = MODEL_POOL[0] if MODEL_POOL else {}
+APP_ID = _LEGACY_DEFAULT_MODEL.get("app_id", "")
+API_KEY = _LEGACY_DEFAULT_MODEL.get("api_key", "")
+API_SECRET = _LEGACY_DEFAULT_MODEL.get("api_secret", "")
+WS_URL = _LEGACY_DEFAULT_MODEL.get("ws_url", "")
+MODEL_ID = _LEGACY_DEFAULT_MODEL.get("model_id", "")
 
 
 class Ws_Param(object):
@@ -601,6 +615,204 @@ def filter_content(html_content):
         return text.strip()
 
 
+AREA_EVIDENCE_PATTERNS = [
+    re.compile(
+        r"(?:房屋建筑面积|不动产建筑面积|产权建筑面积|证载建筑面积|建筑面积)"
+        r"\s*(?:为|约|是|：|:|=)?\s*([1-9]\d{0,3}(?:\.\d{1,4})?)\s*(?:㎡|平方米|平米|m²|m2)",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"([1-9]\d{0,3}(?:\.\d{1,4})?)\s*(?:㎡|平方米|平米|m²|m2)"
+        r"\s*(?:的)?(?:房屋建筑面积|不动产建筑面积|产权建筑面积|证载建筑面积|建筑面积)",
+        re.IGNORECASE,
+    ),
+]
+
+GENERIC_AREA_EVIDENCE_PATTERNS = [
+    re.compile(
+        r"面积\s*(?:为|约|是|：|:|=)?\s*([1-9]\d{0,3}(?:\.\d{1,4})?)\s*(?:㎡|平方米|平米|m²|m2)",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"([1-9]\d{0,3}(?:\.\d{1,4})?)\s*(?:㎡|平方米|平米|m²|m2)\s*(?:的)?面积",
+        re.IGNORECASE,
+    ),
+]
+
+NON_BUILDING_AREA_PREFIXES = ("宗地", "土地", "占地", "用地")
+
+
+def _parse_area_number(value):
+    if value in (None, ""):
+        return None
+    if isinstance(value, (int, float)):
+        number = float(value)
+    else:
+        match = re.search(r"[1-9]\d{0,3}(?:\.\d{1,4})?", str(value).replace(",", ""))
+        if not match:
+            return None
+        number = float(match.group(0))
+    if number <= 0 or number > 5000:
+        return None
+    return round(number, 4)
+
+
+def extract_area_from_text(text):
+    """Extract a plausible building area from Chinese auction detail text."""
+    if not text:
+        return None
+    normalized = re.sub(r"\s+", "", str(text))
+    for pattern in AREA_EVIDENCE_PATTERNS:
+        match = pattern.search(normalized)
+        if match:
+            return _parse_area_number(match.group(1))
+    for pattern in GENERIC_AREA_EVIDENCE_PATTERNS:
+        match = pattern.search(normalized)
+        if not match:
+            continue
+        prefix = normalized[max(0, match.start() - 4) : match.start()]
+        if any(prefix.endswith(term) for term in NON_BUILDING_AREA_PREFIXES):
+            continue
+        return _parse_area_number(match.group(1))
+    return None
+
+
+def _parse_description_data_link(soup):
+    node = soup.find(id="description-data")
+    if not node:
+        return None
+    raw = node.get_text(strip=True)
+    if not raw:
+        return None
+    try:
+        payload = json.loads(unescape(raw))
+    except Exception:
+        return None
+    if not isinstance(payload, dict):
+        return None
+    link = payload.get("link")
+    if not link:
+        return None
+    link = str(link).strip()
+    if link.startswith("//"):
+        return "https:" + link
+    if link.startswith("http://") or link.startswith("https://"):
+        return link
+    return None
+
+
+def fetch_description_data_text(html_content, *, timeout=20):
+    """Fetch Taobao/Tmall async description HTML referenced by #description-data."""
+    if not html_content:
+        return None
+    try:
+        soup = BeautifulSoup(html_content, "html.parser")
+        link = _parse_description_data_link(soup)
+        if not link:
+            return None
+        session = requests.Session()
+        session.trust_env = False
+        session.proxies = {"http": None, "https": None}
+        response = session.get(
+            link,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+                ),
+                "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+                "Referer": "https://sf.taobao.com/",
+            },
+            timeout=timeout,
+        )
+        response.raise_for_status()
+        raw_bytes = getattr(response, "content", None)
+        if isinstance(raw_bytes, (bytes, bytearray)):
+            desc_html = _decode_response_bytes(raw_bytes)
+        else:
+            desc_html = str(getattr(response, "text", ""))
+        desc_soup = BeautifulSoup(desc_html, "html.parser")
+        return desc_soup.get_text("\n", strip=True) or desc_html
+    except Exception as exc:
+        print(f"[AREA_FALLBACK_WARN] description-data fetch failed: {exc}")
+        return None
+
+
+def _decode_response_bytes(raw_bytes):
+    candidates = []
+    for encoding in ("utf-8", "gb18030", "gbk"):
+        try:
+            text = raw_bytes.decode(encoding)
+            candidates.append(text)
+        except UnicodeDecodeError:
+            continue
+    if not candidates:
+        return raw_bytes.decode("utf-8", errors="replace")
+    return min(candidates, key=lambda text: text.count("\ufffd"))
+
+
+def _parse_plain_number(value):
+    if value in (None, ""):
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    text = str(value).replace(",", "").replace("¥", "").replace("元", "").strip()
+    match = re.search(r"-?\d+(?:\.\d+)?", text)
+    if not match:
+        return None
+    return float(match.group(0))
+
+
+def _parse_share_ratio(value):
+    if value in (None, ""):
+        return None
+    if isinstance(value, (int, float)):
+        ratio = float(value)
+    else:
+        text = str(value).strip().replace("％", "%")
+        fraction_match = re.search(r"(\d+(?:\.\d+)?)\s*/\s*(\d+(?:\.\d+)?)", text)
+        if fraction_match:
+            numerator = float(fraction_match.group(1))
+            denominator = float(fraction_match.group(2))
+            if denominator == 0:
+                return None
+            ratio = numerator / denominator
+        elif "二分之一" in text or "1/2" in text:
+            ratio = 0.5
+        else:
+            ratio = _parse_plain_number(text)
+            if ratio is not None and "%" in text:
+                ratio = ratio / 100.0
+    if ratio is None or ratio <= 0 or ratio > 1:
+        return None
+    return ratio
+
+
+def _backfill_area_and_unit_price(data, area_fallback):
+    if not isinstance(data, dict):
+        return data
+    area = _parse_area_number(data.get("建筑面积"))
+    gross_area = _parse_area_number(data.get("产权建筑面积"))
+    share_ratio = _parse_share_ratio(data.get("产权份额比例"))
+    if area is None:
+        fallback_area = _parse_area_number(area_fallback)
+        if fallback_area is not None:
+            if gross_area is None:
+                gross_area = fallback_area
+                data["产权建筑面积"] = gross_area
+            area = round(gross_area * share_ratio, 2) if share_ratio and share_ratio < 1 else gross_area
+            data["建筑面积"] = area
+    if area is None:
+        return data
+
+    unit_price = _parse_plain_number(data.get("单价"))
+    transaction_price = _parse_plain_number(data.get("成交价格"))
+    if transaction_price and transaction_price > 0 and (unit_price is None or unit_price <= 0):
+        data["单价"] = round(transaction_price / area, 2)
+    return data
+
+
 COORDINATE_PATTERNS = [
     re.compile(
         r'(?is)(?:longitude|lng)\s*["\']?\s*[:=]\s*["\']?([1-9]\d{1,2}\.\d+)[,"\']?.{0,80}?(?:latitude|lat)\s*["\']?\s*[:=]\s*["\']?(-?\d{1,2}\.\d+)',
@@ -663,7 +875,13 @@ AVM_RISK_SYSTEM_PROMPT = (
 )
 
 AVM_RISK_PROMPT_RULES = [
-    ("community_name", "尽最大努力从地址中提取其规范的小区/楼盘名称（不含具体的门牌号），例如将“上海市浦东新区张江镇郭守敬路111弄xx号”提取为“张江汤臣豪园”。无法判断则提取为 null。"),
+    (
+        "community_name",
+        "请从地址/公告中提取后续可复用、可归并的稳定位置索引名，优先是小区、楼盘或院落名称；"
+        "不要求官方名称，但同一小区或同一片房源应尽量输出同一个名字。"
+        "不要包含城市、区县、道路门牌号、楼号、单元号、房号；"
+        "如果只能定位到商圈、镇街或片区且没有稳定小区名，可输出该片区名；无法稳定判断则返回 null。",
+    ),
     ("build_year", "房屋建成年份，提取纯数字（如 2010）。如果没写，请尝试根据周边楼盘或证号年份推测，无法确定则返回 null。"),
     ("total_floors", "这栋楼一共有多少层。"),
     ("floor_level", "该房产所在的楼层，请归一化为 [\"低区\", \"中区\", \"高区\", \"顶层\", \"底层\", \"独栋\"]。"),
@@ -746,6 +964,7 @@ def extract_auction_data(html_content, item_id=None):
     trusted_url = None
     trusted_title = None
     coordinate_payload = extract_property_coordinates(html_content)
+    area_fallback = None
     
     try:
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -806,6 +1025,11 @@ def extract_auction_data(html_content, item_id=None):
             critical_text += f"【重要竞买公告（含建筑面积）】\n{clean_notice}\n\n"
         else:
             print("DEBUG: J_NoticeDetail not found, skipping this part.")
+
+        desc_async_text = fetch_description_data_text(html_content)
+        if desc_async_text:
+            area_fallback = extract_area_from_text(desc_async_text)
+            critical_text += f"【异步标的物描述（含可能面积）】\n{desc_async_text[:20000]}\n\n"
             
     except Exception as e:
         print(f"Warning: Pre-extraction failed: {e}")
@@ -862,7 +1086,7 @@ def extract_auction_data(html_content, item_id=None):
 
 ## 3. 智能信息补充
 - **地点/完整地址**：必须优先输出真实地址文本。如果页面没有明确地址，不要为了凑字段把 `title` 原样抄进 `地点`；此时 `地点` 和 `完整地址` 可以为 null。
-- **所属小区**：必须基于 `item_address`、`地点`、`完整地址` 或 `title` 中的地址信息，推理该房产所在的具体小区名称（请使用标准楼盘名称）。例如“天寿路25号”应识别为对应的小区名。如果确实无法识别，填入 null。
+- **所属小区/稳定位置索引名**：必须基于 `item_address`、`地点`、`完整地址` 或 `title` 中的地址信息，输出用于后续归并、索引同片房源的稳定位置索引名。不要求它是官方名称，但同一小区或同一片房源应尽量输出同一个名字；优先输出小区、楼盘或院落名称，也可以在无法稳定识别小区时输出商圈、镇街或片区名。不要输出城市、区县、道路门牌号、楼号、单元号、房号。如果确实无法形成稳定索引名，填入 null。
 - **地理位置解析**：根据 `地点`、`完整地址` 或 `title`，解析并填充 `省份`、`城市`、`区`。
 - **最靠近商圈**：根据地址信息，推断该房产最靠近的知名商圈或板块名称。
 
@@ -948,6 +1172,7 @@ def extract_auction_data(html_content, item_id=None):
             data["地点"] = data.get("完整地址")
         if data.get("地点") and not data.get("完整地址"):
             data["完整地址"] = data.get("地点")
+        _backfill_area_and_unit_price(data, area_fallback)
         if coordinate_payload:
             data.setdefault("纬度", coordinate_payload["latitude"])
             data.setdefault("经度", coordinate_payload["longitude"])
@@ -1068,7 +1293,9 @@ def validate_avm_risk_features_schema(features, item_id=None):
     if "evidence_source" in features:
         source = features.get("evidence_source")
         allowed_sources = {"公告", "须知", "评估报告", "页面主文"}
-        if source is not None and source not in allowed_sources:
+        if source is not None and not isinstance(source, str):
+            errors.append(f"item={item_label}: 'evidence_source' expects str/null, got {type(source).__name__}")
+        elif source is not None and source not in allowed_sources:
             errors.append(f"item={item_label}: 'evidence_source' invalid value '{source}'")
 
     extraction_version = features.get("extraction_version")
@@ -1082,6 +1309,22 @@ def validate_avm_risk_features_schema(features, item_id=None):
         print(f"[AVM-RISK][SCHEMA FAILED] item={item_label}; errors={errors}")
 
     return passed, errors
+
+
+def _normalize_evidence_source(value):
+    allowed_sources = {"公告", "须知", "评估报告", "页面主文"}
+    if isinstance(value, str):
+        normalized = value.strip()
+        return normalized if normalized in allowed_sources else "页面主文"
+    if isinstance(value, list):
+        for item in value:
+            normalized = str(item).strip()
+            if normalized in allowed_sources:
+                return normalized
+        return "页面主文"
+    if value is None:
+        return "页面主文"
+    return "页面主文"
 
 
 def extract_avm_risk_features(page_text, item_id=None):
@@ -1115,7 +1358,7 @@ def extract_avm_risk_features(page_text, item_id=None):
         features.setdefault(key, None)
 
     features["extraction_version"] = features.get("extraction_version") or "avm_risk_v2"
-    features["evidence_source"] = features.get("evidence_source") or "页面主文"
+    features["evidence_source"] = _normalize_evidence_source(features.get("evidence_source"))
     if features.get("extraction_confidence") is None:
         features["extraction_confidence"] = 0.5
     if features.get("evidence_span") is None:
@@ -1127,22 +1370,159 @@ def extract_avm_risk_features(page_text, item_id=None):
 
     return features
 
+def _strip_json_markdown(result):
+    if "```json" in result:
+        return result.split("```json")[1].split("```")[0].strip()
+    if "```" in result:
+        return result.split("```")[1].split("```")[0].strip()
+    return result
+
+
+def _get_openai_compatible_config():
+    base_url = (
+        os.environ.get("OPENAI_BASE_URL")
+        or os.environ.get("OPENAI_API_BASE")
+        or os.environ.get("OPENAI_COMPATIBLE_BASE_URL")
+    )
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not base_url or not api_key:
+        return None
+    return {
+        "base_url": base_url.rstrip("/"),
+        "api_key": api_key,
+        "model": os.environ.get("OPENAI_MODEL") or os.environ.get("OPENAI_COMPATIBLE_MODEL") or "gpt-5.5",
+        "timeout": float(os.environ.get("OPENAI_TIMEOUT_SECONDS", "180")),
+        "max_retries": int(os.environ.get("OPENAI_MAX_RETRIES", "3")),
+    }
+
+
+def _first_nonempty_env(*names):
+    for name in names:
+        value = os.environ.get(name)
+        if value and value.strip():
+            return value.strip()
+    return None
+
+
+def _is_local_openai_compatible_url(base_url):
+    host = (urlparse(str(base_url)).hostname or "").strip().lower()
+    return host in {
+        "localhost",
+        "127.0.0.1",
+        "::1",
+        "host.docker.internal",
+        "gateway.docker.internal",
+        "host.containers.internal",
+        "192.168.65.254",
+    }
+
+
+def _get_openai_compatible_proxies(base_url=None):
+    fallback_proxy = _first_nonempty_env("OPENAI_PROXY", "FAPAI_LLM_PROXY")
+    explicit_http_proxy = _first_nonempty_env("OPENAI_HTTP_PROXY", "FAPAI_LLM_HTTP_PROXY")
+    explicit_https_proxy = _first_nonempty_env("OPENAI_HTTPS_PROXY", "FAPAI_LLM_HTTPS_PROXY")
+    if base_url and _is_local_openai_compatible_url(base_url) and not (
+        fallback_proxy or explicit_http_proxy or explicit_https_proxy
+    ):
+        return {}
+
+    http_proxy = explicit_http_proxy or _first_nonempty_env("FAPAI_HTTP_PROXY") or fallback_proxy
+    https_proxy = explicit_https_proxy or _first_nonempty_env("FAPAI_HTTPS_PROXY") or fallback_proxy or http_proxy
+    proxies = {}
+    if http_proxy:
+        proxies["http"] = http_proxy
+    if https_proxy:
+        proxies["https"] = https_proxy
+    return proxies
+
+
+def _chat_with_openai_compatible(content, config):
+    url = f"{config['base_url']}/chat/completions"
+    session = requests.Session()
+    session.trust_env = False
+    proxies = _get_openai_compatible_proxies(config["base_url"])
+    if proxies:
+        session.proxies = proxies
+    max_retries = max(int(config.get("max_retries", 3)), 1)
+    response = None
+    for attempt in range(1, max_retries + 1):
+        response = session.post(
+            url,
+            headers={
+                "Authorization": f"Bearer {config['api_key']}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": config["model"],
+                "messages": [{"role": "user", "content": content}],
+                "temperature": 0,
+            },
+            timeout=config["timeout"],
+        )
+        status_code = getattr(response, "status_code", None)
+        if status_code not in (429, 500, 502, 503, 504):
+            break
+        if attempt >= max_retries:
+            break
+        wait_seconds = min(2 ** (attempt - 1), 8)
+        print(f"DEBUG: OpenAI-compatible transient HTTP {status_code}; retry {attempt}/{max_retries} after {wait_seconds}s")
+        time.sleep(wait_seconds)
+    response.raise_for_status()
+    raw_bytes = getattr(response, "content", None)
+    if isinstance(raw_bytes, (bytes, bytearray)):
+        raw_payload = raw_bytes.decode("utf-8")
+    else:
+        raw_payload = str(getattr(response, "text", ""))
+    payload = json.loads(raw_payload)
+    choices = payload.get("choices") if isinstance(payload, dict) else None
+    if not choices:
+        raise ValueError("OpenAI-compatible response missing choices")
+    message = choices[0].get("message") if isinstance(choices[0], dict) else None
+    result = message.get("content") if isinstance(message, dict) else None
+    if not result:
+        raise ValueError("OpenAI-compatible response missing message content")
+    return result
+
+
+def preflight_openai_compatible_backend(timeout=15.0):
+    config = _get_openai_compatible_config()
+    if not config:
+        return {"enabled": False}
+    url = f"{config['base_url']}/models"
+    session = requests.Session()
+    session.trust_env = False
+    proxies = _get_openai_compatible_proxies(config["base_url"])
+    if proxies:
+        session.proxies = proxies
+    response = session.get(
+        url,
+        headers={"Authorization": f"Bearer {config['api_key']}"},
+        timeout=float(timeout),
+    )
+    return {
+        "enabled": True,
+        "url": url,
+        "status_code": getattr(response, "status_code", None),
+    }
+
+
 def chat_with_glm(content):
     """
-    Send content to GLM-4.7 (MaaS via WebSocket) and return response.
+    Send content to the configured LLM backend and return response.
     """
+    openai_config = _get_openai_compatible_config()
+    if openai_config:
+        print(f"DEBUG: Sending request to OpenAI-compatible backend (model={openai_config['model']})...")
+        result = _chat_with_openai_compatible(content, openai_config)
+        print(f"DEBUG: OpenAI-compatible response received (len={len(result)}).")
+        return _strip_json_markdown(result)
+
     service = AIService()
     print("DEBUG: Sending request to GLM-4.7...")
     result = service.get_response(content)
     print(f"DEBUG: GLM-4.7 response received (len={len(result)}).")
-    
-    # Cleanup markdown if present
-    if "```json" in result:
-        result = result.split("```json")[1].split("```")[0].strip()
-    elif "```" in result:
-        result = result.split("```")[1].split("```")[0].strip()
-        
-    return result
+
+    return _strip_json_markdown(result)
 
 if __name__ == "__main__":
     # Test

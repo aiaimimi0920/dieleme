@@ -246,6 +246,80 @@ def test_dual_write_keeps_json_snapshot_and_db_row_on_single_item_upsert(tmp_pat
         assert business_event_payloads == [{"seq": 1}, {"seq": 2}]
 
 
+def test_sync_collection_record_applies_standardized_community_fields():
+    item = {
+        "id": "9201",
+        "城市": "北京市",
+        "区": "朝阳区",
+        "所属小区": "远洋天地小区",
+        "地点": "北京市朝阳区八里庄远洋天地小区7号楼",
+    }
+
+    sync_collection_record(item)
+
+    assert item["所属小区"] == "远洋天地小区"
+    assert item["community_name"] == "远洋天地小区"
+    assert item["location"]["community_name"] == "远洋天地小区"
+    assert item["community_name_source"] == "collector"
+    assert item["community_name_confidence"] == pytest.approx(0.72)
+    assert item["community_stable_key"] == "collector::北京市::朝阳区::远洋天地"
+
+
+def test_build_collection_record_keeps_standardized_community_audit_fields():
+    item = {
+        "id": "9202",
+        "城市": "北京市",
+        "区": "朝阳区",
+        "所属小区": "远洋天地",
+        "community_name_source": "beike_alias",
+        "community_name_confidence": 0.98,
+        "community_stable_key": "beike::北京市::朝阳区::远洋天地",
+        "community_raw_name": "远洋天地小区",
+        "beike_community_id": "bj-test-002",
+    }
+
+    record = build_collection_record(item)
+
+    assert record["location"]["community_name"] == "远洋天地"
+    assert record["audit"]["community_name_source"] == "beike_alias"
+    assert record["audit"]["community_name_confidence"] == pytest.approx(0.98)
+    assert record["audit"]["community_stable_key"] == "beike::北京市::朝阳区::远洋天地"
+    assert record["audit"]["community_raw_name"] == "远洋天地小区"
+    assert record["audit"]["beike_community_id"] == "bj-test-002"
+
+
+def test_repository_persists_standardized_community_audit_fields(tmp_path: Path):
+    repo = _make_repo(tmp_path)
+
+    repo.upsert_flat_item(
+        _make_flat_item(
+            id="9203",
+            community_name="远洋天地",
+            community_name_source="beike_alias",
+            community_name_confidence=0.98,
+            community_stable_key="beike::北京市::朝阳区::远洋天地",
+            community_raw_name="远洋天地小区",
+            beike_community_id="bj-test-002",
+        ),
+        event_type="community_standardized",
+    )
+
+    with repo.session_factory() as session:
+        audit_row = session.get(PropertyAudit, "9203")
+        assert audit_row.community_name_source == "beike_alias"
+        assert float(audit_row.community_name_confidence) == pytest.approx(0.98)
+        assert audit_row.community_stable_key == "beike::北京市::朝阳区::远洋天地"
+        assert audit_row.community_raw_name == "远洋天地小区"
+        assert audit_row.beike_community_id == "bj-test-002"
+
+    flat_item = repo.get_flat_item("9203")
+    assert flat_item["community_name_source"] == "beike_alias"
+    assert flat_item["community_name_confidence"] == pytest.approx(0.98)
+    assert flat_item["community_stable_key"] == "beike::北京市::朝阳区::远洋天地"
+    assert flat_item["community_raw_name"] == "远洋天地小区"
+    assert flat_item["beike_community_id"] == "bj-test-002"
+
+
 def test_load_data_db_first_keeps_runtime_cache_empty_until_items_are_requested(tmp_path: Path, monkeypatch):
     repo = _make_repo(tmp_path)
     repo.upsert_flat_item(_make_flat_item(id="9101", currentPrice="980000"), event_type="seed")

@@ -18,6 +18,10 @@ from src.collection.stage_state import derive_stage_state
 
 from .models import (
     Base,
+    FapaiSeedItem,
+    FapaiSeedOccurrence,
+    FapaiSeedScanJob,
+    FapaiSeedScanProgress,
     ManualReviewReceipt,
     ManualReviewReceiptJob,
     ManualReviewReceiptOperation,
@@ -50,6 +54,13 @@ def _parse_dt(value: Any) -> Optional[datetime]:
 def _manual_review_payload_fingerprint(payload: Any) -> str:
     normalized = json.dumps(payload if payload is not None else {}, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
+def _normalized_seed_text(value: Any) -> str | None:
+    if value in (None, "") or isinstance(value, bool):
+        return None
+    text_value = str(value).strip()
+    return text_value or None
 
 
 @dataclass
@@ -321,6 +332,11 @@ class PropertyRepository:
             "evidence_span": audit.evidence_span if audit else None,
             "evidence_source": audit.evidence_source if audit else None,
             "extraction_version": audit.extraction_version if audit else None,
+            "community_name_source": audit.community_name_source if audit else None,
+            "community_name_confidence": float(audit.community_name_confidence) if audit and audit.community_name_confidence is not None else None,
+            "community_stable_key": audit.community_stable_key if audit else None,
+            "community_raw_name": audit.community_raw_name if audit else None,
+            "beike_community_id": audit.beike_community_id if audit else None,
             "is_processed": audit.is_processed if audit else None,
             "detail_captured": audit.detail_captured if audit else None,
             "detail_fetch_status": audit.detail_fetch_status if audit else None,
@@ -361,6 +377,11 @@ class PropertyRepository:
             "evidence_span": audit_payload["evidence_span"],
             "evidence_source": audit_payload["evidence_source"],
             "extraction_version": audit_payload["extraction_version"],
+            "community_name_source": audit_payload["community_name_source"],
+            "community_name_confidence": audit_payload["community_name_confidence"],
+            "community_stable_key": audit_payload["community_stable_key"],
+            "community_raw_name": audit_payload["community_raw_name"],
+            "beike_community_id": audit_payload["beike_community_id"],
         }
         return payload
 
@@ -951,6 +972,11 @@ class PropertyRepository:
         audit_row.evidence_span = evidence_span if isinstance(evidence_span, str) else str(evidence_span)
         audit_row.evidence_source = audit.get("evidence_source")
         audit_row.extraction_version = audit.get("extraction_version")
+        audit_row.community_name_source = audit.get("community_name_source")
+        audit_row.community_name_confidence = audit.get("community_name_confidence")
+        audit_row.community_stable_key = audit.get("community_stable_key")
+        audit_row.community_raw_name = audit.get("community_raw_name")
+        audit_row.beike_community_id = audit.get("beike_community_id")
         audit_row.is_processed = audit.get("is_processed")
         audit_row.detail_captured = audit.get("detail_captured")
         raw_item = aux_data or {}
@@ -1864,6 +1890,493 @@ class PropertyRepository:
                 session.add(row)
                 imported += 1
         return imported
+
+    @staticmethod
+    def _seed_scan_job_key(job: Dict[str, Any]) -> str:
+        explicit = _normalized_seed_text(job.get("job_key"))
+        if explicit:
+            return explicit
+        location_code = _normalized_seed_text(job.get("location_code")) or "unknown-location"
+        category = _normalized_seed_text(job.get("category")) or "unknown-category"
+        district = _normalized_seed_text(job.get("district")) or _normalized_seed_text(job.get("city")) or "scope"
+        return f"{location_code}:{category}:{district}"
+
+    @staticmethod
+    def _seed_scan_progress_key(job_key: str, sort_key: str) -> str:
+        raw = f"{job_key}:{sort_key}"
+        if len(raw) <= 256:
+            return raw
+        digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()[:32]
+        return f"{job_key[:210]}:{digest}"
+
+    @staticmethod
+    def _build_seed_scan_url(location_code: str, category: str, st_param: str, page: int) -> str:
+        return (
+            f"https://sf.taobao.com/list/{category}__2.htm"
+            f"?location_code={location_code}&st_param={st_param}&auction_start_seg=-1&page={page}"
+        )
+
+    @staticmethod
+    def _occurrence_key(
+        *,
+        item_id: str,
+        job_key: str,
+        sort_key: str,
+        page: int,
+        rank: int,
+    ) -> str:
+        raw = f"{item_id}|{job_key}|{sort_key}|{page}|{rank}"
+        return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+    @staticmethod
+    def _seed_item_url(item_id: str, explicit_url: Any = None) -> str:
+        url = _normalized_seed_text(explicit_url)
+        if url:
+            if url.startswith("//"):
+                return f"https:{url}"
+            return url
+        return f"https://sf-item.taobao.com/sf_item/{item_id}.htm"
+
+    @staticmethod
+    def _seed_scan_progress_payload(row: FapaiSeedScanProgress, job: FapaiSeedScanJob) -> Dict[str, Any]:
+        page = int(row.next_page or 1)
+        url = PropertyRepository._build_seed_scan_url(job.location_code, job.category, row.st_param, page)
+        return {
+            "job_key": row.job_key,
+            "progress_key": row.progress_key,
+            "province": job.province,
+            "city": job.city,
+            "district": job.district,
+            "location_code": job.location_code,
+            "category": job.category,
+            "sort_key": row.sort_key,
+            "sort_name": row.sort_name,
+            "st_param": row.st_param,
+            "sort_order": row.sort_order,
+            "page": page,
+            "max_page": row.max_page,
+            "url": url,
+        }
+
+    def _refresh_seed_scan_job_status(self, session: Session, job_key: str, now: datetime | None = None) -> None:
+        now = now or datetime.now()
+        job = session.get(FapaiSeedScanJob, job_key)
+        if job is None:
+            return
+        progress_rows = session.scalars(
+            select(FapaiSeedScanProgress).where(FapaiSeedScanProgress.job_key == job_key)
+        ).all()
+        if not progress_rows:
+            job.status = "pending"
+            job.completed_at = None
+            session.add(job)
+            return
+        statuses = {row.status for row in progress_rows}
+        if statuses and statuses.issubset({"exhausted"}):
+            job.status = "completed"
+            job.completed_at = job.completed_at or now
+        elif "blocked" in statuses and statuses.issubset({"exhausted", "blocked"}):
+            job.status = "blocked"
+            job.completed_at = None
+        elif "in_progress" in statuses:
+            job.status = "in_progress"
+            job.completed_at = None
+        else:
+            job.status = "pending"
+            job.completed_at = None
+        session.add(job)
+
+    def ensure_seed_scan_job(
+        self,
+        job: Dict[str, Any],
+        *,
+        sort_specs: Sequence[Dict[str, Any]],
+        max_page: int | None = None,
+    ) -> Dict[str, Any]:
+        if not self.enabled:
+            return {"job_key": self._seed_scan_job_key(job), "created": False, "progress_created": 0}
+        self.initialize()
+        job_key = self._seed_scan_job_key(job)
+        location_code = _normalized_seed_text(job.get("location_code"))
+        category = _normalized_seed_text(job.get("category")) or "50025969"
+        if not location_code:
+            raise ValueError("seed scan job requires location_code")
+        if not sort_specs:
+            raise ValueError("seed scan job requires at least one sort spec")
+
+        now = datetime.now()
+        progress_created = 0
+        with self.session_factory.begin() as session:
+            row = session.get(FapaiSeedScanJob, job_key)
+            created = row is None
+            if row is None:
+                row = FapaiSeedScanJob(job_key=job_key)
+            row.province = _normalized_seed_text(job.get("province"))
+            row.city = _normalized_seed_text(job.get("city"))
+            row.district = _normalized_seed_text(job.get("district"))
+            row.location_code = location_code
+            row.category = category
+            if row.status in (None, "", "completed"):
+                row.status = "pending"
+                row.completed_at = None
+            row.source_url_template = self._build_seed_scan_url(location_code, category, "{st_param}", 1)
+            row.metadata_json = dict(job.get("metadata") or {})
+            session.add(row)
+
+            for index, sort_spec in enumerate(sort_specs):
+                sort_key = _normalized_seed_text(sort_spec.get("sort_key")) or _normalized_seed_text(sort_spec.get("st_param")) or f"sort_{index}"
+                st_param = _normalized_seed_text(sort_spec.get("st_param")) or sort_key
+                progress_key = self._seed_scan_progress_key(job_key, sort_key)
+                progress = session.get(FapaiSeedScanProgress, progress_key)
+                if progress is None:
+                    progress = FapaiSeedScanProgress(
+                        progress_key=progress_key,
+                        job_key=job_key,
+                        sort_key=sort_key,
+                        st_param=st_param,
+                        next_page=1,
+                        status="pending",
+                        retry_count=0,
+                    )
+                    progress_created += 1
+                progress.sort_name = _normalized_seed_text(sort_spec.get("sort_name")) or sort_key
+                progress.st_param = st_param
+                progress.sort_order = int(sort_spec.get("sort_order") if sort_spec.get("sort_order") is not None else index)
+                progress.max_page = int(max_page) if max_page else None
+                if progress.status in (None, "", "completed"):
+                    progress.status = "pending"
+                    progress.completed_at = None
+                session.add(progress)
+
+            self._refresh_seed_scan_job_status(session, job_key, now)
+        return {"job_key": job_key, "created": created, "progress_created": progress_created}
+
+    def claim_seed_scan_page(self, worker_id: str, lease_seconds: int = 90) -> Optional[Dict[str, Any]]:
+        if not self.enabled:
+            return None
+        self.initialize()
+        now = datetime.now()
+        lease_until = now + timedelta(seconds=max(lease_seconds, 1))
+        with self.session_factory.begin() as session:
+            rows = session.scalars(select(FapaiSeedScanProgress)).all()
+            progress_by_job: Dict[str, list[FapaiSeedScanProgress]] = {}
+            for row in rows:
+                progress_by_job.setdefault(row.job_key, []).append(row)
+
+            ordered = sorted(
+                rows,
+                key=lambda row: (
+                    row.job_key,
+                    int(row.sort_order or 0),
+                    int(row.next_page or 1),
+                    row.progress_key,
+                ),
+            )
+            for row in ordered:
+                if row.status not in {"pending", "in_progress"}:
+                    continue
+                if row.status == "in_progress" and row.leased_by != worker_id:
+                    if row.lease_until is not None and row.lease_until >= now:
+                        continue
+                if row.max_page is not None and int(row.next_page or 1) > int(row.max_page):
+                    row.status = "exhausted"
+                    row.leased_by = None
+                    row.lease_until = None
+                    row.completed_at = row.completed_at or now
+                    session.add(row)
+                    self._refresh_seed_scan_job_status(session, row.job_key, now)
+                    continue
+
+                siblings = sorted(progress_by_job.get(row.job_key, []), key=lambda sibling: (int(sibling.sort_order or 0), sibling.progress_key))
+                if any(int(sibling.sort_order or 0) < int(row.sort_order or 0) and sibling.status != "exhausted" for sibling in siblings):
+                    continue
+
+                job = session.get(FapaiSeedScanJob, row.job_key)
+                if job is None:
+                    continue
+                row.status = "in_progress"
+                row.leased_by = worker_id
+                row.lease_until = lease_until
+                session.add(row)
+                self._refresh_seed_scan_job_status(session, row.job_key, now)
+                return self._seed_scan_progress_payload(row, job)
+        return None
+
+    def complete_seed_scan_page(
+        self,
+        *,
+        progress_key: str,
+        page: int,
+        item_count: int,
+        has_next: bool,
+        source_url: str | None = None,
+    ) -> None:
+        if not self.enabled:
+            return
+        self.initialize()
+        now = datetime.now()
+        with self.session_factory.begin() as session:
+            row = session.get(FapaiSeedScanProgress, progress_key)
+            if row is None:
+                return
+            row.last_success_page = max(int(page or 1), int(row.last_success_page or 0))
+            row.last_item_count = int(item_count or 0)
+            row.last_fetch_url = source_url
+            row.last_error = None
+            row.leased_by = None
+            row.lease_until = None
+            max_page = int(row.max_page) if row.max_page else None
+            next_page = int(page or 1) + 1
+            if bool(has_next) and (max_page is None or next_page <= max_page):
+                row.status = "pending"
+                row.next_page = max(int(row.next_page or 1), next_page)
+                row.completed_at = None
+            else:
+                row.status = "exhausted"
+                row.next_page = max(int(row.next_page or 1), int(page or 1))
+                row.completed_at = now
+            session.add(row)
+            self._refresh_seed_scan_job_status(session, row.job_key, now)
+
+    def fail_seed_scan_page(self, progress_key: str, error: str, *, retryable: bool = True) -> None:
+        if not self.enabled:
+            return
+        self.initialize()
+        now = datetime.now()
+        with self.session_factory.begin() as session:
+            row = session.get(FapaiSeedScanProgress, progress_key)
+            if row is None:
+                return
+            row.last_error = str(error)
+            row.retry_count = int(row.retry_count or 0) + 1
+            row.leased_by = None
+            row.lease_until = None
+            row.status = "pending" if retryable else "blocked"
+            session.add(row)
+            self._refresh_seed_scan_job_status(session, row.job_key, now)
+
+    def upsert_seed_items(
+        self,
+        *,
+        job_key: str,
+        progress_key: str,
+        sort_key: str,
+        sort_name: str | None,
+        st_param: str,
+        page: int,
+        source_page_url: str,
+        items: Sequence[Dict[str, Any]],
+        source_final_url: str | None = None,
+    ) -> Dict[str, int]:
+        if not self.enabled:
+            return {"seen": 0, "new_items": 0, "existing_items": 0, "new_occurrences": 0}
+        self.initialize()
+        now = datetime.now()
+        seen = 0
+        new_items = 0
+        existing_items = 0
+        new_occurrences = 0
+        with self.session_factory.begin() as session:
+            for rank, item in enumerate(items, start=1):
+                if not isinstance(item, dict):
+                    continue
+                item_id = _normalized_seed_text(item.get("id") or item.get("item_id") or item.get("source_item_id"))
+                if not item_id:
+                    continue
+                seen += 1
+                url = self._seed_item_url(item_id, item.get("url") or item.get("source_url") or item.get("itemUrl"))
+                title = _normalized_seed_text(item.get("title") or item.get("source_title"))
+                seed_item = session.get(FapaiSeedItem, item_id)
+                if seed_item is None:
+                    seed_item = FapaiSeedItem(
+                        item_id=item_id,
+                        source_item_id=item_id,
+                        first_seen_job_key=job_key,
+                        first_seen_sort_key=sort_key,
+                        first_seen_at=now,
+                        status="pending_detail",
+                        detail_attempt_count=0,
+                    )
+                    new_items += 1
+                else:
+                    existing_items += 1
+                seed_item.source_url = seed_item.source_url or url
+                if url and seed_item.source_url != url and not seed_item.source_url:
+                    seed_item.source_url = url
+                seed_item.title = seed_item.title or title
+                seed_item.last_seen_at = now
+                seed_item.source_payload = dict(item)
+                if seed_item.status in (None, "", "blocked"):
+                    seed_item.status = "pending_detail"
+                session.add(seed_item)
+
+                occurrence_key = self._occurrence_key(
+                    item_id=item_id,
+                    job_key=job_key,
+                    sort_key=sort_key,
+                    page=int(page or 1),
+                    rank=rank,
+                )
+                occurrence = session.scalars(
+                    select(FapaiSeedOccurrence).where(FapaiSeedOccurrence.occurrence_key == occurrence_key)
+                ).first()
+                if occurrence is None:
+                    occurrence = FapaiSeedOccurrence(
+                        occurrence_key=occurrence_key,
+                        item_id=item_id,
+                        job_key=job_key,
+                        progress_key=progress_key,
+                        sort_key=sort_key,
+                        sort_name=sort_name,
+                        st_param=st_param,
+                        page=int(page or 1),
+                        rank=rank,
+                        source_page_url=source_page_url,
+                        source_final_url=source_final_url,
+                        raw_item=dict(item),
+                    )
+                    session.add(occurrence)
+                    new_occurrences += 1
+        return {
+            "seen": seen,
+            "new_items": new_items,
+            "existing_items": existing_items,
+            "new_occurrences": new_occurrences,
+        }
+
+    def claim_seed_detail_item(self, worker_id: str, lease_seconds: int = 300) -> Optional[Dict[str, Any]]:
+        if not self.enabled:
+            return None
+        self.initialize()
+        now = datetime.now()
+        lease_until = now + timedelta(seconds=max(lease_seconds, 1))
+        with self.session_factory.begin() as session:
+            rows = session.scalars(
+                select(FapaiSeedItem).where(
+                    or_(
+                        FapaiSeedItem.status.in_(("pending_detail", "detail_failed")),
+                        and_(
+                            FapaiSeedItem.status == "in_progress",
+                            or_(
+                                FapaiSeedItem.detail_lease_until.is_(None),
+                                FapaiSeedItem.detail_lease_until < now,
+                                FapaiSeedItem.detail_leased_by == worker_id,
+                            ),
+                        ),
+                    )
+                )
+            ).all()
+            ordered = sorted(rows, key=lambda row: (row.first_seen_at or datetime.min, row.item_id))
+            for row in ordered:
+                row.status = "in_progress"
+                row.detail_leased_by = worker_id
+                row.detail_lease_until = lease_until
+                row.detail_attempt_count = int(row.detail_attempt_count or 0) + 1
+                session.add(row)
+                occurrence = session.scalars(
+                    select(FapaiSeedOccurrence)
+                    .where(FapaiSeedOccurrence.item_id == row.item_id)
+                    .order_by(FapaiSeedOccurrence.seen_at.asc(), FapaiSeedOccurrence.id.asc())
+                ).first()
+                payload = dict(row.source_payload or {})
+                payload.setdefault("id", row.item_id)
+                payload.setdefault("item_id", row.item_id)
+                payload.setdefault("source_item_id", row.source_item_id or row.item_id)
+                payload.setdefault("url", self._seed_item_url(row.item_id, row.source_url))
+                payload.setdefault("source_url", payload.get("url"))
+                if row.title:
+                    payload.setdefault("title", row.title)
+                    payload.setdefault("source_title", row.title)
+                if occurrence is not None:
+                    payload.setdefault("source_page_url", occurrence.source_page_url)
+                    payload.setdefault("list_location_code", None)
+                    payload.setdefault("list_category", None)
+                    payload.setdefault("list_st_param", occurrence.st_param)
+                    payload.setdefault("list_page", occurrence.page)
+                    payload.setdefault("list_sort_key", occurrence.sort_key)
+                    payload.setdefault("list_sort_name", occurrence.sort_name)
+                return payload
+        return None
+
+    def mark_seed_detail_completed(
+        self,
+        item_id: str,
+        *,
+        final_json_path: str | None = None,
+        selected_json_path: str | None = None,
+    ) -> None:
+        if not self.enabled:
+            return
+        self.initialize()
+        now = datetime.now()
+        with self.session_factory.begin() as session:
+            row = session.get(FapaiSeedItem, str(item_id))
+            if row is None:
+                return
+            row.status = "detail_completed"
+            row.detail_completed_at = now
+            row.detail_leased_by = None
+            row.detail_lease_until = None
+            row.detail_last_error = None
+            row.final_json_path = final_json_path
+            row.selected_json_path = selected_json_path
+            session.add(row)
+
+    def mark_seed_detail_failed(self, item_id: str, error: str, *, retryable: bool = True) -> None:
+        if not self.enabled:
+            return
+        self.initialize()
+        with self.session_factory.begin() as session:
+            row = session.get(FapaiSeedItem, str(item_id))
+            if row is None:
+                return
+            row.status = "detail_failed" if retryable else "detail_blocked"
+            row.detail_leased_by = None
+            row.detail_lease_until = None
+            row.detail_last_error = str(error)
+            session.add(row)
+
+    def seed_queue_counts(self) -> Dict[str, int]:
+        counts = {
+            "seed_scan_job_pending": 0,
+            "seed_scan_job_in_progress": 0,
+            "seed_scan_job_completed": 0,
+            "seed_scan_job_blocked": 0,
+            "seed_scan_progress_pending": 0,
+            "seed_scan_progress_in_progress": 0,
+            "seed_scan_progress_exhausted": 0,
+            "seed_scan_progress_blocked": 0,
+            "seed_item_pending_detail": 0,
+            "seed_item_in_progress": 0,
+            "seed_item_detail_completed": 0,
+            "seed_item_detail_failed": 0,
+            "seed_item_detail_blocked": 0,
+            "seed_occurrence_total": 0,
+        }
+        if not self.enabled:
+            return counts
+        self.initialize()
+        with self.session_factory() as session:
+            for status, count_value in session.execute(
+                select(FapaiSeedScanJob.status, func.count(FapaiSeedScanJob.job_key)).group_by(FapaiSeedScanJob.status)
+            ):
+                key = f"seed_scan_job_{status}"
+                if key in counts:
+                    counts[key] = int(count_value or 0)
+            for status, count_value in session.execute(
+                select(FapaiSeedScanProgress.status, func.count(FapaiSeedScanProgress.progress_key)).group_by(FapaiSeedScanProgress.status)
+            ):
+                key = f"seed_scan_progress_{status}"
+                if key in counts:
+                    counts[key] = int(count_value or 0)
+            for status, count_value in session.execute(
+                select(FapaiSeedItem.status, func.count(FapaiSeedItem.item_id)).group_by(FapaiSeedItem.status)
+            ):
+                key = f"seed_item_{status}"
+                if key in counts:
+                    counts[key] = int(count_value or 0)
+            counts["seed_occurrence_total"] = int(session.scalar(select(func.count()).select_from(FapaiSeedOccurrence)) or 0)
+        return counts
 
     def _manual_review_receipt_payload_from_row(self, row: ManualReviewReceipt) -> Dict[str, Any]:
         payload: Dict[str, Any] = {

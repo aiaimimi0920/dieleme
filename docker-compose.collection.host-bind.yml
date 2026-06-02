@@ -1,0 +1,60 @@
+services:
+  fapaifang-seed-collector:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+
+  fapaifang-detail-worker:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+
+  fapaifang-collector:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+
+  fapaifang-api:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+
+  fapaifang-area-followup:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs

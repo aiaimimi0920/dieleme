@@ -1,0 +1,84 @@
+x-fapaifang-image: &fapaifang-image
+  build:
+    context: .
+    args:
+      PYTHON_BASE_IMAGE: ${PYTHON_BASE_IMAGE:-python:3.10-slim}
+  env_file:
+    - path: docker.local.env
+      required: false
+  image: fapaifang-collector:local
+
+x-fapaifang-volumes: &fapaifang-volumes
+  - fapaifang-output:/data/output
+  - fapaifang-datas:/data/datas
+  - fapaifang-jobs:/data/jobs
+
+services:
+  fapaifang-seed-collector:
+    <<: *fapaifang-image
+    container_name: fapaifang-seed-collector
+    restart: ${FAPAI_SEED_COLLECTOR_RESTART:-unless-stopped}
+    environment:
+      FAPAI_RUN_MODE: seed-collector
+      FAPAI_OUTPUT_DIR: /data/output/seed_collector
+      FAPAI_SEED_JOB_KEY: ${FAPAI_SEED_JOB_KEY:-guangdong-guangzhou-nansha-50025969}
+      FAPAI_SEED_PROVINCE: ${FAPAI_SEED_PROVINCE:-广东省}
+      FAPAI_SEED_CITY: ${FAPAI_SEED_CITY:-广州市}
+      FAPAI_SEED_DISTRICT: ${FAPAI_SEED_DISTRICT:-南沙区}
+      FAPAI_SEED_LOCATION_CODE: ${FAPAI_SEED_LOCATION_CODE:-440115}
+      FAPAI_SEED_CATEGORY: ${FAPAI_SEED_CATEGORY:-50025969}
+      FAPAI_SEED_SORTS: ${FAPAI_SEED_SORTS:-bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远,sort_0:0:排序0,sort_3:3:排序3,sort_4:4:排序4,sort_5:5:排序5}
+      FAPAI_SEED_MAX_PAGE: ${FAPAI_SEED_MAX_PAGE:-83}
+      FAPAI_SEED_PAGES_PER_RUN: ${FAPAI_SEED_PAGES_PER_RUN:-10}
+      FAPAI_SEED_LOOP_INTERVAL_SECONDS: ${FAPAI_SEED_LOOP_INTERVAL_SECONDS:-1800}
+    volumes: *fapaifang-volumes
+
+  fapaifang-detail-worker:
+    <<: *fapaifang-image
+    container_name: fapaifang-detail-worker
+    restart: ${FAPAI_DETAIL_WORKER_RESTART:-unless-stopped}
+    environment:
+      FAPAI_RUN_MODE: detail-worker
+      FAPAI_OUTPUT_DIR: /data/output/detail_worker
+      FAPAI_DETAIL_TARGET_SUCCESS: ${FAPAI_DETAIL_TARGET_SUCCESS:-5}
+      FAPAI_DETAIL_MAX_ATTEMPTS: ${FAPAI_DETAIL_MAX_ATTEMPTS:-20}
+      FAPAI_DETAIL_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_LOOP_INTERVAL_SECONDS:-900}
+    volumes: *fapaifang-volumes
+
+  fapaifang-collector:
+    <<: *fapaifang-image
+    container_name: fapaifang-collector
+    restart: "no"
+    profiles: ["legacy"]
+    environment:
+      FAPAI_RUN_MODE: live-loop
+      FAPAI_OUTPUT_DIR: /data/output/live_batch_smoke
+    volumes: *fapaifang-volumes
+
+  fapaifang-api:
+    <<: *fapaifang-image
+    container_name: fapaifang-api
+    restart: ${FAPAI_API_RESTART:-unless-stopped}
+    profiles: ["api"]
+    environment:
+      FAPAI_RUN_MODE: api
+      FAPAI_API_PORT: ${FAPAI_API_PORT:-8001}
+      FAPAI_SEED_LOCATION_CODES: ${FAPAI_SEED_LOCATION_CODES:-440115}
+    ports:
+      - "${FAPAI_API_PORT:-8001}:8001"
+    volumes: *fapaifang-volumes
+
+  fapaifang-area-followup:
+    <<: *fapaifang-image
+    container_name: fapaifang-area-followup
+    profiles: ["area-followup"]
+    environment:
+      FAPAI_RUN_MODE: area-followup
+      FAPAI_OUTPUT_DIR: /data/output/live_batch_smoke
+      FAPAI_AREA_QUEUE: /data/output/live_batch_smoke/area_followup_queue.json
+    volumes: *fapaifang-volumes
+
+volumes:
+  fapaifang-output:
+  fapaifang-datas:
+  fapaifang-jobs:

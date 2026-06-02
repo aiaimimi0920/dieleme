@@ -21,6 +21,12 @@ temp_chrome_profile/
 *.log
 install_log.txt
 
+# Local runtime secrets / Docker env files
+.env
+.env.*
+docker.env
+docker.local.env
+
 # Local debug and generated run artifacts
 .debug/
 output/

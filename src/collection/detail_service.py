@@ -31,6 +31,45 @@ class DetailCollectionService:
         path.mkdir(parents=True, exist_ok=True)
         return path
 
+    @staticmethod
+    def _has_value(value: Any) -> bool:
+        return value not in (None, "", [])
+
+    @classmethod
+    def _set_if_missing_or_empty(cls, data: Dict[str, Any], key: str, value: Any) -> None:
+        if cls._has_value(value) and not cls._has_value(data.get(key)):
+            data[key] = value
+
+    @classmethod
+    def _set_if_present(cls, data: Dict[str, Any], key: str, value: Any) -> None:
+        if cls._has_value(value):
+            data[key] = value
+
+    @classmethod
+    def _preserve_seed_values(cls, new_data: Dict[str, Any], existing_data: Dict[str, Any]) -> None:
+        for key in (
+            "title", "source_title", "url", "source_url", "source_item_id", "auction_date", "交易时间",
+            "currentPrice", "initialPrice", "transaction_price", "starting_price", "成交价格", "起拍价格",
+            "applyCount", "竞拍人数", "apply_count", "bidCount", "bid_count", "出价次数",
+            "bidderCount", "bidder_count", "出价人数", "deposit", "保证金",
+            "地点", "full_address", "完整地址", "城市", "区",
+            "latitude", "longitude", "纬度", "经度", "coordinate_source", "auction_round", "housing_type",
+            "status", "是否成交",
+        ):
+            cls._set_if_missing_or_empty(new_data, key, existing_data.get(key))
+
+        cls._set_if_present(new_data, "标题", existing_data.get("title") or existing_data.get("source_title"))
+        cls._set_if_present(new_data, "source_title", existing_data.get("title") or existing_data.get("source_title"))
+        cls._set_if_present(new_data, "交易时间", existing_data.get("auction_date"))
+        cls._set_if_present(new_data, "成交价格", existing_data.get("currentPrice"))
+        cls._set_if_present(new_data, "起拍价格", existing_data.get("initialPrice"))
+        cls._set_if_present(new_data, "竞拍人数", existing_data.get("applyCount"))
+        cls._set_if_present(new_data, "出价次数", existing_data.get("bidCount"))
+
+        status_text = str(new_data.get("status") or existing_data.get("status") or "").lower()
+        if status_text in {"done", "成交", "ended", "finished", "结束"}:
+            new_data["是否成交"] = True
+
     def next_task(self, dispatched_tasks: Dict[str, datetime.datetime], cooldown_seconds: int) -> Dict[str, Any]:
         now = datetime.datetime.now()
         if self.repository and getattr(self.repository, "enabled", False):
@@ -136,7 +175,7 @@ class DetailCollectionService:
         html_dir.mkdir(parents=True, exist_ok=True)
         html_path = html_dir / f"item-{item_id}.html"
         html_path.write_text(html_content, encoding="utf-8")
-        print(f"Saved HTML to {html_path}. Queued for Background AI.")
+        print(f"Saved HTML to {html_path}.")
 
         if status:
             working_data = working_item["data"]
@@ -153,9 +192,10 @@ class DetailCollectionService:
                 event_type,
                 {"item_id": item_id, "status": status, "source_file": working_item["file_path"]},
             )
-            if status == "failed_timeout" and prefer_db_task_reads():
+            normalized_status = str(status).strip().lower()
+            if normalized_status.startswith("failed_") and prefer_db_task_reads():
                 evict_runtime_item(item_id)
-            if status == "failed_timeout":
+            if normalized_status.startswith("failed_"):
                 return {"status": "queued"}
 
         submit_task(str(html_path))
@@ -330,11 +370,8 @@ class DetailCollectionService:
             new_data = json.loads(json_str)
             if not isinstance(new_data, dict):
                 raise ValueError("AI did not return a dictionary")
-            found_id = new_data.get("id") or new_data.get("ID") or new_data.get("唯一id")
-            if not found_id:
-                raise ValueError("AI response missing 'id'/'ID'/'唯一id' field")
-            if "id" not in new_data:
-                new_data["id"] = found_id
+            new_data["id"] = int(item_id) if str(item_id).isdigit() else item_id
+            new_data["source_item_id"] = str(item_id)
 
             avm_risk_features = extract_avm_risk_features(content, item_id=item_id)
             if avm_risk_features:
@@ -348,17 +385,7 @@ class DetailCollectionService:
             if original_record:
                 target_json_path = original_record["file_path"]
                 existing_data = original_record.get("data", {})
-                for key in (
-                    "title", "source_title", "url", "source_url", "source_item_id", "auction_date", "交易时间",
-                    "currentPrice", "initialPrice", "transaction_price", "starting_price", "成交价格", "起拍价格",
-                    "applyCount", "竞拍人数", "apply_count", "bidCount", "bid_count", "出价次数",
-                    "bidderCount", "bidder_count", "出价人数", "deposit", "保证金",
-                    "地点", "full_address", "完整地址", "城市", "区",
-                    "latitude", "longitude", "纬度", "经度", "coordinate_source", "auction_round", "housing_type",
-                ):
-                    value = existing_data.get(key)
-                    if value not in (None, ""):
-                        new_data.setdefault(key, value)
+                self._preserve_seed_values(new_data, existing_data)
             else:
                 date_str = new_data.get("auction_date", "")
                 if date_str:
