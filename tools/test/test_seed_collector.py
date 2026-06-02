@@ -55,6 +55,18 @@ def _make_repo(tmp_path: Path) -> PropertyRepository:
     )
 
 
+def _make_repo_at(db_path: Path) -> PropertyRepository:
+    return PropertyRepository(
+        DatabaseSettings(
+            url=f"sqlite:///{db_path.resolve().as_posix()}",
+            echo=False,
+            enable_postgis=False,
+            auto_create=True,
+            enabled=True,
+        )
+    )
+
+
 def test_parse_seed_sort_specs_accepts_named_final_sort_contract() -> None:
     specs = seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远")
 
@@ -101,6 +113,59 @@ def test_run_seed_collector_once_claims_one_page_and_populates_detail_queue(tmp_
         "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&st_param=2&auction_start_seg=-1&page=1"
     ]
     assert repo.seed_queue_counts()["seed_item_pending_detail"] == 2
+
+
+def test_run_seed_collector_once_resumes_after_restart_without_researching_completed_page(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    db_path = tmp_path / "seed-resume.sqlite3"
+    config = seed_collector.SeedCollectorConfig(
+        job_key="guangdong-guangzhou-nansha-50025969",
+        province="广东省",
+        city="广州市",
+        district="南沙区",
+        location_code="440115",
+        category="50025969",
+        sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+        max_page=83,
+        cdp_endpoint="http://127.0.0.1:9223",
+        output_dir=tmp_path,
+        worker_id="seed-test",
+    )
+    fetched_urls: list[str] = []
+
+    def _fetch_list_page(_http, *, cdp_endpoint: str, target_url: str, user_agent: str):
+        fetched_urls.append(target_url)
+        return "ok", target_url, 200, "http_cookie"
+
+    monkeypatch.setattr(seed_collector, "fetch_list_page", _fetch_list_page)
+
+    first_repo = _make_repo_at(db_path)
+    first_summary = seed_collector.run_seed_collector_once(
+        config,
+        repository=first_repo,
+        http_session=object(),
+        browserless_seed_probe=_FakeProbe,
+    )
+
+    restarted_repo = _make_repo_at(db_path)
+    second_summary = seed_collector.run_seed_collector_once(
+        config,
+        repository=restarted_repo,
+        http_session=object(),
+        browserless_seed_probe=_FakeProbe,
+    )
+
+    assert first_summary["task"]["sort_key"] == "bid_desc"
+    assert first_summary["task"]["page"] == 1
+    assert second_summary["task"]["sort_key"] == "bid_desc"
+    assert second_summary["task"]["page"] == 2
+    assert fetched_urls == [
+        "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&st_param=2&auction_start_seg=-1&page=1",
+        "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&st_param=2&auction_start_seg=-1&page=2",
+    ]
+    assert restarted_repo.seed_queue_counts()["seed_occurrence_total"] == 4
 
 
 def test_run_seed_collector_once_marks_scan_page_retryable_on_challenge(tmp_path: Path, monkeypatch) -> None:
