@@ -133,9 +133,14 @@ def run_detail_worker_once(
     http_session: Any,
     browser_pages: dict[str, tuple[str, str]],
     process_item_func: Callable[..., dict[str, Any]] = process_item,
+    exclude_item_ids: set[str] | None = None,
 ) -> dict[str, Any]:
     config.output_dir.mkdir(parents=True, exist_ok=True)
-    seed = repository.claim_seed_detail_item(config.worker_id, lease_seconds=config.lease_seconds)
+    seed = repository.claim_seed_detail_item(
+        config.worker_id,
+        lease_seconds=config.lease_seconds,
+        exclude_item_ids=exclude_item_ids,
+    )
     if seed is None:
         summary = {"decision": "detail_queue_empty"}
         _write_runtime_summary(config.output_dir, summary)
@@ -206,6 +211,7 @@ def run_detail_worker_batch(
     else:
         preflight = None
     results: list[dict[str, Any]] = []
+    attempted_item_ids: set[str] = set()
     completed = 0
     attempts = 0
     while attempts < config.max_attempts and completed < config.target_success:
@@ -216,8 +222,12 @@ def run_detail_worker_batch(
             http_session=http_session,
             browser_pages=browser_pages,
             process_item_func=process_item_func,
+            exclude_item_ids=attempted_item_ids,
         )
         results.append(result)
+        item_id = result.get("item_id")
+        if item_id:
+            attempted_item_ids.add(str(item_id))
         if result.get("decision") == "detail_queue_empty":
             break
         if result.get("decision") == "detail_item_completed":

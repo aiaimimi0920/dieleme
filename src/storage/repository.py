@@ -2244,12 +2244,19 @@ class PropertyRepository:
             "new_occurrences": new_occurrences,
         }
 
-    def claim_seed_detail_item(self, worker_id: str, lease_seconds: int = 300) -> Optional[Dict[str, Any]]:
+    def claim_seed_detail_item(
+        self,
+        worker_id: str,
+        lease_seconds: int = 300,
+        *,
+        exclude_item_ids: Iterable[str] | None = None,
+    ) -> Optional[Dict[str, Any]]:
         if not self.enabled:
             return None
         self.initialize()
         now = datetime.now()
         lease_until = now + timedelta(seconds=max(lease_seconds, 1))
+        excluded = {str(item_id) for item_id in (exclude_item_ids or ())}
         with self.session_factory.begin() as session:
             rows = session.scalars(
                 select(FapaiSeedItem).where(
@@ -2268,6 +2275,8 @@ class PropertyRepository:
             ).all()
             ordered = sorted(rows, key=lambda row: (row.first_seen_at or datetime.min, row.item_id))
             for row in ordered:
+                if row.item_id in excluded:
+                    continue
                 row.status = "in_progress"
                 row.detail_leased_by = worker_id
                 row.detail_lease_until = lease_until
