@@ -38,6 +38,7 @@ class DetailWorkerConfig:
     worker_id: str
     do_risk: bool
     lease_seconds: int = 900
+    item_max_attempts: int = 3
     loop_interval_seconds: int = 900
     max_runs: int | None = None
     llm_preflight_enabled: bool = False
@@ -152,6 +153,7 @@ def run_detail_worker_once(
         config.worker_id,
         lease_seconds=config.lease_seconds,
         exclude_item_ids=exclude_item_ids,
+        max_item_attempts=config.item_max_attempts,
     )
     if seed is None:
         summary = {"decision": "detail_queue_empty"}
@@ -360,6 +362,7 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailW
     parser.add_argument("--cdp-endpoint", default=os.getenv("FAPAI_CDP_ENDPOINT", DEFAULT_CDP_ENDPOINT))
     parser.add_argument("--target-success", type=int, default=_safe_int(os.getenv("FAPAI_DETAIL_TARGET_SUCCESS"), 5))
     parser.add_argument("--max-attempts", type=int, default=_safe_int(os.getenv("FAPAI_DETAIL_MAX_ATTEMPTS"), 20))
+    parser.add_argument("--item-max-attempts", type=int, default=_safe_int(os.getenv("FAPAI_DETAIL_ITEM_MAX_ATTEMPTS"), 3))
     parser.add_argument("--worker-id", default=os.getenv("FAPAI_DETAIL_WORKER_ID", f"detail-{os.getpid()}"))
     parser.add_argument("--lease-seconds", type=int, default=_safe_int(os.getenv("FAPAI_DETAIL_LEASE_SECONDS"), 900))
     parser.add_argument("--loop", action="store_true", default=_env_flag("FAPAI_DETAIL_LOOP", False))
@@ -384,6 +387,7 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailW
             worker_id=_clean_text(args.worker_id, f"detail-{os.getpid()}"),
             do_risk=bool(args.risk),
             lease_seconds=max(int(args.lease_seconds), 1),
+            item_max_attempts=max(int(args.item_max_attempts), 1),
             loop_interval_seconds=max(int(args.loop_interval_seconds), 0),
             max_runs=args.max_runs,
             llm_preflight_enabled=bool(args.llm_preflight),

@@ -228,6 +228,72 @@ def test_detail_queue_prioritizes_pending_items_before_retrying_failed_or_same_w
     assert claimed["id"] == "1003"
 
 
+def test_detail_queue_blocks_items_that_reach_retry_limit_before_claiming_next(
+    tmp_path: Path,
+) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=[
+            {"id": "1001", "title": "南沙 A", "url": "https://sf-item.taobao.com/sf_item/1001.htm"},
+            {"id": "1002", "title": "南沙 B", "url": "https://sf-item.taobao.com/sf_item/1002.htm"},
+            {"id": "1003", "title": "南沙 C", "url": "https://sf-item.taobao.com/sf_item/1003.htm"},
+        ],
+    )
+
+    with repo.session_factory() as session:
+        failed = session.get(FapaiSeedItem, "1001")
+        expired = session.get(FapaiSeedItem, "1002")
+        claimable = session.get(FapaiSeedItem, "1003")
+        assert failed is not None
+        assert expired is not None
+        assert claimable is not None
+        failed.status = "detail_failed"
+        failed.detail_attempt_count = 3
+        failed.detail_last_error = "old retryable failure"
+        failed.first_seen_at = failed.first_seen_at.replace(year=2000)
+        expired.status = "in_progress"
+        expired.detail_attempt_count = 3
+        expired.detail_leased_by = "detail-worker"
+        expired.detail_lease_until = expired.first_seen_at.replace(year=2001)
+        expired.detail_last_error = "old leased failure"
+        expired.first_seen_at = expired.first_seen_at.replace(year=2001)
+        claimable.status = "detail_failed"
+        claimable.detail_attempt_count = 2
+        claimable.detail_last_error = "still retryable"
+        claimable.first_seen_at = claimable.first_seen_at.replace(year=2002)
+        session.add_all([failed, expired, claimable])
+        session.commit()
+
+    claimed = repo.claim_seed_detail_item("detail-worker", lease_seconds=30, max_item_attempts=3)
+
+    assert claimed is not None
+    assert claimed["id"] == "1003"
+    with repo.session_factory() as session:
+        blocked_failed = session.get(FapaiSeedItem, "1001")
+        blocked_expired = session.get(FapaiSeedItem, "1002")
+        claimed_row = session.get(FapaiSeedItem, "1003")
+        assert blocked_failed is not None and blocked_failed.status == "detail_blocked"
+        assert blocked_expired is not None and blocked_expired.status == "detail_blocked"
+        assert blocked_failed.detail_leased_by is None
+        assert blocked_expired.detail_leased_by is None
+        assert blocked_failed.detail_lease_until is None
+        assert blocked_expired.detail_lease_until is None
+        assert "retry limit reached" in (blocked_failed.detail_last_error or "")
+        assert "retry limit reached" in (blocked_expired.detail_last_error or "")
+        assert claimed_row is not None and claimed_row.status == "in_progress"
+        assert claimed_row.detail_attempt_count == 3
+
+
 def test_seed_scan_page_failure_releases_progress_for_retry(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _ensure_nansha_job(repo)

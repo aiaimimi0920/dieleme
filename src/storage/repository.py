@@ -2250,6 +2250,7 @@ class PropertyRepository:
         lease_seconds: int = 300,
         *,
         exclude_item_ids: Iterable[str] | None = None,
+        max_item_attempts: int | None = None,
     ) -> Optional[Dict[str, Any]]:
         if not self.enabled:
             return None
@@ -2257,6 +2258,7 @@ class PropertyRepository:
         now = datetime.now()
         lease_until = now + timedelta(seconds=max(lease_seconds, 1))
         excluded = {str(item_id) for item_id in (exclude_item_ids or ())}
+        attempt_limit = max(int(max_item_attempts), 1) if max_item_attempts is not None else None
         with self.session_factory.begin() as session:
             rows = session.scalars(
                 select(FapaiSeedItem).where(
@@ -2282,13 +2284,27 @@ class PropertyRepository:
                     row.item_id,
                 ),
             )
+            claimable_rows = []
             for row in ordered:
                 if row.item_id in excluded:
                     continue
+                attempt_count = int(row.detail_attempt_count or 0)
+                if attempt_limit is not None and attempt_count >= attempt_limit:
+                    row.status = "detail_blocked"
+                    row.detail_leased_by = None
+                    row.detail_lease_until = None
+                    previous_error = (row.detail_last_error or "").strip()
+                    limit_error = f"retry limit reached: attempts={attempt_count}, max={attempt_limit}"
+                    row.detail_last_error = f"{limit_error}; previous_error={previous_error}" if previous_error else limit_error
+                    session.add(row)
+                    continue
+                claimable_rows.append(row)
+            for row in claimable_rows:
+                attempt_count = int(row.detail_attempt_count or 0)
                 row.status = "in_progress"
                 row.detail_leased_by = worker_id
                 row.detail_lease_until = lease_until
-                row.detail_attempt_count = int(row.detail_attempt_count or 0) + 1
+                row.detail_attempt_count = attempt_count + 1
                 session.add(row)
                 occurrence = session.scalars(
                     select(FapaiSeedOccurrence)

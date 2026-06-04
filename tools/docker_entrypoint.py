@@ -167,6 +167,8 @@ def build_detail_worker_command(env: Mapping[str, str]) -> list[str]:
         env_text(env, "FAPAI_DETAIL_TARGET_SUCCESS", env_text(env, "FAPAI_TARGET_SUCCESS", "5")) or "5",
         "--max-attempts",
         env_text(env, "FAPAI_DETAIL_MAX_ATTEMPTS", env_text(env, "FAPAI_MAX_ATTEMPTS", "20")) or "20",
+        "--item-max-attempts",
+        env_text(env, "FAPAI_DETAIL_ITEM_MAX_ATTEMPTS", "3") or "3",
     ]
     append_option(command, "--worker-id", env_text(env, "FAPAI_DETAIL_WORKER_ID"))
     append_option(command, "--lease-seconds", env_text(env, "FAPAI_DETAIL_LEASE_SECONDS"))

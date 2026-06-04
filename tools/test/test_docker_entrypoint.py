@@ -182,6 +182,7 @@ def test_detail_worker_command_consumes_db_seed_queue() -> None:
             "FAPAI_CDP_ENDPOINT": "http://host.docker.internal:9223",
             "FAPAI_DETAIL_TARGET_SUCCESS": "3",
             "FAPAI_DETAIL_MAX_ATTEMPTS": "10",
+            "FAPAI_DETAIL_ITEM_MAX_ATTEMPTS": "4",
             "FAPAI_DETAIL_LOOP_INTERVAL_SECONDS": "900",
             "FAPAI_DETAIL_MAX_RUNS": "2",
             "FAPAI_ENABLE_RISK": "1",
@@ -193,6 +194,7 @@ def test_detail_worker_command_consumes_db_seed_queue() -> None:
     assert command[command.index("--output-dir") + 1] == "/data/output/detail_worker"
     assert command[command.index("--target-success") + 1] == "3"
     assert command[command.index("--max-attempts") + 1] == "10"
+    assert command[command.index("--item-max-attempts") + 1] == "4"
     assert "--risk" in command
     assert "--llm-preflight" in command
     assert "--loop" in command
