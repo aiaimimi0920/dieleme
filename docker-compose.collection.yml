@@ -21,6 +21,10 @@ services:
     environment:
       FAPAI_RUN_MODE: seed-collector
       FAPAI_OUTPUT_DIR: /data/output/seed_collector
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
       FAPAI_SEED_JOB_KEY: ${FAPAI_SEED_JOB_KEY:-guangdong-guangzhou-nansha-50025969}
       FAPAI_SEED_PROVINCE: ${FAPAI_SEED_PROVINCE:-广东省}
       FAPAI_SEED_CITY: ${FAPAI_SEED_CITY:-广州市}
@@ -40,6 +44,10 @@ services:
     environment:
       FAPAI_RUN_MODE: detail-worker
       FAPAI_OUTPUT_DIR: /data/output/detail_worker
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
       FAPAI_DETAIL_TARGET_SUCCESS: ${FAPAI_DETAIL_TARGET_SUCCESS:-5}
       FAPAI_DETAIL_MAX_ATTEMPTS: ${FAPAI_DETAIL_MAX_ATTEMPTS:-20}
       FAPAI_DETAIL_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_LOOP_INTERVAL_SECONDS:-900}
