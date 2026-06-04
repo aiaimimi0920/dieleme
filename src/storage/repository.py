@@ -2273,7 +2273,15 @@ class PropertyRepository:
                     )
                 )
             ).all()
-            ordered = sorted(rows, key=lambda row: (row.first_seen_at or datetime.min, row.item_id))
+            status_priority = {"pending_detail": 0, "detail_failed": 1, "in_progress": 2}
+            ordered = sorted(
+                rows,
+                key=lambda row: (
+                    status_priority.get(str(row.status), 99),
+                    row.first_seen_at or datetime.min,
+                    row.item_id,
+                ),
+            )
             for row in ordered:
                 if row.item_id in excluded:
                     continue

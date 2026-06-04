@@ -182,6 +182,52 @@ def test_detail_queue_claims_once_and_retries_failed_items(tmp_path: Path) -> No
         assert failed.detail_attempt_count == 2
 
 
+def test_detail_queue_prioritizes_pending_items_before_retrying_failed_or_same_worker_in_progress(
+    tmp_path: Path,
+) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=[
+            {"id": "1001", "title": "南沙 A", "url": "https://sf-item.taobao.com/sf_item/1001.htm"},
+            {"id": "1002", "title": "南沙 B", "url": "https://sf-item.taobao.com/sf_item/1002.htm"},
+            {"id": "1003", "title": "南沙 C", "url": "https://sf-item.taobao.com/sf_item/1003.htm"},
+        ],
+    )
+
+    with repo.session_factory() as session:
+        old_failed = session.get(FapaiSeedItem, "1001")
+        same_worker_in_progress = session.get(FapaiSeedItem, "1002")
+        pending = session.get(FapaiSeedItem, "1003")
+        assert old_failed is not None
+        assert same_worker_in_progress is not None
+        assert pending is not None
+        old_failed.status = "detail_failed"
+        old_failed.detail_last_error = "temporary backend failure"
+        same_worker_in_progress.status = "in_progress"
+        same_worker_in_progress.detail_leased_by = "detail-worker"
+        same_worker_in_progress.detail_lease_until = old_failed.first_seen_at.replace(year=2099)
+        old_failed.first_seen_at = old_failed.first_seen_at.replace(year=2000)
+        same_worker_in_progress.first_seen_at = same_worker_in_progress.first_seen_at.replace(year=2001)
+        pending.first_seen_at = pending.first_seen_at.replace(year=2002)
+        session.add_all([old_failed, same_worker_in_progress, pending])
+        session.commit()
+
+    claimed = repo.claim_seed_detail_item("detail-worker", lease_seconds=30)
+
+    assert claimed is not None
+    assert claimed["id"] == "1003"
+
+
 def test_seed_scan_page_failure_releases_progress_for_retry(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _ensure_nansha_job(repo)
