@@ -221,10 +221,16 @@ def run_detail_worker_batch(
     process_item_func: Callable[..., dict[str, Any]] = process_item,
 ) -> dict[str, Any]:
     if config.llm_preflight_enabled:
-        preflight = preflight_llm_backend(timeout=config.llm_preflight_timeout_seconds, check_chat=True)
+        try:
+            preflight = preflight_llm_backend(timeout=config.llm_preflight_timeout_seconds, check_chat=True)
+        except Exception as exc:
+            preflight = {
+                "enabled": True,
+                "error": repr(exc),
+            }
     else:
         preflight = None
-    if _llm_preflight_is_unavailable(preflight):
+    if _llm_preflight_is_unavailable(preflight) or (preflight and preflight.get("error")):
         summary = {
             "decision": "detail_worker_llm_unavailable",
             "attempts": 0,
