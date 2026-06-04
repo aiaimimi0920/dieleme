@@ -216,6 +216,57 @@ def test_run_detail_worker_batch_does_not_retry_same_failed_item_in_same_batch(t
     assert [result["item_id"] for result in summary["results"]] == ["3001", "3002"]
 
 
+def test_run_detail_worker_batch_aborts_before_claiming_items_when_llm_chat_is_unavailable(tmp_path: Path, monkeypatch) -> None:
+    repo = _make_repo(tmp_path)
+    _seed_items(repo, ["3001"])
+    processed: list[str] = []
+
+    def _process_item(_http, seed, _browser_pages, *, config):
+        processed.append(str(seed["id"]))
+        return {}
+
+    preflight_calls: list[dict[str, object]] = []
+
+    def _preflight_llm_backend(*, timeout: float, check_chat: bool = False) -> dict[str, object]:
+        preflight_calls.append({"timeout": timeout, "check_chat": check_chat})
+        return {
+            "enabled": True,
+            "url": "http://llm.local/v1/models",
+            "status_code": 200,
+            "chat_url": "http://llm.local/v1/chat/completions",
+            "chat_status_code": 503,
+        }
+
+    monkeypatch.setattr(detail_worker, "preflight_llm_backend", _preflight_llm_backend)
+    monkeypatch.setattr(detail_worker.time, "sleep", lambda _seconds: None)
+
+    summary = detail_worker.run_detail_worker_batch(
+        detail_worker.DetailWorkerConfig(
+            output_dir=tmp_path,
+            cdp_endpoint="http://127.0.0.1:9223",
+            target_success=1,
+            max_attempts=3,
+            worker_id="detail-test",
+            do_risk=False,
+            llm_preflight_enabled=True,
+            llm_preflight_timeout_seconds=2.5,
+        ),
+        repository=repo,
+        http_session=object(),
+        browser_pages={},
+        process_item_func=_process_item,
+    )
+
+    assert summary["decision"] == "detail_worker_llm_unavailable"
+    assert summary["attempts"] == 0
+    assert summary["completed"] == 0
+    assert summary["results"] == []
+    assert summary["llm_preflight"]["chat_status_code"] == 503
+    assert preflight_calls == [{"timeout": 2.5, "check_chat": True}]
+    assert processed == []
+    assert repo.seed_queue_counts()["seed_item_pending_detail"] == 1
+
+
 def test_run_detail_worker_once_exits_cleanly_when_queue_is_empty(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     summary = detail_worker.run_detail_worker_once(

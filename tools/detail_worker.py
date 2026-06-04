@@ -50,6 +50,18 @@ RuntimeContextFactory = Callable[[], RuntimeContext]
 ProgressEmitFunc = Callable[[dict[str, Any]], None]
 
 
+def _llm_preflight_is_unavailable(preflight: dict[str, Any] | None) -> bool:
+    if not preflight or not preflight.get("enabled"):
+        return False
+    status_code = preflight.get("status_code")
+    chat_status_code = preflight.get("chat_status_code")
+    if isinstance(status_code, int) and status_code >= 500:
+        return True
+    if isinstance(chat_status_code, int) and chat_status_code >= 500:
+        return True
+    return False
+
+
 def _clean_text(value: Any, default: str = "") -> str:
     text = str(value if value is not None else "").strip()
     return text or default
@@ -207,9 +219,22 @@ def run_detail_worker_batch(
     process_item_func: Callable[..., dict[str, Any]] = process_item,
 ) -> dict[str, Any]:
     if config.llm_preflight_enabled:
-        preflight = preflight_llm_backend(timeout=config.llm_preflight_timeout_seconds)
+        preflight = preflight_llm_backend(timeout=config.llm_preflight_timeout_seconds, check_chat=True)
     else:
         preflight = None
+    if _llm_preflight_is_unavailable(preflight):
+        summary = {
+            "decision": "detail_worker_llm_unavailable",
+            "attempts": 0,
+            "completed": 0,
+            "target_success": config.target_success,
+            "max_attempts": config.max_attempts,
+            "llm_preflight": preflight,
+            "results": [],
+            "counts": repository.seed_queue_counts(),
+        }
+        _write_runtime_summary(config.output_dir, summary)
+        return summary
     results: list[dict[str, Any]] = []
     attempted_item_ids: set[str] = set()
     completed = 0

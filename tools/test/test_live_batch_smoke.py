@@ -4,7 +4,23 @@ from pathlib import Path
 
 import pytest
 
+from src import llm_helper
 from tools import live_batch_smoke
+
+
+def test_preflight_llm_backend_passes_chat_probe_flag(monkeypatch) -> None:
+    calls: list[dict[str, object]] = []
+
+    def _preflight_openai_compatible_backend(timeout: float, *, check_chat: bool = False) -> dict[str, object]:
+        calls.append({"timeout": timeout, "check_chat": check_chat})
+        return {"enabled": True}
+
+    monkeypatch.setattr(llm_helper, "preflight_openai_compatible_backend", _preflight_openai_compatible_backend)
+
+    result = live_batch_smoke.preflight_llm_backend(timeout=3.5, check_chat=True)
+
+    assert result == {"enabled": True}
+    assert calls == [{"timeout": 3.5, "check_chat": True}]
 
 
 def _result(

@@ -1484,7 +1484,7 @@ def _chat_with_openai_compatible(content, config):
     return result
 
 
-def preflight_openai_compatible_backend(timeout=15.0):
+def preflight_openai_compatible_backend(timeout=15.0, *, check_chat=False):
     config = _get_openai_compatible_config()
     if not config:
         return {"enabled": False}
@@ -1499,11 +1499,34 @@ def preflight_openai_compatible_backend(timeout=15.0):
         headers={"Authorization": f"Bearer {config['api_key']}"},
         timeout=float(timeout),
     )
-    return {
+    result = {
         "enabled": True,
         "url": url,
         "status_code": getattr(response, "status_code", None),
     }
+    if check_chat:
+        chat_url = f"{config['base_url']}/chat/completions"
+        chat_response = session.post(
+            chat_url,
+            headers={
+                "Authorization": f"Bearer {config['api_key']}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": config["model"],
+                "messages": [{"role": "user", "content": "Return OK."}],
+                "temperature": 0,
+                "max_tokens": 1,
+            },
+            timeout=float(timeout),
+        )
+        result.update(
+            {
+                "chat_url": chat_url,
+                "chat_status_code": getattr(chat_response, "status_code", None),
+            }
+        )
+    return result
 
 
 def chat_with_glm(content):

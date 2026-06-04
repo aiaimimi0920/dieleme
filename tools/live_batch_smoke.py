@@ -68,10 +68,10 @@ def _browserless_seed_probe():
     return browserless_seed_probe
 
 
-def preflight_llm_backend(*, timeout: float) -> dict[str, Any]:
+def preflight_llm_backend(*, timeout: float, check_chat: bool = False) -> dict[str, Any]:
     from src import llm_helper
 
-    return llm_helper.preflight_openai_compatible_backend(timeout=timeout)
+    return llm_helper.preflight_openai_compatible_backend(timeout=timeout, check_chat=check_chat)
 
 
 def write_json(path: Path, payload: Any) -> None:

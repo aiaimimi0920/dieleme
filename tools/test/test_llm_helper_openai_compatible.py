@@ -206,6 +206,74 @@ def test_preflight_local_openai_compatible_backend_bypasses_generic_fapai_proxy(
     ]
 
 
+def test_preflight_openai_compatible_backend_can_probe_chat_completions(monkeypatch):
+    calls: list[dict[str, Any]] = []
+
+    class ModelsResponse:
+        status_code = 200
+        text = '{"data":[]}'
+
+    class BusyChatResponse:
+        status_code = 503
+        text = '{"error":"busy"}'
+
+    class FakeSession:
+        def __init__(self):
+            self.trust_env = True
+            self.proxies: dict[str, str] = {}
+
+        def get(self, url: str, *, headers: dict[str, str], timeout: float):
+            calls.append({"method": "get", "url": url, "headers": headers, "timeout": timeout, "trust_env": self.trust_env})
+            return ModelsResponse()
+
+        def post(self, url: str, *, headers: dict[str, str], json: dict[str, Any], timeout: float):
+            calls.append(
+                {
+                    "method": "post",
+                    "url": url,
+                    "headers": headers,
+                    "json": json,
+                    "timeout": timeout,
+                    "trust_env": self.trust_env,
+                }
+            )
+            return BusyChatResponse()
+
+    monkeypatch.setattr(llm_helper.requests, "Session", lambda: FakeSession())
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.test/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL", "test-model")
+
+    result = llm_helper.preflight_openai_compatible_backend(timeout=7.5, check_chat=True)
+
+    assert result == {
+        "enabled": True,
+        "url": "https://example.test/v1/models",
+        "status_code": 200,
+        "chat_url": "https://example.test/v1/chat/completions",
+        "chat_status_code": 503,
+    }
+    assert calls[0] == {
+        "method": "get",
+        "url": "https://example.test/v1/models",
+        "headers": {"Authorization": "Bearer test-key"},
+        "timeout": 7.5,
+        "trust_env": False,
+    }
+    assert calls[1]["method"] == "post"
+    assert calls[1]["url"] == "https://example.test/v1/chat/completions"
+    assert calls[1]["headers"] == {
+        "Authorization": "Bearer test-key",
+        "Content-Type": "application/json",
+    }
+    assert calls[1]["json"]["model"] == "test-model"
+    assert calls[1]["json"]["messages"] == [{"role": "user", "content": "Return OK."}]
+    assert calls[1]["json"]["temperature"] == 0
+    assert calls[1]["json"]["max_tokens"] == 1
+    assert calls[1]["timeout"] == 7.5
+    assert calls[1]["trust_env"] is False
+
+
 def test_llm_helper_import_allows_openai_env_without_secrets_json(tmp_path):
     src_dir = tmp_path / "src"
     src_dir.mkdir()
