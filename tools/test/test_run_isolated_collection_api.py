@@ -21,6 +21,7 @@ def test_build_runtime_config_defaults_to_safe_isolated_flags():
     assert config["start_background_processors"] is False
     assert config["start_hot_reload"] is False
     assert config["skip_load_data"] is True
+    assert config["collection_api_lightweight_status"] is True
     assert config["db_url"] is None
     assert config["seed_location_codes"] == ["110101"]
 
@@ -43,6 +44,7 @@ def test_run_isolated_collection_api_script_can_run_print_config_from_repo_root(
     assert payload["port"] == 8011
     assert payload["ensure_browser"] is False
     assert payload["skip_load_data"] is True
+    assert payload["collection_api_lightweight_status"] is True
 
 
 def test_build_runtime_config_can_include_db_url():

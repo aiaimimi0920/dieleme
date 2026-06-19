@@ -10,6 +10,7 @@ auth.json
 secrets.json
 tb_monitor_data.jsonl
 *.html
+!collector-desktop/index.html
 *.processing
 *.failed
 
@@ -30,6 +31,10 @@ docker.local.env
 # Local debug and generated run artifacts
 .debug/
 output/
+cdp_sf_*.json
+tmp_regions_links*.json
+tmp_taobao_province_links.json
+screenshot_before.png
 
 # IDE
 .vscode/
@@ -41,3 +46,9 @@ datas/
 # Excel Reports & Temp Files
 *.xlsx
 ~$*.xlsx
+
+# Node / Tauri generated artifacts
+node_modules/
+dist/
+target/
+collector-desktop/src-tauri/gen/

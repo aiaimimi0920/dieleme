@@ -16,11 +16,12 @@ RUN if [ -d /tmp/wheels ] && [ "$(find /tmp/wheels -type f -name '*.whl' | head 
         pip install --no-cache-dir --no-index --find-links=/tmp/wheels -r requirements.txt; \
     else \
         pip install --no-cache-dir -r requirements.txt; \
-    fi
+    fi \
+    && playwright install --with-deps chromium
 
 COPY . .
 
-RUN mkdir -p /data/output /data/datas /data/jobs \
+RUN mkdir -p /data/output /data/datas /data/jobs /data/secrets \
     && mkdir -p /app/output /app/jobs \
     && if [ ! -e /app/datas ]; then ln -s /data/datas /app/datas; fi
 

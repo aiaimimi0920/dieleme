@@ -14,6 +14,12 @@ from sqlalchemy.exc import SAWarning
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TRUE_VALUES = {"1", "true", "yes", "y", "on"}
+CAPTCHA_SOLVER_ENV_KEYS = (
+    "FAPAI_CAPTCHA_SOLVER_ENABLED",
+    "FAPAI_SOLVER_ENABLED",
+    "SOLVER_ENABLED",
+    "solver_enabled",
+)
 
 
 def env_text(env: Mapping[str, str], key: str, default: str | None = None) -> str | None:
@@ -29,6 +35,14 @@ def env_flag(env: Mapping[str, str], key: str, default: bool = False) -> bool:
     if value is None:
         return default
     return value.lower() in TRUE_VALUES
+
+
+def any_env_flag(env: Mapping[str, str], keys: tuple[str, ...], default: bool = False) -> bool:
+    for key in keys:
+        value = env_text(env, key)
+        if value is not None:
+            return value.lower() in TRUE_VALUES
+    return default
 
 
 def append_option(command: list[str], option: str, value: str | None) -> None:
@@ -59,6 +73,9 @@ def build_live_command(env: Mapping[str, str]) -> list[str]:
 
     if env_flag(env, "FAPAI_ENABLE_RISK", False):
         command.append("--risk")
+    live_raw_only = env_flag(env, "LIVE_BATCH_RAW_ONLY", env_flag(env, "FAPAI_DETAIL_RAW_ONLY", False))
+    if live_raw_only:
+        command.append("--raw-only")
     if env_flag(env, "FAPAI_DISABLE_RESUME", False):
         command.append("--no-resume")
     else:
@@ -70,7 +87,7 @@ def build_live_command(env: Mapping[str, str]) -> list[str]:
     append_option(command, "--list-max-pages", env_text(env, "FAPAI_LIST_MAX_PAGES", "83"))
     if not env_flag(env, "FAPAI_LIST_STOP_ON_EMPTY", True):
         command.append("--no-list-stop-on-empty")
-    if env_flag(env, "FAPAI_LLM_PREFLIGHT", True):
+    if env_flag(env, "FAPAI_LLM_PREFLIGHT", True) and not live_raw_only:
         command.append("--llm-preflight")
         append_option(command, "--llm-preflight-timeout-seconds", env_text(env, "FAPAI_LLM_PREFLIGHT_TIMEOUT_SECONDS", "15"))
 
@@ -139,7 +156,7 @@ def build_seed_collector_command(env: Mapping[str, str]) -> list[str]:
         env_text(
             env,
             "FAPAI_SEED_SORTS",
-            "bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远,sort_0:0:排序0,sort_3:3:排序3,sort_4:4:排序4,sort_5:5:排序5",
+            "sort_0:0:默认排序,sort_3:3:价格由高到低,bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远,sort_4:4:排序4,sort_5:5:排序5",
         )
         or "",
         "--max-page",
@@ -148,14 +165,67 @@ def build_seed_collector_command(env: Mapping[str, str]) -> list[str]:
     append_option(command, "--worker-id", env_text(env, "FAPAI_SEED_WORKER_ID"))
     append_option(command, "--lease-seconds", env_text(env, "FAPAI_SEED_LEASE_SECONDS"))
     append_option(command, "--pages-per-run", env_text(env, "FAPAI_SEED_PAGES_PER_RUN", "10"))
+    append_option(command, "--api-base-url", env_text(env, "FAPAI_API_BASE_URL"))
+    append_option(command, "--jobs-file", env_text(env, "FAPAI_SEED_JOBS_FILE"))
+    append_option(command, "--jobs-json", env_text(env, "FAPAI_SEED_JOBS_JSON"))
+    append_option(command, "--failure-cooldown-threshold", env_text(env, "FAPAI_SEED_FAILURE_COOLDOWN_THRESHOLD"))
+    append_option(command, "--failure-cooldown-seconds", env_text(env, "FAPAI_SEED_FAILURE_COOLDOWN_SECONDS"))
+    if env_flag(env, "FAPAI_SEED_PARALLEL_SORTS", False):
+        command.append("--parallel-sorts")
+    if any_env_flag(env, CAPTCHA_SOLVER_ENV_KEYS, False):
+        command.append("--solver-enabled")
     if (env_text(env, "FAPAI_RUN_MODE", "seed-collector") or "").lower() == "seed-collector":
         command.append("--loop")
-        append_option(command, "--loop-interval-seconds", env_text(env, "FAPAI_SEED_LOOP_INTERVAL_SECONDS", env_text(env, "FAPAI_LOOP_INTERVAL_SECONDS", "1800")))
+        loop_interval_seconds = env_text(env, "FAPAI_SEED_LOOP_INTERVAL_SECONDS", env_text(env, "FAPAI_LOOP_INTERVAL_SECONDS", "1800"))
+        active_loop_interval_seconds = env_text(
+            env,
+            "FAPAI_SEED_ACTIVE_LOOP_INTERVAL_SECONDS",
+            env_text(env, "FAPAI_ACTIVE_LOOP_INTERVAL_SECONDS", loop_interval_seconds),
+        )
+        append_option(command, "--loop-interval-seconds", loop_interval_seconds)
+        append_option(command, "--active-loop-interval-seconds", active_loop_interval_seconds)
         append_option(command, "--max-runs", env_text(env, "FAPAI_SEED_MAX_RUNS"))
     return command
 
 
 def build_detail_worker_command(env: Mapping[str, str]) -> list[str]:
+    run_mode = (env_text(env, "FAPAI_RUN_MODE", "detail-worker") or "detail-worker").lower()
+    analysis_only = run_mode in {"detail-analysis-worker", "detail-analysis-batch"} or env_flag(
+        env, "FAPAI_DETAIL_ANALYSIS_ONLY", False
+    )
+    target_success = env_text(env, "FAPAI_DETAIL_TARGET_SUCCESS", env_text(env, "FAPAI_TARGET_SUCCESS", "5"))
+    max_attempts = env_text(env, "FAPAI_DETAIL_MAX_ATTEMPTS", env_text(env, "FAPAI_MAX_ATTEMPTS", "20"))
+    item_max_attempts = env_text(env, "FAPAI_DETAIL_ITEM_MAX_ATTEMPTS", "3")
+    loop_interval_seconds = env_text(env, "FAPAI_DETAIL_LOOP_INTERVAL_SECONDS", env_text(env, "FAPAI_LOOP_INTERVAL_SECONDS", "900"))
+    active_loop_interval_seconds = env_text(
+        env,
+        "FAPAI_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS",
+        env_text(env, "FAPAI_ACTIVE_LOOP_INTERVAL_SECONDS", loop_interval_seconds),
+    )
+    max_runs = env_text(env, "FAPAI_DETAIL_MAX_RUNS")
+    llm_preflight = env_flag(env, "FAPAI_LLM_PREFLIGHT", True)
+    llm_preflight_timeout_seconds = env_text(env, "FAPAI_LLM_PREFLIGHT_TIMEOUT_SECONDS", "15")
+    if analysis_only:
+        target_success = env_text(env, "FAPAI_DETAIL_ANALYSIS_TARGET_SUCCESS", target_success)
+        max_attempts = env_text(env, "FAPAI_DETAIL_ANALYSIS_MAX_ATTEMPTS", max_attempts)
+        item_max_attempts = env_text(env, "FAPAI_DETAIL_ANALYSIS_ITEM_MAX_ATTEMPTS", item_max_attempts)
+        loop_interval_seconds = env_text(env, "FAPAI_DETAIL_ANALYSIS_LOOP_INTERVAL_SECONDS", loop_interval_seconds)
+        active_loop_interval_seconds = env_text(
+            env,
+            "FAPAI_DETAIL_ANALYSIS_ACTIVE_LOOP_INTERVAL_SECONDS",
+            env_text(
+                env,
+                "FAPAI_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS",
+                env_text(env, "FAPAI_ACTIVE_LOOP_INTERVAL_SECONDS", loop_interval_seconds),
+            ),
+        )
+        max_runs = env_text(env, "FAPAI_DETAIL_ANALYSIS_MAX_RUNS", max_runs)
+        llm_preflight = env_flag(env, "FAPAI_ANALYSIS_LLM_PREFLIGHT", llm_preflight)
+        llm_preflight_timeout_seconds = env_text(
+            env,
+            "FAPAI_ANALYSIS_LLM_PREFLIGHT_TIMEOUT_SECONDS",
+            llm_preflight_timeout_seconds,
+        )
     command = [
         sys.executable,
         "tools/detail_worker.py",
@@ -164,23 +234,33 @@ def build_detail_worker_command(env: Mapping[str, str]) -> list[str]:
         "--cdp-endpoint",
         env_text(env, "FAPAI_CDP_ENDPOINT", "http://host.docker.internal:9223") or "http://host.docker.internal:9223",
         "--target-success",
-        env_text(env, "FAPAI_DETAIL_TARGET_SUCCESS", env_text(env, "FAPAI_TARGET_SUCCESS", "5")) or "5",
+        target_success or "5",
         "--max-attempts",
-        env_text(env, "FAPAI_DETAIL_MAX_ATTEMPTS", env_text(env, "FAPAI_MAX_ATTEMPTS", "20")) or "20",
+        max_attempts or "20",
         "--item-max-attempts",
-        env_text(env, "FAPAI_DETAIL_ITEM_MAX_ATTEMPTS", "3") or "3",
+        item_max_attempts or "3",
     ]
     append_option(command, "--worker-id", env_text(env, "FAPAI_DETAIL_WORKER_ID"))
     append_option(command, "--lease-seconds", env_text(env, "FAPAI_DETAIL_LEASE_SECONDS"))
+    append_option(command, "--failure-cooldown-seconds", env_text(env, "FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS"))
+    append_option(command, "--api-base-url", env_text(env, "FAPAI_API_BASE_URL"))
+    raw_only = False if analysis_only else env_flag(env, "FAPAI_DETAIL_RAW_ONLY", False)
+    if analysis_only:
+        command.append("--analysis-only")
+    if raw_only:
+        command.append("--raw-only")
+    if any_env_flag(env, CAPTCHA_SOLVER_ENV_KEYS, False) and not analysis_only:
+        command.append("--solver-enabled")
     if env_flag(env, "FAPAI_ENABLE_RISK", False):
         command.append("--risk")
-    if env_flag(env, "FAPAI_LLM_PREFLIGHT", True):
+    if llm_preflight and not raw_only:
         command.append("--llm-preflight")
-        append_option(command, "--llm-preflight-timeout-seconds", env_text(env, "FAPAI_LLM_PREFLIGHT_TIMEOUT_SECONDS", "15"))
-    if (env_text(env, "FAPAI_RUN_MODE", "detail-worker") or "").lower() == "detail-worker":
+        append_option(command, "--llm-preflight-timeout-seconds", llm_preflight_timeout_seconds)
+    if run_mode in {"detail-worker", "detail-analysis-worker"}:
         command.append("--loop")
-        append_option(command, "--loop-interval-seconds", env_text(env, "FAPAI_DETAIL_LOOP_INTERVAL_SECONDS", env_text(env, "FAPAI_LOOP_INTERVAL_SECONDS", "900")))
-        append_option(command, "--max-runs", env_text(env, "FAPAI_DETAIL_MAX_RUNS"))
+        append_option(command, "--loop-interval-seconds", loop_interval_seconds)
+        append_option(command, "--active-loop-interval-seconds", active_loop_interval_seconds)
+        append_option(command, "--max-runs", max_runs)
     return command
 
 
@@ -192,7 +272,7 @@ def build_command(env: Mapping[str, str]) -> list[str]:
         return build_area_followup_command(env)
     if mode in {"seed-collector", "seed-batch"}:
         return build_seed_collector_command(env)
-    if mode in {"detail-worker", "detail-batch"}:
+    if mode in {"detail-worker", "detail-batch", "detail-analysis-worker", "detail-analysis-batch"}:
         return build_detail_worker_command(env)
     if mode in {"live-loop", "live-batch"}:
         return build_live_command(env)

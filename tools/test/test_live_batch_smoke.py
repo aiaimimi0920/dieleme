@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -21,6 +22,116 @@ def test_preflight_llm_backend_passes_chat_probe_flag(monkeypatch) -> None:
 
     assert result == {"enabled": True}
     assert calls == [{"timeout": 3.5, "check_chat": True}]
+
+
+def test_process_item_raw_only_writes_raw_artifacts_without_llm(tmp_path: Path, monkeypatch) -> None:
+    html = '<html><script>var description-data = {"area":"88.8㎡"};</script>建筑面积88.8平方米</html>'
+    seed = {
+        "id": "raw-1001",
+        "title": "原始详情测试",
+        "url": "https://sf-item.taobao.com/sf_item/raw-1001.htm",
+        "source_page_url": "https://sf.taobao.com/list/page",
+    }
+
+    def _fetch_detail_html(*_args, **_kwargs):
+        return html, seed["url"], len(html.encode("utf-8")), "unit-test"
+
+    def _extract_auction_data(*_args, **_kwargs):
+        raise AssertionError("raw-only detail capture must not call the LLM extractor")
+
+    monkeypatch.setattr(live_batch_smoke, "fetch_detail_html", _fetch_detail_html)
+    monkeypatch.setattr(llm_helper, "extract_auction_data", _extract_auction_data)
+
+    selected = live_batch_smoke.process_item(
+        object(),
+        seed,
+        {},
+        config=live_batch_smoke.LiveSmokeConfig(
+            output_dir=tmp_path,
+            cdp_endpoint="http://127.0.0.1:9223",
+            target_url="https://sf.taobao.com/list/page",
+            target_success=1,
+            max_attempts=1,
+            do_risk=False,
+            raw_only=True,
+        ),
+    )
+
+    item_dir = tmp_path / "raw-1001"
+    assert selected["item_id"] == "raw-1001"
+    assert selected["detail_capture_mode"] == "raw"
+    assert selected["fetch"]["detail_final_url"] == seed["url"]
+    assert (item_dir / "seed.json").exists()
+    assert (item_dir / "detail.html").read_text(encoding="utf-8") == html
+    assert (item_dir / "description-data.json").exists()
+    assert (item_dir / "selected.json").exists()
+    assert not (item_dir / "extracted.json").exists()
+    assert not (item_dir / "final.json").exists()
+
+
+def test_analyze_raw_item_reads_artifacts_and_writes_ai_outputs(tmp_path: Path, monkeypatch) -> None:
+    item_id = "raw-2001"
+    item_dir = tmp_path / item_id
+    item_dir.mkdir()
+    seed = {
+        "id": item_id,
+        "title": "广州市南沙区测试小区1号101房",
+        "url": f"https://sf-item.taobao.com/sf_item/{item_id}.htm",
+        "currentPrice": 1230000,
+        "initialPrice": 1000000,
+        "auction_date": "2026-01-01 10:00:00",
+        "bidCount": 4,
+        "applyCount": 2,
+    }
+    html = "<html><body>广州市南沙区测试小区1号101房，建筑面积88.8平方米</body></html>"
+    live_batch_smoke.write_json(item_dir / "seed.json", seed)
+    (item_dir / "detail.html").write_text(html, encoding="utf-8")
+    live_batch_smoke.write_json(item_dir / "description-data.json", {"area_sqm": 88.8, "text_len": 20, "has_area_marker": True})
+    live_batch_smoke.write_json(
+        item_dir / "selected.json",
+        {
+            "item_id": item_id,
+            "detail_capture_mode": "raw",
+            "fetch": {
+                "method": "http_cookie",
+                "detail_final_url": seed["url"],
+                "detail_html_bytes": len(html.encode("utf-8")),
+            },
+        },
+    )
+
+    def _extract_auction_data(content: str, item_id: str | None = None) -> str:
+        assert "建筑面积88.8" in content
+        return json.dumps(
+            {
+                "标题": "AI 标题",
+                "完整地址": "广州市南沙区测试小区1号101房",
+                "城市": "广州市",
+                "区": "南沙区",
+                "所属小区": "测试小区",
+                "建筑面积": 88.8,
+                "成交价格": 1230000,
+                "起拍价格": 1000000,
+            },
+            ensure_ascii=False,
+        )
+
+    monkeypatch.setattr(llm_helper, "extract_auction_data", _extract_auction_data)
+
+    selected = live_batch_smoke.analyze_raw_item(
+        item_id,
+        output_dir=tmp_path,
+        do_risk=False,
+    )
+
+    assert selected["item_id"] == item_id
+    assert selected["fetch"]["method"] == "http_cookie"
+    assert selected["auction_and_property"]["area_sqm"] == 88.8
+    assert (item_dir / "extracted.json").exists()
+    assert (item_dir / "final.json").exists()
+    final_item = live_batch_smoke.load_json(item_dir / "final.json")
+    assert final_item["detail_captured"] is True
+    assert final_item["is_processed"] is True
 
 
 def _result(
@@ -124,6 +235,211 @@ def test_build_http_ignores_generic_proxy_env(monkeypatch) -> None:
     assert session.proxies == {"http": None, "https": None}
 
 
+def test_export_cookies_falls_back_to_snapshot_when_live_cdp_export_fails(monkeypatch, tmp_path: Path) -> None:
+    snapshot_path = tmp_path / "taobao-cookies.json"
+    calls: list[tuple[str, object]] = []
+
+    class _FakeProbe:
+        @staticmethod
+        def export_cdp_cookies(endpoint: str):
+            calls.append(("export", endpoint))
+            raise RuntimeError("cdp unavailable")
+
+        @staticmethod
+        def load_cookie_snapshot(path: Path):
+            calls.append(("snapshot", path))
+            return [{"name": "cookie2", "value": "abc", "domain": ".taobao.com"}]
+
+    monkeypatch.setattr(live_batch_smoke, "_browserless_seed_probe", lambda: _FakeProbe)
+    monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT", str(snapshot_path))
+
+    cookies = live_batch_smoke.export_cookies("http://127.0.0.1:9223")
+
+    assert cookies == [{"name": "cookie2", "value": "abc", "domain": ".taobao.com"}]
+    assert calls == [
+        ("export", "http://127.0.0.1:9223"),
+        ("snapshot", snapshot_path),
+    ]
+
+
+def test_export_cookies_can_prefer_verified_snapshot_without_live_cdp(monkeypatch, tmp_path: Path) -> None:
+    snapshot_path = tmp_path / "taobao-cookies.json"
+    calls: list[tuple[str, object]] = []
+
+    class _FakeProbe:
+        @staticmethod
+        def export_cdp_cookies(endpoint: str):
+            calls.append(("export", endpoint))
+            raise AssertionError("live CDP export should not be used")
+
+        @staticmethod
+        def load_cookie_snapshot(path: Path):
+            calls.append(("snapshot", path))
+            return [{"name": "cookie2", "value": "abc", "domain": ".taobao.com"}]
+
+    monkeypatch.setattr(live_batch_smoke, "_browserless_seed_probe", lambda: _FakeProbe)
+    monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT", str(snapshot_path))
+    monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT_PREFER", "1")
+
+    cookies = live_batch_smoke.export_cookies("http://127.0.0.1:9223")
+
+    assert cookies == [{"name": "cookie2", "value": "abc", "domain": ".taobao.com"}]
+    assert calls == [("snapshot", snapshot_path)]
+
+
+def test_export_cookies_falls_back_to_live_cdp_when_preferred_snapshot_is_missing(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    snapshot_path = tmp_path / "missing-taobao-cookies.json"
+    calls: list[tuple[str, object]] = []
+
+    class _FakeProbe:
+        @staticmethod
+        def export_cdp_cookies(endpoint: str):
+            calls.append(("export", endpoint))
+            return [{"name": "live-cookie", "value": "abc", "domain": ".taobao.com"}]
+
+        @staticmethod
+        def load_cookie_snapshot(path: Path):
+            calls.append(("snapshot", path))
+            raise FileNotFoundError(path)
+
+    monkeypatch.setattr(live_batch_smoke, "_browserless_seed_probe", lambda: _FakeProbe)
+    monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT", str(snapshot_path))
+    monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT_PREFER", "1")
+
+    cookies = live_batch_smoke.export_cookies("http://127.0.0.1:9223")
+
+    assert cookies == [{"name": "live-cookie", "value": "abc", "domain": ".taobao.com"}]
+    assert calls == [
+        ("snapshot", snapshot_path),
+        ("export", "http://127.0.0.1:9223"),
+    ]
+
+
+def test_export_cookies_raises_combined_error_when_cdp_and_snapshot_both_fail(monkeypatch, tmp_path: Path) -> None:
+    snapshot_path = tmp_path / "taobao-cookies.json"
+
+    class _FakeProbe:
+        @staticmethod
+        def export_cdp_cookies(_endpoint: str):
+            raise RuntimeError("cdp unavailable")
+
+        @staticmethod
+        def load_cookie_snapshot(_path: Path):
+            raise FileNotFoundError("snapshot missing")
+
+    monkeypatch.setattr(live_batch_smoke, "_browserless_seed_probe", lambda: _FakeProbe)
+    monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT", str(snapshot_path))
+
+    with pytest.raises(RuntimeError, match="snapshot fallback failed"):
+        live_batch_smoke.export_cookies("http://127.0.0.1:9223")
+
+
+def test_connect_browser_over_cdp_uses_extended_timeout(monkeypatch) -> None:
+    calls: list[tuple[str, int]] = []
+    compaction_calls: list[str] = []
+
+    class _Chromium:
+        @staticmethod
+        def connect_over_cdp(endpoint: str, *, timeout: int):
+            calls.append((endpoint, timeout))
+            return {"endpoint": endpoint}
+
+    class _Playwright:
+        chromium = _Chromium()
+
+    def _compact(endpoint: str) -> dict[str, object]:
+        compaction_calls.append(endpoint)
+        return {"triggered": False}
+
+    monkeypatch.setattr(live_batch_smoke, "compact_cdp_page_targets_if_needed", _compact)
+    browser = live_batch_smoke.connect_browser_over_cdp(_Playwright(), "http://127.0.0.1:9223")
+
+    assert browser == {"endpoint": "http://127.0.0.1:9223"}
+    assert calls == [("http://127.0.0.1:9223", 120000)]
+    assert compaction_calls == ["http://127.0.0.1:9223"]
+
+
+def test_compact_cdp_page_targets_closes_all_page_targets_at_limit(monkeypatch) -> None:
+    calls: list[str] = []
+
+    class _Response:
+        def __init__(self, payload: object):
+            self._payload = payload
+
+        def raise_for_status(self) -> None:
+            return None
+
+        def json(self) -> object:
+            return self._payload
+
+    def _get(url: str, *, timeout: float):
+        calls.append(url)
+        if url.endswith("/json/list"):
+            return _Response(
+                [
+                    {"id": "page-1", "type": "page", "url": "https://sf.taobao.com/"},
+                    {"id": "page-2", "type": "page", "url": "about:blank"},
+                    {"id": "worker-1", "type": "service_worker", "url": "chrome-extension://x"},
+                    {"id": "page-3", "type": "page", "url": "https://sf.taobao.com/list/1"},
+                ]
+            )
+        return _Response({})
+
+    monkeypatch.setattr(live_batch_smoke.requests, "get", _get)
+
+    summary = live_batch_smoke.compact_cdp_page_targets_if_needed("http://127.0.0.1:9223", limit=3)
+
+    assert summary["triggered"] is True
+    assert summary["page_count"] == 3
+    assert summary["closed"] == 3
+    assert calls == [
+        "http://127.0.0.1:9223/json/list",
+        "http://127.0.0.1:9223/json/close/page-1",
+        "http://127.0.0.1:9223/json/close/page-2",
+        "http://127.0.0.1:9223/json/close/page-3",
+    ]
+
+
+def test_compact_cdp_page_targets_does_not_close_below_limit(monkeypatch) -> None:
+    calls: list[str] = []
+
+    class _Response:
+        def raise_for_status(self) -> None:
+            return None
+
+        def json(self) -> object:
+            return [
+                {"id": "page-1", "type": "page", "url": "https://sf.taobao.com/"},
+                {"id": "page-2", "type": "page", "url": "https://sf.taobao.com/list/1"},
+            ]
+
+    def _get(url: str, *, timeout: float):
+        calls.append(url)
+        return _Response()
+
+    monkeypatch.setattr(live_batch_smoke.requests, "get", _get)
+
+    summary = live_batch_smoke.compact_cdp_page_targets_if_needed("http://127.0.0.1:9223", limit=3)
+
+    assert summary == {"triggered": False, "page_count": 2, "closed": 0, "errors": []}
+    assert calls == ["http://127.0.0.1:9223/json/list"]
+
+
+def test_load_open_browser_pages_returns_empty_when_cdp_page_cache_unavailable(monkeypatch) -> None:
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "fetch_open_browser_pages",
+        lambda _endpoint: (_ for _ in ()).throw(RuntimeError("cdp unstable")),
+    )
+
+    pages = live_batch_smoke.load_open_browser_pages("http://127.0.0.1:9223")
+
+    assert pages == {}
+
+
 def test_fetch_list_page_falls_back_to_open_browser_page(monkeypatch) -> None:
     class _FailingHttp:
         @staticmethod
@@ -175,6 +491,183 @@ def test_fetch_list_page_falls_back_to_browser_when_http_returns_punish(monkeypa
     assert final_url == "https://sf.taobao.com/list/page=2"
     assert status is None
     assert method == "browser_page_after_http_challenge"
+
+
+def test_fetch_list_page_can_disable_browser_fallback_for_http_challenge(monkeypatch) -> None:
+    class _ChallengeResponse:
+        text = "<script>location.href='_____tmd_____/punish?x5secdata=abc'</script>"
+        url = "https://sf.taobao.com/list/page=2"
+        status_code = 200
+
+        @staticmethod
+        def raise_for_status() -> None:
+            return None
+
+    class _ChallengeHttp:
+        @staticmethod
+        def get(*_args, **_kwargs):
+            return _ChallengeResponse()
+
+    monkeypatch.setenv("FAPAI_LIST_BROWSER_FALLBACK", "0")
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "fetch_browser_list_page",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("browser fallback should be disabled")),
+    )
+
+    html, final_url, status, method = live_batch_smoke.fetch_list_page(
+        _ChallengeHttp(),
+        cdp_endpoint="http://127.0.0.1:9223",
+        target_url="https://sf.taobao.com/list/page=2",
+        user_agent=live_batch_smoke.DEFAULT_USER_AGENT,
+    )
+
+    assert html == _ChallengeResponse.text
+    assert final_url == "https://sf.taobao.com/list/page=2"
+    assert status == 200
+    assert method == "http_cookie_challenge"
+
+
+def test_fetch_list_page_reports_solver_when_browser_fallback_disabled(monkeypatch) -> None:
+    class _ChallengeResponse:
+        text = "<script>location.href='_____tmd_____/punish?x5secdata=abc'</script>"
+        url = "https://sf.taobao.com/list/page=2"
+        status_code = 200
+
+        @staticmethod
+        def raise_for_status() -> None:
+            return None
+
+    class _ChallengeHttp:
+        @staticmethod
+        def get(*_args, **_kwargs):
+            return _ChallengeResponse()
+
+    report_calls: list[tuple[str, str]] = []
+
+    monkeypatch.setenv("FAPAI_LIST_BROWSER_FALLBACK", "0")
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "fetch_browser_list_page",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("browser fallback should be disabled")),
+    )
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "request_captcha_solver",
+        lambda cdp_endpoint, target_url: report_calls.append((cdp_endpoint, target_url)) or {"status": "solving"},
+    )
+
+    html, final_url, status, method = live_batch_smoke.fetch_list_page(
+        _ChallengeHttp(),
+        cdp_endpoint="http://127.0.0.1:9223",
+        target_url="https://sf.taobao.com/list/page=2",
+        user_agent=live_batch_smoke.DEFAULT_USER_AGENT,
+        solver_enabled=True,
+    )
+
+    assert html == _ChallengeResponse.text
+    assert final_url == "https://sf.taobao.com/list/page=2"
+    assert status == 200
+    assert method == "http_cookie_challenge"
+    assert report_calls == [("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=2")]
+
+
+def test_fetch_list_page_retries_browser_after_http_challenge_until_page_recovers(monkeypatch) -> None:
+    class _ChallengeResponse:
+        text = "<script>location.href='_____tmd_____/punish?x5secdata=abc'</script>"
+        url = "https://sf.taobao.com/list/page=3"
+        status_code = 200
+
+        @staticmethod
+        def raise_for_status() -> None:
+            return None
+
+    class _ChallengeHttp:
+        @staticmethod
+        def get(*_args, **_kwargs):
+            return _ChallengeResponse()
+
+    browser_results = [
+        (
+            "<html><body>_____tmd_____/punish 验证码</body></html>",
+            "https://sf.taobao.com/list/page=3/_____tmd_____/punish?x5secdata=abc",
+        ),
+        (
+            "<html><script>var sf-item-list-data = {};</script><body>ok</body></html>",
+            "https://sf.taobao.com/list/page=3",
+        ),
+    ]
+    sleep_calls: list[float] = []
+
+    def _fetch_browser_list_page(_cdp_endpoint: str, _target_url: str):
+        return browser_results.pop(0)
+
+    monkeypatch.setattr(live_batch_smoke, "fetch_browser_list_page", _fetch_browser_list_page)
+    monkeypatch.setattr(live_batch_smoke.time, "sleep", lambda seconds: sleep_calls.append(seconds))
+    monkeypatch.setattr(live_batch_smoke, "request_captcha_solver", lambda _cdp_endpoint, _target_url: {"status": "solving"})
+
+    html, final_url, status, method = live_batch_smoke.fetch_list_page(
+        _ChallengeHttp(),
+        cdp_endpoint="http://127.0.0.1:9223",
+        target_url="https://sf.taobao.com/list/page=3",
+        user_agent=live_batch_smoke.DEFAULT_USER_AGENT,
+    )
+
+    assert "sf-item-list-data" in html
+    assert final_url == "https://sf.taobao.com/list/page=3"
+    assert status is None
+    assert method == "browser_page_after_http_challenge"
+    assert sleep_calls == [5]
+
+
+def test_fetch_list_page_reports_captcha_before_waiting_for_browser_recovery(monkeypatch) -> None:
+    class _ChallengeResponse:
+        text = "<script>location.href='_____tmd_____/punish?x5secdata=abc'</script>"
+        url = "https://sf.taobao.com/list/page=4"
+        status_code = 200
+
+        @staticmethod
+        def raise_for_status() -> None:
+            return None
+
+    class _ChallengeHttp:
+        @staticmethod
+        def get(*_args, **_kwargs):
+            return _ChallengeResponse()
+
+    browser_results = [
+        (
+            "<html><body>_____tmd_____/punish 验证码</body></html>",
+            "https://sf.taobao.com/list/page=4/_____tmd_____/punish?x5secdata=abc",
+        ),
+        (
+            "<html><script>var sf-item-list-data = {};</script><body>ok</body></html>",
+            "https://sf.taobao.com/list/page=4",
+        ),
+    ]
+    report_calls: list[tuple[str, str]] = []
+
+    def _fetch_browser_list_page(_cdp_endpoint: str, _target_url: str):
+        return browser_results.pop(0)
+
+    monkeypatch.setattr(live_batch_smoke, "fetch_browser_list_page", _fetch_browser_list_page)
+    monkeypatch.setattr(live_batch_smoke.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "request_captcha_solver",
+        lambda cdp_endpoint, target_url: report_calls.append((cdp_endpoint, target_url)) or {"status": "solving"},
+    )
+
+    live_batch_smoke.fetch_list_page(
+        _ChallengeHttp(),
+        cdp_endpoint="http://127.0.0.1:9223",
+        target_url="https://sf.taobao.com/list/page=4",
+        user_agent=live_batch_smoke.DEFAULT_USER_AGENT,
+    )
+
+    assert report_calls == [
+        ("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=4/_____tmd_____/punish?x5secdata=abc")
+    ]
 
 
 def test_expand_list_urls_builds_sort_page_union_specs() -> None:

@@ -25,6 +25,8 @@ temp_chrome_profile/
 *.log
 *.xlsx
 *.html
+cdp_*.json
+tmp_*.json
 
 secrets.json
 auth.json

@@ -13,7 +13,7 @@ import re
 import re
 from urllib.parse import urlparse, parse_qs, unquote
 from concurrent.futures import ThreadPoolExecutor
-from typing import Any
+from typing import Any, Callable
 
 import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -32,7 +32,60 @@ except ModuleNotFoundError:
     from src.captcha_solver import CaptchaSolver
 
 # Import Captcha Solver
-solver = CaptchaSolver(port=9222)
+solver = CaptchaSolver()
+
+
+def _normalize_solver_cdp_endpoint(value):
+    cdp_endpoint = str(value or "").strip()
+    runtime_endpoint = str(os.getenv("FAPAI_CDP_ENDPOINT") or "").strip().rstrip("/")
+
+    if not cdp_endpoint:
+        return runtime_endpoint
+    if not runtime_endpoint:
+        return cdp_endpoint
+
+    try:
+        requested = urlparse(cdp_endpoint)
+        runtime = urlparse(runtime_endpoint)
+    except ValueError:
+        return cdp_endpoint
+
+    if requested.hostname not in {"127.0.0.1", "localhost", "0.0.0.0"}:
+        return cdp_endpoint
+
+    scheme = runtime.scheme or requested.scheme or "http"
+    host = runtime.hostname or requested.hostname
+    port = requested.port or runtime.port
+    if not host:
+        return runtime_endpoint
+    if port is None:
+        return f"{scheme}://{host}"
+    return f"{scheme}://{host}:{port}"
+
+
+def _build_solver_request(payload):
+    if not isinstance(payload, dict):
+        return {}
+
+    request: dict[str, str] = {}
+    cdp_endpoint = _normalize_solver_cdp_endpoint(payload.get("cdp_endpoint"))
+    target_url = str(payload.get("target_url") or payload.get("url") or "").strip()
+
+    if cdp_endpoint:
+        request["cdp_endpoint"] = cdp_endpoint
+    if target_url:
+        request["target_url"] = target_url
+    return request
+
+
+def _build_solver_for_request(request_payload):
+    if request_payload and isinstance(request_payload, dict):
+        if request_payload.get("cdp_endpoint") or request_payload.get("target_url"):
+            return CaptchaSolver(
+                cdp_endpoint=_normalize_solver_cdp_endpoint(request_payload.get("cdp_endpoint")),
+                target_url=request_payload.get("target_url"),
+            )
+    return solver
 
 from src.avm.service import AVMService
 from src.avm.pipeline import AVMPipelineManager, AVMPipelineConfig
@@ -119,12 +172,22 @@ SEEN_IDS = {}  # id -> {file_path, status, data}
 PENDING_TASKS = [] # list of ids
 DISPATCHED_TASKS = {} # id -> timestamp
 PAUSED = False
+COLLECTION_PAUSE_REASON = None
 SOLVER_LOCK = threading.Lock()
 FILE_LOCK = threading.Lock()
 DATA_LOCK = threading.Lock() # Protects SEEN_IDS and PENDING_TASKS
 CURRENT_PROCESSING = set() # Track running tasks to avoid duplicate submission
 SOLVER_RUNNING = False
 SOLVER_START_TIME = 0
+SOLVER_LAST_STATUS = "idle"
+SOLVER_LAST_FAILURE_REASON = None
+SOLVER_LAST_FINISHED_TIME = 0
+SOLVER_LAST_REQUEST = {}
+SOLVER_MANUAL_RESUME_EPOCH = 0
+SOLVER_CANCEL_EPOCH = 0
+SOLVER_MANUAL_REQUIRED_EPOCH = 0
+SOLVER_MANUAL_RETRY_LAST_EPOCH = 0
+SOLVER_MANUAL_RETRY_ATTEMPTS = 0
 RUNTIME_INITIALIZED = False
 AVM_SERVICE_START_TIME = time.time()
 
@@ -172,6 +235,466 @@ def _runtime_env_flag(name, default):
     if raw is None:
         return default
     return raw.strip().lower() not in {"0", "false", "no", "off"}
+
+
+def _solver_force_unlock_flag_path() -> str:
+    return os.path.join(DATA_DIR, "force_unlock.flag")
+
+
+def _solver_force_unlock_flag_exists() -> bool:
+    try:
+        return os.path.exists(_solver_force_unlock_flag_path())
+    except Exception:
+        return False
+
+
+def _is_client_disconnect_error(error: BaseException) -> bool:
+    return isinstance(error, (BrokenPipeError, ConnectionResetError, ConnectionAbortedError)) or getattr(
+        error,
+        "errno",
+        None,
+    ) in {32, 104, 10053, 10054}
+
+
+def _collection_effectively_paused() -> bool:
+    if _solver_force_unlock_flag_exists():
+        return True
+    if not PAUSED:
+        return False
+    if _solver_transient_pause_active():
+        return False
+    return True
+
+
+def _set_collection_pause_state(paused: bool, reason: str | None = None) -> None:
+    global PAUSED, COLLECTION_PAUSE_REASON
+    PAUSED = bool(paused)
+    if PAUSED:
+        COLLECTION_PAUSE_REASON = str(reason or "").strip() or None
+    else:
+        COLLECTION_PAUSE_REASON = None
+
+
+def _solver_transient_pause_active() -> bool:
+    return bool(
+        PAUSED
+        and COLLECTION_PAUSE_REASON == "captcha_solver"
+        and SOLVER_RUNNING
+        and SOLVER_LAST_STATUS == "running"
+        and SOLVER_LAST_FAILURE_REASON != "manual_required"
+    )
+
+
+def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
+    current_time = time.time() if now is None else now
+    running = bool(SOLVER_RUNNING)
+    started_at = float(SOLVER_START_TIME or 0)
+    force_unlock_flag_exists = _solver_force_unlock_flag_exists()
+    elapsed_seconds = max(int(current_time - started_at), 0) if running and started_at > 0 else 0
+    manual_required = bool(force_unlock_flag_exists or (PAUSED and SOLVER_LAST_STATUS == "manual_required"))
+    manual_retry_next_epoch = _manual_solver_retry_next_epoch(current_time) if manual_required else None
+    return {
+        "running": running,
+        "started_at_epoch": started_at if started_at > 0 else None,
+        "elapsed_seconds": elapsed_seconds,
+        "last_status": SOLVER_LAST_STATUS,
+        "last_failure_reason": SOLVER_LAST_FAILURE_REASON,
+        "last_finished_at_epoch": SOLVER_LAST_FINISHED_TIME if SOLVER_LAST_FINISHED_TIME else None,
+        "manual_required": manual_required,
+        "force_unlock_flag_exists": force_unlock_flag_exists,
+        "paused": _collection_effectively_paused(),
+        "pause_reason": COLLECTION_PAUSE_REASON,
+        "last_request": dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {},
+        "manual_retry_enabled": _manual_solver_retry_enabled(),
+        "manual_retry_interval_seconds": _manual_solver_retry_interval_seconds(),
+        "solver_max_runtime_seconds": _solver_max_runtime_seconds(),
+        "manual_retry_attempts": int(SOLVER_MANUAL_RETRY_ATTEMPTS or 0),
+        "manual_retry_last_epoch": SOLVER_MANUAL_RETRY_LAST_EPOCH or None,
+        "manual_retry_next_epoch": manual_retry_next_epoch,
+    }
+
+
+def _clear_solver_manual_required_state() -> None:
+    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
+    if SOLVER_LAST_STATUS == "manual_required":
+        SOLVER_LAST_STATUS = "resumed"
+    if SOLVER_LAST_FAILURE_REASON == "manual_required":
+        SOLVER_LAST_FAILURE_REASON = None
+
+
+def _clear_solver_running_state() -> None:
+    global SOLVER_RUNNING, SOLVER_START_TIME, SOLVER_LAST_FINISHED_TIME
+    if SOLVER_RUNNING:
+        SOLVER_LAST_FINISHED_TIME = time.time()
+    SOLVER_RUNNING = False
+    SOLVER_START_TIME = 0
+
+
+def _request_solver_cancel() -> None:
+    global SOLVER_CANCEL_EPOCH
+    SOLVER_CANCEL_EPOCH = time.time()
+
+
+def _clear_solver_manual_required_pause() -> str | None:
+    global SOLVER_MANUAL_RESUME_EPOCH
+    _set_collection_pause_state(False)
+    SOLVER_MANUAL_RESUME_EPOCH = time.time()
+    _clear_solver_running_state()
+    _clear_solver_manual_required_state()
+    flag_path = _solver_force_unlock_flag_path()
+    if os.path.exists(flag_path):
+        try:
+            os.remove(flag_path)
+        except Exception as error:
+            return str(error)
+    return None
+
+
+def _mark_solver_manual_required() -> str | None:
+    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_REQUIRED_EPOCH
+    SOLVER_MANUAL_REQUIRED_EPOCH = time.time()
+    SOLVER_LAST_STATUS = "manual_required"
+    SOLVER_LAST_FAILURE_REASON = "manual_required"
+    if SOLVER_RUNNING:
+        _request_solver_cancel()
+    _set_collection_pause_state(True, "manual_required")
+    return _write_solver_manual_required_flag(SOLVER_MANUAL_REQUIRED_EPOCH)
+
+
+def _write_solver_manual_required_flag(created_at_epoch: float) -> str | None:
+    flag_path = _solver_force_unlock_flag_path()
+    try:
+        with open(flag_path, "w", encoding="utf-8") as flag_file:
+            json.dump(
+                {
+                    "manual_required": True,
+                    "created_at_epoch": created_at_epoch,
+                    "last_request": dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {},
+                    "message": "Delete this file to force resume the queue after manual solving",
+                },
+                flag_file,
+                ensure_ascii=False,
+            )
+    except Exception as error:
+        return repr(error)
+    return None
+
+
+def _manual_solver_retry_enabled() -> bool:
+    return _runtime_env_flag("FAPAI_SOLVER_MANUAL_RETRY_ENABLED", True)
+
+
+def _manual_solver_retry_interval_seconds() -> int:
+    raw = os.getenv("FAPAI_SOLVER_MANUAL_RETRY_INTERVAL_SECONDS", "180")
+    try:
+        value = int(str(raw or "").strip())
+    except ValueError:
+        value = 180
+    if value < 0:
+        return 180
+    return value
+
+
+def _solver_max_runtime_seconds() -> int:
+    raw = os.getenv("FAPAI_SOLVER_MAX_RUNTIME_SECONDS", "180")
+    try:
+        value = int(str(raw or "").strip())
+    except ValueError:
+        value = 180
+    if value <= 0:
+        return 180
+    return value
+
+
+def _manual_solver_retry_poll_seconds() -> int:
+    raw = os.getenv("FAPAI_SOLVER_MANUAL_RETRY_POLL_SECONDS", "30")
+    try:
+        value = int(str(raw or "").strip())
+    except ValueError:
+        value = 30
+    return max(value, 1)
+
+
+def _captcha_solver_background_url(url: str) -> str:
+    target_url = str(url or "").strip()
+    if not target_url:
+        return ""
+    if "__captcha_solver_bg=1" in target_url:
+        return target_url
+    separator = "&" if "?" in target_url else "?"
+    return f"{target_url}{separator}__captcha_solver_bg=1"
+
+
+def _solver_manual_flag_request() -> dict[str, Any]:
+    flag_path = _solver_force_unlock_flag_path()
+    try:
+        with open(flag_path, "r", encoding="utf-8") as flag_file:
+            payload = json.load(flag_file)
+    except Exception:
+        return {}
+    if not isinstance(payload, dict):
+        return {}
+    last_request = payload.get("last_request")
+    return dict(last_request) if isinstance(last_request, dict) else {}
+
+
+def _default_manual_solver_retry_request() -> dict[str, Any]:
+    default_url = _captcha_solver_background_url(_auth_cookie_snapshot_sample_urls({})[0])
+    return {"target_url": default_url} if default_url else {}
+
+
+def _manual_solver_retry_request() -> dict[str, Any]:
+    solver_request = _build_solver_request(SOLVER_LAST_REQUEST if isinstance(SOLVER_LAST_REQUEST, dict) else {})
+    if solver_request.get("target_url"):
+        return solver_request
+    solver_request = _build_solver_request(_solver_manual_flag_request())
+    if solver_request.get("target_url"):
+        return solver_request
+    return _build_solver_request(_default_manual_solver_retry_request())
+
+
+def _manual_solver_retry_next_epoch(now: float | None = None) -> float | None:
+    if not _manual_solver_retry_enabled():
+        return None
+    interval = _manual_solver_retry_interval_seconds()
+    current_time = time.time() if now is None else now
+    base_epoch = max(
+        float(SOLVER_MANUAL_REQUIRED_EPOCH or 0),
+        float(SOLVER_MANUAL_RETRY_LAST_EPOCH or 0),
+        float(SOLVER_LAST_FINISHED_TIME or 0),
+    )
+    if base_epoch <= 0:
+        return current_time
+    return base_epoch + interval
+
+
+def _submit_solver_request(solver_request: dict[str, Any]) -> None:
+    handler = object.__new__(DataHandler)
+    executor.submit(handler.run_solver, solver_request)
+
+
+def _trigger_manual_solver_retry_if_due(
+    *,
+    now: float | None = None,
+    submit_solver: Callable[[dict[str, Any]], Any] | None = None,
+) -> dict[str, Any]:
+    global SOLVER_MANUAL_RETRY_LAST_EPOCH, SOLVER_MANUAL_RETRY_ATTEMPTS
+    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
+
+    current_time = time.time() if now is None else now
+    if not _manual_solver_retry_enabled():
+        return {"queued": False, "reason": "disabled"}
+    if SOLVER_RUNNING:
+        elapsed_seconds = max(int(current_time - float(SOLVER_START_TIME or 0)), 0) if SOLVER_START_TIME else 0
+        max_runtime_seconds = _solver_max_runtime_seconds()
+        if elapsed_seconds >= max_runtime_seconds:
+            flag_error = _mark_solver_manual_required()
+            result: dict[str, Any] = {
+                "queued": False,
+                "reason": "running_solver_timed_out",
+                "elapsed_seconds": elapsed_seconds,
+                "max_runtime_seconds": max_runtime_seconds,
+            }
+            if flag_error:
+                result["flag_error"] = flag_error
+            return result
+        return {
+            "queued": False,
+            "reason": "solver_running",
+            "elapsed_seconds": elapsed_seconds,
+            "max_runtime_seconds": max_runtime_seconds,
+        }
+
+    solver_status = _captcha_solver_runtime_status(now=current_time)
+    if not solver_status.get("manual_required"):
+        return {"queued": False, "reason": "not_manual_required"}
+
+    solver_request = _manual_solver_retry_request()
+    if not solver_request.get("target_url"):
+        return {"queued": False, "reason": "missing_target_url"}
+
+    next_retry_epoch = _manual_solver_retry_next_epoch(current_time)
+    if next_retry_epoch is not None and current_time < next_retry_epoch:
+        return {
+            "queued": False,
+            "reason": "cooldown_active",
+            "next_retry_epoch": next_retry_epoch,
+        }
+
+    clear_error = _clear_solver_manual_required_pause()
+    if clear_error:
+        return {"queued": False, "reason": "clear_manual_required_failed", "error": clear_error}
+
+    SOLVER_MANUAL_RETRY_LAST_EPOCH = current_time
+    SOLVER_MANUAL_RETRY_ATTEMPTS = int(SOLVER_MANUAL_RETRY_ATTEMPTS or 0) + 1
+    SOLVER_LAST_STATUS = "manual_retry_queued"
+    SOLVER_LAST_FAILURE_REASON = None
+
+    try:
+        (submit_solver or _submit_solver_request)(solver_request)
+    except Exception as error:
+        _mark_solver_manual_required()
+        return {
+            "queued": False,
+            "reason": "submit_failed",
+            "error": repr(error),
+        }
+
+    return {
+        "queued": True,
+        "reason": "manual_required_retry_due",
+        "attempt": SOLVER_MANUAL_RETRY_ATTEMPTS,
+        "solver_request": solver_request,
+    }
+
+
+def _payload_flag(payload: dict[str, Any], key: str, default: bool) -> bool:
+    if key not in payload:
+        return default
+    value = payload.get(key)
+    if isinstance(value, bool):
+        return value
+    text = str(value or "").strip().lower()
+    if not text:
+        return default
+    return text not in {"0", "false", "no", "off"}
+
+
+def _payload_force_solver_retry(payload: dict[str, Any]) -> bool:
+    return any(
+        _payload_flag(payload, key, False)
+        for key in ("force_retry", "force_manual_retry", "operator_retry")
+    )
+
+
+def _auth_cookie_snapshot_sample_urls(payload: dict[str, Any]) -> list[str]:
+    raw = payload.get("sample_urls")
+    if isinstance(raw, list):
+        urls = [str(value).strip() for value in raw if str(value or "").strip()]
+        if urls:
+            return urls
+
+    env_raw = os.getenv("FAPAI_COOKIE_SNAPSHOT_SAMPLE_URLS")
+    if env_raw:
+        urls = [part.strip() for part in re.split(r"[;,]", env_raw) if part.strip()]
+        if urls:
+            return urls
+
+    return [
+        "https://sf.taobao.com/list/50025969__2.htm",
+        "https://sf.taobao.com/list/200782003__1.htm",
+    ]
+
+
+def _export_auth_cdp_cookies(cdp_endpoint: str) -> list[dict[str, Any]]:
+    from tools.browserless_seed_probe import export_cdp_cookies
+
+    return export_cdp_cookies(cdp_endpoint)
+
+
+def _summarize_auth_cookies(cookies: list[dict[str, Any]]) -> dict[str, Any]:
+    from tools.browserless_seed_probe import summarize_cookie_snapshot
+
+    return summarize_cookie_snapshot(cookies)
+
+
+def _write_auth_cookie_snapshot(cookies: list[dict[str, Any]], snapshot_path: str) -> None:
+    from tools.browserless_seed_probe import write_cookie_snapshot
+
+    write_cookie_snapshot(cookies, snapshot_path)
+
+
+def _probe_auth_cookie_snapshot_health(
+    cookies: list[dict[str, Any]],
+    sample_urls: list[str],
+) -> dict[str, Any]:
+    from tools import browserless_seed_probe, taobao_login_health
+
+    session = browserless_seed_probe.build_session_from_playwright_cookies(cookies)
+    sample_results: list[dict[str, Any]] = []
+    healthy_samples = 0
+    for url in sample_urls:
+        try:
+            summary = browserless_seed_probe.probe_seed_page(url, cookies=cookies, session=session, timeout=15)
+            classification = taobao_login_health.classify_taobao_health(
+                "",
+                final_url=str(summary.get("final_url") or url),
+                list_summary=summary,
+                payload_present=summary.get("has_script") is True,
+            )
+            result = {
+                "check_url": url,
+                "status": classification.get("status"),
+                "healthy": bool(classification.get("healthy")),
+                "final_url": classification.get("final_url"),
+                "http_status": summary.get("status"),
+                "has_script": summary.get("has_script"),
+                "item_count": summary.get("item_count"),
+                "body_has_login": summary.get("body_has_login"),
+                "body_has_captcha": summary.get("body_has_captcha"),
+                "body_has_punish": summary.get("body_has_punish"),
+                "body_has_challenge": summary.get("body_has_challenge"),
+            }
+        except Exception as error:
+            result = {
+                "check_url": url,
+                "status": "probe_error",
+                "healthy": False,
+                "error": repr(error),
+            }
+        if result.get("healthy") is True:
+            healthy_samples += 1
+        sample_results.append(result)
+
+    return {
+        "healthy": healthy_samples > 0,
+        "healthy_samples": healthy_samples,
+        "sample_count": len(sample_results),
+        "sample_results": sample_results,
+    }
+
+
+def _refresh_auth_cookie_snapshot(payload: dict[str, Any]) -> dict[str, Any]:
+    if not _payload_flag(payload, "refresh_cookie_snapshot", True):
+        return {"refreshed": False, "reason": "disabled_by_request"}
+
+    snapshot_path = str(payload.get("cookie_snapshot_path") or os.getenv("FAPAI_COOKIE_SNAPSHOT") or "").strip()
+    if not snapshot_path:
+        return {"refreshed": False, "reason": "cookie_snapshot_path_not_configured"}
+
+    request_cdp_endpoint = payload.get("cdp_endpoint")
+    if not request_cdp_endpoint and isinstance(SOLVER_LAST_REQUEST, dict):
+        request_cdp_endpoint = SOLVER_LAST_REQUEST.get("cdp_endpoint")
+    cdp_endpoint = _normalize_solver_cdp_endpoint(request_cdp_endpoint or os.getenv("FAPAI_CDP_ENDPOINT") or "")
+    if not cdp_endpoint:
+        return {"refreshed": False, "reason": "cdp_endpoint_not_configured", "path": snapshot_path}
+
+    cookies = _export_auth_cdp_cookies(cdp_endpoint)
+    summary = _summarize_auth_cookies(cookies)
+    sample_urls = _auth_cookie_snapshot_sample_urls(payload)
+    health = _probe_auth_cookie_snapshot_health(cookies, sample_urls)
+    cookie_count = int(summary.get("count") or 0)
+    if not health.get("healthy"):
+        return {
+            "refreshed": False,
+            "reason": "cookie_snapshot_candidate_unhealthy",
+            "path": snapshot_path,
+            "cdp_endpoint": cdp_endpoint,
+            "cookie_count": cookie_count,
+            "health": health,
+        }
+
+    _write_auth_cookie_snapshot(cookies, snapshot_path)
+    return {
+        "refreshed": True,
+        "path": snapshot_path,
+        "cdp_endpoint": cdp_endpoint,
+        "cookie_count": cookie_count,
+        "domains": summary.get("domains") or [],
+        "shape_fingerprint": summary.get("shape_fingerprint"),
+        "value_fingerprint": summary.get("value_fingerprint"),
+        "health": health,
+    }
 
 
 def _prefer_db_task_reads() -> bool:
@@ -244,6 +767,545 @@ def _db_data_supply_snapshot(hours: int = 24):
         "maintenance_writeback_recent": maintenance_counts,
         "stage_transition_recent": stage_transition_counts,
     }
+
+
+def _collection_api_lightweight_status_enabled() -> bool:
+    return _runtime_env_flag("FAPAI_COLLECTION_API_LIGHTWEIGHT_STATUS", False)
+
+
+def _empty_seed_queue_counts() -> dict[str, Any]:
+    return {
+        "seed_scan_job_pending": 0,
+        "seed_scan_job_in_progress": 0,
+        "seed_scan_job_completed": 0,
+        "seed_scan_job_blocked": 0,
+        "seed_scan_progress_pending": 0,
+        "seed_scan_progress_in_progress": 0,
+        "seed_scan_progress_exhausted": 0,
+        "seed_scan_progress_blocked": 0,
+        "seed_item_pending_detail": 0,
+        "seed_item_in_progress": 0,
+        "seed_item_raw_detail_captured": 0,
+        "seed_item_analysis_in_progress": 0,
+        "seed_item_analysis_failed": 0,
+        "seed_item_analysis_blocked": 0,
+        "seed_item_detail_completed": 0,
+        "seed_item_detail_failed": 0,
+        "seed_item_detail_blocked": 0,
+        "seed_occurrence_total": 0,
+    }
+
+
+def _collection_api_lightweight_status_payload() -> dict[str, Any]:
+    seed_queue_counts = _empty_seed_queue_counts()
+    if DB_REPOSITORY.enabled and hasattr(DB_REPOSITORY, "seed_queue_counts"):
+        try:
+            seed_queue_counts.update(DB_REPOSITORY.seed_queue_counts())
+        except Exception as error:
+            seed_queue_counts["error"] = str(error)
+    elif DB_REPOSITORY.enabled and hasattr(DB_REPOSITORY, "search_task_counts"):
+        try:
+            search_counts = DB_REPOSITORY.search_task_counts()
+            seed_queue_counts["seed_scan_job_pending"] = int(search_counts.get("search_pending", 0) or 0)
+            seed_queue_counts["seed_scan_job_in_progress"] = int(search_counts.get("search_in_progress", 0) or 0)
+            seed_queue_counts["seed_scan_job_completed"] = int(search_counts.get("search_done", 0) or 0)
+            seed_queue_counts["seed_scan_job_blocked"] = int(search_counts.get("search_pruned", 0) or 0)
+        except Exception as error:
+            seed_queue_counts["error"] = str(error)
+
+    pending_detail = int(seed_queue_counts.get("seed_item_pending_detail", 0) or 0)
+    in_progress = int(seed_queue_counts.get("seed_item_in_progress", 0) or 0)
+    raw_detail_captured = int(seed_queue_counts.get("seed_item_raw_detail_captured", 0) or 0)
+    analysis_in_progress = int(seed_queue_counts.get("seed_item_analysis_in_progress", 0) or 0)
+    analysis_failed = int(seed_queue_counts.get("seed_item_analysis_failed", 0) or 0)
+    analysis_blocked = int(seed_queue_counts.get("seed_item_analysis_blocked", 0) or 0)
+    detail_completed = int(seed_queue_counts.get("seed_item_detail_completed", 0) or 0)
+    detail_failed = int(seed_queue_counts.get("seed_item_detail_failed", 0) or 0)
+    detail_blocked = int(seed_queue_counts.get("seed_item_detail_blocked", 0) or 0)
+    raw_capture_pending = pending_detail + in_progress
+    analysis_ready = raw_detail_captured + analysis_failed
+    analysis_pending = raw_detail_captured + analysis_in_progress + analysis_failed
+    analysis_terminal = analysis_blocked
+    captured_items = analysis_pending + analysis_terminal + detail_completed
+    total_items = pending_detail + in_progress + captured_items + detail_failed + detail_blocked
+    api_metrics = llm_helper.get_api_metrics()
+
+    return {
+        "collection_api_lightweight": True,
+        "paused": _collection_effectively_paused(),
+        "total_ids": total_items,
+        "captured_count": captured_items,
+        "ai_finalized_count": detail_completed,
+        "db_mode": DB_REPOSITORY.enabled,
+        "db_total_ids": total_items,
+        "db_processed_ids": detail_completed,
+        "db_pending_ids": pending_detail + in_progress,
+        "db_detail_captured_ids": captured_items,
+        "db_analysis_pending_ids": analysis_pending,
+        "raw_capture_pending_count": raw_capture_pending,
+        "raw_captured_count": raw_detail_captured,
+        "analysis_ready_count": analysis_ready,
+        "analysis_in_progress_count": analysis_in_progress,
+        "analysis_failed_count": analysis_failed,
+        "analysis_pending_count": analysis_pending,
+        "analysis_backlog_count": analysis_pending,
+        "analysis_blocked_count": analysis_blocked,
+        "analysis_finalized_count": detail_completed,
+        "detail_failed_count": detail_failed,
+        "detail_blocked_count": detail_blocked,
+        "sniff_queue_count": int(seed_queue_counts.get("seed_scan_job_pending", 0) or 0),
+        "sniff_done_count": int(seed_queue_counts.get("seed_scan_job_completed", 0) or 0),
+        "next_batch_preview": [],
+        "api_success_rate": api_metrics.get("success_rate", 0.0),
+        "api_avg_response_time_ms": api_metrics.get("avg_response_time_ms", 0.0),
+        "api_total_calls": api_metrics.get("total_calls", 0),
+        "api_success_calls": api_metrics.get("success_calls", 0),
+        "captcha_solver": _captcha_solver_runtime_status(),
+        "data_supply_recent_24h": {},
+        "avm": {"lightweight_skipped": True},
+        "collection_stage": {
+            "lightweight": True,
+            "seed_queue": seed_queue_counts,
+            "seed_stage": {"stored": int(seed_queue_counts.get("seed_occurrence_total", 0) or 0)},
+            "detail_stage": {
+                "pending": pending_detail,
+                "in_progress": in_progress,
+                "raw_pending": pending_detail,
+                "raw_in_progress": in_progress,
+                "raw_archived": raw_detail_captured,
+                "raw_captured": raw_detail_captured,
+                "raw_failed": detail_failed,
+                "raw_blocked": detail_blocked,
+                "analysis_ready": analysis_ready,
+                "analysis_in_progress": analysis_in_progress,
+                "analysis_failed": analysis_failed,
+                "analysis_blocked": analysis_blocked,
+                "analysis_pending": analysis_pending,
+                "analysis_backlog": analysis_pending,
+                "archived": captured_items,
+                "ai_finalized": detail_completed,
+                "analysis_finalized": detail_completed,
+                "failed": detail_failed,
+                "blocked": detail_blocked,
+            },
+            "search_tasks": {
+                "search_pending": int(seed_queue_counts.get("seed_scan_job_pending", 0) or 0),
+                "search_in_progress": int(seed_queue_counts.get("seed_scan_job_in_progress", 0) or 0),
+                "search_done": int(seed_queue_counts.get("seed_scan_job_completed", 0) or 0),
+                "search_pruned": int(seed_queue_counts.get("seed_scan_job_blocked", 0) or 0),
+            },
+        },
+    }
+
+
+def _collection_query_int(query: dict[str, list[str]], key: str, default: int, *, minimum: int, maximum: int) -> int:
+    try:
+        value = int((query.get(key) or [default])[0])
+    except (TypeError, ValueError):
+        value = default
+    return max(minimum, min(value, maximum))
+
+
+def _collection_observer_overview_payload() -> dict[str, Any]:
+    status = _collection_api_lightweight_status_payload()
+    seed_queue = dict((status.get("collection_stage") or {}).get("seed_queue") or {})
+    return {
+        "ok": True,
+        "status": status,
+        "modules": {
+            "links": {
+                "label": "商品链接采集",
+                "total": int(seed_queue.get("seed_occurrence_total", 0) or 0),
+                "unique_items": int(status.get("total_ids", 0) or 0),
+            },
+            "details": {
+                "label": "商品详情页采集",
+                "pending": int(status.get("raw_capture_pending_count", 0) or 0),
+                "raw_captured": int(status.get("raw_captured_count", 0) or 0),
+                "captured": int(status.get("captured_count", 0) or 0),
+                "failed": int(status.get("detail_failed_count", 0) or 0),
+                "blocked": int(status.get("detail_blocked_count", 0) or 0),
+            },
+            "analysis": {
+                "label": "商品详情页 AI 分析",
+                "ready": int(status.get("analysis_ready_count", 0) or 0),
+                "pending": int(status.get("analysis_pending_count", 0) or 0),
+                "failed": int(status.get("analysis_failed_count", 0) or 0),
+                "blocked": int(status.get("analysis_blocked_count", 0) or 0),
+                "finalized": int(status.get("analysis_finalized_count", status.get("ai_finalized_count", 0)) or 0),
+            },
+        },
+    }
+
+
+def _collection_observer_items_payload(query: dict[str, list[str]]) -> dict[str, Any]:
+    stage = str((query.get("stage") or ["links"])[0] or "links").strip().lower()
+    if stage not in {"links", "details", "analysis"}:
+        stage = "links"
+    limit = _collection_query_int(query, "limit", 100, minimum=1, maximum=500)
+    offset = _collection_query_int(query, "offset", 0, minimum=0, maximum=1_000_000)
+    location_code = str((query.get("location_code") or [""])[0] or "").strip()
+    if not DB_REPOSITORY.enabled or not hasattr(DB_REPOSITORY, "collection_observer_items"):
+        return {
+            "stage": stage,
+            "limit": limit,
+            "offset": offset,
+            "location_code": location_code or None,
+            "total": 0,
+            "items": [],
+            "db_mode": DB_REPOSITORY.enabled,
+        }
+    payload = DB_REPOSITORY.collection_observer_items(
+        stage=stage,
+        limit=limit,
+        offset=offset,
+        location_code=location_code or None,
+    )
+    payload["location_code"] = location_code or payload.get("location_code")
+    payload["db_mode"] = DB_REPOSITORY.enabled
+    return payload
+
+
+def _collection_observer_regions_payload(query: dict[str, list[str]]) -> dict[str, Any]:
+    stage = str((query.get("stage") or ["links"])[0] or "links").strip().lower()
+    if stage not in {"links", "details", "analysis"}:
+        stage = "links"
+    if not DB_REPOSITORY.enabled or not hasattr(DB_REPOSITORY, "collection_observer_regions"):
+        return {"ok": True, "stage": stage, "regions": [], "db_mode": DB_REPOSITORY.enabled}
+    payload = DB_REPOSITORY.collection_observer_regions(stage=stage)
+    payload["db_mode"] = DB_REPOSITORY.enabled
+    return payload
+
+
+def _collection_observer_item_payload(query: dict[str, list[str]]) -> dict[str, Any]:
+    item_id = str((query.get("item_id") or [""])[0] or "").strip()
+    max_chars = _collection_query_int(query, "max_chars", 100_000, minimum=1, maximum=1_000_000)
+    if not item_id:
+        return {"found": False, "error": "item_id is required", "item_id": ""}
+    if not DB_REPOSITORY.enabled or not hasattr(DB_REPOSITORY, "collection_observer_item_detail"):
+        return {"found": False, "item_id": item_id, "item": None, "occurrences": [], "artifacts": {}, "db_mode": DB_REPOSITORY.enabled}
+    payload = DB_REPOSITORY.collection_observer_item_detail(item_id, max_chars=max_chars)
+    payload["db_mode"] = DB_REPOSITORY.enabled
+    return payload
+
+
+def _collection_observer_reanalysis_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    item_id = str((payload.get("item_id") or "")).strip()
+    reason = str(payload.get("reason") or "operator_requested").strip() or "operator_requested"
+    if not item_id:
+        return {"ok": False, "error": "item_id is required", "item_id": ""}
+    if not DB_REPOSITORY.enabled or not hasattr(DB_REPOSITORY, "requeue_seed_detail_analysis"):
+        return {"ok": False, "item_id": item_id, "error": "database repository is not available", "db_mode": DB_REPOSITORY.enabled}
+    result = DB_REPOSITORY.requeue_seed_detail_analysis(item_id, reason=reason)
+    result["db_mode"] = DB_REPOSITORY.enabled
+    return result
+
+
+def _collection_observer_manual_update_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    item_id = str((payload.get("item_id") or "")).strip()
+    updates = payload.get("updates")
+    if not item_id:
+        return {"ok": False, "error": "item_id is required", "item_id": ""}
+    if not isinstance(updates, dict) or not updates:
+        return {"ok": False, "item_id": item_id, "error": "updates must be a non-empty object"}
+    if not DB_REPOSITORY.enabled or not hasattr(DB_REPOSITORY, "manual_update_flat_item"):
+        return {"ok": False, "item_id": item_id, "error": "database repository is not available", "db_mode": DB_REPOSITORY.enabled}
+    result = DB_REPOSITORY.manual_update_flat_item(item_id, updates)
+    result["db_mode"] = DB_REPOSITORY.enabled
+    return result
+
+
+def _collection_observer_reset_region_links_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    location_code = str((payload.get("location_code") or "")).strip()
+    if not location_code:
+        return {"ok": False, "error": "location_code is required", "location_code": ""}
+    if not DB_REPOSITORY.enabled or not hasattr(DB_REPOSITORY, "reset_seed_link_region"):
+        return {"ok": False, "location_code": location_code, "error": "database repository is not available", "db_mode": DB_REPOSITORY.enabled}
+    result = DB_REPOSITORY.reset_seed_link_region(location_code)
+    result["db_mode"] = DB_REPOSITORY.enabled
+    return result
+
+
+def _collection_runtime_state_label() -> str:
+    solver_status = _captcha_solver_runtime_status()
+    if solver_status.get("manual_required"):
+        return "待认证"
+    if _collection_effectively_paused():
+        return "暂停中"
+    try:
+        overview = _collection_observer_overview_payload()
+        modules = overview.get("modules") or {}
+        details = modules.get("details") or {}
+        analysis = modules.get("analysis") or {}
+        links = modules.get("links") or {}
+        has_items = int(links.get("unique_items", 0) or 0) > 0
+        open_detail = (
+            int(details.get("pending", 0) or 0)
+            + int(details.get("failed", 0) or 0)
+            + int(details.get("blocked", 0) or 0)
+        )
+        open_analysis = (
+            int(analysis.get("ready", 0) or 0)
+            + int(analysis.get("pending", 0) or 0)
+            + int(analysis.get("failed", 0) or 0)
+            + int(analysis.get("blocked", 0) or 0)
+        )
+        if has_items and open_detail == 0 and open_analysis == 0:
+            return "已完成"
+    except Exception:
+        pass
+    return "运行中"
+
+
+def _collection_observer_runtime_control_payload(action: str) -> dict[str, Any]:
+    global SOLVER_MANUAL_RESUME_EPOCH
+    safe_action = str(action or "").strip().lower()
+    if safe_action not in {"pause", "resume"}:
+        return {"ok": False, "error": "action must be pause or resume", "action": safe_action}
+    if safe_action == "pause":
+        _set_collection_pause_state(True, "operator")
+    else:
+        _set_collection_pause_state(False)
+        SOLVER_MANUAL_RESUME_EPOCH = time.time()
+        _clear_solver_running_state()
+        _clear_solver_manual_required_state()
+        flag_path = _solver_force_unlock_flag_path()
+        if os.path.exists(flag_path):
+            try:
+                os.remove(flag_path)
+            except Exception as error:
+                return {
+                    "ok": False,
+                    "error": f"failed to clear force unlock flag: {error}",
+                    "action": safe_action,
+                    "paused": _collection_effectively_paused(),
+                    "captcha_solver": _captcha_solver_runtime_status(),
+                }
+    return {
+        "ok": True,
+        "action": safe_action,
+        "paused": _collection_effectively_paused(),
+        "runtime_state": _collection_runtime_state_label(),
+        "captcha_solver": _captcha_solver_runtime_status(),
+    }
+
+
+def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    global SOLVER_MANUAL_RESUME_EPOCH, SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
+    payload = payload if isinstance(payload, dict) else {}
+    try:
+        cookie_snapshot = _refresh_auth_cookie_snapshot(payload)
+    except Exception as error:
+        cookie_snapshot = {
+            "refreshed": False,
+            "error": repr(error),
+        }
+    _set_collection_pause_state(False)
+    SOLVER_MANUAL_RESUME_EPOCH = time.time()
+    _clear_solver_running_state()
+    SOLVER_LAST_STATUS = "manual_auth_completed"
+    SOLVER_LAST_FAILURE_REASON = None
+    flag_path = _solver_force_unlock_flag_path()
+    if os.path.exists(flag_path):
+        try:
+            os.remove(flag_path)
+        except Exception as error:
+            return {
+                "ok": False,
+                "action": "auth_complete",
+                "error": f"failed to clear force unlock flag: {error}",
+                "source": str(payload.get("source") or "operator"),
+                "paused": _collection_effectively_paused(),
+                "captcha_solver": _captcha_solver_runtime_status(),
+                "cookie_snapshot": cookie_snapshot,
+            }
+    return {
+        "ok": True,
+        "action": "auth_complete",
+        "source": str(payload.get("source") or "operator"),
+        "manual_auth_completed": True,
+        "paused": _collection_effectively_paused(),
+        "runtime_state": _collection_runtime_state_label(),
+        "captcha_solver": _captcha_solver_runtime_status(),
+        "cookie_snapshot": cookie_snapshot,
+    }
+
+
+def _collection_observer_page_html() -> str:
+    return """<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FapaiFang 采集观察台</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232459d6'/%3E%3Cpath d='M18 38h28v6H18zm4-18h20v6H22zm-4 9h28v6H18z' fill='white'/%3E%3C/svg%3E">
+  <style>
+    :root { color-scheme: light; --bg:#f5f7fb; --panel:#fff; --line:#d9e0ea; --text:#172033; --muted:#667085; --primary:#2459d6; --ok:#047857; --warn:#b45309; --bad:#b42318; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Inter, "Segoe UI", Arial, "Microsoft YaHei", sans-serif; background:var(--bg); color:var(--text); }
+    header { padding:20px 24px 14px; background:linear-gradient(135deg,#172033,#2459d6); color:white; }
+    header h1 { margin:0 0 8px; font-size:24px; }
+    header p { margin:0; color:rgba(255,255,255,.78); }
+    main { padding:18px 24px 28px; display:grid; gap:16px; }
+    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; }
+    .card, .panel { background:var(--panel); border:1px solid var(--line); border-radius:14px; box-shadow:0 8px 24px rgba(16,24,40,.06); }
+    .card { padding:14px 16px; }
+    .card .label { color:var(--muted); font-size:13px; }
+    .card .value { font-size:28px; font-weight:760; margin-top:5px; }
+    .card .hint { color:var(--muted); margin-top:6px; font-size:12px; }
+    .toolbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:12px; }
+    .tabs { display:flex; gap:8px; flex-wrap:wrap; }
+    button { border:1px solid var(--line); background:white; color:var(--text); padding:8px 12px; border-radius:10px; cursor:pointer; }
+    button.active { background:var(--primary); color:white; border-color:var(--primary); }
+    button:hover { border-color:var(--primary); }
+    input, select { border:1px solid var(--line); border-radius:10px; padding:8px 10px; }
+    .layout { display:grid; grid-template-columns:minmax(420px,1.15fr) minmax(360px,.85fr); gap:16px; align-items:start; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { border-top:1px solid var(--line); padding:9px 10px; text-align:left; vertical-align:top; }
+    th { color:var(--muted); background:#f8fafc; font-weight:650; position:sticky; top:0; }
+    tr.item-row { cursor:pointer; }
+    tr.item-row:hover { background:#eef4ff; }
+    .table-wrap { max-height:68vh; overflow:auto; }
+    .pill { display:inline-flex; align-items:center; border-radius:999px; padding:2px 8px; font-size:12px; background:#eef2ff; color:#3538cd; }
+    .pill.ok { background:#ecfdf3; color:var(--ok); }
+    .pill.warn { background:#fffaeb; color:var(--warn); }
+    .pill.bad { background:#fef3f2; color:var(--bad); }
+    .detail { padding:14px; }
+    .detail h2 { margin:0 0 8px; font-size:18px; }
+    .kv { display:grid; grid-template-columns:112px 1fr; gap:6px 10px; font-size:13px; margin:10px 0 12px; }
+    .kv .k { color:var(--muted); }
+    pre { white-space:pre-wrap; word-break:break-word; background:#0b1020; color:#dbeafe; border-radius:12px; padding:12px; max-height:360px; overflow:auto; font-size:12px; line-height:1.45; }
+    details { border-top:1px solid var(--line); padding:10px 0; }
+    summary { cursor:pointer; font-weight:650; }
+    a { color:var(--primary); word-break:break-all; }
+    .status-line { display:flex; gap:8px; align-items:center; flex-wrap:wrap; color:var(--muted); font-size:13px; }
+    .error { color:var(--bad); }
+    @media (max-width: 980px) { .layout { grid-template-columns:1fr; } .table-wrap { max-height:none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FapaiFang 采集观察台</h1>
+    <p>只读观察采集三段流水：商品链接采集、商品详情页采集、商品详情页 AI 分析。暂不包含房价分析引擎。</p>
+  </header>
+  <main>
+    <section class="cards" id="cards"></section>
+    <section class="panel">
+      <div class="toolbar">
+        <div class="tabs">
+          <button data-stage="links" class="active">商品链接采集</button>
+          <button data-stage="details">商品详情页采集</button>
+          <button data-stage="analysis">商品详情页 AI 分析</button>
+        </div>
+        <label>每页 <select id="limit"><option>50</option><option selected>100</option><option>200</option><option>500</option></select></label>
+        <button id="refresh">刷新</button>
+        <button id="prev">上一页</button>
+        <button id="next">下一页</button>
+        <span class="status-line" id="listStatus"></span>
+      </div>
+    </section>
+    <section class="layout">
+      <div class="panel table-wrap"><table><thead><tr><th>商品</th><th>状态</th><th>列表来源</th><th>详情/AI文件</th></tr></thead><tbody id="items"></tbody></table></div>
+      <aside class="panel detail" id="detail"><h2>商品详情</h2><p class="status-line">点击左侧任一商品查看采集到的实际数据。</p></aside>
+    </section>
+  </main>
+  <script>
+    const state = { stage: 'links', limit: 100, offset: 0, total: 0 };
+    const $ = (id) => document.getElementById(id);
+    const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const fmt = (v) => v === null || v === undefined || v === '' ? '-' : esc(v);
+    const statusClass = (s) => s === 'detail_completed' ? 'ok' : (String(s || '').includes('failed') || String(s || '').includes('blocked') ? 'bad' : 'warn');
+
+    async function getJson(url) {
+      const resp = await fetch(url, { cache: 'no-store' });
+      if (!resp.ok) throw new Error(`${resp.status} ${resp.statusText}`);
+      return await resp.json();
+    }
+
+    async function loadOverview() {
+      const data = await getJson('/api/collection/overview');
+      const m = data.modules || {};
+      const paused = data.status && data.status.paused;
+      $('cards').innerHTML = `
+        <div class="card"><div class="label">运行状态</div><div class="value">${paused ? '已暂停' : '运行中'}</div><div class="hint">captcha/manual 状态也会计入暂停判定</div></div>
+        <div class="card"><div class="label">商品链接采集</div><div class="value">${fmt(m.links && m.links.total)}</div><div class="hint">总链接出现次数；唯一商品 ${fmt(m.links && m.links.unique_items)}</div></div>
+        <div class="card"><div class="label">商品详情页采集</div><div class="value">${fmt(m.details && m.details.captured)}</div><div class="hint">待抓 ${fmt(m.details && m.details.pending)} / 失败 ${fmt(m.details && m.details.failed)} / 阻塞 ${fmt(m.details && m.details.blocked)}</div></div>
+        <div class="card"><div class="label">商品详情页 AI 分析</div><div class="value">${fmt(m.analysis && m.analysis.finalized)}</div><div class="hint">待分析 ${fmt(m.analysis && m.analysis.pending)} / 失败 ${fmt(m.analysis && m.analysis.failed)} / 阻塞 ${fmt(m.analysis && m.analysis.blocked)}</div></div>
+      `;
+    }
+
+    function renderItems(data) {
+      state.total = data.total || 0;
+      $('listStatus').textContent = `阶段 ${state.stage}，总数 ${state.total}，当前 ${state.offset + 1}-${Math.min(state.offset + state.limit, state.total)}`;
+      $('items').innerHTML = (data.items || []).map(item => {
+        const occ = item.latest_occurrence || {};
+        const artifacts = item.artifacts || {};
+        const fileHint = state.stage === 'analysis' ? item.final_json_path : artifacts.detail_html_path;
+        return `<tr class="item-row" data-id="${esc(item.item_id)}">
+          <td><strong>${fmt(item.title || item.item_id)}</strong><br><a href="${esc(item.source_url || '#')}" target="_blank">${fmt(item.source_url)}</a><br><span class="status-line">ID ${fmt(item.item_id)} · ${fmt(item.last_seen_at || item.updated_at)}</span></td>
+          <td><span class="pill ${statusClass(item.status)}">${fmt(item.status)}</span><br>attempts ${fmt(item.detail_attempt_count)}</td>
+          <td>${fmt(occ.sort_name || occ.sort_key)}<br>page ${fmt(occ.page)} / rank ${fmt(occ.rank)}<br><a href="${esc(occ.source_page_url || '#')}" target="_blank">${fmt(occ.source_page_url)}</a></td>
+          <td>${fmt(fileHint)}</td>
+        </tr>`;
+      }).join('');
+      document.querySelectorAll('tr.item-row').forEach(row => row.addEventListener('click', () => loadDetail(row.dataset.id)));
+    }
+
+    async function loadItems() {
+      $('listStatus').textContent = '加载中...';
+      const data = await getJson(`/api/collection/items?stage=${encodeURIComponent(state.stage)}&limit=${state.limit}&offset=${state.offset}`);
+      renderItems(data);
+    }
+
+    function artifactBlock(title, artifact) {
+      artifact = artifact || {};
+      const content = artifact.json ? JSON.stringify(artifact.json, null, 2) : (artifact.content || '');
+      return `<details open><summary>${esc(title)} ${artifact.exists ? '' : '(未找到文件)'}</summary><div class="status-line">${fmt(artifact.path)} ${artifact.truncated ? ' · 已截断' : ''} ${artifact.error ? ' · ' + esc(artifact.error) : ''}</div><pre>${esc(content || '无内容')}</pre></details>`;
+    }
+
+    async function loadDetail(itemId) {
+      $('detail').innerHTML = '<h2>商品详情</h2><p class="status-line">加载中...</p>';
+      const data = await getJson(`/api/collection/item?item_id=${encodeURIComponent(itemId)}&max_chars=200000`);
+      if (!data.found) {
+        $('detail').innerHTML = `<h2>商品详情</h2><p class="error">未找到商品 ${esc(itemId)}</p>`;
+        return;
+      }
+      const item = data.item || {};
+      const artifacts = data.artifacts || {};
+      const flat = data.flat_item ? JSON.stringify(data.flat_item, null, 2) : '';
+      $('detail').innerHTML = `
+        <h2>${fmt(item.title || item.item_id)}</h2>
+        <div class="kv">
+          <div class="k">商品 ID</div><div>${fmt(item.item_id)}</div>
+          <div class="k">状态</div><div><span class="pill ${statusClass(item.status)}">${fmt(item.status)}</span></div>
+          <div class="k">商品链接</div><div><a href="${esc(item.source_url || '#')}" target="_blank">${fmt(item.source_url)}</a></div>
+          <div class="k">首次发现</div><div>${fmt(item.first_seen_at)}</div>
+          <div class="k">最后更新</div><div>${fmt(item.updated_at)}</div>
+        </div>
+        ${artifactBlock('详情页 HTML / 文本', artifacts.detail_html)}
+        ${artifactBlock('详情页 selected.json', artifacts.selected_json)}
+        ${artifactBlock('详情页 description-data.json', artifacts.description_json)}
+        ${artifactBlock('AI 标准化 final.json', artifacts.final_json)}
+        <details ${flat ? 'open' : ''}><summary>数据库标准化字段</summary><pre>${esc(flat || '暂无 property_listing 标准化字段')}</pre></details>
+        <details><summary>列表出现记录</summary><pre>${esc(JSON.stringify(data.occurrences || [], null, 2))}</pre></details>
+      `;
+    }
+
+    document.querySelectorAll('button[data-stage]').forEach(btn => btn.addEventListener('click', async () => {
+      document.querySelectorAll('button[data-stage]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.stage = btn.dataset.stage;
+      state.offset = 0;
+      await loadItems();
+    }));
+    $('limit').addEventListener('change', async e => { state.limit = Number(e.target.value || 100); state.offset = 0; await loadItems(); });
+    $('refresh').addEventListener('click', async () => { await loadOverview(); await loadItems(); });
+    $('prev').addEventListener('click', async () => { state.offset = Math.max(0, state.offset - state.limit); await loadItems(); });
+    $('next').addEventListener('click', async () => { if (state.offset + state.limit < state.total) state.offset += state.limit; await loadItems(); });
+    (async function init(){ try { await loadOverview(); await loadItems(); } catch (err) { $('listStatus').innerHTML = `<span class="error">${esc(err.message)}</span>`; } })();
+  </script>
+</body>
+</html>"""
 
 
 def _db_collection_stage_snapshot():
@@ -4036,40 +5098,61 @@ def watchdog_thread():
         if elapsed > WATCHDOG_TIMEOUT:
             print(f"[WATCHDOG] No requests for {int(elapsed)}s. Triggering recovery...")
 
-            try:
-                # Step 1: Kill all Edge processes
-                subprocess.run(['taskkill', '/F', '/IM', 'msedge.exe'],
-                              capture_output=True, timeout=30)
-                print("[WATCHDOG] Killed all Edge processes.")
+            # Disabled: Do not kill user's browser or open recovery windows
+            # This was interrupting user's active browser sessions
+            print("[WATCHDOG] Auto-recovery disabled to avoid interrupting user browser.")
+            return
+            # try:
+            #     # Step 1: Kill all Chrome processes
+            #     subprocess.run(['taskkill', '/F', '/IM', 'chrome.exe'],
+            #                   capture_output=True, timeout=30)
+            #     print("[WATCHDOG] Killed all Chrome processes.")
+            #
+            #     # Wait for processes to fully terminate
+            #     time.sleep(5)
+            #
+            #     # Step 2: Open 3 independent Chrome windows with Remote Debugging
+            #     # Window 1: Sniff Tab #1
+            #     subprocess.Popen(['start', 'chrome', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window',
+            #                      'https://sf.taobao.com/list/50025969.htm?auto_recovery=1'],
+            #                     shell=True)
+            #     time.sleep(2)
+            #
+            #     # Window 2: Sniff Tab #2
+            #     subprocess.Popen(['start', 'chrome', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window',
+            #                      'https://sf.taobao.com/list/50025969.htm?auto_recovery=2'],
+            #                     shell=True)
+            #     time.sleep(2)
+            #
+            #     # Window 3: Worker Tab
+            #     subprocess.Popen(['start', 'chrome', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window',
+            #                      'https://sf.taobao.com/?auto_worker=1'],
+            #                     shell=True)
+            #
+            #     print("[WATCHDOG] Recovery complete. 3 Chrome windows opened with Debug Port 9222.")
+            #
+            #     # Reset timer to avoid immediate re-trigger
+            #     LAST_REQUEST_TIME = time.time()
+            #
+            # except Exception as e:
+            #     print(f"[WATCHDOG] Recovery failed: {e}")
 
-                # Wait for processes to fully terminate
-                time.sleep(5)
 
-                # Step 2: Open 3 independent Edge windows with Remote Debugging
-                # Window 1: Sniff Tab #1
-                subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window',
-                                 'https://sf.taobao.com/list/50025969.htm?auto_recovery=1'],
-                                shell=True)
-                time.sleep(2)
+def manual_solver_retry_thread():
+    """Retry the automated solver at a controlled interval while manual verification is required."""
+    while True:
+        try:
+            result = _trigger_manual_solver_retry_if_due()
+            if result.get("queued"):
+                solver_request = result.get("solver_request") if isinstance(result.get("solver_request"), dict) else {}
+                print(
+                    "[SOLVER] Manual-required auto retry queued "
+                    f"(attempt {result.get('attempt')}, target={solver_request.get('target_url')})."
+                )
+        except Exception as error:
+            print(f"[SOLVER] Manual-required auto retry monitor failed: {error}")
+        time.sleep(_manual_solver_retry_poll_seconds())
 
-                # Window 2: Sniff Tab #2
-                subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window',
-                                 'https://sf.taobao.com/list/50025969.htm?auto_recovery=2'],
-                                shell=True)
-                time.sleep(2)
-
-                # Window 3: Worker Tab
-                subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window',
-                                 'https://sf.taobao.com/?auto_worker=1'],
-                                shell=True)
-
-                print("[WATCHDOG] Recovery complete. 3 Edge windows opened with Debug Port 9222.")
-
-                # Reset timer to avoid immediate re-trigger
-                LAST_REQUEST_TIME = time.time()
-
-            except Exception as e:
-                print(f"[WATCHDOG] Recovery failed: {e}")
 
 def check_and_launch_browser():
     """Check if debug port 9222 is open, if not, launch browser."""
@@ -4079,23 +5162,23 @@ def check_and_launch_browser():
     sock.close()
 
     if result != 0:
-        print("[STARTUP] Debug port 9222 not open. Launching Edge...")
-        # Reuse watchdog logic to launch
-        try:
-             # Kill existing first to ensure port availability
-             import subprocess
-             subprocess.run(['taskkill', '/F', '/IM', 'msedge.exe'], capture_output=True)
-             time.sleep(2)
-
-             # Launch windows
-             subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 'https://sf.taobao.com/list/50025969.htm?auto_recovery=1'], shell=True)
-             time.sleep(2)
-             subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 'https://sf.taobao.com/list/50025969.htm?auto_recovery=2'], shell=True)
-             time.sleep(2)
-             subprocess.Popen(['start', 'msedge', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 'https://sf.taobao.com/?auto_worker=1'], shell=True)
-             print("[STARTUP] Edge launched with debug port 9222.")
-        except Exception as e:
-            print(f"[STARTUP] Error launching browser: {e}")
+        print("[STARTUP] Debug port 9222 not open. Auto-launch disabled to avoid interrupting user browser.")
+        # Disabled: Do not kill browser or launch windows
+        # try:
+        #      # Kill existing first to ensure port availability
+        #      import subprocess
+        #      subprocess.run(['taskkill', '/F', '/IM', 'chrome.exe'], capture_output=True)
+        #      time.sleep(2)
+        #
+        #      # Launch windows
+        #      subprocess.Popen(['start', 'chrome', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 'https://sf.taobao.com/list/50025969.htm?auto_recovery=1'], shell=True)
+        #      time.sleep(2)
+        #      subprocess.Popen(['start', 'chrome', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 'https://sf.taobao.com/list/50025969.htm?auto_recovery=2'], shell=True)
+        #      time.sleep(2)
+        #      subprocess.Popen(['start', 'chrome', '--remote-debugging-port=9222', '--remote-allow-origins=*', '--disable-blink-features=AutomationControlled', '--disable-background-networking', '--disable-sync', '--disable-client-side-phishing-detection', '--disable-default-apps', '--no-default-browser-check', '--new-window', 'https://sf.taobao.com/?auto_worker=1'], shell=True)
+        #      print("[STARTUP] Chrome launched with debug port 9222.")
+        # except Exception as e:
+        #     print(f"[STARTUP] Error launching browser: {e}")
 
 JOBS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "jobs")
 
@@ -4455,14 +5538,15 @@ def _extract_detail_artifacts(html_content, item_id, auction_date=None, source_u
     )
 
 
-def load_data():
+def load_data(data_root: str | Path | None = None):
     """Load all json files from datas/ directory (and archives) into memory index"""
     global SEEN_IDS, PENDING_TASKS
+    active_data_root = os.fspath(data_root or DATA_DIR)
     SEEN_IDS = {}
     PENDING_TASKS = []
 
-    if not os.path.exists(DATA_DIR):
-        os.makedirs(DATA_DIR)
+    if not os.path.exists(active_data_root):
+        os.makedirs(active_data_root)
 
     print("Loading data...")
 
@@ -4482,13 +5566,13 @@ def load_data():
 
     # 1. Scan root JSONs (priority config, current files)
     try:
-        root_files = glob.glob(os.path.join(DATA_DIR, '*.json'))
+        root_files = glob.glob(os.path.join(active_data_root, '*.json'))
     except:
         root_files = []
 
     # 2. Scan Archive JSONs (Recursive)
     try:
-        archive_pattern = os.path.join(DATA_DIR, 'archive', '**', '*.json')
+        archive_pattern = os.path.join(active_data_root, 'archive', '**', '*.json')
         archive_files = glob.glob(archive_pattern, recursive=True)
     except:
         archive_files = []
@@ -4623,6 +5707,12 @@ def initialize_runtime(start_watchdog=True, ensure_browser=True):
     if start_watchdog:
         threading.Thread(target=watchdog_thread, daemon=True).start()
         print("[WATCHDOG] Service continuity watchdog started (timeout: 10 minutes).")
+
+    threading.Thread(target=manual_solver_retry_thread, daemon=True).start()
+    print(
+        "[SOLVER] Manual-required auto retry monitor started "
+        f"(interval: {_manual_solver_retry_interval_seconds()}s, poll: {_manual_solver_retry_poll_seconds()}s)."
+    )
 
     if ensure_browser:
         threading.Thread(target=check_and_launch_browser, daemon=True).start()
@@ -4857,7 +5947,62 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
         request_path = parsed.path
         query = parse_qs(parsed.query)
 
-        if request_path in MANUAL_REVIEW_RECEIPT_ENDPOINTS:
+        if request_path in ("/collection", "/collection/"):
+            body = _collection_observer_page_html().encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        elif request_path == "/api/collection/overview":
+            try:
+                self.send_json(_collection_observer_overview_payload())
+            except Exception as e:
+                self.send_error_json(
+                    status=500,
+                    code="COLLECTION_OBSERVER_OVERVIEW_FAILED",
+                    message="collection observer overview 读取失败",
+                    details={"error": str(e)},
+                )
+
+        elif request_path == "/api/collection/items":
+            try:
+                self.send_json(_collection_observer_items_payload(query))
+            except Exception as e:
+                self.send_error_json(
+                    status=500,
+                    code="COLLECTION_OBSERVER_ITEMS_FAILED",
+                    message="collection observer item 列表读取失败",
+                    details={"error": str(e)},
+                )
+
+        elif request_path == "/api/collection/regions":
+            try:
+                self.send_json(_collection_observer_regions_payload(query))
+            except Exception as e:
+                self.send_error_json(
+                    status=500,
+                    code="COLLECTION_OBSERVER_REGIONS_FAILED",
+                    message="collection observer 地区状态读取失败",
+                    details={"error": str(e)},
+                )
+
+        elif request_path == "/api/collection/item" or request_path.startswith("/api/collection/items/"):
+            try:
+                if request_path.startswith("/api/collection/items/"):
+                    query = dict(query)
+                    query["item_id"] = [unquote(request_path.rsplit("/", 1)[-1])]
+                self.send_json(_collection_observer_item_payload(query))
+            except Exception as e:
+                self.send_error_json(
+                    status=500,
+                    code="COLLECTION_OBSERVER_ITEM_FAILED",
+                    message="collection observer item 详情读取失败",
+                    details={"error": str(e)},
+                )
+
+        elif request_path in MANUAL_REVIEW_RECEIPT_ENDPOINTS:
             try:
                 active_data_root = Path(getattr(AVM_SERVICE, "data_dir", DATA_DIR))
                 payload = list_manual_review_receipts(
@@ -5049,8 +6194,11 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     details={"error": str(e)},
                 )
 
-        elif self.path == '/api/status':
+        elif request_path == '/api/status':
             try:
+                if _collection_api_lightweight_status_enabled():
+                    self.send_json(_collection_api_lightweight_status_payload())
+                    return
                 db_total_ids = None
                 db_processed_ids = None
                 db_pending_ids = None
@@ -5129,7 +6277,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 }
 
                 self.send_json({
-                    "paused": PAUSED,
+                    "paused": _collection_effectively_paused(),
                     "total_ids": total_ids,
                     "captured_count": captured_count,
                     "ai_finalized_count": ai_finalized_count,
@@ -5145,6 +6293,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     "api_avg_response_time_ms": api_metrics.get("avg_response_time_ms", 0.0),
                     "api_total_calls": api_metrics.get("total_calls", 0),
                     "api_success_calls": api_metrics.get("success_calls", 0),
+                    "captcha_solver": _captcha_solver_runtime_status(),
                     "data_supply_recent_24h": _db_data_supply_snapshot(24) if DB_REPOSITORY.enabled else {},
                     "avm": avm_status,
                     "collection_stage": collection_stage_snapshot,
@@ -5456,7 +6605,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     encoding="utf-8",
                 )
                 if not dry_run and output.get("prepared_count"):
-                    load_data()
+                    load_data(active_data_root)
             except Exception as e:
                 self.send_error_json(
                     status=500,
@@ -5606,7 +6755,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             params = parse_qs(parsed_url.query)
             session_id = params.get('session_id', ['default'])[0]
             try:
-                self.send_json(_seed_collection_service().next_task(session_id, paused=PAUSED))
+                self.send_json(_seed_collection_service().next_task(session_id, paused=_collection_effectively_paused()))
             except Exception as e:
                 self.send_error_json(
                     status=500,
@@ -5617,7 +6766,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
 
 
         elif self.path in ('/api/get_tasks', '/api/collection/details/tasks'):
-            if PAUSED:
+            if _collection_effectively_paused():
                 self.send_json({"tasks": []})
                 return
 
@@ -5716,9 +6865,11 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 print(f"[DEBUG] Returned 0 tasks. Candidates={len(candidates)}")
 
         elif self.path == '/api/resume':
-            PAUSED = False
+            _set_collection_pause_state(False)
+            _clear_solver_running_state()
+            _clear_solver_manual_required_state()
             # Clear emergency flag if it exists
-            flag_path = os.path.join(DATA_DIR, 'force_unlock.flag')
+            flag_path = _solver_force_unlock_flag_path()
             if os.path.exists(flag_path):
                 try: os.remove(flag_path)
                 except: pass
@@ -5792,6 +6943,173 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
 
 
 
+
+        elif self.path == "/api/collection/region/reset_links":
+            content_length = int(self.headers['Content-Length']) if self.headers.get('Content-Length') else 0
+            try:
+                payload = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            except Exception:
+                self.send_error_json(
+                    status=400,
+                    code="AVM_INVALID_JSON",
+                    message="请求体不是合法 JSON",
+                    details={},
+                )
+                return
+            if not isinstance(payload, dict):
+                self.send_invalid_request_body(payload)
+                return
+            try:
+                result = _collection_observer_reset_region_links_payload(payload)
+            except Exception as e:
+                self.send_error_json(
+                    status=500,
+                    code="COLLECTION_OBSERVER_REGION_RESET_FAILED",
+                    message="地区链接采集重置失败",
+                    details={"error": str(e)},
+                )
+                return
+            status = 200 if result.get("ok") else 400
+            if status != 200:
+                self.send_error_json(
+                    status=status,
+                    code="COLLECTION_OBSERVER_REGION_RESET_REJECTED",
+                    message="地区链接采集重置请求被拒绝",
+                    details=result,
+                )
+                return
+            self.send_json(result)
+
+        elif self.path == "/api/collection/item/reanalyze":
+            content_length = int(self.headers['Content-Length']) if self.headers.get('Content-Length') else 0
+            try:
+                payload = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            except Exception:
+                self.send_error_json(
+                    status=400,
+                    code="AVM_INVALID_JSON",
+                    message="请求体不是合法 JSON",
+                    details={},
+                )
+                return
+            if not isinstance(payload, dict):
+                self.send_invalid_request_body(payload)
+                return
+            try:
+                result = _collection_observer_reanalysis_payload(payload)
+            except Exception as e:
+                self.send_error_json(
+                    status=500,
+                    code="COLLECTION_OBSERVER_REANALYZE_FAILED",
+                    message="AI 再分析入队失败",
+                    details={"error": str(e)},
+                )
+                return
+            status = 200 if result.get("ok") else 400
+            if status != 200:
+                self.send_error_json(
+                    status=status,
+                    code="COLLECTION_OBSERVER_REANALYZE_REJECTED",
+                    message="AI 再分析请求被拒绝",
+                    details=result,
+                )
+                return
+            self.send_json(result)
+
+        elif self.path == "/api/collection/item/manual_update":
+            content_length = int(self.headers['Content-Length']) if self.headers.get('Content-Length') else 0
+            try:
+                payload = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            except Exception:
+                self.send_error_json(
+                    status=400,
+                    code="AVM_INVALID_JSON",
+                    message="请求体不是合法 JSON",
+                    details={},
+                )
+                return
+            if not isinstance(payload, dict):
+                self.send_invalid_request_body(payload)
+                return
+            try:
+                result = _collection_observer_manual_update_payload(payload)
+            except Exception as e:
+                self.send_error_json(
+                    status=500,
+                    code="COLLECTION_OBSERVER_MANUAL_UPDATE_FAILED",
+                    message="手动更新标准化数据失败",
+                    details={"error": str(e)},
+                )
+                return
+            status = 200 if result.get("ok") else 400
+            if status != 200:
+                self.send_error_json(
+                    status=status,
+                    code="COLLECTION_OBSERVER_MANUAL_UPDATE_REJECTED",
+                    message="手动更新标准化数据请求被拒绝",
+                    details=result,
+                )
+                return
+            self.send_json(result)
+
+        elif self.path in ("/api/collection/control/pause", "/api/collection/control/resume"):
+            action = "pause" if self.path.endswith("/pause") else "resume"
+            try:
+                result = _collection_observer_runtime_control_payload(action)
+            except Exception as e:
+                self.send_error_json(
+                    status=500,
+                    code="COLLECTION_OBSERVER_RUNTIME_CONTROL_FAILED",
+                    message="采集运行状态切换失败",
+                    details={"error": str(e), "action": action},
+                )
+                return
+            status = 200 if result.get("ok") else 400
+            if status != 200:
+                self.send_error_json(
+                    status=status,
+                    code="COLLECTION_OBSERVER_RUNTIME_CONTROL_REJECTED",
+                    message="采集运行状态切换请求被拒绝",
+                    details=result,
+                )
+                return
+            self.send_json(result)
+
+        elif self.path == "/api/collection/auth/complete":
+            content_length = int(self.headers['Content-Length']) if self.headers.get('Content-Length') else 0
+            try:
+                payload = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            except Exception:
+                self.send_error_json(
+                    status=400,
+                    code="AVM_INVALID_JSON",
+                    message="请求体不是合法 JSON",
+                    details={},
+                )
+                return
+            if not isinstance(payload, dict):
+                self.send_invalid_request_body(payload)
+                return
+            try:
+                result = _collection_observer_auth_complete_payload(payload)
+            except Exception as e:
+                self.send_error_json(
+                    status=500,
+                    code="COLLECTION_OBSERVER_AUTH_COMPLETE_FAILED",
+                    message="人工认证完成通知失败",
+                    details={"error": str(e)},
+                )
+                return
+            status = 200 if result.get("ok") else 400
+            if status != 200:
+                self.send_error_json(
+                    status=status,
+                    code="COLLECTION_OBSERVER_AUTH_COMPLETE_REJECTED",
+                    message="人工认证完成通知被拒绝",
+                    details=result,
+                )
+                return
+            self.send_json(result)
 
         elif self.path in MANUAL_REVIEW_RECEIPT_ENDPOINTS:
             content_length = int(self.headers['Content-Length']) if self.headers.get('Content-Length') else 0
@@ -6596,11 +7914,73 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 )
 
         elif self.path == '/api/report_captcha':
+            content_length = int(self.headers['Content-Length']) if self.headers.get('Content-Length') else 0
+            try:
+                payload = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            except Exception:
+                self.send_error_json(
+                    status=400,
+                    code="AVM_INVALID_JSON",
+                    message="请求体不是合法 JSON",
+                    details={},
+                )
+                return
+            if not isinstance(payload, dict):
+                self.send_invalid_request_body(payload)
+                return
+            force_retry = _payload_force_solver_retry(payload)
+            solver_status = _captcha_solver_runtime_status()
+            if solver_status["manual_required"]:
+                if force_retry:
+                    clear_error = _clear_solver_manual_required_pause()
+                    if clear_error:
+                        self.send_error_json(
+                            status=500,
+                            code="AVM_CAPTCHA_SOLVER_FORCE_RETRY_FAILED",
+                            message="清除验证码人工认证锁失败",
+                            details={"error": clear_error},
+                        )
+                        return
+                    solver_status = _captcha_solver_runtime_status()
+                    print("[SOLVER] report_captcha force retry cleared manual verification state.")
+                else:
+                    print("[SOLVER] report_captcha ignored; manual verification is already required.")
+                    self.send_json({"status": "manual_required", "captcha_solver": solver_status})
+                    return
+            if solver_status["manual_required"]:
+                print("[SOLVER] report_captcha ignored; manual verification is already required.")
+                self.send_json({"status": "manual_required", "captcha_solver": solver_status})
+                return
+            if SOLVER_RUNNING:
+                elapsed = max(int(time.time() - SOLVER_START_TIME), 0)
+                if elapsed < 120:
+                    print(f"[SOLVER] report_captcha ignored; solver already running for {elapsed}s.")
+                    self.send_json({
+                        "status": "already_running",
+                        "elapsed_seconds": elapsed,
+                        "captcha_solver": solver_status,
+                    })
+                    return
+                print(
+                    f"[SOLVER] report_captcha ignored; solver still running after {elapsed}s. "
+                    "Marking manual verification required instead of starting a parallel solver."
+                )
+                flag_error = _mark_solver_manual_required()
+                response_payload = {
+                    "status": "manual_required",
+                    "elapsed_seconds": elapsed,
+                    "captcha_solver": _captcha_solver_runtime_status(),
+                }
+                if flag_error:
+                    response_payload["flag_error"] = flag_error
+                self.send_json(response_payload)
+                return
+            solver_request = _build_solver_request(payload)
             print("CAPTCHA REPORTED! Triggering Solver...")
 
             # Using ThreadPool to avoid blocking the server main loop
             try:
-                executor.submit(self.run_solver)
+                executor.submit(self.run_solver, solver_request)
             except Exception as e:
                 self.send_error_json(
                     status=500,
@@ -6905,17 +8285,18 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
 
     def send_json(self, data):
-        self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Content-Type', 'application/json')
-        self.end_headers()
-        self.wfile.write(json.dumps(data).encode('utf-8'))
+        try:
+            self.send_response(200)
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(data).encode('utf-8'))
+        except Exception as error:
+            if _is_client_disconnect_error(error):
+                return
+            raise
 
     def send_error_json(self, status, code, message, details=None):
-        self.send_response(status)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Content-Type', 'application/json')
-        self.end_headers()
         payload = {
             "error": {
                 "code": code,
@@ -6923,7 +8304,16 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 "details": details or {}
             }
         }
-        self.wfile.write(json.dumps(payload).encode('utf-8'))
+        try:
+            self.send_response(status)
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(payload).encode('utf-8'))
+        except Exception as error:
+            if _is_client_disconnect_error(error):
+                return
+            raise
 
     def send_invalid_request_body(self, payload):
         self.send_error_json(
@@ -6939,15 +8329,20 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
     def update_file(self, file_path, item_id, new_data):
         update_file_global(file_path, item_id, new_data)
 
-    def run_solver(self):
+    def run_solver(self, solver_request=None):
         """Run the captcha solver in background with server-level retry."""
-        global PAUSED
-        global SOLVER_RUNNING, SOLVER_START_TIME
+        global SOLVER_RUNNING, SOLVER_START_TIME, SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
+        global SOLVER_LAST_FINISHED_TIME, SOLVER_LAST_REQUEST, SOLVER_MANUAL_RESUME_EPOCH
+        global SOLVER_CANCEL_EPOCH, COLLECTION_PAUSE_REASON, SOLVER_MANUAL_REQUIRED_EPOCH
 
         # Initialize if not present (hack for hot-reload or first run)
         if 'SOLVER_RUNNING' not in globals():
             SOLVER_RUNNING = False
             SOLVER_START_TIME = 0
+
+        if _captcha_solver_runtime_status()["manual_required"]:
+            print("\033[93m[SOLVER] Manual verification already required. Skipping solver run.\033[0m")
+            return
 
         # Check existing lock state
         if SOLVER_RUNNING:
@@ -6960,11 +8355,31 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
 
         SERVER_MAX_ATTEMPTS = 2  # Server-level retries (solver has its own internal retries)
 
+        solver_started_at = 0.0
         try:
             SOLVER_RUNNING = True
             SOLVER_START_TIME = time.time()
-            PAUSED = True
+            solver_started_at = SOLVER_START_TIME
+            SOLVER_LAST_STATUS = "running"
+            SOLVER_LAST_FAILURE_REASON = None
+            SOLVER_LAST_REQUEST = dict(solver_request) if isinstance(solver_request, dict) else {}
+            if not PAUSED or COLLECTION_PAUSE_REASON is None:
+                _set_collection_pause_state(True, "captcha_solver")
             print("\033[93m[SOLVER] Starting solver...\033[0m")
+            active_solver = _build_solver_for_request(solver_request)
+            try:
+                active_solver.cancel_checker = lambda: (
+                    SOLVER_MANUAL_RESUME_EPOCH >= solver_started_at
+                    or SOLVER_CANCEL_EPOCH >= solver_started_at
+                )
+            except Exception:
+                pass
+            if solver_request:
+                print(
+                    f"[SOLVER] Using request-scoped solver "
+                    f"cdp_endpoint={solver_request.get('cdp_endpoint')!r} "
+                    f"target_url_set={bool(solver_request.get('target_url'))}"
+                )
 
             success = False
             for server_attempt in range(SERVER_MAX_ATTEMPTS):
@@ -6972,39 +8387,86 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     print(f"\033[93m[SOLVER] Server retry {server_attempt + 1}/{SERVER_MAX_ATTEMPTS} after delay...\033[0m")
                     time.sleep(3)
 
-                success = solver.solve()
+                success = active_solver.solve()
                 if success:
+                    break
+                if getattr(active_solver, "last_failure_reason", None) in {"manual_required", "cancelled"}:
+                    print("[SOLVER] Manual-required/cancelled failure detected; skipping server retry.")
                     break
 
             if success:
                 print("\033[92m[SOLVER] ✅ Captcha Solved! Resuming system...\033[0m")
-                PAUSED = False
+                SOLVER_LAST_STATUS = "solved"
+                SOLVER_LAST_FAILURE_REASON = None
+                if COLLECTION_PAUSE_REASON == "captcha_solver":
+                    _set_collection_pause_state(False)
             else:
+                SOLVER_LAST_FAILURE_REASON = getattr(active_solver, "last_failure_reason", None) or "solve_failed"
+                if SOLVER_MANUAL_RESUME_EPOCH >= solver_started_at:
+                    print("[SOLVER] Manual resume happened after this solver started; suppressing stale failure pause.")
+                    SOLVER_LAST_STATUS = "resumed"
+                    SOLVER_LAST_FAILURE_REASON = None
+                    _set_collection_pause_state(False)
+                    SOLVER_RUNNING = False
+                    SOLVER_LAST_FINISHED_TIME = time.time()
+                    return
+                if SOLVER_CANCEL_EPOCH >= solver_started_at and _captcha_solver_runtime_status().get("manual_required"):
+                    print("[SOLVER] Solver cancel requested after manual_required was marked; leaving collection paused for operator verification.")
+                    SOLVER_LAST_STATUS = "manual_required"
+                    SOLVER_LAST_FAILURE_REASON = "manual_required"
+                    SOLVER_RUNNING = False
+                    SOLVER_LAST_FINISHED_TIME = time.time()
+                    return
+                if SOLVER_LAST_FAILURE_REASON == "manual_required":
+                    SOLVER_LAST_STATUS = "manual_required"
+                else:
+                    SOLVER_LAST_STATUS = "failed"
                 print("\033[91m[SOLVER] ❌ All solve attempts failed. System remains PAUSED.\033[0m")
                 print("\033[91m[SOLVER] Manual intervention required. Please solve in Edge, then click 'Resume' or delete 'force_unlock.flag'.\033[0m")
+                _set_collection_pause_state(True, "manual_required")
+                SOLVER_MANUAL_REQUIRED_EPOCH = time.time()
 
-                # Create a lock flag file for easy manual resuming via file system if API is stuck
-                flag_path = os.path.join(DATA_DIR, 'force_unlock.flag')
-                try:
-                    with open(flag_path, 'w') as f:
-                        f.write("Delete this file to force resume the queue after manual solving")
-                except: pass
+                # Create a retryable lock flag for file-system/API manual resume and restart-safe solver retries.
+                flag_path = _solver_force_unlock_flag_path()
+                flag_error = _write_solver_manual_required_flag(SOLVER_MANUAL_REQUIRED_EPOCH)
+                if flag_error:
+                    print(f"[SOLVER] Failed to write force unlock flag: {flag_error}")
+
+                # The automated solve attempt is finished at this point. Keep the
+                # collection paused, but do not report the solver as actively
+                # running while it waits for operator/manual verification.
+                SOLVER_RUNNING = False
+                SOLVER_LAST_FINISHED_TIME = time.time()
 
                 # Wait for user to either hit API resume or delete the file
-                while PAUSED:
+                while _captcha_solver_runtime_status().get("manual_required"):
                     if not os.path.exists(flag_path):
                         print("\033[92m[SOLVER] 🟢 Force unlock flag removed! Auto-resuming system...\033[0m")
-                        PAUSED = False
+                        _set_collection_pause_state(False)
+                        _clear_solver_manual_required_state()
                         break
                     time.sleep(2)
 
         except Exception as e:
+            SOLVER_LAST_STATUS = "error"
+            SOLVER_LAST_FAILURE_REASON = str(e)
             print(f"[SOLVER] Error: {e}")
             import traceback
             traceback.print_exc()
         finally:
-            SOLVER_RUNNING = False
-            elapsed = time.time() - SOLVER_START_TIME
+            finished_at = time.time()
+            is_current_solver_run = (
+                solver_started_at <= 0
+                or not SOLVER_START_TIME
+                or float(SOLVER_START_TIME) == float(solver_started_at)
+            )
+            if is_current_solver_run:
+                SOLVER_RUNNING = False
+                SOLVER_LAST_FINISHED_TIME = finished_at
+            else:
+                print("[SOLVER] A newer solver run is active; not clearing its running state.")
+            started_for_log = solver_started_at or SOLVER_START_TIME
+            elapsed = max(finished_at - started_for_log, 0) if started_for_log > 0 else 0
             print(f"[SOLVER] Finished. Total time: {elapsed:.1f}s")
 
     def log_message(self, format, *args):

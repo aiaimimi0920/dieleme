@@ -44,7 +44,8 @@ def test_default_compose_uses_docker_volumes_for_verified_persistent_state() -> 
     assert "fapaifang-output:/data/output" in compose
     assert "fapaifang-datas:/data/datas" in compose
     assert "fapaifang-jobs:/data/jobs" in compose
-    assert "volumes:\n  fapaifang-output:\n  fapaifang-datas:\n  fapaifang-jobs:" in compose
+    assert "fapaifang-secrets:/data/secrets" in compose
+    assert "volumes:\n  fapaifang-output:\n  fapaifang-datas:\n  fapaifang-jobs:\n  fapaifang-secrets:" in compose
     assert "postgres_data:/var/lib/postgresql/data" in postgres_compose
     assert "volumes:\n  postgres_data:" in postgres_compose
 
@@ -59,8 +60,23 @@ def test_host_bind_overrides_are_explicit_opt_in() -> None:
     assert "target: /data/datas" in collection_override
     assert "source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs" in collection_override
     assert "target: /data/jobs" in collection_override
+    assert "source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets" in collection_override
+    assert "target: /data/secrets" in collection_override
+    assert "read_only: true" in collection_override
     assert "source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/postgres" in postgres_override
     assert "target: /var/lib/postgresql/data" in postgres_override
+
+
+def test_host_bind_api_can_refresh_cookie_snapshot_used_by_workers() -> None:
+    collection_override = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.collection.host-bind.yml").read_text(encoding="utf-8")
+    api_block = collection_override[
+        collection_override.index("  fapaifang-api:"):
+        collection_override.index("  fapaifang-area-followup:")
+    ]
+
+    assert "source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets" in api_block
+    assert "target: /data/secrets" in api_block
+    assert "read_only: true" not in api_block
 
 
 def test_compose_uses_ignored_local_env_file() -> None:
@@ -81,10 +97,31 @@ def test_compose_defaults_to_split_seed_and_detail_workers() -> None:
     assert "fapaifang-seed-collector:" in compose
     assert "container_name: fapaifang-seed-collector" in compose
     assert "FAPAI_RUN_MODE: seed-collector" in compose
+    assert "FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}" in compose
     assert "fapaifang-detail-worker:" in compose
     assert "container_name: fapaifang-detail-worker" in compose
     assert "FAPAI_RUN_MODE: detail-worker" in compose
+    assert compose.count("FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}") >= 2
     assert 'profiles: ["legacy"]' in compose
+
+
+def test_compose_defines_separate_detail_analysis_worker() -> None:
+    compose = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.collection.yml").read_text(encoding="utf-8")
+
+    assert "fapaifang-detail-analysis-worker:" in compose
+    assert "container_name: fapaifang-detail-analysis-worker" in compose
+    assert "FAPAI_RUN_MODE: detail-analysis-worker" in compose
+    assert "FAPAI_OUTPUT_DIR: /data/output/detail_worker" in compose
+    assert "FAPAI_DETAIL_RAW_ONLY: \"0\"" in compose
+
+
+def test_api_service_disables_runtime_db_ddl_like_workers() -> None:
+    compose = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.collection.yml").read_text(encoding="utf-8")
+
+    assert "fapaifang-api:" in compose
+    assert "FAPAI_DB_SCHEMA_GUARD: ${FAPAI_API_DB_SCHEMA_GUARD:-0}" in compose
+    assert "FAPAI_DB_AUTO_CREATE: ${FAPAI_API_DB_AUTO_CREATE:-0}" in compose
+    assert "FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_API_DB_ENABLE_POSTGIS:-0}" in compose
 
 
 def test_live_loop_command_uses_persistent_resume_state() -> None:
@@ -160,6 +197,7 @@ def test_seed_collector_command_uses_db_backed_region_sort_progress() -> None:
             "FAPAI_SEED_MAX_PAGE": "83",
             "FAPAI_SEED_PAGES_PER_RUN": "7",
             "FAPAI_SEED_LOOP_INTERVAL_SECONDS": "1800",
+            "FAPAI_SEED_ACTIVE_LOOP_INTERVAL_SECONDS": "0",
             "FAPAI_SEED_MAX_RUNS": "2",
         }
     )
@@ -172,7 +210,44 @@ def test_seed_collector_command_uses_db_backed_region_sort_progress() -> None:
     assert command[command.index("--max-page") + 1] == "83"
     assert command[command.index("--pages-per-run") + 1] == "7"
     assert "--loop" in command
+    assert command[command.index("--active-loop-interval-seconds") + 1] == "0"
     assert command[command.index("--max-runs") + 1] == "2"
+
+
+def test_seed_collector_command_passes_captcha_solver_enabled_flag() -> None:
+    command = docker_entrypoint.build_seed_collector_command(
+        {
+            "FAPAI_CAPTCHA_SOLVER_ENABLED": "1",
+            "FAPAI_API_BASE_URL": "http://collection-api:8001/api",
+        }
+    )
+
+    assert "--solver-enabled" in command
+    assert command[command.index("--api-base-url") + 1] == "http://collection-api:8001/api"
+
+
+def test_seed_collector_command_passes_jobs_file_and_parallel_sorts_for_seed_pool() -> None:
+    command = docker_entrypoint.build_seed_collector_command(
+        {
+            "FAPAI_SEED_JOBS_FILE": "/data/jobs/seed_jobs_all.json",
+            "FAPAI_SEED_PARALLEL_SORTS": "1",
+        }
+    )
+
+    assert command[command.index("--jobs-file") + 1] == "/data/jobs/seed_jobs_all.json"
+    assert "--parallel-sorts" in command
+
+
+def test_seed_collector_command_passes_failure_cooldown() -> None:
+    command = docker_entrypoint.build_seed_collector_command(
+        {
+            "FAPAI_SEED_FAILURE_COOLDOWN_THRESHOLD": "10",
+            "FAPAI_SEED_FAILURE_COOLDOWN_SECONDS": "120",
+        }
+    )
+
+    assert command[command.index("--failure-cooldown-threshold") + 1] == "10"
+    assert command[command.index("--failure-cooldown-seconds") + 1] == "120"
 
 
 def test_detail_worker_command_consumes_db_seed_queue() -> None:
@@ -184,6 +259,7 @@ def test_detail_worker_command_consumes_db_seed_queue() -> None:
             "FAPAI_DETAIL_MAX_ATTEMPTS": "10",
             "FAPAI_DETAIL_ITEM_MAX_ATTEMPTS": "4",
             "FAPAI_DETAIL_LOOP_INTERVAL_SECONDS": "900",
+            "FAPAI_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS": "0",
             "FAPAI_DETAIL_MAX_RUNS": "2",
             "FAPAI_ENABLE_RISK": "1",
             "FAPAI_LLM_PREFLIGHT": "1",
@@ -198,7 +274,89 @@ def test_detail_worker_command_consumes_db_seed_queue() -> None:
     assert "--risk" in command
     assert "--llm-preflight" in command
     assert "--loop" in command
+    assert command[command.index("--active-loop-interval-seconds") + 1] == "0"
     assert command[command.index("--max-runs") + 1] == "2"
+
+
+def test_detail_worker_command_can_enable_raw_only_capture() -> None:
+    command = docker_entrypoint.build_detail_worker_command(
+        {
+            "FAPAI_OUTPUT_DIR": "/data/output/detail_worker",
+            "FAPAI_DETAIL_RAW_ONLY": "1",
+        }
+    )
+
+    assert "--raw-only" in command
+
+
+def test_detail_analysis_worker_command_consumes_raw_artifacts_with_llm_preflight() -> None:
+    command = docker_entrypoint.build_detail_worker_command(
+        {
+            "FAPAI_RUN_MODE": "detail-analysis-worker",
+            "FAPAI_OUTPUT_DIR": "/data/output/detail_worker",
+            "FAPAI_DETAIL_RAW_ONLY": "1",
+            "FAPAI_LLM_PREFLIGHT": "1",
+        }
+    )
+
+    assert "--analysis-only" in command
+    assert "--raw-only" not in command
+    assert "--llm-preflight" in command
+    assert "--loop" in command
+
+
+def test_detail_analysis_worker_command_uses_analysis_specific_throughput_env() -> None:
+    command = docker_entrypoint.build_detail_worker_command(
+        {
+            "FAPAI_RUN_MODE": "detail-analysis-worker",
+            "FAPAI_DETAIL_ANALYSIS_TARGET_SUCCESS": "7",
+            "FAPAI_DETAIL_ANALYSIS_MAX_ATTEMPTS": "9",
+            "FAPAI_DETAIL_ANALYSIS_ITEM_MAX_ATTEMPTS": "2",
+            "FAPAI_DETAIL_ANALYSIS_LOOP_INTERVAL_SECONDS": "30",
+            "FAPAI_DETAIL_ANALYSIS_ACTIVE_LOOP_INTERVAL_SECONDS": "2",
+        }
+    )
+
+    assert command[command.index("--target-success") + 1] == "7"
+    assert command[command.index("--max-attempts") + 1] == "9"
+    assert command[command.index("--item-max-attempts") + 1] == "2"
+    assert command[command.index("--loop-interval-seconds") + 1] == "30"
+    assert command[command.index("--active-loop-interval-seconds") + 1] == "2"
+
+
+def test_detail_analysis_worker_command_inherits_detail_active_loop_interval() -> None:
+    command = docker_entrypoint.build_detail_worker_command(
+        {
+            "FAPAI_RUN_MODE": "detail-analysis-worker",
+            "FAPAI_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS": "0",
+            "FAPAI_DETAIL_ANALYSIS_LOOP_INTERVAL_SECONDS": "30",
+        }
+    )
+
+    assert command[command.index("--loop-interval-seconds") + 1] == "30"
+    assert command[command.index("--active-loop-interval-seconds") + 1] == "0"
+
+
+def test_detail_worker_command_passes_failure_cooldown() -> None:
+    command = docker_entrypoint.build_detail_worker_command(
+        {
+            "FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS": "1800",
+        }
+    )
+
+    assert command[command.index("--failure-cooldown-seconds") + 1] == "1800"
+
+
+def test_detail_worker_command_passes_api_base_url_and_solver_flag() -> None:
+    command = docker_entrypoint.build_detail_worker_command(
+        {
+            "FAPAI_API_BASE_URL": "http://collection-api:8001/api",
+            "FAPAI_CAPTCHA_SOLVER_ENABLED": "1",
+        }
+    )
+
+    assert command[command.index("--api-base-url") + 1] == "http://collection-api:8001/api"
+    assert "--solver-enabled" in command
 
 
 def test_live_batch_command_can_disable_resume_explicitly() -> None:

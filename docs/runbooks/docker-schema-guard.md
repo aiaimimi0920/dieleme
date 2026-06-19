@@ -84,3 +84,45 @@ docker compose --env-file docker.local.env -f docker-compose.collection.yml run 
   fapaifang-seed-collector `
   python -c "from tools.docker_entrypoint import guard_database_schema; import os; guard_database_schema(os.environ); print('container_schema_guard=passed')"
 ```
+
+## PostgreSQL backup and restore-list probe
+
+Use the host data root for operator-owned PostgreSQL dumps:
+
+```text
+C:\Users\Public\nas_home\AI\FPFData
+```
+
+Create a verified custom-format dump and keep recent copies:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\backup-postgres-to-host.ps1 `
+  -DataRoot "C:\Users\Public\nas_home\AI\FPFData"
+```
+
+The backup script copies the dump out of the PostgreSQL container and runs a
+`pg_restore -l` style restore-list probe before treating the host copy as valid.
+
+Install the periodic backup task when the host should maintain independent
+database restore points:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-postgres-backup-task.ps1 `
+  -DataRoot "C:\Users\Public\nas_home\AI\FPFData"
+```
+
+The scheduled task name is `FapaiFangPostgresBackup`.
+
+Use the health check to catch missing, stale, too-small, or invalid backups:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\check-postgres-backup-health.ps1 `
+  -DataRoot "C:\Users\Public\nas_home\AI\FPFData"
+```
+
+For periodic health verification, register `FapaiFangPostgresBackupHealth`:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-postgres-backup-health-task.ps1 `
+  -DataRoot "C:\Users\Public\nas_home\AI\FPFData"
+```

@@ -12,6 +12,7 @@ x-fapaifang-volumes: &fapaifang-volumes
   - fapaifang-output:/data/output
   - fapaifang-datas:/data/datas
   - fapaifang-jobs:/data/jobs
+  - fapaifang-secrets:/data/secrets
 
 services:
   fapaifang-seed-collector:
@@ -21,6 +22,7 @@ services:
     environment:
       FAPAI_RUN_MODE: seed-collector
       FAPAI_OUTPUT_DIR: /data/output/seed_collector
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -31,10 +33,114 @@ services:
       FAPAI_SEED_DISTRICT: ${FAPAI_SEED_DISTRICT:-南沙区}
       FAPAI_SEED_LOCATION_CODE: ${FAPAI_SEED_LOCATION_CODE:-440115}
       FAPAI_SEED_CATEGORY: ${FAPAI_SEED_CATEGORY:-50025969}
-      FAPAI_SEED_SORTS: ${FAPAI_SEED_SORTS:-bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远,sort_0:0:排序0,sort_3:3:排序3,sort_4:4:排序4,sort_5:5:排序5}
+      FAPAI_SEED_SORTS: ${FAPAI_SEED_SORTS:-sort_0:0:默认排序,sort_3:3:价格由高到低,bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远,sort_4:4:排序4,sort_5:5:排序5}
       FAPAI_SEED_MAX_PAGE: ${FAPAI_SEED_MAX_PAGE:-83}
       FAPAI_SEED_PAGES_PER_RUN: ${FAPAI_SEED_PAGES_PER_RUN:-10}
       FAPAI_SEED_LOOP_INTERVAL_SECONDS: ${FAPAI_SEED_LOOP_INTERVAL_SECONDS:-1800}
+      FAPAI_SEED_WORKER_ID: ${FAPAI_SEED_WORKER_ID:-seed-1}
+      FAPAI_SEED_JOBS_FILE: ${FAPAI_SEED_JOBS_FILE:-}
+      FAPAI_SEED_JOBS_JSON: ${FAPAI_SEED_JOBS_JSON:-}
+      FAPAI_SEED_PARALLEL_SORTS: ${FAPAI_SEED_PARALLEL_SORTS:-1}
+    volumes: *fapaifang-volumes
+
+  fapaifang-seed-collector-2:
+    <<: *fapaifang-image
+    container_name: fapaifang-seed-collector-2
+    restart: ${FAPAI_SEED_COLLECTOR_2_RESTART:-no}
+    environment:
+      FAPAI_RUN_MODE: seed-collector
+      FAPAI_OUTPUT_DIR: /data/output/seed_collector_2
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
+      FAPAI_SEED_PAGES_PER_RUN: ${FAPAI_SEED_PAGES_PER_RUN:-10}
+      FAPAI_SEED_LOOP_INTERVAL_SECONDS: ${FAPAI_SEED_LOOP_INTERVAL_SECONDS:-1800}
+      FAPAI_SEED_WORKER_ID: ${FAPAI_SEED_WORKER_ID_2:-seed-2}
+      FAPAI_SEED_JOBS_FILE: ${FAPAI_SEED_JOBS_FILE:-}
+      FAPAI_SEED_JOBS_JSON: ${FAPAI_SEED_JOBS_JSON:-}
+      FAPAI_SEED_PARALLEL_SORTS: ${FAPAI_SEED_PARALLEL_SORTS:-1}
+    volumes: *fapaifang-volumes
+
+  fapaifang-seed-collector-3:
+    <<: *fapaifang-image
+    container_name: fapaifang-seed-collector-3
+    restart: ${FAPAI_SEED_COLLECTOR_3_RESTART:-no}
+    environment:
+      FAPAI_RUN_MODE: seed-collector
+      FAPAI_OUTPUT_DIR: /data/output/seed_collector_3
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
+      FAPAI_SEED_PAGES_PER_RUN: ${FAPAI_SEED_PAGES_PER_RUN:-10}
+      FAPAI_SEED_LOOP_INTERVAL_SECONDS: ${FAPAI_SEED_LOOP_INTERVAL_SECONDS:-1800}
+      FAPAI_SEED_WORKER_ID: ${FAPAI_SEED_WORKER_ID_3:-seed-3}
+      FAPAI_SEED_JOBS_FILE: ${FAPAI_SEED_JOBS_FILE:-}
+      FAPAI_SEED_JOBS_JSON: ${FAPAI_SEED_JOBS_JSON:-}
+      FAPAI_SEED_PARALLEL_SORTS: ${FAPAI_SEED_PARALLEL_SORTS:-1}
+    volumes: *fapaifang-volumes
+
+  fapaifang-seed-collector-4:
+    <<: *fapaifang-image
+    container_name: fapaifang-seed-collector-4
+    restart: ${FAPAI_SEED_COLLECTOR_4_RESTART:-no}
+    environment:
+      FAPAI_RUN_MODE: seed-collector
+      FAPAI_OUTPUT_DIR: /data/output/seed_collector_4
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
+      FAPAI_SEED_PAGES_PER_RUN: ${FAPAI_SEED_PAGES_PER_RUN:-10}
+      FAPAI_SEED_LOOP_INTERVAL_SECONDS: ${FAPAI_SEED_LOOP_INTERVAL_SECONDS:-1800}
+      FAPAI_SEED_WORKER_ID: ${FAPAI_SEED_WORKER_ID_4:-seed-4}
+      FAPAI_SEED_JOBS_FILE: ${FAPAI_SEED_JOBS_FILE:-}
+      FAPAI_SEED_JOBS_JSON: ${FAPAI_SEED_JOBS_JSON:-}
+      FAPAI_SEED_PARALLEL_SORTS: ${FAPAI_SEED_PARALLEL_SORTS:-1}
+    volumes: *fapaifang-volumes
+
+  fapaifang-seed-collector-5:
+    <<: *fapaifang-image
+    container_name: fapaifang-seed-collector-5
+    restart: ${FAPAI_SEED_COLLECTOR_5_RESTART:-no}
+    environment:
+      FAPAI_RUN_MODE: seed-collector
+      FAPAI_OUTPUT_DIR: /data/output/seed_collector_5
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
+      FAPAI_SEED_PAGES_PER_RUN: ${FAPAI_SEED_PAGES_PER_RUN:-10}
+      FAPAI_SEED_LOOP_INTERVAL_SECONDS: ${FAPAI_SEED_LOOP_INTERVAL_SECONDS:-1800}
+      FAPAI_SEED_WORKER_ID: ${FAPAI_SEED_WORKER_ID_5:-seed-5}
+      FAPAI_SEED_JOBS_FILE: ${FAPAI_SEED_JOBS_FILE:-}
+      FAPAI_SEED_JOBS_JSON: ${FAPAI_SEED_JOBS_JSON:-}
+      FAPAI_SEED_PARALLEL_SORTS: ${FAPAI_SEED_PARALLEL_SORTS:-1}
+    volumes: *fapaifang-volumes
+
+  fapaifang-seed-collector-6:
+    <<: *fapaifang-image
+    container_name: fapaifang-seed-collector-6
+    restart: ${FAPAI_SEED_COLLECTOR_6_RESTART:-no}
+    environment:
+      FAPAI_RUN_MODE: seed-collector
+      FAPAI_OUTPUT_DIR: /data/output/seed_collector_6
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
+      FAPAI_SEED_PAGES_PER_RUN: ${FAPAI_SEED_PAGES_PER_RUN:-10}
+      FAPAI_SEED_LOOP_INTERVAL_SECONDS: ${FAPAI_SEED_LOOP_INTERVAL_SECONDS:-1800}
+      FAPAI_SEED_WORKER_ID: ${FAPAI_SEED_WORKER_ID_6:-seed-6}
+      FAPAI_SEED_JOBS_FILE: ${FAPAI_SEED_JOBS_FILE:-}
+      FAPAI_SEED_JOBS_JSON: ${FAPAI_SEED_JOBS_JSON:-}
+      FAPAI_SEED_PARALLEL_SORTS: ${FAPAI_SEED_PARALLEL_SORTS:-1}
     volumes: *fapaifang-volumes
 
   fapaifang-detail-worker:
@@ -44,6 +150,7 @@ services:
     environment:
       FAPAI_RUN_MODE: detail-worker
       FAPAI_OUTPUT_DIR: /data/output/detail_worker
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -51,7 +158,123 @@ services:
       FAPAI_DETAIL_TARGET_SUCCESS: ${FAPAI_DETAIL_TARGET_SUCCESS:-5}
       FAPAI_DETAIL_MAX_ATTEMPTS: ${FAPAI_DETAIL_MAX_ATTEMPTS:-20}
       FAPAI_DETAIL_ITEM_MAX_ATTEMPTS: ${FAPAI_DETAIL_ITEM_MAX_ATTEMPTS:-3}
+      FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS: ${FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS:-1800}
       FAPAI_DETAIL_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_LOOP_INTERVAL_SECONDS:-900}
+      FAPAI_DETAIL_RAW_ONLY: ${FAPAI_DETAIL_RAW_ONLY:-1}
+    volumes: *fapaifang-volumes
+
+  fapaifang-detail-worker-2:
+    <<: *fapaifang-image
+    container_name: fapaifang-detail-worker-2
+    restart: ${FAPAI_DETAIL_WORKER_2_RESTART:-no}
+    environment:
+      FAPAI_RUN_MODE: detail-worker
+      FAPAI_OUTPUT_DIR: /data/output/detail_worker_2
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
+      FAPAI_DETAIL_TARGET_SUCCESS: ${FAPAI_DETAIL_TARGET_SUCCESS:-5}
+      FAPAI_DETAIL_MAX_ATTEMPTS: ${FAPAI_DETAIL_MAX_ATTEMPTS:-20}
+      FAPAI_DETAIL_ITEM_MAX_ATTEMPTS: ${FAPAI_DETAIL_ITEM_MAX_ATTEMPTS:-3}
+      FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS: ${FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS:-1800}
+      FAPAI_DETAIL_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_LOOP_INTERVAL_SECONDS:-900}
+      FAPAI_DETAIL_RAW_ONLY: ${FAPAI_DETAIL_RAW_ONLY:-1}
+      FAPAI_DETAIL_WORKER_ID: ${FAPAI_DETAIL_WORKER_ID_2:-detail-2}
+    volumes: *fapaifang-volumes
+
+  fapaifang-detail-worker-3:
+    <<: *fapaifang-image
+    container_name: fapaifang-detail-worker-3
+    restart: ${FAPAI_DETAIL_WORKER_3_RESTART:-no}
+    environment:
+      FAPAI_RUN_MODE: detail-worker
+      FAPAI_OUTPUT_DIR: /data/output/detail_worker_3
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
+      FAPAI_DETAIL_TARGET_SUCCESS: ${FAPAI_DETAIL_TARGET_SUCCESS:-5}
+      FAPAI_DETAIL_MAX_ATTEMPTS: ${FAPAI_DETAIL_MAX_ATTEMPTS:-20}
+      FAPAI_DETAIL_ITEM_MAX_ATTEMPTS: ${FAPAI_DETAIL_ITEM_MAX_ATTEMPTS:-3}
+      FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS: ${FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS:-1800}
+      FAPAI_DETAIL_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_LOOP_INTERVAL_SECONDS:-900}
+      FAPAI_DETAIL_RAW_ONLY: ${FAPAI_DETAIL_RAW_ONLY:-1}
+      FAPAI_DETAIL_WORKER_ID: ${FAPAI_DETAIL_WORKER_ID_3:-detail-3}
+    volumes: *fapaifang-volumes
+
+  fapaifang-detail-analysis-worker:
+    <<: *fapaifang-image
+    container_name: fapaifang-detail-analysis-worker
+    restart: ${FAPAI_DETAIL_ANALYSIS_WORKER_RESTART:-unless-stopped}
+    profiles: ["analysis"]
+    environment:
+      FAPAI_RUN_MODE: detail-analysis-worker
+      FAPAI_OUTPUT_DIR: /data/output/detail_analysis_worker
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
+      FAPAI_DETAIL_WORKER_ID: ${FAPAI_DETAIL_ANALYSIS_WORKER_ID:-analysis-1}
+      FAPAI_DETAIL_TARGET_SUCCESS: ${FAPAI_DETAIL_ANALYSIS_TARGET_SUCCESS:-2}
+      FAPAI_DETAIL_MAX_ATTEMPTS: ${FAPAI_DETAIL_ANALYSIS_MAX_ATTEMPTS:-5}
+      FAPAI_DETAIL_ITEM_MAX_ATTEMPTS: ${FAPAI_DETAIL_ANALYSIS_ITEM_MAX_ATTEMPTS:-3}
+      FAPAI_DETAIL_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_ANALYSIS_LOOP_INTERVAL_SECONDS:-60}
+      FAPAI_DETAIL_MAX_RUNS: ${FAPAI_DETAIL_ANALYSIS_MAX_RUNS:-}
+      FAPAI_DETAIL_RAW_ONLY: "0"
+      FAPAI_LLM_PREFLIGHT: ${FAPAI_ANALYSIS_LLM_PREFLIGHT:-1}
+      FAPAI_LLM_PREFLIGHT_TIMEOUT_SECONDS: ${FAPAI_ANALYSIS_LLM_PREFLIGHT_TIMEOUT_SECONDS:-15}
+    volumes: *fapaifang-volumes
+
+  fapaifang-detail-analysis-worker-2:
+    <<: *fapaifang-image
+    container_name: fapaifang-detail-analysis-worker-2
+    restart: ${FAPAI_DETAIL_ANALYSIS_WORKER_2_RESTART:-no}
+    profiles: ["analysis"]
+    environment:
+      FAPAI_RUN_MODE: detail-analysis-worker
+      FAPAI_OUTPUT_DIR: /data/output/detail_analysis_worker_2
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
+      FAPAI_DETAIL_WORKER_ID: ${FAPAI_DETAIL_ANALYSIS_WORKER_ID_2:-analysis-2}
+      FAPAI_DETAIL_TARGET_SUCCESS: ${FAPAI_DETAIL_ANALYSIS_TARGET_SUCCESS:-2}
+      FAPAI_DETAIL_MAX_ATTEMPTS: ${FAPAI_DETAIL_ANALYSIS_MAX_ATTEMPTS:-5}
+      FAPAI_DETAIL_ITEM_MAX_ATTEMPTS: ${FAPAI_DETAIL_ANALYSIS_ITEM_MAX_ATTEMPTS:-3}
+      FAPAI_DETAIL_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_ANALYSIS_LOOP_INTERVAL_SECONDS:-60}
+      FAPAI_DETAIL_MAX_RUNS: ${FAPAI_DETAIL_ANALYSIS_MAX_RUNS:-}
+      FAPAI_DETAIL_RAW_ONLY: "0"
+      FAPAI_LLM_PREFLIGHT: ${FAPAI_ANALYSIS_LLM_PREFLIGHT:-1}
+      FAPAI_LLM_PREFLIGHT_TIMEOUT_SECONDS: ${FAPAI_ANALYSIS_LLM_PREFLIGHT_TIMEOUT_SECONDS:-15}
+    volumes: *fapaifang-volumes
+
+  fapaifang-detail-analysis-worker-3:
+    <<: *fapaifang-image
+    container_name: fapaifang-detail-analysis-worker-3
+    restart: ${FAPAI_DETAIL_ANALYSIS_WORKER_3_RESTART:-no}
+    profiles: ["analysis"]
+    environment:
+      FAPAI_RUN_MODE: detail-analysis-worker
+      FAPAI_OUTPUT_DIR: /data/output/detail_analysis_worker_3
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_WORKER_DB_ENABLE_POSTGIS:-0}
+      FAPAI_DETAIL_WORKER_ID: ${FAPAI_DETAIL_ANALYSIS_WORKER_ID_3:-analysis-3}
+      FAPAI_DETAIL_TARGET_SUCCESS: ${FAPAI_DETAIL_ANALYSIS_TARGET_SUCCESS:-2}
+      FAPAI_DETAIL_MAX_ATTEMPTS: ${FAPAI_DETAIL_ANALYSIS_MAX_ATTEMPTS:-5}
+      FAPAI_DETAIL_ITEM_MAX_ATTEMPTS: ${FAPAI_DETAIL_ANALYSIS_ITEM_MAX_ATTEMPTS:-3}
+      FAPAI_DETAIL_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_ANALYSIS_LOOP_INTERVAL_SECONDS:-60}
+      FAPAI_DETAIL_MAX_RUNS: ${FAPAI_DETAIL_ANALYSIS_MAX_RUNS:-}
+      FAPAI_DETAIL_RAW_ONLY: "0"
+      FAPAI_LLM_PREFLIGHT: ${FAPAI_ANALYSIS_LLM_PREFLIGHT:-1}
+      FAPAI_LLM_PREFLIGHT_TIMEOUT_SECONDS: ${FAPAI_ANALYSIS_LLM_PREFLIGHT_TIMEOUT_SECONDS:-15}
     volumes: *fapaifang-volumes
 
   fapaifang-collector:
@@ -73,6 +296,10 @@ services:
       FAPAI_RUN_MODE: api
       FAPAI_API_PORT: ${FAPAI_API_PORT:-8001}
       FAPAI_SEED_LOCATION_CODES: ${FAPAI_SEED_LOCATION_CODES:-440115}
+      FAPAI_DB_URL: ${FAPAI_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_API_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_API_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_API_DB_ENABLE_POSTGIS:-0}
     ports:
       - "${FAPAI_API_PORT:-8001}:8001"
     volumes: *fapaifang-volumes
@@ -91,3 +318,4 @@ volumes:
   fapaifang-output:
   fapaifang-datas:
   fapaifang-jobs:
+  fapaifang-secrets:

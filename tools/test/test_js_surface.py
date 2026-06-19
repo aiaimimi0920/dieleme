@@ -14,6 +14,7 @@ def test_repo_js_syntax_check_files_inventory_matches_current_surface():
         Path("game/web-app/tailwind.config.js"),
         Path("game/web-app/vite.config.js"),
         Path("tampermonkey_scripts/fapaifang_unified.user.js"),
+        Path("userscripts/nc_captcha_solver.user.js"),
     ]
 
 

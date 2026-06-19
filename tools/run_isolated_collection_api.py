@@ -28,6 +28,7 @@ def build_runtime_config(
         "start_background_processors": False,
         "start_hot_reload": False,
         "skip_load_data": True,
+        "collection_api_lightweight_status": True,
         "db_url": db_url,
         "seed_location_codes": list(seed_location_codes or ["110101"]),
     }
@@ -37,6 +38,8 @@ def run_server(config: dict[str, Any]) -> int:
     if config.get("db_url"):
         os.environ["FAPAI_DB_URL"] = str(config["db_url"])
         os.environ["FAPAI_DB_ENABLED"] = "1"
+    if config.get("collection_api_lightweight_status", True):
+        os.environ["FAPAI_COLLECTION_API_LIGHTWEIGHT_STATUS"] = "1"
     from src import server as fapai_server
     from src.collection.search_bootstrap import DEFAULT_CATEGORIES
     from src.collection.seed_service import SeedCollectionService

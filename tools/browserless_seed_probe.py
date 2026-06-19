@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 from html import unescape
@@ -19,6 +20,7 @@ DEFAULT_TARGET_URL = (
     "?location_code=110101&st_param=2&auction_start_seg=-1&page=1"
 )
 DEFAULT_COOKIE_ORIGINS = ("https://sf.taobao.com", "https://login.taobao.com")
+DEFAULT_CDP_CONNECT_TIMEOUT_MS = 20_000
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -29,11 +31,24 @@ _SCRIPT_RE = re.compile(
     r"<script[^>]+id=['\"]sf-item-list-data['\"][^>]*>(.*?)</script>",
     re.IGNORECASE | re.DOTALL,
 )
+_SENSITIVE_INLINE_PATTERNS = (
+    re.compile(r"x5secdata\s*=\s*[^&\s\"'<>]+", re.IGNORECASE),
+    re.compile(r"cookie2\s*=\s*[^&\s\"'<>]+", re.IGNORECASE),
+    re.compile(r"sgcookie\s*=\s*[^&\s\"'<>]+", re.IGNORECASE),
+    re.compile(r"_tb_token_\s*=\s*[^&\s\"'<>]+", re.IGNORECASE),
+)
+
+
+def redact_taobao_sensitive_text(value: str) -> str:
+    redacted = value
+    for pattern in _SENSITIVE_INLINE_PATTERNS:
+        redacted = pattern.sub("taobao_security_value=<redacted>", redacted)
+    return redacted
 
 
 def _export_cdp_cookies_via_playwright(cdp_endpoint: str, origins: Iterable[str]) -> list[dict[str, Any]]:
     with sync_playwright() as p:
-        browser = p.chromium.connect_over_cdp(cdp_endpoint)
+        browser = p.chromium.connect_over_cdp(cdp_endpoint, timeout=DEFAULT_CDP_CONNECT_TIMEOUT_MS)
         try:
             if not browser.contexts:
                 return []
@@ -67,13 +82,14 @@ def _export_cdp_cookies_via_websocket(cdp_endpoint: str, origins: Iterable[str])
 def export_cdp_cookies(cdp_endpoint: str, origins: Iterable[str] = DEFAULT_COOKIE_ORIGINS) -> list[dict[str, Any]]:
     origin_list = tuple(origins)
     try:
-        return _export_cdp_cookies_via_playwright(cdp_endpoint, origin_list)
-    except Exception:
         return _export_cdp_cookies_via_websocket(cdp_endpoint, origin_list)
+    except Exception:
+        return _export_cdp_cookies_via_playwright(cdp_endpoint, origin_list)
 
 
 def build_session_from_playwright_cookies(cookies: Iterable[dict[str, Any]]) -> requests.Session:
     session = requests.Session()
+    session.trust_env = False
     for cookie in cookies:
         session.cookies.set(
             str(cookie["name"]),
@@ -105,6 +121,7 @@ def summarize_list_page(html: str, *, final_url: str) -> dict[str, Any]:
     items = data if isinstance(data, list) else []
     body_has_punish = "_____tmd_____/punish" in text or "x5secdata=" in text
     body_has_captcha = any(marker in text for marker in ("验证码", "RGV587_ERROR", "请完成验证", "安全验证"))
+    body_snippet = redact_taobao_sensitive_text(text[:260].replace("\n", " ")[:260])
     return {
         "has_script": payload is not None,
         "item_count": len(items) if payload is not None else None,
@@ -114,7 +131,7 @@ def summarize_list_page(html: str, *, final_url: str) -> dict[str, Any]:
         "body_has_captcha": body_has_captcha,
         "body_has_punish": body_has_punish,
         "body_has_challenge": body_has_captcha or body_has_punish,
-        "body_snippet": text[:260].replace("\n", " ")[:260],
+        "body_snippet": body_snippet,
     }
 
 
@@ -229,6 +246,112 @@ def write_cookie_snapshot(cookies: Iterable[dict[str, Any]], output_path: str | 
         json.dumps(list(cookies), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+
+
+def load_cookie_snapshot(output_path: str | Path) -> list[dict[str, Any]]:
+    payload = json.loads(Path(output_path).read_text(encoding="utf-8"))
+    if not isinstance(payload, list):
+        raise ValueError("Cookie snapshot must be a JSON list.")
+    return payload
+
+
+def _normalize_cookie_expiry(value: Any) -> float | None:
+    if value in (None, ""):
+        return None
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return None
+    if numeric <= 0:
+        return None
+    if abs(numeric) >= 10**11:
+        numeric /= 1000.0
+    return numeric
+
+
+def _cookie_shape_fingerprint(cookies: Iterable[dict[str, Any]]) -> str:
+    normalized = [
+        {
+            "name": str(cookie.get("name") or ""),
+            "domain": str(cookie.get("domain") or ""),
+            "path": str(cookie.get("path") or "/"),
+            "secure": bool(cookie.get("secure")),
+            "httpOnly": bool(cookie.get("httpOnly")),
+            "session": _normalize_cookie_expiry(cookie.get("expires")) is None,
+        }
+        for cookie in cookies
+    ]
+    payload = json.dumps(sorted(normalized, key=lambda item: (item["domain"], item["name"], item["path"])), ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
+
+
+def _cookie_value_fingerprint(cookies: Iterable[dict[str, Any]]) -> str:
+    normalized = [
+        {
+            "name": str(cookie.get("name") or ""),
+            "domain": str(cookie.get("domain") or ""),
+            "path": str(cookie.get("path") or "/"),
+            "value": str(cookie.get("value") or ""),
+        }
+        for cookie in cookies
+    ]
+    payload = json.dumps(sorted(normalized, key=lambda item: (item["domain"], item["name"], item["path"])), ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
+
+
+def _cookie_key(cookie: dict[str, Any]) -> str:
+    return f"{str(cookie.get('name') or '')}|{str(cookie.get('domain') or '')}|{str(cookie.get('path') or '/')}"
+
+
+def summarize_cookie_snapshot(cookies: Iterable[dict[str, Any]]) -> dict[str, Any]:
+    cookie_list = list(cookies)
+    persistent_expiries = [
+        normalized_expiry
+        for normalized_expiry in (_normalize_cookie_expiry(cookie.get("expires")) for cookie in cookie_list)
+        if normalized_expiry is not None
+    ]
+    return {
+        "count": len(cookie_list),
+        "domains": sorted({str(cookie.get("domain") or "") for cookie in cookie_list if str(cookie.get("domain") or "")}),
+        "names": sorted({str(cookie.get("name") or "") for cookie in cookie_list if str(cookie.get("name") or "")}),
+        "secure_count": sum(1 for cookie in cookie_list if bool(cookie.get("secure"))),
+        "http_only_count": sum(1 for cookie in cookie_list if bool(cookie.get("httpOnly"))),
+        "session_count": len(cookie_list) - len(persistent_expiries),
+        "persistent_count": len(persistent_expiries),
+        "earliest_expiry": _format_local_datetime(min(persistent_expiries)) if persistent_expiries else None,
+        "latest_expiry": _format_local_datetime(max(persistent_expiries)) if persistent_expiries else None,
+        "shape_fingerprint": _cookie_shape_fingerprint(cookie_list),
+        "value_fingerprint": _cookie_value_fingerprint(cookie_list),
+    }
+
+
+def diff_cookie_snapshots(
+    left_cookies: Iterable[dict[str, Any]],
+    right_cookies: Iterable[dict[str, Any]],
+) -> dict[str, Any]:
+    left_list = list(left_cookies)
+    right_list = list(right_cookies)
+    left_summary = summarize_cookie_snapshot(left_list)
+    right_summary = summarize_cookie_snapshot(right_list)
+
+    left_domains = set(left_summary["domains"])
+    right_domains = set(right_summary["domains"])
+    left_names = set(left_summary["names"])
+    right_names = set(right_summary["names"])
+    left_keys = {_cookie_key(cookie) for cookie in left_list}
+    right_keys = {_cookie_key(cookie) for cookie in right_list}
+
+    return {
+        "added_domains": sorted(right_domains - left_domains),
+        "removed_domains": sorted(left_domains - right_domains),
+        "added_names": sorted(right_names - left_names),
+        "removed_names": sorted(left_names - right_names),
+        "added_keys": sorted(right_keys - left_keys),
+        "removed_keys": sorted(left_keys - right_keys),
+        "shared_key_count": len(left_keys & right_keys),
+        "shape_fingerprint_equal": left_summary["shape_fingerprint"] == right_summary["shape_fingerprint"],
+        "value_fingerprint_equal": left_summary["value_fingerprint"] == right_summary["value_fingerprint"],
+    }
 
 
 def main(argv: list[str] | None = None) -> int:

@@ -5,6 +5,7 @@ import json
 
 
 _EXCLUDE_DIRS = {"node_modules", "dist", ".git", "__pycache__", "venv", ".debug", "output"}
+_LOCAL_HTML_TEST_PREFIXES = ("mock_", "test_")
 
 
 def _is_excluded(path: Path) -> bool:
@@ -39,6 +40,8 @@ def first_party_html_surfaces(repo_root: Path) -> list[Path]:
     html_files: list[Path] = []
     for path in sorted(repo_root.rglob("*.html")):
         if _is_excluded(path):
+            continue
+        if path.parent.name == "tools" and path.name.startswith(_LOCAL_HTML_TEST_PREFIXES):
             continue
         html_files.append(path)
     return html_files

@@ -197,6 +197,7 @@ class TestAVMHttpContract(unittest.TestCase):
             ("/api/save", "POST"),
             ("/api/collection/seeds/batch", "POST"),
             ("/api/avm/screen", "POST"),
+            ("/api/report_captcha", "POST"),
             ("/api/log", "POST"),
             ("/api/update_item", "POST"),
             ("/api/collection/details/update_item", "POST"),
@@ -3882,6 +3883,27 @@ class TestAVMHttpContract(unittest.TestCase):
         self.assertEqual(payload["message"], "ok")
         fake_service.next_task.assert_called_once_with("s-1", paused=True)
 
+    def test_get_or_create_sniff_task_legacy_endpoint_treats_force_unlock_flag_as_paused(self):
+        fake_service = mock.Mock()
+        fake_service.next_task.return_value = {"task": {}, "message": "ok"}
+        original_paused = server_module.PAUSED
+        original_data_dir = server_module.DATA_DIR
+        server_module.PAUSED = False
+        server_module.DATA_DIR = self.data_dir
+        flag_path = os.path.join(self.data_dir, "force_unlock.flag")
+        with open(flag_path, "w", encoding="utf-8") as f:
+            f.write("manual verification required")
+        try:
+            with mock.patch.object(server_module, "_seed_collection_service", return_value=fake_service):
+                status, payload = self._get_json("/api/get_or_create_sniff_task?session_id=s-1")
+        finally:
+            server_module.DATA_DIR = original_data_dir
+            server_module.PAUSED = original_paused
+
+        self.assertEqual(status, 200)
+        self.assertEqual(payload["message"], "ok")
+        fake_service.next_task.assert_called_once_with("s-1", paused=True)
+
     def test_get_or_create_sniff_task_legacy_endpoint_returns_json_error_on_failure(self):
         fake_service = mock.Mock()
         fake_service.next_task.side_effect = RuntimeError("boom")
@@ -6450,6 +6472,27 @@ class TestAVMHttpContract(unittest.TestCase):
         self.assertEqual(payload["message"], "ok")
         fake_service.next_task.assert_called_once_with("s-1", paused=True)
 
+    def test_collection_seed_next_task_alias_treats_force_unlock_flag_as_paused(self):
+        fake_service = mock.Mock()
+        fake_service.next_task.return_value = {"task": {}, "message": "ok"}
+        original_paused = server_module.PAUSED
+        original_data_dir = server_module.DATA_DIR
+        server_module.PAUSED = False
+        server_module.DATA_DIR = self.data_dir
+        flag_path = os.path.join(self.data_dir, "force_unlock.flag")
+        with open(flag_path, "w", encoding="utf-8") as f:
+            f.write("manual verification required")
+        try:
+            with mock.patch.object(server_module, "_seed_collection_service", return_value=fake_service):
+                status, payload = self._get_json("/api/collection/seeds/next_task?session_id=s-1")
+        finally:
+            server_module.DATA_DIR = original_data_dir
+            server_module.PAUSED = original_paused
+
+        self.assertEqual(status, 200)
+        self.assertEqual(payload["message"], "ok")
+        fake_service.next_task.assert_called_once_with("s-1", paused=True)
+
     def test_collection_seed_next_task_alias_returns_json_error_on_failure(self):
         fake_service = mock.Mock()
         fake_service.next_task.side_effect = RuntimeError("boom")
@@ -7953,12 +7996,46 @@ class TestAVMHttpContract(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertEqual(payload, {"tasks": []})
 
+    def test_collection_detail_tasks_alias_returns_empty_tasks_when_force_unlock_flag_exists(self):
+        original_paused = server_module.PAUSED
+        original_data_dir = server_module.DATA_DIR
+        server_module.PAUSED = False
+        server_module.DATA_DIR = self.data_dir
+        flag_path = os.path.join(self.data_dir, "force_unlock.flag")
+        with open(flag_path, "w", encoding="utf-8") as f:
+            f.write("manual verification required")
+        try:
+            status, payload = self._get_json("/api/collection/details/tasks")
+        finally:
+            server_module.DATA_DIR = original_data_dir
+            server_module.PAUSED = original_paused
+
+        self.assertEqual(status, 200)
+        self.assertEqual(payload, {"tasks": []})
+
     def test_get_tasks_legacy_endpoint_returns_empty_tasks_when_paused(self):
         original_paused = server_module.PAUSED
         server_module.PAUSED = True
         try:
             status, payload = self._get_json("/api/get_tasks")
         finally:
+            server_module.PAUSED = original_paused
+
+        self.assertEqual(status, 200)
+        self.assertEqual(payload, {"tasks": []})
+
+    def test_get_tasks_legacy_endpoint_returns_empty_tasks_when_force_unlock_flag_exists(self):
+        original_paused = server_module.PAUSED
+        original_data_dir = server_module.DATA_DIR
+        server_module.PAUSED = False
+        server_module.DATA_DIR = self.data_dir
+        flag_path = os.path.join(self.data_dir, "force_unlock.flag")
+        with open(flag_path, "w", encoding="utf-8") as f:
+            f.write("manual verification required")
+        try:
+            status, payload = self._get_json("/api/get_tasks")
+        finally:
+            server_module.DATA_DIR = original_data_dir
             server_module.PAUSED = original_paused
 
         self.assertEqual(status, 200)
@@ -8424,8 +8501,12 @@ class TestAVMHttpContract(unittest.TestCase):
     def test_resume_endpoint_clears_pause_and_force_unlock_flag(self):
         original_paused = server_module.PAUSED
         original_data_dir = server_module.DATA_DIR
+        original_running = server_module.SOLVER_RUNNING
+        original_start_time = server_module.SOLVER_START_TIME
         server_module.PAUSED = True
         server_module.DATA_DIR = self.data_dir
+        server_module.SOLVER_RUNNING = True
+        server_module.SOLVER_START_TIME = time.time() - 300
         flag_path = os.path.join(self.data_dir, "force_unlock.flag")
         with open(flag_path, "w", encoding="utf-8") as f:
             f.write("1")
@@ -8433,12 +8514,16 @@ class TestAVMHttpContract(unittest.TestCase):
         try:
             status, payload = self._get_json("/api/resume")
         finally:
+            observed_running = server_module.SOLVER_RUNNING
             server_module.DATA_DIR = original_data_dir
             server_module.PAUSED = original_paused
+            server_module.SOLVER_START_TIME = original_start_time
+            server_module.SOLVER_RUNNING = original_running
 
         self.assertEqual(status, 200)
         self.assertEqual(payload["status"], "resumed")
         self.assertFalse(os.path.exists(flag_path))
+        self.assertFalse(observed_running)
 
     def test_save_locations_endpoint_deduplicates_by_code(self):
         original_data_dir = server_module.DATA_DIR
@@ -8517,6 +8602,234 @@ class TestAVMHttpContract(unittest.TestCase):
         mocked_submit.assert_called_once()
         submitted_callable = mocked_submit.call_args.args[0]
         self.assertEqual(getattr(submitted_callable, "__name__", ""), "run_solver")
+        self.assertEqual(mocked_submit.call_args.args[1], {})
+
+    def test_report_captcha_endpoint_does_not_requeue_while_solver_is_running(self):
+        original_running = server_module.SOLVER_RUNNING
+        original_start_time = server_module.SOLVER_START_TIME
+        try:
+            server_module.SOLVER_RUNNING = True
+            server_module.SOLVER_START_TIME = time.time() - 7
+            with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+                request = urllib.request.Request(
+                    f"http://127.0.0.1:{self.port}/api/report_captcha",
+                    data=b"",
+                    method="POST",
+                )
+                with urllib.request.urlopen(request) as resp:
+                    self.assertEqual(resp.status, 200)
+                    body = json.loads(resp.read().decode("utf-8"))
+
+        finally:
+            server_module.SOLVER_RUNNING = original_running
+            server_module.SOLVER_START_TIME = original_start_time
+
+        self.assertEqual(body["status"], "already_running")
+        self.assertEqual(body["elapsed_seconds"], 7)
+        mocked_submit.assert_not_called()
+
+    def test_report_captcha_endpoint_does_not_start_parallel_solver_after_timeout(self):
+        original_paused = server_module.PAUSED
+        original_pause_reason = server_module.COLLECTION_PAUSE_REASON
+        original_running = server_module.SOLVER_RUNNING
+        original_start_time = server_module.SOLVER_START_TIME
+        original_last_status = server_module.SOLVER_LAST_STATUS
+        original_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
+        original_data_dir = server_module.DATA_DIR
+        try:
+            server_module.PAUSED = False
+            server_module.COLLECTION_PAUSE_REASON = None
+            server_module.SOLVER_RUNNING = True
+            server_module.SOLVER_START_TIME = time.time() - 180
+            server_module.SOLVER_LAST_STATUS = "running"
+            server_module.SOLVER_LAST_FAILURE_REASON = None
+            server_module.DATA_DIR = self.data_dir
+            with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+                request = urllib.request.Request(
+                    f"http://127.0.0.1:{self.port}/api/report_captcha",
+                    data=b"",
+                    method="POST",
+                )
+                with urllib.request.urlopen(request) as resp:
+                    self.assertEqual(resp.status, 200)
+                    body = json.loads(resp.read().decode("utf-8"))
+        finally:
+            server_module.DATA_DIR = original_data_dir
+            server_module.SOLVER_LAST_FAILURE_REASON = original_last_failure
+            server_module.SOLVER_LAST_STATUS = original_last_status
+            server_module.SOLVER_START_TIME = original_start_time
+            server_module.SOLVER_RUNNING = original_running
+            server_module.COLLECTION_PAUSE_REASON = original_pause_reason
+            server_module.PAUSED = original_paused
+
+        self.assertEqual(body["status"], "manual_required")
+        self.assertEqual(body["elapsed_seconds"], 180)
+        self.assertTrue(body["captcha_solver"]["manual_required"])
+        self.assertTrue(body["captcha_solver"]["force_unlock_flag_exists"])
+        self.assertTrue(os.path.exists(os.path.join(self.data_dir, "force_unlock.flag")))
+        mocked_submit.assert_not_called()
+
+    def test_report_captcha_endpoint_does_not_requeue_while_manual_verification_is_required(self):
+        original_paused = server_module.PAUSED
+        original_running = server_module.SOLVER_RUNNING
+        original_start_time = server_module.SOLVER_START_TIME
+        original_data_dir = server_module.DATA_DIR
+        server_module.PAUSED = True
+        server_module.SOLVER_RUNNING = True
+        server_module.SOLVER_START_TIME = time.time() - 1800
+        server_module.DATA_DIR = self.data_dir
+        flag_path = os.path.join(self.data_dir, "force_unlock.flag")
+        with open(flag_path, "w", encoding="utf-8") as f:
+            f.write("manual verification required")
+        try:
+            with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+                request = urllib.request.Request(
+                    f"http://127.0.0.1:{self.port}/api/report_captcha",
+                    data=b"",
+                    method="POST",
+                )
+                with urllib.request.urlopen(request) as resp:
+                    self.assertEqual(resp.status, 200)
+                    body = json.loads(resp.read().decode("utf-8"))
+        finally:
+            server_module.DATA_DIR = original_data_dir
+            server_module.SOLVER_START_TIME = original_start_time
+            server_module.SOLVER_RUNNING = original_running
+            server_module.PAUSED = original_paused
+
+        self.assertEqual(body["status"], "manual_required")
+        self.assertTrue(body["captcha_solver"]["manual_required"])
+        self.assertTrue(body["captcha_solver"]["force_unlock_flag_exists"])
+        mocked_submit.assert_not_called()
+
+    def test_report_captcha_endpoint_force_retry_clears_manual_state_and_queues_solver(self):
+        original_paused = server_module.PAUSED
+        original_pause_reason = server_module.COLLECTION_PAUSE_REASON
+        original_running = server_module.SOLVER_RUNNING
+        original_start_time = server_module.SOLVER_START_TIME
+        original_last_status = server_module.SOLVER_LAST_STATUS
+        original_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
+        original_resume_epoch = server_module.SOLVER_MANUAL_RESUME_EPOCH
+        original_data_dir = server_module.DATA_DIR
+        server_module.PAUSED = True
+        server_module.COLLECTION_PAUSE_REASON = "manual_required"
+        server_module.SOLVER_RUNNING = True
+        server_module.SOLVER_START_TIME = time.time() - 1800
+        server_module.SOLVER_LAST_STATUS = "manual_required"
+        server_module.SOLVER_LAST_FAILURE_REASON = "manual_required"
+        server_module.SOLVER_MANUAL_RESUME_EPOCH = 0
+        server_module.DATA_DIR = self.data_dir
+        flag_path = os.path.join(self.data_dir, "force_unlock.flag")
+        with open(flag_path, "w", encoding="utf-8") as f:
+            f.write("manual verification required")
+        try:
+            with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+                request = urllib.request.Request(
+                    f"http://127.0.0.1:{self.port}/api/report_captcha",
+                    data=json.dumps(
+                        {
+                            "target_url": "https://contest.local/challenge?__captcha_solver_bg=1",
+                            "force_retry": True,
+                        }
+                    ).encode("utf-8"),
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                with urllib.request.urlopen(request) as resp:
+                    self.assertEqual(resp.status, 200)
+                    body = json.loads(resp.read().decode("utf-8"))
+                observed_paused = server_module.PAUSED
+                observed_running = server_module.SOLVER_RUNNING
+                observed_last_status = server_module.SOLVER_LAST_STATUS
+                observed_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
+        finally:
+            server_module.DATA_DIR = original_data_dir
+            server_module.SOLVER_MANUAL_RESUME_EPOCH = original_resume_epoch
+            server_module.SOLVER_LAST_FAILURE_REASON = original_last_failure
+            server_module.SOLVER_LAST_STATUS = original_last_status
+            server_module.SOLVER_START_TIME = original_start_time
+            server_module.SOLVER_RUNNING = original_running
+            server_module.COLLECTION_PAUSE_REASON = original_pause_reason
+            server_module.PAUSED = original_paused
+
+        self.assertEqual(body["status"], "solving")
+        mocked_submit.assert_called_once()
+        self.assertEqual(
+            mocked_submit.call_args.args[1],
+            {"target_url": "https://contest.local/challenge?__captcha_solver_bg=1"},
+        )
+        self.assertFalse(os.path.exists(flag_path))
+        self.assertFalse(observed_paused)
+        self.assertFalse(observed_running)
+        self.assertEqual(observed_last_status, "resumed")
+        self.assertIsNone(observed_last_failure)
+
+    def test_report_captcha_endpoint_passes_cdp_endpoint_and_target_url_to_solver(self):
+        with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+            request = urllib.request.Request(
+                f"http://127.0.0.1:{self.port}/api/report_captcha",
+                data=json.dumps(
+                    {
+                        "cdp_endpoint": "http://192.168.65.254:9223",
+                        "url": "https://contest.local/challenge?__captcha_solver_bg=1",
+                        "timestamp": 123,
+                    }
+                ).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urllib.request.urlopen(request) as resp:
+                status = resp.status
+                payload = json.loads(resp.read().decode("utf-8"))
+
+        self.assertEqual(status, 200)
+        self.assertEqual(payload["status"], "solving")
+        mocked_submit.assert_called_once()
+        submitted_callable = mocked_submit.call_args.args[0]
+        self.assertEqual(getattr(submitted_callable, "__name__", ""), "run_solver")
+        self.assertEqual(
+            mocked_submit.call_args.args[1],
+            {
+                "cdp_endpoint": "http://192.168.65.254:9223",
+                "target_url": "https://contest.local/challenge?__captcha_solver_bg=1",
+            },
+        )
+
+    def test_report_captcha_endpoint_rewrites_loopback_cdp_endpoint_for_container_runtime(self):
+        original_endpoint = os.environ.get("FAPAI_CDP_ENDPOINT")
+        try:
+            os.environ["FAPAI_CDP_ENDPOINT"] = "http://192.168.65.254:9223"
+            with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+                request = urllib.request.Request(
+                    f"http://127.0.0.1:{self.port}/api/report_captcha",
+                    data=json.dumps(
+                        {
+                            "cdp_endpoint": "http://127.0.0.1:9223",
+                            "url": "https://contest.local/challenge?__captcha_solver_bg=1",
+                            "timestamp": 456,
+                        }
+                    ).encode("utf-8"),
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                with urllib.request.urlopen(request) as resp:
+                    status = resp.status
+                    payload = json.loads(resp.read().decode("utf-8"))
+
+            self.assertEqual(status, 200)
+            self.assertEqual(payload["status"], "solving")
+            self.assertEqual(
+                mocked_submit.call_args.args[1],
+                {
+                    "cdp_endpoint": "http://192.168.65.254:9223",
+                    "target_url": "https://contest.local/challenge?__captcha_solver_bg=1",
+                },
+            )
+        finally:
+            if original_endpoint is None:
+                os.environ.pop("FAPAI_CDP_ENDPOINT", None)
+            else:
+                os.environ["FAPAI_CDP_ENDPOINT"] = original_endpoint
 
     def test_report_captcha_endpoint_returns_json_error_on_queue_failure(self):
         request = urllib.request.Request(
@@ -8532,6 +8845,33 @@ class TestAVMHttpContract(unittest.TestCase):
         body = json.loads(ctx.exception.read().decode("utf-8"))
         self.assertEqual(body["error"]["code"], "AVM_CAPTCHA_SOLVER_QUEUE_FAILED")
         self.assertEqual(body["error"]["details"]["error"], "boom")
+
+    def test_solver_instance_prefers_fapai_cdp_endpoint_for_live_runtime(self):
+        original_endpoint = os.environ.get("FAPAI_CDP_ENDPOINT")
+        original_solver = server_module.solver
+        try:
+            os.environ["FAPAI_CDP_ENDPOINT"] = "http://192.168.65.254:9223"
+            server_module.solver = server_module.CaptchaSolver(port=9222)
+            self.assertEqual(server_module.solver.port, 9223)
+            self.assertEqual(server_module.solver.cdp_endpoint, "http://192.168.65.254:9223")
+        finally:
+            server_module.solver = original_solver
+            if original_endpoint is None:
+                os.environ.pop("FAPAI_CDP_ENDPOINT", None)
+            else:
+                os.environ["FAPAI_CDP_ENDPOINT"] = original_endpoint
+
+    def test_build_solver_for_request_uses_request_specific_target_and_cdp_endpoint(self):
+        request_solver = server_module._build_solver_for_request(
+            {
+                "cdp_endpoint": "http://192.168.65.254:9223",
+                "target_url": "https://contest.local/challenge?__captcha_solver_bg=1",
+            }
+        )
+
+        self.assertEqual(request_solver.cdp_endpoint, "http://192.168.65.254:9223")
+        self.assertEqual(request_solver.port, 9223)
+        self.assertEqual(request_solver.target_url, "https://contest.local/challenge?__captcha_solver_bg=1")
 
     def test_log_endpoint_records_client_error_message(self):
         with mock.patch.object(server_module, "print") as mocked_print:

@@ -102,6 +102,54 @@ cmd /c auto\seed_hybrid_collector.bat
 
 已登录淘宝/阿里资产的 Chrome 需要先以 remote debugging 暴露 CDP，例如 `http://127.0.0.1:9223`。
 
+#### Taobao 登录恢复与 CDP 浏览器辅助脚本
+
+如需启动专用的可见 CDP 浏览器，并让 Docker worker 复用同一登录态，优先使用：
+
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts\start-taobao-cdp-browser.ps1 -Port 9223`
+
+默认会复用：
+
+- `C:\Users\Public\nas_home\AI\FPFData\edge-cdp-profile`
+
+如需把 Taobao 采集会话与日常浏览器/扩展环境隔离，推荐改用：
+
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts\start-taobao-cdp-browser.ps1 -Port 9225 -ForceNew -IsolatedProfile -DisableExtensions -StartUrl "https://sf.taobao.com/?__captcha_worker_master=1"`
+
+该模式会改用隔离 profile：
+
+- `C:\Users\Public\nas_home\AI\FPFData\edge-cdp-profile-isolated`
+
+并尽量减少扩展污染，适合：
+
+- `验证失败，点击框体重试(error:XXXXXX)` 排障
+- `manual_verification_required` 后的人工恢复
+- 怀疑现有 `edge-cdp-profile` 被 MetaMask / 下载扩展 / 侧边栏状态污染时
+
+脚本会在宿主校验：
+
+- `http://127.0.0.1:9223/json/version`
+
+并提示容器侧应访问：
+
+- `http://192.168.65.254:9223`
+
+如果真实采集进入 `login_recovery`、`punish`、验证码、或淘宝官方安全校验状态，可使用：
+
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts\check-taobao-login-health.ps1 -Port 9223 -CheckUrl "https://sf.taobao.com/list/50025969__2.htm"`
+- 如需走隔离浏览器排障：
+  - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts\check-taobao-login-health.ps1 -Port 9225 -CheckUrl "https://sf.taobao.com/list/50025969__2.htm" -IsolatedProfile -DisableExtensions`
+
+该脚本会调用：
+
+- `tools\taobao_login_health.py`
+
+并在 `http://127.0.0.1:9223` 上检查 CDP 与登录健康度；必要时会打开登录页、触发验证码求解上报，并要求你在可见浏览器窗口中完成官方验证。
+
+如需导出隔离浏览器的 cookie 快照用于后续 browserless / health probe 复核，可使用：
+
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export-taobao-cookie-snapshot.ps1 -Port 9225 -IsolatedProfile -DisableExtensions`
+
 - 运行 3-5 个真实法拍详情页的 batch smoke：
   - `python tools/live_batch_smoke.py --target-success 5 --max-attempts 15 --output-dir output/live_batch_smoke`
 - 默认会启用断点续采状态文件：
@@ -157,24 +205,33 @@ cmd /c auto\seed_hybrid_collector.bat
 
 ## Docker 长驻运行与断点续采
 
-正式长驻采集入口已经切到 **DB-backed 双线模型**，不再依赖旧的单体
+正式长驻采集入口已经切到 **DB-backed 三段式任务池模型**，不再依赖旧的单体
 `live_batch_smoke --loop` 作为主采集器：
 
 1. `fapaifang-seed-collector`
    - 运行 `tools/seed_collector.py --loop`。
    - 只扫描列表页，只写入商品 URL / seed 队列。
-   - 对同一区域、品类按多个排序组合逐页扫描：例如先扫
-     `出价次数由高到低` 的第 1 页到结束，再扫 `结拍时间由近到远`
-     的第 1 页到结束，之后继续扫其他排序。
+   - 支持 `FAPAI_SEED_JOBS_FILE=/data/jobs/seed_jobs_all.json` 一次展开
+     全地区、全品类、全排序组合的 seed jobs。
+   - 支持 `FAPAI_SEED_PARALLEL_SORTS=1`，多个 seed worker 可以同时 claim
+     不同地区/排序的列表页，先把商品链接池铺开，不被后续详情或 AI 阶段卡住。
    - 每个排序组合的断点写入 PostgreSQL 表 `fapai_seed_scan_progress`。
 
 2. `fapaifang-detail-worker`
    - 运行 `tools/detail_worker.py --loop`。
    - 只从 PostgreSQL 表 `fapai_seed_item` 中 claim `pending_detail`
      商品 URL。
-   - 抓详情页、调用 LLM、写 `final.json` / `selected.json`，并同步写入
-     canonical property tables。
-   - 成功后标记 `detail_completed`；失败后保留 `detail_failed`，后续可重试。
+   - 默认 `FAPAI_DETAIL_RAW_ONLY=1`，只抓详情页 HTML/全文文本并写入 raw artifacts。
+   - 成功后标记 `raw_detail_captured`；失败后保留 `detail_failed`，后续可重试。
+
+3. `fapaifang-detail-analysis-worker` / `fapaifang-detail-analysis-worker-2` / `fapaifang-detail-analysis-worker-3`
+   - 运行 `tools/detail_worker.py --loop --analysis-only`。
+   - 只从 DB claim `raw_detail_captured` 的商品。
+   - 每个 analysis worker 使用独立输出目录，例如 `/data/output/detail_analysis_worker_2`，
+     claim 后会把 DB 中记录的 raw artifact staging 到自己的工作目录，再执行 AI 解析。
+   - 根据已缓存的详情页全文调用 LLM，写 `final.json` / `selected.json`，
+     并同步写入 canonical property tables。
+   - 成功后标记 `detail_completed`；失败后保留 `analysis_failed`，后续可重试。
 
 这意味着断点续采的主状态在 PostgreSQL，不在容器本地临时文件：
 
@@ -187,12 +244,48 @@ cmd /c auto\seed_hybrid_collector.bat
 容器中断后重启时：
 
 1. seed collector 会从未完成的 `progress.next_page` 继续扫，不会重头扫同一排序。
-2. detail worker 会跳过 `detail_completed` 的 item，只消费 pending/failed 可重试项。
-3. 同一个 `item_id` 在不同排序或不同页重复出现时，只会在 `fapai_seed_item`
+2. raw detail worker 会跳过已抓取 raw detail 的 item，只消费 pending/failed 可重试项。
+3. analysis worker 会跳过 `detail_completed` 的 item，只消费 `raw_detail_captured`
+   或 analysis failed 的可重试项。
+4. 同一个 `item_id` 在不同排序或不同页重复出现时，只会在 `fapai_seed_item`
    中保留一个详情任务；重复来源记录在 `fapai_seed_occurrence`。
 
 `tools/live_batch_smoke.py` 仍保留为 **真实 smoke / 调试工具**，旧 `fapaifang-collector`
 服务也保留在 compose 的 `legacy` profile 下，但它不是默认长驻采集入口。
+
+### 连续采集 operator 脚本
+
+Windows 宿主机上的常用入口集中在 `scripts/`：
+
+- `scripts\start-continuous-collection.ps1`：生成全量 seed jobs、检查 Taobao 登录健康度，并启动 seed collector pool、raw detail worker pool、detail analysis worker pool。
+- `scripts\generate-all-seed-jobs.ps1`：生成 `/data/jobs/seed_jobs_all.json`，容器内通过 `FAPAI_SEED_JOBS_FILE=/data/jobs/seed_jobs_all.json` 读取。
+- `scripts\taobao-login-watchdog.ps1`：multi-sample 登录健康门，默认同时抽检 `50025969` 和 `200782003` 两类法拍列表；失败时打开可见浏览器供人工完成官方验证。
+- `scripts\trigger-taobao-login-recovery-if-needed.ps1`：事件触发式人工验证恢复器，根据 DB 中连续 `list_payload_missing` / challenge 信号触发 watchdog 任务。
+- `scripts\register-taobao-login-watchdog-task.ps1`：注册可见用户态 Taobao 登录恢复计划任务。
+- `scripts\register-taobao-login-recovery-monitor-task.ps1`：注册高频恢复监控计划任务。
+- `scripts\register-continuous-collection-task.ps1`：注册连续采集计划任务。
+- `scripts\start-seed-scan-only.ps1`：只启动 seed collector pool，停止 raw detail / analysis worker，适合先恢复列表采集。
+- `scripts\start-detail-analysis-only.ps1`：只启动 raw detail worker pool 和 detail analysis worker pool，停止 seed collector，适合专注详情抓取与 AI 分析补齐。
+- `scripts\backup-postgres-to-host.ps1`：把 PostgreSQL 做成 host 侧 custom-format dump，并用 `pg_restore -l` 做恢复列表探针。
+- `scripts\register-postgres-backup-task.ps1`：注册独立的 `FapaiFangPostgresBackup` 周期备份任务。
+- `scripts\check-postgres-backup-health.ps1`：检查最近 dump 是否缺失、过期、过小或无法列出恢复清单。
+- `scripts\register-postgres-backup-health-task.ps1`：注册独立的 `FapaiFangPostgresBackupHealth` 备份健康检查任务。
+
+这些脚本会把关键运行参数写入 `docker.local.env`，常用值包括：
+
+```env
+FAPAI_COOKIE_SNAPSHOT=/data/secrets/taobao-cookies.json
+FAPAI_SEED_JOBS_FILE=/data/jobs/seed_jobs_all.json
+FAPAI_SEED_PAGES_PER_RUN=20
+FAPAI_SEED_LOOP_INTERVAL_SECONDS=60
+FAPAI_SEED_PARALLEL_SORTS=1
+FAPAI_SEED_RESCAN_INTERVAL_SECONDS=900
+FAPAI_SEED_FAILURE_COOLDOWN_SECONDS=1800
+FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS=1800
+FAPAI_DETAIL_ANALYSIS_WORKER_RESTART=unless-stopped
+FAPAI_DETAIL_ANALYSIS_WORKER_2_RESTART=unless-stopped
+FAPAI_DETAIL_ANALYSIS_WORKER_3_RESTART=unless-stopped
+```
 
 ### 持久化目录
 
@@ -242,6 +335,31 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-fpfdata-syn
 该任务名为 `\FapaiFang\FapaiFangDataSync`。默认只同步 collector artifacts；
 如果确实需要周期性数据库 dump，可追加 `-IncludePostgres`，但 dump 文件会持续增长。
 
+PostgreSQL 建议使用独立 dump 脚本维护可恢复备份，默认 host 数据根为：
+
+```text
+C:\Users\Public\nas_home\AI\FPFData
+```
+
+手动备份并验证 restore list：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\backup-postgres-to-host.ps1 -DataRoot 'C:\Users\Public\nas_home\AI\FPFData'
+```
+
+注册周期备份与健康检查：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-postgres-backup-task.ps1 -DataRoot 'C:\Users\Public\nas_home\AI\FPFData'
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-postgres-backup-health-task.ps1 -DataRoot 'C:\Users\Public\nas_home\AI\FPFData'
+```
+
+任务名分别是 `FapaiFangPostgresBackup` 和 `FapaiFangPostgresBackupHealth`。临时排查时可运行：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\check-postgres-backup-health.ps1 -DataRoot 'C:\Users\Public\nas_home\AI\FPFData'
+```
+
 如果未来 Docker daemon 已修通对该目录的真实 bind mount 能力，可以显式叠加
 host-bind override：
 
@@ -254,7 +372,12 @@ docker compose --env-file docker.local.env `
 docker compose --env-file docker.local.env `
   -f docker-compose.collection.yml `
   -f docker-compose.collection.host-bind.yml `
-  up -d --build fapaifang-seed-collector fapaifang-detail-worker
+  up -d --build `
+  fapaifang-seed-collector `
+  fapaifang-detail-worker `
+  fapaifang-detail-analysis-worker `
+  fapaifang-detail-analysis-worker-2 `
+  fapaifang-detail-analysis-worker-3
 ```
 
 启用 override 前必须先做 bind smoke：容器写入 `${FAPAI_DATA_ROOT_HOST}` 后，
@@ -286,19 +409,24 @@ FAPAI_DB_URL=postgresql+psycopg://fapaifang:fapaifang@host.docker.internal:55432
 FAPAI_DB_AUTO_CREATE=1
 FAPAI_DB_ENABLE_POSTGIS=1
 FAPAI_DATA_ROOT_HOST=Z:\project\project\FPFData
+FAPAI_SEED_JOBS_FILE=/data/jobs/seed_jobs_all.json
 FAPAI_SEED_JOB_KEY=guangdong-guangzhou-nansha-50025969
 FAPAI_SEED_PROVINCE=广东省
 FAPAI_SEED_CITY=广州市
 FAPAI_SEED_DISTRICT=南沙区
 FAPAI_SEED_LOCATION_CODE=440115
 FAPAI_SEED_CATEGORY=50025969
-FAPAI_SEED_SORTS=bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远,sort_0:0:排序0,sort_3:3:排序3,sort_4:4:排序4,sort_5:5:排序5
+FAPAI_SEED_SORTS=sort_0:0:默认排序,sort_3:3:价格由高到低,bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远,sort_4:4:排序4,sort_5:5:排序5
 FAPAI_SEED_MAX_PAGE=83
-FAPAI_SEED_PAGES_PER_RUN=10
-FAPAI_SEED_LOOP_INTERVAL_SECONDS=1800
+FAPAI_SEED_PAGES_PER_RUN=20
+FAPAI_SEED_LOOP_INTERVAL_SECONDS=60
+FAPAI_SEED_PARALLEL_SORTS=1
 FAPAI_DETAIL_TARGET_SUCCESS=10
 FAPAI_DETAIL_MAX_ATTEMPTS=30
 FAPAI_DETAIL_LOOP_INTERVAL_SECONDS=900
+FAPAI_DETAIL_RAW_ONLY=1
+FAPAI_DETAIL_ANALYSIS_TARGET_SUCCESS=10
+FAPAI_DETAIL_ANALYSIS_LOOP_INTERVAL_SECONDS=60
 FAPAI_HTTP_PROXY=http://http.docker.internal:3128
 FAPAI_HTTPS_PROXY=http://http.docker.internal:3128
 FAPAI_LLM_PREFLIGHT=1
@@ -323,26 +451,26 @@ $env:FAPAI_DATA_ROOT_HOST = "Z:\project\project\FPFData"
 docker compose --env-file docker.local.env -f docker-compose.postgres.yml up -d
 ```
 
-### 3. 构建并长驻运行双线采集器
+### 3. 构建并长驻运行三段式采集器
 
 默认 Dockerfile 会从 `python:3.10-slim` 安装 `requirements.txt`。如果当前宿主机/daemon 的 PyPI 或 Docker Hub 网络不稳定，可以预先准备离线 wheelhouse：
 
 ```powershell
 New-Item -ItemType Directory -Force vendor\wheels | Out-Null
 python -m pip download --index-url https://pypi.org/simple --dest vendor\wheels --platform manylinux2014_x86_64 --implementation cp --python-version 310 --abi cp310 --only-binary=:all: -r requirements.txt
-docker compose --env-file docker.local.env -f docker-compose.collection.yml build fapaifang-seed-collector fapaifang-detail-worker
+docker compose --env-file docker.local.env -f docker-compose.collection.yml build fapaifang-seed-collector fapaifang-detail-worker fapaifang-detail-analysis-worker fapaifang-detail-analysis-worker-2 fapaifang-detail-analysis-worker-3
 ```
 
 如果本机已有可用 Python base image，也可以覆盖构建参数：
 
 ```powershell
-docker compose --env-file docker.local.env -f docker-compose.collection.yml build fapaifang-seed-collector fapaifang-detail-worker
+docker compose --env-file docker.local.env -f docker-compose.collection.yml build fapaifang-seed-collector fapaifang-detail-worker fapaifang-detail-analysis-worker fapaifang-detail-analysis-worker-2 fapaifang-detail-analysis-worker-3
 ```
 
 长驻启动：
 
 ```powershell
-docker compose --env-file docker.local.env -f docker-compose.collection.yml up -d --build fapaifang-seed-collector fapaifang-detail-worker
+docker compose --env-file docker.local.env -f docker-compose.collection.yml up -d --build fapaifang-seed-collector fapaifang-detail-worker fapaifang-detail-analysis-worker fapaifang-detail-analysis-worker-2 fapaifang-detail-analysis-worker-3
 ```
 
 默认 seed collector 参数等价于：
@@ -350,20 +478,22 @@ docker compose --env-file docker.local.env -f docker-compose.collection.yml up -
 ```powershell
 python tools/seed_collector.py `
   --loop `
-  --loop-interval-seconds 1800 `
+  --loop-interval-seconds 60 `
+  --jobs-file /data/jobs/seed_jobs_all.json `
+  --parallel-sorts `
   --job-key guangdong-guangzhou-nansha-50025969 `
   --province 广东省 `
   --city 广州市 `
   --district 南沙区 `
   --location-code 440115 `
   --category 50025969 `
-  --sorts bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远,sort_0:0:排序0,sort_3:3:排序3,sort_4:4:排序4,sort_5:5:排序5 `
+  --sorts sort_0:0:默认排序,sort_3:3:价格由高到低,bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远,sort_4:4:排序4,sort_5:5:排序5 `
   --max-page 83 `
-  --pages-per-run 10 `
+  --pages-per-run 20 `
   --output-dir /data/output/seed_collector
 ```
 
-默认 detail worker 参数等价于：
+默认 raw detail worker 参数等价于：
 
 ```powershell
 python tools/detail_worker.py `
@@ -371,17 +501,40 @@ python tools/detail_worker.py `
   --loop-interval-seconds 900 `
   --target-success 10 `
   --max-attempts 30 `
-  --llm-preflight `
+  --raw-only `
   --output-dir /data/output/detail_worker
+```
+
+默认 detail analysis worker pool 参数等价于：
+
+```powershell
+python tools/detail_worker.py `
+  --loop `
+  --analysis-only `
+  --loop-interval-seconds 60 `
+  --target-success 10 `
+  --max-attempts 5 `
+  --llm-preflight `
+  --output-dir /data/output/detail_analysis_worker
+```
+
+第二、第三个 analysis worker 使用相同参数，但分别设置：
+
+```env
+FAPAI_OUTPUT_DIR=/data/output/detail_analysis_worker_2
+FAPAI_DETAIL_WORKER_ID=analysis-2
+FAPAI_OUTPUT_DIR=/data/output/detail_analysis_worker_3
+FAPAI_DETAIL_WORKER_ID=analysis-3
 ```
 
 LLM 解析使用 OpenAI-compatible HTTP 接口。为避免通用宿主机代理污染采集链路，代码不会读取
 `http_proxy` / `https_proxy` 这类泛用环境变量；如果 LLM endpoint 需要代理，应显式设置
 `OPENAI_HTTP_PROXY` / `OPENAI_HTTPS_PROXY`，或采集器专用的
 `FAPAI_LLM_HTTP_PROXY` / `FAPAI_LLM_HTTPS_PROXY`。未设置专用 LLM 代理时，会回落使用
-`FAPAI_HTTP_PROXY` / `FAPAI_HTTPS_PROXY`。Docker 入口默认启用 `FAPAI_LLM_PREFLIGHT=1`：
-每轮有候选详情页时会先访问 `${OPENAI_BASE_URL}/models` 做 TLS/代理连通性预检；如果预检在
-连接、TLS、代理层失败，本轮会直接中止并等待下一轮，而不会把一批候选 item 全部写成详情解析错误。
+`FAPAI_HTTP_PROXY` / `FAPAI_HTTPS_PROXY`。Docker 入口默认只在 analysis worker 上启用
+`FAPAI_LLM_PREFLIGHT=1`：每轮有候选 raw detail 时会先访问 `${OPENAI_BASE_URL}/models`
+做 TLS/代理连通性预检；如果预检在连接、TLS、代理层失败，本轮会直接中止并等待下一轮，
+而不会把一批候选 item 全部写成 AI 解析错误。
 
 ### 4. 常用运行参数
 
@@ -389,19 +542,24 @@ LLM 解析使用 OpenAI-compatible HTTP 接口。为避免通用宿主机代理�
 
 ```powershell
 # 在 docker.local.env 中调整：
+# FAPAI_SEED_JOBS_FILE=/data/jobs/seed_jobs_all.json
 # FAPAI_SEED_LOCATION_CODE=440115
-# FAPAI_SEED_SORTS=bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远
+# FAPAI_SEED_SORTS=sort_0:0:默认排序,sort_3:3:价格由高到低,bid_desc:2:出价次数由高到低,end_time_soon:1:结拍时间由近到远
 # FAPAI_SEED_MAX_PAGE=83
-# FAPAI_SEED_PAGES_PER_RUN=10
-# FAPAI_SEED_LOOP_INTERVAL_SECONDS=1800
+# FAPAI_SEED_PAGES_PER_RUN=20
+# FAPAI_SEED_LOOP_INTERVAL_SECONDS=60
+# FAPAI_SEED_PARALLEL_SORTS=1
 # FAPAI_DETAIL_TARGET_SUCCESS=10
 # FAPAI_DETAIL_MAX_ATTEMPTS=30
 # FAPAI_DETAIL_LOOP_INTERVAL_SECONDS=900
+# FAPAI_DETAIL_RAW_ONLY=1
+# FAPAI_DETAIL_ANALYSIS_TARGET_SUCCESS=10
+# FAPAI_DETAIL_ANALYSIS_LOOP_INTERVAL_SECONDS=60
 # FAPAI_HTTP_PROXY=http://http.docker.internal:3128
 # FAPAI_HTTPS_PROXY=http://http.docker.internal:3128
 # FAPAI_LLM_PREFLIGHT=1
 # FAPAI_LLM_PREFLIGHT_TIMEOUT_SECONDS=15
-docker compose --env-file docker.local.env -f docker-compose.collection.yml up -d --build fapaifang-seed-collector fapaifang-detail-worker
+docker compose --env-file docker.local.env -f docker-compose.collection.yml up -d --build fapaifang-seed-collector fapaifang-detail-worker fapaifang-detail-analysis-worker fapaifang-detail-analysis-worker-2 fapaifang-detail-analysis-worker-3
 ```
 
 如果只想各跑一次 batch：
@@ -409,6 +567,7 @@ docker compose --env-file docker.local.env -f docker-compose.collection.yml up -
 ```powershell
 docker compose --env-file docker.local.env -f docker-compose.collection.yml run --rm -e FAPAI_RUN_MODE=seed-batch fapaifang-seed-collector
 docker compose --env-file docker.local.env -f docker-compose.collection.yml run --rm -e FAPAI_RUN_MODE=detail-batch fapaifang-detail-worker
+docker compose --env-file docker.local.env -f docker-compose.collection.yml run --rm -e FAPAI_RUN_MODE=detail-analysis-batch fapaifang-detail-analysis-worker
 ```
 
 旧单体 live smoke 入口仍可手动运行：
@@ -419,7 +578,7 @@ docker compose --env-file docker.local.env -f docker-compose.collection.yml --pr
 
 ### 5. API 与面积补全辅助容器
 
-采集 API 可按需启动，不是长驻双线 worker 的必需项：
+采集 API 可按需启动，不是长驻三段式 worker 的必需项：
 
 ```powershell
 docker compose --env-file docker.local.env -f docker-compose.collection.yml --profile api up -d fapaifang-api

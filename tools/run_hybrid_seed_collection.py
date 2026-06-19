@@ -724,10 +724,12 @@ def open_browser_fallback(url: str, profile_dir: Path, remote_debugging_port: in
     profile_dir.mkdir(parents=True, exist_ok=True)
     subprocess.Popen(
         [
-            "msedge",
+            "chrome",
             f"--user-data-dir={profile_dir}",
             f"--remote-debugging-port={remote_debugging_port}",
             "--remote-allow-origins=*",
+            "--disable-session-crashed-bubble",
+            "--disable-restore-session-state",
             "--new-window",
             url,
         ],

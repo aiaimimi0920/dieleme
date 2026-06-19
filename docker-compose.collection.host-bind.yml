@@ -10,6 +10,90 @@ services:
       - type: bind
         source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
         target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
+
+  fapaifang-seed-collector-2:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
+
+  fapaifang-seed-collector-3:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
+
+  fapaifang-seed-collector-4:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
+
+  fapaifang-seed-collector-5:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
+
+  fapaifang-seed-collector-6:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
 
   fapaifang-detail-worker:
     volumes:
@@ -22,6 +106,90 @@ services:
       - type: bind
         source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
         target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
+
+  fapaifang-detail-worker-2:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
+
+  fapaifang-detail-worker-3:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
+
+  fapaifang-detail-analysis-worker:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
+
+  fapaifang-detail-analysis-worker-2:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
+
+  fapaifang-detail-analysis-worker-3:
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
+        read_only: true
 
   fapaifang-collector:
     volumes:
@@ -46,6 +214,9 @@ services:
       - type: bind
         source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
         target: /data/jobs
+      - type: bind
+        source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/secrets
+        target: /data/secrets
 
   fapaifang-area-followup:
     volumes:

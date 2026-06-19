@@ -150,6 +150,17 @@ def test_summarize_list_page_marks_x5sec_punish_page_as_challenge():
     assert summary["body_has_challenge"] is True
 
 
+def test_summarize_list_page_redacts_x5secdata_from_body_snippet():
+    summary = browserless_seed_probe.summarize_list_page(
+        PUNISH_HTML,
+        final_url="https://sf.taobao.com/list/50025969__2.htm?page=1",
+    )
+
+    assert "x5secdata" not in summary["body_snippet"]
+    assert "demo" not in summary["body_snippet"]
+    assert "taobao_security_value=<redacted>" in summary["body_snippet"]
+
+
 def test_build_session_from_playwright_cookies_adds_cookie_values():
     session = browserless_seed_probe.build_session_from_playwright_cookies(
         [
@@ -162,6 +173,7 @@ def test_build_session_from_playwright_cookies_adds_cookie_values():
 
     assert cookie_map[("cookie2", ".taobao.com", "/")] == "abc"
     assert cookie_map[("_tb_token_", ".taobao.com", "/")] == "xyz"
+    assert session.trust_env is False
 
 
 def test_filter_cdp_cookies_to_requested_origins():
@@ -197,6 +209,85 @@ def test_export_cdp_cookies_falls_back_to_raw_websocket_when_playwright_export_f
     cookies = browserless_seed_probe.export_cdp_cookies("http://127.0.0.1:9223")
 
     assert cookies == [{"name": "cookie2", "domain": ".taobao.com"}]
+
+
+def test_export_cdp_cookies_prefers_raw_websocket_before_playwright_when_available(monkeypatch):
+    calls: list[str] = []
+
+    def _websocket_export(*_args, **_kwargs):
+        calls.append("websocket")
+        return [{"name": "cookie2", "domain": ".taobao.com"}]
+
+    def _playwright_export(*_args, **_kwargs):
+        calls.append("playwright")
+        return [{"name": "playwright-cookie", "domain": ".taobao.com"}]
+
+    monkeypatch.setattr(browserless_seed_probe, "_export_cdp_cookies_via_websocket", _websocket_export)
+    monkeypatch.setattr(browserless_seed_probe, "_export_cdp_cookies_via_playwright", _playwright_export)
+
+    cookies = browserless_seed_probe.export_cdp_cookies("http://127.0.0.1:9223")
+
+    assert cookies == [{"name": "cookie2", "domain": ".taobao.com"}]
+    assert calls == ["websocket"]
+
+
+def test_export_cdp_cookies_falls_back_to_playwright_when_websocket_export_fails(monkeypatch):
+    calls: list[str] = []
+
+    def _websocket_export(*_args, **_kwargs):
+        calls.append("websocket")
+        raise RuntimeError("ws blocked")
+
+    def _playwright_export(*_args, **_kwargs):
+        calls.append("playwright")
+        return [{"name": "cookie2", "domain": ".taobao.com"}]
+
+    monkeypatch.setattr(browserless_seed_probe, "_export_cdp_cookies_via_websocket", _websocket_export)
+    monkeypatch.setattr(browserless_seed_probe, "_export_cdp_cookies_via_playwright", _playwright_export)
+
+    cookies = browserless_seed_probe.export_cdp_cookies("http://127.0.0.1:9223")
+
+    assert cookies == [{"name": "cookie2", "domain": ".taobao.com"}]
+    assert calls == ["websocket", "playwright"]
+
+
+def test_export_cdp_cookies_playwright_fallback_uses_bounded_cdp_connect_timeout(monkeypatch):
+    events: list[object] = []
+
+    class FakeBrowser:
+        contexts = []
+
+        def close(self) -> None:
+            events.append("browser_close")
+
+    class FakeChromium:
+        def connect_over_cdp(self, endpoint: str, timeout: int | None = None) -> FakeBrowser:
+            events.append((endpoint, timeout))
+            return FakeBrowser()
+
+    class FakePlaywright:
+        chromium = FakeChromium()
+
+    class FakeSyncPlaywright:
+        def __enter__(self) -> FakePlaywright:
+            return FakePlaywright()
+
+        def __exit__(self, exc_type, exc, tb) -> None:
+            events.append("playwright_close")
+
+    monkeypatch.setattr(browserless_seed_probe, "sync_playwright", lambda: FakeSyncPlaywright())
+
+    cookies = browserless_seed_probe._export_cdp_cookies_via_playwright(
+        "http://127.0.0.1:9223",
+        ("https://sf.taobao.com", "https://login.taobao.com"),
+    )
+
+    assert cookies == []
+    assert events == [
+        ("http://127.0.0.1:9223", browserless_seed_probe.DEFAULT_CDP_CONNECT_TIMEOUT_MS),
+        "browser_close",
+        "playwright_close",
+    ]
 
 
 def test_probe_seed_page_includes_response_status_and_final_url():
@@ -293,3 +384,100 @@ def test_write_cookie_snapshot_persists_json_payload(tmp_path: Path):
     browserless_seed_probe.write_cookie_snapshot(cookies, output_path)
 
     assert json.loads(output_path.read_text(encoding="utf-8")) == cookies
+
+
+def test_load_cookie_snapshot_reads_json_payload_from_disk(tmp_path: Path):
+    output_path = tmp_path / "cookies.json"
+    cookies = [
+        {"name": "cookie2", "value": "abc", "domain": ".taobao.com"},
+        {"name": "_tb_token_", "value": "xyz", "domain": "login.taobao.com"},
+    ]
+    output_path.write_text(json.dumps(cookies, ensure_ascii=False), encoding="utf-8")
+
+    loaded = browserless_seed_probe.load_cookie_snapshot(output_path)
+
+    assert loaded == cookies
+
+
+def test_summarize_cookie_snapshot_reports_safe_metadata_without_cookie_values():
+    summary = browserless_seed_probe.summarize_cookie_snapshot(
+        [
+            {
+                "name": "cookie2",
+                "value": "abc",
+                "domain": ".taobao.com",
+                "secure": True,
+                "httpOnly": False,
+                "expires": 1893456000,
+            },
+            {
+                "name": "_tb_token_",
+                "value": "xyz",
+                "domain": "login.taobao.com",
+                "secure": False,
+                "httpOnly": True,
+                "expires": -1,
+            },
+        ]
+    )
+
+    assert summary == {
+        "count": 2,
+        "domains": [".taobao.com", "login.taobao.com"],
+        "names": ["_tb_token_", "cookie2"],
+        "secure_count": 1,
+        "http_only_count": 1,
+        "session_count": 1,
+        "persistent_count": 1,
+        "earliest_expiry": datetime.fromtimestamp(1893456000).strftime("%Y-%m-%d %H:%M:%S"),
+        "latest_expiry": datetime.fromtimestamp(1893456000).strftime("%Y-%m-%d %H:%M:%S"),
+        "shape_fingerprint": summary["shape_fingerprint"],
+        "value_fingerprint": summary["value_fingerprint"],
+    }
+
+
+def test_summarize_cookie_snapshot_stable_shape_fingerprint_changes_only_when_structure_changes():
+    base = browserless_seed_probe.summarize_cookie_snapshot(
+        [
+            {"name": "cookie2", "value": "abc", "domain": ".taobao.com", "secure": True, "httpOnly": False, "expires": 1893456000},
+            {"name": "_tb_token_", "value": "xyz", "domain": "login.taobao.com", "secure": False, "httpOnly": True, "expires": -1},
+        ]
+    )
+    same_shape_new_values = browserless_seed_probe.summarize_cookie_snapshot(
+        [
+            {"name": "cookie2", "value": "new-abc", "domain": ".taobao.com", "secure": True, "httpOnly": False, "expires": 1893456000},
+            {"name": "_tb_token_", "value": "new-xyz", "domain": "login.taobao.com", "secure": False, "httpOnly": True, "expires": -1},
+        ]
+    )
+    changed_shape = browserless_seed_probe.summarize_cookie_snapshot(
+        [
+            {"name": "cookie2", "value": "abc", "domain": ".taobao.com", "secure": True, "httpOnly": False, "expires": 1893456000},
+        ]
+    )
+
+    assert base["shape_fingerprint"] == same_shape_new_values["shape_fingerprint"]
+    assert base["value_fingerprint"] != same_shape_new_values["value_fingerprint"]
+    assert base["shape_fingerprint"] != changed_shape["shape_fingerprint"]
+
+
+def test_diff_cookie_snapshots_reports_added_and_removed_cookie_keys_safely():
+    diff = browserless_seed_probe.diff_cookie_snapshots(
+        [
+            {"name": "cookie2", "value": "abc", "domain": ".taobao.com", "path": "/"},
+            {"name": "_tb_token_", "value": "xyz", "domain": ".taobao.com", "path": "/"},
+        ],
+        [
+            {"name": "cookie2", "value": "abc-2", "domain": ".taobao.com", "path": "/"},
+            {"name": "XSRF-TOKEN", "value": "token", "domain": "login.taobao.com", "path": "/"},
+        ],
+    )
+
+    assert diff["added_domains"] == ["login.taobao.com"]
+    assert diff["removed_domains"] == []
+    assert diff["added_names"] == ["XSRF-TOKEN"]
+    assert diff["removed_names"] == ["_tb_token_"]
+    assert diff["added_keys"] == ["XSRF-TOKEN|login.taobao.com|/"]
+    assert diff["removed_keys"] == ["_tb_token_|.taobao.com|/"]
+    assert diff["shared_key_count"] == 1
+    assert diff["shape_fingerprint_equal"] is False
+    assert diff["value_fingerprint_equal"] is False

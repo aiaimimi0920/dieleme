@@ -10,7 +10,7 @@ import traceback
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
-from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
+from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
 
 import requests
 
@@ -21,12 +21,16 @@ if str(REPO_ROOT) not in sys.path:
 
 DEFAULT_OUTPUT_DIR = Path("output/live_batch_smoke")
 DEFAULT_CDP_ENDPOINT = "http://127.0.0.1:9223"
+DEFAULT_CDP_CONNECT_TIMEOUT_MS = 120000
 DEFAULT_RESUME_STATE_FILENAME = "resume_state.json"
 DEFAULT_LIST_ST_PARAMS = ("2", "1", "0", "3", "4", "5")
 DEFAULT_TARGET_URL = (
     "https://sf.taobao.com/list/50025969__2.htm"
     "?location_code=110101&st_param=2&auction_start_seg=-1&page=1"
 )
+DEFAULT_API_BASE_URL = os.environ.get("FAPAI_API_BASE_URL", "http://127.0.0.1:8001/api")
+DEFAULT_CDP_PAGE_TARGET_LIMIT = 12
+DEFAULT_CDP_HTTP_TIMEOUT_SECONDS = 3.0
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -41,6 +45,13 @@ AREA_FOLLOWUP_NEXT_ATTEMPTS = [
 ]
 RESUME_SCHEMA_VERSION = "live_batch_resume_state_v1"
 RESUME_COMPLETED_STATUS = "completed"
+TRUE_VALUES = {"1", "true", "yes", "y", "on"}
+CAPTCHA_SOLVER_ENV_NAMES = (
+    "FAPAI_CAPTCHA_SOLVER_ENABLED",
+    "FAPAI_SOLVER_ENABLED",
+    "SOLVER_ENABLED",
+    "solver_enabled",
+)
 
 
 @dataclass(frozen=True)
@@ -60,6 +71,7 @@ class LiveSmokeConfig:
     list_stop_on_empty: bool = True
     llm_preflight_enabled: bool = False
     llm_preflight_timeout_seconds: float = 15.0
+    raw_only: bool = False
 
 
 def _browserless_seed_probe():
@@ -667,7 +679,43 @@ def is_challenge_page(html: str, final_url: str) -> bool:
 
 def export_cookies(cdp_endpoint: str) -> list[dict[str, Any]]:
     browserless_seed_probe = _browserless_seed_probe()
-    return browserless_seed_probe.export_cdp_cookies(cdp_endpoint)
+    snapshot_path = (os.environ.get("FAPAI_COOKIE_SNAPSHOT") or "").strip()
+    prefer_snapshot = (os.environ.get("FAPAI_COOKIE_SNAPSHOT_PREFER") or "").strip().lower() in TRUE_VALUES
+    if prefer_snapshot and snapshot_path:
+        try:
+            return browserless_seed_probe.load_cookie_snapshot(Path(snapshot_path))
+        except FileNotFoundError:
+            return browserless_seed_probe.export_cdp_cookies(cdp_endpoint)
+    try:
+        return browserless_seed_probe.export_cdp_cookies(cdp_endpoint)
+    except Exception as export_exc:
+        if not snapshot_path:
+            raise
+        try:
+            return browserless_seed_probe.load_cookie_snapshot(Path(snapshot_path))
+        except Exception as snapshot_exc:
+            raise RuntimeError(
+                f"cdp cookie export failed: {export_exc!r}; "
+                f"snapshot fallback failed: {snapshot_exc!r}"
+            ) from snapshot_exc
+
+
+def list_browser_fallback_enabled() -> bool:
+    raw = os.environ.get("FAPAI_LIST_BROWSER_FALLBACK")
+    if raw is None:
+        return True
+    return raw.strip().lower() not in {"0", "false", "no", "off"}
+
+
+def captcha_solver_enabled(*, default: bool = False) -> bool:
+    for name in CAPTCHA_SOLVER_ENV_NAMES:
+        raw = os.environ.get(name)
+        if raw is None:
+            continue
+        text = raw.strip()
+        if text:
+            return text.lower() in TRUE_VALUES
+    return default
 
 
 def build_http(cookies: list[dict[str, Any]]) -> requests.Session:
@@ -683,12 +731,87 @@ def build_http(cookies: list[dict[str, Any]]) -> requests.Session:
     return session
 
 
+def _cdp_page_target_limit() -> int:
+    raw = os.environ.get("FAPAI_CDP_MAX_PAGE_TARGETS")
+    if raw is None or not raw.strip():
+        return DEFAULT_CDP_PAGE_TARGET_LIMIT
+    try:
+        parsed = int(raw)
+    except ValueError:
+        return DEFAULT_CDP_PAGE_TARGET_LIMIT
+    return parsed if parsed > 0 else DEFAULT_CDP_PAGE_TARGET_LIMIT
+
+
+def _cdp_url(cdp_endpoint: str, path: str) -> str:
+    return f"{str(cdp_endpoint or '').rstrip('/')}/{path.lstrip('/')}"
+
+
+def compact_cdp_page_targets_if_needed(
+    cdp_endpoint: str,
+    *,
+    limit: int | None = None,
+    timeout_seconds: float = DEFAULT_CDP_HTTP_TIMEOUT_SECONDS,
+) -> dict[str, Any]:
+    effective_limit = int(limit or _cdp_page_target_limit())
+    summary: dict[str, Any] = {"triggered": False, "page_count": 0, "closed": 0, "errors": []}
+    if not str(cdp_endpoint or "").strip() or effective_limit <= 0:
+        return summary
+    try:
+        response = requests.get(_cdp_url(cdp_endpoint, "/json/list"), timeout=timeout_seconds)
+        response.raise_for_status()
+        targets = response.json()
+    except Exception as error:
+        summary["errors"].append(repr(error))
+        return summary
+    if not isinstance(targets, list):
+        summary["errors"].append("CDP /json/list response is not a list")
+        return summary
+    page_targets = [
+        target
+        for target in targets
+        if isinstance(target, dict) and str(target.get("type") or "").lower() == "page"
+    ]
+    summary["page_count"] = len(page_targets)
+    if len(page_targets) < effective_limit:
+        return summary
+    summary["triggered"] = True
+    for target in page_targets:
+        target_id = str(target.get("id") or "").strip()
+        if not target_id:
+            continue
+        try:
+            close_response = requests.get(
+                _cdp_url(cdp_endpoint, f"/json/close/{quote(target_id, safe='')}"),
+                timeout=timeout_seconds,
+            )
+            close_response.raise_for_status()
+            summary["closed"] += 1
+        except Exception as error:
+            summary["errors"].append(f"{target_id}: {error!r}")
+    return summary
+
+
+def connect_browser_over_cdp(playwright: Any, cdp_endpoint: str, *, timeout_ms: int = DEFAULT_CDP_CONNECT_TIMEOUT_MS) -> Any:
+    compaction = compact_cdp_page_targets_if_needed(cdp_endpoint)
+    if compaction.get("triggered"):
+        print(json.dumps({"event": "cdp_page_target_compaction", **compaction}, ensure_ascii=False))
+    return playwright.chromium.connect_over_cdp(cdp_endpoint, timeout=timeout_ms)
+
+
+def request_captcha_solver(cdp_endpoint: str, target_url: str) -> dict[str, Any]:
+    from tools.taobao_login_health import build_captcha_solver_target_url, report_captcha_via_api
+
+    solver_target_url = build_captcha_solver_target_url(target_url)
+    response = report_captcha_via_api(DEFAULT_API_BASE_URL, cdp_endpoint, solver_target_url)
+    return dict(response) if isinstance(response, dict) else {"status": "unknown_response", "raw": response}
+
+
 def fetch_open_browser_pages(cdp_endpoint: str) -> dict[str, tuple[str, str]]:
     from playwright.sync_api import sync_playwright
 
     pages: dict[str, tuple[str, str]] = {}
     with sync_playwright() as p:
-        browser = p.chromium.connect_over_cdp(cdp_endpoint)
+        browser = connect_browser_over_cdp(p, cdp_endpoint)
         try:
             for context in browser.contexts:
                 for page in context.pages:
@@ -703,12 +826,19 @@ def fetch_open_browser_pages(cdp_endpoint: str) -> dict[str, tuple[str, str]]:
     return pages
 
 
+def load_open_browser_pages(cdp_endpoint: str) -> dict[str, tuple[str, str]]:
+    try:
+        return fetch_open_browser_pages(cdp_endpoint)
+    except Exception:
+        return {}
+
+
 def fetch_open_browser_list_page(cdp_endpoint: str, target_url: str) -> tuple[str, str] | None:
     from playwright.sync_api import sync_playwright
 
     normalized_target = target_url.split("#", 1)[0]
     with sync_playwright() as p:
-        browser = p.chromium.connect_over_cdp(cdp_endpoint)
+        browser = connect_browser_over_cdp(p, cdp_endpoint)
         try:
             for context in browser.contexts:
                 for page in context.pages:
@@ -731,7 +861,7 @@ def fetch_browser_navigation_list_page(cdp_endpoint: str, target_url: str) -> tu
     from playwright.sync_api import sync_playwright
 
     with sync_playwright() as p:
-        browser = p.chromium.connect_over_cdp(cdp_endpoint)
+        browser = connect_browser_over_cdp(p, cdp_endpoint)
         try:
             if not browser.contexts:
                 raise RuntimeError("attached browser has no contexts")
@@ -765,13 +895,48 @@ def fetch_browser_list_page(cdp_endpoint: str, target_url: str) -> tuple[str, st
     return fetch_browser_navigation_list_page(cdp_endpoint, target_url)
 
 
+def recover_browser_list_page_after_challenge(
+    cdp_endpoint: str,
+    target_url: str,
+    initial_page: tuple[str, str] | None,
+    *,
+    max_attempts: int = 7,
+    wait_seconds: float = 5,
+    solver_enabled: bool = True,
+) -> tuple[str, str] | None:
+    browser_page = initial_page
+    attempts = 0
+    while browser_page is not None and attempts < max_attempts:
+        html, final_url = browser_page
+        if not is_challenge_page(html, final_url):
+            return browser_page
+        if attempts == 0 and solver_enabled:
+            try:
+                request_captcha_solver(cdp_endpoint, final_url or target_url)
+            except Exception:
+                pass
+        attempts += 1
+        if attempts >= max_attempts:
+            return browser_page
+        time.sleep(wait_seconds)
+        browser_page = fetch_browser_list_page(cdp_endpoint, target_url)
+    return browser_page
+
+
 def fetch_list_page(
     http: requests.Session,
     *,
     cdp_endpoint: str,
     target_url: str,
     user_agent: str,
+    solver_enabled: bool | None = None,
 ) -> tuple[str, str, int | None, str]:
+    browser_fallback_enabled = list_browser_fallback_enabled()
+    solver_requested = (
+        captcha_solver_enabled(default=browser_fallback_enabled)
+        if solver_enabled is None
+        else bool(solver_enabled)
+    )
     try:
         response = http.get(
             target_url,
@@ -785,13 +950,32 @@ def fetch_list_page(
         )
         response.raise_for_status()
         if is_challenge_page(response.text, response.url):
-            browser_page = fetch_browser_list_page(cdp_endpoint, target_url)
+            if not browser_fallback_enabled:
+                if solver_requested:
+                    try:
+                        request_captcha_solver(cdp_endpoint, response.url or target_url)
+                    except Exception:
+                        pass
+                return response.text, response.url, response.status_code, "http_cookie_challenge"
+            browser_page = recover_browser_list_page_after_challenge(
+                cdp_endpoint,
+                target_url,
+                fetch_browser_list_page(cdp_endpoint, target_url),
+                solver_enabled=solver_requested,
+            )
             if browser_page is not None:
                 html, final_url = browser_page
                 return html, final_url, None, "browser_page_after_http_challenge"
         return response.text, response.url, response.status_code, "http_cookie"
     except requests.RequestException:
-        browser_page = fetch_browser_list_page(cdp_endpoint, target_url)
+        if not browser_fallback_enabled:
+            raise
+        browser_page = recover_browser_list_page_after_challenge(
+            cdp_endpoint,
+            target_url,
+            fetch_browser_list_page(cdp_endpoint, target_url),
+            solver_enabled=solver_requested,
+        )
         if browser_page is None:
             raise
         html, final_url = browser_page
@@ -805,7 +989,7 @@ def fetch_detail_with_browser(seed: dict[str, Any], *, cdp_endpoint: str) -> tup
     if not detail_url:
         raise RuntimeError("seed missing detail url")
     with sync_playwright() as p:
-        browser = p.chromium.connect_over_cdp(cdp_endpoint)
+        browser = connect_browser_over_cdp(p, cdp_endpoint)
         try:
             if not browser.contexts:
                 raise RuntimeError("attached browser has no contexts")
@@ -980,6 +1164,133 @@ def selected_summary(
     }
 
 
+def raw_detail_summary(
+    *,
+    seed: dict[str, Any],
+    html: str,
+    final_url: str,
+    detail_bytes: int,
+    fetch_method: str,
+    description_data: dict[str, Any],
+    item_dir: Path,
+) -> dict[str, Any]:
+    return {
+        "item_id": str(seed.get("id")),
+        "detail_capture_mode": "raw",
+        "fetch": {
+            "method": fetch_method,
+            "detail_final_url": final_url,
+            "detail_html_bytes": detail_bytes,
+            "html_has_description_data": "description-data" in html,
+            "html_has_challenge": is_challenge_page(html, final_url),
+        },
+        "trusted_seed": {
+            "title": seed.get("title"),
+            "currentPrice": seed.get("currentPrice"),
+            "initialPrice": seed.get("initialPrice"),
+            "auction_date": seed.get("auction_date"),
+            "status": seed.get("status"),
+            "bidCount": seed.get("bidCount"),
+            "applyCount": seed.get("applyCount"),
+        },
+        "final_core": {
+            "id": seed.get("id"),
+            "source_item_id": pick_first(seed.get("source_item_id"), seed.get("item_id"), seed.get("id")),
+            "source_url": pick_first(final_url, seed.get("url"), seed.get("source_url")),
+            "title": seed.get("title"),
+            "is_processed": False,
+            "detail_captured": True,
+        },
+        "description_data": description_data,
+        "artifacts": {
+            "seed_json_path": str(item_dir / "seed.json"),
+            "detail_html_path": str(item_dir / "detail.html"),
+            "description_json_path": str(item_dir / "description-data.json"),
+            "description_text_path": description_data.get("text_path"),
+            "selected_json_path": str(item_dir / "selected.json"),
+        },
+    }
+
+
+def analyze_raw_item(
+    item_id: str,
+    *,
+    output_dir: Path,
+    do_risk: bool = False,
+) -> dict[str, Any]:
+    from src import llm_helper
+    from src.avm.collection_template import sync_collection_record
+    from src.collection.detail_service import DetailCollectionService
+
+    seed_id = str(item_id)
+    item_dir = output_dir / seed_id
+    seed_path = item_dir / "seed.json"
+    detail_html_path = item_dir / "detail.html"
+    description_json_path = item_dir / "description-data.json"
+    selected_json_path = item_dir / "selected.json"
+
+    if not detail_html_path.exists():
+        raise FileNotFoundError(f"raw detail html not found: {detail_html_path}")
+
+    seed = load_json(seed_path) if seed_path.exists() else {"id": seed_id, "item_id": seed_id, "source_item_id": seed_id}
+    html = detail_html_path.read_text(encoding="utf-8")
+    if description_json_path.exists():
+        description_data = load_json(description_json_path)
+    else:
+        description_data = build_description_audit(html, item_dir)
+        write_json(description_json_path, description_data)
+
+    raw_selected = load_json(selected_json_path) if selected_json_path.exists() else {}
+    fetch = as_dict(raw_selected.get("fetch"))
+    final_url = pick_first(fetch.get("detail_final_url"), seed.get("url"), seed.get("source_url"), seed.get("原始网站"), "")
+    detail_bytes = fetch.get("detail_html_bytes")
+    if not isinstance(detail_bytes, int):
+        detail_bytes = len(html.encode("utf-8"))
+    fetch_method = str(fetch.get("method") or "raw_artifact")
+
+    extracted = json.loads(llm_helper.extract_auction_data(html, item_id=seed_id))
+    extracted["id"] = int(seed_id) if seed_id.isdigit() else seed_id
+    extracted["source_item_id"] = seed_id
+    DetailCollectionService._preserve_seed_values(extracted, seed)
+    write_json(item_dir / "extracted.json", extracted)
+
+    risk = {}
+    if do_risk:
+        risk = llm_helper.extract_avm_risk_features(html, item_id=seed_id) or {}
+        write_json(item_dir / "risk.json", risk)
+
+    combined = dict(seed)
+    combined.update(extracted)
+    DetailCollectionService._preserve_seed_values(combined, seed)
+    combined["id"] = int(seed_id) if seed_id.isdigit() else seed_id
+    combined["source_item_id"] = seed_id
+    combined["source_url"] = final_url
+    combined["原始网站"] = final_url
+    combined.setdefault("source_platform", "taobao_sf")
+    combined["detail_captured"] = True
+    combined["is_processed"] = True
+    if risk:
+        combined["avm_risk_features"] = risk
+        risk_aliases(combined)
+
+    final_item = sync_collection_record(combined)
+    write_json(item_dir / "final.json", final_item)
+    selected = selected_summary(
+        seed=seed,
+        html=html,
+        final_url=final_url,
+        detail_bytes=detail_bytes,
+        fetch_method=fetch_method,
+        extracted=extracted,
+        final_item=final_item,
+        description_data=description_data,
+    )
+    selected["detail_capture_mode"] = "ai_finalized_from_raw"
+    selected["raw_selected_json_path"] = str(selected_json_path) if selected_json_path.exists() else None
+    write_json(selected_json_path, selected)
+    return selected
+
+
 def process_item(
     http: requests.Session,
     seed: dict[str, Any],
@@ -987,7 +1298,6 @@ def process_item(
     *,
     config: LiveSmokeConfig,
 ) -> dict[str, Any]:
-    from src import llm_helper
     from src.avm.collection_template import sync_collection_record
     from src.collection.detail_service import DetailCollectionService
 
@@ -1006,6 +1316,21 @@ def process_item(
     (item_dir / "detail.html").write_text(html, encoding="utf-8")
     description_data = build_description_audit(html, item_dir)
     write_json(item_dir / "description-data.json", description_data)
+
+    if config.raw_only:
+        selected = raw_detail_summary(
+            seed=seed,
+            html=html,
+            final_url=final_url,
+            detail_bytes=detail_bytes,
+            fetch_method=fetch_method,
+            description_data=description_data,
+            item_dir=item_dir,
+        )
+        write_json(item_dir / "selected.json", selected)
+        return selected
+
+    from src import llm_helper
 
     extracted = json.loads(llm_helper.extract_auction_data(html, item_id=seed_id))
     extracted["id"] = int(seed_id) if seed_id.isdigit() else seed_id
@@ -1049,13 +1374,13 @@ def process_item(
 
 
 def run_live_smoke(config: LiveSmokeConfig) -> int:
-    if not os.environ.get("OPENAI_BASE_URL") or not os.environ.get("OPENAI_API_KEY"):
+    if not config.raw_only and (not os.environ.get("OPENAI_BASE_URL") or not os.environ.get("OPENAI_API_KEY")):
         raise RuntimeError("OPENAI_BASE_URL/OPENAI_API_KEY must be set in this subprocess")
 
     browserless_seed_probe = _browserless_seed_probe()
     config.output_dir.mkdir(parents=True, exist_ok=True)
     llm_preflight_result = None
-    if config.llm_preflight_enabled:
+    if config.llm_preflight_enabled and not config.raw_only:
         llm_preflight_result = preflight_llm_backend(timeout=config.llm_preflight_timeout_seconds)
         print(f"[SMOKE] LLM preflight ok: {json.dumps(llm_preflight_result, ensure_ascii=False)}")
 
@@ -1125,7 +1450,7 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
         print(json.dumps(enriched, ensure_ascii=False, indent=2))
         return 0 if skipped_completed_ids else 1
 
-    browser_pages = fetch_open_browser_pages(config.cdp_endpoint)
+    browser_pages = load_open_browser_pages(config.cdp_endpoint)
     results = []
     errors = []
     for index, seed in enumerate(items, start=1):
@@ -1382,6 +1707,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=float(os.environ.get("LIVE_BATCH_LLM_PREFLIGHT_TIMEOUT_SECONDS", "15")),
         help="Timeout for --llm-preflight /models connectivity probe.",
     )
+    parser.add_argument(
+        "--raw-only",
+        action="store_true",
+        default=os.environ.get("LIVE_BATCH_RAW_ONLY", os.environ.get("FAPAI_DETAIL_RAW_ONLY", "0")).strip().lower() in TRUE_VALUES,
+        help="Fetch and archive raw detail artifacts without invoking the LLM extraction stage.",
+    )
     return parser.parse_args(argv)
 
 
@@ -1406,6 +1737,7 @@ def config_from_args(args: argparse.Namespace) -> LiveSmokeConfig:
         list_stop_on_empty=not bool(args.no_list_stop_on_empty),
         llm_preflight_enabled=bool(args.llm_preflight),
         llm_preflight_timeout_seconds=float(args.llm_preflight_timeout_seconds),
+        raw_only=bool(args.raw_only),
     )
 
 
