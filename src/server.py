@@ -4,6 +4,7 @@ import json
 import os
 import datetime
 import glob
+import mimetypes
 import math
 from pathlib import Path
 import threading
@@ -160,6 +161,8 @@ DISPATCH_COOLDOWN_SECONDS = 20  # Task redispatch cooldown (aggressive profile)
 # Global Thread Pool for AI tasks (Limit 32 to prevent API overload)
 executor = ThreadPoolExecutor(max_workers=32)
 DATA_DIR = "datas"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+COLLECTOR_DESKTOP_DIST = REPO_ROOT / "collector-desktop" / "dist"
 AVM_DIR = os.path.join(DATA_DIR, "avm")
 AVM_ALERTS_PATH = os.path.join(AVM_DIR, "alerts.json")
 
@@ -1131,7 +1134,42 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
     }
 
 
+def _safe_collection_static_path(request_path: str) -> Path | None:
+    prefix = "/collection/"
+    if not request_path.startswith(prefix):
+        return None
+    relative = unquote(request_path[len(prefix) :]).strip("/")
+    if not relative:
+        relative = "index.html"
+    candidate = (COLLECTOR_DESKTOP_DIST / relative).resolve()
+    root = COLLECTOR_DESKTOP_DIST.resolve()
+    try:
+        candidate.relative_to(root)
+    except ValueError:
+        return None
+    if not candidate.is_file():
+        return None
+    return candidate
+
+
+def _collection_observer_static_asset(request_path: str) -> tuple[bytes, str] | None:
+    path = _safe_collection_static_path(request_path)
+    if path is None:
+        return None
+    content_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+    if path.suffix == ".js":
+        content_type = "application/javascript"
+    elif path.suffix == ".css":
+        content_type = "text/css"
+    elif path.suffix == ".html":
+        content_type = "text/html; charset=utf-8"
+    return path.read_bytes(), content_type
+
+
 def _collection_observer_page_html() -> str:
+    index_path = COLLECTOR_DESKTOP_DIST / "index.html"
+    if index_path.is_file():
+        return index_path.read_text(encoding="utf-8")
     return """<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -5951,6 +5989,23 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             body = _collection_observer_page_html().encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        elif request_path.startswith("/collection/"):
+            asset = _collection_observer_static_asset(request_path)
+            if asset is None:
+                self.send_error_json(
+                    status=404,
+                    code="COLLECTION_STATIC_ASSET_NOT_FOUND",
+                    message="collection console 静态资源不存在",
+                    details={"path": request_path},
+                )
+                return
+            body, content_type = asset
+            self.send_response(200)
+            self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(body)))
             self.end_headers()
             self.wfile.write(body)

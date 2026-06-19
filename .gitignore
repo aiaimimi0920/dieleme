@@ -27,6 +27,8 @@ install_log.txt
 .env.*
 docker.env
 docker.local.env
+env.nas.local
+env.worker.local
 
 # Local debug and generated run artifacts
 .debug/

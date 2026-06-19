@@ -22,6 +22,45 @@ CAPTCHA_SOLVER_ENV_KEYS = (
 )
 
 
+def _normalize_node_id(value: str | None) -> str | None:
+    normalized = "".join(ch if ch.isalnum() or ch in {"-", "_"} else "-" for ch in str(value or "").strip())
+    normalized = normalized.strip("-_")
+    return normalized or None
+
+
+def _node_scoped_output_dir(env: Mapping[str, str], output_dir: str | None, default: str) -> str:
+    raw_output_dir = str(output_dir or default)
+    node_id = _normalize_node_id(env_text(env, "FAPAI_NODE_ID"))
+    if not node_id or env_flag(env, "FAPAI_DISABLE_NODE_OUTPUT_SCOPE", False):
+        return raw_output_dir
+
+    normalized = raw_output_dir.replace("\\", "/").rstrip("/")
+    node_segment = f"/nodes/{node_id}/"
+    if node_segment in f"{normalized}/":
+        return normalized
+    if normalized == "/data/output":
+        leaf = "default"
+    else:
+        leaf = normalized.rsplit("/", 1)[-1] or "default"
+    return f"/data/output/nodes/{node_id}/{leaf}"
+
+
+def _node_scoped_worker_id(
+    env: Mapping[str, str],
+    worker_id: str | None,
+    default_without_node: str | None = None,
+) -> str | None:
+    raw_worker_id = env_text({"value": worker_id or ""}, "value", default_without_node)
+    node_id = _normalize_node_id(env_text(env, "FAPAI_NODE_ID"))
+    if not raw_worker_id:
+        return None
+    if not node_id or env_flag(env, "FAPAI_DISABLE_NODE_WORKER_SCOPE", False):
+        return raw_worker_id
+    if raw_worker_id == node_id or raw_worker_id.startswith(f"{node_id}-"):
+        return raw_worker_id
+    return f"{node_id}-{raw_worker_id}"
+
+
 def env_text(env: Mapping[str, str], key: str, default: str | None = None) -> str | None:
     value = env.get(key)
     if value is None:
@@ -52,7 +91,7 @@ def append_option(command: list[str], option: str, value: str | None) -> None:
 
 def build_live_command(env: Mapping[str, str]) -> list[str]:
     run_mode = (env_text(env, "FAPAI_RUN_MODE", "live-loop") or "live-loop").lower()
-    output_dir = env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/live_batch_smoke")
+    output_dir = _node_scoped_output_dir(env, env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/live_batch_smoke"), "/data/output/live_batch_smoke")
     resume_state = env_text(env, "FAPAI_RESUME_STATE", f"{output_dir}/resume_state.json")
 
     command = [
@@ -116,7 +155,7 @@ def build_api_command(env: Mapping[str, str]) -> list[str]:
 
 
 def build_area_followup_command(env: Mapping[str, str]) -> list[str]:
-    output_dir = env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/live_batch_smoke")
+    output_dir = _node_scoped_output_dir(env, env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/live_batch_smoke"), "/data/output/live_batch_smoke")
     command = [
         sys.executable,
         "tools/area_followup_runner.py",
@@ -133,11 +172,17 @@ def build_area_followup_command(env: Mapping[str, str]) -> list[str]:
 
 
 def build_seed_collector_command(env: Mapping[str, str]) -> list[str]:
+    output_dir = _node_scoped_output_dir(
+        env,
+        env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/seed_collector"),
+        "/data/output/seed_collector",
+    )
+    worker_id = _node_scoped_worker_id(env, env_text(env, "FAPAI_SEED_WORKER_ID"), "seed-1" if env_text(env, "FAPAI_NODE_ID") else None)
     command = [
         sys.executable,
         "tools/seed_collector.py",
         "--output-dir",
-        env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/seed_collector") or "/data/output/seed_collector",
+        output_dir,
         "--cdp-endpoint",
         env_text(env, "FAPAI_CDP_ENDPOINT", "http://host.docker.internal:9223") or "http://host.docker.internal:9223",
         "--job-key",
@@ -162,7 +207,7 @@ def build_seed_collector_command(env: Mapping[str, str]) -> list[str]:
         "--max-page",
         env_text(env, "FAPAI_SEED_MAX_PAGE", env_text(env, "FAPAI_LIST_MAX_PAGES", "83")) or "83",
     ]
-    append_option(command, "--worker-id", env_text(env, "FAPAI_SEED_WORKER_ID"))
+    append_option(command, "--worker-id", worker_id)
     append_option(command, "--lease-seconds", env_text(env, "FAPAI_SEED_LEASE_SECONDS"))
     append_option(command, "--pages-per-run", env_text(env, "FAPAI_SEED_PAGES_PER_RUN", "10"))
     append_option(command, "--api-base-url", env_text(env, "FAPAI_API_BASE_URL"))
@@ -226,11 +271,22 @@ def build_detail_worker_command(env: Mapping[str, str]) -> list[str]:
             "FAPAI_ANALYSIS_LLM_PREFLIGHT_TIMEOUT_SECONDS",
             llm_preflight_timeout_seconds,
         )
+    output_dir = _node_scoped_output_dir(
+        env,
+        env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/detail_worker"),
+        "/data/output/detail_worker",
+    )
+    default_worker_id = "analysis-1" if analysis_only else "detail-1"
+    worker_id = _node_scoped_worker_id(
+        env,
+        env_text(env, "FAPAI_DETAIL_WORKER_ID"),
+        default_worker_id if env_text(env, "FAPAI_NODE_ID") else None,
+    )
     command = [
         sys.executable,
         "tools/detail_worker.py",
         "--output-dir",
-        env_text(env, "FAPAI_OUTPUT_DIR", "/data/output/detail_worker") or "/data/output/detail_worker",
+        output_dir,
         "--cdp-endpoint",
         env_text(env, "FAPAI_CDP_ENDPOINT", "http://host.docker.internal:9223") or "http://host.docker.internal:9223",
         "--target-success",
@@ -240,7 +296,7 @@ def build_detail_worker_command(env: Mapping[str, str]) -> list[str]:
         "--item-max-attempts",
         item_max_attempts or "3",
     ]
-    append_option(command, "--worker-id", env_text(env, "FAPAI_DETAIL_WORKER_ID"))
+    append_option(command, "--worker-id", worker_id)
     append_option(command, "--lease-seconds", env_text(env, "FAPAI_DETAIL_LEASE_SECONDS"))
     append_option(command, "--failure-cooldown-seconds", env_text(env, "FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS"))
     append_option(command, "--api-base-url", env_text(env, "FAPAI_API_BASE_URL"))

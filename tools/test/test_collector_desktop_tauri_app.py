@@ -119,13 +119,13 @@ def test_runtime_status_card_exposes_operator_controls_and_auth_challenge_dialog
     assert "authChallengeFrame" not in main_js
     assert "toggleRuntimePause" in main_js
     assert "openAuthChallenge" in main_js
-    assert 'invoke("open_auth_browser"' in main_js
-    assert 'invoke("export_taobao_cookie_snapshot"' in main_js
+    assert 'tryInvoke("open_auth_browser"' in main_js
+    assert 'tryInvoke("export_taobao_cookie_snapshot"' in main_js
     auth_resume_function = main_js[
         main_js.index("async function resumeAfterAuthChallenge"):
         main_js.index("async function reloadAll")
     ]
-    assert auth_resume_function.index("/api/collection/auth/complete") < auth_resume_function.index('invoke("export_taobao_cookie_snapshot"')
+    assert auth_resume_function.index("/api/collection/auth/complete") < auth_resume_function.index('tryInvoke("export_taobao_cookie_snapshot"')
     assert "open_auth_browser" in rust_lib
     assert "export_taobao_cookie_snapshot" in rust_lib
     assert '"-NoProfile"' in rust_lib
@@ -161,7 +161,7 @@ def test_auth_challenge_open_buttons_submit_solver_after_browser_open() -> None:
     main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
 
     assert "async function openAndQueueAuthChallenge" in main_js
-    assert 'await invoke("open_auth_browser", { url })' in main_js
+    assert 'await tryInvoke("open_auth_browser", { url })' in main_js
     assert 'await postJson("/api/report_captcha", { target_url: url, force_retry: true }, { timeoutMs: 10_000 })' in main_js
 
     open_function = main_js[
@@ -190,10 +190,23 @@ def test_auth_challenge_network_calls_have_timeout_and_resume_does_not_wait_for_
         main_js.index("async function resumeAfterAuthChallenge"):
         main_js.index("async function reloadAll")
     ]
-    assert auth_resume_function.index("/api/collection/auth/complete") < auth_resume_function.index('invoke("export_taobao_cookie_snapshot"')
+    assert auth_resume_function.index("/api/collection/auth/complete") < auth_resume_function.index('tryInvoke("export_taobao_cookie_snapshot"')
     assert 'postJson("/api/collection/auth/complete"' in auth_resume_function
     assert "{ timeoutMs: 10_000 }" in auth_resume_function
-    assert 'void invoke("export_taobao_cookie_snapshot")' in auth_resume_function
+    assert 'void tryInvoke("export_taobao_cookie_snapshot")' in auth_resume_function
+
+
+def test_collector_desktop_frontend_can_run_as_plain_html_console() -> None:
+    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    tauri_config = json.loads((APP_ROOT / "src-tauri" / "tauri.conf.json").read_text(encoding="utf-8"))
+
+    assert "function isTauriRuntime()" in main_js
+    assert "function defaultBrowserApiBase()" in main_js
+    assert "window.location.origin" in main_js
+    assert "not running inside Tauri" in main_js
+    assert 'window.open(url, "_blank", "noopener,noreferrer")' in main_js
+    assert "当前为 HTML 控制台，cookie 快照需由采集节点本机维护" in main_js
+    assert "http://192.168.15.200:8001" in tauri_config["app"]["security"]["csp"]
 
 
 def test_runtime_start_always_forces_auth_complete_without_cookie_refresh() -> None:

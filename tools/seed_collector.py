@@ -546,6 +546,7 @@ def _seed_run_progress_event(run: int, run_results: list[dict[str, Any]]) -> dic
         "retryable_failures": cycle_summary["retryable_failures"],
         "new_occurrences": cycle_summary["new_occurrences"],
         "last_decision": last_result.get("decision"),
+        "last_reason": last_result.get("reason"),
         "last_item_count": last_result.get("item_count"),
         "counts": last_result.get("counts"),
         "cycle_summary": cycle_summary,
@@ -568,13 +569,21 @@ def _seed_run_attempted_auth_probe(run_results: Sequence[dict[str, Any]]) -> boo
     return False
 
 
+def _seed_run_hit_challenge_page(run_results: Sequence[dict[str, Any]]) -> bool:
+    return any(
+        result.get("decision") == "seed_page_retryable_failure"
+        and result.get("reason") == "list_challenge_page"
+        for result in run_results
+    )
+
+
 def _seed_loop_sleep_seconds(config: SeedCollectorConfig, run_results: Sequence[dict[str, Any]]) -> int:
     if _seed_run_collected_page(run_results):
         interval = config.active_loop_interval_seconds
         if interval is None:
             interval = config.loop_interval_seconds
         return max(int(interval), 0)
-    if _seed_run_attempted_auth_probe(run_results):
+    if _seed_run_attempted_auth_probe(run_results) or _seed_run_hit_challenge_page(run_results):
         return max(int(config.auth_probe_interval_seconds), 0)
     return max(config.loop_interval_seconds, 0)
 

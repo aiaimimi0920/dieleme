@@ -1,4 +1,17 @@
 ARG PYTHON_BASE_IMAGE=python:3.10-slim
+ARG NODE_BASE_IMAGE=node:22-alpine
+
+FROM ${NODE_BASE_IMAGE} AS collector_desktop_builder
+
+WORKDIR /collector-desktop
+
+COPY collector-desktop/package*.json ./
+RUN npm ci
+
+COPY collector-desktop/index.html ./index.html
+COPY collector-desktop/src ./src
+RUN npm run build
+
 FROM ${PYTHON_BASE_IMAGE}
 
 ENV PYTHONUNBUFFERED=1 \
@@ -20,6 +33,7 @@ RUN if [ -d /tmp/wheels ] && [ "$(find /tmp/wheels -type f -name '*.whl' | head 
     && playwright install --with-deps chromium
 
 COPY . .
+COPY --from=collector_desktop_builder /collector-desktop/dist /app/collector-desktop/dist
 
 RUN mkdir -p /data/output /data/datas /data/jobs /data/secrets \
     && mkdir -p /app/output /app/jobs \

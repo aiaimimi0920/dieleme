@@ -25,6 +25,7 @@ temp_chrome_profile/
 *.log
 *.xlsx
 *.html
+!collector-desktop/index.html
 cdp_*.json
 tmp_*.json
 
@@ -34,3 +35,5 @@ auth.json
 .env.*
 docker.env
 docker.local.env
+env.nas.local
+env.worker.local

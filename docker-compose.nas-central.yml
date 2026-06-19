@@ -1,0 +1,61 @@
+x-fapaifang-image: &fapaifang-image
+  build:
+    context: .
+    args:
+      PYTHON_BASE_IMAGE: ${PYTHON_BASE_IMAGE:-python:3.10-slim}
+      NODE_BASE_IMAGE: ${NODE_BASE_IMAGE:-node:22-alpine}
+  env_file:
+    - ${FAPAI_NAS_ENV_FILE:-env.nas.local}
+  image: ${FAPAI_IMAGE:-fapaifang-collector:local}
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: fapaifang-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${FAPAI_POSTGRES_DB:-fapaifang}
+      POSTGRES_USER: ${FAPAI_POSTGRES_USER:-fapaifang}
+      POSTGRES_PASSWORD: ${FAPAI_POSTGRES_PASSWORD:-fapaifang}
+    ports:
+      - "${FAPAI_POSTGRES_HOST_PORT:-55432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${FAPAI_POSTGRES_USER:-fapaifang} -d ${FAPAI_POSTGRES_DB:-fapaifang}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - type: bind
+        source: ${FAPAI_NAS_DATA_ROOT:?set FAPAI_NAS_DATA_ROOT}/postgres
+        target: /var/lib/postgresql/data
+
+  fapaifang-api:
+    <<: *fapaifang-image
+    container_name: fapaifang-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      FAPAI_RUN_MODE: api
+      FAPAI_API_PORT: 8001
+      FAPAI_DB_URL: ${FAPAI_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
+      FAPAI_DB_SCHEMA_GUARD: ${FAPAI_API_DB_SCHEMA_GUARD:-0}
+      FAPAI_DB_AUTO_CREATE: ${FAPAI_API_DB_AUTO_CREATE:-0}
+      FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_API_DB_ENABLE_POSTGIS:-0}
+      FAPAI_COLLECTION_API_LIGHTWEIGHT_STATUS: ${FAPAI_COLLECTION_API_LIGHTWEIGHT_STATUS:-1}
+    ports:
+      - "${FAPAI_API_HOST_PORT:-8001}:8001"
+    volumes:
+      - type: bind
+        source: ${FAPAI_NAS_DATA_ROOT:?set FAPAI_NAS_DATA_ROOT}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_NAS_DATA_ROOT:?set FAPAI_NAS_DATA_ROOT}/datas
+        target: /data/datas
+      - type: bind
+        source: ${FAPAI_NAS_DATA_ROOT:?set FAPAI_NAS_DATA_ROOT}/jobs
+        target: /data/jobs
+      - type: bind
+        source: ${FAPAI_NAS_DATA_ROOT:?set FAPAI_NAS_DATA_ROOT}/secrets
+        target: /data/secrets

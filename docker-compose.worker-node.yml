@@ -1,0 +1,71 @@
+x-worker-node-env: &worker-node-env
+  FAPAI_NODE_ID: ${FAPAI_NODE_ID:?set FAPAI_NODE_ID}
+  FAPAI_API_BASE_URL: ${FAPAI_CENTRAL_API_BASE_URL:-http://192.168.15.200:8001/api}
+  FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@192.168.15.200:55432/fapaifang}
+  FAPAI_COOKIE_SNAPSHOT: /data/secrets/nodes/${FAPAI_NODE_ID:?set FAPAI_NODE_ID}/taobao-cookies.json
+  FAPAI_LIST_BROWSER_FALLBACK: ${FAPAI_LIST_BROWSER_FALLBACK:-1}
+  FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS: ${FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS:-60}
+
+x-worker-node-volumes: &worker-node-volumes
+  - type: bind
+    source: ${FAPAI_SHARED_DATA_ROOT_HOST:?set FAPAI_SHARED_DATA_ROOT_HOST}/output
+    target: /data/output
+  - type: bind
+    source: ${FAPAI_SHARED_DATA_ROOT_HOST:?set FAPAI_SHARED_DATA_ROOT_HOST}/datas
+    target: /data/datas
+  - type: bind
+    source: ${FAPAI_SHARED_DATA_ROOT_HOST:?set FAPAI_SHARED_DATA_ROOT_HOST}/jobs
+    target: /data/jobs
+  - type: bind
+    source: ${FAPAI_SHARED_DATA_ROOT_HOST:?set FAPAI_SHARED_DATA_ROOT_HOST}/secrets
+    target: /data/secrets
+    read_only: true
+
+services:
+  fapaifang-seed-collector:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-seed-collector-2:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-seed-collector-3:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-seed-collector-4:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-seed-collector-5:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-seed-collector-6:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-detail-worker:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-detail-worker-2:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-detail-worker-3:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-detail-analysis-worker:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-detail-analysis-worker-2:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes
+
+  fapaifang-detail-analysis-worker-3:
+    environment: *worker-node-env
+    volumes: *worker-node-volumes

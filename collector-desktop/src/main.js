@@ -5,6 +5,24 @@ const app = document.querySelector("#app");
 const AUTO_REFRESH_INTERVAL_MS = 60_000;
 const REGION_REFRESH_INTERVAL_MS = 600_000;
 
+function isTauriRuntime() {
+  return Boolean(window.__TAURI_INTERNALS__);
+}
+
+async function tryInvoke(command, args) {
+  if (!isTauriRuntime()) {
+    throw new Error("not running inside Tauri");
+  }
+  return invoke(command, args);
+}
+
+function defaultBrowserApiBase() {
+  if (window.location && /^https?:$/.test(window.location.protocol) && window.location.origin) {
+    return window.location.origin;
+  }
+  return "http://127.0.0.1:8001";
+}
+
 app.innerHTML = `
   <header>
     <h1>FapaiFang 采集观察台</h1>
@@ -104,7 +122,7 @@ app.innerHTML = `
 `;
 
 const state = {
-  apiBase: "http://127.0.0.1:8001",
+  apiBase: defaultBrowserApiBase(),
   stage: "links",
   limit: 10,
   offset: 0,
@@ -968,7 +986,15 @@ async function openAuthChallenge() {
 }
 
 async function openAndQueueAuthChallenge(url) {
-  const output = await invoke("open_auth_browser", { url });
+  let output = "";
+  try {
+    output = await tryInvoke("open_auth_browser", { url });
+  } catch (_error) {
+    const opened = window.open(url, "_blank", "noopener,noreferrer");
+    output = opened
+      ? `已在当前浏览器打开认证页面：${url}。请完成认证后回到控制台点击“我已完成认证，开始”。`
+      : `当前浏览器阻止了弹窗。请手动打开认证地址：${url}`;
+  }
   const messages = [
     output || "已打开外部认证浏览器。请在浏览器中完成认证，然后点击“我已完成认证，开始”。",
   ];
@@ -1021,10 +1047,14 @@ async function resumeAfterAuthChallenge() {
       source: "collector_desktop",
       refresh_cookie_snapshot: false,
     }, { timeoutMs: 10_000 });
-    $("authChallengeStatus").textContent = "已通知 API 开始采集；cookie 快照将在后台刷新。";
-    void invoke("export_taobao_cookie_snapshot").catch((error) => {
-      console.warn("后台刷新淘宝 cookie 快照失败", error);
-    });
+    $("authChallengeStatus").textContent = isTauriRuntime()
+      ? "已通知 API 开始采集；cookie 快照将在后台刷新。"
+      : "已通知 API 开始采集。当前为 HTML 控制台，cookie 快照需由采集节点本机维护。";
+    if (isTauriRuntime()) {
+      void tryInvoke("export_taobao_cookie_snapshot").catch((error) => {
+        console.warn("后台刷新淘宝 cookie 快照失败", error);
+      });
+    }
     closeAuthChallenge();
     await reloadAll();
   } catch (error) {
@@ -1113,10 +1143,11 @@ $("refreshRegions").addEventListener("click", () => loadRegions({ silent: false 
 $("resetRegionLinks").addEventListener("click", resetSelectedRegionLinks);
 
 try {
-  state.apiBase = await invoke("default_api_base");
+  state.apiBase = await tryInvoke("default_api_base");
   $("apiBase").value = state.apiBase;
 } catch (_error) {
-  state.apiBase = $("apiBase").value.trim() || "http://127.0.0.1:8001";
+  state.apiBase = $("apiBase").value.trim() || defaultBrowserApiBase();
+  $("apiBase").value = state.apiBase;
 }
 
 await loadRegions();

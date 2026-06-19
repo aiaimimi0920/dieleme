@@ -1450,6 +1450,14 @@ def test_seed_run_progress_event_includes_operator_cycle_summary() -> None:
     }
     assert event["pages_attempted"] == 2
     assert event["new_occurrences"] == 60
+    assert event["last_reason"] is None
+
+    retry_event = seed_collector._seed_run_progress_event(
+        8,
+        [{"decision": "seed_page_retryable_failure", "reason": "list_challenge_page", "counts": {"seed_occurrence_total": 100}}],
+    )
+
+    assert retry_event["last_reason"] == "list_challenge_page"
 
 
 def test_run_seed_collector_loop_writes_partial_cycle_summary_after_each_page(
@@ -1554,7 +1562,7 @@ def test_run_seed_collector_loop_uses_active_sleep_after_productive_run(tmp_path
     }
 
 
-def test_run_seed_collector_loop_keeps_idle_sleep_after_challenge_page(tmp_path: Path, monkeypatch) -> None:
+def test_run_seed_collector_loop_uses_auth_probe_sleep_after_challenge_page(tmp_path: Path, monkeypatch) -> None:
     repo = _make_repo(tmp_path)
     sleep_calls: list[int] = []
     run_results = iter(
@@ -1582,6 +1590,7 @@ def test_run_seed_collector_loop_keeps_idle_sleep_after_challenge_page(tmp_path:
             worker_id="seed-test",
             loop_interval_seconds=7,
             active_loop_interval_seconds=0,
+            auth_probe_interval_seconds=3,
             max_runs=2,
             pages_per_run=1,
             solver_enabled=True,
@@ -1592,7 +1601,7 @@ def test_run_seed_collector_loop_keeps_idle_sleep_after_challenge_page(tmp_path:
         progress_emit_func=lambda _event: None,
     )
 
-    assert sleep_calls == [7]
+    assert sleep_calls == [3]
 
 
 def test_run_seed_collector_loop_retries_after_runtime_context_refresh_failure(tmp_path: Path, monkeypatch) -> None:
