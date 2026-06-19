@@ -18,6 +18,10 @@ def test_collection_page_serves_built_desktop_console_when_dist_exists(monkeypat
     assert asset is not None
     assert asset[0] == b'console.log("built console")'
     assert asset[1] == "application/javascript"
+    root_asset = server._collection_observer_static_asset("/assets/index-test.js")
+    assert root_asset is not None
+    assert root_asset[0] == b'console.log("built console")'
+    assert root_asset[1] == "application/javascript"
 
 
 def test_collection_page_falls_back_to_inline_console_when_dist_missing(monkeypatch, tmp_path) -> None:

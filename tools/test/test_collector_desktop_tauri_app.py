@@ -203,6 +203,8 @@ def test_collector_desktop_frontend_can_run_as_plain_html_console() -> None:
     assert "function isTauriRuntime()" in main_js
     assert "function defaultBrowserApiBase()" in main_js
     assert "window.location.origin" in main_js
+    assert 'value="${defaultBrowserApiBase()}"' in main_js
+    assert "state.apiBase = defaultBrowserApiBase();" in main_js
     assert "not running inside Tauri" in main_js
     assert 'window.open(url, "_blank", "noopener,noreferrer")' in main_js
     assert "当前为 HTML 控制台，cookie 快照需由采集节点本机维护" in main_js

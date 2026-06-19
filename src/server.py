@@ -1135,10 +1135,12 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
 
 
 def _safe_collection_static_path(request_path: str) -> Path | None:
-    prefix = "/collection/"
-    if not request_path.startswith(prefix):
+    if request_path.startswith("/collection/"):
+        relative = unquote(request_path[len("/collection/") :]).strip("/")
+    elif request_path.startswith("/assets/"):
+        relative = unquote(request_path.lstrip("/")).strip("/")
+    else:
         return None
-    relative = unquote(request_path[len(prefix) :]).strip("/")
     if not relative:
         relative = "index.html"
     candidate = (COLLECTOR_DESKTOP_DIST / relative).resolve()
@@ -5993,7 +5995,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(body)
 
-        elif request_path.startswith("/collection/"):
+        elif request_path.startswith("/collection/") or request_path.startswith("/assets/"):
             asset = _collection_observer_static_asset(request_path)
             if asset is None:
                 self.send_error_json(

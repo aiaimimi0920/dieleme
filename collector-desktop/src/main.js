@@ -31,7 +31,7 @@ app.innerHTML = `
   <main>
     <section class="panel">
       <div class="toolbar">
-        <label>API 地址 <input id="apiBase" class="api-base" value="http://127.0.0.1:8001" /></label>
+        <label>API 地址 <input id="apiBase" class="api-base" value="${defaultBrowserApiBase()}" /></label>
         <button id="applyApiBase">应用地址</button>
         <span class="status-line" id="connectionStatus">读取默认 API 地址中...</span>
       </div>
@@ -1115,7 +1115,7 @@ $("next").addEventListener("click", async () => {
   await loadItems();
 });
 $("applyApiBase").addEventListener("click", async () => {
-  state.apiBase = $("apiBase").value.trim() || "http://127.0.0.1:8001";
+  state.apiBase = $("apiBase").value.trim() || defaultBrowserApiBase();
   state.offset = 0;
   state.selectedProvince = "";
   state.selectedCity = "";
@@ -1146,7 +1146,7 @@ try {
   state.apiBase = await tryInvoke("default_api_base");
   $("apiBase").value = state.apiBase;
 } catch (_error) {
-  state.apiBase = $("apiBase").value.trim() || defaultBrowserApiBase();
+  state.apiBase = defaultBrowserApiBase();
   $("apiBase").value = state.apiBase;
 }
 
