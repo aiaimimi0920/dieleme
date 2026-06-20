@@ -196,9 +196,21 @@ def _report_captcha_solver(api_base_url: str, cdp_endpoint: str, target_url: str
     )
 
 
+def _env_bool(name: str, default: bool = False) -> bool:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
 def _build_runtime_context(config: DetailWorkerConfig) -> RuntimeContext:
     cookies = export_cookies(config.cdp_endpoint)
-    return build_http(cookies), load_open_browser_pages(config.cdp_endpoint)
+    browser_pages = (
+        {}
+        if not _env_bool("FAPAI_DETAIL_LOAD_OPEN_BROWSER_PAGES", True)
+        else load_open_browser_pages(config.cdp_endpoint)
+    )
+    return build_http(cookies), browser_pages
 
 
 def _emit_progress_event(event: dict[str, Any]) -> None:

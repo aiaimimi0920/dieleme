@@ -572,6 +572,43 @@ def test_fetch_list_page_reports_solver_when_browser_fallback_disabled(monkeypat
     assert report_calls == [("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=2")]
 
 
+def test_fetch_detail_html_raises_challenge_when_browser_fallback_disabled(monkeypatch) -> None:
+    class _FakeProbe:
+        DEFAULT_USER_AGENT = live_batch_smoke.DEFAULT_USER_AGENT
+
+    class _ChallengeResponse:
+        text = "<html>captcha challenge</html>"
+        url = "https://login.taobao.com/challenge"
+        content = text.encode("utf-8")
+
+        @staticmethod
+        def raise_for_status() -> None:
+            return None
+
+    class _ChallengeHttp:
+        @staticmethod
+        def get(*_args, **_kwargs):
+            return _ChallengeResponse()
+
+    monkeypatch.setenv("FAPAI_DETAIL_BROWSER_FALLBACK", "0")
+    monkeypatch.setattr(live_batch_smoke, "_browserless_seed_probe", lambda: _FakeProbe)
+    monkeypatch.setattr(live_batch_smoke, "is_challenge_page", lambda _html, _url: True)
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "fetch_detail_with_browser",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("detail browser fallback should be disabled")),
+    )
+
+    with pytest.raises(RuntimeError, match="anti-bot challenge"):
+        live_batch_smoke.fetch_detail_html(
+            _ChallengeHttp(),
+            {"id": "3001", "url": "https://sf-item.taobao.com/sf_item/3001.htm"},
+            {},
+            cdp_endpoint="http://127.0.0.1:1",
+            referer_url="https://sf.taobao.com/list/50025969__2.htm",
+        )
+
+
 def test_fetch_list_page_retries_browser_after_http_challenge_until_page_recovers(monkeypatch) -> None:
     class _ChallengeResponse:
         text = "<script>location.href='_____tmd_____/punish?x5secdata=abc'</script>"

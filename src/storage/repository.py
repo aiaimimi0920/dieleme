@@ -2544,8 +2544,25 @@ class PropertyRepository:
         cooldown_seconds = max(int(failure_cooldown_seconds or 0), 0)
         failure_cooldown_cutoff = now - timedelta(seconds=cooldown_seconds) if cooldown_seconds > 0 else None
         with self.session_factory.begin() as session:
-            rows = session.scalars(
-                select(FapaiSeedItem).where(
+            detail_claim_priority = case(
+                (
+                    and_(
+                        FapaiSeedItem.status == "in_progress",
+                        or_(
+                            FapaiSeedItem.detail_lease_until.is_(None),
+                            FapaiSeedItem.detail_lease_until < now,
+                        ),
+                    ),
+                    0,
+                ),
+                (FapaiSeedItem.status == "pending_detail", 1),
+                (FapaiSeedItem.status == "detail_failed", 2),
+                (FapaiSeedItem.status == "in_progress", 3),
+                else_=99,
+            )
+            claim_query = (
+                select(FapaiSeedItem)
+                .where(
                     or_(
                         FapaiSeedItem.status.in_(("pending_detail", "detail_failed")),
                         and_(
@@ -2558,32 +2575,14 @@ class PropertyRepository:
                         ),
                     )
                 )
-            ).all()
-            def detail_claim_priority(row: FapaiSeedItem) -> int:
-                if row.status == "in_progress" and (
-                    row.detail_lease_until is None or row.detail_lease_until < now
-                ):
-                    return 0
-                if row.status == "pending_detail":
-                    return 1
-                if row.status == "detail_failed":
-                    return 2
-                if row.status == "in_progress":
-                    return 3
-                return 99
-
-            ordered = sorted(
-                rows,
-                key=lambda row: (
-                    detail_claim_priority(row),
-                    row.first_seen_at or datetime.min,
-                    row.item_id,
-                ),
+                .order_by(detail_claim_priority, FapaiSeedItem.first_seen_at.asc(), FapaiSeedItem.item_id.asc())
+                .with_for_update(skip_locked=True)
             )
+            if excluded:
+                claim_query = claim_query.where(not_(FapaiSeedItem.item_id.in_(excluded)))
+            rows = session.scalars(claim_query).all()
             claimable_rows = []
-            for row in ordered:
-                if row.item_id in excluded:
-                    continue
+            for row in rows:
                 attempt_count = int(row.detail_attempt_count or 0)
                 if attempt_limit is not None and attempt_count >= attempt_limit:
                     row.status = "detail_blocked"
@@ -2706,8 +2705,15 @@ class PropertyRepository:
         excluded = {str(item_id) for item_id in (exclude_item_ids or ())}
         attempt_limit = max(int(max_analysis_attempts), 1) if max_analysis_attempts is not None else None
         with self.session_factory.begin() as session:
-            rows = session.scalars(
-                select(FapaiSeedItem).where(
+            raw_claim_priority = case(
+                (FapaiSeedItem.status == "raw_detail_captured", 0),
+                (FapaiSeedItem.status == "analysis_failed", 1),
+                (FapaiSeedItem.status == "analysis_in_progress", 2),
+                else_=99,
+            )
+            claim_query = (
+                select(FapaiSeedItem)
+                .where(
                     or_(
                         FapaiSeedItem.status.in_(("raw_detail_captured", "analysis_failed")),
                         and_(
@@ -2720,19 +2726,13 @@ class PropertyRepository:
                         ),
                     )
                 )
-            ).all()
-            status_priority = {"raw_detail_captured": 0, "analysis_failed": 1, "analysis_in_progress": 2}
-            ordered = sorted(
-                rows,
-                key=lambda row: (
-                    status_priority.get(str(row.status), 99),
-                    row.first_seen_at or datetime.min,
-                    row.item_id,
-                ),
+                .order_by(raw_claim_priority, FapaiSeedItem.first_seen_at.asc(), FapaiSeedItem.item_id.asc())
+                .with_for_update(skip_locked=True)
             )
-            for row in ordered:
-                if row.item_id in excluded:
-                    continue
+            if excluded:
+                claim_query = claim_query.where(not_(FapaiSeedItem.item_id.in_(excluded)))
+            rows = session.scalars(claim_query).all()
+            for row in rows:
                 payload = dict(row.source_payload or {})
                 attempt_count = int(payload.get("_analysis_attempt_count") or 0)
                 if attempt_limit is not None and attempt_count >= attempt_limit:

@@ -707,6 +707,13 @@ def list_browser_fallback_enabled() -> bool:
     return raw.strip().lower() not in {"0", "false", "no", "off"}
 
 
+def detail_browser_fallback_enabled() -> bool:
+    raw = os.environ.get("FAPAI_DETAIL_BROWSER_FALLBACK")
+    if raw is None:
+        return True
+    return raw.strip().lower() not in {"0", "false", "no", "off"}
+
+
 def captcha_solver_enabled(*, default: bool = False) -> bool:
     for name in CAPTCHA_SOLVER_ENV_NAMES:
         raw = os.environ.get(name)
@@ -1039,6 +1046,8 @@ def fetch_detail_html(
     response.raise_for_status()
     html = response.text
     if is_challenge_page(html, response.url):
+        if not detail_browser_fallback_enabled():
+            raise RuntimeError(f"HTTP detail request returned anti-bot challenge: {response.url}")
         return fetch_detail_with_browser(seed, cdp_endpoint=cdp_endpoint)
     return html, response.url, len(response.content), "http_cookie"
 

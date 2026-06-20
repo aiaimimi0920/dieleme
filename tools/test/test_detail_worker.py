@@ -300,6 +300,31 @@ def test_build_runtime_context_tolerates_open_browser_page_cache_failure(tmp_pat
     assert browser_pages == {}
 
 
+def test_build_runtime_context_skips_open_browser_page_cache_when_disabled(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setenv("FAPAI_DETAIL_LOAD_OPEN_BROWSER_PAGES", "0")
+    monkeypatch.setattr(detail_worker, "export_cookies", lambda _endpoint: [{"name": "cookie2", "value": "abc"}])
+    monkeypatch.setattr(detail_worker, "build_http", lambda _cookies: "http-session")
+
+    def _fail_load_open_browser_pages(_endpoint):
+        raise AssertionError("open browser page cache should not be loaded")
+
+    monkeypatch.setattr(detail_worker, "load_open_browser_pages", _fail_load_open_browser_pages)
+
+    http_session, browser_pages = detail_worker._build_runtime_context(
+        detail_worker.DetailWorkerConfig(
+            output_dir=tmp_path,
+            cdp_endpoint="http://127.0.0.1:1",
+            target_success=1,
+            max_attempts=1,
+            worker_id="detail-test",
+            do_risk=False,
+        )
+    )
+
+    assert http_session == "http-session"
+    assert browser_pages == {}
+
+
 def test_run_detail_worker_once_marks_retryable_failure(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _seed_one_item(repo)
