@@ -729,6 +729,7 @@ def test_manual_required_auto_retry_queues_solver_after_cooldown(monkeypatch, tm
 
     monkeypatch.setenv("FAPAI_SOLVER_MANUAL_RETRY_INTERVAL_SECONDS", "300")
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
+    monkeypatch.setattr(server, "_probe_solver_cdp_endpoint", lambda endpoint: True)
     monkeypatch.setattr(server, "PAUSED", True)
     monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
     monkeypatch.setattr(server, "SOLVER_RUNNING", False)
@@ -802,6 +803,114 @@ def test_manual_required_auto_retry_respects_cooldown(monkeypatch, tmp_path) -> 
     assert queued == []
     assert server.PAUSED is True
     assert flag_path.exists()
+
+
+def test_manual_required_auto_retry_skips_when_cdp_endpoint_is_unreachable(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    flag_path = tmp_path / "force_unlock.flag"
+    flag_path.write_text("manual verification required", encoding="utf-8")
+    queued: list[dict[str, object]] = []
+
+    monkeypatch.setenv("FAPAI_SOLVER_MANUAL_RETRY_INTERVAL_SECONDS", "300")
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
+    monkeypatch.setattr(server, "_probe_solver_cdp_endpoint", lambda endpoint: False)
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 500.0)
+    monkeypatch.setattr(server, "SOLVER_MANUAL_REQUIRED_EPOCH", 500.0, raising=False)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_REQUEST",
+        {
+            "cdp_endpoint": "http://192.168.15.104:9224",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm?location_code=440115",
+        },
+    )
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_LAST_EPOCH", 500.0, raising=False)
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_ATTEMPTS", 7, raising=False)
+
+    result = server._trigger_manual_solver_retry_if_due(
+        now=900.0,
+        submit_solver=lambda request: queued.append(dict(request)),
+    )
+
+    assert result["queued"] is False
+    assert result["reason"] == "cdp_endpoint_unhealthy"
+    assert result["cdp_endpoint"] == "http://192.168.15.104:9224"
+    assert queued == []
+    # manual_required 状态必须原样保留，不能被清成“可继续采集”
+    assert server.PAUSED is True
+    assert server.SOLVER_LAST_FAILURE_REASON == "manual_required"
+    assert flag_path.exists()
+    # 没有真正提交 solver，attempts 不应增加；但要吃掉一个 cooldown 以免每轮轮询都探测
+    assert server.SOLVER_MANUAL_RETRY_ATTEMPTS == 7
+    assert server.SOLVER_MANUAL_RETRY_LAST_EPOCH == 900.0
+
+
+def test_manual_required_auto_retry_queues_when_cdp_endpoint_is_reachable(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    flag_path = tmp_path / "force_unlock.flag"
+    flag_path.write_text("manual verification required", encoding="utf-8")
+    queued: list[dict[str, object]] = []
+    probed: list[str] = []
+
+    monkeypatch.setenv("FAPAI_SOLVER_MANUAL_RETRY_INTERVAL_SECONDS", "300")
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
+    monkeypatch.setattr(
+        server,
+        "_probe_solver_cdp_endpoint",
+        lambda endpoint: probed.append(endpoint) is None,
+    )
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 500.0)
+    monkeypatch.setattr(server, "SOLVER_MANUAL_REQUIRED_EPOCH", 500.0, raising=False)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_REQUEST",
+        {
+            "cdp_endpoint": "http://host.docker.internal:9223",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm?location_code=440115",
+        },
+    )
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_LAST_EPOCH", 500.0, raising=False)
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_ATTEMPTS", 0, raising=False)
+
+    result = server._trigger_manual_solver_retry_if_due(
+        now=900.0,
+        submit_solver=lambda request: queued.append(dict(request)),
+    )
+
+    assert result["queued"] is True
+    assert result["attempt"] == 1
+    assert probed == ["http://host.docker.internal:9223"]
+    assert len(queued) == 1
+    assert server.PAUSED is False
+    assert not flag_path.exists()
+
+
+def test_probe_solver_cdp_endpoint_reports_unreachable_endpoint_as_unhealthy() -> None:
+    from src import server
+
+    # 端口 1 上不会有 CDP 监听，探测必须返回 False 而不是抛异常
+    assert server._probe_solver_cdp_endpoint("http://127.0.0.1:1") is False
+
+
+def test_probe_solver_cdp_endpoint_treats_missing_endpoint_as_healthy() -> None:
+    from src import server
+
+    # 没有 cdp_endpoint 的请求（例如纯 target_url 重试）不应被探测拦住
+    assert server._probe_solver_cdp_endpoint("") is True
 
 
 def test_manual_required_auto_retry_uses_default_target_when_last_request_is_missing(

@@ -409,6 +409,33 @@ def _solver_max_runtime_seconds() -> int:
     return value
 
 
+def _solver_cdp_probe_timeout_seconds() -> float:
+    raw = os.getenv("FAPAI_SOLVER_CDP_PROBE_TIMEOUT_SECONDS", "3")
+    try:
+        value = float(str(raw or "").strip())
+    except ValueError:
+        value = 3.0
+    return max(0.5, min(value, 30.0))
+
+
+def _probe_solver_cdp_endpoint(cdp_endpoint: str) -> bool:
+    """轻量探测 CDP 是否可达；没有 endpoint 时视为通过。
+
+    manual retry 会先走这里，避免浏览器已经掉线时还不停地清 pause、重投
+    solver，最后把 manual_retry_attempts 刷到几千次。
+    """
+    endpoint = str(cdp_endpoint or "").strip().rstrip("/")
+    if not endpoint:
+        return True
+    try:
+        request = Request(f"{endpoint}/json/version", headers={"Accept": "application/json"})
+        with urlopen(request, timeout=_solver_cdp_probe_timeout_seconds()) as response:
+            json.loads(response.read().decode("utf-8"))
+    except Exception:
+        return False
+    return True
+
+
 def _manual_solver_retry_poll_seconds() -> int:
     raw = os.getenv("FAPAI_SOLVER_MANUAL_RETRY_POLL_SECONDS", "30")
     try:
@@ -522,6 +549,17 @@ def _trigger_manual_solver_retry_if_due(
             "queued": False,
             "reason": "cooldown_active",
             "next_retry_epoch": next_retry_epoch,
+        }
+
+    # CDP 掉线时直接跳过本轮：保留 manual_required，不清 pause、不投 solver。
+    # 只吃掉一个 cooldown，这样探测按 retry interval 走而不是每轮轮询都打一次。
+    retry_cdp_endpoint = str(solver_request.get("cdp_endpoint") or "").strip().rstrip("/")
+    if not _probe_solver_cdp_endpoint(retry_cdp_endpoint):
+        SOLVER_MANUAL_RETRY_LAST_EPOCH = current_time
+        return {
+            "queued": False,
+            "reason": "cdp_endpoint_unhealthy",
+            "cdp_endpoint": retry_cdp_endpoint,
         }
 
     clear_error = _clear_solver_manual_required_pause()
