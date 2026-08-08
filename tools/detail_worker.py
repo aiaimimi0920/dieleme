@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import datetime
 import json
 import os
 import shutil
@@ -54,6 +55,7 @@ class DetailWorkerConfig:
     api_base_url: str = ""
     raw_only: bool = False
     analysis_only: bool = False
+    detail_archive_root: Path | None = None
 
 
 ProcessItemFunc = Callable[[Any, dict[str, Any], dict[str, tuple[str, str]], Any], dict[str, Any]]
@@ -262,6 +264,57 @@ def _copy_raw_artifact(source_value: Any, target_path: Path) -> str | None:
     return str(target_path)
 
 
+def _write_durable_detail_archive(
+    *,
+    archive_root: Path,
+    detail_html_path: Path,
+    item_id: str,
+    captured_at: datetime.datetime | None = None,
+) -> str:
+    """把 raw detail HTML 复制到日期分区的持久归档，返回归档路径。
+
+    `output_dir/{item_id}/detail.html` 是分析阶段用的临时工作副本，会被后续任务
+    覆盖或清掉；线上 228,959 行的 detail_archive_path 全空、磁盘不留 HTML 就是
+    因为生产路径从来没有落过持久副本。抽取逻辑将来改进时，回填需要这份原料。
+
+    路径是确定性的：`{archive_root}/html_archive/{YYYY}/{YYYY-MM-DD}/item-{id}.html`，
+    回填工具可以按 item_id 直接 glob，不依赖 DB 里记的路径。
+    """
+    moment = captured_at or datetime.datetime.now()
+    target_dir = archive_root / "html_archive" / moment.strftime("%Y") / moment.strftime("%Y-%m-%d")
+    target_dir.mkdir(parents=True, exist_ok=True)
+    target_path = target_dir / f"item-{item_id}.html"
+    shutil.copyfile(detail_html_path, target_path)
+    return str(target_path)
+
+
+def _archive_raw_detail_if_configured(
+    *,
+    config: DetailWorkerConfig,
+    detail_html_path: Path,
+    item_id: str,
+) -> str:
+    """按配置归档，且不让归档失败影响已经成功的抓取。
+
+    抓取成本远高于归档：抓取成功后因为磁盘满或权限问题把整条判失败，会让 item
+    重新排队再抓一次，这比丢一份归档更糟。所以这里吞掉异常只记日志。
+    """
+    archive_root = config.detail_archive_root
+    if archive_root is None:
+        return ""
+    if not detail_html_path.is_file():
+        return ""
+    try:
+        return _write_durable_detail_archive(
+            archive_root=Path(archive_root),
+            detail_html_path=detail_html_path,
+            item_id=item_id,
+        )
+    except Exception as archive_error:
+        print(f"[DETAIL-ARCHIVE] durable archive failed for {item_id}: {archive_error}")
+        return ""
+
+
 def _stage_raw_detail_artifacts_for_analysis(seed: dict[str, Any], *, output_dir: Path, item_id: str) -> dict[str, Any]:
     item_dir = output_dir / item_id
     item_dir.mkdir(parents=True, exist_ok=True)
@@ -331,6 +384,11 @@ def run_detail_worker_once(
                 description_json_path=str(description_json_path),
                 selected_json_path=str(selected_json_path),
             )
+            archived_path = _archive_raw_detail_if_configured(
+                config=config,
+                detail_html_path=detail_html_path,
+                item_id=item_id,
+            )
             summary = {
                 "decision": "detail_item_raw_captured",
                 "item_id": item_id,
@@ -340,6 +398,8 @@ def run_detail_worker_once(
                 "selected_json_path": str(selected_json_path),
                 "counts": repository.seed_queue_counts(),
             }
+            if archived_path:
+                summary["detail_archive_path"] = archived_path
             _write_runtime_summary(config.output_dir, summary)
             return summary
         final_item = _load_final_item(config.output_dir, item_id)
@@ -699,6 +759,12 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailW
     )
     parser.add_argument("--api-base-url", default=os.getenv("FAPAI_API_BASE_URL", ""))
     parser.add_argument(
+        "--detail-archive-root",
+        type=Path,
+        default=(Path(os.environ["FAPAI_DETAIL_ARCHIVE_ROOT"]) if os.getenv("FAPAI_DETAIL_ARCHIVE_ROOT") else None),
+        help="raw detail HTML 持久归档根目录；不设则不归档",
+    )
+    parser.add_argument(
         "--solver-enabled",
         "--captcha-solver-enabled",
         action="store_true",
@@ -734,6 +800,7 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailW
             api_base_url=_clean_text(args.api_base_url),
             raw_only=False if analysis_only else bool(args.raw_only),
             analysis_only=analysis_only,
+            detail_archive_root=args.detail_archive_root,
         ),
         bool(args.loop),
     )
