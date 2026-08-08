@@ -24,6 +24,10 @@ x-worker-node-detail-env: &worker-node-detail-env
   FAPAI_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS: ${FAPAI_WORKER_NODE_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS:-30}
   FAPAI_DETAIL_LOAD_OPEN_BROWSER_PAGES: ${FAPAI_WORKER_NODE_DETAIL_LOAD_OPEN_BROWSER_PAGES:-0}
   FAPAI_DETAIL_BROWSER_FALLBACK: ${FAPAI_WORKER_NODE_DETAIL_BROWSER_FALLBACK:-0}
+  # /data/datas 是下面必挂的 bind，所以这里默认打开 raw detail 持久归档。
+  # 代码层是 opt-in，但漏配一个变量就会让归档静默失效，而缺归档原料正是
+  # 历史上 228,959 行风险字段无法回填的原因。
+  FAPAI_DETAIL_ARCHIVE_ROOT: ${FAPAI_DETAIL_ARCHIVE_ROOT:-/data/datas}
 
 x-worker-node-volumes: &worker-node-volumes
   - type: bind

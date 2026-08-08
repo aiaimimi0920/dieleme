@@ -300,6 +300,7 @@ def build_detail_worker_command(env: Mapping[str, str]) -> list[str]:
     append_option(command, "--lease-seconds", env_text(env, "FAPAI_DETAIL_LEASE_SECONDS"))
     append_option(command, "--failure-cooldown-seconds", env_text(env, "FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS"))
     append_option(command, "--api-base-url", env_text(env, "FAPAI_API_BASE_URL"))
+    append_option(command, "--detail-archive-root", env_text(env, "FAPAI_DETAIL_ARCHIVE_ROOT"))
     raw_only = False if analysis_only else env_flag(env, "FAPAI_DETAIL_RAW_ONLY", False)
     if analysis_only:
         command.append("--analysis-only")

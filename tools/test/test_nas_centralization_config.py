@@ -66,6 +66,38 @@ def test_nas_and_worker_compose_templates_exist_and_separate_roles() -> None:
     assert "FAPAI_NAS_DATA_ROOT" in nas_env
 
 
+def test_detail_worker_command_passes_durable_archive_root() -> None:
+    command = docker_entrypoint.build_detail_worker_command(
+        {
+            "FAPAI_NODE_ID": "pc2",
+            "FAPAI_DETAIL_ARCHIVE_ROOT": "/data/datas",
+        }
+    )
+
+    assert command[command.index("--detail-archive-root") + 1] == "/data/datas"
+
+
+def test_detail_worker_command_omits_archive_root_when_unset() -> None:
+    command = docker_entrypoint.build_detail_worker_command({"FAPAI_NODE_ID": "pc2"})
+
+    assert "--detail-archive-root" not in command
+
+
+def test_worker_node_compose_defaults_archive_root_to_mounted_datas() -> None:
+    """容器里 /data/datas 是必挂的 bind，默认打开归档避免这一步被忘掉。
+
+    代码层保持 opt-in（不配就不归档），但 worker 容器里挂载一定存在，
+    所以在 compose 里给默认值。否则漏配一个环境变量就会让持久归档静默失效，
+    而这正是 228,959 行没有归档原料的成因。
+    """
+    compose = (REPO_ROOT / "docker-compose.worker-node.yml").read_text(encoding="utf-8")
+
+    assert "${FAPAI_DETAIL_ARCHIVE_ROOT:-/data/datas}" in compose
+
+    detail_env_block = compose.split("x-worker-node-detail-env:")[1].split("x-worker-node-volumes:")[0]
+    assert "FAPAI_DETAIL_ARCHIVE_ROOT" in detail_env_block, "归档变量必须在 detail env 块里"
+
+
 def test_dockerfile_builds_and_copies_collector_desktop_dist_for_html_console() -> None:
     dockerfile = (REPO_ROOT / "Dockerfile").read_text(encoding="utf-8")
     dockerignore = (REPO_ROOT / ".dockerignore").read_text(encoding="utf-8")
