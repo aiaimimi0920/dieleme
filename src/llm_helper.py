@@ -1311,6 +1311,64 @@ def validate_avm_risk_features_schema(features, item_id=None):
     return passed, errors
 
 
+def sanitize_avm_risk_features(features, item_id=None):
+    """按字段降级清洗抽取结果，返回 (sanitized, dropped_fields)。
+
+    与 `validate_avm_risk_features_schema` 的整条否决不同，这里把不合规的
+    单个字段置为 None 并记录，其余字段原样保留。整条否决在线上造成过
+    228,959 条记录风险字段全空：`orientation` 返回“东南”这类枚举外的真实值
+    会把同一条里已正确抽出的 is_occupied / clear_delivery / build_year 一起
+    丢掉。结构性错误（非 dict）无法字段级降级，仍整体拒绝。
+    """
+    item_label = item_id if item_id is not None else "unknown"
+
+    if not isinstance(features, dict):
+        print(f"[AVM-RISK][SANITIZE REJECT] item={item_label}: payload is not a dict")
+        return None, []
+
+    sanitized = dict(features)
+    dropped = []
+
+    def _drop(key, reason):
+        sanitized[key] = None
+        dropped.append(key)
+        print(f"[AVM-RISK][FIELD DROPPED] item={item_label}: {key} ({reason})")
+
+    for key in AVM_RISK_BOOLEAN_FIELDS:
+        value = sanitized.get(key)
+        if value is not None and not isinstance(value, bool):
+            _drop(key, f"expects bool/null, got {type(value).__name__}")
+
+    for key in AVM_RISK_NUMERIC_FIELDS:
+        value = sanitized.get(key)
+        # bool 是 int 的子类，这里要排除，否则 True 会被当成数字放过
+        if value is not None and (isinstance(value, bool) or not isinstance(value, (int, float))):
+            _drop(key, f"expects number/null, got {type(value).__name__}")
+
+    for key, allowed in AVM_RISK_ENUM_FIELDS.items():
+        value = sanitized.get(key)
+        if value is not None and value not in allowed:
+            _drop(key, f"enum invalid value {value!r}")
+
+    confidence = sanitized.get("extraction_confidence")
+    if confidence is not None:
+        if isinstance(confidence, bool) or not isinstance(confidence, (int, float)):
+            _drop("extraction_confidence", f"expects number/null, got {type(confidence).__name__}")
+        elif confidence < 0 or confidence > 1:
+            _drop("extraction_confidence", f"out of range {confidence}")
+
+    evidence_span = sanitized.get("evidence_span")
+    if evidence_span is not None and not isinstance(evidence_span, (str, list)):
+        _drop("evidence_span", f"expects str/list/null, got {type(evidence_span).__name__}")
+
+    if dropped:
+        print(f"[AVM-RISK][SANITIZED] item={item_label}: dropped={dropped}")
+    else:
+        print(f"[AVM-RISK][SANITIZE CLEAN] item={item_label}")
+
+    return sanitized, dropped
+
+
 def _normalize_evidence_source(value):
     allowed_sources = {"公告", "须知", "评估报告", "页面主文"}
     if isinstance(value, str):
@@ -1364,11 +1422,13 @@ def extract_avm_risk_features(page_text, item_id=None):
     if features.get("evidence_span") is None:
         features["evidence_span"] = ""
 
-    passed, errors = validate_avm_risk_features_schema(features, item_id=item_id)
-    if not passed:
-        return None
+    # 保留一次整条校验，纯粹为了把问题字段打进日志便于观测
+    validate_avm_risk_features_schema(features, item_id=item_id)
 
-    return features
+    # 落库走字段级降级：坏字段置 None，好字段保留。整条否决会让单个枚举外的
+    # 真实值（如 orientation="东南"）带走同一条里所有正确抽取的风险字段。
+    sanitized, _dropped = sanitize_avm_risk_features(features, item_id=item_id)
+    return sanitized
 
 def _strip_json_markdown(result):
     if "```json" in result:
