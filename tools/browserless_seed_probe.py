@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 import re
+import time
 from html import unescape
 from pathlib import Path
 from datetime import datetime
@@ -26,6 +27,8 @@ DEFAULT_TARGET_URL = (
 )
 DEFAULT_COOKIE_ORIGINS = ("https://sf.taobao.com", "https://login.taobao.com")
 DEFAULT_CDP_CONNECT_TIMEOUT_MS = 20_000
+DEFAULT_CDP_RECONNECT_ATTEMPTS = 3
+DEFAULT_CDP_RECONNECT_BACKOFF_SECONDS = 0.5
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -91,12 +94,67 @@ def _export_cdp_cookies_via_websocket(cdp_endpoint: str, origins: Iterable[str])
     return filter_cdp_cookies_to_origins(cookies, origins)
 
 
+def cdp_endpoint_is_healthy(cdp_endpoint: str, *, timeout_seconds: float = 3.0) -> bool:
+    normalized = str(cdp_endpoint or "").strip().rstrip("/")
+    if not normalized:
+        return False
+    if normalized.startswith(("ws://", "wss://")):
+        return True
+    session = requests.Session()
+    session.trust_env = False
+    for path, expected_type in (("/json/version", dict), ("/json/list", list)):
+        try:
+            response = session.get(f"{normalized}{path}", timeout=timeout_seconds)
+            response.raise_for_status()
+            if isinstance(response.json(), expected_type):
+                return True
+        except Exception:
+            continue
+    return False
+
+
+def _cdp_reconnect_attempts() -> int:
+    raw = os.environ.get("FAPAI_CDP_RECONNECT_ATTEMPTS", str(DEFAULT_CDP_RECONNECT_ATTEMPTS))
+    try:
+        value = int(str(raw or "").strip())
+    except ValueError:
+        value = DEFAULT_CDP_RECONNECT_ATTEMPTS
+    return max(1, min(value, 10))
+
+
+def _cdp_reconnect_backoff_seconds() -> float:
+    raw = os.environ.get("FAPAI_CDP_RECONNECT_BACKOFF_SECONDS", str(DEFAULT_CDP_RECONNECT_BACKOFF_SECONDS))
+    try:
+        value = float(str(raw or "").strip())
+    except ValueError:
+        value = DEFAULT_CDP_RECONNECT_BACKOFF_SECONDS
+    return max(0.0, min(value, 30.0))
+
+
 def export_cdp_cookies(cdp_endpoint: str, origins: Iterable[str] = DEFAULT_COOKIE_ORIGINS) -> list[dict[str, Any]]:
     origin_list = tuple(origins)
-    try:
-        return _export_cdp_cookies_via_websocket(cdp_endpoint, origin_list)
-    except Exception:
-        return _export_cdp_cookies_via_playwright(cdp_endpoint, origin_list)
+    attempts = _cdp_reconnect_attempts()
+    backoff = _cdp_reconnect_backoff_seconds()
+    last_error: BaseException | None = None
+    for attempt in range(1, attempts + 1):
+        if attempt > 1 and not cdp_endpoint_is_healthy(cdp_endpoint):
+            last_error = RuntimeError(f"CDP health check failed before reconnect attempt {attempt}")
+            if attempt < attempts and backoff > 0:
+                time.sleep(backoff * attempt)
+            continue
+        try:
+            return _export_cdp_cookies_via_websocket(cdp_endpoint, origin_list)
+        except Exception as error:
+            last_error = error
+        try:
+            return _export_cdp_cookies_via_playwright(cdp_endpoint, origin_list)
+        except Exception as error:
+            last_error = error
+        if attempt < attempts and backoff > 0:
+            time.sleep(backoff * attempt)
+    raise RuntimeError(
+        f"CDP cookie export unavailable after {attempts} bounded attempts for {cdp_endpoint}"
+    ) from last_error
 
 
 def _cdp_websocket_cache_path() -> Path | None:

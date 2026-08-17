@@ -6,6 +6,8 @@ import importlib.util
 from datetime import datetime
 from pathlib import Path
 
+import pytest
+
 from tools import browserless_seed_probe
 
 
@@ -290,6 +292,72 @@ def test_export_cdp_cookies_falls_back_to_playwright_when_websocket_export_fails
 
     assert cookies == [{"name": "cookie2", "domain": ".taobao.com"}]
     assert calls == ["websocket", "playwright"]
+
+
+def test_export_cdp_cookies_reconnects_after_connection_reset(monkeypatch):
+    calls: list[str] = []
+    websocket_attempts = [ConnectionResetError("connection reset"), [{"name": "cookie2", "domain": ".taobao.com"}]]
+
+    def websocket_export(*_args, **_kwargs):
+        calls.append("websocket")
+        result = websocket_attempts.pop(0)
+        if isinstance(result, Exception):
+            raise result
+        return result
+
+    def playwright_export(*_args, **_kwargs):
+        calls.append("playwright")
+        raise ConnectionResetError("read ECONNRESET")
+
+    monkeypatch.setenv("FAPAI_CDP_RECONNECT_ATTEMPTS", "3")
+    monkeypatch.setenv("FAPAI_CDP_RECONNECT_BACKOFF_SECONDS", "0")
+    monkeypatch.setattr(browserless_seed_probe, "_export_cdp_cookies_via_websocket", websocket_export)
+    monkeypatch.setattr(browserless_seed_probe, "_export_cdp_cookies_via_playwright", playwright_export)
+    monkeypatch.setattr(
+        browserless_seed_probe,
+        "cdp_endpoint_is_healthy",
+        lambda endpoint: calls.append(f"health:{endpoint}") or True,
+    )
+
+    cookies = browserless_seed_probe.export_cdp_cookies("http://192.168.15.104:9224")
+
+    assert cookies == [{"name": "cookie2", "domain": ".taobao.com"}]
+    assert calls == [
+        "websocket",
+        "playwright",
+        "health:http://192.168.15.104:9224",
+        "websocket",
+    ]
+
+
+def test_export_cdp_cookies_stops_after_bounded_reconnect_attempts(monkeypatch):
+    calls: list[str] = []
+
+    def fail(transport: str):
+        def _fail(*_args, **_kwargs):
+            calls.append(transport)
+            raise ConnectionResetError(transport)
+
+        return _fail
+
+    monkeypatch.setenv("FAPAI_CDP_RECONNECT_ATTEMPTS", "2")
+    monkeypatch.setenv("FAPAI_CDP_RECONNECT_BACKOFF_SECONDS", "0")
+    monkeypatch.setattr(browserless_seed_probe, "_export_cdp_cookies_via_websocket", fail("websocket"))
+    monkeypatch.setattr(browserless_seed_probe, "_export_cdp_cookies_via_playwright", fail("playwright"))
+    monkeypatch.setattr(
+        browserless_seed_probe,
+        "cdp_endpoint_is_healthy",
+        lambda endpoint: calls.append(f"health:{endpoint}") or False,
+    )
+
+    with pytest.raises(RuntimeError, match="2 bounded attempts"):
+        browserless_seed_probe.export_cdp_cookies("http://192.168.15.104:9224")
+
+    assert calls == [
+        "websocket",
+        "playwright",
+        "health:http://192.168.15.104:9224",
+    ]
 
 
 def test_browserless_seed_probe_imports_when_playwright_is_not_installed(monkeypatch):

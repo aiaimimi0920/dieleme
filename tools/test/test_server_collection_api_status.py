@@ -734,7 +734,11 @@ def test_collection_observer_auth_complete_clears_pause_and_marks_manual_auth(mo
     from src import server
 
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "_refresh_auth_cookie_snapshot", lambda _payload: {"refreshed": False, "reason": "disabled"})
+    monkeypatch.setattr(
+        server,
+        "_schedule_auth_cookie_snapshot_refresh",
+        lambda _payload, _completion_id: {"status": "skipped", "refreshed": False, "retry_queued": False},
+    )
     monkeypatch.setattr(server, "PAUSED", True)
     monkeypatch.setattr(server, "SOLVER_RUNNING", True)
     monkeypatch.setattr(server, "SOLVER_START_TIME", time.time() - 10)
@@ -748,6 +752,7 @@ def test_collection_observer_auth_complete_clears_pause_and_marks_manual_auth(mo
 
     assert payload["ok"] is True
     assert payload["action"] == "auth_complete"
+    assert payload["auth_state_confirmed"] is True
     assert payload["runtime_state"] == "运行中"
     assert payload["manual_auth_completed"] is True
     assert server.PAUSED is False
@@ -759,35 +764,44 @@ def test_collection_observer_auth_complete_clears_pause_and_marks_manual_auth(mo
     assert not (tmp_path / "force_unlock.flag").exists()
 
 
-def test_collection_observer_auth_complete_refreshes_cookie_snapshot_before_resuming(monkeypatch, tmp_path) -> None:
+def test_collection_observer_auth_complete_schedules_cookie_snapshot_without_blocking_resume(monkeypatch, tmp_path) -> None:
     from src import server
 
     calls: list[dict[str, object]] = []
 
-    def fake_refresh(payload: dict[str, object]) -> dict[str, object]:
-        calls.append(dict(payload))
+    def fake_schedule(payload: dict[str, object], completion_id: str | None) -> dict[str, object]:
+        calls.append({**dict(payload), "scheduled_completion_id": completion_id})
         return {
-            "refreshed": True,
-            "path": "/data/secrets/taobao-cookies.json",
-            "cookie_count": 49,
-            "cdp_endpoint": "http://host.docker.internal:9223",
+            "status": "pending",
+            "refreshed": False,
+            "retry_queued": True,
+            "completion_id": completion_id,
         }
 
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "_refresh_auth_cookie_snapshot", fake_refresh)
+    monkeypatch.setattr(server, "_schedule_auth_cookie_snapshot_refresh", fake_schedule)
     monkeypatch.setattr(server, "PAUSED", True)
     monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
     monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
-    payload = server._collection_observer_auth_complete_payload({"source": "desktop"})
+    payload = server._collection_observer_auth_complete_payload(
+        {"source": "desktop", "completion_id": "desktop-completion-1"}
+    )
 
-    assert calls == [{"source": "desktop"}]
+    assert calls == [
+        {
+            "source": "desktop",
+            "completion_id": "desktop-completion-1",
+            "scheduled_completion_id": "desktop-completion-1",
+        }
+    ]
     assert payload["ok"] is True
     assert payload["paused"] is False
     assert payload["captcha_solver"]["manual_required"] is False
-    assert payload["cookie_snapshot"]["refreshed"] is True
-    assert payload["cookie_snapshot"]["cookie_count"] == 49
+    assert payload["auth_state_confirmed"] is True
+    assert payload["cookie_snapshot"]["status"] == "pending"
+    assert payload["cookie_snapshot"]["retry_queued"] is True
     assert server.SOLVER_LAST_STATUS == "manual_auth_completed"
     assert not (tmp_path / "force_unlock.flag").exists()
 
@@ -795,11 +809,18 @@ def test_collection_observer_auth_complete_refreshes_cookie_snapshot_before_resu
 def test_collection_observer_auth_complete_keeps_resume_when_cookie_refresh_fails(monkeypatch, tmp_path) -> None:
     from src import server
 
-    def fake_refresh(_payload: dict[str, object]) -> dict[str, object]:
-        raise RuntimeError("cdp unavailable")
-
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "_refresh_auth_cookie_snapshot", fake_refresh)
+    monkeypatch.setattr(
+        server,
+        "_schedule_auth_cookie_snapshot_refresh",
+        lambda _payload, completion_id: {
+            "status": "failed",
+            "completion_id": completion_id,
+            "refreshed": False,
+            "retry_queued": False,
+            "result": {"error": "cdp unavailable"},
+        },
+    )
     monkeypatch.setattr(server, "PAUSED", True)
     monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
     monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
@@ -807,10 +828,183 @@ def test_collection_observer_auth_complete_keeps_resume_when_cookie_refresh_fail
     payload = server._collection_observer_auth_complete_payload({"source": "desktop"})
 
     assert payload["ok"] is True
+    assert payload["auth_state_confirmed"] is True
     assert payload["paused"] is False
     assert payload["cookie_snapshot"]["refreshed"] is False
-    assert "cdp unavailable" in payload["cookie_snapshot"]["error"]
+    assert "cdp unavailable" in payload["cookie_snapshot"]["result"]["error"]
     assert server.SOLVER_LAST_STATUS == "manual_auth_completed"
+
+
+def test_collection_observer_auth_complete_is_idempotent_for_repeated_completion_id(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    completion_id = "pc2-completion-idempotent"
+    monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
+    monkeypatch.setattr(
+        server,
+        "_schedule_auth_cookie_snapshot_refresh",
+        lambda _payload, current_id: {
+            "status": "pending",
+            "completion_id": current_id,
+            "refreshed": False,
+            "retry_queued": True,
+        },
+    )
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
+
+    first = server._collection_observer_auth_complete_payload(
+        {"source": "pc2_local_solver", "completion_id": completion_id}
+    )
+    server.AUTH_COMPLETION_CONFIRMATIONS.clear()
+    second = server._collection_observer_auth_complete_payload(
+        {"source": "pc2_local_solver", "completion_id": completion_id}
+    )
+
+    assert first["ok"] is True
+    assert first["auth_state_confirmed"] is True
+    assert first["idempotent"] is False
+    assert second["ok"] is True
+    assert second["auth_state_confirmed"] is True
+    assert second["idempotent"] is True
+    assert second["completion_id"] == completion_id
+    assert second["captcha_solver"]["manual_required"] is False
+    assert second["captcha_solver"]["force_unlock_flag_exists"] is False
+
+
+def test_repeated_old_completion_id_does_not_clear_a_new_manual_required_state(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    completion_id = "pc2-old-completion"
+    monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
+    monkeypatch.setattr(
+        server,
+        "_schedule_auth_cookie_snapshot_refresh",
+        lambda _payload, current_id: {
+            "status": "completed",
+            "completion_id": current_id,
+            "refreshed": True,
+            "retry_queued": False,
+        },
+    )
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    flag_path = tmp_path / "force_unlock.flag"
+    flag_path.write_text("first challenge", encoding="utf-8")
+
+    first = server._collection_observer_auth_complete_payload(
+        {"source": "pc2_local_solver", "completion_id": completion_id}
+    )
+    assert first["auth_state_confirmed"] is True
+
+    server.AUTH_COMPLETION_CONFIRMATIONS.clear()
+    server.PAUSED = True
+    server.COLLECTION_PAUSE_REASON = "manual_required"
+    server.SOLVER_LAST_STATUS = "manual_required"
+    server.SOLVER_LAST_FAILURE_REASON = "manual_required"
+    flag_path.write_text("new challenge", encoding="utf-8")
+
+    stale = server._collection_observer_auth_complete_payload(
+        {"source": "pc2_local_solver", "completion_id": completion_id}
+    )
+
+    assert stale["ok"] is False
+    assert stale["auth_state_confirmed"] is False
+    assert "stale" in stale["error"]
+    assert flag_path.exists()
+    assert server.PAUSED is True
+    assert server.SOLVER_LAST_STATUS == "manual_required"
+
+
+def test_collection_observer_auth_complete_rejects_unconfirmed_cleanup(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(server, "_clear_solver_manual_required_pause", lambda: "file is busy")
+    monkeypatch.setattr(
+        server,
+        "_schedule_auth_cookie_snapshot_refresh",
+        lambda _payload, completion_id: {
+            "status": "pending",
+            "completion_id": completion_id,
+            "refreshed": False,
+            "retry_queued": True,
+        },
+    )
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
+
+    payload = server._collection_observer_auth_complete_payload(
+        {"source": "pc2_local_solver", "completion_id": "pc2-unconfirmed"}
+    )
+
+    assert payload["ok"] is False
+    assert payload["auth_state_confirmed"] is False
+    assert payload["captcha_solver"]["manual_required"] is True
+    assert payload["captcha_solver"]["force_unlock_flag_exists"] is True
+    assert "file is busy" in payload["error"]
+
+
+def test_auth_cookie_snapshot_retry_records_failure_then_success(monkeypatch) -> None:
+    from src import server
+
+    results: list[object] = [
+        RuntimeError("CDP reset"),
+        {"refreshed": False, "reason": "cookie_snapshot_candidate_unhealthy"},
+        {"refreshed": True, "cookie_count": 5},
+    ]
+
+    def fake_refresh(_payload):
+        result = results.pop(0)
+        if isinstance(result, Exception):
+            raise result
+        return result
+
+    monkeypatch.setattr(server, "AUTH_COOKIE_SNAPSHOT_STATE", {})
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_attempts", lambda: 3)
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_backoff_seconds", lambda: 0)
+    monkeypatch.setattr(server, "_refresh_auth_cookie_snapshot", fake_refresh)
+
+    server._run_auth_cookie_snapshot_retry({}, "pc2-cookie-retry")
+    status = server._auth_cookie_snapshot_runtime_status()
+
+    assert status["status"] == "completed"
+    assert status["completion_id"] == "pc2-cookie-retry"
+    assert status["attempts"] == 3
+    assert status["refreshed"] is True
+    assert status["result"]["cookie_count"] == 5
+
+
+def test_auth_cookie_snapshot_retry_stops_after_bounded_attempts(monkeypatch) -> None:
+    from src import server
+
+    calls: list[int] = []
+    monkeypatch.setattr(server, "AUTH_COOKIE_SNAPSHOT_STATE", {})
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_attempts", lambda: 2)
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_backoff_seconds", lambda: 0)
+    monkeypatch.setattr(
+        server,
+        "_refresh_auth_cookie_snapshot",
+        lambda _payload: calls.append(1) or {"refreshed": False, "reason": "cdp_endpoint_unhealthy"},
+    )
+
+    server._run_auth_cookie_snapshot_retry({}, "pc2-cookie-failed")
+    status = server._auth_cookie_snapshot_runtime_status()
+
+    assert len(calls) == 2
+    assert status["status"] == "failed"
+    assert status["attempts"] == 2
+    assert status["retry_queued"] is False
 
 
 def test_refresh_auth_cookie_snapshot_writes_only_after_healthy_probe(monkeypatch, tmp_path) -> None:

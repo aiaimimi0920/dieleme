@@ -587,6 +587,78 @@ def test_connect_browser_over_cdp_prefers_browser_websocket_url_for_http_endpoin
     assert calls == [("ws://192.168.15.104:9224/devtools/browser/browser-1", 120000)]
 
 
+def test_connect_browser_over_cdp_reconnects_after_connection_reset(monkeypatch) -> None:
+    calls: list[str] = []
+
+    class _Chromium:
+        @staticmethod
+        def connect_over_cdp(endpoint: str, *, timeout: int):
+            calls.append(f"connect:{endpoint}:{timeout}")
+            if len([event for event in calls if event.startswith("connect:")]) == 1:
+                raise ConnectionResetError("read ECONNRESET")
+            return {"endpoint": endpoint}
+
+    class _Playwright:
+        chromium = _Chromium()
+
+    monkeypatch.setenv("FAPAI_CDP_RECONNECT_ATTEMPTS", "3")
+    monkeypatch.setenv("FAPAI_CDP_RECONNECT_BACKOFF_SECONDS", "0")
+    monkeypatch.setattr(live_batch_smoke, "compact_cdp_page_targets_if_needed", lambda _endpoint: {"triggered": False})
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "resolve_playwright_cdp_endpoint",
+        lambda endpoint: calls.append(f"resolve:{endpoint}") or endpoint,
+    )
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "_cdp_endpoint_healthy_for_reconnect",
+        lambda endpoint: calls.append(f"health:{endpoint}") or True,
+    )
+
+    browser = live_batch_smoke.connect_browser_over_cdp(_Playwright(), "http://127.0.0.1:9223")
+
+    assert browser == {"endpoint": "http://127.0.0.1:9223"}
+    assert calls == [
+        "resolve:http://127.0.0.1:9223",
+        "connect:http://127.0.0.1:9223:120000",
+        "health:http://127.0.0.1:9223",
+        "resolve:http://127.0.0.1:9223",
+        "connect:http://127.0.0.1:9223:120000",
+    ]
+
+
+def test_connect_browser_over_cdp_raises_after_bounded_reconnects(monkeypatch) -> None:
+    calls: list[str] = []
+
+    class _Chromium:
+        @staticmethod
+        def connect_over_cdp(endpoint: str, *, timeout: int):
+            calls.append(f"connect:{endpoint}:{timeout}")
+            raise ConnectionResetError("read ECONNRESET")
+
+    class _Playwright:
+        chromium = _Chromium()
+
+    monkeypatch.setenv("FAPAI_CDP_RECONNECT_ATTEMPTS", "2")
+    monkeypatch.setenv("FAPAI_CDP_RECONNECT_BACKOFF_SECONDS", "0")
+    monkeypatch.setattr(live_batch_smoke, "compact_cdp_page_targets_if_needed", lambda _endpoint: {"triggered": False})
+    monkeypatch.setattr(live_batch_smoke, "resolve_playwright_cdp_endpoint", lambda endpoint: endpoint)
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "_cdp_endpoint_healthy_for_reconnect",
+        lambda endpoint: calls.append(f"health:{endpoint}") or False,
+    )
+
+    with pytest.raises(live_batch_smoke.CdpEndpointUnavailableError) as error:
+        live_batch_smoke.connect_browser_over_cdp(_Playwright(), "http://192.168.15.104:9224")
+
+    assert error.value.operation == "connect_over_cdp_bounded_reconnect"
+    assert calls == [
+        "connect:http://192.168.15.104:9224:120000",
+        "health:http://192.168.15.104:9224",
+    ]
+
+
 def test_resolve_playwright_cdp_endpoint_ignores_host_proxy_env(monkeypatch) -> None:
     calls: list[dict[str, object]] = []
 

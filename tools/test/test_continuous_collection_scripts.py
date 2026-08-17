@@ -696,6 +696,24 @@ def test_pc2_host_direct_launch_script_runs_persistent_watchdog_with_detached_wo
     assert "Start-Process" not in script
 
 
+def test_pc2_local_solver_launcher_uses_only_local_9223() -> None:
+    script = _pc2_host_script("start-pc2-local-solver.ps1")
+
+    assert "http://127.0.0.1:9223" in script
+    assert "--cdp-endpoint $CdpEndpoint" in script
+    assert "9225" not in script
+
+
+def test_pc2_report_cdp_forwarder_targets_solver_port_9223() -> None:
+    script = _pc2_host_script("configure-pc2-report-cdp-forwarder.ps1")
+
+    assert "[int]$ReportPort = 9224" in script
+    assert "[int]$TargetPort = 9223" in script
+    assert "netsh.exe interface portproxy" in script
+    assert "Test-NetConnection $TargetAddress -Port $TargetPort" in script
+    assert "9225" not in script
+
+
 def test_pc2_host_watchdog_cools_down_analysis_workers_when_llm_backend_is_unavailable() -> None:
     script = _pc2_host_script("launch-host-direct-workers.ps1")
 

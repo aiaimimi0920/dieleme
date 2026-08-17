@@ -1,5 +1,5 @@
 from __future__ import annotations
-import datetime, json, os, sys, time, traceback
+import datetime, json, os, sys, time, traceback, uuid
 from pathlib import Path
 from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -10,6 +10,11 @@ DEFAULT_API_BASE_URL = os.environ.get("FAPAI_API_BASE_URL", "http://192.168.15.2
 DEFAULT_CDP_ENDPOINT = os.environ.get("FAPAI_CDP_ENDPOINT", "http://127.0.0.1:9223")
 DEFAULT_POLL_SECONDS = int(os.environ.get("FAPAI_LOCAL_SOLVER_POLL_SECONDS", "10"))
 DEFAULT_MAX_ATTEMPTS = int(os.environ.get("FAPAI_LOCAL_SOLVER_MAX_ATTEMPTS", "50"))
+AUTH_COMPLETE_REQUEST_ATTEMPTS = int(os.environ.get("FAPAI_AUTH_COMPLETE_REQUEST_ATTEMPTS", "3"))
+AUTH_COMPLETE_REQUEST_TIMEOUT_SECONDS = float(os.environ.get("FAPAI_AUTH_COMPLETE_REQUEST_TIMEOUT_SECONDS", "15"))
+AUTH_COMPLETE_REQUEST_BACKOFF_SECONDS = float(os.environ.get("FAPAI_AUTH_COMPLETE_REQUEST_BACKOFF_SECONDS", "1"))
+AUTH_COMPLETE_RETRY_BASE_SECONDS = float(os.environ.get("FAPAI_AUTH_COMPLETE_RETRY_BASE_SECONDS", "5"))
+AUTH_COMPLETE_RETRY_MAX_SECONDS = float(os.environ.get("FAPAI_AUTH_COMPLETE_RETRY_MAX_SECONDS", "60"))
 def _status_url(api_base: str) -> str:
     return api_base.rstrip("/") + "/status"
 
@@ -61,17 +66,71 @@ def node_owns_last_request(solver_status, local_cdp_endpoint, expected_node_id=N
     if reported_cdp and cdp_endpoint_matches_local(reported_cdp, local_cdp_endpoint): return True
     return False
 
-def notify_auth_complete(api_base, source="pc2_local_solver", refresh_cookie_snapshot=True):
+def notify_auth_complete(
+    api_base,
+    source="pc2_local_solver",
+    refresh_cookie_snapshot=True,
+    completion_id=None,
+):
     url = _auth_complete_url(api_base)
-    try:
-        payload = post_json(url, {"source": source, "refresh_cookie_snapshot": refresh_cookie_snapshot}, timeout=15)
-        return dict(payload) if isinstance(payload, dict) else {"ok": False, "raw": payload}
-    except Exception as exc: return {"ok": False, "error": repr(exc)}
+    request_payload = {
+        "source": source,
+        "refresh_cookie_snapshot": refresh_cookie_snapshot,
+        "completion_id": completion_id,
+    }
+    attempts = max(1, min(int(AUTH_COMPLETE_REQUEST_ATTEMPTS), 10))
+    last_result = {"ok": False, "error": "auth_complete_not_attempted"}
+    for attempt in range(1, attempts + 1):
+        try:
+            payload = post_json(url, request_payload, timeout=max(AUTH_COMPLETE_REQUEST_TIMEOUT_SECONDS, 1.0))
+            last_result = dict(payload) if isinstance(payload, dict) else {"ok": False, "raw": payload}
+        except Exception as exc:
+            last_result = {"ok": False, "error": repr(exc)}
+        last_result["request_attempts"] = attempt
+        if _auth_complete_response_confirmed(last_result, completion_id):
+            return last_result
+        if attempt < attempts and AUTH_COMPLETE_REQUEST_BACKOFF_SECONDS > 0:
+            time.sleep(AUTH_COMPLETE_REQUEST_BACKOFF_SECONDS * attempt)
+    return last_result
+
+
+def _auth_complete_response_confirmed(payload, completion_id):
+    if not isinstance(payload, dict):
+        return False
+    if payload.get("ok") is not True or payload.get("auth_state_confirmed") is not True:
+        return False
+    if str(payload.get("completion_id") or "") != str(completion_id or ""):
+        return False
+    if payload.get("paused") is not False:
+        return False
+    solver_status = payload.get("captcha_solver")
+    if not isinstance(solver_status, dict):
+        return False
+    return bool(
+        solver_status.get("manual_required") is False
+        and solver_status.get("force_unlock_flag_exists") is False
+        and solver_status.get("paused") is False
+    )
 
 # --- Fallback escalation: push to PC1 manual auth after repeated failures ---
 FALLBACK_STATE_PATH = REPO_ROOT / ".codex-temp" / "bridge-control" / "solver-fallback-state.json"
 FALLBACK_FAIL_THRESHOLD = int(os.environ.get("FAPAI_SOLVER_FALLBACK_FAIL_THRESHOLD", "10"))
 FALLBACK_STALL_SECONDS = int(os.environ.get("FAPAI_SOLVER_FALLBACK_STALL_SECONDS", "600"))
+
+
+def _default_fallback_state():
+    return {
+        "consecutive_failures": 0,
+        "window_started_at": None,
+        "last_success_at": None,
+        "manual_pushed": False,
+        "auth_complete_pending": False,
+        "auth_completion_id": None,
+        "auth_complete_attempts": 0,
+        "auth_complete_next_retry_at": None,
+        "auth_complete_last_error": None,
+        "auth_complete_target_url": None,
+    }
 
 
 def manual_fallback_enabled():
@@ -103,31 +162,136 @@ def _report_manual_captcha(api_base_url, cdp_endpoint, target_url):
         return {"error": repr(exc)}
 
 def _load_fallback_state():
+    state = _default_fallback_state()
     try:
         if FALLBACK_STATE_PATH.exists():
             raw = FALLBACK_STATE_PATH.read_text(encoding="utf-8")
             data = json.loads(raw)
-            return {
-                "consecutive_failures": int(data.get("consecutive_failures", 0) or 0),
-                "window_started_at": float(data.get("window_started_at") or 0) or None,
-                "last_success_at": float(data.get("last_success_at") or 0) or None,
-                "manual_pushed": bool(data.get("manual_pushed", False)),
-            }
+            state.update(
+                {
+                    "consecutive_failures": int(data.get("consecutive_failures", 0) or 0),
+                    "window_started_at": float(data.get("window_started_at") or 0) or None,
+                    "last_success_at": float(data.get("last_success_at") or 0) or None,
+                    "manual_pushed": bool(data.get("manual_pushed", False)),
+                    "auth_complete_pending": bool(data.get("auth_complete_pending", False)),
+                    "auth_completion_id": str(data.get("auth_completion_id") or "").strip() or None,
+                    "auth_complete_attempts": int(data.get("auth_complete_attempts", 0) or 0),
+                    "auth_complete_next_retry_at": float(data.get("auth_complete_next_retry_at") or 0) or None,
+                    "auth_complete_last_error": str(data.get("auth_complete_last_error") or "").strip() or None,
+                    "auth_complete_target_url": str(data.get("auth_complete_target_url") or "").strip() or None,
+                }
+            )
+            return state
     except Exception:
         pass
-    return {"consecutive_failures": 0, "window_started_at": None, "last_success_at": None, "manual_pushed": False}
+    return state
 
 def _save_fallback_state(state):
+    temporary_path = FALLBACK_STATE_PATH.with_name(f"{FALLBACK_STATE_PATH.name}.{os.getpid()}.tmp")
     try:
         FALLBACK_STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-        FALLBACK_STATE_PATH.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+        temporary_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+        os.replace(temporary_path, FALLBACK_STATE_PATH)
     except Exception as exc:
+        try:
+            temporary_path.unlink(missing_ok=True)
+        except Exception:
+            pass
         log_event({"kind": "fallback_state_save_error", "error": repr(exc)})
 
 def _reset_fallback_state():
-    state = {"consecutive_failures": 0, "window_started_at": None, "last_success_at": None, "manual_pushed": False}
+    state = _default_fallback_state()
     _save_fallback_state(state)
     return state
+
+
+def _new_auth_completion_id():
+    node_id = os.environ.get("FAPAI_NODE_ID", "pc2").strip() or "pc2"
+    return f"{node_id}-{int(time.time() * 1000)}-{uuid.uuid4().hex}"
+
+
+def _mark_auth_complete_pending(target_url):
+    state = _load_fallback_state()
+    state.update(
+        {
+            "consecutive_failures": 0,
+            "window_started_at": None,
+            "last_success_at": time.time(),
+            "manual_pushed": False,
+            "auth_complete_pending": True,
+            "auth_completion_id": _new_auth_completion_id(),
+            "auth_complete_attempts": 0,
+            "auth_complete_next_retry_at": time.time(),
+            "auth_complete_last_error": None,
+            "auth_complete_target_url": str(target_url or "").strip() or None,
+        }
+    )
+    _save_fallback_state(state)
+    return state
+
+
+def _auth_complete_retry_delay(attempts):
+    exponent = max(0, min(int(attempts or 0) - 1, 6))
+    return min(max(AUTH_COMPLETE_RETRY_BASE_SECONDS, 0.0) * (2 ** exponent), max(AUTH_COMPLETE_RETRY_MAX_SECONDS, 0.0))
+
+
+def _retry_pending_auth_confirmation(api_base_url, state=None, now=None):
+    state = dict(state) if isinstance(state, dict) else _load_fallback_state()
+    if not state.get("auth_complete_pending"):
+        return {"pending": False, "attempted": False, "confirmed": False, "state": state}
+    current_time = time.time() if now is None else float(now)
+    next_retry_at = float(state.get("auth_complete_next_retry_at") or 0)
+    if next_retry_at > current_time:
+        return {
+            "pending": True,
+            "attempted": False,
+            "confirmed": False,
+            "next_retry_at": next_retry_at,
+            "state": state,
+        }
+
+    completion_id = str(state.get("auth_completion_id") or "").strip()
+    result = notify_auth_complete(
+        api_base_url,
+        source="pc2_local_solver",
+        completion_id=completion_id,
+    )
+    request_attempts = max(1, int(result.get("request_attempts", 1) or 1))
+    total_attempts = int(state.get("auth_complete_attempts", 0) or 0) + request_attempts
+    if _auth_complete_response_confirmed(result, completion_id):
+        reset_state = _reset_fallback_state()
+        return {
+            "pending": False,
+            "attempted": True,
+            "confirmed": True,
+            "result": result,
+            "state": reset_state,
+        }
+
+    error = str(result.get("error") or "").strip()
+    if not error:
+        try:
+            error = json.dumps(result, ensure_ascii=False, sort_keys=True)
+        except Exception:
+            error = "NAS did not explicitly confirm cleared auth state"
+    retry_delay = _auth_complete_retry_delay(total_attempts)
+    state.update(
+        {
+            "auth_complete_pending": True,
+            "auth_complete_attempts": total_attempts,
+            "auth_complete_next_retry_at": current_time + retry_delay,
+            "auth_complete_last_error": error[:1000],
+        }
+    )
+    _save_fallback_state(state)
+    return {
+        "pending": True,
+        "attempted": True,
+        "confirmed": False,
+        "next_retry_at": state["auth_complete_next_retry_at"],
+        "result": result,
+        "state": state,
+    }
 
 def get_cdp_page_url(cdp_endpoint):
     """Get the URL of the first page tab from CDP."""
@@ -247,6 +411,25 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
         time.sleep(5)
     while True:
         try:
+            pending_confirmation = _retry_pending_auth_confirmation(api_base_url)
+            if pending_confirmation.get("confirmed"):
+                log_event(
+                    {
+                        "kind": "auth_complete_confirmed",
+                        "result": pending_confirmation.get("result"),
+                    }
+                )
+            elif pending_confirmation.get("pending"):
+                if pending_confirmation.get("attempted"):
+                    log_event(
+                        {
+                            "kind": "auth_complete_retry_pending",
+                            "next_retry_at": pending_confirmation.get("next_retry_at"),
+                            "result": pending_confirmation.get("result"),
+                        }
+                    )
+                time.sleep(poll_seconds)
+                continue
             solver_status = read_solver_status(api_base_url)
             if "error" in solver_status:
                 log_event({"kind": "status_error", "error": solver_status["error"]})
@@ -314,9 +497,9 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
             success = run_solver_local(cdp_endpoint, target_url, max_attempts=max_attempts)
             if success:
                 log_event({"kind": "local_solver_success"})
-                auth_result = notify_auth_complete(api_base_url, source="pc2_local_solver")
-                log_event({"kind": "auth_complete_result", "result": auth_result})
-                _reset_fallback_state()
+                pending_state = _mark_auth_complete_pending(target_url)
+                confirmation = _retry_pending_auth_confirmation(api_base_url, state=pending_state)
+                log_event({"kind": "auth_complete_result", "result": confirmation})
             else:
                 log_event({"kind": "local_solver_failure"})
                 state = _load_fallback_state()

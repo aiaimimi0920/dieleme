@@ -38,6 +38,8 @@ DEFAULT_TARGET_URL = (
 DEFAULT_API_BASE_URL = os.environ.get("FAPAI_API_BASE_URL", "http://127.0.0.1:8001/api")
 DEFAULT_CDP_PAGE_TARGET_LIMIT = 12
 DEFAULT_CDP_HTTP_TIMEOUT_SECONDS = 3.0
+DEFAULT_CDP_RECONNECT_ATTEMPTS = 3
+DEFAULT_CDP_RECONNECT_BACKOFF_SECONDS = 0.5
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -1104,6 +1106,35 @@ def compact_cdp_page_targets_if_needed(
     return summary
 
 
+def _cdp_reconnect_attempts() -> int:
+    raw = os.environ.get("FAPAI_CDP_RECONNECT_ATTEMPTS", str(DEFAULT_CDP_RECONNECT_ATTEMPTS))
+    try:
+        value = int(str(raw or "").strip())
+    except ValueError:
+        value = DEFAULT_CDP_RECONNECT_ATTEMPTS
+    return max(1, min(value, 10))
+
+
+def _cdp_reconnect_backoff_seconds() -> float:
+    raw = os.environ.get("FAPAI_CDP_RECONNECT_BACKOFF_SECONDS", str(DEFAULT_CDP_RECONNECT_BACKOFF_SECONDS))
+    try:
+        value = float(str(raw or "").strip())
+    except ValueError:
+        value = DEFAULT_CDP_RECONNECT_BACKOFF_SECONDS
+    return max(0.0, min(value, 30.0))
+
+
+def _cdp_endpoint_healthy_for_reconnect(cdp_endpoint: str) -> bool:
+    try:
+        probe = _browserless_seed_probe()
+        health_check = getattr(probe, "cdp_endpoint_is_healthy", None)
+        if callable(health_check):
+            return bool(health_check(cdp_endpoint, timeout_seconds=DEFAULT_CDP_HTTP_TIMEOUT_SECONDS))
+    except Exception:
+        return False
+    return bool(resolve_playwright_cdp_endpoint(cdp_endpoint))
+
+
 def connect_browser_over_cdp(playwright: Any, cdp_endpoint: str, *, timeout_ms: int = DEFAULT_CDP_CONNECT_TIMEOUT_MS) -> Any:
     try:
         compaction = compact_cdp_page_targets_if_needed(cdp_endpoint)
@@ -1111,14 +1142,27 @@ def connect_browser_over_cdp(playwright: Any, cdp_endpoint: str, *, timeout_ms: 
         _raise_cdp_endpoint_unavailable(cdp_endpoint, "compact_cdp_page_targets", error)
     if compaction.get("triggered"):
         print(json.dumps({"event": "cdp_page_target_compaction", **compaction}, ensure_ascii=False))
-    try:
-        resolved_endpoint = resolve_playwright_cdp_endpoint(cdp_endpoint)
-    except Exception as error:
-        _raise_cdp_endpoint_unavailable(cdp_endpoint, "resolve_playwright_cdp_endpoint", error)
-    try:
-        return playwright.chromium.connect_over_cdp(resolved_endpoint, timeout=timeout_ms)
-    except Exception as error:
-        _raise_cdp_endpoint_unavailable(cdp_endpoint, "connect_over_cdp", error)
+    attempts = _cdp_reconnect_attempts()
+    backoff = _cdp_reconnect_backoff_seconds()
+    last_error: BaseException | None = None
+    for attempt in range(1, attempts + 1):
+        if attempt > 1 and not _cdp_endpoint_healthy_for_reconnect(cdp_endpoint):
+            last_error = RuntimeError(f"CDP health check failed before reconnect attempt {attempt}")
+            if attempt < attempts and backoff > 0:
+                time.sleep(backoff * attempt)
+            continue
+        try:
+            resolved_endpoint = resolve_playwright_cdp_endpoint(cdp_endpoint)
+            return playwright.chromium.connect_over_cdp(resolved_endpoint, timeout=timeout_ms)
+        except Exception as error:
+            last_error = error
+        if attempt < attempts and backoff > 0:
+            time.sleep(backoff * attempt)
+    _raise_cdp_endpoint_unavailable(
+        cdp_endpoint,
+        "connect_over_cdp_bounded_reconnect",
+        last_error or RuntimeError("CDP connection failed without an explicit error"),
+    )
 
 
 def detach_attached_cdp_browser(browser: Any) -> None:

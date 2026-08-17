@@ -248,6 +248,18 @@ SOLVER_MANUAL_REQUIRED_EPOCH = 0
 SOLVER_MANUAL_ONLY = False
 SOLVER_MANUAL_RETRY_LAST_EPOCH = 0
 SOLVER_MANUAL_RETRY_ATTEMPTS = 0
+AUTH_COMPLETION_LOCK = threading.Lock()
+AUTH_COMPLETION_CONFIRMATIONS: dict[str, float] = {}
+AUTH_COOKIE_SNAPSHOT_LOCK = threading.Lock()
+AUTH_COOKIE_SNAPSHOT_THREAD: threading.Thread | None = None
+AUTH_COOKIE_SNAPSHOT_STATE: dict[str, Any] = {
+    "status": "idle",
+    "completion_id": None,
+    "attempts": 0,
+    "max_attempts": 0,
+    "refreshed": False,
+    "retry_queued": False,
+}
 RUNTIME_INITIALIZED = False
 AVM_SERVICE_START_TIME = time.time()
 
@@ -380,6 +392,7 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
         "manual_retry_attempts": int(SOLVER_MANUAL_RETRY_ATTEMPTS or 0),
         "manual_retry_last_epoch": SOLVER_MANUAL_RETRY_LAST_EPOCH or None,
         "manual_retry_next_epoch": manual_retry_next_epoch,
+        "cookie_snapshot_refresh": _auth_cookie_snapshot_runtime_status(),
     }
 
 
@@ -1205,6 +1218,164 @@ def _refresh_auth_cookie_snapshot(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _auth_cookie_snapshot_retry_attempts() -> int:
+    raw = os.getenv("FAPAI_AUTH_COOKIE_RETRY_ATTEMPTS", "3")
+    try:
+        value = int(str(raw or "").strip())
+    except ValueError:
+        value = 3
+    return max(1, min(value, 10))
+
+
+def _auth_cookie_snapshot_retry_backoff_seconds() -> float:
+    raw = os.getenv("FAPAI_AUTH_COOKIE_RETRY_BACKOFF_SECONDS", "2")
+    try:
+        value = float(str(raw or "").strip())
+    except ValueError:
+        value = 2.0
+    return max(0.0, min(value, 300.0))
+
+
+def _auth_cookie_snapshot_runtime_status() -> dict[str, Any]:
+    with AUTH_COOKIE_SNAPSHOT_LOCK:
+        return dict(AUTH_COOKIE_SNAPSHOT_STATE)
+
+
+def _set_auth_cookie_snapshot_state(**updates: Any) -> dict[str, Any]:
+    with AUTH_COOKIE_SNAPSHOT_LOCK:
+        AUTH_COOKIE_SNAPSHOT_STATE.update(updates)
+        return dict(AUTH_COOKIE_SNAPSHOT_STATE)
+
+
+def _run_auth_cookie_snapshot_retry(payload: dict[str, Any], completion_id: str | None) -> None:
+    max_attempts = _auth_cookie_snapshot_retry_attempts()
+    base_backoff = _auth_cookie_snapshot_retry_backoff_seconds()
+    last_result: dict[str, Any] = {"refreshed": False, "reason": "not_started"}
+
+    for attempt in range(1, max_attempts + 1):
+        _set_auth_cookie_snapshot_state(
+            status="running",
+            completion_id=completion_id,
+            attempts=attempt,
+            max_attempts=max_attempts,
+            refreshed=False,
+            retry_queued=False,
+            next_retry_at_epoch=None,
+            last_started_at_epoch=time.time(),
+        )
+        try:
+            refreshed = _refresh_auth_cookie_snapshot(payload)
+            last_result = dict(refreshed) if isinstance(refreshed, dict) else {
+                "refreshed": False,
+                "reason": "invalid_refresh_result",
+            }
+        except Exception as error:
+            last_result = {"refreshed": False, "error": repr(error)}
+
+        if last_result.get("refreshed") is True:
+            _set_auth_cookie_snapshot_state(
+                status="completed",
+                completion_id=completion_id,
+                attempts=attempt,
+                max_attempts=max_attempts,
+                refreshed=True,
+                retry_queued=False,
+                next_retry_at_epoch=None,
+                last_finished_at_epoch=time.time(),
+                result=last_result,
+            )
+            return
+        if last_result.get("reason") == "disabled_by_request":
+            _set_auth_cookie_snapshot_state(
+                status="skipped",
+                completion_id=completion_id,
+                attempts=attempt,
+                max_attempts=max_attempts,
+                refreshed=False,
+                retry_queued=False,
+                next_retry_at_epoch=None,
+                last_finished_at_epoch=time.time(),
+                result=last_result,
+            )
+            return
+        if attempt < max_attempts:
+            delay = min(base_backoff * (2 ** (attempt - 1)), 300.0)
+            _set_auth_cookie_snapshot_state(
+                status="pending",
+                completion_id=completion_id,
+                attempts=attempt,
+                max_attempts=max_attempts,
+                refreshed=False,
+                retry_queued=True,
+                next_retry_at_epoch=time.time() + delay,
+                result=last_result,
+            )
+            if delay > 0:
+                time.sleep(delay)
+
+    _set_auth_cookie_snapshot_state(
+        status="failed",
+        completion_id=completion_id,
+        attempts=max_attempts,
+        max_attempts=max_attempts,
+        refreshed=False,
+        retry_queued=False,
+        next_retry_at_epoch=None,
+        last_finished_at_epoch=time.time(),
+        result=last_result,
+    )
+
+
+def _schedule_auth_cookie_snapshot_refresh(
+    payload: dict[str, Any],
+    completion_id: str | None,
+) -> dict[str, Any]:
+    global AUTH_COOKIE_SNAPSHOT_THREAD
+
+    if not _payload_flag(payload, "refresh_cookie_snapshot", True):
+        return _set_auth_cookie_snapshot_state(
+            status="skipped",
+            completion_id=completion_id,
+            attempts=0,
+            max_attempts=0,
+            refreshed=False,
+            retry_queued=False,
+            next_retry_at_epoch=None,
+            result={"refreshed": False, "reason": "disabled_by_request"},
+        )
+
+    with AUTH_COOKIE_SNAPSHOT_LOCK:
+        current = dict(AUTH_COOKIE_SNAPSHOT_STATE)
+        if AUTH_COOKIE_SNAPSHOT_THREAD is not None and AUTH_COOKIE_SNAPSHOT_THREAD.is_alive():
+            current["retry_queued"] = True
+            current["reason"] = "refresh_already_running"
+            return current
+        if completion_id and current.get("completion_id") == completion_id and current.get("status") == "completed":
+            return current
+        AUTH_COOKIE_SNAPSHOT_STATE.clear()
+        AUTH_COOKIE_SNAPSHOT_STATE.update(
+            {
+                "status": "pending",
+                "completion_id": completion_id,
+                "attempts": 0,
+                "max_attempts": _auth_cookie_snapshot_retry_attempts(),
+                "refreshed": False,
+                "retry_queued": True,
+                "next_retry_at_epoch": time.time(),
+            }
+        )
+        thread = threading.Thread(
+            target=_run_auth_cookie_snapshot_retry,
+            args=(dict(payload), completion_id),
+            name="auth-cookie-snapshot-refresh",
+            daemon=True,
+        )
+        AUTH_COOKIE_SNAPSHOT_THREAD = thread
+        scheduled = dict(AUTH_COOKIE_SNAPSHOT_STATE)
+        thread.start()
+        return scheduled
+
+
 def _prefer_db_task_reads() -> bool:
     return DB_REPOSITORY.enabled and _runtime_env_flag("FAPAI_DB_PREFER_RUNTIME_INDEX", True)
 
@@ -1602,46 +1773,136 @@ def _collection_observer_runtime_control_payload(action: str) -> dict[str, Any]:
     }
 
 
-def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = None) -> dict[str, Any]:
-    global SOLVER_MANUAL_RESUME_EPOCH, SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
-    payload = payload if isinstance(payload, dict) else {}
+def _normalize_auth_completion_id(value: Any) -> str | None:
+    completion_id = str(value or "").strip()
+    return completion_id[:160] if completion_id else None
+
+
+def _auth_completion_confirmation_path() -> Path:
+    state_dir = str(os.getenv("FAPAI_SOLVER_STATE_DIR") or DATA_DIR).strip() or DATA_DIR
+    return Path(state_dir) / "auth-completion-confirmations.json"
+
+
+def _read_auth_completion_confirmations() -> dict[str, float]:
+    path = _auth_completion_confirmation_path()
     try:
-        cookie_snapshot = _refresh_auth_cookie_snapshot(payload)
-    except Exception as error:
-        cookie_snapshot = {
-            "refreshed": False,
-            "error": repr(error),
-        }
-    _set_collection_pause_state(False)
-    SOLVER_MANUAL_RESUME_EPOCH = time.time()
-    _clear_solver_running_state()
-    _clear_solver_manual_required_state()
-    SOLVER_LAST_STATUS = "manual_auth_completed"
-    SOLVER_LAST_FAILURE_REASON = None
-    flag_path = _solver_force_unlock_flag_path()
-    if os.path.exists(flag_path):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    raw_confirmations = payload.get("confirmations") if isinstance(payload, dict) else None
+    if not isinstance(raw_confirmations, dict):
+        return {}
+    confirmations: dict[str, float] = {}
+    for raw_id, raw_epoch in raw_confirmations.items():
+        completion_id = _normalize_auth_completion_id(raw_id)
+        if not completion_id:
+            continue
         try:
-            os.remove(flag_path)
+            confirmations[completion_id] = float(raw_epoch)
+        except (TypeError, ValueError):
+            continue
+    return confirmations
+
+
+def _auth_completion_was_confirmed(completion_id: str | None) -> bool:
+    if not completion_id:
+        return False
+    with AUTH_COMPLETION_LOCK:
+        AUTH_COMPLETION_CONFIRMATIONS.update(_read_auth_completion_confirmations())
+        return completion_id in AUTH_COMPLETION_CONFIRMATIONS
+
+
+def _remember_auth_completion_confirmation(completion_id: str | None) -> str | None:
+    if not completion_id:
+        return None
+    with AUTH_COMPLETION_LOCK:
+        confirmations = _read_auth_completion_confirmations()
+        confirmations.update(AUTH_COMPLETION_CONFIRMATIONS)
+        confirmations[completion_id] = time.time()
+        if len(confirmations) > 256:
+            confirmations = dict(sorted(confirmations.items(), key=lambda item: item[1])[-192:])
+        path = _auth_completion_confirmation_path()
+        temporary = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+        try:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            temporary.write_text(
+                json.dumps({"confirmations": confirmations}, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            os.replace(temporary, path)
         except Exception as error:
-            return {
-                "ok": False,
-                "action": "auth_complete",
-                "error": f"failed to clear force unlock flag: {error}",
-                "source": str(payload.get("source") or "operator"),
-                "paused": _collection_effectively_paused(),
-                "captcha_solver": _captcha_solver_runtime_status(),
-                "cookie_snapshot": cookie_snapshot,
-            }
-    return {
-        "ok": True,
+            try:
+                temporary.unlink(missing_ok=True)
+            except Exception:
+                pass
+            return repr(error)
+        AUTH_COMPLETION_CONFIRMATIONS.clear()
+        AUTH_COMPLETION_CONFIRMATIONS.update(confirmations)
+    return None
+
+
+def _auth_state_is_confirmed(solver_status: dict[str, Any]) -> bool:
+    return bool(
+        not solver_status.get("paused")
+        and not solver_status.get("running")
+        and not solver_status.get("manual_required")
+        and not solver_status.get("force_unlock_flag_exists")
+    )
+
+
+def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
+    payload = payload if isinstance(payload, dict) else {}
+    completion_id = _normalize_auth_completion_id(payload.get("completion_id"))
+    source = str(payload.get("source") or "operator")
+    previously_confirmed = _auth_completion_was_confirmed(completion_id)
+    before_status = _captcha_solver_runtime_status()
+    already_clear = _auth_state_is_confirmed(before_status)
+
+    clear_error: str | None = None
+    receipt_error: str | None = None
+    if previously_confirmed:
+        auth_state_confirmed = already_clear
+    else:
+        clear_error = _clear_solver_manual_required_pause()
+        cleared_status = _captcha_solver_runtime_status()
+        auth_state_confirmed = clear_error is None and _auth_state_is_confirmed(cleared_status)
+        if auth_state_confirmed:
+            receipt_error = _remember_auth_completion_confirmation(completion_id)
+            auth_state_confirmed = receipt_error is None
+
+    if auth_state_confirmed:
+        SOLVER_LAST_STATUS = "manual_auth_completed"
+        SOLVER_LAST_FAILURE_REASON = None
+    else:
+        SOLVER_LAST_STATUS = "manual_required"
+        SOLVER_LAST_FAILURE_REASON = "manual_required"
+        _set_collection_pause_state(True, "manual_required")
+    solver_status = _captcha_solver_runtime_status()
+
+    cookie_snapshot = _schedule_auth_cookie_snapshot_refresh(payload, completion_id)
+    result = {
+        "ok": auth_state_confirmed,
         "action": "auth_complete",
-        "source": str(payload.get("source") or "operator"),
-        "manual_auth_completed": True,
-        "paused": _collection_effectively_paused(),
+        "source": source,
+        "completion_id": completion_id,
+        "auth_state_confirmed": auth_state_confirmed,
+        "idempotent": bool(previously_confirmed or (already_clear and auth_state_confirmed)),
+        "manual_auth_completed": auth_state_confirmed,
+        "paused": bool(solver_status.get("paused")),
         "runtime_state": _collection_runtime_state_label(),
-        "captcha_solver": _captcha_solver_runtime_status(),
+        "captcha_solver": solver_status,
         "cookie_snapshot": cookie_snapshot,
     }
+    if clear_error is not None:
+        result["error"] = f"failed to clear force unlock flag: {clear_error}"
+    elif receipt_error is not None:
+        result["error"] = f"failed to persist auth completion receipt: {receipt_error}"
+    elif previously_confirmed and not auth_state_confirmed:
+        result["error"] = "confirmed completion_id is stale for the current auth state"
+    elif not auth_state_confirmed:
+        result["error"] = "auth state remained paused or manual_required after cleanup"
+    return result
 
 
 def _safe_collection_static_path(request_path: str) -> Path | None:
