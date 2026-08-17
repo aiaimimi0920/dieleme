@@ -6,6 +6,7 @@ from pathlib import Path
 from sqlalchemy import event, func, insert, select
 from sqlalchemy.orm import Session as SqlAlchemySession
 
+import src.storage.repository as repository_module
 from src.storage.models import FapaiSeedItem, FapaiSeedOccurrence, FapaiSeedScanJob, FapaiSeedScanProgress
 from src.storage.repository import DatabaseSettings, PropertyRepository
 
@@ -126,6 +127,39 @@ def test_collection_observer_item_detail_loads_collected_content(tmp_path: Path)
     assert payload["artifacts"]["selected_json"]["json"]["raw_text"] == "标的物详情文本"
     assert payload["artifacts"]["final_json"]["json"]["community_name"] == "测试小区"
     assert payload["occurrences"][0]["source_page_url"].startswith("https://sf-item.taobao.com/list/")
+
+
+def test_collection_observer_item_detail_reads_linux_data_artifact_paths_from_shared_host_root(
+    tmp_path: Path, monkeypatch
+) -> None:
+    repo = _make_repo(tmp_path)
+    _upsert_sample_seed(repo)
+    shared_root = tmp_path / "shared-root"
+    artifact_dir = shared_root / "output" / "1001"
+    artifact_dir.mkdir(parents=True)
+    (artifact_dir / "detail.html").write_text("<html><body>共享详情文本</body></html>", encoding="utf-8")
+    (artifact_dir / "selected.json").write_text('{"raw_text": "共享详情文本"}', encoding="utf-8")
+    (artifact_dir / "final.json").write_text('{"item_id": "1001", "community_name": "共享小区"}', encoding="utf-8")
+    monkeypatch.setenv("FAPAI_SHARED_DATA_ROOT_HOST", str(shared_root))
+
+    repo.mark_seed_raw_detail_captured(
+        "1001",
+        detail_html_path="/data/output/1001/detail.html",
+        selected_json_path="/data/output/1001/selected.json",
+    )
+    repo.mark_seed_detail_completed(
+        "1001",
+        final_json_path="/data/output/1001/final.json",
+        selected_json_path="/data/output/1001/selected.json",
+    )
+
+    payload = repo.collection_observer_item_detail("1001", max_chars=200)
+
+    assert payload["artifacts"]["detail_html"]["exists"] is True
+    assert payload["artifacts"]["detail_html"]["resolved_path"] == str(artifact_dir / "detail.html")
+    assert "共享详情文本" in payload["artifacts"]["detail_html"]["content"]
+    assert payload["artifacts"]["selected_json"]["json"]["raw_text"] == "共享详情文本"
+    assert payload["artifacts"]["final_json"]["json"]["community_name"] == "共享小区"
 
 
 def test_collection_observer_can_requeue_completed_item_for_ai_reanalysis(tmp_path: Path) -> None:
@@ -757,7 +791,7 @@ def test_seed_scan_progress_completes_region_categories_sorts_and_pages_before_n
     assert repo.claim_seed_scan_page("seed-worker", lease_seconds=30) is None
 
 
-def test_seed_scan_progress_does_not_switch_scope_while_current_scope_is_leased(tmp_path: Path) -> None:
+def test_seed_scan_progress_sequential_mode_skips_leased_scope_and_claims_next_region(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     sort_specs = [{"sort_key": "default", "sort_name": "默认排序", "st_param": "0", "sort_order": 0}]
     repo.ensure_seed_scan_job(
@@ -791,7 +825,52 @@ def test_seed_scan_progress_does_not_switch_scope_while_current_scope_is_leased(
 
     second = repo.claim_seed_scan_page("seed-worker-2", lease_seconds=30)
 
-    assert second is None
+    assert second is not None
+    assert second["job_key"] == "440106-50025969"
+
+
+def test_seed_scan_progress_sequential_mode_skips_cooling_scope_and_claims_next_region(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    sort_specs = [{"sort_key": "default", "sort_name": "默认排序", "st_param": "0", "sort_order": 0}]
+    repo.ensure_seed_scan_job(
+        {
+            "job_key": "440115-50025969",
+            "province": "广东省",
+            "city": "广州市",
+            "district": "南沙区",
+            "location_code": "440115",
+            "category": "50025969",
+        },
+        sort_specs=sort_specs,
+        max_page=83,
+    )
+    repo.ensure_seed_scan_job(
+        {
+            "job_key": "440106-50025969",
+            "province": "广东省",
+            "city": "广州市",
+            "district": "天河区",
+            "location_code": "440106",
+            "category": "50025969",
+        },
+        sort_specs=sort_specs,
+        max_page=83,
+    )
+
+    first = repo.claim_seed_scan_page("seed-worker-1", lease_seconds=30)
+    assert first is not None
+    assert first["job_key"] == "440115-50025969"
+    repo.fail_seed_scan_page(first["progress_key"], "list_challenge_page", retryable=True)
+
+    claimed = repo.claim_seed_scan_page(
+        "seed-worker-2",
+        lease_seconds=30,
+        failure_cooldown_threshold=1,
+        failure_cooldown_seconds=300,
+    )
+
+    assert claimed is not None
+    assert claimed["job_key"] == "440106-50025969"
 
 
 def test_seed_scan_progress_can_claim_parallel_sorts_for_fast_seed_pool(tmp_path: Path) -> None:
@@ -807,6 +886,47 @@ def test_seed_scan_progress_can_claim_parallel_sorts_for_fast_seed_pool(tmp_path
     assert second["sort_key"] == "end_time_soon"
     assert first["page"] == 1
     assert second["page"] == 1
+
+
+def test_seed_scan_progress_parallel_mode_keeps_current_region_scope_before_next_region(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    sort_specs = [
+        {"sort_key": "default", "sort_name": "默认排序", "st_param": "0", "sort_order": 0},
+        {"sort_key": "price_desc", "sort_name": "价格由高到低", "st_param": "3", "sort_order": 1},
+    ]
+    repo.ensure_seed_scan_job(
+        {
+            "job_key": "440115-50025969",
+            "province": "广东省",
+            "city": "广州市",
+            "district": "南沙区",
+            "location_code": "440115",
+            "category": "50025969",
+        },
+        sort_specs=sort_specs,
+        max_page=83,
+    )
+    repo.ensure_seed_scan_job(
+        {
+            "job_key": "440106-50025969",
+            "province": "广东省",
+            "city": "广州市",
+            "district": "天河区",
+            "location_code": "440106",
+            "category": "50025969",
+        },
+        sort_specs=sort_specs,
+        max_page=83,
+    )
+
+    first = repo.claim_seed_scan_page("seed-worker-1", lease_seconds=30, parallel_sorts=True)
+    second = repo.claim_seed_scan_page("seed-worker-2", lease_seconds=30, parallel_sorts=True)
+
+    assert first is not None
+    assert second is not None
+    assert first["job_key"] == "440115-50025969"
+    assert second["job_key"] == "440115-50025969"
+    assert {first["sort_key"], second["sort_key"]} == {"default", "price_desc"}
 
 
 def test_seed_scan_progress_skips_recent_retry_failures_during_cooldown(tmp_path: Path) -> None:
@@ -836,6 +956,60 @@ def test_seed_scan_progress_skips_recent_retry_failures_during_cooldown(tmp_path
         assert failed_row.leased_by is None
 
 
+def test_seed_scan_progress_success_resets_retry_state(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+
+    first = repo.claim_seed_scan_page("seed-worker-1", lease_seconds=30)
+    assert first is not None
+    repo.fail_seed_scan_page(first["progress_key"], "list_challenge_page", retryable=True)
+
+    retry = repo.claim_seed_scan_page("seed-worker-2", lease_seconds=30)
+    assert retry is not None
+    assert retry["progress_key"] == first["progress_key"]
+
+    repo.complete_seed_scan_page(
+        progress_key=retry["progress_key"],
+        page=retry["page"],
+        item_count=2,
+        has_next=True,
+        source_url=retry["url"],
+    )
+
+    with repo.session_factory() as session:
+        row = session.get(FapaiSeedScanProgress, retry["progress_key"])
+        assert row is not None
+        assert row.retry_count == 0
+        assert row.last_error is None
+
+
+def test_seed_scan_progress_failure_restarts_retry_counter_after_clean_success_state(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+
+    task = repo.claim_seed_scan_page("seed-worker-1", lease_seconds=30)
+    assert task is not None
+
+    with repo.session_factory.begin() as session:
+        row = session.get(FapaiSeedScanProgress, task["progress_key"])
+        assert row is not None
+        row.retry_count = 99
+        row.last_error = None
+        row.status = "pending"
+        row.leased_by = None
+        row.lease_until = None
+        session.add(row)
+
+    repo.fail_seed_scan_page(task["progress_key"], "list_challenge_page", retryable=True)
+
+    with repo.session_factory() as session:
+        row = session.get(FapaiSeedScanProgress, task["progress_key"])
+        assert row is not None
+        assert row.retry_count == 1
+        assert row.last_error == "list_challenge_page"
+        assert row.status == "pending"
+
+
 def test_seed_scan_progress_retries_failed_page_after_cooldown_expires(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _ensure_nansha_job(repo)
@@ -846,8 +1020,13 @@ def test_seed_scan_progress_retries_failed_page_after_cooldown_expires(tmp_path:
     with repo.session_factory.begin() as session:
         row = session.get(FapaiSeedScanProgress, failed["progress_key"])
         assert row is not None
-        row.updated_at = datetime.now() - timedelta(seconds=301)
+        row.updated_at = datetime.utcnow() - timedelta(seconds=301)
         session.add(row)
+        for progress in session.scalars(select(FapaiSeedScanProgress)).all():
+            if progress.progress_key != failed["progress_key"]:
+                progress.status = "exhausted"
+                progress.completed_at = datetime.utcnow()
+                session.add(progress)
 
     retry = repo.claim_seed_scan_page(
         "seed-worker-2",
@@ -860,6 +1039,49 @@ def test_seed_scan_progress_retries_failed_page_after_cooldown_expires(tmp_path:
     assert retry is not None
     assert retry["progress_key"] == failed["progress_key"]
     assert retry["page"] == 1
+
+
+def test_seed_scan_progress_parallel_mode_prefers_fresh_rows_over_old_retry_rows(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    repo.ensure_seed_scan_job(
+        {
+            "job_key": "440100-50025969",
+            "province": "广东省",
+            "city": "广州市",
+            "district": "同区测试",
+            "location_code": "440100",
+            "category": "50025969",
+        },
+        sort_specs=[
+            {"sort_key": "default", "sort_name": "默认排序", "st_param": "0", "sort_order": 0},
+            {"sort_key": "price_desc", "sort_name": "价格由高到低", "st_param": "3", "sort_order": 1},
+        ],
+        max_page=83,
+    )
+
+    first = repo.claim_seed_scan_page("seed-worker-1", lease_seconds=30, parallel_sorts=True)
+    assert first is not None
+    assert first["job_key"] == "440100-50025969"
+    repo.fail_seed_scan_page(first["progress_key"], "list_challenge_page", retryable=True)
+
+    with repo.session_factory.begin() as session:
+        old_retry = session.get(FapaiSeedScanProgress, first["progress_key"])
+        assert old_retry is not None
+        old_retry.updated_at = datetime.utcnow() - timedelta(seconds=601)
+        session.add(old_retry)
+
+    claimed = repo.claim_seed_scan_page(
+        "seed-worker-2",
+        lease_seconds=30,
+        parallel_sorts=True,
+        failure_cooldown_threshold=1,
+        failure_cooldown_seconds=600,
+    )
+
+    assert claimed is not None
+    assert claimed["job_key"] == "440100-50025969"
+    assert claimed["progress_key"] != first["progress_key"]
+    assert claimed["sort_key"] == "price_desc"
 
 
 def test_seed_scan_progress_sequential_mode_waits_for_cooling_sort_before_later_sort(tmp_path: Path) -> None:
@@ -1026,6 +1248,134 @@ def test_detail_queue_claims_once_and_retries_failed_items(tmp_path: Path) -> No
         assert failed.detail_attempt_count == 2
 
 
+def test_mark_seed_detail_failed_can_restore_pending_detail_without_consuming_retry_budget(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=[
+            {"id": "1001", "title": "南沙 A", "url": "https://sf-item.taobao.com/sf_item/1001.htm"},
+        ],
+    )
+
+    claimed = repo.claim_seed_detail_item("detail-worker", lease_seconds=30)
+    assert claimed is not None
+    assert claimed["id"] == "1001"
+
+    repo.mark_seed_detail_failed(
+        "1001",
+        "RuntimeError('HTTP detail request returned anti-bot challenge: https://sf-item.taobao.com/sf_item/1001.htm')",
+        retryable=True,
+        revert_attempt=True,
+        restore_pending=True,
+    )
+
+    with repo.session_factory() as session:
+        row = session.get(FapaiSeedItem, "1001")
+        assert row is not None
+        assert row.status == "pending_detail"
+        assert row.detail_attempt_count == 0
+        assert row.detail_leased_by is None
+        assert row.detail_lease_until is None
+
+    retry = repo.claim_seed_detail_item("detail-worker", lease_seconds=30)
+    assert retry is not None
+    assert retry["id"] == "1001"
+
+
+def test_detail_queue_claim_query_limits_locked_row_batch(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=[
+            {"id": "1001", "title": "南沙 A", "url": "https://sf-item.taobao.com/sf_item/1001.htm"},
+            {"id": "1002", "title": "南沙 B", "url": "https://sf-item.taobao.com/sf_item/1002.htm"},
+        ],
+    )
+
+    statements: list[str] = []
+
+    def _capture_sql(_conn, _cursor, statement, _parameters, _context, _executemany):
+        if "FROM fapai_seed_item" in statement and "ORDER BY CASE" in statement:
+            statements.append(statement)
+
+    event.listen(repo.engine, "before_cursor_execute", _capture_sql)
+    try:
+        claimed = repo.claim_seed_detail_item("detail-worker", lease_seconds=30)
+    finally:
+        event.remove(repo.engine, "before_cursor_execute", _capture_sql)
+
+    assert claimed is not None
+    assert any("LIMIT" in statement.upper() for statement in statements)
+
+
+def test_detail_queue_claim_scans_beyond_first_candidate_window_when_front_batch_hits_retry_limit(
+    tmp_path: Path,
+) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+
+    items = [
+        {
+            "id": f"{1000 + index}",
+            "title": f"南沙 {index}",
+            "url": f"https://sf-item.taobao.com/sf_item/{1000 + index}.htm",
+        }
+        for index in range(17)
+    ]
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=items,
+    )
+
+    with repo.session_factory() as session:
+        for index in range(16):
+            row = session.get(FapaiSeedItem, str(1000 + index))
+            assert row is not None
+            row.status = "pending_detail"
+            row.detail_attempt_count = 3
+            row.detail_last_error = "retry limit reached earlier"
+            row.first_seen_at = row.first_seen_at.replace(year=2000, month=1, day=1) + timedelta(seconds=index)
+            session.add(row)
+        fallback = session.get(FapaiSeedItem, "1016")
+        assert fallback is not None
+        fallback.status = "pending_detail"
+        fallback.detail_attempt_count = 2
+        fallback.first_seen_at = fallback.first_seen_at.replace(year=2001, month=1, day=1)
+        session.add(fallback)
+        session.commit()
+
+    claimed = repo.claim_seed_detail_item("detail-worker", lease_seconds=30, max_item_attempts=3)
+
+    assert claimed is not None
+    assert claimed["id"] == "1016"
+
+
 def test_detail_queue_skips_recent_failed_items_until_cooldown_expires(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _ensure_nansha_job(repo)
@@ -1045,7 +1395,7 @@ def test_detail_queue_skips_recent_failed_items_until_cooldown_expires(tmp_path:
         ],
     )
 
-    now = datetime.now().replace(microsecond=0)
+    now = datetime.utcnow().replace(microsecond=0)
     with repo.session_factory() as session:
         recent_failed = session.get(FapaiSeedItem, "1001")
         old_failed = session.get(FapaiSeedItem, "1002")
@@ -1137,18 +1487,24 @@ def test_raw_detail_items_can_be_claimed_for_analysis_without_raw_reclaim(tmp_pa
     )
     claimed = repo.claim_seed_detail_item("detail-worker", lease_seconds=30)
     assert claimed is not None
+    detail_html = tmp_path / "detail-1001.html"
+    description_json = tmp_path / "description-1001.json"
+    selected_json = tmp_path / "selected-1001.json"
+    detail_html.write_text("<html><body>南沙 A</body></html>", encoding="utf-8")
+    description_json.write_text("{}", encoding="utf-8")
+    selected_json.write_text("{}", encoding="utf-8")
     repo.mark_seed_raw_detail_captured(
         "1001",
-        detail_html_path="/data/output/detail_worker/1001/detail.html",
-        description_json_path="/data/output/detail_worker/1001/description-data.json",
-        selected_json_path="/data/output/detail_worker/1001/selected.json",
+        detail_html_path=str(detail_html),
+        description_json_path=str(description_json),
+        selected_json_path=str(selected_json),
     )
 
     analysis_claim = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30)
 
     assert analysis_claim is not None
     assert analysis_claim["id"] == "1001"
-    assert analysis_claim["_raw_detail_artifacts"]["detail_html_path"] == "/data/output/detail_worker/1001/detail.html"
+    assert analysis_claim["_raw_detail_artifacts"]["detail_html_path"] == str(detail_html)
     assert repo.claim_seed_detail_item("detail-worker", lease_seconds=30) is None
     counts = repo.seed_queue_counts()
     assert counts["seed_item_raw_detail_captured"] == 0
@@ -1158,6 +1514,183 @@ def test_raw_detail_items_can_be_claimed_for_analysis_without_raw_reclaim(tmp_pa
         assert row is not None
         assert row.status == "analysis_in_progress"
         assert row.detail_leased_by == "analysis-worker"
+
+
+def test_analysis_claim_maps_linux_data_artifact_paths_from_shared_host_root(tmp_path: Path, monkeypatch) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=[{"id": "1001", "title": "南沙 A", "url": "https://sf-item.taobao.com/sf_item/1001.htm"}],
+    )
+    claimed = repo.claim_seed_detail_item("detail-worker", lease_seconds=30)
+    assert claimed is not None
+
+    shared_root = tmp_path / "shared-root"
+    artifact_dir = shared_root / "output" / "1001"
+    artifact_dir.mkdir(parents=True)
+    detail_html = artifact_dir / "detail.html"
+    selected_json = artifact_dir / "selected.json"
+    detail_html.write_text("<html><body>南沙 A</body></html>", encoding="utf-8")
+    selected_json.write_text("{}", encoding="utf-8")
+    monkeypatch.setenv("FAPAI_SHARED_DATA_ROOT_HOST", str(shared_root))
+
+    repo.mark_seed_raw_detail_captured(
+        "1001",
+        detail_html_path="/data/output/1001/detail.html",
+        selected_json_path="/data/output/1001/selected.json",
+    )
+
+    analysis_claim = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30)
+
+    assert analysis_claim is not None
+    assert analysis_claim["id"] == "1001"
+    assert analysis_claim["_raw_detail_artifacts"]["detail_html_path"] == str(detail_html)
+    assert analysis_claim["_raw_detail_artifacts"]["selected_json_path"] == str(selected_json)
+
+
+def test_analysis_queue_claim_query_limits_locked_row_batch(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=[
+            {"id": "1001", "title": "南沙 A", "url": "https://sf-item.taobao.com/sf_item/1001.htm"},
+            {"id": "1002", "title": "南沙 B", "url": "https://sf-item.taobao.com/sf_item/1002.htm"},
+        ],
+    )
+    repo.mark_seed_raw_detail_captured("1001", detail_html_path=str(tmp_path / "detail-1001.html"))
+    repo.mark_seed_raw_detail_captured("1002", detail_html_path=str(tmp_path / "detail-1002.html"))
+    (tmp_path / "detail-1001.html").write_text("<html>A</html>", encoding="utf-8")
+    (tmp_path / "detail-1002.html").write_text("<html>B</html>", encoding="utf-8")
+
+    statements: list[str] = []
+
+    def _capture_sql(_conn, _cursor, statement, _parameters, _context, _executemany):
+        if "FROM fapai_seed_item" in statement and "ORDER BY CASE" in statement:
+            statements.append(statement)
+
+    event.listen(repo.engine, "before_cursor_execute", _capture_sql)
+    try:
+        claimed = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30)
+    finally:
+        event.remove(repo.engine, "before_cursor_execute", _capture_sql)
+
+    assert claimed is not None
+    assert any("LIMIT" in statement.upper() for statement in statements)
+
+
+def test_analysis_queue_claim_scans_beyond_first_candidate_window_when_front_batch_artifacts_are_missing(
+    tmp_path: Path,
+) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+
+    items = [
+        {
+            "id": f"{2000 + index}",
+            "title": f"南沙分析 {index}",
+            "url": f"https://sf-item.taobao.com/sf_item/{2000 + index}.htm",
+        }
+        for index in range(17)
+    ]
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=items,
+    )
+
+    for index in range(16):
+        repo.mark_seed_raw_detail_captured(
+            str(2000 + index),
+            detail_html_path=str(tmp_path / f"missing-{2000 + index}.html"),
+        )
+    valid_detail = tmp_path / "detail-2016.html"
+    valid_detail.write_text("<html>2016</html>", encoding="utf-8")
+    repo.mark_seed_raw_detail_captured("2016", detail_html_path=str(valid_detail))
+
+    claimed = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30)
+
+    assert claimed is not None
+    assert claimed["id"] == "2016"
+    with repo.session_factory() as session:
+        blocked = session.get(FapaiSeedItem, "2000")
+        assert blocked is not None
+        assert blocked.status == "analysis_blocked"
+
+
+def test_analysis_claim_skips_rows_whose_raw_detail_artifact_is_missing(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=[
+            {"id": "1001", "title": "南沙 A", "url": "https://sf-item.taobao.com/sf_item/1001.htm"},
+            {"id": "1002", "title": "南沙 B", "url": "https://sf-item.taobao.com/sf_item/1002.htm"},
+        ],
+    )
+    assert repo.claim_seed_detail_item("detail-worker", lease_seconds=30) is not None
+    assert repo.claim_seed_detail_item("detail-worker", lease_seconds=30) is not None
+
+    existing_detail = tmp_path / "detail-1002.html"
+    existing_detail.write_text("<html>ok</html>", encoding="utf-8")
+    existing_selected = tmp_path / "selected-1002.json"
+    existing_selected.write_text("{}", encoding="utf-8")
+
+    repo.mark_seed_raw_detail_captured(
+        "1001",
+        detail_html_path=str(tmp_path / "missing-detail-1001.html"),
+        selected_json_path=str(tmp_path / "missing-selected-1001.json"),
+    )
+    repo.mark_seed_raw_detail_captured(
+        "1002",
+        detail_html_path=str(existing_detail),
+        selected_json_path=str(existing_selected),
+    )
+
+    analysis_claim = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30)
+
+    assert analysis_claim is not None
+    assert analysis_claim["id"] == "1002"
+    with repo.session_factory() as session:
+        missing_row = session.get(FapaiSeedItem, "1001")
+        claimed_row = session.get(FapaiSeedItem, "1002")
+        assert missing_row is not None
+        assert missing_row.status == "analysis_blocked"
+        assert "raw detail artifact missing" in (missing_row.detail_last_error or "")
+        assert claimed_row is not None
+        assert claimed_row.status == "analysis_in_progress"
 
 
 def test_detail_queue_prioritizes_pending_items_before_retrying_failed_or_same_worker_in_progress(
@@ -1318,6 +1851,104 @@ def test_detail_queue_blocks_items_that_reach_retry_limit_before_claiming_next(
         assert claimed_row.detail_attempt_count == 3
 
 
+def test_detail_queue_prioritizes_stale_failed_items_before_large_pending_backlog(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+
+    items = [
+        {
+            "id": f"{1000 + index}",
+            "title": f"南沙 {index}",
+            "url": f"https://sf-item.taobao.com/sf_item/{1000 + index}.htm",
+        }
+        for index in range(20)
+    ]
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=items,
+    )
+
+    now = datetime.utcnow().replace(microsecond=0)
+    with repo.session_factory() as session:
+        stale_failed = session.get(FapaiSeedItem, "1019")
+        assert stale_failed is not None
+        stale_failed.status = "detail_failed"
+        stale_failed.detail_attempt_count = 1
+        stale_failed.detail_last_error = "old challenge failure"
+        stale_failed.updated_at = now - timedelta(hours=2)
+        session.add(stale_failed)
+        session.commit()
+
+    claimed = repo.claim_seed_detail_item("detail-worker", lease_seconds=30)
+
+    assert claimed is not None
+    assert claimed["id"] == "1019"
+
+
+def test_analysis_queue_prioritizes_stale_failed_items_before_large_raw_backlog(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+
+    items = [
+        {
+            "id": f"{2000 + index}",
+            "title": f"南沙分析 {index}",
+            "url": f"https://sf-item.taobao.com/sf_item/{2000 + index}.htm",
+        }
+        for index in range(20)
+    ]
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=items,
+    )
+
+    for index in range(20):
+        item_id = str(2000 + index)
+        claimed = repo.claim_seed_detail_item("detail-worker", lease_seconds=30)
+        assert claimed is not None
+        detail_path = tmp_path / f"detail-{item_id}.html"
+        selected_path = tmp_path / f"selected-{item_id}.json"
+        detail_path.write_text(f"<html>{item_id}</html>", encoding="utf-8")
+        selected_path.write_text("{}", encoding="utf-8")
+        repo.mark_seed_raw_detail_captured(
+            item_id,
+            detail_html_path=str(detail_path),
+            selected_json_path=str(selected_path),
+        )
+
+    now = datetime.utcnow().replace(microsecond=0)
+    with repo.session_factory() as session:
+        stale_failed = session.get(FapaiSeedItem, "2019")
+        assert stale_failed is not None
+        stale_failed.status = "analysis_failed"
+        stale_failed.detail_attempt_count = 1
+        stale_failed.detail_last_error = "old analysis failure"
+        stale_failed.updated_at = now - timedelta(hours=2)
+        session.add(stale_failed)
+        session.commit()
+
+    claimed = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30)
+
+    assert claimed is not None
+    assert claimed["id"] == "2019"
+
+
 def test_seed_scan_page_failure_releases_progress_for_retry(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _ensure_nansha_job(repo)
@@ -1335,3 +1966,78 @@ def test_seed_scan_page_failure_releases_progress_for_retry(tmp_path: Path) -> N
         row = session.get(FapaiSeedScanProgress, task["progress_key"])
         assert row is not None
         assert row.leased_by == "seed-worker-2"
+
+
+def test_release_seed_scan_worker_leases_resets_in_progress_rows_for_worker(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+
+    released = repo.release_seed_scan_worker_leases("seed-worker")
+
+    assert released["released"] == 1
+    with repo.session_factory() as session:
+        row = session.get(FapaiSeedScanProgress, task["progress_key"])
+        assert row is not None
+        assert row.status == "pending"
+        assert row.leased_by is None
+        assert row.lease_until is None
+
+
+def test_seed_scan_page_claim_uses_utc_naive_clock_for_lease_timestamps(tmp_path: Path, monkeypatch) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    base_utc = datetime(2026, 7, 5, 10, 0, 0)
+
+    class SkewedLocalDateTime(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return base_utc + timedelta(hours=8)
+
+        @classmethod
+        def utcnow(cls):
+            return base_utc
+
+    monkeypatch.setattr(repository_module, "datetime", SkewedLocalDateTime)
+
+    claimed = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+
+    assert claimed is not None
+    with repo.session_factory() as session:
+        row = session.get(FapaiSeedScanProgress, claimed["progress_key"])
+        assert row is not None
+        assert row.lease_until == base_utc + timedelta(seconds=30)
+
+
+def test_seed_scan_page_reclaims_suspicious_future_lease_written_by_skewed_host(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    repo.ensure_seed_scan_job(
+        {
+            "job_key": "440115-50025969",
+            "province": "广东省",
+            "city": "广州市",
+            "district": "南沙区",
+            "location_code": "440115",
+            "category": "50025969",
+        },
+        sort_specs=[{"sort_key": "default", "sort_name": "默认排序", "st_param": "0", "sort_order": 0}],
+        max_page=83,
+    )
+
+    with repo.session_factory.begin() as session:
+        row = session.scalars(select(FapaiSeedScanProgress)).first()
+        assert row is not None
+        row.status = "in_progress"
+        row.leased_by = "dead-worker"
+        row.updated_at = datetime.now() - timedelta(hours=2)
+        row.lease_until = row.updated_at + timedelta(hours=8, seconds=90)
+        session.add(row)
+        progress_key = row.progress_key
+
+    claimed = repo.claim_seed_scan_page("seed-worker-2", lease_seconds=30)
+
+    assert claimed is not None
+    assert claimed["progress_key"] == progress_key
+    assert claimed["page"] == 1

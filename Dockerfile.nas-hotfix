@@ -1,0 +1,22 @@
+ARG BASE_IMAGE=fapaifang-collector:local
+
+FROM ${BASE_IMAGE}
+
+ARG FAPAI_BUILD_VERSION=development
+ARG FAPAI_BUILD_COMMIT=unknown
+ARG FAPAI_BUILD_TIME=unknown
+ARG FAPAI_SOURCE_DIGEST=unknown
+
+ENV FAPAI_BUILD_VERSION=${FAPAI_BUILD_VERSION} \
+    FAPAI_BUILD_COMMIT=${FAPAI_BUILD_COMMIT} \
+    FAPAI_BUILD_TIME=${FAPAI_BUILD_TIME} \
+    FAPAI_SOURCE_DIGEST=${FAPAI_SOURCE_DIGEST}
+
+WORKDIR /app
+
+# Reuse the verified runtime dependencies from the deployed image and replace
+# only application code. This keeps emergency NAS rollouts independent from
+# slow Chromium and Debian package downloads.
+COPY . .
+
+CMD ["python", "tools/docker_entrypoint.py"]

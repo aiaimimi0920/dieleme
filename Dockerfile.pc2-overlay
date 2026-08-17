@@ -1,0 +1,10 @@
+FROM fapaifang-collector:local
+
+WORKDIR /app
+
+COPY src/captcha_solver.py /app/src/captcha_solver.py
+COPY src/storage/repository.py /app/src/storage/repository.py
+COPY tools/browserless_seed_probe.py /app/tools/browserless_seed_probe.py
+COPY tools/live_batch_smoke.py /app/tools/live_batch_smoke.py
+COPY tools/seed_collector.py /app/tools/seed_collector.py
+COPY tools/taobao_login_health.py /app/tools/taobao_login_health.py

@@ -60,6 +60,8 @@ class TestAVMHttpContract(unittest.TestCase):
 
         self.original_service = server_module.AVM_SERVICE
         self.original_start_time = server_module.AVM_SERVICE_START_TIME
+        self.original_solver_pending_token = server_module.SOLVER_PENDING_TOKEN
+        server_module.SOLVER_PENDING_TOKEN = None
         for manager in server_module.MANUAL_REVIEW_MAINTENANCE_MANAGERS.values():
             manager.shutdown(timeout=1.0)
         server_module.MANUAL_REVIEW_MAINTENANCE_MANAGERS.clear()
@@ -79,6 +81,7 @@ class TestAVMHttpContract(unittest.TestCase):
         server_module.MANUAL_REVIEW_MAINTENANCE_MANAGERS.clear()
         server_module.AVM_SERVICE = self.original_service
         server_module.AVM_SERVICE_START_TIME = self.original_start_time
+        server_module.SOLVER_PENDING_TOKEN = self.original_solver_pending_token
         self.tmp.cleanup()
 
     def _get_json(self, path):
@@ -8604,6 +8607,49 @@ class TestAVMHttpContract(unittest.TestCase):
         self.assertEqual(getattr(submitted_callable, "__name__", ""), "run_solver")
         self.assertEqual(mocked_submit.call_args.args[1], {})
 
+    def test_report_captcha_endpoint_deduplicates_solver_while_first_submission_is_pending(self):
+        original_paused = server_module.PAUSED
+        original_pause_reason = server_module.COLLECTION_PAUSE_REASON
+        original_running = server_module.SOLVER_RUNNING
+        original_start_time = server_module.SOLVER_START_TIME
+        original_last_status = server_module.SOLVER_LAST_STATUS
+        original_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
+        original_last_request = dict(server_module.SOLVER_LAST_REQUEST)
+        original_data_dir = server_module.DATA_DIR
+        original_pending_token = getattr(server_module, "SOLVER_PENDING_TOKEN", None)
+        try:
+            server_module.PAUSED = False
+            server_module.COLLECTION_PAUSE_REASON = None
+            server_module.SOLVER_RUNNING = False
+            server_module.SOLVER_START_TIME = 0
+            server_module.SOLVER_LAST_STATUS = "idle"
+            server_module.SOLVER_LAST_FAILURE_REASON = None
+            server_module.SOLVER_LAST_REQUEST = {}
+            server_module.DATA_DIR = self.data_dir
+            if hasattr(server_module, "SOLVER_PENDING_TOKEN"):
+                server_module.SOLVER_PENDING_TOKEN = None
+
+            with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+                first_status, first_body = self._post_json("/api/report_captcha", {})
+                second_status, second_body = self._post_json("/api/report_captcha", {})
+        finally:
+            if hasattr(server_module, "SOLVER_PENDING_TOKEN"):
+                server_module.SOLVER_PENDING_TOKEN = original_pending_token
+            server_module.DATA_DIR = original_data_dir
+            server_module.SOLVER_LAST_REQUEST = original_last_request
+            server_module.SOLVER_LAST_FAILURE_REASON = original_last_failure
+            server_module.SOLVER_LAST_STATUS = original_last_status
+            server_module.SOLVER_START_TIME = original_start_time
+            server_module.SOLVER_RUNNING = original_running
+            server_module.COLLECTION_PAUSE_REASON = original_pause_reason
+            server_module.PAUSED = original_paused
+
+        self.assertEqual(first_status, 200)
+        self.assertEqual(first_body["status"], "solving")
+        self.assertEqual(second_status, 200)
+        self.assertEqual(second_body["status"], "already_running")
+        mocked_submit.assert_called_once()
+
     def test_report_captcha_endpoint_does_not_requeue_while_solver_is_running(self):
         original_running = server_module.SOLVER_RUNNING
         original_start_time = server_module.SOLVER_START_TIME
@@ -8627,6 +8673,52 @@ class TestAVMHttpContract(unittest.TestCase):
         self.assertEqual(body["status"], "already_running")
         self.assertEqual(body["elapsed_seconds"], 7)
         mocked_submit.assert_not_called()
+
+    def test_report_captcha_endpoint_refreshes_last_request_while_solver_is_running(self):
+        original_running = server_module.SOLVER_RUNNING
+        original_start_time = server_module.SOLVER_START_TIME
+        original_last_request = dict(server_module.SOLVER_LAST_REQUEST)
+        body = None
+        mocked_submit = None
+        try:
+            server_module.SOLVER_RUNNING = True
+            server_module.SOLVER_START_TIME = time.time() - 7
+            server_module.SOLVER_LAST_REQUEST = {
+                "cdp_endpoint": "http://192.168.15.104:9224",
+                "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
+                "node_id": "pc2",
+            }
+            with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+                request = urllib.request.Request(
+                    f"http://127.0.0.1:{self.port}/api/report_captcha",
+                    data=json.dumps(
+                        {
+                            "cdp_endpoint": "http://192.168.15.20:9224",
+                            "node_id": "pc2",
+                            "target_url": "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&__captcha_solver_bg=1",
+                        }
+                    ).encode("utf-8"),
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                with urllib.request.urlopen(request) as resp:
+                    self.assertEqual(resp.status, 200)
+                    body = json.loads(resp.read().decode("utf-8"))
+
+            self.assertEqual(body["status"], "already_running")
+            mocked_submit.assert_not_called()
+            self.assertEqual(
+                server_module.SOLVER_LAST_REQUEST,
+                {
+                    "cdp_endpoint": "http://192.168.15.20:9224",
+                    "target_url": "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&__captcha_solver_bg=1",
+                    "node_id": "pc2",
+                },
+            )
+        finally:
+            server_module.SOLVER_LAST_REQUEST = original_last_request
+            server_module.SOLVER_START_TIME = original_start_time
+            server_module.SOLVER_RUNNING = original_running
 
     def test_report_captcha_endpoint_does_not_start_parallel_solver_after_timeout(self):
         original_paused = server_module.PAUSED
@@ -8669,6 +8761,46 @@ class TestAVMHttpContract(unittest.TestCase):
         self.assertTrue(os.path.exists(os.path.join(self.data_dir, "force_unlock.flag")))
         mocked_submit.assert_not_called()
 
+    def test_report_captcha_endpoint_respects_configured_solver_runtime(self):
+        original_paused = server_module.PAUSED
+        original_pause_reason = server_module.COLLECTION_PAUSE_REASON
+        original_running = server_module.SOLVER_RUNNING
+        original_start_time = server_module.SOLVER_START_TIME
+        original_last_status = server_module.SOLVER_LAST_STATUS
+        original_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
+        original_data_dir = server_module.DATA_DIR
+        body = None
+        try:
+            server_module.PAUSED = False
+            server_module.COLLECTION_PAUSE_REASON = None
+            server_module.SOLVER_RUNNING = True
+            server_module.SOLVER_START_TIME = time.time() - 180
+            server_module.SOLVER_LAST_STATUS = "running"
+            server_module.SOLVER_LAST_FAILURE_REASON = None
+            server_module.DATA_DIR = self.data_dir
+            with mock.patch.dict(os.environ, {"FAPAI_SOLVER_MAX_RUNTIME_SECONDS": "240"}):
+                with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+                    request = urllib.request.Request(
+                        f"http://127.0.0.1:{self.port}/api/report_captcha",
+                        data=b"",
+                        method="POST",
+                    )
+                    with urllib.request.urlopen(request) as resp:
+                        self.assertEqual(resp.status, 200)
+                        body = json.loads(resp.read().decode("utf-8"))
+        finally:
+            server_module.DATA_DIR = original_data_dir
+            server_module.SOLVER_LAST_FAILURE_REASON = original_last_failure
+            server_module.SOLVER_LAST_STATUS = original_last_status
+            server_module.SOLVER_START_TIME = original_start_time
+            server_module.SOLVER_RUNNING = original_running
+            server_module.COLLECTION_PAUSE_REASON = original_pause_reason
+            server_module.PAUSED = original_paused
+
+        self.assertEqual(body["status"], "already_running")
+        self.assertEqual(body["elapsed_seconds"], 180)
+        mocked_submit.assert_not_called()
+
     def test_report_captcha_endpoint_does_not_requeue_while_manual_verification_is_required(self):
         original_paused = server_module.PAUSED
         original_running = server_module.SOLVER_RUNNING
@@ -8702,7 +8834,62 @@ class TestAVMHttpContract(unittest.TestCase):
         self.assertTrue(body["captcha_solver"]["force_unlock_flag_exists"])
         mocked_submit.assert_not_called()
 
-    def test_report_captcha_endpoint_force_retry_clears_manual_state_and_queues_solver(self):
+    def test_report_captcha_endpoint_refreshes_last_request_while_manual_verification_is_required(self):
+        original_paused = server_module.PAUSED
+        original_running = server_module.SOLVER_RUNNING
+        original_start_time = server_module.SOLVER_START_TIME
+        original_last_request = dict(server_module.SOLVER_LAST_REQUEST)
+        original_data_dir = server_module.DATA_DIR
+        body = None
+        mocked_submit = None
+        server_module.PAUSED = True
+        server_module.SOLVER_RUNNING = True
+        server_module.SOLVER_START_TIME = time.time() - 1800
+        server_module.SOLVER_LAST_REQUEST = {
+            "cdp_endpoint": "http://192.168.15.104:9224",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
+            "node_id": "pc2",
+        }
+        server_module.DATA_DIR = self.data_dir
+        flag_path = os.path.join(self.data_dir, "force_unlock.flag")
+        with open(flag_path, "w", encoding="utf-8") as f:
+            f.write("manual verification required")
+        try:
+            with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+                request = urllib.request.Request(
+                    f"http://127.0.0.1:{self.port}/api/report_captcha",
+                    data=json.dumps(
+                        {
+                            "cdp_endpoint": "http://192.168.15.20:9224",
+                            "node_id": "pc2",
+                            "target_url": "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&__captcha_solver_bg=1",
+                        }
+                    ).encode("utf-8"),
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                with urllib.request.urlopen(request) as resp:
+                    self.assertEqual(resp.status, 200)
+                    body = json.loads(resp.read().decode("utf-8"))
+
+            self.assertEqual(body["status"], "manual_required")
+            mocked_submit.assert_not_called()
+            self.assertEqual(
+                server_module.SOLVER_LAST_REQUEST,
+                {
+                    "cdp_endpoint": "http://192.168.15.20:9224",
+                    "target_url": "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&__captcha_solver_bg=1",
+                    "node_id": "pc2",
+                },
+            )
+        finally:
+            server_module.DATA_DIR = original_data_dir
+            server_module.SOLVER_LAST_REQUEST = original_last_request
+            server_module.SOLVER_START_TIME = original_start_time
+            server_module.SOLVER_RUNNING = original_running
+            server_module.PAUSED = original_paused
+
+    def test_report_captcha_endpoint_force_retry_clears_manual_state_without_queueing_parallel_solver(self):
         original_paused = server_module.PAUSED
         original_pause_reason = server_module.COLLECTION_PAUSE_REASON
         original_running = server_module.SOLVER_RUNNING
@@ -8715,6 +8902,64 @@ class TestAVMHttpContract(unittest.TestCase):
         server_module.COLLECTION_PAUSE_REASON = "manual_required"
         server_module.SOLVER_RUNNING = True
         server_module.SOLVER_START_TIME = time.time() - 1800
+        server_module.SOLVER_LAST_STATUS = "manual_required"
+        server_module.SOLVER_LAST_FAILURE_REASON = "manual_required"
+        server_module.SOLVER_MANUAL_RESUME_EPOCH = 0
+        server_module.DATA_DIR = self.data_dir
+        flag_path = os.path.join(self.data_dir, "force_unlock.flag")
+        with open(flag_path, "w", encoding="utf-8") as f:
+            f.write("manual verification required")
+        try:
+            with mock.patch.object(server_module.executor, "submit") as mocked_submit:
+                request = urllib.request.Request(
+                    f"http://127.0.0.1:{self.port}/api/report_captcha",
+                    data=json.dumps(
+                        {
+                            "target_url": "https://contest.local/challenge?__captcha_solver_bg=1",
+                            "force_retry": True,
+                        }
+                    ).encode("utf-8"),
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                with urllib.request.urlopen(request) as resp:
+                    self.assertEqual(resp.status, 200)
+                    body = json.loads(resp.read().decode("utf-8"))
+                observed_paused = server_module.PAUSED
+                observed_running = server_module.SOLVER_RUNNING
+                observed_last_status = server_module.SOLVER_LAST_STATUS
+                observed_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
+        finally:
+            server_module.DATA_DIR = original_data_dir
+            server_module.SOLVER_MANUAL_RESUME_EPOCH = original_resume_epoch
+            server_module.SOLVER_LAST_FAILURE_REASON = original_last_failure
+            server_module.SOLVER_LAST_STATUS = original_last_status
+            server_module.SOLVER_START_TIME = original_start_time
+            server_module.SOLVER_RUNNING = original_running
+            server_module.COLLECTION_PAUSE_REASON = original_pause_reason
+            server_module.PAUSED = original_paused
+
+        self.assertEqual(body["status"], "resuming")
+        mocked_submit.assert_not_called()
+        self.assertFalse(os.path.exists(flag_path))
+        self.assertFalse(observed_paused)
+        self.assertTrue(observed_running)
+        self.assertEqual(observed_last_status, "resumed")
+        self.assertIsNone(observed_last_failure)
+
+    def test_report_captcha_endpoint_force_retry_queues_solver_when_manual_state_exists_but_solver_is_not_running(self):
+        original_paused = server_module.PAUSED
+        original_pause_reason = server_module.COLLECTION_PAUSE_REASON
+        original_running = server_module.SOLVER_RUNNING
+        original_start_time = server_module.SOLVER_START_TIME
+        original_last_status = server_module.SOLVER_LAST_STATUS
+        original_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
+        original_resume_epoch = server_module.SOLVER_MANUAL_RESUME_EPOCH
+        original_data_dir = server_module.DATA_DIR
+        server_module.PAUSED = True
+        server_module.COLLECTION_PAUSE_REASON = "manual_required"
+        server_module.SOLVER_RUNNING = False
+        server_module.SOLVER_START_TIME = 0
         server_module.SOLVER_LAST_STATUS = "manual_required"
         server_module.SOLVER_LAST_FAILURE_REASON = "manual_required"
         server_module.SOLVER_MANUAL_RESUME_EPOCH = 0
@@ -8792,6 +9037,52 @@ class TestAVMHttpContract(unittest.TestCase):
             {
                 "cdp_endpoint": "http://192.168.65.254:9223",
                 "target_url": "https://contest.local/challenge?__captcha_solver_bg=1",
+            },
+        )
+
+    def test_report_captcha_endpoint_rewrites_detail_target_to_seed_when_seed_stage_still_has_work(self):
+        with (
+            mock.patch.dict(
+                os.environ,
+                {"FAPAI_COOKIE_SNAPSHOT_SAMPLE_URLS": "https://sf.taobao.com/list/50025969__2.htm"},
+                clear=False,
+            ),
+            mock.patch.object(
+                server_module,
+                "_collection_api_lightweight_status_payload",
+                return_value={
+                    "seed_scan_job_pending": 10,
+                    "seed_scan_job_in_progress": 1,
+                    "seed_scan_progress_pending": 20,
+                    "seed_scan_progress_in_progress": 0,
+                },
+            ),
+            mock.patch.object(server_module.executor, "submit") as mocked_submit,
+        ):
+            request = urllib.request.Request(
+                f"http://127.0.0.1:{self.port}/api/report_captcha",
+                data=json.dumps(
+                    {
+                        "cdp_endpoint": "http://192.168.65.254:9223",
+                        "node_id": "pc2",
+                        "target_url": "https://sf-item.taobao.com/sf_item/817695886927.htm?track_id=test&__captcha_solver_bg=1",
+                    }
+                ).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urllib.request.urlopen(request) as resp:
+                status = resp.status
+                payload = json.loads(resp.read().decode("utf-8"))
+
+        self.assertEqual(status, 200)
+        self.assertEqual(payload["status"], "solving")
+        self.assertEqual(
+            mocked_submit.call_args.args[1],
+            {
+                "cdp_endpoint": "http://192.168.65.254:9223",
+                "node_id": "pc2",
+                "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
             },
         )
 

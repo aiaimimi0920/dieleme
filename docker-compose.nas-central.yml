@@ -1,9 +1,15 @@
 x-fapaifang-image: &fapaifang-image
   build:
     context: .
+    dockerfile: ${FAPAI_DOCKERFILE:-Dockerfile}
     args:
       PYTHON_BASE_IMAGE: ${PYTHON_BASE_IMAGE:-python:3.10-slim}
       NODE_BASE_IMAGE: ${NODE_BASE_IMAGE:-node:22-alpine}
+      BASE_IMAGE: ${FAPAI_BASE_IMAGE:-fapaifang-collector:local}
+      FAPAI_BUILD_VERSION: ${FAPAI_BUILD_VERSION:-development}
+      FAPAI_BUILD_COMMIT: ${FAPAI_BUILD_COMMIT:-unknown}
+      FAPAI_BUILD_TIME: ${FAPAI_BUILD_TIME:-unknown}
+      FAPAI_SOURCE_DIGEST: ${FAPAI_SOURCE_DIGEST:-unknown}
   env_file:
     - ${FAPAI_NAS_ENV_FILE:-env.nas.local}
   image: ${FAPAI_IMAGE:-fapaifang-collector:local}
@@ -33,6 +39,10 @@ services:
     <<: *fapaifang-image
     container_name: fapaifang-api
     restart: unless-stopped
+    labels:
+      org.opencontainers.image.version: ${FAPAI_BUILD_VERSION:-development}
+      org.opencontainers.image.revision: ${FAPAI_BUILD_COMMIT:-unknown}
+      io.fapaifang.source-digest: ${FAPAI_SOURCE_DIGEST:-unknown}
     depends_on:
       postgres:
         condition: service_healthy
@@ -44,6 +54,7 @@ services:
       FAPAI_DB_AUTO_CREATE: ${FAPAI_API_DB_AUTO_CREATE:-0}
       FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_API_DB_ENABLE_POSTGIS:-0}
       FAPAI_COLLECTION_API_LIGHTWEIGHT_STATUS: ${FAPAI_COLLECTION_API_LIGHTWEIGHT_STATUS:-1}
+      FAPAI_SOLVER_STATE_DIR: ${FAPAI_SOLVER_STATE_DIR:-/data/datas}
     ports:
       - "${FAPAI_API_HOST_PORT:-8001}:8001"
     volumes:

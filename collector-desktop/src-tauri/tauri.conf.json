@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "FapaiFang 采集观察台",
+        "title": "FapaiFang 运维观察台（PC2 采集）",
         "width": 1280,
         "height": 860,
         "minWidth": 980,

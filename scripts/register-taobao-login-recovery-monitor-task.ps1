@@ -3,6 +3,8 @@ param(
     [string]$DataRoot = "C:\Users\Public\nas_home\AI\FPFData",
     [int]$IntervalMinutes = 1,
     [int]$RecentMinutes = 3,
+    [int]$MinRecentSeedItems = 1,
+    [int]$StaleSeedMinutes = 3,
     [int]$MissingPayloadThreshold = 20,
     [int]$RecoveryCooldownMinutes = 10,
     [string]$WatchdogTaskName = "FapaiFangTaobaoLoginWatchdog",
@@ -39,6 +41,12 @@ if ($IntervalMinutes -lt 1) {
 if ($RecentMinutes -lt 1) {
     throw "RecentMinutes must be at least 1."
 }
+if ($MinRecentSeedItems -lt 0) {
+    throw "MinRecentSeedItems must not be negative."
+}
+if ($StaleSeedMinutes -lt 1) {
+    throw "StaleSeedMinutes must be at least 1."
+}
 if ($MissingPayloadThreshold -lt 1) {
     throw "MissingPayloadThreshold must be at least 1."
 }
@@ -72,6 +80,8 @@ $startLogLine = '"[$timestamp] FapaiFangTaobaoLoginRecoveryMonitor starting." | 
 $invokeTriggerLine = '& ' + $triggerScriptLiteral +
     ' -DataRoot ' + $taskDataRootLiteral +
     ' -RecentMinutes ' + $RecentMinutes +
+    ' -MinRecentSeedItems ' + $MinRecentSeedItems +
+    ' -StaleSeedMinutes ' + $StaleSeedMinutes +
     ' -MissingPayloadThreshold ' + $MissingPayloadThreshold +
     ' -RecoveryCooldownMinutes ' + $RecoveryCooldownMinutes +
     ' -TaskName ' + $watchdogTaskNameLiteral +

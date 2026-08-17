@@ -20,6 +20,8 @@ CAPTCHA_SOLVER_ENV_KEYS = (
     "SOLVER_ENABLED",
     "solver_enabled",
 )
+SEED_CAPTCHA_SOLVER_ENV_KEYS = ("FAPAI_SEED_CAPTCHA_SOLVER_ENABLED",) + CAPTCHA_SOLVER_ENV_KEYS
+DETAIL_CAPTCHA_SOLVER_ENV_KEYS = ("FAPAI_DETAIL_CAPTCHA_SOLVER_ENABLED",) + CAPTCHA_SOLVER_ENV_KEYS
 
 
 def _normalize_node_id(value: str | None) -> str | None:
@@ -217,7 +219,7 @@ def build_seed_collector_command(env: Mapping[str, str]) -> list[str]:
     append_option(command, "--failure-cooldown-seconds", env_text(env, "FAPAI_SEED_FAILURE_COOLDOWN_SECONDS"))
     if env_flag(env, "FAPAI_SEED_PARALLEL_SORTS", False):
         command.append("--parallel-sorts")
-    if any_env_flag(env, CAPTCHA_SOLVER_ENV_KEYS, False):
+    if any_env_flag(env, SEED_CAPTCHA_SOLVER_ENV_KEYS, False):
         command.append("--solver-enabled")
     if (env_text(env, "FAPAI_RUN_MODE", "seed-collector") or "").lower() == "seed-collector":
         command.append("--loop")
@@ -282,13 +284,18 @@ def build_detail_worker_command(env: Mapping[str, str]) -> list[str]:
         env_text(env, "FAPAI_DETAIL_WORKER_ID"),
         default_worker_id if env_text(env, "FAPAI_NODE_ID") else None,
     )
+    detail_cdp_endpoint = (
+        env_text(env, "FAPAI_DETAIL_CDP_ENDPOINT")
+        or env_text(env, "FAPAI_CDP_ENDPOINT", "http://host.docker.internal:9223")
+        or "http://host.docker.internal:9223"
+    )
     command = [
         sys.executable,
         "tools/detail_worker.py",
         "--output-dir",
         output_dir,
         "--cdp-endpoint",
-        env_text(env, "FAPAI_CDP_ENDPOINT", "http://host.docker.internal:9223") or "http://host.docker.internal:9223",
+        detail_cdp_endpoint,
         "--target-success",
         target_success or "5",
         "--max-attempts",
@@ -306,7 +313,7 @@ def build_detail_worker_command(env: Mapping[str, str]) -> list[str]:
         command.append("--analysis-only")
     if raw_only:
         command.append("--raw-only")
-    if any_env_flag(env, CAPTCHA_SOLVER_ENV_KEYS, False) and not analysis_only:
+    if any_env_flag(env, DETAIL_CAPTCHA_SOLVER_ENV_KEYS, False) and not analysis_only:
         command.append("--solver-enabled")
     if env_flag(env, "FAPAI_ENABLE_RISK", False):
         command.append("--risk")

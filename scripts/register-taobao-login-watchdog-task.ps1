@@ -1,6 +1,8 @@
 param(
     [string]$TaskName = "FapaiFangTaobaoLoginWatchdog",
     [string]$DataRoot = "C:\Users\Public\nas_home\AI\FPFData",
+    [string]$OutputPath = "",
+    [string]$AlertWebhookUrl = "",
     [int]$IntervalMinutes = 5,
     [int]$WaitSeconds = 600,
     [int]$PollSeconds = 5,
@@ -44,6 +46,12 @@ if (-not (Test-Path -LiteralPath $watchdogScript)) {
 }
 
 $taskDataRoot = Convert-DataRootForScheduledTask -Path $DataRoot
+$taskOutputPath = if ($OutputPath) {
+    Convert-DataRootForScheduledTask -Path $OutputPath
+} else {
+    ""
+}
+$taskAlertWebhookUrl = [string]$AlertWebhookUrl
 $workingDirectory = $repoRoot
 
 $scriptArgs = @(
@@ -55,6 +63,12 @@ $scriptArgs = @(
     "-WaitSeconds", $WaitSeconds,
     "-PollSeconds", $PollSeconds
 )
+if ($taskOutputPath) {
+    $scriptArgs += @("-OutputPath", "`"$taskOutputPath`"")
+}
+if ($taskAlertWebhookUrl) {
+    $scriptArgs += @("-AlertWebhookUrl", "`"$taskAlertWebhookUrl`"")
+}
 if ($UseSystemProxy) {
     $scriptArgs += "-UseSystemProxy"
 }

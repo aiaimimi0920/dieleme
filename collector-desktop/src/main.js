@@ -4,6 +4,7 @@ import "./styles.css";
 const app = document.querySelector("#app");
 const AUTO_REFRESH_INTERVAL_MS = 60_000;
 const REGION_REFRESH_INTERVAL_MS = 600_000;
+const DEFAULT_AUTH_CHALLENGE_URL = "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1";
 
 function isTauriRuntime() {
   return Boolean(window.__TAURI_INTERNALS__);
@@ -25,8 +26,8 @@ function defaultBrowserApiBase() {
 
 app.innerHTML = `
   <header>
-    <h1>FapaiFang 采集观察台</h1>
-    <p>Rust + Tauri 独立桌面应用。观察并控制采集三段流水：商品链接采集、商品详情页采集、商品详情页 AI 分析。</p>
+    <h1>FapaiFang 运维观察台</h1>
+    <p>本机不运行采集 Worker；PC1 仅负责人工认证，链接、详情和 AI Worker 均运行在 PC2。</p>
   </header>
   <main>
     <section class="panel">
@@ -103,12 +104,12 @@ app.innerHTML = `
     <div class="auth-dialog-header">
       <div>
         <h2>认证挑战</h2>
-        <p>用于处理淘宝登录、验证码或安全验证。完成后点击“我已完成认证，开始”。</p>
+        <p>用于处理淘宝登录、验证码或安全验证。后台会自动检测认证恢复；如果没有自动恢复，再点击“我已完成认证，开始”。</p>
       </div>
       <button id="authChallengeClose" aria-label="关闭认证框">关闭</button>
     </div>
     <div class="auth-dialog-toolbar">
-      <label>挑战地址 <input id="authChallengeUrl" value="https://login.taobao.com/member/login.jhtml" /></label>
+      <label>挑战地址 <input id="authChallengeUrl" value="https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1" /></label>
       <button id="authChallengeReload">打开/刷新认证挑战</button>
       <button id="authChallengeQueue">提交认证任务</button>
       <button id="authChallengeResume">我已完成认证，开始</button>
@@ -116,7 +117,7 @@ app.innerHTML = `
     <div class="status-line" id="authChallengeStatus">等待打开认证挑战。</div>
     <div class="auth-instructions">
       <strong>认证窗口会在外部浏览器中打开。</strong>
-      <p>淘宝登录和安全挑战通常会阻止被嵌入到桌面应用内。这里不再加载内嵌页面，避免“已阻止此内容”和界面卡顿。请在弹出的浏览器窗口完成认证，然后回到本窗口点击“我已完成认证，开始”。</p>
+      <p>淘宝登录和安全挑战通常会阻止被嵌入到桌面应用内。这里不再加载内嵌页面，避免“已阻止此内容”和界面卡顿。请在弹出的浏览器窗口完成认证；后台 watcher 会自动检测恢复并让 PC2 续跑，手动按钮只作为兜底。</p>
     </div>
   </dialog>
 `;
@@ -180,6 +181,32 @@ function formatSigned(value) {
   return `${number >= 0 ? "+" : ""}${number}`;
 }
 
+function formatPercent(rate) {
+  const number = Number(rate);
+  if (!Number.isFinite(number)) {
+    return "等待数据";
+  }
+  return `${(number * 100).toFixed(number > 0 && number < 0.1 ? 1 : 0)}%`;
+}
+
+function formatDurationSeconds(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number < 0) {
+    return "等待数据";
+  }
+  if (number < 60) {
+    return `${Math.round(number)} 秒`;
+  }
+  const minutes = Math.floor(number / 60);
+  const seconds = Math.round(number % 60);
+  if (minutes < 60) {
+    return seconds > 0 ? `${minutes} 分 ${seconds} 秒` : `${minutes} 分`;
+  }
+  const hours = Math.floor(minutes / 60);
+  const remainMinutes = minutes % 60;
+  return remainMinutes > 0 ? `${hours} 小时 ${remainMinutes} 分` : `${hours} 小时`;
+}
+
 function overviewMetric(data, path) {
   const parts = String(path || "").split(".");
   let current = data && data.modules;
@@ -213,6 +240,54 @@ function renderGrowthLine(path) {
       ? currentSample.capturedAt.getTime() - previousSample.capturedAt.getTime()
       : AUTO_REFRESH_INTERVAL_MS;
   return `<div class="growth-line">${esc(formatGrowthDelta(currentValue, previousValue, elapsedMs))}</div>`;
+}
+
+function authWatcherStatusLabel(authWatcher) {
+  const status = String((authWatcher && authWatcher.status) || "").trim().toLowerCase();
+  if (!authWatcher || !authWatcher.available) {
+    return "未启动";
+  }
+  if (status === "watching") {
+    return "等待自动恢复";
+  }
+  if (status === "completed") {
+    return "已自动恢复";
+  }
+  if (status === "timed_out") {
+    return "自动恢复超时";
+  }
+  return status || "待机";
+}
+
+function authWatcherStatusClass(authWatcher) {
+  const status = String((authWatcher && authWatcher.status) || "").trim().toLowerCase();
+  if (!authWatcher || !authWatcher.available) {
+    return "warn";
+  }
+  if (status === "completed") {
+    return "ok";
+  }
+  if (status === "timed_out") {
+    return "bad";
+  }
+  return "warn";
+}
+
+function authWatcherStatusMessage(authWatcher, runtimeState) {
+  if (!authWatcher || !authWatcher.available) {
+    return "";
+  }
+  const status = String(authWatcher.status || "").trim().toLowerCase();
+  if (status === "watching") {
+    return "正在等待当前 PC1 认证恢复，可先不用手动点击“我已完成认证，开始”。";
+  }
+  if (status === "completed" && runtimeState === "运行中") {
+    return "已检测到 PC1 认证自动恢复完成，PC2 已继续运行。";
+  }
+  if (status === "timed_out") {
+    return "后台自动恢复已超时；如果你已经完成认证，请点击“我已完成认证，开始”兜底恢复。";
+  }
+  return "";
 }
 
 async function fetchWithTimeout(url, options = {}, timeoutMs = 30_000) {
@@ -709,10 +784,28 @@ function analysisAttemptCount(data) {
 }
 
 function runtimeStateFromOverview(data) {
+  if (typeof data.runtime_state === "string" && data.runtime_state.trim()) {
+    return data.runtime_state;
+  }
   const status = data.status || {};
+  if (typeof status.runtime_state === "string" && status.runtime_state.trim()) {
+    return status.runtime_state;
+  }
   const solver = status.captcha_solver || {};
   const authRequired = Boolean(solver.manual_required || solver.force_unlock_flag_exists);
   if (authRequired) {
+    const lastRequest = solver.last_request || {};
+    const targetUrl = String(lastRequest.target_url || lastRequest.url || "").toLowerCase();
+    const detailOnlyAuth =
+      targetUrl.includes("sf-item.taobao.com") || targetUrl.includes("/sf_item/");
+    const seedStageCanContinue =
+      Number(status.seed_scan_job_pending || 0) > 0 ||
+      Number(status.seed_scan_job_in_progress || 0) > 0 ||
+      Number(status.seed_scan_progress_pending || 0) > 0 ||
+      Number(status.seed_scan_progress_in_progress || 0) > 0;
+    if (detailOnlyAuth && seedStageCanContinue) {
+      return "运行中";
+    }
     return "待认证";
   }
   if (status.paused) {
@@ -750,13 +843,68 @@ function runtimeActionLabel(runtimeState) {
   return runtimeState === "运行中" ? "暂停" : "开始";
 }
 
+function normalizeAuthChallengeUrl(url) {
+  const rawUrl = String(url || "").trim();
+  if (!rawUrl) {
+    return DEFAULT_AUTH_CHALLENGE_URL;
+  }
+
+  let parsed;
+  try {
+    parsed = new URL(rawUrl);
+  } catch (_error) {
+    return DEFAULT_AUTH_CHALLENGE_URL;
+  }
+
+  const host = parsed.hostname.toLowerCase();
+  const pathname = parsed.pathname || "";
+  const loweredPath = pathname.toLowerCase();
+
+  if (host.includes("sf-item.taobao.com") || loweredPath.includes("/sf_item/")) {
+    return DEFAULT_AUTH_CHALLENGE_URL;
+  }
+
+  if (!host.includes("sf.taobao.com")) {
+    return DEFAULT_AUTH_CHALLENGE_URL;
+  }
+
+  const buildListUrl = (pathValue, sourceParams) => {
+    const normalizedPath = String(pathValue || "").replace(/\/{2,}/g, "/");
+    if (!normalizedPath.toLowerCase().includes("/list/")) {
+      return DEFAULT_AUTH_CHALLENGE_URL;
+    }
+    const next = new URL(`${parsed.origin}${normalizedPath}`);
+    ["location_code", "st_param", "auction_start_seg", "page"].forEach((key) => {
+      const value = sourceParams.get(key);
+      if (value) {
+        next.searchParams.set(key, value);
+      }
+    });
+    next.searchParams.set("__captcha_solver_bg", "1");
+    return next.toString();
+  };
+
+  if (loweredPath.includes("/_____tmd_____/punish")) {
+    const cleanPath = pathname.split("/_____tmd_____/punish", 1)[0];
+    return buildListUrl(cleanPath, parsed.searchParams);
+  }
+
+  if (loweredPath.includes("/list/")) {
+    parsed.searchParams.delete("x5secdata");
+    parsed.searchParams.delete("x5step");
+    return buildListUrl(pathname, parsed.searchParams);
+  }
+
+  return DEFAULT_AUTH_CHALLENGE_URL;
+}
+
 function defaultAuthChallengeUrl() {
   const solver = state.lastOverview && state.lastOverview.status && state.lastOverview.status.captcha_solver;
   const lastRequest = (solver && solver.last_request) || {};
-  return (
+  return normalizeAuthChallengeUrl(
     lastRequest.target_url ||
     lastRequest.url ||
-    "https://login.taobao.com/member/login.jhtml"
+    DEFAULT_AUTH_CHALLENGE_URL
   );
 }
 
@@ -768,6 +916,12 @@ async function loadOverview() {
   state.lastOverview = data;
   const modules = data.modules || {};
   const runtimeState = runtimeStateFromOverview(data);
+  const challengeMetrics = data.challenge_metrics || {};
+  const authWatcher = data.auth_watcher || {};
+  const recentChallengeRateText = formatPercent(challengeMetrics.recent_challenge_hit_rate);
+  const currentChallengeRateText = formatPercent(challengeMetrics.current_challenge_hit_rate);
+  const authWatcherStatusText = authWatcherStatusLabel(authWatcher);
+  const authWatcherMessage = authWatcherStatusMessage(authWatcher, runtimeState);
   $("cards").innerHTML = `
     <div class="card runtime-card">
       <div class="label">运行状态</div>
@@ -778,6 +932,18 @@ async function loadOverview() {
         <button id="authButton">认证</button>
       </div>
     </div>
+    <div class="card">
+      <div class="label">Challenge 触发率</div>
+      <div class="value">${fmt(recentChallengeRateText)}</div>
+      <div class="hint">最近 ${fmt(challengeMetrics.recent_runs)} 轮：${fmt(challengeMetrics.recent_challenge_detected_count)} / ${fmt(challengeMetrics.recent_browserless_attempt_count)}；当前会话：${fmt(challengeMetrics.current_challenge_detected_count)} / ${fmt(challengeMetrics.current_browserless_attempt_count)}</div>
+      <div class="growth-line">当前会话 ${esc(currentChallengeRateText)}；最近原因 ${fmt(challengeMetrics.recent_top_fallback_reason || challengeMetrics.top_fallback_reason || challengeMetrics.last_reason || "等待数据")}</div>
+    </div>
+    <div class="card">
+      <div class="label">PC1 认证自动续跑</div>
+      <div class="value"><span class="pill ${authWatcherStatusClass(authWatcher)}">${authWatcherStatusText}</span></div>
+      <div class="hint">轮询 ${fmt(authWatcher.poll_seconds)} 秒 / 最长 ${fmt(authWatcher.max_wait_seconds)} 秒；累计等待 ${fmt(formatDurationSeconds(authWatcher.wait_elapsed_seconds))}</div>
+      <div class="growth-line">${fmt(authWatcher.last_error || authWatcher.status || "等待认证任务")}</div>
+    </div>
     <div class="card"><div class="label">商品链接采集</div><div class="value">${fmt(modules.links && modules.links.total)}</div><div class="hint">总链接出现次数；唯一商品 ${fmt(modules.links && modules.links.unique_items)}</div>${renderGrowthLine("links.total")}</div>
     <div class="card"><div class="label">商品详情页采集</div><div class="value">${fmt(modules.details && modules.details.captured)}</div><div class="hint">待抓 ${fmt(modules.details && modules.details.pending)} / 失败 ${fmt(modules.details && modules.details.failed)} / 阻塞 ${fmt(modules.details && modules.details.blocked)}</div>${renderGrowthLine("details.captured")}</div>
     <div class="card"><div class="label">商品详情页 AI 分析</div><div class="value">${fmt(modules.analysis && modules.analysis.finalized)}</div><div class="hint">待分析 ${fmt(modules.analysis && modules.analysis.pending)} / 失败 ${fmt(modules.analysis && modules.analysis.failed)} / 阻塞 ${fmt(modules.analysis && modules.analysis.blocked)}</div>${renderGrowthLine("analysis.finalized")}</div>
@@ -785,6 +951,9 @@ async function loadOverview() {
   $("runtimePauseButton").addEventListener("click", toggleRuntimePause);
   $("authButton").addEventListener("click", openAuthChallenge);
   $("connectionStatus").textContent = `已连接 ${state.apiBase}`;
+  if (authWatcherMessage) {
+    $("authChallengeStatus").textContent = authWatcherMessage;
+  }
 }
 
 function renderItems(data) {
@@ -986,26 +1155,22 @@ async function openAuthChallenge() {
 }
 
 async function openAndQueueAuthChallenge(url) {
+  const targetUrl = normalizeAuthChallengeUrl(url);
+  const pauseResult = await postJson("/api/collection/control/pause", {}, { timeoutMs: 10_000 });
+  await loadOverview();
   let output = "";
   try {
-    output = await tryInvoke("open_auth_browser", { url });
+    output = await tryInvoke("open_auth_browser", { url: targetUrl });
   } catch (_error) {
-    const opened = window.open(url, "_blank", "noopener,noreferrer");
+    const opened = window.open(targetUrl, "_blank", "noopener,noreferrer");
     output = opened
-      ? `已在当前浏览器打开认证页面：${url}。请完成认证后回到控制台点击“我已完成认证，开始”。`
-      : `当前浏览器阻止了弹窗。请手动打开认证地址：${url}`;
+      ? `已在当前浏览器打开认证页面：${targetUrl}。请完成认证后回到控制台点击“我已完成认证，开始”。`
+      : `当前浏览器阻止了弹窗。请手动打开认证地址：${targetUrl}`;
   }
-  const messages = [
-    output || "已打开外部认证浏览器。请在浏览器中完成认证，然后点击“我已完成认证，开始”。",
-  ];
-  try {
-    const result = await postJson("/api/report_captcha", { target_url: url, force_retry: true }, { timeoutMs: 10_000 });
-    messages.push(`自动认证任务状态：${result.status || "已提交"}`);
-    await loadOverview();
-  } catch (error) {
-    messages.push(`自动提交认证任务失败：${error.message || error}；请在外部浏览器中手动完成认证。`);
-  }
-  return messages.join("\n");
+  return [
+    `采集已暂停，当前浏览器完全由人工控制：${pauseResult.runtime_state || "暂停中"}`,
+    output || "已打开外部认证浏览器。请在当前详情页完成认证，不要关闭、刷新或重新导航，然后点击“我已完成认证，开始”。",
+  ].join("\n");
 }
 
 function closeAuthChallenge() {
@@ -1018,9 +1183,9 @@ function closeAuthChallenge() {
 }
 
 async function reloadAuthChallenge() {
-  const url = $("authChallengeUrl").value.trim() || defaultAuthChallengeUrl();
+  const url = normalizeAuthChallengeUrl($("authChallengeUrl").value.trim() || defaultAuthChallengeUrl());
   $("authChallengeUrl").value = url;
-  $("authChallengeStatus").textContent = "正在打开/刷新外部认证浏览器...";
+  $("authChallengeStatus").textContent = "正在暂停采集并打开外部认证浏览器...";
   try {
     $("authChallengeStatus").textContent = await openAndQueueAuthChallenge(url);
   } catch (error) {
@@ -1029,11 +1194,12 @@ async function reloadAuthChallenge() {
 }
 
 async function queueAuthChallenge() {
-  const targetUrl = $("authChallengeUrl").value.trim() || defaultAuthChallengeUrl();
+  const targetUrl = normalizeAuthChallengeUrl($("authChallengeUrl").value.trim() || defaultAuthChallengeUrl());
+  $("authChallengeUrl").value = targetUrl;
   $("authChallengeStatus").textContent = "正在提交认证任务...";
   try {
-    const result = await postJson("/api/report_captcha", { target_url: targetUrl, force_retry: true }, { timeoutMs: 10_000 });
-    $("authChallengeStatus").textContent = `认证任务状态：${result.status || "已提交"}`;
+    const result = await postJson("/api/collection/control/pause", {}, { timeoutMs: 10_000 });
+    $("authChallengeStatus").textContent = `已保持人工认证模式：${result.runtime_state || "暂停中"}`;
     await loadOverview();
   } catch (error) {
     $("authChallengeStatus").innerHTML = `<span class="error">提交认证任务失败：${esc(error.message)}</span>`;
@@ -1041,20 +1207,21 @@ async function queueAuthChallenge() {
 }
 
 async function resumeAfterAuthChallenge() {
-  $("authChallengeStatus").textContent = "正在通知 API 清除待认证状态...";
+  const tauriRuntime = isTauriRuntime();
+  $("authChallengeStatus").textContent = tauriRuntime
+    ? "正在原地检查当前详情页并验证可复用 cookie；浏览器不会关闭或刷新..."
+    : "正在通知 API 清除待认证状态...";
   try {
+    if (tauriRuntime) {
+      await tryInvoke("export_taobao_cookie_snapshot");
+    }
     await postJson("/api/collection/auth/complete", {
       source: "collector_desktop",
-      refresh_cookie_snapshot: false,
+      refresh_cookie_snapshot: !tauriRuntime,
     }, { timeoutMs: 10_000 });
-    $("authChallengeStatus").textContent = isTauriRuntime()
-      ? "已通知 API 开始采集；cookie 快照将在后台刷新。"
-      : "已通知 API 开始采集。当前为 HTML 控制台，cookie 快照需由采集节点本机维护。";
-    if (isTauriRuntime()) {
-      void tryInvoke("export_taobao_cookie_snapshot").catch((error) => {
-        console.warn("后台刷新淘宝 cookie 快照失败", error);
-      });
-    }
+    $("authChallengeStatus").textContent = tauriRuntime
+      ? "当前详情页和可复用 cookie 均已验证，已通知 API 让 PC2 worker 继续。"
+      : "已通知 API 开始采集；cookie 快照将由当前采集节点刷新。";
     closeAuthChallenge();
     await reloadAll();
   } catch (error) {

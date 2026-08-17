@@ -4,15 +4,17 @@ import argparse
 import datetime
 import json
 import os
+import re
 import sys
 import time
 import traceback
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Mapping
 from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
 
 import requests
+from bs4 import BeautifulSoup
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -22,6 +24,11 @@ if str(REPO_ROOT) not in sys.path:
 DEFAULT_OUTPUT_DIR = Path("output/live_batch_smoke")
 DEFAULT_CDP_ENDPOINT = "http://127.0.0.1:9223"
 DEFAULT_CDP_CONNECT_TIMEOUT_MS = 120000
+DEFAULT_LIST_BROWSER_NAV_TIMEOUT_MS = 10000
+DEFAULT_LIST_BROWSER_RECOVERY_MAX_ATTEMPTS = 2
+DEFAULT_LIST_BROWSER_RECOVERY_WAIT_SECONDS = 2.0
+DEFAULT_DETAIL_BROWSER_READY_TIMEOUT_MS = 8000
+DEFAULT_DETAIL_BROWSER_POLL_INTERVAL_MS = 250
 DEFAULT_RESUME_STATE_FILENAME = "resume_state.json"
 DEFAULT_LIST_ST_PARAMS = ("2", "1", "0", "3", "4", "5")
 DEFAULT_TARGET_URL = (
@@ -52,6 +59,21 @@ CAPTCHA_SOLVER_ENV_NAMES = (
     "SOLVER_ENABLED",
     "solver_enabled",
 )
+MOBILE_PHONE_RE = re.compile(r"(?<!\d)1[3-9]\d{9}(?!\d)")
+SERVICE_PHONE_RE = re.compile(r"(?<!\d)400[-\s]?\d{3}[-\s]?\d{4}(?!\d)")
+LANDLINE_PHONE_RE = re.compile(r"(?<!\d)0\d{2,3}[-\s]?\d{7,8}(?!\d)")
+EMAIL_RE = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
+CONTACT_FIELD_RE = re.compile(r"(联系方式|联系人|咨询电话|电话|手机)[:：]?\s*[^\s<]{1,32}")
+
+
+class CdpEndpointUnavailableError(RuntimeError):
+    def __init__(self, cdp_endpoint: str, operation: str, cause: BaseException):
+        self.cdp_endpoint = str(cdp_endpoint or "")
+        self.operation = str(operation or "")
+        self.cause = cause
+        super().__init__(
+            f"CDP endpoint unavailable during {self.operation} on {self.cdp_endpoint}: {cause!r}"
+        )
 
 
 @dataclass(frozen=True)
@@ -83,7 +105,7 @@ def _browserless_seed_probe():
 def preflight_llm_backend(*, timeout: float, check_chat: bool = False) -> dict[str, Any]:
     from src import llm_helper
 
-    return llm_helper.preflight_openai_compatible_backend(timeout=timeout, check_chat=check_chat)
+    return llm_helper.preflight_llm_backend(timeout=timeout, check_chat=check_chat)
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -422,7 +444,7 @@ def collect_list_union(
             if payload is None:
                 record["error"] = f"list payload missing: {list_summary}"
                 list_fetches.append(record)
-                if config.list_stop_on_empty and isinstance(list_summary, dict) and list_summary.get("body_has_challenge"):
+                if isinstance(list_summary, dict) and list_summary.get("body_has_challenge"):
                     stopped_keys.add(key)
                 continue
 
@@ -674,25 +696,55 @@ def is_challenge_page(html: str, final_url: str) -> bool:
     if summary.get("body_has_challenge") or summary.get("body_has_login"):
         return True
     text = html or ""
-    return any(marker in text for marker in ("霸下通用 web 页面-验证码", "_____tmd_____/punish", "x5secdata="))
+    lowered_final_url = str(final_url or "").lower()
+    return "challenge" in lowered_final_url or any(
+        marker in text for marker in ("霸下通用 web 页面-验证码", "_____tmd_____/punish", "x5secdata=")
+    )
+
+
+def _configured_cookie_snapshot_path() -> Path | None:
+    explicit = (os.environ.get("FAPAI_COOKIE_SNAPSHOT") or "").strip()
+    if explicit:
+        return Path(explicit)
+    shared_root = (
+        (os.environ.get("FAPAI_SHARED_DATA_ROOT_HOST") or "").strip()
+        or (os.environ.get("FAPAI_DATA_ROOT_HOST") or "").strip()
+    )
+    node_id = (os.environ.get("FAPAI_NODE_ID") or "").strip()
+    if not shared_root or not node_id:
+        return None
+    return Path(shared_root) / "secrets" / "nodes" / node_id / "taobao-cookies.json"
+
+
+def _write_cookie_snapshot_best_effort(browserless_seed_probe: Any, cookies: list[dict[str, Any]], snapshot_path: Path | None) -> None:
+    if snapshot_path is None:
+        return
+    try:
+        browserless_seed_probe.write_cookie_snapshot(cookies, snapshot_path)
+    except Exception:
+        return
 
 
 def export_cookies(cdp_endpoint: str) -> list[dict[str, Any]]:
     browserless_seed_probe = _browserless_seed_probe()
-    snapshot_path = (os.environ.get("FAPAI_COOKIE_SNAPSHOT") or "").strip()
+    snapshot = _configured_cookie_snapshot_path()
     prefer_snapshot = (os.environ.get("FAPAI_COOKIE_SNAPSHOT_PREFER") or "").strip().lower() in TRUE_VALUES
-    if prefer_snapshot and snapshot_path:
+    if prefer_snapshot and snapshot is not None:
         try:
-            return browserless_seed_probe.load_cookie_snapshot(Path(snapshot_path))
+            return browserless_seed_probe.load_cookie_snapshot(snapshot)
         except FileNotFoundError:
-            return browserless_seed_probe.export_cdp_cookies(cdp_endpoint)
+            cookies = browserless_seed_probe.export_cdp_cookies(cdp_endpoint)
+            _write_cookie_snapshot_best_effort(browserless_seed_probe, cookies, snapshot)
+            return cookies
     try:
-        return browserless_seed_probe.export_cdp_cookies(cdp_endpoint)
+        cookies = browserless_seed_probe.export_cdp_cookies(cdp_endpoint)
+        _write_cookie_snapshot_best_effort(browserless_seed_probe, cookies, snapshot)
+        return cookies
     except Exception as export_exc:
-        if not snapshot_path:
+        if snapshot is None:
             raise
         try:
-            return browserless_seed_probe.load_cookie_snapshot(Path(snapshot_path))
+            return browserless_seed_probe.load_cookie_snapshot(snapshot)
         except Exception as snapshot_exc:
             raise RuntimeError(
                 f"cdp cookie export failed: {export_exc!r}; "
@@ -725,6 +777,104 @@ def captcha_solver_enabled(*, default: bool = False) -> bool:
     return default
 
 
+def _positive_int_env(name: str, default: int) -> int:
+    raw = os.environ.get(name)
+    if raw is None or not raw.strip():
+        return default
+    try:
+        parsed = int(raw)
+    except ValueError:
+        return default
+    return parsed if parsed > 0 else default
+
+
+def _positive_float_env(name: str, default: float) -> float:
+    raw = os.environ.get(name)
+    if raw is None or not raw.strip():
+        return default
+    try:
+        parsed = float(raw)
+    except ValueError:
+        return default
+    return parsed if parsed > 0 else default
+
+
+def detail_browser_ready_timeout_ms() -> int:
+    return _positive_int_env(
+        "FAPAI_DETAIL_BROWSER_READY_TIMEOUT_MS",
+        DEFAULT_DETAIL_BROWSER_READY_TIMEOUT_MS,
+    )
+
+
+def detail_browser_poll_interval_ms() -> int:
+    return _positive_int_env(
+        "FAPAI_DETAIL_BROWSER_POLL_INTERVAL_MS",
+        DEFAULT_DETAIL_BROWSER_POLL_INTERVAL_MS,
+    )
+
+
+def _detail_page_has_ready_marker(html: str) -> bool:
+    lowered = str(html or "").lower()
+    return any(
+        marker in lowered
+        for marker in (
+            'id="j_startprice',
+            "id='j_startprice",
+            'id="itemaddress',
+            "id='itemaddress",
+            'id="description-data',
+            "id='description-data",
+            'class="countdown',
+            "class='countdown",
+        )
+    )
+
+
+def _wait_for_detail_ready(
+    page: Any,
+    *,
+    timeout_ms: int | None = None,
+    poll_interval_ms: int | None = None,
+) -> str:
+    """Poll detail DOM readiness while preserving immediate challenge detection."""
+    timeout = max(int(timeout_ms or detail_browser_ready_timeout_ms()), 1)
+    poll_interval = max(int(poll_interval_ms or detail_browser_poll_interval_ms()), 1)
+    deadline = time.monotonic() + timeout / 1000.0
+    max_polls = max((timeout + poll_interval - 1) // poll_interval, 1)
+    last_html = ""
+    for poll_index in range(max_polls + 1):
+        last_html = read_page_content_with_retries(page, attempts=1)
+        final_url = str(getattr(page, "url", "") or "")
+        if is_challenge_page(last_html, final_url) or _detail_page_has_ready_marker(last_html):
+            return last_html
+        remaining_ms = int((deadline - time.monotonic()) * 1000)
+        if poll_index >= max_polls or remaining_ms <= 0:
+            break
+        page.wait_for_timeout(min(poll_interval, max(1, remaining_ms)))
+    return last_html
+
+
+def list_browser_recovery_max_attempts() -> int:
+    return _positive_int_env(
+        "FAPAI_LIST_BROWSER_RECOVERY_MAX_ATTEMPTS",
+        DEFAULT_LIST_BROWSER_RECOVERY_MAX_ATTEMPTS,
+    )
+
+
+def list_browser_recovery_wait_seconds() -> float:
+    return _positive_float_env(
+        "FAPAI_LIST_BROWSER_RECOVERY_WAIT_SECONDS",
+        DEFAULT_LIST_BROWSER_RECOVERY_WAIT_SECONDS,
+    )
+
+
+def list_http_timeout_seconds() -> float:
+    return _positive_float_env(
+        "FAPAI_LIST_HTTP_TIMEOUT_SECONDS",
+        40.0,
+    )
+
+
 def build_http(cookies: list[dict[str, Any]]) -> requests.Session:
     browserless_seed_probe = _browserless_seed_probe()
     session = browserless_seed_probe.build_session_from_playwright_cookies(cookies)
@@ -736,6 +886,75 @@ def build_http(cookies: list[dict[str, Any]]) -> requests.Session:
         "https": explicit_https_proxy,
     }
     return session
+
+
+def resolve_runtime_user_agent(cdp_endpoint: str) -> str:
+    browserless_seed_probe = _browserless_seed_probe()
+    resolver = getattr(browserless_seed_probe, "resolve_cdp_user_agent", None)
+    if callable(resolver):
+        try:
+            return str(resolver(cdp_endpoint, default=getattr(browserless_seed_probe, "DEFAULT_USER_AGENT", DEFAULT_USER_AGENT)) or "")
+        except Exception:
+            pass
+    return getattr(browserless_seed_probe, "DEFAULT_USER_AGENT", DEFAULT_USER_AGENT)
+
+
+def build_navigation_headers(*, target_url: str, user_agent: str, referer_url: str) -> dict[str, str]:
+    browserless_seed_probe = _browserless_seed_probe()
+    builder = getattr(browserless_seed_probe, "build_navigation_headers", None)
+    if callable(builder):
+        try:
+            return dict(
+                builder(
+                    target_url=target_url,
+                    user_agent=user_agent,
+                    referer_url=referer_url,
+                )
+            )
+        except Exception:
+            pass
+    return {
+        "User-Agent": str(user_agent or getattr(browserless_seed_probe, "DEFAULT_USER_AGENT", DEFAULT_USER_AGENT)),
+        "Accept": (
+            "text/html,application/xhtml+xml,application/xml;q=0.9,"
+            "image/avif,image/webp,image/apng,*/*;q=0.8"
+        ),
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "max-age=0",
+        "Pragma": "no-cache",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "same-site" if str(referer_url or "").strip() else "none",
+        "Sec-Fetch-User": "?1",
+        "Referer": str(referer_url or ""),
+    }
+
+
+def _default_list_referer_url(target_url: str) -> str:
+    normalized_target = str(target_url or "").strip()
+    if not normalized_target:
+        return "https://sf.taobao.com/"
+    try:
+        parsed = urlparse(normalized_target)
+    except ValueError:
+        return "https://sf.taobao.com/"
+    hostname = str(parsed.hostname or "").lower()
+    if hostname != "sf.taobao.com":
+        return "https://sf.taobao.com/"
+    if "/list/" not in str(parsed.path or "").lower():
+        return "https://sf.taobao.com/"
+    query = parse_qs(parsed.query, keep_blank_values=True)
+    query.pop("__captcha_solver_bg", None)
+    page_values = query.get("page") or []
+    try:
+        current_page = int(page_values[-1]) if page_values else 1
+    except (TypeError, ValueError):
+        current_page = 1
+    if current_page <= 1:
+        return "https://sf.taobao.com/"
+    query["page"] = [str(current_page - 1)]
+    return urlunparse(parsed._replace(query=urlencode(query, doseq=True)))
 
 
 def _cdp_page_target_limit() -> int:
@@ -753,6 +972,80 @@ def _cdp_url(cdp_endpoint: str, path: str) -> str:
     return f"{str(cdp_endpoint or '').rstrip('/')}/{path.lstrip('/')}"
 
 
+def _cdp_http_get(cdp_endpoint: str, path: str, *, timeout_seconds: float) -> Any:
+    session = requests.Session()
+    session.trust_env = False
+    return session.get(_cdp_url(cdp_endpoint, path), timeout=timeout_seconds)
+
+
+def _cdp_http_put(cdp_endpoint: str, path: str, *, timeout_seconds: float) -> Any:
+    session = requests.Session()
+    session.trust_env = False
+    return session.put(_cdp_url(cdp_endpoint, path), timeout=timeout_seconds)
+
+
+def _fallback_cached_playwright_cdp_endpoint(cdp_endpoint: str) -> str:
+    try:
+        probe = _browserless_seed_probe()
+    except Exception:
+        return ""
+
+    cached_loader = getattr(probe, "_load_cached_cdp_websocket", None)
+    if callable(cached_loader):
+        try:
+            cached = str(cached_loader(cdp_endpoint) or "").strip()
+        except Exception:
+            cached = ""
+        if cached.startswith(("ws://", "wss://")):
+            return cached
+
+    resolver = getattr(probe, "_resolve_cdp_endpoint", None)
+    if callable(resolver):
+        try:
+            resolved = str(resolver(cdp_endpoint) or "").strip()
+        except Exception:
+            resolved = ""
+        if resolved.startswith(("ws://", "wss://")):
+            return resolved
+
+    return ""
+
+
+def resolve_playwright_cdp_endpoint(
+    cdp_endpoint: str,
+    *,
+    timeout_seconds: float = DEFAULT_CDP_HTTP_TIMEOUT_SECONDS,
+) -> str:
+    normalized = str(cdp_endpoint or "").strip()
+    if not normalized:
+        return normalized
+    if normalized.startswith(("ws://", "wss://")):
+        return normalized
+    try:
+        response = _cdp_http_get(normalized, "/json/version", timeout_seconds=timeout_seconds)
+        response.raise_for_status()
+        payload = response.json()
+    except Exception:
+        return _fallback_cached_playwright_cdp_endpoint(normalized) or normalized
+    if not isinstance(payload, dict):
+        return _fallback_cached_playwright_cdp_endpoint(normalized) or normalized
+    websocket_url = str(payload.get("webSocketDebuggerUrl") or "").strip()
+    return websocket_url or normalized
+
+
+def open_cdp_keepalive_target(
+    cdp_endpoint: str,
+    *,
+    timeout_seconds: float = DEFAULT_CDP_HTTP_TIMEOUT_SECONDS,
+) -> str:
+    response = _cdp_http_put(cdp_endpoint, "/json/new?about:blank", timeout_seconds=timeout_seconds)
+    response.raise_for_status()
+    payload = response.json()
+    if not isinstance(payload, dict):
+        return ""
+    return str(payload.get("id") or "").strip()
+
+
 def compact_cdp_page_targets_if_needed(
     cdp_endpoint: str,
     *,
@@ -764,7 +1057,7 @@ def compact_cdp_page_targets_if_needed(
     if not str(cdp_endpoint or "").strip() or effective_limit <= 0:
         return summary
     try:
-        response = requests.get(_cdp_url(cdp_endpoint, "/json/list"), timeout=timeout_seconds)
+        response = _cdp_http_get(cdp_endpoint, "/json/list", timeout_seconds=timeout_seconds)
         response.raise_for_status()
         targets = response.json()
     except Exception as error:
@@ -782,14 +1075,27 @@ def compact_cdp_page_targets_if_needed(
     if len(page_targets) < effective_limit:
         return summary
     summary["triggered"] = True
+    keepalive_target_id = ""
+    try:
+        keepalive_target_id = open_cdp_keepalive_target(cdp_endpoint, timeout_seconds=timeout_seconds)
+    except Exception as error:
+        summary["errors"].append(f"keepalive: {error!r}")
+    if keepalive_target_id:
+        summary["keepalive_target_id"] = keepalive_target_id
+    preserve_target_id = keepalive_target_id or str(page_targets[0].get("id") or "").strip()
+    if preserve_target_id and not keepalive_target_id:
+        summary["preserved_target_id"] = preserve_target_id
     for target in page_targets:
         target_id = str(target.get("id") or "").strip()
         if not target_id:
             continue
+        if target_id == preserve_target_id:
+            continue
         try:
-            close_response = requests.get(
-                _cdp_url(cdp_endpoint, f"/json/close/{quote(target_id, safe='')}"),
-                timeout=timeout_seconds,
+            close_response = _cdp_http_get(
+                cdp_endpoint,
+                f"/json/close/{quote(target_id, safe='')}",
+                timeout_seconds=timeout_seconds,
             )
             close_response.raise_for_status()
             summary["closed"] += 1
@@ -799,17 +1105,69 @@ def compact_cdp_page_targets_if_needed(
 
 
 def connect_browser_over_cdp(playwright: Any, cdp_endpoint: str, *, timeout_ms: int = DEFAULT_CDP_CONNECT_TIMEOUT_MS) -> Any:
-    compaction = compact_cdp_page_targets_if_needed(cdp_endpoint)
+    try:
+        compaction = compact_cdp_page_targets_if_needed(cdp_endpoint)
+    except Exception as error:
+        _raise_cdp_endpoint_unavailable(cdp_endpoint, "compact_cdp_page_targets", error)
     if compaction.get("triggered"):
         print(json.dumps({"event": "cdp_page_target_compaction", **compaction}, ensure_ascii=False))
-    return playwright.chromium.connect_over_cdp(cdp_endpoint, timeout=timeout_ms)
+    try:
+        resolved_endpoint = resolve_playwright_cdp_endpoint(cdp_endpoint)
+    except Exception as error:
+        _raise_cdp_endpoint_unavailable(cdp_endpoint, "resolve_playwright_cdp_endpoint", error)
+    try:
+        return playwright.chromium.connect_over_cdp(resolved_endpoint, timeout=timeout_ms)
+    except Exception as error:
+        _raise_cdp_endpoint_unavailable(cdp_endpoint, "connect_over_cdp", error)
 
 
-def request_captcha_solver(cdp_endpoint: str, target_url: str) -> dict[str, Any]:
+def detach_attached_cdp_browser(browser: Any) -> None:
+    """Detach from an externally managed CDP browser without closing the host process."""
+    disconnect = getattr(browser, "disconnect", None)
+    if callable(disconnect):
+        try:
+            disconnect()
+        except Exception:
+            pass
+
+
+def read_page_content_with_retries(
+    page: Any,
+    *,
+    attempts: int = 5,
+    wait_timeout_ms: int = 500,
+) -> str:
+    last_error: Exception | None = None
+    for attempt_index in range(max(int(attempts), 1)):
+        try:
+            return str(page.content() or "")
+        except Exception as error:
+            last_error = error
+            if attempt_index >= max(int(attempts), 1) - 1:
+                break
+            try:
+                page.wait_for_timeout(wait_timeout_ms)
+            except Exception:
+                break
+    if last_error is not None:
+        raise last_error
+    return ""
+
+
+def request_captcha_solver(
+    cdp_endpoint: str,
+    target_url: str,
+    *,
+    api_base_url: str | None = None,
+) -> dict[str, Any]:
     from tools.taobao_login_health import build_captcha_solver_target_url, report_captcha_via_api
 
     solver_target_url = build_captcha_solver_target_url(target_url)
-    response = report_captcha_via_api(DEFAULT_API_BASE_URL, cdp_endpoint, solver_target_url)
+    response = report_captcha_via_api(
+        str(api_base_url or DEFAULT_API_BASE_URL),
+        cdp_endpoint,
+        solver_target_url,
+    )
     return dict(response) if isinstance(response, dict) else {"status": "unknown_response", "raw": response}
 
 
@@ -827,9 +1185,9 @@ def fetch_open_browser_pages(cdp_endpoint: str) -> dict[str, tuple[str, str]]:
                         continue
                     item_id = url.split("/sf_item/", 1)[1].split(".htm", 1)[0]
                     page.wait_for_timeout(1000)
-                    pages[item_id] = (page.content(), url)
+                    pages[item_id] = (read_page_content_with_retries(page), url)
         finally:
-            browser.close()
+            detach_attached_cdp_browser(browser)
     return pages
 
 
@@ -840,63 +1198,296 @@ def load_open_browser_pages(cdp_endpoint: str) -> dict[str, tuple[str, str]]:
         return {}
 
 
-def fetch_open_browser_list_page(cdp_endpoint: str, target_url: str) -> tuple[str, str] | None:
-    from playwright.sync_api import sync_playwright
+def _normalize_browser_match_url(
+    url: str,
+    *,
+    drop_params: Iterable[str] = ("__captcha_solver_bg", "x5secdata", "x5step"),
+) -> str:
+    text = str(url or "").strip()
+    if not text:
+        return ""
+    parsed = urlparse(text)
+    query = parse_qs(parsed.query, keep_blank_values=True)
+    path = parsed.path or ""
+    if "/_____tmd_____/punish" in path:
+        path = path.split("/_____tmd_____/punish", 1)[0]
+        while "//" in path:
+            path = path.replace("//", "/")
+    for param in drop_params:
+        query.pop(str(param), None)
+    normalized_query = urlencode(
+        sorted((key, value) for key, values in query.items() for value in values),
+        doseq=True,
+    )
+    return urlunparse(parsed._replace(path=path, query=normalized_query, fragment=""))
 
-    normalized_target = target_url.split("#", 1)[0]
-    with sync_playwright() as p:
-        browser = connect_browser_over_cdp(p, cdp_endpoint)
-        try:
-            for context in browser.contexts:
-                for page in context.pages:
-                    page_url = page.url or ""
-                    if "/list/" not in page_url:
-                        continue
-                    if normalized_target and page_url.split("#", 1)[0] != normalized_target:
-                        continue
-                    page.wait_for_timeout(1000)
-                    html = page.content()
-                    if is_challenge_page(html, page_url):
-                        continue
-                    return html, page_url
-        finally:
-            browser.close()
+
+def _cdp_runtime_value(response: Mapping[str, Any] | dict[str, Any]) -> Any:
+    if not isinstance(response, dict):
+        return None
+    result = response.get("result")
+    if not isinstance(result, dict):
+        return None
+    inner = result.get("result")
+    if not isinstance(inner, dict):
+        return None
+    return inner.get("value")
+
+
+def _raise_cdp_endpoint_unavailable(cdp_endpoint: str, operation: str, error: BaseException) -> None:
+    if isinstance(error, CdpEndpointUnavailableError):
+        raise error
+    raise CdpEndpointUnavailableError(cdp_endpoint, operation, error) from error
+
+
+def _read_cdp_list_target_html(
+    cdp_endpoint: str,
+    target: Mapping[str, Any] | dict[str, Any],
+    *,
+    polls: int = 5,
+    wait_seconds: float = 1.0,
+) -> tuple[str, str]:
+    from tools import taobao_login_health
+
+    taobao_login_health.activate_cdp_target(cdp_endpoint, target)
+    websocket_url = str(target.get("webSocketDebuggerUrl") or "").strip()
+    if not websocket_url:
+        raise RuntimeError(f"CDP target missing webSocketDebuggerUrl: {target!r}")
+
+    expression = (
+        "(() => {"
+        "return {"
+        "html: document.documentElement ? document.documentElement.outerHTML : '',"
+        "url: window.location.href || ''"
+        "};"
+        "})()"
+    )
+    last_html = ""
+    last_url = str(target.get("url") or "").strip()
+    for attempt_index in range(max(int(polls), 1)):
+        response = taobao_login_health.evaluate_cdp_expression(websocket_url, expression)
+        value = _cdp_runtime_value(response)
+        if isinstance(value, dict):
+            html = str(value.get("html") or "")
+            url = str(value.get("url") or last_url or "")
+        else:
+            html = ""
+            url = last_url
+        if html:
+            last_html = html
+        if url:
+            last_url = url
+        if last_html and ("sf-item-list-data" in last_html or is_challenge_page(last_html, last_url)):
+            break
+        if attempt_index < max(int(polls), 1) - 1 and wait_seconds > 0:
+            time.sleep(wait_seconds)
+    return last_html, last_url
+
+
+def _find_matching_cdp_list_targets(cdp_endpoint: str, target_url: str) -> list[dict[str, Any]]:
+    from tools import taobao_login_health
+
+    normalized_target = _normalize_browser_match_url(target_url)
+    matches: list[dict[str, Any]] = []
+    for target in taobao_login_health.list_cdp_targets(cdp_endpoint):
+        if not isinstance(target, dict):
+            continue
+        if str(target.get("type") or "").lower() != "page":
+            continue
+        page_url = str(target.get("url") or "")
+        if "/list/" not in page_url:
+            continue
+        if normalized_target and _normalize_browser_match_url(page_url) != normalized_target:
+            continue
+        matches.append(dict(target))
+    return matches
+
+
+def fetch_open_browser_list_page(cdp_endpoint: str, target_url: str) -> tuple[str, str] | None:
+    for target in _find_matching_cdp_list_targets(cdp_endpoint, target_url):
+        html, page_url = _read_cdp_list_target_html(cdp_endpoint, target)
+        if not html:
+            continue
+        if is_challenge_page(html, page_url):
+            continue
+        return html, page_url
     return None
 
 
-def fetch_browser_navigation_list_page(cdp_endpoint: str, target_url: str) -> tuple[str, str]:
-    from playwright.sync_api import sync_playwright
+def _read_text_if_exists(path: Path) -> str:
+    try:
+        if path.exists():
+            return path.read_text(encoding="utf-8")
+    except OSError:
+        return ""
+    return ""
 
-    with sync_playwright() as p:
-        browser = connect_browser_over_cdp(p, cdp_endpoint)
+
+def _redact_detail_analysis_text(text: str) -> str:
+    sanitized = str(text or "")
+    sanitized = CONTACT_FIELD_RE.sub(lambda match: f"{match.group(1)}: [REDACTED]", sanitized)
+    sanitized = MOBILE_PHONE_RE.sub("[REDACTED_PHONE]", sanitized)
+    sanitized = SERVICE_PHONE_RE.sub("[REDACTED_PHONE]", sanitized)
+    sanitized = LANDLINE_PHONE_RE.sub("[REDACTED_PHONE]", sanitized)
+    sanitized = EMAIL_RE.sub("[REDACTED_EMAIL]", sanitized)
+    return sanitized
+
+
+def _detail_input_value(soup: BeautifulSoup, element_id: str) -> str:
+    node = soup.find(id=element_id)
+    if node is None:
+        return ""
+    return str(node.get("value") or "").strip()
+
+
+def _detail_node_text(soup: BeautifulSoup, element_id: str) -> str:
+    node = soup.find(id=element_id)
+    if node is None:
+        return ""
+    return node.get_text(" ", strip=True)
+
+
+def _detail_countdown_text(soup: BeautifulSoup) -> str:
+    node = soup.find(class_="countdown")
+    if node is None:
+        return ""
+    return node.get_text(" ", strip=True)
+
+
+def _build_detail_analysis_input(
+    *,
+    item_id: str,
+    item_dir: Path,
+    seed: dict[str, Any],
+    html: str,
+    selected: dict[str, Any],
+    description_data: dict[str, Any],
+) -> tuple[dict[str, Any], str]:
+    effective_seed = dict(seed)
+    selected = as_dict(selected)
+    trusted_seed = as_dict(selected.get("trusted_seed"))
+    fetch = as_dict(selected.get("fetch"))
+    final_core = as_dict(selected.get("final_core"))
+    soup = BeautifulSoup(html or "", "html.parser")
+
+    title = pick_first(
+        final_core.get("title"),
+        trusted_seed.get("title"),
+        effective_seed.get("title"),
+        soup.title.string.strip() if soup.title and soup.title.string else None,
+    )
+    final_url = pick_first(
+        fetch.get("detail_final_url"),
+        final_core.get("source_url"),
+        effective_seed.get("url"),
+        effective_seed.get("source_url"),
+    )
+    address = " ".join(
+        part
+        for part in (
+            _detail_node_text(soup, "itemAddress"),
+            _detail_node_text(soup, "itemAddressDetail"),
+        )
+        if part
+    ).strip()
+    page_end_time = _detail_countdown_text(soup)
+    page_start_price = parse_positive_number(_detail_input_value(soup, "J_StartPrice"))
+    page_status_code = _detail_input_value(soup, "J_Status")
+    if page_start_price is not None:
+        effective_seed["initialPrice"] = page_start_price
+        effective_seed["起拍价格"] = page_start_price
+    if address:
+        effective_seed.setdefault("地点", address)
+        effective_seed.setdefault("完整地址", address)
+
+    description_text_path = Path(str(description_data.get("text_path") or item_dir / "description-data.txt"))
+    description_text = _read_text_if_exists(description_text_path).strip()
+    if not description_text and description_data:
+        description_text = json.dumps(description_data, ensure_ascii=False, indent=2)
+
+    lines = [
+        "【可信种子】",
+        f"id: {item_id}",
+    ]
+    if final_url:
+        lines.append(f"url: {final_url}")
+    if title:
+        lines.append(f"title: {title}")
+    for key in ("status", "currentPrice", "initialPrice", "auction_date", "bidCount", "applyCount"):
+        value = pick_first(effective_seed.get(key), trusted_seed.get(key))
+        if has_value(value):
+            lines.append(f"{key}: {value}")
+
+    lines.extend(["", "【详情页摘要】"])
+    if address:
+        lines.append(f"address: {address}")
+    if page_end_time:
+        lines.append(f"auction_end_time: {page_end_time}")
+    if page_start_price is not None:
+        lines.append(f"起拍价_html: {page_start_price}")
+    if page_status_code:
+        lines.append(f"status_code_html: {page_status_code}")
+    if has_value(description_data.get("area_sqm")):
+        lines.append(f"description_area_sqm: {description_data.get('area_sqm')}")
+
+    if description_text:
+        lines.extend(["", "【异步标的物描述】", description_text])
+
+    analysis_text = "\n".join(lines).strip()
+    return effective_seed, _redact_detail_analysis_text(analysis_text)
+
+
+def fetch_browser_navigation_list_page(cdp_endpoint: str, target_url: str) -> tuple[str, str]:
+    from tools import taobao_login_health
+
+    try:
+        taobao_login_health.compact_cdp_pages_if_needed(cdp_endpoint, reserve_for_new_page=True)
+        opened = taobao_login_health.read_cdp_json(
+            cdp_endpoint,
+            "/json/new?" + quote(target_url, safe=""),
+            method="PUT",
+        )
+    except Exception as error:
+        _raise_cdp_endpoint_unavailable(cdp_endpoint, "open_list_page_target", error)
+    target: dict[str, Any] | None = dict(opened) if isinstance(opened, dict) else None
+    if target is None or not str(target.get("webSocketDebuggerUrl") or "").strip():
         try:
-            if not browser.contexts:
-                raise RuntimeError("attached browser has no contexts")
-            context = browser.contexts[0]
-            page = context.new_page()
+            matches = _find_matching_cdp_list_targets(cdp_endpoint, target_url)
+        except Exception as error:
+            _raise_cdp_endpoint_unavailable(cdp_endpoint, "find_list_page_target", error)
+        target = matches[0] if matches else None
+    if target is None:
+        raise RuntimeError(f"unable to open CDP list page target: {target_url}")
+
+    target_id = str(target.get("id") or "").strip()
+    try:
+        try:
+            return _read_cdp_list_target_html(cdp_endpoint, target)
+        except Exception as error:
+            _raise_cdp_endpoint_unavailable(cdp_endpoint, "read_list_page_target_html", error)
+    finally:
+        if target_id:
             try:
-                try:
-                    page.goto(target_url, wait_until="domcontentloaded", timeout=30000)
-                except Exception:
-                    # Taobao's x5/punish pages can keep navigation pending. Capture the
-                    # current DOM anyway so the caller can classify the challenge and
-                    # stop this list branch instead of waiting 90s per page.
-                    pass
-                html = ""
-                for _ in range(5):
-                    page.wait_for_timeout(1000)
-                    html = page.content()
-                    if "sf-item-list-data" in html or is_challenge_page(html, page.url):
-                        break
-                return html or page.content(), page.url
-            finally:
-                page.close()
-        finally:
-            browser.close()
+                taobao_login_health.close_cdp_target(cdp_endpoint, target_id)
+            except Exception:
+                pass
 
 
 def fetch_browser_list_page(cdp_endpoint: str, target_url: str) -> tuple[str, str] | None:
-    browser_page = fetch_open_browser_list_page(cdp_endpoint, target_url)
+    try:
+        browser_page = fetch_open_browser_list_page(cdp_endpoint, target_url)
+    except Exception as error:
+        print(
+            json.dumps(
+                {
+                    "event": "open_browser_list_page_probe_failed",
+                    "target_url": target_url,
+                    "error": repr(error),
+                },
+                ensure_ascii=False,
+            )
+        )
+        browser_page = None
     if browser_page is not None:
         return browser_page
     return fetch_browser_navigation_list_page(cdp_endpoint, target_url)
@@ -907,25 +1498,32 @@ def recover_browser_list_page_after_challenge(
     target_url: str,
     initial_page: tuple[str, str] | None,
     *,
-    max_attempts: int = 7,
-    wait_seconds: float = 5,
+    max_attempts: int | None = None,
+    wait_seconds: float | None = None,
     solver_enabled: bool = True,
+    api_base_url: str | None = None,
 ) -> tuple[str, str] | None:
+    effective_max_attempts = max_attempts if max_attempts is not None else list_browser_recovery_max_attempts()
+    effective_wait_seconds = wait_seconds if wait_seconds is not None else list_browser_recovery_wait_seconds()
     browser_page = initial_page
     attempts = 0
-    while browser_page is not None and attempts < max_attempts:
+    while browser_page is not None and attempts < effective_max_attempts:
         html, final_url = browser_page
         if not is_challenge_page(html, final_url):
             return browser_page
         if attempts == 0 and solver_enabled:
             try:
-                request_captcha_solver(cdp_endpoint, final_url or target_url)
+                request_captcha_solver(
+                    cdp_endpoint,
+                    final_url or target_url,
+                    api_base_url=api_base_url,
+                )
             except Exception:
                 pass
         attempts += 1
-        if attempts >= max_attempts:
+        if attempts >= effective_max_attempts:
             return browser_page
-        time.sleep(wait_seconds)
+        time.sleep(effective_wait_seconds)
         browser_page = fetch_browser_list_page(cdp_endpoint, target_url)
     return browser_page
 
@@ -936,7 +1534,9 @@ def fetch_list_page(
     cdp_endpoint: str,
     target_url: str,
     user_agent: str,
+    referer_url: str | None = None,
     solver_enabled: bool | None = None,
+    api_base_url: str | None = None,
 ) -> tuple[str, str, int | None, str]:
     browser_fallback_enabled = list_browser_fallback_enabled()
     solver_requested = (
@@ -944,15 +1544,16 @@ def fetch_list_page(
         if solver_enabled is None
         else bool(solver_enabled)
     )
+    effective_referer_url = str(referer_url or "").strip() or _default_list_referer_url(target_url)
     try:
         response = http.get(
             target_url,
-            headers={
-                "User-Agent": user_agent,
-                "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-                "Referer": "https://sf.taobao.com/",
-            },
-            timeout=40,
+            headers=build_navigation_headers(
+                target_url=target_url,
+                user_agent=user_agent,
+                referer_url=effective_referer_url,
+            ),
+            timeout=list_http_timeout_seconds(),
             allow_redirects=True,
         )
         response.raise_for_status()
@@ -960,7 +1561,11 @@ def fetch_list_page(
             if not browser_fallback_enabled:
                 if solver_requested:
                     try:
-                        request_captcha_solver(cdp_endpoint, response.url or target_url)
+                        request_captcha_solver(
+                            cdp_endpoint,
+                            response.url or target_url,
+                            api_base_url=api_base_url,
+                        )
                     except Exception:
                         pass
                 return response.text, response.url, response.status_code, "http_cookie_challenge"
@@ -969,6 +1574,7 @@ def fetch_list_page(
                 target_url,
                 fetch_browser_list_page(cdp_endpoint, target_url),
                 solver_enabled=solver_requested,
+                api_base_url=api_base_url,
             )
             if browser_page is not None:
                 html, final_url = browser_page
@@ -982,6 +1588,7 @@ def fetch_list_page(
             target_url,
             fetch_browser_list_page(cdp_endpoint, target_url),
             solver_enabled=solver_requested,
+            api_base_url=api_base_url,
         )
         if browser_page is None:
             raise
@@ -1004,8 +1611,7 @@ def fetch_detail_with_browser(seed: dict[str, Any], *, cdp_endpoint: str) -> tup
             page = context.new_page()
             try:
                 response = page.goto(detail_url, wait_until="domcontentloaded", timeout=90000)
-                page.wait_for_timeout(8000)
-                html = page.content()
+                html = _wait_for_detail_ready(page)
                 final_url = page.url
                 if response and response.status >= 400:
                     raise RuntimeError(f"browser detail request returned HTTP {response.status}")
@@ -1015,7 +1621,7 @@ def fetch_detail_with_browser(seed: dict[str, Any], *, cdp_endpoint: str) -> tup
             finally:
                 page.close()
         finally:
-            browser.close()
+            detach_attached_cdp_browser(browser)
 
 
 def fetch_detail_html(
@@ -1025,6 +1631,7 @@ def fetch_detail_html(
     *,
     cdp_endpoint: str,
     referer_url: str,
+    user_agent: str | None = None,
 ) -> tuple[str, str, int, str]:
     browserless_seed_probe = _browserless_seed_probe()
     seed_id = str(seed.get("id"))
@@ -1035,11 +1642,11 @@ def fetch_detail_html(
     detail_url = seed.get("url")
     response = http.get(
         detail_url,
-        headers={
-            "User-Agent": getattr(browserless_seed_probe, "DEFAULT_USER_AGENT", DEFAULT_USER_AGENT),
-            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-            "Referer": referer_url,
-        },
+        headers=build_navigation_headers(
+            target_url=str(detail_url),
+            user_agent=str(user_agent or getattr(browserless_seed_probe, "DEFAULT_USER_AGENT", DEFAULT_USER_AGENT)),
+            referer_url=referer_url,
+        ),
         timeout=60,
         allow_redirects=True,
     )
@@ -1250,17 +1857,31 @@ def analyze_raw_item(
         write_json(description_json_path, description_data)
 
     raw_selected = load_json(selected_json_path) if selected_json_path.exists() else {}
+    effective_seed, analysis_text = _build_detail_analysis_input(
+        item_id=seed_id,
+        item_dir=item_dir,
+        seed=seed,
+        html=html,
+        selected=raw_selected,
+        description_data=description_data,
+    )
     fetch = as_dict(raw_selected.get("fetch"))
-    final_url = pick_first(fetch.get("detail_final_url"), seed.get("url"), seed.get("source_url"), seed.get("原始网站"), "")
+    final_url = pick_first(
+        fetch.get("detail_final_url"),
+        effective_seed.get("url"),
+        effective_seed.get("source_url"),
+        effective_seed.get("原始网站"),
+        "",
+    )
     detail_bytes = fetch.get("detail_html_bytes")
     if not isinstance(detail_bytes, int):
         detail_bytes = len(html.encode("utf-8"))
     fetch_method = str(fetch.get("method") or "raw_artifact")
 
-    extracted = json.loads(llm_helper.extract_auction_data(html, item_id=seed_id))
+    extracted = json.loads(llm_helper.extract_auction_data(analysis_text, item_id=seed_id))
     extracted["id"] = int(seed_id) if seed_id.isdigit() else seed_id
     extracted["source_item_id"] = seed_id
-    DetailCollectionService._preserve_seed_values(extracted, seed)
+    DetailCollectionService._preserve_seed_values(extracted, effective_seed)
     write_json(item_dir / "extracted.json", extracted)
 
     risk = {}
@@ -1268,9 +1889,9 @@ def analyze_raw_item(
         risk = llm_helper.extract_avm_risk_features(html, item_id=seed_id) or {}
         write_json(item_dir / "risk.json", risk)
 
-    combined = dict(seed)
+    combined = dict(effective_seed)
     combined.update(extracted)
-    DetailCollectionService._preserve_seed_values(combined, seed)
+    DetailCollectionService._preserve_seed_values(combined, effective_seed)
     combined["id"] = int(seed_id) if seed_id.isdigit() else seed_id
     combined["source_item_id"] = seed_id
     combined["source_url"] = final_url
@@ -1321,6 +1942,7 @@ def process_item(
         browser_pages,
         cdp_endpoint=config.cdp_endpoint,
         referer_url=str(seed.get("source_page_url") or config.target_url),
+        user_agent=resolve_runtime_user_agent(config.cdp_endpoint),
     )
     (item_dir / "detail.html").write_text(html, encoding="utf-8")
     description_data = build_description_audit(html, item_dir)

@@ -1,0 +1,142 @@
+param(
+    [int]$Port = 9225,
+    [string]$ApiBase = "",
+    [string]$DataRoot = "",
+    [string]$OutputPath = "",
+    [string]$Python = "python",
+    [int]$PollSeconds = 5,
+    [int]$MaxWaitSeconds = 1800
+)
+
+$ErrorActionPreference = "Stop"
+
+function Resolve-ApiBase {
+    function Normalize-ApiBaseValue {
+        param([string]$Value)
+
+        $trimmed = [string]$Value
+        if (-not $trimmed) {
+            return ""
+        }
+        $trimmed = $trimmed.TrimEnd("/")
+        if ($trimmed -notmatch "/api$") {
+            $trimmed = "$trimmed/api"
+        }
+        return $trimmed
+    }
+
+    if ($ApiBase) {
+        return Normalize-ApiBaseValue -Value $ApiBase
+    }
+    if ($env:FAPAI_COLLECTOR_API_BASE) {
+        return Normalize-ApiBaseValue -Value $env:FAPAI_COLLECTOR_API_BASE
+    }
+    if ($env:FAPAI_API_BASE_URL) {
+        return Normalize-ApiBaseValue -Value $env:FAPAI_API_BASE_URL
+    }
+    return "http://192.168.15.200:8001/api"
+}
+
+function Write-Utf8NoBomFile {
+    param(
+        [Parameter(Mandatory = $true)][string]$Path,
+        [Parameter(Mandatory = $true)][string]$Content
+    )
+
+    $parent = Split-Path -Parent $Path
+    if ($parent) {
+        New-Item -ItemType Directory -Force -Path $parent | Out-Null
+    }
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($Path, $Content, $utf8NoBom)
+}
+
+function Append-LogLine {
+    param(
+        [Parameter(Mandatory = $true)][string]$Path,
+        [Parameter(Mandatory = $true)][string]$Message
+    )
+
+    $line = "[{0}] {1}" -f (Get-Date -Format "yyyy-MM-dd HH:mm:ss"), $Message
+    Add-Content -LiteralPath $Path -Value $line -Encoding UTF8
+}
+
+$repoRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath
+$completeScript = Join-Path $repoRoot "scripts\complete-pc1-inplace-auth.ps1"
+if (-not (Test-Path -LiteralPath $completeScript)) {
+    throw "Missing complete-pc1-inplace-auth.ps1"
+}
+
+if (-not $DataRoot) {
+    $DataRoot = if ($env:FAPAI_DATA_ROOT_HOST) { $env:FAPAI_DATA_ROOT_HOST } else { "Z:\project\project\FPFData" }
+}
+if (-not $OutputPath) {
+    $OutputPath = if ($env:FAPAI_COOKIE_SNAPSHOT) { $env:FAPAI_COOKIE_SNAPSHOT } else { Join-Path $DataRoot "secrets\nodes\pc2\taobao-cookies.json" }
+}
+
+$stateDir = Join-Path $DataRoot "secrets"
+$statePath = Join-Path $stateDir "pc1-auth-auto-resume-state.json"
+$logPath = Join-Path $stateDir "pc1-auth-auto-resume.log"
+$apiBaseResolved = Resolve-ApiBase
+
+$state = [ordered]@{
+    mode = "pc1_auth_auto_resume_watch"
+    api_base = $apiBaseResolved
+    cdp_endpoint = "http://127.0.0.1:$Port"
+    output_path = $OutputPath
+    poll_seconds = $PollSeconds
+    max_wait_seconds = $MaxWaitSeconds
+    started_at = (Get-Date).ToUniversalTime().ToString("o")
+    status = "watching"
+}
+Write-Utf8NoBomFile -Path $statePath -Content (($state | ConvertTo-Json -Depth 4))
+Append-LogLine -Path $logPath -Message "started watcher for $apiBaseResolved"
+
+$deadline = (Get-Date).AddSeconds([Math]::Max($MaxWaitSeconds, 30))
+$lastError = ""
+
+while ((Get-Date) -lt $deadline) {
+    try {
+        & powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File $completeScript `
+            -Port $Port `
+            -DataRoot $DataRoot `
+            -OutputPath $OutputPath `
+            -Python $Python `
+            -AllowListOnly
+        if ($LASTEXITCODE -eq 0) {
+            $body = @{
+                source = "pc1_auth_auto_resume_watch"
+                refresh_cookie_snapshot = $false
+            } | ConvertTo-Json -Compress
+            Invoke-RestMethod `
+                -Uri "$apiBaseResolved/collection/auth/complete" `
+                -Method Post `
+                -ContentType "application/json" `
+                -Body $body `
+                -TimeoutSec 15 | Out-Null
+            $state.status = "completed"
+            $state.completed_at = (Get-Date).ToUniversalTime().ToString("o")
+            Write-Utf8NoBomFile -Path $statePath -Content (($state | ConvertTo-Json -Depth 4))
+            Append-LogLine -Path $logPath -Message "cookie health passed; auth_complete posted"
+            exit 0
+        }
+        $lastError = "cookie export returned non-zero exit code"
+    }
+    catch {
+        $lastError = $_.Exception.Message
+    }
+    if ($lastError) {
+        Append-LogLine -Path $logPath -Message "not ready yet: $lastError"
+    }
+    Start-Sleep -Seconds ([Math]::Max($PollSeconds, 1))
+}
+
+$state.status = "timed_out"
+$state.completed_at = (Get-Date).ToUniversalTime().ToString("o")
+$state.last_error = $lastError
+Write-Utf8NoBomFile -Path $statePath -Content (($state | ConvertTo-Json -Depth 4))
+Append-LogLine -Path $logPath -Message "timed out waiting for reusable auth"
+exit 2

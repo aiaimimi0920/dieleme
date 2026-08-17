@@ -1,6 +1,8 @@
 param(
     [int]$Port = 9223,
     [string]$DataRoot = "",
+    [string]$OutputPath = "",
+    [string]$AlertWebhookUrl = "",
     [string]$CheckUrl = "https://sf.taobao.com/list/50025969__2.htm",
     [string[]]$SampleUrl = @(
         "https://sf.taobao.com/list/50025969__2.htm",
@@ -18,6 +20,36 @@ param(
 $ErrorActionPreference = "Stop"
 $captchaSolverEnv = [string]$env:FAPAI_CAPTCHA_SOLVER_ENABLED
 $effectiveTriggerCaptchaSolver = [bool]($TriggerCaptchaSolver -or ($captchaSolverEnv -match '^(?i:1|true|yes|y|on)$'))
+$resolvedAlertWebhookUrl = if ($AlertWebhookUrl) { $AlertWebhookUrl } else { [string]$env:FAPAI_OPERATIONS_WEBHOOK_URL }
+
+function Send-OperationalAlert {
+    param(
+        [Parameter(Mandatory = $true)][string]$EventName,
+        [Parameter(Mandatory = $true)][hashtable]$Payload
+    )
+
+    if (-not $resolvedAlertWebhookUrl) {
+        return
+    }
+    try {
+        $body = [ordered]@{
+            source = "taobao-login-watchdog"
+            event = $EventName
+            observed_at = (Get-Date).ToString("o")
+            host = $env:COMPUTERNAME
+            payload = $Payload
+        } | ConvertTo-Json -Depth 8 -Compress
+        Invoke-RestMethod `
+            -Uri $resolvedAlertWebhookUrl `
+            -Method Post `
+            -ContentType "application/json" `
+            -Body $body `
+            -TimeoutSec 10 | Out-Null
+    }
+    catch {
+        Write-Warning ("Operational alert delivery failed: {0}" -f $_.Exception.Message)
+    }
+}
 
 function Invoke-HealthCheck {
     param([int]$Wait)
@@ -122,11 +154,28 @@ if ($initial.Status -eq "cdp_unreachable" -and -not $SkipBrowserStart) {
 }
 
 if (-not $initial.Healthy) {
+    Send-OperationalAlert -EventName "auth_recovery_started" -Payload @{
+        cdp_endpoint = "http://127.0.0.1:$Port"
+        status = $initial.Status
+        check_url = $CheckUrl
+        sample_url_count = @($SampleUrl).Count
+    }
     Write-Output "FapaiFangTaobaoLoginWatchdog: complete Taobao official verification in the visible browser window if the configured captcha solver cannot finish it. This script queues the configured captcha solver and does not print cookie value fields."
     $recovered = Invoke-HealthCheck -Wait $WaitSeconds
     Write-Output "FapaiFangTaobaoLoginWatchdog: recovered_status=$($recovered.Status), healthy=$($recovered.Healthy), contains_sensitive=$($recovered.ContainsSensitive)"
     if (-not $recovered.Healthy) {
+        Send-OperationalAlert -EventName "auth_recovery_failed" -Payload @{
+            cdp_endpoint = "http://127.0.0.1:$Port"
+            status = $recovered.Status
+            check_url = $CheckUrl
+            wait_seconds = $WaitSeconds
+        }
         exit 2
+    }
+    Send-OperationalAlert -EventName "auth_recovery_completed" -Payload @{
+        cdp_endpoint = "http://127.0.0.1:$Port"
+        status = $recovered.Status
+        wait_seconds = $WaitSeconds
     }
 }
 
@@ -140,6 +189,9 @@ if (-not $NoSnapshotExport) {
     )
     if ($DataRoot) {
         $exportArgs += @("-DataRoot", $DataRoot)
+    }
+    if ($OutputPath) {
+        $exportArgs += @("-OutputPath", $OutputPath)
     }
     & powershell @exportArgs
     if ($LASTEXITCODE -ne 0) {

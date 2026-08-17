@@ -267,9 +267,14 @@ def test_preflight_openai_compatible_backend_can_probe_chat_completions(monkeypa
         "Content-Type": "application/json",
     }
     assert calls[1]["json"]["model"] == "test-model"
-    assert calls[1]["json"]["messages"] == [{"role": "user", "content": "Return OK."}]
+    assert calls[1]["json"]["messages"] == [
+        {
+            "role": "user",
+            "content": '这是法拍房分析服务连通性检查。请仅返回 JSON：{"ok":true}',
+        }
+    ]
     assert calls[1]["json"]["temperature"] == 0
-    assert calls[1]["json"]["max_tokens"] == 1
+    assert calls[1]["json"]["max_tokens"] == 32
     assert calls[1]["timeout"] == 7.5
     assert calls[1]["trust_env"] is False
 
@@ -364,6 +369,163 @@ def test_chat_with_glm_retries_transient_openai_compatible_503(monkeypatch):
 
     assert result == "{\"ok\":true}"
     assert len(calls) == 2
+
+
+def test_chat_with_glm_retries_transient_openai_compatible_524(monkeypatch):
+    calls: list[int] = []
+
+    class RetryableResponse:
+        status_code = 524
+        content = b'{"error":"timeout"}'
+        text = '{"error":"timeout"}'
+
+        def raise_for_status(self) -> None:
+            raise requests.HTTPError("524 Server Error", response=self)
+
+    class SuccessfulResponse(_FakeResponse):
+        content = _FakeResponse.text.encode("utf-8")
+
+    class FakeSession:
+        def __init__(self):
+            self.trust_env = True
+
+        def post(self, *args, **kwargs):
+            calls.append(1)
+            if len(calls) == 1:
+                return RetryableResponse()
+            return SuccessfulResponse()
+
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.test/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL", "test-model")
+    monkeypatch.setenv("OPENAI_MAX_RETRIES", "2")
+    monkeypatch.setattr(llm_helper.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(llm_helper.requests, "Session", lambda: FakeSession())
+
+    result = llm_helper.chat_with_glm("return json")
+
+    assert result == "{\"ok\":true}"
+    assert len(calls) == 2
+
+
+def test_chat_with_glm_falls_back_across_openai_model_candidates(monkeypatch):
+    calls: list[str] = []
+
+    class UnavailableResponse:
+        status_code = 503
+        content = b'{"error":{"code":"model_not_found"}}'
+        text = content.decode("utf-8")
+
+        def raise_for_status(self) -> None:
+            raise requests.HTTPError("503 Server Error", response=self)
+
+    class SuccessfulResponse(_FakeResponse):
+        content = _FakeResponse.text.encode("utf-8")
+
+    class FakeSession:
+        def __init__(self):
+            self.trust_env = True
+
+        def post(self, _url: str, *, json: dict[str, Any], **_kwargs):
+            calls.append(json["model"])
+            return UnavailableResponse() if json["model"] == "primary-model" else SuccessfulResponse()
+
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.test/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL", "primary-model")
+    monkeypatch.setenv("OPENAI_MODEL_CANDIDATES", "primary-model;fallback-model")
+    monkeypatch.setattr(llm_helper.requests, "Session", lambda: FakeSession())
+
+    result = llm_helper.chat_with_glm("return json")
+
+    assert result == '{"ok":true}'
+    assert calls == ["primary-model", "fallback-model"]
+
+
+def test_chat_with_glm_does_not_hide_openai_candidate_auth_failure(monkeypatch):
+    calls: list[str] = []
+
+    class UnauthorizedResponse:
+        status_code = 401
+        content = b'{"error":"unauthorized"}'
+        text = content.decode("utf-8")
+
+        def raise_for_status(self) -> None:
+            raise requests.HTTPError("401 Client Error", response=self)
+
+    class FakeSession:
+        def __init__(self):
+            self.trust_env = True
+
+        def post(self, _url: str, *, json: dict[str, Any], **_kwargs):
+            calls.append(json["model"])
+            return UnauthorizedResponse()
+
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.test/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "bad-key")
+    monkeypatch.setenv("OPENAI_MODEL", "primary-model")
+    monkeypatch.setenv("OPENAI_MODEL_CANDIDATES", "fallback-model")
+    monkeypatch.setattr(llm_helper.requests, "Session", lambda: FakeSession())
+
+    with pytest.raises(requests.HTTPError):
+        llm_helper.chat_with_glm("return json")
+
+    assert calls == ["primary-model"]
+
+
+def test_preflight_openai_compatible_backend_falls_back_across_model_candidates(monkeypatch):
+    calls: list[str] = []
+
+    class ModelsResponse:
+        status_code = 200
+
+    class ChatResponse:
+        def __init__(self, status_code: int):
+            self.status_code = status_code
+
+    class FakeSession:
+        def __init__(self):
+            self.trust_env = True
+
+        def get(self, *_args, **_kwargs):
+            return ModelsResponse()
+
+        def post(self, _url: str, *, json: dict[str, Any], **_kwargs):
+            calls.append(json["model"])
+            return ChatResponse(503 if json["model"] == "primary-model" else 200)
+
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.test/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL", "primary-model")
+    monkeypatch.setenv("OPENAI_MODEL_CANDIDATES", "fallback-model")
+    monkeypatch.setattr(llm_helper.requests, "Session", lambda: FakeSession())
+
+    result = llm_helper.preflight_openai_compatible_backend(timeout=7.5, check_chat=True)
+
+    assert result["status_code"] == 200
+    assert result["chat_status_code"] == 200
+    assert result["chat_model_name"] == "fallback-model"
+    assert calls == ["primary-model", "fallback-model"]
+
+
+def test_preflight_openai_compatible_backend_reports_network_unavailable_without_raising(monkeypatch):
+    class FakeSession:
+        def __init__(self):
+            self.trust_env = True
+
+        def get(self, *_args, **_kwargs):
+            raise requests.ConnectTimeout("provider unavailable")
+
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.test/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL", "test-model")
+    monkeypatch.setattr(llm_helper.requests, "Session", lambda: FakeSession())
+
+    result = llm_helper.preflight_openai_compatible_backend(timeout=1.0, check_chat=True)
+
+    assert result["enabled"] is True
+    assert result["status_code"] == 0
+    assert result["error_type"] == "ConnectTimeout"
 
 
 def test_chat_with_glm_does_not_retry_non_transient_openai_compatible_400(monkeypatch):

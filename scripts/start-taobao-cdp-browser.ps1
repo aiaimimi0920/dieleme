@@ -2,9 +2,16 @@ param(
     [int]$Port = 9223,
     [string]$DataRoot = "",
     [string]$ProfileDir = "",
+    [string]$BrowserPath = "",
+    [string]$DebuggingAddress = "0.0.0.0",
     [string]$StartUrl = "https://sf.taobao.com/",
     [switch]$UseSystemProxy,
     [switch]$DisableExtensions,
+    [switch]$HumanAuthMode,
+    [switch]$StartMinimized,
+    [switch]$EnsureOnly,
+    [int]$CdpStartupTimeoutSeconds = 30,
+    [int]$StartupLockTimeoutSeconds = 180,
     [switch]$IsolatedProfile,
     [switch]$ForceNew
 )
@@ -31,11 +38,96 @@ function Resolve-FapaiDataRoot {
     return "C:\Users\Public\nas_home\AI\FPFData"
 }
 
+function Invoke-CdpWebRequest {
+    param(
+        [Parameter(Mandatory = $true)][string]$Uri,
+        [ValidateSet("GET", "PUT")][string]$Method = "GET",
+        [int]$TimeoutSec = 3,
+        [int]$MaxResponseBytes = 1048576
+    )
+
+    $timeoutMilliseconds = [Math]::Max($TimeoutSec, 1) * 1000
+    $request = [System.Net.HttpWebRequest]::Create($Uri)
+    $request.Method = $Method
+    $request.Proxy = $null
+    $request.Timeout = $timeoutMilliseconds
+    $request.ReadWriteTimeout = $timeoutMilliseconds
+    $request.KeepAlive = $false
+    if ($Method -eq "PUT") {
+        $request.ContentLength = 0
+    }
+
+    $response = $null
+    try {
+        $response = [System.Net.HttpWebResponse]$request.GetResponse()
+        $stream = $response.GetResponseStream()
+        try {
+            if ($stream.CanTimeout) {
+                $stream.ReadTimeout = $timeoutMilliseconds
+            }
+
+            $expectedLength = [int64]$response.ContentLength
+            if ($expectedLength -gt $MaxResponseBytes) {
+                throw "CDP response exceeds the configured limit of $MaxResponseBytes bytes."
+            }
+
+            $readLimit = if ($expectedLength -ge 0) {
+                $expectedLength
+            }
+            else {
+                [int64]$MaxResponseBytes
+            }
+
+            $buffer = New-Object byte[] 8192
+            $memory = New-Object System.IO.MemoryStream
+            try {
+                while ($memory.Length -lt $readLimit) {
+                    $remaining = [int][Math]::Min(
+                        [int64]$buffer.Length,
+                        $readLimit - $memory.Length
+                    )
+                    if ($remaining -le 0) {
+                        break
+                    }
+
+                    $read = $stream.Read($buffer, 0, $remaining)
+                    if ($read -le 0) {
+                        break
+                    }
+                    $memory.Write($buffer, 0, $read)
+                }
+
+                if ($expectedLength -ge 0 -and $memory.Length -lt $expectedLength) {
+                    throw "CDP response ended before its advertised content length."
+                }
+
+                $content = [System.Text.Encoding]::UTF8.GetString($memory.ToArray())
+            }
+            finally {
+                $memory.Dispose()
+            }
+        }
+        finally {
+            $stream.Dispose()
+        }
+
+        return [pscustomobject]@{
+            StatusCode = [int]$response.StatusCode
+            Content = $content
+        }
+    }
+    finally {
+        if ($null -ne $response) {
+            $response.Close()
+        }
+    }
+}
+
 function Test-CdpEndpoint {
     param([Parameter(Mandatory = $true)][string]$Endpoint)
 
     try {
-        $response = Invoke-WebRequest -Uri "$($Endpoint.TrimEnd('/'))/json/version" -UseBasicParsing -TimeoutSec 3
+        $response = Invoke-CdpWebRequest -Uri "$($Endpoint.TrimEnd('/'))/json/version" -TimeoutSec 3
         return $response.StatusCode -eq 200
     }
     catch {
@@ -69,12 +161,12 @@ function Open-CdpBrowserPage {
 
     $baseEndpoint = $Endpoint.TrimEnd('/')
     $encodedUrl = [System.Uri]::EscapeDataString($Url)
-    $response = Invoke-WebRequest -Method Put -Uri "$baseEndpoint/json/new?$encodedUrl" -UseBasicParsing -TimeoutSec 10
+    $response = Invoke-CdpWebRequest -Method 'PUT' -Uri "$baseEndpoint/json/new?$encodedUrl" -TimeoutSec 10
     $page = $response.Content | ConvertFrom-Json
 
     if ($page.id) {
         try {
-            Invoke-WebRequest -Uri "$baseEndpoint/json/activate/$($page.id)" -UseBasicParsing -TimeoutSec 3 | Out-Null
+            Invoke-CdpWebRequest -Uri "$baseEndpoint/json/activate/$($page.id)" -TimeoutSec 3 | Out-Null
         }
         catch {
             Write-Host "Opened page but could not activate tab $($page.id): $($_.Exception.Message)"
@@ -89,12 +181,13 @@ function Open-BrowserProcessPage {
         [Parameter(Mandatory = $true)][string]$Browser,
         [Parameter(Mandatory = $true)][string]$ProfileDir,
         [Parameter(Mandatory = $true)][int]$Port,
+        [Parameter(Mandatory = $true)][string]$DebuggingAddress,
         [Parameter(Mandatory = $true)][string]$Url
     )
 
     $arguments = @(
         "--remote-debugging-port=$Port",
-        "--remote-debugging-address=0.0.0.0",
+        "--remote-debugging-address=$DebuggingAddress",
         "--remote-allow-origins=*",
         "--user-data-dir=$ProfileDir",
         "--no-first-run",
@@ -102,7 +195,11 @@ function Open-BrowserProcessPage {
         $Url
     )
 
-    Start-Process -FilePath $Browser -ArgumentList $arguments -WorkingDirectory (Split-Path -Parent $Browser)
+    Start-Process `
+        -FilePath $Browser `
+        -ArgumentList $arguments `
+        -WorkingDirectory (Split-Path -Parent $Browser) `
+        -WindowStyle Normal
     Write-Output "Opened auth page via browser process fallback: $Url"
 }
 
@@ -234,6 +331,15 @@ function Stop-ExistingCdpBrowser {
 }
 
 function Find-BrowserExecutable {
+    param([string]$PreferredPath = "")
+
+    if ($PreferredPath) {
+        if (Test-Path -LiteralPath $PreferredPath) {
+            return (Resolve-Path -LiteralPath $PreferredPath).ProviderPath
+        }
+        throw "Configured browser executable does not exist: $PreferredPath"
+    }
+
     $candidates = @(
         "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe",
         "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe",
@@ -252,6 +358,24 @@ function Find-BrowserExecutable {
     throw "No Microsoft Edge or Google Chrome executable found in standard locations."
 }
 
+$startupMutex = [System.Threading.Mutex]::new(
+    $false,
+    "FapaiFangTaobaoCdp-$Port"
+)
+$startupLockAcquired = $false
+try {
+    try {
+        $startupLockAcquired = $startupMutex.WaitOne(
+            [TimeSpan]::FromSeconds([Math]::Max($StartupLockTimeoutSeconds, 1))
+        )
+    }
+    catch [System.Threading.AbandonedMutexException] {
+        $startupLockAcquired = $true
+    }
+    if (-not $startupLockAcquired) {
+        throw "Timed out waiting for the CDP startup lock on port $Port."
+    }
+
 $dataRoot = Resolve-FapaiDataRoot
 if (-not $ProfileDir) {
     if ($IsolatedProfile) {
@@ -264,6 +388,7 @@ if (-not $ProfileDir) {
 
 $hostEndpoint = "http://127.0.0.1:$Port"
 $dockerEndpoint = "http://192.168.65.254:$Port"
+$resolvedDebuggingAddress = if ($HumanAuthMode) { "127.0.0.1" } else { $DebuggingAddress }
 
 if ($ForceNew) {
     if (-not (Stop-ExistingCdpBrowser -Port $Port -ProfileDir $ProfileDir -Endpoint $hostEndpoint)) {
@@ -272,25 +397,30 @@ if ($ForceNew) {
 }
 elseif (Test-CdpEndpoint -Endpoint $hostEndpoint) {
     Write-Output "Existing CDP endpoint is available: $hostEndpoint"
-    if (Test-BrowserProcessOpenPreferred -Url $StartUrl) {
-        Write-Host "Skipping CDP /json/new for challenge-sized auth URL; using browser process URL open."
-        $browser = Find-BrowserExecutable
-        Open-BrowserProcessPage -Browser $browser -ProfileDir $ProfileDir -Port $Port -Url $StartUrl
+    if (-not $EnsureOnly) {
+        if (Test-BrowserProcessOpenPreferred -Url $StartUrl) {
+            Write-Host "Skipping CDP /json/new for challenge-sized auth URL; using browser process URL open."
+            $browser = Find-BrowserExecutable -PreferredPath $BrowserPath
+            Open-BrowserProcessPage -Browser $browser -ProfileDir $ProfileDir -Port $Port -DebuggingAddress $resolvedDebuggingAddress -Url $StartUrl
+        }
+        else {
+            try {
+                Open-CdpBrowserPage -Endpoint $hostEndpoint -Url $StartUrl
+            }
+            catch {
+                Write-Host "CDP /json/new open failed; falling back to browser process URL open: $($_.Exception.Message)"
+                $browser = Find-BrowserExecutable -PreferredPath $BrowserPath
+                Open-BrowserProcessPage -Browser $browser -ProfileDir $ProfileDir -Port $Port -DebuggingAddress $resolvedDebuggingAddress -Url $StartUrl
+            }
+        }
+        Show-CdpBrowserWindow -Port $Port -ProfileDir $ProfileDir
     }
     else {
-        try {
-            Open-CdpBrowserPage -Endpoint $hostEndpoint -Url $StartUrl
-        }
-        catch {
-            Write-Host "CDP /json/new open failed; falling back to browser process URL open: $($_.Exception.Message)"
-            $browser = Find-BrowserExecutable
-            Open-BrowserProcessPage -Browser $browser -ProfileDir $ProfileDir -Port $Port -Url $StartUrl
-        }
+        Write-Output "CDP endpoint is already healthy; ensure-only mode will not open a page."
     }
-    Show-CdpBrowserWindow -Port $Port -ProfileDir $ProfileDir
     Write-Output "Docker containers should use: $dockerEndpoint"
     Write-Output "Log in to Taobao in the opened browser window if it is not already authenticated."
-    exit 0
+    return
 }
 else {
     $staleProcesses = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly)
@@ -304,23 +434,28 @@ else {
 
 New-Item -ItemType Directory -Force -Path $ProfileDir | Out-Null
 
-$browser = Find-BrowserExecutable
+$browser = Find-BrowserExecutable -PreferredPath $BrowserPath
 $arguments = @(
     "--remote-debugging-port=$Port",
-    "--remote-debugging-address=0.0.0.0",
+    "--remote-debugging-address=$resolvedDebuggingAddress",
     "--remote-allow-origins=*",
-    "--disable-blink-features=AutomationControlled",
-    "--disable-background-networking",
-    "--disable-sync",
-    "--disable-client-side-phishing-detection",
-    "--disable-default-apps",
     "--user-data-dir=$ProfileDir",
     "--no-first-run",
     "--no-default-browser-check",
     "--disable-session-crashed-bubble",
-    "--disable-restore-session-state",
     $StartUrl
 )
+
+if (-not $HumanAuthMode) {
+    $arguments += @(
+        "--disable-blink-features=AutomationControlled",
+        "--disable-background-networking",
+        "--disable-sync",
+        "--disable-client-side-phishing-detection",
+        "--disable-default-apps",
+        "--disable-restore-session-state"
+    )
+}
 
 if (-not $UseSystemProxy) {
     $arguments += "--no-proxy-server"
@@ -328,15 +463,35 @@ if (-not $UseSystemProxy) {
 if ($DisableExtensions) {
     $arguments += "--disable-extensions"
 }
-
-Start-Process -FilePath $browser -ArgumentList $arguments -WorkingDirectory (Split-Path -Parent $browser)
-
-if (-not (Wait-CdpEndpoint -Endpoint $hostEndpoint -TimeoutSeconds 30)) {
-    throw "Started browser but CDP endpoint did not become available within 30 seconds: $hostEndpoint/json/version"
+if ($StartMinimized) {
+    $arguments += "--start-minimized"
 }
 
+Start-Process `
+    -FilePath $browser `
+    -ArgumentList $arguments `
+    -WorkingDirectory (Split-Path -Parent $browser) `
+    -WindowStyle Normal
+
+if (-not (Wait-CdpEndpoint -Endpoint $hostEndpoint -TimeoutSeconds $CdpStartupTimeoutSeconds)) {
+    throw "Started browser but CDP endpoint did not become available within $CdpStartupTimeoutSeconds seconds: $hostEndpoint/json/version"
+}
+
+Show-CdpBrowserWindow -Port $Port -ProfileDir $ProfileDir
 Write-Output "Started browser: $browser"
 Write-Output "Profile directory: $ProfileDir"
 Write-Output "Host CDP endpoint: $hostEndpoint"
 Write-Output "Docker CDP endpoint: $dockerEndpoint"
+Write-Output "Human auth mode: $($HumanAuthMode.IsPresent)"
 Write-Output "Log in to Taobao in the opened browser window, then keep the window open for collectors."
+}
+finally {
+    if ($startupLockAcquired) {
+        try {
+            $startupMutex.ReleaseMutex()
+        }
+        catch {
+        }
+    }
+    $startupMutex.Dispose()
+}

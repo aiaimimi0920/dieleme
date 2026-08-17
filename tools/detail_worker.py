@@ -4,6 +4,7 @@ import argparse
 import datetime
 import json
 import os
+import re
 import shutil
 import sys
 import time
@@ -19,7 +20,9 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.storage.repository import PropertyRepository, create_repository_from_env
+from tools.internal_api_http import fetch_json
 from tools.live_batch_smoke import (
+    CdpEndpointUnavailableError,
     DEFAULT_CDP_ENDPOINT,
     DEFAULT_OUTPUT_DIR,
     LiveSmokeConfig,
@@ -27,6 +30,7 @@ from tools.live_batch_smoke import (
     build_http,
     captcha_solver_enabled,
     export_cookies,
+    is_challenge_page,
     load_open_browser_pages,
     load_json,
     preflight_llm_backend,
@@ -46,15 +50,20 @@ class DetailWorkerConfig:
     lease_seconds: int = 900
     item_max_attempts: int = 3
     failure_cooldown_seconds: int = 0
+    success_delay_seconds: float = 0.0
+    failure_delay_seconds: float = 1.0
     loop_interval_seconds: int = 900
     active_loop_interval_seconds: int | None = None
     max_runs: int | None = None
     llm_preflight_enabled: bool = False
     llm_preflight_timeout_seconds: float = 15.0
+    llm_preflight_attempts: int = 3
+    llm_preflight_retry_delay_seconds: float = 2.0
     solver_enabled: bool = False
     api_base_url: str = ""
     raw_only: bool = False
     analysis_only: bool = False
+    manual_challenge_reporting: bool = False
     detail_archive_root: Path | None = None
 
 
@@ -65,6 +74,7 @@ RuntimeContextFactory = Callable[[], RuntimeContext]
 ProgressEmitFunc = Callable[[dict[str, Any]], None]
 STATUS_UNAVAILABLE_RETRY_ATTEMPTS = 3
 STATUS_UNAVAILABLE_RETRY_SLEEP_SECONDS = 1.0
+DETAIL_ITEM_ID_RE = re.compile(r"/sf_item/(\d+)\.htm", re.IGNORECASE)
 
 
 def _llm_preflight_is_unavailable(preflight: dict[str, Any] | None) -> bool:
@@ -72,6 +82,8 @@ def _llm_preflight_is_unavailable(preflight: dict[str, Any] | None) -> bool:
         return False
     status_code = preflight.get("status_code")
     chat_status_code = preflight.get("chat_status_code")
+    if status_code == 0 or chat_status_code == 0:
+        return True
     if isinstance(chat_status_code, int) and chat_status_code < 400:
         return False
     if isinstance(chat_status_code, int) and chat_status_code >= 400:
@@ -79,6 +91,47 @@ def _llm_preflight_is_unavailable(preflight: dict[str, Any] | None) -> bool:
     if isinstance(status_code, int) and status_code >= 400:
         return True
     return False
+
+
+def _llm_preflight_is_retryable(preflight: dict[str, Any] | None) -> bool:
+    if not preflight or not preflight.get("enabled"):
+        return False
+    if preflight.get("error"):
+        return True
+    chat_status_code = preflight.get("chat_status_code")
+    status_code = preflight.get("status_code")
+    probe_status = chat_status_code if isinstance(chat_status_code, int) else status_code
+    return isinstance(probe_status, int) and (
+        probe_status == 0 or probe_status in {408, 425, 429} or probe_status >= 500
+    )
+
+
+def _run_llm_preflight(config: DetailWorkerConfig) -> dict[str, Any] | None:
+    max_attempts = max(int(config.llm_preflight_attempts), 1)
+    retry_delay_seconds = max(float(config.llm_preflight_retry_delay_seconds), 0.0)
+    for attempt in range(1, max_attempts + 1):
+        try:
+            preflight = preflight_llm_backend(
+                timeout=config.llm_preflight_timeout_seconds,
+                check_chat=True,
+            )
+        except Exception as exc:
+            preflight = {
+                "enabled": True,
+                "error": repr(exc),
+            }
+        if preflight is None:
+            return None
+        preflight = dict(preflight)
+        preflight["attempt"] = attempt
+        preflight["max_attempts"] = max_attempts
+        unavailable = _llm_preflight_is_unavailable(preflight) or bool(preflight.get("error"))
+        if not unavailable:
+            return preflight
+        if attempt >= max_attempts or not _llm_preflight_is_retryable(preflight):
+            return preflight
+        time.sleep(retry_delay_seconds * attempt)
+    return None
 
 
 def _clean_text(value: Any, default: str = "") -> str:
@@ -110,6 +163,14 @@ def _safe_float(value: Any, default: float) -> float:
     return parsed if parsed > 0 else default
 
 
+def _safe_non_negative_float(value: Any, default: float) -> float:
+    try:
+        parsed = float(value)
+    except (TypeError, ValueError):
+        return default
+    return parsed if parsed >= 0 else default
+
+
 def _live_config(config: DetailWorkerConfig, *, target_url: str) -> LiveSmokeConfig:
     return LiveSmokeConfig(
         output_dir=config.output_dir,
@@ -135,25 +196,54 @@ def _collection_pause_state(api_base_url: str) -> dict[str, Any]:
 
     endpoint = api_base_url.rstrip("/") + "/status"
     try:
-        with urlopen(endpoint, timeout=5) as response:
-            payload = json.loads(response.read().decode("utf-8"))
+        payload = fetch_json(endpoint, timeout=5)
     except (OSError, URLError, TimeoutError, json.JSONDecodeError) as exc:
         return {"paused": False, "reason": "status_unavailable", "error": repr(exc)}
 
     if not isinstance(payload, dict):
         return {"paused": False, "reason": "status_unavailable", "error": "non_object_status"}
 
+    return _normalize_collection_pause_state(payload)
+
+
+def _normalize_collection_pause_state(payload: dict[str, Any]) -> dict[str, Any]:
     captcha_solver = payload.get("captcha_solver")
     if not isinstance(captcha_solver, dict):
         captcha_solver = {}
     manual_required = bool(captcha_solver.get("manual_required"))
-    paused = bool(payload.get("paused")) or manual_required
+    solver_running_for_current_node = _captcha_solver_targets_current_node(captcha_solver)
+    solver_running_only = (
+        bool(payload.get("paused"))
+        and bool(captcha_solver.get("running"))
+        and bool(captcha_solver.get("paused"))
+        and not manual_required
+    )
+    paused = bool(payload.get("paused")) or manual_required or solver_running_for_current_node
+    if solver_running_only and not solver_running_for_current_node:
+        paused = False
     reason = "captcha_solver_manual_required" if manual_required else "collection_paused" if paused else None
+    if solver_running_for_current_node and not manual_required:
+        reason = "captcha_solver_running"
+    elif solver_running_only:
+        reason = "captcha_solver_running_other_node"
     return {
         "paused": paused,
         "reason": reason,
         "captcha_solver": captcha_solver,
     }
+
+
+def _captcha_solver_targets_current_node(captcha_solver: dict[str, Any]) -> bool:
+    if not bool(captcha_solver.get("running")):
+        return False
+    last_request = captcha_solver.get("last_request")
+    if not isinstance(last_request, dict):
+        return True
+    target_node_id = str(last_request.get("node_id") or "").strip().casefold()
+    current_node_id = str(os.environ.get("FAPAI_NODE_ID") or "").strip().casefold()
+    if not target_node_id or not current_node_id:
+        return True
+    return target_node_id == current_node_id
 
 
 def _collection_pause_state_with_retry(api_base_url: str) -> dict[str, Any]:
@@ -168,6 +258,36 @@ def _collection_pause_state_with_retry(api_base_url: str) -> dict[str, Any]:
         if retry_state.get("reason") != "status_unavailable":
             break
     return pause_state
+
+
+def _pause_state_detail_target_item_id(pause_state: dict[str, Any]) -> str | None:
+    captcha_solver = pause_state.get("captcha_solver")
+    if not isinstance(captcha_solver, dict):
+        return None
+    last_request = captcha_solver.get("last_request")
+    if not isinstance(last_request, dict):
+        return None
+    target_url = str(last_request.get("target_url") or last_request.get("url") or "").strip()
+    if not target_url:
+        return None
+    match = DETAIL_ITEM_ID_RE.search(target_url)
+    if match is None:
+        return None
+    return str(match.group(1) or "").strip() or None
+
+
+def _pause_state_has_resolved_open_detail_page(
+    pause_state: dict[str, Any],
+    browser_pages: dict[str, tuple[str, str]],
+) -> bool:
+    item_id = _pause_state_detail_target_item_id(pause_state)
+    if not item_id:
+        return False
+    browser_page = browser_pages.get(item_id)
+    if not browser_page:
+        return False
+    html, final_url = browser_page
+    return bool(html) and not is_challenge_page(str(html), str(final_url))
 
 
 def _is_detail_challenge_error(exc: BaseException) -> bool:
@@ -186,16 +306,72 @@ def _is_detail_challenge_error(exc: BaseException) -> bool:
     )
 
 
-def _report_captcha_solver(api_base_url: str, cdp_endpoint: str, target_url: str) -> dict[str, Any]:
-    from tools.taobao_login_health import build_captcha_solver_target_url, report_captcha_via_api
-
-    return dict(
-        report_captcha_via_api(
-            api_base_url,
-            cdp_endpoint,
-            build_captcha_solver_target_url(target_url),
+def _is_transient_dns_error(exc: BaseException) -> bool:
+    text = repr(exc).lower()
+    return any(
+        marker in text
+        for marker in (
+            "nameresolutionerror",
+            "temporary failure in name resolution",
+            "failed to resolve",
+            "name or service not known",
+            "getaddrinfo failed",
+            "no address associated with hostname",
+            "nodename nor servname provided",
         )
     )
+
+
+def _is_llm_backend_unavailable_error(exc: BaseException) -> bool:
+    from src import llm_helper
+
+    if isinstance(exc, llm_helper.LLMBackendUnavailableError):
+        return True
+    text = repr(exc).lower()
+    return any(
+        marker in text
+        for marker in (
+            "llm backend unavailable",
+            "appidnoautherror",
+            "empty response from ai",
+            "all configured models are disabled",
+        )
+    )
+
+
+def _report_captcha_solver(
+    api_base_url: str,
+    cdp_endpoint: str,
+    target_url: str,
+    *,
+    manual_only: bool = False,
+) -> dict[str, Any]:
+    from tools.taobao_login_health import build_captcha_solver_target_url, report_captcha_via_api
+
+    normalized_target_url = build_captcha_solver_target_url(target_url)
+    report_kwargs = {"manual_only": True} if manual_only else {}
+    return dict(report_captcha_via_api(api_base_url, cdp_endpoint, normalized_target_url, **report_kwargs))
+
+
+def _challenge_retry_budget_preserved(*, is_challenge_error: bool, is_transient_dns: bool) -> bool:
+    return bool(is_challenge_error or is_transient_dns)
+
+
+def _detail_challenge_should_break_batch(config: DetailWorkerConfig, result: dict[str, Any]) -> bool:
+    if result.get("decision") != "detail_item_retryable_failure":
+        return False
+    if result.get("reason") == "detail_cdp_unreachable":
+        return True
+    if not (config.solver_enabled or config.manual_challenge_reporting):
+        return False
+    if result.get("reason") != "detail_challenge_page":
+        return False
+    captcha_solver_report = result.get("captcha_solver_report")
+    if isinstance(captcha_solver_report, dict):
+        solver_status = str(captcha_solver_report.get("status") or "").strip().lower()
+        if solver_status == "already_running":
+            return False
+    return True
 
 
 def _env_bool(name: str, default: bool = False) -> bool:
@@ -203,6 +379,22 @@ def _env_bool(name: str, default: bool = False) -> bool:
     if raw is None:
         return default
     return raw.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def _build_cdp_unreachable_health(config: DetailWorkerConfig, target_url: str) -> dict[str, Any]:
+    from tools import taobao_login_health
+
+    effective_target_url = str(target_url or "").strip() or "https://sf.taobao.com/list/50025969__2.htm"
+    return {
+        "status": taobao_login_health.CDP_UNREACHABLE,
+        "cdp_endpoint": config.cdp_endpoint,
+        "target_url": effective_target_url,
+        "operator_hint": taobao_login_health.build_operator_hint(
+            status=taobao_login_health.CDP_UNREACHABLE,
+            cdp_endpoint=config.cdp_endpoint,
+            check_url=effective_target_url,
+        ),
+    }
 
 
 def _build_runtime_context(config: DetailWorkerConfig) -> RuntimeContext:
@@ -332,6 +524,30 @@ def _stage_raw_detail_artifacts_for_analysis(seed: dict[str, Any], *, output_dir
     return {key: value for key, value in staged.items() if value}
 
 
+def _raw_detail_final_url(selected_json_path: Path) -> str:
+    if not selected_json_path.exists():
+        return ""
+    try:
+        selected = load_json(selected_json_path)
+    except (OSError, json.JSONDecodeError):
+        return ""
+    if not isinstance(selected, dict):
+        return ""
+    fetch = selected.get("fetch")
+    if not isinstance(fetch, dict):
+        return ""
+    return str(fetch.get("detail_final_url") or "")
+
+
+def _assert_raw_detail_artifact_is_not_challenge(*, detail_html_path: Path, selected_json_path: Path) -> None:
+    try:
+        html = detail_html_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise RuntimeError(f"raw detail artifact missing or unreadable: {detail_html_path}") from exc
+    final_url = _raw_detail_final_url(selected_json_path)
+    if is_challenge_page(html, final_url):
+        raise RuntimeError(f"raw detail artifact returned anti-bot challenge: {final_url}")
+
 def run_detail_worker_once(
     config: DetailWorkerConfig,
     *,
@@ -343,15 +559,19 @@ def run_detail_worker_once(
 ) -> dict[str, Any]:
     config.output_dir.mkdir(parents=True, exist_ok=True)
     pause_state = _collection_pause_state_with_retry(config.api_base_url)
+    pause_override = False
     if pause_state.get("paused"):
-        summary = {
-            "decision": "detail_collection_paused",
-            "reason": pause_state.get("reason") or "collection_paused",
-            "captcha_solver": pause_state.get("captcha_solver") or {},
-            "counts": repository.seed_queue_counts(),
-        }
-        _write_runtime_summary(config.output_dir, summary)
-        return summary
+        if _pause_state_has_resolved_open_detail_page(pause_state, browser_pages):
+            pause_override = True
+        else:
+            summary = {
+                "decision": "detail_collection_paused",
+                "reason": pause_state.get("reason") or "collection_paused",
+                "captcha_solver": pause_state.get("captcha_solver") or {},
+                "counts": repository.seed_queue_counts(),
+            }
+            _write_runtime_summary(config.output_dir, summary)
+            return summary
 
     seed = repository.claim_seed_detail_item(
         config.worker_id,
@@ -378,6 +598,10 @@ def run_detail_worker_once(
         if config.raw_only:
             detail_html_path = config.output_dir / item_id / "detail.html"
             description_json_path = config.output_dir / item_id / "description-data.json"
+            _assert_raw_detail_artifact_is_not_challenge(
+                detail_html_path=detail_html_path,
+                selected_json_path=selected_json_path,
+            )
             repository.mark_seed_raw_detail_captured(
                 item_id,
                 detail_html_path=str(detail_html_path),
@@ -400,6 +624,8 @@ def run_detail_worker_once(
             }
             if archived_path:
                 summary["detail_archive_path"] = archived_path
+            if pause_override:
+                summary["pause_override"] = "resolved_open_detail_page"
             _write_runtime_summary(config.output_dir, summary)
             return summary
         final_item = _load_final_item(config.output_dir, item_id)
@@ -429,29 +655,68 @@ def run_detail_worker_once(
             "selected_json_path": str(selected_json_path),
             "counts": repository.seed_queue_counts(),
         }
+        if pause_override:
+            summary["pause_override"] = "resolved_open_detail_page"
         _write_runtime_summary(config.output_dir, summary)
         return summary
     except Exception as exc:
         is_challenge_error = _is_detail_challenge_error(exc)
+        is_transient_dns = _is_transient_dns_error(exc)
+        is_cdp_unreachable = isinstance(exc, CdpEndpointUnavailableError)
+        preserve_retry_budget = _challenge_retry_budget_preserved(
+            is_challenge_error=is_challenge_error,
+            is_transient_dns=is_transient_dns,
+        ) or is_cdp_unreachable
         captcha_solver_report: dict[str, Any] | None = None
-        if is_challenge_error and config.solver_enabled and str(config.api_base_url or "").strip():
+        if (
+            is_challenge_error
+            and (config.solver_enabled or config.manual_challenge_reporting)
+            and str(config.api_base_url or "").strip()
+        ):
             try:
-                captcha_solver_report = _report_captcha_solver(
+                report_args = (
                     config.api_base_url,
                     config.cdp_endpoint,
                     str(seed.get("url") or seed.get("source_page_url") or ""),
                 )
+                if config.solver_enabled:
+                    captcha_solver_report = _report_captcha_solver(*report_args)
+                else:
+                    captcha_solver_report = _report_captcha_solver(*report_args, manual_only=True)
             except Exception as solver_exc:
                 captcha_solver_report = {"status": "report_failed", "error": repr(solver_exc)}
-        repository.mark_seed_detail_failed(item_id, repr(exc), retryable=True)
+        repository.mark_seed_detail_failed(
+            item_id,
+            repr(exc),
+            retryable=True,
+            revert_attempt=preserve_retry_budget,
+            restore_pending=preserve_retry_budget,
+        )
         summary = {
             "decision": "detail_item_retryable_failure",
-            "reason": "detail_challenge_page" if is_challenge_error else "exception",
+            "reason": (
+                "detail_challenge_page"
+                if is_challenge_error
+                else "transient_dns_error"
+                if is_transient_dns
+                else "detail_cdp_unreachable"
+                if is_cdp_unreachable
+                else "exception"
+            ),
             "item_id": item_id,
             "error": repr(exc),
             "traceback": traceback.format_exc(),
             "counts": repository.seed_queue_counts(),
         }
+        if pause_override:
+            summary["pause_override"] = "resolved_open_detail_page"
+        if preserve_retry_budget:
+            summary["retry_budget_preserved"] = True
+        if is_cdp_unreachable:
+            summary["cdp_health"] = _build_cdp_unreachable_health(
+                config,
+                str(seed.get("url") or seed.get("source_page_url") or ""),
+            )
         if captcha_solver_report is not None:
             summary["captcha_solver_report"] = captcha_solver_report
         _write_runtime_summary(config.output_dir, summary)
@@ -513,6 +778,23 @@ def run_detail_analysis_once(
         _write_runtime_summary(config.output_dir, summary)
         return summary
     except Exception as exc:
+        if _is_llm_backend_unavailable_error(exc):
+            repository.mark_seed_detail_analysis_failed(
+                item_id,
+                repr(exc),
+                retryable=True,
+                revert_attempt=True,
+                restore_raw=True,
+            )
+            summary = {
+                "decision": "detail_analysis_backend_unavailable",
+                "item_id": item_id,
+                "error": repr(exc),
+                "traceback": traceback.format_exc(),
+                "counts": repository.seed_queue_counts(),
+            }
+            _write_runtime_summary(config.output_dir, summary)
+            return summary
         repository.mark_seed_detail_analysis_failed(item_id, repr(exc), retryable=True)
         summary = {
             "decision": "detail_analysis_retryable_failure",
@@ -535,13 +817,7 @@ def run_detail_worker_batch(
     analyze_item_func: AnalyzeItemFunc = analyze_raw_item,
 ) -> dict[str, Any]:
     if config.llm_preflight_enabled and not config.raw_only:
-        try:
-            preflight = preflight_llm_backend(timeout=config.llm_preflight_timeout_seconds, check_chat=True)
-        except Exception as exc:
-            preflight = {
-                "enabled": True,
-                "error": repr(exc),
-            }
+        preflight = _run_llm_preflight(config)
     else:
         preflight = None
     if _llm_preflight_is_unavailable(preflight) or (preflight and preflight.get("error")):
@@ -585,15 +861,21 @@ def run_detail_worker_batch(
             attempted_item_ids.add(str(item_id))
         if result.get("decision") in {"detail_queue_empty", "detail_analysis_queue_empty"}:
             break
-        if result.get("decision") in {"detail_item_completed", "detail_item_raw_captured", "detail_analysis_completed"}:
+        item_completed = result.get("decision") in {
+            "detail_item_completed",
+            "detail_item_raw_captured",
+            "detail_analysis_completed",
+        }
+        if item_completed:
             completed += 1
-        if (
-            config.solver_enabled
-            and result.get("decision") == "detail_item_retryable_failure"
-            and result.get("reason") == "detail_challenge_page"
-        ):
+        if result.get("decision") == "detail_analysis_backend_unavailable":
             break
-        time.sleep(1)
+        if _detail_challenge_should_break_batch(config, result):
+            break
+        if attempts < config.max_attempts and completed < config.target_success:
+            delay_seconds = config.success_delay_seconds if item_completed else config.failure_delay_seconds
+            if delay_seconds > 0:
+                time.sleep(delay_seconds)
     summary = {
         "decision": "detail_worker_batch_finished",
         "attempts": attempts,
@@ -640,6 +922,18 @@ def run_detail_worker_loop(
     results: list[dict[str, Any]] = []
     last_runtime_context: RuntimeContext | None = None
     runs = 0
+    release_worker_leases = getattr(repository, "release_seed_detail_worker_leases", None)
+    if callable(release_worker_leases):
+        release_summary = release_worker_leases(config.worker_id)
+        if int((release_summary or {}).get("released") or 0) > 0:
+            release_event = {
+                "decision": "detail_worker_leases_released",
+                "worker_id": config.worker_id,
+                "release_summary": release_summary,
+                "counts": repository.seed_queue_counts(),
+            }
+            emit_progress({"event": "detail_worker_leases_released", **release_event})
+            _write_runtime_summary(config.output_dir, release_event)
     while True:
         runs += 1
         try:
@@ -736,6 +1030,18 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailW
         default=_safe_int(os.getenv("FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS"), 0),
         help="Skip recently failed detail items for this many seconds before retrying them.",
     )
+    parser.add_argument(
+        "--success-delay-seconds",
+        type=float,
+        default=_safe_non_negative_float(os.getenv("FAPAI_DETAIL_SUCCESS_DELAY_SECONDS"), 0.0),
+        help="Delay between successful items in the same batch.",
+    )
+    parser.add_argument(
+        "--failure-delay-seconds",
+        type=float,
+        default=_safe_non_negative_float(os.getenv("FAPAI_DETAIL_FAILURE_DELAY_SECONDS"), 1.0),
+        help="Backoff between failed items in the same batch.",
+    )
     parser.add_argument("--worker-id", default=os.getenv("FAPAI_DETAIL_WORKER_ID", f"detail-{os.getpid()}"))
     parser.add_argument("--lease-seconds", type=int, default=_safe_int(os.getenv("FAPAI_DETAIL_LEASE_SECONDS"), 900))
     parser.add_argument("--loop", action="store_true", default=_env_flag("FAPAI_DETAIL_LOOP", False))
@@ -772,9 +1078,25 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailW
         help="Report Taobao detail challenge pages to the configured captcha solver queue.",
     )
     parser.add_argument(
+        "--manual-challenge-reporting",
+        action="store_true",
+        default=_env_flag("FAPAI_MANUAL_CHALLENGE_REPORTING", False),
+        help="Pause collection and request PC1 manual authentication without starting the automatic solver.",
+    )
+    parser.add_argument(
         "--llm-preflight-timeout-seconds",
         type=float,
         default=_safe_float(os.getenv("FAPAI_LLM_PREFLIGHT_TIMEOUT_SECONDS"), 15.0),
+    )
+    parser.add_argument(
+        "--llm-preflight-attempts",
+        type=int,
+        default=_safe_int(os.getenv("FAPAI_LLM_PREFLIGHT_ATTEMPTS"), 3),
+    )
+    parser.add_argument(
+        "--llm-preflight-retry-delay-seconds",
+        type=float,
+        default=_safe_non_negative_float(os.getenv("FAPAI_LLM_PREFLIGHT_RETRY_DELAY_SECONDS"), 2.0),
     )
     args = parser.parse_args(argv)
     if args.max_runs is None and os.getenv("FAPAI_DETAIL_MAX_RUNS"):
@@ -791,15 +1113,20 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailW
             lease_seconds=max(int(args.lease_seconds), 1),
             item_max_attempts=max(int(args.item_max_attempts), 1),
             failure_cooldown_seconds=max(int(args.failure_cooldown_seconds), 0),
+            success_delay_seconds=max(float(args.success_delay_seconds), 0.0),
+            failure_delay_seconds=max(float(args.failure_delay_seconds), 0.0),
             loop_interval_seconds=max(int(args.loop_interval_seconds), 0),
             active_loop_interval_seconds=max(int(args.active_loop_interval_seconds), 0),
             max_runs=args.max_runs,
             llm_preflight_enabled=bool(args.llm_preflight),
             llm_preflight_timeout_seconds=max(float(args.llm_preflight_timeout_seconds), 1.0),
+            llm_preflight_attempts=max(int(args.llm_preflight_attempts), 1),
+            llm_preflight_retry_delay_seconds=max(float(args.llm_preflight_retry_delay_seconds), 0.0),
             solver_enabled=bool(args.solver_enabled),
             api_base_url=_clean_text(args.api_base_url),
             raw_only=False if analysis_only else bool(args.raw_only),
             analysis_only=analysis_only,
+            manual_challenge_reporting=bool(args.manual_challenge_reporting),
             detail_archive_root=args.detail_archive_root,
         ),
         bool(args.loop),

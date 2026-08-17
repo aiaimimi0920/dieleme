@@ -1,8 +1,14 @@
 .git/
 .pytest_cache/
 .mypy_cache/
+.codex-temp/
 __pycache__/
 *.pyc
+
+**/node_modules/
+collector-desktop/src-tauri/
+target/
+artifacts/
 
 venv/
 .venv/
@@ -26,6 +32,7 @@ temp_chrome_profile/
 *.xlsx
 *.html
 !collector-desktop/index.html
+!collector-desktop/dist/index.html
 cdp_*.json
 tmp_*.json
 

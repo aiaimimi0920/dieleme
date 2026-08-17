@@ -188,6 +188,14 @@ load_model_config()
 
 import queue
 
+
+AUTH_INVALID_ERROR_CODES = {11200}
+
+
+class LLMBackendUnavailableError(RuntimeError):
+    """Raised when no configured LLM backend is currently usable."""
+
+
 class ModelSelector:
     """
     Counter-based model selector with RUNTIME-ADJUSTABLE concurrency limits.
@@ -207,6 +215,7 @@ class ModelSelector:
         # Statistics tracking
         self.stats = {m["name"]: {"success": 0, "error": 0, "concurrency_error": 0, "active": 0} for m in pool}
         self.stats_lock = threading.Lock()
+        self.disabled_models = {}
         
         # Track base models for community search
         self.base_models = [m for m in pool if "Base" in m.get("base_name", m["name"])]
@@ -242,6 +251,8 @@ class ModelSelector:
         available = []
         for model in self.pool:
             name = model["name"]
+            if name in self.disabled_models:
+                continue
             if self.active_counts.get(name, 0) < self.limits.get(name, 0):
                 available.append(model)
         
@@ -258,6 +269,9 @@ class ModelSelector:
         with self.condition:
             # Wait until a slot is available
             while True:
+                enabled_model_names = [m["name"] for m in self.pool if m["name"] not in self.disabled_models]
+                if not enabled_model_names:
+                    raise LLMBackendUnavailableError("All configured models are disabled or unavailable")
                 model = self._find_available_model()
                 if model:
                     name = model["name"]
@@ -271,6 +285,10 @@ class ModelSelector:
     def acquire(self, model_name):
         """Acquire a connection slot for a SPECIFIC model. Blocks if at limit."""
         with self.condition:
+            if model_name in self.disabled_models:
+                raise LLMBackendUnavailableError(
+                    f"Model '{model_name}' is disabled: {self.disabled_models.get(model_name) or 'unavailable'}"
+                )
             while self.active_counts.get(model_name, 0) >= self.limits.get(model_name, 5):
                 self.condition.wait()
             
@@ -278,6 +296,15 @@ class ModelSelector:
             with self.stats_lock:
                 self.stats[model_name]["active"] = self.active_counts[model_name]
             return True
+
+    def disable_model(self, model_name, reason):
+        """Disable a model for the current process when auth/config is invalid."""
+        with self.condition:
+            if model_name in self.disabled_models:
+                return
+            self.disabled_models[model_name] = str(reason or "unavailable")
+            print(f"[MODEL-DISABLE] Disabled '{model_name}': {self.disabled_models[model_name]}")
+            self.condition.notify_all()
     
     def release(self, model_name, model_config=None, from_queue=False):
         """
@@ -550,6 +577,11 @@ class AIService:
                 # Check if it's a concurrency/rate limit error (common codes: 10013, 10014, 10163, 10110, 11202)
                 is_concurrency_err = self.error_code in [10013, 10014, 10163, 10110, 11202]
                 model_selector.record_error(model_name, is_concurrency_error=is_concurrency_err)
+                if self.error_code in AUTH_INVALID_ERROR_CODES:
+                    model_selector.disable_model(
+                        model_name,
+                        f"error_code={self.error_code}, error_msg={self.error_msg or 'AppIdNoAuthError'}",
+                    )
                 if is_concurrency_err:
                     print(f"[STATS] Concurrency error on '{model_name}' (code: {self.error_code})")
                     # INSTANT limit reduction: Immediately reduce limit by 1 when concurrency error detected
@@ -1447,10 +1479,18 @@ def _get_openai_compatible_config():
     api_key = os.environ.get("OPENAI_API_KEY")
     if not base_url or not api_key:
         return None
+    primary_model = os.environ.get("OPENAI_MODEL") or os.environ.get("OPENAI_COMPATIBLE_MODEL") or "gpt-5.5"
+    candidate_text = os.environ.get("OPENAI_MODEL_CANDIDATES") or ""
+    models = []
+    for candidate in [primary_model, *re.split(r"[;,]", candidate_text)]:
+        normalized = str(candidate or "").strip()
+        if normalized and normalized not in models:
+            models.append(normalized)
     return {
         "base_url": base_url.rstrip("/"),
         "api_key": api_key,
-        "model": os.environ.get("OPENAI_MODEL") or os.environ.get("OPENAI_COMPATIBLE_MODEL") or "gpt-5.5",
+        "model": models[0],
+        "models": models,
         "timeout": float(os.environ.get("OPENAI_TIMEOUT_SECONDS", "180")),
         "max_retries": int(os.environ.get("OPENAI_MAX_RETRIES", "3")),
     }
@@ -1504,29 +1544,43 @@ def _chat_with_openai_compatible(content, config):
     if proxies:
         session.proxies = proxies
     max_retries = max(int(config.get("max_retries", 3)), 1)
+    models = list(config.get("models") or [config["model"]])
     response = None
     for attempt in range(1, max_retries + 1):
-        response = session.post(
-            url,
-            headers={
-                "Authorization": f"Bearer {config['api_key']}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": config["model"],
-                "messages": [{"role": "user", "content": content}],
-                "temperature": 0,
-            },
-            timeout=config["timeout"],
-        )
-        status_code = getattr(response, "status_code", None)
-        if status_code not in (429, 500, 502, 503, 504):
+        for model in models:
+            response = session.post(
+                url,
+                headers={
+                    "Authorization": f"Bearer {config['api_key']}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": model,
+                    "messages": [{"role": "user", "content": content}],
+                    "temperature": 0,
+                },
+                timeout=config["timeout"],
+            )
+            status_code = getattr(response, "status_code", None)
+            if status_code is not None and status_code < 400:
+                config["last_successful_model"] = model
+                break
+            if status_code in (400, 401):
+                response.raise_for_status()
+            if status_code not in (403, 429, 500, 502, 503, 504, 524):
+                response.raise_for_status()
+        if response is not None and getattr(response, "status_code", None) is not None and response.status_code < 400:
             break
         if attempt >= max_retries:
             break
         wait_seconds = min(2 ** (attempt - 1), 8)
-        print(f"DEBUG: OpenAI-compatible transient HTTP {status_code}; retry {attempt}/{max_retries} after {wait_seconds}s")
+        print(
+            "DEBUG: OpenAI-compatible candidate models unavailable; "
+            f"retry {attempt}/{max_retries} after {wait_seconds}s"
+        )
         time.sleep(wait_seconds)
+    if response is None:
+        raise LLMBackendUnavailableError("LLM backend unavailable: no OpenAI-compatible model candidates")
     response.raise_for_status()
     raw_bytes = getattr(response, "content", None)
     if isinstance(raw_bytes, (bytes, bytearray)):
@@ -1554,11 +1608,19 @@ def preflight_openai_compatible_backend(timeout=15.0, *, check_chat=False):
     proxies = _get_openai_compatible_proxies(config["base_url"])
     if proxies:
         session.proxies = proxies
-    response = session.get(
-        url,
-        headers={"Authorization": f"Bearer {config['api_key']}"},
-        timeout=float(timeout),
-    )
+    try:
+        response = session.get(
+            url,
+            headers={"Authorization": f"Bearer {config['api_key']}"},
+            timeout=float(timeout),
+        )
+    except requests.RequestException as exc:
+        return {
+            "enabled": True,
+            "url": url,
+            "status_code": 0,
+            "error_type": type(exc).__name__,
+        }
     result = {
         "enabled": True,
         "url": url,
@@ -1566,26 +1628,147 @@ def preflight_openai_compatible_backend(timeout=15.0, *, check_chat=False):
     }
     if check_chat:
         chat_url = f"{config['base_url']}/chat/completions"
-        chat_response = session.post(
-            chat_url,
-            headers={
-                "Authorization": f"Bearer {config['api_key']}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": config["model"],
-                "messages": [{"role": "user", "content": "Return OK."}],
-                "temperature": 0,
-                "max_tokens": 1,
-            },
-            timeout=float(timeout),
-        )
+        models = list(config.get("models") or [config["model"]])
+        chat_response = None
+        chat_model = None
+        for model in models:
+            try:
+                chat_response = session.post(
+                    chat_url,
+                    headers={
+                        "Authorization": f"Bearer {config['api_key']}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": model,
+                        "messages": [
+                            {
+                                "role": "user",
+                                "content": '这是法拍房分析服务连通性检查。请仅返回 JSON：{"ok":true}',
+                            }
+                        ],
+                        "temperature": 0,
+                        "max_tokens": 32,
+                    },
+                    timeout=float(timeout),
+                )
+            except requests.RequestException as exc:
+                chat_response = None
+                result.setdefault("probe_errors", []).append(
+                    {"model_name": model, "error_type": type(exc).__name__}
+                )
+                continue
+            status_code = getattr(chat_response, "status_code", None)
+            if status_code is not None and status_code < 400:
+                chat_model = model
+                break
+            if status_code in (400, 401):
+                break
         result.update(
             {
                 "chat_url": chat_url,
                 "chat_status_code": getattr(chat_response, "status_code", None),
             }
         )
+        if len(models) > 1:
+            result["chat_model_name"] = chat_model
+    return result
+
+
+def preflight_llm_backend(timeout=15.0, *, check_chat=False):
+    config = _get_openai_compatible_config()
+    if config:
+        result = preflight_openai_compatible_backend(timeout=timeout, check_chat=check_chat)
+        result.setdefault("backend", "openai_compatible")
+        return result
+    if not MODEL_POOL:
+        return {"enabled": False}
+
+    result = {
+        "enabled": True,
+        "backend": "glm_websocket_pool",
+        "model_pool_size": len(MODEL_POOL),
+    }
+    if not check_chat:
+        return result
+
+    disabled_models = dict(getattr(model_selector, "disabled_models", {}) or {})
+    enabled_models = [model for model in MODEL_POOL if str(model.get("name") or "") not in disabled_models]
+    if not enabled_models:
+        result.update(
+            {
+                "chat_status_code": 401 if disabled_models else 503,
+                "error": "all_models_appid_no_auth" if disabled_models else "all_models_unavailable",
+                "probe_errors": [
+                    {
+                        "model_name": model_name,
+                        "error": reason,
+                    }
+                    for model_name, reason in list(disabled_models.items())[:5]
+                ],
+            }
+        )
+        return result
+
+    prompt = '请只返回JSON: {"ok":true}'
+    probe_errors = []
+    probe_success = None
+    auth_error_only = True
+
+    for model in enabled_models:
+        model_name = str(model.get("name") or "")
+        try:
+            service = AIService(model_config=model)
+            response = service.get_response(prompt)
+            if str(response or "").strip():
+                probe_success = model_name
+                break
+            error_code = int(service.error_code or 0)
+            error_msg = str(service.error_msg or "empty_response")
+            probe_errors.append(
+                {
+                    "model_name": model_name,
+                    "error_code": error_code,
+                    "error": error_msg,
+                }
+            )
+            if error_code not in AUTH_INVALID_ERROR_CODES or "AppIdNoAuthError" not in error_msg:
+                auth_error_only = False
+        except LLMBackendUnavailableError as exc:
+            message = str(exc)
+            probe_errors.append(
+                {
+                    "model_name": model_name,
+                    "error": message,
+                }
+            )
+            if "disabled" not in message.lower():
+                auth_error_only = False
+        except Exception as exc:
+            probe_errors.append(
+                {
+                    "model_name": model_name,
+                    "error": repr(exc),
+                }
+            )
+            auth_error_only = False
+
+    if probe_success:
+        result.update(
+            {
+                "chat_status_code": 200,
+                "chat_model_name": probe_success,
+            }
+        )
+        return result
+
+    result.update(
+        {
+            "chat_status_code": 401 if probe_errors and auth_error_only else 503,
+            "error": "all_models_appid_no_auth" if probe_errors and auth_error_only else "all_models_unavailable",
+            "probe_errors": probe_errors[:5],
+        }
+    )
     return result
 
 
@@ -1598,14 +1781,24 @@ def chat_with_glm(content):
         print(f"DEBUG: Sending request to OpenAI-compatible backend (model={openai_config['model']})...")
         result = _chat_with_openai_compatible(content, openai_config)
         print(f"DEBUG: OpenAI-compatible response received (len={len(result)}).")
-        return _strip_json_markdown(result)
+        stripped = _strip_json_markdown(result)
+        if not str(stripped or "").strip():
+            raise LLMBackendUnavailableError("LLM backend unavailable: OpenAI-compatible backend returned empty response")
+        return stripped
 
     service = AIService()
     print("DEBUG: Sending request to GLM-4.7...")
     result = service.get_response(content)
     print(f"DEBUG: GLM-4.7 response received (len={len(result)}).")
 
-    return _strip_json_markdown(result)
+    if service.error_code in AUTH_INVALID_ERROR_CODES:
+        raise LLMBackendUnavailableError(
+            f"LLM backend unavailable: error_code={service.error_code}, error_msg={service.error_msg or 'AppIdNoAuthError'}"
+        )
+    stripped = _strip_json_markdown(result)
+    if not str(stripped or "").strip():
+        raise LLMBackendUnavailableError("LLM backend unavailable: empty response from AI backend")
+    return stripped
 
 if __name__ == "__main__":
     # Test

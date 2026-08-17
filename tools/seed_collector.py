@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Iterable, Sequence
 from urllib.error import URLError
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -17,7 +18,9 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.storage.repository import PropertyRepository, create_repository_from_env
+from tools.internal_api_http import fetch_json, post_json
 from tools.live_batch_smoke import (
+    CdpEndpointUnavailableError,
     DEFAULT_API_BASE_URL,
     DEFAULT_CDP_ENDPOINT,
     DEFAULT_OUTPUT_DIR,
@@ -26,6 +29,7 @@ from tools.live_batch_smoke import (
     captcha_solver_enabled,
     export_cookies,
     fetch_list_page,
+    resolve_runtime_user_agent,
     write_json,
 )
 
@@ -103,6 +107,7 @@ class SeedCollectorConfig:
     max_runs: int | None = None
     pages_per_run: int = 10
     solver_enabled: bool = False
+    manual_challenge_reporting: bool = False
     api_base_url: str = ""
     seed_jobs: tuple[SeedScanJobSpec, ...] = ()
     parallel_sorts: bool = False
@@ -336,6 +341,16 @@ def _extract_seed_items(browserless_seed_probe: Any, html: str, *, final_url: st
     return items, summary, False
 
 
+def _browser_page_payload_missing_without_challenge(fetch_method: str, list_summary: dict[str, Any]) -> bool:
+    if not str(fetch_method or "").startswith("browser_page"):
+        return False
+    if not isinstance(list_summary, dict):
+        return True
+    has_script = list_summary.get("has_script")
+    item_count = list_summary.get("item_count")
+    return has_script is False and item_count is None
+
+
 def _write_runtime_summary(output_dir: Path, summary: dict[str, Any]) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     write_json(output_dir / "seed_collector_summary.json", summary)
@@ -347,8 +362,7 @@ def _collection_pause_state(api_base_url: str) -> dict[str, Any]:
 
     endpoint = api_base_url.rstrip("/") + "/status"
     try:
-        with urlopen(endpoint, timeout=5) as response:
-            payload = json.loads(response.read().decode("utf-8"))
+        payload = fetch_json(endpoint, timeout=5)
     except (OSError, URLError, TimeoutError, json.JSONDecodeError) as exc:
         return {"paused": False, "reason": "status_unavailable", "error": repr(exc)}
 
@@ -364,6 +378,7 @@ def _normalize_collection_pause_state(payload: dict[str, Any]) -> dict[str, Any]
         captcha_solver = {}
     manual_required = bool(captcha_solver.get("manual_required"))
     force_unlock = bool(captcha_solver.get("force_unlock_flag_exists"))
+    solver_running_for_current_node = _captcha_solver_targets_current_node(captcha_solver)
     solver_running_only = (
         bool(payload.get("paused"))
         and bool(captcha_solver.get("running"))
@@ -371,17 +386,32 @@ def _normalize_collection_pause_state(payload: dict[str, Any]) -> dict[str, Any]
         and not manual_required
         and not force_unlock
     )
-    paused = bool(payload.get("paused")) or manual_required or force_unlock
-    if solver_running_only:
+    paused = bool(payload.get("paused")) or manual_required or force_unlock or solver_running_for_current_node
+    if solver_running_only and not solver_running_for_current_node:
         paused = False
     reason = "captcha_solver_manual_required" if manual_required else "collection_paused" if paused else None
-    if solver_running_only:
-        reason = "captcha_solver_running_ignored"
+    if solver_running_for_current_node and not manual_required and not force_unlock:
+        reason = "captcha_solver_running"
+    elif solver_running_only:
+        reason = "captcha_solver_running_other_node"
     return {
         "paused": paused,
         "reason": reason,
         "captcha_solver": captcha_solver,
     }
+
+
+def _captcha_solver_targets_current_node(captcha_solver: dict[str, Any]) -> bool:
+    if not bool(captcha_solver.get("running")):
+        return False
+    last_request = captcha_solver.get("last_request")
+    if not isinstance(last_request, dict):
+        return True
+    target_node_id = str(last_request.get("node_id") or "").strip().casefold()
+    current_node_id = str(os.environ.get("FAPAI_NODE_ID") or "").strip().casefold()
+    if not target_node_id or not current_node_id:
+        return True
+    return target_node_id == current_node_id
 
 
 def _collection_pause_state_with_retry(api_base_url: str) -> dict[str, Any]:
@@ -409,18 +439,47 @@ def _pause_state_targets_detail_page(pause_state: dict[str, Any]) -> bool:
     return "sf-item.taobao.com" in target_url or "/sf_item/" in target_url
 
 
-def _pause_state_seed_probe_target_url(pause_state: dict[str, Any]) -> str:
+def _default_seed_auth_probe_target_url() -> str:
+    return "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1"
+
+
+def _normalize_seed_challenge_target_url(target_url: str, *, allow_default: bool = False) -> str:
+    fallback = _default_seed_auth_probe_target_url() if allow_default else ""
+    try:
+        parsed = urlsplit(target_url)
+    except ValueError:
+        return fallback
+    if str(parsed.hostname or "").casefold() != "sf.taobao.com":
+        return fallback
+
+    path = str(parsed.path or "")
+    punish_index = path.casefold().find("/_____tmd_____/punish")
+    if punish_index >= 0:
+        path = path[:punish_index]
+    while "//" in path:
+        path = path.replace("//", "/")
+    if not path.lower().startswith("/list/"):
+        return fallback
+
+    allowed_query_keys = {"location_code", "st_param", "auction_start_seg", "page"}
+    query_pairs = [
+        (key, value)
+        for key, value in parse_qsl(parsed.query, keep_blank_values=True)
+        if key in allowed_query_keys
+    ]
+    query_pairs.append(("__captcha_solver_bg", "1"))
+    return urlunsplit(("https", "sf.taobao.com", path, urlencode(query_pairs, doseq=True), ""))
+
+
+def _pause_state_seed_probe_target_url(pause_state: dict[str, Any], *, allow_default: bool = False) -> str:
     captcha_solver = pause_state.get("captcha_solver")
     if not isinstance(captcha_solver, dict):
-        return ""
+        return _default_seed_auth_probe_target_url() if allow_default else ""
     last_request = captcha_solver.get("last_request")
     if not isinstance(last_request, dict):
-        return ""
+        return _default_seed_auth_probe_target_url() if allow_default else ""
     target_url = str(last_request.get("target_url") or last_request.get("url") or "").strip()
-    lowered = target_url.lower()
-    if "sf.taobao.com/list/" not in lowered:
-        return ""
-    return target_url
+    return _normalize_seed_challenge_target_url(target_url, allow_default=allow_default)
 
 
 def _pause_state_blocks_seed_stage(pause_state: dict[str, Any]) -> bool:
@@ -433,21 +492,15 @@ def _notify_auth_probe_passed(api_base_url: str, target_url: str) -> dict[str, A
     if not str(api_base_url or "").strip():
         return {"ok": False, "skipped": True, "reason": "api_base_url_missing"}
     endpoint = api_base_url.rstrip("/") + "/collection/auth/complete"
-    body = json.dumps(
+    payload = post_json(
+        endpoint,
         {
             "source": "seed_auth_probe",
             "refresh_cookie_snapshot": False,
             "target_url": target_url,
-        }
-    ).encode("utf-8")
-    request = Request(
-        endpoint,
-        data=body,
-        headers={"Content-Type": "application/json"},
-        method="POST",
+        },
+        timeout=10,
     )
-    with urlopen(request, timeout=10) as response:
-        payload = json.loads(response.read().decode("utf-8"))
     return payload if isinstance(payload, dict) else {"ok": False, "payload": payload}
 
 
@@ -458,20 +511,26 @@ def _probe_seed_auth_state(
     http_session: Any,
     browserless_seed_probe: Any,
 ) -> dict[str, Any]:
-    target_url = _pause_state_seed_probe_target_url(pause_state)
+    target_url = _pause_state_seed_probe_target_url(
+        pause_state,
+        allow_default=bool(str(config.api_base_url or "").strip()),
+    )
     if not target_url:
         return {"attempted": False, "authenticated": False, "reason": "no_seed_list_target_url"}
 
     try:
+        runtime_user_agent = resolve_runtime_user_agent(config.cdp_endpoint)
         html, final_url, status_code, fetch_method = fetch_list_page(
             http_session,
             cdp_endpoint=config.cdp_endpoint,
             target_url=target_url,
-            user_agent=getattr(browserless_seed_probe, "DEFAULT_USER_AGENT", DEFAULT_USER_AGENT),
+            user_agent=runtime_user_agent or getattr(browserless_seed_probe, "DEFAULT_USER_AGENT", DEFAULT_USER_AGENT),
             solver_enabled=False,
+            api_base_url=config.api_base_url,
         )
         items, list_summary, has_challenge = _extract_seed_items(browserless_seed_probe, html, final_url=final_url)
-        authenticated = not has_challenge
+        payload_missing = _browser_page_payload_missing_without_challenge(fetch_method, list_summary)
+        authenticated = not has_challenge and not payload_missing
         result: dict[str, Any] = {
             "attempted": True,
             "authenticated": authenticated,
@@ -482,6 +541,8 @@ def _probe_seed_auth_state(
             "item_count": len(items),
             "list_summary": list_summary,
         }
+        if not authenticated and payload_missing:
+            result["reason"] = "probe_not_authenticated"
         if authenticated:
             result["auth_complete"] = _notify_auth_probe_passed(config.api_base_url, target_url)
         return result
@@ -493,6 +554,24 @@ def _probe_seed_auth_state(
             "reason": "probe_exception",
             "error": repr(exc),
         }
+
+
+def _build_cdp_unreachable_auth_probe(config: SeedCollectorConfig, target_url: str) -> dict[str, Any]:
+    from tools import taobao_login_health
+
+    effective_target_url = str(target_url or "").strip() or "https://sf.taobao.com/list/50025969__2.htm"
+    return {
+        "attempted": True,
+        "authenticated": False,
+        "status": taobao_login_health.CDP_UNREACHABLE,
+        "cdp_endpoint": config.cdp_endpoint,
+        "target_url": effective_target_url,
+        "operator_hint": taobao_login_health.build_operator_hint(
+            status=taobao_login_health.CDP_UNREACHABLE,
+            cdp_endpoint=config.cdp_endpoint,
+            check_url=effective_target_url,
+        ),
+    }
 
 
 def _build_runtime_context(config: SeedCollectorConfig) -> Any:
@@ -538,7 +617,15 @@ def _seed_cycle_summary(run_results: Sequence[dict[str, Any]]) -> dict[str, Any]
 def _seed_run_progress_event(run: int, run_results: list[dict[str, Any]]) -> dict[str, Any]:
     last_result = run_results[-1] if run_results else {}
     cycle_summary = _seed_cycle_summary(run_results)
-    return {
+    last_auth_probe = next(
+        (
+            result.get("auth_probe")
+            for result in reversed(run_results)
+            if isinstance(result.get("auth_probe"), dict)
+        ),
+        None,
+    )
+    event = {
         "event": "seed_collector_run",
         "run": run,
         "pages_attempted": cycle_summary["pages_attempted"],
@@ -551,6 +638,10 @@ def _seed_run_progress_event(run: int, run_results: list[dict[str, Any]]) -> dic
         "counts": last_result.get("counts"),
         "cycle_summary": cycle_summary,
     }
+    if last_auth_probe is not None:
+        event["last_auth_probe"] = last_auth_probe
+        event["auth_probe_attempted"] = bool(last_auth_probe.get("attempted"))
+    return event
 
 
 def _is_page_attempt_result(result: dict[str, Any]) -> bool:
@@ -588,6 +679,60 @@ def _seed_loop_sleep_seconds(config: SeedCollectorConfig, run_results: Sequence[
     return max(config.loop_interval_seconds, 0)
 
 
+def _summary_optional_non_negative_int(value: Any) -> int | None:
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError):
+        return None
+    return parsed if parsed >= 0 else None
+
+
+def _seed_page_has_next(
+    *,
+    task_page: Any,
+    task_max_page: Any,
+    list_summary: dict[str, Any],
+    filtered_items: Sequence[dict[str, Any]],
+) -> bool:
+    try:
+        current_page = int(task_page)
+    except (TypeError, ValueError):
+        current_page = 1
+    try:
+        max_page = int(task_max_page)
+    except (TypeError, ValueError):
+        max_page = current_page
+    if current_page >= max_page:
+        return False
+    raw_item_count = _summary_optional_non_negative_int(list_summary.get("item_count"))
+    if raw_item_count is not None:
+        return raw_item_count > 0
+    return bool(filtered_items)
+
+
+def _report_manual_seed_challenge(config: SeedCollectorConfig, target_url: str) -> dict[str, Any] | None:
+    if (
+        not config.manual_challenge_reporting
+        or config.solver_enabled
+        or not str(config.api_base_url or "").strip()
+    ):
+        return None
+
+    from tools.taobao_login_health import report_captcha_via_api
+
+    try:
+        return dict(
+            report_captcha_via_api(
+                config.api_base_url,
+                config.cdp_endpoint,
+                _normalize_seed_challenge_target_url(target_url, allow_default=True),
+                manual_only=True,
+            )
+        )
+    except Exception as exc:
+        return {"status": "report_failed", "error": repr(exc)}
+
+
 def run_seed_collector_once(
     config: SeedCollectorConfig,
     *,
@@ -600,6 +745,15 @@ def run_seed_collector_once(
     pause_state = _collection_pause_state_with_retry(config.api_base_url)
     auth_probe_summary = None
     if _pause_state_blocks_seed_stage(pause_state):
+        if pause_state.get("reason") != "captcha_solver_manual_required":
+            summary = {
+                "decision": "seed_collection_paused",
+                "reason": pause_state.get("reason") or "collection_paused",
+                "captcha_solver": pause_state.get("captcha_solver") or {},
+                "counts": repository.seed_queue_counts(),
+            }
+            _write_runtime_summary(config.output_dir, summary)
+            return summary
         auth_probe = _probe_seed_auth_state(
             config,
             pause_state,
@@ -646,19 +800,67 @@ def run_seed_collector_once(
     _write_runtime_summary(config.output_dir, claimed_summary)
 
     try:
+        runtime_user_agent = resolve_runtime_user_agent(config.cdp_endpoint)
         html, final_url, status_code, fetch_method = fetch_list_page(
             http_session,
             cdp_endpoint=config.cdp_endpoint,
             target_url=str(task["url"]),
-            user_agent=getattr(browserless_seed_probe, "DEFAULT_USER_AGENT", DEFAULT_USER_AGENT),
+            user_agent=runtime_user_agent or getattr(browserless_seed_probe, "DEFAULT_USER_AGENT", DEFAULT_USER_AGENT),
             solver_enabled=config.solver_enabled,
+            api_base_url=config.api_base_url,
         )
         items, list_summary, has_challenge = _extract_seed_items(browserless_seed_probe, html, final_url=final_url)
         if has_challenge:
+            captcha_solver_report = (
+                None
+                if config.solver_enabled
+                else _report_manual_seed_challenge(config, str(task["url"]))
+            )
             repository.fail_seed_scan_page(str(task["progress_key"]), "list_payload_missing", retryable=True)
+            post_challenge_pause_state = _collection_pause_state_with_retry(config.api_base_url)
+            if _pause_state_blocks_seed_stage(post_challenge_pause_state):
+                summary = {
+                    "decision": "seed_collection_paused",
+                    "reason": post_challenge_pause_state.get("reason") or "collection_paused",
+                    "captcha_solver": post_challenge_pause_state.get("captcha_solver") or {},
+                    "task": task,
+                    "list_summary": list_summary,
+                    "fetch": {
+                        "status_code": status_code,
+                        "final_url": final_url,
+                        "method": fetch_method,
+                    },
+                    "counts": repository.seed_queue_counts(),
+                }
+                if auth_probe_summary is not None:
+                    summary["auth_probe"] = auth_probe_summary
+                if captcha_solver_report is not None:
+                    summary["captcha_solver_report"] = captcha_solver_report
+                _write_runtime_summary(config.output_dir, summary)
+                return summary
             summary = {
                 "decision": "seed_page_retryable_failure",
                 "reason": "list_challenge_page",
+                "task": task,
+                "list_summary": list_summary,
+                "fetch": {
+                    "status_code": status_code,
+                    "final_url": final_url,
+                    "method": fetch_method,
+                },
+                "counts": repository.seed_queue_counts(),
+            }
+            if auth_probe_summary is not None:
+                summary["auth_probe"] = auth_probe_summary
+            if captcha_solver_report is not None:
+                summary["captcha_solver_report"] = captcha_solver_report
+            _write_runtime_summary(config.output_dir, summary)
+            return summary
+        if _browser_page_payload_missing_without_challenge(fetch_method, list_summary):
+            repository.fail_seed_scan_page(str(task["progress_key"]), "browser_list_payload_missing", retryable=True)
+            summary = {
+                "decision": "seed_page_retryable_failure",
+                "reason": "browser_list_payload_missing",
                 "task": task,
                 "list_summary": list_summary,
                 "fetch": {
@@ -693,7 +895,12 @@ def run_seed_collector_once(
             source_final_url=final_url,
             items=items,
         )
-        has_next = bool(items) and int(task["page"]) < int(config.max_page)
+        has_next = _seed_page_has_next(
+            task_page=task.get("page"),
+            task_max_page=task.get("max_page", config.max_page),
+            list_summary=list_summary,
+            filtered_items=items,
+        )
         repository.complete_seed_scan_page(
             progress_key=str(task["progress_key"]),
             page=int(task["page"]),
@@ -721,6 +928,20 @@ def run_seed_collector_once(
         return summary
     except Exception as exc:
         repository.fail_seed_scan_page(str(task["progress_key"]), repr(exc), retryable=True)
+        if isinstance(exc, CdpEndpointUnavailableError):
+            summary = {
+                "decision": "seed_collection_paused",
+                "reason": "cdp_unreachable",
+                "task": task,
+                "error": repr(exc),
+                "traceback": traceback.format_exc(),
+                "auth_probe": _build_cdp_unreachable_auth_probe(config, str(task.get("url") or "")),
+                "counts": repository.seed_queue_counts(),
+            }
+            if auth_probe_summary is not None:
+                summary["previous_auth_probe"] = auth_probe_summary
+            _write_runtime_summary(config.output_dir, summary)
+            return summary
         summary = {
             "decision": "seed_page_retryable_failure",
             "reason": "exception",
@@ -755,6 +976,18 @@ def run_seed_collector_loop(
     runs = 0
     pages_attempted = 0
     cycle_summaries: list[dict[str, Any]] = []
+    release_worker_leases = getattr(repository, "release_seed_scan_worker_leases", None)
+    if callable(release_worker_leases):
+        release_summary = release_worker_leases(config.worker_id)
+        if int((release_summary or {}).get("released") or 0) > 0:
+            release_event = {
+                "decision": "seed_scan_worker_leases_released",
+                "worker_id": config.worker_id,
+                "release_summary": release_summary,
+                "counts": repository.seed_queue_counts(),
+            }
+            emit_progress({"event": "seed_collector_worker_leases_released", **release_event})
+            _write_runtime_summary(config.output_dir, release_event)
     initial_counts = repository.seed_queue_counts()
     if _should_ensure_seed_jobs(config, initial_counts):
         _write_runtime_summary(
@@ -881,8 +1114,7 @@ def run_seed_collector_loop(
             if result.get("decision") == "seed_scan_queue_empty":
                 break
             if (
-                config.solver_enabled
-                and result.get("decision") == "seed_page_retryable_failure"
+                result.get("decision") == "seed_page_retryable_failure"
                 and result.get("reason") == "list_challenge_page"
             ):
                 break
@@ -973,6 +1205,12 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[SeedCol
         default=captcha_solver_enabled(default=False),
         help="Report Taobao list challenge pages to the configured captcha solver queue.",
     )
+    parser.add_argument(
+        "--manual-challenge-reporting",
+        action="store_true",
+        default=os.getenv("FAPAI_MANUAL_CHALLENGE_REPORTING", "").lower() in {"1", "true", "yes", "on"},
+        help="Pause collection and request PC1 manual authentication without starting the automatic solver.",
+    )
     args = parser.parse_args(argv)
     if args.max_runs is None and os.getenv("FAPAI_SEED_MAX_RUNS"):
         args.max_runs = _safe_int(os.getenv("FAPAI_SEED_MAX_RUNS"), 1)
@@ -1009,6 +1247,7 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[SeedCol
             max_runs=args.max_runs,
             pages_per_run=max(int(args.pages_per_run), 1),
             solver_enabled=bool(args.solver_enabled),
+            manual_challenge_reporting=bool(args.manual_challenge_reporting),
             api_base_url=_clean_text(args.api_base_url),
             seed_jobs=seed_jobs,
             parallel_sorts=bool(args.parallel_sorts),

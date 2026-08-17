@@ -16,10 +16,12 @@ def test_start_taobao_cdp_browser_script_opens_visible_cdp_browser_when_missing(
     assert "https://sf.taobao.com/" in script
     assert "Microsoft\\Edge\\Application\\msedge.exe" in script
     assert "Google\\Chrome\\Application\\chrome.exe" in script
-    assert "Invoke-WebRequest" in script
+    assert "Invoke-CdpWebRequest" in script
     assert "Start-Process" in script
     assert "--remote-debugging-port=$Port" in script
-    assert "--remote-debugging-address=0.0.0.0" in script
+    assert '[string]$DebuggingAddress = "0.0.0.0"' in script
+    assert "--remote-debugging-address=$resolvedDebuggingAddress" in script
+    assert "[switch]$HumanAuthMode" in script
     assert "--remote-allow-origins=*" in script
     assert "--no-proxy-server" in script
     assert "/json/version" in script
@@ -60,12 +62,31 @@ def test_start_taobao_cdp_browser_existing_cdp_endpoint_opens_requested_start_ur
     assert "Opened auth page in existing CDP browser" in script
 
 
+def test_start_taobao_cdp_browser_bypasses_system_proxy_for_loopback_cdp_calls() -> None:
+    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+
+    assert "function Invoke-CdpWebRequest" in script
+    assert "[System.Net.HttpWebRequest]::Create" in script
+    assert "$request.Proxy = $null" in script
+    assert "Invoke-CdpWebRequest -Uri \"$($Endpoint.TrimEnd('/'))/json/version\"" in script
+    assert "Invoke-CdpWebRequest -Method 'PUT'" in script
+
+
+def test_start_taobao_cdp_browser_bounds_cdp_response_reads() -> None:
+    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+
+    assert "ReadToEnd()" not in script
+    assert "MaxResponseBytes" in script
+    assert "ContentLength" in script
+    assert "ReadTimeout" in script
+
+
 def test_start_taobao_cdp_browser_falls_back_when_cdp_new_url_times_out() -> None:
     script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
 
     assert "function Open-BrowserProcessPage" in script
     assert "Open-CdpBrowserPage -Endpoint $hostEndpoint -Url $StartUrl" in script
-    assert "Open-BrowserProcessPage -Browser $browser -ProfileDir $ProfileDir -Port $Port -Url $StartUrl" in script
+    assert "Open-BrowserProcessPage -Browser $browser -ProfileDir $ProfileDir -Port $Port -DebuggingAddress $resolvedDebuggingAddress -Url $StartUrl" in script
     assert "CDP /json/new open failed; falling back to browser process URL open" in script
     assert "Opened auth page via browser process fallback" in script
 
@@ -94,6 +115,12 @@ def test_start_taobao_cdp_browser_existing_cdp_endpoint_raises_existing_browser_
     assert "ShowWindowAsync" in script
     assert "SetForegroundWindow" in script
     assert "Show-CdpBrowserWindow -Port $Port -ProfileDir $ProfileDir" in script
+
+
+def test_start_taobao_cdp_browser_new_browser_path_also_raises_window_after_startup() -> None:
+    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+
+    assert script.count("Show-CdpBrowserWindow -Port $Port -ProfileDir $ProfileDir") >= 2
 
 
 def test_start_taobao_cdp_browser_restarts_stale_process_when_endpoint_is_unavailable() -> None:
@@ -137,11 +164,31 @@ def test_start_taobao_cdp_browser_waits_for_endpoint_readiness_with_deadline() -
     script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
 
     assert "function Wait-CdpEndpoint" in script
+    assert "[int]$CdpStartupTimeoutSeconds = 30" in script
     assert "TimeoutSeconds = 30" in script
     assert "PollMilliseconds = 500" in script
-    assert "Wait-CdpEndpoint -Endpoint $hostEndpoint -TimeoutSeconds 30" in script
-    assert "Started browser but CDP endpoint did not become available within 30 seconds" in script
+    assert "Wait-CdpEndpoint -Endpoint $hostEndpoint -TimeoutSeconds $CdpStartupTimeoutSeconds" in script
+    assert "within $CdpStartupTimeoutSeconds seconds" in script
     assert "Start-Sleep -Seconds 3" not in script
+
+
+def test_start_taobao_cdp_browser_serializes_profile_startup_across_processes() -> None:
+    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+
+    assert "FapaiFangTaobaoCdp-$Port" in script
+    assert "[System.Threading.Mutex]::new" in script
+    assert "WaitOne" in script
+    assert "AbandonedMutexException" in script
+    assert "ReleaseMutex" in script
+    assert "Dispose" in script
+
+
+def test_start_taobao_cdp_browser_ensure_only_does_not_replace_existing_page() -> None:
+    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+
+    assert "[switch]$EnsureOnly" in script
+    assert "if (-not $EnsureOnly)" in script
+    assert "CDP endpoint is already healthy; ensure-only mode will not open a page" in script
 
 
 def test_start_taobao_cdp_browser_force_new_waits_for_endpoint_shutdown_and_top_level_exit() -> None:
@@ -165,6 +212,15 @@ def test_start_taobao_cdp_browser_supports_isolated_profile_and_optional_extensi
     assert '$arguments += "--disable-extensions"' in script
 
 
+def test_start_taobao_cdp_browser_supports_minimized_recovery_and_visible_manual_windows() -> None:
+    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+
+    assert "[switch]$StartMinimized" in script
+    assert "if ($StartMinimized)" in script
+    assert '$arguments += "--start-minimized"' in script
+    assert script.count("-WindowStyle Normal") >= 2
+
+
 def test_start_taobao_cdp_browser_includes_low_noise_edge_flags_from_legacy_recovery_flow() -> None:
     script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
 
@@ -181,6 +237,50 @@ def test_operator_docs_include_cdp_browser_startup_helper() -> None:
     assert "start-taobao-cdp-browser.ps1" in readme
     assert "C:\\Users\\Public\\nas_home\\AI\\FPFData\\edge-cdp-profile" in readme
     assert "http://192.168.65.254:9223" in readme
+
+
+def test_open_remote_auth_browser_script_prefers_pc2_remote_helper_and_falls_back_locally() -> None:
+    script = REPO_ROOT.joinpath("scripts", "open-remote-auth-browser.ps1").read_text(encoding="utf-8")
+
+    assert "FAPAI_REMOTE_AUTH_HOST" in script
+    assert "FAPAI_REMOTE_AUTH_USER" in script
+    assert "FAPAI_REMOTE_AUTH_PASSWORD" in script
+    assert "C:\\fapaifang-worker\\ops\\trigger-open-auth-task.ps1" in script
+    assert "edge-cdp-profile-pc2" in script
+    assert "paramiko" in script
+    assert "Get-Command python" in script
+    assert "exec_command" in script
+    assert "trigger-open-auth-task.ps1" in script
+    assert "-StartUrl" in script
+    assert "-ProfileDir" in script
+    assert "falling back to local auth browser helper" in script
+    assert 'Join-Path $PSScriptRoot "start-taobao-cdp-browser.ps1"' in script
+    assert "New-TemporaryFile" in script
+    assert "Remove-Item" in script
+    assert '-c $pythonCode' not in script
+
+
+def test_pc1_manual_auth_session_uses_normal_chrome_and_persists_handoff_state() -> None:
+    script = REPO_ROOT.joinpath("scripts", "start-pc1-manual-auth-session.ps1").read_text(encoding="utf-8")
+
+    assert "manual_browser_without_cdp" in script
+    assert "pc1-manual-auth-state.json" in script
+    assert '"--user-data-dir=$resolvedProfileDir"' in script
+    assert '"--no-first-run"' in script
+    assert "Start-Process" in script
+    assert "Stop-ProfileBrowser" in script
+    assert "--remote-debugging-port=$DebugPort" in script
+    assert "start_url = $StartUrl" in script
+
+
+def test_local_bridge_auth_keeps_one_cdp_browser_and_uses_port_9225() -> None:
+    script = REPO_ROOT.joinpath("scripts", "open-remote-auth-browser.ps1").read_text(encoding="utf-8")
+
+    assert "start-pc1-auth-bridge.ps1" in script
+    assert "FAPAI_AUTH_BRIDGE_SCRIPT" in script
+    assert '"-LocalCdpPort",\n        "9225"' in script
+    assert '"-RemoteCdpPort",\n        "9225"' in script
+    assert "Start-LocalAuthAutoResumeWatcher" in script
 
 
 def test_check_taobao_login_health_script_starts_browser_and_runs_safe_helper() -> None:
@@ -233,7 +333,8 @@ def test_export_taobao_cookie_snapshot_script_starts_browser_and_does_not_print_
     assert "--write-cookie-snapshot" in script
     assert "FAPAI_DATA_ROOT_HOST" in script
     assert "taobao-cookies.json" in script
-    assert "http://127.0.0.1:$Port" in script
+    assert "FAPAI_AUTH_LOCAL_CDP_PORT" in script
+    assert "http://127.0.0.1:$resolvedPort" in script
     assert "load_cookie_snapshot" in script
     assert "summarize_cookie_snapshot" in script
     assert "ConvertTo-Json" in script
@@ -242,6 +343,9 @@ def test_export_taobao_cookie_snapshot_script_starts_browser_and_does_not_print_
     assert "$summaryScript" in script
     assert "summary['path']" in script
     assert "summary.pop('names', None)" in script
+    assert "Complete-ManualBrowserHandoff" in script
+    assert "pc1-manual-auth-state.json" in script
+    assert 'StartUrl "about:blank"' in script
 
 
 def test_export_taobao_cookie_snapshot_script_can_forward_isolated_profile_flags() -> None:
@@ -268,14 +372,48 @@ def test_export_taobao_cookie_snapshot_validates_candidate_before_promoting_offi
     assert "official snapshot was not overwritten" in script
 
 
+def test_export_taobao_cookie_snapshot_requires_manual_detail_page_health() -> None:
+    script = REPO_ROOT.joinpath("scripts", "export-taobao-cookie-snapshot.ps1").read_text(encoding="utf-8")
+
+    assert "[string[]]$DetailSampleUrl" in script
+    assert "ConvertTo-CanonicalDetailSampleUrl" in script
+    assert "FAPAI_COOKIE_SNAPSHOT_DETAIL_SAMPLE_URLS_JSON" in script
+    assert "ConvertTo-Json -InputObject @($detailSampleUrls) -Compress" in script
+    assert "live_batch_smoke.fetch_detail_with_browser" in script
+    assert '"detail_health_required": detail_health_required' in script
+    assert '"detail_health_satisfied": detail_health_satisfied' in script
+    assert '"healthy": healthy_samples > 0 and detail_health_satisfied' in script
+    assert "list/detail health validation" in script
+
+
 def test_export_taobao_cookie_snapshot_redacts_candidate_health_failure_output() -> None:
     script = REPO_ROOT.joinpath("scripts", "export-taobao-cookie-snapshot.ps1").read_text(encoding="utf-8")
 
     assert "taobao_login_health.redact_taobao_health_output(payload)" in script
+    assert 'public_payload.pop("candidate_path", None)' in script
+    assert 'public_payload.pop("cookie_summary", None)' in script
     assert "x5secdata" not in script
     assert "cookie2=" not in script
     assert "sgcookie=" not in script
     assert "_tb_token_=" not in script
+
+
+def test_complete_pc1_inplace_auth_script_can_allow_list_only_auto_resume() -> None:
+    script = REPO_ROOT.joinpath("scripts", "complete-pc1-inplace-auth.ps1").read_text(encoding="utf-8")
+
+    assert "[switch]$AllowListOnly" in script
+    assert '"--allow-list-only"' in script
+
+
+def test_pc1_auth_auto_resume_watcher_retries_cookie_export_and_posts_auth_complete() -> None:
+    script = REPO_ROOT.joinpath("scripts", "watch-pc1-auth-auto-resume.ps1").read_text(encoding="utf-8")
+
+    assert "complete-pc1-inplace-auth.ps1" in script
+    assert "-AllowListOnly" in script
+    assert "/collection/auth/complete" in script
+    assert "pc1_auth_auto_resume_watch" in script
+    assert "pc1-auth-auto-resume-state.json" in script
+    assert "pc1-auth-auto-resume.log" in script
 
 
 def test_operator_docs_recommend_isolated_taobao_browser_profile_for_recovery() -> None:

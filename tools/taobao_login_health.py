@@ -14,10 +14,11 @@ from urllib.request import Request, urlopen
 
 import websocket
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
+
+from tools.internal_api_http import post_json
 
 DEFAULT_CDP_ENDPOINT = os.environ.get("FAPAI_CDP_ENDPOINT") or os.environ.get("LIVE_BATCH_SMOKE_CDP") or "http://127.0.0.1:9223"
 DEFAULT_CHECK_URL = "https://sf.taobao.com/list/50025969__2.htm"
@@ -26,6 +27,7 @@ DEFAULT_POLL_SECONDS = 5
 DEFAULT_API_BASE_URL = os.environ.get("FAPAI_API_BASE_URL", "http://127.0.0.1:8001/api")
 DEFAULT_CDP_CONNECT_TIMEOUT_MS = 120000
 DEFAULT_CDP_PAGE_TARGET_LIMIT = 12
+DEFAULT_CDP_WEBSOCKET_TIMEOUT_SECONDS = 20
 
 HEALTHY_LIST_PAYLOAD = "healthy_list_payload"
 PARTIAL_AVAILABLE = "partial_available"
@@ -55,6 +57,11 @@ OpenPageFunc = Callable[[str, str], str]
 ReportCaptchaFunc = Callable[[str, str, str], Mapping[str, object]]
 SleepFunc = Callable[[float], None]
 
+CAPTCHA_REPORT_CDP_ENV_NAMES = (
+    "FAPAI_REPORT_CDP_ENDPOINT",
+    "FAPAI_SOLVER_CDP_ENDPOINT",
+)
+
 
 def build_login_url(redirect_url: str) -> str:
     return f"https://login.taobao.com/member/login.jhtml?redirectURL={quote(redirect_url, safe='')}"
@@ -75,28 +82,39 @@ def build_captcha_worker_master_url() -> str:
     return "https://sf.taobao.com/?__captcha_worker_master=1"
 
 
-def report_captcha_via_api(api_base_url: str, cdp_endpoint: str, target_url: str) -> Mapping[str, object]:
-    endpoint = api_base_url.rstrip("/") + "/report_captcha"
-    payload = json.dumps(
-        {
-            "url": target_url,
-            "cdp_endpoint": cdp_endpoint,
-            "timestamp": int(time.time() * 1000),
-        }
-    ).encode("utf-8")
-    request = Request(
-        endpoint,
-        data=payload,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    with urlopen(request, timeout=10) as response:
-        body = response.read().decode("utf-8")
+def report_captcha_via_api(
+    api_base_url: str,
+    cdp_endpoint: str,
+    target_url: str,
+    *,
+    manual_only: bool = False,
+) -> Mapping[str, object]:
+    endpoint_suffix = "/report_manual_captcha" if manual_only else "/report_captcha"
+    endpoint = api_base_url.rstrip("/") + endpoint_suffix
+    report_cdp_endpoint = resolve_captcha_report_cdp_endpoint(cdp_endpoint)
+    payload: dict[str, object] = {
+        "url": target_url,
+        "cdp_endpoint": report_cdp_endpoint,
+        "timestamp": int(time.time() * 1000),
+    }
+    node_id = str(os.environ.get("FAPAI_NODE_ID") or "").strip()
+    if node_id:
+        payload["node_id"] = node_id
+    if manual_only:
+        payload["manual_only"] = True
     try:
-        loaded = json.loads(body)
-    except json.JSONDecodeError:
-        return {"status": "unknown_response", "raw": body}
+        loaded = post_json(endpoint, payload, timeout=10)
+    except OSError as exc:
+        return {"status": "request_failed", "error": str(exc)}
     return loaded if isinstance(loaded, dict) else {"status": "unknown_response", "raw": loaded}
+
+
+def resolve_captcha_report_cdp_endpoint(cdp_endpoint: str) -> str:
+    for name in CAPTCHA_REPORT_CDP_ENV_NAMES:
+        raw = os.environ.get(name)
+        if raw and raw.strip():
+            return raw.strip()
+    return cdp_endpoint
 
 
 def redact_taobao_sensitive_text(value: str) -> str:
@@ -179,16 +197,26 @@ def classify_taobao_health(
     )
     has_captcha = (
         _summary_flag(summary, "body_has_captcha")
-        or "captcha" in lowered_text
-        or "验证码" in text
-        or "霸下通用 web 页面-验证码" in text
+        or (
+            not payload_present
+            and (
+                "captcha" in lowered_text
+                or "验证码" in text
+                or "霸下通用 web 页面-验证码" in text
+            )
+        )
     )
     has_challenge = (
         _summary_flag(summary, "body_has_challenge")
         or "challenge" in lowered_url
-        or "challenge" in lowered_text
-        or "anti-bot" in lowered_text
-        or "霸下" in text
+        or (
+            not payload_present
+            and (
+                "challenge" in lowered_text
+                or "anti-bot" in lowered_text
+                or "霸下" in text
+            )
+        )
     )
 
     if payload_present and not (has_login or has_punish or has_captcha or has_challenge):
@@ -372,14 +400,14 @@ def fetch_pages_via_cdp(cdp_endpoint: str, urls: Sequence[str]) -> list[tuple[st
                     except Exception:
                         # Taobao punish/challenge navigations can stay pending; classify current DOM anyway.
                         pass
-                    results.append((page.content(), page.url))
+                    results.append((read_page_content_with_retries(page), page.url))
                 finally:
                     try:
                         page.close()
                     except Exception:
                         pass
         finally:
-            browser.close()
+            detach_attached_cdp_browser(browser)
     return results
 
 
@@ -431,12 +459,26 @@ def build_cdp_verification_page_matcher(url: str) -> Callable[[str], bool]:
     requested_worker_master = "__captcha_worker_master=1" in requested_url
     requested_solver_target = "__captcha_solver_bg=1" in requested_url
 
+    requested_login = (
+        "login.taobao.com" in requested_url
+        or "login.m.taobao.com" in requested_url
+        or "login.tmall.com" in requested_url
+        or "havanaone/login" in requested_url
+    )
+
     def is_taobao_verification_page(candidate_url: str) -> bool:
         lowered = candidate_url.lower()
         if requested_worker_master:
             return "__captcha_worker_master=1" in lowered
         if requested_solver_target:
             return "__captcha_solver_bg=1" in lowered or "__captcha_manual_popup=1" in lowered
+        if requested_login:
+            return (
+                "login.taobao.com" in lowered
+                or "login.m.taobao.com" in lowered
+                or "login.tmall.com" in lowered
+                or "havanaone/login" in lowered
+            )
         return any(
             marker in lowered
             for marker in (
@@ -511,14 +553,26 @@ def compact_cdp_pages_if_needed(
     if len(page_targets) < trigger_count:
         return {"triggered": False, "page_count": len(page_targets), "closed": 0}
 
-    keepalive_target_id = open_cdp_keepalive_tab(cdp_endpoint) if reserve_for_new_page else ""
+    errors: list[str] = []
+    keepalive_target_id = ""
+    try:
+        keepalive_target_id = open_cdp_keepalive_tab(cdp_endpoint)
+    except Exception as error:
+        errors.append(f"keepalive: {error!r}")
+    preserve_target_id = keepalive_target_id or str(page_targets[0].get("id") or "").strip()
     closed = 0
     for target in page_targets:
+        if str(target.get("id") or "").strip() == preserve_target_id:
+            continue
         if close_cdp_target(cdp_endpoint, target.get("id")):
             closed += 1
     summary: dict[str, object] = {"triggered": True, "page_count": len(page_targets), "closed": closed}
     if keepalive_target_id:
         summary["keepalive_target_id"] = keepalive_target_id
+    elif preserve_target_id:
+        summary["preserved_target_id"] = preserve_target_id
+    if errors:
+        summary["errors"] = errors
     return summary
 
 
@@ -541,8 +595,16 @@ def find_cdp_target(cdp_endpoint: str, url: str) -> Mapping[str, object] | None:
 
 
 def evaluate_cdp_expression(websocket_url: str, expression: str) -> Mapping[str, object]:
-    ws = websocket.create_connection(websocket_url, suppress_origin=True)
+    ws = websocket.create_connection(
+        websocket_url,
+        suppress_origin=True,
+        timeout=DEFAULT_CDP_WEBSOCKET_TIMEOUT_SECONDS,
+    )
     try:
+        try:
+            ws.settimeout(DEFAULT_CDP_WEBSOCKET_TIMEOUT_SECONDS)
+        except Exception:
+            pass
         command = {
             "id": 1,
             "method": "Runtime.evaluate",
@@ -561,6 +623,43 @@ def evaluate_cdp_expression(websocket_url: str, expression: str) -> Mapping[str,
         return {"error": "no_matching_cdp_response"}
     finally:
         ws.close()
+
+
+def detach_attached_cdp_browser(browser: object) -> None:
+    """Detach from an externally managed CDP browser without closing the host process."""
+    disconnect = getattr(browser, "disconnect", None)
+    if callable(disconnect):
+        try:
+            disconnect()
+        except Exception:
+            pass
+
+
+def read_page_content_with_retries(
+    page: object,
+    *,
+    attempts: int = 5,
+    wait_timeout_ms: int = 500,
+) -> str:
+    last_error: Exception | None = None
+    for attempt_index in range(max(int(attempts), 1)):
+        try:
+            content = getattr(page, "content")
+            return str(content() or "")
+        except Exception as error:
+            last_error = error
+            if attempt_index >= max(int(attempts), 1) - 1:
+                break
+            waiter = getattr(page, "wait_for_timeout", None)
+            if not callable(waiter):
+                break
+            try:
+                waiter(wait_timeout_ms)
+            except Exception:
+                break
+    if last_error is not None:
+        raise last_error
+    return ""
 
 
 def cdp_response_bool_value(response: Mapping[str, object]) -> bool:
@@ -702,7 +801,7 @@ def open_page_via_cdp(cdp_endpoint: str, url: str) -> str:
                 pass
             return page.url
         finally:
-            browser.close()
+            detach_attached_cdp_browser(browser)
 
 
 def check_taobao_health(

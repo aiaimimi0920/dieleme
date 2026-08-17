@@ -13,11 +13,193 @@ from tools import taobao_login_health
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
+def test_taobao_login_health_bootstraps_repo_path_before_tools_import() -> None:
+    script = REPO_ROOT.joinpath("tools", "taobao_login_health.py").read_text(encoding="utf-8")
+
+    assert script.index("REPO_ROOT =") < script.index("from tools.internal_api_http import post_json")
+
+
 def _force_playwright_open(monkeypatch) -> None:
     def _raise_http_unavailable(_endpoint: str, _url: str) -> str:
         raise RuntimeError("force playwright fallback")
 
     monkeypatch.setattr(taobao_login_health, "open_page_via_cdp_http", _raise_http_unavailable, raising=False)
+
+
+def test_compact_cdp_pages_keeps_browser_alive_when_triggered(monkeypatch) -> None:
+    closed_targets: list[object] = []
+    monkeypatch.setenv("FAPAI_CDP_MAX_PAGE_TARGETS", "3")
+    monkeypatch.setattr(
+        taobao_login_health,
+        "open_cdp_keepalive_tab",
+        lambda _endpoint: "keepalive-page",
+    )
+    monkeypatch.setattr(
+        taobao_login_health,
+        "close_cdp_target",
+        lambda _endpoint, target_id: closed_targets.append(target_id) or True,
+    )
+
+    summary = taobao_login_health.compact_cdp_pages_if_needed(
+        "http://127.0.0.1:9223",
+        [
+            {"id": "page-1", "type": "page"},
+            {"id": "page-2", "type": "page"},
+            {"id": "worker-1", "type": "service_worker"},
+            {"id": "page-3", "type": "page"},
+        ],
+    )
+
+    assert summary == {
+        "triggered": True,
+        "page_count": 3,
+        "closed": 3,
+        "keepalive_target_id": "keepalive-page",
+    }
+    assert closed_targets == ["page-1", "page-2", "page-3"]
+
+
+def test_report_captcha_via_api_prefers_explicit_report_cdp_endpoint_override(monkeypatch) -> None:
+    captured: dict[str, object] = {}
+
+    def _fake_post_json(url: str, payload: dict[str, object], *, timeout: float):
+        captured["url"] = url
+        captured["timeout"] = timeout
+        captured["payload"] = dict(payload)
+        return {"status": "queued"}
+
+    monkeypatch.setenv("FAPAI_REPORT_CDP_ENDPOINT", "http://192.168.15.104:9224")
+    monkeypatch.setenv("FAPAI_NODE_ID", "pc2")
+    monkeypatch.setattr(taobao_login_health, "post_json", _fake_post_json)
+
+    result = taobao_login_health.report_captcha_via_api(
+        "http://192.168.15.200:8001/api",
+        "http://127.0.0.1:9223",
+        "https://sf.taobao.com/list/page",
+    )
+
+    assert result == {"status": "queued"}
+    assert captured["url"] == "http://192.168.15.200:8001/api/report_captcha"
+    assert captured["timeout"] == 10
+    assert captured["payload"]["cdp_endpoint"] == "http://192.168.15.104:9224"
+    assert captured["payload"]["node_id"] == "pc2"
+    assert captured["payload"]["url"] == "https://sf.taobao.com/list/page"
+
+
+def test_report_captcha_via_api_can_request_manual_only_authentication(monkeypatch) -> None:
+    captured: dict[str, object] = {}
+
+    def _fake_post_json(url: str, payload: dict[str, object], *, timeout: float):
+        captured["endpoint"] = url
+        captured.update(payload)
+        return {"status": "manual_required"}
+
+    monkeypatch.setattr(taobao_login_health, "post_json", _fake_post_json)
+
+    result = taobao_login_health.report_captcha_via_api(
+        "http://collector.local/api",
+        "http://127.0.0.1:9225",
+        "https://sf-item.taobao.com/sf_item/3001.htm",
+        manual_only=True,
+    )
+
+    assert result == {"status": "manual_required"}
+    assert captured["endpoint"] == "http://collector.local/api/report_manual_captcha"
+    assert captured["manual_only"] is True
+
+
+def test_report_captcha_via_api_returns_request_failed_on_transport_error(monkeypatch) -> None:
+    monkeypatch.setattr(
+        taobao_login_health,
+        "post_json",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(OSError("connection reset by peer")),
+    )
+
+    result = taobao_login_health.report_captcha_via_api(
+        "http://collector.local/api",
+        "http://127.0.0.1:9225",
+        "https://sf-item.taobao.com/sf_item/3001.htm",
+    )
+
+    assert result["status"] == "request_failed"
+    assert "connection reset by peer" in str(result["error"])
+
+
+def test_report_captcha_via_api_normalizes_non_mapping_response(monkeypatch) -> None:
+    monkeypatch.setattr(
+        taobao_login_health,
+        "post_json",
+        lambda *_args, **_kwargs: ["queued"],
+    )
+
+    result = taobao_login_health.report_captcha_via_api(
+        "http://collector.local/api",
+        "http://127.0.0.1:9225",
+        "https://sf-item.taobao.com/sf_item/3001.htm",
+    )
+
+    assert result == {"status": "unknown_response", "raw": ["queued"]}
+
+
+def test_read_page_content_with_retries_waits_for_navigation_to_settle() -> None:
+    events: list[str] = []
+
+    class FakePage:
+        def __init__(self) -> None:
+            self.calls = 0
+
+        def content(self) -> str:
+            self.calls += 1
+            events.append(f"content:{self.calls}")
+            if self.calls == 1:
+                raise RuntimeError("Page.content: page is navigating")
+            return "<html>ok</html>"
+
+        def wait_for_timeout(self, timeout: int) -> None:
+            events.append(f"wait:{timeout}")
+
+    html = taobao_login_health.read_page_content_with_retries(FakePage(), attempts=3, wait_timeout_ms=250)
+
+    assert html == "<html>ok</html>"
+    assert events == ["content:1", "wait:250", "content:2"]
+
+
+def test_evaluate_cdp_expression_applies_websocket_timeout_and_closes_socket(monkeypatch) -> None:
+    events: list[object] = []
+
+    class FakeWebSocket:
+        def settimeout(self, timeout: int) -> None:
+            events.append(("settimeout", timeout))
+
+        def send(self, payload: str) -> None:
+            events.append(("send", json.loads(payload)["id"]))
+
+        def recv(self) -> str:
+            raise taobao_login_health.websocket.WebSocketTimeoutException("stale target")
+
+        def close(self) -> None:
+            events.append("close")
+
+    def _fake_create_connection(url: str, **kwargs):
+        events.append(("connect", url, kwargs.get("timeout")))
+        return FakeWebSocket()
+
+    monkeypatch.setattr(taobao_login_health.websocket, "create_connection", _fake_create_connection)
+
+    try:
+        taobao_login_health.evaluate_cdp_expression(
+            "ws://127.0.0.1:9223/devtools/page/test",
+            "(() => true)()",
+        )
+    except taobao_login_health.websocket.WebSocketTimeoutException as exc:
+        assert "stale target" in str(exc)
+    else:
+        raise AssertionError("expected websocket timeout to propagate")
+
+    assert events[0] == ("connect", "ws://127.0.0.1:9223/devtools/page/test", 20)
+    assert ("settimeout", 20) in events
+    assert ("send", 1) in events
+    assert events[-1] == "close"
 
 
 def test_classify_healthy_list_payload_when_payload_is_present() -> None:
@@ -38,6 +220,23 @@ def test_classify_healthy_list_payload_when_payload_is_present() -> None:
     assert result["action"] == "none"
 
 
+def test_classify_valid_payload_ignores_generic_captcha_copy_in_normal_page_html() -> None:
+    result = taobao_login_health.classify_taobao_health(
+        "<html><script>sf-item-list-data</script><div hidden>captcha 验证码 challenge</div></html>",
+        final_url="https://sf.taobao.com/list/50025969__2.htm",
+        list_summary={
+            "body_has_login": False,
+            "body_has_punish": False,
+            "body_has_challenge": False,
+            "body_has_captcha": False,
+        },
+        payload_present=True,
+    )
+
+    assert result["status"] == "healthy_list_payload"
+    assert result["healthy"] is True
+
+
 def test_classify_login_required_from_login_url() -> None:
     result = taobao_login_health.classify_taobao_health(
         "<html>淘宝登录</html>",
@@ -56,6 +255,36 @@ def test_classify_login_required_from_login_url() -> None:
     assert result["action"] == "complete_taobao_login"
 
 
+def test_classify_login_required_from_mobile_or_havana_login_urls() -> None:
+    for url in (
+        "https://login.m.taobao.com/login.htm?redirect=https://sf.taobao.com/list/page=1",
+        "https://login.taobao.com/havanaone/login/login.htm?redirect=https://sf.taobao.com/list/page=1",
+    ):
+        result = taobao_login_health.classify_taobao_health(
+            "<html>淘宝登录</html>",
+            final_url=url,
+            list_summary={},
+            payload_present=False,
+        )
+
+        assert result["status"] == "login_required"
+        assert result["healthy"] is False
+        assert result["action"] == "complete_taobao_login"
+
+
+def test_classify_captcha_page_from_body_marker_without_payload() -> None:
+    result = taobao_login_health.classify_taobao_health(
+        "<html><body>请先完成验证码</body></html>",
+        final_url="https://sf.taobao.com/list/50025969__2.htm?page=6",
+        list_summary={},
+        payload_present=False,
+    )
+
+    assert result["status"] == "captcha_page"
+    assert result["healthy"] is False
+    assert result["action"] == "complete_taobao_security_verification"
+
+
 def test_classify_punish_page_from_punish_markers() -> None:
     result = taobao_login_health.classify_taobao_health(
         "<html>_____tmd_____/punish x5secdata=</html>",
@@ -72,6 +301,68 @@ def test_classify_punish_page_from_punish_markers() -> None:
     assert result["status"] == "punish_page"
     assert result["healthy"] is False
     assert result["action"] == "complete_taobao_security_verification"
+
+
+def test_classify_punish_page_precedes_captcha_and_login_markers() -> None:
+    result = taobao_login_health.classify_taobao_health(
+        "<html>_____tmd_____/punish x5secdata= 验证码 淘宝登录</html>",
+        final_url="https://market.m.taobao.com/app/msd/m-void/_____tmd_____/punish",
+        list_summary={
+            "body_has_login": True,
+            "body_has_punish": True,
+            "body_has_challenge": True,
+            "body_has_captcha": True,
+        },
+        payload_present=False,
+    )
+
+    assert result["status"] == "punish_page"
+    assert result["healthy"] is False
+    assert result["action"] == "complete_taobao_security_verification"
+
+
+def test_classify_challenge_required_when_body_contains_anti_bot_without_payload() -> None:
+    result = taobao_login_health.classify_taobao_health(
+        "<html><body>anti-bot challenge</body></html>",
+        final_url="https://sf.taobao.com/list/50025969__2.htm?page=7",
+        list_summary={},
+        payload_present=False,
+    )
+
+    assert result["status"] == "challenge_required"
+    assert result["healthy"] is False
+    assert result["action"] == "complete_taobao_security_verification"
+
+
+def test_classify_challenge_required_from_challenge_url_even_with_payload() -> None:
+    result = taobao_login_health.classify_taobao_health(
+        '<html><script id="sf-item-list-data" type="application/json">{"data":[{"id":"1001"}]}</script></html>',
+        final_url="https://contest.local/challenge?ticket=abc",
+        list_summary={
+            "body_has_login": False,
+            "body_has_punish": False,
+            "body_has_challenge": False,
+            "body_has_captcha": False,
+        },
+        payload_present=True,
+    )
+
+    assert result["status"] == "challenge_required"
+    assert result["healthy"] is False
+    assert result["action"] == "complete_taobao_security_verification"
+
+
+def test_classify_unknown_blocked_when_page_has_no_known_markers_or_payload() -> None:
+    result = taobao_login_health.classify_taobao_health(
+        "<html><body>unexpected interstitial</body></html>",
+        final_url="https://sf.taobao.com/list/50025969__2.htm?page=8",
+        list_summary={},
+        payload_present=False,
+    )
+
+    assert result["status"] == "unknown_blocked"
+    assert result["healthy"] is False
+    assert result["action"] == "inspect_taobao_session"
 
 
 def test_operator_hint_points_to_safe_helper_without_cookie_values() -> None:
@@ -93,6 +384,50 @@ def test_operator_hint_points_to_safe_helper_without_cookie_values() -> None:
     assert "cookie2=" not in rendered
     assert "sgcookie=" not in rendered
     assert "_tb_token_=" not in rendered
+
+
+def test_build_cdp_verification_page_matcher_requires_worker_master_marker() -> None:
+    matcher = taobao_login_health.build_cdp_verification_page_matcher(
+        "https://sf.taobao.com/?__captcha_worker_master=1"
+    )
+
+    assert matcher("https://sf.taobao.com/?foo=1&__captcha_worker_master=1") is True
+    assert matcher("https://contest.local/auth?__captcha_solver_bg=1") is False
+    assert (
+        matcher(
+            "https://sf.taobao.com/list/50025969__2.htm/_____tmd_____/punish?x5secdata=abc"
+        )
+        is False
+    )
+
+
+def test_build_cdp_verification_page_matcher_reuses_login_tabs_only_for_login_urls() -> None:
+    matcher = taobao_login_health.build_cdp_verification_page_matcher(
+        "https://login.taobao.com/member/login.jhtml?redirectURL=https%3A%2F%2Fsf.taobao.com%2Flist%2F50025969__2.htm"
+    )
+
+    assert matcher("https://login.taobao.com/havanaone/login/login.htm") is True
+    assert matcher("https://login.m.taobao.com/login.htm") is True
+    assert (
+        matcher(
+            "https://sf.taobao.com/list/50025969__2.htm/_____tmd_____/page/login_jump?x5step=1"
+        )
+        is False
+    )
+    assert matcher("https://sf.taobao.com/list/50025969__2.htm/_____tmd_____/punish") is False
+
+
+def test_cdp_response_bool_value_requires_nested_true_boolean() -> None:
+    assert taobao_login_health.cdp_response_bool_value({}) is False
+    assert taobao_login_health.cdp_response_bool_value({"result": {}}) is False
+    assert (
+        taobao_login_health.cdp_response_bool_value({"result": {"result": {"value": 1}}})
+        is False
+    )
+    assert (
+        taobao_login_health.cdp_response_bool_value({"result": {"result": {"value": True}}})
+        is True
+    )
 
 
 def test_check_taobao_health_opens_login_url_when_requested() -> None:
@@ -208,6 +543,34 @@ def test_check_taobao_health_triggers_solver_without_open_login_when_requested()
             "http://127.0.0.1:9223",
             "https://contest.local/captcha?__captcha_solver_bg=1",
         )
+    ]
+
+
+def test_check_taobao_health_records_solver_report_failure_without_crashing() -> None:
+    opened_urls: list[str] = []
+
+    result = taobao_login_health.check_taobao_health(
+        cdp_endpoint="http://127.0.0.1:9223",
+        check_url="https://contest.local/list",
+        open_login=False,
+        trigger_captcha_solver=True,
+        api_base_url="http://127.0.0.1:8001/api",
+        fetch_page_func=lambda _endpoint, _url: (
+            "<html>验证码</html>",
+            "https://contest.local/captcha",
+        ),
+        open_page_func=lambda _endpoint, url: opened_urls.append(url) or url,
+        report_captcha_func=lambda _api_base_url, _cdp_endpoint, _target_url: (_ for _ in ()).throw(
+            RuntimeError("solver report offline")
+        ),
+    )
+
+    assert result["status"] == "captcha_page"
+    assert result["captcha_solver_triggered"] is False
+    assert "solver report offline" in str(result["captcha_solver_error"])
+    assert opened_urls == [
+        "https://sf.taobao.com/?__captcha_worker_master=1",
+        "https://contest.local/captcha?__captcha_solver_bg=1",
     ]
 
 
@@ -364,6 +727,32 @@ def test_check_taobao_health_samples_reports_partial_available_when_any_sample_i
     assert "keep=visible" in rendered
 
 
+def test_check_taobao_health_samples_defaults_blank_urls_to_default_check_url() -> None:
+    calls: list[tuple[str, str]] = []
+
+    def _fetch(endpoint: str, url: str) -> tuple[str, str]:
+        calls.append((endpoint, url))
+        return (
+            '<html><script id="sf-item-list-data" type="application/json">{"data":[{"id":"1001"}]}</script></html>',
+            url,
+        )
+
+    result = taobao_login_health.check_taobao_health_samples(
+        cdp_endpoint="http://127.0.0.1:9223",
+        sample_urls=["", "   "],
+        fetch_page_func=_fetch,
+    )
+
+    assert calls == [("http://127.0.0.1:9223", taobao_login_health.DEFAULT_CHECK_URL)]
+    assert result["status"] == "healthy_list_payload"
+    assert result["healthy"] is True
+    assert result["sample_count"] == 1
+    assert result["operator_hint"]["status"] == "healthy_list_payload"
+    assert result["operator_hint"]["login_url"] == taobao_login_health.build_login_url(
+        taobao_login_health.DEFAULT_CHECK_URL
+    )
+
+
 def test_check_taobao_health_samples_opens_login_once_when_all_samples_are_blocked() -> None:
     opened_urls: list[str] = []
 
@@ -482,6 +871,40 @@ def test_check_taobao_health_samples_triggers_solver_without_open_login_when_req
     ]
 
 
+def test_check_taobao_health_samples_records_solver_report_failure_without_crashing() -> None:
+    opened_urls: list[str] = []
+
+    def _fetch(_endpoint: str, url: str) -> tuple[str, str]:
+        return (
+            "<html>_____tmd_____/punish 验证码</html>",
+            f"{url}/_____tmd_____/punish?keep=visible",
+        )
+
+    result = taobao_login_health.check_taobao_health_samples(
+        cdp_endpoint="http://127.0.0.1:9223",
+        sample_urls=[
+            "https://contest.local/list-a",
+            "https://contest.local/list-b",
+        ],
+        open_login=False,
+        trigger_captcha_solver=True,
+        api_base_url="http://127.0.0.1:8001/api",
+        fetch_page_func=_fetch,
+        open_page_func=lambda _endpoint, url: opened_urls.append(url) or url,
+        report_captcha_func=lambda _api_base_url, _cdp_endpoint, _target_url: (_ for _ in ()).throw(
+            RuntimeError("sample solver report offline")
+        ),
+    )
+
+    assert result["status"] == "all_samples_blocked"
+    assert result["captcha_solver_triggered"] is False
+    assert "sample solver report offline" in str(result["captcha_solver_error"])
+    assert opened_urls == [
+        "https://sf.taobao.com/?__captcha_worker_master=1",
+        "https://contest.local/list-a/_____tmd_____/punish?keep=visible&__captcha_solver_bg=1",
+    ]
+
+
 def test_check_taobao_health_samples_uses_actionable_blocked_sample_when_one_probe_times_out() -> None:
     opened_urls: list[str] = []
 
@@ -515,6 +938,34 @@ def test_check_taobao_health_samples_uses_actionable_blocked_sample_when_one_pro
         "https://contest.local/list-b/_____tmd_____/punish?keep=visible&__captcha_solver_bg=1",
     ]
     assert result["captcha_solver_target_url"] == opened_urls[1]
+
+
+def test_check_taobao_health_samples_uses_actionable_operator_hint_when_first_sample_is_unreachable() -> None:
+    def _fetch(_endpoint: str, url: str) -> tuple[str, str]:
+        if url.endswith("/list-a"):
+            raise RuntimeError("BrowserType.connect_over_cdp: Timeout 30000ms exceeded")
+        return (
+            "<html>_____tmd_____/punish 验证码</html>",
+            "https://contest.local/list-b/_____tmd_____/punish?keep=visible",
+        )
+
+    result = taobao_login_health.check_taobao_health_samples(
+        cdp_endpoint="http://127.0.0.1:9223",
+        sample_urls=[
+            "https://contest.local/list-a",
+            "https://contest.local/list-b",
+        ],
+        fetch_page_func=_fetch,
+    )
+
+    assert result["status"] == "all_samples_blocked"
+    assert result["healthy"] is False
+    assert [sample["status"] for sample in result["sample_results"]] == [
+        "cdp_unreachable",
+        "punish_page",
+    ]
+    assert result["operator_hint"]["status"] == "punish_page"
+    assert result["operator_hint"]["action"] == "run_taobao_login_health_helper"
 
 
 def test_check_taobao_health_samples_uses_playwright_batch_when_cookie_probe_is_unavailable(monkeypatch) -> None:
@@ -585,6 +1036,40 @@ def test_check_taobao_health_samples_marks_all_samples_cdp_unreachable_when_batc
         "cdp_unreachable",
         "cdp_unreachable",
     ]
+
+
+def test_check_taobao_health_samples_all_cdp_unreachable_does_not_open_login_or_solver(monkeypatch) -> None:
+    open_calls: list[str] = []
+    report_calls: list[str] = []
+
+    def _raise_cookie_probe_failure(_endpoint: str, _urls: tuple[str, ...]) -> list[dict[str, object]]:
+        raise RuntimeError("cookie probe unavailable")
+
+    def _raise_cdp_unreachable(_endpoint: str, _urls: tuple[str, ...]) -> list[tuple[str, str]]:
+        raise RuntimeError("BrowserType.connect_over_cdp: Timeout 30000ms exceeded")
+
+    monkeypatch.setattr(taobao_login_health, "fetch_health_samples_via_cdp_cookie_http", _raise_cookie_probe_failure)
+    monkeypatch.setattr(taobao_login_health, "fetch_pages_via_cdp", _raise_cdp_unreachable)
+
+    result = taobao_login_health.check_taobao_health_samples(
+        cdp_endpoint="http://127.0.0.1:9223",
+        sample_urls=[
+            "https://contest.local/list-a",
+            "https://contest.local/list-b",
+        ],
+        open_login=True,
+        trigger_captcha_solver=True,
+        open_page_func=lambda _endpoint, url: open_calls.append(url) or url,
+        report_captcha_func=lambda _api_base_url, _cdp_endpoint, target_url: report_calls.append(target_url) or {
+            "status": "solving"
+        },
+    )
+
+    assert result["status"] == "cdp_unreachable"
+    assert result["healthy"] is False
+    assert open_calls == []
+    assert report_calls == []
+    assert result["operator_hint"]["status"] == "cdp_unreachable"
 
 
 def test_check_taobao_health_samples_prefers_cookie_http_probe_before_playwright_batch(monkeypatch) -> None:
@@ -768,6 +1253,73 @@ def test_main_accepts_repeated_sample_url_and_exits_zero_for_partial_available(m
     assert output["healthy"] is True
 
 
+def test_wait_for_taobao_health_samples_retries_until_healthy_and_opens_once(monkeypatch) -> None:
+    calls: list[dict[str, object]] = []
+    sleep_calls: list[int] = []
+    monotonic_values = iter([100.0, 100.1])
+    responses = [
+        {
+            "status": "all_samples_blocked",
+            "healthy": False,
+            "opened_url": "https://login.taobao.com/member/login.jhtml",
+        },
+        {
+            "status": "healthy_list_payload",
+            "healthy": True,
+        },
+    ]
+
+    def _check_taobao_health_samples(**kwargs):
+        calls.append(
+            {
+                "open_login": kwargs["open_login"],
+                "sample_urls": tuple(kwargs["sample_urls"]),
+                "trigger_captcha_solver": kwargs["trigger_captcha_solver"],
+            }
+        )
+        return dict(responses.pop(0))
+
+    monkeypatch.setattr(taobao_login_health, "check_taobao_health_samples", _check_taobao_health_samples)
+    monkeypatch.setattr(taobao_login_health.time, "monotonic", lambda: next(monotonic_values))
+
+    result = taobao_login_health.wait_for_taobao_health_samples(
+        cdp_endpoint="http://127.0.0.1:9223",
+        sample_urls=(
+            "https://sf.taobao.com/list/blocked.htm",
+            "https://sf.taobao.com/list/healthy.htm",
+        ),
+        open_login=True,
+        trigger_captcha_solver=False,
+        api_base_url="http://127.0.0.1:8001/api",
+        wait_seconds=10,
+        poll_seconds=3,
+        sleep_func=lambda seconds: sleep_calls.append(seconds),
+    )
+
+    assert result["status"] == "healthy_list_payload"
+    assert result["healthy"] is True
+    assert result["attempts"] == 2
+    assert calls == [
+        {
+            "open_login": True,
+            "sample_urls": (
+                "https://sf.taobao.com/list/blocked.htm",
+                "https://sf.taobao.com/list/healthy.htm",
+            ),
+            "trigger_captcha_solver": False,
+        },
+        {
+            "open_login": False,
+            "sample_urls": (
+                "https://sf.taobao.com/list/blocked.htm",
+                "https://sf.taobao.com/list/healthy.htm",
+            ),
+            "trigger_captcha_solver": False,
+        },
+    ]
+    assert sleep_calls == [3]
+
+
 def test_direct_script_execution_adds_repo_root_to_python_path() -> None:
     script = REPO_ROOT.joinpath("tools", "taobao_login_health.py").read_text(encoding="utf-8")
 
@@ -797,6 +1349,16 @@ def test_fetch_health_samples_via_cdp_cookie_http_uses_websocket_cookie_export_a
         @staticmethod
         def build_session_from_playwright_cookies(cookies: list[dict[str, object]]) -> object:
             return {"cookie_count": len(cookies)}
+
+        @staticmethod
+        def build_navigation_headers(*, target_url: str, user_agent: str, referer_url: str) -> dict[str, str]:
+            return {
+                "User-Agent": user_agent,
+                "Referer": referer_url,
+                "Accept": "text/html",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "same-origin",
+            }
 
         @staticmethod
         def summarize_cookie_snapshot(cookies: list[dict[str, object]]) -> dict[str, object]:
@@ -951,7 +1513,6 @@ def test_fetch_pages_via_cdp_reuses_single_browser_connection_across_urls(monkey
         "new_page",
         "goto:https://sf.taobao.com/list/b.htm:domcontentloaded:30000",
         "close:https://sf.taobao.com/list/b.htm",
-        "browser_close",
         "playwright_close",
     ]
 
@@ -1266,6 +1827,97 @@ def test_queue_captcha_task_via_cdp_navigates_worker_when_bridge_is_missing(monk
     assert f"window.location.href = {json.dumps(target_url)}" in evaluate_messages[1]["params"]["expression"]
 
 
+def test_queue_captcha_task_via_cdp_returns_worker_unavailable_after_open_retry(monkeypatch) -> None:
+    calls: list[tuple[str, object]] = []
+    sleeps: list[float] = []
+    worker_url = "https://sf.taobao.com/?__captcha_worker_master=1"
+    target_url = "https://contest.local/auth?__captcha_solver_bg=1"
+    find_results = iter(
+        [
+            None,
+            None,
+        ]
+    )
+
+    monkeypatch.setattr(
+        taobao_login_health,
+        "compact_cdp_pages_if_needed",
+        lambda cdp_endpoint, reserve_for_new_page=False: calls.append(
+            ("compact", {"cdp_endpoint": cdp_endpoint, "reserve_for_new_page": reserve_for_new_page})
+        )
+        or {"triggered": False},
+    )
+    monkeypatch.setattr(
+        taobao_login_health,
+        "find_cdp_target",
+        lambda cdp_endpoint, url: calls.append(("find", {"cdp_endpoint": cdp_endpoint, "url": url})) or next(find_results),
+    )
+    monkeypatch.setattr(
+        taobao_login_health,
+        "read_cdp_json",
+        lambda cdp_endpoint, path, method="GET": calls.append(
+            ("read", {"cdp_endpoint": cdp_endpoint, "path": path, "method": method})
+        )
+        or {"id": "worker-1", "type": "page", "url": worker_url},
+    )
+    monkeypatch.setattr(taobao_login_health.time, "sleep", lambda seconds: sleeps.append(seconds))
+
+    result = taobao_login_health.queue_captcha_task_via_cdp("http://127.0.0.1:9223", target_url)
+
+    assert result == {
+        "status": "worker_unavailable",
+        "worker_url": worker_url,
+        "target_url": target_url,
+    }
+    assert calls == [
+        ("compact", {"cdp_endpoint": "http://127.0.0.1:9223", "reserve_for_new_page": True}),
+        ("find", {"cdp_endpoint": "http://127.0.0.1:9223", "url": worker_url}),
+        ("read", {"cdp_endpoint": "http://127.0.0.1:9223", "path": "/json/new?https%3A%2F%2Fsf.taobao.com%2F%3F__captcha_worker_master%3D1", "method": "PUT"}),
+        ("find", {"cdp_endpoint": "http://127.0.0.1:9223", "url": worker_url}),
+    ]
+    assert sleeps == [1]
+
+
+def test_queue_captcha_task_via_cdp_returns_worker_missing_websocket_after_refresh(monkeypatch) -> None:
+    worker_url = "https://sf.taobao.com/?__captcha_worker_master=1"
+    target_url = "https://contest.local/auth?__captcha_solver_bg=1"
+    target_without_ws = {
+        "id": "worker-1",
+        "type": "page",
+        "url": worker_url,
+    }
+    activate_calls: list[tuple[str, str]] = []
+    find_results = iter(
+        [
+            target_without_ws,
+            target_without_ws,
+        ]
+    )
+
+    monkeypatch.setattr(taobao_login_health, "compact_cdp_pages_if_needed", lambda *_args, **_kwargs: {"triggered": False})
+    monkeypatch.setattr(taobao_login_health, "read_cdp_json", lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("open should not run when worker target already exists")))
+    monkeypatch.setattr(taobao_login_health, "find_cdp_target", lambda *_args, **_kwargs: next(find_results))
+    monkeypatch.setattr(
+        taobao_login_health,
+        "activate_cdp_target",
+        lambda cdp_endpoint, target: activate_calls.append((cdp_endpoint, str(target.get("id")))) or True,
+    )
+    monkeypatch.setattr(
+        taobao_login_health,
+        "evaluate_cdp_expression",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("bridge evaluation requires a websocket")),
+    )
+
+    result = taobao_login_health.queue_captcha_task_via_cdp("http://127.0.0.1:9223", target_url)
+
+    assert result == {
+        "status": "worker_missing_websocket",
+        "worker_url": worker_url,
+        "target_url": target_url,
+    }
+    assert activate_calls == [("http://127.0.0.1:9223", "worker-1")]
+
+
 def test_open_page_via_cdp_brings_official_verification_page_to_front(monkeypatch) -> None:
     events: list[str] = []
     _force_playwright_open(monkeypatch)
@@ -1382,7 +2034,6 @@ def test_open_page_via_cdp_reuses_existing_taobao_verification_tab(monkeypatch) 
     assert events == [
         "connect:http://127.0.0.1:9223",
         "existing_bring_to_front",
-        "browser_close",
         "playwright_close",
     ]
 
@@ -1442,7 +2093,6 @@ def test_open_page_via_cdp_reuses_existing_solver_target_tab(monkeypatch) -> Non
     assert events == [
         "connect:http://127.0.0.1:9223",
         "existing_solver_bring_to_front",
-        "browser_close",
         "playwright_close",
     ]
 

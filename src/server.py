@@ -12,7 +12,8 @@ import tempfile
 import time
 import re
 import re
-from urllib.parse import urlparse, parse_qs, unquote
+from urllib.parse import parse_qs, parse_qsl, unquote, urlencode, urlparse, urlsplit, urlunsplit
+from urllib.request import Request, urlopen
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Callable
 
@@ -34,6 +35,41 @@ except ModuleNotFoundError:
 
 # Import Captcha Solver
 solver = CaptchaSolver()
+
+
+def _normalize_solver_target_url(value: Any) -> str:
+    target_url = str(value or "").strip()
+    if not target_url:
+        return ""
+
+    try:
+        parsed = urlsplit(target_url)
+    except ValueError:
+        return target_url
+
+    if (parsed.hostname or "").lower() != "sf.taobao.com":
+        return target_url
+
+    path = parsed.path
+    punish_marker = "/_____tmd_____/punish"
+    marker_index = path.lower().find(punish_marker)
+    was_punish_url = marker_index >= 0
+    if marker_index >= 0:
+        path = path[:marker_index]
+    while "//" in path:
+        path = path.replace("//", "/")
+    if "/list/" not in path.lower():
+        return target_url
+
+    source_query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    query = [
+        (key, source_query[key])
+        for key in ("location_code", "st_param", "auction_start_seg", "page")
+        if str(source_query.get(key) or "").strip()
+    ]
+    if was_punish_url or "__captcha_solver_bg" in source_query:
+        query.append(("__captcha_solver_bg", "1"))
+    return urlunsplit((parsed.scheme or "https", parsed.netloc, path, urlencode(query), ""))
 
 
 def _normalize_solver_cdp_endpoint(value):
@@ -70,13 +106,32 @@ def _build_solver_request(payload):
 
     request: dict[str, str] = {}
     cdp_endpoint = _normalize_solver_cdp_endpoint(payload.get("cdp_endpoint"))
-    target_url = str(payload.get("target_url") or payload.get("url") or "").strip()
+    target_url = _normalize_solver_target_url(payload.get("target_url") or payload.get("url"))
 
     if cdp_endpoint:
         request["cdp_endpoint"] = cdp_endpoint
     if target_url:
         request["target_url"] = target_url
+    node_id = str(payload.get("node_id") or "").strip()
+    if node_id:
+        request["node_id"] = node_id
+    cookie_snapshot_path = str(payload.get("cookie_snapshot_path") or "").strip()
+    if cookie_snapshot_path:
+        request["cookie_snapshot_path"] = cookie_snapshot_path
     return request
+
+
+def _refresh_solver_last_request(request_payload):
+    global SOLVER_LAST_REQUEST
+
+    request = _build_solver_request(request_payload)
+    if not request:
+        return dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
+
+    merged = dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
+    merged.update(request)
+    SOLVER_LAST_REQUEST = _build_solver_request(merged)
+    return dict(SOLVER_LAST_REQUEST)
 
 
 def _build_solver_for_request(request_payload):
@@ -181,6 +236,7 @@ FILE_LOCK = threading.Lock()
 DATA_LOCK = threading.Lock() # Protects SEEN_IDS and PENDING_TASKS
 CURRENT_PROCESSING = set() # Track running tasks to avoid duplicate submission
 SOLVER_RUNNING = False
+SOLVER_PENDING_TOKEN = None
 SOLVER_START_TIME = 0
 SOLVER_LAST_STATUS = "idle"
 SOLVER_LAST_FAILURE_REASON = None
@@ -189,6 +245,7 @@ SOLVER_LAST_REQUEST = {}
 SOLVER_MANUAL_RESUME_EPOCH = 0
 SOLVER_CANCEL_EPOCH = 0
 SOLVER_MANUAL_REQUIRED_EPOCH = 0
+SOLVER_MANUAL_ONLY = False
 SOLVER_MANUAL_RETRY_LAST_EPOCH = 0
 SOLVER_MANUAL_RETRY_ATTEMPTS = 0
 RUNTIME_INITIALIZED = False
@@ -241,7 +298,8 @@ def _runtime_env_flag(name, default):
 
 
 def _solver_force_unlock_flag_path() -> str:
-    return os.path.join(DATA_DIR, "force_unlock.flag")
+    state_dir = str(os.getenv("FAPAI_SOLVER_STATE_DIR") or DATA_DIR).strip() or DATA_DIR
+    return os.path.join(state_dir, "force_unlock.flag")
 
 
 def _solver_force_unlock_flag_exists() -> bool:
@@ -290,24 +348,32 @@ def _solver_transient_pause_active() -> bool:
 
 def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
     current_time = time.time() if now is None else now
-    running = bool(SOLVER_RUNNING)
-    started_at = float(SOLVER_START_TIME or 0)
+    with SOLVER_LOCK:
+        active_run = bool(SOLVER_RUNNING)
+        queued = SOLVER_PENDING_TOKEN is not None
+        started_at = float(SOLVER_START_TIME or 0)
+    running = bool(active_run or queued)
     force_unlock_flag_exists = _solver_force_unlock_flag_exists()
-    elapsed_seconds = max(int(current_time - started_at), 0) if running and started_at > 0 else 0
+    last_request = dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
+    if not last_request and force_unlock_flag_exists:
+        last_request = _solver_manual_flag_request()
+    elapsed_seconds = max(int(current_time - started_at), 0) if active_run and started_at > 0 else 0
     manual_required = bool(force_unlock_flag_exists or (PAUSED and SOLVER_LAST_STATUS == "manual_required"))
     manual_retry_next_epoch = _manual_solver_retry_next_epoch(current_time) if manual_required else None
     return {
         "running": running,
+        "queued": queued,
         "started_at_epoch": started_at if started_at > 0 else None,
         "elapsed_seconds": elapsed_seconds,
         "last_status": SOLVER_LAST_STATUS,
         "last_failure_reason": SOLVER_LAST_FAILURE_REASON,
         "last_finished_at_epoch": SOLVER_LAST_FINISHED_TIME if SOLVER_LAST_FINISHED_TIME else None,
         "manual_required": manual_required,
+        "manual_only": bool(SOLVER_MANUAL_ONLY or _solver_manual_flag_is_manual_only()),
         "force_unlock_flag_exists": force_unlock_flag_exists,
         "paused": _collection_effectively_paused(),
         "pause_reason": COLLECTION_PAUSE_REASON,
-        "last_request": dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {},
+        "last_request": last_request,
         "manual_retry_enabled": _manual_solver_retry_enabled(),
         "manual_retry_interval_seconds": _manual_solver_retry_interval_seconds(),
         "solver_max_runtime_seconds": _solver_max_runtime_seconds(),
@@ -317,20 +383,110 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
     }
 
 
+def _solver_last_request_target_url(solver_status: dict[str, Any] | None = None) -> str:
+    payload = solver_status if isinstance(solver_status, dict) else _captcha_solver_runtime_status()
+    last_request = payload.get("last_request")
+    if not isinstance(last_request, dict):
+        return ""
+    return str(last_request.get("target_url") or last_request.get("url") or "").strip()
+
+
+def _solver_request_scope_from_target_url(target_url: str) -> str:
+    normalized_target_url = str(target_url or "").strip().lower()
+    if not normalized_target_url:
+        return "unknown"
+    if "sf-item.taobao.com" in normalized_target_url or "/sf_item/" in normalized_target_url:
+        return "detail"
+    if "sf.taobao.com/list/" in normalized_target_url or "sf.taobao.com//list/" in normalized_target_url:
+        return "seed"
+    if "/punish" in normalized_target_url and "/list/" in normalized_target_url:
+        return "seed"
+    return "unknown"
+
+
+def _solver_last_request_scope(solver_status: dict[str, Any] | None = None) -> str:
+    return _solver_request_scope_from_target_url(_solver_last_request_target_url(solver_status))
+
+
+def _solver_request_scope(request_payload: dict[str, Any] | None = None) -> str:
+    if not isinstance(request_payload, dict):
+        return "unknown"
+    target_url = request_payload.get("target_url") or request_payload.get("url") or ""
+    return _solver_request_scope_from_target_url(str(target_url))
+
+
+def _seed_stage_has_remaining_work(status_payload: dict[str, Any]) -> bool:
+    return any(
+        int(status_payload.get(key, 0) or 0) > 0
+        for key in (
+            "seed_scan_job_pending",
+            "seed_scan_job_in_progress",
+            "seed_scan_progress_pending",
+            "seed_scan_progress_in_progress",
+        )
+    )
+
+
+def _collection_runtime_state_label_from_status_payload(status_payload: dict[str, Any]) -> str:
+    solver_status = status_payload.get("captcha_solver")
+    if not isinstance(solver_status, dict):
+        solver_status = {}
+
+    manual_required = bool(solver_status.get("manual_required") or solver_status.get("force_unlock_flag_exists"))
+    if manual_required:
+        if _solver_last_request_scope(solver_status) == "detail" and _seed_stage_has_remaining_work(status_payload):
+            return "运行中"
+        return "待认证"
+
+    if bool(status_payload.get("paused")):
+        return "暂停中"
+
+    total_items = int(status_payload.get("total_ids", 0) or 0)
+    raw_pending = int(status_payload.get("raw_capture_pending_count", 0) or 0)
+    detail_failed = int(status_payload.get("detail_failed_count", 0) or 0)
+    detail_blocked = int(status_payload.get("detail_blocked_count", 0) or 0)
+    analysis_pending = int(status_payload.get("analysis_pending_count", 0) or 0)
+    analysis_blocked = int(status_payload.get("analysis_blocked_count", 0) or 0)
+    if total_items > 0 and raw_pending == 0 and detail_failed == 0 and detail_blocked == 0 and analysis_pending == 0 and analysis_blocked == 0:
+        return "已完成"
+    return "运行中"
+
+
+def _clear_auth_lock_after_solver_success() -> None:
+    """After an automated captcha pass, drop the durable auth lock so workers resume."""
+    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_ONLY, SOLVER_MANUAL_RESUME_EPOCH
+    SOLVER_LAST_STATUS = "solved"
+    SOLVER_LAST_FAILURE_REASON = None
+    SOLVER_MANUAL_ONLY = False
+    SOLVER_MANUAL_RESUME_EPOCH = time.time()
+    if PAUSED and COLLECTION_PAUSE_REASON in {None, "captcha_solver", "manual_required"}:
+        _set_collection_pause_state(False)
+    flag_path = _solver_force_unlock_flag_path()
+    if os.path.exists(flag_path):
+        try:
+            os.remove(flag_path)
+            print("[SOLVER] Cleared force_unlock.flag after automated captcha success.")
+        except Exception as error:
+            print(f"[SOLVER] Failed to remove force_unlock.flag after success: {error}")
+
+
 def _clear_solver_manual_required_state() -> None:
-    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
+    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_ONLY
     if SOLVER_LAST_STATUS == "manual_required":
         SOLVER_LAST_STATUS = "resumed"
     if SOLVER_LAST_FAILURE_REASON == "manual_required":
         SOLVER_LAST_FAILURE_REASON = None
+    SOLVER_MANUAL_ONLY = False
 
 
 def _clear_solver_running_state() -> None:
-    global SOLVER_RUNNING, SOLVER_START_TIME, SOLVER_LAST_FINISHED_TIME
-    if SOLVER_RUNNING:
-        SOLVER_LAST_FINISHED_TIME = time.time()
-    SOLVER_RUNNING = False
-    SOLVER_START_TIME = 0
+    global SOLVER_RUNNING, SOLVER_PENDING_TOKEN, SOLVER_START_TIME, SOLVER_LAST_FINISHED_TIME
+    with SOLVER_LOCK:
+        if SOLVER_RUNNING:
+            SOLVER_LAST_FINISHED_TIME = time.time()
+        SOLVER_RUNNING = False
+        SOLVER_PENDING_TOKEN = None
+        SOLVER_START_TIME = 0
 
 
 def _request_solver_cancel() -> None:
@@ -338,11 +494,12 @@ def _request_solver_cancel() -> None:
     SOLVER_CANCEL_EPOCH = time.time()
 
 
-def _clear_solver_manual_required_pause() -> str | None:
+def _clear_solver_manual_required_pause(*, preserve_running_state: bool = False) -> str | None:
     global SOLVER_MANUAL_RESUME_EPOCH
     _set_collection_pause_state(False)
     SOLVER_MANUAL_RESUME_EPOCH = time.time()
-    _clear_solver_running_state()
+    if not preserve_running_state:
+        _clear_solver_running_state()
     _clear_solver_manual_required_state()
     flag_path = _solver_force_unlock_flag_path()
     if os.path.exists(flag_path):
@@ -353,12 +510,17 @@ def _clear_solver_manual_required_pause() -> str | None:
     return None
 
 
-def _mark_solver_manual_required() -> str | None:
-    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_REQUIRED_EPOCH
+def _mark_solver_manual_required(*, manual_only: bool = False) -> str | None:
+    global SOLVER_PENDING_TOKEN, SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_REQUIRED_EPOCH
+    global SOLVER_MANUAL_ONLY
+    with SOLVER_LOCK:
+        SOLVER_PENDING_TOKEN = None
+        solver_running = bool(SOLVER_RUNNING)
     SOLVER_MANUAL_REQUIRED_EPOCH = time.time()
     SOLVER_LAST_STATUS = "manual_required"
     SOLVER_LAST_FAILURE_REASON = "manual_required"
-    if SOLVER_RUNNING:
+    SOLVER_MANUAL_ONLY = bool(manual_only)
+    if solver_running:
         _request_solver_cancel()
     _set_collection_pause_state(True, "manual_required")
     return _write_solver_manual_required_flag(SOLVER_MANUAL_REQUIRED_EPOCH)
@@ -367,10 +529,12 @@ def _mark_solver_manual_required() -> str | None:
 def _write_solver_manual_required_flag(created_at_epoch: float) -> str | None:
     flag_path = _solver_force_unlock_flag_path()
     try:
+        os.makedirs(os.path.dirname(flag_path) or ".", exist_ok=True)
         with open(flag_path, "w", encoding="utf-8") as flag_file:
             json.dump(
                 {
                     "manual_required": True,
+                    "manual_only": bool(SOLVER_MANUAL_ONLY),
                     "created_at_epoch": created_at_epoch,
                     "last_request": dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {},
                     "message": "Delete this file to force resume the queue after manual solving",
@@ -383,7 +547,23 @@ def _write_solver_manual_required_flag(created_at_epoch: float) -> str | None:
     return None
 
 
+def _solver_manual_flag_is_manual_only() -> bool:
+    try:
+        with open(_solver_force_unlock_flag_path(), "r", encoding="utf-8") as flag_file:
+            payload = json.load(flag_file)
+    except Exception:
+        return False
+    if not isinstance(payload, dict):
+        return False
+    value = payload.get("manual_only")
+    if isinstance(value, bool):
+        return value
+    return str(value or "").strip().lower() in {"1", "true", "yes", "on"}
+
+
 def _manual_solver_retry_enabled() -> bool:
+    if SOLVER_MANUAL_ONLY or _solver_manual_flag_is_manual_only():
+        return False
     return _runtime_env_flag("FAPAI_SOLVER_MANUAL_RETRY_ENABLED", True)
 
 
@@ -407,6 +587,59 @@ def _solver_max_runtime_seconds() -> int:
     if value <= 0:
         return 180
     return value
+
+
+def _solver_worker_quiesce_seconds() -> int:
+    raw = os.getenv("FAPAI_SOLVER_WORKER_QUIESCE_SECONDS", "0")
+    try:
+        value = int(str(raw or "").strip())
+    except ValueError:
+        value = 0
+    return max(0, min(value, 300))
+
+
+def _solver_cdp_ready_timeout_seconds() -> int:
+    raw = os.getenv("FAPAI_SOLVER_CDP_READY_TIMEOUT_SECONDS", "0")
+    try:
+        value = int(str(raw or "").strip())
+    except ValueError:
+        value = 0
+    return max(0, min(value, 600))
+
+
+def _wait_for_solver_cdp_ready(solver_request: dict[str, Any] | None) -> bool:
+    timeout_seconds = _solver_cdp_ready_timeout_seconds()
+    request_payload = solver_request if isinstance(solver_request, dict) else {}
+    cdp_endpoint = str(request_payload.get("cdp_endpoint") or "").strip().rstrip("/")
+    if timeout_seconds <= 0 or not cdp_endpoint:
+        return True
+
+    print(
+        f"[SOLVER] Waiting up to {timeout_seconds}s for a stable CDP target list at "
+        f"{cdp_endpoint}."
+    )
+    deadline = time.monotonic() + timeout_seconds
+    consecutive_healthy_probes = 0
+    while time.monotonic() < deadline:
+        try:
+            request = Request(f"{cdp_endpoint}/json/list", headers={"Accept": "application/json"})
+            with urlopen(request, timeout=3) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            healthy = isinstance(payload, list)
+        except Exception:
+            healthy = False
+
+        if healthy:
+            consecutive_healthy_probes += 1
+            if consecutive_healthy_probes >= 2:
+                print("[SOLVER] CDP target list is stable; starting solver control.")
+                return True
+        else:
+            consecutive_healthy_probes = 0
+        time.sleep(2)
+
+    print(f"[SOLVER] CDP did not become stable within {timeout_seconds}s.")
+    return False
 
 
 def _solver_cdp_probe_timeout_seconds() -> float:
@@ -473,9 +706,57 @@ def _default_manual_solver_retry_request() -> dict[str, Any]:
     return {"target_url": default_url} if default_url else {}
 
 
+def _prefer_seed_manual_solver_retry_request() -> bool:
+    try:
+        status_payload = _collection_api_lightweight_status_payload()
+    except Exception:
+        return False
+    return _solver_last_request_scope() == "detail" and _seed_stage_has_remaining_work(status_payload)
+
+
+def _seed_priority_manual_solver_retry_request(
+    current_request: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    request = dict(current_request or {})
+    default_request = _build_solver_request(_default_manual_solver_retry_request())
+    if default_request.get("target_url"):
+        request["target_url"] = default_request["target_url"]
+    return request
+
+
+def _prefer_seed_solver_request_for_payload(
+    request_payload: dict[str, Any] | None = None,
+    *,
+    status_payload: dict[str, Any] | None = None,
+) -> bool:
+    if _solver_request_scope(request_payload) != "detail":
+        return False
+    if status_payload is None:
+        try:
+            status_payload = _collection_api_lightweight_status_payload()
+        except Exception:
+            return False
+    if not isinstance(status_payload, dict):
+        return False
+    return _seed_stage_has_remaining_work(status_payload)
+
+
+def _seed_priority_solver_request(
+    request_payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    solver_request = _build_solver_request(request_payload or {})
+    if not solver_request.get("target_url"):
+        return solver_request
+    if _prefer_seed_solver_request_for_payload(solver_request):
+        return _seed_priority_manual_solver_retry_request(solver_request)
+    return solver_request
+
+
 def _manual_solver_retry_request() -> dict[str, Any]:
     solver_request = _build_solver_request(SOLVER_LAST_REQUEST if isinstance(SOLVER_LAST_REQUEST, dict) else {})
     if solver_request.get("target_url"):
+        if _prefer_seed_manual_solver_retry_request():
+            return _seed_priority_manual_solver_retry_request(solver_request)
         return solver_request
     solver_request = _build_solver_request(_solver_manual_flag_request())
     if solver_request.get("target_url"):
@@ -498,9 +779,98 @@ def _manual_solver_retry_next_epoch(now: float | None = None) -> float | None:
     return base_epoch + interval
 
 
-def _submit_solver_request(solver_request: dict[str, Any]) -> None:
+def _solver_submission_pending() -> bool:
+    with SOLVER_LOCK:
+        return SOLVER_PENDING_TOKEN is not None
+
+
+def _reserve_solver_submission() -> object | None:
+    global SOLVER_PENDING_TOKEN
+    with SOLVER_LOCK:
+        if SOLVER_RUNNING or SOLVER_PENDING_TOKEN is not None:
+            return None
+        token = object()
+        SOLVER_PENDING_TOKEN = token
+        return token
+
+
+def _release_solver_submission(token: object | None) -> None:
+    global SOLVER_PENDING_TOKEN
+    if token is None:
+        return
+    with SOLVER_LOCK:
+        if SOLVER_PENDING_TOKEN is token:
+            SOLVER_PENDING_TOKEN = None
+
+
+def _activate_solver_submission(
+    solver_request: dict[str, Any] | None,
+    token: object | None,
+) -> tuple[bool, str, float]:
+    global SOLVER_RUNNING, SOLVER_PENDING_TOKEN, SOLVER_START_TIME
+    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_LAST_REQUEST
+
+    with SOLVER_LOCK:
+        if token is not None:
+            if SOLVER_PENDING_TOKEN is not token:
+                return False, "stale_submission", 0.0
+            SOLVER_PENDING_TOKEN = None
+        elif SOLVER_PENDING_TOKEN is not None:
+            return False, "submission_pending", 0.0
+
+        if SOLVER_RUNNING:
+            elapsed = max(time.time() - float(SOLVER_START_TIME or 0), 0.0)
+            return False, "solver_running", elapsed
+
+        started_at = time.time()
+        SOLVER_RUNNING = True
+        SOLVER_START_TIME = started_at
+        SOLVER_LAST_STATUS = "running"
+        SOLVER_LAST_FAILURE_REASON = None
+        SOLVER_LAST_REQUEST = dict(solver_request) if isinstance(solver_request, dict) else {}
+        return True, "started", started_at
+
+
+def _solver_cdp_endpoint_is_remote(cdp_endpoint: str) -> bool:
+    """Check if the CDP endpoint belongs to a remote node (not the local machine).
+
+    Returns True when the endpoint hostname is not a loopback address, indicating
+    the solver runs on a different host than the CDP browser. In that case the
+    local solver cannot use OS-level mouse drag and must defer to the node's
+    own solver process.
+    """
+    endpoint = str(cdp_endpoint or "").strip().rstrip("/")
+    if not endpoint:
+        return False
+    try:
+        parsed = urlparse(endpoint)
+    except ValueError:
+        return False
+    hostname = str(parsed.hostname or "").lower()
+    if not hostname:
+        return False
+    # Local loopback addresses are on the same machine.
+    if hostname in {"127.0.0.1", "localhost", "0.0.0.0", "::1"}:
+        return False
+    # host.docker.internal resolves to the Docker host — same machine when
+    # the solver runs inside a container on the host.
+    if hostname in {"host.docker.internal", "192.168.65.254"}:
+        return False
+    return True
+
+
+def _submit_solver_request(solver_request: dict[str, Any]) -> bool:
+    token = _reserve_solver_submission()
+    if token is None:
+        return False
+
     handler = object.__new__(DataHandler)
-    executor.submit(handler.run_solver, solver_request)
+    try:
+        executor.submit(handler.run_solver, solver_request, token)
+    except Exception:
+        _release_solver_submission(token)
+        raise
+    return True
 
 
 def _trigger_manual_solver_retry_if_due(
@@ -514,6 +884,8 @@ def _trigger_manual_solver_retry_if_due(
     current_time = time.time() if now is None else now
     if not _manual_solver_retry_enabled():
         return {"queued": False, "reason": "disabled"}
+    if _solver_submission_pending():
+        return {"queued": False, "reason": "solver_pending"}
     if SOLVER_RUNNING:
         elapsed_seconds = max(int(current_time - float(SOLVER_START_TIME or 0)), 0) if SOLVER_START_TIME else 0
         max_runtime_seconds = _solver_max_runtime_seconds()
@@ -572,13 +944,19 @@ def _trigger_manual_solver_retry_if_due(
     SOLVER_LAST_FAILURE_REASON = None
 
     try:
-        (submit_solver or _submit_solver_request)(solver_request)
+        submit_result = (submit_solver or _submit_solver_request)(solver_request)
     except Exception as error:
         _mark_solver_manual_required()
         return {
             "queued": False,
             "reason": "submit_failed",
             "error": repr(error),
+        }
+    if submit_solver is None and submit_result is False:
+        _mark_solver_manual_required()
+        return {
+            "queued": False,
+            "reason": "solver_active",
         }
 
     return {
@@ -608,6 +986,24 @@ def _payload_force_solver_retry(payload: dict[str, Any]) -> bool:
     )
 
 
+def _payload_manual_only(payload: dict[str, Any]) -> bool:
+    return _payload_flag(payload, "manual_only", False)
+
+
+def _manual_only_captcha_report_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    solver_request = _build_solver_request(payload)
+    if solver_request:
+        _refresh_solver_last_request(solver_request)
+    flag_error = _mark_solver_manual_required(manual_only=True)
+    response_payload: dict[str, Any] = {
+        "status": "manual_required",
+        "captcha_solver": _captcha_solver_runtime_status(),
+    }
+    if flag_error:
+        response_payload["flag_error"] = flag_error
+    return response_payload
+
+
 def _auth_cookie_snapshot_sample_urls(payload: dict[str, Any]) -> list[str]:
     raw = payload.get("sample_urls")
     if isinstance(raw, list):
@@ -625,6 +1021,77 @@ def _auth_cookie_snapshot_sample_urls(payload: dict[str, Any]) -> list[str]:
         "https://sf.taobao.com/list/50025969__2.htm",
         "https://sf.taobao.com/list/200782003__1.htm",
     ]
+
+
+def _normalize_auth_cookie_snapshot_node_id(value: Any) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    if not re.fullmatch(r"[A-Za-z0-9._-]+", text):
+        return ""
+    return text
+
+
+def _auth_cookie_snapshot_root_candidates() -> list[Path]:
+    candidates: list[Path] = []
+    seen: set[str] = set()
+
+    def _add(path_value: str | Path | None) -> None:
+        if not path_value:
+            return
+        path = Path(path_value).expanduser()
+        try:
+            resolved = path.resolve()
+        except OSError:
+            resolved = path
+        key = str(resolved)
+        if key in seen:
+            return
+        seen.add(key)
+        candidates.append(resolved)
+
+    _add(os.getenv("FAPAI_SHARED_DATA_ROOT_HOST"))
+    _add(REPO_ROOT.parent / "FPFData")
+
+    data_root = Path(DATA_DIR).expanduser()
+    try:
+        data_root = data_root.resolve()
+    except OSError:
+        pass
+    if data_root.name.lower() == "datas":
+        _add(data_root.parent)
+    return candidates
+
+
+def _resolve_auth_cookie_snapshot_path(payload: dict[str, Any]) -> str:
+    explicit_path = str(payload.get("cookie_snapshot_path") or "").strip()
+    if explicit_path:
+        return explicit_path
+
+    env_path = str(os.getenv("FAPAI_COOKIE_SNAPSHOT") or "").strip()
+    if env_path:
+        return env_path
+
+    last_request = SOLVER_LAST_REQUEST if isinstance(SOLVER_LAST_REQUEST, dict) else {}
+    request_path = str(last_request.get("cookie_snapshot_path") or "").strip()
+    if request_path:
+        return request_path
+
+    node_id = _normalize_auth_cookie_snapshot_node_id(
+        payload.get("node_id")
+        or last_request.get("node_id")
+        or os.getenv("FAPAI_NODE_ID")
+    )
+    if not node_id:
+        return ""
+
+    roots = _auth_cookie_snapshot_root_candidates()
+    if not roots:
+        return ""
+
+    existing_roots = [root for root in roots if root.exists()]
+    selected_root = existing_roots[0] if existing_roots else roots[0]
+    return str(selected_root / "secrets" / "nodes" / node_id / "taobao-cookies.json")
 
 
 def _export_auth_cdp_cookies(cdp_endpoint: str) -> list[dict[str, Any]]:
@@ -699,7 +1166,7 @@ def _refresh_auth_cookie_snapshot(payload: dict[str, Any]) -> dict[str, Any]:
     if not _payload_flag(payload, "refresh_cookie_snapshot", True):
         return {"refreshed": False, "reason": "disabled_by_request"}
 
-    snapshot_path = str(payload.get("cookie_snapshot_path") or os.getenv("FAPAI_COOKIE_SNAPSHOT") or "").strip()
+    snapshot_path = _resolve_auth_cookie_snapshot_path(payload)
     if not snapshot_path:
         return {"refreshed": False, "reason": "cookie_snapshot_path_not_configured"}
 
@@ -814,6 +1281,15 @@ def _collection_api_lightweight_status_enabled() -> bool:
     return _runtime_env_flag("FAPAI_COLLECTION_API_LIGHTWEIGHT_STATUS", False)
 
 
+def _build_info_payload() -> dict[str, str]:
+    return {
+        "version": str(os.getenv("FAPAI_BUILD_VERSION") or "development"),
+        "commit": str(os.getenv("FAPAI_BUILD_COMMIT") or "unknown"),
+        "built_at": str(os.getenv("FAPAI_BUILD_TIME") or "unknown"),
+        "source_digest": str(os.getenv("FAPAI_SOURCE_DIGEST") or "unknown"),
+    }
+
+
 def _empty_seed_queue_counts() -> dict[str, Any]:
     return {
         "seed_scan_job_pending": 0,
@@ -870,9 +1346,15 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
     captured_items = analysis_pending + analysis_terminal + detail_completed
     total_items = pending_detail + in_progress + captured_items + detail_failed + detail_blocked
     api_metrics = llm_helper.get_api_metrics()
+    top_level_seed_queue_counts = {
+        key: int(seed_queue_counts.get(key, 0) or 0)
+        for key in _empty_seed_queue_counts().keys()
+    }
 
-    return {
+    payload = {
         "collection_api_lightweight": True,
+        "build_info": _build_info_payload(),
+        "capabilities": {"manual_captcha_report_v1": True},
         "paused": _collection_effectively_paused(),
         "total_ids": total_items,
         "captured_count": captured_items,
@@ -901,6 +1383,7 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
         "api_avg_response_time_ms": api_metrics.get("avg_response_time_ms", 0.0),
         "api_total_calls": api_metrics.get("total_calls", 0),
         "api_success_calls": api_metrics.get("success_calls", 0),
+        **top_level_seed_queue_counts,
         "captcha_solver": _captcha_solver_runtime_status(),
         "data_supply_recent_24h": {},
         "avm": {"lightweight_skipped": True},
@@ -937,6 +1420,8 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
             },
         },
     }
+    payload["runtime_state"] = _collection_runtime_state_label_from_status_payload(payload)
+    return payload
 
 
 def _collection_query_int(query: dict[str, list[str]], key: str, default: int, *, minimum: int, maximum: int) -> int:
@@ -950,9 +1435,13 @@ def _collection_query_int(query: dict[str, list[str]], key: str, default: int, *
 def _collection_observer_overview_payload() -> dict[str, Any]:
     status = _collection_api_lightweight_status_payload()
     seed_queue = dict((status.get("collection_stage") or {}).get("seed_queue") or {})
+    active_data_root = Path(getattr(AVM_SERVICE, "data_dir", DATA_DIR))
     return {
         "ok": True,
         "status": status,
+        "runtime_state": status.get("runtime_state"),
+        "challenge_metrics": _hybrid_collection_challenge_metrics_summary(active_data_root),
+        "auth_watcher": _pc1_auth_auto_resume_state_summary(active_data_root),
         "modules": {
             "links": {
                 "label": "商品链接采集",
@@ -1068,33 +1557,15 @@ def _collection_observer_reset_region_links_payload(payload: dict[str, Any]) -> 
 
 
 def _collection_runtime_state_label() -> str:
-    solver_status = _captcha_solver_runtime_status()
-    if solver_status.get("manual_required"):
-        return "待认证"
-    if _collection_effectively_paused():
-        return "暂停中"
     try:
-        overview = _collection_observer_overview_payload()
-        modules = overview.get("modules") or {}
-        details = modules.get("details") or {}
-        analysis = modules.get("analysis") or {}
-        links = modules.get("links") or {}
-        has_items = int(links.get("unique_items", 0) or 0) > 0
-        open_detail = (
-            int(details.get("pending", 0) or 0)
-            + int(details.get("failed", 0) or 0)
-            + int(details.get("blocked", 0) or 0)
-        )
-        open_analysis = (
-            int(analysis.get("ready", 0) or 0)
-            + int(analysis.get("pending", 0) or 0)
-            + int(analysis.get("failed", 0) or 0)
-            + int(analysis.get("blocked", 0) or 0)
-        )
-        if has_items and open_detail == 0 and open_analysis == 0:
-            return "已完成"
+        status_payload = _collection_api_lightweight_status_payload()
+        runtime_state = str(status_payload.get("runtime_state") or "").strip()
+        if runtime_state:
+            return runtime_state
     except Exception:
         pass
+    if _collection_effectively_paused():
+        return "暂停中"
     return "运行中"
 
 
@@ -1144,6 +1615,7 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
     _set_collection_pause_state(False)
     SOLVER_MANUAL_RESUME_EPOCH = time.time()
     _clear_solver_running_state()
+    _clear_solver_manual_required_state()
     SOLVER_LAST_STATUS = "manual_auth_completed"
     SOLVER_LAST_FAILURE_REASON = None
     flag_path = _solver_force_unlock_flag_path()
@@ -1976,6 +2448,127 @@ def _load_jsonl_snapshots(path: Path) -> list[dict[str, Any]]:
         return rows
     except Exception:
         return []
+
+
+def _coerce_optional_iso_datetime(value: Any) -> datetime.datetime | None:
+    text = _coerce_optional_text(value)
+    if text is None:
+        return None
+    normalized = text[:-1] + "+00:00" if text.endswith("Z") else text
+    try:
+        parsed = datetime.datetime.fromisoformat(normalized)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=datetime.timezone.utc)
+    return parsed
+
+
+def _collection_shared_data_root(data_root: Path) -> Path:
+    expanded = Path(data_root).expanduser()
+    try:
+        resolved = expanded.resolve()
+    except OSError:
+        resolved = expanded
+    if resolved.name.lower() == "datas":
+        return resolved.parent
+    return resolved
+
+
+def _hybrid_collection_challenge_metrics_summary(data_root: Path) -> dict[str, Any]:
+    runtime_summary = _hybrid_collection_runtime_summary(data_root)
+    history_summary = _hybrid_collection_runtime_history_summary(data_root)
+    current_reason_counts = _coerce_optional_mapping(runtime_summary.get("reason_counts"))
+    recent_reason_counts = _coerce_optional_mapping(history_summary.get("recent_reason_counts"))
+    current_challenge_detected_count = int(current_reason_counts.get("challenge_detected", 0) or 0)
+    recent_challenge_detected_count = int(recent_reason_counts.get("challenge_detected", 0) or 0)
+    current_browserless_attempt_count = max(
+        int(runtime_summary.get("browserless_success_count", 0) or 0)
+        + int(runtime_summary.get("browser_fallback_required_count", 0) or 0),
+        0,
+    )
+    recent_browserless_attempt_count = max(
+        int(history_summary.get("recent_browserless_success_count", 0) or 0)
+        + int(history_summary.get("recent_browser_fallback_required_count", 0) or 0),
+        0,
+    )
+    current_challenge_hit_rate = (
+        current_challenge_detected_count / current_browserless_attempt_count
+        if current_browserless_attempt_count > 0
+        else None
+    )
+    recent_challenge_hit_rate = (
+        recent_challenge_detected_count / recent_browserless_attempt_count
+        if recent_browserless_attempt_count > 0
+        else None
+    )
+    return {
+        "available": bool(runtime_summary.get("available") or history_summary.get("available")),
+        "current_challenge_detected_count": current_challenge_detected_count,
+        "current_browserless_attempt_count": current_browserless_attempt_count,
+        "current_challenge_hit_rate": current_challenge_hit_rate,
+        "recent_challenge_detected_count": recent_challenge_detected_count,
+        "recent_browserless_attempt_count": recent_browserless_attempt_count,
+        "recent_challenge_hit_rate": recent_challenge_hit_rate,
+        "recent_runs": int(history_summary.get("recent_runs", 0) or 0),
+        "last_reason": _coerce_optional_text(runtime_summary.get("last_reason")),
+        "last_decision": _coerce_optional_text(runtime_summary.get("last_decision")),
+        "last_probe_body_has_challenge": _coerce_optional_bool(
+            runtime_summary.get("last_probe_body_has_challenge")
+        )
+        is True,
+        "top_fallback_reason": _coerce_optional_text(runtime_summary.get("top_fallback_reason")),
+        "recent_top_fallback_reason": _coerce_optional_text(
+            history_summary.get("recent_top_fallback_reason")
+        ),
+    }
+
+
+def _pc1_auth_auto_resume_state_summary(data_root: Path) -> dict[str, Any]:
+    shared_root = _collection_shared_data_root(data_root)
+    raw = _load_json_snapshot(shared_root / "secrets" / "pc1-auth-auto-resume-state.json")
+    if not raw:
+        return {
+            "available": False,
+            "mode": None,
+            "status": None,
+            "started_at": None,
+            "completed_at": None,
+            "wait_elapsed_seconds": None,
+            "poll_seconds": 0,
+            "max_wait_seconds": 0,
+            "api_base": None,
+            "cdp_endpoint": None,
+            "last_error": None,
+        }
+
+    started_at = _coerce_optional_iso_datetime(raw.get("started_at"))
+    completed_at = _coerce_optional_iso_datetime(raw.get("completed_at"))
+    wait_elapsed_seconds = None
+    if started_at is not None:
+        ended_at = completed_at or datetime.datetime.now(datetime.timezone.utc)
+        wait_elapsed_seconds = max(int((ended_at - started_at).total_seconds()), 0)
+
+    poll_seconds = _coerce_optional_int(raw.get("poll_seconds"))
+    if poll_seconds is None or poll_seconds < 0:
+        poll_seconds = 0
+    max_wait_seconds = _coerce_optional_int(raw.get("max_wait_seconds"))
+    if max_wait_seconds is None or max_wait_seconds < 0:
+        max_wait_seconds = 0
+
+    return {
+        "available": True,
+        "mode": _coerce_optional_text(raw.get("mode")),
+        "status": _coerce_optional_text(raw.get("status")),
+        "started_at": _coerce_optional_text(raw.get("started_at")),
+        "completed_at": _coerce_optional_text(raw.get("completed_at")),
+        "wait_elapsed_seconds": wait_elapsed_seconds,
+        "poll_seconds": poll_seconds,
+        "max_wait_seconds": max_wait_seconds,
+        "api_base": _coerce_optional_text(raw.get("api_base")),
+        "cdp_endpoint": _coerce_optional_text(raw.get("cdp_endpoint")),
+        "last_error": _coerce_optional_text(raw.get("last_error")),
+    }
 
 
 def _hybrid_collection_runtime_summary(data_root: Path) -> dict[str, Any]:
@@ -8008,7 +8601,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     details={"error": str(e)},
                 )
 
-        elif self.path == '/api/report_captcha':
+        elif self.path in ('/api/report_captcha', '/api/report_manual_captcha'):
             content_length = int(self.headers['Content-Length']) if self.headers.get('Content-Length') else 0
             try:
                 payload = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
@@ -8023,11 +8616,24 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             if not isinstance(payload, dict):
                 self.send_invalid_request_body(payload)
                 return
+            manual_only = (
+                self.path == '/api/report_manual_captcha'
+                or _payload_manual_only(payload)
+            )
+            if manual_only:
+                self.send_json(_manual_only_captcha_report_payload(payload))
+                return
+            solver_request = _seed_priority_solver_request(payload)
+            if solver_request:
+                _refresh_solver_last_request(solver_request)
             force_retry = _payload_force_solver_retry(payload)
             solver_status = _captcha_solver_runtime_status()
             if solver_status["manual_required"]:
                 if force_retry:
-                    clear_error = _clear_solver_manual_required_pause()
+                    solver_was_running = bool(solver_status.get("running"))
+                    clear_error = _clear_solver_manual_required_pause(
+                        preserve_running_state=solver_was_running,
+                    )
                     if clear_error:
                         self.send_error_json(
                             status=500,
@@ -8038,6 +8644,9 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                         return
                     solver_status = _captcha_solver_runtime_status()
                     print("[SOLVER] report_captcha force retry cleared manual verification state.")
+                    if solver_was_running and SOLVER_RUNNING:
+                        self.send_json({"status": "resuming", "captcha_solver": solver_status})
+                        return
                 else:
                     print("[SOLVER] report_captcha ignored; manual verification is already required.")
                     self.send_json({"status": "manual_required", "captcha_solver": solver_status})
@@ -8046,9 +8655,18 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 print("[SOLVER] report_captcha ignored; manual verification is already required.")
                 self.send_json({"status": "manual_required", "captcha_solver": solver_status})
                 return
+            if solver_status.get("queued"):
+                print("[SOLVER] report_captcha ignored; solver submission is already queued.")
+                self.send_json({
+                    "status": "already_running",
+                    "elapsed_seconds": 0,
+                    "captcha_solver": solver_status,
+                })
+                return
             if SOLVER_RUNNING:
                 elapsed = max(int(time.time() - SOLVER_START_TIME), 0)
-                if elapsed < 120:
+                max_runtime_seconds = _solver_max_runtime_seconds()
+                if elapsed < max_runtime_seconds:
                     print(f"[SOLVER] report_captcha ignored; solver already running for {elapsed}s.")
                     self.send_json({
                         "status": "already_running",
@@ -8058,7 +8676,8 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     return
                 print(
                     f"[SOLVER] report_captcha ignored; solver still running after {elapsed}s. "
-                    "Marking manual verification required instead of starting a parallel solver."
+                    f"Configured limit is {max_runtime_seconds}s; marking manual verification "
+                    "required instead of starting a parallel solver."
                 )
                 flag_error = _mark_solver_manual_required()
                 response_payload = {
@@ -8070,12 +8689,27 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     response_payload["flag_error"] = flag_error
                 self.send_json(response_payload)
                 return
-            solver_request = _build_solver_request(payload)
+            # 远端 CDP 节点走本地求解器，不由 API 服务器直接求解。
+            solver_cdp = str(solver_request.get("cdp_endpoint") or "").strip()
+            if solver_cdp and _solver_cdp_endpoint_is_remote(solver_cdp):
+                node_id = str(solver_request.get("node_id") or "").strip()
+                print(
+                    f"[SOLVER] Remote CDP endpoint {solver_cdp} detected "
+                    f"(node={node_id or 'unknown'}); deferring to node-local solver. "
+                    "Pausing collection; node solver will clear when solved."
+                )
+                _set_collection_pause_state(True, "captcha_solver")
+                self.send_json({
+                    "status": "deferred_to_node_solver",
+                    "captcha_solver": _captcha_solver_runtime_status(),
+                })
+                return
+
             print("CAPTCHA REPORTED! Triggering Solver...")
 
             # Using ThreadPool to avoid blocking the server main loop
             try:
-                executor.submit(self.run_solver, solver_request)
+                queued = _submit_solver_request(solver_request)
             except Exception as e:
                 self.send_error_json(
                     status=500,
@@ -8083,6 +8717,13 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     message="验证码求解任务入队失败",
                     details={"error": str(e)},
                 )
+                return
+            if not queued:
+                self.send_json({
+                    "status": "already_running",
+                    "elapsed_seconds": 0,
+                    "captcha_solver": _captcha_solver_runtime_status(),
+                })
                 return
 
             self.send_json({"status": "solving"})
@@ -8424,7 +9065,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
     def update_file(self, file_path, item_id, new_data):
         update_file_global(file_path, item_id, new_data)
 
-    def run_solver(self, solver_request=None):
+    def run_solver(self, solver_request=None, submission_token=None):
         """Run the captcha solver in background with server-level retry."""
         global SOLVER_RUNNING, SOLVER_START_TIME, SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
         global SOLVER_LAST_FINISHED_TIME, SOLVER_LAST_REQUEST, SOLVER_MANUAL_RESUME_EPOCH
@@ -8436,30 +9077,54 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             SOLVER_START_TIME = 0
 
         if _captcha_solver_runtime_status()["manual_required"]:
+            already_authenticated = False
+            try:
+                probe_solver = _build_solver_for_request(solver_request)
+                preflight = probe_solver._preflight_current_challenge()
+                already_authenticated = bool(preflight.get("already_authenticated"))
+            except Exception as error:
+                print(f"[SOLVER] Stale auth-lock preflight failed: {error}")
+            if already_authenticated:
+                print("\033[92m[SOLVER] Page already authenticated; clearing stale captcha auth lock.\033[0m")
+                _clear_auth_lock_after_solver_success()
+                _release_solver_submission(submission_token)
+                return
+            _release_solver_submission(submission_token)
             print("\033[93m[SOLVER] Manual verification already required. Skipping solver run.\033[0m")
             return
 
-        # Check existing lock state
-        if SOLVER_RUNNING:
-            elapsed = time.time() - SOLVER_START_TIME
-            if elapsed < 120:  # Extended timeout for retries
-                print(f"\033[93m[SOLVER] Solver already running for {int(elapsed)}s. Skipping.\033[0m")
-                return
+        activated, activation_reason, activation_value = _activate_solver_submission(
+            solver_request,
+            submission_token,
+        )
+        if not activated:
+            if activation_reason == "solver_running":
+                print(
+                    f"\033[93m[SOLVER] Solver already running for "
+                    f"{int(activation_value)}s. Skipping duplicate submission.\033[0m"
+                )
             else:
-                print(f"\033[91m[SOLVER] Solver hung for {int(elapsed)}s. FORCE BREAKING LOCK.\033[0m")
+                print(f"[SOLVER] Skipping {activation_reason} solver submission.")
+            return
 
         SERVER_MAX_ATTEMPTS = 2  # Server-level retries (solver has its own internal retries)
 
-        solver_started_at = 0.0
+        solver_started_at = activation_value
         try:
-            SOLVER_RUNNING = True
-            SOLVER_START_TIME = time.time()
-            solver_started_at = SOLVER_START_TIME
-            SOLVER_LAST_STATUS = "running"
-            SOLVER_LAST_FAILURE_REASON = None
-            SOLVER_LAST_REQUEST = dict(solver_request) if isinstance(solver_request, dict) else {}
             if not PAUSED or COLLECTION_PAUSE_REASON is None:
                 _set_collection_pause_state(True, "captcha_solver")
+            worker_quiesce_seconds = _solver_worker_quiesce_seconds()
+            if worker_quiesce_seconds > 0:
+                print(
+                    f"[SOLVER] Waiting {worker_quiesce_seconds}s for node workers "
+                    "to release the shared CDP browser."
+                )
+                time.sleep(worker_quiesce_seconds)
+            if not _wait_for_solver_cdp_ready(solver_request):
+                print("[SOLVER] Deferring solve attempt because the node CDP browser is unavailable.")
+                _mark_solver_manual_required()
+                SOLVER_LAST_FAILURE_REASON = "cdp_unavailable"
+                return
             print("\033[93m[SOLVER] Starting solver...\033[0m")
             active_solver = _build_solver_for_request(solver_request)
             try:
@@ -8491,10 +9156,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
 
             if success:
                 print("\033[92m[SOLVER] ✅ Captcha Solved! Resuming system...\033[0m")
-                SOLVER_LAST_STATUS = "solved"
-                SOLVER_LAST_FAILURE_REASON = None
-                if COLLECTION_PAUSE_REASON == "captcha_solver":
-                    _set_collection_pause_state(False)
+                _clear_auth_lock_after_solver_success()
             else:
                 SOLVER_LAST_FAILURE_REASON = getattr(active_solver, "last_failure_reason", None) or "solve_failed"
                 if SOLVER_MANUAL_RESUME_EPOCH >= solver_started_at:
@@ -8533,12 +9195,22 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 SOLVER_RUNNING = False
                 SOLVER_LAST_FINISHED_TIME = time.time()
 
-                # Wait for user to either hit API resume or delete the file
+                # Wait until the operator resumes, the flag is deleted, or the
+                # live page becomes authenticated after a later captcha pass.
                 while _captcha_solver_runtime_status().get("manual_required"):
                     if not os.path.exists(flag_path):
                         print("\033[92m[SOLVER] 🟢 Force unlock flag removed! Auto-resuming system...\033[0m")
                         _set_collection_pause_state(False)
                         _clear_solver_manual_required_state()
+                        break
+                    try:
+                        preflight = active_solver._preflight_current_challenge()
+                    except Exception as error:
+                        preflight = {}
+                        print(f"[SOLVER] Auth-lock recovery preflight failed: {error}")
+                    if preflight.get("already_authenticated"):
+                        print("\033[92m[SOLVER] 🟢 Page authenticated while waiting; clearing captcha auth lock.\033[0m")
+                        _clear_auth_lock_after_solver_success()
                         break
                     time.sleep(2)
 

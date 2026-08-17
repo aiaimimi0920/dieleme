@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from src.storage.repository import DatabaseSettings, PropertyRepository
-from tools import seed_collector
+from tools import browserless_seed_probe, live_batch_smoke, seed_collector, taobao_login_health
 
 
 class _FakeProbe:
@@ -41,6 +41,61 @@ class _FakeProbe:
                 {"id": "2001", "title": "南沙 A", "url": "https://sf-item.taobao.com/sf_item/2001.htm"},
                 {"id": "2002", "title": "南沙 B", "url": "https://sf-item.taobao.com/sf_item/2002.htm"},
             ],
+        }
+
+
+class _BlankPageProbe:
+    DEFAULT_USER_AGENT = "fake-agent"
+
+    @staticmethod
+    def summarize_list_page(html: str, *, final_url: str) -> dict[str, Any]:
+        return {
+            "has_script": False,
+            "item_count": None,
+            "first_ids": [],
+            "first_urls": [],
+            "body_has_challenge": False,
+            "body_has_login": False,
+            "body_has_punish": False,
+            "body_snippet": html[:80],
+        }
+
+    @staticmethod
+    def extract_list_payload(_html: str) -> dict[str, Any] | None:
+        return None
+
+    @staticmethod
+    def build_userscript_like_batch_payload(_payload, *, source_page_url: str) -> dict[str, Any]:
+        return {"source_page_url": source_page_url, "items": []}
+
+class _FailureOnlyProbe:
+    DEFAULT_USER_AGENT = "fake-agent"
+
+    @staticmethod
+    def summarize_list_page(_html: str, *, final_url: str) -> dict[str, Any]:
+        return {
+            "item_count": 2,
+            "first_ids": ["3001", "3002"],
+            "first_urls": [f"{final_url}#3001", f"{final_url}#3002"],
+            "body_has_challenge": False,
+            "body_has_login": False,
+            "body_has_punish": False,
+        }
+
+    @staticmethod
+    def extract_list_payload(_html: str) -> dict[str, Any] | None:
+        return {
+            "data": [
+                {"id": "3001", "status": "failure", "bidCount": 0, "itemUrl": "//sf-item.taobao.com/sf_item/3001.htm"},
+                {"id": "3002", "status": "failure", "bidCount": 0, "itemUrl": "//sf-item.taobao.com/sf_item/3002.htm"},
+            ]
+        }
+
+    @staticmethod
+    def build_userscript_like_batch_payload(_payload, *, source_page_url: str) -> dict[str, Any]:
+        return {
+            "source_page_url": source_page_url,
+            "items": [],
         }
 
 
@@ -90,12 +145,161 @@ def test_default_seed_sort_specs_start_with_default_then_price_desc() -> None:
     ]
 
 
+def test_parse_seed_job_specs_rejects_non_array_and_missing_location_code() -> None:
+    fallback_sort_specs = seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低")
+
+    try:
+        seed_collector.parse_seed_job_specs(
+            {"location_code": "440115"},
+            fallback_sort_specs=fallback_sort_specs,
+            fallback_max_page=83,
+        )
+    except ValueError as exc:
+        assert str(exc) == "seed jobs must be a JSON array"
+    else:
+        raise AssertionError("expected non-array seed jobs to raise ValueError")
+
+    try:
+        seed_collector.parse_seed_job_specs(
+            [None, {"category": "50025969"}],
+            fallback_sort_specs=fallback_sort_specs,
+            fallback_max_page=83,
+        )
+    except ValueError as exc:
+        assert str(exc) == "seed job at index 1 requires location_code"
+    else:
+        raise AssertionError("expected missing location_code to raise ValueError")
+
+
+def test_should_archive_stale_seed_jobs_rejects_blank_or_duplicate_job_keys() -> None:
+    sort_specs = seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低")
+    duplicate_job = seed_collector.SeedScanJobSpec(
+        job_key="job-1",
+        province="广东省",
+        city="广州市",
+        district="南沙区",
+        location_code="440115",
+        category="50025969",
+        sort_specs=sort_specs,
+        max_page=83,
+    )
+    blank_job = seed_collector.SeedScanJobSpec(
+        job_key="",
+        province="广东省",
+        city="广州市",
+        district="南沙区",
+        location_code="440115",
+        category="50025969",
+        sort_specs=sort_specs,
+        max_page=83,
+    )
+
+    assert (
+        seed_collector._should_archive_stale_seed_jobs(
+            seed_collector.SeedCollectorConfig(
+                job_key="job-1",
+                province="广东省",
+                city="广州市",
+                district="南沙区",
+                location_code="440115",
+                category="50025969",
+                sort_specs=sort_specs,
+                max_page=83,
+                cdp_endpoint="http://127.0.0.1:9223",
+                output_dir=Path("."),
+                worker_id="seed-test",
+                seed_jobs=(),
+            )
+        )
+        is False
+    )
+    assert (
+        seed_collector._should_archive_stale_seed_jobs(
+            seed_collector.SeedCollectorConfig(
+                job_key="job-1",
+                province="广东省",
+                city="广州市",
+                district="南沙区",
+                location_code="440115",
+                category="50025969",
+                sort_specs=sort_specs,
+                max_page=83,
+                cdp_endpoint="http://127.0.0.1:9223",
+                output_dir=Path("."),
+                worker_id="seed-test",
+                seed_jobs=(duplicate_job, duplicate_job),
+            )
+        )
+        is False
+    )
+    assert (
+        seed_collector._should_archive_stale_seed_jobs(
+            seed_collector.SeedCollectorConfig(
+                job_key="job-1",
+                province="广东省",
+                city="广州市",
+                district="南沙区",
+                location_code="440115",
+                category="50025969",
+                sort_specs=sort_specs,
+                max_page=83,
+                cdp_endpoint="http://127.0.0.1:9223",
+                output_dir=Path("."),
+                worker_id="seed-test",
+                seed_jobs=(duplicate_job, blank_job),
+            )
+        )
+        is False
+    )
+    assert (
+        seed_collector._should_archive_stale_seed_jobs(
+            seed_collector.SeedCollectorConfig(
+                job_key="job-1",
+                province="广东省",
+                city="广州市",
+                district="南沙区",
+                location_code="440115",
+                category="50025969",
+                sort_specs=sort_specs,
+                max_page=83,
+                cdp_endpoint="http://127.0.0.1:9223",
+                output_dir=Path("."),
+                worker_id="seed-test",
+                seed_jobs=(
+                    duplicate_job,
+                    seed_collector.SeedScanJobSpec(
+                        job_key="job-2",
+                        province="广东省",
+                        city="广州市",
+                        district="南沙区",
+                        location_code="440115",
+                        category="50025969",
+                        sort_specs=sort_specs,
+                        max_page=83,
+                    ),
+                ),
+            )
+        )
+        is True
+    )
+
+
 def test_run_seed_collector_once_claims_one_page_and_populates_detail_queue(tmp_path: Path, monkeypatch) -> None:
     repo = _make_repo(tmp_path)
     fetched_urls: list[str] = []
+    api_base_urls: list[str | None] = []
 
-    def _fetch_list_page(_http, *, cdp_endpoint: str, target_url: str, user_agent: str, solver_enabled: bool):
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
         fetched_urls.append(target_url)
+        api_base_urls.append(api_base_url)
         return "ok", target_url, 200, "http_cookie"
 
     monkeypatch.setattr(seed_collector, "fetch_list_page", _fetch_list_page)
@@ -113,6 +317,7 @@ def test_run_seed_collector_once_claims_one_page_and_populates_detail_queue(tmp_
             cdp_endpoint="http://127.0.0.1:9223",
             output_dir=tmp_path,
             worker_id="seed-test",
+            api_base_url="http://collection-api.test/api",
         ),
         repository=repo,
         http_session=object(),
@@ -126,6 +331,7 @@ def test_run_seed_collector_once_claims_one_page_and_populates_detail_queue(tmp_
     assert fetched_urls == [
         "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&st_param=2&auction_start_seg=-1&page=1"
     ]
+    assert api_base_urls == ["http://collection-api.test/api"]
     assert repo.seed_queue_counts()["seed_item_pending_detail"] == 2
 
 
@@ -149,7 +355,15 @@ def test_run_seed_collector_once_resumes_after_restart_without_researching_compl
     )
     fetched_urls: list[str] = []
 
-    def _fetch_list_page(_http, *, cdp_endpoint: str, target_url: str, user_agent: str, solver_enabled: bool):
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
         fetched_urls.append(target_url)
         return "ok", target_url, 200, "http_cookie"
 
@@ -182,13 +396,79 @@ def test_run_seed_collector_once_resumes_after_restart_without_researching_compl
     assert restarted_repo.seed_queue_counts()["seed_occurrence_total"] == 4
 
 
+def test_run_seed_collector_once_continues_to_next_page_when_raw_list_has_items_but_filtered_batch_is_empty(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    db_path = tmp_path / "seed-failure-only.sqlite3"
+    config = seed_collector.SeedCollectorConfig(
+        job_key="guangdong-guangzhou-nansha-50025969",
+        province="广东省",
+        city="广州市",
+        district="南沙区",
+        location_code="440115",
+        category="50025969",
+        sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+        max_page=83,
+        cdp_endpoint="http://127.0.0.1:9223",
+        output_dir=tmp_path,
+        worker_id="seed-test",
+    )
+    fetched_urls: list[str] = []
+
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
+        fetched_urls.append(target_url)
+        return "failure-only", target_url, 200, "http_cookie"
+
+    monkeypatch.setattr(seed_collector, "fetch_list_page", _fetch_list_page)
+
+    first_repo = _make_repo_at(db_path)
+    first_summary = seed_collector.run_seed_collector_once(
+        config,
+        repository=first_repo,
+        http_session=object(),
+        browserless_seed_probe=_FailureOnlyProbe,
+    )
+
+    restarted_repo = _make_repo_at(db_path)
+    second_summary = seed_collector.run_seed_collector_once(
+        config,
+        repository=restarted_repo,
+        http_session=object(),
+        browserless_seed_probe=_FailureOnlyProbe,
+    )
+
+    assert first_summary["decision"] == "seed_page_collected"
+    assert first_summary["item_count"] == 0
+    assert first_summary["has_next"] is True
+    assert first_summary["task"]["page"] == 1
+    assert second_summary["task"]["page"] == 2
+    assert fetched_urls == [
+        "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&st_param=2&auction_start_seg=-1&page=1",
+        "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&st_param=2&auction_start_seg=-1&page=2",
+    ]
+
+
 def test_run_seed_collector_once_marks_scan_page_retryable_on_challenge(tmp_path: Path, monkeypatch) -> None:
     repo = _make_repo(tmp_path)
 
     monkeypatch.setattr(
         seed_collector,
         "fetch_list_page",
-        lambda _http, *, cdp_endpoint, target_url, user_agent, solver_enabled: ("challenge", target_url, 200, "browser_page"),
+        lambda _http, *, cdp_endpoint, target_url, user_agent, solver_enabled, api_base_url=None: (
+            "challenge",
+            target_url,
+            200,
+            "browser_page",
+        ),
     )
 
     summary = seed_collector.run_seed_collector_once(
@@ -217,11 +497,306 @@ def test_run_seed_collector_once_marks_scan_page_retryable_on_challenge(tmp_path
     assert retry["page"] == 1
 
 
+def test_report_manual_seed_challenge_uses_manual_endpoint_without_sensitive_redirect(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    reports: list[dict[str, object]] = []
+
+    def _report_captcha_via_api(
+        api_base_url: str,
+        cdp_endpoint: str,
+        target_url: str,
+        *,
+        manual_only: bool = False,
+    ) -> dict[str, object]:
+        reports.append(
+            {
+                "api_base_url": api_base_url,
+                "cdp_endpoint": cdp_endpoint,
+                "target_url": target_url,
+                "manual_only": manual_only,
+            }
+        )
+        return {"status": "manual_required"}
+
+    monkeypatch.setattr(taobao_login_health, "report_captcha_via_api", _report_captcha_via_api)
+    config = seed_collector.SeedCollectorConfig(
+        job_key="guangdong-guangzhou-nansha-50025969",
+        province="广东省",
+        city="广州市",
+        district="南沙区",
+        location_code="440115",
+        category="50025969",
+        sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+        max_page=83,
+        cdp_endpoint="http://127.0.0.1:9223",
+        output_dir=tmp_path,
+        worker_id="seed-test",
+        manual_challenge_reporting=True,
+        api_base_url="http://collection-api.test/api",
+    )
+
+    result = seed_collector._report_manual_seed_challenge(
+        config,
+        (
+            "https://sf.taobao.com/list/50025969__2.htm?"
+            "location_code=440115&page=1&x5secdata=sensitive&redirectURL=https%3A%2F%2Fevil.test"
+        ),
+    )
+
+    assert result == {"status": "manual_required"}
+    assert reports == [
+        {
+            "api_base_url": "http://collection-api.test/api",
+            "cdp_endpoint": "http://127.0.0.1:9223",
+            "target_url": (
+                "https://sf.taobao.com/list/50025969__2.htm?"
+                "location_code=440115&page=1&__captcha_solver_bg=1"
+            ),
+            "manual_only": True,
+        }
+    ]
+
+
+def test_run_seed_collector_once_reports_challenge_and_observes_manual_pause(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repo = _make_repo(tmp_path)
+    reported_targets: list[str] = []
+    solver_flags: list[bool] = []
+    pause_states = iter(
+        [
+            {"paused": False, "captcha_solver": {}},
+            {
+                "paused": True,
+                "reason": "captcha_solver_manual_required",
+                "captcha_solver": {"manual_required": True},
+            },
+        ]
+    )
+    monkeypatch.setattr(seed_collector, "_collection_pause_state_with_retry", lambda _api: next(pause_states))
+    monkeypatch.setattr(
+        seed_collector,
+        "_report_manual_seed_challenge",
+        lambda _config, target_url: reported_targets.append(target_url) or {"status": "manual_required"},
+    )
+
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ) -> tuple[str, str, int, str]:
+        solver_flags.append(solver_enabled)
+        return (
+            "challenge",
+            target_url + "/_____tmd_____/punish?x5secdata=secret",
+            200,
+            "http_cookie_challenge",
+        )
+
+    monkeypatch.setattr(seed_collector, "fetch_list_page", _fetch_list_page)
+
+    summary = seed_collector.run_seed_collector_once(
+        seed_collector.SeedCollectorConfig(
+            job_key="guangdong-guangzhou-nansha-50025969",
+            province="广东省",
+            city="广州市",
+            district="南沙区",
+            location_code="440115",
+            category="50025969",
+            sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+            max_page=83,
+            cdp_endpoint="http://127.0.0.1:9223",
+            output_dir=tmp_path,
+            worker_id="seed-test",
+            solver_enabled=True,
+            manual_challenge_reporting=True,
+            api_base_url="http://collection-api.test/api",
+        ),
+        repository=repo,
+        http_session=object(),
+        browserless_seed_probe=_FakeProbe,
+    )
+
+    assert summary["decision"] == "seed_collection_paused"
+    assert summary["reason"] == "captcha_solver_manual_required"
+    assert "captcha_solver_report" not in summary
+    assert reported_targets == []
+    assert solver_flags == [True]
+
+
+def test_run_seed_collector_once_marks_browser_payload_missing_page_retryable(tmp_path: Path, monkeypatch) -> None:
+    repo = _make_repo(tmp_path)
+
+    class _BrowserShellProbe:
+        DEFAULT_USER_AGENT = "fake-agent"
+
+        @staticmethod
+        def summarize_list_page(_html: str, *, final_url: str) -> dict[str, Any]:
+            return {
+                "has_script": False,
+                "item_count": None,
+                "first_ids": [],
+                "first_urls": [],
+                "body_has_challenge": False,
+                "body_has_login": False,
+                "body_has_punish": False,
+                "body_snippet": final_url,
+            }
+
+        @staticmethod
+        def extract_list_payload(_html: str) -> dict[str, Any] | None:
+            return None
+
+        @staticmethod
+        def build_userscript_like_batch_payload(_payload, *, source_page_url: str) -> dict[str, Any]:
+            return {"source_page_url": source_page_url, "items": []}
+
+    monkeypatch.setattr(
+        seed_collector,
+        "fetch_list_page",
+        lambda _http, *, cdp_endpoint, target_url, user_agent, solver_enabled, api_base_url=None: (
+            "<!doctype html><html><body>browser shell</body></html>",
+            target_url,
+            None,
+            "browser_page_after_http_challenge",
+        ),
+    )
+
+    summary = seed_collector.run_seed_collector_once(
+        seed_collector.SeedCollectorConfig(
+            job_key="guangdong-guangzhou-nansha-50025969",
+            province="广东省",
+            city="广州市",
+            district="南沙区",
+            location_code="440115",
+            category="50025969",
+            sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+            max_page=83,
+            cdp_endpoint="http://127.0.0.1:9223",
+            output_dir=tmp_path,
+            worker_id="seed-test",
+            solver_enabled=True,
+            api_base_url="http://collection-api.test/api",
+        ),
+        repository=repo,
+        http_session=object(),
+        browserless_seed_probe=_BrowserShellProbe,
+    )
+
+    assert summary["decision"] == "seed_page_retryable_failure"
+    assert summary["reason"] == "browser_list_payload_missing"
+    assert summary["fetch"]["method"] == "browser_page_after_http_challenge"
+    retry = repo.claim_seed_scan_page("seed-retry", lease_seconds=30)
+    assert retry is not None
+    assert retry["page"] == 1
+
+
+def test_run_seed_collector_once_treats_punish_final_url_shell_as_challenge(tmp_path: Path, monkeypatch) -> None:
+    repo = _make_repo(tmp_path)
+
+    monkeypatch.setattr(
+        seed_collector,
+        "fetch_list_page",
+        lambda _http, *, cdp_endpoint, target_url, user_agent, solver_enabled, api_base_url=None: (
+            "<!doctype html><html><body>browser shell</body></html>",
+            target_url + "/_____tmd_____/punish?x5secdata=abc",
+            None,
+            "browser_page_after_http_challenge",
+        ),
+    )
+
+    summary = seed_collector.run_seed_collector_once(
+        seed_collector.SeedCollectorConfig(
+            job_key="guangdong-guangzhou-nansha-50025969",
+            province="广东省",
+            city="广州市",
+            district="南沙区",
+            location_code="440115",
+            category="50025969",
+            sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+            max_page=83,
+            cdp_endpoint="http://127.0.0.1:9223",
+            output_dir=tmp_path,
+            worker_id="seed-test",
+            solver_enabled=True,
+            api_base_url="http://collection-api.test/api",
+        ),
+        repository=repo,
+        http_session=object(),
+        browserless_seed_probe=browserless_seed_probe,
+    )
+
+    assert summary["decision"] == "seed_page_retryable_failure"
+    assert summary["reason"] == "list_challenge_page"
+
+
+def test_run_seed_collector_once_pauses_and_requeues_when_cdp_endpoint_is_unreachable(
+    tmp_path: Path, monkeypatch
+) -> None:
+    repo = _make_repo(tmp_path)
+
+    monkeypatch.setattr(
+        seed_collector,
+        "fetch_list_page",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            live_batch_smoke.CdpEndpointUnavailableError(
+                "http://127.0.0.1:9223",
+                "open_list_page_target",
+                TimeoutError("timed out"),
+            )
+        ),
+    )
+
+    summary = seed_collector.run_seed_collector_once(
+        seed_collector.SeedCollectorConfig(
+            job_key="guangdong-guangzhou-nansha-50025969",
+            province="广东省",
+            city="广州市",
+            district="南沙区",
+            location_code="440115",
+            category="50025969",
+            sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+            max_page=83,
+            cdp_endpoint="http://127.0.0.1:9223",
+            output_dir=tmp_path,
+            worker_id="seed-test",
+            auth_probe_interval_seconds=10,
+        ),
+        repository=repo,
+        http_session=object(),
+        browserless_seed_probe=_FakeProbe,
+    )
+
+    assert summary["decision"] == "seed_collection_paused"
+    assert summary["reason"] == "cdp_unreachable"
+    assert summary["auth_probe"]["attempted"] is True
+    assert summary["auth_probe"]["authenticated"] is False
+    assert summary["auth_probe"]["status"] == "cdp_unreachable"
+    retry = repo.claim_seed_scan_page("seed-retry", lease_seconds=30)
+    assert retry is not None
+    assert retry["page"] == 1
+
+
 def test_run_seed_collector_once_passes_solver_enabled_to_fetch(tmp_path: Path, monkeypatch) -> None:
     repo = _make_repo(tmp_path)
     solver_flags: list[bool] = []
 
-    def _fetch_list_page(_http, *, cdp_endpoint: str, target_url: str, user_agent: str, solver_enabled: bool):
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
         solver_flags.append(solver_enabled)
         return "ok", target_url, 200, "http_cookie"
 
@@ -297,6 +872,148 @@ def test_run_seed_collector_once_skips_page_fetch_when_collection_api_reports_ma
     assert summary["captcha_solver"]["manual_required"] is True
 
 
+def test_run_seed_collector_once_probes_default_list_when_manual_required_lacks_last_request(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repo = _make_repo(tmp_path)
+    fetched_urls: list[str] = []
+    solver_flags: list[bool] = []
+    resumed: list[dict[str, Any]] = []
+    monkeypatch.setattr(
+        seed_collector,
+        "_collection_pause_state",
+        lambda _api_base_url: {
+            "paused": True,
+            "reason": "captcha_solver_manual_required",
+            "captcha_solver": {"manual_required": True},
+        },
+    )
+
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
+        fetched_urls.append(target_url)
+        solver_flags.append(solver_enabled)
+        return "ok", target_url, 200, "http_cookie"
+
+    monkeypatch.setattr(seed_collector, "fetch_list_page", _fetch_list_page)
+    monkeypatch.setattr(
+        seed_collector,
+        "_notify_auth_probe_passed",
+        lambda api_base_url, target_url: resumed.append({"api_base_url": api_base_url, "target_url": target_url})
+        or {"ok": True},
+    )
+
+    summary = seed_collector.run_seed_collector_once(
+        seed_collector.SeedCollectorConfig(
+            job_key="guangdong-guangzhou-nansha-50025969",
+            province="广东省",
+            city="广州市",
+            district="南沙区",
+            location_code="440115",
+            category="50025969",
+            sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+            max_page=83,
+            cdp_endpoint="http://127.0.0.1:9223",
+            output_dir=tmp_path,
+            worker_id="seed-test",
+            solver_enabled=True,
+            api_base_url="http://collection-api.test/api",
+        ),
+        repository=repo,
+        http_session=object(),
+        browserless_seed_probe=_FakeProbe,
+    )
+
+    assert summary["decision"] == "seed_page_collected"
+    assert summary["auth_probe"]["authenticated"] is True
+    assert fetched_urls == [
+        "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
+        "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&st_param=2&auction_start_seg=-1&page=1",
+    ]
+    assert solver_flags == [False, True]
+    assert resumed == [
+        {
+            "api_base_url": "http://collection-api.test/api",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
+        }
+    ]
+
+
+def test_run_seed_collector_once_does_not_auto_resume_on_blank_auth_probe_page(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repo = _make_repo(tmp_path)
+    probe_url = "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1"
+    fetched_urls: list[str] = []
+    monkeypatch.setattr(
+        seed_collector,
+        "_collection_pause_state",
+        lambda _api_base_url: {
+            "paused": True,
+            "reason": "captcha_solver_manual_required",
+            "captcha_solver": {
+                "manual_required": True,
+                "last_request": {"target_url": probe_url},
+            },
+        },
+    )
+
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
+        fetched_urls.append(target_url)
+        return "<html><head></head><body></body></html>", "about:blank", None, "browser_page_after_http_challenge"
+
+    monkeypatch.setattr(seed_collector, "fetch_list_page", _fetch_list_page)
+    monkeypatch.setattr(
+        seed_collector,
+        "_notify_auth_probe_passed",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("blank probe must not auto-resume")),
+    )
+
+    summary = seed_collector.run_seed_collector_once(
+        seed_collector.SeedCollectorConfig(
+            job_key="guangdong-guangzhou-nansha-50025969",
+            province="广东省",
+            city="广州市",
+            district="南沙区",
+            location_code="440115",
+            category="50025969",
+            sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+            max_page=83,
+            cdp_endpoint="http://127.0.0.1:9223",
+            output_dir=tmp_path,
+            worker_id="seed-test",
+            solver_enabled=True,
+            api_base_url="http://collection-api.test/api",
+        ),
+        repository=repo,
+        http_session=object(),
+        browserless_seed_probe=_BlankPageProbe,
+    )
+
+    assert summary["decision"] == "seed_collection_paused"
+    assert summary["reason"] == "captcha_solver_manual_required"
+    assert summary["auth_probe"]["attempted"] is True
+    assert summary["auth_probe"]["authenticated"] is False
+    assert summary["auth_probe"]["reason"] == "probe_not_authenticated"
+    assert fetched_urls == [probe_url]
+
 def test_run_seed_collector_once_probes_list_page_during_manual_required_and_auto_resumes(
     tmp_path: Path,
     monkeypatch,
@@ -318,7 +1035,15 @@ def test_run_seed_collector_once_probes_list_page_during_manual_required_and_aut
         },
     )
 
-    def _fetch_list_page(_http, *, cdp_endpoint: str, target_url: str, user_agent: str, solver_enabled: bool):
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
         fetched_urls.append(target_url)
         return "ok", target_url, 200, "http_cookie"
 
@@ -380,7 +1105,15 @@ def test_run_seed_collector_once_keeps_manual_required_when_list_probe_still_cha
         },
     )
 
-    def _fetch_list_page(_http, *, cdp_endpoint: str, target_url: str, user_agent: str, solver_enabled: bool):
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
         fetched_urls.append(target_url)
         return "challenge", target_url, 200, "http_cookie_challenge"
 
@@ -419,6 +1152,116 @@ def test_run_seed_collector_once_keeps_manual_required_when_list_probe_still_cha
     assert repo.seed_queue_counts()["seed_scan_job_pending"] == 0
 
 
+def test_run_seed_collector_once_does_not_probe_while_solver_is_running(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repo = _make_repo(tmp_path)
+    monkeypatch.setattr(
+        seed_collector,
+        "_collection_pause_state",
+        lambda _api_base_url: {
+            "paused": True,
+            "reason": "captcha_solver_running",
+            "captcha_solver": {
+                "running": True,
+                "manual_required": False,
+                "last_request": {"node_id": "pc2", "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1"},
+            },
+        },
+    )
+    monkeypatch.setattr(
+        seed_collector,
+        "fetch_list_page",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("seed probe must wait for active solver")),
+    )
+
+    summary = seed_collector.run_seed_collector_once(
+        seed_collector.SeedCollectorConfig(
+            job_key="guangdong-guangzhou-nansha-50025969",
+            province="广东省",
+            city="广州市",
+            district="南沙区",
+            location_code="440115",
+            category="50025969",
+            sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+            max_page=83,
+            cdp_endpoint="http://127.0.0.1:9223",
+            output_dir=tmp_path,
+            worker_id="seed-test",
+            solver_enabled=True,
+            api_base_url="http://collection-api.test/api",
+        ),
+        repository=repo,
+        http_session=object(),
+        browserless_seed_probe=_FakeProbe,
+    )
+
+    assert summary["decision"] == "seed_collection_paused"
+    assert summary["reason"] == "captcha_solver_running"
+    assert "auth_probe" not in summary
+
+def test_run_seed_collector_once_converts_list_challenge_into_manual_pause_when_status_flips(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repo = _make_repo(tmp_path)
+    pause_states = iter(
+        [
+            {"paused": False, "reason": None, "captcha_solver": {}},
+            {
+                "paused": True,
+                "reason": "captcha_solver_manual_required",
+                "captcha_solver": {
+                    "manual_required": True,
+                    "last_request": {
+                        "target_url": "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&page=14&__captcha_solver_bg=1"
+                    },
+                },
+            },
+        ]
+    )
+    monkeypatch.setattr(seed_collector, "_collection_pause_state_with_retry", lambda _api_base_url: next(pause_states))
+
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
+        return "challenge", target_url, 200, "http_cookie_challenge"
+
+    monkeypatch.setattr(seed_collector, "fetch_list_page", _fetch_list_page)
+
+    summary = seed_collector.run_seed_collector_once(
+        seed_collector.SeedCollectorConfig(
+            job_key="guangdong-guangzhou-nansha-50025969",
+            province="广东省",
+            city="广州市",
+            district="南沙区",
+            location_code="440115",
+            category="50025969",
+            sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+            max_page=83,
+            cdp_endpoint="http://127.0.0.1:9223",
+            output_dir=tmp_path,
+            worker_id="seed-test",
+            solver_enabled=True,
+            api_base_url="http://collection-api.test/api",
+        ),
+        repository=repo,
+        http_session=object(),
+        browserless_seed_probe=_FakeProbe,
+    )
+
+    assert summary["decision"] == "seed_collection_paused"
+    assert summary["reason"] == "captcha_solver_manual_required"
+    assert summary["captcha_solver"]["manual_required"] is True
+
+
 def test_seed_loop_uses_short_auth_probe_sleep_when_manual_required() -> None:
     config = seed_collector.SeedCollectorConfig(
         job_key="guangdong-guangzhou-nansha-50025969",
@@ -451,7 +1294,27 @@ def test_seed_loop_uses_short_auth_probe_sleep_when_manual_required() -> None:
     )
 
 
-def test_seed_pause_state_ignores_background_solver_running_without_manual_required() -> None:
+def test_seed_pause_state_pauses_during_same_node_solver(monkeypatch) -> None:
+    monkeypatch.setenv("FAPAI_NODE_ID", "pc2")
+    pause_state = seed_collector._normalize_collection_pause_state(
+        {
+            "paused": False,
+            "captcha_solver": {
+                "running": True,
+                "paused": True,
+                "manual_required": False,
+                "force_unlock_flag_exists": False,
+                "last_request": {"node_id": "pc2"},
+            },
+        }
+    )
+
+    assert pause_state["paused"] is True
+    assert pause_state["reason"] == "captcha_solver_running"
+
+
+def test_seed_pause_state_ignores_solver_running_for_other_node(monkeypatch) -> None:
+    monkeypatch.setenv("FAPAI_NODE_ID", "pc3")
     pause_state = seed_collector._normalize_collection_pause_state(
         {
             "paused": True,
@@ -460,13 +1323,291 @@ def test_seed_pause_state_ignores_background_solver_running_without_manual_requi
                 "paused": True,
                 "manual_required": False,
                 "force_unlock_flag_exists": False,
+                "last_request": {"node_id": "pc2"},
             },
         }
     )
 
     assert pause_state["paused"] is False
-    assert pause_state["reason"] == "captcha_solver_running_ignored"
+    assert pause_state["reason"] == "captcha_solver_running_other_node"
 
+
+def test_seed_pause_state_force_unlock_keeps_collection_paused_even_for_other_node(monkeypatch) -> None:
+    monkeypatch.setenv("FAPAI_NODE_ID", "pc3")
+    pause_state = seed_collector._normalize_collection_pause_state(
+        {
+            "paused": True,
+            "captcha_solver": {
+                "running": True,
+                "paused": True,
+                "manual_required": False,
+                "force_unlock_flag_exists": True,
+                "last_request": {"node_id": "pc2"},
+            },
+        }
+    )
+
+    assert pause_state["paused"] is True
+    assert pause_state["reason"] == "collection_paused"
+
+
+def test_seed_captcha_solver_targets_current_node_treats_blank_or_casefolded_node_ids_as_current(monkeypatch) -> None:
+    monkeypatch.setenv("FAPAI_NODE_ID", "PC2")
+
+    assert seed_collector._captcha_solver_targets_current_node(
+        {
+            "running": True,
+            "last_request": {"node_id": "pc2"},
+        }
+    ) is True
+    assert seed_collector._captcha_solver_targets_current_node(
+        {
+            "running": True,
+            "last_request": {"node_id": ""},
+        }
+    ) is True
+
+
+def test_pause_state_blocks_seed_stage_ignores_detail_page_manual_pause() -> None:
+    assert seed_collector._pause_state_blocks_seed_stage({"paused": False}) is False
+    assert (
+        seed_collector._pause_state_blocks_seed_stage(
+            {
+                "paused": True,
+                "captcha_solver": {
+                    "manual_required": True,
+                    "last_request": {
+                        "target_url": "https://sf-item.taobao.com/sf_item/3001.htm?__captcha_solver_bg=1"
+                    },
+                },
+            }
+        )
+        is False
+    )
+    assert (
+        seed_collector._pause_state_blocks_seed_stage(
+            {
+                "paused": True,
+                "captcha_solver": {
+                    "manual_required": True,
+                    "last_request": {
+                        "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1"
+                    },
+                },
+            }
+        )
+        is True
+    )
+    assert seed_collector._pause_state_blocks_seed_stage({"paused": True}) is True
+
+
+def test_collection_pause_state_reads_status_via_direct_internal_api(monkeypatch) -> None:
+    captured: dict[str, object] = {}
+    monkeypatch.setenv("FAPAI_NODE_ID", "pc2")
+
+    def _fake_fetch_json(url: str, *, timeout: float):
+        captured["url"] = url
+        captured["timeout"] = timeout
+        return {
+            "paused": True,
+            "captcha_solver": {
+                "running": True,
+                "paused": True,
+                "manual_required": False,
+                "force_unlock_flag_exists": False,
+                "last_request": {"node_id": "pc2"},
+            },
+        }
+
+    monkeypatch.setattr(seed_collector, "fetch_json", _fake_fetch_json)
+
+    pause_state = seed_collector._collection_pause_state("http://192.168.15.200:8001/api")
+
+    assert pause_state["paused"] is True
+    assert pause_state["reason"] == "captcha_solver_running"
+    assert captured == {
+        "url": "http://192.168.15.200:8001/api/status",
+        "timeout": 5,
+    }
+
+
+def test_browser_page_payload_missing_without_challenge_requires_browser_method_and_missing_metadata() -> None:
+    assert (
+        seed_collector._browser_page_payload_missing_without_challenge(
+            "http_cookie",
+            {"has_script": False, "item_count": None},
+        )
+        is False
+    )
+    assert (
+        seed_collector._browser_page_payload_missing_without_challenge(
+            "browser_page_after_http_challenge",
+            [],
+        )
+        is True
+    )
+    assert (
+        seed_collector._browser_page_payload_missing_without_challenge(
+            "browser_page_after_http_challenge",
+            {"has_script": False, "item_count": None},
+        )
+        is True
+    )
+    assert (
+        seed_collector._browser_page_payload_missing_without_challenge(
+            "browser_page_after_http_challenge",
+            {"has_script": True, "item_count": None},
+        )
+        is False
+    )
+    assert (
+        seed_collector._browser_page_payload_missing_without_challenge(
+            "browser_page_after_http_challenge",
+            {"has_script": False, "item_count": 0},
+        )
+        is False
+    )
+
+
+def test_extract_seed_items_normalizes_summary_and_filters_non_dict_items() -> None:
+    class _MixedProbe:
+        @staticmethod
+        def summarize_list_page(_html: str, *, final_url: str) -> object:
+            return "not-a-dict"
+
+        @staticmethod
+        def extract_list_payload(_html: str) -> dict[str, object] | None:
+            return {"data": [{"id": "3001"}]}
+
+        @staticmethod
+        def build_userscript_like_batch_payload(_payload, *, source_page_url: str) -> dict[str, object]:
+            return {
+                "source_page_url": source_page_url,
+                "items": [{"id": "3001"}, None, "skip-me", {"id": "3002"}],
+            }
+
+    items, summary, has_challenge = seed_collector._extract_seed_items(
+        _MixedProbe,
+        "<html>ok</html>",
+        final_url="https://sf.taobao.com/list/page=1",
+    )
+
+    assert items == [{"id": "3001"}, {"id": "3002"}]
+    assert summary == {}
+    assert has_challenge is False
+
+
+def test_seed_page_has_next_respects_max_page_and_raw_item_count() -> None:
+    assert (
+        seed_collector._seed_page_has_next(
+            task_page=3,
+            task_max_page=3,
+            list_summary={"item_count": 2},
+            filtered_items=[{"id": "3001"}],
+        )
+        is False
+    )
+    assert (
+        seed_collector._seed_page_has_next(
+            task_page=1,
+            task_max_page=3,
+            list_summary={"item_count": "0"},
+            filtered_items=[{"id": "3001"}],
+        )
+        is False
+    )
+    assert (
+        seed_collector._seed_page_has_next(
+            task_page=1,
+            task_max_page=3,
+            list_summary={"item_count": "2"},
+            filtered_items=[],
+        )
+        is True
+    )
+    assert (
+        seed_collector._seed_page_has_next(
+            task_page=1,
+            task_max_page=3,
+            list_summary={"item_count": None},
+            filtered_items=[],
+        )
+        is False
+    )
+    assert (
+        seed_collector._seed_page_has_next(
+            task_page=1,
+            task_max_page=3,
+            list_summary={"item_count": "unknown"},
+            filtered_items=[{"id": "3001"}],
+        )
+        is True
+    )
+
+
+def test_pause_state_seed_probe_target_url_normalizes_punish_list_url() -> None:
+    pause_state = {
+        "paused": True,
+        "reason": "captcha_solver_manual_required",
+        "captcha_solver": {
+            "manual_required": True,
+            "last_request": {
+                "target_url": (
+                    "https://sf.taobao.com//list/200782003__2.htm/_____tmd_____/punish"
+                    "?x5secdata=demo&x5step=1&__captcha_solver_bg=1"
+                )
+            },
+        },
+    }
+
+    target_url = seed_collector._pause_state_seed_probe_target_url(pause_state)
+
+    assert target_url == "https://sf.taobao.com/list/200782003__2.htm?__captcha_solver_bg=1"
+
+
+def test_pause_state_seed_probe_target_url_uses_default_for_login_redirect_url() -> None:
+    pause_state = {
+        "paused": True,
+        "reason": "captcha_solver_manual_required",
+        "captcha_solver": {
+            "manual_required": True,
+            "last_request": {
+                "target_url": (
+                    "https://login.taobao.com/havanaone/login/login.htm?"
+                    "redirectURL=https%3A%2F%2Fsf.taobao.com%2Flist%2F50025969__2.htm"
+                    "%3Flocation_code%3D532301%26st_param%3D2%26page%3D19"
+                    "&__captcha_solver_bg=1"
+                )
+            },
+        },
+    }
+
+    target_url = seed_collector._pause_state_seed_probe_target_url(pause_state, allow_default=True)
+
+    assert target_url == "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1"
+
+
+def test_pause_state_seed_probe_target_url_filters_punish_query_to_whitelist() -> None:
+    pause_state = {
+        "paused": True,
+        "reason": "captcha_solver_manual_required",
+        "captcha_solver": {
+            "manual_required": True,
+            "last_request": {
+                "target_url": (
+                    "https://sf.taobao.com/list/50025969__2.htm/_____tmd_____/punish?"
+                    "location_code=440115&st_param=2&auction_start_seg=-1&page=14&keep=visible&x5secdata=demo"
+                )
+            },
+        },
+    }
+
+    target_url = seed_collector._pause_state_seed_probe_target_url(pause_state)
+
+    assert target_url == (
+        "https://sf.taobao.com/list/50025969__2.htm?"
+        "location_code=440115&st_param=2&auction_start_seg=-1&page=14&__captcha_solver_bg=1"
+    )
 
 def test_run_seed_collector_once_ignores_detail_page_manual_pause(tmp_path: Path, monkeypatch) -> None:
     repo = _make_repo(tmp_path)
@@ -486,7 +1627,15 @@ def test_run_seed_collector_once_ignores_detail_page_manual_pause(tmp_path: Path
         },
     )
 
-    def _fetch_list_page(_http, *, cdp_endpoint: str, target_url: str, user_agent: str, solver_enabled: bool):
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
         fetched_urls.append(target_url)
         return "ok", target_url, 200, "http_cookie"
 
@@ -579,6 +1728,14 @@ def test_config_from_env_reads_captcha_solver_enabled(monkeypatch) -> None:
     config, _loop = seed_collector.config_from_env_and_args([])
 
     assert config.solver_enabled is True
+
+
+def test_config_from_env_reads_manual_challenge_reporting(monkeypatch) -> None:
+    monkeypatch.setenv("FAPAI_MANUAL_CHALLENGE_REPORTING", "1")
+
+    config, _loop = seed_collector.config_from_env_and_args([])
+
+    assert config.manual_challenge_reporting is True
 
 
 def test_config_from_env_reads_seed_api_base_url(monkeypatch) -> None:
@@ -820,6 +1977,53 @@ def test_run_seed_collector_loop_ensures_jobs_once_per_process(tmp_path: Path, m
     assert len(ensure_calls) == 1
 
 
+def test_run_seed_collector_loop_releases_existing_worker_leases_once_per_process(tmp_path: Path, monkeypatch) -> None:
+    ensure_calls: list[int] = []
+    monkeypatch.setattr(seed_collector, "_ensure_seed_scan_jobs", lambda *_args, **_kwargs: ensure_calls.append(1) or [])
+    monkeypatch.setattr(
+        seed_collector,
+        "run_seed_collector_once",
+        lambda *_args, **_kwargs: {"decision": "seed_scan_queue_empty", "counts": {"seed_scan_progress_pending": 0}},
+    )
+    monkeypatch.setattr(seed_collector.time, "sleep", lambda _seconds: None)
+
+    class WorkRepository:
+        def __init__(self) -> None:
+            self.release_calls: list[str] = []
+
+        def seed_queue_counts(self) -> dict[str, int]:
+            return {"seed_scan_progress_pending": 1, "seed_scan_progress_in_progress": 0}
+
+        def release_seed_scan_worker_leases(self, worker_id: str) -> dict[str, int]:
+            self.release_calls.append(worker_id)
+            return {"released": 2}
+
+    repository = WorkRepository()
+
+    seed_collector.run_seed_collector_loop(
+        seed_collector.SeedCollectorConfig(
+            job_key="job-1",
+            province="广东省",
+            city="广州市",
+            district="南沙区",
+            location_code="440115",
+            category="50025969",
+            sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+            max_page=83,
+            cdp_endpoint="http://127.0.0.1:9223",
+            output_dir=tmp_path,
+            worker_id="seed-test",
+            max_runs=1,
+            pages_per_run=1,
+        ),
+        repository=repository,  # type: ignore[arg-type]
+        http_session=object(),
+        browserless_seed_probe=object(),
+    )
+
+    assert repository.release_calls == ["seed-test"]
+
+
 def test_run_seed_collector_loop_writes_seed_job_ensure_status_before_fetching(
     tmp_path: Path,
     monkeypatch,
@@ -1016,7 +2220,15 @@ def test_run_seed_collector_loop_ensures_jobs_but_exhausts_current_scope_before_
     repo = _make_repo(tmp_path)
     fetched_urls: list[str] = []
 
-    def _fetch_list_page(_http, *, cdp_endpoint: str, target_url: str, user_agent: str, solver_enabled: bool):
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
         fetched_urls.append(target_url)
         return "ok", target_url, 200, "http_cookie"
 
@@ -1174,6 +2386,52 @@ def test_run_seed_collector_loop_stops_current_cycle_after_solver_enabled_challe
     assert summary["last_decision"] == "seed_page_retryable_failure"
 
 
+def test_run_seed_collector_loop_stops_current_cycle_after_list_challenge_without_solver(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repo = _make_repo(tmp_path)
+    run_once_calls = 0
+
+    def _run_once(_config, *, repository, http_session, browserless_seed_probe, ensure_jobs=True):
+        nonlocal run_once_calls
+        run_once_calls += 1
+        return {
+            "decision": "seed_page_retryable_failure",
+            "reason": "list_challenge_page",
+            "counts": repository.seed_queue_counts(),
+        }
+
+    monkeypatch.setattr(seed_collector, "run_seed_collector_once", _run_once)
+
+    summary = seed_collector.run_seed_collector_loop(
+        seed_collector.SeedCollectorConfig(
+            job_key="guangdong-guangzhou-nansha-50025969",
+            province="广东省",
+            city="广州市",
+            district="南沙区",
+            location_code="440115",
+            category="50025969",
+            sort_specs=seed_collector.parse_seed_sort_specs("bid_desc:2:出价次数由高到低"),
+            max_page=83,
+            cdp_endpoint="http://127.0.0.1:9223",
+            output_dir=tmp_path,
+            worker_id="seed-test",
+            max_runs=1,
+            pages_per_run=10,
+            solver_enabled=False,
+        ),
+        repository=repo,
+        http_session=object(),
+        browserless_seed_probe=_FakeProbe,
+        progress_emit_func=lambda _event: None,
+    )
+
+    assert run_once_calls == 1
+    assert summary["pages_attempted"] == 1
+    assert summary["last_decision"] == "seed_page_retryable_failure"
+
+
 def test_run_seed_collector_loop_does_not_count_paused_state_as_page_attempt(
     tmp_path: Path,
     monkeypatch,
@@ -1226,7 +2484,15 @@ def test_run_seed_collector_loop_collects_multiple_pages_per_cycle(tmp_path: Pat
     fetched_urls: list[str] = []
     sleep_calls: list[int] = []
 
-    def _fetch_list_page(_http, *, cdp_endpoint: str, target_url: str, user_agent: str, solver_enabled: bool):
+    def _fetch_list_page(
+        _http,
+        *,
+        cdp_endpoint: str,
+        target_url: str,
+        user_agent: str,
+        solver_enabled: bool,
+        api_base_url: str | None = None,
+    ):
         fetched_urls.append(target_url)
         return "ok", target_url, 200, "http_cookie"
 
@@ -1459,6 +2725,30 @@ def test_seed_run_progress_event_includes_operator_cycle_summary() -> None:
 
     assert retry_event["last_reason"] == "list_challenge_page"
 
+
+def test_seed_run_progress_event_surfaces_last_auth_probe_for_operator_visibility() -> None:
+    event = seed_collector._seed_run_progress_event(
+        9,
+        [
+            {
+                "decision": "seed_collection_paused",
+                "reason": "captcha_solver_manual_required",
+                "auth_probe": {
+                    "attempted": True,
+                    "authenticated": False,
+                    "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
+                },
+                "counts": {"seed_occurrence_total": 100},
+            }
+        ],
+    )
+
+    assert event["last_auth_probe"] == {
+        "attempted": True,
+        "authenticated": False,
+        "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
+    }
+    assert event["auth_probe_attempted"] is True
 
 def test_run_seed_collector_loop_writes_partial_cycle_summary_after_each_page(
     tmp_path: Path,

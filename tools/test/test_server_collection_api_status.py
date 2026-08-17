@@ -1,9 +1,37 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 import threading
 import time
 import urllib.request
+
+
+def test_build_solver_request_normalizes_taobao_punish_target() -> None:
+    from src import server
+
+    request = server._build_solver_request(
+        {
+            "target_url": (
+                "https://sf.taobao.com//list/200782003__2.htm/_____tmd_____/punish"
+                "?x5secdata=secret"
+                "&location_code=310120"
+                "&st_param=4"
+                "&auction_start_seg=-1"
+                "&page=14"
+                "&x5step=1"
+            )
+        }
+    )
+
+    assert request["target_url"] == (
+        "https://sf.taobao.com/list/200782003__2.htm"
+        "?location_code=310120"
+        "&st_param=4"
+        "&auction_start_seg=-1"
+        "&page=14"
+        "&__captcha_solver_bg=1"
+    )
 
 
 def test_collection_api_lightweight_status_uses_seed_queue_counts(monkeypatch) -> None:
@@ -30,13 +58,38 @@ def test_collection_api_lightweight_status_uses_seed_queue_counts(monkeypatch) -
     payload = server._collection_api_lightweight_status_payload()
 
     assert payload["collection_api_lightweight"] is True
+    assert payload["capabilities"]["manual_captcha_report_v1"] is True
     assert payload["paused"] is False
     assert payload["total_ids"] == 11
     assert payload["captured_count"] == 3
     assert payload["ai_finalized_count"] == 3
     assert payload["sniff_queue_count"] == 1
     assert payload["sniff_done_count"] == 2
+    assert payload["seed_scan_job_pending"] == 1
+    assert payload["seed_scan_job_in_progress"] == 0
+    assert payload["seed_scan_job_completed"] == 2
+    assert payload["seed_scan_job_blocked"] == 0
+    assert payload["seed_scan_progress_pending"] == 0
+    assert payload["seed_scan_progress_in_progress"] == 0
+    assert payload["seed_scan_progress_exhausted"] == 0
+    assert payload["seed_scan_progress_blocked"] == 0
     assert payload["collection_stage"]["seed_queue"]["seed_occurrence_total"] == 12
+
+
+def test_build_info_payload_uses_non_secret_deployment_identity(monkeypatch) -> None:
+    from src import server
+
+    monkeypatch.setenv("FAPAI_BUILD_VERSION", "20260811-01")
+    monkeypatch.setenv("FAPAI_BUILD_COMMIT", "abc123")
+    monkeypatch.setenv("FAPAI_BUILD_TIME", "2026-08-11T12:00:00Z")
+    monkeypatch.setenv("FAPAI_SOURCE_DIGEST", "sha256:test")
+
+    assert server._build_info_payload() == {
+        "version": "20260811-01",
+        "commit": "abc123",
+        "built_at": "2026-08-11T12:00:00Z",
+        "source_digest": "sha256:test",
+    }
 
 
 def test_collection_api_lightweight_status_separates_raw_capture_from_ai_finalized(monkeypatch) -> None:
@@ -114,6 +167,19 @@ def test_collection_api_lightweight_status_exposes_analysis_only_status_fields(m
     assert detail_stage["analysis_ready"] == 6
     assert detail_stage["analysis_backlog"] == 8
     assert detail_stage["analysis_finalized"] == 3
+
+
+def test_solver_force_unlock_flag_path_uses_persistent_state_dir(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    state_dir = tmp_path / "solver-state"
+    monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(state_dir))
+    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {"node_id": "pc2"})
+
+    assert Path(server._solver_force_unlock_flag_path()) == state_dir / "force_unlock.flag"
+    assert server._write_solver_manual_required_flag(1234.0) is None
+    payload = json.loads((state_dir / "force_unlock.flag").read_text(encoding="utf-8"))
+    assert payload["last_request"]["node_id"] == "pc2"
 
 
 def test_collection_api_lightweight_status_surfaces_manual_required_solver_state(monkeypatch, tmp_path) -> None:
@@ -208,11 +274,15 @@ def test_collection_observer_page_contains_three_collection_modules() -> None:
 
     html = server._collection_observer_page_html()
 
-    assert "商品链接采集" in html
-    assert "商品详情页采集" in html
-    assert "商品详情页 AI 分析" in html
-    assert "/api/collection/overview" in html
-    assert "/api/collection/items" in html
+    assert "FapaiFang 采集观察台" in html
+    if "商品链接采集" in html:
+        assert "商品详情页采集" in html
+        assert "商品详情页 AI 分析" in html
+        assert "/api/collection/overview" in html
+        assert "/api/collection/items" in html
+    else:
+        assert '<div id="app"></div>' in html
+        assert "/assets/index-" in html
 
 
 def test_collection_observer_overview_wraps_lightweight_status(monkeypatch) -> None:
@@ -238,6 +308,139 @@ def test_collection_observer_overview_wraps_lightweight_status(monkeypatch) -> N
     assert payload["modules"]["links"]["total"] == 12
     assert payload["modules"]["details"]["captured"] == 8
     assert payload["modules"]["analysis"]["finalized"] == 3
+
+
+def test_pc1_auth_auto_resume_state_summary_reads_shared_state(tmp_path, monkeypatch) -> None:
+    from src import server
+
+    data_root = tmp_path / "datas"
+    data_root.mkdir(parents=True, exist_ok=True)
+    state_path = tmp_path / "secrets" / "pc1-auth-auto-resume-state.json"
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    state_path.write_text(
+        json.dumps(
+            {
+                "mode": "pc1_auth_auto_resume_watch",
+                "status": "completed",
+                "started_at": "2026-08-12T01:00:00Z",
+                "completed_at": "2026-08-12T01:03:30Z",
+                "poll_seconds": 5,
+                "max_wait_seconds": 1800,
+                "api_base": "http://192.168.15.200:8001/api",
+                "cdp_endpoint": "http://127.0.0.1:9225",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    summary = server._pc1_auth_auto_resume_state_summary(Path(data_root))
+
+    assert summary["available"] is True
+    assert summary["mode"] == "pc1_auth_auto_resume_watch"
+    assert summary["status"] == "completed"
+    assert summary["poll_seconds"] == 5
+    assert summary["max_wait_seconds"] == 1800
+    assert summary["wait_elapsed_seconds"] == 210
+    assert summary["api_base"] == "http://192.168.15.200:8001/api"
+    assert summary["cdp_endpoint"] == "http://127.0.0.1:9225"
+
+
+def test_collection_observer_overview_exposes_challenge_metrics_and_auth_watcher(tmp_path, monkeypatch) -> None:
+    from src import server
+
+    class FakeRepository:
+        enabled = True
+
+        def seed_queue_counts(self):
+            return {
+                "seed_occurrence_total": 12,
+                "seed_item_pending_detail": 4,
+                "seed_item_raw_detail_captured": 5,
+                "seed_item_detail_completed": 3,
+            }
+
+    data_root = tmp_path / "datas"
+    avm_root = data_root / "avm"
+    avm_root.mkdir(parents=True, exist_ok=True)
+    (avm_root / "hybrid_seed_collection_runtime.json").write_text(
+        json.dumps(
+            {
+                "decision_counts": {
+                    "browserless_success": 3,
+                    "browser_fallback_required": 2,
+                },
+                "reason_counts": {
+                    "challenge_detected": 2,
+                },
+                "last_reason": "challenge_detected",
+                "last_decision": "browser_fallback_required",
+                "top_fallback_reason": "challenge_detected",
+                "last_probe_summary": {
+                    "body_has_challenge": True,
+                },
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    (avm_root / "hybrid_seed_collection_runtime_history.jsonl").write_text(
+        "\n".join(
+            [
+                json.dumps(
+                    {
+                        "decision_counts": {"browserless_success": 1},
+                        "reason_counts": {},
+                    },
+                    ensure_ascii=False,
+                ),
+                json.dumps(
+                    {
+                        "decision_counts": {"browser_fallback_required": 1},
+                        "reason_counts": {"challenge_detected": 1},
+                    },
+                    ensure_ascii=False,
+                ),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    watcher_path = tmp_path / "secrets" / "pc1-auth-auto-resume-state.json"
+    watcher_path.parent.mkdir(parents=True, exist_ok=True)
+    watcher_path.write_text(
+        json.dumps(
+            {
+                "mode": "pc1_auth_auto_resume_watch",
+                "status": "watching",
+                "started_at": "2026-08-12T01:00:00Z",
+                "poll_seconds": 5,
+                "max_wait_seconds": 1800,
+                "last_error": "cookie export returned non-zero exit code",
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
+    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server, "AVM_SERVICE", type("FakeService", (), {"data_dir": str(data_root)})())
+
+    payload = server._collection_observer_overview_payload()
+
+    assert payload["challenge_metrics"]["available"] is True
+    assert payload["challenge_metrics"]["current_challenge_detected_count"] == 2
+    assert payload["challenge_metrics"]["current_browserless_attempt_count"] == 5
+    assert payload["challenge_metrics"]["current_challenge_hit_rate"] == 0.4
+    assert payload["challenge_metrics"]["recent_challenge_detected_count"] == 1
+    assert payload["challenge_metrics"]["recent_browserless_attempt_count"] == 2
+    assert payload["challenge_metrics"]["recent_challenge_hit_rate"] == 0.5
+    assert payload["challenge_metrics"]["last_probe_body_has_challenge"] is True
+    assert payload["auth_watcher"]["available"] is True
+    assert payload["auth_watcher"]["status"] == "watching"
+    assert payload["auth_watcher"]["poll_seconds"] == 5
+    assert payload["auth_watcher"]["max_wait_seconds"] == 1800
+    assert payload["auth_watcher"]["last_error"] == "cookie export returned non-zero exit code"
 
 
 def test_collection_observer_items_payload_uses_repository(monkeypatch) -> None:
@@ -427,6 +630,106 @@ def test_collection_observer_runtime_control_can_pause_and_resume(monkeypatch, t
     assert resumed["captcha_solver"]["running"] is False
 
 
+def test_collection_api_lightweight_status_keeps_running_when_manual_required_only_targets_detail_and_seed_work_remains(
+    monkeypatch,
+) -> None:
+    from src import server
+
+    class FakeRepository:
+        enabled = True
+
+        def seed_queue_counts(self):
+            return {
+                "seed_scan_job_pending": 9,
+                "seed_scan_job_in_progress": 1,
+                "seed_scan_job_completed": 2,
+                "seed_scan_progress_pending": 20,
+                "seed_scan_progress_in_progress": 1,
+                "seed_scan_progress_exhausted": 0,
+                "seed_scan_progress_blocked": 0,
+                "seed_item_pending_detail": 30,
+                "seed_item_in_progress": 0,
+                "seed_item_raw_detail_captured": 5,
+                "seed_item_analysis_in_progress": 0,
+                "seed_item_analysis_failed": 0,
+                "seed_item_analysis_blocked": 0,
+                "seed_item_detail_completed": 10,
+                "seed_item_detail_failed": 0,
+                "seed_item_detail_blocked": 0,
+                "seed_occurrence_total": 200,
+            }
+
+    monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_REQUEST",
+        {"target_url": "https://sf-item.taobao.com/sf_item/647559663666.htm?__captcha_solver_bg=1"},
+    )
+    monkeypatch.setattr(server, "SOLVER_MANUAL_REQUIRED_EPOCH", 1000.0, raising=False)
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_LAST_EPOCH", 1000.0, raising=False)
+    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 1000.0)
+
+    payload = server._collection_api_lightweight_status_payload()
+
+    assert payload["paused"] is True
+    assert payload["captcha_solver"]["manual_required"] is True
+    assert payload["runtime_state"] == "运行中"
+
+
+def test_collection_api_lightweight_status_reports_pending_auth_when_manual_required_targets_seed_stage(
+    monkeypatch,
+) -> None:
+    from src import server
+
+    class FakeRepository:
+        enabled = True
+
+        def seed_queue_counts(self):
+            return {
+                "seed_scan_job_pending": 9,
+                "seed_scan_job_in_progress": 1,
+                "seed_scan_job_completed": 2,
+                "seed_scan_progress_pending": 20,
+                "seed_scan_progress_in_progress": 1,
+                "seed_scan_progress_exhausted": 0,
+                "seed_scan_progress_blocked": 0,
+                "seed_item_pending_detail": 30,
+                "seed_item_in_progress": 0,
+                "seed_item_raw_detail_captured": 5,
+                "seed_item_analysis_in_progress": 0,
+                "seed_item_analysis_failed": 0,
+                "seed_item_analysis_blocked": 0,
+                "seed_item_detail_completed": 10,
+                "seed_item_detail_failed": 0,
+                "seed_item_detail_blocked": 0,
+                "seed_occurrence_total": 200,
+            }
+
+    monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_REQUEST",
+        {"target_url": "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&__captcha_solver_bg=1"},
+    )
+    monkeypatch.setattr(server, "SOLVER_MANUAL_REQUIRED_EPOCH", 1000.0, raising=False)
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_LAST_EPOCH", 1000.0, raising=False)
+    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 1000.0)
+
+    payload = server._collection_api_lightweight_status_payload()
+
+    assert payload["runtime_state"] == "待认证"
+
+
 def test_collection_observer_auth_complete_clears_pause_and_marks_manual_auth(monkeypatch, tmp_path) -> None:
     from src import server
 
@@ -538,6 +841,45 @@ def test_refresh_auth_cookie_snapshot_writes_only_after_healthy_probe(monkeypatc
     assert result["cookie_count"] == 1
     assert result["health"]["healthy_samples"] == 1
     assert writes == [(cookies, str(snapshot_path))]
+
+
+def test_refresh_auth_cookie_snapshot_derives_node_scoped_path_when_env_is_missing(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    repo_root = tmp_path / "project" / "fapaifang"
+    repo_root.mkdir(parents=True)
+    shared_root = repo_root.parent / "FPFData"
+    shared_root.mkdir()
+    cookies = [{"name": "cookie2", "value": "v", "domain": ".taobao.com", "path": "/"}]
+    writes: list[tuple[list[dict[str, object]], str]] = []
+
+    monkeypatch.delenv("FAPAI_COOKIE_SNAPSHOT", raising=False)
+    monkeypatch.setenv("FAPAI_CDP_ENDPOINT", "http://192.168.15.104:9224")
+    monkeypatch.setattr(server, "REPO_ROOT", repo_root)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_REQUEST",
+        {"cdp_endpoint": "http://192.168.15.104:9224", "node_id": "pc2"},
+    )
+    monkeypatch.setattr(server, "_export_auth_cdp_cookies", lambda endpoint: cookies)
+    monkeypatch.setattr(
+        server,
+        "_summarize_auth_cookies",
+        lambda exported: {"count": len(exported), "domains": [".taobao.com"], "shape_fingerprint": "shape", "value_fingerprint": "value"},
+    )
+    monkeypatch.setattr(
+        server,
+        "_probe_auth_cookie_snapshot_health",
+        lambda exported, sample_urls: {"healthy": True, "healthy_samples": 1, "sample_count": len(sample_urls), "sample_results": []},
+    )
+    monkeypatch.setattr(server, "_write_auth_cookie_snapshot", lambda exported, path: writes.append((list(exported), str(path))))
+
+    result = server._refresh_auth_cookie_snapshot({})
+
+    expected = shared_root / "secrets" / "nodes" / "pc2" / "taobao-cookies.json"
+    assert result["refreshed"] is True
+    assert result["path"] == str(expected)
+    assert writes == [(cookies, str(expected))]
 
 
 def test_refresh_auth_cookie_snapshot_does_not_overwrite_when_probe_is_unhealthy(monkeypatch, tmp_path) -> None:
@@ -654,6 +996,85 @@ def test_run_solver_installs_cancel_checker_for_manual_resume(monkeypatch, tmp_p
     assert not flag_path.exists()
 
 
+def test_run_solver_waits_for_configured_worker_quiescence(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    events: list[object] = []
+
+    class FakeSolver:
+        last_failure_reason = None
+
+        def solve(self):
+            events.append("solve")
+            return True
+
+    def build_solver(_request):
+        events.append("build")
+        return FakeSolver()
+
+    def wait_for_cdp(_request):
+        events.append("cdp_ready")
+        return True
+
+    monkeypatch.setenv("FAPAI_SOLVER_WORKER_QUIESCE_SECONDS", "7")
+    monkeypatch.setattr(server, "_wait_for_solver_cdp_ready", wait_for_cdp, raising=False)
+    monkeypatch.setattr(server, "_build_solver_for_request", build_solver)
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(tmp_path / "force_unlock.flag"))
+    monkeypatch.setattr(server.time, "sleep", lambda seconds: events.append(("sleep", seconds)))
+    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
+    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
+
+    handler = object.__new__(server.DataHandler)
+    handler.run_solver({"target_url": "https://contest.local/captcha"})
+
+    assert events[:4] == [("sleep", 7), "cdp_ready", "build", "solve"]
+    assert server.SOLVER_LAST_STATUS == "solved"
+
+
+def test_wait_for_solver_cdp_ready_requires_consecutive_healthy_probes(monkeypatch) -> None:
+    from src import server
+
+    calls: list[str] = []
+    sleep_calls: list[float] = []
+    monotonic_values = iter([0.0, 0.0, 1.0, 2.0])
+
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, _exc_type, _exc, _tb):
+            return False
+
+        def read(self):
+            return b"[]"
+
+    def fake_urlopen(request, *, timeout):
+        calls.append(request.full_url)
+        assert timeout == 3
+        if len(calls) == 1:
+            raise OSError("browser restarting")
+        return FakeResponse()
+
+    monkeypatch.setenv("FAPAI_SOLVER_CDP_READY_TIMEOUT_SECONDS", "10")
+    monkeypatch.setattr(server, "urlopen", fake_urlopen, raising=False)
+    monkeypatch.setattr(server.time, "monotonic", lambda: next(monotonic_values))
+    monkeypatch.setattr(server.time, "sleep", lambda seconds: sleep_calls.append(seconds))
+
+    assert server._wait_for_solver_cdp_ready({"cdp_endpoint": "http://192.168.15.104:9224"}) is True
+    assert calls == [
+        "http://192.168.15.104:9224/json/list",
+        "http://192.168.15.104:9224/json/list",
+        "http://192.168.15.104:9224/json/list",
+    ]
+    assert sleep_calls == [2, 2]
+
+
 def test_mark_manual_required_requests_running_solver_cancel(monkeypatch, tmp_path) -> None:
     from src import server
 
@@ -672,6 +1093,67 @@ def test_mark_manual_required_requests_running_solver_cancel(monkeypatch, tmp_pa
     assert server.PAUSED is True
     assert server.SOLVER_CANCEL_EPOCH == fake_now
     assert flag_path.exists()
+
+
+def test_manual_only_captcha_report_preserves_detail_target_and_disables_auto_retry(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    flag_path = tmp_path / "force_unlock.flag"
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
+    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
+    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False, raising=False)
+
+    payload = server._manual_only_captcha_report_payload(
+        {
+            "target_url": "https://sf-item.taobao.com/sf_item/3001.htm",
+            "cdp_endpoint": "http://192.168.15.104:9224",
+            "manual_only": True,
+        }
+    )
+
+    assert payload["status"] == "manual_required"
+    assert payload["captcha_solver"]["manual_required"] is True
+    assert payload["captcha_solver"]["manual_only"] is True
+    assert payload["captcha_solver"]["manual_retry_enabled"] is False
+    assert payload["captcha_solver"]["last_request"]["target_url"] == (
+        "https://sf-item.taobao.com/sf_item/3001.htm"
+    )
+    assert flag_path.exists()
+
+    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
+    assert server._manual_solver_retry_enabled() is False
+
+
+def test_manual_only_status_survives_restart_from_persisted_flag(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    flag_path = tmp_path / "force_unlock.flag"
+    flag_path.write_text(
+        json.dumps(
+            {
+                "manual_only": True,
+                "last_request": {
+                    "node_id": "pc2",
+                    "cdp_endpoint": "http://192.168.15.104:9224",
+                    "target_url": "https://sf-item.taobao.com/sf_item/3001.htm",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
+    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False, raising=False)
+
+    status = server._captcha_solver_runtime_status()
+
+    assert status["manual_required"] is True
+    assert status["manual_only"] is True
+    assert status["manual_retry_enabled"] is False
+    assert status["last_request"]["node_id"] == "pc2"
+    assert status["last_request"]["cdp_endpoint"] == "http://192.168.15.104:9224"
 
 
 def test_solver_cancel_for_manual_required_preserves_manual_pause(monkeypatch, tmp_path) -> None:
@@ -949,6 +1431,63 @@ def test_manual_required_auto_retry_uses_default_target_when_last_request_is_mis
     ]
 
 
+def test_manual_required_auto_retry_prefers_seed_target_when_detail_is_blocked_but_seed_stage_has_remaining_work(
+    monkeypatch,
+    tmp_path,
+) -> None:
+    from src import server
+
+    flag_path = tmp_path / "force_unlock.flag"
+    flag_path.write_text("manual verification required", encoding="utf-8")
+    queued: list[dict[str, object]] = []
+
+    monkeypatch.setenv("FAPAI_SOLVER_MANUAL_RETRY_INTERVAL_SECONDS", "0")
+    monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT_SAMPLE_URLS", "https://sf.taobao.com/list/50025969__2.htm")
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
+    monkeypatch.setattr(server, "_probe_solver_cdp_endpoint", lambda endpoint: True)
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_MANUAL_REQUIRED_EPOCH", 0, raising=False)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_REQUEST",
+        {
+            "cdp_endpoint": "http://192.168.15.104:9224",
+            "node_id": "pc2",
+            "target_url": "https://sf-item.taobao.com/sf_item/817695886927.htm?track_id=test&__captcha_solver_bg=1",
+        },
+    )
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_LAST_EPOCH", 0, raising=False)
+    monkeypatch.setattr(
+        server,
+        "_collection_api_lightweight_status_payload",
+        lambda: {
+            "seed_scan_job_pending": 10,
+            "seed_scan_job_in_progress": 1,
+            "seed_scan_progress_pending": 20,
+            "seed_scan_progress_in_progress": 0,
+        },
+    )
+
+    result = server._trigger_manual_solver_retry_if_due(
+        now=1000.0,
+        submit_solver=lambda request: queued.append(dict(request)),
+    )
+
+    assert result["queued"] is True
+    assert queued == [
+        {
+            "cdp_endpoint": "http://192.168.15.104:9224",
+            "node_id": "pc2",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
+        }
+    ]
+
+
 def test_manual_retry_monitor_marks_running_solver_manual_required_after_timeout(monkeypatch, tmp_path) -> None:
     from src import server
 
@@ -1094,6 +1633,140 @@ def test_run_solver_manual_required_flag_preserves_retry_request(monkeypatch, tm
     assert snapshots[0]["last_request"] == solver_request
 
 
+def test_run_solver_success_clears_manual_auth_lock(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    flag_path = tmp_path / "force_unlock.flag"
+
+    class FakeSolver:
+        last_failure_reason = None
+
+        def solve(self):
+            flag_path.write_text('{"manual_required": true}', encoding="utf-8")
+            return True
+
+    monkeypatch.setattr(server, "_build_solver_for_request", lambda _request: FakeSolver())
+    monkeypatch.setattr(server, "_wait_for_solver_cdp_ready", lambda _request: True)
+    monkeypatch.setattr(server, "_solver_worker_quiesce_seconds", lambda: 0)
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
+    monkeypatch.setattr(server.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
+    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
+    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
+
+    handler = object.__new__(server.DataHandler)
+    handler.run_solver({"target_url": "https://contest.local/captcha"})
+
+    assert flag_path.exists() is False
+    assert server.PAUSED is False
+    assert server.COLLECTION_PAUSE_REASON is None
+    assert server.SOLVER_LAST_STATUS == "solved"
+    assert server.SOLVER_LAST_FAILURE_REASON is None
+    assert server._captcha_solver_runtime_status()["manual_required"] is False
+
+
+def test_run_solver_clears_stale_lock_when_page_already_authenticated(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    flag_path = tmp_path / "force_unlock.flag"
+    flag_path.write_text('{"manual_required": true}', encoding="utf-8")
+
+    class FakeSolver:
+        last_failure_reason = None
+        solve_called = False
+
+        def _preflight_current_challenge(self):
+            return {
+                "connected": False,
+                "manual_required": False,
+                "has_slider": False,
+                "already_authenticated": True,
+            }
+
+        def solve(self):
+            self.solve_called = True
+            return False
+
+    fake = FakeSolver()
+    monkeypatch.setattr(server, "_build_solver_for_request", lambda _request: fake)
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
+    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
+    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+
+    handler = object.__new__(server.DataHandler)
+    handler.run_solver({"target_url": "https://sf.taobao.com/list/1.htm"})
+
+    assert fake.solve_called is False
+    assert flag_path.exists() is False
+    assert server.PAUSED is False
+    assert server.COLLECTION_PAUSE_REASON is None
+    assert server.SOLVER_LAST_STATUS == "solved"
+    assert server.SOLVER_LAST_FAILURE_REASON is None
+    assert server._captcha_solver_runtime_status()["manual_required"] is False
+
+
+def test_run_solver_wait_clears_lock_when_page_becomes_authenticated(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    flag_path = tmp_path / "force_unlock.flag"
+
+    class FakeSolver:
+        last_failure_reason = "manual_required"
+
+        def solve(self):
+            return False
+
+        def _preflight_current_challenge(self):
+            return {
+                "connected": False,
+                "manual_required": False,
+                "has_slider": False,
+                "already_authenticated": True,
+            }
+
+    monkeypatch.setattr(server, "_build_solver_for_request", lambda _request: FakeSolver())
+    monkeypatch.setattr(server, "_wait_for_solver_cdp_ready", lambda _request: True)
+    monkeypatch.setattr(server, "_solver_worker_quiesce_seconds", lambda: 0)
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
+    monkeypatch.setattr(server.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", None)
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
+    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
+    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
+    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
+    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
+    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+
+    handler = object.__new__(server.DataHandler)
+    handler.run_solver({"target_url": "https://sf.taobao.com/list/1.htm"})
+
+    assert flag_path.exists() is False
+    assert server.PAUSED is False
+    assert server.COLLECTION_PAUSE_REASON is None
+    assert server.SOLVER_LAST_STATUS == "solved"
+    assert server._captcha_solver_runtime_status()["manual_required"] is False
+
+
 def test_stale_manual_solver_wait_does_not_clear_new_solver_state(monkeypatch, tmp_path) -> None:
     from src import server
 
@@ -1181,4 +1854,7 @@ def test_api_status_uses_lightweight_payload_when_collection_api_mode_is_enabled
 
     assert payload["collection_api_lightweight"] is True
     assert payload["total_ids"] == 11
+    assert payload["seed_scan_job_pending"] == 1
+    assert payload["seed_scan_job_completed"] == 2
+    assert payload["seed_scan_progress_pending"] == 0
     assert payload["collection_stage"]["seed_queue"]["seed_occurrence_total"] == 12

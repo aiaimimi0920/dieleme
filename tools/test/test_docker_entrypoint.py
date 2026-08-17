@@ -226,6 +226,16 @@ def test_seed_collector_command_passes_captcha_solver_enabled_flag() -> None:
     assert command[command.index("--api-base-url") + 1] == "http://collection-api:8001/api"
 
 
+def test_seed_collector_command_honors_seed_specific_solver_env_flag() -> None:
+    command = docker_entrypoint.build_seed_collector_command(
+        {
+            "FAPAI_SEED_CAPTCHA_SOLVER_ENABLED": "1",
+        }
+    )
+
+    assert "--solver-enabled" in command
+
+
 def test_seed_collector_command_passes_jobs_file_and_parallel_sorts_for_seed_pool() -> None:
     command = docker_entrypoint.build_seed_collector_command(
         {
@@ -356,6 +366,18 @@ def test_detail_worker_command_passes_api_base_url_and_solver_flag() -> None:
     )
 
     assert command[command.index("--api-base-url") + 1] == "http://collection-api:8001/api"
+    assert "--solver-enabled" in command
+
+
+def test_detail_worker_command_honors_detail_specific_cdp_and_solver_env_flags() -> None:
+    command = docker_entrypoint.build_detail_worker_command(
+        {
+            "FAPAI_DETAIL_CDP_ENDPOINT": "http://host.docker.internal:9555",
+            "FAPAI_DETAIL_CAPTCHA_SOLVER_ENABLED": "1",
+        }
+    )
+
+    assert command[command.index("--cdp-endpoint") + 1] == "http://host.docker.internal:9555"
     assert "--solver-enabled" in command
 
 

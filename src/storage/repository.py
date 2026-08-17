@@ -4,7 +4,7 @@ import hashlib
 import json
 import os
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, Iterator, Optional, Sequence
 from uuid import uuid4
@@ -42,17 +42,62 @@ def _parse_dt(value: Any) -> Optional[datetime]:
     if value in (None, ""):
         return None
     if isinstance(value, datetime):
-        return value
+        return _coerce_naive_utc(value)
     text = str(value).strip()
     for fmt in ("%Y-%m-%d %H:%M:%S", "%Y/%m/%d %H:%M:%S", "%Y-%m-%d", "%Y/%m/%d"):
         try:
             dt = datetime.strptime(text, fmt)
             if fmt in {"%Y-%m-%d", "%Y/%m/%d"}:
                 dt = dt.replace(hour=0, minute=0, second=0)
-            return dt
+            return _coerce_naive_utc(dt)
         except ValueError:
             continue
     return None
+
+
+def _coerce_naive_utc(value: Optional[datetime]) -> Optional[datetime]:
+    if value is None:
+        return None
+    if value.tzinfo is None or value.utcoffset() is None:
+        return value.replace(tzinfo=None)
+    return value.astimezone(timezone.utc).replace(tzinfo=None)
+
+
+def _utc_now() -> datetime:
+    value = _coerce_naive_utc(datetime.utcnow())
+    if value is None:
+        raise RuntimeError("utc clock returned no value")
+    return value
+
+
+def _lease_reclaimable(
+    lease_until: Optional[datetime],
+    updated_at: Optional[datetime],
+    *,
+    now: datetime,
+    lease_seconds: int,
+) -> bool:
+    normalized_lease_until = _coerce_naive_utc(lease_until)
+    normalized_updated_at = _coerce_naive_utc(updated_at)
+    if normalized_lease_until is None or normalized_lease_until < now:
+        return True
+    max_window = timedelta(seconds=max(max(int(lease_seconds or 0), 1) * 4, 300))
+    if normalized_lease_until - now > max_window:
+        return True
+    if normalized_updated_at is not None and normalized_lease_until - normalized_updated_at > max_window:
+        return True
+    return False
+
+
+def _cooldown_active(updated_at: Optional[datetime], *, now: datetime, cutoff: Optional[datetime]) -> bool:
+    if cutoff is None:
+        return False
+    normalized_updated_at = _coerce_naive_utc(updated_at)
+    if normalized_updated_at is None:
+        return False
+    if normalized_updated_at - now > timedelta(seconds=300):
+        return False
+    return normalized_updated_at >= cutoff
 
 
 def _manual_review_payload_fingerprint(payload: Any) -> str:
@@ -60,11 +105,80 @@ def _manual_review_payload_fingerprint(payload: Any) -> str:
     return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
 
 
+# Keep the locked candidate window small so detail/analysis claim paths do not
+# hold broad row locks while filtering candidates in Python.
+SEED_ITEM_CLAIM_BATCH_LIMIT = 16
+# Avoid starving long-stuck retryable failures behind a large pending backlog.
+SEED_ITEM_STALE_FAILED_PRIORITY_SECONDS = 300
+
+
+def _seed_claim_cursor_clause(
+    priority_expr,
+    sort_first_seen_at,
+    last_cursor: tuple[int, datetime, str] | None,
+):
+    if last_cursor is None:
+        return None
+    last_priority, last_first_seen_at, last_item_id = last_cursor
+    return or_(
+        priority_expr > last_priority,
+        and_(priority_expr == last_priority, sort_first_seen_at > last_first_seen_at),
+        and_(
+            priority_expr == last_priority,
+            sort_first_seen_at == last_first_seen_at,
+            FapaiSeedItem.item_id > last_item_id,
+        ),
+    )
+
+
 def _normalized_seed_text(value: Any) -> str | None:
     if value in (None, "") or isinstance(value, bool):
         return None
     text_value = str(value).strip()
     return text_value or None
+
+
+def _shared_data_root_candidates() -> list[Path]:
+    candidates: list[Path] = []
+    seen: set[str] = set()
+    for env_name in (
+        "FAPAI_SHARED_DATA_ROOT_HOST",
+        "FAPAI_DATA_ROOT_HOST",
+        "FAPAI_SHARED_DATA_ROOT",
+        "FAPAI_DATA_ROOT",
+    ):
+        raw = str(os.getenv(env_name) or "").strip()
+        if not raw:
+            continue
+        path = Path(raw).expanduser()
+        key = str(path)
+        if key in seen:
+            continue
+        seen.add(key)
+        candidates.append(path)
+    return candidates
+
+
+def _resolve_collection_artifact_path(path_value: Any) -> str | None:
+    text = str(path_value or "").strip()
+    if not text:
+        return None
+    if os.path.isfile(text):
+        return text
+
+    normalized = text.replace("\\", "/")
+    if not normalized.startswith("/data/"):
+        return text
+
+    relative_parts = [part for part in normalized[len("/data/") :].split("/") if part]
+    if not relative_parts:
+        return text
+
+    for root in _shared_data_root_candidates():
+        candidate = root.joinpath(*relative_parts)
+        if candidate.is_file():
+            return str(candidate)
+    return text
 
 
 def _taobao_location_override_path() -> Path:
@@ -246,6 +360,7 @@ class PropertyRepository:
 
     @staticmethod
     def _fmt_dt(value: Optional[datetime]) -> Optional[str]:
+        value = _coerce_naive_utc(value)
         if value is None:
             return None
         return value.strftime("%Y-%m-%d %H:%M:%S")
@@ -917,7 +1032,7 @@ class PropertyRepository:
         risk_flags = record["risk_flags"]
         audit = record["audit"]
         item_id = source["item_id"]
-        now = datetime.now()
+        now = _utc_now()
         listing = session.get(PropertyListing, item_id) or PropertyListing(item_id=item_id)
         listing.source_item_id = source.get("source_item_id")
         listing.source_url = source.get("source_url")
@@ -1074,7 +1189,7 @@ class PropertyRepository:
                 session.add(listing)
             listing.is_deleted = True
             listing.deleted_reason = reason
-            listing.last_synced_at = datetime.now()
+            listing.last_synced_at = _utc_now()
             session.add(
                 PropertyIngestEvent(
                     item_id=item_id,
@@ -1619,7 +1734,7 @@ class PropertyRepository:
         if not self.enabled or not event_types:
             return set()
         self.initialize()
-        since = datetime.now() - timedelta(hours=max(hours, 0))
+        since = _utc_now() - timedelta(hours=max(hours, 0))
         with self.session_factory() as session:
             stmt = (
                 select(PropertyIngestEvent.item_id)
@@ -1644,7 +1759,7 @@ class PropertyRepository:
                 .group_by(PropertyIngestEvent.event_type)
             )
             if hours is not None:
-                since = datetime.now() - timedelta(hours=max(hours, 0))
+                since = _utc_now() - timedelta(hours=max(hours, 0))
                 stmt = stmt.where(PropertyIngestEvent.created_at >= since)
             for event_type, count_value in session.execute(stmt):
                 counts[str(event_type)] = int(count_value or 0)
@@ -1672,7 +1787,7 @@ class PropertyRepository:
         if not location_code or not category or not sort_param:
             return
         task_key = self._search_task_key(location_code, category, sort_param)
-        now = datetime.now()
+        now = _utc_now()
         with self.session_factory.begin() as session:
             row = session.get(PropertySearchTask, task_key) or PropertySearchTask(task_key=task_key)
             row.location_code = location_code
@@ -1700,25 +1815,12 @@ class PropertyRepository:
         if not self.enabled:
             return None
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         priority_index = {code: idx for idx, code in enumerate(priority_codes or [])}
         sort_index = {code: idx for idx, code in enumerate(sort_order or ("2", "1", "0", "3", "4", "5"))}
         with self.session_factory.begin() as session:
             rows = session.execute(
-                select(PropertySearchTask)
-                .where(
-                    or_(
-                        PropertySearchTask.status == "pending",
-                        and_(
-                            PropertySearchTask.status == "in_progress",
-                            or_(
-                                PropertySearchTask.lease_until.is_(None),
-                                PropertySearchTask.lease_until < now,
-                                PropertySearchTask.leased_by == session_id,
-                            ),
-                        ),
-                    )
-                )
+                select(PropertySearchTask).where(PropertySearchTask.status.in_(("pending", "in_progress")))
             ).scalars().all()
             ordered_rows = sorted(
                 rows,
@@ -1731,6 +1833,9 @@ class PropertyRepository:
                 ),
             )
             for row in ordered_rows:
+                if row.status == "in_progress" and row.leased_by != session_id:
+                    if not _lease_reclaimable(row.lease_until, row.updated_at, now=now, lease_seconds=lease_seconds):
+                        continue
                 row.status = "in_progress"
                 row.leased_by = session_id
                 row.lease_until = now + timedelta(seconds=max(lease_seconds, 1))
@@ -1773,7 +1878,7 @@ class PropertyRepository:
             return
 
         task_key = self._search_task_key(location_code, category, sort_param)
-        now = datetime.now()
+        now = _utc_now()
         with self.session_factory.begin() as session:
             row = session.get(PropertySearchTask, task_key) or PropertySearchTask(task_key=task_key)
             row.location_code = location_code
@@ -2018,7 +2123,7 @@ class PropertyRepository:
         )
 
     def _refresh_seed_scan_job_status(self, session: Session, job_key: str, now: datetime | None = None) -> None:
-        now = now or datetime.now()
+        now = now or _utc_now()
         job = session.get(FapaiSeedScanJob, job_key)
         if job is None:
             return
@@ -2063,7 +2168,7 @@ class PropertyRepository:
         if not sort_specs:
             raise ValueError("seed scan job requires at least one sort spec")
 
-        now = datetime.now()
+        now = _utc_now()
         progress_created = 0
 
         def apply_job_fields(row: FapaiSeedScanJob) -> None:
@@ -2158,7 +2263,7 @@ class PropertyRepository:
         if not normalized_keys:
             raise ValueError("active_job_keys must not be empty")
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         archived_jobs = 0
         archived_progress = 0
         with self.session_factory.begin() as session:
@@ -2196,6 +2301,32 @@ class PropertyRepository:
             "archived_progress": archived_progress,
         }
 
+    def release_seed_scan_worker_leases(self, worker_id: str) -> Dict[str, int]:
+        if not self.enabled:
+            return {"released": 0}
+        normalized_worker_id = str(worker_id or "").strip()
+        if not normalized_worker_id:
+            return {"released": 0}
+        self.initialize()
+        now = _utc_now()
+        released = 0
+        with self.session_factory.begin() as session:
+            rows = session.scalars(
+                select(FapaiSeedScanProgress).where(
+                    FapaiSeedScanProgress.status == "in_progress",
+                    FapaiSeedScanProgress.leased_by == normalized_worker_id,
+                )
+            ).all()
+            for row in rows:
+                row.status = "pending"
+                row.leased_by = None
+                row.lease_until = None
+                row.updated_at = now
+                session.add(row)
+                self._refresh_seed_scan_job_status(session, row.job_key, now)
+                released += 1
+        return {"released": released}
+
     def claim_seed_scan_page(
         self,
         worker_id: str,
@@ -2208,7 +2339,7 @@ class PropertyRepository:
         if not self.enabled:
             return None
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         lease_until = now + timedelta(seconds=max(lease_seconds, 1))
         cooldown_threshold = max(int(failure_cooldown_threshold or 0), 0)
         cooldown_seconds = max(int(failure_cooldown_seconds or 0), 0)
@@ -2221,36 +2352,27 @@ class PropertyRepository:
                 return False
             if int(row.retry_count or 0) < cooldown_threshold:
                 return False
-            return row.updated_at is not None and row.updated_at >= failure_cooldown_cutoff
+            return _cooldown_active(row.updated_at, now=now, cutoff=failure_cooldown_cutoff)
 
         with self.session_factory.begin() as session:
-            claimable_status_filter = or_(
-                FapaiSeedScanProgress.status == "pending",
-                and_(
-                    FapaiSeedScanProgress.status == "in_progress",
-                    or_(
-                        FapaiSeedScanProgress.lease_until.is_(None),
-                        FapaiSeedScanProgress.lease_until < now,
-                        FapaiSeedScanProgress.leased_by == worker_id,
-                    ),
-                ),
-            )
-            if cooldown_threshold > 0 and failure_cooldown_cutoff is not None:
-                claimable_status_filter = and_(
-                    claimable_status_filter,
-                    or_(
-                        FapaiSeedScanProgress.last_error.is_(None),
-                        FapaiSeedScanProgress.last_error == "",
-                        FapaiSeedScanProgress.retry_count < cooldown_threshold,
-                        FapaiSeedScanProgress.updated_at.is_(None),
-                        FapaiSeedScanProgress.updated_at < failure_cooldown_cutoff,
-                    ),
-                )
             if parallel_sorts:
+                category_rank_expr = case(
+                    (FapaiSeedScanJob.category == "50025969", 0),
+                    (FapaiSeedScanJob.category == "200782003", 1),
+                    else_=10_000,
+                )
                 ordered = session.scalars(
                     select(FapaiSeedScanProgress)
-                    .where(claimable_status_filter)
+                    .join(FapaiSeedScanJob, FapaiSeedScanProgress.job_key == FapaiSeedScanJob.job_key)
+                    .where(FapaiSeedScanProgress.status.in_(("pending", "in_progress")))
                     .order_by(
+                        FapaiSeedScanJob.province,
+                        FapaiSeedScanJob.city,
+                        FapaiSeedScanJob.district,
+                        FapaiSeedScanJob.location_code,
+                        category_rank_expr,
+                        FapaiSeedScanJob.category,
+                        FapaiSeedScanProgress.retry_count,
                         FapaiSeedScanProgress.next_page,
                         FapaiSeedScanProgress.job_key,
                         FapaiSeedScanProgress.sort_order,
@@ -2278,18 +2400,23 @@ class PropertyRepository:
                         row.progress_key,
                     ),
                 )
+            blocked_job_keys: set[str] = set()
             for row in ordered:
+                if not parallel_sorts and row.job_key in blocked_job_keys:
+                    continue
                 if row.status not in {"pending", "in_progress"}:
                     continue
                 if row.status == "in_progress" and row.leased_by != worker_id:
-                    if row.lease_until is not None and row.lease_until >= now:
+                    if not _lease_reclaimable(row.lease_until, row.updated_at, now=now, lease_seconds=lease_seconds):
                         if parallel_sorts:
                             continue
-                        return None
+                        blocked_job_keys.add(row.job_key)
+                        continue
                 if failure_in_cooldown(row):
                     if parallel_sorts:
                         continue
-                    return None
+                    blocked_job_keys.add(row.job_key)
+                    continue
                 if row.max_page is not None and int(row.next_page or 1) > int(row.max_page):
                     row.status = "exhausted"
                     row.leased_by = None
@@ -2303,11 +2430,22 @@ class PropertyRepository:
                     siblings = sorted(progress_by_job.get(row.job_key, []), key=lambda sibling: (int(sibling.sort_order or 0), sibling.progress_key))
                     if any(
                         int(sibling.sort_order or 0) < int(row.sort_order or 0)
-                        and sibling.status != "exhausted"
+                        and sibling.status in {"pending", "in_progress"}
                         and not failure_in_cooldown(sibling)
+                        and not (
+                            sibling.status == "in_progress"
+                            and sibling.leased_by != worker_id
+                            and _lease_reclaimable(
+                                sibling.lease_until,
+                                sibling.updated_at,
+                                now=now,
+                                lease_seconds=lease_seconds,
+                            )
+                        )
                         for sibling in siblings
                     ):
-                        return None
+                        blocked_job_keys.add(row.job_key)
+                        continue
 
                 job = session.get(FapaiSeedScanJob, row.job_key)
                 if job is None:
@@ -2332,7 +2470,7 @@ class PropertyRepository:
         if not self.enabled:
             return
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         with self.session_factory.begin() as session:
             row = session.get(FapaiSeedScanProgress, progress_key)
             if row is None:
@@ -2341,6 +2479,7 @@ class PropertyRepository:
             row.last_item_count = int(item_count or 0)
             row.last_fetch_url = source_url
             row.last_error = None
+            row.retry_count = 0
             row.leased_by = None
             row.lease_until = None
             max_page = int(row.max_page) if row.max_page else None
@@ -2360,13 +2499,17 @@ class PropertyRepository:
         if not self.enabled:
             return
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         with self.session_factory.begin() as session:
             row = session.get(FapaiSeedScanProgress, progress_key)
             if row is None:
                 return
+            previous_error = str(row.last_error or "").strip()
             row.last_error = str(error)
-            row.retry_count = int(row.retry_count or 0) + 1
+            if previous_error:
+                row.retry_count = int(row.retry_count or 0) + 1
+            else:
+                row.retry_count = 1
             row.leased_by = None
             row.lease_until = None
             row.status = "pending" if retryable else "blocked"
@@ -2390,7 +2533,7 @@ class PropertyRepository:
         if not self.enabled:
             return {"seen": 0, "new_items": 0, "existing_items": 0, "new_occurrences": 0}
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         seen = 0
         new_items = 0
         existing_items = 0
@@ -2537,13 +2680,18 @@ class PropertyRepository:
         if not self.enabled:
             return None
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         lease_until = now + timedelta(seconds=max(lease_seconds, 1))
         excluded = {str(item_id) for item_id in (exclude_item_ids or ())}
         attempt_limit = max(int(max_item_attempts), 1) if max_item_attempts is not None else None
         cooldown_seconds = max(int(failure_cooldown_seconds or 0), 0)
         failure_cooldown_cutoff = now - timedelta(seconds=cooldown_seconds) if cooldown_seconds > 0 else None
+        claimed_item_id: str | None = None
+        claimed_payload: Dict[str, Any] | None = None
         with self.session_factory.begin() as session:
+            stale_failed_retry_cutoff = now - timedelta(seconds=SEED_ITEM_STALE_FAILED_PRIORITY_SECONDS)
+            stale_retry_timestamp = func.coalesce(FapaiSeedItem.updated_at, FapaiSeedItem.first_seen_at)
+            sort_first_seen_at = func.coalesce(FapaiSeedItem.first_seen_at, datetime.min)
             detail_claim_priority = case(
                 (
                     and_(
@@ -2555,83 +2703,180 @@ class PropertyRepository:
                     ),
                     0,
                 ),
-                (FapaiSeedItem.status == "pending_detail", 1),
-                (FapaiSeedItem.status == "detail_failed", 2),
-                (FapaiSeedItem.status == "in_progress", 3),
+                (
+                    and_(
+                        FapaiSeedItem.status == "detail_failed",
+                        stale_retry_timestamp < stale_failed_retry_cutoff,
+                    ),
+                    1,
+                ),
+                (FapaiSeedItem.status == "pending_detail", 2),
+                (FapaiSeedItem.status == "detail_failed", 3),
+                (FapaiSeedItem.status == "in_progress", 4),
                 else_=99,
             )
-            claim_query = (
-                select(FapaiSeedItem)
-                .where(
-                    or_(
-                        FapaiSeedItem.status.in_(("pending_detail", "detail_failed")),
-                        and_(
-                            FapaiSeedItem.status == "in_progress",
-                            or_(
-                                FapaiSeedItem.detail_lease_until.is_(None),
-                                FapaiSeedItem.detail_lease_until < now,
-                                FapaiSeedItem.detail_leased_by == worker_id,
-                            ),
-                        ),
+
+            def _detail_row_priority(row: FapaiSeedItem) -> int:
+                if (
+                    row.status == "in_progress"
+                    and row.detail_leased_by != worker_id
+                    and _lease_reclaimable(row.detail_lease_until, row.updated_at, now=now, lease_seconds=lease_seconds)
+                ):
+                    return 0
+                if row.status == "detail_failed" and (
+                    (_coerce_naive_utc(row.updated_at) or row.first_seen_at or datetime.min) < stale_failed_retry_cutoff
+                ):
+                    return 1
+                if row.status == "pending_detail":
+                    return 2
+                if row.status == "detail_failed":
+                    return 3
+                return 4
+
+            last_cursor: tuple[int, datetime, str] | None = None
+            while claimed_payload is None:
+                candidate_query = (
+                    select(
+                        FapaiSeedItem.item_id,
+                        detail_claim_priority.label("claim_priority"),
+                        sort_first_seen_at.label("sort_first_seen_at"),
+                    )
+                    .where(FapaiSeedItem.status.in_(("pending_detail", "detail_failed", "in_progress")))
+                    .order_by(detail_claim_priority, sort_first_seen_at.asc(), FapaiSeedItem.item_id.asc())
+                    .limit(SEED_ITEM_CLAIM_BATCH_LIMIT)
+                )
+                if excluded:
+                    candidate_query = candidate_query.where(not_(FapaiSeedItem.item_id.in_(excluded)))
+                cursor_clause = _seed_claim_cursor_clause(detail_claim_priority, sort_first_seen_at, last_cursor)
+                if cursor_clause is not None:
+                    candidate_query = candidate_query.where(cursor_clause)
+                candidates = session.execute(candidate_query).all()
+                if not candidates:
+                    break
+                locked_rows: list[FapaiSeedItem] = []
+                for candidate in candidates:
+                    candidate_item_id = str(candidate.item_id)
+                    row = session.scalars(
+                        select(FapaiSeedItem)
+                        .where(FapaiSeedItem.item_id == candidate_item_id)
+                        .with_for_update(skip_locked=True)
+                    ).first()
+                    if row is None:
+                        continue
+                    locked_rows.append(row)
+                remaining_rows: list[FapaiSeedItem] = []
+                for row in locked_rows:
+                    attempt_count = int(row.detail_attempt_count or 0)
+                    if attempt_limit is not None and attempt_count >= attempt_limit:
+                        row.status = "detail_blocked"
+                        row.detail_leased_by = None
+                        row.detail_lease_until = None
+                        previous_error = (row.detail_last_error or "").strip()
+                        limit_error = f"retry limit reached: attempts={attempt_count}, max={attempt_limit}"
+                        row.detail_last_error = (
+                            f"{limit_error}; previous_error={previous_error}" if previous_error else limit_error
+                        )
+                        session.add(row)
+                        continue
+                    remaining_rows.append(row)
+                remaining_rows.sort(
+                    key=lambda row: (
+                        _detail_row_priority(row),
+                        row.first_seen_at or datetime.min,
+                        row.item_id,
                     )
                 )
-                .order_by(detail_claim_priority, FapaiSeedItem.first_seen_at.asc(), FapaiSeedItem.item_id.asc())
-                .with_for_update(skip_locked=True)
-            )
-            if excluded:
-                claim_query = claim_query.where(not_(FapaiSeedItem.item_id.in_(excluded)))
-            rows = session.scalars(claim_query).all()
-            claimable_rows = []
-            for row in rows:
-                attempt_count = int(row.detail_attempt_count or 0)
-                if attempt_limit is not None and attempt_count >= attempt_limit:
-                    row.status = "detail_blocked"
-                    row.detail_leased_by = None
-                    row.detail_lease_until = None
-                    previous_error = (row.detail_last_error or "").strip()
-                    limit_error = f"retry limit reached: attempts={attempt_count}, max={attempt_limit}"
-                    row.detail_last_error = f"{limit_error}; previous_error={previous_error}" if previous_error else limit_error
+                for row in remaining_rows:
+                    if row.status == "in_progress" and row.detail_leased_by != worker_id:
+                        if not _lease_reclaimable(
+                            row.detail_lease_until,
+                            row.updated_at,
+                            now=now,
+                            lease_seconds=lease_seconds,
+                        ):
+                            continue
+                    if (
+                        failure_cooldown_cutoff is not None
+                        and row.status == "detail_failed"
+                        and _cooldown_active(row.updated_at, now=now, cutoff=failure_cooldown_cutoff)
+                    ):
+                        continue
+                    attempt_count = int(row.detail_attempt_count or 0)
+                    row.status = "in_progress"
+                    row.detail_leased_by = worker_id
+                    row.detail_lease_until = lease_until
+                    row.detail_attempt_count = attempt_count + 1
                     session.add(row)
-                    continue
-                if (
-                    failure_cooldown_cutoff is not None
-                    and row.status == "detail_failed"
-                    and row.updated_at is not None
-                    and row.updated_at >= failure_cooldown_cutoff
-                ):
-                    continue
-                claimable_rows.append(row)
-            for row in claimable_rows:
-                attempt_count = int(row.detail_attempt_count or 0)
-                row.status = "in_progress"
-                row.detail_leased_by = worker_id
-                row.detail_lease_until = lease_until
-                row.detail_attempt_count = attempt_count + 1
+                    claimed_item_id = row.item_id
+                    claimed_payload = dict(row.source_payload or {})
+                    claimed_payload.setdefault("id", row.item_id)
+                    claimed_payload.setdefault("item_id", row.item_id)
+                    claimed_payload.setdefault("source_item_id", row.source_item_id or row.item_id)
+                    claimed_payload.setdefault("url", self._seed_item_url(row.item_id, row.source_url))
+                    claimed_payload.setdefault("source_url", claimed_payload.get("url"))
+                    if row.title:
+                        claimed_payload.setdefault("title", row.title)
+                        claimed_payload.setdefault("source_title", row.title)
+                    break
+                if claimed_payload is not None:
+                    break
+                last_candidate = candidates[-1]
+                last_cursor = (
+                    int(last_candidate.claim_priority),
+                    _coerce_naive_utc(last_candidate.sort_first_seen_at) or datetime.min,
+                    str(last_candidate.item_id),
+                )
+                if len(candidates) < SEED_ITEM_CLAIM_BATCH_LIMIT:
+                    break
+        if claimed_payload is None or claimed_item_id is None:
+            return None
+        with self.session_factory() as session:
+            occurrence = session.scalars(
+                select(FapaiSeedOccurrence)
+                .where(FapaiSeedOccurrence.item_id == claimed_item_id)
+                .order_by(FapaiSeedOccurrence.seen_at.asc(), FapaiSeedOccurrence.id.asc())
+            ).first()
+            if occurrence is not None:
+                claimed_payload.setdefault("source_page_url", occurrence.source_page_url)
+                claimed_payload.setdefault("list_location_code", None)
+                claimed_payload.setdefault("list_category", None)
+                claimed_payload.setdefault("list_st_param", occurrence.st_param)
+                claimed_payload.setdefault("list_page", occurrence.page)
+                claimed_payload.setdefault("list_sort_key", occurrence.sort_key)
+                claimed_payload.setdefault("list_sort_name", occurrence.sort_name)
+        return claimed_payload
+
+    def release_seed_detail_worker_leases(self, worker_id: str) -> Dict[str, int]:
+        if not self.enabled:
+            return {"released": 0}
+        normalized_worker_id = str(worker_id or "").strip()
+        if not normalized_worker_id:
+            return {"released": 0}
+        self.initialize()
+        now = _utc_now()
+        released = 0
+        with self.session_factory.begin() as session:
+            rows = session.scalars(
+                select(FapaiSeedItem).where(
+                    FapaiSeedItem.detail_leased_by == normalized_worker_id,
+                    FapaiSeedItem.status.in_(("in_progress", "analysis_in_progress")),
+                )
+            ).all()
+            for row in rows:
+                if row.status == "analysis_in_progress":
+                    row.status = "raw_detail_captured"
+                    payload = dict(row.source_payload or {})
+                    payload["_analysis_attempt_count"] = max(int(payload.get("_analysis_attempt_count") or 0) - 1, 0)
+                    row.source_payload = payload
+                else:
+                    row.status = "pending_detail"
+                    row.detail_attempt_count = max(int(row.detail_attempt_count or 0) - 1, 0)
+                row.detail_leased_by = None
+                row.detail_lease_until = None
+                row.updated_at = now
                 session.add(row)
-                occurrence = session.scalars(
-                    select(FapaiSeedOccurrence)
-                    .where(FapaiSeedOccurrence.item_id == row.item_id)
-                    .order_by(FapaiSeedOccurrence.seen_at.asc(), FapaiSeedOccurrence.id.asc())
-                ).first()
-                payload = dict(row.source_payload or {})
-                payload.setdefault("id", row.item_id)
-                payload.setdefault("item_id", row.item_id)
-                payload.setdefault("source_item_id", row.source_item_id or row.item_id)
-                payload.setdefault("url", self._seed_item_url(row.item_id, row.source_url))
-                payload.setdefault("source_url", payload.get("url"))
-                if row.title:
-                    payload.setdefault("title", row.title)
-                    payload.setdefault("source_title", row.title)
-                if occurrence is not None:
-                    payload.setdefault("source_page_url", occurrence.source_page_url)
-                    payload.setdefault("list_location_code", None)
-                    payload.setdefault("list_category", None)
-                    payload.setdefault("list_st_param", occurrence.st_param)
-                    payload.setdefault("list_page", occurrence.page)
-                    payload.setdefault("list_sort_key", occurrence.sort_key)
-                    payload.setdefault("list_sort_name", occurrence.sort_name)
-                return payload
-        return None
+                released += 1
+        return {"released": released}
 
     def mark_seed_detail_completed(
         self,
@@ -2643,7 +2888,7 @@ class PropertyRepository:
         if not self.enabled:
             return
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         with self.session_factory.begin() as session:
             row = session.get(FapaiSeedItem, str(item_id))
             if row is None:
@@ -2668,7 +2913,7 @@ class PropertyRepository:
         if not self.enabled:
             return
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         with self.session_factory.begin() as session:
             row = session.get(FapaiSeedItem, str(item_id))
             if row is None:
@@ -2700,73 +2945,182 @@ class PropertyRepository:
         if not self.enabled:
             return None
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         lease_until = now + timedelta(seconds=max(lease_seconds, 1))
         excluded = {str(item_id) for item_id in (exclude_item_ids or ())}
         attempt_limit = max(int(max_analysis_attempts), 1) if max_analysis_attempts is not None else None
+        claimed_payload: Dict[str, Any] | None = None
         with self.session_factory.begin() as session:
+            stale_failed_retry_cutoff = now - timedelta(seconds=SEED_ITEM_STALE_FAILED_PRIORITY_SECONDS)
+            stale_retry_timestamp = func.coalesce(FapaiSeedItem.updated_at, FapaiSeedItem.first_seen_at)
+            sort_first_seen_at = func.coalesce(FapaiSeedItem.first_seen_at, datetime.min)
             raw_claim_priority = case(
-                (FapaiSeedItem.status == "raw_detail_captured", 0),
-                (FapaiSeedItem.status == "analysis_failed", 1),
-                (FapaiSeedItem.status == "analysis_in_progress", 2),
+                (
+                    and_(
+                        FapaiSeedItem.status == "analysis_failed",
+                        stale_retry_timestamp < stale_failed_retry_cutoff,
+                    ),
+                    0,
+                ),
+                (FapaiSeedItem.status == "raw_detail_captured", 1),
+                (FapaiSeedItem.status == "analysis_failed", 2),
+                (FapaiSeedItem.status == "analysis_in_progress", 3),
                 else_=99,
             )
-            claim_query = (
-                select(FapaiSeedItem)
-                .where(
-                    or_(
-                        FapaiSeedItem.status.in_(("raw_detail_captured", "analysis_failed")),
-                        and_(
-                            FapaiSeedItem.status == "analysis_in_progress",
-                            or_(
-                                FapaiSeedItem.detail_lease_until.is_(None),
-                                FapaiSeedItem.detail_lease_until < now,
-                                FapaiSeedItem.detail_leased_by == worker_id,
-                            ),
-                        ),
+
+            def _analysis_row_priority(row: FapaiSeedItem) -> int:
+                if row.status == "analysis_failed" and (
+                    (_coerce_naive_utc(row.updated_at) or row.first_seen_at or datetime.min) < stale_failed_retry_cutoff
+                ):
+                    return 0
+                if row.status == "raw_detail_captured":
+                    return 1
+                if row.status == "analysis_failed":
+                    return 2
+                if (
+                    row.status == "analysis_in_progress"
+                    and row.detail_leased_by != worker_id
+                    and _lease_reclaimable(row.detail_lease_until, row.updated_at, now=now, lease_seconds=lease_seconds)
+                ):
+                    return 3
+                return 4
+
+            last_cursor: tuple[int, datetime, str] | None = None
+            while claimed_payload is None:
+                candidate_query = (
+                    select(
+                        FapaiSeedItem.item_id,
+                        raw_claim_priority.label("claim_priority"),
+                        sort_first_seen_at.label("sort_first_seen_at"),
+                    )
+                    .where(FapaiSeedItem.status.in_(("raw_detail_captured", "analysis_failed", "analysis_in_progress")))
+                    .order_by(raw_claim_priority, sort_first_seen_at.asc(), FapaiSeedItem.item_id.asc())
+                    .limit(SEED_ITEM_CLAIM_BATCH_LIMIT)
+                )
+                if excluded:
+                    candidate_query = candidate_query.where(not_(FapaiSeedItem.item_id.in_(excluded)))
+                cursor_clause = _seed_claim_cursor_clause(raw_claim_priority, sort_first_seen_at, last_cursor)
+                if cursor_clause is not None:
+                    candidate_query = candidate_query.where(cursor_clause)
+                candidates = session.execute(candidate_query).all()
+                if not candidates:
+                    break
+                locked_rows: list[FapaiSeedItem] = []
+                for candidate in candidates:
+                    candidate_item_id = str(candidate.item_id)
+                    row = session.scalars(
+                        select(FapaiSeedItem)
+                        .where(FapaiSeedItem.item_id == candidate_item_id)
+                        .with_for_update(skip_locked=True)
+                    ).first()
+                    if row is None:
+                        continue
+                    locked_rows.append(row)
+                remaining_rows: list[tuple[FapaiSeedItem, Dict[str, Any], Dict[str, Any], str, str, str]] = []
+                for row in locked_rows:
+                    payload = dict(row.source_payload or {})
+                    artifacts = dict(payload.get("_raw_detail_artifacts") or {})
+                    detail_html_path = str(
+                        _resolve_collection_artifact_path(artifacts.get("detail_html_path")) or ""
+                    ).strip()
+                    selected_json_path = str(
+                        _resolve_collection_artifact_path(artifacts.get("selected_json_path") or row.selected_json_path) or ""
+                    ).strip()
+                    description_json_path = str(
+                        _resolve_collection_artifact_path(artifacts.get("description_json_path")) or ""
+                    ).strip()
+                    if not detail_html_path or not os.path.isfile(detail_html_path):
+                        row.status = "analysis_blocked"
+                        row.detail_leased_by = None
+                        row.detail_lease_until = None
+                        row.detail_last_error = (
+                            f"analysis raw detail artifact missing: detail_html_path={detail_html_path or '<missing>'}"
+                        )
+                        session.add(row)
+                        continue
+                    attempt_count = int(payload.get("_analysis_attempt_count") or 0)
+                    if attempt_limit is not None and attempt_count >= attempt_limit:
+                        row.status = "analysis_blocked"
+                        row.detail_leased_by = None
+                        row.detail_lease_until = None
+                        previous_error = (row.detail_last_error or "").strip()
+                        limit_error = f"analysis retry limit reached: attempts={attempt_count}, max={attempt_limit}"
+                        row.detail_last_error = (
+                            f"{limit_error}; previous_error={previous_error}" if previous_error else limit_error
+                        )
+                        session.add(row)
+                        continue
+                    remaining_rows.append(
+                        (
+                            row,
+                            payload,
+                            artifacts,
+                            detail_html_path,
+                            selected_json_path,
+                            description_json_path,
+                        )
+                    )
+                remaining_rows.sort(
+                    key=lambda row: (
+                        _analysis_row_priority(row[0]),
+                        row[0].first_seen_at or datetime.min,
+                        row[0].item_id,
                     )
                 )
-                .order_by(raw_claim_priority, FapaiSeedItem.first_seen_at.asc(), FapaiSeedItem.item_id.asc())
-                .with_for_update(skip_locked=True)
-            )
-            if excluded:
-                claim_query = claim_query.where(not_(FapaiSeedItem.item_id.in_(excluded)))
-            rows = session.scalars(claim_query).all()
-            for row in rows:
-                payload = dict(row.source_payload or {})
-                attempt_count = int(payload.get("_analysis_attempt_count") or 0)
-                if attempt_limit is not None and attempt_count >= attempt_limit:
-                    row.status = "analysis_blocked"
-                    row.detail_leased_by = None
-                    row.detail_lease_until = None
-                    previous_error = (row.detail_last_error or "").strip()
-                    limit_error = f"analysis retry limit reached: attempts={attempt_count}, max={attempt_limit}"
-                    row.detail_last_error = f"{limit_error}; previous_error={previous_error}" if previous_error else limit_error
-                    session.add(row)
-                    continue
+                for row, payload, artifacts, detail_html_path, selected_json_path, description_json_path in remaining_rows:
+                    if row.status == "analysis_in_progress" and row.detail_leased_by != worker_id:
+                        if not _lease_reclaimable(
+                            row.detail_lease_until,
+                            row.updated_at,
+                            now=now,
+                            lease_seconds=lease_seconds,
+                        ):
+                            continue
+                    attempt_count = int(payload.get("_analysis_attempt_count") or 0)
 
-                row.status = "analysis_in_progress"
-                row.detail_leased_by = worker_id
-                row.detail_lease_until = lease_until
-                payload["_analysis_attempt_count"] = attempt_count + 1
-                payload.setdefault("id", row.item_id)
-                payload.setdefault("item_id", row.item_id)
-                payload.setdefault("source_item_id", row.source_item_id or row.item_id)
-                payload.setdefault("url", self._seed_item_url(row.item_id, row.source_url))
-                payload.setdefault("source_url", payload.get("url"))
-                if row.title:
-                    payload.setdefault("title", row.title)
-                    payload.setdefault("source_title", row.title)
-                if row.selected_json_path:
-                    artifacts = dict(payload.get("_raw_detail_artifacts") or {})
-                    artifacts.setdefault("selected_json_path", row.selected_json_path)
+                    row.status = "analysis_in_progress"
+                    row.detail_leased_by = worker_id
+                    row.detail_lease_until = lease_until
+                    payload["_analysis_attempt_count"] = attempt_count + 1
+                    payload.setdefault("id", row.item_id)
+                    payload.setdefault("item_id", row.item_id)
+                    payload.setdefault("source_item_id", row.source_item_id or row.item_id)
+                    payload.setdefault("url", self._seed_item_url(row.item_id, row.source_url))
+                    payload.setdefault("source_url", payload.get("url"))
+                    if row.title:
+                        payload.setdefault("title", row.title)
+                        payload.setdefault("source_title", row.title)
+                    artifacts["detail_html_path"] = detail_html_path
+                    if selected_json_path:
+                        artifacts["selected_json_path"] = selected_json_path
+                    if description_json_path:
+                        artifacts["description_json_path"] = description_json_path
                     payload["_raw_detail_artifacts"] = artifacts
-                row.source_payload = payload
-                session.add(row)
-                return dict(payload)
-        return None
+                    row.source_payload = payload
+                    session.add(row)
+                    claimed_payload = dict(payload)
+                    break
+                if claimed_payload is not None:
+                    break
+                last_candidate = candidates[-1]
+                last_cursor = (
+                    int(last_candidate.claim_priority),
+                    _coerce_naive_utc(last_candidate.sort_first_seen_at) or datetime.min,
+                    str(last_candidate.item_id),
+                )
+                if len(candidates) < SEED_ITEM_CLAIM_BATCH_LIMIT:
+                    break
+        return claimed_payload
 
-    def mark_seed_detail_analysis_failed(self, item_id: str, error: str, *, retryable: bool = True) -> None:
+    def mark_seed_detail_analysis_failed(
+        self,
+        item_id: str,
+        error: str,
+        *,
+        retryable: bool = True,
+        revert_attempt: bool = False,
+        restore_raw: bool = False,
+    ) -> None:
         if not self.enabled:
             return
         self.initialize()
@@ -2774,13 +3128,25 @@ class PropertyRepository:
             row = session.get(FapaiSeedItem, str(item_id))
             if row is None:
                 return
-            row.status = "analysis_failed" if retryable else "analysis_blocked"
+            row.status = "raw_detail_captured" if restore_raw else "analysis_failed" if retryable else "analysis_blocked"
             row.detail_leased_by = None
             row.detail_lease_until = None
             row.detail_last_error = str(error)
+            if revert_attempt:
+                payload = dict(row.source_payload or {})
+                payload["_analysis_attempt_count"] = max(int(payload.get("_analysis_attempt_count") or 0) - 1, 0)
+                row.source_payload = payload
             session.add(row)
 
-    def mark_seed_detail_failed(self, item_id: str, error: str, *, retryable: bool = True) -> None:
+    def mark_seed_detail_failed(
+        self,
+        item_id: str,
+        error: str,
+        *,
+        retryable: bool = True,
+        revert_attempt: bool = False,
+        restore_pending: bool = False,
+    ) -> None:
         if not self.enabled:
             return
         self.initialize()
@@ -2788,10 +3154,15 @@ class PropertyRepository:
             row = session.get(FapaiSeedItem, str(item_id))
             if row is None:
                 return
-            row.status = "detail_failed" if retryable else "detail_blocked"
+            if restore_pending:
+                row.status = "pending_detail"
+            else:
+                row.status = "detail_failed" if retryable else "detail_blocked"
             row.detail_leased_by = None
             row.detail_lease_until = None
             row.detail_last_error = str(error)
+            if revert_attempt:
+                row.detail_attempt_count = max(int(row.detail_attempt_count or 0) - 1, 0)
             session.add(row)
 
     @staticmethod
@@ -3086,7 +3457,7 @@ class PropertyRepository:
         if not self.enabled or not safe_location_code:
             return {"ok": False, "location_code": safe_location_code, "error": "location_code is required"}
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         with self.session_factory.begin() as session:
             jobs = session.scalars(select(FapaiSeedScanJob).where(FapaiSeedScanJob.location_code == safe_location_code)).all()
             job_keys = [job.job_key for job in jobs]
@@ -3181,6 +3552,7 @@ class PropertyRepository:
     def _read_collection_artifact(path_value: str | None, *, max_chars: int) -> Dict[str, Any]:
         payload: Dict[str, Any] = {
             "path": path_value,
+            "resolved_path": None,
             "exists": False,
             "content": None,
             "truncated": False,
@@ -3190,10 +3562,12 @@ class PropertyRepository:
         if not path_value:
             return payload
         try:
-            if not os.path.isfile(path_value):
+            resolved_path = _resolve_collection_artifact_path(path_value)
+            payload["resolved_path"] = resolved_path
+            if not resolved_path or not os.path.isfile(resolved_path):
                 return payload
             payload["exists"] = True
-            with open(path_value, "r", encoding="utf-8", errors="replace") as handle:
+            with open(resolved_path, "r", encoding="utf-8", errors="replace") as handle:
                 content = handle.read(max_chars + 1)
             if len(content) > max_chars:
                 payload["content"] = content[:max_chars]
@@ -3267,7 +3641,7 @@ class PropertyRepository:
         if not self.enabled or not safe_item_id:
             return {"ok": False, "item_id": safe_item_id, "error": "item_id is required"}
         self.initialize()
-        now = datetime.now()
+        now = _utc_now()
         with self.session_factory.begin() as session:
             row = session.get(FapaiSeedItem, safe_item_id)
             if row is None:
@@ -3416,7 +3790,7 @@ class PropertyRepository:
         self.initialize()
         action = str(receipt.get("action") or "").strip()
         ready_signal = str(receipt.get("ready_signal") or "").strip()
-        now = datetime.now()
+        now = _utc_now()
         with self.session_factory.begin() as session:
             row = session.get(ManualReviewReceipt, {"action": action, "ready_signal": ready_signal})
             operation = "updated" if row is not None else "created"
@@ -3473,7 +3847,7 @@ class PropertyRepository:
                 row.payload = dict(item.get("payload") or {})
                 row.source = str(item.get("source") or "").strip() or None
                 row.resolution_notes = str(item.get("resolution_notes") or "").strip() or None
-                row.receipt_updated_at = _parse_dt(item.get("updated_at")) or datetime.now()
+                row.receipt_updated_at = _parse_dt(item.get("updated_at")) or _utc_now()
                 session.add(row)
                 imported += 1
         return imported
@@ -3526,7 +3900,7 @@ class PropertyRepository:
             return {}
         self.initialize()
         receipt = dict(receipt or {})
-        now = datetime.now()
+        now = _utc_now()
         row = ManualReviewReceiptOperation(
             operation_id=str(uuid4()),
             operation=str(operation or "").strip(),
@@ -3574,7 +3948,7 @@ class PropertyRepository:
                 row.maintenance_job_id = str(item.get("maintenance_job_id") or "").strip() or None
                 row.deleted = item.get("deleted") if item.get("deleted") is not None else None
                 row.resolution_notes = str(item.get("resolution_notes") or "").strip() or None
-                row.requested_at = _parse_dt(item.get("requested_at")) or datetime.now()
+                row.requested_at = _parse_dt(item.get("requested_at")) or _utc_now()
                 session.add(row)
                 imported += 1
         return imported

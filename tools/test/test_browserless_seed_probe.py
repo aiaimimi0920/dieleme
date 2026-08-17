@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import builtins
+import importlib.util
 from datetime import datetime
 from pathlib import Path
 
@@ -128,6 +130,20 @@ def test_summarize_list_page_extracts_live_like_payload_without_false_login_sign
     assert summary["body_has_captcha"] is False
 
 
+def test_summarize_list_page_prefers_valid_payload_over_hidden_generic_captcha_copy():
+    html = LIVE_LIKE_LIST_HTML.replace("</body>", "<div hidden>验证码</div></body>")
+
+    summary = browserless_seed_probe.summarize_list_page(
+        html,
+        final_url="https://sf.taobao.com/list/50025969__2.htm?page=1",
+    )
+
+    assert summary["has_script"] is True
+    assert summary["item_count"] == 2
+    assert summary["body_has_captcha"] is False
+    assert summary["body_has_challenge"] is False
+
+
 def test_summarize_list_page_marks_login_page_from_final_url():
     summary = browserless_seed_probe.summarize_list_page(
         LOGIN_HTML,
@@ -150,6 +166,17 @@ def test_summarize_list_page_marks_x5sec_punish_page_as_challenge():
     assert summary["body_has_challenge"] is True
 
 
+def test_summarize_list_page_marks_punish_final_url_as_challenge_even_when_html_shell_hides_tokens():
+    summary = browserless_seed_probe.summarize_list_page(
+        "<html><head><meta charset='utf-8'></head><body>browser shell</body></html>",
+        final_url="https://sf.taobao.com/list/50025969__2.htm/_____tmd_____/punish?x5secdata=abc",
+    )
+
+    assert summary["has_script"] is False
+    assert summary["body_has_punish"] is True
+    assert summary["body_has_challenge"] is True
+
+
 def test_summarize_list_page_redacts_x5secdata_from_body_snippet():
     summary = browserless_seed_probe.summarize_list_page(
         PUNISH_HTML,
@@ -159,6 +186,20 @@ def test_summarize_list_page_redacts_x5secdata_from_body_snippet():
     assert "x5secdata" not in summary["body_snippet"]
     assert "demo" not in summary["body_snippet"]
     assert "taobao_security_value=<redacted>" in summary["body_snippet"]
+
+
+def test_summarize_list_page_marks_additional_human_verification_markers_as_challenge():
+    markers = ("滑动验证", "人机验证", "异常流量", "访问受限")
+
+    for marker in markers:
+        summary = browserless_seed_probe.summarize_list_page(
+            f"<html><body>{marker}，请稍后重试</body></html>",
+            final_url="https://sf.taobao.com/list/50025969__2.htm?page=1",
+        )
+
+        assert summary["has_script"] is False
+        assert summary["body_has_captcha"] is True
+        assert summary["body_has_challenge"] is True
 
 
 def test_build_session_from_playwright_cookies_adds_cookie_values():
@@ -251,6 +292,26 @@ def test_export_cdp_cookies_falls_back_to_playwright_when_websocket_export_fails
     assert calls == ["websocket", "playwright"]
 
 
+def test_browserless_seed_probe_imports_when_playwright_is_not_installed(monkeypatch):
+    real_import = builtins.__import__
+
+    def import_without_playwright(name, globals=None, locals=None, fromlist=(), level=0):
+        if name == "playwright.sync_api" or name.startswith("playwright."):
+            raise ModuleNotFoundError("No module named 'playwright'")
+        return real_import(name, globals, locals, fromlist, level)
+
+    monkeypatch.setattr(builtins, "__import__", import_without_playwright)
+
+    module_path = Path(browserless_seed_probe.__file__)
+    spec = importlib.util.spec_from_file_location("browserless_seed_probe_no_playwright", module_path)
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    assert module.sync_playwright is None
+
+
 def test_export_cdp_cookies_playwright_fallback_uses_bounded_cdp_connect_timeout(monkeypatch):
     events: list[object] = []
 
@@ -285,9 +346,197 @@ def test_export_cdp_cookies_playwright_fallback_uses_bounded_cdp_connect_timeout
     assert cookies == []
     assert events == [
         ("http://127.0.0.1:9223", browserless_seed_probe.DEFAULT_CDP_CONNECT_TIMEOUT_MS),
-        "browser_close",
         "playwright_close",
     ]
+
+
+def test_export_cdp_cookies_websocket_probe_ignores_host_proxy_env(monkeypatch):
+    calls: list[dict[str, object]] = []
+
+    class _Response:
+        def raise_for_status(self) -> None:
+            return None
+
+        @staticmethod
+        def json() -> dict[str, str]:
+            return {"webSocketDebuggerUrl": "ws://127.0.0.1:9224/devtools/browser/browser-1"}
+
+    class _Session:
+        def __init__(self) -> None:
+            self.trust_env = True
+
+        def get(self, url: str, *, timeout: int):
+            calls.append({"url": url, "timeout": timeout, "trust_env": self.trust_env})
+            return _Response()
+
+    class _FakeWebSocket:
+        def send(self, _payload: str) -> None:
+            return None
+
+        @staticmethod
+        def recv() -> str:
+            return json.dumps({"result": {"cookies": [{"name": "cookie2", "domain": ".taobao.com"}]}})
+
+        def close(self) -> None:
+            return None
+
+    monkeypatch.setattr(
+        browserless_seed_probe.requests,
+        "get",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("requests.get should not be used")),
+    )
+    monkeypatch.setattr(browserless_seed_probe.requests, "Session", _Session)
+    monkeypatch.setattr(browserless_seed_probe.websocket, "create_connection", lambda *_args, **_kwargs: _FakeWebSocket())
+
+    cookies = browserless_seed_probe._export_cdp_cookies_via_websocket(
+        "http://127.0.0.1:9224",
+        ("https://sf.taobao.com", "https://login.taobao.com"),
+    )
+
+    assert cookies == [{"name": "cookie2", "domain": ".taobao.com"}]
+    assert calls == [
+        {
+            "url": "http://127.0.0.1:9224/json/version",
+            "timeout": 10,
+            "trust_env": False,
+        }
+    ]
+
+
+def test_export_cdp_cookies_websocket_probe_falls_back_to_json_target_list(monkeypatch):
+    calls: list[str] = []
+
+    class _Response:
+        def __init__(self, payload: object):
+            self._payload = payload
+
+        def raise_for_status(self) -> None:
+            return None
+
+        def json(self) -> object:
+            return self._payload
+
+    class _Session:
+        def __init__(self) -> None:
+            self.trust_env = True
+
+        def get(self, url: str, *, timeout: int):
+            calls.append(url)
+            if url.endswith("/json/version"):
+                raise TimeoutError("version endpoint stalled")
+            if url.endswith("/json"):
+                return _Response(
+                    [
+                        {
+                            "id": "page-1",
+                            "type": "page",
+                            "url": "https://sf.taobao.com/list/demo",
+                            "webSocketDebuggerUrl": "ws://127.0.0.1:9224/devtools/page/page-1",
+                        }
+                    ]
+                )
+            raise AssertionError(url)
+
+    class _FakeWebSocket:
+        def send(self, _payload: str) -> None:
+            return None
+
+        @staticmethod
+        def recv() -> str:
+            return json.dumps({"result": {"cookies": [{"name": "cookie2", "domain": ".taobao.com"}]}})
+
+        def close(self) -> None:
+            return None
+
+    monkeypatch.setattr(browserless_seed_probe.requests, "Session", _Session)
+    monkeypatch.setattr(browserless_seed_probe.websocket, "create_connection", lambda *_args, **_kwargs: _FakeWebSocket())
+
+    cookies = browserless_seed_probe._export_cdp_cookies_via_websocket(
+        "http://127.0.0.1:9224",
+        ("https://sf.taobao.com", "https://login.taobao.com"),
+    )
+
+    assert cookies == [{"name": "cookie2", "domain": ".taobao.com"}]
+    assert calls == [
+        "http://127.0.0.1:9224/json/version",
+        "http://127.0.0.1:9224/json",
+    ]
+
+
+def test_export_cdp_cookies_websocket_probe_uses_cached_websocket_when_http_endpoints_fail(monkeypatch, tmp_path):
+    cache_path = tmp_path / "cdp-websocket-cache.json"
+    cache_path.write_text(
+        json.dumps(
+            {
+                "http://127.0.0.1:9224": "ws://127.0.0.1:9224/devtools/browser/browser-cache",
+            }
+        ),
+        encoding="utf-8",
+    )
+    calls: list[str] = []
+
+    class _Session:
+        def __init__(self) -> None:
+            self.trust_env = True
+
+        def get(self, url: str, *, timeout: int):
+            calls.append(url)
+            raise TimeoutError("cdp endpoint stalled")
+
+    class _FakeWebSocket:
+        def send(self, _payload: str) -> None:
+            return None
+
+        @staticmethod
+        def recv() -> str:
+            return json.dumps({"result": {"cookies": [{"name": "cookie2", "domain": ".taobao.com"}]}})
+
+        def close(self) -> None:
+            return None
+
+    monkeypatch.setenv("FAPAI_CDP_WEBSOCKET_CACHE_PATH", str(cache_path))
+    monkeypatch.setattr(browserless_seed_probe.requests, "Session", _Session)
+    monkeypatch.setattr(browserless_seed_probe.websocket, "create_connection", lambda *_args, **_kwargs: _FakeWebSocket())
+
+    cookies = browserless_seed_probe._export_cdp_cookies_via_websocket(
+        "http://127.0.0.1:9224",
+        ("https://sf.taobao.com", "https://login.taobao.com"),
+    )
+
+    assert cookies == [{"name": "cookie2", "domain": ".taobao.com"}]
+    assert calls == [
+        "http://127.0.0.1:9224/json/version",
+        "http://127.0.0.1:9224/json",
+    ]
+
+
+def test_resolve_cdp_endpoint_uses_cached_websocket_when_http_probe_fails(monkeypatch, tmp_path):
+    cache_path = tmp_path / "cdp-websocket-cache.json"
+    cache_path.write_text(
+        json.dumps(
+            {
+                "http://127.0.0.1:9224": "ws://127.0.0.1:9224/devtools/browser/browser-cache",
+            }
+        ),
+        encoding="utf-8",
+    )
+    calls: list[str] = []
+
+    class _Session:
+        def __init__(self) -> None:
+            self.trust_env = True
+
+        def get(self, url: str, *, timeout: int):
+            calls.append(url)
+            raise TimeoutError("cdp endpoint stalled")
+
+    monkeypatch.setenv("FAPAI_CDP_WEBSOCKET_CACHE_PATH", str(cache_path))
+    monkeypatch.setattr(browserless_seed_probe.requests, "Session", _Session)
+
+    endpoint = browserless_seed_probe._resolve_cdp_endpoint("http://127.0.0.1:9224")
+
+    assert endpoint == "ws://127.0.0.1:9224/devtools/browser/browser-cache"
+    assert calls == ["http://127.0.0.1:9224/json/version"]
 
 
 def test_probe_seed_page_includes_response_status_and_final_url():
@@ -311,6 +560,10 @@ def test_probe_seed_page_includes_response_status_and_final_url():
     assert len(fake_session.calls) == 1
     assert fake_session.calls[0]["allow_redirects"] is True
     assert "Mozilla/5.0" in fake_session.calls[0]["headers"]["User-Agent"]
+    assert fake_session.calls[0]["headers"]["Accept"].startswith("text/html")
+    assert fake_session.calls[0]["headers"]["Sec-Fetch-Mode"] == "navigate"
+    assert fake_session.calls[0]["headers"]["Sec-Fetch-Site"] == "same-origin"
+    assert fake_session.calls[0]["headers"]["Upgrade-Insecure-Requests"] == "1"
 
 
 def test_build_userscript_like_batch_payload_matches_current_collection_contract_shape():
