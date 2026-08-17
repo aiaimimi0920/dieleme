@@ -77,6 +77,17 @@ New-Item -ItemType Directory -Force -Path $backupDir | Out-Null
 Copy-Item -LiteralPath $envPath -Destination (Join-Path $backupDir 'env.worker.local') -Force
 
 $lines = [System.Collections.Generic.List[string]]@(Get-Content -LiteralPath $envPath -Encoding UTF8)
+$staleAllowedNames = @($allowedNames | Where-Object { -not $updates.ContainsKey($_) })
+$removedStaleSettingCount = 0
+for ($index = $lines.Count - 1; $index -ge 0; $index--) {
+  foreach ($name in $staleAllowedNames) {
+    if ($lines[$index] -match ('^\s*' + [regex]::Escape($name) + '=')) {
+      $lines.RemoveAt($index)
+      $removedStaleSettingCount += 1
+      break
+    }
+  }
+}
 foreach ($name in $updates.Keys) {
   $found = $false
   for ($index = 0; $index -lt $lines.Count; $index++) {
@@ -94,6 +105,7 @@ foreach ($name in $updates.Keys) {
 
 [pscustomobject]@{
   imported_setting_count = $updates.Count
+  removed_stale_setting_count = $removedStaleSettingCount
   backup_created = Test-Path -LiteralPath (Join-Path $backupDir 'env.worker.local')
   source_within_approved_root = $true
   openai_base_url_configured = [bool]$hasBaseUrl.Count

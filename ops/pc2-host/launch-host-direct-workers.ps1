@@ -6,6 +6,7 @@ param(
   [int]$StartupGraceSeconds = 120,
   [int]$CdpFailureThreshold = 3,
   [int]$CdpRestartCooldownSeconds = 300,
+  [int]$AnalysisBackendRetryCooldownSeconds = 900,
   [switch]$Once
 )
 
@@ -50,6 +51,8 @@ $cdpProfileDir = 'C:\Users\Public\nas_home\AI\FPFData\edge-cdp-profile-pc2'
 $cdpBrowserScript = Join-Path $root 'src\scripts\start-taobao-cdp-browser.ps1'
 $consecutiveCdpFailures = 0
 $lastCdpRestartAt = [datetime]::MinValue
+$analysisBackendRetryAt = @{}
+$analysisUnavailableSummaryWriteTicks = @{}
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 
 $workerSpecs = @(
@@ -62,6 +65,7 @@ $workerSpecs = @(
     SummaryMaxAgeSeconds = $SeedSummaryMaxAgeSeconds
     StartupGraceSeconds = $StartupGraceSeconds
     RequiresCdp = $collectorRequiresCdp
+    IsAnalysis = $false
     # seed_collector performs scope-aware pause handling and can keep scanning
     # while a detail-page challenge waits for manual confirmation.
     StopsWhenCollectionPaused = $false
@@ -77,6 +81,7 @@ $workerSpecs = @(
     SummaryMaxAgeSeconds = $DetailSummaryMaxAgeSeconds
     StartupGraceSeconds = $StartupGraceSeconds
     RequiresCdp = $collectorRequiresCdp
+    IsAnalysis = $false
     StopsWhenCollectionPaused = $true
     StdoutPath = Join-Path $logDir 'detail1.out.log'
     StderrPath = Join-Path $logDir 'detail1.err.log'
@@ -90,6 +95,7 @@ $workerSpecs = @(
     SummaryMaxAgeSeconds = $DetailSummaryMaxAgeSeconds
     StartupGraceSeconds = $StartupGraceSeconds
     RequiresCdp = $collectorRequiresCdp
+    IsAnalysis = $false
     StopsWhenCollectionPaused = $true
     StdoutPath = Join-Path $logDir 'detail2.out.log'
     StderrPath = Join-Path $logDir 'detail2.err.log'
@@ -103,6 +109,7 @@ $workerSpecs = @(
     SummaryMaxAgeSeconds = $AnalysisSummaryMaxAgeSeconds
     StartupGraceSeconds = [Math]::Max($StartupGraceSeconds, 420)
     RequiresCdp = $false
+    IsAnalysis = $true
     StopsWhenCollectionPaused = $false
     StdoutPath = Join-Path $logDir 'analysis1.out.log'
     StderrPath = Join-Path $logDir 'analysis1.err.log'
@@ -116,6 +123,7 @@ $workerSpecs = @(
     SummaryMaxAgeSeconds = $AnalysisSummaryMaxAgeSeconds
     StartupGraceSeconds = [Math]::Max($StartupGraceSeconds, 420)
     RequiresCdp = $false
+    IsAnalysis = $true
     StopsWhenCollectionPaused = $false
     StdoutPath = Join-Path $logDir 'analysis2.out.log'
     StderrPath = Join-Path $logDir 'analysis2.err.log'
@@ -129,6 +137,7 @@ $workerSpecs = @(
     SummaryMaxAgeSeconds = $AnalysisSummaryMaxAgeSeconds
     StartupGraceSeconds = [Math]::Max($StartupGraceSeconds, 420)
     RequiresCdp = $false
+    IsAnalysis = $true
     StopsWhenCollectionPaused = $false
     StdoutPath = Join-Path $logDir 'analysis3.out.log'
     StderrPath = Join-Path $logDir 'analysis3.err.log'
@@ -142,6 +151,7 @@ $workerSpecs = @(
     SummaryMaxAgeSeconds = $DetailSummaryMaxAgeSeconds
     StartupGraceSeconds = $StartupGraceSeconds
     RequiresCdp = $collectorRequiresCdp
+    IsAnalysis = $false
     StopsWhenCollectionPaused = $true
     StdoutPath = Join-Path $logDir 'detail3.out.log'
     StderrPath = Join-Path $logDir 'detail3.err.log'
@@ -312,6 +322,81 @@ function Test-SummaryFresh {
   }
 }
 
+function Get-WorkerSummaryState {
+  param([Parameter(Mandatory = $true)]$Spec)
+
+  if (-not (Test-Path -LiteralPath $Spec.SummaryPath)) {
+    return $null
+  }
+  try {
+    $item = Get-Item -LiteralPath $Spec.SummaryPath -ErrorAction Stop
+    $payload = Get-Content -LiteralPath $Spec.SummaryPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    return [pscustomobject]@{
+      Decision = [string]$payload.decision
+      LastWriteTimeUtc = $item.LastWriteTimeUtc
+      Fresh = ((Get-Date) - $item.LastWriteTime).TotalSeconds -le [int]$Spec.SummaryMaxAgeSeconds
+    }
+  } catch {
+    return $null
+  }
+}
+
+function Test-NewAnalysisBackendUnavailableSummary {
+  param(
+    [Parameter(Mandatory = $true)]$Spec,
+    $Summary
+  )
+
+  if (-not $Spec.IsAnalysis -or $null -eq $Summary) {
+    return $false
+  }
+  if (-not $Summary.Fresh -or $Summary.Decision -ne 'detail_worker_llm_unavailable') {
+    return $false
+  }
+
+  $name = [string]$Spec.Name
+  $writeTicks = [int64]$Summary.LastWriteTimeUtc.Ticks
+  if (
+    $script:analysisUnavailableSummaryWriteTicks.ContainsKey($name) -and
+    [int64]$script:analysisUnavailableSummaryWriteTicks[$name] -eq $writeTicks
+  ) {
+    return $false
+  }
+  $script:analysisUnavailableSummaryWriteTicks[$name] = $writeTicks
+  return $true
+}
+
+function Enter-AnalysisBackendCooldown {
+  param([Parameter(Mandatory = $true)]$Spec)
+
+  $cooldownSeconds = [Math]::Max(1, $AnalysisBackendRetryCooldownSeconds)
+  $retryAt = (Get-Date).AddSeconds($cooldownSeconds)
+  $script:analysisBackendRetryAt[[string]$Spec.Name] = $retryAt
+  Write-WatchdogLog (
+    'analysis backend unavailable for {0}; retry after {1} ({2}s cooldown)' -f `
+      $Spec.Name,
+      $retryAt.ToString('yyyy-MM-dd HH:mm:ss'),
+      $cooldownSeconds
+  )
+}
+
+function Test-AnalysisBackendCooldown {
+  param([Parameter(Mandatory = $true)]$Spec)
+
+  $name = [string]$Spec.Name
+  if (-not $script:analysisBackendRetryAt.ContainsKey($name)) {
+    return $false
+  }
+  $retryAt = [datetime]$script:analysisBackendRetryAt[$name]
+  if ((Get-Date) -lt $retryAt) {
+    return $true
+  }
+
+  $script:analysisBackendRetryAt.Remove($name)
+  Write-WatchdogLog "analysis backend cooldown expired for $name; allowing one retry"
+  return $false
+}
+
 function Get-ChildProcessIds {
   param(
     [Parameter(Mandatory = $true)][int]$ParentProcessId,
@@ -419,6 +504,34 @@ function Ensure-Worker {
   param([Parameter(Mandatory = $true)]$Spec)
 
   $processes = @(Get-WorkerProcesses -Spec $Spec)
+  if ($Spec.IsAnalysis) {
+    $summaryState = Get-WorkerSummaryState -Spec $Spec
+    if (Test-NewAnalysisBackendUnavailableSummary -Spec $Spec -Summary $summaryState) {
+      if ($processes.Count -gt 0) {
+        $roots = @(Get-RootWorkerProcesses -Processes $processes)
+        if ($roots.Count -eq 0) {
+          $roots = @($processes | Sort-Object CreationDate | Select-Object -First 1)
+        }
+        foreach ($rootProcess in $roots) {
+          Stop-WorkerProcessTree -Spec $Spec -RootProcess $rootProcess -Reason 'analysis backend unavailable'
+        }
+      }
+      Enter-AnalysisBackendCooldown -Spec $Spec
+      return
+    }
+    if (Test-AnalysisBackendCooldown -Spec $Spec) {
+      if ($processes.Count -gt 0) {
+        $roots = @(Get-RootWorkerProcesses -Processes $processes)
+        if ($roots.Count -eq 0) {
+          $roots = @($processes | Sort-Object CreationDate | Select-Object -First 1)
+        }
+        foreach ($rootProcess in $roots) {
+          Stop-WorkerProcessTree -Spec $Spec -RootProcess $rootProcess -Reason 'analysis backend cooldown'
+        }
+      }
+      return
+    }
+  }
   if ($processes.Count -eq 0) {
     Start-WorkerDetached -Spec $Spec
     return

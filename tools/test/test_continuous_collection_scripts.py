@@ -601,6 +601,11 @@ def test_pc2_analysis_env_import_is_allowlisted_backed_up_and_redacted() -> None
     assert "analysis-enable-" in script
     assert "Copy-Item" in script
     assert "WriteAllLines" in script
+    assert "$staleAllowedNames" in script
+    assert "not $updates.ContainsKey($_)" in script
+    assert "$lines.RemoveAt($index)" in script
+    assert "removed_stale_setting_count" in script
+    assert script.index("Copy-Item") < script.index("$lines.RemoveAt($index)")
     assert "source_within_approved_root" in script
     assert "openai_api_key_configured" in script
     assert "ConvertTo-Json -Compress" in script
@@ -689,6 +694,33 @@ def test_pc2_host_direct_launch_script_runs_persistent_watchdog_with_detached_wo
     assert "while ($true)" in script
     assert "Start-Sleep -Seconds $PollSeconds" in script
     assert "Start-Process" not in script
+
+
+def test_pc2_host_watchdog_cools_down_analysis_workers_when_llm_backend_is_unavailable() -> None:
+    script = _pc2_host_script("launch-host-direct-workers.ps1")
+
+    assert "[int]$AnalysisBackendRetryCooldownSeconds = 900" in script
+    assert "$analysisBackendRetryAt = @{}" in script
+    assert "$analysisUnavailableSummaryWriteTicks = @{}" in script
+    assert "IsAnalysis = $true" in script
+    assert "IsAnalysis = $false" in script
+    assert "function Get-WorkerSummaryState" in script
+    assert "ConvertFrom-Json" in script
+    assert "detail_worker_llm_unavailable" in script
+    assert "function Test-NewAnalysisBackendUnavailableSummary" in script
+    assert "function Enter-AnalysisBackendCooldown" in script
+    assert "function Test-AnalysisBackendCooldown" in script
+    assert "analysis backend unavailable" in script
+    assert "analysis backend cooldown expired" in script
+    ensure_start = script.index("function Ensure-Worker")
+    ensure_end = script.index("Write-WatchdogLog 'pc2 worker watchdog booted'", ensure_start)
+    ensure_block = script[ensure_start:ensure_end]
+    assert ensure_block.index("Test-NewAnalysisBackendUnavailableSummary") < ensure_block.index(
+        "Get-ProcessAgeSeconds"
+    )
+    assert "Stop-WorkerProcessTree" in ensure_block
+    assert "Enter-AnalysisBackendCooldown" in ensure_block
+    assert "Test-AnalysisBackendCooldown" in ensure_block
 
 
 def test_pc2_host_watchdog_recovers_unreachable_cdp_with_bounded_retries() -> None:
