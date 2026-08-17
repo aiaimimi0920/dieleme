@@ -7,6 +7,7 @@ param(
     [int]$StaleSeedMinutes = 3,
     [int]$MissingPayloadThreshold = 20,
     [int]$RecoveryCooldownMinutes = 10,
+    [int]$ManualAuthGraceMinutes = 30,
     [string]$WatchdogTaskName = "FapaiFangTaobaoLoginWatchdog",
     [string]$TaskPath = "\FapaiFang\",
     [int]$ExecutionTimeLimitMinutes = 2
@@ -53,6 +54,9 @@ if ($MissingPayloadThreshold -lt 1) {
 if ($RecoveryCooldownMinutes -lt 1) {
     throw "RecoveryCooldownMinutes must be at least 1."
 }
+if ($ManualAuthGraceMinutes -lt 0) {
+    throw "ManualAuthGraceMinutes must not be negative."
+}
 if ($ExecutionTimeLimitMinutes -lt 1) {
     throw "ExecutionTimeLimitMinutes must be at least 1."
 }
@@ -84,6 +88,7 @@ $invokeTriggerLine = '& ' + $triggerScriptLiteral +
     ' -StaleSeedMinutes ' + $StaleSeedMinutes +
     ' -MissingPayloadThreshold ' + $MissingPayloadThreshold +
     ' -RecoveryCooldownMinutes ' + $RecoveryCooldownMinutes +
+    ' -ManualAuthGraceMinutes ' + $ManualAuthGraceMinutes +
     ' -TaskName ' + $watchdogTaskNameLiteral +
     ' -TaskPath ' + $taskPathLiteral +
     ' *>> ' + $monitorLogLiteral

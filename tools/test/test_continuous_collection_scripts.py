@@ -84,11 +84,11 @@ def test_run_local_mock_slider_regression_script_uses_local_mock_regression_comm
     assert "Local mock slider regression passed." in script
 
 
-def test_register_taobao_login_watchdog_task_registers_visible_user_task() -> None:
+def test_register_taobao_login_watchdog_task_registers_on_demand_visible_user_task() -> None:
     script = _script("register-taobao-login-watchdog-task.ps1")
 
     assert "New-ScheduledTaskAction" in script
-    assert "New-ScheduledTaskTrigger" in script
+    assert "New-ScheduledTaskTrigger" not in script
     assert "Register-ScheduledTask" in script
     assert "FapaiFangTaobaoLoginWatchdog" in script
     assert "taobao-login-watchdog.ps1" in script
@@ -96,6 +96,9 @@ def test_register_taobao_login_watchdog_task_registers_visible_user_task() -> No
     assert '"-OutputPath"' in script
     assert "Interactive" in script
     assert "Convert-DataRootForScheduledTask" in script
+    assert "On-demand FapaiFang Taobao recovery task" in script
+    assert "recovery monitor starts it only" in script
+    assert "IntervalMinutes" not in script
 
 
 def test_register_taobao_login_watchdog_task_can_use_system_proxy() -> None:
@@ -122,6 +125,22 @@ def test_trigger_taobao_login_recovery_if_needed_uses_db_signals_and_safe_watchd
     assert "cookie value" in script
     assert "apiStatusForManualCheck.captcha_solver" in script
     assert "manual_required" in script
+    assert '[int]$ManualAuthGraceMinutes = 30' in script
+    assert "manual_only" in script
+    assert "manual_auth_grace_period" in script
+    assert "automatic_solver_recovery_in_progress" in script
+    assert "function Stop-DedicatedRecoveryBrowser" in script
+    assert "remote-debugging-port=9225" in script
+    assert "closed_recovery_browser_count" in script
+    grace_start = script.index('status = "manual_auth_grace_period"')
+    grace_end = script.index("exit 0", grace_start)
+    grace_block = script[grace_start:grace_end]
+    assert "closed_recovery_browser_count" in grace_block
+    assert "Stop-DedicatedRecoveryBrowser" in script[:grace_start]
+    manual_check_index = script.index("$manualAuthRequired = $false")
+    pause_guard_index = script.index("if ($snapshot.collection_paused -eq $true")
+    assert manual_check_index < pause_guard_index
+    assert "if ($snapshot.collection_paused -eq $true -and -not $manualAuthRequired)" in script
     assert "Input.dispatchMouseEvent" not in script
     assert "cookie2=" not in script
     assert "sgcookie=" not in script
@@ -142,6 +161,8 @@ def test_register_taobao_login_recovery_monitor_task_registers_fast_interactive_
     assert "IntervalMinutes" in script
     assert "MinRecentSeedItems" in script
     assert "StaleSeedMinutes" in script
+    assert '[int]$ManualAuthGraceMinutes = 30' in script
+    assert "-ManualAuthGraceMinutes" in script
     assert "Convert-DataRootForScheduledTask" in script
     assert "Convert-ToPowerShellSingleQuotedArgument" in script
     assert "run-taobao-login-recovery-monitor.ps1" in script
@@ -164,7 +185,10 @@ def test_register_pc1_shared_auth_maintenance_registers_watchdog_and_recovery_wi
     assert 'Enable-ScheduledTask -TaskName "FapaiFangTaobaoLoginWatchdog"' in script
     assert 'Enable-ScheduledTask -TaskName "FapaiFangTaobaoLoginRecoveryMonitor"' in script
     assert '[switch]$StartWatchdogNow' in script
+    assert '[int]$ManualAuthGraceMinutes = 30' in script
+    assert '"-ManualAuthGraceMinutes", $ManualAuthGraceMinutes' in script
     assert 'Start-ScheduledTask -TaskName "FapaiFangTaobaoLoginWatchdog"' in script
+    assert "WatchdogIntervalMinutes" not in script
 
 
 def test_deploy_pc2_llm_helper_hotfix_uses_ssh_hash_verification_and_optional_analysis_restart() -> None:

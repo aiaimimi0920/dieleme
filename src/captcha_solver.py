@@ -376,7 +376,7 @@ class CaptchaSolver:
             if target_ws:
                 self.target_ws_url = target_ws
             print(f"[SOLVER] Connecting to tab: {target_title}")
-            self.ws = websocket.create_connection(target_ws, suppress_origin=True)
+            self.ws = websocket.create_connection(target_ws, suppress_origin=True, timeout=5)
             self.ws.settimeout(5)
             # Enable domains
             dom_ready = self._send_cdp("DOM.enable")

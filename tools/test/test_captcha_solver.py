@@ -738,6 +738,35 @@ def test_punish_target_connection_failure_marks_manual_required(monkeypatch) -> 
     assert solver.last_failure_reason == "manual_required"
 
 
+def test_target_websocket_connection_has_a_bounded_bootstrap_timeout(monkeypatch) -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    connection_kwargs: dict[str, object] = {}
+
+    class FakeWebSocket:
+        def __init__(self) -> None:
+            self.timeout: float | None = None
+
+        def settimeout(self, timeout: float) -> None:
+            self.timeout = timeout
+
+        def close(self) -> None:
+            return None
+
+    fake_websocket = FakeWebSocket()
+
+    def fake_create_connection(_target_ws: str, **kwargs: object) -> FakeWebSocket:
+        connection_kwargs.update(kwargs)
+        return fake_websocket
+
+    monkeypatch.setenv("FAPAI_SOLVER_DISABLE_STEALTH", "1")
+    monkeypatch.setattr(captcha_solver.websocket, "create_connection", fake_create_connection)
+    monkeypatch.setattr(solver, "_send_cdp", lambda *_args, **_kwargs: {})
+
+    assert solver._connect_to_target("ws://127.0.0.1:9223/devtools/page/test", "test") is True
+    assert connection_kwargs == {"suppress_origin": True, "timeout": 5}
+    assert fake_websocket.timeout == 5
+
+
 def test_preflight_propagates_manual_required_from_failed_punish_connection() -> None:
     solver = captcha_solver.CaptchaSolver(port=9223)
 
@@ -882,7 +911,7 @@ def test_get_json_retries_transient_timeout_before_success(monkeypatch) -> None:
 
 
 def test_connect_tab_suppresses_websocket_origin_for_remote_debugging(monkeypatch) -> None:
-    connection_kwargs: list[dict[str, bool]] = []
+    connection_kwargs: list[dict[str, object]] = []
 
     class FakeWebSocket:
         def __init__(self) -> None:
@@ -911,14 +940,14 @@ def test_connect_tab_suppresses_websocket_origin_for_remote_debugging(monkeypatc
         },
     ]
 
-    def fake_create_connection(_ws_url: str, **kwargs: bool) -> FakeWebSocket:
+    def fake_create_connection(_ws_url: str, **kwargs: object) -> FakeWebSocket:
         connection_kwargs.append(kwargs)
         return FakeWebSocket()
 
     monkeypatch.setattr(captcha_solver.websocket, "create_connection", fake_create_connection)
 
     assert solver.connect_tab() is True
-    assert connection_kwargs == [{"suppress_origin": True}]
+    assert connection_kwargs == [{"suppress_origin": True, "timeout": 5}]
 
 
 def test_send_cdp_mouse_event_consumes_matching_response() -> None:

@@ -3,7 +3,6 @@ param(
     [string]$DataRoot = "C:\Users\Public\nas_home\AI\FPFData",
     [string]$OutputPath = "",
     [string]$AlertWebhookUrl = "",
-    [int]$IntervalMinutes = 5,
     [int]$WaitSeconds = 600,
     [int]$PollSeconds = 5,
     [int]$Port = 9223,
@@ -29,9 +28,6 @@ function Convert-DataRootForScheduledTask {
     return [System.IO.Path]::GetFullPath($Path)
 }
 
-if ($IntervalMinutes -lt 1) {
-    throw "IntervalMinutes must be at least 1."
-}
 if ($WaitSeconds -lt 0) {
     throw "WaitSeconds must not be negative."
 }
@@ -78,12 +74,6 @@ $action = New-ScheduledTaskAction `
     -Argument ($scriptArgs -join " ") `
     -WorkingDirectory $workingDirectory
 
-$trigger = New-ScheduledTaskTrigger `
-    -Once `
-    -At (Get-Date).AddMinutes(1) `
-    -RepetitionInterval (New-TimeSpan -Minutes $IntervalMinutes) `
-    -RepetitionDuration (New-TimeSpan -Days 3650)
-
 $principal = New-ScheduledTaskPrincipal `
     -UserId ([System.Security.Principal.WindowsIdentity]::GetCurrent().Name) `
     -LogonType Interactive `
@@ -98,10 +88,9 @@ $settings = New-ScheduledTaskSettingsSet `
 
 $task = New-ScheduledTask `
     -Action $action `
-    -Trigger $trigger `
     -Principal $principal `
     -Settings $settings `
-    -Description "FapaiFangTaobaoLoginWatchdog opens official Taobao verification for manual completion and refreshes the local cookie snapshot."
+    -Description "On-demand FapaiFang Taobao recovery task. The recovery monitor starts it only when PC1 human authentication is required."
 
 Register-ScheduledTask `
     -TaskName $TaskName `

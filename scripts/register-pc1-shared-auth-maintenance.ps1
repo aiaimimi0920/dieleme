@@ -2,7 +2,6 @@ param(
     [string]$DataRoot = "",
     [string]$AlertWebhookUrl = "",
     [int]$Port = 9225,
-    [int]$WatchdogIntervalMinutes = 5,
     [int]$WatchdogWaitSeconds = 180,
     [int]$WatchdogPollSeconds = 5,
     [int]$RecoveryMonitorIntervalMinutes = 1,
@@ -11,6 +10,7 @@ param(
     [int]$StaleSeedMinutes = 3,
     [int]$MissingPayloadThreshold = 20,
     [int]$RecoveryCooldownMinutes = 10,
+    [int]$ManualAuthGraceMinutes = 30,
     [string]$TaskPath = "\FapaiFang\",
     [switch]$UseSystemProxy,
     [switch]$StartWatchdogNow
@@ -47,7 +47,6 @@ $watchdogArgs = @(
     "-DataRoot", $resolvedDataRoot,
     "-OutputPath", $outputPath,
     "-Port", $Port,
-    "-IntervalMinutes", $WatchdogIntervalMinutes,
     "-WaitSeconds", $WatchdogWaitSeconds,
     "-PollSeconds", $WatchdogPollSeconds,
     "-TaskPath", $TaskPath
@@ -70,6 +69,7 @@ $recoveryArgs = @(
     "-StaleSeedMinutes", $StaleSeedMinutes,
     "-MissingPayloadThreshold", $MissingPayloadThreshold,
     "-RecoveryCooldownMinutes", $RecoveryCooldownMinutes,
+    "-ManualAuthGraceMinutes", $ManualAuthGraceMinutes,
     "-TaskPath", $TaskPath
 )
 
@@ -120,5 +120,6 @@ $recoveryInfo = Get-ScheduledTaskInfo -TaskName "FapaiFangTaobaoLoginRecoveryMon
         stale_seed_minutes = $StaleSeedMinutes
         missing_payload_threshold = $MissingPayloadThreshold
         recovery_cooldown_minutes = $RecoveryCooldownMinutes
+        manual_auth_grace_minutes = $ManualAuthGraceMinutes
     }
 } | ConvertTo-Json -Compress

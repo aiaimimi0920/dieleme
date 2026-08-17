@@ -7,6 +7,7 @@ param(
     [int]$StaleSeedMinutes = 3,
     [int]$MissingPayloadThreshold = 20,
     [int]$RecoveryCooldownMinutes = 10,
+    [int]$ManualAuthGraceMinutes = 30,
     [string]$TaskName = "FapaiFangTaobaoLoginWatchdog",
     [string]$TaskPath = "\FapaiFang\",
     [string]$PostgresContainer = "fapaifang-postgres",
@@ -89,6 +90,57 @@ function Write-RecoveryState {
         LastTriggeredAt = $LastTriggeredAt.ToString("o")
         Snapshot = $Snapshot
     } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $Path -Encoding UTF8
+}
+
+function Get-ManualAuthObservationPath {
+    param([Parameter(Mandatory = $true)][string]$Path)
+
+    return "$Path.manual-observation.json"
+}
+
+function Read-ManualAuthObservation {
+    param([Parameter(Mandatory = $true)][string]$Path)
+
+    return Read-RecoveryState -Path (Get-ManualAuthObservationPath -Path $Path)
+}
+
+function Write-ManualAuthObservation {
+    param(
+        [Parameter(Mandatory = $true)][string]$Path,
+        [Parameter(Mandatory = $true)][datetime]$ManualRequiredSince,
+        [Parameter(Mandatory = $true)][object]$Snapshot
+    )
+
+    $observationPath = Get-ManualAuthObservationPath -Path $Path
+    $parent = Split-Path -Parent $observationPath
+    if ($parent) {
+        New-Item -ItemType Directory -Force -Path $parent | Out-Null
+    }
+    @{
+        ManualRequiredSince = $ManualRequiredSince.ToString("o")
+        Snapshot = $Snapshot
+    } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $observationPath -Encoding UTF8
+}
+
+function Clear-ManualAuthObservation {
+    param([Parameter(Mandatory = $true)][string]$Path)
+
+    Remove-Item -LiteralPath (Get-ManualAuthObservationPath -Path $Path) -Force -ErrorAction SilentlyContinue
+}
+
+function Stop-DedicatedRecoveryBrowser {
+    $rootProcesses = @(
+        Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
+            Where-Object {
+                $_.Name -in @("msedge.exe", "chrome.exe") -and
+                [string]$_.CommandLine -match "remote-debugging-port=9225" -and
+                [string]$_.CommandLine -notmatch "--type="
+            }
+    )
+    foreach ($process in $rootProcesses) {
+        Stop-Process -Id $process.ProcessId -Force -ErrorAction SilentlyContinue
+    }
+    return $rootProcesses.Count
 }
 
 function Get-NullableInt {
@@ -260,6 +312,9 @@ if ($MissingPayloadThreshold -lt 1) {
 if ($RecoveryCooldownMinutes -lt 1) {
     throw "RecoveryCooldownMinutes must be at least 1."
 }
+if ($ManualAuthGraceMinutes -lt 0) {
+    throw "ManualAuthGraceMinutes must not be negative."
+}
 
 if (-not $StatePath) {
     $StatePath = Join-Path $DataRoot "runtime\taobao-login-recovery-monitor-state.json"
@@ -318,23 +373,9 @@ if ($signal.Contains("summary_path")) {
     $snapshot.summary_path = $signal.summary_path
 }
 
-if ($snapshot.collection_paused -eq $true) {
-    Send-OperationalAlert -EventName "collection_paused_for_auth" -Payload @{
-        snapshot = $snapshot
-        task_name = $TaskName
-        task_path = $TaskPath
-    }
-    Write-JsonLine ([ordered]@{
-        status = "collection_paused"
-        snapshot = $snapshot
-        note = "Collection is already paused for auth recovery. This script will not start another watchdog instance."
-    })
-    exit 0
-}
-
 # Manual auth escalation is the primary PC1 fallback signal from PC2's local solver.
-# When manual_required is true, run the official watchdog so a human on PC1 can
-# complete verification in the visible browser window.
+# Resolve it before the generic pause guard so an auth pause can start the on-demand
+# visible watchdog instead of being mistaken for an already-handled operator pause.
 $apiBaseResolvedForManualCheck = Resolve-ApiBaseUrl -Value $ApiBaseUrl
 $manualAuthRequired = $false
 $manualSolverSnapshot = $null
@@ -350,6 +391,23 @@ try {
 $snapshot | Add-Member -NotePropertyName manual_auth_required -NotePropertyValue $manualAuthRequired
 $snapshot | Add-Member -NotePropertyName manual_solver_status -NotePropertyValue $manualSolverSnapshot -Force
 
+if ($snapshot.collection_paused -eq $true -and -not $manualAuthRequired) {
+    Clear-ManualAuthObservation -Path $StatePath
+    $closedBrowserCount = Stop-DedicatedRecoveryBrowser
+    Send-OperationalAlert -EventName "collection_paused_for_auth" -Payload @{
+        snapshot = $snapshot
+        task_name = $TaskName
+        task_path = $TaskPath
+    }
+    Write-JsonLine ([ordered]@{
+        status = "collection_paused"
+        snapshot = $snapshot
+        closed_recovery_browser_count = $closedBrowserCount
+        note = "Collection is already paused for auth recovery. This script will not start another watchdog instance."
+    })
+    exit 0
+}
+
 if ($manualAuthRequired -and $snapshot.signal_source -eq "postgres_container") {
     try {
         $apiStatusRefresh = Invoke-RestMethod -Uri "$apiBaseResolvedForManualCheck/status" -TimeoutSec 5
@@ -361,6 +419,48 @@ if ($manualAuthRequired -and $snapshot.signal_source -eq "postgres_container") {
 }
 
 if ($manualAuthRequired) {
+    $manualOnly = [bool]$manualSolverSnapshot.manual_only
+    if (-not $manualOnly) {
+        Clear-ManualAuthObservation -Path $StatePath
+        $closedBrowserCount = Stop-DedicatedRecoveryBrowser
+        Write-JsonLine ([ordered]@{
+            status = "automatic_solver_recovery_in_progress"
+            snapshot = $snapshot
+            closed_recovery_browser_count = $closedBrowserCount
+            note = "PC2 reports an automatic solver recovery state. PC1 remains silent until an explicit manual-only state persists."
+        })
+        exit 0
+    }
+
+    $observation = Read-ManualAuthObservation -Path $StatePath
+    $manualRequiredSince = $null
+    if ($observation.ManualRequiredSince) {
+        try {
+            $manualRequiredSince = [datetime]::Parse([string]$observation.ManualRequiredSince)
+        }
+        catch {
+            $manualRequiredSince = $null
+        }
+    }
+    if ($null -eq $manualRequiredSince) {
+        $manualRequiredSince = Get-Date
+        Write-ManualAuthObservation -Path $StatePath -ManualRequiredSince $manualRequiredSince -Snapshot $snapshot
+    }
+    $manualGraceEndsAt = $manualRequiredSince.AddMinutes($ManualAuthGraceMinutes)
+    if ((Get-Date) -lt $manualGraceEndsAt) {
+        $closedBrowserCount = Stop-DedicatedRecoveryBrowser
+        Write-JsonLine ([ordered]@{
+            status = "manual_auth_grace_period"
+            manual_required_since = $manualRequiredSince.ToString("o")
+            grace_minutes = $ManualAuthGraceMinutes
+            grace_ends_at = $manualGraceEndsAt.ToString("o")
+            snapshot = $snapshot
+            closed_recovery_browser_count = $closedBrowserCount
+            note = "PC2 automatic solving remains primary during the grace period. PC1 opens only after the manual-only state persists for the full exceptional-recovery window."
+        })
+        exit 0
+    }
+
     Send-OperationalAlert -EventName "manual_auth_required" -Payload @{
         snapshot = $snapshot
         task_name = $TaskName
@@ -450,9 +550,12 @@ if ($manualAuthRequired) {
 
 
 if (-not $shouldTrigger) {
+    Clear-ManualAuthObservation -Path $StatePath
+    $closedBrowserCount = Stop-DedicatedRecoveryBrowser
     Write-JsonLine ([ordered]@{
         status = "healthy_or_no_recovery_needed"
         snapshot = $snapshot
+        closed_recovery_browser_count = $closedBrowserCount
         note = "This script opens only the official Taobao watchdog when needed and never prints cookie value fields."
     })
     exit 0
