@@ -248,6 +248,7 @@ SOLVER_MANUAL_REQUIRED_EPOCH = 0
 SOLVER_MANUAL_ONLY = False
 SOLVER_MANUAL_RETRY_LAST_EPOCH = 0
 SOLVER_MANUAL_RETRY_ATTEMPTS = 0
+SOLVER_CHALLENGE_ID = None
 AUTH_COMPLETION_LOCK = threading.Lock()
 AUTH_COMPLETION_CONFIRMATIONS: dict[str, float] = {}
 AUTH_COOKIE_SNAPSHOT_LOCK = threading.Lock()
@@ -392,8 +393,123 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
         "manual_retry_attempts": int(SOLVER_MANUAL_RETRY_ATTEMPTS or 0),
         "manual_retry_last_epoch": SOLVER_MANUAL_RETRY_LAST_EPOCH or None,
         "manual_retry_next_epoch": manual_retry_next_epoch,
+        "challenge_id": SOLVER_CHALLENGE_ID,
         "cookie_snapshot_refresh": _auth_cookie_snapshot_runtime_status(),
     }
+
+
+def _solver_challenge_state_path() -> Path:
+    state_dir = str(os.getenv("FAPAI_SOLVER_STATE_DIR") or DATA_DIR).strip() or DATA_DIR
+    return Path(state_dir) / "solver-challenge-state.json"
+
+
+def _read_solver_challenge_state() -> dict[str, Any]:
+    try:
+        payload = json.loads(_solver_challenge_state_path().read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    if not isinstance(payload, dict) or payload.get("active") is not True:
+        return {}
+    challenge_id = str(payload.get("challenge_id") or "").strip()
+    if not challenge_id:
+        return {}
+    last_request = payload.get("last_request")
+    payload["challenge_id"] = challenge_id
+    payload["last_request"] = dict(last_request) if isinstance(last_request, dict) else {}
+    return payload
+
+
+def _solver_challenge_request_key(request_payload: dict[str, Any] | None) -> tuple[str, str, str]:
+    payload = request_payload if isinstance(request_payload, dict) else {}
+    node_id = str(payload.get("node_id") or "").strip().lower()
+    cdp_endpoint = str(payload.get("cdp_endpoint") or "").strip().lower().rstrip("/")
+    target_url = _normalize_solver_target_url(payload.get("target_url") or payload.get("url") or "")
+    return node_id, cdp_endpoint, target_url
+
+
+def _solver_challenge_owner_key(request_payload: dict[str, Any] | None) -> tuple[str, str]:
+    node_id, cdp_endpoint, _target_url = _solver_challenge_request_key(request_payload)
+    return node_id, cdp_endpoint
+
+
+def _persist_solver_challenge_state(challenge_id: str, last_request: dict[str, Any]) -> str | None:
+    path = _solver_challenge_state_path()
+    temporary = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+    existing = _read_solver_challenge_state()
+    created_at_epoch = time.time()
+    if existing.get("challenge_id") == challenge_id:
+        created_at_epoch = float(existing.get("created_at_epoch") or 0) or created_at_epoch
+    payload = {
+        "active": True,
+        "challenge_id": challenge_id,
+        "created_at_epoch": created_at_epoch,
+        "updated_at_epoch": time.time(),
+        "pause_reason": "captcha_solver",
+        "last_request": dict(last_request),
+    }
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        os.replace(temporary, path)
+    except Exception as error:
+        try:
+            temporary.unlink(missing_ok=True)
+        except Exception:
+            pass
+        return repr(error)
+    return None
+
+
+def _clear_solver_challenge_state() -> str | None:
+    global SOLVER_CHALLENGE_ID
+    path = _solver_challenge_state_path()
+    try:
+        path.unlink(missing_ok=True)
+    except Exception as error:
+        return repr(error)
+    SOLVER_CHALLENGE_ID = None
+    return None
+
+
+def _restore_solver_challenge_state() -> bool:
+    global SOLVER_CHALLENGE_ID, SOLVER_LAST_REQUEST
+    payload = _read_solver_challenge_state()
+    if not payload:
+        return False
+    SOLVER_CHALLENGE_ID = payload["challenge_id"]
+    persisted_request = payload.get("last_request")
+    if isinstance(persisted_request, dict) and persisted_request:
+        SOLVER_LAST_REQUEST = dict(persisted_request)
+    _set_collection_pause_state(True, str(payload.get("pause_reason") or "captcha_solver"))
+    return True
+
+
+def _begin_solver_challenge() -> str:
+    global SOLVER_CHALLENGE_ID
+    last_request = dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
+    persisted = _read_solver_challenge_state()
+    if SOLVER_CHALLENGE_ID and _collection_effectively_paused():
+        if (
+            not persisted
+            or _solver_challenge_owner_key(persisted.get("last_request"))
+            == _solver_challenge_owner_key(last_request)
+        ):
+            persist_error = _persist_solver_challenge_state(SOLVER_CHALLENGE_ID, last_request)
+            if persist_error:
+                print(f"[SOLVER] Failed to refresh persisted challenge state: {persist_error}")
+            return SOLVER_CHALLENGE_ID
+    if (
+        persisted
+        and _solver_challenge_request_key(persisted.get("last_request"))
+        == _solver_challenge_request_key(last_request)
+    ):
+        SOLVER_CHALLENGE_ID = persisted["challenge_id"]
+    else:
+        SOLVER_CHALLENGE_ID = f"captcha-{time.time_ns()}"
+    persist_error = _persist_solver_challenge_state(SOLVER_CHALLENGE_ID, last_request)
+    if persist_error:
+        print(f"[SOLVER] Failed to persist challenge state: {persist_error}")
+    return SOLVER_CHALLENGE_ID
 
 
 def _solver_last_request_target_url(solver_status: dict[str, Any] | None = None) -> str:
@@ -468,6 +584,13 @@ def _collection_runtime_state_label_from_status_payload(status_payload: dict[str
 def _clear_auth_lock_after_solver_success() -> None:
     """After an automated captcha pass, drop the durable auth lock so workers resume."""
     global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_ONLY, SOLVER_MANUAL_RESUME_EPOCH
+    challenge_state_error = _clear_solver_challenge_state()
+    if challenge_state_error:
+        SOLVER_LAST_STATUS = "manual_required"
+        SOLVER_LAST_FAILURE_REASON = "manual_required"
+        _set_collection_pause_state(True, "manual_required")
+        print(f"[SOLVER] Failed to clear persisted challenge state after success: {challenge_state_error}")
+        return
     SOLVER_LAST_STATUS = "solved"
     SOLVER_LAST_FAILURE_REASON = None
     SOLVER_MANUAL_ONLY = False
@@ -509,17 +632,20 @@ def _request_solver_cancel() -> None:
 
 def _clear_solver_manual_required_pause(*, preserve_running_state: bool = False) -> str | None:
     global SOLVER_MANUAL_RESUME_EPOCH
-    _set_collection_pause_state(False)
-    SOLVER_MANUAL_RESUME_EPOCH = time.time()
-    if not preserve_running_state:
-        _clear_solver_running_state()
-    _clear_solver_manual_required_state()
     flag_path = _solver_force_unlock_flag_path()
     if os.path.exists(flag_path):
         try:
             os.remove(flag_path)
         except Exception as error:
             return str(error)
+    challenge_state_error = _clear_solver_challenge_state()
+    if challenge_state_error:
+        return challenge_state_error
+    _set_collection_pause_state(False)
+    SOLVER_MANUAL_RESUME_EPOCH = time.time()
+    if not preserve_running_state:
+        _clear_solver_running_state()
+    _clear_solver_manual_required_state()
     return None
 
 
@@ -872,6 +998,14 @@ def _solver_cdp_endpoint_is_remote(cdp_endpoint: str) -> bool:
     return True
 
 
+def _solver_request_delegated_to_node(solver_request: dict[str, Any] | None) -> bool:
+    request = solver_request if isinstance(solver_request, dict) else {}
+    node_id = str(request.get("node_id") or "").strip().lower()
+    if node_id == "pc2":
+        return True
+    return _solver_cdp_endpoint_is_remote(str(request.get("cdp_endpoint") or ""))
+
+
 def _submit_solver_request(solver_request: dict[str, Any]) -> bool:
     token = _reserve_solver_submission()
     if token is None:
@@ -927,6 +1061,16 @@ def _trigger_manual_solver_retry_if_due(
     solver_request = _manual_solver_retry_request()
     if not solver_request.get("target_url"):
         return {"queued": False, "reason": "missing_target_url"}
+
+    # PC2 owns its browser and runs the persistent 20s/10-attempt state
+    # machine. The NAS monitor must not clear its manual pause or submit a
+    # competing central solver request.
+    if _solver_request_delegated_to_node(solver_request):
+        return {
+            "queued": False,
+            "reason": "delegated_to_node_solver",
+            "solver_request": solver_request,
+        }
 
     next_retry_epoch = _manual_solver_retry_next_epoch(current_time)
     if next_retry_epoch is not None and current_time < next_retry_epoch:
@@ -1764,6 +1908,15 @@ def _collection_observer_runtime_control_payload(action: str) -> dict[str, Any]:
                     "paused": _collection_effectively_paused(),
                     "captcha_solver": _captcha_solver_runtime_status(),
                 }
+        challenge_state_error = _clear_solver_challenge_state()
+        if challenge_state_error:
+            return {
+                "ok": False,
+                "error": f"failed to clear persisted challenge state: {challenge_state_error}",
+                "action": safe_action,
+                "paused": _collection_effectively_paused(),
+                "captcha_solver": _captcha_solver_runtime_status(),
+            }
     return {
         "ok": True,
         "action": safe_action,
@@ -1850,11 +2003,131 @@ def _auth_state_is_confirmed(solver_status: dict[str, Any]) -> bool:
     )
 
 
+def _node_auth_challenge_matches(payload: dict[str, Any], source: str) -> bool:
+    if source != "pc2_local_solver" or not SOLVER_CHALLENGE_ID:
+        return True
+    challenge_id = str(payload.get("challenge_id") or "").strip()
+    return bool(challenge_id and challenge_id == SOLVER_CHALLENGE_ID)
+
+
+def _collection_observer_resume_after_cooldown_payload(
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Resume collection after a node-local cooldown without claiming a solve.
+
+    The request id is recorded in the same durable receipt store as auth
+    completions so a NAS timeout or PC2 restart can safely replay the request.
+    """
+    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
+    payload = payload if isinstance(payload, dict) else {}
+    request_id = _normalize_auth_completion_id(payload.get("resume_request_id"))
+    source = str(payload.get("source") or "pc2_local_solver")
+    if not request_id:
+        return {
+            "ok": False,
+            "action": "resume_after_cooldown",
+            "source": source,
+            "resume_request_id": None,
+            "auth_state_confirmed": False,
+            "paused": bool(_collection_effectively_paused()),
+            "captcha_solver": _captcha_solver_runtime_status(),
+            "error": "resume_request_id is required",
+        }
+    if not _node_auth_challenge_matches(payload, source):
+        solver_status = _captcha_solver_runtime_status()
+        return {
+            "ok": False,
+            "action": "resume_after_cooldown",
+            "source": source,
+            "resume_request_id": request_id,
+            "auth_state_confirmed": False,
+            "stale_challenge": True,
+            "challenge_id": SOLVER_CHALLENGE_ID,
+            "paused": bool(solver_status.get("paused")),
+            "captcha_solver": solver_status,
+            "error": "resume request belongs to an older captcha challenge",
+        }
+
+    receipt_id = f"resume-after-cooldown:{request_id}"
+    previously_confirmed = _auth_completion_was_confirmed(receipt_id)
+    before_status = _captcha_solver_runtime_status()
+    already_clear = _auth_state_is_confirmed(before_status)
+    clear_error: str | None = None
+    receipt_error: str | None = None
+    if previously_confirmed:
+        auth_state_confirmed = already_clear
+    else:
+        clear_error = _clear_solver_manual_required_pause()
+        cleared_status = _captcha_solver_runtime_status()
+        auth_state_confirmed = clear_error is None and _auth_state_is_confirmed(cleared_status)
+        if auth_state_confirmed:
+            receipt_error = _remember_auth_completion_confirmation(receipt_id)
+            auth_state_confirmed = receipt_error is None
+
+    if auth_state_confirmed:
+        SOLVER_LAST_STATUS = "resumed_after_cooldown"
+        SOLVER_LAST_FAILURE_REASON = None
+    else:
+        SOLVER_LAST_STATUS = "manual_required"
+        SOLVER_LAST_FAILURE_REASON = "manual_required"
+        _set_collection_pause_state(True, "manual_required")
+    solver_status = _captcha_solver_runtime_status()
+    result: dict[str, Any] = {
+        "ok": auth_state_confirmed,
+        "action": "resume_after_cooldown",
+        "source": source,
+        "resume_request_id": request_id,
+        "auth_state_confirmed": auth_state_confirmed,
+        "idempotent": bool(previously_confirmed or (already_clear and auth_state_confirmed)),
+        "manual_auth_completed": False,
+        "paused": bool(solver_status.get("paused")),
+        "runtime_state": _collection_runtime_state_label(),
+        "captcha_solver": solver_status,
+        "cookie_snapshot": {"status": "skipped", "reason": "resume_after_cooldown"},
+    }
+    if clear_error is not None:
+        result["error"] = f"failed to clear force unlock flag: {clear_error}"
+    elif receipt_error is not None:
+        result["error"] = f"failed to persist resume receipt: {receipt_error}"
+    elif previously_confirmed and not auth_state_confirmed:
+        result["error"] = "confirmed resume_request_id is stale for the current auth state"
+    elif not auth_state_confirmed:
+        result["error"] = "auth state remained paused or manual_required after cleanup"
+    return result
+
+
 def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = None) -> dict[str, Any]:
     global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
     payload = payload if isinstance(payload, dict) else {}
     completion_id = _normalize_auth_completion_id(payload.get("completion_id"))
     source = str(payload.get("source") or "operator")
+    if source == "pc2_local_solver" and not completion_id:
+        solver_status = _captcha_solver_runtime_status()
+        return {
+            "ok": False,
+            "action": "auth_complete",
+            "source": source,
+            "completion_id": None,
+            "auth_state_confirmed": False,
+            "challenge_id": SOLVER_CHALLENGE_ID,
+            "paused": bool(solver_status.get("paused")),
+            "captcha_solver": solver_status,
+            "error": "completion_id is required for pc2_local_solver",
+        }
+    if not _node_auth_challenge_matches(payload, source):
+        solver_status = _captcha_solver_runtime_status()
+        return {
+            "ok": False,
+            "action": "auth_complete",
+            "source": source,
+            "completion_id": completion_id,
+            "auth_state_confirmed": False,
+            "stale_challenge": True,
+            "challenge_id": SOLVER_CHALLENGE_ID,
+            "paused": bool(solver_status.get("paused")),
+            "captcha_solver": solver_status,
+            "error": "completion belongs to an older captcha challenge",
+        }
     previously_confirmed = _auth_completion_was_confirmed(completion_id)
     before_status = _captcha_solver_runtime_status()
     already_clear = _auth_state_is_confirmed(before_status)
@@ -6620,6 +6893,12 @@ def initialize_runtime(start_watchdog=True, ensure_browser=True):
     if RUNTIME_INITIALIZED:
         return
 
+    if _restore_solver_challenge_state():
+        print(
+            f"[SOLVER] Restored persisted challenge {SOLVER_CHALLENGE_ID}; "
+            "collection remains paused until node confirmation."
+        )
+
     cleanup_orphaned_files()
     load_data()
     try:
@@ -7822,6 +8101,9 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             if os.path.exists(flag_path):
                 try: os.remove(flag_path)
                 except: pass
+            challenge_state_error = _clear_solver_challenge_state()
+            if challenge_state_error:
+                print(f"[SOLVER] Failed to clear persisted challenge state on API resume: {challenge_state_error}")
             print("System RESUMED (via API).")
             self.send_json({"status": "resumed"})
 
@@ -8049,12 +8331,48 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     details={"error": str(e)},
                 )
                 return
-            status = 200 if result.get("ok") else 400
+            status = 200 if result.get("ok") or result.get("stale_challenge") else 400
             if status != 200:
                 self.send_error_json(
                     status=status,
                     code="COLLECTION_OBSERVER_AUTH_COMPLETE_REJECTED",
                     message="人工认证完成通知被拒绝",
+                    details=result,
+                )
+                return
+            self.send_json(result)
+
+        elif self.path == "/api/collection/auth/resume_after_cooldown":
+            content_length = int(self.headers['Content-Length']) if self.headers.get('Content-Length') else 0
+            try:
+                payload = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            except Exception:
+                self.send_error_json(
+                    status=400,
+                    code="AVM_INVALID_JSON",
+                    message="请求体不是合法 JSON",
+                    details={},
+                )
+                return
+            if not isinstance(payload, dict):
+                self.send_invalid_request_body(payload)
+                return
+            try:
+                result = _collection_observer_resume_after_cooldown_payload(payload)
+            except Exception as e:
+                self.send_error_json(
+                    status=500,
+                    code="COLLECTION_OBSERVER_AUTH_RESUME_FAILED",
+                    message="冷却后恢复采集失败",
+                    details={"error": str(e)},
+                )
+                return
+            status = 200 if result.get("ok") or result.get("stale_challenge") else 400
+            if status != 200:
+                self.send_error_json(
+                    status=status,
+                    code="COLLECTION_OBSERVER_AUTH_RESUME_REJECTED",
+                    message="冷却后恢复采集请求被拒绝",
                     details=result,
                 )
                 return
@@ -8954,6 +9272,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             solver_cdp = str(solver_request.get("cdp_endpoint") or "").strip()
             if solver_cdp and _solver_cdp_endpoint_is_remote(solver_cdp):
                 node_id = str(solver_request.get("node_id") or "").strip()
+                _begin_solver_challenge()
                 print(
                     f"[SOLVER] Remote CDP endpoint {solver_cdp} detected "
                     f"(node={node_id or 'unknown'}); deferring to node-local solver. "
@@ -8967,6 +9286,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 return
 
             print("CAPTCHA REPORTED! Triggering Solver...")
+            _begin_solver_challenge()
 
             # Using ThreadPool to avoid blocking the server main loop
             try:
@@ -9463,6 +9783,12 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                         print("\033[92m[SOLVER] 🟢 Force unlock flag removed! Auto-resuming system...\033[0m")
                         _set_collection_pause_state(False)
                         _clear_solver_manual_required_state()
+                        challenge_state_error = _clear_solver_challenge_state()
+                        if challenge_state_error:
+                            print(
+                                "[SOLVER] Failed to clear persisted challenge state "
+                                f"after force unlock: {challenge_state_error}"
+                            )
                         break
                     try:
                         preflight = active_solver._preflight_current_challenge()

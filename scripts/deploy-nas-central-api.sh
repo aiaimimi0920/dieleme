@@ -33,7 +33,18 @@ cd "$repo_root"
 command -v docker >/dev/null
 command -v curl >/dev/null
 command -v python3 >/dev/null
-docker compose version >/dev/null
+if ! docker compose version >/dev/null 2>&1; then
+  command -v docker-compose >/dev/null
+  docker() {
+    if [[ "${1:-}" == "compose" ]]; then
+      shift
+      command docker-compose "$@"
+    else
+      command docker "$@"
+    fi
+  }
+  export -f docker
+fi
 
 set -a
 # shellcheck disable=SC1090
@@ -70,7 +81,10 @@ export FAPAI_DOCKERFILE="Dockerfile"
 
 docker inspect "$postgres_container" >/dev/null
 docker inspect "$api_container" >/dev/null
-previous_image="$(docker inspect --format '{{.Image}}' "$api_container")"
+previous_image="$(docker inspect --format '{{.Config.Image}}' "$api_container")"
+if [[ -z "$previous_image" || "$previous_image" == "<no value>" ]]; then
+  previous_image="$(docker inspect --format '{{.Image}}' "$api_container")"
+fi
 rollback_tag="fapaifang-collector:rollback-$version"
 
 echo "Deployment identity: version=$version commit=$commit source_digest=$source_digest"
@@ -147,6 +161,12 @@ PY
 done
 
 if [[ "$healthy" -ne 1 ]]; then
+  echo "Candidate container state before rollback:" >&2
+  docker inspect \
+    --format 'status={{.State.Status}} running={{.State.Running}} exit={{.State.ExitCode}} restart={{.RestartCount}} oom={{.State.OOMKilled}} error={{.State.Error}}' \
+    "$api_container" >&2 || true
+  echo "Candidate container logs before rollback:" >&2
+  docker logs --tail 200 --timestamps "$api_container" >&2 || true
   rollback
   exit 1
 fi

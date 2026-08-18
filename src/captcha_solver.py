@@ -1541,7 +1541,7 @@ class CaptchaSolver:
             expected = cdp_expected
         located = self._viewport_origin_on_screen(
             slider_info,
-            search_region=expected.get("region"),
+            search_region=expected.get("region") if expected else None,
             drag_distance=distance,
         )
         screenshot_point = None
@@ -1556,7 +1556,9 @@ class CaptchaSolver:
                 (screenshot_point["x"] - expected["x"]) ** 2
                 + (screenshot_point["y"] - expected["y"]) ** 2
             ) ** 0.5
-        if screenshot_point and not expected.get("uses_render_widget"):
+        if screenshot_point and not expected:
+            chosen = screenshot_point
+        elif screenshot_point and not expected.get("uses_render_widget"):
             chosen = screenshot_point
         elif screenshot_point and expected.get("uses_render_widget") and delta is not None and delta <= max(160.0, abs(float(distance or 0)) * 0.4):
             chosen = expected
@@ -1569,11 +1571,25 @@ class CaptchaSolver:
                 f"delta={delta:.0f}px source={chosen.get('source')} "
                 f"render={bool(expected.get('uses_render_widget'))}"
             )
+        if not chosen:
+            self.last_failure_reason = "screen_mapping_unavailable"
+            print("[SOLVER] Screen mapping unavailable; skipping OS drag.")
+            return None
+        try:
+            mapped_values = (float(chosen["x"]), float(chosen["y"]), float(chosen["distance"]))
+        except (KeyError, TypeError, ValueError):
+            self.last_failure_reason = "screen_mapping_invalid"
+            print("[SOLVER] Screen mapping is invalid; skipping OS drag.")
+            return None
+        if not all(math.isfinite(value) for value in mapped_values) or mapped_values[2] <= 0:
+            self.last_failure_reason = "screen_mapping_invalid"
+            print("[SOLVER] Screen mapping contains non-finite coordinates; skipping OS drag.")
+            return None
         return {
-            "x": chosen["x"],
-            "y": chosen["y"],
-            "distance": chosen["distance"],
-            "source": chosen.get("source") or expected.get("source"),
+            "x": mapped_values[0],
+            "y": mapped_values[1],
+            "distance": mapped_values[2],
+            "source": chosen.get("source") or (expected.get("source") if expected else None),
             "located": bool(located),
             "clipped": bool(located and located.get("clipped")),
         }
@@ -1721,9 +1737,27 @@ class CaptchaSolver:
         self._enable_process_dpi_awareness()
         pyautogui.FAILSAFE = False
         pyautogui.PAUSE = 0
-        self._focus_os_window()
+        try:
+            focused = self._focus_os_window()
+        except Exception as error:
+            self.last_failure_reason = "window_focus_failed"
+            print(f"[SOLVER] OS window focus failed: {error}")
+            return None
+        if not focused:
+            self.last_failure_reason = "window_focus_failed"
+            print("[SOLVER] OS window focus failed; skipping OS mouse drag.")
+            return None
         time.sleep(0.45)
-        mapped = self._map_css_to_screen(start_x, start_y, distance, slider_info=slider_info)
+        try:
+            mapped = self._map_css_to_screen(start_x, start_y, distance, slider_info=slider_info)
+        except Exception as error:
+            self.last_failure_reason = "screen_mapping_exception"
+            print(f"[SOLVER] Screen mapping failed: {error}")
+            return None
+        if not mapped:
+            if not self.last_failure_reason:
+                self.last_failure_reason = "screen_mapping_unavailable"
+            return None
         sx = mapped["x"]
         sy = mapped["y"]
         phys_distance = mapped["distance"]
@@ -1733,6 +1767,8 @@ class CaptchaSolver:
             f"source={mapped.get('source')} located={mapped.get('located')} "
             f"clipped={mapped.get('clipped')} profile={profile.get('name')}"
         )
+        mouse_is_down = False
+        drag_completed = False
         try:
             # 1. 移动到滑块起点附近的随机位置（更像人眼/鼠标先找位置）
             pyautogui.moveTo(
@@ -1744,13 +1780,20 @@ class CaptchaSolver:
             pyautogui.moveTo(sx, sy, duration=random.uniform(*profile.get("start_duration", (0.25, 0.6))))
             time.sleep(random.uniform(*profile["press_hold"]))
             pyautogui.mouseDown()
+            mouse_is_down = True
             time.sleep(random.uniform(*profile["press_hold"]))
             for warmup_x, warmup_y in self._os_drag_warmup_points(sx, sy, profile):
+                if self._stop_if_cancelled():
+                    self.last_failure_reason = "cancelled"
+                    return None
                 pyautogui.moveTo(warmup_x, warmup_y, duration=0)
                 time.sleep(random.uniform(0.04, 0.09))
             fracs, dwells = self._os_drag_track(phys_distance, profile)
             prev_x = sx
             for eased, dwell in zip(fracs, dwells):
+                if self._stop_if_cancelled():
+                    self.last_failure_reason = "cancelled"
+                    return None
                 x = sx + phys_distance * eased
                 # 极小幅度回拉（0.5-1.5px），避免严格单调递增
                 if random.random() < 0.04:
@@ -1775,9 +1818,20 @@ class CaptchaSolver:
             pyautogui.moveTo(release_x, sy + random.gauss(0, 0.8), duration=random.uniform(0.05, 0.15))
             time.sleep(random.uniform(*profile["hold_before_release"]))
             pyautogui.mouseUp()
+            mouse_is_down = False
             time.sleep(random.uniform(0.4, 0.7))
+            drag_completed = True
         except Exception as error:
+            self.last_failure_reason = "mouse_drag_exception"
             print(f"[SOLVER] OS mouse drag failed: {error}")
+        finally:
+            if mouse_is_down:
+                try:
+                    pyautogui.mouseUp()
+                    print("[SOLVER] Released OS mouse button after interrupted drag.")
+                except Exception as release_error:
+                    print(f"[SOLVER] OS mouse release failed: {release_error}")
+        if not drag_completed:
             return None
         return start_x + distance
 
@@ -2399,7 +2453,12 @@ class CaptchaSolver:
             return mode
         return "strict_success_text"
 
-    def solve(self, max_attempts=50):
+    def solve(
+        self,
+        max_attempts=50,
+        nc_retry_replay_limit=None,
+        slider_find_max_retries=None,
+    ):
         """Main solve method - tries all methods in priority order."""
         with self.lock:
             self.last_failure_reason = None
@@ -2464,7 +2523,10 @@ class CaptchaSolver:
             print("[SOLVER] Using CDP method...")
             attempt = 0
             nc_retry_replays = 0
-            nc_retry_replay_limit = self._nc_retry_replay_limit()
+            if nc_retry_replay_limit is None:
+                nc_retry_replay_limit = self._nc_retry_replay_limit()
+            else:
+                nc_retry_replay_limit = max(0, int(nc_retry_replay_limit))
 
             while attempt < max_attempts:
                 attempt += 1
@@ -2487,7 +2549,13 @@ class CaptchaSolver:
 
                 try:
                     # Step 1: Find Slider
-                    slider_info = self._find_slider()
+                    if slider_find_max_retries is None:
+                        slider_info = self._find_slider()
+                    else:
+                        slider_info = self._find_slider(
+                            max_retries=max(1, int(slider_find_max_retries)),
+                            retry_delay=0,
+                        )
                     if not slider_info:
                         challenge_summary = self._page_challenge_summary()
                         if challenge_summary.get("authenticatedPage"):

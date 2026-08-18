@@ -9,7 +9,7 @@ from tools.internal_api_http import fetch_json, post_json
 DEFAULT_API_BASE_URL = os.environ.get("FAPAI_API_BASE_URL", "http://192.168.15.200:8001/api")
 DEFAULT_CDP_ENDPOINT = os.environ.get("FAPAI_CDP_ENDPOINT", "http://127.0.0.1:9223")
 DEFAULT_POLL_SECONDS = int(os.environ.get("FAPAI_LOCAL_SOLVER_POLL_SECONDS", "10"))
-DEFAULT_MAX_ATTEMPTS = int(os.environ.get("FAPAI_LOCAL_SOLVER_MAX_ATTEMPTS", "50"))
+DEFAULT_MAX_ATTEMPTS = 1
 AUTH_COMPLETE_REQUEST_ATTEMPTS = int(os.environ.get("FAPAI_AUTH_COMPLETE_REQUEST_ATTEMPTS", "3"))
 AUTH_COMPLETE_REQUEST_TIMEOUT_SECONDS = float(os.environ.get("FAPAI_AUTH_COMPLETE_REQUEST_TIMEOUT_SECONDS", "15"))
 AUTH_COMPLETE_REQUEST_BACKOFF_SECONDS = float(os.environ.get("FAPAI_AUTH_COMPLETE_REQUEST_BACKOFF_SECONDS", "1"))
@@ -20,6 +20,9 @@ def _status_url(api_base: str) -> str:
 
 def _auth_complete_url(api_base: str) -> str:
     return api_base.rstrip("/") + "/collection/auth/complete"
+
+def _resume_after_cooldown_url(api_base: str) -> str:
+    return api_base.rstrip("/") + "/collection/auth/resume_after_cooldown"
 
 def log_event(event):
     event["ts"] = datetime.datetime.now().isoformat(timespec="seconds")
@@ -71,12 +74,14 @@ def notify_auth_complete(
     source="pc2_local_solver",
     refresh_cookie_snapshot=True,
     completion_id=None,
+    challenge_id=None,
 ):
     url = _auth_complete_url(api_base)
     request_payload = {
         "source": source,
         "refresh_cookie_snapshot": refresh_cookie_snapshot,
         "completion_id": completion_id,
+        "challenge_id": challenge_id,
     }
     attempts = max(1, min(int(AUTH_COMPLETE_REQUEST_ATTEMPTS), 10))
     last_result = {"ok": False, "error": "auth_complete_not_attempted"}
@@ -88,6 +93,8 @@ def notify_auth_complete(
             last_result = {"ok": False, "error": repr(exc)}
         last_result["request_attempts"] = attempt
         if _auth_complete_response_confirmed(last_result, completion_id):
+            return last_result
+        if last_result.get("stale_challenge") is True:
             return last_result
         if attempt < attempts and AUTH_COMPLETE_REQUEST_BACKOFF_SECONDS > 0:
             time.sleep(AUTH_COMPLETE_REQUEST_BACKOFF_SECONDS * attempt)
@@ -112,10 +119,62 @@ def _auth_complete_response_confirmed(payload, completion_id):
         and solver_status.get("paused") is False
     )
 
+
+def notify_collection_resume_after_cooldown(api_base, resume_request_id, challenge_id=None):
+    request_payload = {
+        "source": "pc2_local_solver",
+        "resume_request_id": resume_request_id,
+        "challenge_id": challenge_id,
+    }
+    attempts = max(1, min(int(AUTH_COMPLETE_REQUEST_ATTEMPTS), 10))
+    last_result = {"ok": False, "error": "resume_after_cooldown_not_attempted"}
+    for attempt in range(1, attempts + 1):
+        try:
+            payload = post_json(
+                _resume_after_cooldown_url(api_base),
+                request_payload,
+                timeout=max(AUTH_COMPLETE_REQUEST_TIMEOUT_SECONDS, 1.0),
+            )
+            last_result = dict(payload) if isinstance(payload, dict) else {"ok": False, "raw": payload}
+        except Exception as exc:
+            last_result = {"ok": False, "error": repr(exc)}
+        last_result["request_attempts"] = attempt
+        if _resume_after_cooldown_response_confirmed(last_result, resume_request_id):
+            return last_result
+        if last_result.get("stale_challenge") is True:
+            return last_result
+        if attempt < attempts and AUTH_COMPLETE_REQUEST_BACKOFF_SECONDS > 0:
+            time.sleep(AUTH_COMPLETE_REQUEST_BACKOFF_SECONDS * attempt)
+    return last_result
+
+
+def _resume_after_cooldown_response_confirmed(payload, resume_request_id):
+    if not isinstance(payload, dict):
+        return False
+    if payload.get("ok") is not True or payload.get("action") != "resume_after_cooldown":
+        return False
+    if payload.get("auth_state_confirmed") is not True or payload.get("paused") is not False:
+        return False
+    if str(payload.get("resume_request_id") or "") != str(resume_request_id or ""):
+        return False
+    solver_status = payload.get("captcha_solver")
+    if not isinstance(solver_status, dict):
+        return False
+    return bool(
+        solver_status.get("manual_required") is False
+        and solver_status.get("force_unlock_flag_exists") is False
+        and solver_status.get("paused") is False
+    )
+
 # --- Fallback escalation: push to PC1 manual auth after repeated failures ---
 FALLBACK_STATE_PATH = REPO_ROOT / ".codex-temp" / "bridge-control" / "solver-fallback-state.json"
 FALLBACK_FAIL_THRESHOLD = int(os.environ.get("FAPAI_SOLVER_FALLBACK_FAIL_THRESHOLD", "10"))
 FALLBACK_STALL_SECONDS = int(os.environ.get("FAPAI_SOLVER_FALLBACK_STALL_SECONDS", "600"))
+SOLVER_COOLDOWN_FAIL_THRESHOLD = int(
+    os.environ.get("FAPAI_SOLVER_COOLDOWN_FAIL_THRESHOLD", "10")
+)
+SOLVER_COOLDOWN_SECONDS = float(os.environ.get("FAPAI_SOLVER_COOLDOWN_SECONDS", "600"))
+SLIDER_RETRY_INTERVAL_SECONDS = float(os.environ.get("FAPAI_SLIDER_RETRY_INTERVAL_SECONDS", "20"))
 
 
 def _default_fallback_state():
@@ -130,6 +189,16 @@ def _default_fallback_state():
         "auth_complete_next_retry_at": None,
         "auth_complete_last_error": None,
         "auth_complete_target_url": None,
+        "slider_attempts": 0,
+        "slider_next_attempt_at": None,
+        "solver_cooldown_until": None,
+        "solver_cooldown_reason": None,
+        "collection_resume_pending": False,
+        "collection_resume_request_id": None,
+        "collection_resume_attempts": 0,
+        "collection_resume_next_retry_at": None,
+        "collection_resume_last_error": None,
+        "challenge_id": None,
     }
 
 
@@ -179,6 +248,16 @@ def _load_fallback_state():
                     "auth_complete_next_retry_at": float(data.get("auth_complete_next_retry_at") or 0) or None,
                     "auth_complete_last_error": str(data.get("auth_complete_last_error") or "").strip() or None,
                     "auth_complete_target_url": str(data.get("auth_complete_target_url") or "").strip() or None,
+                    "slider_attempts": int(data.get("slider_attempts", data.get("consecutive_failures", 0)) or 0),
+                    "slider_next_attempt_at": float(data.get("slider_next_attempt_at") or 0) or None,
+                    "solver_cooldown_until": float(data.get("solver_cooldown_until") or 0) or None,
+                    "solver_cooldown_reason": str(data.get("solver_cooldown_reason") or "").strip() or None,
+                    "collection_resume_pending": bool(data.get("collection_resume_pending", False)),
+                    "collection_resume_request_id": str(data.get("collection_resume_request_id") or "").strip() or None,
+                    "collection_resume_attempts": int(data.get("collection_resume_attempts", 0) or 0),
+                    "collection_resume_next_retry_at": float(data.get("collection_resume_next_retry_at") or 0) or None,
+                    "collection_resume_last_error": str(data.get("collection_resume_last_error") or "").strip() or None,
+                    "challenge_id": str(data.get("challenge_id") or "").strip() or None,
                 }
             )
             return state
@@ -205,6 +284,158 @@ def _reset_fallback_state():
     return state
 
 
+def _sync_challenge_state(state, challenge_id):
+    challenge_id = str(challenge_id or "").strip()
+    if not challenge_id:
+        return state, False
+    current_id = str(state.get("challenge_id") or "").strip()
+    if current_id == challenge_id:
+        return state, False
+    if current_id:
+        state = _default_fallback_state()
+    state["challenge_id"] = challenge_id
+    _save_fallback_state(state)
+    return state, bool(current_id)
+
+
+def _solver_cooldown_active(state, now=None):
+    """Return whether the persisted solver retry cooldown is still active."""
+    if not isinstance(state, dict):
+        return False
+    current_time = time.time() if now is None else float(now)
+    cooldown_until = float(state.get("solver_cooldown_until") or 0)
+    return cooldown_until > current_time
+
+
+def _begin_solver_cooldown_if_needed(state, now=None):
+    if not isinstance(state, dict) or state.get("solver_cooldown_until"):
+        return False
+    failures = int(state.get("slider_attempts", state.get("consecutive_failures", 0)) or 0)
+    threshold = max(1, SOLVER_COOLDOWN_FAIL_THRESHOLD)
+    cooldown_seconds = max(0.0, SOLVER_COOLDOWN_SECONDS)
+    if failures < threshold or cooldown_seconds <= 0:
+        return False
+    current_time = time.time() if now is None else float(now)
+    state["solver_cooldown_until"] = current_time + cooldown_seconds
+    state["solver_cooldown_reason"] = "repeated_solver_failures"
+    state["slider_next_attempt_at"] = None
+    return True
+
+
+def _slider_retry_due(state, now=None):
+    current_time = time.time() if now is None else float(now)
+    return float(state.get("slider_next_attempt_at") or 0) <= current_time
+
+
+def _record_slider_attempt_failure(state, now=None):
+    current_time = time.time() if now is None else float(now)
+    attempts = int(state.get("slider_attempts", 0) or 0) + 1
+    state["slider_attempts"] = attempts
+    state["consecutive_failures"] = attempts
+    if not state.get("window_started_at"):
+        state["window_started_at"] = current_time
+    cooldown_started = _begin_solver_cooldown_if_needed(state, now=current_time)
+    if not cooldown_started:
+        state["slider_next_attempt_at"] = current_time + max(0.0, SLIDER_RETRY_INTERVAL_SECONDS)
+    return {
+        "attempts": attempts,
+        "cooldown_started": cooldown_started,
+        "next_attempt_at": state.get("slider_next_attempt_at"),
+        "cooldown_until": state.get("solver_cooldown_until"),
+    }
+
+
+def _new_collection_resume_request_id():
+    node_id = os.environ.get("FAPAI_NODE_ID", "pc2").strip() or "pc2"
+    return f"{node_id}-resume-{int(time.time() * 1000)}-{uuid.uuid4().hex}"
+
+
+def _mark_collection_resume_pending(state=None, now=None):
+    current_time = time.time() if now is None else float(now)
+    state = dict(state) if isinstance(state, dict) else _load_fallback_state()
+    if not state.get("collection_resume_pending"):
+        state.update(
+            {
+                "collection_resume_pending": True,
+                "collection_resume_request_id": _new_collection_resume_request_id(),
+                "collection_resume_attempts": 0,
+                "collection_resume_next_retry_at": current_time,
+                "collection_resume_last_error": None,
+            }
+        )
+    _save_fallback_state(state)
+    return state
+
+
+def _retry_pending_collection_resume(api_base_url, state=None, now=None):
+    state = dict(state) if isinstance(state, dict) else _load_fallback_state()
+    if not state.get("collection_resume_pending"):
+        return {"pending": False, "attempted": False, "confirmed": False, "state": state}
+    current_time = time.time() if now is None else float(now)
+    next_retry_at = float(state.get("collection_resume_next_retry_at") or 0)
+    if next_retry_at > current_time:
+        return {
+            "pending": True,
+            "attempted": False,
+            "confirmed": False,
+            "next_retry_at": next_retry_at,
+            "state": state,
+        }
+
+    request_id = str(state.get("collection_resume_request_id") or "").strip()
+    result = notify_collection_resume_after_cooldown(
+        api_base_url,
+        request_id,
+        challenge_id=state.get("challenge_id"),
+    )
+    request_attempts = max(1, int(result.get("request_attempts", 1) or 1))
+    total_attempts = int(state.get("collection_resume_attempts", 0) or 0) + request_attempts
+    if result.get("stale_challenge") is True:
+        reset_state = _reset_fallback_state()
+        return {
+            "pending": False,
+            "attempted": True,
+            "confirmed": False,
+            "superseded": True,
+            "result": result,
+            "state": reset_state,
+        }
+    if _resume_after_cooldown_response_confirmed(result, request_id):
+        reset_state = _reset_fallback_state()
+        return {
+            "pending": False,
+            "attempted": True,
+            "confirmed": True,
+            "result": result,
+            "state": reset_state,
+        }
+
+    error = str(result.get("error") or "").strip()
+    if not error:
+        try:
+            error = json.dumps(result, ensure_ascii=False, sort_keys=True)
+        except Exception:
+            error = "NAS did not explicitly confirm collection resume"
+    retry_delay = _auth_complete_retry_delay(total_attempts)
+    state.update(
+        {
+            "collection_resume_pending": True,
+            "collection_resume_attempts": total_attempts,
+            "collection_resume_next_retry_at": current_time + retry_delay,
+            "collection_resume_last_error": error[:1000],
+        }
+    )
+    _save_fallback_state(state)
+    return {
+        "pending": True,
+        "attempted": True,
+        "confirmed": False,
+        "next_retry_at": state["collection_resume_next_retry_at"],
+        "result": result,
+        "state": state,
+    }
+
+
 def _new_auth_completion_id():
     node_id = os.environ.get("FAPAI_NODE_ID", "pc2").strip() or "pc2"
     return f"{node_id}-{int(time.time() * 1000)}-{uuid.uuid4().hex}"
@@ -214,8 +445,6 @@ def _mark_auth_complete_pending(target_url):
     state = _load_fallback_state()
     state.update(
         {
-            "consecutive_failures": 0,
-            "window_started_at": None,
             "last_success_at": time.time(),
             "manual_pushed": False,
             "auth_complete_pending": True,
@@ -224,6 +453,11 @@ def _mark_auth_complete_pending(target_url):
             "auth_complete_next_retry_at": time.time(),
             "auth_complete_last_error": None,
             "auth_complete_target_url": str(target_url or "").strip() or None,
+            "collection_resume_pending": False,
+            "collection_resume_request_id": None,
+            "collection_resume_attempts": 0,
+            "collection_resume_next_retry_at": None,
+            "collection_resume_last_error": None,
         }
     )
     _save_fallback_state(state)
@@ -255,9 +489,20 @@ def _retry_pending_auth_confirmation(api_base_url, state=None, now=None):
         api_base_url,
         source="pc2_local_solver",
         completion_id=completion_id,
+        challenge_id=state.get("challenge_id"),
     )
     request_attempts = max(1, int(result.get("request_attempts", 1) or 1))
     total_attempts = int(state.get("auth_complete_attempts", 0) or 0) + request_attempts
+    if result.get("stale_challenge") is True:
+        reset_state = _reset_fallback_state()
+        return {
+            "pending": False,
+            "attempted": True,
+            "confirmed": False,
+            "superseded": True,
+            "result": result,
+            "state": reset_state,
+        }
     if _auth_complete_response_confirmed(result, completion_id):
         reset_state = _reset_fallback_state()
         return {
@@ -390,10 +635,14 @@ def check_cdp_browser_for_slider(cdp_endpoint):
 
 
 def run_solver_local(cdp_endpoint, target_url, max_attempts=50):
-    log_event({"kind": "local_solver_start", "cdp_endpoint": cdp_endpoint, "target_url": target_url, "max_attempts": max_attempts})
+    log_event({"kind": "local_solver_start", "cdp_endpoint": cdp_endpoint, "target_url": target_url, "max_attempts": 1})
     try:
         solver = CaptchaSolver(cdp_endpoint=cdp_endpoint, target_url=target_url)
-        success = solver.solve(max_attempts=max_attempts)
+        success = solver.solve(
+            max_attempts=1,
+            nc_retry_replay_limit=0,
+            slider_find_max_retries=1,
+        )
         log_event({"kind": "local_solver_end", "success": success, "failure_reason": solver.last_failure_reason})
         return bool(success)
     except Exception as exc:
@@ -430,6 +679,26 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                     )
                 time.sleep(poll_seconds)
                 continue
+            pending_resume = _retry_pending_collection_resume(api_base_url)
+            if pending_resume.get("confirmed"):
+                log_event({
+                    "kind": "collection_resume_confirmed",
+                    "result": pending_resume.get("result"),
+                })
+                # Re-read NAS status after the explicit confirmation. Do not let
+                # the status snapshot from before the resume trigger a solver run.
+                time.sleep(0)
+                continue
+            if pending_resume.get("pending"):
+                if pending_resume.get("attempted"):
+                    log_event({
+                        "kind": "collection_resume_pending",
+                        "request_id": pending_resume.get("state", {}).get("collection_resume_request_id"),
+                        "next_retry_at": pending_resume.get("next_retry_at"),
+                        "result": pending_resume.get("result"),
+                    })
+                time.sleep(poll_seconds)
+                continue
             solver_status = read_solver_status(api_base_url)
             if "error" in solver_status:
                 log_event({"kind": "status_error", "error": solver_status["error"]})
@@ -440,6 +709,59 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
             # Manual escalation is opt-in. A stale fallback latch must never disable
             # the automatic solver after an operator turns manual fallback off.
             fallback_state = _load_fallback_state()
+            fallback_state, challenge_reset = _sync_challenge_state(
+                fallback_state,
+                solver_status.get("challenge_id"),
+            )
+            if challenge_reset:
+                log_event({
+                    "kind": "slider_challenge_changed",
+                    "challenge_id": fallback_state.get("challenge_id"),
+                })
+            cooldown_started = _begin_solver_cooldown_if_needed(fallback_state)
+            if cooldown_started:
+                _save_fallback_state(fallback_state)
+                log_event({
+                    "kind": "solver_cooldown_started",
+                    "until": fallback_state["solver_cooldown_until"],
+                    "seconds": max(0.0, SOLVER_COOLDOWN_SECONDS),
+                    "consecutive_failures": fallback_state.get("consecutive_failures", 0),
+                })
+            if _solver_cooldown_active(fallback_state):
+                _save_fallback_state(fallback_state)
+                log_event({
+                    "kind": "solver_cooldown_active",
+                    "until": fallback_state.get("solver_cooldown_until"),
+                    "reason": fallback_state.get("solver_cooldown_reason"),
+                    "consecutive_failures": fallback_state.get("consecutive_failures", 0),
+                })
+                time.sleep(poll_seconds)
+                continue
+            cooldown_until = float(fallback_state.get("solver_cooldown_until") or 0)
+            if cooldown_until and cooldown_until <= time.time():
+                fallback_state = _mark_collection_resume_pending(fallback_state)
+                log_event({
+                    "kind": "solver_cooldown_elapsed",
+                    "resume_request_id": fallback_state.get("collection_resume_request_id"),
+                })
+                resume_result = _retry_pending_collection_resume(
+                    api_base_url,
+                    state=fallback_state,
+                )
+                if resume_result.get("confirmed"):
+                    log_event({
+                        "kind": "collection_resume_confirmed",
+                        "result": resume_result.get("result"),
+                    })
+                else:
+                    log_event({
+                        "kind": "collection_resume_pending",
+                        "request_id": fallback_state.get("collection_resume_request_id"),
+                        "next_retry_at": resume_result.get("next_retry_at"),
+                        "result": resume_result.get("result"),
+                    })
+                time.sleep(poll_seconds)
+                continue
             if fallback_state.get("manual_pushed"):
                 if not manual_required:
                     # PC1 manual auth completed/cleared; reset fallback state
@@ -494,6 +816,20 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
             if not check_cdp_healthy(cdp_endpoint):
                 log_event({"kind": "cdp_unhealthy_before_solve", "cdp_endpoint": cdp_endpoint})
                 time.sleep(poll_seconds); continue
+            fallback_state = _load_fallback_state()
+            if not _slider_retry_due(fallback_state):
+                log_event({
+                    "kind": "slider_retry_wait",
+                    "next_attempt_at": fallback_state.get("slider_next_attempt_at"),
+                    "attempts": fallback_state.get("slider_attempts", 0),
+                })
+                time.sleep(poll_seconds)
+                continue
+            log_event({
+                "kind": "slider_attempt_started",
+                "attempt": int(fallback_state.get("slider_attempts", 0) or 0) + 1,
+                "max_attempts": max(1, SOLVER_COOLDOWN_FAIL_THRESHOLD),
+            })
             success = run_solver_local(cdp_endpoint, target_url, max_attempts=max_attempts)
             if success:
                 log_event({"kind": "local_solver_success"})
@@ -503,16 +839,15 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
             else:
                 log_event({"kind": "local_solver_failure"})
                 state = _load_fallback_state()
-                state["consecutive_failures"] = int(state.get("consecutive_failures", 0) or 0) + 1
                 now = time.time()
-                if not state.get("window_started_at"):
-                    state["window_started_at"] = now
+                failure = _record_slider_attempt_failure(state, now=now)
                 # A successful solve anywhere after a previous failure resets the window.
                 last_success_at = float(state.get("last_success_at") or 0) or None
                 window_started_at = float(state.get("window_started_at") or 0) or now
                 stalled_seconds = now - window_started_at if last_success_at is None else now - max(last_success_at, window_started_at)
-                threshold_reached = int(state["consecutive_failures"]) >= FALLBACK_FAIL_THRESHOLD
+                threshold_reached = int(state["slider_attempts"]) >= FALLBACK_FAIL_THRESHOLD
                 stalled = stalled_seconds >= FALLBACK_STALL_SECONDS
+                cooldown_started = bool(failure.get("cooldown_started"))
                 should_push = bool(
                     manual_fallback_enabled()
                     and threshold_reached
@@ -524,6 +859,12 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                 state["stalled"] = stalled
                 _save_fallback_state(state)
                 log_event({
+                    "kind": "slider_attempt_failed",
+                    "attempt": state["slider_attempts"],
+                    "next_attempt_at": state.get("slider_next_attempt_at"),
+                    "cooldown_until": state.get("solver_cooldown_until"),
+                })
+                log_event({
                     "kind": "pc1_manual_escalation_check",
                     "consecutive_failures": state["consecutive_failures"],
                     "stalled_seconds": round(stalled_seconds, 1),
@@ -532,6 +873,13 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                     "should_push": should_push,
                     "manual_pushed": state.get("manual_pushed", False),
                 })
+                if cooldown_started:
+                    log_event({
+                        "kind": "solver_cooldown_started",
+                        "until": state["solver_cooldown_until"],
+                        "seconds": max(0.0, SOLVER_COOLDOWN_SECONDS),
+                        "consecutive_failures": state["consecutive_failures"],
+                    })
                 if should_push:
                     manual_result = _report_manual_captcha(api_base_url, cdp_endpoint, target_url)
                     state["manual_pushed"] = True

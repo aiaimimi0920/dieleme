@@ -90,6 +90,15 @@ def test_nas_api_image_exposes_verifiable_build_identity_and_hotfix_dockerfile()
     assert "org.opencontainers.image.revision" in compose
     assert "io.fapaifang.source-digest" in compose
 
+    api_environment = compose.split("  fapaifang-api:", 1)[1].split("    ports:", 1)[0]
+    for name in (
+        "FAPAI_BUILD_VERSION",
+        "FAPAI_BUILD_COMMIT",
+        "FAPAI_BUILD_TIME",
+        "FAPAI_SOURCE_DIGEST",
+    ):
+        assert f"{name}: ${{{name}:-" in api_environment
+
 
 def test_nas_api_deploy_helper_requires_backup_identity_health_gate_and_rollback() -> None:
     script = (REPO_ROOT / "scripts" / "deploy-nas-central-api.sh").read_text(encoding="utf-8")
@@ -103,6 +112,8 @@ def test_nas_api_deploy_helper_requires_backup_identity_health_gate_and_rollback
     assert 'build.get("version")' in script
     assert 'build.get("source_digest")' in script
     assert "up -d --no-deps --no-build fapaifang-api" in script
+    assert "Candidate container state before rollback" in script
+    assert "docker logs --tail 200 --timestamps" in script
     assert "/api/collection/overview" in script
     assert "--dry-run" in script
 

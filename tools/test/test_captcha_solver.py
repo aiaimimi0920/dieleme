@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import sys
 
 from src import captcha_solver
 
@@ -1496,6 +1497,69 @@ def test_solver_retries_drag_after_nc_retry_without_spending_main_attempt(monkey
     assert solver.last_failure_reason is None
 
 
+def test_solver_can_disable_nc_replay_for_externally_scheduled_attempt(monkeypatch) -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223, target_url="https://sf.taobao.com/list/1.htm")
+    calls = {"connect": 0, "drag": 0, "reset": 0, "verify": 0}
+
+    def fake_connect() -> bool:
+        calls["connect"] += 1
+        return True
+
+    solver.connect_tab = fake_connect
+    solver._bring_to_front = lambda: True
+    solver._find_slider = lambda: {
+        "x": 100, "y": 100, "width": 40, "height": 40,
+        "selector": "#nc_1_n1z", "context": "main",
+    }
+    solver._get_track_width = lambda: 300
+    solver._do_drag = lambda _x, _y, _d: calls.__setitem__("drag", calls["drag"] + 1) or _d
+    solver._wait_for_verification_success = lambda: calls.__setitem__("verify", calls["verify"] + 1) or False
+    solver._reset_failed_nc_challenge = lambda: calls.__setitem__("reset", calls["reset"] + 1) or True
+    solver._page_challenge_summary = lambda: {
+        "authenticatedPage": False,
+        "explicitFailure": True,
+        "hasSlider": True,
+    }
+    solver._close_owned_target_tabs = lambda: None
+    monkeypatch.setattr(captcha_solver.time, "sleep", lambda _seconds: None)
+
+    assert solver.solve(max_attempts=1, nc_retry_replay_limit=0) is False
+    assert calls == {"connect": 1, "drag": 1, "reset": 0, "verify": 1}
+    assert solver.last_failure_reason == "manual_required"
+
+
+def test_solver_can_limit_slider_lookup_for_externally_scheduled_attempt(monkeypatch) -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223, target_url="https://sf.taobao.com/list/1.htm")
+    find_calls: list[tuple[int, int]] = []
+
+    solver._preflight_current_challenge = lambda: {
+        "connected": True,
+        "manual_required": False,
+        "has_slider": True,
+        "already_authenticated": False,
+    }
+    solver._bring_to_front = lambda: True
+    solver._find_slider = lambda *, max_retries, retry_delay: (
+        find_calls.append((max_retries, retry_delay)) or None
+    )
+    solver._page_challenge_summary = lambda: {
+        "authenticatedPage": False,
+        "hardBlock": False,
+        "loginRequired": False,
+    }
+    solver._reload_page = lambda: None
+    solver._recover_authenticated_list_page = lambda: False
+    solver._close_owned_target_tabs = lambda: None
+    monkeypatch.setattr(captcha_solver.time, "sleep", lambda _seconds: None)
+
+    assert solver.solve(
+        max_attempts=1,
+        nc_retry_replay_limit=0,
+        slider_find_max_retries=1,
+    ) is False
+    assert find_calls == [(1, 0)]
+
+
 def test_solver_switches_to_next_drag_profile_when_slider_still_present(monkeypatch) -> None:
     solver = captcha_solver.CaptchaSolver(port=9223, target_url="https://sf.taobao.com/list/1.htm")
     calls = {"connect": 0, "drag": 0, "verify": 0}
@@ -2411,6 +2475,86 @@ def test_map_css_to_screen_prefers_screenshot_over_win32() -> None:
     assert mapped["source"] == "screenshot_handle"
     assert abs(mapped["x"] - 108.0) < 0.01
     assert abs(mapped["y"] - 36.0) < 0.01
+
+
+def test_map_css_to_screen_returns_explicit_failure_when_no_mapping_is_available() -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._css_to_client_screen = lambda *_args: None
+    solver._css_to_cdp_window_screen = lambda *_args: None
+    solver._viewport_origin_on_screen = lambda *_args, **_kwargs: None
+
+    assert solver._map_css_to_screen(100, 50, 260) is None
+    assert solver.last_failure_reason == "screen_mapping_unavailable"
+
+
+def test_os_drag_skips_when_window_focus_fails(monkeypatch) -> None:
+    class FakePyAutoGUI:
+        FAILSAFE = True
+        PAUSE = 0
+
+        def __getattr__(self, name):
+            raise AssertionError(f"unexpected pyautogui call: {name}")
+
+    monkeypatch.setitem(sys.modules, "pyautogui", FakePyAutoGUI())
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._focus_os_window = lambda: False
+
+    assert solver._do_drag_os(100, 50, 260) is None
+    assert solver.last_failure_reason == "window_focus_failed"
+
+
+def test_os_drag_handles_window_focus_exception(monkeypatch) -> None:
+    class FakePyAutoGUI:
+        FAILSAFE = True
+        PAUSE = 0
+
+        def __getattr__(self, name):
+            raise AssertionError(f"unexpected pyautogui call: {name}")
+
+    monkeypatch.setitem(sys.modules, "pyautogui", FakePyAutoGUI())
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._focus_os_window = lambda: (_ for _ in ()).throw(RuntimeError("focus API failed"))
+
+    assert solver._do_drag_os(100, 50, 260) is None
+    assert solver.last_failure_reason == "window_focus_failed"
+
+
+def test_os_drag_releases_mouse_after_move_exception(monkeypatch) -> None:
+    calls: list[str] = []
+
+    class FakePyAutoGUI:
+        FAILSAFE = True
+        PAUSE = 0
+
+        def moveTo(self, *_args, **_kwargs):
+            calls.append("move")
+            if calls.count("move") == 3:
+                raise RuntimeError("move failed")
+
+        def mouseDown(self):
+            calls.append("down")
+
+        def mouseUp(self):
+            calls.append("up")
+
+    monkeypatch.setitem(sys.modules, "pyautogui", FakePyAutoGUI())
+    monkeypatch.setattr(captcha_solver.time, "sleep", lambda _seconds: None)
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._focus_os_window = lambda: True
+    solver._map_css_to_screen = lambda *_args, **_kwargs: {
+        "x": 100.0, "y": 50.0, "distance": 260.0, "source": "test",
+        "located": False, "clipped": False,
+    }
+    solver._os_drag_profile = lambda _index=0: {
+        "name": "test", "pre_pause": (0, 0), "press_hold": (0, 0),
+        "approach_duration": (0, 0), "start_duration": (0, 0),
+    }
+    solver._os_drag_warmup_points = lambda *_args: []
+    solver._os_drag_track = lambda *_args: ([0.5], [0])
+
+    assert solver._do_drag_os(100, 50, 260) is None
+    assert solver.last_failure_reason == "mouse_drag_exception"
+    assert calls[-1] == "up"
 
 
 def test_clamp_search_region_trims_negative_region_to_screen() -> None:

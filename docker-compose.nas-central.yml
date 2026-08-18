@@ -47,6 +47,10 @@ services:
       postgres:
         condition: service_healthy
     environment:
+      FAPAI_BUILD_VERSION: ${FAPAI_BUILD_VERSION:-development}
+      FAPAI_BUILD_COMMIT: ${FAPAI_BUILD_COMMIT:-unknown}
+      FAPAI_BUILD_TIME: ${FAPAI_BUILD_TIME:-unknown}
+      FAPAI_SOURCE_DIGEST: ${FAPAI_SOURCE_DIGEST:-unknown}
       FAPAI_RUN_MODE: api
       FAPAI_API_PORT: 8001
       FAPAI_DB_URL: ${FAPAI_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}

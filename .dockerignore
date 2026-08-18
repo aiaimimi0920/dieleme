@@ -2,6 +2,11 @@
 .pytest_cache/
 .mypy_cache/
 .codex-temp/
+.memsearch/
+.playwright-cli/
+graphify-out/
+**/graphify-out/
+NDH6SA~M
 __pycache__/
 *.pyc
 
