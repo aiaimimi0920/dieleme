@@ -337,6 +337,31 @@ def test_open_target_tab_encodes_nested_query_delimiters(monkeypatch) -> None:
     ]
 
 
+def test_open_target_tab_collapses_duplicate_http_path_slashes(monkeypatch) -> None:
+    requested_urls: list[str] = []
+
+    class FakeResponse:
+        def json(self) -> dict[str, str]:
+            return {"id": "target-1"}
+
+    monkeypatch.setattr(
+        captcha_solver.requests,
+        "put",
+        lambda url, timeout: requested_urls.append(url) or FakeResponse(),
+    )
+    solver = captcha_solver.CaptchaSolver(
+        port=9223,
+        target_url="https://sf-item.taobao.com//sf_item/664322499931.htm?source=test",
+        cdp_endpoint="http://host.docker.internal:9223",
+    )
+
+    assert solver._open_target_tab() == {"id": "target-1"}
+    assert requested_urls == [
+        "http://host.docker.internal:9223/json/new?"
+        "https://sf-item.taobao.com/sf_item/664322499931.htm%3Fsource%3Dtest"
+    ]
+
+
 def test_compact_cdp_pages_keeps_browser_alive_at_threshold(monkeypatch) -> None:
     requested: list[tuple[str, str, int]] = []
     closed_ws = {"count": 0}

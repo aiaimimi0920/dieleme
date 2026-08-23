@@ -698,6 +698,26 @@ def test_build_userscript_like_batch_payload_formats_epoch_milliseconds_like_use
     assert first_item["auction_start_time"] == datetime.fromtimestamp(1702346400000 / 1000).strftime("%Y-%m-%d %H:%M:%S")
 
 
+def test_build_userscript_like_batch_payload_normalizes_duplicate_detail_path_slashes():
+    payload = browserless_seed_probe.build_userscript_like_batch_payload(
+        {
+            "data": [
+                {
+                    "id": 570192626894,
+                    "itemUrl": "//sf-item.taobao.com//sf_item/570192626894.htm?track_id=test",
+                    "status": "done",
+                    "bidCount": 1,
+                }
+            ]
+        },
+        source_page_url="https://sf.taobao.com/list/50025969__2.htm?page=1",
+    )
+
+    assert payload["items"][0]["url"] == (
+        "https://sf-item.taobao.com/sf_item/570192626894.htm?track_id=test"
+    )
+
+
 def test_write_cookie_snapshot_persists_json_payload(tmp_path: Path):
     output_path = tmp_path / "cookies.json"
     cookies = [{"name": "cookie2", "value": "abc"}]

@@ -357,6 +357,13 @@ def _challenge_retry_budget_preserved(*, is_challenge_error: bool, is_transient_
     return bool(is_challenge_error or is_transient_dns)
 
 
+def _captcha_report_suppresses_challenge(report: Any) -> bool:
+    if not isinstance(report, dict):
+        return False
+    status = str(report.get("status") or "").strip().lower()
+    return status in {"recent_auth_complete", "stale_auth_report", "stale_challenge"}
+
+
 def _detail_challenge_should_break_batch(config: DetailWorkerConfig, result: dict[str, Any]) -> bool:
     if result.get("decision") != "detail_item_retryable_failure":
         return False
@@ -369,7 +376,9 @@ def _detail_challenge_should_break_batch(config: DetailWorkerConfig, result: dic
     captcha_solver_report = result.get("captcha_solver_report")
     if isinstance(captcha_solver_report, dict):
         solver_status = str(captcha_solver_report.get("status") or "").strip().lower()
-        if solver_status == "already_running":
+        if solver_status == "already_running" or _captcha_report_suppresses_challenge(
+            captcha_solver_report
+        ):
             return False
     return True
 
@@ -692,10 +701,15 @@ def run_detail_worker_once(
             revert_attempt=preserve_retry_budget,
             restore_pending=preserve_retry_budget,
         )
+        stale_challenge_suppressed = bool(
+            is_challenge_error and _captcha_report_suppresses_challenge(captcha_solver_report)
+        )
         summary = {
             "decision": "detail_item_retryable_failure",
             "reason": (
-                "detail_challenge_page"
+                "detail_stale_challenge_ignored"
+                if stale_challenge_suppressed
+                else "detail_challenge_page"
                 if is_challenge_error
                 else "transient_dns_error"
                 if is_transient_dns
@@ -719,6 +733,8 @@ def run_detail_worker_once(
             )
         if captcha_solver_report is not None:
             summary["captcha_solver_report"] = captcha_solver_report
+        if stale_challenge_suppressed:
+            summary["challenge_suppressed"] = True
         _write_runtime_summary(config.output_dir, summary)
         return summary
 

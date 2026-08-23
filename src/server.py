@@ -268,9 +268,18 @@ SOLVER_MANUAL_RETRY_ATTEMPTS = 0
 SOLVER_CHALLENGE_ID = None
 SOLVER_LAST_AUTH_COMPLETED_TIME = 0.0
 SOLVER_LAST_AUTH_COMPLETED_REQUEST: dict[str, Any] = {}
+SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT: int | None = None
 SOLVER_AUTH_REPORT_GRACE_SECONDS = max(
     0.0,
     float(os.getenv("FAPAI_SOLVER_AUTH_REPORT_GRACE_SECONDS", "90")),
+)
+SOLVER_DETAIL_PROGRESS_GRACE_SECONDS = max(
+    SOLVER_AUTH_REPORT_GRACE_SECONDS,
+    float(os.getenv("FAPAI_SOLVER_DETAIL_PROGRESS_GRACE_SECONDS", "180")),
+)
+SOLVER_DETAIL_PROGRESS_GRACE_MIN_ITEMS = max(
+    1,
+    int(os.getenv("FAPAI_SOLVER_DETAIL_PROGRESS_GRACE_MIN_ITEMS", "1")),
 )
 AUTH_COMPLETION_LOCK = threading.Lock()
 AUTH_COMPLETION_CONFIRMATIONS: dict[str, float] = {}
@@ -486,11 +495,109 @@ def _solver_challenge_owner_key(request_payload: dict[str, Any] | None) -> tuple
     return node_id, cdp_endpoint
 
 
+def _solver_detail_captured_count() -> int | None:
+    if not getattr(DB_REPOSITORY, "enabled", False):
+        return None
+    try:
+        counts = DB_REPOSITORY.seed_queue_counts()
+    except Exception:
+        return None
+    if not isinstance(counts, dict):
+        return None
+    captured_status_keys = (
+        "seed_item_raw_detail_captured",
+        # Analysis states are included because each can only be entered after
+        # raw detail HTML was captured successfully. Moving between these
+        # states therefore keeps the total stable instead of inventing progress.
+        "seed_item_analysis_in_progress",
+        "seed_item_analysis_failed",
+        "seed_item_analysis_blocked",
+        "seed_item_detail_completed",
+    )
+    try:
+        return sum(max(int(counts.get(key, 0) or 0), 0) for key in captured_status_keys)
+    except (TypeError, ValueError):
+        return None
+
+
 def _remember_solver_auth_completion(request_payload: dict[str, Any] | None) -> None:
     global SOLVER_LAST_AUTH_COMPLETED_TIME, SOLVER_LAST_AUTH_COMPLETED_REQUEST
+    global SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT
     request = _build_solver_request(request_payload or {})
     SOLVER_LAST_AUTH_COMPLETED_TIME = time.time()
     SOLVER_LAST_AUTH_COMPLETED_REQUEST = dict(request)
+    SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT = _solver_detail_captured_count()
+
+
+def _solver_request_matches_auth_source(
+    completed_request: dict[str, Any],
+    incoming_request: dict[str, Any],
+) -> bool:
+    completed_node, completed_cdp, completed_target = _solver_challenge_request_key(
+        completed_request
+    )
+    incoming_node, incoming_cdp, incoming_target = _solver_challenge_request_key(
+        incoming_request
+    )
+    if completed_node and incoming_node:
+        return completed_node == incoming_node
+    if completed_cdp and incoming_cdp:
+        return completed_cdp == incoming_cdp
+    return bool(
+        completed_target
+        and incoming_target
+        and completed_target == incoming_target
+    )
+
+
+def _solver_auth_report_suppression(
+    request_payload: dict[str, Any] | None,
+    *,
+    now: float | None = None,
+) -> dict[str, Any] | None:
+    completed_at = float(SOLVER_LAST_AUTH_COMPLETED_TIME or 0)
+    if completed_at <= 0:
+        return None
+    current_time = time.time() if now is None else float(now)
+    age = current_time - completed_at
+    max_grace_seconds = max(
+        SOLVER_AUTH_REPORT_GRACE_SECONDS,
+        SOLVER_DETAIL_PROGRESS_GRACE_SECONDS,
+    )
+    if age < 0 or age > max_grace_seconds:
+        return None
+
+    completed = _build_solver_request(SOLVER_LAST_AUTH_COMPLETED_REQUEST)
+    incoming = _build_solver_request(request_payload or {})
+    if not completed or not incoming:
+        return None
+    if not _solver_request_matches_auth_source(completed, incoming):
+        return None
+
+    if SOLVER_AUTH_REPORT_GRACE_SECONDS > 0 and age <= SOLVER_AUTH_REPORT_GRACE_SECONDS:
+        return {
+            "reason": "recent_auth_complete",
+            "age_seconds": age,
+            "grace_seconds": SOLVER_AUTH_REPORT_GRACE_SECONDS,
+            "captured_since_auth": 0,
+        }
+
+    baseline = SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT
+    current_count = _solver_detail_captured_count()
+    if baseline is None or current_count is None:
+        return None
+    captured_since_auth = max(current_count - baseline, 0)
+    if (
+        age > SOLVER_DETAIL_PROGRESS_GRACE_SECONDS
+        or captured_since_auth < SOLVER_DETAIL_PROGRESS_GRACE_MIN_ITEMS
+    ):
+        return None
+    return {
+        "reason": "recent_detail_progress",
+        "age_seconds": age,
+        "grace_seconds": SOLVER_DETAIL_PROGRESS_GRACE_SECONDS,
+        "captured_since_auth": captured_since_auth,
+    }
 
 
 def _solver_report_is_recent_auth_duplicate(
@@ -504,30 +611,11 @@ def _solver_report_is_recent_auth_duplicate(
     challenge id.  A report already in flight can therefore arrive after the
     solver has cleared the challenge and otherwise create a new pause.  Keep a
     short, same-node grace window so the next worker cycle can observe the
-    authenticated cookie instead of reopening the just-cleared challenge.
+    authenticated cookie instead of reopening the just-cleared challenge. If
+    detail capture then advances, extend only that same-node protection to the
+    configured progress-backed window.
     """
-    completed_at = float(SOLVER_LAST_AUTH_COMPLETED_TIME or 0)
-    if completed_at <= 0 or SOLVER_AUTH_REPORT_GRACE_SECONDS <= 0:
-        return False
-    current_time = time.time() if now is None else float(now)
-    age = current_time - completed_at
-    if age < 0 or age > SOLVER_AUTH_REPORT_GRACE_SECONDS:
-        return False
-    completed = _build_solver_request(SOLVER_LAST_AUTH_COMPLETED_REQUEST)
-    incoming = _build_solver_request(request_payload or {})
-    if not completed or not incoming:
-        return False
-    completed_owner = _solver_challenge_owner_key(completed)
-    incoming_owner = _solver_challenge_owner_key(incoming)
-    if completed_owner != ("", "") and completed_owner == incoming_owner:
-        return True
-    completed_target = completed.get("target_url")
-    incoming_target = incoming.get("target_url")
-    return bool(
-        completed_target
-        and incoming_target
-        and completed_target == incoming_target
-    )
+    return _solver_auth_report_suppression(request_payload, now=now) is not None
 
 
 def _solver_report_predates_auth_completion(
@@ -553,13 +641,7 @@ def _solver_report_predates_auth_completion(
     incoming = _build_solver_request(payload)
     if not completed or not incoming:
         return False
-    completed_owner = _solver_challenge_owner_key(completed)
-    incoming_owner = _solver_challenge_owner_key(incoming)
-    if completed_owner != ("", "") and completed_owner == incoming_owner:
-        return True
-    completed_target = completed.get("target_url")
-    incoming_target = incoming.get("target_url")
-    return bool(completed_target and incoming_target and completed_target == incoming_target)
+    return _solver_request_matches_auth_source(completed, incoming)
 
 
 def _solver_report_stale_challenge_id(payload: dict[str, Any] | None) -> str | None:
@@ -737,6 +819,7 @@ def _clear_auth_lock_after_solver_success() -> None:
     SOLVER_LAST_FAILURE_REASON = None
     SOLVER_MANUAL_ONLY = False
     SOLVER_MANUAL_RESUME_EPOCH = time.time()
+    _remember_solver_auth_completion(SOLVER_LAST_REQUEST)
     if PAUSED and COLLECTION_PAUSE_REASON in {None, "captcha_solver", "manual_required"}:
         _set_collection_pause_state(False)
     flag_path = _solver_force_unlock_flag_path()
@@ -2325,6 +2408,7 @@ def _collection_observer_resume_after_cooldown_payload(
     if auth_state_confirmed:
         SOLVER_LAST_STATUS = "resumed_after_cooldown"
         SOLVER_LAST_FAILURE_REASON = None
+        _remember_solver_auth_completion(SOLVER_LAST_REQUEST)
     else:
         SOLVER_LAST_STATUS = "manual_required"
         SOLVER_LAST_FAILURE_REASON = "manual_required"
@@ -9535,15 +9619,23 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     "captcha_solver": _captcha_solver_runtime_status(),
                 })
                 return
-            if _solver_report_is_recent_auth_duplicate(solver_request):
-                age = max(time.time() - float(SOLVER_LAST_AUTH_COMPLETED_TIME or 0), 0.0)
-                retry_after = max(0.0, SOLVER_AUTH_REPORT_GRACE_SECONDS - age)
+            auth_report_suppression = _solver_auth_report_suppression(solver_request)
+            if auth_report_suppression is not None:
+                retry_after = max(
+                    0.0,
+                    float(auth_report_suppression["grace_seconds"])
+                    - float(auth_report_suppression["age_seconds"]),
+                )
                 print(
-                    "[SOLVER] report_captcha ignored; the same node recently "
-                    f"completed auth ({retry_after:.0f}s grace remaining)."
+                    "[SOLVER] report_captcha ignored after recent auth; "
+                    f"reason={auth_report_suppression['reason']} "
+                    f"captured_since_auth={auth_report_suppression['captured_since_auth']} "
+                    f"({retry_after:.0f}s grace remaining)."
                 )
                 self.send_json({
                     "status": "recent_auth_complete",
+                    "reason": auth_report_suppression["reason"],
+                    "captured_since_auth": auth_report_suppression["captured_since_auth"],
                     "retry_after_seconds": int(math.ceil(retry_after)),
                     "captcha_solver": _captcha_solver_runtime_status(),
                 })

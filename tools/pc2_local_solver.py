@@ -24,7 +24,7 @@ RECENT_HEALTHY_AUTH_MAX_AGE_SECONDS = float(
     os.environ.get("FAPAI_RECENT_HEALTHY_AUTH_MAX_AGE_SECONDS", "3600")
 )
 POST_AUTH_CDP_PROBE_GRACE_SECONDS = float(
-    os.environ.get("FAPAI_POST_AUTH_CDP_PROBE_GRACE_SECONDS", "90")
+    os.environ.get("FAPAI_POST_AUTH_CDP_PROBE_GRACE_SECONDS", "180")
 )
 
 def _env_flag(name, default=False):

@@ -842,6 +842,13 @@ def test_post_auth_cdp_probe_grace_is_bounded(monkeypatch) -> None:
     assert pc2_local_solver._post_auth_cdp_probe_grace_active(None, now=1000.0) is False
 
 
+def test_post_auth_cdp_probe_default_window_is_three_minutes(monkeypatch) -> None:
+    monkeypatch.setattr(pc2_local_solver, "POST_AUTH_CDP_PROBE_GRACE_SECONDS", 180.0)
+
+    assert pc2_local_solver._post_auth_cdp_probe_grace_active(1000.0, now=1180.0) is True
+    assert pc2_local_solver._post_auth_cdp_probe_grace_active(1000.0, now=1180.1) is False
+
+
 def test_stale_api_pause_after_recent_healthy_auth_is_reconfirmed(monkeypatch) -> None:
     state = pc2_local_solver._default_fallback_state()
     state["challenge_id"] = "challenge-late-report"

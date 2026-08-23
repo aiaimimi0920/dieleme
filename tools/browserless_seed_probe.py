@@ -10,7 +10,7 @@ from html import unescape
 from pathlib import Path
 from datetime import datetime
 from typing import Any, Iterable
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlsplit, urlunsplit
 
 import requests
 import websocket
@@ -57,6 +57,24 @@ def redact_taobao_sensitive_text(value: str) -> str:
     for pattern in _SENSITIVE_INLINE_PATTERNS:
         redacted = pattern.sub("taobao_security_value=<redacted>", redacted)
     return redacted
+
+
+def normalize_seed_item_url(value: Any) -> str:
+    url = str(value or "").strip()
+    if not url:
+        return ""
+    if url.startswith("//"):
+        url = f"https:{url}"
+    try:
+        parsed = urlsplit(url)
+    except ValueError:
+        return url
+    if (parsed.hostname or "").lower() != "sf-item.taobao.com":
+        return url
+    path = parsed.path
+    while "//" in path:
+        path = path.replace("//", "/")
+    return urlunsplit((parsed.scheme or "https", parsed.netloc, path, parsed.query, parsed.fragment))
 
 
 def _export_cdp_cookies_via_playwright(cdp_endpoint: str, origins: Iterable[str]) -> list[dict[str, Any]]:
@@ -423,7 +441,7 @@ def build_userscript_like_batch_payload(payload: dict[str, Any], *, source_page_
                 "auction_date": _format_local_datetime(item.get("end")),
                 "auction_start_time": _format_local_datetime(item.get("startTime")),
                 "end": item.get("end"),
-                "url": f"https:{item.get('itemUrl')}" if item.get("itemUrl") else "",
+                "url": normalize_seed_item_url(item.get("itemUrl")),
                 "status": item.get("status"),
                 "bidCount": bid_count,
                 "bidderCount": item.get("bidUserNumber", item.get("bidderCount")),

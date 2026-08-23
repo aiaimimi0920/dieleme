@@ -160,6 +160,91 @@ def test_recent_auth_completion_does_not_suppress_a_different_node_report(monkey
         },
         now=150.0,
     ) is False
+    assert server._solver_report_is_recent_auth_duplicate(
+        {
+            "node_id": "pc3",
+            "cdp_endpoint": "http://192.168.15.105:9223",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm",
+        },
+        now=150.0,
+    ) is False
+
+
+def test_recent_auth_with_detail_progress_suppresses_same_node_report_for_three_minutes(monkeypatch) -> None:
+    from src import server
+
+    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 100.0)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_AUTH_COMPLETED_REQUEST",
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9223",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm",
+        },
+    )
+    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT", 10)
+    monkeypatch.setattr(server, "SOLVER_AUTH_REPORT_GRACE_SECONDS", 90.0)
+    monkeypatch.setattr(server, "SOLVER_DETAIL_PROGRESS_GRACE_SECONDS", 180.0)
+    monkeypatch.setattr(server, "SOLVER_DETAIL_PROGRESS_GRACE_MIN_ITEMS", 1)
+    monkeypatch.setattr(server, "_solver_detail_captured_count", lambda: 11)
+
+    report = server._solver_auth_report_suppression(
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9223",
+            "url": "https://sf.taobao.com/list/other.htm",
+        },
+        now=220.0,
+    )
+
+    assert report is not None
+    assert report["reason"] == "recent_detail_progress"
+    assert report["captured_since_auth"] == 1
+    assert server._solver_report_is_recent_auth_duplicate(
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9223",
+            "url": "https://sf.taobao.com/list/other.htm",
+        },
+        now=280.0,
+    ) is True
+    assert server._solver_report_is_recent_auth_duplicate(
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9223",
+            "url": "https://sf.taobao.com/list/other.htm",
+        },
+        now=281.0,
+    ) is False
+
+
+def test_recent_auth_without_detail_progress_does_not_extend_grace(monkeypatch) -> None:
+    from src import server
+
+    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 100.0)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_AUTH_COMPLETED_REQUEST",
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9223",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm",
+        },
+    )
+    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT", 10)
+    monkeypatch.setattr(server, "SOLVER_AUTH_REPORT_GRACE_SECONDS", 90.0)
+    monkeypatch.setattr(server, "SOLVER_DETAIL_PROGRESS_GRACE_SECONDS", 180.0)
+    monkeypatch.setattr(server, "_solver_detail_captured_count", lambda: 10)
+
+    assert server._solver_auth_report_suppression(
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9223",
+            "url": "https://sf.taobao.com/list/other.htm",
+        },
+        now=220.0,
+    ) is None
 
 
 def test_report_created_before_auth_completion_is_stale_for_same_node(monkeypatch) -> None:
@@ -185,10 +270,17 @@ def test_report_created_before_auth_completion_is_stale_for_same_node(monkeypatc
     }
     fresh = {**stale, "timestamp": 1_787_170_101_000}
     other_node = {**stale, "node_id": "pc3", "cdp_endpoint": "http://192.168.15.105:9223"}
+    other_node_same_target = {
+        **stale,
+        "node_id": "pc3",
+        "cdp_endpoint": "http://192.168.15.105:9223",
+        "url": "https://sf.taobao.com/list/50025969__2.htm",
+    }
 
     assert server._solver_report_predates_auth_completion(stale) is True
     assert server._solver_report_predates_auth_completion(fresh) is False
     assert server._solver_report_predates_auth_completion(other_node) is False
+    assert server._solver_report_predates_auth_completion(other_node_same_target) is False
 
 
 def test_report_with_old_challenge_id_is_rejected_after_challenge_changes(monkeypatch) -> None:
@@ -1216,6 +1308,21 @@ def test_resume_after_cooldown_only_clears_collection_auth_pause(monkeypatch, tm
     monkeypatch.setattr(server, "SOLVER_RUNNING", False)
     monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
     monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_REQUEST",
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9223",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm",
+        },
+    )
+    remembered_requests: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        server,
+        "_remember_solver_auth_completion",
+        lambda request: remembered_requests.append(dict(request)),
+    )
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
     payload = server._collection_observer_resume_after_cooldown_payload(
@@ -1233,6 +1340,7 @@ def test_resume_after_cooldown_only_clears_collection_auth_pause(monkeypatch, tm
     assert payload["cookie_snapshot"]["status"] == "skipped"
     assert server.SOLVER_LAST_STATUS == "resumed_after_cooldown"
     assert not (tmp_path / "force_unlock.flag").exists()
+    assert remembered_requests == [server.SOLVER_LAST_REQUEST]
 
 
 def test_resume_after_cooldown_is_idempotent_for_same_request_id(monkeypatch, tmp_path) -> None:

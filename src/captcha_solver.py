@@ -345,7 +345,10 @@ class CaptchaSolver:
             netloc = normalized_netloc
         query_pairs = parse_qsl(parsed.query, keep_blank_values=True)
         normalized_query = urlencode(sorted(query_pairs), doseq=True)
-        return urlunsplit((scheme, netloc, parsed.path, normalized_query, ""))
+        path = parsed.path
+        if scheme in {"http", "https", "ws", "wss"}:
+            path = re.sub(r"/{2,}", "/", path)
+        return urlunsplit((scheme, netloc, path, normalized_query, ""))
 
     def _solver_target_route(self, value):
         normalized = self._normalize_target_url(value)

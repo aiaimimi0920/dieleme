@@ -496,6 +496,74 @@ def test_run_detail_worker_once_raw_only_rejects_challenge_artifact(tmp_path: Pa
     ]
     assert counts["seed_item_raw_detail_captured"] == 0
     assert counts["seed_item_pending_detail"] == 1
+
+
+def test_run_detail_worker_once_ignores_challenge_suppressed_after_recent_detail_progress(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repo = _make_repo(tmp_path)
+    _seed_one_item(repo)
+
+    def _process_item(_http, seed, _browser_pages, *, config):
+        item_dir = config.output_dir / str(seed["id"])
+        item_dir.mkdir(parents=True)
+        (item_dir / "detail.html").write_text(
+            "<html><title>安全验证</title><body>验证码 x5secdata</body></html>",
+            encoding="utf-8",
+        )
+        (item_dir / "description-data.json").write_text("{}", encoding="utf-8")
+        (item_dir / "selected.json").write_text(
+            json.dumps(
+                {
+                    "fetch": {
+                        "detail_final_url": (
+                            "https://sf-item.taobao.com/sf_item/3001.htm/"
+                            "_____tmd_____/punish?x5secdata=stale"
+                        ),
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        return {"item_id": seed["id"], "detail_capture_mode": "raw"}
+
+    monkeypatch.setattr(
+        detail_worker,
+        "_report_captcha_solver",
+        lambda *_args, **_kwargs: {
+            "status": "recent_auth_complete",
+            "reason": "recent_detail_progress",
+            "captured_since_auth": 2,
+            "retry_after_seconds": 42,
+        },
+    )
+
+    summary = detail_worker.run_detail_worker_once(
+        detail_worker.DetailWorkerConfig(
+            output_dir=tmp_path,
+            cdp_endpoint="http://127.0.0.1:9223",
+            target_success=1,
+            max_attempts=1,
+            worker_id="detail-test",
+            do_risk=False,
+            raw_only=True,
+            solver_enabled=True,
+            api_base_url="http://collector.local/api",
+        ),
+        repository=repo,
+        http_session=object(),
+        browser_pages={},
+        process_item_func=_process_item,
+    )
+
+    assert summary["decision"] == "detail_item_retryable_failure"
+    assert summary["reason"] == "detail_stale_challenge_ignored"
+    assert summary["challenge_suppressed"] is True
+    assert summary["retry_budget_preserved"] is True
+    assert repo.seed_queue_counts()["seed_item_pending_detail"] == 1
+
+
 def test_run_detail_worker_once_raw_only_rejects_login_artifact(tmp_path: Path, monkeypatch) -> None:
     repo = _make_repo(tmp_path)
     _seed_one_item(repo)
@@ -1671,6 +1739,43 @@ def test_detail_challenge_should_break_batch_respects_solver_status_matrix(tmp_p
         manual_reporting_config,
         dict(base_result, captcha_solver_report={"status": "manual_required"}),
     ) is True
+    assert detail_worker._detail_challenge_should_break_batch(
+        solver_enabled_config,
+        dict(
+            base_result,
+            captcha_solver_report={
+                "status": "recent_auth_complete",
+                "reason": "recent_detail_progress",
+                "captured_since_auth": 1,
+            },
+        ),
+    ) is False
+
+
+def test_detail_challenge_report_recent_auth_is_labeled_and_does_not_break_batch(tmp_path: Path) -> None:
+    result = {
+        "decision": "detail_item_retryable_failure",
+        "reason": "detail_challenge_page",
+        "captcha_solver_report": {
+            "status": "recent_auth_complete",
+            "reason": "recent_detail_progress",
+            "captured_since_auth": 2,
+        },
+    }
+
+    assert detail_worker._captcha_report_suppresses_challenge(result["captcha_solver_report"]) is True
+    assert detail_worker._detail_challenge_should_break_batch(
+        detail_worker.DetailWorkerConfig(
+            output_dir=tmp_path,
+            cdp_endpoint="http://127.0.0.1:9223",
+            target_success=1,
+            max_attempts=1,
+            worker_id="detail-test",
+            do_risk=False,
+            solver_enabled=True,
+        ),
+        result,
+    ) is False
 
 
 def test_detail_challenge_should_break_batch_always_breaks_on_cdp_unreachable(tmp_path: Path) -> None:
