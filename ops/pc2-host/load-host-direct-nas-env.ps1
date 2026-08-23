@@ -24,6 +24,7 @@ $listBrowserFallback = if ($env:FAPAI_LIST_BROWSER_FALLBACK) { $env:FAPAI_LIST_B
 $detailBrowserFallback = if ($env:FAPAI_DETAIL_BROWSER_FALLBACK) { $env:FAPAI_DETAIL_BROWSER_FALLBACK } else { '1' }
 $detailLoadOpenBrowserPages = if ($env:FAPAI_DETAIL_LOAD_OPEN_BROWSER_PAGES) { $env:FAPAI_DETAIL_LOAD_OPEN_BROWSER_PAGES } else { '0' }
 $captchaSolverEnabled = if ($env:FAPAI_CAPTCHA_SOLVER_ENABLED) { $env:FAPAI_CAPTCHA_SOLVER_ENABLED } else { '1' }
+$realTaobaoAutoSolverEnabled = if ($env:FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED) { $env:FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED } else { '0' }
 $seedCaptchaSolverEnabled = if ($env:FAPAI_SEED_CAPTCHA_SOLVER_ENABLED) { $env:FAPAI_SEED_CAPTCHA_SOLVER_ENABLED } else { $captchaSolverEnabled }
 $detailCaptchaSolverEnabled = if ($env:FAPAI_DETAIL_CAPTCHA_SOLVER_ENABLED) { $env:FAPAI_DETAIL_CAPTCHA_SOLVER_ENABLED } else { $captchaSolverEnabled }
 
@@ -65,6 +66,7 @@ $reportCdpEndpoint = if ($env:FAPAI_REPORT_CDP_ENDPOINT) { $env:FAPAI_REPORT_CDP
 $cookieSnapshotPrefer = if ($env:FAPAI_COOKIE_SNAPSHOT_PREFER) { $env:FAPAI_COOKIE_SNAPSHOT_PREFER } else { '0' }
 [Environment]::SetEnvironmentVariable('FAPAI_COOKIE_SNAPSHOT_PREFER', $cookieSnapshotPrefer, 'Process')
 [Environment]::SetEnvironmentVariable('FAPAI_CAPTCHA_SOLVER_ENABLED', $captchaSolverEnabled, 'Process')
+[Environment]::SetEnvironmentVariable('FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED', $realTaobaoAutoSolverEnabled, 'Process')
 [Environment]::SetEnvironmentVariable('FAPAI_SEED_CAPTCHA_SOLVER_ENABLED', $seedCaptchaSolverEnabled, 'Process')
 [Environment]::SetEnvironmentVariable('FAPAI_DETAIL_CAPTCHA_SOLVER_ENABLED', $detailCaptchaSolverEnabled, 'Process')
 [Environment]::SetEnvironmentVariable('FAPAI_SEED_JOBS_FILE', (Join-Path $sharedRoot 'jobs\seed_jobs_all.json'), 'Process')

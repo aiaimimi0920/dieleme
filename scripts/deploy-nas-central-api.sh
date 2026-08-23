@@ -68,7 +68,10 @@ source_digest="$({
     Dockerfile.nas-hotfix \
     docker-compose.nas-central.yml \
     src/server.py \
+    src/storage/repository.py \
     src/captcha_solver.py \
+    collector-desktop/index.html \
+    collector-desktop/dist/index.html \
     tools/browserless_seed_probe.py \
     tools/taobao_login_health.py
 } | sha256sum | awk '{print $1}')"

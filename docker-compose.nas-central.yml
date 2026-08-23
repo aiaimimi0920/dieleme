@@ -59,12 +59,20 @@ services:
       FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_API_DB_ENABLE_POSTGIS:-0}
       FAPAI_COLLECTION_API_LIGHTWEIGHT_STATUS: ${FAPAI_COLLECTION_API_LIGHTWEIGHT_STATUS:-1}
       FAPAI_SOLVER_STATE_DIR: ${FAPAI_SOLVER_STATE_DIR:-/data/datas}
+      FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED: ${FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED:-0}
+      FAPAI_COOKIE_SNAPSHOT_ROOT: ${FAPAI_COOKIE_SNAPSHOT_ROOT:-/data/shared}
+      # The interpolation value above is the NAS host path; inside the
+      # container artifact resolution must use the mounted target path.
+      FAPAI_SHARED_ARTIFACT_ROOT: /data/shared
     ports:
       - "${FAPAI_API_HOST_PORT:-8001}:8001"
     volumes:
       - type: bind
         source: ${FAPAI_NAS_DATA_ROOT:?set FAPAI_NAS_DATA_ROOT}/output
         target: /data/output
+      - type: bind
+        source: ${FAPAI_SHARED_ARTIFACT_ROOT:-${FAPAI_NAS_DATA_ROOT:?set FAPAI_NAS_DATA_ROOT}}
+        target: /data/shared
       - type: bind
         source: ${FAPAI_NAS_DATA_ROOT:?set FAPAI_NAS_DATA_ROOT}/datas
         target: /data/datas

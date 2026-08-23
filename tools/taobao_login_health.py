@@ -72,10 +72,13 @@ def build_captcha_solver_target_url(target_url: str) -> str:
         parsed = urlsplit(target_url)
     except ValueError:
         return target_url
+    path = parsed.path
+    while "//" in path:
+        path = path.replace("//", "/")
     query = parse_qsl(parsed.query, keep_blank_values=True)
     if not any(key == "__captcha_solver_bg" for key, _value in query):
         query.append(("__captcha_solver_bg", "1"))
-    return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, urlencode(query, doseq=True), parsed.fragment))
+    return urlunsplit((parsed.scheme, parsed.netloc, path, urlencode(query, doseq=True), parsed.fragment))
 
 
 def build_captcha_worker_master_url() -> str:
@@ -458,6 +461,7 @@ def build_cdp_verification_page_matcher(url: str) -> Callable[[str], bool]:
     requested_url = url.lower()
     requested_worker_master = "__captcha_worker_master=1" in requested_url
     requested_solver_target = "__captcha_solver_bg=1" in requested_url
+    requested_solver_route = _captcha_solver_route(url) if requested_solver_target else ""
 
     requested_login = (
         "login.taobao.com" in requested_url
@@ -471,7 +475,17 @@ def build_cdp_verification_page_matcher(url: str) -> Callable[[str], bool]:
         if requested_worker_master:
             return "__captcha_worker_master=1" in lowered
         if requested_solver_target:
-            return "__captcha_solver_bg=1" in lowered or "__captcha_manual_popup=1" in lowered
+            if "__captcha_solver_bg=1" in lowered or "__captcha_manual_popup=1" in lowered:
+                return True
+            candidate_is_challenge = any(
+                marker in lowered
+                for marker in ("/_____tmd_____/punish", "x5secdata=", "x5step=")
+            )
+            return bool(
+                candidate_is_challenge
+                and requested_solver_route
+                and _captcha_solver_route(candidate_url) == requested_solver_route
+            )
         if requested_login:
             return (
                 "login.taobao.com" in lowered
@@ -494,6 +508,19 @@ def build_cdp_verification_page_matcher(url: str) -> Callable[[str], bool]:
         )
 
     return is_taobao_verification_page
+
+
+def _captcha_solver_route(value: str) -> str:
+    try:
+        parsed = urlsplit(str(value or "").strip())
+    except ValueError:
+        return ""
+    if not parsed.scheme or not parsed.netloc:
+        return ""
+    path = (parsed.path or "/").split("/_____tmd_____/", 1)[0]
+    while "//" in path:
+        path = path.replace("//", "/")
+    return urlunsplit((parsed.scheme.lower(), parsed.netloc.lower(), path or "/", "", ""))
 
 
 def read_cdp_json(cdp_endpoint: str, path: str, *, method: str = "GET", timeout: int = 5) -> object:
@@ -674,6 +701,14 @@ def cdp_response_bool_value(response: Mapping[str, object]) -> bool:
 
 def queue_captcha_task_via_cdp(cdp_endpoint: str, target_url: str) -> Mapping[str, object]:
     worker_url = build_captcha_worker_master_url()
+    existing_solver_target = find_cdp_target(cdp_endpoint, target_url)
+    if existing_solver_target is not None:
+        activate_cdp_target(cdp_endpoint, existing_solver_target)
+        return {
+            "status": "existing_solver_target",
+            "worker_url": worker_url,
+            "target_url": target_url,
+        }
     compact_cdp_pages_if_needed(cdp_endpoint, reserve_for_new_page=True)
     worker_target = find_cdp_target(cdp_endpoint, worker_url)
     if worker_target is None:
@@ -828,12 +863,17 @@ def check_taobao_health(
             if result.get("healthy") is not True:
                 if trigger_captcha_solver and result.get("status") in {PUNISH_PAGE, CAPTCHA_PAGE, CHALLENGE_REQUIRED, UNKNOWN_BLOCKED}:
                     solver_target_url = build_captcha_solver_target_url(str(result.get("final_url") or check_url))
-                    result["captcha_worker_url"] = open_page(cdp_endpoint, build_captcha_worker_master_url())
                     if open_page_func is None:
                         try:
                             result["captcha_worker_queue_report"] = dict(queue_captcha_task_via_cdp(cdp_endpoint, solver_target_url))
                         except Exception as exc:
                             result["captcha_worker_queue_report"] = {"status": "queue_failed", "error": str(exc)}
+                        result["captcha_worker_url"] = str(
+                            result["captcha_worker_queue_report"].get("worker_url")
+                            or build_captcha_worker_master_url()
+                        )
+                    else:
+                        result["captcha_worker_url"] = open_page(cdp_endpoint, build_captcha_worker_master_url())
                     opened_url = open_page(cdp_endpoint, solver_target_url)
                     result["opened_url"] = opened_url
                     result["captcha_solver_target_url"] = solver_target_url
@@ -862,12 +902,17 @@ def check_taobao_health(
     if result.get("healthy") is not True:
         if trigger_captcha_solver and result.get("status") in {PUNISH_PAGE, CAPTCHA_PAGE, CHALLENGE_REQUIRED, UNKNOWN_BLOCKED}:
             solver_target_url = build_captcha_solver_target_url(str(result.get("final_url") or check_url))
-            result["captcha_worker_url"] = open_page(cdp_endpoint, build_captcha_worker_master_url())
             if open_page_func is None:
                 try:
                     result["captcha_worker_queue_report"] = dict(queue_captcha_task_via_cdp(cdp_endpoint, solver_target_url))
                 except Exception as exc:
                     result["captcha_worker_queue_report"] = {"status": "queue_failed", "error": str(exc)}
+                result["captcha_worker_url"] = str(
+                    result["captcha_worker_queue_report"].get("worker_url")
+                    or build_captcha_worker_master_url()
+                )
+            else:
+                result["captcha_worker_url"] = open_page(cdp_endpoint, build_captcha_worker_master_url())
             opened_url = open_page(cdp_endpoint, solver_target_url)
             result["opened_url"] = opened_url
             result["captcha_solver_target_url"] = solver_target_url
@@ -987,12 +1032,17 @@ def check_taobao_health_samples(
             report_captcha = report_captcha_func or report_captcha_via_api
             solver_source = first_actionable_blocked or first_blocked
             solver_target_url = build_captcha_solver_target_url(str(solver_source.get("final_url") if solver_source else hint_url))
-            result["captcha_worker_url"] = open_page(cdp_endpoint, build_captcha_worker_master_url())
             if open_page_func is None:
                 try:
                     result["captcha_worker_queue_report"] = dict(queue_captcha_task_via_cdp(cdp_endpoint, solver_target_url))
                 except Exception as exc:
                     result["captcha_worker_queue_report"] = {"status": "queue_failed", "error": str(exc)}
+                result["captcha_worker_url"] = str(
+                    result["captcha_worker_queue_report"].get("worker_url")
+                    or build_captcha_worker_master_url()
+                )
+            else:
+                result["captcha_worker_url"] = open_page(cdp_endpoint, build_captcha_worker_master_url())
             result["opened_url"] = open_page(cdp_endpoint, solver_target_url)
             result["captcha_solver_target_url"] = solver_target_url
             try:

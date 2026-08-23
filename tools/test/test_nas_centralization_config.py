@@ -63,10 +63,13 @@ def test_nas_and_worker_compose_templates_exist_and_separate_roles() -> None:
     assert "FAPAI_DETAIL_CDP_ENDPOINT" in worker_env
     assert "FAPAI_SEED_CAPTCHA_SOLVER_ENABLED" in worker_env
     assert "FAPAI_DETAIL_CAPTCHA_SOLVER_ENABLED" in worker_env
+    assert "FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED" in worker_env
+    assert "FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED" in nas_compose
     assert "FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS" in worker_compose
     assert "192.168.15.200:55432" in worker_env
     assert "192.168.15.200:8001" in worker_env
     assert "FAPAI_NAS_DATA_ROOT" in nas_env
+    assert "FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED=0" in nas_env
 
 
 def test_nas_api_image_exposes_verifiable_build_identity_and_hotfix_dockerfile() -> None:
@@ -91,6 +94,8 @@ def test_nas_api_image_exposes_verifiable_build_identity_and_hotfix_dockerfile()
     assert "io.fapaifang.source-digest" in compose
 
     api_environment = compose.split("  fapaifang-api:", 1)[1].split("    ports:", 1)[0]
+    assert "FAPAI_COOKIE_SNAPSHOT_ROOT: ${FAPAI_COOKIE_SNAPSHOT_ROOT:-/data/shared}" in api_environment
+    assert "FAPAI_COOKIE_SNAPSHOT_ROOT=/data/shared" in nas_env
     for name in (
         "FAPAI_BUILD_VERSION",
         "FAPAI_BUILD_COMMIT",

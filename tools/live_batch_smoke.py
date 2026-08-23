@@ -704,6 +704,16 @@ def is_challenge_page(html: str, final_url: str) -> bool:
     )
 
 
+def is_login_page(html: str, final_url: str) -> bool:
+    browserless_seed_probe = _browserless_seed_probe()
+    summary = browserless_seed_probe.summarize_list_page(html, final_url=final_url)
+    lowered_final_url = str(final_url or "").lower()
+    return bool(summary.get("body_has_login")) or any(
+        marker in lowered_final_url
+        for marker in ("login.taobao.com", "login.m.taobao.com", "havanaone/login")
+    )
+
+
 def _configured_cookie_snapshot_path() -> Path | None:
     explicit = (os.environ.get("FAPAI_COOKIE_SNAPSHOT") or "").strip()
     if explicit:
@@ -1203,14 +1213,17 @@ def request_captcha_solver(
     target_url: str,
     *,
     api_base_url: str | None = None,
+    manual_only: bool = False,
 ) -> dict[str, Any]:
     from tools.taobao_login_health import build_captcha_solver_target_url, report_captcha_via_api
 
     solver_target_url = build_captcha_solver_target_url(target_url)
+    report_kwargs = {"manual_only": True} if manual_only else {}
     response = report_captcha_via_api(
         str(api_base_url or DEFAULT_API_BASE_URL),
         cdp_endpoint,
         solver_target_url,
+        **report_kwargs,
     )
     return dict(response) if isinstance(response, dict) else {"status": "unknown_response", "raw": response}
 
@@ -1255,8 +1268,8 @@ def _normalize_browser_match_url(
     path = parsed.path or ""
     if "/_____tmd_____/punish" in path:
         path = path.split("/_____tmd_____/punish", 1)[0]
-        while "//" in path:
-            path = path.replace("//", "/")
+    while "//" in path:
+        path = path.replace("//", "/")
     for param in drop_params:
         query.pop(str(param), None)
     normalized_query = urlencode(
@@ -1347,15 +1360,23 @@ def _find_matching_cdp_list_targets(cdp_endpoint: str, target_url: str) -> list[
     return matches
 
 
-def fetch_open_browser_list_page(cdp_endpoint: str, target_url: str) -> tuple[str, str] | None:
+def fetch_open_browser_list_page(
+    cdp_endpoint: str,
+    target_url: str,
+    *,
+    include_challenge: bool = False,
+) -> tuple[str, str] | None:
+    challenge_page: tuple[str, str] | None = None
     for target in _find_matching_cdp_list_targets(cdp_endpoint, target_url):
         html, page_url = _read_cdp_list_target_html(cdp_endpoint, target)
         if not html:
             continue
         if is_challenge_page(html, page_url):
+            if include_challenge and challenge_page is None:
+                challenge_page = (html, page_url)
             continue
         return html, page_url
-    return None
+    return challenge_page
 
 
 def _read_text_if_exists(path: Path) -> str:
@@ -1504,13 +1525,18 @@ def fetch_browser_navigation_list_page(cdp_endpoint: str, target_url: str) -> tu
         raise RuntimeError(f"unable to open CDP list page target: {target_url}")
 
     target_id = str(target.get("id") or "").strip()
+    preserve_challenge_target = False
     try:
         try:
-            return _read_cdp_list_target_html(cdp_endpoint, target)
+            html, final_url = _read_cdp_list_target_html(cdp_endpoint, target)
+            preserve_challenge_target = is_challenge_page(html, final_url)
+            return html, final_url
         except Exception as error:
             _raise_cdp_endpoint_unavailable(cdp_endpoint, "read_list_page_target_html", error)
     finally:
-        if target_id:
+        # The node solver can only act on a challenge that remains attached to
+        # CDP. Normal transient pages are still closed immediately.
+        if target_id and not preserve_challenge_target:
             try:
                 taobao_login_health.close_cdp_target(cdp_endpoint, target_id)
             except Exception:
@@ -1519,7 +1545,11 @@ def fetch_browser_navigation_list_page(cdp_endpoint: str, target_url: str) -> tu
 
 def fetch_browser_list_page(cdp_endpoint: str, target_url: str) -> tuple[str, str] | None:
     try:
-        browser_page = fetch_open_browser_list_page(cdp_endpoint, target_url)
+        browser_page = fetch_open_browser_list_page(
+            cdp_endpoint,
+            target_url,
+            include_challenge=True,
+        )
     except Exception as error:
         print(
             json.dumps(
@@ -1557,10 +1587,12 @@ def recover_browser_list_page_after_challenge(
             return browser_page
         if attempts == 0 and solver_enabled:
             try:
+                login_required = is_login_page(html, final_url)
                 request_captcha_solver(
                     cdp_endpoint,
-                    final_url or target_url,
+                    target_url if login_required else (final_url or target_url),
                     api_base_url=api_base_url,
+                    manual_only=login_required,
                 )
             except Exception:
                 pass
@@ -1605,10 +1637,12 @@ def fetch_list_page(
             if not browser_fallback_enabled:
                 if solver_requested:
                     try:
+                        login_required = is_login_page(response.text, response.url)
                         request_captcha_solver(
                             cdp_endpoint,
-                            response.url or target_url,
+                            target_url if login_required else (response.url or target_url),
                             api_base_url=api_base_url,
+                            manual_only=login_required,
                         )
                     except Exception:
                         pass
@@ -1653,6 +1687,7 @@ def fetch_detail_with_browser(seed: dict[str, Any], *, cdp_endpoint: str) -> tup
                 raise RuntimeError("attached browser has no contexts")
             context = browser.contexts[0]
             page = context.new_page()
+            preserve_challenge_page = False
             try:
                 response = page.goto(detail_url, wait_until="domcontentloaded", timeout=90000)
                 html = _wait_for_detail_ready(page)
@@ -1660,10 +1695,12 @@ def fetch_detail_with_browser(seed: dict[str, Any], *, cdp_endpoint: str) -> tup
                 if response and response.status >= 400:
                     raise RuntimeError(f"browser detail request returned HTTP {response.status}")
                 if is_challenge_page(html, final_url):
+                    preserve_challenge_page = True
                     raise RuntimeError("browser detail request returned anti-bot challenge")
                 return html, final_url, len(html.encode("utf-8")), "browser_navigation"
             finally:
-                page.close()
+                if not preserve_challenge_page:
+                    page.close()
         finally:
             detach_attached_cdp_browser(browser)
 

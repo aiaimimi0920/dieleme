@@ -643,7 +643,19 @@ def test_detail_worker_config_reads_llm_preflight_retry_env(monkeypatch) -> None
     assert config.llm_preflight_retry_delay_seconds == 1.5
 
 
-def test_run_detail_analysis_once_claims_raw_item_and_marks_completed(tmp_path: Path) -> None:
+def test_run_detail_analysis_once_claims_raw_item_while_collection_is_paused(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    # Analysis consumes raw artifacts independently; a collection pause must not
+    # call or gate the analysis worker's queue claim.
+    monkeypatch.setattr(
+        detail_worker,
+        "_collection_pause_state",
+        lambda _api_base_url: (_ for _ in ()).throw(
+            AssertionError("analysis-only must not read collection pause state")
+        ),
+    )
     repo = _make_repo(tmp_path)
     _seed_one_item(repo)
     claimed = repo.claim_seed_detail_item("raw-worker", lease_seconds=30)

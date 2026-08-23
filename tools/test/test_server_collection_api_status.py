@@ -36,6 +36,171 @@ def test_build_solver_request_normalizes_taobao_punish_target() -> None:
     )
 
 
+def test_real_taobao_solver_targets_are_forced_to_manual_only(monkeypatch) -> None:
+    from src import server
+
+    monkeypatch.delenv("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", raising=False)
+
+    assert server._solver_target_requires_manual_only(
+        {"target_url": "https://sf.taobao.com/list/50025969__2.htm"}
+    ) is True
+    assert server._solver_target_requires_manual_only(
+        {"target_url": "https://sf-item.taobao.com/sf_item/570192626894.htm"}
+    ) is True
+    assert server._solver_target_requires_manual_only(
+        {"target_url": "https://contest.local/mock-slider"}
+    ) is False
+
+
+def test_real_taobao_solver_targets_allow_explicit_auto_opt_in(monkeypatch) -> None:
+    from src import server
+
+    monkeypatch.setenv("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", "1")
+
+    assert server._solver_target_requires_manual_only(
+        {"target_url": "https://sf.taobao.com/list/50025969__2.htm"}
+    ) is False
+
+
+def test_runtime_status_keeps_taobao_manual_only_after_challenge_memory_resets(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    monkeypatch.delenv("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", raising=False)
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(tmp_path / "missing.flag"))
+    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_REQUEST",
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9224",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm",
+        },
+    )
+
+    status = server._captcha_solver_runtime_status()
+
+    assert status["manual_only"] is True
+    assert status["execution_mode"] == "manual"
+    assert status["request_owner"] == "pc2"
+    assert status["node_solver_expected"] is False
+
+
+def test_runtime_status_delegates_taobao_when_auto_solver_is_explicitly_enabled(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    monkeypatch.setenv("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", "1")
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(tmp_path / "missing.flag"))
+    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_REQUEST",
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9224",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm",
+        },
+    )
+
+    status = server._captcha_solver_runtime_status()
+
+    assert status["manual_only"] is False
+    assert status["execution_mode"] == "delegated_node"
+    assert status["request_owner"] == "pc2"
+    assert status["node_solver_expected"] is True
+    assert status["real_taobao_auto_solver_enabled"] is True
+
+
+def test_recent_auth_completion_suppresses_same_node_delayed_captcha_report(monkeypatch) -> None:
+    from src import server
+
+    completed_request = {
+        "node_id": "pc2",
+        "cdp_endpoint": "http://192.168.15.104:9223",
+        "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
+    }
+    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 100.0)
+    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_REQUEST", completed_request)
+    monkeypatch.setattr(server, "SOLVER_AUTH_REPORT_GRACE_SECONDS", 90.0)
+
+    delayed = {
+        "node_id": "pc2",
+        "cdp_endpoint": "http://192.168.15.104:9223",
+        "url": "https://sf.taobao.com/list/other.htm",
+    }
+
+    assert server._solver_report_is_recent_auth_duplicate(delayed, now=150.0) is True
+    assert server._solver_report_is_recent_auth_duplicate(delayed, now=191.0) is False
+
+
+def test_recent_auth_completion_does_not_suppress_a_different_node_report(monkeypatch) -> None:
+    from src import server
+
+    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 100.0)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_AUTH_COMPLETED_REQUEST",
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9223",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm",
+        },
+    )
+    monkeypatch.setattr(server, "SOLVER_AUTH_REPORT_GRACE_SECONDS", 90.0)
+
+    assert server._solver_report_is_recent_auth_duplicate(
+        {
+            "node_id": "pc3",
+            "cdp_endpoint": "http://192.168.15.105:9223",
+            "target_url": "https://sf.taobao.com/list/other.htm",
+        },
+        now=150.0,
+    ) is False
+
+
+def test_report_created_before_auth_completion_is_stale_for_same_node(monkeypatch) -> None:
+    from src import server
+
+    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 1_787_170_100.0)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_AUTH_COMPLETED_REQUEST",
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9223",
+            "target_url": "https://sf.taobao.com/list/50025969__2.htm",
+        },
+    )
+
+    stale = {
+        "node_id": "pc2",
+        "cdp_endpoint": "http://192.168.15.104:9223",
+        "url": "https://sf.taobao.com/list/other.htm",
+        "timestamp": 1_787_170_099_000,
+        "manual_only": True,
+    }
+    fresh = {**stale, "timestamp": 1_787_170_101_000}
+    other_node = {**stale, "node_id": "pc3", "cdp_endpoint": "http://192.168.15.105:9223"}
+
+    assert server._solver_report_predates_auth_completion(stale) is True
+    assert server._solver_report_predates_auth_completion(fresh) is False
+    assert server._solver_report_predates_auth_completion(other_node) is False
+
+
+def test_report_with_old_challenge_id_is_rejected_after_challenge_changes(monkeypatch) -> None:
+    from src import server
+
+    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-current")
+
+    assert server._solver_report_stale_challenge_id({"challenge_id": "challenge-old"}) == "challenge-old"
+    assert server._solver_report_stale_challenge_id({"challenge_id": "challenge-current"}) is None
+    assert server._solver_report_stale_challenge_id({}) is None
+
+
 def test_collection_api_lightweight_status_uses_seed_queue_counts(monkeypatch) -> None:
     from src import server
 
@@ -56,6 +221,7 @@ def test_collection_api_lightweight_status_uses_seed_queue_counts(monkeypatch) -
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
     monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_exists", lambda: False)
 
     payload = server._collection_api_lightweight_status_payload()
 
@@ -750,7 +916,9 @@ def test_collection_observer_auth_complete_clears_pause_and_marks_manual_auth(mo
     monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
-    payload = server._collection_observer_auth_complete_payload({"source": "desktop"})
+    payload = server._collection_observer_auth_complete_payload(
+        {"source": "desktop", "refresh_cookie_snapshot": False}
+    )
 
     assert payload["ok"] is True
     assert payload["action"] == "auth_complete"
@@ -766,13 +934,24 @@ def test_collection_observer_auth_complete_clears_pause_and_marks_manual_auth(mo
     assert not (tmp_path / "force_unlock.flag").exists()
 
 
-def test_collection_observer_auth_complete_schedules_cookie_snapshot_without_blocking_resume(monkeypatch, tmp_path) -> None:
+def test_collection_observer_auth_complete_keeps_pause_while_cookie_snapshot_is_pending(monkeypatch, tmp_path) -> None:
     from src import server
 
     calls: list[dict[str, object]] = []
 
-    def fake_schedule(payload: dict[str, object], completion_id: str | None) -> dict[str, object]:
-        calls.append({**dict(payload), "scheduled_completion_id": completion_id})
+    def fake_schedule(
+        payload: dict[str, object],
+        completion_id: str | None,
+        **kwargs: object,
+    ) -> dict[str, object]:
+        calls.append(
+            {
+                **dict(payload),
+                "scheduled_completion_id": completion_id,
+                "finalize_auth": kwargs.get("finalize_auth"),
+                "expected_challenge_id": kwargs.get("expected_challenge_id"),
+            }
+        )
         return {
             "status": "pending",
             "refreshed": False,
@@ -795,27 +974,75 @@ def test_collection_observer_auth_complete_schedules_cookie_snapshot_without_blo
         {
             "source": "desktop",
             "completion_id": "desktop-completion-1",
+            "refresh_cookie_snapshot": True,
             "scheduled_completion_id": "desktop-completion-1",
+            "finalize_auth": True,
+            "expected_challenge_id": None,
         }
     ]
     assert payload["ok"] is True
-    assert payload["paused"] is False
-    assert payload["captcha_solver"]["manual_required"] is False
-    assert payload["auth_state_confirmed"] is True
+    assert payload["paused"] is True
+    assert payload["captcha_solver"]["manual_required"] is True
+    assert payload["auth_state_confirmed"] is False
+    assert payload["auth_confirmation_pending"] is True
     assert payload["cookie_snapshot"]["status"] == "pending"
     assert payload["cookie_snapshot"]["retry_queued"] is True
-    assert server.SOLVER_LAST_STATUS == "manual_auth_completed"
-    assert not (tmp_path / "force_unlock.flag").exists()
+    assert server.SOLVER_LAST_STATUS == "manual_required"
+    assert (tmp_path / "force_unlock.flag").exists()
 
 
-def test_collection_observer_auth_complete_keeps_resume_when_cookie_refresh_fails(monkeypatch, tmp_path) -> None:
+def test_pc2_auth_complete_cannot_disable_cookie_snapshot_gate(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    scheduled_payloads: list[dict[str, object]] = []
+
+    def fake_schedule(
+        payload: dict[str, object],
+        completion_id: str | None,
+        **_kwargs: object,
+    ) -> dict[str, object]:
+        scheduled_payloads.append(dict(payload))
+        return {
+            "status": "pending",
+            "completion_id": completion_id,
+            "refreshed": False,
+            "retry_queued": True,
+        }
+
+    monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(server, "_schedule_auth_cookie_snapshot_refresh", fake_schedule)
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-gate-required")
+    (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
+
+    payload = server._collection_observer_auth_complete_payload(
+        {
+            "source": "pc2_local_solver",
+            "completion_id": "pc2-gate-required",
+            "challenge_id": "challenge-gate-required",
+            "refresh_cookie_snapshot": False,
+        }
+    )
+
+    assert scheduled_payloads[0]["refresh_cookie_snapshot"] is True
+    assert payload["ok"] is True
+    assert payload["auth_state_confirmed"] is False
+    assert payload["auth_confirmation_pending"] is True
+    assert payload["paused"] is True
+    assert (tmp_path / "force_unlock.flag").exists()
+
+
+def test_collection_observer_auth_complete_keeps_pause_when_cookie_refresh_fails(monkeypatch, tmp_path) -> None:
     from src import server
 
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
     monkeypatch.setattr(
         server,
         "_schedule_auth_cookie_snapshot_refresh",
-        lambda _payload, completion_id: {
+        lambda _payload, completion_id, **_kwargs: {
             "status": "failed",
             "completion_id": completion_id,
             "refreshed": False,
@@ -829,12 +1056,12 @@ def test_collection_observer_auth_complete_keeps_resume_when_cookie_refresh_fail
 
     payload = server._collection_observer_auth_complete_payload({"source": "desktop"})
 
-    assert payload["ok"] is True
-    assert payload["auth_state_confirmed"] is True
-    assert payload["paused"] is False
+    assert payload["ok"] is False
+    assert payload["auth_state_confirmed"] is False
+    assert payload["paused"] is True
     assert payload["cookie_snapshot"]["refreshed"] is False
     assert "cdp unavailable" in payload["cookie_snapshot"]["result"]["error"]
-    assert server.SOLVER_LAST_STATUS == "manual_auth_completed"
+    assert server.SOLVER_LAST_STATUS == "manual_required"
 
 
 def test_collection_observer_auth_complete_is_idempotent_for_repeated_completion_id(monkeypatch, tmp_path) -> None:
@@ -846,11 +1073,11 @@ def test_collection_observer_auth_complete_is_idempotent_for_repeated_completion
     monkeypatch.setattr(
         server,
         "_schedule_auth_cookie_snapshot_refresh",
-        lambda _payload, current_id: {
-            "status": "pending",
+        lambda _payload, current_id, **_kwargs: {
+            "status": "completed",
             "completion_id": current_id,
-            "refreshed": False,
-            "retry_queued": True,
+            "refreshed": True,
+            "retry_queued": False,
         },
     )
     monkeypatch.setattr(server, "PAUSED", True)
@@ -887,7 +1114,7 @@ def test_repeated_old_completion_id_does_not_clear_a_new_manual_required_state(m
     monkeypatch.setattr(
         server,
         "_schedule_auth_cookie_snapshot_refresh",
-        lambda _payload, current_id: {
+        lambda _payload, current_id, **_kwargs: {
             "status": "completed",
             "completion_id": current_id,
             "refreshed": True,
@@ -933,11 +1160,11 @@ def test_collection_observer_auth_complete_rejects_unconfirmed_cleanup(monkeypat
     monkeypatch.setattr(
         server,
         "_schedule_auth_cookie_snapshot_refresh",
-        lambda _payload, completion_id: {
-            "status": "pending",
+        lambda _payload, completion_id, **_kwargs: {
+            "status": "completed",
             "completion_id": completion_id,
-            "refreshed": False,
-            "retry_queued": True,
+            "refreshed": True,
+            "retry_queued": False,
         },
     )
     monkeypatch.setattr(server, "PAUSED", True)
@@ -1293,6 +1520,124 @@ def test_auth_cookie_snapshot_retry_stops_after_bounded_attempts(monkeypatch) ->
     assert status["retry_queued"] is False
 
 
+def test_auth_cookie_snapshot_success_finalizes_matching_paused_challenge(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    completion_id = "pc2-two-phase-success"
+    request = {
+        "node_id": "pc2",
+        "cdp_endpoint": "http://192.168.15.104:9224",
+        "target_url": "https://sf-item.taobao.com/sf_item/1.htm",
+    }
+    monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
+    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
+    monkeypatch.setattr(server, "AUTH_COOKIE_SNAPSHOT_STATE", {})
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", dict(request))
+    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-two-phase")
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_attempts", lambda: 1)
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_backoff_seconds", lambda: 0)
+    monkeypatch.setattr(
+        server,
+        "_refresh_auth_cookie_snapshot",
+        lambda _payload: {"refreshed": True, "cookie_count": 5},
+    )
+    (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
+
+    server._run_auth_cookie_snapshot_retry(
+        {},
+        completion_id,
+        finalize_auth=True,
+        expected_challenge_id="challenge-two-phase",
+        completion_request=request,
+    )
+    status = server._auth_cookie_snapshot_runtime_status()
+
+    assert status["status"] == "completed"
+    assert status["auth_state_confirmed"] is True
+    assert status["result"]["auth_finalization"]["auth_state_confirmed"] is True
+    assert server.PAUSED is False
+    assert server.SOLVER_CHALLENGE_ID is None
+    assert server.SOLVER_LAST_STATUS == "manual_auth_completed"
+    assert not (tmp_path / "force_unlock.flag").exists()
+    assert server._auth_completion_was_confirmed(completion_id) is True
+
+
+def test_auth_cookie_snapshot_failure_keeps_paused_challenge(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
+    monkeypatch.setattr(server, "AUTH_COOKIE_SNAPSHOT_STATE", {})
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-still-paused")
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_attempts", lambda: 1)
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_backoff_seconds", lambda: 0)
+    monkeypatch.setattr(
+        server,
+        "_refresh_auth_cookie_snapshot",
+        lambda _payload: {"refreshed": False, "reason": "cookie_snapshot_candidate_unhealthy"},
+    )
+    (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
+
+    server._run_auth_cookie_snapshot_retry(
+        {},
+        "pc2-two-phase-failed",
+        finalize_auth=True,
+        expected_challenge_id="challenge-still-paused",
+        completion_request={"node_id": "pc2"},
+    )
+    status = server._auth_cookie_snapshot_runtime_status()
+
+    assert status["status"] == "failed"
+    assert server.PAUSED is True
+    assert server.SOLVER_CHALLENGE_ID == "challenge-still-paused"
+    assert (tmp_path / "force_unlock.flag").exists()
+
+
+def test_cookie_snapshot_success_for_old_challenge_cannot_clear_new_pause(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
+    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
+    monkeypatch.setattr(server, "AUTH_COOKIE_SNAPSHOT_STATE", {})
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-new")
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_attempts", lambda: 1)
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_backoff_seconds", lambda: 0)
+    monkeypatch.setattr(
+        server,
+        "_refresh_auth_cookie_snapshot",
+        lambda _payload: {"refreshed": True, "cookie_count": 5},
+    )
+    (tmp_path / "force_unlock.flag").write_text("new challenge", encoding="utf-8")
+
+    server._run_auth_cookie_snapshot_retry(
+        {},
+        "pc2-two-phase-stale",
+        finalize_auth=True,
+        expected_challenge_id="challenge-old",
+        completion_request={"node_id": "pc2"},
+    )
+    status = server._auth_cookie_snapshot_runtime_status()
+
+    assert status["status"] == "completed"
+    assert status["auth_state_confirmed"] is False
+    assert status["result"]["auth_finalization"]["stale_challenge"] is True
+    assert server.PAUSED is True
+    assert server.SOLVER_CHALLENGE_ID == "challenge-new"
+    assert (tmp_path / "force_unlock.flag").exists()
+    assert server._auth_completion_was_confirmed("pc2-two-phase-stale") is False
+
+
 def test_refresh_auth_cookie_snapshot_writes_only_after_healthy_probe(monkeypatch, tmp_path) -> None:
     from src import server
 
@@ -1311,7 +1656,7 @@ def test_refresh_auth_cookie_snapshot_writes_only_after_healthy_probe(monkeypatc
     monkeypatch.setattr(
         server,
         "_probe_auth_cookie_snapshot_health",
-        lambda exported, sample_urls: {"healthy": True, "healthy_samples": 1, "sample_count": len(sample_urls), "sample_results": []},
+        lambda exported, sample_urls, **_kwargs: {"healthy": True, "healthy_samples": 1, "sample_count": len(sample_urls), "sample_results": []},
     )
     monkeypatch.setattr(server, "_write_auth_cookie_snapshot", lambda exported, path: writes.append((list(exported), str(path))))
 
@@ -1321,6 +1666,48 @@ def test_refresh_auth_cookie_snapshot_writes_only_after_healthy_probe(monkeypatc
     assert result["cookie_count"] == 1
     assert result["health"]["healthy_samples"] == 1
     assert writes == [(cookies, str(snapshot_path))]
+
+
+def test_auth_cookie_health_probe_uses_current_cdp_user_agent(monkeypatch) -> None:
+    from src import server
+    from tools import browserless_seed_probe, taobao_login_health
+
+    observed: dict[str, object] = {}
+    cookies = [{"name": "cookie2", "value": "v", "domain": ".taobao.com", "path": "/"}]
+
+    monkeypatch.setattr(
+        browserless_seed_probe,
+        "build_session_from_playwright_cookies",
+        lambda _cookies: object(),
+    )
+
+    def fake_resolve_user_agent(endpoint: str) -> str:
+        observed["endpoint"] = endpoint
+        return "Current Edge UA"
+
+    def fake_probe(_url: str, **kwargs: object) -> dict[str, object]:
+        observed["user_agent"] = kwargs.get("user_agent")
+        return {"final_url": _url, "status": 200, "has_script": True}
+
+    monkeypatch.setattr(browserless_seed_probe, "resolve_cdp_user_agent", fake_resolve_user_agent)
+    monkeypatch.setattr(browserless_seed_probe, "probe_seed_page", fake_probe)
+    monkeypatch.setattr(
+        taobao_login_health,
+        "classify_taobao_health",
+        lambda *_args, **_kwargs: {"status": "healthy", "healthy": True},
+    )
+
+    result = server._probe_auth_cookie_snapshot_health(
+        cookies,
+        ["https://sf.taobao.com/list/50025969__2.htm"],
+        cdp_endpoint="http://192.168.15.104:9223",
+    )
+
+    assert result["healthy"] is True
+    assert observed == {
+        "endpoint": "http://192.168.15.104:9223",
+        "user_agent": "Current Edge UA",
+    }
 
 
 def test_refresh_auth_cookie_snapshot_derives_node_scoped_path_when_env_is_missing(monkeypatch, tmp_path) -> None:
@@ -1350,7 +1737,7 @@ def test_refresh_auth_cookie_snapshot_derives_node_scoped_path_when_env_is_missi
     monkeypatch.setattr(
         server,
         "_probe_auth_cookie_snapshot_health",
-        lambda exported, sample_urls: {"healthy": True, "healthy_samples": 1, "sample_count": len(sample_urls), "sample_results": []},
+        lambda exported, sample_urls, **_kwargs: {"healthy": True, "healthy_samples": 1, "sample_count": len(sample_urls), "sample_results": []},
     )
     monkeypatch.setattr(server, "_write_auth_cookie_snapshot", lambda exported, path: writes.append((list(exported), str(path))))
 
@@ -1360,6 +1747,24 @@ def test_refresh_auth_cookie_snapshot_derives_node_scoped_path_when_env_is_missi
     assert result["refreshed"] is True
     assert result["path"] == str(expected)
     assert writes == [(cookies, str(expected))]
+
+
+def test_cookie_snapshot_root_resolves_node_path_inside_shared_mount(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    shared_root = tmp_path / "shared"
+    shared_root.mkdir()
+    monkeypatch.delenv("FAPAI_COOKIE_SNAPSHOT", raising=False)
+    monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT_ROOT", str(shared_root))
+    monkeypatch.setattr(
+        server,
+        "SOLVER_LAST_REQUEST",
+        {"node_id": "pc2", "cdp_endpoint": "http://192.168.15.104:9224"},
+    )
+
+    assert server._resolve_auth_cookie_snapshot_path({}) == str(
+        shared_root / "secrets" / "nodes" / "pc2" / "taobao-cookies.json"
+    )
 
 
 def test_refresh_auth_cookie_snapshot_does_not_overwrite_when_probe_is_unhealthy(monkeypatch, tmp_path) -> None:
@@ -1380,7 +1785,7 @@ def test_refresh_auth_cookie_snapshot_does_not_overwrite_when_probe_is_unhealthy
     monkeypatch.setattr(
         server,
         "_probe_auth_cookie_snapshot_health",
-        lambda _exported, _sample_urls: {
+        lambda _exported, _sample_urls, **_kwargs: {
             "healthy": False,
             "healthy_samples": 0,
             "sample_count": 1,
@@ -1579,12 +1984,15 @@ def test_manual_only_captcha_report_preserves_detail_target_and_disables_auto_re
     from src import server
 
     flag_path = tmp_path / "force_unlock.flag"
+    challenge_state_path = tmp_path / "solver-challenge-state.json"
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
+    monkeypatch.setattr(server, "_solver_challenge_state_path", lambda: challenge_state_path)
     monkeypatch.setattr(server, "PAUSED", False)
     monkeypatch.setattr(server, "SOLVER_RUNNING", False)
     monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
     monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
     monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False, raising=False)
+    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
 
     payload = server._manual_only_captcha_report_payload(
         {
@@ -1598,10 +2006,12 @@ def test_manual_only_captcha_report_preserves_detail_target_and_disables_auto_re
     assert payload["captcha_solver"]["manual_required"] is True
     assert payload["captcha_solver"]["manual_only"] is True
     assert payload["captcha_solver"]["manual_retry_enabled"] is False
+    assert str(payload["captcha_solver"]["challenge_id"]).startswith("captcha-")
     assert payload["captcha_solver"]["last_request"]["target_url"] == (
         "https://sf-item.taobao.com/sf_item/3001.htm"
     )
     assert flag_path.exists()
+    assert challenge_state_path.exists()
 
     monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
     assert server._manual_solver_retry_enabled() is False
@@ -1634,6 +2044,11 @@ def test_manual_only_status_survives_restart_from_persisted_flag(monkeypatch, tm
     assert status["manual_retry_enabled"] is False
     assert status["last_request"]["node_id"] == "pc2"
     assert status["last_request"]["cdp_endpoint"] == "http://192.168.15.104:9224"
+    assert status["execution_mode"] == "manual"
+    assert status["request_owner"] == "pc2"
+    assert status["delegated_to_node_solver"] is True
+    assert status["nas_solver_active"] is False
+    assert status["node_solver_expected"] is False
 
 
 def test_solver_cancel_for_manual_required_preserves_manual_pause(monkeypatch, tmp_path) -> None:

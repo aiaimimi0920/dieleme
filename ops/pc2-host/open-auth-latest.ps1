@@ -2,7 +2,8 @@ param(
   [string]$ApiBaseUrl = 'http://192.168.15.200:8001/api',
   [int]$Port = 9223,
   [string]$ProfileDir = 'C:\Users\Public\nas_home\AI\FPFData\edge-cdp-profile-pc2',
-  [string]$RequestedUrl = ''
+  [string]$RequestedUrl = '',
+  [switch]$ResetToBlank
 )
 
 $ErrorActionPreference = 'Stop'
@@ -107,14 +108,6 @@ function Normalize-AuthChallengeUrl {
     return $defaultUrl
   }
 
-  if ($targetHost.Contains('sf-item.taobao.com') -or $lowerPath.Contains('/sf_item/')) {
-    return $defaultUrl
-  }
-
-  if (-not $targetHost.Contains('sf.taobao.com')) {
-    return $defaultUrl
-  }
-
   function Build-ListUrl {
     param(
       [string]$PathValue,
@@ -143,6 +136,34 @@ function Normalize-AuthChallengeUrl {
       -Parameters $nextQuery `
       -Keys @('location_code', 'st_param', 'auction_start_seg', 'page', '__captcha_solver_bg')
     return $builder.Uri.AbsoluteUri
+  }
+
+  function Build-DetailUrl {
+    param([string]$PathValue)
+
+    $normalizedPath = if ($null -eq $PathValue) { '' } else { [string]$PathValue }
+    while ($normalizedPath.Contains('//')) {
+      $normalizedPath = $normalizedPath.Replace('//', '/')
+    }
+    if ($normalizedPath.ToLowerInvariant().Contains('/_____tmd_____/punish')) {
+      $normalizedPath = $normalizedPath.Split('/_____tmd_____/punish', 2)[0]
+    }
+    if (-not [regex]::IsMatch($normalizedPath, '^/sf_item/[0-9]+\.htm$', 'IgnoreCase')) {
+      return $defaultUrl
+    }
+
+    $builder = [System.UriBuilder]::new($parsed.Scheme, 'sf-item.taobao.com')
+    $builder.Path = $normalizedPath
+    $builder.Query = '__captcha_solver_bg=1'
+    return $builder.Uri.AbsoluteUri
+  }
+
+  if ($targetHost -eq 'sf-item.taobao.com' -or $lowerPath.Contains('/sf_item/')) {
+    return Build-DetailUrl -PathValue $path
+  }
+
+  if ($targetHost -ne 'sf.taobao.com') {
+    return $defaultUrl
   }
 
   $query = ConvertFrom-AuthQueryString -Query $parsed.Query
@@ -181,6 +202,9 @@ function Get-LatestSolverTargetUrl {
     return ''
   }
 
+  if ($lastRequest.challenge_target_url) {
+    return [string]$lastRequest.challenge_target_url
+  }
   if ($lastRequest.target_url) {
     return [string]$lastRequest.target_url
   }
@@ -190,12 +214,18 @@ function Get-LatestSolverTargetUrl {
   return ''
 }
 
-$rawTargetUrl = if ($RequestedUrl) {
+$rawTargetUrl = if ($ResetToBlank) {
+  ''
+} elseif ($RequestedUrl) {
   $RequestedUrl
 } else {
   Get-LatestSolverTargetUrl
 }
-$startUrl = Normalize-AuthChallengeUrl -Url $rawTargetUrl
+$startUrl = if ($ResetToBlank) {
+  'about:blank'
+} else {
+  Normalize-AuthChallengeUrl -Url $rawTargetUrl
+}
 
 Write-Host "Resolved auth challenge URL: $startUrl"
 
@@ -207,6 +237,7 @@ Write-Host "Resolved auth challenge URL: $startUrl"
   -ProfileDir $ProfileDir `
   -StartUrl $startUrl `
   -ForceNew `
+  -TerminateAllBrowserProcesses `
   -UseSystemProxy `
   -DisableExtensions `
   -CdpStartupTimeoutSeconds 120

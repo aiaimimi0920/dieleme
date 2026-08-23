@@ -7,6 +7,8 @@ param(
   [int]$CdpFailureThreshold = 3,
   [int]$CdpRestartCooldownSeconds = 300,
   [int]$AnalysisBackendRetryCooldownSeconds = 900,
+  [int]$DetailWorkerCount = 0,
+  [int]$AnalysisWorkerCount = 0,
   [switch]$Once
 )
 
@@ -158,6 +160,86 @@ $workerSpecs = @(
   }
 )
 
+function Resolve-WorkerCount {
+  param(
+    [Parameter(Mandatory = $true)][int]$RequestedCount,
+    [Parameter(Mandatory = $true)][string]$EnvironmentName,
+    [Parameter(Mandatory = $true)][int]$DefaultCount
+  )
+
+  $resolved = $RequestedCount
+  if ($resolved -eq 0) {
+    $configured = [Environment]::GetEnvironmentVariable($EnvironmentName, 'Process')
+    if ($configured) {
+      if (-not [int]::TryParse($configured, [ref]$resolved)) {
+        throw "$EnvironmentName must be an integer."
+      }
+    } else {
+      $resolved = $DefaultCount
+    }
+  }
+  if ($resolved -lt 3 -or $resolved -gt 8) {
+    throw "$EnvironmentName must be between 3 and 8."
+  }
+  return $resolved
+}
+
+$DetailWorkerCount = Resolve-WorkerCount `
+  -RequestedCount $DetailWorkerCount `
+  -EnvironmentName 'FAPAI_HOST_DETAIL_WORKER_COUNT' `
+  -DefaultCount 4
+$AnalysisWorkerCount = Resolve-WorkerCount `
+  -RequestedCount $AnalysisWorkerCount `
+  -EnvironmentName 'FAPAI_HOST_ANALYSIS_WORKER_COUNT' `
+  -DefaultCount 4
+
+for ($index = 4; $index -le $DetailWorkerCount; $index++) {
+  $workerId = "pc2-real-detail-$index"
+  $outputDir = Join-Path $sharedRoot "output\nodes\pc2-real\detail_worker_$index"
+  $workerSpecs += [pscustomobject]@{
+    Name = "detail-$index-http"
+    WorkerId = $workerId
+    ScriptPattern = 'tools\detail_worker.py'
+    ScriptPath = Join-Path $root 'ops\start-host-direct-detail-worker.ps1'
+    ScriptArguments = @(
+      '-RequestedWorkerId', $workerId,
+      '-RequestedOutputDir', $outputDir,
+      '-BrowserFallbackOverride', '0'
+    )
+    SummaryPath = Join-Path $outputDir 'detail_worker_summary.json'
+    SummaryMaxAgeSeconds = $DetailSummaryMaxAgeSeconds
+    StartupGraceSeconds = $StartupGraceSeconds
+    RequiresCdp = $collectorRequiresCdp
+    IsAnalysis = $false
+    StopsWhenCollectionPaused = $true
+    StdoutPath = Join-Path $logDir "detail$index.out.log"
+    StderrPath = Join-Path $logDir "detail$index.err.log"
+  }
+}
+
+for ($index = 4; $index -le $AnalysisWorkerCount; $index++) {
+  $workerId = "pc2-real-analysis-$index"
+  $outputDir = Join-Path $sharedRoot "output\nodes\pc2-real\detail_analysis_worker_$index"
+  $workerSpecs += [pscustomobject]@{
+    Name = "analysis-$index"
+    WorkerId = $workerId
+    ScriptPattern = 'tools\detail_worker.py'
+    ScriptPath = Join-Path $root 'ops\start-host-direct-analysis-worker.ps1'
+    ScriptArguments = @(
+      '-RequestedWorkerId', $workerId,
+      '-RequestedOutputDir', $outputDir
+    )
+    SummaryPath = Join-Path $outputDir 'detail_worker_summary.json'
+    SummaryMaxAgeSeconds = $AnalysisSummaryMaxAgeSeconds
+    StartupGraceSeconds = [Math]::Max($StartupGraceSeconds, 420)
+    RequiresCdp = $false
+    IsAnalysis = $true
+    StopsWhenCollectionPaused = $false
+    StdoutPath = Join-Path $logDir "analysis$index.out.log"
+    StderrPath = Join-Path $logDir "analysis$index.err.log"
+  }
+}
+
 function Write-WatchdogLog {
   param([Parameter(Mandatory = $true)][string]$Message)
 
@@ -191,7 +273,9 @@ function Test-CollectionPaused {
     $status = Invoke-RestMethod -Uri "$apiBaseUrl/status" -TimeoutSec 5
     return $status.paused -eq $true
   } catch {
-    return $false
+    # The NAS control plane is authoritative. Fail closed so an outage cannot
+    # restart collection-scoped workers while the real pause state is unknown.
+    return $true
   }
 }
 
@@ -269,7 +353,11 @@ function Get-WorkerProcesses {
   param([Parameter(Mandatory = $true)]$Spec)
 
   $scriptPattern = [regex]::Escape([string]$Spec.ScriptPattern)
-  $workerIdPattern = '--worker-id\s+' + [regex]::Escape([string]$Spec.WorkerId)
+  $workerIdPattern = (
+    '--worker-id\s+["'']?' +
+    [regex]::Escape([string]$Spec.WorkerId) +
+    '["'']?(?=\s|$)'
+  )
   return @(
     Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
       Where-Object {
@@ -338,6 +426,23 @@ function Get-WorkerSummaryState {
     }
   } catch {
     return $null
+  }
+}
+
+function Initialize-AnalysisUnavailableSummaryBaseline {
+  # A watchdog restart must get one real backend probe. Otherwise the last
+  # unavailable summary from the previous process is treated as a new failure
+  # and the worker immediately re-enters cooldown without ever starting.
+  foreach ($spec in $workerSpecs) {
+    if (-not $spec.IsAnalysis) {
+      continue
+    }
+    $summary = Get-WorkerSummaryState -Spec $spec
+    if ($null -eq $summary -or $summary.Decision -ne 'detail_worker_llm_unavailable') {
+      continue
+    }
+    $script:analysisUnavailableSummaryWriteTicks[[string]$spec.Name] = `
+      [int64]$summary.LastWriteTimeUtc.Ticks
   }
 }
 
@@ -488,10 +593,25 @@ function Start-WorkerDetached {
     return
   }
 
-  $commandLine = 'cmd.exe /d /c powershell.exe -WindowStyle Hidden -NonInteractive -NoProfile -ExecutionPolicy Bypass -File {0} 1>>{1} 2>>{2}' -f `
-    $Spec.ScriptPath,
-    $Spec.StdoutPath,
-    $Spec.StderrPath
+  $quoteNativeArgument = {
+    param([Parameter(Mandatory = $true)][string]$Value)
+    return '"{0}"' -f $Value.Replace('"', '\"')
+  }
+  $scriptPathText = & $quoteNativeArgument ([string]$Spec.ScriptPath)
+  $stdoutPathText = & $quoteNativeArgument ([string]$Spec.StdoutPath)
+  $stderrPathText = & $quoteNativeArgument ([string]$Spec.StderrPath)
+  $scriptArgumentText = ''
+  if ($Spec.PSObject.Properties.Name -contains 'ScriptArguments') {
+    $scriptArgumentText = @(
+      $Spec.ScriptArguments |
+        ForEach-Object { & $quoteNativeArgument ([string]$_) }
+    ) -join ' '
+  }
+  $commandLine = 'cmd.exe /d /c powershell.exe -WindowStyle Hidden -NonInteractive -NoProfile -ExecutionPolicy Bypass -File {0} {1} 1>>{2} 2>>{3}' -f `
+    $scriptPathText,
+    $scriptArgumentText,
+    $stdoutPathText,
+    $stderrPathText
   $created = Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{ CommandLine = $commandLine }
   if ([int]$created.ReturnValue -ne 0) {
     Write-WatchdogLog "failed to start $($Spec.Name): Win32_Process.Create returned $($created.ReturnValue)"
@@ -566,6 +686,7 @@ function Ensure-Worker {
 }
 
 Write-WatchdogLog 'pc2 worker watchdog booted'
+Initialize-AnalysisUnavailableSummaryBaseline
 while ($true) {
   $collectionPaused = Test-CollectionPaused
   if ($collectionPaused) {

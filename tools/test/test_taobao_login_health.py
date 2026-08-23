@@ -19,6 +19,27 @@ def test_taobao_login_health_bootstraps_repo_path_before_tools_import() -> None:
     assert script.index("REPO_ROOT =") < script.index("from tools.internal_api_http import post_json")
 
 
+def test_build_captcha_solver_target_url_normalizes_duplicate_path_slashes() -> None:
+    result = taobao_login_health.build_captcha_solver_target_url(
+        "https://sf-item.taobao.com//sf_item/598568414650.htm?foo=1#details"
+    )
+
+    assert result == (
+        "https://sf-item.taobao.com/sf_item/598568414650.htm"
+        "?foo=1&__captcha_solver_bg=1#details"
+    )
+
+
+def test_build_captcha_solver_target_url_keeps_existing_solver_marker_once() -> None:
+    result = taobao_login_health.build_captcha_solver_target_url(
+        "https://sf-item.taobao.com//sf_item/598568414650.htm?__captcha_solver_bg=1"
+    )
+
+    assert result == (
+        "https://sf-item.taobao.com/sf_item/598568414650.htm?__captcha_solver_bg=1"
+    )
+
+
 def _force_playwright_open(monkeypatch) -> None:
     def _raise_http_unavailable(_endpoint: str, _url: str) -> str:
         raise RuntimeError("force playwright fallback")
@@ -399,6 +420,57 @@ def test_build_cdp_verification_page_matcher_requires_worker_master_marker() -> 
         )
         is False
     )
+
+
+def test_build_cdp_verification_page_matcher_reuses_matching_punish_redirect() -> None:
+    matcher = taobao_login_health.build_cdp_verification_page_matcher(
+        "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1"
+    )
+
+    assert (
+        matcher(
+            "https://sf.taobao.com//list/50025969__2.htm/_____tmd_____/punish"
+            "?x5secdata=secret&x5step=1"
+        )
+        is True
+    )
+    assert (
+        matcher(
+            "https://sf.taobao.com//list/200782003__1.htm/_____tmd_____/punish"
+            "?x5secdata=secret&x5step=1"
+        )
+        is False
+    )
+
+
+def test_open_page_via_cdp_http_reuses_matching_punish_redirect(monkeypatch) -> None:
+    punish_url = (
+        "https://sf.taobao.com//list/50025969__2.htm/_____tmd_____/punish"
+        "?x5secdata=secret&x5step=1"
+    )
+    target = {"id": "punish-1", "type": "page", "url": punish_url}
+    activated: list[tuple[str, object]] = []
+    monkeypatch.setattr(taobao_login_health, "list_cdp_targets", lambda _endpoint: [target])
+    monkeypatch.setattr(
+        taobao_login_health,
+        "activate_cdp_target",
+        lambda endpoint, candidate: activated.append((endpoint, candidate)),
+    )
+    monkeypatch.setattr(
+        taobao_login_health,
+        "read_cdp_json",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("matching punish target must not open a new tab")
+        ),
+    )
+
+    result = taobao_login_health.open_page_via_cdp_http(
+        "http://127.0.0.1:9223",
+        "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
+    )
+
+    assert result == punish_url
+    assert activated == [("http://127.0.0.1:9223", target)]
 
 
 def test_build_cdp_verification_page_matcher_reuses_login_tabs_only_for_login_urls() -> None:
@@ -1679,6 +1751,45 @@ def test_open_page_via_cdp_http_closes_accumulated_pages_before_opening_twelfth(
     assert any(method == "PUT" and "/json/new?" in url for method, url in calls)
 
 
+def test_queue_captcha_task_via_cdp_reuses_existing_solver_target(monkeypatch) -> None:
+    target_url = "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1"
+    existing_target = {
+        "id": "punish-1",
+        "type": "page",
+        "url": "https://sf.taobao.com//list/50025969__2.htm/_____tmd_____/punish?x5step=1",
+    }
+    activated: list[tuple[str, object]] = []
+    monkeypatch.setattr(
+        taobao_login_health,
+        "find_cdp_target",
+        lambda _endpoint, requested_url: existing_target if requested_url == target_url else None,
+    )
+    monkeypatch.setattr(
+        taobao_login_health,
+        "activate_cdp_target",
+        lambda endpoint, target: activated.append((endpoint, target)),
+    )
+    monkeypatch.setattr(
+        taobao_login_health,
+        "compact_cdp_pages_if_needed",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("existing solver target must avoid worker creation")
+        ),
+    )
+
+    result = taobao_login_health.queue_captcha_task_via_cdp(
+        "http://127.0.0.1:9223",
+        target_url,
+    )
+
+    assert result == {
+        "status": "existing_solver_target",
+        "worker_url": "https://sf.taobao.com/?__captcha_worker_master=1",
+        "target_url": target_url,
+    }
+    assert activated == [("http://127.0.0.1:9223", existing_target)]
+
+
 def test_queue_captcha_task_via_cdp_posts_message_to_worker_master(monkeypatch) -> None:
     http_calls: list[tuple[str, str]] = []
     ws_urls: list[str] = []
@@ -1836,6 +1947,7 @@ def test_queue_captcha_task_via_cdp_returns_worker_unavailable_after_open_retry(
         [
             None,
             None,
+            None,
         ]
     )
 
@@ -1870,6 +1982,7 @@ def test_queue_captcha_task_via_cdp_returns_worker_unavailable_after_open_retry(
         "target_url": target_url,
     }
     assert calls == [
+        ("find", {"cdp_endpoint": "http://127.0.0.1:9223", "url": target_url}),
         ("compact", {"cdp_endpoint": "http://127.0.0.1:9223", "reserve_for_new_page": True}),
         ("find", {"cdp_endpoint": "http://127.0.0.1:9223", "url": worker_url}),
         ("read", {"cdp_endpoint": "http://127.0.0.1:9223", "path": "/json/new?https%3A%2F%2Fsf.taobao.com%2F%3F__captcha_worker_master%3D1", "method": "PUT"}),
@@ -1889,6 +2002,7 @@ def test_queue_captcha_task_via_cdp_returns_worker_missing_websocket_after_refre
     activate_calls: list[tuple[str, str]] = []
     find_results = iter(
         [
+            None,
             target_without_ws,
             target_without_ws,
         ]

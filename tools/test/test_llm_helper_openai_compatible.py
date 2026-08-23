@@ -103,6 +103,38 @@ def test_chat_with_glm_uses_openai_compatible_backend_when_env_is_set(monkeypatc
     assert calls[0]["trust_env"] is False
 
 
+def test_chat_with_glm_forwards_valid_reasoning_effort(monkeypatch):
+    calls: list[dict[str, Any]] = []
+
+    class FakeSession:
+        def __init__(self):
+            self.trust_env = True
+
+        def post(self, _url: str, *, json: dict[str, Any], **_kwargs):
+            calls.append(json)
+            return _FakeResponse()
+
+    monkeypatch.setattr(llm_helper.requests, "Session", lambda: FakeSession())
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.test/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL", "test-model")
+    monkeypatch.setenv("OPENAI_REASONING_EFFORT", "LOW")
+
+    result = llm_helper.chat_with_glm("return json")
+
+    assert result == '{"ok":true}'
+    assert calls[0]["reasoning_effort"] == "low"
+
+
+def test_openai_compatible_config_rejects_invalid_reasoning_effort(monkeypatch):
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.test/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_REASONING_EFFORT", "fastest")
+
+    with pytest.raises(ValueError, match="OPENAI_REASONING_EFFORT"):
+        llm_helper._get_openai_compatible_config()
+
+
 def test_chat_with_glm_applies_explicit_openai_compatible_proxy_without_trusting_env(monkeypatch):
     calls: list[dict[str, Any]] = []
 

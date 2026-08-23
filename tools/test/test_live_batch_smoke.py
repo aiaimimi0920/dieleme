@@ -873,10 +873,99 @@ def test_fetch_browser_navigation_list_page_closes_raw_cdp_target_without_playwr
     ]
 
 
+def test_fetch_browser_navigation_list_page_preserves_challenge_target_for_solver(monkeypatch) -> None:
+    closed_targets: list[str] = []
+    target = {
+        "id": "challenge-page",
+        "url": "https://sf.taobao.com/list/page=2",
+        "webSocketDebuggerUrl": "ws://cdp/challenge-page",
+    }
+
+    monkeypatch.setattr(taobao_login_health, "compact_cdp_pages_if_needed", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(taobao_login_health, "read_cdp_json", lambda *_args, **_kwargs: target)
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "_read_cdp_list_target_html",
+        lambda *_args, **_kwargs: (
+            "<html><body>captcha challenge</body></html>",
+            "https://sec.taobao.com/_____tmd_____/punish?x5secdata=challenge",
+        ),
+    )
+    monkeypatch.setattr(
+        taobao_login_health,
+        "close_cdp_target",
+        lambda _endpoint, target_id: closed_targets.append(str(target_id)),
+    )
+
+    html, final_url = live_batch_smoke.fetch_browser_navigation_list_page(
+        "http://127.0.0.1:9223",
+        "https://sf.taobao.com/list/page=2",
+    )
+
+    assert "challenge" in html
+    assert "/punish" in final_url
+    assert closed_targets == []
+
+
+def test_fetch_detail_with_browser_preserves_challenge_page_for_solver(monkeypatch) -> None:
+    fake_sync_api = types.ModuleType("playwright.sync_api")
+
+    class FakePlaywrightContext:
+        def __enter__(self):
+            return object()
+
+        def __exit__(self, *_args):
+            return None
+
+    fake_sync_api.sync_playwright = FakePlaywrightContext
+    fake_playwright = types.ModuleType("playwright")
+    fake_playwright.sync_api = fake_sync_api
+    monkeypatch.setitem(sys.modules, "playwright", fake_playwright)
+    monkeypatch.setitem(sys.modules, "playwright.sync_api", fake_sync_api)
+
+    class FakeResponse:
+        status = 200
+
+    class FakePage:
+        url = "https://sec.taobao.com/_____tmd_____/punish?x5secdata=challenge"
+        closed = False
+
+        def goto(self, *_args, **_kwargs):
+            return FakeResponse()
+
+        def close(self):
+            self.closed = True
+
+    page = FakePage()
+
+    class FakeContext:
+        def new_page(self):
+            return page
+
+    class FakeBrowser:
+        contexts = [FakeContext()]
+
+    monkeypatch.setattr(live_batch_smoke, "connect_browser_over_cdp", lambda *_args, **_kwargs: FakeBrowser())
+    monkeypatch.setattr(live_batch_smoke, "detach_attached_cdp_browser", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "_wait_for_detail_ready",
+        lambda *_args, **_kwargs: "<html><body>captcha challenge</body></html>",
+    )
+
+    with pytest.raises(RuntimeError, match="anti-bot challenge"):
+        live_batch_smoke.fetch_detail_with_browser(
+            {"id": "3003", "url": "https://sf-item.taobao.com/sf_item/3003.htm"},
+            cdp_endpoint="http://127.0.0.1:9223",
+        )
+
+    assert page.closed is False
+
+
 def test_fetch_browser_list_page_falls_back_to_navigation_when_open_page_probe_closes(monkeypatch) -> None:
     events: list[str] = []
 
-    def _open_page(_cdp_endpoint: str, _target_url: str):
+    def _open_page(_cdp_endpoint: str, _target_url: str, **_kwargs):
         events.append("open_page")
         raise RuntimeError("Page.wait_for_timeout: Target page, context or browser has been closed")
 
@@ -1034,6 +1123,14 @@ def test_fetch_open_browser_list_page_skips_punish_url_after_normalization_via_c
     ]
 
 
+def test_normalize_browser_match_url_collapses_duplicate_path_slashes() -> None:
+    result = live_batch_smoke._normalize_browser_match_url(
+        "https://sf-item.taobao.com//sf_item/598568414650.htm?foo=1&__captcha_solver_bg=1#details"
+    )
+
+    assert result == "https://sf-item.taobao.com/sf_item/598568414650.htm?foo=1"
+
+
 def test_fetch_open_browser_list_page_skips_login_then_uses_second_valid_target(monkeypatch) -> None:
     read_targets: list[str] = []
 
@@ -1070,7 +1167,7 @@ def test_fetch_open_browser_list_page_skips_login_then_uses_second_valid_target(
 def test_fetch_browser_list_page_falls_back_to_navigation_after_login_html(monkeypatch) -> None:
     events: list[str] = []
 
-    def _open_page(_cdp_endpoint: str, _target_url: str):
+    def _open_page(_cdp_endpoint: str, _target_url: str, **_kwargs):
         events.append("open_page")
         return None
 
@@ -1089,6 +1186,40 @@ def test_fetch_browser_list_page_falls_back_to_navigation_after_login_html(monke
     assert html == "<html>ok</html>"
     assert final_url == "https://sf.taobao.com/list/page=9"
     assert events == ["open_page", "navigation_page"]
+
+
+def test_fetch_browser_list_page_reuses_existing_challenge_without_navigation(monkeypatch) -> None:
+    challenge_page = (
+        "<html>_____tmd_____/punish challenge</html>",
+        "https://sf.taobao.com//list/page=9/_____tmd_____/punish?x5step=1",
+    )
+    calls: list[tuple[str, bool]] = []
+
+    def _open_page(
+        _cdp_endpoint: str,
+        _target_url: str,
+        *,
+        include_challenge: bool = False,
+    ):
+        calls.append(("open_page", include_challenge))
+        return challenge_page
+
+    monkeypatch.setattr(live_batch_smoke, "fetch_open_browser_list_page", _open_page)
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "fetch_browser_navigation_list_page",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("an existing challenge page must not open another CDP target")
+        ),
+    )
+
+    result = live_batch_smoke.fetch_browser_list_page(
+        "http://127.0.0.1:9223",
+        "https://sf.taobao.com/list/page=9",
+    )
+
+    assert result == challenge_page
+    assert calls == [("open_page", True)]
 
 
 def test_compact_cdp_page_targets_keeps_browser_alive_at_limit(monkeypatch) -> None:
@@ -1332,7 +1463,7 @@ def test_fetch_list_page_reports_solver_when_browser_fallback_disabled(monkeypat
         def get(*_args, **_kwargs):
             return _ChallengeResponse()
 
-    report_calls: list[tuple[str, str]] = []
+    report_calls: list[tuple[str, str, dict[str, object]]] = []
 
     monkeypatch.setenv("FAPAI_LIST_BROWSER_FALLBACK", "0")
     monkeypatch.setattr(
@@ -1343,7 +1474,8 @@ def test_fetch_list_page_reports_solver_when_browser_fallback_disabled(monkeypat
     monkeypatch.setattr(
         live_batch_smoke,
         "request_captcha_solver",
-        lambda cdp_endpoint, target_url, **_kwargs: report_calls.append((cdp_endpoint, target_url)) or {"status": "solving"},
+        lambda cdp_endpoint, target_url, **kwargs: report_calls.append((cdp_endpoint, target_url, kwargs))
+        or {"status": "solving"},
     )
 
     html, final_url, status, method = live_batch_smoke.fetch_list_page(
@@ -1358,7 +1490,59 @@ def test_fetch_list_page_reports_solver_when_browser_fallback_disabled(monkeypat
     assert final_url == "https://sf.taobao.com/list/page=2"
     assert status == 200
     assert method == "http_cookie_challenge"
-    assert report_calls == [("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=2")]
+    assert report_calls == [
+        (
+            "http://127.0.0.1:9223",
+            "https://sf.taobao.com/list/page=2",
+            {"api_base_url": None, "manual_only": False},
+        )
+    ]
+
+
+def test_fetch_list_page_reports_login_redirect_as_manual_auth_handoff(monkeypatch) -> None:
+    class _LoginResponse:
+        text = "<html>淘宝登录</html>"
+        url = "https://login.taobao.com/havanaone/login/login.htm?redirect=https://sf.taobao.com/list/page=12"
+        status_code = 200
+
+        @staticmethod
+        def raise_for_status() -> None:
+            return None
+
+    class _LoginHttp:
+        @staticmethod
+        def get(*_args, **_kwargs):
+            return _LoginResponse()
+
+    report_calls: list[tuple[str, str, dict[str, object]]] = []
+
+    monkeypatch.setenv("FAPAI_LIST_BROWSER_FALLBACK", "0")
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "request_captcha_solver",
+        lambda cdp_endpoint, target_url, **kwargs: report_calls.append((cdp_endpoint, target_url, kwargs))
+        or {"status": "manual_required"},
+    )
+
+    html, final_url, status, method = live_batch_smoke.fetch_list_page(
+        _LoginHttp(),
+        cdp_endpoint="http://127.0.0.1:9223",
+        target_url="https://sf.taobao.com/list/page=12",
+        user_agent=live_batch_smoke.DEFAULT_USER_AGENT,
+        solver_enabled=True,
+    )
+
+    assert html == _LoginResponse.text
+    assert final_url == _LoginResponse.url
+    assert status == 200
+    assert method == "http_cookie_challenge"
+    assert report_calls == [
+        (
+            "http://127.0.0.1:9223",
+            "https://sf.taobao.com/list/page=12",
+            {"api_base_url": None, "manual_only": True},
+        )
+    ]
 
 
 def test_request_captcha_solver_uses_default_api_base_and_normalizes_non_dict_response(monkeypatch) -> None:
@@ -1466,6 +1650,33 @@ def test_request_captcha_solver_keeps_real_taobao_on_automatic_solver_path(monke
 
     assert result == {"status": "manual_required"}
     assert captured["kwargs"] == {}
+
+
+def test_request_captcha_solver_can_force_manual_auth_handoff(monkeypatch) -> None:
+    captured: dict[str, object] = {}
+
+    monkeypatch.setattr(
+        taobao_login_health,
+        "build_captcha_solver_target_url",
+        lambda url: url,
+    )
+
+    def _report(*args, **kwargs):
+        captured["args"] = args
+        captured["kwargs"] = kwargs
+        return {"status": "manual_required"}
+
+    monkeypatch.setattr(taobao_login_health, "report_captcha_via_api", _report)
+
+    result = live_batch_smoke.request_captcha_solver(
+        "http://127.0.0.1:9225",
+        "https://sf.taobao.com/list/page=10",
+        api_base_url="http://collection-api.test/api",
+        manual_only=True,
+    )
+
+    assert result == {"status": "manual_required"}
+    assert captured["kwargs"] == {"manual_only": True}
 
 
 def test_fetch_list_page_passes_explicit_api_base_url_to_solver(monkeypatch) -> None:
@@ -1839,7 +2050,7 @@ def test_recover_browser_list_page_after_challenge_stops_after_second_challenge(
     ]
     fetch_calls: list[tuple[str, str]] = []
     sleep_calls: list[float] = []
-    report_calls: list[tuple[str, str]] = []
+    report_calls: list[tuple[str, str, dict[str, object]]] = []
 
     def _fetch_browser_list_page(cdp_endpoint: str, target_url: str):
         fetch_calls.append((cdp_endpoint, target_url))
@@ -1850,7 +2061,8 @@ def test_recover_browser_list_page_after_challenge_stops_after_second_challenge(
     monkeypatch.setattr(
         live_batch_smoke,
         "request_captcha_solver",
-        lambda cdp_endpoint, target_url, **_kwargs: report_calls.append((cdp_endpoint, target_url)) or {"status": "solving"},
+        lambda cdp_endpoint, target_url, **kwargs: report_calls.append((cdp_endpoint, target_url, kwargs))
+        or {"status": "solving"},
     )
 
     html, final_url = live_batch_smoke.recover_browser_list_page_after_challenge(
@@ -1867,7 +2079,11 @@ def test_recover_browser_list_page_after_challenge_stops_after_second_challenge(
     assert fetch_calls == [("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=5")]
     assert sleep_calls == [2]
     assert report_calls == [
-        ("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=5/_____tmd_____/punish?x5secdata=first")
+        (
+            "http://127.0.0.1:9223",
+            "https://sf.taobao.com/list/page=5/_____tmd_____/punish?x5secdata=first",
+            {"api_base_url": None, "manual_only": False},
+        )
     ]
 
 
@@ -1880,7 +2096,7 @@ def test_recover_browser_list_page_after_challenge_retries_login_page_until_heal
     ]
     fetch_calls: list[tuple[str, str]] = []
     sleep_calls: list[float] = []
-    report_calls: list[tuple[str, str]] = []
+    report_calls: list[tuple[str, str, dict[str, object]]] = []
 
     def _fetch_browser_list_page(cdp_endpoint: str, target_url: str):
         fetch_calls.append((cdp_endpoint, target_url))
@@ -1891,7 +2107,8 @@ def test_recover_browser_list_page_after_challenge_retries_login_page_until_heal
     monkeypatch.setattr(
         live_batch_smoke,
         "request_captcha_solver",
-        lambda cdp_endpoint, target_url, **_kwargs: report_calls.append((cdp_endpoint, target_url)) or {"status": "solving"},
+        lambda cdp_endpoint, target_url, **kwargs: report_calls.append((cdp_endpoint, target_url, kwargs))
+        or {"status": "solving"},
     )
 
     html, final_url = live_batch_smoke.recover_browser_list_page_after_challenge(
@@ -1910,7 +2127,8 @@ def test_recover_browser_list_page_after_challenge_retries_login_page_until_heal
     assert report_calls == [
         (
             "http://127.0.0.1:9223",
-            "https://login.taobao.com/member/login.jhtml?redirect=https://sf.taobao.com/list/page=10",
+            "https://sf.taobao.com/list/page=10",
+            {"api_base_url": None, "manual_only": True},
         )
     ]
 
@@ -1924,7 +2142,7 @@ def test_recover_browser_list_page_after_challenge_returns_login_terminal_after_
     ]
     fetch_calls: list[tuple[str, str]] = []
     sleep_calls: list[float] = []
-    report_calls: list[tuple[str, str]] = []
+    report_calls: list[tuple[str, str, dict[str, object]]] = []
 
     def _fetch_browser_list_page(cdp_endpoint: str, target_url: str):
         fetch_calls.append((cdp_endpoint, target_url))
@@ -1935,7 +2153,8 @@ def test_recover_browser_list_page_after_challenge_returns_login_terminal_after_
     monkeypatch.setattr(
         live_batch_smoke,
         "request_captcha_solver",
-        lambda cdp_endpoint, target_url, **_kwargs: report_calls.append((cdp_endpoint, target_url)) or {"status": "solving"},
+        lambda cdp_endpoint, target_url, **kwargs: report_calls.append((cdp_endpoint, target_url, kwargs))
+        or {"status": "solving"},
     )
 
     html, final_url = live_batch_smoke.recover_browser_list_page_after_challenge(
@@ -1956,7 +2175,8 @@ def test_recover_browser_list_page_after_challenge_returns_login_terminal_after_
     assert report_calls == [
         (
             "http://127.0.0.1:9223",
-            "https://login.taobao.com/member/login.jhtml?redirect=https://sf.taobao.com/list/page=11&step=1",
+            "https://sf.taobao.com/list/page=11",
+            {"api_base_url": None, "manual_only": True},
         )
     ]
 

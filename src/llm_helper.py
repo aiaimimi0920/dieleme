@@ -1486,7 +1486,7 @@ def _get_openai_compatible_config():
         normalized = str(candidate or "").strip()
         if normalized and normalized not in models:
             models.append(normalized)
-    return {
+    config = {
         "base_url": base_url.rstrip("/"),
         "api_key": api_key,
         "model": models[0],
@@ -1494,6 +1494,16 @@ def _get_openai_compatible_config():
         "timeout": float(os.environ.get("OPENAI_TIMEOUT_SECONDS", "180")),
         "max_retries": int(os.environ.get("OPENAI_MAX_RETRIES", "3")),
     }
+    reasoning_effort = str(os.environ.get("OPENAI_REASONING_EFFORT") or "").strip().lower()
+    if reasoning_effort:
+        allowed_reasoning_efforts = {"none", "minimal", "low", "medium", "high", "xhigh"}
+        if reasoning_effort not in allowed_reasoning_efforts:
+            raise ValueError(
+                "OPENAI_REASONING_EFFORT must be one of: "
+                + ", ".join(sorted(allowed_reasoning_efforts))
+            )
+        config["reasoning_effort"] = reasoning_effort
+    return config
 
 
 def _first_nonempty_env(*names):
@@ -1548,17 +1558,20 @@ def _chat_with_openai_compatible(content, config):
     response = None
     for attempt in range(1, max_retries + 1):
         for model in models:
+            request_payload = {
+                "model": model,
+                "messages": [{"role": "user", "content": content}],
+                "temperature": 0,
+            }
+            if config.get("reasoning_effort"):
+                request_payload["reasoning_effort"] = config["reasoning_effort"]
             response = session.post(
                 url,
                 headers={
                     "Authorization": f"Bearer {config['api_key']}",
                     "Content-Type": "application/json",
                 },
-                json={
-                    "model": model,
-                    "messages": [{"role": "user", "content": content}],
-                    "temperature": 0,
-                },
+                json=request_payload,
                 timeout=config["timeout"],
             )
             status_code = getattr(response, "status_code", None)
@@ -1633,23 +1646,26 @@ def preflight_openai_compatible_backend(timeout=15.0, *, check_chat=False):
         chat_model = None
         for model in models:
             try:
+                request_payload = {
+                    "model": model,
+                    "messages": [
+                        {
+                            "role": "user",
+                            "content": '这是法拍房分析服务连通性检查。请仅返回 JSON：{"ok":true}',
+                        }
+                    ],
+                    "temperature": 0,
+                    "max_tokens": 32,
+                }
+                if config.get("reasoning_effort"):
+                    request_payload["reasoning_effort"] = config["reasoning_effort"]
                 chat_response = session.post(
                     chat_url,
                     headers={
                         "Authorization": f"Bearer {config['api_key']}",
                         "Content-Type": "application/json",
                     },
-                    json={
-                        "model": model,
-                        "messages": [
-                            {
-                                "role": "user",
-                                "content": '这是法拍房分析服务连通性检查。请仅返回 JSON：{"ok":true}',
-                            }
-                        ],
-                        "temperature": 0,
-                        "max_tokens": 32,
-                    },
+                    json=request_payload,
                     timeout=float(timeout),
                 )
             except requests.RequestException as exc:

@@ -1,6 +1,7 @@
 param(
   [string]$EnvFile = 'C:\fapaifang-worker\env.worker.local',
-  [string]$SnapshotPath = '\\192.168.15.200\home\project\project\FPFData\secrets\nodes\pc2\taobao-cookies.json'
+  [ValidateRange(3, 8)][int]$DetailWorkerCount = 4,
+  [ValidateRange(3, 8)][int]$AnalysisWorkerCount = 4
 )
 
 Set-StrictMode -Version Latest
@@ -9,24 +10,10 @@ $ErrorActionPreference = 'Stop'
 if (-not (Test-Path -LiteralPath $EnvFile)) {
   throw "PC2 worker environment file does not exist: $EnvFile"
 }
-$nasLoader = 'C:\fapaifang-worker\ops\load-host-direct-nas-env.ps1'
-if (-not (Test-Path -LiteralPath $nasLoader)) {
-  throw "PC2 NAS environment loader does not exist."
-}
-$null = & $nasLoader
-if (-not (Test-Path -LiteralPath $SnapshotPath)) {
-  throw "PC2 cookie snapshot does not exist on the NAS."
-}
 
 $required = [ordered]@{
-  FAPAI_LIST_BROWSER_FALLBACK = '0'
-  FAPAI_DETAIL_BROWSER_FALLBACK = '0'
-  FAPAI_DETAIL_LOAD_OPEN_BROWSER_PAGES = '0'
-  FAPAI_COOKIE_SNAPSHOT_PREFER = '1'
-  FAPAI_CAPTCHA_SOLVER_ENABLED = '0'
-  FAPAI_COOKIE_SNAPSHOT = $SnapshotPath
-  FAPAI_HOST_DETAIL_WORKER_COUNT = '4'
-  FAPAI_HOST_ANALYSIS_WORKER_COUNT = '4'
+  FAPAI_HOST_DETAIL_WORKER_COUNT = [string]$DetailWorkerCount
+  FAPAI_HOST_ANALYSIS_WORKER_COUNT = [string]$AnalysisWorkerCount
 }
 $seen = @{}
 $lines = foreach ($line in [System.IO.File]::ReadAllLines($EnvFile, [System.Text.Encoding]::UTF8)) {
@@ -53,13 +40,7 @@ $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 [System.IO.File]::WriteAllLines($EnvFile, $lines, $utf8NoBom)
 
 [pscustomobject]@{
-  mode = 'pc2_cookie_http_only'
-  list_browser_fallback = 0
-  detail_browser_fallback = 0
-  detail_load_open_browser_pages = 0
-  cookie_snapshot_prefer = 1
-  captcha_solver_enabled = 0
-  detail_worker_count = 4
-  analysis_worker_count = 4
-  snapshot_exists = $true
+  detail_worker_count = $DetailWorkerCount
+  analysis_worker_count = $AnalysisWorkerCount
+  unrelated_settings_preserved = $true
 } | ConvertTo-Json -Compress

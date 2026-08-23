@@ -51,6 +51,15 @@ def test_start_taobao_cdp_browser_force_new_stops_existing_cdp_profile_processes
     assert "if ($ForceNew)" in script
 
 
+def test_start_taobao_cdp_browser_pc2_recovery_can_avoid_cim_process_enumeration() -> None:
+    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+
+    assert "[switch]$TerminateAllBrowserProcesses" in script
+    assert "[switch]$AllBrowserProcesses" in script
+    assert 'Get-Process -Name "chrome", "msedge"' in script
+    assert "-AllBrowserProcesses:$TerminateAllBrowserProcesses" in script
+
+
 def test_start_taobao_cdp_browser_existing_cdp_endpoint_opens_requested_start_url() -> None:
     script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
 
@@ -126,20 +135,27 @@ def test_start_taobao_cdp_browser_new_browser_path_also_raises_window_after_star
 def test_start_taobao_cdp_browser_restarts_stale_process_when_endpoint_is_unavailable() -> None:
     script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
 
-    assert "staleProcesses = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly)" in script
+    assert "staleProcesses = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir)" in script
     assert "Existing CDP browser process exists but endpoint is unavailable" in script
     assert "Stop-ExistingCdpBrowser -Port $Port -ProfileDir $ProfileDir -Endpoint $hostEndpoint" in script
     assert "Stale CDP browser processes did not exit cleanly" in script
 
 
-def test_start_taobao_cdp_browser_force_new_targets_top_level_browser_processes_only() -> None:
+def test_start_taobao_cdp_browser_keeps_top_level_filter_for_window_activation_only() -> None:
     script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
 
     assert "[switch]$TopLevelOnly" in script
-    assert "Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly" in script
     assert 'if ($TopLevelOnly)' in script
     assert '$cmd -like "* --type=*"' in script
     assert "return $false" in script
+    show_window = script[
+        script.index("function Show-CdpBrowserWindow") : script.index("function Stop-ExistingCdpBrowser")
+    ]
+    stop_existing = script[
+        script.index("function Stop-ExistingCdpBrowser") : script.index("function Find-BrowserExecutable")
+    ]
+    assert "Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly" in show_window
+    assert "Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly" not in stop_existing
 
 
 def test_start_taobao_cdp_browser_force_new_aborts_if_old_browser_does_not_exit() -> None:
@@ -155,9 +171,9 @@ def test_start_taobao_cdp_browser_force_new_status_messages_do_not_pollute_boole
     script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
 
     assert 'Write-Host "Stopping existing CDP browser processes for port $Port / profile $ProfileDir."' in script
-    assert 'Write-Host "Timed out waiting for the top-level CDP browser process and endpoint to exit."' in script
+    assert 'Write-Host "Timed out waiting for matching CDP browser processes and endpoint to exit."' in script
     assert 'Write-Output "Stopping existing CDP browser processes for port $Port / profile $ProfileDir."' not in script
-    assert 'Write-Output "Timed out waiting for the top-level CDP browser process and endpoint to exit."' not in script
+    assert 'Write-Output "Timed out waiting for matching CDP browser processes and endpoint to exit."' not in script
 
 
 def test_start_taobao_cdp_browser_waits_for_endpoint_readiness_with_deadline() -> None:
@@ -191,14 +207,14 @@ def test_start_taobao_cdp_browser_ensure_only_does_not_replace_existing_page() -
     assert "CDP endpoint is already healthy; ensure-only mode will not open a page" in script
 
 
-def test_start_taobao_cdp_browser_force_new_waits_for_endpoint_shutdown_and_top_level_exit() -> None:
+def test_start_taobao_cdp_browser_force_new_waits_for_endpoint_shutdown_and_all_profile_processes() -> None:
     script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
 
     assert '[Parameter(Mandatory = $true)][string]$Endpoint' in script
     assert "Stop-ExistingCdpBrowser -Port $Port -ProfileDir $ProfileDir -Endpoint $hostEndpoint" in script
-    assert '$remaining = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly)' in script
+    assert '$remaining = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -AllBrowserProcesses:$AllBrowserProcesses)' in script
     assert 'if (($remaining.Count -eq 0) -and -not (Test-CdpEndpoint -Endpoint $Endpoint))' in script
-    assert 'Timed out waiting for the top-level CDP browser process and endpoint to exit.' in script
+    assert 'Timed out waiting for matching CDP browser processes and endpoint to exit.' in script
 
 
 def test_start_taobao_cdp_browser_supports_isolated_profile_and_optional_extension_disable() -> None:

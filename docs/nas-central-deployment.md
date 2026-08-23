@@ -47,12 +47,58 @@ cp env.nas.example env.nas.local
 docker compose --env-file env.nas.local -f docker-compose.nas-central.yml up -d --build
 ```
 
+### 中央 API 受控更新
+
+中央 API 更新使用 `scripts/deploy-nas-central-api.sh`。脚本只重建/重启
+`fapaifang-api`，不会重建 PostgreSQL；但每次部署前仍强制创建并验证一份
+`pg_dump -Fc` 备份。
+
+先在 NAS 项目目录做无副作用检查：
+
+```bash
+bash scripts/deploy-nas-central-api.sh --env-file env.nas.local --dry-run
+```
+
+完整构建：
+
+```bash
+bash scripts/deploy-nas-central-api.sh --env-file env.nas.local
+```
+
+仅替换应用代码并复用当前镜像依赖层：
+
+```bash
+bash scripts/deploy-nas-central-api.sh --env-file env.nas.local --hotfix
+```
+
+脚本会：
+
+1. 计算并注入 `FAPAI_BUILD_VERSION`、Git commit、构建时间和关键源码摘要；
+2. 验证 PostgreSQL dump 能被 `pg_restore -l` 读取；
+3. 给当前 API 镜像创建独立 rollback tag；
+4. 只更新 `fapaifang-api`；
+5. 等待 `/api/status` 返回本次准确的 `build_info.version` 和
+   `build_info.source_digest`；
+6. 验证 DB mode、`pg_isready` 和 `/api/collection/overview`；
+7. 任一健康门失败时自动恢复 rollback 镜像。
+
+`--hotfix` 不更新 Python、Chromium 或系统依赖；依赖发生变化时必须执行完整构建。
+不要在包含未审查临时文件的工作目录执行部署，因为 Docker build context 会包含
+未被 `.dockerignore` 排除的文件。
+
 验证：
 
 ```bash
 docker exec fapaifang-postgres pg_isready -U fapaifang -d fapaifang
 curl http://127.0.0.1:8001/api/collection/overview
 curl http://127.0.0.1:8001/collection
+```
+
+同时检查实际运行版本：
+
+```bash
+curl -s http://127.0.0.1:8001/api/status | python3 -c \
+  'import json,sys; print(json.load(sys.stdin)["build_info"])'
 ```
 
 局域网客户端访问：
@@ -95,6 +141,10 @@ FAPAI_SHARED_DATA_ROOT_HOST=C:\Users\Public\nas_home\AI\FPFData
 FAPAI_CENTRAL_API_BASE_URL=http://host.docker.internal:18081/api
 FAPAI_WORKER_DB_URL=postgresql+psycopg://fapaifang:fapaifang@host.docker.internal:15532/fapaifang
 FAPAI_LIST_BROWSER_FALLBACK=1
+FAPAI_SEED_CAPTCHA_SOLVER_ENABLED=1
+FAPAI_DETAIL_CDP_ENDPOINT=http://host.docker.internal:9223
+FAPAI_DETAIL_BROWSER_FALLBACK=1
+FAPAI_DETAIL_CAPTCHA_SOLVER_ENABLED=1
 FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS=60
 ```
 
@@ -102,6 +152,11 @@ FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS=60
 `_____tmd_____/punish` 验证页时，seed worker 会回退到本机已认证的 CDP
 浏览器读取列表页。`FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS` 控制挑战/认证相关
 失败后的低频重试间隔，避免单次失败后整段链接采集停 30 分钟。
+
+真实 `*.taobao.com` challenge 默认强制 `manual_only`。只有在 NAS API 与拥有可见
+Windows/CDP 浏览器的 PC2 节点同时设置 `FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED=1`
+时，API 才会把真实挑战委派给节点自动 solver。未设置、设置为 `0`、NAS/PC2 任一
+侧缺失，都会继续 fail closed；自动失败后的人工认证仍作为恢复路径。
 
 Windows Docker Desktop 通常不能直接把 NAS SMB/UNC 路径作为 Linux 容器 bind
 mount。推荐每台 Windows worker 使用本机数据根，再把关键 artifact 镜像到 NAS：

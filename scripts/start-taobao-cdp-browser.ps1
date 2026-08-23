@@ -13,7 +13,8 @@ param(
     [int]$CdpStartupTimeoutSeconds = 30,
     [int]$StartupLockTimeoutSeconds = 180,
     [switch]$IsolatedProfile,
-    [switch]$ForceNew
+    [switch]$ForceNew,
+    [switch]$TerminateAllBrowserProcesses
 )
 
 $ErrorActionPreference = "Stop"
@@ -218,10 +219,26 @@ function Get-CdpBrowserProcesses {
     param(
         [Parameter(Mandatory = $true)][int]$Port,
         [Parameter(Mandatory = $true)][string]$ProfileDir,
-        [switch]$TopLevelOnly
+        [switch]$TopLevelOnly,
+        [switch]$AllBrowserProcesses
     )
 
     $browserProcessNames = @("chrome.exe", "msedge.exe")
+    if ($AllBrowserProcesses) {
+        # PC2 recovery explicitly opts into this path. Get-Process is native and
+        # remains responsive when the local CIM provider is wedged.
+        foreach ($nativeProcess in @(Get-Process -Name "chrome", "msedge" -ErrorAction SilentlyContinue)) {
+            if ($TopLevelOnly -and $nativeProcess.MainWindowHandle -eq [IntPtr]::Zero) {
+                continue
+            }
+            [pscustomobject]@{
+                ProcessId = $nativeProcess.Id
+                Name = "$($nativeProcess.ProcessName).exe"
+            }
+        }
+        return
+    }
+
     @(
         Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
             Where-Object {
@@ -253,10 +270,11 @@ function Get-CdpBrowserProcesses {
 function Show-CdpBrowserWindow {
     param(
         [Parameter(Mandatory = $true)][int]$Port,
-        [Parameter(Mandatory = $true)][string]$ProfileDir
+        [Parameter(Mandatory = $true)][string]$ProfileDir,
+        [switch]$AllBrowserProcesses
     )
 
-    $processes = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly)
+    $processes = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly -AllBrowserProcesses:$AllBrowserProcesses)
     if ($processes.Count -eq 0) {
         return
     }
@@ -298,10 +316,19 @@ function Stop-ExistingCdpBrowser {
     param(
         [Parameter(Mandatory = $true)][int]$Port,
         [Parameter(Mandatory = $true)][string]$ProfileDir,
-        [Parameter(Mandatory = $true)][string]$Endpoint
+        [Parameter(Mandatory = $true)][string]$Endpoint,
+        [switch]$AllBrowserProcesses
     )
 
-    $processes = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly)
+    # Kill every process bound to the dedicated profile, not just the browser
+    # process. Orphaned renderer/GPU children can keep the profile lock after a
+    # crash and make the next Edge process exit before CDP starts listening.
+    $processes = @(
+        Get-CdpBrowserProcesses `
+            -Port $Port `
+            -ProfileDir $ProfileDir `
+            -AllBrowserProcesses:$AllBrowserProcesses
+    )
 
     if ($processes.Count -eq 0) {
         return $true
@@ -319,14 +346,14 @@ function Stop-ExistingCdpBrowser {
 
     $deadline = (Get-Date).AddSeconds(60)
     while ((Get-Date) -lt $deadline) {
-        $remaining = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly)
+        $remaining = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -AllBrowserProcesses:$AllBrowserProcesses)
         if (($remaining.Count -eq 0) -and -not (Test-CdpEndpoint -Endpoint $Endpoint)) {
             return $true
         }
         Start-Sleep -Milliseconds 500
     }
 
-    Write-Host "Timed out waiting for the top-level CDP browser process and endpoint to exit."
+    Write-Host "Timed out waiting for matching CDP browser processes and endpoint to exit."
     return $false
 }
 
@@ -391,7 +418,12 @@ $dockerEndpoint = "http://192.168.65.254:$Port"
 $resolvedDebuggingAddress = if ($HumanAuthMode) { "127.0.0.1" } else { $DebuggingAddress }
 
 if ($ForceNew) {
-    if (-not (Stop-ExistingCdpBrowser -Port $Port -ProfileDir $ProfileDir -Endpoint $hostEndpoint)) {
+    if (-not (Stop-ExistingCdpBrowser `
+        -Port $Port `
+        -ProfileDir $ProfileDir `
+        -Endpoint $hostEndpoint `
+        -AllBrowserProcesses:$TerminateAllBrowserProcesses
+    )) {
         throw "Existing CDP browser processes did not exit cleanly for port $Port / profile $ProfileDir."
     }
 }
@@ -413,7 +445,7 @@ elseif (Test-CdpEndpoint -Endpoint $hostEndpoint) {
                 Open-BrowserProcessPage -Browser $browser -ProfileDir $ProfileDir -Port $Port -DebuggingAddress $resolvedDebuggingAddress -Url $StartUrl
             }
         }
-        Show-CdpBrowserWindow -Port $Port -ProfileDir $ProfileDir
+        Show-CdpBrowserWindow -Port $Port -ProfileDir $ProfileDir -AllBrowserProcesses:$TerminateAllBrowserProcesses
     }
     else {
         Write-Output "CDP endpoint is already healthy; ensure-only mode will not open a page."
@@ -423,7 +455,7 @@ elseif (Test-CdpEndpoint -Endpoint $hostEndpoint) {
     return
 }
 else {
-    $staleProcesses = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir -TopLevelOnly)
+    $staleProcesses = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir)
     if ($staleProcesses.Count -gt 0) {
         Write-Host "Existing CDP browser process exists but endpoint is unavailable; restarting the dedicated auth browser."
         if (-not (Stop-ExistingCdpBrowser -Port $Port -ProfileDir $ProfileDir -Endpoint $hostEndpoint)) {
@@ -477,7 +509,7 @@ if (-not (Wait-CdpEndpoint -Endpoint $hostEndpoint -TimeoutSeconds $CdpStartupTi
     throw "Started browser but CDP endpoint did not become available within $CdpStartupTimeoutSeconds seconds: $hostEndpoint/json/version"
 }
 
-Show-CdpBrowserWindow -Port $Port -ProfileDir $ProfileDir
+Show-CdpBrowserWindow -Port $Port -ProfileDir $ProfileDir -AllBrowserProcesses:$TerminateAllBrowserProcesses
 Write-Output "Started browser: $browser"
 Write-Output "Profile directory: $ProfileDir"
 Write-Output "Host CDP endpoint: $hostEndpoint"

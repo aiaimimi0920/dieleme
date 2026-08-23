@@ -1,12 +1,21 @@
+param(
+  [string]$RequestedWorkerId = '',
+  [string]$RequestedOutputDir = ''
+)
+
 $ctx = & 'C:\fapaifang-worker\ops\load-host-direct-nas-env.ps1'
 Set-Location $ctx.SrcRoot
 
-$workerId = if ($env:FAPAI_HOST_ANALYSIS_WORKER_ID) {
+$workerId = if ($RequestedWorkerId) {
+  $RequestedWorkerId
+} elseif ($env:FAPAI_HOST_ANALYSIS_WORKER_ID) {
   $env:FAPAI_HOST_ANALYSIS_WORKER_ID
 } else {
   'pc2-real-analysis-1'
 }
-$outputDir = if ($env:FAPAI_HOST_ANALYSIS_OUTPUT_DIR) {
+$outputDir = if ($RequestedOutputDir) {
+  $RequestedOutputDir
+} elseif ($env:FAPAI_HOST_ANALYSIS_OUTPUT_DIR) {
   $env:FAPAI_HOST_ANALYSIS_OUTPUT_DIR
 } else {
   Join-Path $ctx.SharedRoot 'output\nodes\pc2-real\detail_analysis_worker'
@@ -24,7 +33,11 @@ $maxAttempts = if ($env:FAPAI_HOST_ANALYSIS_MAX_ATTEMPTS) {
 
 function Find-ExistingWorkerProcess {
   $scriptPattern = [regex]::Escape('tools\detail_worker.py')
-  $workerIdPattern = '--worker-id\s+' + [regex]::Escape($workerId)
+  $workerIdPattern = (
+    '--worker-id\s+["'']?' +
+    [regex]::Escape($workerId) +
+    '["'']?(?=\s|$)'
+  )
   return Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
     Where-Object {
       $_.Name -eq 'python.exe' -and

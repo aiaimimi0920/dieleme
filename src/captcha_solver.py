@@ -6,6 +6,7 @@ import random
 import threading
 import math
 import os
+import re
 import sys as _sys
 if hasattr(_sys.stdout, "reconfigure"):
     try:
@@ -73,6 +74,7 @@ class CaptchaSolver:
         self.target_id = None
         self.target_ws_url = None
         self.current_target_url = None
+        self._target_activation_verified = False
         self._opened_target_ids = set()
         self.last_failure_reason = None
         self._last_mock_terminal_state = None
@@ -108,6 +110,8 @@ class CaptchaSolver:
         target_ws_url = str(tab.get("webSocketDebuggerUrl") or "").strip()
         target_url = str(tab.get("url") or "").strip()
         if target_id:
+            if target_id != self.target_id:
+                self._target_activation_verified = False
             self.target_id = target_id
         if target_ws_url:
             self.target_ws_url = target_ws_url
@@ -261,6 +265,55 @@ class CaptchaSolver:
             self.current_target_url = None
         return closed
 
+    def _prune_duplicate_challenge_tabs(self, tabs):
+        """Keep only the active punish target before a solve attempt.
+
+        NAS owns one active challenge id at a time. Failed requests and cooldown
+        recovery can leave punish pages for older item routes in the shared
+        browser profile; those pages may compete for the same challenge/session
+        state. Preserve one page for the requested route and close every other
+        punish page. Login and normal auction pages remain untouched.
+        """
+        if not isinstance(tabs, list):
+            return {"closed": 0, "kept": None}
+        requested_route = self._solver_target_route(self.target_url)
+        if not requested_route:
+            return {"closed": 0, "kept": None}
+        challenge_tabs = []
+        candidates = []
+        for tab in tabs:
+            if not isinstance(tab, dict) or tab.get("type") != "page":
+                continue
+            tab_url = str(tab.get("url") or "").strip()
+            if not self._is_manual_challenge_url(tab_url):
+                continue
+            if self._is_login_url(tab_url):
+                continue
+            target_id = str(tab.get("id") or "").strip()
+            if not target_id or not tab.get("webSocketDebuggerUrl"):
+                continue
+            challenge_tabs.append(tab)
+            if self._solver_target_route(tab_url) != requested_route:
+                continue
+            candidates.append(tab)
+        preserve_id = str(self.target_id or "").strip()
+        if not any(str(tab.get("id") or "").strip() == preserve_id for tab in candidates):
+            preserve_id = str(candidates[0].get("id") or "").strip() if candidates else ""
+        closed = 0
+        for tab in challenge_tabs:
+            target_id = str(tab.get("id") or "").strip()
+            if target_id == preserve_id:
+                continue
+            if self._close_cdp_target(target_id):
+                closed += 1
+                self._opened_target_ids.discard(target_id)
+        if closed:
+            print(
+                f"[SOLVER] Compacted stale challenge targets for route "
+                f"{requested_route}: kept={preserve_id} closed={closed}"
+            )
+        return {"closed": closed, "kept": preserve_id or None}
+
     def _normalize_target_url(self, value):
         if not value:
             return ""
@@ -306,10 +359,15 @@ class CaptchaSolver:
         if "/_____tmd_____/" in path:
             path = path.split("/_____tmd_____/", 1)[0]
         query_pairs = []
-        for key, item in parse_qsl(parsed.query, keep_blank_values=True):
-            if key in {"__captcha_solver_bg", "x5step", "x5secdata"}:
-                continue
-            query_pairs.append((key, item))
+        is_taobao_list_route = bool(
+            (parsed.hostname or "").lower() == "sf.taobao.com"
+            and re.fullmatch(r"/list/[^/]+\.htm", path)
+        )
+        if not is_taobao_list_route:
+            for key, item in parse_qsl(parsed.query, keep_blank_values=True):
+                if key in {"__captcha_solver_bg", "track_id", "x5step", "x5secdata"}:
+                    continue
+                query_pairs.append((key, item))
         query = urlencode(sorted(query_pairs), doseq=True)
         return urlunsplit((parsed.scheme, parsed.netloc, path, query, ""))
 
@@ -466,6 +524,17 @@ class CaptchaSolver:
             print(f"[SOLVER] CDP target list unavailable on {self.cdp_endpoint}.")
             return False
 
+        if self.target_ws_url:
+            pruning = self._prune_duplicate_challenge_tabs(tabs)
+            if pruning.get("closed"):
+                refreshed_tabs = self._get_json("list")
+                if isinstance(refreshed_tabs, list):
+                    tabs = refreshed_tabs
+            print("[SOLVER] Reusing cached target websocket.")
+            if self._connect_to_target(self.target_ws_url, "cached solver target"):
+                return True
+            print("[SOLVER] Cached target websocket failed; falling back to CDP discovery.")
+
         compaction = self._compact_cdp_pages_if_needed(
             tabs,
             reserve_for_new_page=bool(self._normalize_target_url(self.target_url)),
@@ -474,12 +543,6 @@ class CaptchaSolver:
             tabs = self._get_json("list")
             if tabs is None:
                 tabs = []
-
-        if self.target_ws_url:
-            print("[SOLVER] Reusing cached target websocket.")
-            if self._connect_to_target(self.target_ws_url, "cached solver target"):
-                return True
-            print("[SOLVER] Cached target websocket failed; falling back to CDP discovery.")
 
         if not tabs:
             normalized_target_url = self._normalize_target_url(self.target_url)
@@ -494,6 +557,12 @@ class CaptchaSolver:
             target_title = str(opened_target.get("title") or "")
             print(f"[SOLVER] [NEW] Opened requested solver target: {normalized_target_url}")
             return self._connect_to_target(target_ws, target_title)
+
+        self._prune_duplicate_challenge_tabs(tabs)
+        if self.target_id:
+            refreshed_tabs = self._get_json("list")
+            if isinstance(refreshed_tabs, list):
+                tabs = refreshed_tabs
 
         target_ws = None
         target_title = ""
@@ -599,17 +668,44 @@ class CaptchaSolver:
 
         return self._connect_to_target(target_ws, target_title)
 
+    def _activate_target_tab(self):
+        """Activate the exact CDP target before any physical mouse operation."""
+        self._target_activation_verified = False
+        target_id = str(self.target_id or "").strip()
+        if not target_id:
+            return False
+        last_error = None
+        for timeout in (2, 4, 6):
+            try:
+                response = requests.get(
+                    f"{self.cdp_endpoint}/json/activate/{quote(target_id, safe='')}",
+                    timeout=timeout,
+                )
+                if response.status_code < 400:
+                    self._target_activation_verified = True
+                    return True
+                last_error = RuntimeError(f"CDP target activation returned HTTP {response.status_code}")
+            except Exception as error:
+                last_error = error
+        if last_error is not None:
+            print(f"[SOLVER] Failed to activate target tab {target_id}: {last_error}")
+        return False
+
     def _bring_to_front(self):
-        """Bring captcha page to foreground to ensure mouse events hit the target."""
-        try:
-            self._send_cdp("Page.bringToFront")
-            # Best-effort focus; some Chromium builds still need explicit window focus.
-            self._send_cdp("Runtime.evaluate", {
-                "expression": "try { window.focus(); document.body && document.body.focus && document.body.focus(); } catch(e) {}",
-                "returnByValue": True
-            })
+        """Bring the exact captcha tab forward so OS mouse input hits that tab."""
+        activated = self._activate_target_tab()
+        if activated:
             time.sleep(0.15)
             return True
+        try:
+            brought_to_front = self._send_cdp("Page.bringToFront") is not None
+            # Best-effort focus; some Chromium builds still need explicit window focus.
+            focused = self._send_cdp("Runtime.evaluate", {
+                "expression": "try { window.focus(); document.body && document.body.focus && document.body.focus(); } catch(e) {}",
+                "returnByValue": True
+            }) is not None
+            time.sleep(0.15)
+            return bool(brought_to_front or focused)
         except Exception as e:
             print(f"[SOLVER] bringToFront failed: {e}")
             return False
@@ -1519,7 +1615,15 @@ class CaptchaSolver:
             "clip_h": float(clip["height"]) if clip else float(shot_h or box.height),
         }
 
-    def _map_css_to_screen(self, start_x, start_y, distance, slider_info=None):
+    def _map_css_to_screen(
+        self,
+        start_x,
+        start_y,
+        distance,
+        slider_info=None,
+        *,
+        allow_zero_distance=False,
+    ):
         """Map CSS viewport coordinates to physical screen pixels for OS mouse input."""
         expected = self._css_to_client_screen(start_x, start_y, distance)
         cdp_expected = self._css_to_cdp_window_screen(start_x, start_y, distance)
@@ -1539,11 +1643,31 @@ class CaptchaSolver:
                 expected.setdefault("uses_render_widget", False)
         elif not expected and cdp_expected:
             expected = cdp_expected
-        located = self._viewport_origin_on_screen(
-            slider_info,
-            search_region=expected.get("region") if expected else None,
-            drag_distance=distance,
+        activation_verified = bool(
+            self._target_activation_verified
+            and expected
+            and expected.get("source") in {"win32_render", "cdp_window_bounds"}
         )
+        if activation_verified:
+            # Activation proves the tab identity, not that the render widget is
+            # still at the same physical origin. Take a screenshot-backed sample
+            # while the exact target is foregrounded and use it when it disagrees.
+            located = self._viewport_origin_on_screen(
+                slider_info,
+                search_region=expected.get("region") if expected else None,
+                drag_distance=distance,
+            )
+            if located is None:
+                print(
+                    "[SOLVER] Exact CDP target activation verified; "
+                    f"screenshot mapping unavailable, falling back to {expected.get('source')}."
+                )
+        else:
+            located = self._viewport_origin_on_screen(
+                slider_info,
+                search_region=expected.get("region") if expected else None,
+                drag_distance=distance,
+            )
         screenshot_point = None
         delta = None
         if located:
@@ -1560,7 +1684,12 @@ class CaptchaSolver:
             chosen = screenshot_point
         elif screenshot_point and not expected.get("uses_render_widget"):
             chosen = screenshot_point
-        elif screenshot_point and expected.get("uses_render_widget") and delta is not None and delta <= max(160.0, abs(float(distance or 0)) * 0.4):
+        elif (
+            screenshot_point
+            and expected.get("uses_render_widget")
+            and delta is not None
+            and delta <= max(48.0, abs(float(distance or 0)) * 0.15)
+        ):
             chosen = expected
         elif screenshot_point:
             chosen = screenshot_point
@@ -1581,7 +1710,8 @@ class CaptchaSolver:
             self.last_failure_reason = "screen_mapping_invalid"
             print("[SOLVER] Screen mapping is invalid; skipping OS drag.")
             return None
-        if not all(math.isfinite(value) for value in mapped_values) or mapped_values[2] <= 0:
+        invalid_distance = mapped_values[2] < 0 if allow_zero_distance else mapped_values[2] <= 0
+        if not all(math.isfinite(value) for value in mapped_values) or invalid_distance:
             self.last_failure_reason = "screen_mapping_invalid"
             print("[SOLVER] Screen mapping contains non-finite coordinates; skipping OS drag.")
             return None
@@ -1590,73 +1720,74 @@ class CaptchaSolver:
             "y": mapped_values[1],
             "distance": mapped_values[2],
             "source": chosen.get("source") or (expected.get("source") if expected else None),
-            "located": bool(located),
+            "located": bool(located or activation_verified),
             "clipped": bool(located and located.get("clipped")),
+            "activation_verified": activation_verified,
         }
 
     def _os_drag_profiles(self):
-        # Complete one drag inside NC's tracking window. The previous 8-10s
-        # profiles routinely timed out halfway across the track.
+        # Keep the complete drag inside NC's tracking window while avoiding an
+        # unrealistically fast, exact-endpoint release.
         return (
             {
-                "name": "fast_exact_v3",
-                "pre_pause": (0.05, 0.15),
-                "press_hold": (0.04, 0.08),
-                "total_time": (0.4, 0.65),
-                "steps": (24, 32),
-                "tremor_x": 0.2,
-                "tremor_y": 0.4,
-                "micro_pause_prob": 0.05,
-                "micro_pause": (0.015, 0.05),
-                "overshoot": (0.0, 1.2),
-                "release_overshoot": (0.0, 0.0),
-                "settle_steps": (2, 3),
-                "hold_before_release": (0.08, 0.18),
-                "release_mode": "exact_release",
-                "warmup_px": (1.0, 3.0),
-                "warmup_steps": (1, 2),
-                "approach_duration": (0.05, 0.15),
-                "start_duration": (0.05, 0.15),
+                "name": "overshoot_release",
+                "pre_pause": (0.3, 0.65),
+                "press_hold": (0.1, 0.2),
+                "total_time": (1.4, 2.1),
+                "steps": (40, 56),
+                "tremor_x": 0.45,
+                "tremor_y": 0.8,
+                "micro_pause_prob": 0.08,
+                "micro_pause": (0.02, 0.06),
+                "overshoot": (6.0, 10.0),
+                "release_overshoot": (2.0, 4.0),
+                "settle_steps": (2, 4),
+                "hold_before_release": (0.12, 0.25),
+                "release_mode": "overshoot_release",
+                "warmup_px": (2.0, 5.0),
+                "warmup_steps": (2, 3),
+                "approach_duration": (0.2, 0.4),
+                "start_duration": (0.18, 0.35),
             },
             {
-                "name": "medium_exact_v3",
-                "pre_pause": (0.25, 0.5),
-                "press_hold": (0.1, 0.2),
-                "total_time": (1.0, 1.4),
-                "steps": (42, 60),
+                "name": "legacy_exact_release",
+                "pre_pause": (0.35, 0.7),
+                "press_hold": (0.12, 0.24),
+                "total_time": (1.8, 2.6),
+                "steps": (48, 68),
                 "tremor_x": 0.5,
                 "tremor_y": 0.9,
                 "micro_pause_prob": 0.08,
                 "micro_pause": (0.02, 0.06),
-                "overshoot": (0.5, 2.0),
-                "release_overshoot": (0.0, 0.0),
-                "settle_steps": (2, 4),
-                "hold_before_release": (0.12, 0.25),
-                "release_mode": "exact_release",
-                "warmup_px": (1.0, 4.0),
-                "warmup_steps": (1, 2),
-                "approach_duration": (0.12, 0.25),
-                "start_duration": (0.12, 0.25),
-            },
-            {
-                "name": "steady_exact_v3",
-                "pre_pause": (0.35, 0.65),
-                "press_hold": (0.12, 0.24),
-                "total_time": (1.4, 2.0),
-                "steps": (55, 75),
-                "tremor_x": 0.6,
-                "tremor_y": 1.1,
-                "micro_pause_prob": 0.1,
-                "micro_pause": (0.025, 0.07),
-                "overshoot": (0.5, 2.5),
+                "overshoot": (4.0, 8.0),
                 "release_overshoot": (0.0, 0.0),
                 "settle_steps": (3, 5),
                 "hold_before_release": (0.15, 0.3),
                 "release_mode": "exact_release",
-                "warmup_px": (1.0, 4.0),
-                "warmup_steps": (1, 3),
-                "approach_duration": (0.18, 0.35),
-                "start_duration": (0.18, 0.35),
+                "warmup_px": (2.0, 5.0),
+                "warmup_steps": (2, 3),
+                "approach_duration": (0.25, 0.5),
+                "start_duration": (0.2, 0.4),
+            },
+            {
+                "name": "dense_slow_tail",
+                "pre_pause": (0.4, 0.8),
+                "press_hold": (0.14, 0.28),
+                "total_time": (2.4, 3.4),
+                "steps": (72, 96),
+                "tremor_x": 0.6,
+                "tremor_y": 1.1,
+                "micro_pause_prob": 0.1,
+                "micro_pause": (0.025, 0.07),
+                "overshoot": (5.0, 9.0),
+                "release_overshoot": (1.0, 3.0),
+                "settle_steps": (4, 6),
+                "hold_before_release": (0.18, 0.35),
+                "release_mode": "overshoot_release",
+                "warmup_px": (2.0, 6.0),
+                "warmup_steps": (2, 4),
+                "approach_duration": (0.3, 0.6),
+                "start_duration": (0.25, 0.5),
             },
         )
 
@@ -1727,6 +1858,83 @@ class CaptchaSolver:
             ))
         return points
 
+    def _native_os_input_enabled(self):
+        # PyAutoGUI is the production-proven input path for Aliyun NC. Keep the
+        # lower-level Win32 injector as an explicit fallback instead of silently
+        # changing the mouse event stream on every Windows deployment.
+        backend = str(os.getenv("FAPAI_SOLVER_OS_INPUT_BACKEND", "pyautogui")).strip().lower()
+        return os.name == "nt" and backend in {"native", "win32"}
+
+    def _get_os_cursor_position(self, pyautogui):
+        if not self._native_os_input_enabled():
+            return pyautogui.position()
+        import ctypes
+        from ctypes import wintypes
+
+        point = wintypes.POINT()
+        if not ctypes.windll.user32.GetCursorPos(ctypes.byref(point)):
+            raise OSError("GetCursorPos failed")
+        return float(point.x), float(point.y)
+
+    def _set_os_cursor_position(self, pyautogui, x, y):
+        if not self._native_os_input_enabled():
+            pyautogui.moveTo(x, y, duration=0)
+            return
+        import ctypes
+
+        user32 = ctypes.windll.user32
+        if user32.SetCursorPos(int(round(x)), int(round(y))):
+            return
+
+        # SetCursorPos can be denied for a scheduled process even in the same
+        # interactive session. Inject an absolute move on the virtual desktop.
+        virtual_left = int(user32.GetSystemMetrics(76))
+        virtual_top = int(user32.GetSystemMetrics(77))
+        virtual_width = max(int(user32.GetSystemMetrics(78)), 1)
+        virtual_height = max(int(user32.GetSystemMetrics(79)), 1)
+        absolute_x = int(round((float(x) - virtual_left) * 65535 / max(virtual_width - 1, 1)))
+        absolute_y = int(round((float(y) - virtual_top) * 65535 / max(virtual_height - 1, 1)))
+        absolute_x = min(max(absolute_x, 0), 65535)
+        absolute_y = min(max(absolute_y, 0), 65535)
+        user32.mouse_event(0x0001 | 0x4000 | 0x8000, absolute_x, absolute_y, 0, 0)
+
+    def _set_os_left_button(self, pyautogui, *, down):
+        if not self._native_os_input_enabled():
+            (pyautogui.mouseDown if down else pyautogui.mouseUp)()
+            return
+        import ctypes
+
+        flag = 0x0002 if down else 0x0004
+        ctypes.windll.user32.mouse_event(flag, 0, 0, 0, 0)
+
+    def _move_os_cursor_bounded(self, pyautogui, target_x, target_y, duration):
+        """Move in a small fixed number of steps so Windows timer granularity cannot amplify duration."""
+        duration = max(float(duration or 0), 0.0)
+        try:
+            start_x, start_y = self._get_os_cursor_position(pyautogui)
+        except Exception:
+            self._set_os_cursor_position(pyautogui, target_x, target_y)
+            if duration:
+                time.sleep(duration)
+            return
+        steps = max(3, min(12, int(math.ceil(duration * 30))))
+        dwell = duration / steps if steps else 0.0
+        for step in range(1, steps + 1):
+            ratio = step / steps
+            eased = ratio * ratio * (3.0 - 2.0 * ratio)
+            x = float(start_x) + (float(target_x) - float(start_x)) * eased
+            y = float(start_y) + (float(target_y) - float(start_y)) * eased
+            self._set_os_cursor_position(pyautogui, x, y)
+            if dwell:
+                time.sleep(dwell)
+
+    def _move_os_cursor_timed(self, pyautogui, target_x, target_y, duration):
+        """Keep PyAutoGUI's proven timing; bound only the opt-in native backend."""
+        if not self._native_os_input_enabled():
+            pyautogui.moveTo(target_x, target_y, duration=max(float(duration or 0), 0.0))
+            return
+        self._move_os_cursor_bounded(pyautogui, target_x, target_y, duration)
+
     def _do_drag_os(self, start_x, start_y, distance, slider_info=None, profile_variant_index=0):
         """OS-level mouse drag. CDP Input events are rejected by Aliyun NC (error:TJiA4d/Vx6urd)."""
         try:
@@ -1748,15 +1956,30 @@ class CaptchaSolver:
             print("[SOLVER] OS window focus failed; skipping OS mouse drag.")
             return None
         time.sleep(0.45)
-        try:
-            mapped = self._map_css_to_screen(start_x, start_y, distance, slider_info=slider_info)
-        except Exception as error:
-            self.last_failure_reason = "screen_mapping_exception"
-            print(f"[SOLVER] Screen mapping failed: {error}")
-            return None
+        mapped = None
+        mapping_attempts = 3 if isinstance(slider_info, dict) else 1
+        for mapping_attempt in range(1, mapping_attempts + 1):
+            try:
+                mapped = self._map_css_to_screen(start_x, start_y, distance, slider_info=slider_info)
+            except Exception as error:
+                self.last_failure_reason = "screen_mapping_exception"
+                print(f"[SOLVER] Screen mapping failed: {error}")
+                return None
+            if mapped and (not isinstance(slider_info, dict) or mapped.get("located")):
+                break
+            if mapping_attempt < mapping_attempts:
+                print(
+                    f"[SOLVER] Waiting for verified slider screen mapping "
+                    f"({mapping_attempt}/{mapping_attempts})..."
+                )
+                time.sleep(0.3)
         if not mapped:
             if not self.last_failure_reason:
                 self.last_failure_reason = "screen_mapping_unavailable"
+            return None
+        if isinstance(slider_info, dict) and not mapped.get("located"):
+            self.last_failure_reason = "screen_mapping_unverified"
+            print("[SOLVER] Slider screenshot mapping could not be verified; skipping OS drag.")
             return None
         sx = mapped["x"]
         sy = mapped["y"]
@@ -1765,31 +1988,39 @@ class CaptchaSolver:
         print(
             f"[SOLVER] OS mouse drag from ({sx:.0f},{sy:.0f}) +{phys_distance:.0f}px "
             f"source={mapped.get('source')} located={mapped.get('located')} "
-            f"clipped={mapped.get('clipped')} profile={profile.get('name')}"
+            f"clipped={mapped.get('clipped')} profile={profile.get('name')} "
+            f"input={'win32' if self._native_os_input_enabled() else 'pyautogui'}"
         )
         mouse_is_down = False
         drag_completed = False
         try:
             # 1. 移动到滑块起点附近的随机位置（更像人眼/鼠标先找位置）
-            pyautogui.moveTo(
+            self._move_os_cursor_timed(
+                pyautogui,
                 sx - random.uniform(18, 36),
                 sy + random.uniform(-10, 10),
-                duration=random.uniform(*profile.get("approach_duration", (0.25, 0.5))),
+                random.uniform(*profile.get("approach_duration", (0.25, 0.5))),
             )
             time.sleep(random.uniform(*profile["pre_pause"]))
-            pyautogui.moveTo(sx, sy, duration=random.uniform(*profile.get("start_duration", (0.25, 0.6))))
+            self._move_os_cursor_timed(
+                pyautogui,
+                sx,
+                sy,
+                random.uniform(*profile.get("start_duration", (0.25, 0.6))),
+            )
             time.sleep(random.uniform(*profile["press_hold"]))
-            pyautogui.mouseDown()
+            self._set_os_left_button(pyautogui, down=True)
             mouse_is_down = True
             time.sleep(random.uniform(*profile["press_hold"]))
             for warmup_x, warmup_y in self._os_drag_warmup_points(sx, sy, profile):
                 if self._stop_if_cancelled():
                     self.last_failure_reason = "cancelled"
                     return None
-                pyautogui.moveTo(warmup_x, warmup_y, duration=0)
+                self._set_os_cursor_position(pyautogui, warmup_x, warmup_y)
                 time.sleep(random.uniform(0.04, 0.09))
             fracs, dwells = self._os_drag_track(phys_distance, profile)
             prev_x = sx
+            target_x = sx + phys_distance
             for eased, dwell in zip(fracs, dwells):
                 if self._stop_if_cancelled():
                     self.last_failure_reason = "cancelled"
@@ -1799,25 +2030,35 @@ class CaptchaSolver:
                 if random.random() < 0.04:
                     x -= random.uniform(0.5, 1.5)
                 x += random.gauss(0, profile["tremor_x"])
+                if profile.get("monotonic_x"):
+                    # Preserve the monotonic profile after random perturbations.
+                    # The final sample remains exactly on the target endpoint.
+                    minimum_x = min(prev_x + 0.01, target_x)
+                    x = max(minimum_x, min(x, target_x))
                 # Y 轴：主体使用 tremor 抖动，末尾 20% 加大 Y 漂移模拟"快到终点时手抖"
                 y = sy + random.gauss(0, profile["tremor_y"])
                 if eased > 0.8 and random.random() < 0.25:
                     y += random.uniform(-1.5, 1.5)
-                pyautogui.moveTo(x, y, duration=0)
+                self._set_os_cursor_position(pyautogui, x, y)
                 prev_x = x
                 time.sleep(dwell)
                 if random.random() < profile["micro_pause_prob"]:
                     time.sleep(random.uniform(*profile["micro_pause"]))
             peak_x, settle_xs, release_x = self._os_drag_release_plan(sx, phys_distance, profile)
-            pyautogui.moveTo(peak_x, sy, duration=0)
+            self._set_os_cursor_position(pyautogui, peak_x, sy)
             time.sleep(random.uniform(0.06, 0.16))
             for settle_x in settle_xs:
-                pyautogui.moveTo(settle_x, sy + random.gauss(0, 1.2), duration=0)
+                self._set_os_cursor_position(pyautogui, settle_x, sy + random.gauss(0, 1.2))
                 time.sleep(random.uniform(0.03, 0.07))
             # 释放前最后一次下压/微调
-            pyautogui.moveTo(release_x, sy + random.gauss(0, 0.8), duration=random.uniform(0.05, 0.15))
+            self._move_os_cursor_timed(
+                pyautogui,
+                release_x,
+                sy + random.gauss(0, 0.8),
+                random.uniform(0.05, 0.15),
+            )
             time.sleep(random.uniform(*profile["hold_before_release"]))
-            pyautogui.mouseUp()
+            self._set_os_left_button(pyautogui, down=False)
             mouse_is_down = False
             time.sleep(random.uniform(0.4, 0.7))
             drag_completed = True
@@ -1827,7 +2068,7 @@ class CaptchaSolver:
         finally:
             if mouse_is_down:
                 try:
-                    pyautogui.mouseUp()
+                    self._set_os_left_button(pyautogui, down=False)
                     print("[SOLVER] Released OS mouse button after interrupted drag.")
                 except Exception as release_error:
                     print(f"[SOLVER] OS mouse release failed: {release_error}")
@@ -2037,12 +2278,27 @@ class CaptchaSolver:
                 pyautogui.FAILSAFE = False
                 pyautogui.PAUSE = 0
                 self._focus_os_window()
-                mapped = self._map_css_to_screen(css_x, css_y, 0, slider_info=slider_info)
-                print(f"[SOLVER] OS click at ({mapped['x']:.0f},{mapped['y']:.0f}) source={mapped.get('source')}")
-                pyautogui.moveTo(mapped["x"], mapped["y"], duration=random.uniform(0.12, 0.25))
-                time.sleep(random.uniform(0.08, 0.18))
-                pyautogui.click()
-                return True
+                mapped = self._map_css_to_screen(
+                    css_x,
+                    css_y,
+                    0,
+                    slider_info=slider_info,
+                    allow_zero_distance=True,
+                )
+                if mapped:
+                    print(f"[SOLVER] OS click at ({mapped['x']:.0f},{mapped['y']:.0f}) source={mapped.get('source')}")
+                    self._move_os_cursor_bounded(
+                        pyautogui,
+                        mapped["x"],
+                        mapped["y"],
+                        random.uniform(0.12, 0.25),
+                    )
+                    time.sleep(random.uniform(0.08, 0.18))
+                    self._set_os_left_button(pyautogui, down=True)
+                    time.sleep(random.uniform(0.04, 0.1))
+                    self._set_os_left_button(pyautogui, down=False)
+                    return True
+                print("[SOLVER] OS click mapping unavailable; falling back to CDP click.")
         pressed = self._dispatch_mouse("mousePressed", css_x, css_y, buttons=1, click_count=1)
         released = self._dispatch_mouse("mouseReleased", css_x, css_y, buttons=0, click_count=1)
         return bool(pressed and released)
@@ -2218,7 +2474,8 @@ class CaptchaSolver:
                 var validAuctionPayload = (listRoute && auctionItemCount >= 3) || (detailRoute && bodyText.trim().length > 80);
                 var supportedAuctionPage = (listRoute || detailRoute) && !challengeRedirect;
                 var hardBlock = combined.indexOf('baxia') !== -1 || combined.indexOf('punish') !== -1 || combined.indexOf('denyfromx5') !== -1 || challengeRedirect;
-                var explicitFailure = combined.indexOf('验证失败') !== -1 || combined.indexOf('点击框体重试') !== -1 || combined.indexOf('error:kzcfr9') !== -1;
+                var errorMatch = combined.match(/error\\s*:\\s*[a-z0-9/_-]{1,64}/i);
+                var explicitFailure = combined.indexOf('验证失败') !== -1 || combined.indexOf('点击框体重试') !== -1 || !!errorMatch;
                 var challengeMarker = combined.indexOf('验证码拦截') !== -1 || combined.indexOf('请按住滑块') !== -1 || combined.indexOf('安全验证') !== -1;
                 var loginUrl = lowerHref.indexOf('login.taobao.com') !== -1 || lowerHref.indexOf('login.tmall.com') !== -1 || lowerHref.indexOf('third-party-cookie') !== -1 || lowerHref.indexOf('/passport/') !== -1 || lowerHref.indexOf('/login') !== -1;
                 var loginText = title.trim().toLowerCase() === '登录' || combined.indexOf('请登录') !== -1 || combined.indexOf('请先登录') !== -1;
@@ -2240,6 +2497,7 @@ class CaptchaSolver:
                     readyState: readyState,
                     title: title,
                     className: className,
+                    errorCode: errorMatch ? errorMatch[0].replace(/\\s+/g, '').toLowerCase() : '',
                     bodyText: bodyText.slice(0, 1000)
                 };
             }
@@ -2259,6 +2517,7 @@ class CaptchaSolver:
                     summary.auctionItemCount = Math.max(summary.auctionItemCount || 0, frameSummary.auctionItemCount || 0);
                     if (!summary.title && frameSummary.title) summary.title = frameSummary.title;
                     if (!summary.className && frameSummary.className) summary.className = frameSummary.className;
+                    if (!summary.errorCode && frameSummary.errorCode) summary.errorCode = frameSummary.errorCode;
                     if (!summary.bodyText && frameSummary.bodyText) summary.bodyText = frameSummary.bodyText;
                 } catch (e) {}
             }
@@ -2291,6 +2550,7 @@ class CaptchaSolver:
             "readyState": "",
             "title": "",
             "className": "",
+            "errorCode": "",
             "bodyText": "",
         }
 
@@ -2310,6 +2570,23 @@ class CaptchaSolver:
             print(f"[SOLVER] Challenge summary refresh failed: {error}")
             return fallback if isinstance(fallback, dict) else {}
         return refreshed or fallback or {}
+
+    def _challenge_failure_diagnostic(self, summary):
+        """Return bounded, query-free NC failure context for runtime logs."""
+        payload = summary if isinstance(summary, dict) else {}
+        title = re.sub(r"\s+", " ", str(payload.get("title") or "")).strip()[:100]
+        class_name = re.sub(r"\s+", " ", str(payload.get("className") or "")).strip()[:120]
+        error_code = re.sub(r"[^a-zA-Z0-9_:/-]", "", str(payload.get("errorCode") or ""))[:80]
+        href = str(payload.get("href") or "").strip()
+        try:
+            parsed = urlsplit(href)
+            safe_href = urlunsplit((parsed.scheme, parsed.netloc, parsed.path, "", ""))[:220]
+        except ValueError:
+            safe_href = ""
+        return (
+            f"code={error_code or 'none'} title={title or 'none'} "
+            f"class={class_name or 'none'} path={safe_href or 'none'}"
+        )
 
     def _preflight_already_authenticated(self):
         print("[SOLVER] Auction page is already accessible; no captcha solve is required.")
@@ -2458,6 +2735,7 @@ class CaptchaSolver:
         max_attempts=50,
         nc_retry_replay_limit=None,
         slider_find_max_retries=None,
+        drag_profile_offset=0,
     ):
         """Main solve method - tries all methods in priority order."""
         with self.lock:
@@ -2527,6 +2805,10 @@ class CaptchaSolver:
                 nc_retry_replay_limit = self._nc_retry_replay_limit()
             else:
                 nc_retry_replay_limit = max(0, int(nc_retry_replay_limit))
+            try:
+                drag_profile_offset = int(drag_profile_offset or 0) % max(len(self._os_drag_profiles()), 1)
+            except (TypeError, ValueError):
+                drag_profile_offset = 0
 
             while attempt < max_attempts:
                 attempt += 1
@@ -2601,11 +2883,7 @@ class CaptchaSolver:
                         print("[SOLVER] Slider not found after retries. Reload + continue...")
                         self._reload_page()
                         time.sleep(0.2 if local_mock_target else random.uniform(1, 2))
-                        if self.ws:
-                            try:
-                                self.ws.close()
-                            except:
-                                pass
+                        self._close_solver_ws()
                         continue
 
                     start_x = slider_info["x"] + (slider_info["width"] / 2)
@@ -2676,7 +2954,10 @@ class CaptchaSolver:
                         drag_result = self._do_drag_local_mock(start_x, start_y, distance)
                     elif self._os_mouse_enabled():
                         print("[SOLVER] Using OS-level mouse drag for live NC challenge.")
-                        drag_profile_variant = min(nc_retry_replays, len(self._os_drag_profiles()) - 1)
+                        drag_profile_variant = (
+                            drag_profile_offset
+                            + min(nc_retry_replays, len(self._os_drag_profiles()) - 1)
+                        ) % len(self._os_drag_profiles())
                         drag_result = self._do_drag_os(
                             start_x,
                             start_y,
@@ -2730,8 +3011,7 @@ class CaptchaSolver:
                         # The userscript handles redirecting it back to standby.
                         print("[SOLVER] Leaving worker tab alive for userscript redirect.")
 
-                        if self.ws:
-                            self.ws.close()
+                        self._close_solver_ws()
                         return finish(True)
 
                     if self.last_failure_reason == "manual_required":
@@ -2739,15 +3019,14 @@ class CaptchaSolver:
 
                     print("\033[93m[SOLVER] [X] Verification failed. Reload + unlimited retry...\033[0m")
                     challenge_summary = self._page_challenge_summary()
+                    print(
+                        "[SOLVER] Challenge diagnostic: "
+                        f"{self._challenge_failure_diagnostic(challenge_summary)}"
+                    )
                     if challenge_summary.get("authenticatedPage"):
                         print("\033[92m[SOLVER] [OK] Auction page is accessible after drag; treating as solved.\033[0m")
                         self.last_failure_reason = None
-                        if self.ws:
-                            try:
-                                self.ws.close()
-                            except Exception:
-                                pass
-                                self.ws = None
+                        self._close_solver_ws()
                         return finish(True)
                     if (
                         not local_mock_target
@@ -2755,10 +3034,15 @@ class CaptchaSolver:
                         and not challenge_summary.get("explicitFailure")
                         and nc_retry_replays < nc_retry_replay_limit
                     ):
+                        # Preserve the live handle position. The next pass uses
+                        # the current rectangles to drag only the residual
+                        # distance, matching the path that has solved real NC
+                        # challenges. Explicit failures are reset below.
                         nc_retry_replays += 1
                         print(
                             "[SOLVER] Slider is still present without an explicit failure; "
-                            f"switching to the next drag profile without spending a main attempt "
+                            f"keeping its live position and switching to the next drag profile "
+                            "without spending a main attempt "
                             f"({nc_retry_replays}/{nc_retry_replay_limit})."
                         )
                         self._close_solver_ws()
@@ -2779,36 +3063,27 @@ class CaptchaSolver:
                                 continue
                         print("[SOLVER] [X] Official challenge explicitly rejected the automated drag; manual verification required.")
                         self.last_failure_reason = "manual_required"
-                        if self.ws:
-                            try:
-                                self.ws.close()
-                            except:
-                                pass
+                        self._close_solver_ws()
                         return finish(False)
                     self._reload_page()
                     self._bring_to_front()
                     time.sleep(0.2 if local_mock_target else random.uniform(1, 2))
-                    if self.ws:
-                        try:
-                            self.ws.close()
-                        except:
-                            pass
 
                 except Exception as e:
                     print(f"[SOLVER] Error during steps: {e}")
                     import traceback
                     traceback.print_exc()
-                    if self.ws:
-                        try:
-                            self.ws.close()
-                        except:
-                            pass
+                    self._close_solver_ws()
                     print("[SOLVER] Exception branch, 3秒后继续重试...")
                     time.sleep(3)
                     continue
 
             print(f"[SOLVER] [X] Max attempts ({max_attempts}) reached without success")
-            if not local_mock_target and self._recover_authenticated_list_page():
+            recovered_authenticated_page = bool(
+                not local_mock_target and self._recover_authenticated_list_page()
+            )
+            self._close_solver_ws()
+            if recovered_authenticated_page:
                 print("\033[92m[SOLVER] [OK] List page is authenticated after challenge attempts; clearing auth lock path.\033[0m")
                 return finish(True)
             self.last_failure_reason = "max_attempts_exceeded"

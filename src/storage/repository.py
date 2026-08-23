@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, Iterator, Optional, Sequence
+from urllib.parse import urlsplit, urlunsplit
 from uuid import uuid4
 
 from sqlalchemy import and_, case, create_engine, func, not_, select, text
@@ -142,6 +143,7 @@ def _shared_data_root_candidates() -> list[Path]:
     candidates: list[Path] = []
     seen: set[str] = set()
     for env_name in (
+        "FAPAI_SHARED_ARTIFACT_ROOT",
         "FAPAI_SHARED_DATA_ROOT_HOST",
         "FAPAI_DATA_ROOT_HOST",
         "FAPAI_SHARED_DATA_ROOT",
@@ -159,12 +161,54 @@ def _shared_data_root_candidates() -> list[Path]:
     return candidates
 
 
+def _shared_artifact_relative_path(path_value: str) -> str | None:
+    """Extract a relative path from a Windows/UNC FPFData artifact path.
+
+    Workers may run on Windows and persist their host path in the central DB.
+    The API runs in Linux, so only the portion below the shared FPFData root is
+    portable. Reject traversal rather than resolving arbitrary host paths.
+    """
+    normalized = path_value.replace("\\", "/")
+    lowered = normalized.lower()
+    marker = "/fpfdata/"
+    marker_index = lowered.find(marker)
+    if marker_index < 0:
+        return None
+    relative = normalized[marker_index + len(marker) :].lstrip("/")
+    if not relative:
+        return None
+    parts = [part for part in relative.split("/") if part]
+    if any(part in {".", ".."} for part in parts):
+        return None
+    return "/".join(parts)
+
+
+def _resolve_from_shared_artifact_roots(path_value: str) -> str | None:
+    relative = _shared_artifact_relative_path(path_value)
+    if not relative:
+        return None
+    for root in _shared_data_root_candidates():
+        try:
+            candidate = (root / relative).resolve()
+            resolved_root = root.resolve()
+            candidate.relative_to(resolved_root)
+        except (OSError, ValueError):
+            continue
+        if candidate.is_file():
+            return str(candidate)
+    return None
+
+
 def _resolve_collection_artifact_path(path_value: Any) -> str | None:
     text = str(path_value or "").strip()
     if not text:
         return None
     if os.path.isfile(text):
         return text
+
+    shared_candidate = _resolve_from_shared_artifact_roots(text)
+    if shared_candidate:
+        return shared_candidate
 
     normalized = text.replace("\\", "/")
     if not normalized.startswith("/data/"):
@@ -2073,7 +2117,16 @@ class PropertyRepository:
         url = _normalized_seed_text(explicit_url)
         if url:
             if url.startswith("//"):
-                return f"https:{url}"
+                url = f"https:{url}"
+            try:
+                parsed = urlsplit(url)
+            except ValueError:
+                return url
+            if (parsed.hostname or "").lower() == "sf-item.taobao.com":
+                path = parsed.path
+                while "//" in path:
+                    path = path.replace("//", "/")
+                return urlunsplit((parsed.scheme or "https", parsed.netloc, path, parsed.query, parsed.fragment))
             return url
         return f"https://sf-item.taobao.com/sf_item/{item_id}.htm"
 
@@ -3173,6 +3226,27 @@ class PropertyRepository:
             artifacts["selected_json_path"] = row.selected_json_path
         if row.final_json_path:
             artifacts["final_json_path"] = row.final_json_path
+
+        # Older completed rows sometimes retained only final/selected paths.
+        # Derive sibling raw artifacts when they are present so the observer can
+        # still show the collected source rather than reporting a false gap.
+        final_path = str(artifacts.get("final_json_path") or "").strip()
+        if final_path:
+            normalized_final = final_path.replace("\\", "/")
+            parent = normalized_final.rsplit("/", 1)[0] if "/" in normalized_final else ""
+            parent_candidates = [parent] if parent else []
+            if "/detail_analysis_worker" in parent:
+                parent_candidates.append(parent.replace("/detail_analysis_worker", "/detail_worker", 1))
+            for candidate_parent in parent_candidates:
+                for key, filename in (
+                    ("detail_html_path", "detail.html"),
+                    ("description_json_path", "description-data.json"),
+                ):
+                    if artifacts.get(key):
+                        continue
+                    candidate = f"{candidate_parent}/{filename}"
+                    if _resolve_collection_artifact_path(candidate):
+                        artifacts[key] = candidate
         return {
             "detail_html_path": artifacts.get("detail_html_path"),
             "description_json_path": artifacts.get("description_json_path"),

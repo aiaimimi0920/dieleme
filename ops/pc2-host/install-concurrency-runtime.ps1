@@ -1,28 +1,22 @@
 param(
-  [string]$StagingDir = 'C:\fapaifang-worker\staging\cookie-only-runtime',
+  [string]$StagingDir = 'C:\fapaifang-worker\staging\concurrency-runtime',
   [string]$InstallDir = 'C:\fapaifang-worker\ops',
   [string]$WorkerRoot = 'C:\fapaifang-worker',
-  [string]$BackupRoot = 'C:\fapaifang-worker\backup\pc2-cookie-only-runtime',
+  [string]$BackupRoot = 'C:\fapaifang-worker\backup\pc2-concurrency-runtime',
   [string]$TaskName = 'FapaiPc2RealWorkerLauncher',
-  [string]$TaskPath = '\'
+  [string]$TaskPath = '\',
+  [ValidateRange(3, 8)][int]$DetailWorkerCount = 4,
+  [ValidateRange(3, 8)][int]$AnalysisWorkerCount = 4
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $files = @(
-  'apply-cookie-only-worker-env.ps1',
-  'import-host-direct-analysis-env.ps1',
+  'apply-worker-concurrency-env.ps1',
   'launch-host-direct-workers.ps1',
-  'load-host-direct-nas-env.ps1',
-  'register-host-direct-worker-watchdog.ps1',
   'start-host-direct-analysis-worker.ps1',
-  'start-host-direct-analysis-worker-2.ps1',
-  'start-host-direct-analysis-worker-3.ps1',
-  'start-host-direct-detail-worker.ps1',
-  'start-host-direct-detail-worker-2.ps1',
-  'start-host-direct-detail-worker-3.ps1',
-  'start-host-direct-seed-worker.ps1'
+  'start-host-direct-detail-worker.ps1'
 )
 
 function Test-PowerShellFile {
@@ -50,7 +44,6 @@ function Copy-IfExists {
   if (-not (Test-Path -LiteralPath $SourcePath)) {
     return $false
   }
-
   $destinationParent = Split-Path -Parent $DestinationPath
   if ($destinationParent) {
     New-Item -ItemType Directory -Force -Path $destinationParent | Out-Null
@@ -60,13 +53,15 @@ function Copy-IfExists {
 }
 
 $envFile = Join-Path $WorkerRoot 'env.worker.local'
-$applyScript = Join-Path $InstallDir 'apply-cookie-only-worker-env.ps1'
+$applyScript = Join-Path $InstallDir 'apply-worker-concurrency-env.ps1'
 $registerScript = Join-Path $InstallDir 'register-host-direct-worker-watchdog.ps1'
 
 if (-not (Test-Path -LiteralPath $StagingDir)) {
   throw "PC2 staging directory does not exist: $StagingDir"
 }
-
+if (-not (Test-Path -LiteralPath $registerScript)) {
+  throw "PC2 watchdog registration script does not exist: $registerScript"
+}
 foreach ($name in $files) {
   $sourcePath = Join-Path $StagingDir $name
   if (-not (Test-Path -LiteralPath $sourcePath)) {
@@ -83,32 +78,24 @@ if ($null -ne $existingTask) {
 $timestamp = Get-Date -Format 'yyyyMMdd-HHmmss'
 $backupDir = Join-Path $BackupRoot $timestamp
 New-Item -ItemType Directory -Force -Path $backupDir | Out-Null
-
 foreach ($name in $files) {
-  $installedPath = Join-Path $InstallDir $name
-  $backupPath = Join-Path $backupDir $name
-  [void](Copy-IfExists -SourcePath $installedPath -DestinationPath $backupPath)
+  [void](Copy-IfExists -SourcePath (Join-Path $InstallDir $name) -DestinationPath (Join-Path $backupDir $name))
 }
 [void](Copy-IfExists -SourcePath $envFile -DestinationPath (Join-Path $backupDir 'env.worker.local'))
 
 try {
   foreach ($name in $files) {
-    $sourcePath = Join-Path $StagingDir $name
     $destinationPath = Join-Path $InstallDir $name
-    $destinationParent = Split-Path -Parent $destinationPath
-    if ($destinationParent) {
-      New-Item -ItemType Directory -Force -Path $destinationParent | Out-Null
-    }
-    Copy-Item -LiteralPath $sourcePath -Destination $destinationPath -Force
+    Copy-Item -LiteralPath (Join-Path $StagingDir $name) -Destination $destinationPath -Force
     Test-PowerShellFile -Path $destinationPath
   }
 
-  $cutoverOutput = & $applyScript
-  $cutoverJson = @($cutoverOutput | Where-Object { $_ -is [string] -and $_.Trim() }) | Select-Object -Last 1
-  if (-not $cutoverJson) {
-    throw 'PC2 cookie-only environment apply script returned no JSON summary.'
+  $applyOutput = & $applyScript -EnvFile $envFile -DetailWorkerCount $DetailWorkerCount -AnalysisWorkerCount $AnalysisWorkerCount
+  $applyJson = @($applyOutput | Where-Object { $_ -is [string] -and $_.Trim() }) | Select-Object -Last 1
+  if (-not $applyJson) {
+    throw 'PC2 concurrency environment apply script returned no JSON summary.'
   }
-  $cutover = $cutoverJson | ConvertFrom-Json
+  $applied = $applyJson | ConvertFrom-Json
 
   & $registerScript -TaskName $TaskName -TaskPath $TaskPath | Out-Null
   Start-Sleep -Seconds 2
@@ -119,31 +106,27 @@ try {
     staging_dir = $StagingDir
     install_dir = $InstallDir
     deployed_files = $files
-    env_mode = $cutover.mode
-    detail_worker_count = $cutover.detail_worker_count
-    analysis_worker_count = $cutover.analysis_worker_count
-    snapshot_exists = $cutover.snapshot_exists
+    detail_worker_count = $applied.detail_worker_count
+    analysis_worker_count = $applied.analysis_worker_count
+    unrelated_settings_preserved = $applied.unrelated_settings_preserved
     task_name = $TaskName
     task_state = [string]$taskState
   } | ConvertTo-Json -Compress
 } catch {
   foreach ($name in $files) {
     $backupPath = Join-Path $backupDir $name
-    $destinationPath = Join-Path $InstallDir $name
     if (Test-Path -LiteralPath $backupPath) {
-      Copy-Item -LiteralPath $backupPath -Destination $destinationPath -Force
+      Copy-Item -LiteralPath $backupPath -Destination (Join-Path $InstallDir $name) -Force
     }
   }
   $backupEnv = Join-Path $backupDir 'env.worker.local'
   if (Test-Path -LiteralPath $backupEnv) {
     Copy-Item -LiteralPath $backupEnv -Destination $envFile -Force
   }
-  if (Test-Path -LiteralPath $registerScript) {
-    try {
-      & $registerScript -TaskName $TaskName -TaskPath $TaskPath | Out-Null
-    } catch {
-      Write-Warning "PC2 worker watchdog restart after rollback failed: $($_.Exception.Message)"
-    }
+  try {
+    & $registerScript -TaskName $TaskName -TaskPath $TaskPath | Out-Null
+  } catch {
+    Write-Warning "PC2 worker watchdog restart after rollback failed: $($_.Exception.Message)"
   }
   throw
 }

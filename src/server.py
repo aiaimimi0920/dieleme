@@ -72,6 +72,19 @@ def _normalize_solver_target_url(value: Any) -> str:
     return urlunsplit((parsed.scheme or "https", parsed.netloc, path, urlencode(query), ""))
 
 
+def _solver_target_requires_manual_only(solver_request: dict[str, Any] | None) -> bool:
+    request = solver_request if isinstance(solver_request, dict) else {}
+    target_url = str(request.get("target_url") or request.get("url") or "").strip()
+    if not target_url:
+        return False
+    try:
+        hostname = str(urlsplit(target_url).hostname or "").strip().lower()
+    except ValueError:
+        return False
+    is_taobao = hostname == "taobao.com" or hostname.endswith(".taobao.com")
+    return bool(is_taobao and not _real_taobao_auto_solver_enabled())
+
+
 def _normalize_solver_cdp_endpoint(value):
     cdp_endpoint = str(value or "").strip()
     runtime_endpoint = str(os.getenv("FAPAI_CDP_ENDPOINT") or "").strip().rstrip("/")
@@ -107,11 +120,14 @@ def _build_solver_request(payload):
     request: dict[str, str] = {}
     cdp_endpoint = _normalize_solver_cdp_endpoint(payload.get("cdp_endpoint"))
     target_url = _normalize_solver_target_url(payload.get("target_url") or payload.get("url"))
+    challenge_target_url = _normalize_solver_target_url(payload.get("challenge_target_url"))
 
     if cdp_endpoint:
         request["cdp_endpoint"] = cdp_endpoint
     if target_url:
         request["target_url"] = target_url
+    if challenge_target_url:
+        request["challenge_target_url"] = challenge_target_url
     node_id = str(payload.get("node_id") or "").strip()
     if node_id:
         request["node_id"] = node_id
@@ -136,10 +152,11 @@ def _refresh_solver_last_request(request_payload):
 
 def _build_solver_for_request(request_payload):
     if request_payload and isinstance(request_payload, dict):
-        if request_payload.get("cdp_endpoint") or request_payload.get("target_url"):
+        target_url = request_payload.get("challenge_target_url") or request_payload.get("target_url")
+        if request_payload.get("cdp_endpoint") or target_url:
             return CaptchaSolver(
                 cdp_endpoint=_normalize_solver_cdp_endpoint(request_payload.get("cdp_endpoint")),
-                target_url=request_payload.get("target_url"),
+                target_url=target_url,
             )
     return solver
 
@@ -249,8 +266,15 @@ SOLVER_MANUAL_ONLY = False
 SOLVER_MANUAL_RETRY_LAST_EPOCH = 0
 SOLVER_MANUAL_RETRY_ATTEMPTS = 0
 SOLVER_CHALLENGE_ID = None
+SOLVER_LAST_AUTH_COMPLETED_TIME = 0.0
+SOLVER_LAST_AUTH_COMPLETED_REQUEST: dict[str, Any] = {}
+SOLVER_AUTH_REPORT_GRACE_SECONDS = max(
+    0.0,
+    float(os.getenv("FAPAI_SOLVER_AUTH_REPORT_GRACE_SECONDS", "90")),
+)
 AUTH_COMPLETION_LOCK = threading.Lock()
 AUTH_COMPLETION_CONFIRMATIONS: dict[str, float] = {}
+AUTH_COMPLETION_FINALIZE_LOCK = threading.Lock()
 AUTH_COOKIE_SNAPSHOT_LOCK = threading.Lock()
 AUTH_COOKIE_SNAPSHOT_THREAD: threading.Thread | None = None
 AUTH_COOKIE_SNAPSHOT_STATE: dict[str, Any] = {
@@ -308,6 +332,11 @@ def _runtime_env_flag(name, default):
     if raw is None:
         return default
     return raw.strip().lower() not in {"0", "false", "no", "off"}
+
+
+def _real_taobao_auto_solver_enabled() -> bool:
+    """Require an explicit production opt-in for automatic Taobao solving."""
+    return _runtime_env_flag("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", False)
 
 
 def _solver_force_unlock_flag_path() -> str:
@@ -372,6 +401,23 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
         last_request = _solver_manual_flag_request()
     elapsed_seconds = max(int(current_time - started_at), 0) if active_run and started_at > 0 else 0
     manual_required = bool(force_unlock_flag_exists or (PAUSED and SOLVER_LAST_STATUS == "manual_required"))
+    manual_only = bool(
+        SOLVER_MANUAL_ONLY
+        or _solver_manual_flag_is_manual_only()
+        or _solver_target_requires_manual_only(last_request)
+    )
+    delegated_to_node = bool(last_request and _solver_request_delegated_to_node(last_request))
+    request_node_id = str(last_request.get("node_id") or "").strip().lower()
+    request_owner = (request_node_id or "node") if delegated_to_node else ("nas" if last_request else None)
+    execution_mode = (
+        "manual"
+        if manual_only
+        else "delegated_node"
+        if delegated_to_node
+        else "nas_local"
+        if last_request
+        else "idle"
+    )
     manual_retry_next_epoch = _manual_solver_retry_next_epoch(current_time) if manual_required else None
     return {
         "running": running,
@@ -382,7 +428,13 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
         "last_failure_reason": SOLVER_LAST_FAILURE_REASON,
         "last_finished_at_epoch": SOLVER_LAST_FINISHED_TIME if SOLVER_LAST_FINISHED_TIME else None,
         "manual_required": manual_required,
-        "manual_only": bool(SOLVER_MANUAL_ONLY or _solver_manual_flag_is_manual_only()),
+        "manual_only": manual_only,
+        "execution_mode": execution_mode,
+        "request_owner": request_owner,
+        "delegated_to_node_solver": delegated_to_node,
+        "nas_solver_active": running,
+        "node_solver_expected": bool(delegated_to_node and not manual_only),
+        "real_taobao_auto_solver_enabled": _real_taobao_auto_solver_enabled(),
         "force_unlock_flag_exists": force_unlock_flag_exists,
         "paused": _collection_effectively_paused(),
         "pause_reason": COLLECTION_PAUSE_REASON,
@@ -423,13 +475,103 @@ def _solver_challenge_request_key(request_payload: dict[str, Any] | None) -> tup
     payload = request_payload if isinstance(request_payload, dict) else {}
     node_id = str(payload.get("node_id") or "").strip().lower()
     cdp_endpoint = str(payload.get("cdp_endpoint") or "").strip().lower().rstrip("/")
-    target_url = _normalize_solver_target_url(payload.get("target_url") or payload.get("url") or "")
+    target_url = _normalize_solver_target_url(
+        payload.get("challenge_target_url") or payload.get("target_url") or payload.get("url") or ""
+    )
     return node_id, cdp_endpoint, target_url
 
 
 def _solver_challenge_owner_key(request_payload: dict[str, Any] | None) -> tuple[str, str]:
     node_id, cdp_endpoint, _target_url = _solver_challenge_request_key(request_payload)
     return node_id, cdp_endpoint
+
+
+def _remember_solver_auth_completion(request_payload: dict[str, Any] | None) -> None:
+    global SOLVER_LAST_AUTH_COMPLETED_TIME, SOLVER_LAST_AUTH_COMPLETED_REQUEST
+    request = _build_solver_request(request_payload or {})
+    SOLVER_LAST_AUTH_COMPLETED_TIME = time.time()
+    SOLVER_LAST_AUTH_COMPLETED_REQUEST = dict(request)
+
+
+def _solver_report_is_recent_auth_duplicate(
+    request_payload: dict[str, Any] | None,
+    *,
+    now: float | None = None,
+) -> bool:
+    """Reject delayed captcha reports from the node that just completed auth.
+
+    Worker captcha reports are fire-and-forget and do not carry the active
+    challenge id.  A report already in flight can therefore arrive after the
+    solver has cleared the challenge and otherwise create a new pause.  Keep a
+    short, same-node grace window so the next worker cycle can observe the
+    authenticated cookie instead of reopening the just-cleared challenge.
+    """
+    completed_at = float(SOLVER_LAST_AUTH_COMPLETED_TIME or 0)
+    if completed_at <= 0 or SOLVER_AUTH_REPORT_GRACE_SECONDS <= 0:
+        return False
+    current_time = time.time() if now is None else float(now)
+    age = current_time - completed_at
+    if age < 0 or age > SOLVER_AUTH_REPORT_GRACE_SECONDS:
+        return False
+    completed = _build_solver_request(SOLVER_LAST_AUTH_COMPLETED_REQUEST)
+    incoming = _build_solver_request(request_payload or {})
+    if not completed or not incoming:
+        return False
+    completed_owner = _solver_challenge_owner_key(completed)
+    incoming_owner = _solver_challenge_owner_key(incoming)
+    if completed_owner != ("", "") and completed_owner == incoming_owner:
+        return True
+    completed_target = completed.get("target_url")
+    incoming_target = incoming.get("target_url")
+    return bool(
+        completed_target
+        and incoming_target
+        and completed_target == incoming_target
+    )
+
+
+def _solver_report_predates_auth_completion(
+    payload: dict[str, Any] | None,
+) -> bool:
+    """Identify an in-flight worker report created before auth completed."""
+    completed_at = float(SOLVER_LAST_AUTH_COMPLETED_TIME or 0)
+    if completed_at <= 0 or not isinstance(payload, dict):
+        return False
+    raw_timestamp = payload.get("timestamp")
+    if isinstance(raw_timestamp, bool):
+        return False
+    try:
+        reported_at = float(raw_timestamp)
+    except (TypeError, ValueError):
+        return False
+    if reported_at > 10_000_000_000:
+        reported_at /= 1000.0
+    if reported_at <= 0 or reported_at > completed_at:
+        return False
+
+    completed = _build_solver_request(SOLVER_LAST_AUTH_COMPLETED_REQUEST)
+    incoming = _build_solver_request(payload)
+    if not completed or not incoming:
+        return False
+    completed_owner = _solver_challenge_owner_key(completed)
+    incoming_owner = _solver_challenge_owner_key(incoming)
+    if completed_owner != ("", "") and completed_owner == incoming_owner:
+        return True
+    completed_target = completed.get("target_url")
+    incoming_target = incoming.get("target_url")
+    return bool(completed_target and incoming_target and completed_target == incoming_target)
+
+
+def _solver_report_stale_challenge_id(payload: dict[str, Any] | None) -> str | None:
+    if not isinstance(payload, dict):
+        return None
+    reported_challenge_id = str(payload.get("challenge_id") or "").strip()
+    if not reported_challenge_id:
+        return None
+    active_challenge_id = str(SOLVER_CHALLENGE_ID or "").strip()
+    if reported_challenge_id == active_challenge_id:
+        return None
+    return reported_challenge_id
 
 
 def _persist_solver_challenge_state(challenge_id: str, last_request: dict[str, Any]) -> str | None:
@@ -887,6 +1029,7 @@ def _seed_priority_solver_request(
     if not solver_request.get("target_url"):
         return solver_request
     if _prefer_seed_solver_request_for_payload(solver_request):
+        solver_request["challenge_target_url"] = solver_request["target_url"]
         return _seed_priority_manual_solver_retry_request(solver_request)
     return solver_request
 
@@ -1151,6 +1294,7 @@ def _manual_only_captcha_report_payload(payload: dict[str, Any]) -> dict[str, An
     solver_request = _build_solver_request(payload)
     if solver_request:
         _refresh_solver_last_request(solver_request)
+    _begin_solver_challenge()
     flag_error = _mark_solver_manual_required(manual_only=True)
     response_payload: dict[str, Any] = {
         "status": "manual_required",
@@ -1207,6 +1351,7 @@ def _auth_cookie_snapshot_root_candidates() -> list[Path]:
         seen.add(key)
         candidates.append(resolved)
 
+    _add(os.getenv("FAPAI_COOKIE_SNAPSHOT_ROOT"))
     _add(os.getenv("FAPAI_SHARED_DATA_ROOT_HOST"))
     _add(REPO_ROOT.parent / "FPFData")
 
@@ -1272,15 +1417,24 @@ def _write_auth_cookie_snapshot(cookies: list[dict[str, Any]], snapshot_path: st
 def _probe_auth_cookie_snapshot_health(
     cookies: list[dict[str, Any]],
     sample_urls: list[str],
+    *,
+    cdp_endpoint: str = "",
 ) -> dict[str, Any]:
     from tools import browserless_seed_probe, taobao_login_health
 
     session = browserless_seed_probe.build_session_from_playwright_cookies(cookies)
+    user_agent = browserless_seed_probe.resolve_cdp_user_agent(cdp_endpoint)
     sample_results: list[dict[str, Any]] = []
     healthy_samples = 0
     for url in sample_urls:
         try:
-            summary = browserless_seed_probe.probe_seed_page(url, cookies=cookies, session=session, timeout=15)
+            summary = browserless_seed_probe.probe_seed_page(
+                url,
+                cookies=cookies,
+                session=session,
+                timeout=15,
+                user_agent=user_agent,
+            )
             classification = taobao_login_health.classify_taobao_health(
                 "",
                 final_url=str(summary.get("final_url") or url),
@@ -1337,7 +1491,11 @@ def _refresh_auth_cookie_snapshot(payload: dict[str, Any]) -> dict[str, Any]:
     cookies = _export_auth_cdp_cookies(cdp_endpoint)
     summary = _summarize_auth_cookies(cookies)
     sample_urls = _auth_cookie_snapshot_sample_urls(payload)
-    health = _probe_auth_cookie_snapshot_health(cookies, sample_urls)
+    health = _probe_auth_cookie_snapshot_health(
+        cookies,
+        sample_urls,
+        cdp_endpoint=cdp_endpoint,
+    )
     cookie_count = int(summary.get("count") or 0)
     if not health.get("healthy"):
         return {
@@ -1391,7 +1549,14 @@ def _set_auth_cookie_snapshot_state(**updates: Any) -> dict[str, Any]:
         return dict(AUTH_COOKIE_SNAPSHOT_STATE)
 
 
-def _run_auth_cookie_snapshot_retry(payload: dict[str, Any], completion_id: str | None) -> None:
+def _run_auth_cookie_snapshot_retry(
+    payload: dict[str, Any],
+    completion_id: str | None,
+    *,
+    finalize_auth: bool = False,
+    expected_challenge_id: str | None = None,
+    completion_request: dict[str, Any] | None = None,
+) -> None:
     max_attempts = _auth_cookie_snapshot_retry_attempts()
     base_backoff = _auth_cookie_snapshot_retry_backoff_seconds()
     last_result: dict[str, Any] = {"refreshed": False, "reason": "not_started"}
@@ -1417,6 +1582,14 @@ def _run_auth_cookie_snapshot_retry(payload: dict[str, Any], completion_id: str 
             last_result = {"refreshed": False, "error": repr(error)}
 
         if last_result.get("refreshed") is True:
+            auth_finalization = None
+            if finalize_auth:
+                auth_finalization = _finalize_auth_completion_after_cookie_snapshot(
+                    completion_id,
+                    expected_challenge_id=expected_challenge_id,
+                    completion_request=completion_request,
+                )
+                last_result["auth_finalization"] = auth_finalization
             _set_auth_cookie_snapshot_state(
                 status="completed",
                 completion_id=completion_id,
@@ -1426,6 +1599,9 @@ def _run_auth_cookie_snapshot_retry(payload: dict[str, Any], completion_id: str 
                 retry_queued=False,
                 next_retry_at_epoch=None,
                 last_finished_at_epoch=time.time(),
+                auth_state_confirmed=bool(
+                    auth_finalization and auth_finalization.get("auth_state_confirmed") is True
+                ),
                 result=last_result,
             )
             return
@@ -1473,6 +1649,10 @@ def _run_auth_cookie_snapshot_retry(payload: dict[str, Any], completion_id: str 
 def _schedule_auth_cookie_snapshot_refresh(
     payload: dict[str, Any],
     completion_id: str | None,
+    *,
+    finalize_auth: bool = False,
+    expected_challenge_id: str | None = None,
+    completion_request: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     global AUTH_COOKIE_SNAPSHOT_THREAD
 
@@ -1506,11 +1686,18 @@ def _schedule_auth_cookie_snapshot_refresh(
                 "refreshed": False,
                 "retry_queued": True,
                 "next_retry_at_epoch": time.time(),
+                "auth_finalize_requested": bool(finalize_auth),
+                "expected_challenge_id": expected_challenge_id,
             }
         )
         thread = threading.Thread(
             target=_run_auth_cookie_snapshot_retry,
             args=(dict(payload), completion_id),
+            kwargs={
+                "finalize_auth": bool(finalize_auth),
+                "expected_challenge_id": expected_challenge_id,
+                "completion_request": dict(completion_request or {}),
+            },
             name="auth-cookie-snapshot-refresh",
             daemon=True,
         )
@@ -2003,6 +2190,77 @@ def _auth_state_is_confirmed(solver_status: dict[str, Any]) -> bool:
     )
 
 
+def _finalize_auth_completion_after_cookie_snapshot(
+    completion_id: str | None,
+    *,
+    expected_challenge_id: str | None,
+    completion_request: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Clear a manual pause only after a healthy cookie snapshot is durable."""
+
+    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
+    normalized_expected = str(expected_challenge_id or "").strip() or None
+    with AUTH_COMPLETION_FINALIZE_LOCK:
+        normalized_current = str(SOLVER_CHALLENGE_ID or "").strip() or None
+        if normalized_current != normalized_expected:
+            return {
+                "auth_state_confirmed": False,
+                "stale_challenge": True,
+                "expected_challenge_id": normalized_expected,
+                "challenge_id": normalized_current,
+                "error": "cookie snapshot belongs to an older captcha challenge",
+            }
+
+        previously_confirmed = _auth_completion_was_confirmed(completion_id)
+        before_status = _captcha_solver_runtime_status()
+        if previously_confirmed and _auth_state_is_confirmed(before_status):
+            return {
+                "auth_state_confirmed": True,
+                "idempotent": True,
+                "challenge_id": normalized_current,
+            }
+
+        clear_error = _clear_solver_manual_required_pause()
+        cleared_status = _captcha_solver_runtime_status()
+        auth_state_confirmed = clear_error is None and _auth_state_is_confirmed(cleared_status)
+        receipt_error: str | None = None
+        if auth_state_confirmed:
+            receipt_error = _remember_auth_completion_confirmation(completion_id)
+            auth_state_confirmed = receipt_error is None
+
+        if auth_state_confirmed:
+            SOLVER_LAST_STATUS = "manual_auth_completed"
+            SOLVER_LAST_FAILURE_REASON = None
+            _remember_solver_auth_completion(completion_request)
+        else:
+            recovery_error: str | None = None
+            if clear_error is None:
+                if isinstance(completion_request, dict) and completion_request:
+                    _refresh_solver_last_request(completion_request)
+                _begin_solver_challenge()
+                recovery_error = _mark_solver_manual_required(
+                    manual_only=_solver_target_requires_manual_only(completion_request)
+                )
+            SOLVER_LAST_STATUS = "manual_required"
+            SOLVER_LAST_FAILURE_REASON = "manual_required"
+            _set_collection_pause_state(True, "manual_required")
+
+        result: dict[str, Any] = {
+            "auth_state_confirmed": auth_state_confirmed,
+            "idempotent": bool(previously_confirmed and auth_state_confirmed),
+            "challenge_id": SOLVER_CHALLENGE_ID,
+        }
+        if clear_error is not None:
+            result["error"] = f"failed to clear force unlock flag: {clear_error}"
+        elif receipt_error is not None:
+            result["error"] = f"failed to persist auth completion receipt: {receipt_error}"
+        elif not auth_state_confirmed:
+            result["error"] = "auth state remained paused or manual_required after cleanup"
+        if not auth_state_confirmed and recovery_error is not None:
+            result["recovery_error"] = recovery_error
+        return result
+
+
 def _node_auth_challenge_matches(payload: dict[str, Any], source: str) -> bool:
     if source != "pc2_local_solver" or not SOLVER_CHALLENGE_ID:
         return True
@@ -2130,38 +2388,91 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
         }
     previously_confirmed = _auth_completion_was_confirmed(completion_id)
     before_status = _captcha_solver_runtime_status()
+    completion_request = before_status.get("last_request")
+    if not isinstance(completion_request, dict) or not completion_request:
+        completion_request = SOLVER_LAST_REQUEST
     already_clear = _auth_state_is_confirmed(before_status)
+    refresh_cookie_snapshot = _payload_flag(payload, "refresh_cookie_snapshot", True)
+    snapshot_gate_required = bool(
+        refresh_cookie_snapshot
+        or source == "pc2_local_solver"
+        or _solver_target_requires_manual_only(completion_request)
+    )
+    snapshot_payload = dict(payload)
+    if snapshot_gate_required:
+        snapshot_payload["refresh_cookie_snapshot"] = True
+    expected_challenge_id = str(SOLVER_CHALLENGE_ID or "").strip() or None
 
     clear_error: str | None = None
     receipt_error: str | None = None
+    finalization_error: str | None = None
     if previously_confirmed:
         auth_state_confirmed = already_clear
-    else:
+        cookie_snapshot = _auth_cookie_snapshot_runtime_status()
+    elif not snapshot_gate_required or already_clear:
         clear_error = _clear_solver_manual_required_pause()
         cleared_status = _captcha_solver_runtime_status()
         auth_state_confirmed = clear_error is None and _auth_state_is_confirmed(cleared_status)
         if auth_state_confirmed:
             receipt_error = _remember_auth_completion_confirmation(completion_id)
             auth_state_confirmed = receipt_error is None
+        cookie_snapshot = _schedule_auth_cookie_snapshot_refresh(snapshot_payload, completion_id)
+    else:
+        # Phase one: the operator/node reported a completed browser challenge,
+        # but HTTP workers must remain paused until those cookies pass the same
+        # health probe used by collection.  The background retry performs phase
+        # two and clears this exact challenge only after a healthy snapshot.
+        auth_state_confirmed = False
+        SOLVER_LAST_STATUS = "manual_required"
+        SOLVER_LAST_FAILURE_REASON = "manual_required"
+        _set_collection_pause_state(True, "manual_required")
+        cookie_snapshot = _schedule_auth_cookie_snapshot_refresh(
+            snapshot_payload,
+            completion_id,
+            finalize_auth=True,
+            expected_challenge_id=expected_challenge_id,
+            completion_request=(
+                dict(completion_request) if isinstance(completion_request, dict) else None
+            ),
+        )
+        if cookie_snapshot.get("status") == "completed" and cookie_snapshot.get("refreshed") is True:
+            finalization = _finalize_auth_completion_after_cookie_snapshot(
+                completion_id,
+                expected_challenge_id=expected_challenge_id,
+                completion_request=(
+                    dict(completion_request) if isinstance(completion_request, dict) else None
+                ),
+            )
+            auth_state_confirmed = finalization.get("auth_state_confirmed") is True
+            finalization_error = str(finalization.get("error") or "").strip() or None
+            cookie_snapshot = {
+                **cookie_snapshot,
+                "auth_state_confirmed": auth_state_confirmed,
+                "auth_finalization": finalization,
+            }
 
     if auth_state_confirmed:
         SOLVER_LAST_STATUS = "manual_auth_completed"
         SOLVER_LAST_FAILURE_REASON = None
-    else:
+        _remember_solver_auth_completion(completion_request)
+    elif not previously_confirmed:
         SOLVER_LAST_STATUS = "manual_required"
         SOLVER_LAST_FAILURE_REASON = "manual_required"
         _set_collection_pause_state(True, "manual_required")
     solver_status = _captcha_solver_runtime_status()
-
-    cookie_snapshot = _schedule_auth_cookie_snapshot_refresh(payload, completion_id)
+    snapshot_status = str(cookie_snapshot.get("status") or "").strip().lower()
+    auth_confirmation_pending = bool(
+        not auth_state_confirmed and snapshot_status in {"pending", "running"}
+    )
     result = {
-        "ok": auth_state_confirmed,
+        "ok": bool(auth_state_confirmed or auth_confirmation_pending),
         "action": "auth_complete",
         "source": source,
         "completion_id": completion_id,
         "auth_state_confirmed": auth_state_confirmed,
         "idempotent": bool(previously_confirmed or (already_clear and auth_state_confirmed)),
         "manual_auth_completed": auth_state_confirmed,
+        "auth_confirmation_pending": auth_confirmation_pending,
         "paused": bool(solver_status.get("paused")),
         "runtime_state": _collection_runtime_state_label(),
         "captcha_solver": solver_status,
@@ -2171,10 +2482,16 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
         result["error"] = f"failed to clear force unlock flag: {clear_error}"
     elif receipt_error is not None:
         result["error"] = f"failed to persist auth completion receipt: {receipt_error}"
+    elif finalization_error is not None:
+        result["error"] = finalization_error
     elif previously_confirmed and not auth_state_confirmed:
         result["error"] = "confirmed completion_id is stale for the current auth state"
+    elif snapshot_status == "failed":
+        result["error"] = "cookie snapshot refresh failed; collection remains paused"
+    elif snapshot_status == "completed" and not auth_state_confirmed:
+        result["error"] = "cookie snapshot completed but auth state could not be confirmed"
     elif not auth_state_confirmed:
-        result["error"] = "auth state remained paused or manual_required after cleanup"
+        result["pending_reason"] = "waiting for a healthy cookie snapshot"
     return result
 
 
@@ -7878,7 +8195,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     encoding="utf-8",
                 )
                 if not dry_run and output.get("fetched_count"):
-                    load_data()
+                    load_data(active_data_root)
             except Exception as e:
                 self.send_error_json(
                     status=500,
@@ -7921,7 +8238,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     encoding="utf-8",
                 )
                 if not dry_run and output.get("prepared_count"):
-                    load_data()
+                    load_data(active_data_root)
             except Exception as e:
                 self.send_error_json(
                     status=500,
@@ -8696,7 +9013,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     encoding="utf-8",
                 )
                 if not bool(payload.get("dry_run", True)) and result.get("detail_replay_preparation", {}).get("prepared_count"):
-                    load_data()
+                    load_data(active_data_root)
             except Exception as e:
                 self.send_error_json(
                     status=500,
@@ -8739,7 +9056,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     encoding="utf-8",
                 )
                 if not bool(payload.get("dry_run", True)) and result.get("fetched_count"):
-                    load_data()
+                    load_data(active_data_root)
             except Exception as e:
                 self.send_error_json(
                     status=500,
@@ -8781,7 +9098,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     encoding="utf-8",
                 )
                 if not bool(payload.get("dry_run", True)) and result.get("prepared_count"):
-                    load_data()
+                    load_data(active_data_root)
             except Exception as e:
                 self.send_error_json(
                     status=500,
@@ -9195,14 +9512,50 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             if not isinstance(payload, dict):
                 self.send_invalid_request_body(payload)
                 return
+            solver_request = _seed_priority_solver_request(payload)
+            stale_challenge_id = _solver_report_stale_challenge_id(payload)
+            if stale_challenge_id:
+                print(
+                    "[SOLVER] captcha report ignored; stale challenge id "
+                    f"{stale_challenge_id!r} does not match the active challenge."
+                )
+                self.send_json({
+                    "status": "stale_challenge",
+                    "challenge_id": SOLVER_CHALLENGE_ID,
+                    "captcha_solver": _captcha_solver_runtime_status(),
+                })
+                return
+            if _solver_report_predates_auth_completion(payload):
+                print(
+                    "[SOLVER] captcha report ignored; it was created before "
+                    "the same node completed auth."
+                )
+                self.send_json({
+                    "status": "stale_auth_report",
+                    "captcha_solver": _captcha_solver_runtime_status(),
+                })
+                return
+            if _solver_report_is_recent_auth_duplicate(solver_request):
+                age = max(time.time() - float(SOLVER_LAST_AUTH_COMPLETED_TIME or 0), 0.0)
+                retry_after = max(0.0, SOLVER_AUTH_REPORT_GRACE_SECONDS - age)
+                print(
+                    "[SOLVER] report_captcha ignored; the same node recently "
+                    f"completed auth ({retry_after:.0f}s grace remaining)."
+                )
+                self.send_json({
+                    "status": "recent_auth_complete",
+                    "retry_after_seconds": int(math.ceil(retry_after)),
+                    "captcha_solver": _captcha_solver_runtime_status(),
+                })
+                return
             manual_only = (
                 self.path == '/api/report_manual_captcha'
                 or _payload_manual_only(payload)
+                or _solver_target_requires_manual_only(solver_request)
             )
             if manual_only:
                 self.send_json(_manual_only_captcha_report_payload(payload))
                 return
-            solver_request = _seed_priority_solver_request(payload)
             if solver_request:
                 _refresh_solver_last_request(solver_request)
             force_retry = _payload_force_solver_retry(payload)

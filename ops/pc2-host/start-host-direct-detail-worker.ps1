@@ -1,14 +1,33 @@
+param(
+  [string]$RequestedWorkerId = '',
+  [string]$RequestedOutputDir = '',
+  [string]$BrowserFallbackOverride = ''
+)
+
 $ctx = & 'C:\fapaifang-worker\ops\load-host-direct-nas-env.ps1'
-if ($null -ne $env:FAPAI_HOST_DETAIL_BROWSER_FALLBACK_OVERRIDE -and $env:FAPAI_HOST_DETAIL_BROWSER_FALLBACK_OVERRIDE -ne '') {
+$effectiveBrowserFallbackOverride = if ($BrowserFallbackOverride -ne '') {
+  $BrowserFallbackOverride
+} else {
+  $env:FAPAI_HOST_DETAIL_BROWSER_FALLBACK_OVERRIDE
+}
+if ($null -ne $effectiveBrowserFallbackOverride -and $effectiveBrowserFallbackOverride -ne '') {
   [Environment]::SetEnvironmentVariable(
     'FAPAI_DETAIL_BROWSER_FALLBACK',
-    $env:FAPAI_HOST_DETAIL_BROWSER_FALLBACK_OVERRIDE,
+    $effectiveBrowserFallbackOverride,
     'Process'
   )
 }
 Set-Location $ctx.SrcRoot
-$workerId = if ($env:FAPAI_HOST_DETAIL_WORKER_ID) { $env:FAPAI_HOST_DETAIL_WORKER_ID } else { 'pc2-real-detail-1' }
-$outputDir = if ($env:FAPAI_HOST_DETAIL_OUTPUT_DIR) {
+$workerId = if ($RequestedWorkerId) {
+  $RequestedWorkerId
+} elseif ($env:FAPAI_HOST_DETAIL_WORKER_ID) {
+  $env:FAPAI_HOST_DETAIL_WORKER_ID
+} else {
+  'pc2-real-detail-1'
+}
+$outputDir = if ($RequestedOutputDir) {
+  $RequestedOutputDir
+} elseif ($env:FAPAI_HOST_DETAIL_OUTPUT_DIR) {
   $env:FAPAI_HOST_DETAIL_OUTPUT_DIR
 } else {
   Join-Path $ctx.SharedRoot 'output\nodes\pc2-real\detail_worker'
@@ -45,7 +64,11 @@ try {
 
 function Find-ExistingWorkerProcess {
   $scriptPattern = [regex]::Escape('tools\detail_worker.py')
-  $workerIdPattern = '--worker-id\s+' + [regex]::Escape($workerId)
+  $workerIdPattern = (
+    '--worker-id\s+["'']?' +
+    [regex]::Escape($workerId) +
+    '["'']?(?=\s|$)'
+  )
   return Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
     Where-Object {
       $_.Name -eq 'python.exe' -and
