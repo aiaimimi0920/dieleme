@@ -2865,8 +2865,12 @@ class PropertyRepository:
                     claimed_payload.setdefault("id", row.item_id)
                     claimed_payload.setdefault("item_id", row.item_id)
                     claimed_payload.setdefault("source_item_id", row.source_item_id or row.item_id)
-                    claimed_payload.setdefault("url", self._seed_item_url(row.item_id, row.source_url))
-                    claimed_payload.setdefault("source_url", claimed_payload.get("url"))
+                    canonical_url = self._seed_item_url(
+                        row.item_id,
+                        row.source_url or claimed_payload.get("url") or claimed_payload.get("source_url"),
+                    )
+                    claimed_payload["url"] = canonical_url
+                    claimed_payload["source_url"] = canonical_url
                     if row.title:
                         claimed_payload.setdefault("title", row.title)
                         claimed_payload.setdefault("source_title", row.title)

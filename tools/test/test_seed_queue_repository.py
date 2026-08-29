@@ -69,6 +69,34 @@ def test_seed_item_url_normalizes_duplicate_detail_path_slashes() -> None:
     ) == "https://sf-item.taobao.com/sf_item/570192626894.htm?track_id=test"
 
 
+def test_detail_claim_overrides_legacy_duplicate_slash_payload_url(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _ensure_nansha_job(repo)
+    task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    assert task is not None
+    repo.upsert_seed_items(
+        job_key=task["job_key"],
+        progress_key=task["progress_key"],
+        sort_key=task["sort_key"],
+        sort_name=task["sort_name"],
+        st_param=task["st_param"],
+        page=1,
+        source_page_url=task["url"],
+        items=[
+            {
+                "id": "570192626894",
+                "url": "https://sf-item.taobao.com//sf_item/570192626894.htm?track_id=test",
+            }
+        ],
+    )
+
+    claimed = repo.claim_seed_detail_item("detail-worker", lease_seconds=30)
+
+    assert claimed is not None
+    assert claimed["url"] == "https://sf-item.taobao.com/sf_item/570192626894.htm?track_id=test"
+    assert claimed["source_url"] == claimed["url"]
+
+
 def test_collection_observer_lists_seed_links_with_totals(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _upsert_sample_seed(repo)

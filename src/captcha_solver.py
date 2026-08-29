@@ -2504,11 +2504,11 @@ class CaptchaSolver:
             href = str(self.current_target_url or self.target_url or "")
         if "/_____tmd_____/" in href:
             dest = href.split("/_____tmd_____/", 1)[0]
-            dest = dest.replace("://sf.taobao.com//", "://sf.taobao.com/")
+            dest = self._normalize_target_url(dest)
             if dest.startswith("http"):
                 return dest
         if "sf.taobao.com/list/" in href:
-            return href.split("#", 1)[0]
+            return self._normalize_target_url(href)
         return "https://sf.taobao.com/list/50025969__2.htm"
 
     def _recover_authenticated_list_page(self):

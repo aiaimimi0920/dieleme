@@ -1225,6 +1225,20 @@ def test_manual_challenge_reuse_is_scoped_to_list_or_detail() -> None:
     )
 
 
+def test_destination_recovery_normalizes_duplicate_path_slashes() -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    hrefs = iter(
+        (
+            "https://sf-item.taobao.com//sf_item/570192626894.htm/_____tmd_____/punish?x5step=1",
+            "https://sf.taobao.com//list/50025969__2.htm/_____tmd_____/punish?x5step=1",
+        )
+    )
+    solver._send_cdp = lambda *_args, **_kwargs: {"result": {"value": next(hrefs)}}
+
+    assert solver._destination_list_url() == "https://sf-item.taobao.com/sf_item/570192626894.htm"
+    assert solver._destination_list_url() == "https://sf.taobao.com/list/50025969__2.htm"
+
+
 def test_solver_preserves_owned_challenge_tab_for_manual_verification() -> None:
     solver = captcha_solver.CaptchaSolver(port=9223)
     solver.target_id = "manual-target"
