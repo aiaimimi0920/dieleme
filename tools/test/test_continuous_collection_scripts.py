@@ -745,6 +745,8 @@ def test_pc2_host_direct_launch_script_runs_persistent_watchdog_with_detached_wo
     assert "Stop-WorkerProcessTree" in script
     assert "Get-CimInstance Win32_Process" in script
     assert "ParentProcessId" in script
+    assert "Global\\FapaiFangPc2RealWorkers" in script
+    assert "workerMutex.WaitOne(0)" in script
     assert "while ($true)" in script
     assert "Start-Sleep -Seconds $PollSeconds" in script
     assert "Start-Process" not in script
@@ -916,13 +918,15 @@ def test_pc2_collection_pause_keeps_scope_aware_seed_and_analysis_supervised() -
     script = _pc2_host_script("launch-host-direct-workers.ps1")
 
     assert "function Test-CollectionPaused" in script
+    assert "function Get-CollectionPauseState" in script
     assert 'Invoke-RestMethod -Uri "$apiBaseUrl/status"' in script
     assert "function Stop-WorkersForCollectionPause" in script
     assert 'Reason "collection paused"' in script
-    assert "if ($collectionPaused)" in script
+    assert "$seedCollectionPaused" in script
+    assert "$detailCollectionPaused" in script
     assert "Stop-WorkersForCollectionPause" in script
     assert "if (-not $spec.StopsWhenCollectionPaused)" in script
-    assert "$collectionPaused -and $spec.StopsWhenCollectionPaused" in script
+    assert "$scopePaused -and $spec.StopsWhenCollectionPaused" in script
 
 
 def test_pc2_collection_pause_check_fails_closed_when_nas_status_is_unavailable() -> None:
@@ -1052,6 +1056,10 @@ def test_pc2_cdp_self_heal_recovers_browser_before_resetting_matching_challenge(
     assert "if ($challengeId -and $ResetMatchingChallenge)" in script
     assert "Stop-ScheduledTask -TaskName $taskName" in script
     assert "function Get-RecoveryRoleProcess" in script
+    assert "$scheduledDeadline = (Get-Date).AddSeconds(20)" in script
+    assert "$null -eq (Get-RecoveryRoleProcess -Role $role)" in script
+    assert "$taskIsRunning" in script
+    assert "-and -not $taskIsRunning" in script
     assert "Start-Process" in script
     assert "launch_modes" in script
     assert "runtime process did not remain running" in script

@@ -159,7 +159,7 @@ def solve_with_playwright(target_url):
 
 
 if __name__ == "__main__":
-    url = sys.argv[1] if len(sys.argv) > 1 else "https://sf-item.taobao.com//sf_item/738888888888.htm/_____tmd_____/punish?x5secdata=test"
+    url = sys.argv[1] if len(sys.argv) > 1 else "https://sf-item.taobao.com/sf_item/738888888888.htm/_____tmd_____/punish?x5secdata=test"
 
     result = solve_with_playwright(url)
     sys.exit(0 if result else 1)

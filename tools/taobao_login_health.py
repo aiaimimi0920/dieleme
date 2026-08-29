@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
+import hashlib
 import json
 import os
 import re
 import sys
+import tempfile
+import threading
 import time
 from collections.abc import Callable, Mapping, Sequence
 from pathlib import Path
@@ -28,6 +32,18 @@ DEFAULT_API_BASE_URL = os.environ.get("FAPAI_API_BASE_URL", "http://127.0.0.1:80
 DEFAULT_CDP_CONNECT_TIMEOUT_MS = 120000
 DEFAULT_CDP_PAGE_TARGET_LIMIT = 12
 DEFAULT_CDP_WEBSOCKET_TIMEOUT_SECONDS = 20
+AUTH_PAGE_REUSE_WINDOW_SECONDS = max(
+    1.0,
+    float(os.environ.get("FAPAI_AUTH_PAGE_REUSE_WINDOW_SECONDS", "300")),
+)
+
+# Multiple watchdog/worker processes can notice the same login redirect at the
+# same time.  Serialise the find-or-create operation per CDP endpoint so two
+# callers cannot both observe "no login tab" and create competing tabs.  The
+# browser-side launcher has an equivalent process mutex; this lock closes the
+# race for in-process health probes and Playwright fallbacks.
+_AUTH_PAGE_LOCKS: dict[str, threading.Lock] = {}
+_AUTH_PAGE_LOCKS_GUARD = threading.Lock()
 
 HEALTHY_LIST_PAYLOAD = "healthy_list_payload"
 PARTIAL_AVAILABLE = "partial_available"
@@ -384,12 +400,26 @@ def _build_taobao_health_result_from_summary(
     return result
 
 
+def resolve_playwright_cdp_endpoint(cdp_endpoint: str) -> str:
+    normalized = str(cdp_endpoint or "").strip()
+    try:
+        hostname = (urlsplit(normalized).hostname or "").lower()
+    except ValueError:
+        return normalized
+    if hostname in {"127.0.0.1", "localhost", "::1"}:
+        return normalized
+
+    from tools import browserless_seed_probe
+
+    return browserless_seed_probe._resolve_cdp_endpoint(normalized)
+
+
 def fetch_pages_via_cdp(cdp_endpoint: str, urls: Sequence[str]) -> list[tuple[str, str]]:
     from playwright.sync_api import sync_playwright
 
     results: list[tuple[str, str]] = []
     with sync_playwright() as playwright:
-        browser = playwright.chromium.connect_over_cdp(cdp_endpoint, timeout=DEFAULT_CDP_CONNECT_TIMEOUT_MS)
+        browser = playwright.chromium.connect_over_cdp(resolve_playwright_cdp_endpoint(cdp_endpoint), timeout=DEFAULT_CDP_CONNECT_TIMEOUT_MS)
         try:
             if not browser.contexts:
                 context = browser.new_context()
@@ -462,6 +492,7 @@ def build_cdp_verification_page_matcher(url: str) -> Callable[[str], bool]:
     requested_worker_master = "__captcha_worker_master=1" in requested_url
     requested_solver_target = "__captcha_solver_bg=1" in requested_url
     requested_solver_route = _captcha_solver_route(url) if requested_solver_target else ""
+    requested_solver_scope = _captcha_solver_scope(url) if requested_solver_target else ""
 
     requested_login = (
         "login.taobao.com" in requested_url
@@ -475,8 +506,32 @@ def build_cdp_verification_page_matcher(url: str) -> Callable[[str], bool]:
         if requested_worker_master:
             return "__captcha_worker_master=1" in lowered
         if requested_solver_target:
-            if "__captcha_solver_bg=1" in lowered or "__captcha_manual_popup=1" in lowered:
+            # Login redirects carry the original solver target inside an
+            # encoded query parameter.  They do not themselves retain the
+            # ``__captcha_solver_bg`` marker, so recognize the shared login
+            # surface before applying list/detail scope matching.  This keeps
+            # one operator login tab across both independent challenge scopes.
+            if any(
+                marker in lowered
+                for marker in (
+                    "login.taobao.com",
+                    "login.m.taobao.com",
+                    "login.tmall.com",
+                    "havanaone/login",
+                )
+            ):
                 return True
+            if "__captcha_solver_bg=1" in lowered or "__captcha_manual_popup=1" in lowered:
+                # Solver tabs are scoped by the auction page type.  A
+                # detail challenge must never be reused for a list challenge
+                # (or vice versa), even though both carry the same marker.
+                candidate_scope = _captcha_solver_scope(candidate_url)
+                if requested_solver_scope and candidate_scope:
+                    return candidate_scope == requested_solver_scope
+                return bool(
+                    requested_solver_route
+                    and _captcha_solver_route(candidate_url) == requested_solver_route
+                )
             candidate_is_challenge = any(
                 marker in lowered
                 for marker in ("/_____tmd_____/punish", "x5secdata=", "x5step=")
@@ -484,7 +539,16 @@ def build_cdp_verification_page_matcher(url: str) -> Callable[[str], bool]:
             return bool(
                 candidate_is_challenge
                 and requested_solver_route
-                and _captcha_solver_route(candidate_url) == requested_solver_route
+                and (
+                    (
+                        requested_solver_scope
+                        and _captcha_solver_scope(candidate_url) == requested_solver_scope
+                    )
+                    or (
+                        not requested_solver_scope
+                        and _captcha_solver_route(candidate_url) == requested_solver_route
+                    )
+                )
             )
         if requested_login:
             return (
@@ -523,13 +587,50 @@ def _captcha_solver_route(value: str) -> str:
     return urlunsplit((parsed.scheme.lower(), parsed.netloc.lower(), path or "/", "", ""))
 
 
+def _captcha_solver_scope(value: str) -> str:
+    """Classify Taobao solver pages into the independent list/detail scopes."""
+    try:
+        parsed = urlsplit(str(value or "").strip())
+    except ValueError:
+        return ""
+    host = (parsed.hostname or "").lower()
+    path = (parsed.path or "/").replace("//", "/").lower()
+    if host == "sf-item.taobao.com" or "/sf_item/" in path:
+        return "detail"
+    if host == "sf.taobao.com" and "/list/" in path:
+        return "seed"
+    if "/punish" in path and "/list/" in path:
+        return "seed"
+    return ""
+
+
+def _rewrite_cdp_payload_websockets(cdp_endpoint: str, payload: object) -> object:
+    from tools import browserless_seed_probe
+
+    if isinstance(payload, Mapping):
+        rewritten = {
+            str(key): _rewrite_cdp_payload_websockets(cdp_endpoint, value)
+            for key, value in payload.items()
+        }
+        websocket_url = rewritten.get("webSocketDebuggerUrl")
+        if isinstance(websocket_url, str):
+            rewritten["webSocketDebuggerUrl"] = browserless_seed_probe.rewrite_cdp_websocket_url(
+                cdp_endpoint,
+                websocket_url,
+            )
+        return rewritten
+    if isinstance(payload, list):
+        return [_rewrite_cdp_payload_websockets(cdp_endpoint, item) for item in payload]
+    return payload
+
+
 def read_cdp_json(cdp_endpoint: str, path: str, *, method: str = "GET", timeout: int = 5) -> object:
     request = Request(cdp_endpoint.rstrip("/") + path, method=method)
     with urlopen(request, timeout=timeout) as response:
         body = response.read().decode("utf-8")
     if not body.strip():
         return {}
-    return json.loads(body)
+    return _rewrite_cdp_payload_websockets(cdp_endpoint, json.loads(body))
 
 
 def list_cdp_targets(cdp_endpoint: str) -> list[Mapping[str, object]]:
@@ -619,6 +720,100 @@ def find_cdp_target(cdp_endpoint: str, url: str) -> Mapping[str, object] | None:
         if is_taobao_verification_page(candidate_url):
             return target
     return None
+
+
+@contextlib.contextmanager
+def _auth_page_lock(cdp_endpoint: str):
+    """Serialize auth-tab reuse across threads *and* helper processes."""
+    key = str(cdp_endpoint or "").strip().rstrip("/").lower()
+    with _AUTH_PAGE_LOCKS_GUARD:
+        lock = _AUTH_PAGE_LOCKS.get(key)
+        if lock is None:
+            lock = threading.Lock()
+            _AUTH_PAGE_LOCKS[key] = lock
+    with lock:
+        lock_path = Path(tempfile.gettempdir()) / (
+            "fapaifang-auth-page-" + hashlib.sha256(key.encode("utf-8")).hexdigest()[:24] + ".lock"
+        )
+        handle = None
+        process_lock_acquired = False
+        try:
+            handle = open(lock_path, "a+b")
+            handle.seek(0)
+            handle.write(b"0")
+            handle.flush()
+            handle.seek(0)
+            if os.name == "nt":
+                import msvcrt
+
+                # LK_LOCK gives up after roughly ten seconds.  Retry the
+                # non-blocking primitive for the full login reuse window so a
+                # second watchdog process cannot fall through and create a
+                # competing tab while the first one is still probing.
+                deadline = time.monotonic() + max(600.0, AUTH_PAGE_REUSE_WINDOW_SECONDS * 2)
+                while True:
+                    try:
+                        handle.seek(0)
+                        msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+                        break
+                    except OSError:
+                        if time.monotonic() >= deadline:
+                            raise
+                        time.sleep(0.1)
+                process_lock_acquired = True
+            else:
+                import fcntl
+
+                fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+                process_lock_acquired = True
+        except Exception:
+            # A read-only temp directory should not make the health probe fail;
+            # the in-process lock still protects the common case.
+            if handle is not None:
+                try:
+                    handle.close()
+                except Exception:
+                    pass
+                handle = None
+        try:
+            yield
+        finally:
+            if handle is not None:
+                try:
+                    if process_lock_acquired:
+                        handle.seek(0)
+                        if os.name == "nt":
+                            import msvcrt
+
+                            msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+                        else:
+                            import fcntl
+
+                            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+                except Exception:
+                    pass
+                finally:
+                    try:
+                        handle.close()
+                    except Exception:
+                        pass
+
+
+def _is_login_or_challenge_url(value: str) -> bool:
+    lowered = str(value or "").strip().lower()
+    return any(
+        marker in lowered
+        for marker in (
+            "login.taobao.com",
+            "login.m.taobao.com",
+            "login.tmall.com",
+            "havanaone/login",
+            "_____tmd_____",
+            "x5secdata=",
+            "x5step=",
+            "/punish",
+        )
+    )
 
 
 def evaluate_cdp_expression(websocket_url: str, expression: str) -> Mapping[str, object]:
@@ -780,25 +975,30 @@ def queue_captcha_task_via_cdp(cdp_endpoint: str, target_url: str) -> Mapping[st
 
 
 def open_page_via_cdp_http(cdp_endpoint: str, url: str) -> str:
-    targets = list_cdp_targets(cdp_endpoint)
-    target = None
-    is_taobao_verification_page = build_cdp_verification_page_matcher(url)
-    for candidate in targets:
-        candidate_url = str(candidate.get("url") or "")
-        if is_taobao_verification_page(candidate_url):
-            target = candidate
-            break
-    if target is not None:
-        activate_cdp_target(cdp_endpoint, target)
-        return str(target.get("url") or url)
+    # Keep a login/challenge tab stable for at least the configured five-minute
+    # window.  Existing matching tabs are always preferred even after the
+    # window expires; replacing a tab would invalidate an operator's QR/password
+    # session and is never necessary for the health check.
+    with _auth_page_lock(cdp_endpoint):
+        targets = list_cdp_targets(cdp_endpoint)
+        target = None
+        is_taobao_verification_page = build_cdp_verification_page_matcher(url)
+        for candidate in targets:
+            candidate_url = str(candidate.get("url") or "")
+            if is_taobao_verification_page(candidate_url):
+                target = candidate
+                break
+        if target is not None:
+            activate_cdp_target(cdp_endpoint, target)
+            return str(target.get("url") or url)
 
-    compact_cdp_pages_if_needed(cdp_endpoint, targets, reserve_for_new_page=True)
-    opened = read_cdp_json(cdp_endpoint, "/json/new?" + quote(url, safe=""), method="PUT")
-    if isinstance(opened, Mapping):
-        opened_url = str(opened.get("url") or "")
-        if opened_url:
-            return opened_url
-    return url
+        compact_cdp_pages_if_needed(cdp_endpoint, targets, reserve_for_new_page=True)
+        opened = read_cdp_json(cdp_endpoint, "/json/new?" + quote(url, safe=""), method="PUT")
+        if isinstance(opened, Mapping):
+            opened_url = str(opened.get("url") or "")
+            if opened_url:
+                return opened_url
+        return url
 
 
 def open_page_via_cdp(cdp_endpoint: str, url: str) -> str:
@@ -811,32 +1011,33 @@ def open_page_via_cdp(cdp_endpoint: str, url: str) -> str:
 
     is_taobao_verification_page = build_cdp_verification_page_matcher(url)
 
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.connect_over_cdp(cdp_endpoint, timeout=DEFAULT_CDP_CONNECT_TIMEOUT_MS)
-        try:
-            if not browser.contexts:
-                context = browser.new_context()
-            else:
-                context = browser.contexts[0]
-            for existing_page in getattr(context, "pages", []):
-                if is_taobao_verification_page(str(getattr(existing_page, "url", ""))):
-                    try:
-                        existing_page.bring_to_front()
-                    except Exception:
-                        pass
-                    return str(existing_page.url)
-            page = context.new_page()
+    with _auth_page_lock(cdp_endpoint):
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.connect_over_cdp(resolve_playwright_cdp_endpoint(cdp_endpoint), timeout=DEFAULT_CDP_CONNECT_TIMEOUT_MS)
             try:
-                page.goto(url, wait_until="domcontentloaded", timeout=10_000)
-            except Exception:
-                pass
-            try:
-                page.bring_to_front()
-            except Exception:
-                pass
-            return page.url
-        finally:
-            detach_attached_cdp_browser(browser)
+                if not browser.contexts:
+                    context = browser.new_context()
+                else:
+                    context = browser.contexts[0]
+                for existing_page in getattr(context, "pages", []):
+                    if is_taobao_verification_page(str(getattr(existing_page, "url", ""))):
+                        try:
+                            existing_page.bring_to_front()
+                        except Exception:
+                            pass
+                        return str(existing_page.url)
+                page = context.new_page()
+                try:
+                    page.goto(url, wait_until="domcontentloaded", timeout=10_000)
+                except Exception:
+                    pass
+                try:
+                    page.bring_to_front()
+                except Exception:
+                    pass
+                return page.url
+            finally:
+                detach_attached_cdp_browser(browser)
 
 
 def check_taobao_health(

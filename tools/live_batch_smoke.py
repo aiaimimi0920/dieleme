@@ -1042,7 +1042,13 @@ def resolve_playwright_cdp_endpoint(
     if not isinstance(payload, dict):
         return _fallback_cached_playwright_cdp_endpoint(normalized) or normalized
     websocket_url = str(payload.get("webSocketDebuggerUrl") or "").strip()
-    return websocket_url or normalized
+    if not websocket_url:
+        return normalized
+    try:
+        rewrite = getattr(_browserless_seed_probe(), "rewrite_cdp_websocket_url", None)
+    except Exception:
+        rewrite = None
+    return str(rewrite(normalized, websocket_url) if callable(rewrite) else websocket_url)
 
 
 def open_cdp_keepalive_target(
@@ -1360,6 +1366,69 @@ def _find_matching_cdp_list_targets(cdp_endpoint: str, target_url: str) -> list[
     return matches
 
 
+def _is_taobao_login_target_url(value: str) -> bool:
+    """Return whether a CDP page is the shared Taobao login surface.
+
+    Login redirects include the requested auction URL in a query parameter, so
+    matching only the requested list/detail URL misses the actual auth tab.
+    Keep this matcher deliberately host/path based and scope-independent: list
+    and detail collectors must share one operator login window.
+    """
+    lowered = str(value or "").strip().lower()
+    return any(
+        marker in lowered
+        for marker in (
+            "login.taobao.com",
+            "login.m.taobao.com",
+            "login.tmall.com",
+            "havanaone/login",
+        )
+    )
+
+
+def _reuse_existing_taobao_login_page(
+    cdp_endpoint: str,
+) -> tuple[str, str] | None:
+    """Read one existing login tab and close competing login tabs.
+
+    This runs before any ``/json/new`` navigation.  A challenge can redirect
+    several workers to ``login.taobao.com``; opening a fresh tab for each retry
+    invalidates the operator's QR/password session.  Reusing the first tab and
+    pruning only duplicate login tabs preserves the single five-minute auth
+    window without touching unrelated list/detail challenge pages.
+    """
+    from tools import taobao_login_health
+
+    try:
+        targets = list(taobao_login_health.list_cdp_targets(cdp_endpoint))
+    except Exception:
+        return None
+    login_targets = [
+        target
+        for target in targets
+        if isinstance(target, dict)
+        and str(target.get("type") or "").lower() == "page"
+        and _is_taobao_login_target_url(str(target.get("url") or ""))
+    ]
+    if not login_targets:
+        return None
+    selected = login_targets[0]
+    selected_id = str(selected.get("id") or "").strip()
+    for duplicate in login_targets[1:]:
+        duplicate_id = str(duplicate.get("id") or "").strip()
+        if duplicate_id and duplicate_id != selected_id:
+            try:
+                taobao_login_health.close_cdp_target(cdp_endpoint, duplicate_id)
+            except Exception:
+                pass
+    try:
+        taobao_login_health.activate_cdp_target(cdp_endpoint, selected)
+        html, final_url = _read_cdp_list_target_html(cdp_endpoint, selected)
+    except Exception:
+        return None
+    return html, final_url
+
+
 def fetch_open_browser_list_page(
     cdp_endpoint: str,
     target_url: str,
@@ -1506,6 +1575,9 @@ def fetch_browser_navigation_list_page(cdp_endpoint: str, target_url: str) -> tu
     from tools import taobao_login_health
 
     try:
+        existing_login_page = _reuse_existing_taobao_login_page(cdp_endpoint)
+        if existing_login_page is not None:
+            return existing_login_page
         taobao_login_health.compact_cdp_pages_if_needed(cdp_endpoint, reserve_for_new_page=True)
         opened = taobao_login_health.read_cdp_json(
             cdp_endpoint,
@@ -1686,6 +1758,27 @@ def fetch_detail_with_browser(seed: dict[str, Any], *, cdp_endpoint: str) -> tup
             if not browser.contexts:
                 raise RuntimeError("attached browser has no contexts")
             context = browser.contexts[0]
+            # A list challenge may already have redirected an operator to the
+            # shared Taobao login tab.  Reuse it for detail probes instead of
+            # opening a second login window while the first one is active.
+            for existing_page in getattr(context, "pages", []):
+                if not _is_taobao_login_target_url(str(getattr(existing_page, "url", ""))):
+                    continue
+                try:
+                    existing_page.bring_to_front()
+                except Exception:
+                    pass
+                try:
+                    existing_html = str(existing_page.content() or "")
+                except Exception:
+                    existing_html = ""
+                if existing_html:
+                    return (
+                        existing_html,
+                        str(getattr(existing_page, "url", "") or ""),
+                        len(existing_html.encode("utf-8")),
+                        "open_existing_login_page",
+                    )
             page = context.new_page()
             preserve_challenge_page = False
             try:

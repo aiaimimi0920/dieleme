@@ -1,0 +1,223 @@
+name: fapaifang-pc2
+
+x-common-env: &common-env
+  FAPAI_NODE_ID: ${FAPAI_NODE_ID:-pc2}
+  FAPAI_API_BASE_URL: ${FAPAI_CENTRAL_API_BASE_URL:-http://192.168.15.200:8001/api}
+  FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:?set FAPAI_WORKER_DB_URL}
+  FAPAI_DB_AUTO_CREATE: "0"
+  FAPAI_DB_ENABLE_POSTGIS: "0"
+  FAPAI_CDP_ENDPOINT: ${FAPAI_CDP_ENDPOINT:-http://pc2-browser-solver:9224}
+  FAPAI_REPORT_CDP_ENDPOINT: ${FAPAI_REPORT_CDP_ENDPOINT:-http://192.168.15.104:9224}
+  FAPAI_COOKIE_SNAPSHOT: /data/secrets/nodes/${FAPAI_NODE_ID:-pc2}/taobao-cookies.json
+  FAPAI_COOKIE_SNAPSHOT_PREFER: ${FAPAI_COOKIE_SNAPSHOT_PREFER:-0}
+  FAPAI_CAPTCHA_SOLVER_ENABLED: "1"
+  FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED: "1"
+
+x-worker-volumes: &worker-volumes
+  - type: bind
+    source: ${FAPAI_DATA_ROOT:?set FAPAI_DATA_ROOT}/output
+    target: /data/output
+  - type: bind
+    source: ${FAPAI_DATA_ROOT:?set FAPAI_DATA_ROOT}/datas
+    target: /data/datas
+  - type: bind
+    source: ${FAPAI_DATA_ROOT:?set FAPAI_DATA_ROOT}/jobs
+    target: /data/jobs
+  - type: bind
+    source: ${FAPAI_DATA_ROOT:?set FAPAI_DATA_ROOT}/secrets
+    target: /data/secrets
+    read_only: true
+
+x-worker-healthcheck: &worker-healthcheck
+  test: ["CMD", "python", "tools/pc2_linux_healthcheck.py", "--mode", "worker"]
+  interval: 30s
+  timeout: 10s
+  retries: 5
+  start_period: 120s
+
+x-worker-service: &worker-service
+  image: ${FAPAI_IMAGE:?set FAPAI_IMAGE}
+  env_file:
+    - ${FAPAI_RUNTIME_ENV_FILE:?set FAPAI_RUNTIME_ENV_FILE}
+  restart: unless-stopped
+  volumes: *worker-volumes
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  group_add:
+    - ${FAPAI_HOST_DATA_GID:-1000}
+  pids_limit: 256
+  mem_limit: 640m
+  cpus: 0.75
+  healthcheck: *worker-healthcheck
+
+services:
+  pc2-browser-solver:
+    image: ${FAPAI_BROWSER_IMAGE:?set FAPAI_BROWSER_IMAGE}
+    container_name: fapaifang-pc2-browser-solver
+    hostname: pc2-browser-solver
+    env_file:
+      - ${FAPAI_RUNTIME_ENV_FILE:?set FAPAI_RUNTIME_ENV_FILE}
+    restart: unless-stopped
+    environment:
+      <<: *common-env
+      DISPLAY: :99
+      FAPAI_CDP_ENDPOINT: http://127.0.0.1:9223
+      FAPAI_CDP_PUBLIC_PORT: "9224"
+      FAPAI_CDP_ALLOWED_CLIENT_CIDRS: "${FAPAI_CDP_ALLOWED_CLIENT_CIDRS:-127.0.0.0/8,::1/128,172.16.0.0/12,192.168.15.20/32,192.168.15.200/32}"
+      FAPAI_SOLVER_OS_MOUSE: "1"
+      FAPAI_SOLVER_OS_INPUT_BACKEND: pyautogui
+      FAPAI_SOLVER_MANUAL_FALLBACK_ENABLED: "0"
+      FAPAI_SOLVER_COOLDOWN_FAIL_THRESHOLD: ${FAPAI_SOLVER_COOLDOWN_FAIL_THRESHOLD:-10}
+      FAPAI_SOLVER_COOLDOWN_SECONDS: ${FAPAI_SOLVER_COOLDOWN_SECONDS:-180}
+      FAPAI_SLIDER_RETRY_INTERVAL_SECONDS: ${FAPAI_SLIDER_RETRY_INTERVAL_SECONDS:-5}
+      FAPAI_LOCAL_SOLVER_POLL_SECONDS: ${FAPAI_LOCAL_SOLVER_POLL_SECONDS:-5}
+      FAPAI_VNC_PASSWORD_FILE: /run/secrets/pc2_vnc_password
+    ports:
+      - "${FAPAI_PC2_BIND_ADDRESS:-192.168.15.104}:6080:6080"
+      - "${FAPAI_PC2_BIND_ADDRESS:-192.168.15.104}:9224:9224"
+    volumes:
+      - type: bind
+        source: ${FAPAI_DATA_ROOT:?set FAPAI_DATA_ROOT}/browser-profile
+        target: /data/browser-profile
+      - type: bind
+        source: ${FAPAI_DATA_ROOT:?set FAPAI_DATA_ROOT}/output
+        target: /data/output
+      - type: bind
+        source: ${FAPAI_DATA_ROOT:?set FAPAI_DATA_ROOT}/secrets
+        target: /data/secrets
+        read_only: true
+      - type: bind
+        source: ${FAPAI_DATA_ROOT:?set FAPAI_DATA_ROOT}/state
+        target: /app/.codex-temp/bridge-control
+    secrets:
+      - pc2_vnc_password
+    shm_size: 1gb
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    group_add:
+      - ${FAPAI_HOST_DATA_GID:-1000}
+    pids_limit: 512
+    mem_limit: 2g
+    cpus: 1.5
+    healthcheck:
+      test: ["CMD", "python", "tools/pc2_linux_healthcheck.py", "--mode", "browser"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s
+
+  pc2-seed-1:
+    <<: *worker-service
+    container_name: fapaifang-pc2-seed-1
+    depends_on:
+      pc2-browser-solver:
+        condition: service_healthy
+    environment:
+      <<: *common-env
+      FAPAI_RUN_MODE: seed-collector
+      FAPAI_OUTPUT_DIR: /data/output/seed_collector
+      FAPAI_SEED_WORKER_ID: seed-1
+      FAPAI_SEED_JOBS_FILE: /data/jobs/seed_jobs_all.json
+      FAPAI_SEED_CAPTCHA_SOLVER_ENABLED: "1"
+      FAPAI_LIST_BROWSER_FALLBACK: ${FAPAI_LIST_BROWSER_FALLBACK:-1}
+      FAPAI_SEED_PAGES_PER_RUN: ${FAPAI_SEED_PAGES_PER_RUN:-20}
+      FAPAI_SEED_LOOP_INTERVAL_SECONDS: ${FAPAI_SEED_LOOP_INTERVAL_SECONDS:-60}
+      FAPAI_SEED_ACTIVE_LOOP_INTERVAL_SECONDS: ${FAPAI_SEED_ACTIVE_LOOP_INTERVAL_SECONDS:-30}
+      FAPAI_SEED_FAILURE_COOLDOWN_THRESHOLD: ${FAPAI_SEED_FAILURE_COOLDOWN_THRESHOLD:-10}
+      FAPAI_SEED_FAILURE_COOLDOWN_SECONDS: ${FAPAI_SEED_FAILURE_COOLDOWN_SECONDS:-180}
+
+  pc2-detail-1:
+    <<: *worker-service
+    container_name: fapaifang-pc2-detail-1
+    depends_on:
+      pc2-browser-solver:
+        condition: service_healthy
+    environment: &detail-env
+      <<: *common-env
+      FAPAI_RUN_MODE: detail-worker
+      FAPAI_OUTPUT_DIR: /data/output/detail_worker
+      FAPAI_DETAIL_WORKER_ID: detail-1
+      FAPAI_DETAIL_CDP_ENDPOINT: ${FAPAI_CDP_ENDPOINT:-http://pc2-browser-solver:9224}
+      FAPAI_DETAIL_CAPTCHA_SOLVER_ENABLED: "1"
+      FAPAI_DETAIL_BROWSER_FALLBACK: ${FAPAI_DETAIL_BROWSER_FALLBACK:-1}
+      FAPAI_DETAIL_ARCHIVE_ROOT: /data/datas
+      FAPAI_DETAIL_RAW_ONLY: "1"
+      FAPAI_DETAIL_TARGET_SUCCESS: ${FAPAI_DETAIL_TARGET_SUCCESS:-10}
+      FAPAI_DETAIL_MAX_ATTEMPTS: ${FAPAI_DETAIL_MAX_ATTEMPTS:-30}
+      FAPAI_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS:-30}
+      FAPAI_DETAIL_FAILURE_COOLDOWN_THRESHOLD: ${FAPAI_DETAIL_FAILURE_COOLDOWN_THRESHOLD:-10}
+      FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS: ${FAPAI_DETAIL_FAILURE_COOLDOWN_SECONDS:-180}
+
+  pc2-detail-2:
+    <<: *worker-service
+    container_name: fapaifang-pc2-detail-2
+    depends_on:
+      pc2-browser-solver:
+        condition: service_healthy
+    environment:
+      <<: *detail-env
+      FAPAI_OUTPUT_DIR: /data/output/detail_worker_2
+      FAPAI_DETAIL_WORKER_ID: detail-2
+
+  pc2-detail-3:
+    <<: *worker-service
+    container_name: fapaifang-pc2-detail-3
+    depends_on:
+      pc2-browser-solver:
+        condition: service_healthy
+    environment:
+      <<: *detail-env
+      FAPAI_OUTPUT_DIR: /data/output/detail_worker_3
+      FAPAI_DETAIL_WORKER_ID: detail-3
+
+  pc2-analysis-1:
+    <<: *worker-service
+    container_name: fapaifang-pc2-analysis-1
+    environment: &analysis-env
+      <<: *common-env
+      FAPAI_RUN_MODE: detail-analysis-worker
+      FAPAI_OUTPUT_DIR: /data/output/detail_analysis_worker
+      FAPAI_DETAIL_WORKER_ID: analysis-1
+      FAPAI_DETAIL_ANALYSIS_ONLY: "1"
+      FAPAI_DETAIL_RAW_ONLY: "0"
+      FAPAI_DETAIL_TARGET_SUCCESS: ${FAPAI_DETAIL_ANALYSIS_TARGET_SUCCESS:-10}
+      FAPAI_DETAIL_MAX_ATTEMPTS: ${FAPAI_DETAIL_ANALYSIS_MAX_ATTEMPTS:-20}
+      FAPAI_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_ANALYSIS_ACTIVE_LOOP_INTERVAL_SECONDS:-5}
+      FAPAI_LLM_PREFLIGHT: "1"
+      FAPAI_ANALYSIS_LLM_PREFLIGHT: "1"
+    mem_limit: 768m
+
+  pc2-analysis-2:
+    <<: *worker-service
+    container_name: fapaifang-pc2-analysis-2
+    environment:
+      <<: *analysis-env
+      FAPAI_OUTPUT_DIR: /data/output/detail_analysis_worker_2
+      FAPAI_DETAIL_WORKER_ID: analysis-2
+    mem_limit: 768m
+
+  pc2-analysis-3:
+    <<: *worker-service
+    container_name: fapaifang-pc2-analysis-3
+    environment:
+      <<: *analysis-env
+      FAPAI_OUTPUT_DIR: /data/output/detail_analysis_worker_3
+      FAPAI_DETAIL_WORKER_ID: analysis-3
+    mem_limit: 768m
+
+  pc2-analysis-4:
+    <<: *worker-service
+    container_name: fapaifang-pc2-analysis-4
+    environment:
+      <<: *analysis-env
+      FAPAI_OUTPUT_DIR: /data/output/detail_analysis_worker_4
+      FAPAI_DETAIL_WORKER_ID: analysis-4
+    mem_limit: 768m
+
+secrets:
+  pc2_vnc_password:
+    file: ${FAPAI_VNC_PASSWORD_FILE:?set FAPAI_VNC_PASSWORD_FILE}

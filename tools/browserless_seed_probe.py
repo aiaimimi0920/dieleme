@@ -186,6 +186,31 @@ def _cdp_websocket_cache_path() -> Path | None:
     return None
 
 
+def rewrite_cdp_websocket_url(cdp_endpoint: str, websocket_url: str) -> str:
+    """Replace Chromium's loopback WebSocket authority with the reachable CDP authority."""
+    normalized_websocket = str(websocket_url or "").strip()
+    if not normalized_websocket.startswith(("ws://", "wss://")):
+        return normalized_websocket
+    try:
+        endpoint = urlsplit(str(cdp_endpoint or "").strip())
+        websocket = urlsplit(normalized_websocket)
+    except ValueError:
+        return normalized_websocket
+    if endpoint.scheme not in {"http", "https"} or not endpoint.netloc:
+        return normalized_websocket
+    if str(websocket.hostname or "").lower() not in {"127.0.0.1", "localhost", "0.0.0.0", "::1"}:
+        return normalized_websocket
+    return urlunsplit(
+        (
+            websocket.scheme,
+            endpoint.netloc,
+            websocket.path,
+            websocket.query,
+            websocket.fragment,
+        )
+    )
+
+
 def _load_cached_cdp_websocket(cdp_endpoint: str) -> str:
     cache_path = _cdp_websocket_cache_path()
     if cache_path is None or not cache_path.exists():
@@ -197,7 +222,9 @@ def _load_cached_cdp_websocket(cdp_endpoint: str) -> str:
     if not isinstance(payload, dict):
         return ""
     websocket_url = str(payload.get(str(cdp_endpoint or "").rstrip("/")) or "").strip()
-    return websocket_url if websocket_url.startswith(("ws://", "wss://")) else ""
+    if not websocket_url.startswith(("ws://", "wss://")):
+        return ""
+    return rewrite_cdp_websocket_url(cdp_endpoint, websocket_url)
 
 
 def _write_cached_cdp_websocket(cdp_endpoint: str, websocket_url: str) -> None:
@@ -217,15 +244,26 @@ def _write_cached_cdp_websocket(cdp_endpoint: str, websocket_url: str) -> None:
         except Exception:
             payload = {}
     payload[normalized_endpoint] = normalized_websocket
-    cache_path.parent.mkdir(parents=True, exist_ok=True)
-    cache_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    try:
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+        cache_path.write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+    except OSError:
+        # Worker cookie snapshots are intentionally mounted read-only. The CDP
+        # cache improves reconnects but must never make a live endpoint unusable.
+        return
 
 
 def _resolve_cdp_websocket_for_cookie_export(session: requests.Session, cdp_endpoint: str) -> str:
     base = str(cdp_endpoint or "").rstrip("/")
     try:
         payload = session.get(f"{base}/json/version", timeout=10).json()
-        websocket_url = str((payload or {}).get("webSocketDebuggerUrl") or "").strip()
+        websocket_url = rewrite_cdp_websocket_url(
+            cdp_endpoint,
+            str((payload or {}).get("webSocketDebuggerUrl") or "").strip(),
+        )
         if websocket_url:
             _write_cached_cdp_websocket(cdp_endpoint, websocket_url)
             return websocket_url
@@ -239,7 +277,10 @@ def _resolve_cdp_websocket_for_cookie_export(session: requests.Session, cdp_endp
         for target in targets:
             if not isinstance(target, dict):
                 continue
-            websocket_url = str(target.get("webSocketDebuggerUrl") or "").strip()
+            websocket_url = rewrite_cdp_websocket_url(
+                cdp_endpoint,
+                str(target.get("webSocketDebuggerUrl") or "").strip(),
+            )
             if websocket_url:
                 _write_cached_cdp_websocket(cdp_endpoint, websocket_url)
                 return websocket_url
@@ -263,7 +304,10 @@ def _resolve_cdp_endpoint(cdp_endpoint: str) -> str:
         return _load_cached_cdp_websocket(cdp_endpoint) or normalized
     if not isinstance(payload, dict):
         return _load_cached_cdp_websocket(cdp_endpoint) or normalized
-    websocket_url = str(payload.get("webSocketDebuggerUrl") or "").strip()
+    websocket_url = rewrite_cdp_websocket_url(
+        cdp_endpoint,
+        str(payload.get("webSocketDebuggerUrl") or "").strip(),
+    )
     if websocket_url:
         _write_cached_cdp_websocket(cdp_endpoint, websocket_url)
         return websocket_url

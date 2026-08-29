@@ -16,6 +16,13 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $root = 'C:\fapaifang-worker'
+$workerMutex = New-Object System.Threading.Mutex($false, 'Global\FapaiFangPc2RealWorkers')
+if (-not $workerMutex.WaitOne(0)) {
+  # Logon triggers and an operator-started task can overlap briefly.  Only one
+  # watchdog may supervise the worker set; a second instance must exit before
+  # it can spawn duplicate seed/detail/analysis processes.
+  exit 0
+}
 $envFile = Join-Path $root 'env.worker.local'
 if (Test-Path -LiteralPath $envFile) {
   Get-Content -LiteralPath $envFile -Encoding UTF8 | ForEach-Object {
@@ -268,13 +275,45 @@ function Test-CdpEndpoint {
   }
 }
 
-function Test-CollectionPaused {
+function Get-CollectionPauseState {
   try {
     $status = Invoke-RestMethod -Uri "$apiBaseUrl/status" -TimeoutSec 5
-    return $status.paused -eq $true
+    $scopes = $status.collection_scopes
+    $seed = if ($null -ne $scopes -and $null -ne $scopes.seed) {
+      ([bool]$scopes.seed.paused -or [bool]$scopes.seed.manual_required)
+    } else {
+      [bool]$status.paused
+    }
+    $detail = if ($null -ne $scopes -and $null -ne $scopes.detail) {
+      ([bool]$scopes.detail.paused -or [bool]$scopes.detail.manual_required)
+    } else {
+      [bool]$status.paused
+    }
+    # A global/operator pause has no scoped latch. Preserve fail-safe global
+    # behavior in that case, while allowing a seed-only challenge to leave
+    # detail collection running.
+    $hasScopedPause = $seed -or $detail
+    $global = ([bool]$status.paused -and -not $hasScopedPause)
+    return [pscustomobject]@{
+      global_paused = $global
+      seed_paused = ($global -or $seed)
+      detail_paused = ($global -or $detail)
+    }
   } catch {
     # The NAS control plane is authoritative. Fail closed so an outage cannot
     # restart collection-scoped workers while the real pause state is unknown.
+    return [pscustomobject]@{
+      global_paused = $true
+      seed_paused = $true
+      detail_paused = $true
+    }
+  }
+}
+
+function Test-CollectionPaused {
+  try {
+    return [bool](Get-CollectionPauseState).global_paused
+  } catch {
     return $true
   }
 }
@@ -567,8 +606,20 @@ function Stop-WorkersForCdpRecovery {
 }
 
 function Stop-WorkersForCollectionPause {
+  param(
+    [Parameter(Mandatory = $true)][bool]$SeedPaused,
+    [Parameter(Mandatory = $true)][bool]$DetailPaused
+  )
   foreach ($spec in $workerSpecs) {
     if (-not $spec.StopsWhenCollectionPaused) {
+      continue
+    }
+    $scopePaused = if ([string]$spec.Name -eq 'seed') {
+      $SeedPaused
+    } else {
+      $DetailPaused
+    }
+    if (-not $scopePaused) {
       continue
     }
     $processes = @(Get-WorkerProcesses -Spec $spec)
@@ -688,9 +739,14 @@ function Ensure-Worker {
 Write-WatchdogLog 'pc2 worker watchdog booted'
 Initialize-AnalysisUnavailableSummaryBaseline
 while ($true) {
-  $collectionPaused = Test-CollectionPaused
-  if ($collectionPaused) {
-    Stop-WorkersForCollectionPause
+  $pauseState = Get-CollectionPauseState
+  $collectionPaused = [bool]$pauseState.global_paused
+  $seedCollectionPaused = [bool]$pauseState.seed_paused
+  $detailCollectionPaused = [bool]$pauseState.detail_paused
+  if ($seedCollectionPaused -or $detailCollectionPaused) {
+    Stop-WorkersForCollectionPause `
+      -SeedPaused:$seedCollectionPaused `
+      -DetailPaused:$detailCollectionPaused
   }
   $cdpRequired = @($workerSpecs | Where-Object { $_.RequiresCdp }).Count -gt 0
   $cdpReady = -not $cdpRequired
@@ -702,7 +758,14 @@ while ($true) {
     }
   }
   foreach ($spec in $workerSpecs) {
-    if (($collectionPaused -and $spec.StopsWhenCollectionPaused) -or ($spec.RequiresCdp -and -not $cdpReady)) {
+    $scopePaused = if ([string]$spec.Name -eq 'seed') {
+      $seedCollectionPaused
+    } elseif ([string]$spec.Name -like 'detail-*') {
+      $detailCollectionPaused
+    } else {
+      $false
+    }
+    if (($scopePaused -and $spec.StopsWhenCollectionPaused) -or ($spec.RequiresCdp -and -not $cdpReady)) {
       continue
     }
     try {

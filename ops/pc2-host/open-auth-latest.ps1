@@ -229,6 +229,9 @@ $startUrl = if ($ResetToBlank) {
 
 Write-Host "Resolved auth challenge URL: $startUrl"
 
+# Deliberately omit -ForceNew and -TerminateAllBrowserProcesses: the launcher
+# now reuses the single login/challenge tab, preserving the operator's 5-minute
+# QR/password window instead of invalidating it with a second browser session.
 & powershell `
   -NoProfile `
   -ExecutionPolicy Bypass `
@@ -236,8 +239,6 @@ Write-Host "Resolved auth challenge URL: $startUrl"
   -Port $Port `
   -ProfileDir $ProfileDir `
   -StartUrl $startUrl `
-  -ForceNew `
-  -TerminateAllBrowserProcesses `
   -UseSystemProxy `
   -DisableExtensions `
   -CdpStartupTimeoutSeconds 120

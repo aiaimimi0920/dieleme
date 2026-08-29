@@ -471,6 +471,79 @@ def test_export_cdp_cookies_websocket_probe_ignores_host_proxy_env(monkeypatch):
     ]
 
 
+def test_rewrite_cdp_websocket_url_uses_remote_http_endpoint_authority() -> None:
+    assert browserless_seed_probe.rewrite_cdp_websocket_url(
+        "http://pc2-browser-solver:9224",
+        "ws://127.0.0.1:9223/devtools/browser/browser-1",
+    ) == "ws://pc2-browser-solver:9224/devtools/browser/browser-1"
+    assert browserless_seed_probe.rewrite_cdp_websocket_url(
+        "http://192.168.15.104:9224",
+        "ws://browser.example:9223/devtools/browser/browser-1",
+    ) == "ws://browser.example:9223/devtools/browser/browser-1"
+
+
+def test_resolve_cdp_endpoint_rewrites_chromium_loopback_websocket(monkeypatch) -> None:
+    class _Response:
+        def raise_for_status(self) -> None:
+            return None
+
+        @staticmethod
+        def json() -> dict[str, str]:
+            return {
+                "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/browser/browser-remote",
+            }
+
+    class _Session:
+        def __init__(self) -> None:
+            self.trust_env = True
+
+        def get(self, _url: str, *, timeout: int) -> _Response:
+            assert timeout == 10
+            assert self.trust_env is False
+            return _Response()
+
+    monkeypatch.setattr(browserless_seed_probe.requests, "Session", _Session)
+
+    assert browserless_seed_probe._resolve_cdp_endpoint(
+        "http://pc2-browser-solver:9224"
+    ) == "ws://pc2-browser-solver:9224/devtools/browser/browser-remote"
+
+
+def test_resolve_cdp_endpoint_ignores_read_only_cache(monkeypatch, tmp_path) -> None:
+    class _Response:
+        def raise_for_status(self) -> None:
+            return None
+
+        @staticmethod
+        def json() -> dict[str, str]:
+            return {
+                "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/browser/browser-remote",
+            }
+
+    class _Session:
+        def __init__(self) -> None:
+            self.trust_env = True
+
+        @staticmethod
+        def get(_url: str, *, timeout: int) -> _Response:
+            assert timeout == 10
+            return _Response()
+
+    def fail_write(*_args, **_kwargs) -> int:
+        raise OSError(30, "Read-only file system")
+
+    monkeypatch.setenv(
+        "FAPAI_CDP_WEBSOCKET_CACHE_PATH",
+        str(tmp_path / "readonly" / "cdp-websocket-cache.json"),
+    )
+    monkeypatch.setattr(browserless_seed_probe.requests, "Session", _Session)
+    monkeypatch.setattr(Path, "write_text", fail_write)
+
+    assert browserless_seed_probe._resolve_cdp_endpoint(
+        "http://pc2-browser-solver:9224"
+    ) == "ws://pc2-browser-solver:9224/devtools/browser/browser-remote"
+
+
 def test_export_cdp_cookies_websocket_probe_falls_back_to_json_target_list(monkeypatch):
     calls: list[str] = []
 

@@ -139,9 +139,10 @@ if ($initial.Status -eq "cdp_unreachable" -and -not $SkipBrowserStart) {
     $restartArgs = @(
         "-NoProfile", "-ExecutionPolicy", "Bypass",
         "-File", $startScript,
-        "-Port", $Port,
-        "-ForceNew"
+        "-Port", $Port
     )
+    # Deliberately omit "-ForceNew": the launcher reuses the existing auth tab
+    # and only starts a new browser when the old process is actually gone.
     if ($DataRoot) {
         $restartArgs += @("-DataRoot", $DataRoot)
     }

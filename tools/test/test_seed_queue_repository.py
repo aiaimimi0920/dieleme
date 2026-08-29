@@ -62,6 +62,13 @@ def _upsert_sample_seed(repo: PropertyRepository, item_id: str = "1001") -> None
     )
 
 
+def test_seed_item_url_normalizes_duplicate_detail_path_slashes() -> None:
+    assert PropertyRepository._seed_item_url(
+        "570192626894",
+        "https://sf-item.taobao.com//sf_item/570192626894.htm?track_id=test",
+    ) == "https://sf-item.taobao.com/sf_item/570192626894.htm?track_id=test"
+
+
 def test_collection_observer_lists_seed_links_with_totals(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _upsert_sample_seed(repo)
@@ -160,6 +167,56 @@ def test_collection_observer_item_detail_reads_linux_data_artifact_paths_from_sh
     assert "共享详情文本" in payload["artifacts"]["detail_html"]["content"]
     assert payload["artifacts"]["selected_json"]["json"]["raw_text"] == "共享详情文本"
     assert payload["artifacts"]["final_json"]["json"]["community_name"] == "共享小区"
+
+
+def test_collection_observer_item_detail_reads_unc_fpfdata_artifact_paths_from_shared_root(
+    tmp_path: Path, monkeypatch
+) -> None:
+    repo = _make_repo(tmp_path)
+    _upsert_sample_seed(repo)
+    shared_root = tmp_path / "shared-root"
+    artifact_dir = shared_root / "output" / "nodes" / "pc2-real" / "detail_analysis_worker_3" / "1001"
+    artifact_dir.mkdir(parents=True)
+    (artifact_dir / "detail.html").write_text("<html><body>UNC 详情文本</body></html>", encoding="utf-8")
+    (artifact_dir / "selected.json").write_text('{"raw_text": "UNC 详情文本"}', encoding="utf-8")
+    (artifact_dir / "final.json").write_text('{"item_id": "1001", "community_name": "UNC 小区"}', encoding="utf-8")
+    monkeypatch.setenv("FAPAI_SHARED_ARTIFACT_ROOT", str(shared_root))
+
+    unc_root = r"\\192.168.15.200\home\project\project\FPFData"
+    detail_path = unc_root + r"\output\nodes\pc2-real\detail_analysis_worker_3\1001\detail.html"
+    selected_path = unc_root + r"\output\nodes\pc2-real\detail_analysis_worker_3\1001\selected.json"
+    final_path = unc_root + r"\output\nodes\pc2-real\detail_analysis_worker_3\1001\final.json"
+    repo.mark_seed_raw_detail_captured("1001", detail_html_path=detail_path, selected_json_path=selected_path)
+    repo.mark_seed_detail_completed("1001", final_json_path=final_path, selected_json_path=selected_path)
+
+    payload = repo.collection_observer_item_detail("1001", max_chars=200)
+
+    assert payload["artifacts"]["detail_html"]["exists"] is True
+    assert "UNC 详情文本" in payload["artifacts"]["detail_html"]["content"]
+    assert payload["artifacts"]["final_json"]["json"]["community_name"] == "UNC 小区"
+
+
+def test_collection_observer_derives_missing_raw_paths_from_completed_analysis_path(
+    tmp_path: Path, monkeypatch
+) -> None:
+    repo = _make_repo(tmp_path)
+    _upsert_sample_seed(repo)
+    shared_root = tmp_path / "shared-root"
+    artifact_dir = shared_root / "output" / "nodes" / "pc2-real" / "detail_analysis_worker_3" / "1001"
+    artifact_dir.mkdir(parents=True)
+    (artifact_dir / "detail.html").write_text("<html><body>推导详情</body></html>", encoding="utf-8")
+    (artifact_dir / "description-data.json").write_text('{"text": "推导描述"}', encoding="utf-8")
+    (artifact_dir / "final.json").write_text('{"item_id": "1001", "community_name": "推导小区"}', encoding="utf-8")
+    monkeypatch.setenv("FAPAI_SHARED_ARTIFACT_ROOT", str(shared_root))
+
+    final_path = r"\\192.168.15.200\home\project\project\FPFData\output\nodes\pc2-real\detail_analysis_worker_3\1001\final.json"
+    repo.mark_seed_detail_completed("1001", final_json_path=final_path, selected_json_path=None)
+
+    payload = repo.collection_observer_item_detail("1001", max_chars=200)
+
+    assert payload["artifacts"]["detail_html"]["exists"] is True
+    assert "推导详情" in payload["artifacts"]["detail_html"]["content"]
+    assert payload["artifacts"]["description_json"]["exists"] is True
 
 
 def test_collection_observer_can_requeue_completed_item_for_ai_reanalysis(tmp_path: Path) -> None:

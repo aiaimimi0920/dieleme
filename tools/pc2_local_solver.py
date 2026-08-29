@@ -48,6 +48,9 @@ def _resume_after_cooldown_url(api_base: str) -> str:
 def _manual_captcha_report_url(api_base: str) -> str:
     return api_base.rstrip("/") + "/report_manual_captcha"
 
+def _force_reset_url(api_base: str) -> str:
+    return api_base.rstrip("/") + "/collection/auth/force_reset"
+
 def log_event(event):
     event["ts"] = datetime.datetime.now().isoformat(timespec="seconds")
     line = json.dumps(event, ensure_ascii=False)
@@ -63,6 +66,61 @@ def read_solver_status(api_base):
         solver = payload.get("captcha_solver")
         return dict(solver) if isinstance(solver, dict) else {}
     except Exception as exc: return {"error": repr(exc)}
+
+def _solver_scope_statuses(solver_status):
+    if not isinstance(solver_status, dict):
+        return {}
+    scopes = solver_status.get("scopes") or solver_status.get("collection_scopes")
+    return dict(scopes) if isinstance(scopes, dict) else {}
+
+def notify_force_reset(api_base, scope, challenge_id):
+    try:
+        payload = post_json(
+            _force_reset_url(api_base),
+            {
+                "source": "pc2_local_solver",
+                "scope": scope,
+                "challenge_id": challenge_id,
+            },
+            timeout=10,
+        )
+        return payload if isinstance(payload, dict) else {"ok": False, "payload": payload}
+    except Exception as exc:
+        return {"ok": False, "error": repr(exc)}
+
+def _challenge_scope_for_url(url):
+    value = str(url or "").strip().lower()
+    if "sf-item.taobao.com" in value or "/sf_item/" in value:
+        return "detail"
+    if "sf.taobao.com/list/" in value or "/punish" in value and "/list/" in value:
+        return "seed"
+    return ""
+
+def close_challenge_pages_for_scope(cdp_endpoint, scope):
+    """Close all CDP collection/challenge tabs for one scope after force reset."""
+    normalized = str(scope or "").strip().lower()
+    if normalized not in {"seed", "detail"}:
+        return {"attempted": False, "closed": 0, "reason": "invalid_scope"}
+    try:
+        tabs = fetch_json(f"{cdp_endpoint.rstrip('/')}/json/list", timeout=5)
+    except Exception as exc:
+        return {"attempted": True, "closed": 0, "error": repr(exc)}
+    closed = []
+    for tab in tabs if isinstance(tabs, list) else []:
+        if not isinstance(tab, dict) or tab.get("type") != "page":
+            continue
+        target_id = str(tab.get("id") or "").strip()
+        target_url = str(tab.get("url") or "").strip()
+        if not target_id or target_url.lower() == "about:blank":
+            continue
+        if _challenge_scope_for_url(target_url) != normalized:
+            continue
+        try:
+            fetch_json(f"{cdp_endpoint.rstrip('/')}/json/close/{target_id}", timeout=5)
+            closed.append(target_id)
+        except Exception:
+            continue
+    return {"attempted": True, "closed": len(closed), "target_ids": closed, "scope": normalized}
 
 def check_cdp_healthy(cdp_endpoint):
     endpoint = cdp_endpoint.rstrip("/")
@@ -149,6 +207,9 @@ def notify_manual_challenge(api_base, solver_status, expected_node_id=None):
         "manual_only": True,
         "timestamp": int(time.time() * 1000),
     }
+    scope = str(solver_status.get("scope") or "").strip()
+    if scope:
+        payload["scope"] = scope
     try:
         response = post_json(_manual_captcha_report_url(api_base), payload, timeout=10)
     except Exception as exc:
@@ -173,6 +234,7 @@ def notify_auth_complete(
     refresh_cookie_snapshot=True,
     completion_id=None,
     challenge_id=None,
+    scope=None,
 ):
     url = _auth_complete_url(api_base)
     request_payload = {
@@ -180,6 +242,7 @@ def notify_auth_complete(
         "refresh_cookie_snapshot": refresh_cookie_snapshot,
         "completion_id": completion_id,
         "challenge_id": challenge_id,
+        "scope": scope,
     }
     attempts = max(1, min(int(AUTH_COMPLETE_REQUEST_ATTEMPTS), 10))
     last_result = {"ok": False, "error": "auth_complete_not_attempted"}
@@ -199,6 +262,52 @@ def notify_auth_complete(
     return last_result
 
 
+def _response_scope_state(payload):
+    """Select the scope-local auth state when another scope is still paused.
+
+    The API keeps aggregate ``paused`` fields for old clients.  A list and a
+    detail challenge may legitimately overlap, so PC2 must validate the scope
+    it just solved instead of waiting for the unrelated scope to clear.
+    """
+    solver_status = payload.get("captcha_solver") if isinstance(payload, dict) else None
+    if not isinstance(solver_status, dict):
+        return None
+    scope = str(payload.get("scope") or "").strip().lower()
+    if scope not in {"seed", "detail"}:
+        return None
+    statuses = solver_status.get("scopes") or solver_status.get("collection_scopes")
+    scoped_status = statuses.get(scope) if isinstance(statuses, dict) else None
+    if not isinstance(scoped_status, dict):
+        scoped_status = {}
+    paused = (
+        payload.get("scope_paused")
+        if "scope_paused" in payload
+        else scoped_status.get("paused")
+    )
+    manual_required = (
+        payload.get("scope_manual_required")
+        if "scope_manual_required" in payload
+        else scoped_status.get("manual_required")
+    )
+    force_unlock = (
+        payload.get("scope_force_unlock_flag_exists")
+        if "scope_force_unlock_flag_exists" in payload
+        else scoped_status.get("force_unlock_flag_exists", False)
+    )
+    force_reset = (
+        payload.get("scope_force_reset_required")
+        if "scope_force_reset_required" in payload
+        else scoped_status.get("force_reset_required")
+    )
+    return {
+        "scope": scope,
+        "paused": paused,
+        "manual_required": manual_required,
+        "force_unlock_flag_exists": force_unlock,
+        "force_reset_required": force_reset,
+    }
+
+
 def _auth_complete_response_confirmed(payload, completion_id):
     if not isinstance(payload, dict):
         return False
@@ -206,15 +315,24 @@ def _auth_complete_response_confirmed(payload, completion_id):
         return False
     if str(payload.get("completion_id") or "") != str(completion_id or ""):
         return False
-    if payload.get("paused") is not False:
-        return False
     solver_status = payload.get("captcha_solver")
     if not isinstance(solver_status, dict):
         return False
+    scoped_state = _response_scope_state(payload)
+    if scoped_state is not None:
+        if scoped_state.get("paused") is not False:
+            return False
+        manual_required = scoped_state.get("manual_required")
+        force_unlock = scoped_state.get("force_unlock_flag_exists")
+    else:
+        if payload.get("paused") is not False:
+            return False
+        manual_required = solver_status.get("manual_required")
+        force_unlock = solver_status.get("force_unlock_flag_exists")
     return bool(
-        solver_status.get("manual_required") is False
-        and solver_status.get("force_unlock_flag_exists") is False
-        and solver_status.get("paused") is False
+        manual_required is False
+        and force_unlock is False
+        and (scoped_state is not None or solver_status.get("paused") is False)
     )
 
 
@@ -263,11 +381,12 @@ def _post_auth_cdp_probe_grace_active(confirmed_at, now=None):
     return 0 <= age_seconds <= POST_AUTH_CDP_PROBE_GRACE_SECONDS
 
 
-def notify_collection_resume_after_cooldown(api_base, resume_request_id, challenge_id=None):
+def notify_collection_resume_after_cooldown(api_base, resume_request_id, challenge_id=None, scope=None):
     request_payload = {
         "source": "pc2_local_solver",
         "resume_request_id": resume_request_id,
         "challenge_id": challenge_id,
+        "scope": scope,
     }
     attempts = max(1, min(int(AUTH_COMPLETE_REQUEST_ATTEMPTS), 10))
     last_result = {"ok": False, "error": "resume_after_cooldown_not_attempted"}
@@ -296,17 +415,28 @@ def _resume_after_cooldown_response_confirmed(payload, resume_request_id):
         return False
     if payload.get("ok") is not True or payload.get("action") != "resume_after_cooldown":
         return False
-    if payload.get("auth_state_confirmed") is not True or payload.get("paused") is not False:
+    if payload.get("auth_state_confirmed") is not True:
         return False
     if str(payload.get("resume_request_id") or "") != str(resume_request_id or ""):
         return False
     solver_status = payload.get("captcha_solver")
     if not isinstance(solver_status, dict):
         return False
+    scoped_state = _response_scope_state(payload)
+    if scoped_state is not None:
+        if scoped_state.get("paused") is not False:
+            return False
+        manual_required = scoped_state.get("manual_required")
+        force_unlock = scoped_state.get("force_unlock_flag_exists")
+    else:
+        if payload.get("paused") is not False:
+            return False
+        manual_required = solver_status.get("manual_required")
+        force_unlock = solver_status.get("force_unlock_flag_exists")
     return bool(
-        solver_status.get("manual_required") is False
-        and solver_status.get("force_unlock_flag_exists") is False
-        and solver_status.get("paused") is False
+        manual_required is False
+        and force_unlock is False
+        and (scoped_state is not None or solver_status.get("paused") is False)
     )
 
 # --- Fallback escalation: push to PC1 manual auth after repeated failures ---
@@ -540,11 +670,20 @@ def _retry_pending_collection_resume(api_base_url, state=None, now=None):
         }
 
     request_id = str(state.get("collection_resume_request_id") or "").strip()
-    result = notify_collection_resume_after_cooldown(
-        api_base_url,
-        request_id,
-        challenge_id=state.get("challenge_id"),
-    )
+    resume_scope = str(state.get("scope") or "").strip()
+    if resume_scope:
+        result = notify_collection_resume_after_cooldown(
+            api_base_url,
+            request_id,
+            challenge_id=state.get("challenge_id"),
+            scope=resume_scope,
+        )
+    else:
+        result = notify_collection_resume_after_cooldown(
+            api_base_url,
+            request_id,
+            challenge_id=state.get("challenge_id"),
+        )
     request_attempts = max(1, int(result.get("request_attempts", 1) or 1))
     total_attempts = int(state.get("collection_resume_attempts", 0) or 0) + request_attempts
     if result.get("stale_challenge") is True:
@@ -610,6 +749,7 @@ def _mark_auth_complete_pending(target_url, challenge_id=None):
             "auth_complete_next_retry_at": time.time(),
             "auth_complete_last_error": None,
             "auth_complete_target_url": str(target_url or "").strip() or None,
+            "scope": _challenge_scope_for_url(target_url),
             "collection_resume_pending": False,
             "collection_resume_request_id": None,
             "collection_resume_attempts": 0,
@@ -715,6 +855,7 @@ def _retry_pending_auth_confirmation(api_base_url, state=None, now=None):
         source="pc2_local_solver",
         completion_id=completion_id,
         challenge_id=state.get("challenge_id"),
+        scope=state.get("scope") or _challenge_scope_for_url(state.get("auth_complete_target_url")),
     )
     request_attempts = max(1, int(result.get("request_attempts", 1) or 1))
     total_attempts = int(state.get("auth_complete_attempts", 0) or 0) + request_attempts
@@ -1253,6 +1394,40 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
             if "error" in solver_status:
                 log_event({"kind": "status_error", "error": solver_status["error"]})
                 time.sleep(poll_seconds); continue
+            # Each collection scope has its own 15-minute safety latch.  Reset
+            # only the stuck scope and close its browser tabs; the other scope
+            # remains available to continue collecting.
+            force_reset_done = False
+            for scope, scoped_status in _solver_scope_statuses(solver_status).items():
+                if not isinstance(scoped_status, dict) or not scoped_status.get("force_reset_required"):
+                    continue
+                scoped_request = scoped_status.get("last_request")
+                if isinstance(scoped_request, dict) and not node_owns_last_request(
+                    {"last_request": scoped_request, "running": True},
+                    cdp_endpoint,
+                    expected_node_id,
+                ):
+                    continue
+                cleanup = close_challenge_pages_for_scope(cdp_endpoint, scope)
+                # Keep the scoped pause marker set until every collection and
+                # challenge tab has been closed.  Otherwise a collector could
+                # observe the reset in the small gap and open a replacement
+                # page before the stale tabs are gone.
+                reset_result = notify_force_reset(
+                    api_base_url,
+                    scope,
+                    scoped_status.get("challenge_id"),
+                )
+                log_event({
+                    "kind": "scoped_challenge_force_reset",
+                    "scope": scope,
+                    "challenge_id": scoped_status.get("challenge_id"),
+                    "reset": reset_result,
+                    "cleanup": cleanup,
+                })
+                force_reset_done = force_reset_done or bool(reset_result.get("force_reset"))
+            if force_reset_done:
+                solver_status = read_solver_status(api_base_url)
             paused = bool(solver_status.get("paused"))
             running = bool(solver_status.get("running"))
             manual_required = bool(solver_status.get("manual_required"))

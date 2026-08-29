@@ -117,7 +117,7 @@ def solve_with_real_mouse(target_url, port=9223):
 
 
 if __name__ == "__main__":
-    punish_url = sys.argv[1] if len(sys.argv) > 1 else "https://sf-item.taobao.com//sf_item/738888888888.htm/_____tmd_____/punish?x5secdata=xfQcjJqre8DmHCAo3sBBk5cEo5sbEWvWBswmMwM3kp8gzi-VseWvjcLg7T7lc26VsJQsVCMOUVSgT8wxgg2pgOjlD5O1Cw-XPCVS1lwW3E6Q08DMKQ2yrilozglX0j_SPFQYEXrhOYYBGFl9zgG3QcZDgGXaH7b-pGfa6YObEU1m9T5c0tKwbEJGjicSUvOAsqfH9hsZmqpafuJurIPrXV0i6Eh_IgF2kdNohIA58JcMuG0XEq0g2GdD-DpfFNjBlycFfn5t_Y-qRzzNasnLOBTc6-Nkxog-Vs2TxnrjmateCYRtAfFSFUabJL8WiZNtAwbIfDTgHz9q0_euAnZHae9jWidU1TwNRfh51Ad5hVYE3YTxpeqgVBb_02qr7z-eW5F69D8J5ZaAtgunNU5y9T0rLN_4jc5te4S85zfI4Vp4uLGgL-m2e74IpZQgjP4WV5wRFimgwop32jQv8aQs8BRtmWovGZ8ktso2QmjTrHTiV3ReRcBKuX50nQ5wcPAGWFPd_F4reS_T3UMUmD9S3p1fB-gRIGA1upM5qK1xvovjH-d5_G613A7K2pe1_e11CzPWXd7vVGc437yq7a-bRkrd3zwwGsLH16RoaVwDqLhWkMCG0pHIhYHfv33RspL1m7xw0tbJCt_DJkJ-RBkKz0M4zRWnfh8COGO9XxqUtTt4e4z9p_LMlWx9szdtnLa6kdLoWfEXxqsLoECmSnUK78t0V_qFiY345w1GkE5-r1f4j4bo1cOYhKK9ETTxqrNiDSJtEHbFRDs6snjr3yvzYyqJNu-dut0WZG4LaRVjEa4E0JSrpSy_VZIZZ5y0_WD-f7j7cnsdUeBkpvFYVJxJnWfF5xwrP5A9ytUvTdgal8J9tWQ_VbYgS1pfwP14AOA9vC__bx__sf-item.taobao.com%2fsf_item%2f738888888888.htm&x5step=1"
+    punish_url = sys.argv[1] if len(sys.argv) > 1 else "https://sf-item.taobao.com/sf_item/738888888888.htm/_____tmd_____/punish?x5secdata=test&x5step=1"
 
     print("Testing with REAL MOUSE control...")
     print("Make sure browser window is visible!")

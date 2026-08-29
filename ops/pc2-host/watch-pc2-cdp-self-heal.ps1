@@ -336,13 +336,30 @@ function Start-RecoveryTasks {
         Stop-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
         Start-Sleep -Seconds 1
         Start-ScheduledTask -TaskName $taskName -ErrorAction Stop
-        Start-Sleep -Seconds 3
+        # The worker launcher imports the environment and probes NAS/CDP before
+        # its long-running process becomes visible.  Three seconds was too
+        # short and caused the direct-action fallback to start a second launcher
+        # (and duplicate every worker).  Wait for the scheduled instance first.
+        $scheduledDeadline = (Get-Date).AddSeconds(20)
+      while (
+          $null -eq (Get-RecoveryRoleProcess -Role $role) -and
+          (Get-Date) -lt $scheduledDeadline
+        ) {
+          Start-Sleep -Seconds 1
+        }
       } catch {
         $launchModes[$role] = 'scheduled_task_rejected'
       }
     }
 
-    if ($null -eq (Get-RecoveryRoleProcess -Role $role)) {
+    # A scheduled task can remain in the Running state while its active-session
+    # wrapper is still importing Python/PowerShell modules.  Never start the
+    # same action directly while that task is running: doing so races the task
+    # and creates a second launcher/worker set.  Direct fallback is reserved for
+    # a task that failed to enter Running at all.
+    $taskAfterStart = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
+    $taskIsRunning = $null -ne $taskAfterStart -and [string]$taskAfterStart.State -eq 'Running'
+    if ($null -eq (Get-RecoveryRoleProcess -Role $role) -and -not $taskIsRunning) {
       $action = @($task.Actions)[0]
       $workingDirectory = if ([string]::IsNullOrWhiteSpace([string]$action.WorkingDirectory)) {
         $root

@@ -7,6 +7,7 @@ import threading
 import math
 import os
 import re
+import subprocess
 import sys as _sys
 if hasattr(_sys.stdout, "reconfigure"):
     try:
@@ -177,6 +178,20 @@ class CaptchaSolver:
             or cls._is_login_url(target_url)
         )
 
+    @classmethod
+    def _is_challenge_tab(cls, tab):
+        if not isinstance(tab, dict):
+            return False
+        tab_url = str(tab.get("url") or "").strip()
+        if cls._is_manual_challenge_url(tab_url):
+            return True
+        title = re.sub(r"\s+", " ", str(tab.get("title") or "")).strip().lower()
+        return title in {
+            "captcha verification",
+            "验证码拦截",
+            "安全验证",
+        }
+
     def _close_cdp_target(self, target_id):
         target_id = str(target_id or "").strip()
         if not target_id:
@@ -268,16 +283,18 @@ class CaptchaSolver:
     def _prune_duplicate_challenge_tabs(self, tabs):
         """Keep only the active punish target before a solve attempt.
 
-        NAS owns one active challenge id at a time. Failed requests and cooldown
-        recovery can leave punish pages for older item routes in the shared
-        browser profile; those pages may compete for the same challenge/session
-        state. Preserve one page for the requested route and close every other
-        punish page. Login and normal auction pages remain untouched.
+        Each collection scope owns one active challenge at a time. Failed
+        requests and cooldown recovery can leave punish pages for older item
+        routes in the shared browser profile; those pages may compete for the
+        same challenge/session state. Preserve one page for the requested scope
+        and close only duplicate pages in that scope. Login, normal auction
+        pages, and the other collection scope remain untouched.
         """
         if not isinstance(tabs, list):
             return {"closed": 0, "kept": None}
         requested_route = self._solver_target_route(self.target_url)
-        if not requested_route:
+        requested_scope = self._solver_target_scope(self.target_url)
+        if not requested_route and not requested_scope:
             return {"closed": 0, "kept": None}
         challenge_tabs = []
         candidates = []
@@ -285,16 +302,20 @@ class CaptchaSolver:
             if not isinstance(tab, dict) or tab.get("type") != "page":
                 continue
             tab_url = str(tab.get("url") or "").strip()
-            if not self._is_manual_challenge_url(tab_url):
+            if not self._is_challenge_tab(tab):
                 continue
             if self._is_login_url(tab_url):
                 continue
             target_id = str(tab.get("id") or "").strip()
             if not target_id or not tab.get("webSocketDebuggerUrl"):
                 continue
-            challenge_tabs.append(tab)
-            if self._solver_target_route(tab_url) != requested_route:
+            candidate_scope = self._solver_target_scope(tab_url)
+            if requested_scope:
+                if candidate_scope != requested_scope:
+                    continue
+            elif self._solver_target_route(tab_url) != requested_route:
                 continue
+            challenge_tabs.append(tab)
             candidates.append(tab)
         preserve_id = str(self.target_id or "").strip()
         if not any(str(tab.get("id") or "").strip() == preserve_id for tab in candidates):
@@ -309,8 +330,9 @@ class CaptchaSolver:
                 self._opened_target_ids.discard(target_id)
         if closed:
             print(
-                f"[SOLVER] Compacted stale challenge targets for route "
-                f"{requested_route}: kept={preserve_id} closed={closed}"
+                f"[SOLVER] Compacted stale challenge targets for "
+                f"{requested_scope or 'route ' + requested_route}: "
+                f"kept={preserve_id} closed={closed}"
             )
         return {"closed": closed, "kept": preserve_id or None}
 
@@ -374,15 +396,38 @@ class CaptchaSolver:
         query = urlencode(sorted(query_pairs), doseq=True)
         return urlunsplit((parsed.scheme, parsed.netloc, path, query, ""))
 
+    def _solver_target_scope(self, value):
+        """Classify auction URLs into the independent list/detail challenge scopes."""
+        normalized = self._normalize_target_url(value)
+        if not normalized:
+            return ""
+        try:
+            parsed = urlsplit(normalized)
+        except ValueError:
+            return ""
+        host = (parsed.hostname or "").lower()
+        path = (parsed.path or "/").replace("//", "/").lower()
+        if host == "sf-item.taobao.com" or "/sf_item/" in path:
+            return "detail"
+        if host == "sf.taobao.com" and "/list/" in path:
+            return "seed"
+        if "/punish" in path and "/list/" in path:
+            return "seed"
+        return ""
+
     def _manual_challenge_matches_requested_target(self, value):
         if self._is_login_url(value):
             return True
         requested_route = self._solver_target_route(self.target_url)
+        requested_scope = self._solver_target_scope(self.target_url)
         if not requested_route:
             return True
         challenge_route = self._solver_target_route(value)
         if not challenge_route:
             return False
+        challenge_scope = self._solver_target_scope(value)
+        if requested_scope and challenge_scope:
+            return requested_scope == challenge_scope
         return challenge_route == requested_route
 
     def _rewrite_ws_url(self, ws_url):
@@ -561,8 +606,9 @@ class CaptchaSolver:
             print(f"[SOLVER] [NEW] Opened requested solver target: {normalized_target_url}")
             return self._connect_to_target(target_ws, target_title)
 
-        self._prune_duplicate_challenge_tabs(tabs)
-        if self.target_id:
+        pruning = self._prune_duplicate_challenge_tabs(tabs)
+        kept_challenge_target_id = str(pruning.get("kept") or "").strip()
+        if pruning.get("closed") or self.target_id:
             refreshed_tabs = self._get_json("list")
             if isinstance(refreshed_tabs, list):
                 tabs = refreshed_tabs
@@ -580,6 +626,15 @@ class CaptchaSolver:
                     target_ws = tab.get("webSocketDebuggerUrl")
                     target_title = tab.get("title", "")
                     print(f"[SOLVER] [TARGET] Found requested solver target: {url}")
+                    break
+            if not target_ws and kept_challenge_target_id:
+                for tab in tabs:
+                    if str(tab.get("id") or "").strip() != kept_challenge_target_id:
+                        continue
+                    self._remember_target_tab(tab)
+                    target_ws = tab.get("webSocketDebuggerUrl")
+                    target_title = tab.get("title", "")
+                    print("[SOLVER] Reusing the unique challenge target for this collection scope.")
                     break
             if not target_ws and self.target_id:
                 for tab in tabs:
@@ -616,9 +671,12 @@ class CaptchaSolver:
 
         # Priority 1: 100% targeted background worker currently solving
         if not target_ws:
+            requested_scope = self._solver_target_scope(self.target_url)
             for tab in tabs:
                 url = tab.get("url", "")
                 if "__captcha_solver_bg=1" in url:
+                    if requested_scope and self._solver_target_scope(url) != requested_scope:
+                        continue
                     self._remember_target_tab(tab)
                     target_ws = tab.get("webSocketDebuggerUrl")
                     target_title = tab.get("title", "")
@@ -1444,7 +1502,49 @@ class CaptchaSolver:
             "uses_render_widget": bool(render_windows),
         }
 
+    def _focus_linux_window(self):
+        """Focus the visible Chromium window that owns the active CDP tab."""
+        if not str(os.environ.get("DISPLAY") or "").strip():
+            print("[SOLVER] DISPLAY is not set; cannot focus the Linux browser window.")
+            return False
+        self._bring_to_front()
+        window_ids = []
+        for window_class in ("chromium", "google-chrome", "microsoft-edge"):
+            try:
+                result = subprocess.run(
+                    ["xdotool", "search", "--onlyvisible", "--class", window_class],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                    timeout=3,
+                )
+            except (FileNotFoundError, subprocess.SubprocessError) as error:
+                print(f"[SOLVER] Linux window search failed: {error}")
+                return False
+            for raw_window_id in result.stdout.splitlines():
+                window_id = raw_window_id.strip()
+                if window_id.isdigit() and window_id not in window_ids:
+                    window_ids.append(window_id)
+        for window_id in reversed(window_ids):
+            try:
+                activated = subprocess.run(
+                    ["xdotool", "windowactivate", "--sync", window_id],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                    timeout=3,
+                )
+            except subprocess.SubprocessError:
+                continue
+            if activated.returncode == 0:
+                print(f"[SOLVER] Linux browser window focused id={window_id}")
+                return True
+        print("[SOLVER] No focusable Linux Chromium window was found.")
+        return False
+
     def _focus_os_window(self):
+        if os.name != "nt":
+            return self._focus_linux_window()
         self._bring_to_front()
         hwnd = None
         client = self._win32_client_origin()
@@ -1551,6 +1651,27 @@ class CaptchaSolver:
             return None
         return (left, top, right - left, bottom - top)
 
+    def _slider_search_region(self, expected, distance, slider_info=None):
+        """Bound template matching around the expected live slider position."""
+        if not isinstance(expected, dict):
+            return None
+        try:
+            start_x = float(expected["x"])
+            start_y = float(expected["y"])
+            mapped_distance = abs(float(expected.get("distance", distance) or 0))
+            handle_width = float((slider_info or {}).get("width") or 42)
+            handle_height = float((slider_info or {}).get("height") or 34)
+        except (KeyError, TypeError, ValueError):
+            return expected.get("region")
+        horizontal_margin = 96.0
+        vertical_margin = 80.0
+        return (
+            int(start_x - horizontal_margin),
+            int(start_y - vertical_margin),
+            int(max(mapped_distance + handle_width + horizontal_margin * 2, 240.0)),
+            int(max(handle_height + vertical_margin * 2, 160.0)),
+        )
+
     def _viewport_origin_on_screen(self, slider_info=None, search_region=None, drag_distance=0):
         """Locate the page viewport (or slider/track) on the physical screen via screenshot."""
         try:
@@ -1649,7 +1770,12 @@ class CaptchaSolver:
         activation_verified = bool(
             self._target_activation_verified
             and expected
-            and expected.get("source") in {"win32_render", "cdp_window_bounds"}
+            and expected.get("source") in {"win32_render", "cdp_window_bounds", "dpr_fallback"}
+        )
+        screenshot_search_region = self._slider_search_region(
+            expected,
+            distance,
+            slider_info=slider_info,
         )
         if activation_verified:
             # Activation proves the tab identity, not that the render widget is
@@ -1657,7 +1783,7 @@ class CaptchaSolver:
             # while the exact target is foregrounded and use it when it disagrees.
             located = self._viewport_origin_on_screen(
                 slider_info,
-                search_region=expected.get("region") if expected else None,
+                search_region=screenshot_search_region,
                 drag_distance=distance,
             )
             if located is None:
@@ -1668,7 +1794,7 @@ class CaptchaSolver:
         else:
             located = self._viewport_origin_on_screen(
                 slider_info,
-                search_region=expected.get("region") if expected else None,
+                search_region=screenshot_search_region,
                 drag_distance=distance,
             )
         screenshot_point = None
@@ -1683,9 +1809,15 @@ class CaptchaSolver:
                 (screenshot_point["x"] - expected["x"]) ** 2
                 + (screenshot_point["y"] - expected["y"]) ** 2
             ) ** 0.5
+        screenshot_delta_limit = max(64.0, abs(float(distance or 0)) * 0.35)
         if screenshot_point and not expected:
             chosen = screenshot_point
-        elif screenshot_point and not expected.get("uses_render_widget"):
+        elif (
+            screenshot_point
+            and not expected.get("uses_render_widget")
+            and delta is not None
+            and delta <= screenshot_delta_limit
+        ):
             chosen = screenshot_point
         elif (
             screenshot_point
@@ -1694,8 +1826,11 @@ class CaptchaSolver:
             and delta <= max(48.0, abs(float(distance or 0)) * 0.15)
         ):
             chosen = expected
-        elif screenshot_point:
-            chosen = screenshot_point
+        elif screenshot_point and delta is not None and delta > screenshot_delta_limit:
+            print(
+                f"[SOLVER] Rejecting screenshot map with implausible {delta:.0f}px drift; "
+                f"using {expected.get('source')}."
+            )
         if screenshot_point and expected:
             print(
                 f"[SOLVER] Screen map expected=({expected['x']:.0f},{expected['y']:.0f}) "
@@ -2177,6 +2312,8 @@ class CaptchaSolver:
                 result.widget = visibleRect(widget, frameOffsetX, frameOffsetY);
                 var slider = doc.querySelector('#nc_1_n1z, #nc_2_n1z, [id^="nc_"][id$="_n1z"], .btn_slide, .nc-slider-btn');
                 result.slider = visibleRect(slider, frameOffsetX, frameOffsetY);
+                var errorWidget = doc.querySelector('.errloading, [id*="_refresh1"], [id*="refresh1"]');
+                result.retryText = visibleRect(errorWidget, frameOffsetX, frameOffsetY);
 
                 var allNodes = doc.querySelectorAll('div, span, p, button, a');
                 for (var i = 0; i < allNodes.length; i++) {
@@ -2187,7 +2324,9 @@ class CaptchaSolver:
                     if (
                         text.indexOf('点击框体重试') !== -1 ||
                         text.indexOf('验证失败') !== -1 ||
-                        text.indexOf('拖动未达标') !== -1
+                        text.indexOf('拖动未达标') !== -1 ||
+                        text.toLowerCase().indexOf("oops... something's wrong") !== -1 ||
+                        text.toLowerCase().indexOf('please refresh page and try again') !== -1
                     ) {
                         result.retryText = visibleRect(node, frameOffsetX, frameOffsetY);
                         if (result.retryText) break;
@@ -2462,9 +2601,8 @@ class CaptchaSolver:
                 var title = doc.title || '';
                 var href = (doc.location && doc.location.href) ? String(doc.location.href) : '';
                 var readyState = doc.readyState || '';
-                var slider = doc.querySelector('#nc_1_n1z, #nc_2_n1z, [id^="nc_"][id$="_n1z"], .btn_slide, .nc-slider-btn, .slider-btn');
-                var ncTrack = doc.querySelector('.nc_scale, #nc_1_n1t, #nc_2_n1t, .nc-container, .nc_wrapper');
-                var hasSlider = !!((slider && slider.offsetParent !== null) || (ncTrack && ncTrack.offsetParent !== null));
+                var slider = doc.querySelector('#nc_1_n1z, #nc_2_n1z, [id^="nc_"][id$="_n1z"], #nc_1_n1t, #nc_2_n1t, [id^="nc_"][id$="_n1t"], .btn_slide, .nc_iconfont.btn_slide, .nc-slider-btn, .slider-btn');
+                var hasSlider = !!(slider && slider.offsetParent !== null);
                 var lowerHref = href.toLowerCase();
                 var combined = (className + '\\n' + bodyText + '\\n' + title + '\\n' + href).toLowerCase();
                 var listRoute = lowerHref.indexOf('sf.taobao.com/list/') !== -1;
@@ -2478,7 +2616,13 @@ class CaptchaSolver:
                 var supportedAuctionPage = (listRoute || detailRoute) && !challengeRedirect;
                 var hardBlock = combined.indexOf('baxia') !== -1 || combined.indexOf('punish') !== -1 || combined.indexOf('denyfromx5') !== -1 || challengeRedirect;
                 var errorMatch = combined.match(/error\\s*:\\s*[a-z0-9/_-]{1,64}/i);
-                var explicitFailure = combined.indexOf('验证失败') !== -1 || combined.indexOf('点击框体重试') !== -1 || !!errorMatch;
+                var errorWidget = doc.querySelector('.errloading, [id*="_refresh1"], [id*="refresh1"]');
+                var explicitFailure = combined.indexOf('验证失败') !== -1 ||
+                    combined.indexOf('点击框体重试') !== -1 ||
+                    combined.indexOf("oops... something's wrong") !== -1 ||
+                    combined.indexOf('please refresh page and try again') !== -1 ||
+                    !!(errorWidget && errorWidget.offsetParent !== null) ||
+                    !!errorMatch;
                 var challengeMarker = combined.indexOf('验证码拦截') !== -1 || combined.indexOf('请按住滑块') !== -1 || combined.indexOf('安全验证') !== -1;
                 var loginUrl = lowerHref.indexOf('login.taobao.com') !== -1 || lowerHref.indexOf('login.tmall.com') !== -1 || lowerHref.indexOf('third-party-cookie') !== -1 || lowerHref.indexOf('/passport/') !== -1 || lowerHref.indexOf('/login') !== -1;
                 var loginText = title.trim().toLowerCase() === '登录' || combined.indexOf('请登录') !== -1 || combined.indexOf('请先登录') !== -1;

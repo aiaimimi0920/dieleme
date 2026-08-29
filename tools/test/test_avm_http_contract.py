@@ -144,6 +144,21 @@ class TestAVMHttpContract(unittest.TestCase):
         body = json.loads(ctx.exception.read().decode("utf-8"))
         self.assertEqual(body["error"]["code"], "AVM_INVALID_JSON")
 
+    def _assert_http_error_code(self, path, expected_status, expected_code, *, method="GET", payload=None):
+        request = urllib.request.Request(
+            f"http://127.0.0.1:{self.port}{path}",
+            data=None if payload is None else json.dumps(payload).encode("utf-8"),
+            headers={} if payload is None else {"Content-Type": "application/json"},
+            method=method,
+        )
+        with self.assertRaises(urllib.error.HTTPError) as ctx:
+            urllib.request.urlopen(request)
+
+        self.assertEqual(ctx.exception.code, expected_status)
+        body = json.loads(ctx.exception.read().decode("utf-8"))
+        self.assertEqual(body["error"]["code"], expected_code)
+        return body
+
     def _contract_source_texts(self):
         return (
             Path(server_module.__file__).read_text(encoding="utf-8"),
@@ -190,6 +205,11 @@ class TestAVMHttpContract(unittest.TestCase):
             ("/api/collection/details/fetch_missing", "POST"),
             ("/api/avm/archive_detail_replay", "POST"),
             ("/api/collection/details/prepare_replay", "POST"),
+            ("/api/collection/region/reset_links", "POST"),
+            ("/api/collection/item/reanalyze", "POST"),
+            ("/api/collection/item/manual_update", "POST"),
+            ("/api/collection/auth/complete", "POST"),
+            ("/api/collection/auth/resume_after_cooldown", "POST"),
             ("/api/save_locations", "POST"),
             ("/api/area_result", "POST"),
             ("/api/collection/details/area_result", "POST"),
@@ -201,6 +221,7 @@ class TestAVMHttpContract(unittest.TestCase):
             ("/api/collection/seeds/batch", "POST"),
             ("/api/avm/screen", "POST"),
             ("/api/report_captcha", "POST"),
+            ("/api/report_manual_captcha", "POST"),
             ("/api/log", "POST"),
             ("/api/update_item", "POST"),
             ("/api/collection/details/update_item", "POST"),
@@ -413,7 +434,7 @@ class TestAVMHttpContract(unittest.TestCase):
 
     def _repo_owned_python_test_files(self):
         files = []
-        excluded_parts = {"venv", "node_modules", "__pycache__"}
+        excluded_parts = {"venv", "node_modules", "__pycache__", ".codex-temp"}
         for path in Path(".").rglob("test_*.py"):
             if any(part in excluded_parts for part in path.parts):
                 continue
@@ -445,7 +466,14 @@ class TestAVMHttpContract(unittest.TestCase):
         codes = sorted(set(re.findall(r'code="([A-Z0-9_]+)"', server_text)))
         missing = []
         for code in codes:
-            if f'["error"]["code"], "{code}"' not in suite_text and f"['error']['code'], '{code}'" not in suite_text:
+            if (
+                f'["error"]["code"], "{code}"' not in suite_text
+                and f"['error']['code'], '{code}'" not in suite_text
+                and not re.search(
+                    rf"_assert_http_error_code\([\s\S]{{0,300}}\"{re.escape(code)}\"",
+                    suite_text,
+                )
+            ):
                 missing.append(code)
         self.assertEqual(missing, [], f"Missing structured error code assertions in suite: {missing}")
 
@@ -9040,11 +9068,14 @@ class TestAVMHttpContract(unittest.TestCase):
             },
         )
 
-    def test_report_captcha_endpoint_rewrites_detail_target_to_seed_when_seed_stage_still_has_work(self):
+    def test_report_captcha_endpoint_preserves_detail_challenge_when_seed_stage_still_has_work(self):
         with (
             mock.patch.dict(
                 os.environ,
-                {"FAPAI_COOKIE_SNAPSHOT_SAMPLE_URLS": "https://sf.taobao.com/list/50025969__2.htm"},
+                {
+                    "FAPAI_COOKIE_SNAPSHOT_SAMPLE_URLS": "https://sf.taobao.com/list/50025969__2.htm",
+                    "FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED": "1",
+                },
                 clear=False,
             ),
             mock.patch.object(
@@ -9057,6 +9088,12 @@ class TestAVMHttpContract(unittest.TestCase):
                     "seed_scan_progress_in_progress": 0,
                 },
             ),
+            mock.patch.object(server_module, "_solver_force_unlock_flag_exists", return_value=False),
+            mock.patch.object(server_module, "PAUSED", False),
+            mock.patch.object(server_module, "SOLVER_LAST_STATUS", None),
+            mock.patch.object(server_module, "SOLVER_MANUAL_ONLY", False),
+            mock.patch.object(server_module, "SOLVER_LAST_REQUEST", {}),
+            mock.patch.object(server_module, "SOLVER_CHALLENGE_ID", None),
             mock.patch.object(server_module.executor, "submit") as mocked_submit,
         ):
             request = urllib.request.Request(
@@ -9082,7 +9119,7 @@ class TestAVMHttpContract(unittest.TestCase):
             {
                 "cdp_endpoint": "http://192.168.65.254:9223",
                 "node_id": "pc2",
-                "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
+                "target_url": "https://sf-item.taobao.com/sf_item/817695886927.htm?track_id=test&__captcha_solver_bg=1",
             },
         )
 
@@ -9445,6 +9482,167 @@ class TestAVMHttpContract(unittest.TestCase):
         body = json.loads(ctx.exception.read().decode("utf-8"))
         self.assertEqual(body["error"]["code"], "AVM_SCREEN_FAILED")
         self.assertEqual(body["error"]["details"]["error"], "boom")
+
+    def test_collection_observer_get_error_routes_return_structured_codes(self):
+        with mock.patch.object(server_module, "_collection_observer_overview_payload", side_effect=RuntimeError("boom")):
+            self._assert_http_error_code("/api/collection/overview", 500, "COLLECTION_OBSERVER_OVERVIEW_FAILED")
+        with mock.patch.object(server_module, "_collection_observer_items_payload", side_effect=RuntimeError("boom")):
+            self._assert_http_error_code("/api/collection/items", 500, "COLLECTION_OBSERVER_ITEMS_FAILED")
+        with mock.patch.object(server_module, "_collection_observer_regions_payload", side_effect=RuntimeError("boom")):
+            self._assert_http_error_code("/api/collection/regions", 500, "COLLECTION_OBSERVER_REGIONS_FAILED")
+        with mock.patch.object(server_module, "_collection_observer_item_payload", side_effect=RuntimeError("boom")):
+            self._assert_http_error_code(
+                "/api/collection/items/1001",
+                500,
+                "COLLECTION_OBSERVER_ITEM_FAILED",
+            )
+        self._assert_http_error_code("/collection/assets/missing.js", 404, "COLLECTION_STATIC_ASSET_NOT_FOUND")
+
+    def test_collection_observer_post_error_routes_return_structured_codes(self):
+        with mock.patch.object(
+            server_module,
+            "_collection_observer_reset_region_links_payload",
+            side_effect=RuntimeError("boom"),
+        ):
+            self._assert_http_error_code(
+                "/api/collection/region/reset_links",
+                500,
+                "COLLECTION_OBSERVER_REGION_RESET_FAILED",
+                method="POST",
+                payload={},
+            )
+        with mock.patch.object(server_module, "_collection_observer_reset_region_links_payload", return_value={"ok": False}):
+            self._assert_http_error_code(
+                "/api/collection/region/reset_links",
+                400,
+                "COLLECTION_OBSERVER_REGION_RESET_REJECTED",
+                method="POST",
+                payload={},
+            )
+
+        with mock.patch.object(
+            server_module,
+            "_collection_observer_reanalysis_payload",
+            side_effect=RuntimeError("boom"),
+        ):
+            self._assert_http_error_code(
+                "/api/collection/item/reanalyze",
+                500,
+                "COLLECTION_OBSERVER_REANALYZE_FAILED",
+                method="POST",
+                payload={},
+            )
+        with mock.patch.object(server_module, "_collection_observer_reanalysis_payload", return_value={"ok": False}):
+            self._assert_http_error_code(
+                "/api/collection/item/reanalyze",
+                400,
+                "COLLECTION_OBSERVER_REANALYZE_REJECTED",
+                method="POST",
+                payload={},
+            )
+
+        with mock.patch.object(
+            server_module,
+            "_collection_observer_manual_update_payload",
+            side_effect=RuntimeError("boom"),
+        ):
+            self._assert_http_error_code(
+                "/api/collection/item/manual_update",
+                500,
+                "COLLECTION_OBSERVER_MANUAL_UPDATE_FAILED",
+                method="POST",
+                payload={},
+            )
+        with mock.patch.object(server_module, "_collection_observer_manual_update_payload", return_value={"ok": False}):
+            self._assert_http_error_code(
+                "/api/collection/item/manual_update",
+                400,
+                "COLLECTION_OBSERVER_MANUAL_UPDATE_REJECTED",
+                method="POST",
+                payload={},
+            )
+
+        with mock.patch.object(
+            server_module,
+            "_collection_observer_runtime_control_payload",
+            side_effect=RuntimeError("boom"),
+        ):
+            self._assert_http_error_code(
+                "/api/collection/control/pause",
+                500,
+                "COLLECTION_OBSERVER_RUNTIME_CONTROL_FAILED",
+                method="POST",
+            )
+        with mock.patch.object(server_module, "_collection_observer_runtime_control_payload", return_value={"ok": False}):
+            self._assert_http_error_code(
+                "/api/collection/control/resume",
+                400,
+                "COLLECTION_OBSERVER_RUNTIME_CONTROL_REJECTED",
+                method="POST",
+            )
+
+        with mock.patch.object(
+            server_module,
+            "_collection_observer_auth_complete_payload",
+            side_effect=RuntimeError("boom"),
+        ):
+            self._assert_http_error_code(
+                "/api/collection/auth/complete",
+                500,
+                "COLLECTION_OBSERVER_AUTH_COMPLETE_FAILED",
+                method="POST",
+                payload={},
+            )
+        with mock.patch.object(server_module, "_collection_observer_auth_complete_payload", return_value={"ok": False}):
+            self._assert_http_error_code(
+                "/api/collection/auth/complete",
+                400,
+                "COLLECTION_OBSERVER_AUTH_COMPLETE_REJECTED",
+                method="POST",
+                payload={},
+            )
+
+        with mock.patch.object(
+            server_module,
+            "_collection_observer_resume_after_cooldown_payload",
+            side_effect=RuntimeError("boom"),
+        ):
+            self._assert_http_error_code(
+                "/api/collection/auth/resume_after_cooldown",
+                500,
+                "COLLECTION_OBSERVER_AUTH_RESUME_FAILED",
+                method="POST",
+                payload={},
+            )
+        with mock.patch.object(
+            server_module,
+            "_collection_observer_resume_after_cooldown_payload",
+            return_value={"ok": False},
+        ):
+            self._assert_http_error_code(
+                "/api/collection/auth/resume_after_cooldown",
+                400,
+                "COLLECTION_OBSERVER_AUTH_RESUME_REJECTED",
+                method="POST",
+                payload={},
+            )
+
+    def test_report_captcha_force_retry_failure_returns_structured_error(self):
+        with (
+            mock.patch.object(
+                server_module,
+                "_captcha_solver_runtime_status",
+                return_value={"manual_required": True, "running": False},
+            ),
+            mock.patch.object(server_module, "_clear_solver_manual_required_pause", return_value="boom"),
+        ):
+            self._assert_http_error_code(
+                "/api/report_captcha",
+                500,
+                "AVM_CAPTCHA_SOLVER_FORCE_RETRY_FAILED",
+                method="POST",
+                payload={"force_retry": True, "target_url": "https://contest.local/challenge"},
+            )
 
     def test_seed_progress_routes_reject_non_object_json_body(self):
         for path in ("/api/report_sniff_status", "/api/collection/seeds/report_progress"):

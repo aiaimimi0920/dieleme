@@ -223,6 +223,38 @@ def test_evaluate_cdp_expression_applies_websocket_timeout_and_closes_socket(mon
     assert events[-1] == "close"
 
 
+def test_read_cdp_json_rewrites_loopback_websockets_to_remote_endpoint(monkeypatch) -> None:
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return None
+
+        @staticmethod
+        def read() -> bytes:
+            return json.dumps(
+                [
+                    {
+                        "id": "page-1",
+                        "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/page-1",
+                    }
+                ]
+            ).encode("utf-8")
+
+    monkeypatch.setattr(taobao_login_health, "urlopen", lambda *_args, **_kwargs: FakeResponse())
+
+    assert taobao_login_health.read_cdp_json(
+        "http://192.168.15.104:9224",
+        "/json/list",
+    ) == [
+        {
+            "id": "page-1",
+            "webSocketDebuggerUrl": "ws://192.168.15.104:9224/devtools/page/page-1",
+        }
+    ]
+
+
 def test_classify_healthy_list_payload_when_payload_is_present() -> None:
     result = taobao_login_health.classify_taobao_health(
         "<html><script>sf-item-list-data</script></html>",
@@ -434,13 +466,18 @@ def test_build_cdp_verification_page_matcher_reuses_matching_punish_redirect() -
         )
         is True
     )
-    assert (
-        matcher(
-            "https://sf.taobao.com//list/200782003__1.htm/_____tmd_____/punish"
-            "?x5secdata=secret&x5step=1"
-        )
-        is False
+    # List challenges share one scope even when the source page/job changes.
+    assert matcher(
+        "https://sf.taobao.com//list/200782003__1.htm/_____tmd_____/punish"
+        "?x5secdata=secret&x5step=1"
+    ) is True
+    detail_matcher = taobao_login_health.build_cdp_verification_page_matcher(
+        "https://sf-item.taobao.com/sf_item/570192626894.htm?__captcha_solver_bg=1"
     )
+    assert detail_matcher(
+        "https://sf.taobao.com//list/50025969__2.htm/_____tmd_____/punish"
+        "?x5secdata=secret&x5step=1"
+    ) is False
 
 
 def test_open_page_via_cdp_http_reuses_matching_punish_redirect(monkeypatch) -> None:
@@ -487,6 +524,16 @@ def test_build_cdp_verification_page_matcher_reuses_login_tabs_only_for_login_ur
         is False
     )
     assert matcher("https://sf.taobao.com/list/50025969__2.htm/_____tmd_____/punish") is False
+
+
+def test_solver_target_matcher_reuses_encoded_login_redirect_across_scopes() -> None:
+    matcher = taobao_login_health.build_cdp_verification_page_matcher(
+        "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1"
+    )
+
+    assert matcher("https://login.taobao.com/havanaone/login/login.htm?uuid=abc") is True
+    assert matcher("https://login.m.taobao.com/login.htm") is True
+    assert matcher("https://sf-item.taobao.com/sf_item/123.htm?__captcha_solver_bg=1") is False
 
 
 def test_cdp_response_bool_value_requires_nested_true_boolean() -> None:
@@ -1403,7 +1450,35 @@ def test_taobao_login_health_uses_extended_cdp_connect_timeout_like_live_smoke()
     script = REPO_ROOT.joinpath("tools", "taobao_login_health.py").read_text(encoding="utf-8")
 
     assert "DEFAULT_CDP_CONNECT_TIMEOUT_MS = 120000" in script
-    assert "playwright.chromium.connect_over_cdp(cdp_endpoint, timeout=DEFAULT_CDP_CONNECT_TIMEOUT_MS)" in script
+    assert "playwright.chromium.connect_over_cdp(resolve_playwright_cdp_endpoint(cdp_endpoint), timeout=DEFAULT_CDP_CONNECT_TIMEOUT_MS)" in script
+
+
+def test_resolve_playwright_cdp_endpoint_rewrites_remote_browser_websocket(monkeypatch) -> None:
+    from tools import browserless_seed_probe
+
+    calls: list[str] = []
+    monkeypatch.setattr(
+        browserless_seed_probe,
+        "_resolve_cdp_endpoint",
+        lambda endpoint: calls.append(endpoint) or "ws://pc2-browser-solver:9224/devtools/browser/browser-id",
+    )
+
+    resolved = taobao_login_health.resolve_playwright_cdp_endpoint("http://pc2-browser-solver:9224")
+
+    assert resolved == "ws://pc2-browser-solver:9224/devtools/browser/browser-id"
+    assert calls == ["http://pc2-browser-solver:9224"]
+
+
+def test_resolve_playwright_cdp_endpoint_preserves_loopback_without_probe(monkeypatch) -> None:
+    from tools import browserless_seed_probe
+
+    monkeypatch.setattr(
+        browserless_seed_probe,
+        "_resolve_cdp_endpoint",
+        lambda _endpoint: (_ for _ in ()).throw(AssertionError("loopback CDP must not be probed")),
+    )
+
+    assert taobao_login_health.resolve_playwright_cdp_endpoint("http://127.0.0.1:9223") == "http://127.0.0.1:9223"
 
 
 def test_fetch_health_samples_via_cdp_cookie_http_uses_websocket_cookie_export_and_http_probe(monkeypatch) -> None:

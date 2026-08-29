@@ -1493,6 +1493,48 @@ def test_close_stale_challenge_probe_target_preserves_keepalive(monkeypatch) -> 
     ]
 
 
+def test_close_challenge_pages_for_scope_closes_only_seed_tabs(monkeypatch) -> None:
+    calls: list[str] = []
+    tabs = [
+        {"id": "seed-page", "type": "page", "url": "https://sf.taobao.com/list/50025969__2.htm"},
+        {
+            "id": "seed-challenge",
+            "type": "page",
+            "url": "https://sf.taobao.com/list/50025969__2.htm/_____tmd_____/punish?x5step=1",
+        },
+        {"id": "detail-page", "type": "page", "url": "https://sf-item.taobao.com/sf_item/570192626894.htm"},
+        {
+            "id": "detail-challenge",
+            "type": "page",
+            "url": "https://sf-item.taobao.com/sf_item/570192626894.htm/_____tmd_____/punish?x5step=1",
+        },
+        {"id": "login", "type": "page", "url": "https://login.taobao.com/member/login.jhtml"},
+        {"id": "blank", "type": "page", "url": "about:blank"},
+    ]
+
+    def fake_fetch(url: str, timeout: int):
+        calls.append(url)
+        if url.endswith("/json/list"):
+            return tabs
+        return {"id": url.rsplit("/", 1)[-1]}
+
+    monkeypatch.setattr(pc2_local_solver, "fetch_json", fake_fetch)
+
+    result = pc2_local_solver.close_challenge_pages_for_scope("http://127.0.0.1:9223", "seed")
+
+    assert result == {
+        "attempted": True,
+        "closed": 2,
+        "target_ids": ["seed-page", "seed-challenge"],
+        "scope": "seed",
+    }
+    assert calls == [
+        "http://127.0.0.1:9223/json/list",
+        "http://127.0.0.1:9223/json/close/seed-page",
+        "http://127.0.0.1:9223/json/close/seed-challenge",
+    ]
+
+
 def test_close_stale_challenge_probe_target_reuses_existing_keepalive(monkeypatch) -> None:
     calls: list[tuple[str, str | None]] = []
 

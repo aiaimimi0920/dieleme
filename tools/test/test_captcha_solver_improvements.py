@@ -55,18 +55,21 @@ def test_drag_timing_improvements():
     print("✓ Drag timing includes improvements")
 
 
-def test_distance_randomization():
-    """Verify solve method adds random distance adjustment."""
+def test_live_drag_distance_uses_remaining_track_geometry():
+    """Verify solve uses the live handle position after rejected attempts."""
     from src.captcha_solver import CaptchaSolver
     import inspect
 
     solver = CaptchaSolver(port=9223)
     source = inspect.getsource(solver.solve)
 
-    # Should have distance adjustment
-    assert "distance = distance + random.uniform" in source or "random.uniform(-3, 2)" in source
+    assert "track_right =" in source
+    assert "slider_right =" in source
+    assert "remaining = offset_remaining" in source
+    assert "distance = max(1, min(remaining, 1000))" in source
+    assert "distance = distance + random.uniform" not in source
 
-    print("✓ Distance randomization present")
+    print("✓ Drag distance follows live track geometry")
 
 
 if __name__ == "__main__":
@@ -76,7 +79,7 @@ if __name__ == "__main__":
         test_stealth_injection()
         test_bezier_path_generation()
         test_drag_timing_improvements()
-        test_distance_randomization()
+        test_live_drag_distance_uses_remaining_track_geometry()
 
         print("\n✅ All improvement tests passed!")
         sys.exit(0)

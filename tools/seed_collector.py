@@ -369,13 +369,33 @@ def _collection_pause_state(api_base_url: str) -> dict[str, Any]:
     if not isinstance(payload, dict):
         return {"paused": False, "reason": "status_unavailable", "error": "non_object_status"}
 
-    return _normalize_collection_pause_state(payload)
+    return _normalize_collection_pause_state(payload, scope="seed")
 
 
-def _normalize_collection_pause_state(payload: dict[str, Any]) -> dict[str, Any]:
+def _normalize_collection_pause_state(payload: dict[str, Any], scope: str = "seed") -> dict[str, Any]:
     captcha_solver = payload.get("captcha_solver")
     if not isinstance(captcha_solver, dict):
         captcha_solver = {}
+    scope_statuses = payload.get("collection_scopes")
+    if not isinstance(scope_statuses, dict):
+        scope_statuses = captcha_solver.get("collection_scopes")
+    if not isinstance(scope_statuses, dict):
+        scope_statuses = captcha_solver.get("scopes")
+    scoped = scope_statuses.get(scope) if isinstance(scope_statuses, dict) else None
+    if isinstance(scoped, dict):
+        scoped_solver = dict(captcha_solver)
+        scoped_solver.update(scoped)
+        scoped_solver["last_request"] = scoped.get("last_request") or captcha_solver.get("last_request") or {}
+        scoped_solver["running"] = bool(scoped.get("last_status") == "running")
+        scoped_solver["paused"] = bool(scoped.get("paused"))
+        scoped_solver["manual_required"] = bool(scoped.get("manual_required"))
+        scoped_solver["force_unlock_flag_exists"] = False
+        return {
+            "paused": bool(scoped.get("paused") or scoped.get("manual_required")),
+            "reason": "captcha_solver_manual_required" if scoped.get("manual_required") else "captcha_solver_running" if scoped.get("paused") else None,
+            "captcha_solver": scoped_solver,
+            "scope": scope,
+        }
     manual_required = bool(captcha_solver.get("manual_required"))
     force_unlock = bool(captcha_solver.get("force_unlock_flag_exists"))
     solver_running_for_current_node = _captcha_solver_targets_current_node(captcha_solver)
@@ -485,6 +505,8 @@ def _pause_state_seed_probe_target_url(pause_state: dict[str, Any], *, allow_def
 def _pause_state_blocks_seed_stage(pause_state: dict[str, Any]) -> bool:
     if not pause_state.get("paused"):
         return False
+    if pause_state.get("scope") == "seed":
+        return True
     return not _pause_state_targets_detail_page(pause_state)
 
 

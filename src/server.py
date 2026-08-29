@@ -134,6 +134,9 @@ def _build_solver_request(payload):
     cookie_snapshot_path = str(payload.get("cookie_snapshot_path") or "").strip()
     if cookie_snapshot_path:
         request["cookie_snapshot_path"] = cookie_snapshot_path
+    scope = _normalize_challenge_scope(payload.get("scope"))
+    if scope:
+        request["scope"] = scope
     return request
 
 
@@ -266,6 +269,29 @@ SOLVER_MANUAL_ONLY = False
 SOLVER_MANUAL_RETRY_LAST_EPOCH = 0
 SOLVER_MANUAL_RETRY_ATTEMPTS = 0
 SOLVER_CHALLENGE_ID = None
+CHALLENGE_SCOPES = ("seed", "detail")
+SOLVER_SCOPE_LOCK = threading.RLock()
+SOLVER_SCOPE_STATES: dict[str, dict[str, Any]] = {
+    scope: {
+        "challenge_id": None,
+        "last_request": {},
+        "first_seen_epoch": 0.0,
+        "pause_started_epoch": 0.0,
+        "paused": False,
+        "pause_reason": None,
+        "manual_required": False,
+        "manual_only": False,
+        "last_status": "idle",
+        "last_failure_reason": None,
+        "force_reset_required": False,
+    }
+    for scope in CHALLENGE_SCOPES
+}
+SOLVER_SCOPE_STATE_ROOT: str | None = None
+CHALLENGE_FORCE_RESET_SECONDS = max(
+    1.0,
+    float(os.getenv("FAPAI_CHALLENGE_FORCE_RESET_SECONDS", "900")),
+)
 SOLVER_LAST_AUTH_COMPLETED_TIME = 0.0
 SOLVER_LAST_AUTH_COMPLETED_REQUEST: dict[str, Any] = {}
 SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT: int | None = None
@@ -348,9 +374,241 @@ def _real_taobao_auto_solver_enabled() -> bool:
     return _runtime_env_flag("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", False)
 
 
+def _normalize_challenge_scope(value: Any) -> str:
+    normalized = str(value or "").strip().lower()
+    if normalized in {"list", "seed", "search", "listing"}:
+        return "seed"
+    if normalized in {"detail", "details", "item"}:
+        return "detail"
+    return ""
+
+
+def _challenge_scope_for_request(request_payload: dict[str, Any] | None) -> str:
+    payload = request_payload if isinstance(request_payload, dict) else {}
+    explicit = _normalize_challenge_scope(payload.get("scope"))
+    if explicit:
+        return explicit
+    target_url = str(
+        payload.get("challenge_target_url")
+        or payload.get("target_url")
+        or payload.get("url")
+        or ""
+    )
+    return _normalize_challenge_scope(_solver_request_scope_from_target_url(target_url))
+
+
+def _new_solver_scope_state() -> dict[str, Any]:
+    return {
+        "challenge_id": None,
+        "last_request": {},
+        "first_seen_epoch": 0.0,
+        "pause_started_epoch": 0.0,
+        "paused": False,
+        "pause_reason": None,
+        "manual_required": False,
+        "last_status": "idle",
+        "last_failure_reason": None,
+        "force_reset_required": False,
+    }
+
+
+def _solver_scope_state_path(scope: str) -> Path:
+    normalized_scope = _normalize_challenge_scope(scope) or "unknown"
+    return _solver_scope_state_root_path() / f"solver-challenge-state-{normalized_scope}.json"
+
+
+def _solver_scope_state_root_path() -> Path:
+    global SOLVER_SCOPE_STATE_ROOT
+    configured_state_dir = str(os.getenv("FAPAI_SOLVER_STATE_DIR") or "").strip()
+    if configured_state_dir:
+        state_dir = configured_state_dir
+    else:
+        # Keep scoped receipts beside the legacy receipt.  Besides preserving
+        # one durable state root in production, this lets callers/tests that
+        # redirect the legacy path atomically redirect both state machines.
+        try:
+            state_dir = str(Path(_solver_challenge_state_path()).parent)
+        except Exception:
+            state_dir = DATA_DIR
+    state_dir = str(state_dir).strip() or DATA_DIR
+    try:
+        root = str(Path(state_dir).expanduser().resolve())
+    except OSError:
+        root = str(Path(state_dir).expanduser())
+    with SOLVER_SCOPE_LOCK:
+        if SOLVER_SCOPE_STATE_ROOT != root:
+            SOLVER_SCOPE_STATE_ROOT = root
+            SOLVER_SCOPE_STATES.clear()
+            SOLVER_SCOPE_STATES.update({scope: _new_solver_scope_state() for scope in CHALLENGE_SCOPES})
+    return Path(root)
+
+
+def _read_solver_scope_state(scope: str) -> dict[str, Any]:
+    normalized_scope = _normalize_challenge_scope(scope)
+    if not normalized_scope:
+        return _new_solver_scope_state()
+    with SOLVER_SCOPE_LOCK:
+        state = dict(SOLVER_SCOPE_STATES.get(normalized_scope) or _new_solver_scope_state())
+    state_path = _solver_scope_state_path(normalized_scope)
+    if state.get("challenge_id") and not state_path.exists():
+        # Do not let an in-memory latch from a previous runtime/test leak into
+        # a new state directory. Persisted latches are the source of truth for
+        # scopes that are not the latest request.
+        return _new_solver_scope_state()
+    try:
+        payload = json.loads(state_path.read_text(encoding="utf-8"))
+    except Exception:
+        return state
+    if not isinstance(payload, dict) or payload.get("active") is not True:
+        # An explicit inactive receipt wins over any in-memory state left by a
+        # prior test/process.  This also prevents a cleared scope from keeping
+        # the aggregate pause latch set after a restart.
+        cleared = _new_solver_scope_state()
+        with SOLVER_SCOPE_LOCK:
+            SOLVER_SCOPE_STATES[normalized_scope] = dict(cleared)
+        return cleared
+    state.update(
+        {
+            "challenge_id": str(payload.get("challenge_id") or "").strip() or None,
+            "last_request": dict(payload.get("last_request") or {}) if isinstance(payload.get("last_request"), dict) else {},
+            "first_seen_epoch": float(payload.get("first_seen_epoch") or payload.get("created_at_epoch") or 0),
+            "pause_started_epoch": float(payload.get("pause_started_epoch") or payload.get("created_at_epoch") or 0),
+            "paused": bool(payload.get("paused", True)),
+            "pause_reason": str(payload.get("pause_reason") or "captcha_solver").strip() or "captcha_solver",
+            "manual_required": bool(payload.get("manual_required", False)),
+            "manual_only": bool(payload.get("manual_only", False)),
+            "last_status": str(payload.get("last_status") or "running"),
+            "last_failure_reason": str(payload.get("last_failure_reason") or "").strip() or None,
+        }
+    )
+    return state
+
+
+def _persist_solver_scope_state(scope: str, state: dict[str, Any]) -> str | None:
+    normalized_scope = _normalize_challenge_scope(scope)
+    if not normalized_scope:
+        return None
+    path = _solver_scope_state_path(normalized_scope)
+    temporary = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+    payload = {
+        "active": bool(state.get("challenge_id")),
+        "scope": normalized_scope,
+        "challenge_id": state.get("challenge_id"),
+        "first_seen_epoch": float(state.get("first_seen_epoch") or 0),
+        "pause_started_epoch": float(state.get("pause_started_epoch") or 0),
+        "updated_at_epoch": time.time(),
+        "paused": bool(state.get("paused")),
+        "pause_reason": state.get("pause_reason"),
+        "manual_required": bool(state.get("manual_required")),
+        "manual_only": bool(state.get("manual_only")),
+        "last_status": state.get("last_status"),
+        "last_failure_reason": state.get("last_failure_reason"),
+        "last_request": dict(state.get("last_request") or {}),
+    }
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        os.replace(temporary, path)
+        with SOLVER_SCOPE_LOCK:
+            SOLVER_SCOPE_STATES[normalized_scope] = dict(state)
+    except Exception as error:
+        try:
+            temporary.unlink(missing_ok=True)
+        except Exception:
+            pass
+        return repr(error)
+    return None
+
+
+def _scope_challenge_age(scope: str, now: float | None = None) -> float:
+    state = _read_solver_scope_state(scope)
+    first_seen = float(state.get("first_seen_epoch") or 0)
+    if first_seen <= 0 or not state.get("challenge_id"):
+        return 0.0
+    return max(0.0, (time.time() if now is None else float(now)) - first_seen)
+
+
+def _force_reset_solver_scope(
+    scope: str | None,
+    challenge_id: str | None = None,
+) -> dict[str, Any]:
+    """Reset one stuck list/detail challenge after the safety timeout."""
+    normalized_scope = _normalize_challenge_scope(scope)
+    if normalized_scope not in CHALLENGE_SCOPES:
+        return {"ok": False, "force_reset": False, "error": "scope must be seed or detail"}
+    status = _solver_scope_runtime_status(normalized_scope)
+    active_id = str(status.get("challenge_id") or "").strip()
+    reported_id = str(challenge_id or "").strip()
+    if not active_id:
+        return {"ok": True, "force_reset": False, "scope": normalized_scope, "reason": "no_active_challenge"}
+    if reported_id and reported_id != active_id:
+        return {
+            "ok": False,
+            "force_reset": False,
+            "scope": normalized_scope,
+            "challenge_id": active_id,
+            "stale_challenge": True,
+            "error": "challenge_id does not match the active scoped challenge",
+        }
+    age = float(status.get("challenge_age_seconds") or 0)
+    if age < CHALLENGE_FORCE_RESET_SECONDS:
+        return {
+            "ok": False,
+            "force_reset": False,
+            "scope": normalized_scope,
+            "challenge_id": active_id,
+            "challenge_age_seconds": age,
+            "retry_after_seconds": max(0, int(math.ceil(CHALLENGE_FORCE_RESET_SECONDS - age))),
+            "error": "challenge has not reached the force-reset safety timeout",
+        }
+    clear_error = _clear_solver_challenge_state(normalized_scope)
+    if clear_error:
+        return {
+            "ok": False,
+            "force_reset": False,
+            "scope": normalized_scope,
+            "challenge_id": active_id,
+            "error": clear_error,
+        }
+    _set_collection_pause_state(False, scope=normalized_scope)
+    try:
+        Path(_solver_scope_manual_flag_path(normalized_scope)).unlink(missing_ok=True)
+    except Exception:
+        pass
+    # The legacy flag is aggregate state.  Once the reset scope is clear, only
+    # keep it if another independent scope still requires manual recovery;
+    # otherwise it would continue to report a global pause after both scoped
+    # collectors have resumed.
+    try:
+        other_scope_requires_manual = any(
+            bool(_read_solver_scope_state(candidate).get("manual_required"))
+            for candidate in CHALLENGE_SCOPES
+            if candidate != normalized_scope
+        )
+        if not other_scope_requires_manual:
+            Path(_solver_force_unlock_flag_path()).unlink(missing_ok=True)
+    except Exception:
+        pass
+    return {
+        "ok": True,
+        "force_reset": True,
+        "scope": normalized_scope,
+        "previous_challenge_id": active_id,
+        "challenge_age_seconds": age,
+        "paused": _collection_effectively_paused(),
+        "captcha_solver": _captcha_solver_runtime_status(),
+    }
+
+
 def _solver_force_unlock_flag_path() -> str:
     state_dir = str(os.getenv("FAPAI_SOLVER_STATE_DIR") or DATA_DIR).strip() or DATA_DIR
     return os.path.join(state_dir, "force_unlock.flag")
+
+
+def _solver_scope_manual_flag_path(scope: str) -> str:
+    normalized = _normalize_challenge_scope(scope)
+    state_dir = str(os.getenv("FAPAI_SOLVER_STATE_DIR") or DATA_DIR).strip() or DATA_DIR
+    return str(Path(state_dir) / f"force_unlock-{normalized}.flag")
 
 
 def _solver_force_unlock_flag_exists() -> bool:
@@ -378,8 +636,55 @@ def _collection_effectively_paused() -> bool:
     return True
 
 
-def _set_collection_pause_state(paused: bool, reason: str | None = None) -> None:
+def _collection_scope_effectively_paused(scope: str) -> bool:
+    """Return pause state for one collector without inheriting the other scope."""
+    normalized = _normalize_challenge_scope(scope)
+    if normalized not in CHALLENGE_SCOPES:
+        return _collection_effectively_paused()
+    scoped = _solver_scope_runtime_status(normalized)
+    if scoped.get("paused") or scoped.get("manual_required"):
+        return True
+    # Operator pause is intentionally global. A solver pause is scoped and
+    # must not stop the other collector.
+    if COLLECTION_PAUSE_REASON == "operator":
+        return True
+    if COLLECTION_PAUSE_REASON in {"manual_required"} and not any(
+        _solver_scope_runtime_status(candidate).get("paused")
+        for candidate in CHALLENGE_SCOPES
+    ):
+        return True
+    return False
+
+
+def _set_collection_pause_state(
+    paused: bool,
+    reason: str | None = None,
+    *,
+    scope: str | None = None,
+) -> None:
     global PAUSED, COLLECTION_PAUSE_REASON
+    normalized_scope = _normalize_challenge_scope(scope)
+    if normalized_scope:
+        with SOLVER_SCOPE_LOCK:
+            state = dict(SOLVER_SCOPE_STATES.get(normalized_scope) or _new_solver_scope_state())
+            state["paused"] = bool(paused)
+            state["pause_reason"] = str(reason or "").strip() or None if paused else None
+            if paused and not state.get("pause_started_epoch"):
+                state["pause_started_epoch"] = time.time()
+            if not paused:
+                state["force_reset_required"] = False
+        _persist_solver_scope_state(normalized_scope, state)
+        if paused:
+            PAUSED = True
+            if COLLECTION_PAUSE_REASON not in {"operator", "manual_required"}:
+                COLLECTION_PAUSE_REASON = str(reason or "captcha_solver").strip() or "captcha_solver"
+        elif not any(
+            bool(_read_solver_scope_state(candidate).get("paused"))
+            for candidate in CHALLENGE_SCOPES
+        ) and COLLECTION_PAUSE_REASON in {"captcha_solver", "manual_required"}:
+            PAUSED = False
+            COLLECTION_PAUSE_REASON = None
+        return
     PAUSED = bool(paused)
     if PAUSED:
         COLLECTION_PAUSE_REASON = str(reason or "").strip() or None
@@ -397,6 +702,36 @@ def _solver_transient_pause_active() -> bool:
     )
 
 
+def _solver_scope_runtime_status(scope: str, now: float | None = None) -> dict[str, Any]:
+    normalized_scope = _normalize_challenge_scope(scope) or "seed"
+    current_time = time.time() if now is None else float(now)
+    state = _read_solver_scope_state(normalized_scope)
+    challenge_id = str(state.get("challenge_id") or "").strip() or None
+    first_seen = float(state.get("first_seen_epoch") or 0)
+    age = max(0.0, current_time - first_seen) if challenge_id and first_seen > 0 else 0.0
+    force_reset_required = bool(
+        challenge_id
+        and bool(state.get("paused"))
+        and age >= CHALLENGE_FORCE_RESET_SECONDS
+    )
+    state["force_reset_required"] = force_reset_required
+    return {
+        "scope": normalized_scope,
+        "challenge_id": challenge_id,
+        "first_seen_epoch": first_seen or None,
+        "pause_started_epoch": float(state.get("pause_started_epoch") or 0) or None,
+        "challenge_age_seconds": age,
+        "paused": bool(state.get("paused")),
+        "pause_reason": state.get("pause_reason"),
+        "manual_required": bool(state.get("manual_required")),
+        "manual_only": bool(state.get("manual_only")),
+        "force_reset_required": force_reset_required,
+        "last_status": state.get("last_status") or "idle",
+        "last_failure_reason": state.get("last_failure_reason"),
+        "last_request": dict(state.get("last_request") or {}),
+    }
+
+
 def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
     current_time = time.time() if now is None else now
     with SOLVER_LOCK:
@@ -409,10 +744,38 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
     if not last_request and force_unlock_flag_exists:
         last_request = _solver_manual_flag_request()
     elapsed_seconds = max(int(current_time - started_at), 0) if active_run and started_at > 0 else 0
-    manual_required = bool(force_unlock_flag_exists or (PAUSED and SOLVER_LAST_STATUS == "manual_required"))
+    if not last_request and SOLVER_LAST_STATUS == "idle" and not force_unlock_flag_exists:
+        scope_statuses = {scope: _solver_scope_runtime_status(scope, now=current_time) for scope in CHALLENGE_SCOPES}
+        for status in scope_statuses.values():
+            status.update({"challenge_id": None, "paused": False, "manual_required": False, "force_reset_required": False})
+    else:
+        scope_statuses = {
+            scope: _solver_scope_runtime_status(scope, now=current_time)
+            for scope in CHALLENGE_SCOPES
+        }
+    active_scope = _challenge_scope_for_request(last_request)
+    if active_scope not in CHALLENGE_SCOPES:
+        active_scope = next(
+            (
+                scope
+                for scope, status in scope_statuses.items()
+                if status.get("challenge_id")
+            ),
+            None,
+        )
+    selected_scope = scope_statuses.get(active_scope or "", {})
+    manual_required = bool(
+        force_unlock_flag_exists
+        or (PAUSED and SOLVER_LAST_STATUS == "manual_required")
+        or any(status.get("manual_required") for status in scope_statuses.values())
+    )
+    scoped_manual_only = bool(selected_scope.get("manual_only")) if selected_scope else False
     manual_only = bool(
-        SOLVER_MANUAL_ONLY
-        or _solver_manual_flag_is_manual_only()
+        scoped_manual_only
+        or (
+            active_scope not in CHALLENGE_SCOPES
+            and (SOLVER_MANUAL_ONLY or _solver_manual_flag_is_manual_only())
+        )
         or _solver_target_requires_manual_only(last_request)
     )
     delegated_to_node = bool(last_request and _solver_request_delegated_to_node(last_request))
@@ -445,7 +808,10 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
         "node_solver_expected": bool(delegated_to_node and not manual_only),
         "real_taobao_auto_solver_enabled": _real_taobao_auto_solver_enabled(),
         "force_unlock_flag_exists": force_unlock_flag_exists,
-        "paused": _collection_effectively_paused(),
+        "paused": bool(
+            _collection_effectively_paused()
+            or any(status.get("paused") for status in scope_statuses.values())
+        ),
         "pause_reason": COLLECTION_PAUSE_REASON,
         "last_request": last_request,
         "manual_retry_enabled": _manual_solver_retry_enabled(),
@@ -456,6 +822,15 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
         "manual_retry_next_epoch": manual_retry_next_epoch,
         "challenge_id": SOLVER_CHALLENGE_ID,
         "cookie_snapshot_refresh": _auth_cookie_snapshot_runtime_status(),
+        # New consumers use these independent state machines.  The legacy
+        # singleton fields above remain for older workers and API clients.
+        "scope": active_scope or None,
+        "scopes": scope_statuses,
+        "collection_scopes": scope_statuses,
+        "collection_pause_markers": {
+            scope: "paused" if bool(status.get("paused") or status.get("manual_required")) else "collecting"
+            for scope, status in scope_statuses.items()
+        },
     }
 
 
@@ -650,7 +1025,13 @@ def _solver_report_stale_challenge_id(payload: dict[str, Any] | None) -> str | N
     reported_challenge_id = str(payload.get("challenge_id") or "").strip()
     if not reported_challenge_id:
         return None
-    active_challenge_id = str(SOLVER_CHALLENGE_ID or "").strip()
+    scope = _challenge_scope_for_request(payload)
+    if scope in CHALLENGE_SCOPES:
+        active_challenge_id = str(
+            _solver_scope_runtime_status(scope).get("challenge_id") or ""
+        ).strip()
+    else:
+        active_challenge_id = str(SOLVER_CHALLENGE_ID or "").strip()
     if reported_challenge_id == active_challenge_id:
         return None
     return reported_challenge_id
@@ -684,15 +1065,64 @@ def _persist_solver_challenge_state(challenge_id: str, last_request: dict[str, A
     return None
 
 
-def _clear_solver_challenge_state() -> str | None:
-    global SOLVER_CHALLENGE_ID
-    path = _solver_challenge_state_path()
-    try:
-        path.unlink(missing_ok=True)
-    except Exception as error:
-        return repr(error)
-    SOLVER_CHALLENGE_ID = None
+def _scope_for_challenge_id(challenge_id: str | None) -> str | None:
+    normalized = str(challenge_id or "").strip()
+    if not normalized:
+        return None
+    for scope in CHALLENGE_SCOPES:
+        if str(_solver_scope_runtime_status(scope).get("challenge_id") or "").strip() == normalized:
+            return scope
     return None
+
+
+def _clear_solver_challenge_state(scope: str | None = None) -> str | None:
+    """Clear one scoped challenge, or all challenge state for legacy callers."""
+    global SOLVER_CHALLENGE_ID, SOLVER_LAST_REQUEST
+    normalized_scope = _normalize_challenge_scope(scope)
+    scopes = (normalized_scope,) if normalized_scope else CHALLENGE_SCOPES
+    errors: list[str] = []
+    legacy_payload = _read_solver_challenge_state() if normalized_scope else {}
+    scoped_challenge_id = (
+        str(_read_solver_scope_state(normalized_scope).get("challenge_id") or "")
+        if normalized_scope
+        else ""
+    )
+    for candidate in scopes:
+        with SOLVER_SCOPE_LOCK:
+            SOLVER_SCOPE_STATES[candidate] = _new_solver_scope_state()
+        try:
+            _solver_scope_state_path(candidate).unlink(missing_ok=True)
+        except Exception as error:
+            errors.append(f"{candidate}: {error!r}")
+    if not normalized_scope:
+        path = _solver_challenge_state_path()
+        legacy_cleared = True
+        try:
+            path.unlink(missing_ok=True)
+        except Exception as error:
+            errors.append(f"legacy: {error!r}")
+            legacy_cleared = False
+        if legacy_cleared:
+            SOLVER_CHALLENGE_ID = None
+    elif str(SOLVER_CHALLENGE_ID or "").strip() and _challenge_scope_for_request(SOLVER_LAST_REQUEST) == normalized_scope:
+        SOLVER_CHALLENGE_ID = None
+        for other_scope in CHALLENGE_SCOPES:
+            if other_scope == normalized_scope:
+                continue
+            other_state = _read_solver_scope_state(other_scope)
+            if other_state.get("challenge_id"):
+                SOLVER_CHALLENGE_ID = str(other_state.get("challenge_id"))
+                SOLVER_LAST_REQUEST = dict(other_state.get("last_request") or {})
+                break
+    if normalized_scope and scoped_challenge_id and legacy_payload.get("challenge_id") == scoped_challenge_id:
+        # A scoped solve may have refreshed the compatibility receipt. Remove
+        # it only when it represented this scoped challenge; leave a newer
+        # receipt from the other scope untouched.
+        try:
+            _solver_challenge_state_path().unlink(missing_ok=True)
+        except Exception as error:
+            errors.append(f"legacy: {error!r}")
+    return "; ".join(errors) if errors else None
 
 
 def _restore_solver_challenge_state() -> bool:
@@ -708,8 +1138,70 @@ def _restore_solver_challenge_state() -> bool:
     return True
 
 
-def _begin_solver_challenge() -> str:
-    global SOLVER_CHALLENGE_ID
+def _restore_solver_scope_states() -> bool:
+    """Restore independent list/detail challenge latches after a process restart."""
+    global SOLVER_CHALLENGE_ID, SOLVER_LAST_REQUEST
+    restored = False
+    for scope in CHALLENGE_SCOPES:
+        state = _read_solver_scope_state(scope)
+        if not state.get("challenge_id"):
+            continue
+        with SOLVER_SCOPE_LOCK:
+            SOLVER_SCOPE_STATES[scope] = dict(state)
+        _set_collection_pause_state(True, str(state.get("pause_reason") or "captcha_solver"), scope=scope)
+        if not SOLVER_CHALLENGE_ID:
+            SOLVER_CHALLENGE_ID = str(state.get("challenge_id"))
+            SOLVER_LAST_REQUEST = dict(state.get("last_request") or {})
+        restored = True
+    return restored
+
+
+def _begin_solver_challenge(request_payload: dict[str, Any] | None = None) -> str:
+    """Create/reuse the unique challenge latch for the request's collection scope."""
+    global SOLVER_CHALLENGE_ID, SOLVER_LAST_REQUEST
+    supplied_request = request_payload if isinstance(request_payload, dict) else SOLVER_LAST_REQUEST
+    last_request = _build_solver_request(supplied_request or {})
+    # Direct legacy callers without a request use the singleton state. New
+    # collection workers always pass their request explicitly, enabling scope
+    # isolation without breaking old plugins/tests that only know the legacy ID.
+    scope = _challenge_scope_for_request(last_request) if isinstance(request_payload, dict) else ""
+    if scope in CHALLENGE_SCOPES:
+        now = time.time()
+        with SOLVER_SCOPE_LOCK:
+            state = dict(SOLVER_SCOPE_STATES.get(scope) or _new_solver_scope_state())
+        persisted = _read_solver_scope_state(scope)
+        if not state.get("challenge_id") and persisted.get("challenge_id"):
+            state.update(persisted)
+        challenge_id = str(state.get("challenge_id") or "").strip() or f"captcha-{time.time_ns()}"
+        first_seen = float(state.get("first_seen_epoch") or 0) or now
+        state.update(
+            {
+                "challenge_id": challenge_id,
+                "last_request": dict(last_request),
+                "first_seen_epoch": first_seen,
+                "pause_started_epoch": float(state.get("pause_started_epoch") or 0) or now,
+                "paused": True,
+                "pause_reason": "captcha_solver",
+                "manual_required": False,
+                "manual_only": False,
+                "last_status": "running",
+                "last_failure_reason": None,
+            }
+        )
+        persist_error = _persist_solver_scope_state(scope, state)
+        if persist_error:
+            print(f"[SOLVER] Failed to persist {scope} challenge state: {persist_error}")
+        # Keep the legacy singleton receipt for older operators/clients. The
+        # scoped files above remain authoritative when list and detail overlap.
+        legacy_error = _persist_solver_challenge_state(challenge_id, last_request)
+        if legacy_error:
+            print(f"[SOLVER] Failed to refresh legacy challenge state: {legacy_error}")
+        _set_collection_pause_state(True, "captcha_solver", scope=scope)
+        SOLVER_CHALLENGE_ID = challenge_id
+        SOLVER_LAST_REQUEST = dict(last_request)
+        return challenge_id
+
+    # Legacy/unknown request path retained for older API clients and tests.
     last_request = dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
     persisted = _read_solver_challenge_state()
     if SOLVER_CHALLENGE_ID and _collection_effectively_paused():
@@ -758,7 +1250,13 @@ def _solver_request_scope_from_target_url(target_url: str) -> str:
 
 
 def _solver_last_request_scope(solver_status: dict[str, Any] | None = None) -> str:
-    return _solver_request_scope_from_target_url(_solver_last_request_target_url(solver_status))
+    payload = solver_status if isinstance(solver_status, dict) else _captcha_solver_runtime_status()
+    last_request = payload.get("last_request")
+    if isinstance(last_request, dict):
+        scoped = _challenge_scope_for_request(last_request)
+        if scoped in CHALLENGE_SCOPES:
+            return scoped
+    return _solver_request_scope_from_target_url(_solver_last_request_target_url(payload))
 
 
 def _solver_request_scope(request_payload: dict[str, Any] | None = None) -> str:
@@ -805,30 +1303,44 @@ def _collection_runtime_state_label_from_status_payload(status_payload: dict[str
     return "运行中"
 
 
-def _clear_auth_lock_after_solver_success() -> None:
+def _clear_auth_lock_after_solver_success(scope: str | None = None) -> None:
     """After an automated captcha pass, drop the durable auth lock so workers resume."""
     global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_ONLY, SOLVER_MANUAL_RESUME_EPOCH
-    challenge_state_error = _clear_solver_challenge_state()
+    normalized_scope = _normalize_challenge_scope(scope)
+    if not normalized_scope:
+        normalized_scope = _challenge_scope_for_request(SOLVER_LAST_REQUEST)
+    completed_request = dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
+    challenge_state_error = _clear_solver_challenge_state(normalized_scope or None)
     if challenge_state_error:
         SOLVER_LAST_STATUS = "manual_required"
         SOLVER_LAST_FAILURE_REASON = "manual_required"
-        _set_collection_pause_state(True, "manual_required")
+        _set_collection_pause_state(True, "manual_required", scope=normalized_scope or None)
         print(f"[SOLVER] Failed to clear persisted challenge state after success: {challenge_state_error}")
         return
     SOLVER_LAST_STATUS = "solved"
     SOLVER_LAST_FAILURE_REASON = None
     SOLVER_MANUAL_ONLY = False
     SOLVER_MANUAL_RESUME_EPOCH = time.time()
-    _remember_solver_auth_completion(SOLVER_LAST_REQUEST)
-    if PAUSED and COLLECTION_PAUSE_REASON in {None, "captcha_solver", "manual_required"}:
+    _remember_solver_auth_completion(completed_request)
+    if normalized_scope:
+        _set_collection_pause_state(False, scope=normalized_scope)
+    elif PAUSED and COLLECTION_PAUSE_REASON in {None, "captcha_solver", "manual_required"}:
         _set_collection_pause_state(False)
     flag_path = _solver_force_unlock_flag_path()
-    if os.path.exists(flag_path):
+    flag_scope = _solver_manual_flag_scope()
+    if os.path.exists(flag_path) and (
+        not normalized_scope or not flag_scope or flag_scope == normalized_scope
+    ):
         try:
             os.remove(flag_path)
             print("[SOLVER] Cleared force_unlock.flag after automated captcha success.")
         except Exception as error:
             print(f"[SOLVER] Failed to remove force_unlock.flag after success: {error}")
+    if normalized_scope:
+        try:
+            Path(_solver_scope_manual_flag_path(normalized_scope)).unlink(missing_ok=True)
+        except Exception as error:
+            print(f"[SOLVER] Failed to remove scoped manual flag after success: {error}")
 
 
 def _clear_solver_manual_required_state() -> None:
@@ -855,18 +1367,30 @@ def _request_solver_cancel() -> None:
     SOLVER_CANCEL_EPOCH = time.time()
 
 
-def _clear_solver_manual_required_pause(*, preserve_running_state: bool = False) -> str | None:
+def _clear_solver_manual_required_pause(
+    *, preserve_running_state: bool = False, scope: str | None = None
+) -> str | None:
     global SOLVER_MANUAL_RESUME_EPOCH
+    normalized_scope = _normalize_challenge_scope(scope)
     flag_path = _solver_force_unlock_flag_path()
-    if os.path.exists(flag_path):
+    flag_scope = _solver_manual_flag_scope()
+    if os.path.exists(flag_path) and (
+        not normalized_scope or not flag_scope or flag_scope == normalized_scope
+    ):
         try:
             os.remove(flag_path)
         except Exception as error:
             return str(error)
-    challenge_state_error = _clear_solver_challenge_state()
+    if normalized_scope:
+        scoped_flag_path = _solver_scope_manual_flag_path(normalized_scope)
+        try:
+            Path(scoped_flag_path).unlink(missing_ok=True)
+        except Exception as error:
+            return str(error)
+    challenge_state_error = _clear_solver_challenge_state(normalized_scope or None)
     if challenge_state_error:
         return challenge_state_error
-    _set_collection_pause_state(False)
+    _set_collection_pause_state(False, scope=normalized_scope or None)
     SOLVER_MANUAL_RESUME_EPOCH = time.time()
     if not preserve_running_state:
         _clear_solver_running_state()
@@ -874,7 +1398,19 @@ def _clear_solver_manual_required_pause(*, preserve_running_state: bool = False)
     return None
 
 
-def _mark_solver_manual_required(*, manual_only: bool = False) -> str | None:
+def _clear_solver_manual_required_pause_compat(scope: str | None = None) -> str | None:
+    """Call the scoped cleanup while tolerating legacy test/plugin overrides."""
+    try:
+        return _clear_solver_manual_required_pause(scope=scope)
+    except TypeError as error:
+        if "unexpected keyword" not in str(error):
+            raise
+        return _clear_solver_manual_required_pause()
+
+
+def _mark_solver_manual_required(
+    *, manual_only: bool = False, scope: str | None = None
+) -> str | None:
     global SOLVER_PENDING_TOKEN, SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_REQUIRED_EPOCH
     global SOLVER_MANUAL_ONLY
     with SOLVER_LOCK:
@@ -886,12 +1422,43 @@ def _mark_solver_manual_required(*, manual_only: bool = False) -> str | None:
     SOLVER_MANUAL_ONLY = bool(manual_only)
     if solver_running:
         _request_solver_cancel()
-    _set_collection_pause_state(True, "manual_required")
-    return _write_solver_manual_required_flag(SOLVER_MANUAL_REQUIRED_EPOCH)
+    normalized_scope = _normalize_challenge_scope(scope)
+    if normalized_scope:
+        with SOLVER_SCOPE_LOCK:
+            state = dict(SOLVER_SCOPE_STATES.get(normalized_scope) or _new_solver_scope_state())
+            state.update(
+                {
+                    "paused": True,
+                    "pause_reason": "manual_required",
+                    "manual_required": True,
+                    "manual_only": bool(manual_only),
+                    "last_status": "manual_required",
+                    "last_failure_reason": "manual_required",
+                }
+            )
+        _persist_solver_scope_state(normalized_scope, state)
+    _set_collection_pause_state(True, "manual_required", scope=normalized_scope or None)
+    flag_error = _write_solver_manual_required_flag(
+        SOLVER_MANUAL_REQUIRED_EPOCH,
+        scope=normalized_scope or None,
+    )
+    if normalized_scope:
+        # Retain the legacy flag for old operators while the scoped flag above
+        # is authoritative for independent workers.
+        legacy_error = _write_solver_manual_required_flag(SOLVER_MANUAL_REQUIRED_EPOCH)
+        return flag_error or legacy_error
+    return flag_error
 
 
-def _write_solver_manual_required_flag(created_at_epoch: float) -> str | None:
-    flag_path = _solver_force_unlock_flag_path()
+def _write_solver_manual_required_flag(
+    created_at_epoch: float, *, scope: str | None = None
+) -> str | None:
+    normalized_scope = _normalize_challenge_scope(scope)
+    flag_path = (
+        _solver_scope_manual_flag_path(normalized_scope)
+        if normalized_scope
+        else _solver_force_unlock_flag_path()
+    )
     try:
         os.makedirs(os.path.dirname(flag_path) or ".", exist_ok=True)
         with open(flag_path, "w", encoding="utf-8") as flag_file:
@@ -899,6 +1466,7 @@ def _write_solver_manual_required_flag(created_at_epoch: float) -> str | None:
                 {
                     "manual_required": True,
                     "manual_only": bool(SOLVER_MANUAL_ONLY),
+                    "scope": _normalize_challenge_scope(scope) or None,
                     "created_at_epoch": created_at_epoch,
                     "last_request": dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {},
                     "message": "Delete this file to force resume the queue after manual solving",
@@ -909,6 +1477,17 @@ def _write_solver_manual_required_flag(created_at_epoch: float) -> str | None:
     except Exception as error:
         return repr(error)
     return None
+
+
+def _solver_manual_flag_scope() -> str | None:
+    try:
+        with open(_solver_force_unlock_flag_path(), "r", encoding="utf-8") as flag_file:
+            payload = json.load(flag_file)
+    except Exception:
+        return None
+    if not isinstance(payload, dict):
+        return None
+    return _normalize_challenge_scope(payload.get("scope")) or None
 
 
 def _solver_manual_flag_is_manual_only() -> bool:
@@ -925,7 +1504,23 @@ def _solver_manual_flag_is_manual_only() -> bool:
     return str(value or "").strip().lower() in {"1", "true", "yes", "on"}
 
 
-def _manual_solver_retry_enabled() -> bool:
+def _manual_solver_retry_enabled(scope: str | None = None) -> bool:
+    normalized_scope = _normalize_challenge_scope(scope)
+    if normalized_scope not in CHALLENGE_SCOPES:
+        inferred_scope = _challenge_scope_for_request(SOLVER_LAST_REQUEST)
+        if inferred_scope in CHALLENGE_SCOPES:
+            normalized_scope = inferred_scope
+    if normalized_scope in CHALLENGE_SCOPES:
+        scoped = _solver_scope_runtime_status(normalized_scope)
+        if scoped.get("manual_only"):
+            return False
+        flag_scope = _solver_manual_flag_scope()
+        if flag_scope and flag_scope != normalized_scope:
+            return True
+        if scoped.get("challenge_id") or scoped.get("manual_required"):
+            # The global manual-only bit is retained for legacy clients, but
+            # must not disable retry for this independent scope.
+            return _runtime_env_flag("FAPAI_SOLVER_MANUAL_RETRY_ENABLED", True)
     if SOLVER_MANUAL_ONLY or _solver_manual_flag_is_manual_only():
         return False
     return _runtime_env_flag("FAPAI_SOLVER_MANUAL_RETRY_ENABLED", True)
@@ -1130,7 +1725,8 @@ def _manual_solver_retry_request() -> dict[str, Any]:
 
 
 def _manual_solver_retry_next_epoch(now: float | None = None) -> float | None:
-    if not _manual_solver_retry_enabled():
+    retry_scope = _challenge_scope_for_request(SOLVER_LAST_REQUEST)
+    if not _manual_solver_retry_enabled(retry_scope or None):
         return None
     interval = _manual_solver_retry_interval_seconds()
     current_time = time.time() if now is None else now
@@ -1263,7 +1859,9 @@ def _trigger_manual_solver_retry_if_due(
         elapsed_seconds = max(int(current_time - float(SOLVER_START_TIME or 0)), 0) if SOLVER_START_TIME else 0
         max_runtime_seconds = _solver_max_runtime_seconds()
         if elapsed_seconds >= max_runtime_seconds:
-            flag_error = _mark_solver_manual_required()
+            flag_error = _mark_solver_manual_required(
+                scope=_challenge_scope_for_request(SOLVER_LAST_REQUEST) or None
+            )
             result: dict[str, Any] = {
                 "queued": False,
                 "reason": "running_solver_timed_out",
@@ -1287,6 +1885,7 @@ def _trigger_manual_solver_retry_if_due(
     solver_request = _manual_solver_retry_request()
     if not solver_request.get("target_url"):
         return {"queued": False, "reason": "missing_target_url"}
+    solver_scope = _challenge_scope_for_request(solver_request)
 
     # PC2 owns its browser and runs the persistent 20s/10-attempt state
     # machine. The NAS monitor must not clear its manual pause or submit a
@@ -1317,9 +1916,21 @@ def _trigger_manual_solver_retry_if_due(
             "cdp_endpoint": retry_cdp_endpoint,
         }
 
-    clear_error = _clear_solver_manual_required_pause()
+    clear_error = _clear_solver_manual_required_pause(scope=solver_scope or None)
     if clear_error:
         return {"queued": False, "reason": "clear_manual_required_failed", "error": clear_error}
+    if (
+        solver_scope in CHALLENGE_SCOPES
+        and COLLECTION_PAUSE_REASON in {"captcha_solver", "manual_required"}
+        and not any(
+            _solver_scope_runtime_status(other).get("paused")
+            for other in CHALLENGE_SCOPES
+            if other != solver_scope
+        )
+    ):
+        # A retry is a transient hand-off: the worker will establish its own
+        # scoped pause when it observes the next challenge.
+        _set_collection_pause_state(False)
 
     SOLVER_MANUAL_RETRY_LAST_EPOCH = current_time
     SOLVER_MANUAL_RETRY_ATTEMPTS = int(SOLVER_MANUAL_RETRY_ATTEMPTS or 0) + 1
@@ -1329,14 +1940,14 @@ def _trigger_manual_solver_retry_if_due(
     try:
         submit_result = (submit_solver or _submit_solver_request)(solver_request)
     except Exception as error:
-        _mark_solver_manual_required()
+        _mark_solver_manual_required(scope=solver_scope or None)
         return {
             "queued": False,
             "reason": "submit_failed",
             "error": repr(error),
         }
     if submit_solver is None and submit_result is False:
-        _mark_solver_manual_required()
+        _mark_solver_manual_required(scope=solver_scope or None)
         return {
             "queued": False,
             "reason": "solver_active",
@@ -1377,8 +1988,9 @@ def _manual_only_captcha_report_payload(payload: dict[str, Any]) -> dict[str, An
     solver_request = _build_solver_request(payload)
     if solver_request:
         _refresh_solver_last_request(solver_request)
-    _begin_solver_challenge()
-    flag_error = _mark_solver_manual_required(manual_only=True)
+    scope = _challenge_scope_for_request(solver_request)
+    _begin_solver_challenge(solver_request)
+    flag_error = _mark_solver_manual_required(manual_only=True, scope=scope or None)
     response_payload: dict[str, Any] = {
         "status": "manual_required",
         "captcha_solver": _captcha_solver_runtime_status(),
@@ -1935,12 +2547,13 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
         key: int(seed_queue_counts.get(key, 0) or 0)
         for key in _empty_seed_queue_counts().keys()
     }
+    solver_status_snapshot = _captcha_solver_runtime_status()
 
     payload = {
         "collection_api_lightweight": True,
         "build_info": _build_info_payload(),
         "capabilities": {"manual_captcha_report_v1": True},
-        "paused": _collection_effectively_paused(),
+        "paused": bool(solver_status_snapshot.get("paused")),
         "total_ids": total_items,
         "captured_count": captured_items,
         "ai_finalized_count": detail_completed,
@@ -1969,7 +2582,8 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
         "api_total_calls": api_metrics.get("total_calls", 0),
         "api_success_calls": api_metrics.get("success_calls", 0),
         **top_level_seed_queue_counts,
-        "captcha_solver": _captcha_solver_runtime_status(),
+        "captcha_solver": solver_status_snapshot,
+        "collection_scopes": solver_status_snapshot.get("collection_scopes", {}),
         "data_supply_recent_24h": {},
         "avm": {"lightweight_skipped": True},
         "collection_stage": {
@@ -2264,7 +2878,17 @@ def _remember_auth_completion_confirmation(completion_id: str | None) -> str | N
     return None
 
 
-def _auth_state_is_confirmed(solver_status: dict[str, Any]) -> bool:
+def _auth_state_is_confirmed(
+    solver_status: dict[str, Any], scope: str | None = None
+) -> bool:
+    normalized_scope = _normalize_challenge_scope(scope)
+    if normalized_scope:
+        scoped = _solver_scope_runtime_status(normalized_scope)
+        return bool(
+            not scoped.get("paused")
+            and not scoped.get("manual_required")
+            and not scoped.get("force_reset_required")
+        )
     return bool(
         not solver_status.get("paused")
         and not solver_status.get("running")
@@ -2283,8 +2907,21 @@ def _finalize_auth_completion_after_cookie_snapshot(
 
     global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
     normalized_expected = str(expected_challenge_id or "").strip() or None
+    completion_scope = _challenge_scope_for_request(completion_request)
+    if completion_scope not in CHALLENGE_SCOPES:
+        completion_scope = _scope_for_challenge_id(normalized_expected)
+    if (
+        completion_scope in CHALLENGE_SCOPES
+        and not _solver_scope_runtime_status(completion_scope).get("challenge_id")
+        and normalized_expected == str(SOLVER_CHALLENGE_ID or "").strip()
+    ):
+        completion_scope = None
     with AUTH_COMPLETION_FINALIZE_LOCK:
-        normalized_current = str(SOLVER_CHALLENGE_ID or "").strip() or None
+        normalized_current = (
+            str(_solver_scope_runtime_status(completion_scope).get("challenge_id") or "").strip() or None
+            if completion_scope in CHALLENGE_SCOPES
+            else str(SOLVER_CHALLENGE_ID or "").strip() or None
+        )
         if normalized_current != normalized_expected:
             return {
                 "auth_state_confirmed": False,
@@ -2296,16 +2933,16 @@ def _finalize_auth_completion_after_cookie_snapshot(
 
         previously_confirmed = _auth_completion_was_confirmed(completion_id)
         before_status = _captcha_solver_runtime_status()
-        if previously_confirmed and _auth_state_is_confirmed(before_status):
+        if previously_confirmed and _auth_state_is_confirmed(before_status, completion_scope):
             return {
                 "auth_state_confirmed": True,
                 "idempotent": True,
                 "challenge_id": normalized_current,
             }
 
-        clear_error = _clear_solver_manual_required_pause()
+        clear_error = _clear_solver_manual_required_pause_compat(completion_scope or None)
         cleared_status = _captcha_solver_runtime_status()
-        auth_state_confirmed = clear_error is None and _auth_state_is_confirmed(cleared_status)
+        auth_state_confirmed = clear_error is None and _auth_state_is_confirmed(cleared_status, completion_scope)
         receipt_error: str | None = None
         if auth_state_confirmed:
             receipt_error = _remember_auth_completion_confirmation(completion_id)
@@ -2320,9 +2957,10 @@ def _finalize_auth_completion_after_cookie_snapshot(
             if clear_error is None:
                 if isinstance(completion_request, dict) and completion_request:
                     _refresh_solver_last_request(completion_request)
-                _begin_solver_challenge()
+                _begin_solver_challenge(completion_request)
                 recovery_error = _mark_solver_manual_required(
-                    manual_only=_solver_target_requires_manual_only(completion_request)
+                    manual_only=_solver_target_requires_manual_only(completion_request),
+                    scope=completion_scope or None,
                 )
             SOLVER_LAST_STATUS = "manual_required"
             SOLVER_LAST_FAILURE_REASON = "manual_required"
@@ -2345,10 +2983,16 @@ def _finalize_auth_completion_after_cookie_snapshot(
 
 
 def _node_auth_challenge_matches(payload: dict[str, Any], source: str) -> bool:
-    if source != "pc2_local_solver" or not SOLVER_CHALLENGE_ID:
-        return True
     challenge_id = str(payload.get("challenge_id") or "").strip()
-    return bool(challenge_id and challenge_id == SOLVER_CHALLENGE_ID)
+    scope = _normalize_challenge_scope(payload.get("scope")) or _scope_for_challenge_id(challenge_id)
+    active_id = (
+        str(_solver_scope_runtime_status(scope).get("challenge_id") or "").strip()
+        if scope in CHALLENGE_SCOPES
+        else str(SOLVER_CHALLENGE_ID or "").strip()
+    )
+    if source != "pc2_local_solver" or not active_id:
+        return True
+    return bool(challenge_id and challenge_id == active_id)
 
 
 def _collection_observer_resume_after_cooldown_payload(
@@ -2363,6 +3007,13 @@ def _collection_observer_resume_after_cooldown_payload(
     payload = payload if isinstance(payload, dict) else {}
     request_id = _normalize_auth_completion_id(payload.get("resume_request_id"))
     source = str(payload.get("source") or "pc2_local_solver")
+    resume_scope = _normalize_challenge_scope(payload.get("scope")) or _scope_for_challenge_id(payload.get("challenge_id"))
+    if resume_scope not in CHALLENGE_SCOPES:
+        reported_resume_id = str(payload.get("challenge_id") or "").strip()
+        if reported_resume_id and reported_resume_id == str(SOLVER_CHALLENGE_ID or "").strip():
+            resume_scope = None
+        else:
+            resume_scope = _challenge_scope_for_request(SOLVER_LAST_REQUEST)
     if not request_id:
         return {
             "ok": False,
@@ -2392,15 +3043,15 @@ def _collection_observer_resume_after_cooldown_payload(
     receipt_id = f"resume-after-cooldown:{request_id}"
     previously_confirmed = _auth_completion_was_confirmed(receipt_id)
     before_status = _captcha_solver_runtime_status()
-    already_clear = _auth_state_is_confirmed(before_status)
+    already_clear = _auth_state_is_confirmed(before_status, resume_scope)
     clear_error: str | None = None
     receipt_error: str | None = None
     if previously_confirmed:
         auth_state_confirmed = already_clear
     else:
-        clear_error = _clear_solver_manual_required_pause()
+        clear_error = _clear_solver_manual_required_pause_compat(resume_scope or None)
         cleared_status = _captcha_solver_runtime_status()
-        auth_state_confirmed = clear_error is None and _auth_state_is_confirmed(cleared_status)
+        auth_state_confirmed = clear_error is None and _auth_state_is_confirmed(cleared_status, resume_scope)
         if auth_state_confirmed:
             receipt_error = _remember_auth_completion_confirmation(receipt_id)
             auth_state_confirmed = receipt_error is None
@@ -2408,12 +3059,22 @@ def _collection_observer_resume_after_cooldown_payload(
     if auth_state_confirmed:
         SOLVER_LAST_STATUS = "resumed_after_cooldown"
         SOLVER_LAST_FAILURE_REASON = None
-        _remember_solver_auth_completion(SOLVER_LAST_REQUEST)
+        resume_request = SOLVER_LAST_REQUEST
+        if resume_scope in CHALLENGE_SCOPES:
+            scoped_request = _solver_scope_runtime_status(resume_scope).get("last_request")
+            if isinstance(scoped_request, dict) and scoped_request:
+                resume_request = scoped_request
+        _remember_solver_auth_completion(resume_request)
     else:
         SOLVER_LAST_STATUS = "manual_required"
         SOLVER_LAST_FAILURE_REASON = "manual_required"
-        _set_collection_pause_state(True, "manual_required")
+        _set_collection_pause_state(True, "manual_required", scope=resume_scope or None)
     solver_status = _captcha_solver_runtime_status()
+    scoped_result_status = (
+        _solver_scope_runtime_status(resume_scope)
+        if resume_scope in CHALLENGE_SCOPES
+        else solver_status
+    )
     result: dict[str, Any] = {
         "ok": auth_state_confirmed,
         "action": "resume_after_cooldown",
@@ -2423,6 +3084,14 @@ def _collection_observer_resume_after_cooldown_payload(
         "idempotent": bool(previously_confirmed or (already_clear and auth_state_confirmed)),
         "manual_auth_completed": False,
         "paused": bool(solver_status.get("paused")),
+        "scope": resume_scope or None,
+        "scope_paused": bool(scoped_result_status.get("paused")),
+        "scope_manual_required": bool(scoped_result_status.get("manual_required")),
+        "scope_force_reset_required": bool(scoped_result_status.get("force_reset_required")),
+        "scope_force_unlock_flag_exists": bool(
+            resume_scope in CHALLENGE_SCOPES
+            and os.path.exists(_solver_scope_manual_flag_path(resume_scope))
+        ),
         "runtime_state": _collection_runtime_state_label(),
         "captcha_solver": solver_status,
         "cookie_snapshot": {"status": "skipped", "reason": "resume_after_cooldown"},
@@ -2443,6 +3112,7 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
     payload = payload if isinstance(payload, dict) else {}
     completion_id = _normalize_auth_completion_id(payload.get("completion_id"))
     source = str(payload.get("source") or "operator")
+    completion_scope = _normalize_challenge_scope(payload.get("scope")) or _scope_for_challenge_id(payload.get("challenge_id"))
     if source == "pc2_local_solver" and not completion_id:
         solver_status = _captcha_solver_runtime_status()
         return {
@@ -2475,7 +3145,20 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
     completion_request = before_status.get("last_request")
     if not isinstance(completion_request, dict) or not completion_request:
         completion_request = SOLVER_LAST_REQUEST
-    already_clear = _auth_state_is_confirmed(before_status)
+    if completion_scope not in CHALLENGE_SCOPES:
+        completion_scope = _challenge_scope_for_request(completion_request)
+    if completion_scope in CHALLENGE_SCOPES:
+        scoped_request = _solver_scope_runtime_status(completion_scope).get("last_request")
+        if isinstance(scoped_request, dict) and scoped_request:
+            completion_request = scoped_request
+    reported_completion_id = str(payload.get("challenge_id") or "").strip()
+    if (
+        completion_scope in CHALLENGE_SCOPES
+        and not _solver_scope_runtime_status(completion_scope).get("challenge_id")
+        and reported_completion_id == str(SOLVER_CHALLENGE_ID or "").strip()
+    ):
+        completion_scope = None
+    already_clear = _auth_state_is_confirmed(before_status, completion_scope)
     refresh_cookie_snapshot = _payload_flag(payload, "refresh_cookie_snapshot", True)
     snapshot_gate_required = bool(
         refresh_cookie_snapshot
@@ -2485,7 +3168,11 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
     snapshot_payload = dict(payload)
     if snapshot_gate_required:
         snapshot_payload["refresh_cookie_snapshot"] = True
-    expected_challenge_id = str(SOLVER_CHALLENGE_ID or "").strip() or None
+    expected_challenge_id = (
+        str(_solver_scope_runtime_status(completion_scope).get("challenge_id") or "").strip() or None
+        if completion_scope in CHALLENGE_SCOPES
+        else str(SOLVER_CHALLENGE_ID or "").strip() or None
+    )
 
     clear_error: str | None = None
     receipt_error: str | None = None
@@ -2494,9 +3181,9 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
         auth_state_confirmed = already_clear
         cookie_snapshot = _auth_cookie_snapshot_runtime_status()
     elif not snapshot_gate_required or already_clear:
-        clear_error = _clear_solver_manual_required_pause()
+        clear_error = _clear_solver_manual_required_pause_compat(completion_scope or None)
         cleared_status = _captcha_solver_runtime_status()
-        auth_state_confirmed = clear_error is None and _auth_state_is_confirmed(cleared_status)
+        auth_state_confirmed = clear_error is None and _auth_state_is_confirmed(cleared_status, completion_scope)
         if auth_state_confirmed:
             receipt_error = _remember_auth_completion_confirmation(completion_id)
             auth_state_confirmed = receipt_error is None
@@ -2509,7 +3196,7 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
         auth_state_confirmed = False
         SOLVER_LAST_STATUS = "manual_required"
         SOLVER_LAST_FAILURE_REASON = "manual_required"
-        _set_collection_pause_state(True, "manual_required")
+        _set_collection_pause_state(True, "manual_required", scope=completion_scope or None)
         cookie_snapshot = _schedule_auth_cookie_snapshot_refresh(
             snapshot_payload,
             completion_id,
@@ -2542,8 +3229,13 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
     elif not previously_confirmed:
         SOLVER_LAST_STATUS = "manual_required"
         SOLVER_LAST_FAILURE_REASON = "manual_required"
-        _set_collection_pause_state(True, "manual_required")
+        _set_collection_pause_state(True, "manual_required", scope=completion_scope or None)
     solver_status = _captcha_solver_runtime_status()
+    scoped_result_status = (
+        _solver_scope_runtime_status(completion_scope)
+        if completion_scope in CHALLENGE_SCOPES
+        else solver_status
+    )
     snapshot_status = str(cookie_snapshot.get("status") or "").strip().lower()
     auth_confirmation_pending = bool(
         not auth_state_confirmed and snapshot_status in {"pending", "running"}
@@ -2558,6 +3250,14 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
         "manual_auth_completed": auth_state_confirmed,
         "auth_confirmation_pending": auth_confirmation_pending,
         "paused": bool(solver_status.get("paused")),
+        "scope": completion_scope or None,
+        "scope_paused": bool(scoped_result_status.get("paused")),
+        "scope_manual_required": bool(scoped_result_status.get("manual_required")),
+        "scope_force_reset_required": bool(scoped_result_status.get("force_reset_required")),
+        "scope_force_unlock_flag_exists": bool(
+            completion_scope in CHALLENGE_SCOPES
+            and os.path.exists(_solver_scope_manual_flag_path(completion_scope))
+        ),
         "runtime_state": _collection_runtime_state_label(),
         "captcha_solver": solver_status,
         "cookie_snapshot": cookie_snapshot,
@@ -7299,6 +7999,8 @@ def initialize_runtime(start_watchdog=True, ensure_browser=True):
             f"[SOLVER] Restored persisted challenge {SOLVER_CHALLENGE_ID}; "
             "collection remains paused until node confirmation."
         )
+    if _restore_solver_scope_states():
+        print("[SOLVER] Restored independent list/detail challenge latches.")
 
     cleanup_orphaned_files()
     load_data()
@@ -7905,6 +8607,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     **_avm_operator_eval_summary(Path(getattr(AVM_SERVICE, "data_dir", DATA_DIR))),
                 }
 
+                solver_status_snapshot = _captcha_solver_runtime_status()
                 self.send_json({
                     "paused": _collection_effectively_paused(),
                     "total_ids": total_ids,
@@ -7922,7 +8625,8 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     "api_avg_response_time_ms": api_metrics.get("avg_response_time_ms", 0.0),
                     "api_total_calls": api_metrics.get("total_calls", 0),
                     "api_success_calls": api_metrics.get("success_calls", 0),
-                    "captcha_solver": _captcha_solver_runtime_status(),
+                    "captcha_solver": solver_status_snapshot,
+                    "collection_scopes": solver_status_snapshot.get("collection_scopes", {}),
                     "data_supply_recent_24h": _db_data_supply_snapshot(24) if DB_REPOSITORY.enabled else {},
                     "avm": avm_status,
                     "collection_stage": collection_stage_snapshot,
@@ -8384,7 +9088,12 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             params = parse_qs(parsed_url.query)
             session_id = params.get('session_id', ['default'])[0]
             try:
-                self.send_json(_seed_collection_service().next_task(session_id, paused=_collection_effectively_paused()))
+                self.send_json(
+                    _seed_collection_service().next_task(
+                        session_id,
+                        paused=_collection_scope_effectively_paused("seed"),
+                    )
+                )
             except Exception as e:
                 self.send_error_json(
                     status=500,
@@ -8395,7 +9104,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
 
 
         elif self.path in ('/api/get_tasks', '/api/collection/details/tasks'):
-            if _collection_effectively_paused():
+            if _collection_scope_effectively_paused("detail"):
                 self.send_json({"tasks": []})
                 return
 
@@ -8702,6 +9411,33 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     status=status,
                     code="COLLECTION_OBSERVER_RUNTIME_CONTROL_REJECTED",
                     message="采集运行状态切换请求被拒绝",
+                    details=result,
+                )
+                return
+            self.send_json(result)
+
+        elif self.path == "/api/collection/auth/force_reset":
+            content_length = int(self.headers.get("Content-Length") or 0)
+            try:
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8")) if content_length > 0 else {}
+            except Exception:
+                self.send_error_json(
+                    status=400,
+                    code="AVM_INVALID_JSON",
+                    message="请求体不是合法 JSON",
+                    details={},
+                )
+                return
+            if not isinstance(payload, dict):
+                self.send_invalid_request_body(payload)
+                return
+            result = _force_reset_solver_scope(payload.get("scope"), payload.get("challenge_id"))
+            status = 200 if result.get("ok") or result.get("stale_challenge") else 409
+            if status != 200:
+                self.send_error_json(
+                    status=status,
+                    code="COLLECTION_CHALLENGE_FORCE_RESET_REJECTED",
+                    message="验证码尚未达到保底重置时间或状态不匹配",
                     details=result,
                 )
                 return
@@ -9596,7 +10332,11 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             if not isinstance(payload, dict):
                 self.send_invalid_request_body(payload)
                 return
-            solver_request = _seed_priority_solver_request(payload)
+            # List/search and detail challenges are independent state machines.
+            # Never rewrite a detail report to the seed request; doing so makes
+            # one scope pause (and invalidate) the other scope's solver.
+            solver_request = _build_solver_request(payload)
+            challenge_scope = _challenge_scope_for_request(solver_request)
             stale_challenge_id = _solver_report_stale_challenge_id(payload)
             if stale_challenge_id:
                 print(
@@ -9652,11 +10392,17 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 _refresh_solver_last_request(solver_request)
             force_retry = _payload_force_solver_retry(payload)
             solver_status = _captcha_solver_runtime_status()
-            if solver_status["manual_required"]:
+            scope_status = (
+                _solver_scope_runtime_status(challenge_scope)
+                if challenge_scope in CHALLENGE_SCOPES
+                else solver_status
+            )
+            if scope_status.get("manual_required"):
                 if force_retry:
                     solver_was_running = bool(solver_status.get("running"))
                     clear_error = _clear_solver_manual_required_pause(
                         preserve_running_state=solver_was_running,
+                        scope=challenge_scope or None,
                     )
                     if clear_error:
                         self.send_error_json(
@@ -9667,6 +10413,11 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                         )
                         return
                     solver_status = _captcha_solver_runtime_status()
+                    scope_status = (
+                        _solver_scope_runtime_status(challenge_scope)
+                        if challenge_scope in CHALLENGE_SCOPES
+                        else solver_status
+                    )
                     print("[SOLVER] report_captcha force retry cleared manual verification state.")
                     if solver_was_running and SOLVER_RUNNING:
                         self.send_json({"status": "resuming", "captcha_solver": solver_status})
@@ -9675,7 +10426,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     print("[SOLVER] report_captcha ignored; manual verification is already required.")
                     self.send_json({"status": "manual_required", "captcha_solver": solver_status})
                     return
-            if solver_status["manual_required"]:
+            if scope_status.get("manual_required"):
                 print("[SOLVER] report_captcha ignored; manual verification is already required.")
                 self.send_json({"status": "manual_required", "captcha_solver": solver_status})
                 return
@@ -9703,7 +10454,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     f"Configured limit is {max_runtime_seconds}s; marking manual verification "
                     "required instead of starting a parallel solver."
                 )
-                flag_error = _mark_solver_manual_required()
+                flag_error = _mark_solver_manual_required(scope=challenge_scope or None)
                 response_payload = {
                     "status": "manual_required",
                     "elapsed_seconds": elapsed,
@@ -9717,13 +10468,13 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             solver_cdp = str(solver_request.get("cdp_endpoint") or "").strip()
             if solver_cdp and _solver_cdp_endpoint_is_remote(solver_cdp):
                 node_id = str(solver_request.get("node_id") or "").strip()
-                _begin_solver_challenge()
+                _begin_solver_challenge(solver_request)
                 print(
                     f"[SOLVER] Remote CDP endpoint {solver_cdp} detected "
                     f"(node={node_id or 'unknown'}); deferring to node-local solver. "
                     "Pausing collection; node solver will clear when solved."
                 )
-                _set_collection_pause_state(True, "captcha_solver")
+                _set_collection_pause_state(True, "captcha_solver", scope=challenge_scope or None)
                 self.send_json({
                     "status": "deferred_to_node_solver",
                     "captcha_solver": _captcha_solver_runtime_status(),
@@ -9731,7 +10482,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 return
 
             print("CAPTCHA REPORTED! Triggering Solver...")
-            _begin_solver_challenge()
+            _begin_solver_challenge(solver_request)
 
             # Using ThreadPool to avoid blocking the server main loop
             try:
@@ -10102,7 +10853,25 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             SOLVER_RUNNING = False
             SOLVER_START_TIME = 0
 
-        if _captcha_solver_runtime_status()["manual_required"]:
+        solver_scope = _challenge_scope_for_request(solver_request)
+        solver_status_snapshot = _captcha_solver_runtime_status()
+        scoped_snapshot = (
+            _solver_scope_runtime_status(solver_scope)
+            if solver_scope in CHALLENGE_SCOPES
+            else {}
+        )
+        if solver_scope in CHALLENGE_SCOPES and scoped_snapshot.get("challenge_id"):
+            scope_requires_manual = bool(scoped_snapshot.get("manual_required"))
+        elif solver_scope in CHALLENGE_SCOPES:
+            latest_scope = _challenge_scope_for_request(SOLVER_LAST_REQUEST)
+            scope_requires_manual = bool(
+                solver_status_snapshot.get("manual_required")
+                if latest_scope not in CHALLENGE_SCOPES or latest_scope == solver_scope
+                else False
+            )
+        else:
+            scope_requires_manual = bool(solver_status_snapshot.get("manual_required"))
+        if scope_requires_manual:
             already_authenticated = False
             try:
                 probe_solver = _build_solver_for_request(solver_request)
@@ -10112,7 +10881,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 print(f"[SOLVER] Stale auth-lock preflight failed: {error}")
             if already_authenticated:
                 print("\033[92m[SOLVER] Page already authenticated; clearing stale captcha auth lock.\033[0m")
-                _clear_auth_lock_after_solver_success()
+                _clear_auth_lock_after_solver_success(scope=solver_scope or None)
                 _release_solver_submission(submission_token)
                 return
             _release_solver_submission(submission_token)
@@ -10138,7 +10907,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
         solver_started_at = activation_value
         try:
             if not PAUSED or COLLECTION_PAUSE_REASON is None:
-                _set_collection_pause_state(True, "captcha_solver")
+                _set_collection_pause_state(True, "captcha_solver", scope=solver_scope or None)
             worker_quiesce_seconds = _solver_worker_quiesce_seconds()
             if worker_quiesce_seconds > 0:
                 print(
@@ -10148,7 +10917,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 time.sleep(worker_quiesce_seconds)
             if not _wait_for_solver_cdp_ready(solver_request):
                 print("[SOLVER] Deferring solve attempt because the node CDP browser is unavailable.")
-                _mark_solver_manual_required()
+                _mark_solver_manual_required(scope=solver_scope or None)
                 SOLVER_LAST_FAILURE_REASON = "cdp_unavailable"
                 return
             print("\033[93m[SOLVER] Starting solver...\033[0m")
@@ -10182,14 +10951,14 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
 
             if success:
                 print("\033[92m[SOLVER] ✅ Captcha Solved! Resuming system...\033[0m")
-                _clear_auth_lock_after_solver_success()
+                _clear_auth_lock_after_solver_success(scope=solver_scope or None)
             else:
                 SOLVER_LAST_FAILURE_REASON = getattr(active_solver, "last_failure_reason", None) or "solve_failed"
                 if SOLVER_MANUAL_RESUME_EPOCH >= solver_started_at:
                     print("[SOLVER] Manual resume happened after this solver started; suppressing stale failure pause.")
                     SOLVER_LAST_STATUS = "resumed"
                     SOLVER_LAST_FAILURE_REASON = None
-                    _set_collection_pause_state(False)
+                    _set_collection_pause_state(False, scope=solver_scope or None)
                     SOLVER_RUNNING = False
                     SOLVER_LAST_FINISHED_TIME = time.time()
                     return
@@ -10206,12 +10975,11 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     SOLVER_LAST_STATUS = "failed"
                 print("\033[91m[SOLVER] ❌ All solve attempts failed. System remains PAUSED.\033[0m")
                 print("\033[91m[SOLVER] Manual intervention required. Please solve in Edge, then click 'Resume' or delete 'force_unlock.flag'.\033[0m")
-                _set_collection_pause_state(True, "manual_required")
-                SOLVER_MANUAL_REQUIRED_EPOCH = time.time()
-
-                # Create a retryable lock flag for file-system/API manual resume and restart-safe solver retries.
+                # Create a retryable scoped lock flag for file-system/API
+                # manual resume and restart-safe solver retries.  The helper
+                # also refreshes the legacy flag for older operators.
+                flag_error = _mark_solver_manual_required(scope=solver_scope or None)
                 flag_path = _solver_force_unlock_flag_path()
-                flag_error = _write_solver_manual_required_flag(SOLVER_MANUAL_REQUIRED_EPOCH)
                 if flag_error:
                     print(f"[SOLVER] Failed to write force unlock flag: {flag_error}")
 
@@ -10223,12 +10991,26 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
 
                 # Wait until the operator resumes, the flag is deleted, or the
                 # live page becomes authenticated after a later captcha pass.
-                while _captcha_solver_runtime_status().get("manual_required"):
+                def _current_solver_scope_manual_required() -> bool:
+                    if solver_scope not in CHALLENGE_SCOPES:
+                        return bool(_captcha_solver_runtime_status().get("manual_required"))
+                    scoped_status = _solver_scope_runtime_status(solver_scope)
+                    if scoped_status.get("challenge_id"):
+                        return bool(scoped_status.get("manual_required"))
+                    # Legacy callers may mark manual_required before a scoped
+                    # challenge receipt exists.  Keep that compatibility path,
+                    # but do not inherit a different active scope's pause.
+                    latest_scope = _challenge_scope_for_request(SOLVER_LAST_REQUEST)
+                    if latest_scope in CHALLENGE_SCOPES and latest_scope != solver_scope:
+                        return False
+                    return bool(_captcha_solver_runtime_status().get("manual_required"))
+
+                while _current_solver_scope_manual_required():
                     if not os.path.exists(flag_path):
                         print("\033[92m[SOLVER] 🟢 Force unlock flag removed! Auto-resuming system...\033[0m")
-                        _set_collection_pause_state(False)
+                        _set_collection_pause_state(False, scope=solver_scope or None)
                         _clear_solver_manual_required_state()
-                        challenge_state_error = _clear_solver_challenge_state()
+                        challenge_state_error = _clear_solver_challenge_state(solver_scope or None)
                         if challenge_state_error:
                             print(
                                 "[SOLVER] Failed to clear persisted challenge state "
@@ -10242,7 +11024,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                         print(f"[SOLVER] Auth-lock recovery preflight failed: {error}")
                     if preflight.get("already_authenticated"):
                         print("\033[92m[SOLVER] 🟢 Page authenticated while waiting; clearing captcha auth lock.\033[0m")
-                        _clear_auth_lock_after_solver_success()
+                        _clear_auth_lock_after_solver_success(scope=solver_scope or None)
                         break
                     time.sleep(2)
 

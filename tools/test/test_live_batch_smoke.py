@@ -697,6 +697,29 @@ def test_resolve_playwright_cdp_endpoint_ignores_host_proxy_env(monkeypatch) -> 
     ]
 
 
+def test_resolve_playwright_cdp_endpoint_rewrites_chromium_loopback_websocket(monkeypatch) -> None:
+    class _Response:
+        @staticmethod
+        def raise_for_status() -> None:
+            return None
+
+        @staticmethod
+        def json() -> dict[str, str]:
+            return {
+                "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/browser/browser-remote",
+            }
+
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "_cdp_http_get",
+        lambda *_args, **_kwargs: _Response(),
+    )
+
+    assert live_batch_smoke.resolve_playwright_cdp_endpoint(
+        "http://pc2-browser-solver:9224"
+    ) == "ws://pc2-browser-solver:9224/devtools/browser/browser-remote"
+
+
 def test_resolve_playwright_cdp_endpoint_falls_back_to_cached_websocket_when_http_probe_fails(monkeypatch) -> None:
     class _FakeProbe:
         @staticmethod
@@ -852,6 +875,7 @@ def test_fetch_browser_navigation_list_page_closes_raw_cdp_target_without_playwr
         return True
 
     monkeypatch.setattr(taobao_login_health, "compact_cdp_pages_if_needed", _compact)
+    monkeypatch.setattr(taobao_login_health, "list_cdp_targets", lambda _endpoint: [])
     monkeypatch.setattr(taobao_login_health, "read_cdp_json", _read_cdp_json)
     monkeypatch.setattr(taobao_login_health, "activate_cdp_target", _activate)
     monkeypatch.setattr(taobao_login_health, "evaluate_cdp_expression", _evaluate)
@@ -871,6 +895,44 @@ def test_fetch_browser_navigation_list_page_closes_raw_cdp_target_without_playwr
         "evaluate:ws://cdp/page-2",
         "close:http://127.0.0.1:9223:page-2",
     ]
+
+
+def test_fetch_browser_navigation_list_page_reuses_single_existing_login_tab(monkeypatch) -> None:
+    events: list[str] = []
+    login_targets = [
+        {"id": "login-1", "type": "page", "url": "https://login.taobao.com/havanaone/login/login.htm"},
+        {"id": "login-2", "type": "page", "url": "https://login.taobao.com/havanaone/login/login.htm?uuid=2"},
+    ]
+    monkeypatch.setattr(taobao_login_health, "list_cdp_targets", lambda _endpoint: login_targets)
+    monkeypatch.setattr(
+        taobao_login_health,
+        "activate_cdp_target",
+        lambda _endpoint, target: events.append(f"activate:{target['id']}"),
+    )
+    monkeypatch.setattr(
+        taobao_login_health,
+        "close_cdp_target",
+        lambda _endpoint, target_id: events.append(f"close:{target_id}") or True,
+    )
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "_read_cdp_list_target_html",
+        lambda _endpoint, target: ("<html>淘宝登录</html>", str(target["url"])),
+    )
+    monkeypatch.setattr(
+        taobao_login_health,
+        "read_cdp_json",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("must not open a new tab")),
+    )
+
+    html, final_url = live_batch_smoke.fetch_browser_navigation_list_page(
+        "http://127.0.0.1:9223",
+        "https://sf.taobao.com/list/page=2",
+    )
+
+    assert html == "<html>淘宝登录</html>"
+    assert "login.taobao.com" in final_url
+    assert events == ["close:login-2", "activate:login-1"]
 
 
 def test_fetch_browser_navigation_list_page_preserves_challenge_target_for_solver(monkeypatch) -> None:

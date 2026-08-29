@@ -1,0 +1,31 @@
+ARG FAPAI_BASE_IMAGE=fapaifang-worker:local
+FROM ${FAPAI_BASE_IMAGE}
+
+USER root
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        curl \
+        fluxbox \
+        fonts-noto-cjk \
+        gnome-screenshot \
+        novnc \
+        procps \
+        python3-tk \
+        scrot \
+        tigervnc-scraping-server \
+        tigervnc-tools \
+        websockify \
+        x11-utils \
+        xdotool \
+        xvfb \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --no-cache-dir Pillow==11.3.0 PyAutoGUI==0.9.54
+
+COPY ops/pc2-linux/start-browser-solver.sh /usr/local/bin/start-browser-solver
+COPY tools/cdp_host_relay.py /app/tools/cdp_host_relay.py
+RUN chmod 0755 /usr/local/bin/start-browser-solver
+
+EXPOSE 6080 9224
+
+CMD ["/usr/local/bin/start-browser-solver"]

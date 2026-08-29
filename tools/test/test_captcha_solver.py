@@ -790,6 +790,111 @@ def test_connect_tab_prunes_same_route_duplicates_before_cached_target_reuse() -
     assert connected == ["ws://127.0.0.1:9223/devtools/page/visible-slider"]
 
 
+def test_connect_tab_keeps_other_collection_scope_challenge_open() -> None:
+    target_url = "https://sf-item.taobao.com/sf_item/570192626894.htm?__captcha_solver_bg=1"
+    solver = captcha_solver.CaptchaSolver(port=9223, target_url=target_url)
+    tabs = [
+        {
+            "id": "detail-slider",
+            "type": "page",
+            "url": "https://sf-item.taobao.com/sf_item/111.htm/_____tmd_____/punish?x5secdata=a",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/detail-slider",
+        },
+        {
+            "id": "detail-duplicate",
+            "type": "page",
+            "url": "https://sf-item.taobao.com/sf_item/222.htm/_____tmd_____/punish?x5secdata=b",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/detail-duplicate",
+        },
+        {
+            "id": "seed-slider",
+            "type": "page",
+            "url": "https://sf.taobao.com/list/50025969__2.htm/_____tmd_____/punish?x5secdata=c",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/seed-slider",
+        },
+    ]
+    solver._get_json = lambda _endpoint: tabs
+    closed: list[str] = []
+    connected: list[str] = []
+    solver._close_cdp_target = lambda target_id: closed.append(target_id) or True
+    solver._connect_to_target = lambda target_ws, _title: connected.append(target_ws) or True
+
+    assert solver.connect_tab() is True
+    assert closed == ["detail-duplicate"]
+    assert connected == ["ws://127.0.0.1:9223/devtools/page/detail-slider"]
+
+
+def test_connect_tab_prunes_title_only_challenge_duplicates_and_refreshes_tabs() -> None:
+    target_url = "https://sf.taobao.com/list/50025969__2.htm?page=7&__captcha_solver_bg=1"
+    solver = captcha_solver.CaptchaSolver(port=9223, target_url=target_url)
+    duplicate = {
+        "id": "seed-duplicate",
+        "type": "page",
+        "title": "CAPTCHA Verification",
+        "url": "https://sf.taobao.com/list/50025969__2.htm?page=7&st_param=5",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/seed-duplicate",
+    }
+    kept = {
+        "id": "seed-kept",
+        "type": "page",
+        "title": "CAPTCHA Verification",
+        "url": "https://sf.taobao.com/list/50025969__2.htm?page=7&st_param=1",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/seed-kept",
+    }
+    detail = {
+        "id": "detail-challenge",
+        "type": "page",
+        "title": "CAPTCHA Verification",
+        "url": "https://sf-item.taobao.com/sf_item/123.htm",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/detail-challenge",
+    }
+    normal = {
+        "id": "normal-seed",
+        "type": "page",
+        "title": "司法拍卖",
+        "url": "https://sf.taobao.com/list/50025969__2.htm?page=8",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/normal-seed",
+    }
+    list_calls = 0
+
+    def fake_get_json(_endpoint):
+        nonlocal list_calls
+        list_calls += 1
+        return [kept, duplicate, detail, normal] if list_calls == 1 else [kept, detail, normal]
+
+    closed: list[str] = []
+    connected: list[str] = []
+    solver._get_json = fake_get_json
+    solver._close_cdp_target = lambda target_id: closed.append(target_id) or True
+    solver._connect_to_target = lambda target_ws, _title: connected.append(target_ws) or True
+
+    assert solver.connect_tab() is True
+    assert closed == ["seed-duplicate"]
+    assert list_calls >= 2
+    assert connected == ["ws://127.0.0.1:9223/devtools/page/seed-kept"]
+
+
+def test_nc_error_widget_contract_recognizes_english_refresh_failure() -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    expressions: list[str] = []
+
+    def fake_send(_method, params):
+        expressions.append(str(params.get("expression") or ""))
+        return {"result": {"value": {"explicitFailure": True, "hasSlider": False}}}
+
+    solver._send_cdp = fake_send
+
+    assert solver._page_challenge_summary()["explicitFailure"] is True
+    assert "please refresh page and try again" in expressions[0]
+    assert ".errloading" in expressions[0]
+    assert "var hasSlider = !!(slider && slider.offsetParent !== null)" in expressions[0]
+
+    expressions.clear()
+    solver._nc_retry_targets()
+    assert ".errloading" in expressions[0]
+    assert "please refresh page and try again" in expressions[0]
+
+
 def test_slider_miss_clears_closed_websocket_before_recovery(monkeypatch) -> None:
     class FakeWebSocket:
         def __init__(self) -> None:
@@ -1086,7 +1191,7 @@ def test_connect_tab_reuses_existing_login_target_and_bootstraps_websocket(monke
     assert solver.last_failure_reason is None
 
 
-def test_manual_challenge_reuse_requires_same_requested_route() -> None:
+def test_manual_challenge_reuse_is_scoped_to_list_or_detail() -> None:
     solver = captcha_solver.CaptchaSolver(
         port=9223,
         target_url=(
@@ -1099,6 +1204,13 @@ def test_manual_challenge_reuse_requires_same_requested_route() -> None:
         "https://sf.taobao.com//list/50025969__2.htm/_____tmd_____/punish?x5step=1"
     ) is True
     assert solver._manual_challenge_matches_requested_target(
+        "https://sf.taobao.com//list/50025970__2.htm/_____tmd_____/punish?x5step=1"
+    ) is True
+    detail_solver = captcha_solver.CaptchaSolver(
+        port=9223,
+        target_url="https://sf-item.taobao.com/sf_item/601294677898.htm",
+    )
+    assert detail_solver._manual_challenge_matches_requested_target(
         "https://sf.taobao.com//list/50025970__2.htm/_____tmd_____/punish?x5step=1"
     ) is False
     assert solver._solver_target_route(
@@ -2730,7 +2842,7 @@ def test_map_css_to_screen_prefers_render_widget_over_screenshot() -> None:
     assert abs(mapped["distance"] - 312.0) < 0.01
 
 
-def test_map_css_to_screen_prefers_screenshot_for_moderate_render_widget_drift() -> None:
+def test_map_css_to_screen_prefers_render_widget_for_moderate_screenshot_drift() -> None:
     solver = captcha_solver.CaptchaSolver(port=9223)
     solver._win32_client_origin = lambda: {
         "hwnd": 1,
@@ -2756,12 +2868,12 @@ def test_map_css_to_screen_prefers_screenshot_for_moderate_render_widget_drift()
 
     mapped = solver._map_css_to_screen(100, 50, 260)
 
-    assert mapped["source"] == "screenshot_handle"
+    assert mapped["source"] == "win32_render"
     assert abs(mapped["x"] - 170.0) < 0.01
-    assert abs(mapped["y"] - 220.0) < 0.01
+    assert abs(mapped["y"] - 140.0) < 0.01
 
 
-def test_map_css_to_screen_prefers_screenshot_when_render_widget_delta_is_huge() -> None:
+def test_map_css_to_screen_rejects_screenshot_when_render_widget_delta_is_huge() -> None:
     solver = captcha_solver.CaptchaSolver(port=9223)
     solver._win32_client_origin = lambda: {
         "hwnd": 1,
@@ -2787,12 +2899,12 @@ def test_map_css_to_screen_prefers_screenshot_when_render_widget_delta_is_huge()
 
     mapped = solver._map_css_to_screen(400, 300, 260)
 
-    assert mapped["source"] == "screenshot_handle"
-    assert abs(mapped["x"] - 468.0) < 0.01
-    assert abs(mapped["y"] - 336.0) < 0.01
+    assert mapped["source"] == "win32_render"
+    assert abs(mapped["x"] - 980.0) < 0.01
+    assert abs(mapped["y"] - 760.0) < 0.01
 
 
-def test_map_css_to_screen_prefers_screenshot_over_win32() -> None:
+def test_map_css_to_screen_rejects_implausible_screenshot_over_win32() -> None:
     solver = captcha_solver.CaptchaSolver(port=9223)
     solver._win32_client_origin = lambda: {
         "hwnd": 1,
@@ -2814,9 +2926,9 @@ def test_map_css_to_screen_prefers_screenshot_over_win32() -> None:
         "clip_h": 40.0,
     }
     mapped = solver._map_css_to_screen(100, 50, 260)
-    assert mapped["source"] == "screenshot_handle"
-    assert abs(mapped["x"] - 108.0) < 0.01
-    assert abs(mapped["y"] - 36.0) < 0.01
+    assert mapped["source"] == "win32_client"
+    assert abs(mapped["x"] - 170.0) < 0.01
+    assert abs(mapped["y"] - 140.0) < 0.01
 
 
 def test_map_css_to_screen_returns_explicit_failure_when_no_mapping_is_available() -> None:
@@ -2829,7 +2941,7 @@ def test_map_css_to_screen_returns_explicit_failure_when_no_mapping_is_available
     assert solver.last_failure_reason == "screen_mapping_unavailable"
 
 
-def test_map_css_to_screen_uses_screenshot_when_exact_target_activation_is_verified() -> None:
+def test_map_css_to_screen_rejects_implausible_screenshot_after_target_activation() -> None:
     solver = captcha_solver.CaptchaSolver(port=9223)
     solver._target_activation_verified = True
     solver._css_to_client_screen = lambda *_args: {
@@ -2855,10 +2967,42 @@ def test_map_css_to_screen_uses_screenshot_when_exact_target_activation_is_verif
 
     mapped = solver._map_css_to_screen(100, 50, 256, slider_info={"x": 80, "y": 35})
 
-    assert mapped["source"] == "screenshot_handle"
-    assert abs(mapped["x"] - 108.0) < 0.01
-    assert abs(mapped["y"] - 36.0) < 0.01
+    assert mapped["source"] == "win32_render"
+    assert abs(mapped["x"] - 320.0) < 0.01
+    assert abs(mapped["y"] - 420.0) < 0.01
     assert mapped["located"] is True
+    assert mapped["activation_verified"] is True
+
+
+def test_map_css_to_screen_bounds_template_search_around_expected_slider() -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._target_activation_verified = True
+    solver._css_to_client_screen = lambda *_args: {
+        "x": 592.0,
+        "y": 596.0,
+        "distance": 256.0,
+        "source": "dpr_fallback",
+    }
+    solver._css_to_cdp_window_screen = lambda *_args: None
+    search_regions: list[tuple[int, int, int, int] | None] = []
+
+    def fake_locate(*_args, **kwargs):
+        search_regions.append(kwargs.get("search_region"))
+        return None
+
+    solver._viewport_origin_on_screen = fake_locate
+
+    mapped = solver._map_css_to_screen(
+        588,
+        468,
+        256,
+        slider_info={"x": 567.5, "y": 453.0, "width": 42.0, "height": 30.0},
+    )
+
+    assert search_regions == [(496, 516, 490, 190)]
+    assert mapped["source"] == "dpr_fallback"
+    assert mapped["x"] == 592.0
+    assert mapped["y"] == 596.0
     assert mapped["activation_verified"] is True
 
 
@@ -2991,6 +3135,41 @@ def test_native_os_input_requires_explicit_opt_in(monkeypatch) -> None:
 
     monkeypatch.setenv("FAPAI_SOLVER_OS_INPUT_BACKEND", "win32")
     assert solver._native_os_input_enabled() is True
+
+
+def test_linux_window_focus_activates_visible_chromium(monkeypatch) -> None:
+    calls: list[tuple[str, ...]] = []
+
+    class Result:
+        def __init__(self, *, stdout="", returncode=0):
+            self.stdout = stdout
+            self.returncode = returncode
+
+    def fake_run(command, **_kwargs):
+        calls.append(tuple(command))
+        if command[1] == "search":
+            return Result(stdout="101\n" if command[-1] == "chromium" else "")
+        return Result()
+
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    monkeypatch.setenv("DISPLAY", ":99")
+    monkeypatch.setattr(solver, "_bring_to_front", lambda: True)
+    monkeypatch.setattr(captcha_solver.subprocess, "run", fake_run)
+
+    assert solver._focus_linux_window() is True
+    assert ("xdotool", "windowactivate", "--sync", "101") in calls
+
+
+def test_linux_window_focus_requires_display(monkeypatch) -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    monkeypatch.delenv("DISPLAY", raising=False)
+    monkeypatch.setattr(
+        captcha_solver.subprocess,
+        "run",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("xdotool must not run")),
+    )
+
+    assert solver._focus_linux_window() is False
 
 
 def test_set_os_cursor_position_falls_back_to_absolute_mouse_event(monkeypatch) -> None:
