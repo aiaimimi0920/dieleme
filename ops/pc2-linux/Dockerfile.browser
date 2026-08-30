@@ -24,6 +24,7 @@ RUN apt-get update \
 
 COPY ops/pc2-linux/start-browser-solver.sh /usr/local/bin/start-browser-solver
 COPY tools/cdp_host_relay.py /app/tools/cdp_host_relay.py
+COPY tools/pc2_solver_watchdog.py /app/tools/pc2_solver_watchdog.py
 RUN chmod 0755 /usr/local/bin/start-browser-solver
 
 EXPOSE 6080 9224

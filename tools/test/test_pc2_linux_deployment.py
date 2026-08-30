@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import sys
 from pathlib import Path
+
+import pytest
+
+from tools import pc2_linux_healthcheck
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -37,11 +42,26 @@ def test_linux_compose_has_expected_decoupled_topology() -> None:
 
 def test_linux_compose_preserves_solver_retry_contract() -> None:
     compose = _read(OPS_ROOT / "compose.yaml")
+    env_example = _read(OPS_ROOT / "env.example")
 
     assert "FAPAI_SOLVER_COOLDOWN_FAIL_THRESHOLD:-10" in compose
     assert "FAPAI_SOLVER_COOLDOWN_SECONDS:-180" in compose
     assert "FAPAI_SLIDER_RETRY_INTERVAL_SECONDS:-5" in compose
     assert "FAPAI_SOLVER_MANUAL_FALLBACK_ENABLED: \"0\"" in compose
+    assert "FAPAI_SOLVER_ENABLE_HEADED_PLAYWRIGHT: \"0\"" in compose
+    assert "FAPAI_LOCAL_SOLVER_EXECUTION_TIMEOUT_SECONDS:-180" in compose
+    assert "FAPAI_LOCAL_SOLVER_TERMINATE_GRACE_SECONDS:-5" in compose
+    assert "FAPAI_LOCAL_SOLVER_WATCHDOG_STALE_SECONDS:-300" in compose
+    assert "FAPAI_LOCAL_SOLVER_WATCHDOG_STARTUP_GRACE_SECONDS:-180" in compose
+    assert "FAPAI_LOCAL_SOLVER_WATCHDOG_POLL_SECONDS:-30" in compose
+    assert "FAPAI_NAS_AUTH_RECOVERY_CLIENT_ENABLED:-1" in compose
+    assert "FAPAI_NAS_AUTH_RECOVERY_MARKER_PATH" in compose
+    assert "FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE: /data/secrets/nas-auth-recovery.token" in compose
+    assert "FAPAI_LOCAL_SOLVER_EXECUTION_TIMEOUT_SECONDS=180" in env_example
+    assert "FAPAI_LOCAL_SOLVER_TERMINATE_GRACE_SECONDS=5" in env_example
+    assert "FAPAI_LOCAL_SOLVER_WATCHDOG_STALE_SECONDS=300" in env_example
+    assert "FAPAI_NAS_AUTH_RECOVERY_CLIENT_ENABLED=1" in env_example
+    assert "FAPAI_NAS_AUTH_RECOVERY_SNAPSHOT_PATH: /app/.codex-temp/bridge-control/pc2-auth-snapshot.json" in compose
     assert "FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED: \"1\"" in compose
     assert compose.count("${FAPAI_HOST_DATA_GID:-1000}") == 2
     browser_section = compose.split("  pc2-browser-solver:", 1)[1].split(
@@ -91,11 +111,14 @@ def test_browser_image_keeps_solver_and_os_mouse_in_one_display() -> None:
     assert "--remote-debugging-port=9223" in start_script
     assert "tools/cdp_host_relay.py" in start_script
     assert "COPY tools/cdp_host_relay.py /app/tools/cdp_host_relay.py" in dockerfile
+    assert "COPY tools/pc2_solver_watchdog.py /app/tools/pc2_solver_watchdog.py" in dockerfile
     assert "--upstream-host 127.0.0.1" in start_script
     assert "--upstream-port 9223" in start_script
     assert "--allow-cidr" in start_script
     assert "FAPAI_CDP_ALLOWED_CLIENT_CIDRS" in start_script
     assert 'FAPAI_CDP_PUBLIC_PORT:-9224' in start_script
+    assert "tools/pc2_solver_watchdog.py" in start_script
+    assert 'FAPAI_LOCAL_SOLVER_WATCHDOG_STALE_SECONDS:-300' in start_script
     assert "EXPOSE 6080 9224" in dockerfile
     assert '[[ ! -r "$vnc_password_file" || ! -s "$vnc_password_file" ]]' in start_script
     assert 'tigervncpasswd -f >"$vnc_auth_file"' in start_script
@@ -117,13 +140,48 @@ def test_browser_enables_webgl_in_the_xvfb_runtime() -> None:
         assert flag in start_script
 
 
-def test_browser_healthcheck_requires_live_rfb_and_relay_processes() -> None:
+def test_browser_healthcheck_does_not_trigger_rfb_authentication() -> None:
     healthcheck = _read(REPO_ROOT / "tools" / "pc2_linux_healthcheck.py")
 
     assert 'port: int = 5900' in healthcheck
-    assert 'banner.startswith(b"RFB ")' in healthcheck
+    assert 'Path("/proc/net/tcp")' in healthcheck
+    assert "_check_rfb_listener()" in healthcheck
+    assert "invalid RFB banner" not in healthcheck
     assert '_process_exists("x0tigervncserver")' in healthcheck
     assert '_process_exists("websockify")' in healthcheck
+    assert '_process_exists("tools/pc2_solver_watchdog.py")' in healthcheck
+    assert "_check_solver_heartbeat()" in healthcheck
+
+
+def test_rfb_listener_check_reads_proc_without_connecting(tmp_path: Path) -> None:
+    proc_net_tcp = tmp_path / "tcp"
+    proc_net_tcp.write_text(
+        "  sl  local_address rem_address   st\n"
+        "   0: 0100007F:170C 00000000:0000 0A\n",
+        encoding="ascii",
+    )
+
+    pc2_linux_healthcheck._check_rfb_listener(proc_net_paths=(proc_net_tcp,))
+
+    proc_net_tcp.write_text(
+        "  sl  local_address rem_address   st\n"
+        "   0: 0100007F:170C 00000000:0000 01\n",
+        encoding="ascii",
+    )
+    with pytest.raises(RuntimeError, match="RFB server is not listening"):
+        pc2_linux_healthcheck._check_rfb_listener(proc_net_paths=(proc_net_tcp,))
+
+
+def test_browser_healthcheck_is_directly_executable() -> None:
+    result = subprocess.run(
+        [sys.executable, str(REPO_ROOT / "tools" / "pc2_linux_healthcheck.py"), "--help"],
+        cwd=REPO_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stderr
 
 
 def test_linux_compose_uses_compatibility_cdp_relay() -> None:
@@ -150,8 +208,23 @@ def test_deploy_script_has_identity_gate_and_rollback_links() -> None:
     assert "--skip-build" in deploy
     assert 'docker image inspect "$app_image"' in deploy
     assert 'docker image inspect "$browser_image"' in deploy
+    assert "--browser-only" in deploy
+    assert "wait_for_browser_health" in deploy
+    assert "up -d --no-deps pc2-browser-solver" in deploy
+    assert "Dockerfile.auth-recovery" in deploy
     assert "docker system prune" not in deploy
     assert "rm -rf" not in deploy
+
+
+def test_pc2_auth_recovery_browser_hotfix_only_overlays_recovery_client() -> None:
+    dockerfile = _read(OPS_ROOT / "Dockerfile.auth-recovery")
+
+    copy_lines = [line.strip() for line in dockerfile.splitlines() if line.startswith("COPY ")]
+    assert copy_lines == [
+        "COPY tools/internal_api_http.py /app/tools/internal_api_http.py",
+        "COPY tools/pc2_auth_recovery.py /app/tools/pc2_auth_recovery.py",
+        "COPY tools/pc2_local_solver.py /app/tools/pc2_local_solver.py",
+    ]
 
 
 def test_shell_scripts_pass_bash_syntax_check() -> None:

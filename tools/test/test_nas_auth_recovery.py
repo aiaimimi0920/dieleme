@@ -1,0 +1,118 @@
+from __future__ import annotations
+
+import json
+
+from src.nas_auth_recovery import NasAuthRecoveryCoordinator
+
+
+def _coordinator(tmp_path, **overrides):
+    options = {
+        "stall_seconds": 1800,
+        "pc1_timeout_seconds": 1800,
+        "pc2_timeout_seconds": 600,
+        "verify_timeout_seconds": 600,
+        "cooldown_seconds": 300,
+    }
+    options.update(overrides)
+    return NasAuthRecoveryCoordinator(tmp_path / "auth-recovery.json", **options)
+
+
+def test_stall_creates_one_durable_recovery_and_operator_pause_blocks_trigger(tmp_path):
+    coordinator = _coordinator(tmp_path)
+    coordinator.sample(100, 20, now=1000)
+    before = coordinator.sample(100, 20, operator_paused=True, now=2900)
+    assert before["active"] is None
+
+    requested = coordinator.sample(100, 20, now=2901)
+    active = requested["active"]
+    assert active["status"] == "requested"
+    assert active["baseline_captured_count"] == 100
+
+    same = coordinator.sample(100, 20, now=3000)
+    assert same["active"]["recovery_id"] == active["recovery_id"]
+
+    restarted = _coordinator(tmp_path)
+    assert restarted.snapshot(now=3000)["active"]["recovery_id"] == active["recovery_id"]
+
+
+def test_two_coordinators_reload_under_file_lock_and_keep_one_generation(tmp_path):
+    first = _coordinator(tmp_path)
+    second = _coordinator(tmp_path)
+    first.sample(10, 5, now=100)
+
+    first_active = first.sample(10, 5, now=1901)["active"]
+    second_active = second.sample(10, 5, now=1902)["active"]
+
+    assert second_active["recovery_id"] == first_active["recovery_id"]
+
+
+def test_pc1_to_pc2_flow_requires_matching_generation_and_progress_confirmation(tmp_path):
+    coordinator = _coordinator(tmp_path)
+    coordinator.sample(50, 10, now=100)
+    active = coordinator.sample(50, 10, now=1901)["active"]
+    recovery_id = active["recovery_id"]
+
+    stale = coordinator.claim("pc1", "old-generation", "pc1", now=1902)
+    assert stale["ok"] is False
+    assert stale["stale_recovery"] is True
+
+    assert coordinator.claim("pc1", recovery_id, "pc1", now=1902)["ok"] is True
+    ready = coordinator.snapshot_ready(
+        recovery_id,
+        sha256="a" * 64,
+        cookie_count=12,
+        created_at_epoch=1903,
+        now=1903,
+    )
+    assert ready["recovery"]["status"] == "snapshot_ready"
+    assert ready["recovery"]["snapshot"] == {
+        "sha256": "a" * 64,
+        "cookie_count": 12,
+        "created_at_epoch": 1903.0,
+    }
+    assert coordinator.claim("pc2", recovery_id, "pc2", now=1904)["ok"] is True
+    assert coordinator.pc2_restarting(recovery_id, now=1905)["ok"] is True
+    verifying = coordinator.result(recovery_id, success=True, now=1906)
+    assert verifying["status"] == "verifying"
+    assert coordinator.sample(50, 10, now=1907)["active"]["status"] == "verifying"
+
+    completed = coordinator.sample(51, 9, now=1908)
+    assert completed["active"] is None
+    assert completed["last_result"]["status"] == "succeeded"
+    assert completed["last_result"]["reason"] == "captured_count_advanced"
+
+
+def test_timeout_enters_cooldown_and_does_not_immediately_retrigger(tmp_path):
+    coordinator = _coordinator(tmp_path, pc1_timeout_seconds=10, cooldown_seconds=300)
+    coordinator.sample(7, 3, now=10)
+    active = coordinator.sample(7, 3, now=1811)["active"]
+    assert active["status"] == "requested"
+
+    expired = coordinator.sample(7, 3, now=1822)
+    assert expired["active"] is None
+    assert expired["last_result"]["reason"] == "requested_timeout"
+    assert expired["cooldown_until_epoch"] == 2122
+
+    still_cooling = coordinator.sample(7, 3, now=2000)
+    assert still_cooling["active"] is None
+    retriggered = coordinator.sample(7, 3, now=2122)
+    assert retriggered["active"]["status"] == "requested"
+
+
+def test_persisted_state_contains_metadata_but_no_cookie_values(tmp_path):
+    coordinator = _coordinator(tmp_path)
+    coordinator.sample(1, 1, now=1)
+    recovery_id = coordinator.sample(1, 1, now=1802)["active"]["recovery_id"]
+    coordinator.claim("pc1", recovery_id, "pc1", now=1803)
+    coordinator.snapshot_ready(
+        recovery_id,
+        sha256="b" * 64,
+        cookie_count=2,
+        now=1804,
+    )
+
+    payload = json.loads((tmp_path / "auth-recovery.json").read_text(encoding="utf-8"))
+    serialized = json.dumps(payload)
+    assert "cookie_count" in serialized
+    assert "cookie_value" not in serialized
+    assert "cookies" not in payload["active"]

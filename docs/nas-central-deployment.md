@@ -71,6 +71,15 @@ bash scripts/deploy-nas-central-api.sh --env-file env.nas.local
 bash scripts/deploy-nas-central-api.sh --env-file env.nas.local --hotfix
 ```
 
+当工作区还有其他未审查改动、只需发布 NAS 自动认证恢复状态机时，使用最小覆盖层：
+
+```bash
+bash scripts/deploy-nas-central-api.sh --env-file env.nas.local --auth-recovery-hotfix
+```
+
+该模式以当前线上镜像为基线，只覆盖 `src/server.py` 和
+`src/nas_auth_recovery.py`，不会把工作区内其他脏文件复制进镜像。
+
 脚本会：
 
 1. 计算并注入 `FAPAI_BUILD_VERSION`、Git commit、构建时间和关键源码摘要；

@@ -13,20 +13,40 @@ def _build_session() -> requests.Session:
     return session
 
 
-def fetch_json(url: str, *, timeout: float) -> Any:
+def fetch_json(
+    url: str,
+    *,
+    timeout: float,
+    headers: Mapping[str, str] | None = None,
+) -> Any:
     with _build_session() as session:
         try:
-            response = session.get(url, timeout=timeout)
+            request_options: dict[str, Any] = {"timeout": timeout}
+            if headers:
+                request_options["headers"] = dict(headers)
+            response = session.get(url, **request_options)
             response.raise_for_status()
         except requests.RequestException as exc:
             raise OSError(str(exc)) from exc
         return response.json()
 
 
-def post_json(url: str, payload: Mapping[str, Any], *, timeout: float) -> Any:
+def post_json(
+    url: str,
+    payload: Mapping[str, Any],
+    *,
+    timeout: float,
+    headers: Mapping[str, str] | None = None,
+) -> Any:
     with _build_session() as session:
         try:
-            response = session.post(url, json=dict(payload), timeout=timeout)
+            request_options: dict[str, Any] = {
+                "json": dict(payload),
+                "timeout": timeout,
+            }
+            if headers:
+                request_options["headers"] = dict(headers)
+            response = session.post(url, **request_options)
             response.raise_for_status()
         except requests.RequestException as exc:
             raise OSError(str(exc)) from exc

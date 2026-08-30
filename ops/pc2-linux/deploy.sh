@@ -13,11 +13,12 @@ release_id=""
 mode="deploy"
 dry_run=0
 skip_build=0
+browser_only=0
 
 usage() {
   cat <<'EOF'
 Usage:
-  deploy.sh --release-dir PATH --release-id ID [--dry-run] [--skip-build]
+  deploy.sh --release-dir PATH --release-id ID [--dry-run] [--skip-build] [--browser-only]
   deploy.sh --rollback
 
 The runtime environment and VNC password must already exist at:
@@ -42,6 +43,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --skip-build)
       skip_build=1
+      shift
+      ;;
+    --browser-only)
+      browser_only=1
       shift
       ;;
     --rollback)
@@ -151,6 +156,20 @@ wait_for_health() {
   return 1
 }
 
+wait_for_browser_health() {
+  local deadline=$((SECONDS + 600))
+  local state
+  while (( SECONDS < deadline )); do
+    state="$(docker inspect --format '{{.State.Status}} {{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' fapaifang-pc2-browser-solver 2>/dev/null || true)"
+    if [[ "$state" == "running healthy" ]]; then
+      return 0
+    fi
+    sleep 5
+  done
+  echo "PC2 browser solver did not become healthy within 600 seconds." >&2
+  return 1
+}
+
 validate_release_tree() {
   local target_release="$1"
   [[ -f "$target_release/Dockerfile" ]]
@@ -231,15 +250,45 @@ deploy_release() {
 
   local app_image="fapaifang-worker:$release_id"
   local browser_image="fapaifang-browser:$release_id"
+  local browser_base_image=""
   local source_digest build_time build_commit
   source_digest="$(find "$release_dir" -type f ! -name '.release.env' ! -name 'release-manifest.txt' -print0 | sort -z | xargs -0 sha256sum | sha256sum | awk '{print $1}')"
   build_time="$(date --iso-8601=seconds)"
   build_commit="$(git -C "$release_dir" rev-parse HEAD 2>/dev/null || printf 'working-tree')"
 
+  if (( browser_only )); then
+    [[ -n "$prior_release" && -f "$prior_release/.release.env" ]] || {
+      echo "Browser-only deployment requires a current release with image metadata." >&2
+      return 1
+    }
+    [[ -f "$release_dir/ops/pc2-linux/Dockerfile.auth-recovery" ]] || {
+      echo "Browser auth recovery Dockerfile is missing from the release." >&2
+      return 1
+    }
+    app_image="$(sed -n 's/^FAPAI_IMAGE=//p' "$prior_release/.release.env" | tail -1)"
+    browser_base_image="$(sed -n 's/^FAPAI_BROWSER_IMAGE=//p' "$prior_release/.release.env" | tail -1)"
+    [[ -n "$app_image" && -n "$browser_base_image" ]] || {
+      echo "Current release image metadata is incomplete." >&2
+      return 1
+    }
+  fi
+
   if (( skip_build )); then
     docker image inspect "$app_image" >/dev/null
     docker image inspect "$browser_image" >/dev/null
     echo "Using preloaded PC2 release images for $release_id."
+  elif (( browser_only )); then
+    docker image inspect "$app_image" >/dev/null
+    docker image inspect "$browser_base_image" >/dev/null
+    docker build \
+      --build-arg "FAPAI_BASE_IMAGE=$browser_base_image" \
+      --build-arg "FAPAI_BUILD_VERSION=$release_id" \
+      --build-arg "FAPAI_BUILD_COMMIT=$build_commit" \
+      --build-arg "FAPAI_BUILD_TIME=$build_time" \
+      --build-arg "FAPAI_SOURCE_DIGEST=$source_digest" \
+      --tag "$browser_image" \
+      --file "$release_dir/ops/pc2-linux/Dockerfile.auth-recovery" \
+      "$release_dir"
   else
     docker build \
       --build-arg "FAPAI_BUILD_VERSION=$release_id" \
@@ -257,6 +306,27 @@ deploy_release() {
   fi
   write_release_metadata "$release_dir" "$app_image" "$browser_image"
   validate_release_tree "$release_dir"
+
+  if (( browser_only )); then
+    if compose_for "$release_dir" up -d --no-deps pc2-browser-solver && wait_for_browser_health; then
+      if [[ "$prior_release" != "$release_dir" ]]; then
+        sudo -n ln -sfn "$prior_release" "$app_root/previous"
+      fi
+      sudo -n ln -sfn "$release_dir" "$app_root/current"
+      compose_for "$release_dir" ps pc2-browser-solver
+      echo "PC2 browser auth recovery release is healthy: $release_id"
+      return 0
+    fi
+
+    echo "PC2 browser auth recovery release failed health validation." >&2
+    compose_for "$release_dir" ps pc2-browser-solver >&2 || true
+    if compose_for "$prior_release" up -d --no-deps pc2-browser-solver && wait_for_browser_health; then
+      echo "Previous PC2 browser solver restored after failed deployment." >&2
+    else
+      echo "Previous PC2 browser solver could not be restored automatically." >&2
+    fi
+    return 1
+  fi
 
   if compose_for "$release_dir" up -d --remove-orphans && wait_for_health; then
     if [[ -n "$prior_release" && "$prior_release" != "$release_dir" ]]; then

@@ -175,20 +175,58 @@ def test_register_taobao_login_recovery_monitor_task_registers_fast_interactive_
     assert "--remove-orphans" not in script
 
 
-def test_register_pc1_shared_auth_maintenance_registers_watchdog_and_recovery_with_port_9225() -> None:
+def test_register_pc1_shared_auth_maintenance_registers_watchdog_and_nas_recovery_with_port_9225() -> None:
     script = _script("register-pc1-shared-auth-maintenance.ps1")
 
     assert '[int]$Port = 9225' in script
     assert "register-taobao-login-watchdog-task.ps1" in script
-    assert "register-taobao-login-recovery-monitor-task.ps1" in script
+    assert "register-pc1-nas-auth-recovery-task.ps1" in script
     assert 'Join-Path $resolvedDataRoot "secrets\\nodes\\pc2\\taobao-cookies.json"' in script
     assert 'Enable-ScheduledTask -TaskName "FapaiFangTaobaoLoginWatchdog"' in script
-    assert 'Enable-ScheduledTask -TaskName "FapaiFangTaobaoLoginRecoveryMonitor"' in script
+    assert 'Enable-ScheduledTask -TaskName "FapaiFangNasAuthRecovery"' in script
+    assert 'Disable-ScheduledTask -TaskName "FapaiFangTaobaoLoginRecoveryMonitor"' in script
     assert '[switch]$StartWatchdogNow' in script
     assert '[int]$ManualAuthGraceMinutes = 30' in script
-    assert '"-ManualAuthGraceMinutes", $ManualAuthGraceMinutes' in script
+    assert '[int]$LoginWindowSeconds = 300' in script
+    assert '"-LoginWindowSeconds", $LoginWindowSeconds' in script
+    assert '"-ProfileDir", $ProfileDir' in script
+    assert '"-BrowserPath", $BrowserPath' in script
+    assert '"-ExecutionTimeLimitMinutes", $NasRecoveryExecutionTimeLimitMinutes' in script
     assert 'Start-ScheduledTask -TaskName "FapaiFangTaobaoLoginWatchdog"' in script
     assert "WatchdogIntervalMinutes" not in script
+
+
+def test_pc1_nas_auth_recovery_watcher_keeps_single_window_and_publishes_only_metadata() -> None:
+    script = _script("watch-pc1-nas-auth-recovery.ps1")
+
+    assert '[int]$LoginWindowSeconds = 300' in script
+    assert '$withinWindow' in script
+    assert 'Test-TaobaoAuthPageExists' in script
+    assert 'if (-not $existingAuthPage -and -not $withinWindow)' in script
+    assert 'complete-pc1-inplace-auth.ps1' in script
+    assert 'Get-FileHash -LiteralPath $OutputPath -Algorithm SHA256' in script
+    assert 'X-Fapai-Recovery-Token' in script
+    assert 'secrets\\nas-auth-recovery.token' in script
+    assert 'Move-Item -LiteralPath $temporaryPath -Destination $Path -Force' in script
+    assert '"$recoveryBase/snapshot_ready"' in script
+    assert 'cookie_count = $cookies.Count' in script
+    assert 'cookie_value' not in script
+    assert 'cookies =' not in script.split('snapshot_ready', 1)[1]
+
+
+def test_register_pc1_nas_auth_recovery_task_is_interactive_single_flight() -> None:
+    script = _script("register-pc1-nas-auth-recovery-task.ps1")
+
+    assert 'FapaiFangNasAuthRecovery' in script
+    assert 'watch-pc1-nas-auth-recovery.ps1' in script
+    assert 'New-ScheduledTaskTrigger' in script
+    assert 'MultipleInstances IgnoreNew' in script
+    assert 'LogonType Interactive' in script
+    assert 'LoginWindowSeconds must be at least 300' in script
+    assert '"-TokenPath", "`"$TokenPath`""' in script
+    assert '"-ProfileDir", "`"$ProfileDir`""' in script
+    assert '"-BrowserPath", "`"$BrowserPath`""' in script
+    assert 'ExecutionTimeLimit (New-TimeSpan -Minutes $ExecutionTimeLimitMinutes)' in script
 
 
 def test_deploy_pc2_llm_helper_hotfix_uses_ssh_hash_verification_and_optional_analysis_restart() -> None:

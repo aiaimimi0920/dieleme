@@ -1,5 +1,6 @@
 from __future__ import annotations
 import datetime, json, os, sys, time, traceback, uuid
+import multiprocessing
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit, urlunsplit
@@ -7,6 +8,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path: sys.path.insert(0, str(REPO_ROOT))
 from src.captcha_solver import CaptchaSolver
 from tools.internal_api_http import fetch_json, post_json
+from tools.pc2_auth_recovery import process_nas_auth_recovery_once
 DEFAULT_API_BASE_URL = os.environ.get("FAPAI_API_BASE_URL", "http://192.168.15.200:8001/api")
 DEFAULT_CDP_ENDPOINT = os.environ.get("FAPAI_CDP_ENDPOINT", "http://127.0.0.1:9223")
 DEFAULT_POLL_SECONDS = int(os.environ.get("FAPAI_LOCAL_SOLVER_POLL_SECONDS", "5"))
@@ -26,6 +28,28 @@ RECENT_HEALTHY_AUTH_MAX_AGE_SECONDS = float(
 POST_AUTH_CDP_PROBE_GRACE_SECONDS = float(
     os.environ.get("FAPAI_POST_AUTH_CDP_PROBE_GRACE_SECONDS", "180")
 )
+SOLVER_EXECUTION_TIMEOUT_SECONDS = float(
+    os.environ.get("FAPAI_LOCAL_SOLVER_EXECUTION_TIMEOUT_SECONDS", "180")
+)
+SOLVER_TERMINATE_GRACE_SECONDS = float(
+    os.environ.get("FAPAI_LOCAL_SOLVER_TERMINATE_GRACE_SECONDS", "5")
+)
+SOLVER_HEARTBEAT_PATH = Path(
+    os.environ.get("FAPAI_LOCAL_SOLVER_HEARTBEAT_PATH", "/tmp/fapaifang-local-solver-heartbeat.json")
+)
+AUTH_RECOVERY_SNAPSHOT_PATH = Path(
+    os.environ.get("FAPAI_NAS_AUTH_RECOVERY_SNAPSHOT_PATH")
+    or os.environ.get("FAPAI_COOKIE_SNAPSHOT", "/data/secrets/nodes/pc2/taobao-cookies.json")
+)
+AUTH_RECOVERY_MARKER_PATH = Path(
+    os.environ.get(
+        "FAPAI_NAS_AUTH_RECOVERY_MARKER_PATH",
+        str(REPO_ROOT / ".codex-temp" / "bridge-control" / "pc2-auth-recovery.json"),
+    )
+)
+AUTH_RECOVERY_TOKEN_PATH = Path(
+    os.environ.get("FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE", "/data/secrets/nas-auth-recovery.token")
+)
 
 def _env_flag(name, default=False):
     raw = os.environ.get(name)
@@ -35,6 +59,10 @@ def _env_flag(name, default=False):
 
 def real_taobao_auto_solver_enabled():
     return _env_flag("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", False)
+
+
+def nas_auth_recovery_client_enabled():
+    return _env_flag("FAPAI_NAS_AUTH_RECOVERY_CLIENT_ENABLED", False)
 
 def _status_url(api_base: str) -> str:
     return api_base.rstrip("/") + "/status"
@@ -59,6 +87,30 @@ def log_event(event):
     except UnicodeEncodeError:
         print(line.encode("utf-8", errors="replace").decode("utf-8", errors="replace"), flush=True)
 
+
+def write_solver_heartbeat(phase, **details):
+    payload = {
+        "pid": os.getpid(),
+        "updated_at_epoch": time.time(),
+        "phase": str(phase or "unknown"),
+        **details,
+    }
+    temporary_path = SOLVER_HEARTBEAT_PATH.with_name(
+        f"{SOLVER_HEARTBEAT_PATH.name}.{os.getpid()}.tmp"
+    )
+    try:
+        SOLVER_HEARTBEAT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        temporary_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        os.replace(temporary_path, SOLVER_HEARTBEAT_PATH)
+        return True
+    except Exception as exc:
+        try:
+            temporary_path.unlink(missing_ok=True)
+        except Exception:
+            pass
+        log_event({"kind": "local_solver_heartbeat_write_error", "error": repr(exc)})
+        return False
+
 def read_solver_status(api_base):
     try:
         payload = fetch_json(_status_url(api_base), timeout=10)
@@ -72,6 +124,48 @@ def _solver_scope_statuses(solver_status):
         return {}
     scopes = solver_status.get("scopes") or solver_status.get("collection_scopes")
     return dict(scopes) if isinstance(scopes, dict) else {}
+
+
+def select_solver_scope_status(solver_status, preferred_challenge_id=None):
+    """Project aggregate NAS state onto one stable scoped challenge."""
+    if not isinstance(solver_status, dict):
+        return {}
+    candidates = []
+    for scope, scoped_status in _solver_scope_statuses(solver_status).items():
+        if not isinstance(scoped_status, dict):
+            continue
+        challenge_id = str(scoped_status.get("challenge_id") or "").strip()
+        if not challenge_id:
+            continue
+        first_seen = float(scoped_status.get("first_seen_epoch") or 0)
+        candidates.append((str(scope), challenge_id, first_seen, scoped_status))
+    if not candidates:
+        return dict(solver_status)
+
+    preferred = str(preferred_challenge_id or "").strip()
+    selected = next((item for item in candidates if item[1] == preferred), None)
+    if selected is None:
+        selected = min(
+            candidates,
+            key=lambda item: (item[2] if item[2] > 0 else float("inf"), item[0]),
+        )
+    scope, challenge_id, _first_seen, scoped_status = selected
+    scoped_request = scoped_status.get("last_request")
+    projected = dict(solver_status)
+    projected.update(
+        {
+            "scope": scope,
+            "challenge_id": challenge_id,
+            "paused": bool(scoped_status.get("paused")),
+            "manual_required": bool(scoped_status.get("manual_required")),
+            "manual_only": bool(scoped_status.get("manual_only")),
+            "last_status": scoped_status.get("last_status") or projected.get("last_status"),
+            "last_failure_reason": scoped_status.get("last_failure_reason"),
+            "last_request": dict(scoped_request) if isinstance(scoped_request, dict) else {},
+        }
+    )
+    return projected
+
 
 def notify_force_reset(api_base, scope, challenge_id):
     try:
@@ -89,10 +183,18 @@ def notify_force_reset(api_base, scope, challenge_id):
         return {"ok": False, "error": repr(exc)}
 
 def _challenge_scope_for_url(url):
-    value = str(url or "").strip().lower()
-    if "sf-item.taobao.com" in value or "/sf_item/" in value:
+    value = str(url or "").strip()
+    try:
+        parsed = urlsplit(value)
+    except ValueError:
+        return ""
+    host = str(parsed.hostname or "").strip().lower()
+    path = str(parsed.path or "/").lower()
+    while "//" in path:
+        path = path.replace("//", "/")
+    if host == "sf-item.taobao.com" or "/sf_item/" in path:
         return "detail"
-    if "sf.taobao.com/list/" in value or "/punish" in value and "/list/" in value:
+    if host == "sf.taobao.com" and "/list/" in path:
         return "seed"
     return ""
 
@@ -106,6 +208,7 @@ def close_challenge_pages_for_scope(cdp_endpoint, scope):
     except Exception as exc:
         return {"attempted": True, "closed": 0, "error": repr(exc)}
     closed = []
+    closer = CaptchaSolver(cdp_endpoint=cdp_endpoint)
     for tab in tabs if isinstance(tabs, list) else []:
         if not isinstance(tab, dict) or tab.get("type") != "page":
             continue
@@ -116,11 +219,46 @@ def close_challenge_pages_for_scope(cdp_endpoint, scope):
         if _challenge_scope_for_url(target_url) != normalized:
             continue
         try:
-            fetch_json(f"{cdp_endpoint.rstrip('/')}/json/close/{target_id}", timeout=5)
-            closed.append(target_id)
+            if closer._close_cdp_target(target_id):
+                closed.append(target_id)
         except Exception:
             continue
     return {"attempted": True, "closed": len(closed), "target_ids": closed, "scope": normalized}
+
+
+def compact_active_challenge_pages(cdp_endpoint, solver_status):
+    """Keep at most one active challenge page for each independent scope."""
+    try:
+        tabs = fetch_json(f"{cdp_endpoint.rstrip('/')}/json/list", timeout=5)
+    except Exception as exc:
+        return {"attempted": True, "closed": 0, "error": repr(exc), "scopes": {}}
+    if not isinstance(tabs, list):
+        return {"attempted": True, "closed": 0, "error": "invalid_cdp_tab_list", "scopes": {}}
+
+    results = {}
+    total_closed = 0
+    for scope, scoped_status in _solver_scope_statuses(solver_status).items():
+        if scope not in {"seed", "detail"} or not isinstance(scoped_status, dict):
+            continue
+        if not str(scoped_status.get("challenge_id") or "").strip():
+            continue
+        target_url = solver_request_target_url(scoped_status.get("last_request"))
+        if not target_url:
+            continue
+        solver = CaptchaSolver(cdp_endpoint=cdp_endpoint, target_url=target_url)
+        pruning = solver._prune_duplicate_challenge_tabs(tabs)
+        results[scope] = pruning
+        closed = int(pruning.get("closed") or 0)
+        total_closed += closed
+        if closed:
+            try:
+                refreshed_tabs = fetch_json(f"{cdp_endpoint.rstrip('/')}/json/list", timeout=5)
+                if isinstance(refreshed_tabs, list):
+                    tabs = refreshed_tabs
+            except Exception:
+                pass
+    return {"attempted": True, "closed": total_closed, "scopes": results}
+
 
 def check_cdp_healthy(cdp_endpoint):
     endpoint = cdp_endpoint.rstrip("/")
@@ -474,6 +612,7 @@ def _default_fallback_state():
         "collection_resume_next_retry_at": None,
         "collection_resume_last_error": None,
         "challenge_id": None,
+        "scope": None,
     }
 
 
@@ -535,6 +674,7 @@ def _load_fallback_state():
                     "collection_resume_next_retry_at": float(data.get("collection_resume_next_retry_at") or 0) or None,
                     "collection_resume_last_error": str(data.get("collection_resume_last_error") or "").strip() or None,
                     "challenge_id": str(data.get("challenge_id") or "").strip() or None,
+                    "scope": str(data.get("scope") or "").strip() or None,
                 }
             )
             return state
@@ -561,16 +701,21 @@ def _reset_fallback_state():
     return state
 
 
-def _sync_challenge_state(state, challenge_id):
+def _sync_challenge_state(state, challenge_id, scope=None):
     challenge_id = str(challenge_id or "").strip()
     if not challenge_id:
         return state, False
     current_id = str(state.get("challenge_id") or "").strip()
     if current_id == challenge_id:
+        normalized_scope = str(scope or "").strip() or None
+        if normalized_scope and state.get("scope") != normalized_scope:
+            state["scope"] = normalized_scope
+            _save_fallback_state(state)
         return state, False
     if current_id:
         state = _default_fallback_state()
     state["challenge_id"] = challenge_id
+    state["scope"] = str(scope or "").strip() or None
     _save_fallback_state(state)
     return state, bool(current_id)
 
@@ -1248,6 +1393,126 @@ def run_solver_local(cdp_endpoint, target_url, max_attempts=50, probe_target=Non
         return False
 
 
+def _run_solver_process_entry(
+    result_connection,
+    cdp_endpoint,
+    target_url,
+    max_attempts,
+    probe_target,
+    drag_profile_offset,
+):
+    try:
+        success = run_solver_local(
+            cdp_endpoint,
+            target_url,
+            max_attempts=max_attempts,
+            probe_target=probe_target,
+            drag_profile_offset=drag_profile_offset,
+        )
+        result = {"success": bool(success)}
+    except BaseException as exc:
+        result = {"success": False, "error": repr(exc)}
+    finally:
+        try:
+            result_connection.send(result)
+        except (BrokenPipeError, EOFError, OSError):
+            pass
+        finally:
+            result_connection.close()
+
+
+def run_solver_local_with_deadline(
+    cdp_endpoint,
+    target_url,
+    max_attempts=50,
+    probe_target=None,
+    drag_profile_offset=0,
+    timeout_seconds=None,
+):
+    execution_timeout = (
+        SOLVER_EXECUTION_TIMEOUT_SECONDS
+        if timeout_seconds is None
+        else float(timeout_seconds)
+    )
+    if execution_timeout <= 0:
+        return run_solver_local(
+            cdp_endpoint,
+            target_url,
+            max_attempts=max_attempts,
+            probe_target=probe_target,
+            drag_profile_offset=drag_profile_offset,
+        )
+
+    context = multiprocessing.get_context("spawn")
+    result_receiver, result_sender = context.Pipe(duplex=False)
+    process = context.Process(
+        target=_run_solver_process_entry,
+        args=(
+            result_sender,
+            cdp_endpoint,
+            target_url,
+            max_attempts,
+            probe_target,
+            drag_profile_offset,
+        ),
+        name="fapaifang-local-solver-attempt",
+    )
+    try:
+        process.start()
+    except Exception as exc:
+        result_receiver.close()
+        result_sender.close()
+        try:
+            process.close()
+        except ValueError:
+            pass
+        log_event({"kind": "local_solver_process_start_error", "error": repr(exc)})
+        return False
+    result_sender.close()
+    process.join(execution_timeout)
+
+    if process.is_alive():
+        process.terminate()
+        process.join(max(0.0, SOLVER_TERMINATE_GRACE_SECONDS))
+        if process.is_alive() and hasattr(process, "kill"):
+            process.kill()
+            process.join(max(0.0, SOLVER_TERMINATE_GRACE_SECONDS))
+        still_alive = process.is_alive()
+        result_receiver.close()
+        log_event(
+            {
+                "kind": "local_solver_execution_timeout",
+                "timeout_seconds": execution_timeout,
+                "terminated": not still_alive,
+            }
+        )
+        if still_alive:
+            raise SystemExit("hung local solver child survived terminate and kill")
+        process.close()
+        return False
+
+    exit_code = process.exitcode
+    try:
+        result = result_receiver.recv() if result_receiver.poll() else None
+    except (EOFError, OSError) as exc:
+        result = {"success": False, "error": repr(exc)}
+    finally:
+        result_receiver.close()
+        process.close()
+    if not isinstance(result, dict):
+        log_event({"kind": "local_solver_process_no_result", "exit_code": exit_code})
+        return False
+    if result.get("error"):
+        log_event(
+            {
+                "kind": "local_solver_process_error",
+                "exit_code": exit_code,
+                "error": result["error"],
+            }
+        )
+    return bool(result.get("success"))
+
+
 def close_stale_challenge_probe_target(cdp_endpoint, probe_target):
     if not isinstance(probe_target, dict):
         return {"attempted": False, "closed": False, "reason": "missing_probe_target"}
@@ -1328,13 +1593,38 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
         "cooldown_seconds": SOLVER_COOLDOWN_SECONDS,
         "slider_retry_interval_seconds": SLIDER_RETRY_INTERVAL_SECONDS,
     })
+    write_solver_heartbeat("waiting_for_cdp")
     while not check_cdp_healthy(cdp_endpoint):
+        write_solver_heartbeat("waiting_for_cdp")
         log_event({"kind": "waiting_for_cdp", "cdp_endpoint": cdp_endpoint})
         time.sleep(5)
     last_probe_target = None
     last_auth_confirmed_at = 0.0
     while True:
+        write_solver_heartbeat("polling")
         try:
+            if nas_auth_recovery_client_enabled():
+                auth_recovery = process_nas_auth_recovery_once(
+                    api_base_url,
+                    cdp_endpoint,
+                    expected_node_id or os.environ.get("FAPAI_NODE_ID", "pc2"),
+                    AUTH_RECOVERY_SNAPSHOT_PATH,
+                    AUTH_RECOVERY_MARKER_PATH,
+                    AUTH_RECOVERY_TOKEN_PATH,
+                )
+                recovery_action = str(auth_recovery.get("action") or "")
+                if recovery_action not in {
+                    "idle",
+                    "ignored",
+                    "waiting_for_collection_progress",
+                }:
+                    log_event({"kind": "nas_auth_recovery", **auth_recovery})
+                if recovery_action == "restart_requested":
+                    write_solver_heartbeat(
+                        "auth_recovery_restart",
+                        recovery_id=auth_recovery.get("recovery_id"),
+                    )
+                    raise SystemExit(75)
             pending_confirmation = _retry_pending_auth_confirmation(api_base_url)
             if pending_confirmation.get("confirmed"):
                 last_auth_confirmed_at = time.time()
@@ -1394,6 +1684,13 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
             if "error" in solver_status:
                 log_event({"kind": "status_error", "error": solver_status["error"]})
                 time.sleep(poll_seconds); continue
+            compaction = compact_active_challenge_pages(cdp_endpoint, solver_status)
+            if compaction.get("closed"):
+                log_event({
+                    "kind": "scoped_challenge_tabs_compacted",
+                    "closed": compaction.get("closed"),
+                    "scopes": compaction.get("scopes"),
+                })
             # Each collection scope has its own 15-minute safety latch.  Reset
             # only the stuck scope and close its browser tabs; the other scope
             # remains available to continue collecting.
@@ -1428,6 +1725,11 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                 force_reset_done = force_reset_done or bool(reset_result.get("force_reset"))
             if force_reset_done:
                 solver_status = read_solver_status(api_base_url)
+            fallback_state = _load_fallback_state()
+            solver_status = select_solver_scope_status(
+                solver_status,
+                preferred_challenge_id=fallback_state.get("challenge_id"),
+            )
             paused = bool(solver_status.get("paused"))
             running = bool(solver_status.get("running"))
             manual_required = bool(solver_status.get("manual_required"))
@@ -1440,10 +1742,10 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                 continue
             # Manual escalation is opt-in. A stale fallback latch must never disable
             # the automatic solver after an operator turns manual fallback off.
-            fallback_state = _load_fallback_state()
             fallback_state, challenge_reset = _sync_challenge_state(
                 fallback_state,
                 solver_status.get("challenge_id"),
+                scope=solver_status.get("scope"),
             )
             if challenge_reset:
                 last_probe_target = None
@@ -1653,7 +1955,10 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
             # CDP probing can take several seconds. Re-read the control plane at
             # the execution boundary so a concurrently started NAS solver wins
             # instead of both processes acting on the same browser challenge.
-            latest_solver_status = read_solver_status(api_base_url)
+            latest_solver_status = select_solver_scope_status(
+                read_solver_status(api_base_url),
+                preferred_challenge_id=solver_status.get("challenge_id"),
+            )
             execution_block_reason = node_solver_execution_block_reason(
                 latest_solver_status,
                 cdp_endpoint,
@@ -1712,20 +2017,29 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                 "drag_profile_offset": drag_profile_offset,
             })
             _record_slider_attempt_started(fallback_state)
-            success = run_solver_local(
+            write_solver_heartbeat(
+                "solver_attempt",
+                challenge_id=fallback_state.get("challenge_id"),
+                attempt=scheduled_attempt,
+            )
+            success = run_solver_local_with_deadline(
                 cdp_endpoint,
                 target_url,
                 max_attempts=max_attempts,
                 probe_target=probe_target,
                 drag_profile_offset=drag_profile_offset,
             )
+            write_solver_heartbeat("polling")
             if success:
                 log_event({"kind": "local_solver_success"})
                 completed_state = _load_fallback_state()
                 completed_state["slider_attempt_started_at"] = None
                 completed_state["slider_last_progress_at"] = time.time()
                 _save_fallback_state(completed_state)
-                completion_status = read_solver_status(api_base_url)
+                completion_status = select_solver_scope_status(
+                    read_solver_status(api_base_url),
+                    preferred_challenge_id=solver_status.get("challenge_id"),
+                )
                 completion_challenge_id = _completion_challenge_id(
                     solver_status,
                     completion_status,

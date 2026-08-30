@@ -177,6 +177,16 @@ for _ in range(40):
 raise SystemExit(f"public Chromium CDP relay did not become ready: {endpoint}")
 PY
 
+solver_heartbeat_path="${FAPAI_LOCAL_SOLVER_HEARTBEAT_PATH:-/tmp/fapaifang-local-solver-heartbeat.json}"
+rm -f "$solver_heartbeat_path"
+python tools/pc2_solver_watchdog.py \
+  --heartbeat-path "$solver_heartbeat_path" \
+  --stale-seconds "${FAPAI_LOCAL_SOLVER_WATCHDOG_STALE_SECONDS:-300}" \
+  --startup-grace-seconds "${FAPAI_LOCAL_SOLVER_WATCHDOG_STARTUP_GRACE_SECONDS:-180}" \
+  --poll-seconds "${FAPAI_LOCAL_SOLVER_WATCHDOG_POLL_SECONDS:-30}" \
+  --parent-pid 1 &
+pids+=("$!")
+
 trap - EXIT
 exec python tools/pc2_local_solver.py \
   --api-base-url "$api_base_url" \

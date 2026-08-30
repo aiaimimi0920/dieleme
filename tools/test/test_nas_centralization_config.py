@@ -65,11 +65,19 @@ def test_nas_and_worker_compose_templates_exist_and_separate_roles() -> None:
     assert "FAPAI_DETAIL_CAPTCHA_SOLVER_ENABLED" in worker_env
     assert "FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED" in worker_env
     assert "FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED" in nas_compose
+    assert "FAPAI_SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS" in nas_compose
+    assert "FAPAI_NAS_AUTH_RECOVERY_ENABLED:-1" in nas_compose
+    assert "FAPAI_NAS_AUTH_RECOVERY_STALL_SECONDS:-1800" in nas_compose
+    assert "FAPAI_NAS_AUTH_RECOVERY_STATE_PATH: /data/datas/nas-auth-recovery.json" in nas_compose
+    assert "FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE: /data/secrets/nas-auth-recovery.token" in nas_compose
     assert "FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS" in worker_compose
     assert "192.168.15.200:55432" in worker_env
     assert "192.168.15.200:8001" in worker_env
     assert "FAPAI_NAS_DATA_ROOT" in nas_env
     assert "FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED=0" in nas_env
+    assert "FAPAI_SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS=180" in nas_env
+    assert "FAPAI_NAS_AUTH_RECOVERY_ENABLED=1" in nas_env
+    assert "FAPAI_NAS_AUTH_RECOVERY_STALL_SECONDS=1800" in nas_env
 
 
 def test_nas_api_image_exposes_verifiable_build_identity_and_hotfix_dockerfile() -> None:
@@ -121,6 +129,27 @@ def test_nas_api_deploy_helper_requires_backup_identity_health_gate_and_rollback
     assert "docker logs --tail 200 --timestamps" in script
     assert "/api/collection/overview" in script
     assert "--dry-run" in script
+    assert "shared_auth_recovery_token_file" in script
+    assert "FAPAI_SHARED_ARTIFACT_ROOT" in script
+    assert "os.replace(temporary, target)" in script
+    assert 'chown --reference="$(dirname "$shared_auth_recovery_token_file")"' in script
+    assert "--auth-recovery-hotfix" in script
+    assert 'FAPAI_DOCKERFILE="Dockerfile.nas-auth-recovery"' in script
+    assert 'export FAPAI_NAS_ENV_FILE="${FAPAI_NAS_ENV_FILE:-$env_file}"' in script
+    assert 'com.docker.compose.project' in script
+    assert 'export FAPAI_IMAGE="$candidate_image"' in script
+    assert '--project-name "$compose_project"' in script
+    assert "Candidate image build failed; the running API was not replaced." in script
+
+
+def test_nas_auth_recovery_hotfix_only_overlays_recovery_server_files() -> None:
+    dockerfile = (REPO_ROOT / "Dockerfile.nas-auth-recovery").read_text(encoding="utf-8")
+
+    copy_lines = [line.strip() for line in dockerfile.splitlines() if line.startswith("COPY ")]
+    assert copy_lines == [
+        "COPY src/server.py /app/src/server.py",
+        "COPY src/nas_auth_recovery.py /app/src/nas_auth_recovery.py",
+    ]
 
 
 def test_detail_worker_command_passes_durable_archive_root() -> None:

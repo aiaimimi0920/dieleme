@@ -4,9 +4,16 @@ import argparse
 import json
 import os
 import socket
+import sys
 from pathlib import Path
 from urllib.parse import urljoin
 from urllib.request import urlopen
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from tools.pc2_solver_watchdog import heartbeat_age_seconds
 
 
 def _read_json(url: str) -> dict[str, object]:
@@ -29,17 +36,56 @@ def _process_exists(fragment: str) -> bool:
     return False
 
 
-def _check_rfb_server(host: str = "127.0.0.1", port: int = 5900) -> None:
-    with socket.create_connection((host, port), timeout=5) as connection:
-        connection.settimeout(5)
-        banner = bytearray()
-        while len(banner) < 12:
-            chunk = connection.recv(12 - len(banner))
-            if not chunk:
-                break
-            banner.extend(chunk)
-    if len(banner) != 12 or not banner.startswith(b"RFB ") or not banner.endswith(b"\n"):
-        raise RuntimeError(f"invalid RFB banner from {host}:{port}")
+def _check_rfb_listener(
+    port: int = 5900,
+    *,
+    proc_net_paths: tuple[Path, ...] | None = None,
+) -> None:
+    # Opening RFB without authenticating counts as a security failure in
+    # TigerVNC. Repeated health checks can therefore blacklist websockify's
+    # loopback source and lock every noVNC user out.
+    expected_port = f"{port:04X}"
+    paths = proc_net_paths or (Path("/proc/net/tcp"), Path("/proc/net/tcp6"))
+    for path in paths:
+        try:
+            rows = path.read_text(encoding="ascii").splitlines()[1:]
+        except OSError:
+            continue
+        for row in rows:
+            fields = row.split()
+            if len(fields) < 4:
+                continue
+            local_port = fields[1].rsplit(":", 1)[-1].upper()
+            state = fields[3].upper()
+            if local_port == expected_port and state == "0A":
+                return
+    raise RuntimeError(f"RFB server is not listening on port {port}")
+
+
+def _check_solver_heartbeat(
+    heartbeat_path: Path | None = None,
+    *,
+    stale_seconds: float | None = None,
+    now: float | None = None,
+) -> None:
+    path = heartbeat_path or Path(
+        os.environ.get(
+            "FAPAI_LOCAL_SOLVER_HEARTBEAT_PATH",
+            "/tmp/fapaifang-local-solver-heartbeat.json",
+        )
+    )
+    maximum_age = (
+        float(os.environ.get("FAPAI_LOCAL_SOLVER_WATCHDOG_STALE_SECONDS", "300"))
+        if stale_seconds is None
+        else float(stale_seconds)
+    )
+    heartbeat_age = heartbeat_age_seconds(path, now=now)
+    if heartbeat_age is None:
+        raise RuntimeError("PC2 local solver heartbeat is missing or invalid")
+    if heartbeat_age > max(1.0, maximum_age):
+        raise RuntimeError(
+            f"PC2 local solver heartbeat is stale: {heartbeat_age:.1f}s > {maximum_age:.1f}s"
+        )
 
 
 def check_browser() -> None:
@@ -53,13 +99,16 @@ def check_browser() -> None:
         raise RuntimeError("public CDP relay websocket endpoint is missing")
     with socket.create_connection(("127.0.0.1", 6080), timeout=5):
         pass
-    _check_rfb_server()
+    _check_rfb_listener()
     if not _process_exists("x0tigervncserver"):
         raise RuntimeError("TigerVNC server process is missing")
     if not _process_exists("websockify"):
         raise RuntimeError("noVNC WebSocket relay process is missing")
     if not _process_exists("tools/pc2_local_solver.py"):
         raise RuntimeError("PC2 local solver process is missing")
+    if not _process_exists("tools/pc2_solver_watchdog.py"):
+        raise RuntimeError("PC2 local solver watchdog process is missing")
+    _check_solver_heartbeat()
 
 
 def check_worker() -> None:

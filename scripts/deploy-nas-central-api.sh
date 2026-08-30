@@ -17,6 +17,10 @@ while [[ $# -gt 0 ]]; do
       build_mode="hotfix"
       shift
       ;;
+    --auth-recovery-hotfix)
+      build_mode="auth-recovery-hotfix"
+      shift
+      ;;
     --dry-run)
       dry_run=1
       shift
@@ -30,6 +34,7 @@ done
 
 cd "$repo_root"
 [[ -f "$env_file" ]] || { echo "Missing NAS environment file: $env_file" >&2; exit 1; }
+env_file="$(cd "$(dirname "$env_file")" && pwd)/$(basename "$env_file")"
 command -v docker >/dev/null
 command -v curl >/dev/null
 command -v python3 >/dev/null
@@ -50,6 +55,7 @@ set -a
 # shellcheck disable=SC1090
 source "$env_file"
 set +a
+export FAPAI_NAS_ENV_FILE="${FAPAI_NAS_ENV_FILE:-$env_file}"
 
 : "${FAPAI_NAS_DATA_ROOT:?FAPAI_NAS_DATA_ROOT must be set}"
 postgres_container="${FAPAI_POSTGRES_CONTAINER:-fapaifang-postgres}"
@@ -62,19 +68,29 @@ api_port="${FAPAI_API_HOST_PORT:-8001}"
 version="$(date -u +%Y%m%d-%H%M%S)"
 commit="$(git rev-parse --short=12 HEAD 2>/dev/null || printf unknown)"
 built_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-source_digest="$({
-  sha256sum \
-    Dockerfile \
-    Dockerfile.nas-hotfix \
-    docker-compose.nas-central.yml \
-    src/server.py \
-    src/storage/repository.py \
-    src/captcha_solver.py \
-    collector-desktop/index.html \
-    collector-desktop/dist/index.html \
-    tools/browserless_seed_probe.py \
+if [[ "$build_mode" == "auth-recovery-hotfix" ]]; then
+  digest_files=(
+    Dockerfile.nas-auth-recovery
+    docker-compose.nas-central.yml
+    src/server.py
+    src/nas_auth_recovery.py
+  )
+else
+  digest_files=(
+    Dockerfile
+    Dockerfile.nas-hotfix
+    docker-compose.nas-central.yml
+    src/server.py
+    src/nas_auth_recovery.py
+    src/storage/repository.py
+    src/captcha_solver.py
+    collector-desktop/index.html
+    collector-desktop/dist/index.html
+    tools/browserless_seed_probe.py
     tools/taobao_login_health.py
-} | sha256sum | awk '{print $1}')"
+  )
+fi
+source_digest="$(sha256sum "${digest_files[@]}" | sha256sum | awk '{print $1}')"
 
 export FAPAI_BUILD_VERSION="$version"
 export FAPAI_BUILD_COMMIT="$commit"
@@ -88,15 +104,68 @@ previous_image="$(docker inspect --format '{{.Config.Image}}' "$api_container")"
 if [[ -z "$previous_image" || "$previous_image" == "<no value>" ]]; then
   previous_image="$(docker inspect --format '{{.Image}}' "$api_container")"
 fi
+compose_project="$(docker inspect --format '{{index .Config.Labels "com.docker.compose.project"}}' "$api_container")"
+if [[ -z "$compose_project" || "$compose_project" == "<no value>" ]]; then
+  compose_project="$(basename "$repo_root")"
+fi
+candidate_image="fapaifang-collector:nas-$version"
+export FAPAI_IMAGE="$candidate_image"
 rollback_tag="fapaifang-collector:rollback-$version"
 
 echo "Deployment identity: version=$version commit=$commit source_digest=$source_digest"
 echo "Build mode: $build_mode"
+echo "Compose project: $compose_project"
+echo "Candidate image: $candidate_image"
 echo "Rollback image tag: $rollback_tag"
 
 if [[ "$dry_run" -eq 1 ]]; then
   echo "Dry run complete; no backup, build, or restart was performed."
   exit 0
+fi
+
+auth_recovery_token_file="$FAPAI_NAS_DATA_ROOT/secrets/nas-auth-recovery.token"
+if [[ ! -s "$auth_recovery_token_file" ]]; then
+  mkdir -p "$(dirname "$auth_recovery_token_file")"
+  umask 077
+  python3 - "$auth_recovery_token_file" <<'PY'
+import secrets
+import sys
+from pathlib import Path
+
+Path(sys.argv[1]).write_text(secrets.token_hex(32) + "\n", encoding="utf-8")
+PY
+fi
+chmod 0600 "$auth_recovery_token_file"
+
+# PC1 and PC2 mount the shared artifact root, while the NAS API keeps its
+# private secrets mount. Publish the same token atomically into the shared
+# secrets directory so all three nodes authenticate with one value without
+# putting it in an environment file or command line.
+if [[ -n "${FAPAI_SHARED_ARTIFACT_ROOT:-}" ]]; then
+  shared_auth_recovery_token_file="$FAPAI_SHARED_ARTIFACT_ROOT/secrets/nas-auth-recovery.token"
+  if [[ "$shared_auth_recovery_token_file" != "$auth_recovery_token_file" ]]; then
+    mkdir -p "$(dirname "$shared_auth_recovery_token_file")"
+    python3 - "$auth_recovery_token_file" "$shared_auth_recovery_token_file" <<'PY'
+import os
+import sys
+from pathlib import Path
+
+source = Path(sys.argv[1])
+target = Path(sys.argv[2])
+temporary = target.with_name(f".{target.name}.{os.getpid()}.tmp")
+try:
+    temporary.write_bytes(source.read_bytes())
+    temporary.chmod(0o600)
+    os.replace(temporary, target)
+finally:
+    temporary.unlink(missing_ok=True)
+PY
+    if [[ "$(id -u)" -eq 0 ]]; then
+      chown --reference="$(dirname "$shared_auth_recovery_token_file")" \
+        "$shared_auth_recovery_token_file"
+    fi
+    chmod 0600 "$shared_auth_recovery_token_file"
+  fi
 fi
 
 backup_dir="$FAPAI_NAS_DATA_ROOT/backups/postgres"
@@ -125,18 +194,29 @@ docker image tag "$previous_image" "$rollback_tag"
 if [[ "$build_mode" == "hotfix" ]]; then
   export FAPAI_DOCKERFILE="Dockerfile.nas-hotfix"
   export FAPAI_BASE_IMAGE="$previous_image"
+elif [[ "$build_mode" == "auth-recovery-hotfix" ]]; then
+  export FAPAI_DOCKERFILE="Dockerfile.nas-auth-recovery"
+  export FAPAI_BASE_IMAGE="$previous_image"
 fi
 
 rollback() {
   echo "Health gate failed; restoring $rollback_tag" >&2
-  FAPAI_IMAGE="$rollback_tag" docker compose \
+  FAPAI_IMAGE="$rollback_tag" docker compose --project-name "$compose_project" \
     --env-file "$env_file" \
     -f "$compose_file" \
     up -d --no-deps --no-build fapaifang-api
 }
 
-docker compose --env-file "$env_file" -f "$compose_file" build fapaifang-api
-docker compose --env-file "$env_file" -f "$compose_file" up -d --no-deps fapaifang-api
+if ! docker compose --project-name "$compose_project" \
+  --env-file "$env_file" -f "$compose_file" build fapaifang-api; then
+  echo "Candidate image build failed; the running API was not replaced." >&2
+  exit 1
+fi
+if ! docker compose --project-name "$compose_project" \
+  --env-file "$env_file" -f "$compose_file" up -d --no-deps fapaifang-api; then
+  rollback
+  exit 1
+fi
 
 health_url="http://127.0.0.1:$api_port/api/status"
 healthy=0
@@ -153,6 +233,8 @@ if build.get("version") != os.environ["EXPECTED_VERSION"]:
 if build.get("source_digest") != os.environ["EXPECTED_DIGEST"]:
     raise SystemExit(1)
 if not payload.get("db_mode"):
+    raise SystemExit(1)
+if not (payload.get("auth_recovery") or {}).get("enabled"):
     raise SystemExit(1)
 PY
     then

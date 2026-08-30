@@ -277,6 +277,26 @@ def test_solver_attempt_progress_is_persisted_and_completed_on_failure(monkeypat
     assert state["slider_last_progress_at"] == 1075.0
 
 
+def test_solver_heartbeat_is_written_atomically(monkeypatch, tmp_path) -> None:
+    heartbeat_path = tmp_path / "solver-heartbeat.json"
+    monkeypatch.setattr(pc2_local_solver, "SOLVER_HEARTBEAT_PATH", heartbeat_path)
+    monkeypatch.setattr(pc2_local_solver.time, "time", lambda: 1234.5)
+
+    assert pc2_local_solver.write_solver_heartbeat(
+        "solver_attempt",
+        challenge_id="captcha-1",
+        attempt=3,
+    ) is True
+    assert json.loads(heartbeat_path.read_text(encoding="utf-8")) == {
+        "pid": pc2_local_solver.os.getpid(),
+        "updated_at_epoch": 1234.5,
+        "phase": "solver_attempt",
+        "challenge_id": "captcha-1",
+        "attempt": 3,
+    }
+    assert list(tmp_path.glob("*.tmp")) == []
+
+
 def test_slider_retry_does_not_run_before_twenty_second_deadline() -> None:
     state = pc2_local_solver._default_fallback_state()
     state["slider_next_attempt_at"] = 1020.0
@@ -304,6 +324,75 @@ def test_new_challenge_id_resets_previous_retry_window(monkeypatch, tmp_path) ->
     assert synced["slider_attempts"] == 0
     assert synced["consecutive_failures"] == 0
     assert synced["slider_next_attempt_at"] is None
+
+
+def test_select_solver_scope_status_keeps_preferred_challenge() -> None:
+    status = {
+        "challenge_id": "seed-newest",
+        "last_request": {"target_url": "https://sf.taobao.com/list/new.htm"},
+        "scopes": {
+            "seed": {
+                "challenge_id": "seed-newest",
+                "first_seen_epoch": 200.0,
+                "paused": True,
+                "last_status": "running",
+                "last_request": {"target_url": "https://sf.taobao.com/list/new.htm"},
+            },
+            "detail": {
+                "challenge_id": "detail-active",
+                "first_seen_epoch": 100.0,
+                "paused": True,
+                "last_status": "running",
+                "last_request": {"target_url": "https://sf-item.taobao.com/sf_item/1.htm"},
+            },
+        },
+    }
+
+    selected = pc2_local_solver.select_solver_scope_status(
+        status,
+        preferred_challenge_id="detail-active",
+    )
+
+    assert selected["scope"] == "detail"
+    assert selected["challenge_id"] == "detail-active"
+    assert selected["last_request"]["target_url"].startswith("https://sf-item.taobao.com/")
+
+
+def test_select_solver_scope_status_uses_oldest_challenge_without_preference() -> None:
+    status = {
+        "scopes": {
+            "seed": {
+                "challenge_id": "seed-newer",
+                "first_seen_epoch": 200.0,
+                "paused": True,
+                "last_request": {"target_url": "https://sf.taobao.com/list/new.htm"},
+            },
+            "detail": {
+                "challenge_id": "detail-older",
+                "first_seen_epoch": 100.0,
+                "paused": True,
+                "last_request": {"target_url": "https://sf-item.taobao.com/sf_item/1.htm"},
+            },
+        }
+    }
+
+    selected = pc2_local_solver.select_solver_scope_status(status)
+
+    assert selected["scope"] == "detail"
+    assert selected["challenge_id"] == "detail-older"
+
+
+def test_fallback_state_round_trip_preserves_scope(monkeypatch, tmp_path) -> None:
+    monkeypatch.setattr(pc2_local_solver, "FALLBACK_STATE_PATH", tmp_path / "state.json")
+    state = pc2_local_solver._default_fallback_state()
+    state.update({"challenge_id": "detail-active", "scope": "detail", "slider_attempts": 4})
+    pc2_local_solver._save_fallback_state(state)
+
+    loaded = pc2_local_solver._load_fallback_state()
+
+    assert loaded["scope"] == "detail"
+    assert loaded["challenge_id"] == "detail-active"
+    assert loaded["slider_attempts"] == 4
 
 
 def test_run_solver_local_allows_two_profile_replays_within_one_attempt(monkeypatch) -> None:
@@ -352,6 +441,195 @@ def test_run_solver_local_allows_two_profile_replays_within_one_attempt(monkeypa
             "drag_profile_offset": 2,
         }
     }
+
+
+def test_run_solver_local_with_deadline_returns_child_result(monkeypatch) -> None:
+    messages: list[dict[str, object]] = []
+    process_state: dict[str, object] = {}
+
+    class Receiver:
+        def poll(self) -> bool:
+            return bool(messages)
+
+        def recv(self):
+            return messages.pop(0)
+
+        def close(self) -> None:
+            process_state["receiver_closed"] = True
+
+    class Sender:
+        def send(self, payload) -> None:
+            messages.append(payload)
+
+        def close(self) -> None:
+            process_state["sender_closed"] = True
+
+    class Process:
+        exitcode = 0
+
+        def __init__(self, *, target, args, name) -> None:
+            self.target = target
+            self.args = args
+            process_state["name"] = name
+
+        def start(self) -> None:
+            self.target(*self.args)
+
+        def join(self, timeout) -> None:
+            process_state["join_timeout"] = timeout
+
+        def is_alive(self) -> bool:
+            return False
+
+        def close(self) -> None:
+            process_state["process_closed"] = True
+
+    class Context:
+        def Pipe(self, *, duplex):
+            assert duplex is False
+            return Receiver(), Sender()
+
+        def Process(self, **kwargs):
+            return Process(**kwargs)
+
+    monkeypatch.setattr(pc2_local_solver.multiprocessing, "get_context", lambda method: Context())
+    monkeypatch.setattr(pc2_local_solver, "run_solver_local", lambda *_args, **_kwargs: True)
+
+    assert pc2_local_solver.run_solver_local_with_deadline(
+        "http://127.0.0.1:9223",
+        "https://example.test/challenge",
+        timeout_seconds=12,
+    ) is True
+    assert process_state == {
+        "name": "fapaifang-local-solver-attempt",
+        "sender_closed": True,
+        "join_timeout": 12.0,
+        "receiver_closed": True,
+        "process_closed": True,
+    }
+
+
+def test_run_solver_local_with_deadline_terminates_hung_child(monkeypatch) -> None:
+    process_state: dict[str, object] = {"alive": True, "joins": []}
+    events: list[dict[str, object]] = []
+
+    class Connection:
+        def close(self) -> None:
+            process_state["connections_closed"] = int(process_state.get("connections_closed", 0)) + 1
+
+    class Process:
+        exitcode = None
+
+        def start(self) -> None:
+            process_state["started"] = True
+
+        def join(self, timeout) -> None:
+            process_state["joins"].append(timeout)
+
+        def is_alive(self) -> bool:
+            return bool(process_state["alive"])
+
+        def terminate(self) -> None:
+            process_state["terminated"] = True
+            process_state["alive"] = False
+
+        def kill(self) -> None:
+            raise AssertionError("terminate should stop the fake process")
+
+        def close(self) -> None:
+            process_state["process_closed"] = True
+
+    class Context:
+        def Pipe(self, *, duplex):
+            assert duplex is False
+            return Connection(), Connection()
+
+        def Process(self, **_kwargs):
+            return Process()
+
+    monkeypatch.setattr(pc2_local_solver.multiprocessing, "get_context", lambda method: Context())
+    monkeypatch.setattr(pc2_local_solver, "SOLVER_TERMINATE_GRACE_SECONDS", 2.0)
+    monkeypatch.setattr(pc2_local_solver, "log_event", lambda event: events.append(event))
+
+    assert pc2_local_solver.run_solver_local_with_deadline(
+        "http://127.0.0.1:9223",
+        "https://example.test/challenge",
+        timeout_seconds=7,
+    ) is False
+    assert process_state["started"] is True
+    assert process_state["terminated"] is True
+    assert process_state["alive"] is False
+    assert process_state["joins"] == [7.0, 2.0]
+    assert process_state["process_closed"] is True
+    assert events == [
+        {
+            "kind": "local_solver_execution_timeout",
+            "timeout_seconds": 7.0,
+            "terminated": True,
+        }
+    ]
+
+
+def test_run_solver_local_with_deadline_exits_if_child_survives_kill(monkeypatch) -> None:
+    events: list[dict[str, object]] = []
+
+    class Connection:
+        def close(self) -> None:
+            return None
+
+    class Process:
+        exitcode = None
+
+        def start(self) -> None:
+            return None
+
+        def join(self, _timeout) -> None:
+            return None
+
+        def is_alive(self) -> bool:
+            return True
+
+        def terminate(self) -> None:
+            return None
+
+        def kill(self) -> None:
+            return None
+
+        def close(self) -> None:
+            raise AssertionError("a live process handle cannot be closed")
+
+    class Context:
+        def Pipe(self, *, duplex):
+            assert duplex is False
+            return Connection(), Connection()
+
+        def Process(self, **_kwargs):
+            return Process()
+
+    monkeypatch.setattr(pc2_local_solver.multiprocessing, "get_context", lambda method: Context())
+    monkeypatch.setattr(pc2_local_solver, "SOLVER_TERMINATE_GRACE_SECONDS", 0.0)
+    monkeypatch.setattr(pc2_local_solver, "log_event", lambda event: events.append(event))
+
+    with pytest.raises(SystemExit, match="survived terminate and kill"):
+        pc2_local_solver.run_solver_local_with_deadline(
+            "http://127.0.0.1:9223",
+            "https://example.test/challenge",
+            timeout_seconds=1,
+        )
+
+    assert events[-1] == {
+        "kind": "local_solver_execution_timeout",
+        "timeout_seconds": 1.0,
+        "terminated": False,
+    }
+
+
+def test_run_solver_local_with_deadline_real_spawn_returns_for_unreachable_cdp() -> None:
+    assert pc2_local_solver.run_solver_local_with_deadline(
+        "http://127.0.0.1:1",
+        "https://example.invalid/challenge",
+        timeout_seconds=15,
+    ) is False
 
 
 def test_cdp_slider_probe_scans_pages_and_returns_target_identity(monkeypatch) -> None:
@@ -607,6 +885,33 @@ def test_paused_api_trigger_probes_and_passes_existing_slider_target(monkeypatch
     solved_urls: list[str] = []
     state = pc2_local_solver._default_fallback_state()
     state["slider_attempts"] = 4
+    state["challenge_id"] = "detail-challenge"
+    state["scope"] = "detail"
+
+    aggregate_status = {
+        # The latest reporter is seed, while the persisted solver attempt still
+        # owns the independent detail challenge.  Revalidation must not switch
+        # scopes at the execution boundary.
+        "paused": True,
+        "running": False,
+        "manual_required": False,
+        "challenge_id": "seed-challenge",
+        "last_request": {"target_url": "https://seed.example.test/list"},
+        "scopes": {
+            "seed": {
+                "challenge_id": "seed-challenge",
+                "first_seen_epoch": 200.0,
+                "paused": True,
+                "last_request": {"target_url": "https://seed.example.test/list"},
+            },
+            "detail": {
+                "challenge_id": "detail-challenge",
+                "first_seen_epoch": 100.0,
+                "paused": True,
+                "last_request": {"target_url": "https://detail.example.test/item"},
+            },
+        },
+    }
 
     monkeypatch.setattr(pc2_local_solver, "check_cdp_healthy", lambda _endpoint: True)
     monkeypatch.setattr(pc2_local_solver, "_retry_pending_auth_confirmation", lambda _api: {})
@@ -614,20 +919,11 @@ def test_paused_api_trigger_probes_and_passes_existing_slider_target(monkeypatch
     monkeypatch.setattr(
         pc2_local_solver,
         "read_solver_status",
-        lambda _api: {
-            "paused": True,
-            "running": False,
-            "manual_required": False,
-            "challenge_id": "challenge-1",
-            "last_request": {
-                "target_url": "https://seed.example.test/list",
-                "challenge_target_url": "https://detail.example.test/item",
-            },
-        },
+        lambda _api: aggregate_status,
     )
     monkeypatch.setattr(pc2_local_solver, "_load_fallback_state", lambda: dict(state))
     monkeypatch.setattr(pc2_local_solver, "_save_fallback_state", lambda _state: None)
-    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge: (value, False))
+    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge, scope=None: (value, False))
     monkeypatch.setattr(pc2_local_solver, "node_owns_last_request", lambda *_args, **_kwargs: True)
     def fake_slider_probe(_endpoint, *, target_url=None):
         probed_urls.append(target_url)
@@ -640,7 +936,7 @@ def test_paused_api_trigger_probes_and_passes_existing_slider_target(monkeypatch
         captured.append(kwargs)
         raise SystemExit
 
-    monkeypatch.setattr(pc2_local_solver, "run_solver_local", fake_run_solver)
+    monkeypatch.setattr(pc2_local_solver, "run_solver_local_with_deadline", fake_run_solver)
 
     with pytest.raises(SystemExit):
         pc2_local_solver.local_solver_loop(poll_seconds=1)
@@ -696,7 +992,7 @@ def test_paused_api_trigger_falls_back_to_active_seed_request_route(monkeypatch)
     monkeypatch.setattr(pc2_local_solver, "read_solver_status", lambda _api: solver_status)
     monkeypatch.setattr(pc2_local_solver, "_load_fallback_state", lambda: dict(state))
     monkeypatch.setattr(pc2_local_solver, "_save_fallback_state", lambda _state: None)
-    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge: (value, False))
+    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge, scope=None: (value, False))
     monkeypatch.setattr(pc2_local_solver, "node_owns_last_request", lambda *_args, **_kwargs: True)
 
     def fake_slider_probe(_endpoint, *, target_url=None):
@@ -714,7 +1010,7 @@ def test_paused_api_trigger_falls_back_to_active_seed_request_route(monkeypatch)
         solver_calls.append({"target_url": target_url, **kwargs})
         raise SystemExit
 
-    monkeypatch.setattr(pc2_local_solver, "run_solver_local", fake_run_solver)
+    monkeypatch.setattr(pc2_local_solver, "run_solver_local_with_deadline", fake_run_solver)
 
     with pytest.raises(SystemExit):
         pc2_local_solver.local_solver_loop(poll_seconds=1)
@@ -756,7 +1052,7 @@ def test_paused_api_trigger_passes_existing_hard_block_target(monkeypatch) -> No
     )
     monkeypatch.setattr(pc2_local_solver, "_load_fallback_state", lambda: dict(state))
     monkeypatch.setattr(pc2_local_solver, "_save_fallback_state", lambda _state: None)
-    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge: (value, False))
+    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge, scope=None: (value, False))
     monkeypatch.setattr(pc2_local_solver, "node_owns_last_request", lambda *_args, **_kwargs: True)
     monkeypatch.setattr(pc2_local_solver, "check_cdp_browser_for_slider", lambda _endpoint, **_kwargs: None)
     monkeypatch.setattr(
@@ -769,7 +1065,7 @@ def test_paused_api_trigger_passes_existing_hard_block_target(monkeypatch) -> No
         captured.append(kwargs.get("probe_target"))
         raise SystemExit
 
-    monkeypatch.setattr(pc2_local_solver, "run_solver_local", fake_run_solver)
+    monkeypatch.setattr(pc2_local_solver, "run_solver_local_with_deadline", fake_run_solver)
 
     with pytest.raises(SystemExit):
         pc2_local_solver.local_solver_loop(poll_seconds=1)
@@ -797,12 +1093,12 @@ def test_paused_api_without_current_cdp_challenge_does_not_run_solver(monkeypatc
     )
     monkeypatch.setattr(pc2_local_solver, "_load_fallback_state", lambda: dict(state))
     monkeypatch.setattr(pc2_local_solver, "_save_fallback_state", lambda _state: None)
-    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge: (value, False))
+    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge, scope=None: (value, False))
     monkeypatch.setattr(pc2_local_solver, "check_cdp_browser_for_slider", lambda _endpoint, **_kwargs: None)
     monkeypatch.setattr(pc2_local_solver, "check_cdp_browser_for_challenge_page", lambda _endpoint, **_kwargs: None)
     monkeypatch.setattr(
         pc2_local_solver,
-        "run_solver_local",
+        "run_solver_local_with_deadline",
         lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("solver must not run without CDP evidence")),
     )
     monkeypatch.setattr(pc2_local_solver.time, "sleep", lambda _seconds: (_ for _ in ()).throw(SystemExit()))
@@ -885,7 +1181,7 @@ def test_stale_api_pause_after_recent_healthy_auth_is_reconfirmed(monkeypatch) -
     )
     monkeypatch.setattr(pc2_local_solver, "_load_fallback_state", lambda: dict(state))
     monkeypatch.setattr(pc2_local_solver, "_save_fallback_state", lambda _state: None)
-    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge: (value, False))
+    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge, scope=None: (value, False))
     monkeypatch.setattr(pc2_local_solver, "check_cdp_browser_for_slider", lambda _endpoint, **_kwargs: None)
     monkeypatch.setattr(pc2_local_solver, "check_cdp_browser_for_challenge_page", lambda _endpoint, **_kwargs: None)
     monkeypatch.setattr(
@@ -945,7 +1241,7 @@ def test_existing_authenticated_target_reconfirms_pause_without_cookie_snapshot(
     )
     monkeypatch.setattr(pc2_local_solver, "_load_fallback_state", lambda: dict(state))
     monkeypatch.setattr(pc2_local_solver, "_save_fallback_state", lambda _state: None)
-    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge: (value, False))
+    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge, scope=None: (value, False))
     monkeypatch.setattr(pc2_local_solver, "check_cdp_browser_for_slider", lambda _endpoint, **_kwargs: None)
     monkeypatch.setattr(pc2_local_solver, "check_cdp_browser_for_challenge_page", lambda _endpoint, **_kwargs: None)
     monkeypatch.setattr(
@@ -1362,7 +1658,7 @@ def test_pending_confirmation_is_processed_before_another_solver_run(monkeypatch
     )
     monkeypatch.setattr(
         pc2_local_solver,
-        "run_solver_local",
+        "run_solver_local_with_deadline",
         lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("solver must not run while confirmation is pending")),
     )
     monkeypatch.setattr(pc2_local_solver.time, "sleep", lambda _seconds: (_ for _ in ()).throw(SystemExit()))
@@ -1429,7 +1725,7 @@ def test_confirmed_auth_completion_suppresses_immediate_periodic_cdp_probe(monke
     monkeypatch.setattr(
         pc2_local_solver,
         "_sync_challenge_state",
-        lambda value, _challenge: (value, False),
+        lambda value, _challenge, scope=None: (value, False),
     )
     monkeypatch.setattr(
         pc2_local_solver,
@@ -1495,8 +1791,9 @@ def test_close_stale_challenge_probe_target_preserves_keepalive(monkeypatch) -> 
 
 def test_close_challenge_pages_for_scope_closes_only_seed_tabs(monkeypatch) -> None:
     calls: list[str] = []
+    closed_targets: list[str] = []
     tabs = [
-        {"id": "seed-page", "type": "page", "url": "https://sf.taobao.com/list/50025969__2.htm"},
+        {"id": "seed-page", "type": "page", "url": "https://sf.taobao.com//list/50025969__2.htm"},
         {
             "id": "seed-challenge",
             "type": "page",
@@ -1514,11 +1811,18 @@ def test_close_challenge_pages_for_scope_closes_only_seed_tabs(monkeypatch) -> N
 
     def fake_fetch(url: str, timeout: int):
         calls.append(url)
-        if url.endswith("/json/list"):
-            return tabs
-        return {"id": url.rsplit("/", 1)[-1]}
+        return tabs
+
+    class FakeSolver:
+        def __init__(self, *, cdp_endpoint):
+            assert cdp_endpoint == "http://127.0.0.1:9223"
+
+        def _close_cdp_target(self, target_id):
+            closed_targets.append(target_id)
+            return True
 
     monkeypatch.setattr(pc2_local_solver, "fetch_json", fake_fetch)
+    monkeypatch.setattr(pc2_local_solver, "CaptchaSolver", FakeSolver)
 
     result = pc2_local_solver.close_challenge_pages_for_scope("http://127.0.0.1:9223", "seed")
 
@@ -1530,9 +1834,69 @@ def test_close_challenge_pages_for_scope_closes_only_seed_tabs(monkeypatch) -> N
     }
     assert calls == [
         "http://127.0.0.1:9223/json/list",
-        "http://127.0.0.1:9223/json/close/seed-page",
-        "http://127.0.0.1:9223/json/close/seed-challenge",
     ]
+    assert closed_targets == ["seed-page", "seed-challenge"]
+
+
+def test_compact_active_challenge_pages_keeps_one_page_per_scope(monkeypatch) -> None:
+    closed_targets: list[str] = []
+    tabs = [
+        {
+            "id": "seed-1",
+            "type": "page",
+            "url": "https://sf.taobao.com//list/50025969__2.htm/_____tmd_____/punish?x5step=1",
+            "webSocketDebuggerUrl": "ws://seed-1",
+        },
+        {
+            "id": "seed-2",
+            "type": "page",
+            "url": "https://sf.taobao.com//list/50025969__2.htm/_____tmd_____/punish?x5step=2",
+            "webSocketDebuggerUrl": "ws://seed-2",
+        },
+        {
+            "id": "detail-1",
+            "type": "page",
+            "url": "https://sf-item.taobao.com//sf_item/570192626894.htm/_____tmd_____/punish?x5step=1",
+            "webSocketDebuggerUrl": "ws://detail-1",
+        },
+        {
+            "id": "detail-2",
+            "type": "page",
+            "url": "https://sf-item.taobao.com//sf_item/570192626894.htm/_____tmd_____/punish?x5step=2",
+            "webSocketDebuggerUrl": "ws://detail-2",
+        },
+    ]
+
+    def fake_fetch(_url: str, timeout: int):
+        assert timeout == 5
+        return [tab for tab in tabs if tab["id"] not in closed_targets]
+
+    def fake_close(_solver, target_id):
+        closed_targets.append(target_id)
+        return True
+
+    monkeypatch.setattr(pc2_local_solver, "fetch_json", fake_fetch)
+    monkeypatch.setattr(pc2_local_solver.CaptchaSolver, "_close_cdp_target", fake_close)
+
+    result = pc2_local_solver.compact_active_challenge_pages(
+        "http://127.0.0.1:9223",
+        {
+            "scopes": {
+                "seed": {
+                    "challenge_id": "seed-challenge",
+                    "last_request": {"target_url": "https://sf.taobao.com/list/50025969__2.htm"},
+                },
+                "detail": {
+                    "challenge_id": "detail-challenge",
+                    "last_request": {"target_url": "https://sf-item.taobao.com/sf_item/570192626894.htm"},
+                },
+            }
+        },
+    )
+
+    assert result["closed"] == 2
+    assert set(result["scopes"]) == {"seed", "detail"}
+    assert set(closed_targets) == {"seed-2", "detail-2"}
 
 
 def test_close_stale_challenge_probe_target_reuses_existing_keepalive(monkeypatch) -> None:
@@ -1696,7 +2060,7 @@ def test_confirmed_cooldown_resume_suppresses_immediate_periodic_cdp_probe(monke
     monkeypatch.setattr(
         pc2_local_solver,
         "_sync_challenge_state",
-        lambda value, _challenge: (value, False),
+        lambda value, _challenge, scope=None: (value, False),
     )
     monkeypatch.setattr(
         pc2_local_solver,
@@ -1852,7 +2216,7 @@ def test_local_loop_does_not_run_solver_during_persisted_cooldown(monkeypatch, t
     )
     monkeypatch.setattr(
         pc2_local_solver,
-        "run_solver_local",
+        "run_solver_local_with_deadline",
         lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("solver must not run during cooldown")),
     )
     monkeypatch.setattr(pc2_local_solver.time, "sleep", lambda _seconds: (_ for _ in ()).throw(SystemExit()))
@@ -1890,7 +2254,7 @@ def test_local_loop_resumes_collection_after_cooldown_without_running_solver(mon
     monkeypatch.setattr(pc2_local_solver, "notify_collection_resume_after_cooldown", fake_resume)
     monkeypatch.setattr(
         pc2_local_solver,
-        "run_solver_local",
+        "run_solver_local_with_deadline",
         lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("cooldown expiry must not run solver")),
     )
     monkeypatch.setattr(pc2_local_solver.time, "sleep", lambda _seconds: (_ for _ in ()).throw(SystemExit()))

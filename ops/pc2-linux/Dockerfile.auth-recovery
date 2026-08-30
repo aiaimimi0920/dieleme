@@ -1,0 +1,21 @@
+ARG FAPAI_BASE_IMAGE=fapaifang-browser:local
+
+FROM ${FAPAI_BASE_IMAGE}
+
+ARG FAPAI_BUILD_VERSION=development
+ARG FAPAI_BUILD_COMMIT=unknown
+ARG FAPAI_BUILD_TIME=unknown
+ARG FAPAI_SOURCE_DIGEST=unknown
+
+ENV FAPAI_BUILD_VERSION=${FAPAI_BUILD_VERSION} \
+    FAPAI_BUILD_COMMIT=${FAPAI_BUILD_COMMIT} \
+    FAPAI_BUILD_TIME=${FAPAI_BUILD_TIME} \
+    FAPAI_SOURCE_DIGEST=${FAPAI_SOURCE_DIGEST}
+
+WORKDIR /app
+
+# Preserve the verified browser/solver runtime and overlay only the recovery
+# client. Seed, detail, and analysis images and containers remain untouched.
+COPY tools/internal_api_http.py /app/tools/internal_api_http.py
+COPY tools/pc2_auth_recovery.py /app/tools/pc2_auth_recovery.py
+COPY tools/pc2_local_solver.py /app/tools/pc2_local_solver.py

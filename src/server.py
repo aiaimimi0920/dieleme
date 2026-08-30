@@ -2,10 +2,13 @@ import http.server
 import socketserver
 import json
 import os
+import base64
 import datetime
+import hashlib
 import glob
 import mimetypes
 import math
+import hmac
 from pathlib import Path
 import threading
 import tempfile
@@ -173,6 +176,7 @@ from src.detail_artifacts import (
     get_detail_archive_path as _shared_get_detail_archive_path,
 )
 from src.storage import create_repository_from_env
+from src.nas_auth_recovery import NasAuthRecoveryCoordinator
 from tools.analysis_stage_planner import (
     load_action_effectiveness_snapshot,
     load_manual_review_receipt_snapshot,
@@ -307,6 +311,13 @@ SOLVER_DETAIL_PROGRESS_GRACE_MIN_ITEMS = max(
     1,
     int(os.getenv("FAPAI_SOLVER_DETAIL_PROGRESS_GRACE_MIN_ITEMS", "1")),
 )
+SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS = max(
+    0.0,
+    float(os.getenv("FAPAI_SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS", "180")),
+)
+SOLVER_SCOPE_FORCE_RESET_RECOVERIES: dict[str, dict[str, Any]] = {
+    scope: {} for scope in CHALLENGE_SCOPES
+}
 AUTH_COMPLETION_LOCK = threading.Lock()
 AUTH_COMPLETION_CONFIRMATIONS: dict[str, float] = {}
 AUTH_COMPLETION_FINALIZE_LOCK = threading.Lock()
@@ -320,6 +331,28 @@ AUTH_COOKIE_SNAPSHOT_STATE: dict[str, Any] = {
     "refreshed": False,
     "retry_queued": False,
 }
+NAS_AUTH_RECOVERY_POLL_SECONDS = max(
+    5.0,
+    float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_POLL_SECONDS", "60")),
+)
+NAS_AUTH_RECOVERY_STATE_PATH = Path(
+    os.getenv("FAPAI_NAS_AUTH_RECOVERY_STATE_PATH")
+    or Path(os.getenv("FAPAI_SOLVER_STATE_DIR") or DATA_DIR) / "nas-auth-recovery.json"
+)
+NAS_AUTH_RECOVERY_TOKEN_FILE = Path(
+    os.getenv("FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE")
+    or Path(os.getenv("FAPAI_SOLVER_STATE_DIR") or DATA_DIR) / "nas-auth-recovery.token"
+)
+NAS_AUTH_RECOVERY = NasAuthRecoveryCoordinator(
+    NAS_AUTH_RECOVERY_STATE_PATH,
+    enabled=str(os.getenv("FAPAI_NAS_AUTH_RECOVERY_ENABLED", "0")).strip().lower()
+    in {"1", "true", "yes", "on"},
+    stall_seconds=float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_STALL_SECONDS", "1800")),
+    pc1_timeout_seconds=float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_PC1_TIMEOUT_SECONDS", "1800")),
+    pc2_timeout_seconds=float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_PC2_TIMEOUT_SECONDS", "600")),
+    verify_timeout_seconds=float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_VERIFY_TIMEOUT_SECONDS", "600")),
+    cooldown_seconds=float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_COOLDOWN_SECONDS", "1800")),
+)
 RUNTIME_INITIALIZED = False
 AVM_SERVICE_START_TIME = time.time()
 
@@ -561,6 +594,7 @@ def _force_reset_solver_scope(
             "retry_after_seconds": max(0, int(math.ceil(CHALLENGE_FORCE_RESET_SECONDS - age))),
             "error": "challenge has not reached the force-reset safety timeout",
         }
+    recovery_request = dict(status.get("last_request") or {})
     clear_error = _clear_solver_challenge_state(normalized_scope)
     if clear_error:
         return {
@@ -589,12 +623,14 @@ def _force_reset_solver_scope(
             Path(_solver_force_unlock_flag_path()).unlink(missing_ok=True)
     except Exception:
         pass
+    _remember_solver_force_reset_recovery(normalized_scope, recovery_request)
     return {
         "ok": True,
         "force_reset": True,
         "scope": normalized_scope,
         "previous_challenge_id": active_id,
         "challenge_age_seconds": age,
+        "report_grace_seconds": SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS,
         "paused": _collection_effectively_paused(),
         "captcha_solver": _captcha_solver_runtime_status(),
     }
@@ -895,6 +931,105 @@ def _solver_detail_captured_count() -> int | None:
         return None
 
 
+def _nas_auth_recovery_pending_detail_count() -> int:
+    if not getattr(DB_REPOSITORY, "enabled", False):
+        return 0
+    try:
+        counts = DB_REPOSITORY.seed_queue_counts()
+    except Exception:
+        return 0
+    if not isinstance(counts, dict):
+        return 0
+    try:
+        return max(int(counts.get("seed_item_pending_detail", 0) or 0), 0) + max(
+            int(counts.get("seed_item_in_progress", 0) or 0),
+            0,
+        )
+    except (TypeError, ValueError):
+        return 0
+
+
+def _sample_nas_auth_recovery() -> dict[str, Any]:
+    return NAS_AUTH_RECOVERY.sample(
+        _solver_detail_captured_count(),
+        _nas_auth_recovery_pending_detail_count(),
+        operator_paused=COLLECTION_PAUSE_REASON == "operator",
+    )
+
+
+def _nas_auth_recovery_authorized(headers: Any) -> tuple[bool, str]:
+    if not NAS_AUTH_RECOVERY.enabled:
+        return False, "auth recovery is disabled"
+    try:
+        expected = NAS_AUTH_RECOVERY_TOKEN_FILE.read_text(encoding="utf-8").strip()
+    except Exception:
+        expected = ""
+    supplied = str(headers.get("X-Fapai-Recovery-Token") or "").strip()
+    if not expected:
+        return False, "auth recovery token is not configured"
+    if not supplied or not hmac.compare_digest(supplied, expected):
+        return False, "auth recovery token is invalid"
+    return True, ""
+
+
+def nas_auth_recovery_watchdog_thread() -> None:
+    while True:
+        try:
+            snapshot = _sample_nas_auth_recovery()
+            active = snapshot.get("active")
+            if isinstance(active, dict) and active.get("status") == "requested":
+                print(
+                    "[AUTH-RECOVERY] Collection stalled; PC1 authentication "
+                    f"recovery requested ({active.get('recovery_id')})."
+                )
+        except Exception as error:
+            print(f"[AUTH-RECOVERY] Watchdog sample failed: {error!r}")
+        time.sleep(NAS_AUTH_RECOVERY_POLL_SECONDS)
+
+
+def _nas_auth_recovery_result(payload: dict[str, Any]) -> dict[str, Any]:
+    recovery_id = str(payload.get("recovery_id") or "").strip()
+    success = payload.get("success") is True
+    reason = str(payload.get("reason") or "").strip()
+    if not recovery_id:
+        return {"ok": False, "error": "recovery_id is required"}
+    if not success:
+        return NAS_AUTH_RECOVERY.result(
+            recovery_id,
+            success=False,
+            reason=reason or "pc2_recovery_failed",
+        )
+    if COLLECTION_PAUSE_REASON == "operator":
+        return NAS_AUTH_RECOVERY.result(
+            recovery_id,
+            success=False,
+            reason="operator_pause_active",
+        )
+
+    result = NAS_AUTH_RECOVERY.result(recovery_id, success=True, reason=reason)
+    if not result.get("ok"):
+        return result
+    clear_error = _clear_solver_manual_required_pause()
+    if clear_error:
+        NAS_AUTH_RECOVERY.result(
+            recovery_id,
+            success=False,
+            reason=f"clear_collection_pause_failed:{clear_error}",
+        )
+        return {"ok": False, "error": clear_error}
+    _remember_solver_auth_completion(
+        {
+            "node_id": "pc2",
+            "source": "nas_auth_recovery",
+        }
+    )
+    return {
+        **result,
+        "paused": _collection_effectively_paused(),
+        "captcha_solver": _captcha_solver_runtime_status(),
+    }
+
+
 def _remember_solver_auth_completion(request_payload: dict[str, Any] | None) -> None:
     global SOLVER_LAST_AUTH_COMPLETED_TIME, SOLVER_LAST_AUTH_COMPLETED_REQUEST
     global SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT
@@ -923,6 +1058,54 @@ def _solver_request_matches_auth_source(
         and incoming_target
         and completed_target == incoming_target
     )
+
+
+def _remember_solver_force_reset_recovery(
+    scope: str,
+    request_payload: dict[str, Any] | None,
+    *,
+    now: float | None = None,
+) -> None:
+    """Remember a scoped reset so its just-closed page cannot immediately re-lock collection."""
+    normalized_scope = _normalize_challenge_scope(scope)
+    request = _build_solver_request(request_payload or {})
+    if normalized_scope not in CHALLENGE_SCOPES or not request:
+        return
+    with SOLVER_SCOPE_LOCK:
+        SOLVER_SCOPE_FORCE_RESET_RECOVERIES[normalized_scope] = {
+            "completed_at_epoch": time.time() if now is None else float(now),
+            "request": dict(request),
+        }
+
+
+def _solver_force_reset_report_suppression(
+    request_payload: dict[str, Any] | None,
+    *,
+    now: float | None = None,
+) -> dict[str, Any] | None:
+    """Ignore same-scope reports briefly after a forced recovery attempt."""
+    incoming = _build_solver_request(request_payload or {})
+    scope = _challenge_scope_for_request(incoming)
+    if scope not in CHALLENGE_SCOPES or SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS <= 0:
+        return None
+    with SOLVER_SCOPE_LOCK:
+        recovery = dict(SOLVER_SCOPE_FORCE_RESET_RECOVERIES.get(scope) or {})
+    completed_at = float(recovery.get("completed_at_epoch") or 0)
+    completed_request = _build_solver_request(recovery.get("request") or {})
+    if completed_at <= 0 or not completed_request or not incoming:
+        return None
+    current_time = time.time() if now is None else float(now)
+    age = current_time - completed_at
+    if age < 0 or age > SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS:
+        return None
+    if not _solver_request_matches_auth_source(completed_request, incoming):
+        return None
+    return {
+        "reason": "recent_force_reset",
+        "scope": scope,
+        "age_seconds": age,
+        "grace_seconds": SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS,
+    }
 
 
 def _solver_auth_report_suppression(
@@ -2552,7 +2735,10 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
     payload = {
         "collection_api_lightweight": True,
         "build_info": _build_info_payload(),
-        "capabilities": {"manual_captcha_report_v1": True},
+        "capabilities": {
+            "manual_captcha_report_v1": True,
+            "nas_auth_recovery_v1": True,
+        },
         "paused": bool(solver_status_snapshot.get("paused")),
         "total_ids": total_items,
         "captured_count": captured_items,
@@ -2583,6 +2769,7 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
         "api_success_calls": api_metrics.get("success_calls", 0),
         **top_level_seed_queue_counts,
         "captcha_solver": solver_status_snapshot,
+        "auth_recovery": NAS_AUTH_RECOVERY.snapshot(),
         "collection_scopes": solver_status_snapshot.get("collection_scopes", {}),
         "data_supply_recent_24h": {},
         "avm": {"lightweight_skipped": True},
@@ -8028,6 +8215,17 @@ def initialize_runtime(start_watchdog=True, ensure_browser=True):
         f"(interval: {_manual_solver_retry_interval_seconds()}s, poll: {_manual_solver_retry_poll_seconds()}s)."
     )
 
+    try:
+        _sample_nas_auth_recovery()
+    except Exception as auth_recovery_error:
+        print(f"[AUTH-RECOVERY] Initial progress sample failed: {auth_recovery_error!r}")
+    if NAS_AUTH_RECOVERY.enabled:
+        threading.Thread(target=nas_auth_recovery_watchdog_thread, daemon=True).start()
+        print(
+            "[AUTH-RECOVERY] NAS stall recovery watchdog started "
+            f"(stall: {NAS_AUTH_RECOVERY.stall_seconds:.0f}s, poll: {NAS_AUTH_RECOVERY_POLL_SECONDS:.0f}s)."
+        )
+
     if ensure_browser:
         threading.Thread(target=check_and_launch_browser, daemon=True).start()
 
@@ -8525,6 +8723,83 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     details={"error": str(e)},
                 )
 
+        elif request_path == "/api/collection/auth/recovery":
+            authorized, auth_error = _nas_auth_recovery_authorized(self.headers)
+            if not authorized:
+                self.send_error_json(
+                    status=403,
+                    code="COLLECTION_AUTH_RECOVERY_FORBIDDEN",
+                    message="跨设备认证恢复凭据无效",
+                    details={"error": auth_error},
+                )
+                return
+            self.send_json({"ok": True, "auth_recovery": NAS_AUTH_RECOVERY.snapshot()})
+
+        elif request_path == "/api/collection/auth/recovery/snapshot":
+            authorized, auth_error = _nas_auth_recovery_authorized(self.headers)
+            if not authorized:
+                self.send_error_json(
+                    status=403,
+                    code="COLLECTION_AUTH_RECOVERY_FORBIDDEN",
+                    message="跨设备认证恢复凭据无效",
+                    details={"error": auth_error},
+                )
+                return
+            recovery_id = str((query.get("recovery_id") or [""])[0] or "").strip()
+            recovery_state = NAS_AUTH_RECOVERY.snapshot()
+            active = recovery_state.get("active") if isinstance(recovery_state, dict) else None
+            if not recovery_id or not isinstance(active, dict) or str(active.get("recovery_id") or "") != recovery_id:
+                self.send_error_json(
+                    status=409,
+                    code="COLLECTION_AUTH_RECOVERY_NOT_ACTIVE",
+                    message="认证恢复任务已变化，请重新拉取状态",
+                )
+                return
+            status = str(active.get("status") or "")
+            snapshot = active.get("snapshot") if isinstance(active.get("snapshot"), dict) else {}
+            expected_sha256 = str(snapshot.get("sha256") or "").strip().lower()
+            if status not in {"snapshot_ready", "pc2_claimed", "restarting"} or not expected_sha256:
+                self.send_error_json(
+                    status=409,
+                    code="COLLECTION_AUTH_RECOVERY_SNAPSHOT_NOT_READY",
+                    message="认证快照尚未就绪",
+                )
+                return
+            snapshot_path = Path(_resolve_auth_cookie_snapshot_path({"node_id": "pc2"}))
+            try:
+                raw_snapshot = snapshot_path.read_bytes()
+            except OSError:
+                self.send_error_json(
+                    status=404,
+                    code="COLLECTION_AUTH_RECOVERY_SNAPSHOT_MISSING",
+                    message="NAS 认证快照文件不存在",
+                )
+                return
+            if not raw_snapshot or len(raw_snapshot) > 5 * 1024 * 1024:
+                self.send_error_json(
+                    status=409,
+                    code="COLLECTION_AUTH_RECOVERY_SNAPSHOT_INVALID",
+                    message="NAS 认证快照大小无效",
+                )
+                return
+            actual_sha256 = hashlib.sha256(raw_snapshot).hexdigest()
+            if actual_sha256 != expected_sha256:
+                self.send_error_json(
+                    status=409,
+                    code="COLLECTION_AUTH_RECOVERY_SNAPSHOT_CHANGED",
+                    message="NAS 认证快照摘要已变化，请等待 PC1 重新发布",
+                )
+                return
+            self.send_json(
+                {
+                    "ok": True,
+                    "recovery_id": recovery_id,
+                    "sha256": actual_sha256,
+                    "encoding": "base64",
+                    "snapshot": base64.b64encode(raw_snapshot).decode("ascii"),
+                }
+            )
+
         elif request_path == '/api/status':
             try:
                 if _collection_api_lightweight_status_enabled():
@@ -8626,6 +8901,7 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     "api_total_calls": api_metrics.get("total_calls", 0),
                     "api_success_calls": api_metrics.get("success_calls", 0),
                     "captcha_solver": solver_status_snapshot,
+                    "auth_recovery": NAS_AUTH_RECOVERY.snapshot(),
                     "collection_scopes": solver_status_snapshot.get("collection_scopes", {}),
                     "data_supply_recent_24h": _db_data_supply_snapshot(24) if DB_REPOSITORY.enabled else {},
                     "avm": avm_status,
@@ -9411,6 +9687,71 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     status=status,
                     code="COLLECTION_OBSERVER_RUNTIME_CONTROL_REJECTED",
                     message="采集运行状态切换请求被拒绝",
+                    details=result,
+                )
+                return
+            self.send_json(result)
+
+        elif self.path in {
+            "/api/collection/auth/recovery/claim",
+            "/api/collection/auth/recovery/snapshot_ready",
+            "/api/collection/auth/recovery/pc2_restarting",
+            "/api/collection/auth/recovery/result",
+        }:
+            authorized, auth_error = _nas_auth_recovery_authorized(self.headers)
+            if not authorized:
+                self.send_error_json(
+                    status=403,
+                    code="COLLECTION_AUTH_RECOVERY_FORBIDDEN",
+                    message="跨设备认证恢复凭据无效",
+                    details={"error": auth_error},
+                )
+                return
+            content_length = int(self.headers.get("Content-Length") or 0)
+            try:
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8")) if content_length > 0 else {}
+            except Exception:
+                self.send_error_json(
+                    status=400,
+                    code="AVM_INVALID_JSON",
+                    message="请求体不是合法 JSON",
+                    details={},
+                )
+                return
+            if not isinstance(payload, dict):
+                self.send_invalid_request_body(payload)
+                return
+
+            recovery_id = str(payload.get("recovery_id") or "").strip()
+            if not recovery_id:
+                result = {"ok": False, "error": "recovery_id is required"}
+            elif self.path.endswith("/claim"):
+                role = str(payload.get("role") or "").strip().lower()
+                node_id = str(payload.get("node_id") or "").strip().lower()
+                if (role, node_id) not in {("pc1", "pc1"), ("pc2", "pc2")}:
+                    result = {"ok": False, "error": "role and node_id must identify pc1 or pc2"}
+                else:
+                    result = NAS_AUTH_RECOVERY.claim(role, recovery_id, node_id)
+            elif self.path.endswith("/snapshot_ready"):
+                try:
+                    result = NAS_AUTH_RECOVERY.snapshot_ready(
+                        recovery_id,
+                        sha256=str(payload.get("sha256") or ""),
+                        cookie_count=int(payload.get("cookie_count") or 0),
+                        created_at_epoch=float(payload.get("created_at_epoch") or time.time()),
+                    )
+                except (TypeError, ValueError) as error:
+                    result = {"ok": False, "error": str(error)}
+            elif self.path.endswith("/pc2_restarting"):
+                result = NAS_AUTH_RECOVERY.pc2_restarting(recovery_id)
+            else:
+                result = _nas_auth_recovery_result(payload)
+
+            if not result.get("ok"):
+                self.send_error_json(
+                    status=409 if result.get("stale_recovery") else 400,
+                    code="COLLECTION_AUTH_RECOVERY_REJECTED",
+                    message="跨设备认证恢复请求被拒绝",
                     details=result,
                 )
                 return
@@ -10356,6 +10697,26 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                 )
                 self.send_json({
                     "status": "stale_auth_report",
+                    "captcha_solver": _captcha_solver_runtime_status(),
+                })
+                return
+            force_reset_suppression = _solver_force_reset_report_suppression(solver_request)
+            if force_reset_suppression is not None:
+                retry_after = max(
+                    0.0,
+                    float(force_reset_suppression["grace_seconds"])
+                    - float(force_reset_suppression["age_seconds"]),
+                )
+                print(
+                    "[SOLVER] report_captcha ignored after scoped force reset; "
+                    f"scope={force_reset_suppression['scope']} "
+                    f"({retry_after:.0f}s grace remaining)."
+                )
+                self.send_json({
+                    "status": "recent_force_reset",
+                    "reason": force_reset_suppression["reason"],
+                    "scope": force_reset_suppression["scope"],
+                    "retry_after_seconds": int(math.ceil(retry_after)),
                     "captcha_solver": _captcha_solver_runtime_status(),
                 })
                 return

@@ -11,6 +11,12 @@ param(
     [int]$MissingPayloadThreshold = 20,
     [int]$RecoveryCooldownMinutes = 10,
     [int]$ManualAuthGraceMinutes = 30,
+    [string]$ApiBase = "http://192.168.15.200:8001/api",
+    [int]$NasRecoveryIntervalMinutes = 1,
+    [int]$LoginWindowSeconds = 300,
+    [string]$ProfileDir = "C:\\Users\\Public\\nas_home\\AI\\FPFData\\chrome-cdp-profile-pc1-human-clean",
+    [string]$BrowserPath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    [int]$NasRecoveryExecutionTimeLimitMinutes = 10,
     [string]$TaskPath = "\FapaiFang\",
     [switch]$UseSystemProxy,
     [switch]$StartWatchdogNow
@@ -25,16 +31,16 @@ function Resolve-DefaultDataRoot {
     if ($env:FAPAI_DATA_ROOT_HOST) {
         return $env:FAPAI_DATA_ROOT_HOST
     }
-    return "Z:\project\project\FPFData"
+    return "C:\Users\Public\nas_home\AI\FPFData"
 }
 
 $resolvedDataRoot = Resolve-DefaultDataRoot
 $outputPath = Join-Path $resolvedDataRoot "secrets\nodes\pc2\taobao-cookies.json"
 $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
 $registerWatchdogScript = [System.IO.Path]::GetFullPath((Join-Path $repoRoot "scripts\register-taobao-login-watchdog-task.ps1"))
-$registerRecoveryScript = [System.IO.Path]::GetFullPath((Join-Path $repoRoot "scripts\register-taobao-login-recovery-monitor-task.ps1"))
+$registerNasRecoveryScript = [System.IO.Path]::GetFullPath((Join-Path $repoRoot "scripts\register-pc1-nas-auth-recovery-task.ps1"))
 
-foreach ($required in @($registerWatchdogScript, $registerRecoveryScript)) {
+foreach ($required in @($registerWatchdogScript, $registerNasRecoveryScript)) {
     if (-not (Test-Path -LiteralPath $required)) {
         throw "Missing shared-auth maintenance helper: $required"
     }
@@ -58,33 +64,41 @@ if ($UseSystemProxy) {
     $watchdogArgs += "-UseSystemProxy"
 }
 
-$recoveryArgs = @(
+$nasRecoveryArgs = @(
     "-NoProfile",
     "-ExecutionPolicy", "Bypass",
-    "-File", $registerRecoveryScript,
+    "-File", $registerNasRecoveryScript,
+    "-ApiBase", $ApiBase,
     "-DataRoot", $resolvedDataRoot,
-    "-IntervalMinutes", $RecoveryMonitorIntervalMinutes,
-    "-RecentMinutes", $RecentMinutes,
-    "-MinRecentSeedItems", $MinRecentSeedItems,
-    "-StaleSeedMinutes", $StaleSeedMinutes,
-    "-MissingPayloadThreshold", $MissingPayloadThreshold,
-    "-RecoveryCooldownMinutes", $RecoveryCooldownMinutes,
-    "-ManualAuthGraceMinutes", $ManualAuthGraceMinutes,
+    "-OutputPath", $outputPath,
+    "-Port", $Port,
+    "-IntervalMinutes", $NasRecoveryIntervalMinutes,
+    "-LoginWindowSeconds", $LoginWindowSeconds,
+    "-ProfileDir", $ProfileDir,
+    "-BrowserPath", $BrowserPath,
+    "-ExecutionTimeLimitMinutes", $NasRecoveryExecutionTimeLimitMinutes,
     "-TaskPath", $TaskPath
 )
+if ($UseSystemProxy) {
+    $nasRecoveryArgs += "-UseSystemProxy"
+}
 
 & powershell.exe @watchdogArgs | Out-Null
 if ($LASTEXITCODE -ne 0) {
     throw "Watchdog task registration failed with exit code $LASTEXITCODE."
 }
 
-& powershell.exe @recoveryArgs | Out-Null
+& powershell.exe @nasRecoveryArgs | Out-Null
 if ($LASTEXITCODE -ne 0) {
-    throw "Recovery monitor task registration failed with exit code $LASTEXITCODE."
+    throw "NAS auth recovery task registration failed with exit code $LASTEXITCODE."
 }
 
 Enable-ScheduledTask -TaskName "FapaiFangTaobaoLoginWatchdog" -TaskPath $TaskPath | Out-Null
-Enable-ScheduledTask -TaskName "FapaiFangTaobaoLoginRecoveryMonitor" -TaskPath $TaskPath | Out-Null
+Enable-ScheduledTask -TaskName "FapaiFangNasAuthRecovery" -TaskPath $TaskPath | Out-Null
+$legacyRecovery = Get-ScheduledTask -TaskName "FapaiFangTaobaoLoginRecoveryMonitor" -TaskPath $TaskPath -ErrorAction SilentlyContinue
+if ($legacyRecovery) {
+    Disable-ScheduledTask -TaskName "FapaiFangTaobaoLoginRecoveryMonitor" -TaskPath $TaskPath | Out-Null
+}
 
 if ($StartWatchdogNow) {
     Start-ScheduledTask -TaskName "FapaiFangTaobaoLoginWatchdog" -TaskPath $TaskPath
@@ -92,8 +106,8 @@ if ($StartWatchdogNow) {
 
 $watchdogTask = Get-ScheduledTask -TaskName "FapaiFangTaobaoLoginWatchdog" -TaskPath $TaskPath
 $watchdogInfo = Get-ScheduledTaskInfo -TaskName "FapaiFangTaobaoLoginWatchdog" -TaskPath $TaskPath
-$recoveryTask = Get-ScheduledTask -TaskName "FapaiFangTaobaoLoginRecoveryMonitor" -TaskPath $TaskPath
-$recoveryInfo = Get-ScheduledTaskInfo -TaskName "FapaiFangTaobaoLoginRecoveryMonitor" -TaskPath $TaskPath
+$recoveryTask = Get-ScheduledTask -TaskName "FapaiFangNasAuthRecovery" -TaskPath $TaskPath
+$recoveryInfo = Get-ScheduledTaskInfo -TaskName "FapaiFangNasAuthRecovery" -TaskPath $TaskPath
 
 [pscustomobject]@{
     data_root = $resolvedDataRoot
@@ -107,7 +121,7 @@ $recoveryInfo = Get-ScheduledTaskInfo -TaskName "FapaiFangTaobaoLoginRecoveryMon
         last_run_time = $watchdogInfo.LastRunTime
         last_task_result = $watchdogInfo.LastTaskResult
     }
-    recovery_monitor = [pscustomobject]@{
+    nas_auth_recovery = [pscustomobject]@{
         task_name = $recoveryTask.TaskName
         task_path = $recoveryTask.TaskPath
         state = [string]$recoveryTask.State
@@ -121,5 +135,7 @@ $recoveryInfo = Get-ScheduledTaskInfo -TaskName "FapaiFangTaobaoLoginRecoveryMon
         missing_payload_threshold = $MissingPayloadThreshold
         recovery_cooldown_minutes = $RecoveryCooldownMinutes
         manual_auth_grace_minutes = $ManualAuthGraceMinutes
+        nas_recovery_interval_minutes = $NasRecoveryIntervalMinutes
+        login_window_seconds = $LoginWindowSeconds
     }
 } | ConvertTo-Json -Compress
