@@ -35,6 +35,40 @@ def test_stall_creates_one_durable_recovery_and_operator_pause_blocks_trigger(tm
     assert restarted.snapshot(now=3000)["active"]["recovery_id"] == active["recovery_id"]
 
 
+def test_explicit_unhealthy_auth_signal_triggers_before_general_stall(tmp_path):
+    coordinator = _coordinator(tmp_path)
+    coordinator.sample(100, 20, now=1000)
+
+    before = coordinator.sample(
+        100,
+        20,
+        recovery_signal="cookie_snapshot_candidate_unhealthy",
+        recovery_signal_stall_seconds=300,
+        now=1299,
+    )
+    assert before["active"] is None
+
+    operator_blocked = coordinator.sample(
+        100,
+        20,
+        operator_paused=True,
+        recovery_signal="cookie_snapshot_candidate_unhealthy",
+        recovery_signal_stall_seconds=300,
+        now=1300,
+    )
+    assert operator_blocked["active"] is None
+
+    requested = coordinator.sample(
+        100,
+        20,
+        recovery_signal="cookie_snapshot_candidate_unhealthy",
+        recovery_signal_stall_seconds=300,
+        now=1301,
+    )
+    assert requested["active"]["status"] == "requested"
+    assert requested["active"]["trigger_reason"] == "cookie_snapshot_candidate_unhealthy"
+
+
 def test_two_coordinators_reload_under_file_lock_and_keep_one_generation(tmp_path):
     first = _coordinator(tmp_path)
     second = _coordinator(tmp_path)

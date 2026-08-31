@@ -335,6 +335,10 @@ NAS_AUTH_RECOVERY_POLL_SECONDS = max(
     5.0,
     float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_POLL_SECONDS", "60")),
 )
+NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS = max(
+    60.0,
+    float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS", "300")),
+)
 NAS_AUTH_RECOVERY_STATE_PATH = Path(
     os.getenv("FAPAI_NAS_AUTH_RECOVERY_STATE_PATH")
     or Path(os.getenv("FAPAI_SOLVER_STATE_DIR") or DATA_DIR) / "nas-auth-recovery.json"
@@ -949,11 +953,31 @@ def _nas_auth_recovery_pending_detail_count() -> int:
         return 0
 
 
+def _nas_auth_recovery_signal() -> str | None:
+    solver_status = _captcha_solver_runtime_status()
+    if not solver_status.get("paused"):
+        return None
+    if solver_status.get("manual_required"):
+        return "captcha_manual_required"
+    snapshot_status = _auth_cookie_snapshot_runtime_status()
+    snapshot_result = snapshot_status.get("result")
+    if not isinstance(snapshot_result, dict):
+        snapshot_result = {}
+    if (
+        snapshot_status.get("status") == "failed"
+        and snapshot_result.get("reason") == "cookie_snapshot_candidate_unhealthy"
+    ):
+        return "cookie_snapshot_candidate_unhealthy"
+    return None
+
+
 def _sample_nas_auth_recovery() -> dict[str, Any]:
     return NAS_AUTH_RECOVERY.sample(
         _solver_detail_captured_count(),
         _nas_auth_recovery_pending_detail_count(),
         operator_paused=COLLECTION_PAUSE_REASON == "operator",
+        recovery_signal=_nas_auth_recovery_signal(),
+        recovery_signal_stall_seconds=NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS,
     )
 
 
@@ -980,7 +1004,8 @@ def nas_auth_recovery_watchdog_thread() -> None:
             if isinstance(active, dict) and active.get("status") == "requested":
                 print(
                     "[AUTH-RECOVERY] Collection stalled; PC1 authentication "
-                    f"recovery requested ({active.get('recovery_id')})."
+                    f"recovery requested ({active.get('recovery_id')}, "
+                    f"trigger={active.get('trigger_reason')})."
                 )
         except Exception as error:
             print(f"[AUTH-RECOVERY] Watchdog sample failed: {error!r}")

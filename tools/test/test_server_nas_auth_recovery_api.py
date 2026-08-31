@@ -158,3 +158,26 @@ def test_successful_pc2_result_clears_auth_pause_then_waits_for_real_progress(mo
         "cookie_import_verified_after_restart",
     )
     assert calls[1][0] == "remember"
+
+
+def test_unhealthy_cookie_signal_requires_an_active_solver_pause(monkeypatch):
+    monkeypatch.setattr(
+        server,
+        "_auth_cookie_snapshot_runtime_status",
+        lambda: {
+            "status": "failed",
+            "result": {"reason": "cookie_snapshot_candidate_unhealthy"},
+        },
+    )
+    monkeypatch.setattr(server, "_captcha_solver_runtime_status", lambda: {"paused": False})
+    assert server._nas_auth_recovery_signal() is None
+
+    monkeypatch.setattr(server, "_captcha_solver_runtime_status", lambda: {"paused": True})
+    assert server._nas_auth_recovery_signal() == "cookie_snapshot_candidate_unhealthy"
+
+    monkeypatch.setattr(
+        server,
+        "_captcha_solver_runtime_status",
+        lambda: {"paused": True, "manual_required": True},
+    )
+    assert server._nas_auth_recovery_signal() == "captcha_manual_required"

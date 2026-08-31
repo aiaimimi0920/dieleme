@@ -141,6 +141,7 @@ class NasAuthRecoveryCoordinator:
             "pc2_claimed_at_epoch": active.get("pc2_claimed_at_epoch"),
             "restart_requested_at_epoch": active.get("restart_requested_at_epoch"),
             "verify_deadline_epoch": active.get("verify_deadline_epoch"),
+            "trigger_reason": active.get("trigger_reason"),
             "snapshot": safe_snapshot,
         }
 
@@ -184,6 +185,7 @@ class NasAuthRecoveryCoordinator:
             "reason": str(reason or ""),
             "baseline_captured_count": active.get("baseline_captured_count"),
             "captured_count": captured_count,
+            "trigger_reason": active.get("trigger_reason"),
             "finished_at_epoch": now,
         }
         self._state["active"] = None
@@ -218,6 +220,8 @@ class NasAuthRecoveryCoordinator:
         pending_detail_count: int,
         *,
         operator_paused: bool = False,
+        recovery_signal: str | None = None,
+        recovery_signal_stall_seconds: float | None = None,
         now: float | None = None,
     ) -> dict[str, Any]:
         current = time.time() if now is None else float(now)
@@ -250,6 +254,21 @@ class NasAuthRecoveryCoordinator:
             active = self._state.get("active")
             last_progress = self._state.get("last_progress_at_epoch")
             cooldown_until = float(self._state.get("cooldown_until_epoch") or 0)
+            stalled_for = (
+                current - float(last_progress) if last_progress is not None else 0.0
+            )
+            normalized_signal = str(recovery_signal or "").strip()
+            signal_stall_seconds = max(
+                float(
+                    self.stall_seconds
+                    if recovery_signal_stall_seconds is None
+                    else recovery_signal_stall_seconds
+                ),
+                1.0,
+            )
+            signal_triggered = bool(
+                normalized_signal and stalled_for >= signal_stall_seconds
+            )
             may_trigger = bool(
                 self.enabled
                 and normalized_count is not None
@@ -258,7 +277,7 @@ class NasAuthRecoveryCoordinator:
                 and not isinstance(active, dict)
                 and current >= cooldown_until
                 and last_progress is not None
-                and current - float(last_progress) >= self.stall_seconds
+                and (stalled_for >= self.stall_seconds or signal_triggered)
             )
             if may_trigger:
                 self._state["active"] = {
@@ -267,6 +286,11 @@ class NasAuthRecoveryCoordinator:
                     "baseline_captured_count": normalized_count,
                     "requested_at_epoch": current,
                     "updated_at_epoch": current,
+                    "trigger_reason": (
+                        normalized_signal
+                        if signal_triggered
+                        else "captured_count_stalled"
+                    ),
                 }
             self._persist_locked()
         return self.snapshot(now=current)

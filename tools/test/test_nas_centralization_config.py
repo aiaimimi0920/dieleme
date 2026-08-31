@@ -68,6 +68,7 @@ def test_nas_and_worker_compose_templates_exist_and_separate_roles() -> None:
     assert "FAPAI_SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS" in nas_compose
     assert "FAPAI_NAS_AUTH_RECOVERY_ENABLED:-1" in nas_compose
     assert "FAPAI_NAS_AUTH_RECOVERY_STALL_SECONDS:-1800" in nas_compose
+    assert "FAPAI_NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS:-300" in nas_compose
     assert "FAPAI_NAS_AUTH_RECOVERY_STATE_PATH: /data/datas/nas-auth-recovery.json" in nas_compose
     assert "FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE: /data/secrets/nas-auth-recovery.token" in nas_compose
     assert "FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS" in worker_compose
@@ -78,6 +79,7 @@ def test_nas_and_worker_compose_templates_exist_and_separate_roles() -> None:
     assert "FAPAI_SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS=180" in nas_env
     assert "FAPAI_NAS_AUTH_RECOVERY_ENABLED=1" in nas_env
     assert "FAPAI_NAS_AUTH_RECOVERY_STALL_SECONDS=1800" in nas_env
+    assert "FAPAI_NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS=300" in nas_env
 
 
 def test_nas_api_image_exposes_verifiable_build_identity_and_hotfix_dockerfile() -> None:
