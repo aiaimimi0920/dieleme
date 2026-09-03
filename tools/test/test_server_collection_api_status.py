@@ -1960,9 +1960,9 @@ def test_auth_cookie_health_probe_uses_current_cdp_user_agent(monkeypatch) -> No
 def test_refresh_auth_cookie_snapshot_derives_node_scoped_path_when_env_is_missing(monkeypatch, tmp_path) -> None:
     from src import server
 
-    repo_root = tmp_path / "project" / "fapaifang"
+    repo_root = tmp_path / "project" / "crow"
     repo_root.mkdir(parents=True)
-    shared_root = repo_root.parent / "FPFData"
+    shared_root = repo_root / "FPFData"
     shared_root.mkdir()
     cookies = [{"name": "cookie2", "value": "v", "domain": ".taobao.com", "path": "/"}]
     writes: list[tuple[list[dict[str, object]], str]] = []

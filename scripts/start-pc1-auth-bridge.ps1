@@ -109,7 +109,7 @@ function Resolve-DataRoot {
     if ($env:FAPAI_DATA_ROOT_HOST) {
         return $env:FAPAI_DATA_ROOT_HOST
     }
-    return "Z:\project\project\FPFData"
+    return (Join-Path (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath "FPFData")
 }
 
 function Resolve-SshExecutable {
@@ -175,7 +175,7 @@ $resolvedProfileDir = if ($ProfileDir) {
 } elseif ($env:FAPAI_AUTH_BROWSER_PROFILE_DIR) {
     $env:FAPAI_AUTH_BROWSER_PROFILE_DIR
 } else {
-    "C:\Users\Public\nas_home\AI\FPFData\chrome-cdp-profile-pc1-human-clean"
+    Join-Path (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath "FPFData\chrome-cdp-profile-pc1-human-clean"
 }
 $resolvedBrowserPath = if ($BrowserPath) {
     $BrowserPath

@@ -1,6 +1,6 @@
 param(
     [string]$TaskName = "FapaiFangTaobaoLoginRecoveryMonitor",
-    [string]$DataRoot = "C:\Users\Public\nas_home\AI\FPFData",
+    [string]$DataRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData"),
     [int]$IntervalMinutes = 1,
     [int]$RecentMinutes = 3,
     [int]$MinRecentSeedItems = 1,

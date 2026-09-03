@@ -1,6 +1,6 @@
 param(
     [string]$TaskName = "FapaiFangPostgresBackupHealth",
-    [string]$DataRoot = "C:\Users\Public\nas_home\AI\FPFData",
+    [string]$DataRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData"),
     [int]$IntervalMinutes = 15,
     [int]$MaxAgeMinutes = 45,
     [long]$MinBytes = 1048576,

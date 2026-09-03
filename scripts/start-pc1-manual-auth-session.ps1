@@ -72,7 +72,7 @@ function Stop-ProfileBrowser {
 $resolvedProfileDir = Resolve-Setting `
     -ExplicitValue $ProfileDir `
     -EnvironmentName "FAPAI_AUTH_BROWSER_PROFILE_DIR" `
-    -DefaultValue "C:\Users\Public\nas_home\AI\FPFData\chrome-cdp-profile-pc1-human-clean"
+    -DefaultValue (Join-Path (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath "FPFData\chrome-cdp-profile-pc1-human-clean")
 $resolvedBrowserPath = Resolve-Setting `
     -ExplicitValue $BrowserPath `
     -EnvironmentName "FAPAI_AUTH_BROWSER_PATH" `
@@ -80,7 +80,7 @@ $resolvedBrowserPath = Resolve-Setting `
 $resolvedDataRoot = Resolve-Setting `
     -ExplicitValue $DataRoot `
     -EnvironmentName "FAPAI_DATA_ROOT_HOST" `
-    -DefaultValue "C:\Users\Public\nas_home\AI\FPFData"
+    -DefaultValue (Join-Path (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath "FPFData")
 
 if (-not (Test-Path -LiteralPath $resolvedBrowserPath)) {
     throw "Configured manual-auth browser does not exist: $resolvedBrowserPath"

@@ -12,7 +12,7 @@ def test_harness_url_uses_localhost_tools_path():
 
 
 def test_preview_command_uses_python_http_server_for_repo_root():
-    workdir = Path(r"Z:\project\project\fapaifang")
+    workdir = Path(r"Z:\project\project\crow")
 
     assert preview_userscript_harness.preview_command(workdir, 43180) == [
         sys.executable,

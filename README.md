@@ -136,7 +136,7 @@ cmd /c auto\seed_hybrid_collector.bat
 
 默认会复用：
 
-- `C:\Users\Public\nas_home\AI\FPFData\edge-cdp-profile`
+- `.\FPFData\edge-cdp-profile`
 
 如需把 Taobao 采集会话与日常浏览器/扩展环境隔离，推荐改用：
 
@@ -144,7 +144,7 @@ cmd /c auto\seed_hybrid_collector.bat
 
 该模式会改用隔离 profile：
 
-- `C:\Users\Public\nas_home\AI\FPFData\edge-cdp-profile-isolated`
+- `.\FPFData\edge-cdp-profile-isolated`
 
 并尽量减少扩展污染，适合：
 
@@ -315,11 +315,19 @@ FAPAI_DETAIL_ANALYSIS_WORKER_3_RESTART=unless-stopped
 
 ### 持久化目录
 
-本机约定的外部数据汇总目录是：
+本地开发默认使用仓库内、但不进入 Git 的数据根：
 
 ```text
-Z:\project\project\FPFData
+.\FPFData
 ```
+
+该路径由脚本相对于当前仓库根目录解析，因此移动或重命名项目目录后不需要改代码。
+现有安装仍可通过 `FAPAI_DATA_ROOT_HOST` 或脚本的 `-DataRoot` 参数覆盖默认值。
+`FPFData/.gitignore` 会阻止凭据、浏览器 profile、数据库备份和生成数据进入 Git。
+
+历史数据只通过 `scripts\import-legacy-fpfdata.ps1` 做非破坏、可重试的归档导入。
+导入结果放在 `FPFData\imports\<source-id>`，默认排除 secrets、runtime、浏览器
+profile、日志和 live PostgreSQL data。导入不会修改源目录，也不会触发部署。
 
 当前默认 compose 使用 **Docker named volume** 持久化运行状态：
 
@@ -328,25 +336,25 @@ Z:\project\project\FPFData
 - `fapaifang_fapaifang-jobs` -> `/data/jobs`
 - `fapaifang_postgres_data` -> PostgreSQL `/var/lib/postgresql/data`
 
-这样可以保证容器重启后采集断点和 PostgreSQL 数据不丢。外部目录
-`Z:\project\project\FPFData` 作为同步/备份目标，而不是默认直接 bind mount。
+这样可以保证容器重启后采集断点和 PostgreSQL 数据不丢。仓库内的
+`.\FPFData` 只作为本地开发、离线归档和显式同步目标，不是默认 live bind mount。
 
 原因是当前这台机器实测：
 
 - `C:\...` 本地盘 bind mount 正常，容器写入后宿主可见。
-- `Z:\project\project\FPFData` 直 bind mount 会出现“容器内写入成功，但宿主
-  `Z:` 目录看不到文件”的假成功。
+- 历史网络盘或 UNC 目录直 bind mount 曾出现“容器内写入成功，但宿主目录看不到
+  文件”的假成功。
 - Docker local CIFS volume 指向 `//192.168.15.200/home` 当前报 `no route to host`。
 
-因此不要把 `Z:`/UNC 直挂当作已经可用的持久化方案。正式运行时使用 Docker volumes，
+因此不要把网络盘/UNC 直挂当作已经可用的持久化方案。正式运行时使用 Docker volumes，
 再用同步脚本把 collector artifacts 和 PostgreSQL dump 落到 `FPFData`：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\sync-docker-data-to-host.ps1 -DataRoot 'Z:\project\project\FPFData'
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\sync-docker-data-to-host.ps1
 ```
 
-如果 `docker.local.env` 或当前 shell 已设置 `FAPAI_DATA_ROOT_HOST=Z:\project\project\FPFData`，
-也可以省略 `-DataRoot`：
+如果 `docker.local.env`、当前 shell 或命令行设置了 `FAPAI_DATA_ROOT_HOST` / `-DataRoot`，
+该显式值优先于仓库相对默认值：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\sync-docker-data-to-host.ps1
@@ -355,35 +363,35 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\sync-docker-data-to-
 如需让外部目录持续跟随 Docker volumes，可注册 Windows 计划任务：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-fpfdata-sync-task.ps1 -DataRoot 'Z:\project\project\FPFData' -IntervalMinutes 15
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-fpfdata-sync-task.ps1 -IntervalMinutes 15
 ```
 
 该任务名为 `\FapaiFang\FapaiFangDataSync`。默认只同步 collector artifacts；
 如果确实需要周期性数据库 dump，可追加 `-IncludePostgres`，但 dump 文件会持续增长。
 
-PostgreSQL 建议使用独立 dump 脚本维护可恢复备份，默认 host 数据根为：
+PostgreSQL 建议使用独立 dump 脚本维护可恢复备份，默认数据根为：
 
 ```text
-C:\Users\Public\nas_home\AI\FPFData
+.\FPFData
 ```
 
 手动备份并验证 restore list：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\backup-postgres-to-host.ps1 -DataRoot 'C:\Users\Public\nas_home\AI\FPFData'
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\backup-postgres-to-host.ps1
 ```
 
 注册周期备份与健康检查：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-postgres-backup-task.ps1 -DataRoot 'C:\Users\Public\nas_home\AI\FPFData'
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-postgres-backup-health-task.ps1 -DataRoot 'C:\Users\Public\nas_home\AI\FPFData'
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-postgres-backup-task.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\register-postgres-backup-health-task.ps1
 ```
 
 任务名分别是 `FapaiFangPostgresBackup` 和 `FapaiFangPostgresBackupHealth`。临时排查时可运行：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\check-postgres-backup-health.ps1 -DataRoot 'C:\Users\Public\nas_home\AI\FPFData'
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\check-postgres-backup-health.ps1
 ```
 
 如果未来 Docker daemon 已修通对该目录的真实 bind mount 能力，可以显式叠加
@@ -416,10 +424,11 @@ host-bind override 会把运行数据挂载到：
 - `${FAPAI_DATA_ROOT_HOST}\jobs` -> `/data/jobs`
 - `${FAPAI_DATA_ROOT_HOST}\postgres` -> PostgreSQL `/var/lib/postgresql/data`
 
-不要把 live 采集产物直接放进 Git 工作区。`docker.local.env` 中应设置：
+不要把 live 采集产物加入 Git。仓库内 `FPFData` 的内容已被忽略；如需在
+`docker.local.env` 中显式设置，可使用相对当前项目的路径：
 
 ```env
-FAPAI_DATA_ROOT_HOST=Z:\project\project\FPFData
+FAPAI_DATA_ROOT_HOST=.\FPFData
 ```
 
 ### 1. 准备环境变量
@@ -434,7 +443,7 @@ FAPAI_CDP_ENDPOINT=http://host.docker.internal:9223
 FAPAI_DB_URL=postgresql+psycopg://fapaifang:fapaifang@host.docker.internal:55432/fapaifang
 FAPAI_DB_AUTO_CREATE=1
 FAPAI_DB_ENABLE_POSTGIS=1
-FAPAI_DATA_ROOT_HOST=Z:\project\project\FPFData
+FAPAI_DATA_ROOT_HOST=.\FPFData
 FAPAI_SEED_JOBS_FILE=/data/jobs/seed_jobs_all.json
 FAPAI_SEED_JOB_KEY=guangdong-guangzhou-nansha-50025969
 FAPAI_SEED_PROVINCE=广东省
@@ -466,7 +475,7 @@ $env:OPENAI_BASE_URL = "https://your-openai-compatible-base-url/v1"
 $env:OPENAI_API_KEY = "<your-key>"
 $env:OPENAI_MODEL = "<optional-model-name>"
 $env:FAPAI_CDP_ENDPOINT = "http://host.docker.internal:9223"
-$env:FAPAI_DATA_ROOT_HOST = "Z:\project\project\FPFData"
+$env:FAPAI_DATA_ROOT_HOST = (Join-Path $PWD "FPFData")
 ```
 
 其中 `FAPAI_CDP_ENDPOINT` 指向已登录淘宝/阿里资产的 Chrome remote debugging endpoint。Docker Desktop 场景下容器访问宿主机通常使用 `host.docker.internal`；如果宿主 Chrome 只监听 `127.0.0.1` 且容器连不上，需要把 remote debugging endpoint 暴露到容器可访问的地址。

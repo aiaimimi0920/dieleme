@@ -2,14 +2,16 @@ import os
 import json
 import glob
 import re
+from pathlib import Path
 
-DATA_DIR = r"c:\Users\Public\nas_home\project\fapaifang\datas\archive"
+REPO_ROOT = Path(__file__).resolve().parent
+DATA_DIR = REPO_ROOT / "datas" / "archive"
 
 def fix_urls():
     print(f"Scanning {DATA_DIR}...")
     
     # Recursively find all json files
-    files = glob.glob(os.path.join(DATA_DIR, "**", "*.json"), recursive=True)
+    files = glob.glob(os.path.join(str(DATA_DIR), "**", "*.json"), recursive=True)
     
     total_fixed = 0
     files_changed = 0

@@ -14,7 +14,7 @@ param(
     [string]$ApiBase = "http://192.168.15.200:8001/api",
     [int]$NasRecoveryIntervalMinutes = 1,
     [int]$LoginWindowSeconds = 300,
-    [string]$ProfileDir = "C:\\Users\\Public\\nas_home\\AI\\FPFData\\chrome-cdp-profile-pc1-human-clean",
+    [string]$ProfileDir = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData\chrome-cdp-profile-pc1-human-clean"),
     [string]$BrowserPath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
     [int]$NasRecoveryExecutionTimeLimitMinutes = 10,
     [string]$TaskPath = "\FapaiFang\",
@@ -31,7 +31,7 @@ function Resolve-DefaultDataRoot {
     if ($env:FAPAI_DATA_ROOT_HOST) {
         return $env:FAPAI_DATA_ROOT_HOST
     }
-    return "C:\Users\Public\nas_home\AI\FPFData"
+    return (Join-Path (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath "FPFData")
 }
 
 $resolvedDataRoot = Resolve-DefaultDataRoot

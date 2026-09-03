@@ -58,11 +58,22 @@ fn run_hidden_powershell(script: &str, args: &[String]) -> Result<(), String> {
 }
 
 fn bundled_script_path(script_name: &str) -> Option<String> {
-    let current_exe = std::env::current_exe().ok()?;
-    let parent = current_exe.parent()?;
-    let candidate = parent.join("scripts").join(script_name);
-    if candidate.exists() {
-        return Some(candidate.to_string_lossy().to_string());
+    if let Ok(current_exe) = std::env::current_exe() {
+        if let Some(parent) = current_exe.parent() {
+            let candidate = parent.join("scripts").join(script_name);
+            if candidate.exists() {
+                return Some(candidate.to_string_lossy().to_string());
+            }
+        }
+    }
+
+    if let Ok(current_dir) = std::env::current_dir() {
+        for root in current_dir.ancestors() {
+            let candidate = root.join("scripts").join(script_name);
+            if candidate.exists() {
+                return Some(candidate.to_string_lossy().to_string());
+            }
+        }
     }
     None
 }
@@ -78,10 +89,9 @@ fn open_auth_browser(url: String) -> Result<String, String> {
         .ok()
         .filter(|value| !value.trim().is_empty())
         .or_else(|| bundled_script_path("open-remote-auth-browser.ps1"))
-        .unwrap_or_else(|| {
-            r"\\192.168.15.200\home\project\project\fapaifang\scripts\open-remote-auth-browser.ps1"
-                .to_string()
-        });
+        .ok_or_else(|| {
+            "auth browser script could not be resolved; set FAPAI_AUTH_BROWSER_SCRIPT".to_string()
+        })?;
     if !Path::new(&script).exists() {
         return Err(format!("auth browser script does not exist: {script}"));
     }
@@ -107,18 +117,20 @@ fn export_taobao_cookie_snapshot() -> Result<String, String> {
         .ok()
         .filter(|value| !value.trim().is_empty())
         .or_else(|| bundled_script_path("complete-pc1-inplace-auth.ps1"))
-        .unwrap_or_else(|| r"\\192.168.15.200\home\project\project\fapaifang\scripts\complete-pc1-inplace-auth.ps1".to_string());
+        .ok_or_else(|| {
+            "cookie export script could not be resolved; set FAPAI_COOKIE_EXPORT_SCRIPT".to_string()
+        })?;
 
     let port = std::env::var("FAPAI_AUTH_LOCAL_CDP_PORT")
         .ok()
         .filter(|value| !value.trim().is_empty())
         .unwrap_or_else(|| "9225".to_string());
-    run_hidden_powershell(
-        &script,
-        &["-Port".to_string(), port],
-    )?;
+    run_hidden_powershell(&script, &["-Port".to_string(), port])?;
 
-    Ok("当前详情页、列表请求和详情请求均已通过，浏览器未重启，认证结果可以供 PC2 worker 使用。".to_string())
+    Ok(
+        "当前详情页、列表请求和详情请求均已通过，浏览器未重启，认证结果可以供 PC2 worker 使用。"
+            .to_string(),
+    )
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

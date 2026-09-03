@@ -1,6 +1,6 @@
 param(
     [string]$TaskName = "FapaiFangTaobaoLoginWatchdog",
-    [string]$DataRoot = "C:\Users\Public\nas_home\AI\FPFData",
+    [string]$DataRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData"),
     [string]$OutputPath = "",
     [string]$AlertWebhookUrl = "",
     [int]$WaitSeconds = 600,

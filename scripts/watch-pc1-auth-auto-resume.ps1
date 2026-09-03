@@ -68,7 +68,11 @@ if (-not (Test-Path -LiteralPath $completeScript)) {
 }
 
 if (-not $DataRoot) {
-    $DataRoot = if ($env:FAPAI_DATA_ROOT_HOST) { $env:FAPAI_DATA_ROOT_HOST } else { "Z:\project\project\FPFData" }
+    $DataRoot = if ($env:FAPAI_DATA_ROOT_HOST) {
+        $env:FAPAI_DATA_ROOT_HOST
+    } else {
+        Join-Path (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath "FPFData"
+    }
 }
 if (-not $OutputPath) {
     $OutputPath = if ($env:FAPAI_COOKIE_SNAPSHOT) { $env:FAPAI_COOKIE_SNAPSHOT } else { Join-Path $DataRoot "secrets\nodes\pc2\taobao-cookies.json" }

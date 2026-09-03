@@ -1,6 +1,6 @@
 param(
     [string]$TaskName = "FapaiFangContinuousCollection",
-    [string]$DataRoot = "C:\Users\Public\nas_home\AI\FPFData",
+    [string]$DataRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData"),
     [int]$IntervalMinutes = 15,
     [int]$Port = 9223,
     [string]$Python = "python",

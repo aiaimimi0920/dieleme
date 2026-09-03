@@ -1,5 +1,5 @@
 param(
-    [string]$DataRoot = "C:\Users\Public\nas_home\AI\FPFData",
+    [string]$DataRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData"),
     [string]$ApiBaseUrl = "",
     [string]$AlertWebhookUrl = "",
     [int]$RecentMinutes = 3,

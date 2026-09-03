@@ -113,7 +113,7 @@ if (-not $DataRoot) {
 }
 
 if (-not $DataRoot) {
-    $DataRoot = "C:\Users\Public\nas_home\AI\FPFData"
+    $DataRoot = Join-Path (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath "FPFData"
 }
 
 if ($KeepLast -lt 1) {

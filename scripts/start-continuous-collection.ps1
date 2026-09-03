@@ -1,5 +1,5 @@
 param(
-    [string]$DataRoot = "C:\Users\Public\nas_home\AI\FPFData",
+    [string]$DataRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData"),
     [int]$Port = 9223,
     [string]$Python = "python",
     [string[]]$SampleUrl = @(

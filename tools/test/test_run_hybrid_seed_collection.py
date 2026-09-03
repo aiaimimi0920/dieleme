@@ -18377,7 +18377,7 @@ def test_run_once_returns_browser_fallback_and_can_open_browser():
         session_id="runner-a",
         cdp_endpoint="http://127.0.0.1:9223",
         submit=True,
-        profile_dir=Path(r"Z:\project\project\fapaifang\output\taobao-auth-profile"),
+        profile_dir=Path(r"Z:\project\project\crow\output\taobao-auth-profile"),
         open_browser_fallback=True,
         claim_task_fn=lambda **_: {"task": {"url": "https://sf.taobao.com/list/50025969__2.htm?page=1"}, "message": "ok"},
         export_cookies_fn=lambda *_args, **_kwargs: [{"name": "cookie2", "value": "abc"}],
@@ -18393,7 +18393,7 @@ def test_run_once_returns_browser_fallback_and_can_open_browser():
     assert opened == [
         (
             result["fallback_url"],
-            Path(r"Z:\project\project\fapaifang\output\taobao-auth-profile"),
+            Path(r"Z:\project\project\crow\output\taobao-auth-profile"),
             9223,
         )
     ]
@@ -18408,7 +18408,7 @@ def test_run_once_treats_whitespace_unknown_mode_as_default_hybrid_for_browser_f
         cdp_endpoint="http://127.0.0.1:9223",
         submit=True,
         mode=" unknown ",
-        profile_dir=Path(r"Z:\project\project\fapaifang\output\taobao-auth-profile"),
+        profile_dir=Path(r"Z:\project\project\crow\output\taobao-auth-profile"),
         open_browser_fallback=True,
         claim_task_fn=lambda **_: {"task": {"url": "https://sf.taobao.com/list/50025969__2.htm?page=1"}, "message": "ok"},
         export_cookies_fn=lambda *_args, **_kwargs: [{"name": "cookie2", "value": "abc"}],
@@ -18424,7 +18424,7 @@ def test_run_once_treats_whitespace_unknown_mode_as_default_hybrid_for_browser_f
     assert opened == [
         (
             result["fallback_url"],
-            Path(r"Z:\project\project\fapaifang\output\taobao-auth-profile"),
+            Path(r"Z:\project\project\crow\output\taobao-auth-profile"),
             9223,
         )
     ]
@@ -18440,7 +18440,7 @@ def test_run_once_browser_mode_opens_worker_without_browserless_probe():
         cdp_endpoint="http://127.0.0.1:9223",
         submit=True,
         mode="browser",
-        profile_dir=Path(r"Z:\project\project\fapaifang\output\taobao-auth-profile"),
+        profile_dir=Path(r"Z:\project\project\crow\output\taobao-auth-profile"),
         open_browser_fallback=True,
         claim_task_fn=lambda **_: {"task": {"url": "https://sf.taobao.com/list/50025969__2.htm?page=1"}, "message": "ok"},
         export_cookies_fn=lambda *_args, **_kwargs: calls.__setitem__("export", calls["export"] + 1),
@@ -18456,7 +18456,7 @@ def test_run_once_browser_mode_opens_worker_without_browserless_probe():
     assert opened == [
         (
             result["fallback_url"],
-            Path(r"Z:\project\project\fapaifang\output\taobao-auth-profile"),
+            Path(r"Z:\project\project\crow\output\taobao-auth-profile"),
             9223,
         )
     ]
@@ -18471,7 +18471,7 @@ def test_run_once_browserless_mode_does_not_open_browser_on_fallback():
         cdp_endpoint="http://127.0.0.1:9223",
         submit=True,
         mode="browserless",
-        profile_dir=Path(r"Z:\project\project\fapaifang\output\taobao-auth-profile"),
+        profile_dir=Path(r"Z:\project\project\crow\output\taobao-auth-profile"),
         open_browser_fallback=True,
         claim_task_fn=lambda **_: {"task": {"url": "https://sf.taobao.com/list/50025969__2.htm?page=1"}, "message": "ok"},
         export_cookies_fn=lambda *_args, **_kwargs: [{"name": "cookie2", "value": "abc"}],

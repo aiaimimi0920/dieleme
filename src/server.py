@@ -2348,7 +2348,7 @@ def _auth_cookie_snapshot_root_candidates() -> list[Path]:
 
     _add(os.getenv("FAPAI_COOKIE_SNAPSHOT_ROOT"))
     _add(os.getenv("FAPAI_SHARED_DATA_ROOT_HOST"))
-    _add(REPO_ROOT.parent / "FPFData")
+    _add(REPO_ROOT / "FPFData")
 
     data_root = Path(DATA_DIR).expanduser()
     try:

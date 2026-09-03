@@ -1,6 +1,6 @@
 param(
     [string]$TaskName = "FapaiFangDataSync",
-    [string]$DataRoot = "Z:\project\project\FPFData",
+    [string]$DataRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData"),
     [int]$IntervalMinutes = 15,
     [string]$TaskPath = "\FapaiFang\",
     [switch]$IncludePostgres

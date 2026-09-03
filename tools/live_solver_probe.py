@@ -1,10 +1,11 @@
 import os
 import sys
 import json
+from pathlib import Path
 
 os.environ.setdefault("FAPAI_CDP_ENDPOINT", "http://127.0.0.1:9223")
 
-REPO = r"\\192.168.15.200\home\project\project\fapaifang"
+REPO = str(Path(__file__).resolve().parents[1])
 if REPO not in sys.path:
     sys.path.insert(0, REPO)
 

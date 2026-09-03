@@ -14,7 +14,7 @@ def test_web_app_dir_points_to_repo_frontend_root():
 
 
 def test_dev_command_uses_npm_cmd_and_localhost_port():
-    workdir = Path(r"Z:\project\project\fapaifang\game\web-app")
+    workdir = Path(r"Z:\project\project\crow\game\web-app")
 
     assert dev_web_app.dev_command(workdir, port=43177) == [
         "npm.cmd",

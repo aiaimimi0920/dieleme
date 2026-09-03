@@ -24,7 +24,8 @@ npm run tauri:dev
 如果当前仓库路径是 UNC 路径，例如 `\\192.168.15.200\...`，Windows `cmd.exe` 不能直接把 UNC 当当前目录。此时使用：
 
 ```powershell
-cmd /c "pushd \\192.168.15.200\home\project\project\fapaifang\collector-desktop && npm run tauri:dev && popd"
+$collectorDir = (Resolve-Path .\collector-desktop).ProviderPath
+cmd /c "pushd `"$collectorDir`" && npm run tauri:dev && popd"
 ```
 
 ## 打包
@@ -39,7 +40,8 @@ UNC 路径下对应使用：
 
 ```powershell
 $env:CARGO_TARGET_DIR = Join-Path $env:TEMP 'fapaifang-collector-desktop-target'
-cmd /c "pushd \\192.168.15.200\home\project\project\fapaifang\collector-desktop && npm run tauri:build && popd"
+$collectorDir = (Resolve-Path .\collector-desktop).ProviderPath
+cmd /c "pushd `"$collectorDir`" && npm run tauri:build && popd"
 ```
 
 说明：`CARGO_TARGET_DIR` 指向本机临时目录，是为了避免 Windows 在 UNC/NAS 路径下写 Cargo `target` 目录时出现权限或文件锁问题。

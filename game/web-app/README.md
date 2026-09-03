@@ -35,9 +35,7 @@ npm run build
 
 ### Windows + UNC 工作目录
 
-如果项目是从类似下面的 UNC 路径直接打开的：
-
-- `\\192.168.15.200\home\project\project\fapaifang\game\web-app`
+如果项目是从 UNC 共享中的 `game\web-app` 目录直接打开的，
 
 那么直接执行 `npm run build` 可能会触发 Windows `CMD.EXE` 的 UNC 当前目录限制，并让 Vite 报出类似：
 

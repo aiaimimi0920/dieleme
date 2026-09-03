@@ -136,7 +136,9 @@ def test_runtime_status_card_exposes_operator_controls_and_auth_challenge_dialog
     assert "complete-pc1-inplace-auth.ps1" in rust_lib
     assert "open-remote-auth-browser.ps1" in rust_lib
     assert "std::env::current_exe" in rust_lib
+    assert "std::env::current_dir" in rust_lib
     assert '.join("scripts")' in rust_lib
+    assert "\\\\192.168.15.200\\home\\project\\project\\fapaifang" not in rust_lib
     open_auth_function = rust_lib[
         rust_lib.index("fn open_auth_browser"):
         rust_lib.index("#[tauri::command]\nfn export_taobao_cookie_snapshot")

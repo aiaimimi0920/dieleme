@@ -17,7 +17,7 @@ if (-not $DataRoot) {
         $env:FAPAI_DATA_ROOT_HOST
     }
     else {
-        "Z:\project\project\FPFData"
+        Join-Path (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath "FPFData"
     }
 }
 if (-not $OutputPath) {

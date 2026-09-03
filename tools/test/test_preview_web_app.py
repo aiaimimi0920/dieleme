@@ -14,7 +14,7 @@ def test_web_app_dist_dir_points_to_repo_dist_artifact():
 
 
 def test_preview_command_uses_python_http_server_for_selected_port():
-    dist_dir = Path(r"Z:\project\project\fapaifang\game\web-app\dist")
+    dist_dir = Path(r"Z:\project\project\crow\game\web-app\dist")
 
     assert preview_web_app.preview_command(dist_dir, port=43173) == [
         sys.executable,

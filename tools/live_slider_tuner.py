@@ -18,12 +18,13 @@ import random
 import sys
 import time
 import datetime
+from pathlib import Path
 
 import requests
 import websocket
 
 CDP = os.environ.get("FAPAI_CDP_ENDPOINT", "http://127.0.0.1:9223")
-REPO = r"\\192.168.15.200\home\project\project\fapaifang"
+REPO = str(Path(__file__).resolve().parents[1])
 LOG_PATH = os.path.join(REPO, "output", "slider_tuner.jsonl")
 os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
 

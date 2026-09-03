@@ -2,17 +2,19 @@ import os
 import json
 import glob
 from collections import defaultdict
+from pathlib import Path
 
-DATA_DIR = r"c:\Users\Public\nas_home\project\fapaifang\datas\archive"
+REPO_ROOT = Path(__file__).resolve().parent
+DATA_DIR = REPO_ROOT / "datas" / "archive"
 
 def analyze_progress():
     stats = defaultdict(lambda: {"total": 0, "processed": 0, "processed_items": 0})
     
     # Also check root for legacy files
-    root_dir = r"c:\Users\Public\nas_home\project\fapaifang\datas"
+    root_dir = REPO_ROOT / "datas"
     
-    files = glob.glob(os.path.join(DATA_DIR, "**", "*.json"), recursive=True)
-    files += glob.glob(os.path.join(root_dir, "*.json"))
+    files = glob.glob(os.path.join(str(DATA_DIR), "**", "*.json"), recursive=True)
+    files += glob.glob(os.path.join(str(root_dir), "*.json"))
     
     print(f"Scanning {len(files)} files...")
     

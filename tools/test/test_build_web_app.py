@@ -30,17 +30,17 @@ def test_remap_unc_path_prefers_longest_matching_mapped_root():
     ]
 
     remapped = build_web_app._remap_unc_path(
-        Path(r"\\192.168.15.200\home\project\project\fapaifang\game\web-app"),
+        Path(r"\\192.168.15.200\home\project\project\crow\game\web-app"),
         mappings,
     )
 
-    assert remapped == Path(r"Y:\project\fapaifang\game\web-app")
+    assert remapped == Path(r"Y:\project\crow\game\web-app")
 
 
 def test_resolve_local_workdir_raises_for_unc_path_without_mapping():
     with pytest.raises(RuntimeError, match="No mapped drive alias found"):
         build_web_app.resolve_local_workdir(
-            Path(r"\\192.168.15.200\home\project\project\fapaifang\game\web-app"),
+            Path(r"\\192.168.15.200\home\project\project\crow\game\web-app"),
             net_use_output="Status Local Remote\n",
         )
 
@@ -56,11 +56,11 @@ The command completed successfully.
 """
 
     assert build_web_app.resolve_local_workdirs(
-        Path(r"\\192.168.15.200\home\project\project\fapaifang\game\web-app"),
+        Path(r"\\192.168.15.200\home\project\project\crow\game\web-app"),
         net_use_output=output,
     ) == [
-        Path(r"Y:\project\project\fapaifang\game\web-app"),
-        Path(r"Z:\project\project\fapaifang\game\web-app"),
+        Path(r"Y:\project\project\crow\game\web-app"),
+        Path(r"Z:\project\project\crow\game\web-app"),
     ]
 
 

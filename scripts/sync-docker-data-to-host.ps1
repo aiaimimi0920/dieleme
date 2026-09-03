@@ -26,7 +26,7 @@ if (-not $DataRoot) {
 }
 
 if (-not $DataRoot) {
-    $DataRoot = "Z:\project\project\FPFData"
+    $DataRoot = Join-Path (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath "FPFData"
 }
 
 function Copy-VolumeToHost {

@@ -27,7 +27,7 @@ function Resolve-FapaiDataRoot {
         }
     }
 
-    return "C:\Users\Public\nas_home\AI\FPFData"
+    return (Join-Path (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath "FPFData")
 }
 
 $repoRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath

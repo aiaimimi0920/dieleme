@@ -11,7 +11,9 @@ def test_start_taobao_cdp_browser_script_opens_visible_cdp_browser_when_missing(
 
     assert "FAPAI_DATA_ROOT_HOST" in script
     assert "docker.local.env" in script
-    assert "C:\\Users\\Public\\nas_home\\AI\\FPFData" in script
+    assert "PSScriptRoot" in script
+    assert '"FPFData"' in script
+    assert "C:\\Users\\Public\\nas_home\\AI\\FPFData" not in script
     assert "edge-cdp-profile" in script
     assert "https://sf.taobao.com/" in script
     assert "Microsoft\\Edge\\Application\\msedge.exe" in script
@@ -251,7 +253,7 @@ def test_operator_docs_include_cdp_browser_startup_helper() -> None:
     readme = REPO_ROOT.joinpath("README.md").read_text(encoding="utf-8")
 
     assert "start-taobao-cdp-browser.ps1" in readme
-    assert "C:\\Users\\Public\\nas_home\\AI\\FPFData\\edge-cdp-profile" in readme
+    assert ".\\FPFData\\edge-cdp-profile" in readme
     assert "http://192.168.65.254:9223" in readme
 
 
