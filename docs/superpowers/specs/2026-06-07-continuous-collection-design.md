@@ -24,12 +24,6 @@ The first full-coverage implementation will generate seed jobs from:
 
 This is an operational definition of "all collectable" for the current codebase. It can be extended later if Taobao exposes more legal-auction categories or the location tree changes.
 
-## Human verification boundary
-
-The system may detect, open, and foreground official Taobao verification pages, but it must not solve, drag, bypass, or fake captcha/security checks. When a health check reports `punish_page`, `captcha_page`, or `challenge_required`, the watchdog opens the official page and waits for the operator to complete it manually.
-
-After a successful verification, the watchdog refreshes `C:\Users\Public\nas_home\AI\FPFData\secrets\taobao-cookies.json` so workers can continue through `FAPAI_COOKIE_SNAPSHOT=/data/secrets/taobao-cookies.json`.
-
 ## Components
 
 1. Full seed job generator

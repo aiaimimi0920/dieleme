@@ -98,6 +98,32 @@ cmd /c auto\seed_hybrid_collector.bat
 
 做本地 load-time smoke，而不需要直接碰真实站点。
 
+### 本地 mock 滑块回归入口
+
+这组入口只访问仓库内的 `file://.../tools/mock_slider.html`，用于稳定回归：
+
+- 本地 mock challenge 识别
+- solver repeated-run 稳定性
+- 成功 / 失败语义
+- 主流程边界在 mock 语义下的可重复验证
+
+推荐的一键入口：
+
+- 跑 targeted pytest + mock matrix：
+  - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts\run-local-mock-slider-regression.ps1`
+- 跑更高压力的 matrix：
+  - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts\run-local-mock-slider-regression.ps1 -Runs 5 -Workers 4`
+- 只跑 matrix：
+  - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts\run-local-mock-slider-regression.ps1 -SkipPytest`
+- 只跑单场景：
+  - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts\run-local-mock-slider-regression.ps1 -Scenario near_miss`
+
+如果只想直接跑 Python 入口，也可以使用：
+
+- `python -m pytest tools/test/test_mock_slider_drag_check.py tools/test/test_mock_solver_probe.py tools/test/test_mock_solver_matrix.py tools/test/test_captcha_solver.py tools/test/test_taobao_login_health.py tools/test/test_detail_worker.py -q`
+- `python tools/mock_solver_matrix.py --runs 3 --workers 4`
+- `python tools/mock_solver_matrix.py --scenario near_miss --runs 3 --workers 1`
+
 ### 真实采集 live smoke 入口
 
 已登录淘宝/阿里资产的 Chrome 需要先以 remote debugging 暴露 CDP，例如 `http://127.0.0.1:9223`。

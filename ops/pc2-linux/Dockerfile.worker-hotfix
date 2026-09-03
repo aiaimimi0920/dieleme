@@ -1,0 +1,22 @@
+ARG FAPAI_BASE_IMAGE
+FROM ${FAPAI_BASE_IMAGE}
+
+ARG FAPAI_BUILD_VERSION=development
+ARG FAPAI_BUILD_COMMIT=unknown
+ARG FAPAI_BUILD_TIME=unknown
+ARG FAPAI_SOURCE_DIGEST=unknown
+
+ENV FAPAI_BUILD_VERSION=${FAPAI_BUILD_VERSION} \
+    FAPAI_BUILD_COMMIT=${FAPAI_BUILD_COMMIT} \
+    FAPAI_BUILD_TIME=${FAPAI_BUILD_TIME} \
+    FAPAI_SOURCE_DIGEST=${FAPAI_SOURCE_DIGEST}
+
+COPY tools/cdp_browser_identity.py /app/tools/cdp_browser_identity.py
+COPY tools/detail_worker.py /app/tools/detail_worker.py
+COPY tools/live_batch_smoke.py /app/tools/live_batch_smoke.py
+COPY src/analysis_ensemble.py /app/src/analysis_ensemble.py
+COPY src/llm_helper.py /app/src/llm_helper.py
+COPY src/storage/models.py /app/src/storage/models.py
+COPY src/storage/repository.py /app/src/storage/repository.py
+COPY alembic/versions/20260606_0008_add_seed_scan_rescan_state.py /app/alembic/versions/20260606_0008_add_seed_scan_rescan_state.py
+COPY alembic/versions/20260901_0009_add_analysis_ensemble_runs.py /app/alembic/versions/20260901_0009_add_analysis_ensemble_runs.py

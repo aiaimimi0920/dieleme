@@ -181,3 +181,124 @@ def test_unhealthy_cookie_signal_requires_an_active_solver_pause(monkeypatch):
         lambda: {"paused": True, "manual_required": True},
     )
     assert server._nas_auth_recovery_signal() == "captcha_manual_required"
+
+
+def test_stalled_detail_challenge_is_an_independent_auth_recovery_signal(monkeypatch):
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver")
+    monkeypatch.setattr(server, "NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS", 300)
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_runtime_status", lambda: {"status": "idle"})
+
+    monkeypatch.setattr(
+        server,
+        "_captcha_solver_runtime_status",
+        lambda: {
+            "paused": True,
+            "scopes": {
+                "seed": {"paused": True, "challenge_age_seconds": 900},
+                "detail": {"paused": True, "challenge_age_seconds": 299},
+            },
+        },
+    )
+    assert server._nas_auth_recovery_signal() is None
+
+    monkeypatch.setattr(
+        server,
+        "_captcha_solver_runtime_status",
+        lambda: {
+            "paused": True,
+            "scopes": {
+                "seed": {"paused": False, "challenge_age_seconds": 0},
+                "detail": {"paused": True, "challenge_age_seconds": 300},
+            },
+        },
+    )
+    assert server._nas_auth_recovery_signal() == "detail_challenge_stalled"
+
+
+def test_node_solver_blocked_report_persists_strong_recovery_signal(monkeypatch, tmp_path):
+    monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
+    monkeypatch.setattr(server, "SOLVER_SCOPE_STATE_ROOT", None)
+    monkeypatch.setattr(
+        server,
+        "SOLVER_SCOPE_STATES",
+        {scope: server._new_solver_scope_state() for scope in server.CHALLENGE_SCOPES},
+    )
+    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
+    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", None)
+    monkeypatch.setattr(server, "_solver_force_unlock_flag_exists", lambda: False)
+
+    request = {
+        "target_url": "https://sf-item.taobao.com/sf_item/3001.htm",
+        "node_id": "pc2",
+        "cdp_endpoint": "http://192.168.15.104:9224",
+        "scope": "detail",
+        "node_solver_blocked": True,
+        "node_solver_blocked_reason": "repeated_solver_failures",
+        "node_solver_blocked_attempts": 10,
+    }
+    first = server._node_solver_blocked_report_payload(request)
+    blocked_at = first["captcha_solver"]["scopes"]["detail"][
+        "node_solver_blocked_at_epoch"
+    ]
+    second = server._node_solver_blocked_report_payload(request)
+
+    assert first["status"] == "node_solver_blocked"
+    assert first["scope"] == "detail"
+    assert first["captcha_solver"]["manual_required"] is False
+    assert first["captcha_solver"]["scopes"]["detail"]["node_solver_blocked"] is True
+    assert first["captcha_solver"]["scopes"]["detail"][
+        "node_solver_blocked_reason"
+    ] == "repeated_solver_failures"
+    assert first["captcha_solver"]["scopes"]["detail"][
+        "node_solver_blocked_attempts"
+    ] == 10
+    assert second["captcha_solver"]["scopes"]["detail"][
+        "node_solver_blocked_at_epoch"
+    ] == blocked_at
+    assert server._nas_auth_recovery_signal() == "node_solver_retries_exhausted"
+
+    assert server._clear_solver_challenge_state(scope="detail") is None
+    assert server._nas_auth_recovery_signal() is None
+
+
+def test_node_solver_blocked_signal_requires_paused_scoped_failure(monkeypatch):
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver")
+    monkeypatch.setattr(server, "_auth_cookie_snapshot_runtime_status", lambda: {"status": "idle"})
+    base_scope = {
+        "paused": True,
+        "node_solver_blocked": True,
+        "node_solver_blocked_reason": "repeated_solver_failures",
+    }
+
+    monkeypatch.setattr(
+        server,
+        "_captcha_solver_runtime_status",
+        lambda: {"paused": True, "scopes": {"detail": {**base_scope, "paused": False}}},
+    )
+    assert server._nas_auth_recovery_signal() is None
+
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "operator")
+    monkeypatch.setattr(
+        server,
+        "_captcha_solver_runtime_status",
+        lambda: {"paused": True, "scopes": {"detail": base_scope}},
+    )
+    assert server._nas_auth_recovery_signal() is None
+
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver")
+    monkeypatch.setattr(
+        server,
+        "_captcha_solver_runtime_status",
+        lambda: {
+            "paused": True,
+            "scopes": {
+                "detail": {**base_scope, "node_solver_blocked_reason": "transient_failure"}
+            },
+        },
+    )
+    assert server._nas_auth_recovery_signal() is None

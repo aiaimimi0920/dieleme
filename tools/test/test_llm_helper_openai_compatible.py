@@ -135,6 +135,32 @@ def test_openai_compatible_config_rejects_invalid_reasoning_effort(monkeypatch):
         llm_helper._get_openai_compatible_config()
 
 
+@pytest.mark.parametrize("model", ["gpt-5.4", "openai/o3", "codex-mini"])
+def test_openai_compatible_analysis_rejects_gpt_related_routes(monkeypatch, model):
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.test/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL", model)
+
+    with pytest.raises(ValueError, match="non-GPT"):
+        llm_helper._get_openai_compatible_config()
+
+
+def test_explicit_analysis_model_rejects_gpt_route_before_request(monkeypatch):
+    monkeypatch.setenv("OPENAI_BASE_URL", "https://example.test/v1")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL", "deepseek-v4-flash-0731")
+    monkeypatch.setattr(
+        llm_helper,
+        "_chat_with_openai_compatible",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("rejected GPT route must not reach the gateway")
+        ),
+    )
+
+    with pytest.raises(ValueError, match="non-GPT"):
+        llm_helper.chat_with_glm("test", model="gpt-5.4")
+
+
 def test_chat_with_glm_applies_explicit_openai_compatible_proxy_without_trusting_env(monkeypatch):
     calls: list[dict[str, Any]] = []
 

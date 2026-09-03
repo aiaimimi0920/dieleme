@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import datetime
 import json
+import math
 import os
 import re
 import shutil
@@ -369,8 +370,19 @@ def _report_captcha_solver(
     from tools.taobao_login_health import build_captcha_solver_target_url, report_captcha_via_api
 
     normalized_target_url = build_captcha_solver_target_url(target_url)
-    report_kwargs = {"manual_only": True} if manual_only else {}
+    report_kwargs: dict[str, Any] = {"scope": "detail"}
+    if manual_only:
+        report_kwargs["manual_only"] = True
     return dict(report_captcha_via_api(api_base_url, cdp_endpoint, normalized_target_url, **report_kwargs))
+
+
+def _detail_seed_target_url(seed: dict[str, Any], item_id: str) -> str:
+    """Return a canonical detail URL; list provenance must never own detail challenge state."""
+    for key in ("url", "source_url"):
+        candidate = str(seed.get(key) or "").strip()
+        if DETAIL_ITEM_ID_RE.search(candidate):
+            return PropertyRepository._seed_item_url(item_id, candidate)
+    return PropertyRepository._seed_item_url(item_id)
 
 
 def _challenge_retry_budget_preserved(*, is_challenge_error: bool, is_transient_dns: bool) -> bool:
@@ -381,7 +393,12 @@ def _captcha_report_suppresses_challenge(report: Any) -> bool:
     if not isinstance(report, dict):
         return False
     status = str(report.get("status") or "").strip().lower()
-    return status in {"recent_auth_complete", "stale_auth_report", "stale_challenge"}
+    return status in {
+        "recent_auth_complete",
+        "recent_force_reset",
+        "stale_auth_report",
+        "stale_challenge",
+    }
 
 
 def _detail_challenge_should_break_batch(config: DetailWorkerConfig, result: dict[str, Any]) -> bool:
@@ -389,11 +406,21 @@ def _detail_challenge_should_break_batch(config: DetailWorkerConfig, result: dic
         return False
     if result.get("reason") == "detail_cdp_unreachable":
         return True
+    captcha_solver_report = result.get("captcha_solver_report")
+    report_status = (
+        str(captcha_solver_report.get("status") or "").strip().lower()
+        if isinstance(captcha_solver_report, dict)
+        else ""
+    )
+    # A force reset means "try collection again once", not "hammer the same
+    # blocked scope for the whole batch". Keep recent-auth suppression separate:
+    # after a real solve, short-lived stale challenge reports may still continue.
+    if report_status == "recent_force_reset":
+        return True
     if not (config.solver_enabled or config.manual_challenge_reporting):
         return False
     if result.get("reason") != "detail_challenge_page":
         return False
-    captcha_solver_report = result.get("captcha_solver_report")
     if isinstance(captcha_solver_report, dict):
         solver_status = str(captcha_solver_report.get("status") or "").strip().lower()
         if solver_status == "already_running" or _captcha_report_suppresses_challenge(
@@ -459,6 +486,37 @@ def _detail_batch_progress_event(run: int, result: dict[str, Any]) -> dict[str, 
 
 def _load_final_item(output_dir: Path, item_id: str) -> dict[str, Any] | None:
     path = output_dir / item_id / "final.json"
+    if not path.exists():
+        return None
+    try:
+        payload = load_json(path)
+    except (OSError, json.JSONDecodeError):
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def _record_analysis_module_b_receipt(
+    repository: PropertyRepository,
+    *,
+    item_id: str,
+    receipt: Any,
+) -> None:
+    if not isinstance(receipt, dict) or not receipt.get("run_id"):
+        return
+    record_run = getattr(repository, "record_analysis_ensemble_run", None)
+    if not callable(record_run):
+        return
+    try:
+        record_run(item_id, receipt)
+    except Exception as persistence_error:
+        print(
+            "[ANALYSIS-MODULE-B] unable to persist run receipt "
+            f"for {item_id}: {type(persistence_error).__name__}: {persistence_error}"
+        )
+
+
+def _load_analysis_module_b_latest(output_dir: Path, item_id: str) -> dict[str, Any] | None:
+    path = output_dir / item_id / "analysis-b" / "latest.json"
     if not path.exists():
         return None
     try:
@@ -615,12 +673,13 @@ def run_detail_worker_once(
         return summary
 
     item_id = str(seed.get("id") or seed.get("item_id") or seed.get("source_item_id"))
+    detail_target_url = _detail_seed_target_url(seed, item_id)
     try:
         selected = process_item_func(
             http_session,
             seed,
             browser_pages,
-            config=_live_config(config, target_url=str(seed.get("source_page_url") or seed.get("url") or "")),
+            config=_live_config(config, target_url=detail_target_url),
         )
         final_json_path = config.output_dir / item_id / "final.json"
         selected_json_path = config.output_dir / item_id / "selected.json"
@@ -706,7 +765,7 @@ def run_detail_worker_once(
                 report_args = (
                     config.api_base_url,
                     config.cdp_endpoint,
-                    str(seed.get("url") or seed.get("source_page_url") or ""),
+                    detail_target_url,
                 )
                 if config.solver_enabled:
                     captcha_solver_report = _report_captcha_solver(*report_args)
@@ -749,7 +808,7 @@ def run_detail_worker_once(
         if is_cdp_unreachable:
             summary["cdp_health"] = _build_cdp_unreachable_health(
                 config,
-                str(seed.get("url") or seed.get("source_page_url") or ""),
+                detail_target_url,
             )
         if captcha_solver_report is not None:
             summary["captcha_solver_report"] = captcha_solver_report
@@ -782,6 +841,8 @@ def run_detail_analysis_once(
     try:
         staged_artifacts = _stage_raw_detail_artifacts_for_analysis(seed, output_dir=config.output_dir, item_id=item_id)
         selected = analyze_item_func(item_id, output_dir=config.output_dir, do_risk=config.do_risk)
+        module_b_receipt = selected.get("analysis_module_b") if isinstance(selected, dict) else None
+        _record_analysis_module_b_receipt(repository, item_id=item_id, receipt=module_b_receipt)
         final_json_path = config.output_dir / item_id / "final.json"
         selected_json_path = config.output_dir / item_id / "selected.json"
         final_item = _load_final_item(config.output_dir, item_id)
@@ -795,6 +856,7 @@ def run_detail_analysis_once(
                     "final_json_path": str(final_json_path),
                     "selected_json_path": str(selected_json_path),
                     "raw_artifacts": seed.get("_raw_detail_artifacts"),
+                    "analysis_module_b": module_b_receipt,
                 },
             )
         repository.mark_seed_detail_completed(
@@ -814,6 +876,11 @@ def run_detail_analysis_once(
         _write_runtime_summary(config.output_dir, summary)
         return summary
     except Exception as exc:
+        _record_analysis_module_b_receipt(
+            repository,
+            item_id=item_id,
+            receipt=_load_analysis_module_b_latest(config.output_dir, item_id),
+        )
         if _is_llm_backend_unavailable_error(exc):
             repository.mark_seed_detail_analysis_failed(
                 item_id,
@@ -936,8 +1003,27 @@ def _detail_batch_sleep_seconds(config: DetailWorkerConfig, result: dict[str, An
         interval = config.active_loop_interval_seconds
         if interval is None:
             interval = config.loop_interval_seconds
-        return max(int(interval), 0)
-    return max(config.loop_interval_seconds, 0)
+        base_sleep = max(int(interval), 0)
+    else:
+        base_sleep = max(config.loop_interval_seconds, 0)
+
+    force_reset_retry_after = 0
+    for item_result in result.get("results") or []:
+        if not isinstance(item_result, dict):
+            continue
+        report = item_result.get("captcha_solver_report")
+        if not isinstance(report, dict):
+            continue
+        if str(report.get("status") or "").strip().lower() != "recent_force_reset":
+            continue
+        try:
+            force_reset_retry_after = max(
+                force_reset_retry_after,
+                int(math.ceil(max(float(report.get("retry_after_seconds") or 0), 0.0))),
+            )
+        except (TypeError, ValueError):
+            continue
+    return max(base_sleep, force_reset_retry_after)
 
 
 def run_detail_worker_loop(

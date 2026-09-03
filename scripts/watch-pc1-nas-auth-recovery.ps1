@@ -99,14 +99,39 @@ function Invoke-RecoveryPost {
 
 function Get-CdpTabs {
     param([Parameter(Mandatory = $true)][string]$Endpoint)
+    $uri = "$($Endpoint.TrimEnd('/'))/json/list"
+    $curl = Get-Command curl.exe -ErrorAction SilentlyContinue
+    if ($null -ne $curl) {
+        try {
+            $payload = & $curl.Source `
+                --silent `
+                --show-error `
+                --fail `
+                --connect-timeout 2 `
+                --max-time 3 `
+                --noproxy "127.0.0.1,localhost" `
+                $uri 2>$null
+            if ($LASTEXITCODE -ne 0 -or -not $payload) {
+                return @()
+            }
+            return @(([string]::Join("`n", @($payload))) | ConvertFrom-Json)
+        }
+        catch {
+            return @()
+        }
+    }
+
     try {
-        $request = [System.Net.HttpWebRequest]::Create("$($Endpoint.TrimEnd('/'))/json/list")
+        $request = [System.Net.HttpWebRequest]::Create($uri)
         $request.Proxy = $null
+        $request.KeepAlive = $false
         $request.Timeout = 3000
         $request.ReadWriteTimeout = 3000
         $response = [System.Net.HttpWebResponse]$request.GetResponse()
         try {
-            $reader = New-Object System.IO.StreamReader($response.GetResponseStream())
+            $stream = $response.GetResponseStream()
+            $stream.ReadTimeout = 3000
+            $reader = New-Object System.IO.StreamReader($stream)
             try {
                 return @($reader.ReadToEnd() | ConvertFrom-Json)
             }

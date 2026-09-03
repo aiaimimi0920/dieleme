@@ -76,6 +76,9 @@ def _resume_after_cooldown_url(api_base: str) -> str:
 def _manual_captcha_report_url(api_base: str) -> str:
     return api_base.rstrip("/") + "/report_manual_captcha"
 
+def _captcha_report_url(api_base: str) -> str:
+    return api_base.rstrip("/") + "/report_captcha"
+
 def _force_reset_url(api_base: str) -> str:
     return api_base.rstrip("/") + "/collection/auth/force_reset"
 
@@ -354,6 +357,39 @@ def notify_manual_challenge(api_base, solver_status, expected_node_id=None):
         return {"ok": False, "error": repr(exc)}
     return dict(response) if isinstance(response, dict) else {"ok": False, "error": "non_dict_response"}
 
+def notify_solver_blocked(api_base, solver_status, fallback_state, expected_node_id=None):
+    last_request = solver_status.get("last_request") if isinstance(solver_status, dict) else None
+    if not isinstance(last_request, dict):
+        return {"ok": False, "error": "missing_last_request"}
+    target_url = canonical_manual_challenge_target(
+        last_request.get("target_url") or last_request.get("url")
+    )
+    if not target_url:
+        return {"ok": False, "error": "missing_safe_target_url"}
+    payload = {
+        "target_url": target_url,
+        "url": target_url,
+        "node_id": str(expected_node_id or last_request.get("node_id") or "").strip(),
+        "cdp_endpoint": str(last_request.get("cdp_endpoint") or "").strip(),
+        "challenge_id": str(solver_status.get("challenge_id") or "").strip() or None,
+        "node_solver_blocked": True,
+        "node_solver_blocked_reason": str(
+            fallback_state.get("solver_cooldown_reason") or "repeated_solver_failures"
+        ).strip(),
+        "node_solver_blocked_attempts": int(
+            fallback_state.get("slider_attempts", fallback_state.get("consecutive_failures", 0)) or 0
+        ),
+        "timestamp": int(time.time() * 1000),
+    }
+    scope = str(solver_status.get("scope") or fallback_state.get("scope") or "").strip()
+    if scope:
+        payload["scope"] = scope
+    try:
+        response = post_json(_captcha_report_url(api_base), payload, timeout=10)
+    except Exception as exc:
+        return {"ok": False, "error": repr(exc)}
+    return dict(response) if isinstance(response, dict) else {"ok": False, "error": "non_dict_response"}
+
 def node_solver_execution_block_reason(solver_status, local_cdp_endpoint, expected_node_id=None):
     """Fail closed unless this node is the sole eligible challenge executor."""
     if not isinstance(solver_status, dict) or solver_status.get("error"):
@@ -520,11 +556,19 @@ def _post_auth_cdp_probe_grace_active(confirmed_at, now=None):
 
 
 def notify_collection_resume_after_cooldown(api_base, resume_request_id, challenge_id=None, scope=None):
+    node_id = os.environ.get("FAPAI_NODE_ID", "pc2").strip() or "pc2"
+    cdp_endpoint = (
+        os.environ.get("FAPAI_REPORT_CDP_ENDPOINT")
+        or os.environ.get("FAPAI_CDP_ENDPOINT")
+        or ""
+    ).strip()
     request_payload = {
         "source": "pc2_local_solver",
         "resume_request_id": resume_request_id,
         "challenge_id": challenge_id,
         "scope": scope,
+        "node_id": node_id,
+        "cdp_endpoint": cdp_endpoint or None,
     }
     attempts = max(1, min(int(AUTH_COMPLETE_REQUEST_ATTEMPTS), 10))
     last_result = {"ok": False, "error": "resume_after_cooldown_not_attempted"}
@@ -606,6 +650,10 @@ def _default_fallback_state():
         "slider_next_attempt_at": None,
         "solver_cooldown_until": None,
         "solver_cooldown_reason": None,
+        "node_solver_blocked_reported": False,
+        "node_solver_blocked_report_attempts": 0,
+        "node_solver_blocked_report_next_retry_at": None,
+        "node_solver_blocked_report_last_error": None,
         "collection_resume_pending": False,
         "collection_resume_request_id": None,
         "collection_resume_attempts": 0,
@@ -668,6 +716,10 @@ def _load_fallback_state():
                     "slider_next_attempt_at": float(data.get("slider_next_attempt_at") or 0) or None,
                     "solver_cooldown_until": float(data.get("solver_cooldown_until") or 0) or None,
                     "solver_cooldown_reason": str(data.get("solver_cooldown_reason") or "").strip() or None,
+                    "node_solver_blocked_reported": bool(data.get("node_solver_blocked_reported", False)),
+                    "node_solver_blocked_report_attempts": int(data.get("node_solver_blocked_report_attempts", 0) or 0),
+                    "node_solver_blocked_report_next_retry_at": float(data.get("node_solver_blocked_report_next_retry_at") or 0) or None,
+                    "node_solver_blocked_report_last_error": str(data.get("node_solver_blocked_report_last_error") or "").strip() or None,
                     "collection_resume_pending": bool(data.get("collection_resume_pending", False)),
                     "collection_resume_request_id": str(data.get("collection_resume_request_id") or "").strip() or None,
                     "collection_resume_attempts": int(data.get("collection_resume_attempts", 0) or 0),
@@ -718,6 +770,71 @@ def _sync_challenge_state(state, challenge_id, scope=None):
     state["scope"] = str(scope or "").strip() or None
     _save_fallback_state(state)
     return state, bool(current_id)
+
+
+def _retry_node_solver_blocked_report(
+    api_base_url,
+    solver_status,
+    state,
+    expected_node_id=None,
+    now=None,
+):
+    current_time = time.time() if now is None else float(now)
+    state_challenge_id = str(state.get("challenge_id") or "").strip()
+    status_challenge_id = str(solver_status.get("challenge_id") or "").strip()
+    state_scope = str(state.get("scope") or "").strip()
+    status_scope = str(solver_status.get("scope") or "").strip()
+    if (
+        not state_challenge_id
+        or state_challenge_id != status_challenge_id
+        or (state_scope and status_scope and state_scope != status_scope)
+    ):
+        return {
+            "attempted": False,
+            "confirmed": False,
+            "reason": "challenge_mismatch",
+            "state": state,
+        }
+    if state.get("solver_cooldown_reason") != "repeated_solver_failures":
+        return {"attempted": False, "confirmed": False, "state": state}
+    if not state.get("solver_cooldown_until") or state.get("node_solver_blocked_reported"):
+        return {
+            "attempted": False,
+            "confirmed": bool(state.get("node_solver_blocked_reported")),
+            "state": state,
+        }
+    if float(state.get("node_solver_blocked_report_next_retry_at") or 0) > current_time:
+        return {"attempted": False, "confirmed": False, "state": state}
+
+    result = notify_solver_blocked(
+        api_base_url,
+        solver_status,
+        state,
+        expected_node_id=expected_node_id,
+    )
+    state["node_solver_blocked_report_attempts"] = int(
+        state.get("node_solver_blocked_report_attempts", 0) or 0
+    ) + 1
+    confirmed = result.get("status") == "node_solver_blocked"
+    state["node_solver_blocked_reported"] = confirmed
+    if confirmed:
+        state["node_solver_blocked_report_next_retry_at"] = None
+        state["node_solver_blocked_report_last_error"] = None
+    else:
+        state["node_solver_blocked_report_next_retry_at"] = current_time + max(
+            5.0,
+            SLIDER_RETRY_INTERVAL_SECONDS,
+        )
+        state["node_solver_blocked_report_last_error"] = str(
+            result.get("error") or result.get("status") or "report_failed"
+        )
+    _save_fallback_state(state)
+    return {
+        "attempted": True,
+        "confirmed": confirmed,
+        "result": result,
+        "state": state,
+    }
 
 
 def _solver_cooldown_active(state, now=None):
@@ -1554,9 +1671,179 @@ def close_stale_challenge_probe_target(cdp_endpoint, probe_target):
     }
 
 
+def rotate_failed_challenge_target(cdp_endpoint, target_url, probe_target=None):
+    """Replace rejected challenge tabs with one fresh canonical request.
+
+    Aliyun NC keeps a rejected widget/token in a terminal error state. Clicking
+    that same widget repeatedly only replays the stale challenge. Keep the
+    scope pause in place, close every non-login challenge page for that scope,
+    and open exactly one canonical collection URL for the next scheduled solve.
+    """
+    canonical_target = canonical_manual_challenge_target(target_url)
+    scope = _challenge_scope_for_url(canonical_target)
+    if scope not in {"seed", "detail"}:
+        return {
+            "attempted": False,
+            "opened": False,
+            "closed": 0,
+            "reason": "invalid_collection_target",
+        }
+
+    probe_url = str((probe_target or {}).get("_target_url") or "").strip()
+    if probe_url and CaptchaSolver._is_login_url(probe_url):
+        return {
+            "attempted": False,
+            "opened": False,
+            "closed": 0,
+            "scope": scope,
+            "reason": "login_window_preserved",
+        }
+
+    closer = CaptchaSolver(cdp_endpoint=cdp_endpoint, target_url=canonical_target)
+    closed = 0
+    try:
+        tabs = fetch_json(f"{cdp_endpoint.rstrip('/')}/json/list", timeout=5)
+    except Exception as exc:
+        return {
+            "attempted": True,
+            "opened": False,
+            "closed": 0,
+            "scope": scope,
+            "reason": "cdp_target_list_unavailable",
+            "error_type": type(exc).__name__,
+        }
+
+    for tab in tabs if isinstance(tabs, list) else []:
+        if not isinstance(tab, dict) or tab.get("type") != "page":
+            continue
+        target_id = str(tab.get("id") or "").strip()
+        tab_url = str(tab.get("url") or "").strip()
+        if not target_id or CaptchaSolver._is_login_url(tab_url):
+            continue
+        if closer._solver_target_scope(tab_url) != scope:
+            continue
+        if not closer._is_challenge_tab(tab):
+            continue
+        if closer._close_cdp_target(target_id):
+            closed += 1
+
+    # The internal marker distinguishes this single solver-owned navigation
+    # without carrying x5secdata or any other rejected challenge query.
+    parsed = urlsplit(canonical_target)
+    fresh_target = urlunsplit(
+        (parsed.scheme, parsed.netloc, parsed.path, "__captcha_solver_bg=1", "")
+    )
+    opener = CaptchaSolver(cdp_endpoint=cdp_endpoint, target_url=fresh_target)
+    opened = opener._open_target_tab()
+    if not isinstance(opened, dict):
+        return {
+            "attempted": True,
+            "opened": False,
+            "closed": closed,
+            "scope": scope,
+            "reason": "fresh_target_open_failed",
+        }
+    probe = {
+        "_target_id": str(opened.get("id") or "").strip(),
+        "_target_url": str(opened.get("url") or fresh_target).strip(),
+        "_target_ws_url": str(opened.get("webSocketDebuggerUrl") or "").strip(),
+    }
+    return {
+        "attempted": True,
+        "opened": True,
+        "closed": closed,
+        "scope": scope,
+        "reason": "rejected_challenge_replaced",
+        "probe_target": probe,
+    }
+
+
+def rebuild_missing_challenge_target(cdp_endpoint, target_url):
+    """Recreate one solver-owned collection target after a browser restart."""
+    canonical_target = canonical_manual_challenge_target(target_url)
+    scope = _challenge_scope_for_url(canonical_target)
+    if scope not in {"seed", "detail"}:
+        return {
+            "attempted": False,
+            "opened": False,
+            "scope": scope,
+            "reason": "invalid_collection_target",
+        }
+
+    opener = CaptchaSolver(cdp_endpoint=cdp_endpoint, target_url=canonical_target)
+    requested_route = opener._solver_target_route(canonical_target)
+    try:
+        tabs = fetch_json(f"{cdp_endpoint.rstrip('/')}/json/list", timeout=5)
+    except Exception as exc:
+        return {
+            "attempted": True,
+            "opened": False,
+            "scope": scope,
+            "reason": "cdp_target_list_unavailable",
+            "error_type": type(exc).__name__,
+        }
+
+    # A newly opened identity-first target can be between Page.navigate and the
+    # final challenge/authenticated state. Treat that route as the singleton so
+    # the five-second poll cannot create duplicate tabs while it is loading.
+    for tab in tabs if isinstance(tabs, list) else []:
+        if not isinstance(tab, dict) or tab.get("type") != "page":
+            continue
+        tab_url = str(tab.get("url") or "").strip()
+        if not tab_url or CaptchaSolver._is_login_url(tab_url):
+            continue
+        if requested_route and opener._solver_target_route(tab_url) == requested_route:
+            return {
+                "attempted": False,
+                "opened": False,
+                "scope": scope,
+                "reason": "request_target_already_present",
+                "probe_target": {
+                    "_target_id": str(tab.get("id") or "").strip(),
+                    "_target_url": tab_url,
+                    "_target_ws_url": str(tab.get("webSocketDebuggerUrl") or "").strip(),
+                },
+            }
+
+    parsed = urlsplit(canonical_target)
+    fresh_target = urlunsplit(
+        (parsed.scheme, parsed.netloc, parsed.path, "__captcha_solver_bg=1", "")
+    )
+    opener = CaptchaSolver(cdp_endpoint=cdp_endpoint, target_url=fresh_target)
+    opened = opener._open_target_tab()
+    if not isinstance(opened, dict):
+        return {
+            "attempted": True,
+            "opened": False,
+            "scope": scope,
+            "reason": "missing_target_open_failed",
+        }
+    return {
+        "attempted": True,
+        "opened": True,
+        "scope": scope,
+        "reason": "missing_challenge_target_rebuilt",
+        "probe_target": {
+            "_target_id": str(opened.get("id") or "").strip(),
+            "_target_url": str(opened.get("url") or fresh_target).strip(),
+            "_target_ws_url": str(opened.get("webSocketDebuggerUrl") or "").strip(),
+        },
+    }
+
+
 def resolve_stale_challenge_probe_target_after_resume(cdp_endpoint, probe_target, resume_result):
     """Recover the exact challenge target after a solver restart during cooldown."""
     if isinstance(probe_target, dict):
+        # Failed-target rotation records the canonical collection URL at open
+        # time. During cooldown that same target can navigate to the challenge,
+        # so refresh its live URL/DOM before the fail-closed cleanup check.
+        target_url = str(probe_target.get("_target_url") or "").strip()
+        refreshed_target = check_cdp_browser_for_challenge_page(
+            cdp_endpoint,
+            target_url=target_url or None,
+        )
+        if refreshed_target:
+            return refreshed_target
         return probe_target
     if not isinstance(resume_result, dict):
         return None
@@ -1762,6 +2049,20 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                     "seconds": max(0.0, SOLVER_COOLDOWN_SECONDS),
                     "consecutive_failures": fallback_state.get("consecutive_failures", 0),
                 })
+            blocked_report = _retry_node_solver_blocked_report(
+                api_base_url,
+                solver_status,
+                fallback_state,
+                expected_node_id=expected_node_id,
+            )
+            if blocked_report.get("attempted"):
+                log_event({
+                    "kind": "node_solver_blocked_report",
+                    "confirmed": blocked_report.get("confirmed"),
+                    "attempt": fallback_state.get("node_solver_blocked_report_attempts", 0),
+                    "result_status": (blocked_report.get("result") or {}).get("status"),
+                    "error": (blocked_report.get("result") or {}).get("error"),
+                })
             if _solver_cooldown_active(fallback_state):
                 _save_fallback_state(fallback_state)
                 log_event({
@@ -1903,6 +2204,26 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                     if confirmation.get("confirmed"):
                         last_auth_confirmed_at = time.time()
                         local_solver_loop._probe_counter = 0
+                elif (
+                    str(solver_status.get("challenge_id") or "").strip()
+                    and target_url
+                    and node_owns_last_request(
+                        solver_status,
+                        cdp_endpoint,
+                        expected_node_id,
+                    )
+                ):
+                    rebuild = rebuild_missing_challenge_target(cdp_endpoint, target_url)
+                    last_probe_target = rebuild.get("probe_target")
+                    local_solver_loop._probe_counter = 0
+                    log_event({
+                        "kind": "missing_challenge_target_rebuild_result",
+                        "attempted": bool(rebuild.get("attempted")),
+                        "opened": bool(rebuild.get("opened")),
+                        "scope": rebuild.get("scope"),
+                        "reason": rebuild.get("reason"),
+                        "error_type": rebuild.get("error_type"),
+                    })
                 else:
                     log_event({
                         "kind": "skip_api_pause_without_cdp_challenge",
@@ -2063,6 +2384,22 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                     local_solver_loop._probe_counter = 0
             else:
                 log_event({"kind": "local_solver_failure"})
+                rotation = rotate_failed_challenge_target(
+                    cdp_endpoint,
+                    target_url,
+                    probe_target=probe_target,
+                )
+                rotated_probe = rotation.get("probe_target")
+                last_probe_target = rotated_probe if isinstance(rotated_probe, dict) else None
+                log_event({
+                    "kind": "failed_challenge_target_rotation",
+                    "attempted": rotation.get("attempted"),
+                    "opened": rotation.get("opened"),
+                    "closed": rotation.get("closed", 0),
+                    "scope": rotation.get("scope"),
+                    "reason": rotation.get("reason"),
+                    "error_type": rotation.get("error_type"),
+                })
                 state = _load_fallback_state()
                 now = time.time()
                 failure = _record_slider_attempt_failure(state, now=now)

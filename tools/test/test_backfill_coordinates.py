@@ -81,7 +81,7 @@ def test_backfill_writes_wgs84_coordinates_to_db(tmp_path: Path) -> None:
     assert calls == [query]
 
     # 确认坐标已写入 DB（latitude 必须是转换后的 WGS-84，不是 GCJ-02 原值）
-    items = [repo.get_item("3001"), repo.get_item("3002")]
+    items = [repo.get_flat_item("3001"), repo.get_flat_item("3002")]
     for item in items:
         assert item is not None
         lat = item.get("latitude")
@@ -111,7 +111,7 @@ def test_backfill_dry_run_does_not_modify_db(tmp_path: Path) -> None:
     assert result["targets_written"] == 0
     assert result["dry_run"] is True
 
-    item = repo.get_item("4001")
+    item = repo.get_flat_item("4001")
     assert item is not None
     assert item.get("latitude") is None
 

@@ -1,5 +1,15 @@
 ARG FAPAI_BASE_IMAGE=fapaifang-browser:local
 
+FROM scratch AS hotfix
+
+COPY tools/internal_api_http.py /app/tools/internal_api_http.py
+COPY tools/pc2_auth_recovery.py /app/tools/pc2_auth_recovery.py
+COPY tools/pc2_local_solver.py /app/tools/pc2_local_solver.py
+COPY tools/cdp_browser_identity.py /app/tools/cdp_browser_identity.py
+COPY tools/pc2_linux_healthcheck.py /app/tools/pc2_linux_healthcheck.py
+COPY src/captcha_solver.py /app/src/captcha_solver.py
+COPY --chmod=0755 ops/pc2-linux/start-browser-solver.sh /usr/local/bin/start-browser-solver
+
 FROM ${FAPAI_BASE_IMAGE}
 
 ARG FAPAI_BUILD_VERSION=development
@@ -14,8 +24,7 @@ ENV FAPAI_BUILD_VERSION=${FAPAI_BUILD_VERSION} \
 
 WORKDIR /app
 
-# Preserve the verified browser/solver runtime and overlay only the recovery
-# client. Seed, detail, and analysis images and containers remain untouched.
-COPY tools/internal_api_http.py /app/tools/internal_api_http.py
-COPY tools/pc2_auth_recovery.py /app/tools/pc2_auth_recovery.py
-COPY tools/pc2_local_solver.py /app/tools/pc2_local_solver.py
+# Preserve the verified browser/solver runtime and overlay only browser-side
+# recovery code in one final filesystem layer. The scratch stage prevents each
+# source COPY from consuming another layer in the already long hotfix chain.
+COPY --from=hotfix / /

@@ -4,7 +4,21 @@ from pathlib import Path
 import subprocess
 
 
-_EXCLUDE_DIRS = {"node_modules", "dist", ".git", "__pycache__", "venv", ".debug", "output"}
+_EXCLUDE_DIRS = {
+    "node_modules",
+    "dist",
+    ".git",
+    "__pycache__",
+    "venv",
+    ".venv",
+    ".debug",
+    "output",
+    "target",
+    ".codex-temp",
+    ".memsearch",
+    ".playwright-cli",
+    "graphify-out",
+}
 
 
 def repo_js_syntax_check_files(repo_root: Path) -> list[Path]:

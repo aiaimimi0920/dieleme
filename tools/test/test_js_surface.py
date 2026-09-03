@@ -9,6 +9,7 @@ def test_repo_js_syntax_check_files_inventory_matches_current_surface():
     repo_root = Path(__file__).resolve().parents[2]
 
     assert [path.relative_to(repo_root) for path in js_surface.repo_js_syntax_check_files(repo_root)] == [
+        Path("collector-desktop/src/main.js"),
         Path("game/web-app/src/composables/useGameState.js"),
         Path("game/web-app/src/main.js"),
         Path("game/web-app/tailwind.config.js"),

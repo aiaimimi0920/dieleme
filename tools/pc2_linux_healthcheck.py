@@ -108,6 +108,8 @@ def check_browser() -> None:
         raise RuntimeError("PC2 local solver process is missing")
     if not _process_exists("tools/pc2_solver_watchdog.py"):
         raise RuntimeError("PC2 local solver watchdog process is missing")
+    if not _process_exists("tools/cdp_browser_identity.py"):
+        raise RuntimeError("PC2 browser identity controller process is missing")
     _check_solver_heartbeat()
 
 

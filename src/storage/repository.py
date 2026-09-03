@@ -23,6 +23,7 @@ from src.collection.stage_state import derive_stage_state
 
 from .models import (
     Base,
+    FapaiAnalysisRun,
     FapaiSeedItem,
     FapaiSeedOccurrence,
     FapaiSeedScanJob,
@@ -3194,6 +3195,76 @@ class PropertyRepository:
                 payload["_analysis_attempt_count"] = max(int(payload.get("_analysis_attempt_count") or 0) - 1, 0)
                 row.source_payload = payload
             session.add(row)
+
+    def record_analysis_ensemble_run(self, item_id: str, receipt: Dict[str, Any]) -> None:
+        """Persist module B audit metadata without touching module A queue state."""
+        if not self.enabled:
+            return
+        self.initialize()
+        payload = dict(receipt or {})
+        run_id = str(payload.get("run_id") or "").strip()
+        pipeline_version = str(payload.get("schema_version") or "").strip()
+        input_sha256 = str(payload.get("input_sha256") or "").strip()
+        if not run_id or not pipeline_version or not input_sha256:
+            raise ValueError("analysis ensemble receipt requires run_id, schema_version, and input_sha256")
+
+        status = str(payload.get("status") or "failed").strip()
+        error = payload.get("error")
+        if isinstance(error, (dict, list)):
+            error_text = json.dumps(error, ensure_ascii=False, sort_keys=True)
+        else:
+            error_text = str(error or "").strip() or None
+        terminal_statuses = {"finalized", "needs_review", "candidate_partial", "adjudication_failed", "failed"}
+        with self.session_factory.begin() as session:
+            row = session.get(FapaiAnalysisRun, run_id)
+            if row is None:
+                row = FapaiAnalysisRun(
+                    run_id=run_id,
+                    item_id=str(item_id),
+                    pipeline_version=pipeline_version,
+                    input_sha256=input_sha256,
+                    mode=str(payload.get("mode") or "shadow"),
+                    status=status,
+                )
+            row.item_id = str(item_id)
+            row.pipeline_version = pipeline_version
+            row.input_sha256 = input_sha256
+            row.mode = str(payload.get("mode") or "shadow")
+            row.status = status
+            row.candidate_models = list(payload.get("candidate_models") or [])
+            row.arbiter_model = str(payload.get("arbiter_model") or "").strip() or None
+            independent = payload.get("arbiter_independent_model")
+            row.arbiter_independent_model = bool(independent) if independent is not None else None
+            row.artifact_paths = dict(payload.get("artifacts") or {})
+            row.receipt = payload
+            row.error = error_text
+            if status in terminal_statuses:
+                row.completed_at = _utc_now()
+            session.add(row)
+
+    def get_analysis_ensemble_run(self, run_id: str) -> Optional[Dict[str, Any]]:
+        if not self.enabled:
+            return None
+        self.initialize()
+        with self.session_factory() as session:
+            row = session.get(FapaiAnalysisRun, str(run_id))
+            if row is None:
+                return None
+            return {
+                "run_id": row.run_id,
+                "item_id": row.item_id,
+                "pipeline_version": row.pipeline_version,
+                "input_sha256": row.input_sha256,
+                "mode": row.mode,
+                "status": row.status,
+                "candidate_models": list(row.candidate_models or []),
+                "arbiter_model": row.arbiter_model,
+                "arbiter_independent_model": row.arbiter_independent_model,
+                "artifact_paths": dict(row.artifact_paths or {}),
+                "receipt": dict(row.receipt or {}),
+                "error": row.error,
+                "completed_at": row.completed_at,
+            }
 
     def mark_seed_detail_failed(
         self,

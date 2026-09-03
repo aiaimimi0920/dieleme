@@ -9,7 +9,17 @@ import sys
 
 
 _NET_USE_MAPPING_PATTERN = re.compile(r"\b([A-Z]:)\s+(\\\\[^\s]+)", re.IGNORECASE)
-_PACKAGE_JSON_EXCLUDE_DIRS = {"node_modules", "dist", ".git", "__pycache__"}
+_PACKAGE_JSON_EXCLUDE_DIRS = {
+    "node_modules",
+    "dist",
+    ".git",
+    "__pycache__",
+    "target",
+    ".codex-temp",
+    ".memsearch",
+    ".playwright-cli",
+    "graphify-out",
+}
 
 
 def _parse_net_use_mappings(output: str) -> list[tuple[str, str]]:

@@ -445,6 +445,10 @@ def _new_solver_scope_state() -> dict[str, Any]:
         "manual_required": False,
         "last_status": "idle",
         "last_failure_reason": None,
+        "node_solver_blocked": False,
+        "node_solver_blocked_at_epoch": 0.0,
+        "node_solver_blocked_reason": None,
+        "node_solver_blocked_attempts": 0,
         "force_reset_required": False,
     }
 
@@ -516,6 +520,10 @@ def _read_solver_scope_state(scope: str) -> dict[str, Any]:
             "manual_only": bool(payload.get("manual_only", False)),
             "last_status": str(payload.get("last_status") or "running"),
             "last_failure_reason": str(payload.get("last_failure_reason") or "").strip() or None,
+            "node_solver_blocked": bool(payload.get("node_solver_blocked", False)),
+            "node_solver_blocked_at_epoch": float(payload.get("node_solver_blocked_at_epoch") or 0),
+            "node_solver_blocked_reason": str(payload.get("node_solver_blocked_reason") or "").strip() or None,
+            "node_solver_blocked_attempts": int(payload.get("node_solver_blocked_attempts") or 0),
         }
     )
     return state
@@ -540,6 +548,10 @@ def _persist_solver_scope_state(scope: str, state: dict[str, Any]) -> str | None
         "manual_only": bool(state.get("manual_only")),
         "last_status": state.get("last_status"),
         "last_failure_reason": state.get("last_failure_reason"),
+        "node_solver_blocked": bool(state.get("node_solver_blocked")),
+        "node_solver_blocked_at_epoch": float(state.get("node_solver_blocked_at_epoch") or 0),
+        "node_solver_blocked_reason": state.get("node_solver_blocked_reason"),
+        "node_solver_blocked_attempts": int(state.get("node_solver_blocked_attempts") or 0),
         "last_request": dict(state.get("last_request") or {}),
     }
     try:
@@ -768,6 +780,10 @@ def _solver_scope_runtime_status(scope: str, now: float | None = None) -> dict[s
         "force_reset_required": force_reset_required,
         "last_status": state.get("last_status") or "idle",
         "last_failure_reason": state.get("last_failure_reason"),
+        "node_solver_blocked": bool(state.get("node_solver_blocked")),
+        "node_solver_blocked_at_epoch": float(state.get("node_solver_blocked_at_epoch") or 0) or None,
+        "node_solver_blocked_reason": state.get("node_solver_blocked_reason"),
+        "node_solver_blocked_attempts": int(state.get("node_solver_blocked_attempts") or 0),
         "last_request": dict(state.get("last_request") or {}),
     }
 
@@ -954,11 +970,37 @@ def _nas_auth_recovery_pending_detail_count() -> int:
 
 
 def _nas_auth_recovery_signal() -> str | None:
+    if COLLECTION_PAUSE_REASON == "operator":
+        return None
     solver_status = _captcha_solver_runtime_status()
     if not solver_status.get("paused"):
         return None
     if solver_status.get("manual_required"):
         return "captcha_manual_required"
+    scoped_statuses = solver_status.get("scopes") or solver_status.get("collection_scopes")
+    detail_status = (
+        scoped_statuses.get("detail")
+        if isinstance(scoped_statuses, dict)
+        else None
+    )
+    try:
+        detail_challenge_age = float((detail_status or {}).get("challenge_age_seconds") or 0)
+    except (TypeError, ValueError):
+        detail_challenge_age = 0.0
+    if (
+        isinstance(detail_status, dict)
+        and detail_status.get("paused")
+        and detail_challenge_age >= NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS
+    ):
+        return "detail_challenge_stalled"
+    if isinstance(scoped_statuses, dict) and any(
+        isinstance(status, dict)
+        and status.get("paused")
+        and status.get("node_solver_blocked")
+        and status.get("node_solver_blocked_reason") == "repeated_solver_failures"
+        for status in scoped_statuses.values()
+    ):
+        return "node_solver_retries_exhausted"
     snapshot_status = _auth_cookie_snapshot_runtime_status()
     snapshot_result = snapshot_status.get("result")
     if not isinstance(snapshot_result, dict):
@@ -2208,6 +2250,56 @@ def _manual_only_captcha_report_payload(payload: dict[str, Any]) -> dict[str, An
     return response_payload
 
 
+def _node_solver_blocked_report_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    solver_request = _build_solver_request(payload)
+    if solver_request:
+        _refresh_solver_last_request(solver_request)
+    scope = _challenge_scope_for_request(solver_request)
+    if scope not in CHALLENGE_SCOPES:
+        return {
+            "status": "invalid_scope",
+            "captcha_solver": _captcha_solver_runtime_status(),
+        }
+
+    _begin_solver_challenge(solver_request)
+    state = _read_solver_scope_state(scope)
+    blocked_at = float(state.get("node_solver_blocked_at_epoch") or 0)
+    if blocked_at <= 0:
+        blocked_at = time.time()
+    reason = str(payload.get("node_solver_blocked_reason") or "").strip()
+    if reason != "repeated_solver_failures":
+        reason = "repeated_solver_failures"
+    try:
+        attempts = max(int(payload.get("node_solver_blocked_attempts") or 0), 0)
+    except (TypeError, ValueError):
+        attempts = 0
+    state.update(
+        {
+            "paused": True,
+            "pause_reason": "captcha_solver",
+            "last_status": "node_solver_blocked",
+            "last_failure_reason": reason,
+            "node_solver_blocked": True,
+            "node_solver_blocked_at_epoch": blocked_at,
+            "node_solver_blocked_reason": reason,
+            "node_solver_blocked_attempts": max(
+                attempts,
+                int(state.get("node_solver_blocked_attempts") or 0),
+            ),
+        }
+    )
+    persist_error = _persist_solver_scope_state(scope, state)
+    _set_collection_pause_state(True, "captcha_solver", scope=scope)
+    response: dict[str, Any] = {
+        "status": "node_solver_blocked",
+        "scope": scope,
+        "captcha_solver": _captcha_solver_runtime_status(),
+    }
+    if persist_error:
+        response["state_error"] = persist_error
+    return response
+
+
 def _auth_cookie_snapshot_sample_urls(payload: dict[str, Any]) -> list[str]:
     raw = payload.get("sample_urls")
     if isinstance(raw, list):
@@ -3271,11 +3363,17 @@ def _collection_observer_resume_after_cooldown_payload(
     if auth_state_confirmed:
         SOLVER_LAST_STATUS = "resumed_after_cooldown"
         SOLVER_LAST_FAILURE_REASON = None
-        resume_request = SOLVER_LAST_REQUEST
+        # The scoped clear can remove last_request before the grace baseline is
+        # recorded. Keep the reporting node/CDP carried by the resume receipt,
+        # then fill any missing target metadata from the retained server state.
+        resume_request = _build_solver_request(payload)
+        retained_request = SOLVER_LAST_REQUEST
         if resume_scope in CHALLENGE_SCOPES:
             scoped_request = _solver_scope_runtime_status(resume_scope).get("last_request")
             if isinstance(scoped_request, dict) and scoped_request:
-                resume_request = scoped_request
+                retained_request = scoped_request
+        for key, value in _build_solver_request(retained_request).items():
+            resume_request.setdefault(key, value)
         _remember_solver_auth_completion(resume_request)
     else:
         SOLVER_LAST_STATUS = "manual_required"
@@ -10765,6 +10863,9 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
                     "retry_after_seconds": int(math.ceil(retry_after)),
                     "captcha_solver": _captcha_solver_runtime_status(),
                 })
+                return
+            if _payload_flag(payload, "node_solver_blocked", False):
+                self.send_json(_node_solver_blocked_report_payload(payload))
                 return
             manual_only = (
                 self.path == '/api/report_manual_captcha'

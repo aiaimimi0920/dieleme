@@ -107,6 +107,7 @@ def report_captcha_via_api(
     target_url: str,
     *,
     manual_only: bool = False,
+    scope: str | None = None,
 ) -> Mapping[str, object]:
     endpoint_suffix = "/report_manual_captcha" if manual_only else "/report_captcha"
     endpoint = api_base_url.rstrip("/") + endpoint_suffix
@@ -119,6 +120,9 @@ def report_captcha_via_api(
     node_id = str(os.environ.get("FAPAI_NODE_ID") or "").strip()
     if node_id:
         payload["node_id"] = node_id
+    normalized_scope = str(scope or "").strip().lower()
+    if normalized_scope in {"seed", "detail"}:
+        payload["scope"] = normalized_scope
     if manual_only:
         payload["manual_only"] = True
     try:

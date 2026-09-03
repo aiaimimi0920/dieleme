@@ -971,6 +971,7 @@ def test_fetch_browser_navigation_list_page_preserves_challenge_target_for_solve
 
 def test_fetch_detail_with_browser_preserves_challenge_page_for_solver(monkeypatch) -> None:
     fake_sync_api = types.ModuleType("playwright.sync_api")
+    events: list[str] = []
 
     class FakePlaywrightContext:
         def __enter__(self):
@@ -992,7 +993,22 @@ def test_fetch_detail_with_browser_preserves_challenge_page_for_solver(monkeypat
         url = "https://sec.taobao.com/_____tmd_____/punish?x5secdata=challenge"
         closed = False
 
+        def evaluate(self, _expression):
+            events.append("identity:verify")
+            return {
+                "userAgent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 Chrome/152.0.0.0 Safari/537.36"
+                ),
+                "platform": "Win32",
+                "uaPlatform": "Windows",
+                "webdriver": False,
+                "deviceMemory": 8,
+                "language": "zh-CN",
+            }
+
         def goto(self, *_args, **_kwargs):
+            events.append("navigation:goto")
             return FakeResponse()
 
         def close(self):
@@ -1000,15 +1016,36 @@ def test_fetch_detail_with_browser_preserves_challenge_page_for_solver(monkeypat
 
     page = FakePage()
 
+    class FakeCdpSession:
+        def send(self, method, _params=None):
+            events.append(f"identity:{method}")
+            if method == "Emulation.setLocaleOverride":
+                raise RuntimeError("Another locale override is already in effect")
+            return {}
+
+        def detach(self):
+            events.append("identity:detach")
+            raise RuntimeError("No session with given id")
+
     class FakeContext:
         def new_page(self):
             return page
+
+        def new_cdp_session(self, target_page):
+            assert target_page is page
+            return FakeCdpSession()
 
     class FakeBrowser:
         contexts = [FakeContext()]
 
     monkeypatch.setattr(live_batch_smoke, "connect_browser_over_cdp", lambda *_args, **_kwargs: FakeBrowser())
     monkeypatch.setattr(live_batch_smoke, "detach_attached_cdp_browser", lambda *_args, **_kwargs: None)
+    monkeypatch.setenv(
+        "FAPAI_BROWSER_USER_AGENT",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "Chrome/152.0.0.0 Safari/537.36",
+    )
+    monkeypatch.setenv("FAPAI_BROWSER_IDENTITY_FULL_VERSION", "152.0.7977.64")
     monkeypatch.setattr(
         live_batch_smoke,
         "_wait_for_detail_ready",
@@ -1022,6 +1059,16 @@ def test_fetch_detail_with_browser_preserves_challenge_page_for_solver(monkeypat
         )
 
     assert page.closed is False
+    assert events == [
+        "identity:Emulation.setUserAgentOverride",
+        "identity:Emulation.setTimezoneOverride",
+        "identity:Emulation.setLocaleOverride",
+        "identity:Page.addScriptToEvaluateOnNewDocument",
+        "identity:Runtime.evaluate",
+        "identity:verify",
+        "identity:detach",
+        "navigation:goto",
+    ]
 
 
 def test_fetch_browser_list_page_falls_back_to_navigation_when_open_page_probe_closes(monkeypatch) -> None:

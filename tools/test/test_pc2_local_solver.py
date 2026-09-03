@@ -43,6 +43,234 @@ def test_manual_challenge_report_uses_canonical_taobao_target(monkeypatch) -> No
     }
 
 
+def test_rotate_failed_challenge_replaces_same_scope_duplicates_with_one_fresh_target(
+    monkeypatch,
+) -> None:
+    closed: list[str] = []
+    opened_urls: list[str] = []
+    detail_challenge = (
+        "https://sf-item.taobao.com/sf_item/747890132583.htm/_____tmd_____/punish"
+        "?x5secdata=secret"
+    )
+
+    monkeypatch.setattr(
+        pc2_local_solver,
+        "fetch_json",
+        lambda _url, timeout: [
+            {
+                "id": "detail-old-1",
+                "type": "page",
+                "title": "验证码拦截",
+                "url": detail_challenge,
+            },
+            {
+                "id": "detail-old-2",
+                "type": "page",
+                "title": "安全验证",
+                "url": detail_challenge,
+            },
+            {
+                "id": "detail-healthy",
+                "type": "page",
+                "title": "司法拍卖",
+                "url": "https://sf-item.taobao.com/sf_item/123.htm",
+            },
+            {
+                "id": "seed-challenge",
+                "type": "page",
+                "title": "验证码拦截",
+                "url": "https://sf.taobao.com/list/1.htm/_____tmd_____/punish?x5secdata=secret",
+            },
+        ],
+    )
+    monkeypatch.setattr(
+        pc2_local_solver.CaptchaSolver,
+        "_close_cdp_target",
+        lambda _self, target_id: closed.append(target_id) or True,
+    )
+
+    def fake_open(self):
+        opened_urls.append(self.target_url)
+        return {
+            "id": "detail-fresh",
+            "url": self.target_url,
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/detail-fresh",
+        }
+
+    monkeypatch.setattr(pc2_local_solver.CaptchaSolver, "_open_target_tab", fake_open)
+
+    result = pc2_local_solver.rotate_failed_challenge_target(
+        "http://127.0.0.1:9223",
+        "https://sf-item.taobao.com//sf_item/747890132583.htm?token=discarded",
+        {"_target_url": detail_challenge},
+    )
+
+    assert result["opened"] is True
+    assert result["closed"] == 2
+    assert result["scope"] == "detail"
+    assert closed == ["detail-old-1", "detail-old-2"]
+    assert opened_urls == [
+        "https://sf-item.taobao.com/sf_item/747890132583.htm?__captcha_solver_bg=1"
+    ]
+    assert "secret" not in result["probe_target"]["_target_url"]
+    assert "discarded" not in result["probe_target"]["_target_url"]
+
+
+def test_rotate_failed_challenge_preserves_existing_login_window(monkeypatch) -> None:
+    monkeypatch.setattr(
+        pc2_local_solver,
+        "fetch_json",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("login window must be preserved without CDP tab rotation")
+        ),
+    )
+
+    result = pc2_local_solver.rotate_failed_challenge_target(
+        "http://127.0.0.1:9223",
+        "https://sf.taobao.com/list/1.htm",
+        {"_target_url": "https://login.taobao.com/member/login.jhtml"},
+    )
+
+    assert result == {
+        "attempted": False,
+        "opened": False,
+        "closed": 0,
+        "scope": "seed",
+        "reason": "login_window_preserved",
+    }
+
+
+def test_rebuild_missing_challenge_target_opens_one_identity_first_canonical_target(
+    monkeypatch,
+) -> None:
+    opened_urls: list[str] = []
+    monkeypatch.setattr(
+        pc2_local_solver,
+        "fetch_json",
+        lambda _url, timeout: [
+            {
+                "id": "keepalive",
+                "type": "page",
+                "url": "about:blank",
+            },
+            {
+                "id": "other-detail",
+                "type": "page",
+                "url": "https://sf-item.taobao.com/sf_item/123.htm",
+            },
+        ],
+    )
+
+    def fake_open(self):
+        opened_urls.append(self.target_url)
+        return {
+            "id": "detail-rebuilt",
+            "url": self.target_url,
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/detail-rebuilt",
+        }
+
+    monkeypatch.setattr(pc2_local_solver.CaptchaSolver, "_open_target_tab", fake_open)
+
+    result = pc2_local_solver.rebuild_missing_challenge_target(
+        "http://127.0.0.1:9223",
+        (
+            "https://sf-item.taobao.com//sf_item/747890132583.htm/_____tmd_____/punish"
+            "?x5secdata=discarded"
+        ),
+    )
+
+    assert result["opened"] is True
+    assert result["scope"] == "detail"
+    assert result["reason"] == "missing_challenge_target_rebuilt"
+    assert opened_urls == [
+        "https://sf-item.taobao.com/sf_item/747890132583.htm?__captcha_solver_bg=1"
+    ]
+    assert "discarded" not in result["probe_target"]["_target_url"]
+
+
+def test_rebuild_missing_challenge_target_reuses_matching_loading_route(monkeypatch) -> None:
+    monkeypatch.setattr(
+        pc2_local_solver,
+        "fetch_json",
+        lambda _url, timeout: [
+            {
+                "id": "detail-loading",
+                "type": "page",
+                "url": (
+                    "https://sf-item.taobao.com/sf_item/747890132583.htm"
+                    "?__captcha_solver_bg=1"
+                ),
+                "webSocketDebuggerUrl": (
+                    "ws://127.0.0.1:9223/devtools/page/detail-loading"
+                ),
+            }
+        ],
+    )
+    monkeypatch.setattr(
+        pc2_local_solver.CaptchaSolver,
+        "_open_target_tab",
+        lambda _self: (_ for _ in ()).throw(
+            AssertionError("matching route must not open a duplicate target")
+        ),
+    )
+
+    result = pc2_local_solver.rebuild_missing_challenge_target(
+        "http://127.0.0.1:9223",
+        "https://sf-item.taobao.com/sf_item/747890132583.htm",
+    )
+
+    assert result["opened"] is False
+    assert result["reason"] == "request_target_already_present"
+    assert result["probe_target"]["_target_id"] == "detail-loading"
+
+
+def test_solver_blocked_report_uses_canonical_target_and_challenge(monkeypatch) -> None:
+    captured: dict[str, object] = {}
+
+    def fake_post(url, payload, timeout):
+        captured.update({"url": url, "payload": payload, "timeout": timeout})
+        return {"status": "node_solver_blocked", "captcha_solver": {}}
+
+    monkeypatch.setattr(pc2_local_solver, "post_json", fake_post)
+    result = pc2_local_solver.notify_solver_blocked(
+        "http://192.168.15.200:8001/api",
+        {
+            "challenge_id": "captcha-detail",
+            "scope": "detail",
+            "last_request": {
+                "node_id": "pc2",
+                "cdp_endpoint": "http://192.168.15.104:9224",
+                "target_url": (
+                    "https://sf-item.taobao.com//sf_item/747890132583.htm/_____tmd_____/punish"
+                    "?x5secdata=secret"
+                ),
+            },
+        },
+        {
+            "scope": "detail",
+            "slider_attempts": 10,
+            "solver_cooldown_reason": "repeated_solver_failures",
+        },
+        "pc2",
+    )
+
+    assert result["status"] == "node_solver_blocked"
+    assert captured["url"] == "http://192.168.15.200:8001/api/report_captcha"
+    assert captured["timeout"] == 10
+    assert captured["payload"] == {
+        "target_url": "https://sf-item.taobao.com/sf_item/747890132583.htm",
+        "url": "https://sf-item.taobao.com/sf_item/747890132583.htm",
+        "node_id": "pc2",
+        "cdp_endpoint": "http://192.168.15.104:9224",
+        "challenge_id": "captcha-detail",
+        "node_solver_blocked": True,
+        "node_solver_blocked_reason": "repeated_solver_failures",
+        "node_solver_blocked_attempts": 10,
+        "timestamp": captured["payload"]["timestamp"],
+        "scope": "detail",
+    }
+
+
 def test_manual_challenge_registration_repairs_legacy_pause_without_challenge_id() -> None:
     status = {
         "manual_only": True,
@@ -260,6 +488,86 @@ def test_slider_rule_supports_ten_attempts_five_second_spacing_and_180_second_co
     assert state["solver_cooldown_until"] == 1225.0
 
 
+def test_solver_blocked_report_retries_once_and_latches_success(monkeypatch) -> None:
+    state = pc2_local_solver._default_fallback_state()
+    state.update(
+        {
+            "challenge_id": "captcha-detail",
+            "scope": "detail",
+            "slider_attempts": 10,
+            "consecutive_failures": 10,
+            "solver_cooldown_until": 1180.0,
+            "solver_cooldown_reason": "repeated_solver_failures",
+        }
+    )
+    responses = iter(
+        [
+            {"ok": False, "error": "temporary"},
+            {"status": "node_solver_blocked", "captcha_solver": {}},
+        ]
+    )
+    calls: list[float] = []
+    monkeypatch.setattr(
+        pc2_local_solver,
+        "notify_solver_blocked",
+        lambda *_args, **_kwargs: calls.append(1.0) or next(responses),
+    )
+    monkeypatch.setattr(pc2_local_solver, "_save_fallback_state", lambda _state: None)
+    solver_status = {"challenge_id": "captcha-detail", "scope": "detail"}
+
+    first = pc2_local_solver._retry_node_solver_blocked_report(
+        "http://collector/api", solver_status, state, now=1000.0
+    )
+    early = pc2_local_solver._retry_node_solver_blocked_report(
+        "http://collector/api", solver_status, state, now=1004.0
+    )
+    second = pc2_local_solver._retry_node_solver_blocked_report(
+        "http://collector/api", solver_status, state, now=1005.0
+    )
+    latched = pc2_local_solver._retry_node_solver_blocked_report(
+        "http://collector/api", solver_status, state, now=1006.0
+    )
+
+    assert first["attempted"] is True
+    assert first["confirmed"] is False
+    assert early["attempted"] is False
+    assert second["confirmed"] is True
+    assert latched == {"attempted": False, "confirmed": True, "state": state}
+    assert len(calls) == 2
+    assert state["node_solver_blocked_reported"] is True
+    assert state["node_solver_blocked_report_attempts"] == 2
+    assert state["node_solver_blocked_report_next_retry_at"] is None
+
+
+def test_solver_blocked_report_rejects_rotated_challenge(monkeypatch) -> None:
+    state = pc2_local_solver._default_fallback_state()
+    state.update(
+        {
+            "challenge_id": "captcha-old",
+            "scope": "detail",
+            "solver_cooldown_until": 1180.0,
+            "solver_cooldown_reason": "repeated_solver_failures",
+        }
+    )
+    calls: list[object] = []
+    monkeypatch.setattr(
+        pc2_local_solver,
+        "notify_solver_blocked",
+        lambda *_args, **_kwargs: calls.append(object()),
+    )
+
+    result = pc2_local_solver._retry_node_solver_blocked_report(
+        "http://collector/api",
+        {"challenge_id": "captcha-new", "scope": "detail"},
+        state,
+        now=1000.0,
+    )
+
+    assert result["attempted"] is False
+    assert result["reason"] == "challenge_mismatch"
+    assert calls == []
+
+
 def test_solver_attempt_progress_is_persisted_and_completed_on_failure(monkeypatch) -> None:
     state = pc2_local_solver._default_fallback_state()
     saved: list[dict[str, object]] = []
@@ -314,6 +622,8 @@ def test_new_challenge_id_resets_previous_retry_window(monkeypatch, tmp_path) ->
             "slider_attempts": 9,
             "consecutive_failures": 9,
             "slider_next_attempt_at": 2000.0,
+            "node_solver_blocked_reported": True,
+            "node_solver_blocked_report_attempts": 1,
         }
     )
 
@@ -324,6 +634,8 @@ def test_new_challenge_id_resets_previous_retry_window(monkeypatch, tmp_path) ->
     assert synced["slider_attempts"] == 0
     assert synced["consecutive_failures"] == 0
     assert synced["slider_next_attempt_at"] is None
+    assert synced["node_solver_blocked_reported"] is False
+    assert synced["node_solver_blocked_report_attempts"] == 0
 
 
 def test_select_solver_scope_status_keeps_preferred_challenge() -> None:
@@ -1107,6 +1419,83 @@ def test_paused_api_without_current_cdp_challenge_does_not_run_solver(monkeypatc
         pc2_local_solver.local_solver_loop(poll_seconds=1)
 
 
+def test_paused_owned_challenge_rebuilds_missing_cdp_target(monkeypatch) -> None:
+    state = pc2_local_solver._default_fallback_state()
+    rebuilt: list[tuple[str, str]] = []
+    events: list[dict[str, object]] = []
+
+    monkeypatch.setattr(pc2_local_solver, "check_cdp_healthy", lambda _endpoint: True)
+    monkeypatch.setattr(pc2_local_solver, "_retry_pending_auth_confirmation", lambda _api, **_kwargs: {})
+    monkeypatch.setattr(pc2_local_solver, "_retry_pending_collection_resume", lambda _api, **_kwargs: {})
+    monkeypatch.setattr(
+        pc2_local_solver,
+        "read_solver_status",
+        lambda _api: {
+            "paused": True,
+            "running": False,
+            "manual_required": False,
+            "challenge_id": "challenge-detail",
+            "last_status": "failed",
+            "last_request": {
+                "node_id": "pc2",
+                "cdp_endpoint": "http://127.0.0.1:9223",
+                "target_url": "https://sf-item.taobao.com/sf_item/747890132583.htm",
+            },
+        },
+    )
+    monkeypatch.setattr(pc2_local_solver, "compact_active_challenge_pages", lambda *_args: {})
+    monkeypatch.setattr(pc2_local_solver, "_load_fallback_state", lambda: dict(state))
+    monkeypatch.setattr(pc2_local_solver, "_save_fallback_state", lambda _state: None)
+    monkeypatch.setattr(pc2_local_solver, "_sync_challenge_state", lambda value, _challenge, scope=None: (value, False))
+    monkeypatch.setattr(pc2_local_solver, "check_cdp_browser_for_slider", lambda _endpoint, **_kwargs: None)
+    monkeypatch.setattr(pc2_local_solver, "check_cdp_browser_for_challenge_page", lambda _endpoint, **_kwargs: None)
+    monkeypatch.setattr(
+        pc2_local_solver,
+        "check_cdp_browser_for_authenticated_target",
+        lambda _endpoint, _target_url: None,
+    )
+
+    def fake_rebuild(endpoint, target_url):
+        rebuilt.append((endpoint, target_url))
+        return {
+            "attempted": True,
+            "opened": True,
+            "scope": "detail",
+            "reason": "missing_challenge_target_rebuilt",
+            "probe_target": {"_target_id": "detail-rebuilt"},
+        }
+
+    monkeypatch.setattr(pc2_local_solver, "rebuild_missing_challenge_target", fake_rebuild)
+    monkeypatch.setattr(pc2_local_solver, "log_event", lambda event: events.append(dict(event)))
+    monkeypatch.setattr(
+        pc2_local_solver,
+        "run_solver_local_with_deadline",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("solver must wait for fresh CDP challenge evidence")
+        ),
+    )
+    monkeypatch.setattr(pc2_local_solver.time, "sleep", lambda _seconds: (_ for _ in ()).throw(SystemExit()))
+
+    with pytest.raises(SystemExit):
+        pc2_local_solver.local_solver_loop(
+            cdp_endpoint="http://127.0.0.1:9223",
+            poll_seconds=1,
+            expected_node_id="pc2",
+        )
+
+    assert rebuilt == [
+        (
+            "http://127.0.0.1:9223",
+            "https://sf-item.taobao.com/sf_item/747890132583.htm",
+        )
+    ]
+    assert any(
+        event.get("kind") == "missing_challenge_target_rebuild_result"
+        and event.get("opened") is True
+        for event in events
+    )
+
+
 def test_recent_healthy_auth_snapshot_requires_fresh_completed_health(monkeypatch) -> None:
     monkeypatch.setattr(pc2_local_solver, "RECENT_HEALTHY_AUTH_MAX_AGE_SECONDS", 300.0)
     status = {
@@ -1517,6 +1906,35 @@ def test_notify_auth_complete_retries_with_same_completion_id(monkeypatch) -> No
     assert result["request_attempts"] == 2
     assert result["auth_state_confirmed"] is True
     assert [call["payload"]["completion_id"] for call in calls] == [completion_id, completion_id]
+
+
+def test_notify_resume_after_cooldown_carries_node_identity(monkeypatch) -> None:
+    captured: dict[str, object] = {}
+
+    def fake_post(_url, payload, *, timeout):
+        captured.update({"payload": dict(payload), "timeout": timeout})
+        return _confirmed_resume_payload("pc2-resume-identity")
+
+    monkeypatch.setenv("FAPAI_NODE_ID", "pc2")
+    monkeypatch.setenv("FAPAI_REPORT_CDP_ENDPOINT", "http://192.168.15.104:9224")
+    monkeypatch.setattr(pc2_local_solver, "post_json", fake_post)
+
+    result = pc2_local_solver.notify_collection_resume_after_cooldown(
+        "http://nas/api",
+        "pc2-resume-identity",
+        challenge_id="detail-challenge",
+        scope="detail",
+    )
+
+    assert result["auth_state_confirmed"] is True
+    assert captured["payload"] == {
+        "source": "pc2_local_solver",
+        "resume_request_id": "pc2-resume-identity",
+        "challenge_id": "detail-challenge",
+        "scope": "detail",
+        "node_id": "pc2",
+        "cdp_endpoint": "http://192.168.15.104:9224",
+    }
 
 
 def test_auth_complete_requires_explicit_matching_nas_confirmation() -> None:
@@ -1993,6 +2411,54 @@ def test_resolve_stale_challenge_probe_target_after_resume_rebuilds_lost_target(
 
     assert result == recovered_target
     assert calls == [requested_url]
+
+
+def test_resolve_stale_challenge_probe_target_after_resume_refreshes_rotated_target(monkeypatch) -> None:
+    rotated_target = {
+        "_target_id": "rotated-detail",
+        "_target_url": "https://sf-item.taobao.com/sf_item/570192626894.htm?__captcha_solver_bg=1",
+    }
+    refreshed_target = {
+        "_target_id": "rotated-detail",
+        "_target_url": "https://sf-item.taobao.com/_____tmd_____/punish?x5step=1",
+        "_challenge_evidence": ["challengePresent"],
+    }
+    calls: list[str | None] = []
+
+    def fake_check(_endpoint, *, target_url=None):
+        calls.append(target_url)
+        return refreshed_target
+
+    monkeypatch.setattr(pc2_local_solver, "check_cdp_browser_for_challenge_page", fake_check)
+
+    result = pc2_local_solver.resolve_stale_challenge_probe_target_after_resume(
+        "http://127.0.0.1:9223",
+        rotated_target,
+        {"confirmed": True},
+    )
+
+    assert result == refreshed_target
+    assert calls == [rotated_target["_target_url"]]
+
+
+def test_resolve_stale_challenge_probe_target_after_resume_keeps_unverified_target(monkeypatch) -> None:
+    rotated_target = {
+        "_target_id": "normal-detail",
+        "_target_url": "https://sf-item.taobao.com/sf_item/570192626894.htm",
+    }
+    monkeypatch.setattr(
+        pc2_local_solver,
+        "check_cdp_browser_for_challenge_page",
+        lambda _endpoint, *, target_url=None: None,
+    )
+
+    result = pc2_local_solver.resolve_stale_challenge_probe_target_after_resume(
+        "http://127.0.0.1:9223",
+        rotated_target,
+        {"confirmed": True},
+    )
+
+    assert result == rotated_target
 
 
 def test_confirmed_cooldown_resume_suppresses_immediate_periodic_cdp_probe(monkeypatch) -> None:

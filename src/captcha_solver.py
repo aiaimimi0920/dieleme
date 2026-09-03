@@ -23,6 +23,8 @@ from pathlib import Path
 from urllib.parse import parse_qs, parse_qsl, urlencode, urlsplit, urlunsplit
 from urllib.parse import quote
 
+from tools.cdp_browser_identity import browser_identity_init_script, build_user_agent_override
+
 # Reconfigure stdout/stderr for safe encoding on Windows (GBK) consoles
 import sys as _sys
 if hasattr(_sys.stdout, "reconfigure"):
@@ -76,6 +78,9 @@ class CaptchaSolver:
         self.target_ws_url = None
         self.current_target_url = None
         self._target_activation_verified = False
+        self._linux_window_id = None
+        self._uinput_handle = None
+        self._uinput_ecodes = None
         self._opened_target_ids = set()
         self.last_failure_reason = None
         self._last_mock_terminal_state = None
@@ -151,6 +156,7 @@ class CaptchaSolver:
         self.target_id = None
         self.target_ws_url = None
         self.current_target_url = None
+        self._linux_window_id = None
 
     @staticmethod
     def _is_login_url(value):
@@ -317,7 +323,16 @@ class CaptchaSolver:
                 continue
             challenge_tabs.append(tab)
             candidates.append(tab)
-        preserve_id = str(self.target_id or "").strip()
+        exact_route_candidates = [
+            tab
+            for tab in candidates
+            if requested_route and self._solver_target_route(tab.get("url")) == requested_route
+        ]
+        preserve_id = ""
+        if exact_route_candidates:
+            preserve_id = str(exact_route_candidates[0].get("id") or "").strip()
+        if not preserve_id:
+            preserve_id = str(self.target_id or "").strip()
         if not any(str(tab.get("id") or "").strip() == preserve_id for tab in candidates):
             preserve_id = str(candidates[0].get("id") or "").strip() if candidates else ""
         closed = 0
@@ -447,15 +462,44 @@ class CaptchaSolver:
             return ws_url
         return urlunsplit((parsed_ws.scheme, target_netloc, parsed_ws.path, parsed_ws.query, parsed_ws.fragment))
 
+    def _target_requires_identity_before_navigation(self, target_url):
+        try:
+            parsed = urlsplit(str(target_url or ""))
+        except ValueError:
+            return False
+        host = (parsed.hostname or "").lower()
+        return parsed.scheme in {"http", "https"} and (
+            host == "taobao.com" or host.endswith(".taobao.com")
+        )
+
+    def _prepare_opened_target_before_navigation(self, payload, target_url):
+        if not isinstance(payload, dict):
+            return False
+        target_ws = str(payload.get("webSocketDebuggerUrl") or "").strip()
+        if not target_ws:
+            return False
+        if not self._connect_to_target(target_ws, "new solver target"):
+            return False
+        navigation = self._send_cdp("Page.navigate", {"url": target_url})
+        if navigation is None:
+            print("[SOLVER] Identity-first target navigation failed.")
+            return False
+        payload["url"] = target_url
+        self.current_target_url = target_url
+        print("[SOLVER] Opened target with browser identity installed before navigation.")
+        return True
+
     def _open_target_tab(self):
         target_url = self._normalize_target_url(self.target_url)
         if not target_url:
             return None
+        identity_first = self._target_requires_identity_before_navigation(target_url)
+        opened_url = "about:blank" if identity_first else target_url
         last_error = None
         for timeout in (5, 8, 12):
             try:
                 response = requests.put(
-                    f"{self.cdp_endpoint}/json/new?{quote(target_url, safe='/:%-._~')}",
+                    f"{self.cdp_endpoint}/json/new?{quote(opened_url, safe='/:%-._~')}",
                     timeout=timeout,
                 )
                 payload = response.json()
@@ -464,6 +508,12 @@ class CaptchaSolver:
                     target_id = str(payload.get("id") or "").strip()
                     if target_id:
                         self._opened_target_ids.add(target_id)
+                    if identity_first and not self._prepare_opened_target_before_navigation(
+                        payload,
+                        target_url,
+                    ):
+                        last_error = RuntimeError("identity-first target preparation failed")
+                        continue
                     return payload
             except Exception as error:
                 last_error = error
@@ -484,26 +534,51 @@ class CaptchaSolver:
             print(f"[SOLVER] Connecting to tab: {target_title}")
             self.ws = websocket.create_connection(target_ws, suppress_origin=True, timeout=5)
             self.ws.settimeout(5)
-            # Enable domains
-            dom_ready = self._send_cdp("DOM.enable")
-            runtime_ready = self._send_cdp("Runtime.enable")
-            page_ready = self._send_cdp("Page.enable")
-            if dom_ready is None or runtime_ready is None or page_ready is None:
-                raise RuntimeError("CDP bootstrap failed for target websocket")
+            # This solver uses direct Runtime.evaluate/Page commands and consumes
+            # no DOM, Runtime, or Page events. Avoid subscribing those domains on
+            # a live challenge page; the subscriptions are unnecessary CDP noise.
+            connection_probe = self._send_cdp(
+                "Runtime.evaluate",
+                {
+                    "expression": "void 0",
+                    "returnByValue": True,
+                    "silent": True,
+                },
+            )
+            if connection_probe is None:
+                raise RuntimeError("CDP target websocket probe failed")
+
+            configured_user_agent = str(os.getenv("FAPAI_BROWSER_USER_AGENT") or "").strip()
+            if configured_user_agent:
+                configured_full_version = str(
+                    os.getenv("FAPAI_BROWSER_IDENTITY_FULL_VERSION") or ""
+                ).strip()
+                if not configured_full_version:
+                    version_match = re.search(
+                        r"(?:Chrome|Chromium)/(\d+(?:\.\d+){1,3})",
+                        configured_user_agent,
+                    )
+                    configured_full_version = (
+                        version_match.group(1) if version_match else "151.0.0.0"
+                    )
+                self._send_cdp(
+                    "Emulation.setUserAgentOverride",
+                    build_user_agent_override(
+                        configured_user_agent,
+                        configured_full_version,
+                    ),
+                )
+                self._send_cdp(
+                    "Emulation.setTimezoneOverride",
+                    {"timezoneId": "Asia/Shanghai"},
+                )
+                self._send_cdp(
+                    "Emulation.setLocaleOverride",
+                    {"locale": "zh-CN"},
+                )
 
             # CDP Stealth Injection: Hide automation fingerprints
-            stealth_js = """
-                Object.defineProperty(navigator, 'webdriver', {get: () => undefined, configurable: true});
-                window.chrome = window.chrome || {runtime: {}};
-                Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3, 4, 5]});
-                Object.defineProperty(navigator, 'languages', {get: () => ['zh-CN', 'zh', 'en']});
-                const originalQuery = window.navigator.permissions.query;
-                window.navigator.permissions.query = (parameters) => (
-                    parameters.name === 'notifications' ?
-                    Promise.resolve({state: Notification.permission}) :
-                    originalQuery(parameters)
-                );
-            """
+            stealth_js = browser_identity_init_script()
             disable_stealth = os.getenv("FAPAI_SOLVER_DISABLE_STEALTH", "0").strip().lower() in {
                 "1", "true", "yes", "on"
             }
@@ -511,6 +586,40 @@ class CaptchaSolver:
                 self._send_cdp("Page.addScriptToEvaluateOnNewDocument", {"source": stealth_js})
                 # The challenge page is already loaded; also patch the current document.
                 self._send_cdp("Runtime.evaluate", {"expression": stealth_js, "returnByValue": True})
+
+            preflight_identity = self._send_cdp(
+                "Runtime.evaluate",
+                {
+                    "expression": """(() => ({
+                        platform: navigator.platform,
+                        uaPlatform: navigator.userAgentData && navigator.userAgentData.platform,
+                        webdriver: navigator.webdriver,
+                        languages: Array.from(navigator.languages || []),
+                        hardwareConcurrency: navigator.hardwareConcurrency,
+                        deviceMemory: navigator.deviceMemory,
+                        maxTouchPoints: navigator.maxTouchPoints,
+                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    }))()""",
+                    "returnByValue": True,
+                },
+            )
+            preflight_value = (
+                preflight_identity.get("result", {}).get("value", {})
+                if isinstance(preflight_identity, dict)
+                else {}
+            )
+            if isinstance(preflight_value, dict):
+                print(
+                    "[SOLVER] Browser identity preflight "
+                    f"platform={preflight_value.get('platform')} "
+                    f"ua_platform={preflight_value.get('uaPlatform')} "
+                    f"webdriver={preflight_value.get('webdriver')} "
+                    f"languages={preflight_value.get('languages')} "
+                    f"hardware={preflight_value.get('hardwareConcurrency')}/"
+                    f"{preflight_value.get('deviceMemory')}/"
+                    f"{preflight_value.get('maxTouchPoints')} "
+                    f"timezone={preflight_value.get('timezone')}"
+                )
 
             return True
         except Exception as e:
@@ -1507,7 +1616,9 @@ class CaptchaSolver:
         if not str(os.environ.get("DISPLAY") or "").strip():
             print("[SOLVER] DISPLAY is not set; cannot focus the Linux browser window.")
             return False
-        self._bring_to_front()
+        if not self._activate_target_tab():
+            print("[SOLVER] Exact CDP target activation failed before Linux window focus.")
+            return False
         window_ids = []
         for window_class in ("chromium", "google-chrome", "microsoft-edge"):
             try:
@@ -1537,6 +1648,16 @@ class CaptchaSolver:
             except subprocess.SubprocessError:
                 continue
             if activated.returncode == 0:
+                # Focusing an outer Chromium window can leave a different tab active.
+                # Re-activate the exact CDP target after the OS focus transition.
+                if not self._activate_target_tab():
+                    print(
+                        "[SOLVER] Exact CDP target activation failed after "
+                        f"focusing Linux window id={window_id}"
+                    )
+                    continue
+                time.sleep(0.35)
+                self._linux_window_id = window_id
                 print(f"[SOLVER] Linux browser window focused id={window_id}")
                 return True
         print("[SOLVER] No focusable Linux Chromium window was found.")
@@ -1555,6 +1676,127 @@ class CaptchaSolver:
         focused = self._force_foreground_hwnd(hwnd) if hwnd else False
         print(f"[SOLVER] OS window focus hwnd={hwnd} focused={focused}")
         return focused
+
+    def _linux_window_geometry(self):
+        if os.name == "nt" or not str(self._linux_window_id or "").isdigit():
+            return None
+        try:
+            result = subprocess.run(
+                ["xdotool", "getwindowgeometry", "--shell", str(self._linux_window_id)],
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=3,
+            )
+        except (FileNotFoundError, subprocess.SubprocessError):
+            return None
+        if result.returncode != 0:
+            return None
+        values = {}
+        for line in result.stdout.splitlines():
+            key, separator, value = line.partition("=")
+            if separator and key in {"X", "Y", "WIDTH", "HEIGHT"}:
+                try:
+                    values[key.lower()] = float(value)
+                except ValueError:
+                    return None
+        if values.get("width", 0) < 200 or values.get("height", 0) < 200:
+            return None
+        return values
+
+    def _linux_window_frame_extents(self):
+        """Return compositor frame extents in physical pixels for the focused X11 window."""
+        if os.name == "nt" or not str(self._linux_window_id or "").isdigit():
+            return None
+        try:
+            result = subprocess.run(
+                [
+                    "xprop",
+                    "-id",
+                    str(self._linux_window_id),
+                    "_NET_FRAME_EXTENTS",
+                    "_GTK_FRAME_EXTENTS",
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=3,
+            )
+        except (FileNotFoundError, subprocess.SubprocessError):
+            return None
+        if result.returncode != 0:
+            return None
+        properties = {}
+        for line in result.stdout.splitlines():
+            property_name, separator, raw_values = line.partition("=")
+            property_name = property_name.split("(", 1)[0].strip()
+            if not separator or property_name not in {"_NET_FRAME_EXTENTS", "_GTK_FRAME_EXTENTS"}:
+                continue
+            values = re.findall(r"-?\d+(?:\.\d+)?", raw_values)
+            if len(values) >= 4:
+                properties[property_name] = {
+                    key: max(float(value), 0.0)
+                    for key, value in zip(("left", "right", "top", "bottom"), values[:4])
+                }
+        return properties.get("_NET_FRAME_EXTENTS") or properties.get("_GTK_FRAME_EXTENTS")
+
+    def _css_to_x11_window_screen(self, start_x, start_y, distance):
+        """Map CSS through the exact focused X11 window when GPU screenshots are opaque."""
+        if os.name == "nt" or not self._target_activation_verified:
+            return None
+        geometry = self._linux_window_geometry()
+        frame_extents = self._linux_window_frame_extents()
+        metrics = self._window_metrics()
+        bounds = self._browser_window_bounds()
+        if not geometry or not isinstance(metrics, dict) or not isinstance(bounds, dict):
+            return None
+        try:
+            dpr = float(metrics.get("dpr") or 1) or 1.0
+            inner_w = float(metrics.get("innerWidth") or 0)
+            inner_h = float(metrics.get("innerHeight") or 0)
+            outer_w = float(metrics.get("outerWidth") or 0)
+            outer_h = float(metrics.get("outerHeight") or 0)
+            bound_left = float(bounds.get("left") or 0) * dpr
+            bound_top = float(bounds.get("top") or 0) * dpr
+            bound_width = float(bounds.get("width") or 0) * dpr
+            bound_height = float(bounds.get("height") or 0) * dpr
+        except (TypeError, ValueError):
+            return None
+        if min(inner_w, inner_h, outer_w, outer_h, bound_width, bound_height) <= 0:
+            return None
+        position_delta = math.hypot(geometry["x"] - bound_left, geometry["y"] - bound_top)
+        size_delta = max(
+            abs(geometry["width"] - bound_width),
+            abs(geometry["height"] - bound_height),
+        )
+        if position_delta > 48.0 or size_delta > 64.0:
+            print(
+                f"[SOLVER] X11/CDP window geometry mismatch "
+                f"position_delta={position_delta:.0f}px size_delta={size_delta:.0f}px."
+            )
+            return None
+        scale_x = geometry["width"] / outer_w
+        scale_y = geometry["height"] / outer_h
+        if abs(scale_x - scale_y) > 0.08:
+            return None
+        chrome_left = max(0.0, (outer_w - inner_w) * scale_x / 2.0)
+        # outerHeight-innerHeight includes the bottom client-side decoration on
+        # GNOME/Xwayland. Only the top frame and browser UI precede clientY=0.
+        frame_bottom = float((frame_extents or {}).get("bottom") or 0.0)
+        chrome_top = max(0.0, (outer_h - inner_h) * scale_y - frame_bottom)
+        return {
+            "x": geometry["x"] + chrome_left + float(start_x) * scale_x,
+            "y": geometry["y"] + chrome_top + float(start_y) * scale_y,
+            "distance": float(distance) * scale_x,
+            "source": "x11_window_geometry",
+            "frame_bottom": frame_bottom,
+            "region": (
+                int(geometry["x"]),
+                int(geometry["y"]),
+                int(geometry["width"]),
+                int(geometry["height"]),
+            ),
+        }
 
     def _css_to_cdp_window_screen(self, start_x, start_y, distance):
         """Map CSS coordinates to physical screen via CDP Browser.getWindowForTarget + dpr.
@@ -1714,16 +1956,31 @@ class CaptchaSolver:
         clamped_region = self._clamp_search_region(search_region, pyautogui.size())
         if clamped_region:
             locate_kwargs["region"] = clamped_region
-        box = None
-        try:
-            box = pyautogui.locateOnScreen(str(tmp), confidence=0.82, **locate_kwargs)
-        except Exception:
+
+        def locate_on_screen(kwargs):
+            last_error = None
             try:
-                box = pyautogui.locateOnScreen(str(tmp), **locate_kwargs)
+                box = pyautogui.locateOnScreen(str(tmp), confidence=0.82, **kwargs)
+                if box is not None:
+                    return box, None
             except Exception as error:
-                print(f"[SOLVER] Screenshot locate failed: {error}")
-                return None
+                last_error = error
+            try:
+                box = pyautogui.locateOnScreen(str(tmp), **kwargs)
+                if box is not None:
+                    return box, None
+            except Exception as error:
+                last_error = error
+            return None, last_error
+
+        box, locate_error = locate_on_screen(locate_kwargs)
+        if box is None and clamped_region:
+            print("[SOLVER] Regional screenshot locate missed; retrying on the full screen.")
+            box, full_screen_error = locate_on_screen({})
+            locate_error = full_screen_error or locate_error
         if box is None:
+            if locate_error is not None:
+                print(f"[SOLVER] Screenshot locate failed: {locate_error}")
             return None
         return {
             "left": float(box.left),
@@ -1767,17 +2024,31 @@ class CaptchaSolver:
                 expected.setdefault("uses_render_widget", False)
         elif not expected and cdp_expected:
             expected = cdp_expected
+        x11_expected = self._css_to_x11_window_screen(start_x, start_y, distance)
+        if x11_expected:
+            expected = x11_expected
         activation_verified = bool(
             self._target_activation_verified
             and expected
-            and expected.get("source") in {"win32_render", "cdp_window_bounds", "dpr_fallback"}
+            and expected.get("source") in {
+                "win32_render",
+                "cdp_window_bounds",
+                "dpr_fallback",
+                "x11_window_geometry",
+            }
         )
         screenshot_search_region = self._slider_search_region(
             expected,
             distance,
             slider_info=slider_info,
         )
-        if activation_verified:
+        if x11_expected:
+            # Hardware-accelerated Chrome on Xwayland can render as black to
+            # XGetImage/scrot. Matching the exact activated target's CDP bounds
+            # to its physical X11 window is the stronger available proof.
+            located = None
+            print("[SOLVER] X11/CDP window geometry verified for physical slider mapping.")
+        elif activation_verified:
             # Activation proves the tab identity, not that the render widget is
             # still at the same physical origin. Take a screenshot-backed sample
             # while the exact target is foregrounded and use it when it disagrees.
@@ -1803,14 +2074,52 @@ class CaptchaSolver:
             screenshot_point = self._located_point_from_screenshot(
                 located, start_x, start_y, distance
             )
-        chosen = expected
         if screenshot_point and expected:
             delta = (
                 (screenshot_point["x"] - expected["x"]) ** 2
                 + (screenshot_point["y"] - expected["y"]) ** 2
             ) ** 0.5
         screenshot_delta_limit = max(64.0, abs(float(distance or 0)) * 0.35)
+        physical_mapping_required = os.name != "nt" and isinstance(slider_info, dict)
+        if (
+            physical_mapping_required
+            and located
+            and located.get("clipped")
+            and expected
+            and delta is not None
+            and delta > screenshot_delta_limit
+        ):
+            # A narrow NC track is visually repetitive and can produce a high-
+            # confidence false match elsewhere on the desktop. Verify the whole
+            # foregrounded viewport before trusting a large coordinate jump.
+            print(
+                f"[SOLVER] Clipped screenshot map drifted {delta:.0f}px; "
+                "retrying with the full viewport."
+            )
+            viewport_located = self._viewport_origin_on_screen(
+                None,
+                search_region=None,
+                drag_distance=distance,
+            )
+            if viewport_located:
+                located = viewport_located
+                screenshot_point = self._located_point_from_screenshot(
+                    located, start_x, start_y, distance
+                )
+                delta = (
+                    (screenshot_point["x"] - expected["x"]) ** 2
+                    + (screenshot_point["y"] - expected["y"]) ** 2
+                ) ** 0.5
+            else:
+                located = None
+                screenshot_point = None
+                delta = None
+        chosen = expected
         if screenshot_point and not expected:
+            chosen = screenshot_point
+        elif screenshot_point and expected.get("source") == "dpr_fallback":
+            # On Linux the DPR calculation does not prove which tab is physically
+            # visible. A matching CDP template on the desktop is authoritative.
             chosen = screenshot_point
         elif (
             screenshot_point
@@ -1853,39 +2162,44 @@ class CaptchaSolver:
             self.last_failure_reason = "screen_mapping_invalid"
             print("[SOLVER] Screen mapping contains non-finite coordinates; skipping OS drag.")
             return None
+        if physical_mapping_required and not located and not x11_expected:
+            self.last_failure_reason = "screen_mapping_unverified"
+            print("[SOLVER] Linux slider mapping requires screenshot or X11 geometry verification.")
+            return None
         return {
             "x": mapped_values[0],
             "y": mapped_values[1],
             "distance": mapped_values[2],
             "source": chosen.get("source") or (expected.get("source") if expected else None),
-            "located": bool(located or activation_verified),
+            "located": bool(located or x11_expected or (activation_verified and not physical_mapping_required)),
             "clipped": bool(located and located.get("clipped")),
             "activation_verified": activation_verified,
         }
 
     def _os_drag_profiles(self):
-        # Keep the complete drag inside NC's tracking window while avoiding an
-        # unrealistically fast, exact-endpoint release.
+        # Keep the historically successful fast profile first. NC has a short
+        # interaction window, and slower multi-second paths were consistently
+        # rejected even when the cursor reached the exact physical endpoint.
         return (
             {
-                "name": "overshoot_release",
-                "pre_pause": (0.3, 0.65),
-                "press_hold": (0.1, 0.2),
-                "total_time": (1.4, 2.1),
-                "steps": (40, 56),
-                "tremor_x": 0.45,
-                "tremor_y": 0.8,
-                "micro_pause_prob": 0.08,
-                "micro_pause": (0.02, 0.06),
-                "overshoot": (6.0, 10.0),
-                "release_overshoot": (2.0, 4.0),
-                "settle_steps": (2, 4),
-                "hold_before_release": (0.12, 0.25),
-                "release_mode": "overshoot_release",
-                "warmup_px": (2.0, 5.0),
-                "warmup_steps": (2, 3),
-                "approach_duration": (0.2, 0.4),
-                "start_duration": (0.18, 0.35),
+                "name": "fast_exact_v3",
+                "pre_pause": (0.05, 0.15),
+                "press_hold": (0.04, 0.08),
+                "total_time": (0.4, 0.65),
+                "steps": (24, 32),
+                "tremor_x": 0.2,
+                "tremor_y": 0.4,
+                "micro_pause_prob": 0.05,
+                "micro_pause": (0.015, 0.05),
+                "overshoot": (0.0, 1.2),
+                "release_overshoot": (0.0, 0.0),
+                "settle_steps": (2, 3),
+                "hold_before_release": (0.08, 0.18),
+                "release_mode": "exact_release",
+                "warmup_px": (1.0, 3.0),
+                "warmup_steps": (1, 2),
+                "approach_duration": (0.05, 0.15),
+                "start_duration": (0.05, 0.15),
             },
             {
                 "name": "legacy_exact_release",
@@ -1908,7 +2222,7 @@ class CaptchaSolver:
                 "start_duration": (0.2, 0.4),
             },
             {
-                "name": "dense_slow_tail",
+                "name": "dense_exact_release",
                 "pre_pause": (0.4, 0.8),
                 "press_hold": (0.14, 0.28),
                 "total_time": (2.4, 3.4),
@@ -1918,10 +2232,10 @@ class CaptchaSolver:
                 "micro_pause_prob": 0.1,
                 "micro_pause": (0.025, 0.07),
                 "overshoot": (5.0, 9.0),
-                "release_overshoot": (1.0, 3.0),
+                "release_overshoot": (0.0, 0.0),
                 "settle_steps": (4, 6),
                 "hold_before_release": (0.18, 0.35),
-                "release_mode": "overshoot_release",
+                "release_mode": "exact_release",
                 "warmup_px": (2.0, 6.0),
                 "warmup_steps": (2, 4),
                 "approach_duration": (0.3, 0.6),
@@ -2003,6 +2317,69 @@ class CaptchaSolver:
         backend = str(os.getenv("FAPAI_SOLVER_OS_INPUT_BACKEND", "pyautogui")).strip().lower()
         return os.name == "nt" and backend in {"native", "win32"}
 
+    def _uinput_os_input_enabled(self):
+        backend = str(os.getenv("FAPAI_SOLVER_OS_INPUT_BACKEND", "pyautogui")).strip().lower()
+        return os.name != "nt" and backend == "uinput"
+
+    def _get_uinput_handle(self):
+        if not self._uinput_os_input_enabled():
+            return None
+        if self._uinput_handle is not None:
+            return self._uinput_handle
+        if not os.path.exists("/dev/uinput"):
+            raise RuntimeError("/dev/uinput is unavailable")
+        try:
+            from evdev import UInput, ecodes
+        except ImportError as error:
+            raise RuntimeError("python-evdev is unavailable") from error
+        capabilities = {
+            ecodes.EV_KEY: [ecodes.BTN_LEFT],
+            ecodes.EV_REL: [ecodes.REL_X, ecodes.REL_Y],
+        }
+        self._uinput_handle = UInput(
+            capabilities,
+            name="fapaifang-virtual-mouse",
+            vendor=0x046D,
+            product=0xC077,
+            version=1,
+        )
+        self._uinput_ecodes = ecodes
+        # Allow the host compositor to register the new input device before
+        # the first relative move.
+        time.sleep(0.35)
+        return self._uinput_handle
+
+    def _move_uinput_cursor_to(self, pyautogui, target_x, target_y):
+        handle = self._get_uinput_handle()
+        ecodes = self._uinput_ecodes
+        if handle is None or ecodes is None:
+            raise RuntimeError("uinput mouse is not initialized")
+        for _ in range(36):
+            current_x, current_y = self._get_os_cursor_position(pyautogui)
+            error_x = float(target_x) - float(current_x)
+            error_y = float(target_y) - float(current_y)
+            if math.hypot(error_x, error_y) <= 1.25:
+                return
+
+            def bounded_step(value):
+                if abs(value) < 0.5:
+                    return 0
+                magnitude = max(1, min(int(round(abs(value))), 64))
+                return magnitude if value > 0 else -magnitude
+
+            relative_x = bounded_step(error_x)
+            relative_y = bounded_step(error_y)
+            if relative_x:
+                handle.write(ecodes.EV_REL, ecodes.REL_X, relative_x)
+            if relative_y:
+                handle.write(ecodes.EV_REL, ecodes.REL_Y, relative_y)
+            handle.syn()
+            time.sleep(0.01)
+        final_x, final_y = self._get_os_cursor_position(pyautogui)
+        final_error = math.hypot(float(target_x) - float(final_x), float(target_y) - float(final_y))
+        self.last_failure_reason = "os_cursor_position_unverified"
+        raise RuntimeError(f"uinput cursor did not converge (delta={final_error:.1f}px)")
+
     def _get_os_cursor_position(self, pyautogui):
         if not self._native_os_input_enabled():
             return pyautogui.position()
@@ -2015,6 +2392,9 @@ class CaptchaSolver:
         return float(point.x), float(point.y)
 
     def _set_os_cursor_position(self, pyautogui, x, y):
+        if self._uinput_os_input_enabled():
+            self._move_uinput_cursor_to(pyautogui, x, y)
+            return
         if not self._native_os_input_enabled():
             pyautogui.moveTo(x, y, duration=0)
             return
@@ -2037,6 +2417,14 @@ class CaptchaSolver:
         user32.mouse_event(0x0001 | 0x4000 | 0x8000, absolute_x, absolute_y, 0, 0)
 
     def _set_os_left_button(self, pyautogui, *, down):
+        if self._uinput_os_input_enabled():
+            handle = self._get_uinput_handle()
+            ecodes = self._uinput_ecodes
+            if handle is None or ecodes is None:
+                raise RuntimeError("uinput mouse is not initialized")
+            handle.write(ecodes.EV_KEY, ecodes.BTN_LEFT, 1 if down else 0)
+            handle.syn()
+            return
         if not self._native_os_input_enabled():
             (pyautogui.mouseDown if down else pyautogui.mouseUp)()
             return
@@ -2068,6 +2456,9 @@ class CaptchaSolver:
 
     def _move_os_cursor_timed(self, pyautogui, target_x, target_y, duration):
         """Keep PyAutoGUI's proven timing; bound only the opt-in native backend."""
+        if self._uinput_os_input_enabled():
+            self._move_os_cursor_bounded(pyautogui, target_x, target_y, duration)
+            return
         if not self._native_os_input_enabled():
             pyautogui.moveTo(target_x, target_y, duration=max(float(duration or 0), 0.0))
             return
@@ -2075,6 +2466,7 @@ class CaptchaSolver:
 
     def _do_drag_os(self, start_x, start_y, distance, slider_info=None, profile_variant_index=0):
         """OS-level mouse drag. CDP Input events are rejected by Aliyun NC (error:TJiA4d/Vx6urd)."""
+        self.last_failure_reason = None
         try:
             import pyautogui
         except ImportError:
@@ -2083,6 +2475,13 @@ class CaptchaSolver:
         self._enable_process_dpi_awareness()
         pyautogui.FAILSAFE = False
         pyautogui.PAUSE = 0
+        if self._uinput_os_input_enabled():
+            try:
+                self._get_uinput_handle()
+            except Exception as error:
+                self.last_failure_reason = "uinput_unavailable"
+                print(f"[SOLVER] uinput mouse unavailable: {error}")
+                return None
         try:
             focused = self._focus_os_window()
         except Exception as error:
@@ -2127,7 +2526,7 @@ class CaptchaSolver:
             f"[SOLVER] OS mouse drag from ({sx:.0f},{sy:.0f}) +{phys_distance:.0f}px "
             f"source={mapped.get('source')} located={mapped.get('located')} "
             f"clipped={mapped.get('clipped')} profile={profile.get('name')} "
-            f"input={'win32' if self._native_os_input_enabled() else 'pyautogui'}"
+            f"input={'uinput' if self._uinput_os_input_enabled() else ('win32' if self._native_os_input_enabled() else 'pyautogui')}"
         )
         mouse_is_down = False
         drag_completed = False
@@ -2146,6 +2545,23 @@ class CaptchaSolver:
                 sy,
                 random.uniform(*profile.get("start_duration", (0.25, 0.6))),
             )
+            if os.name != "nt" and mapped.get("source") == "x11_window_geometry":
+                try:
+                    cursor_x, cursor_y = self._get_os_cursor_position(pyautogui)
+                    cursor_delta = math.hypot(float(cursor_x) - sx, float(cursor_y) - sy)
+                except Exception as error:
+                    self.last_failure_reason = "os_cursor_position_unverified"
+                    print(f"[SOLVER] OS cursor position check failed: {error}")
+                    return None
+                print(
+                    f"[SOLVER] OS cursor position expected=({sx:.0f},{sy:.0f}) "
+                    f"actual=({float(cursor_x):.0f},{float(cursor_y):.0f}) "
+                    f"delta={cursor_delta:.1f}px"
+                )
+                if cursor_delta > 5.0:
+                    self.last_failure_reason = "os_cursor_position_unverified"
+                    print("[SOLVER] OS cursor did not reach the verified slider point.")
+                    return None
             time.sleep(random.uniform(*profile["press_hold"]))
             self._set_os_left_button(pyautogui, down=True)
             mouse_is_down = True
@@ -2201,7 +2617,8 @@ class CaptchaSolver:
             time.sleep(random.uniform(0.4, 0.7))
             drag_completed = True
         except Exception as error:
-            self.last_failure_reason = "mouse_drag_exception"
+            if not self.last_failure_reason:
+                self.last_failure_reason = "mouse_drag_exception"
             print(f"[SOLVER] OS mouse drag failed: {error}")
         finally:
             if mouse_is_down:
@@ -2394,6 +2811,8 @@ class CaptchaSolver:
 
     def _nc_retry_outcome(self, timeout_seconds=8.0):
         deadline = time.time() + max(float(timeout_seconds or 0), 0.5)
+        stable_slider_signature = None
+        stable_slider_samples = 0
         while time.time() < deadline:
             if self._stop_if_cancelled():
                 return {"cancelled": True}
@@ -2401,11 +2820,23 @@ class CaptchaSolver:
             if summary.get("authenticatedPage"):
                 return {"authenticated": True, "summary": summary}
             if summary.get("explicitFailure"):
+                stable_slider_signature = None
+                stable_slider_samples = 0
                 time.sleep(0.35)
                 continue
             slider = self._find_slider(max_retries=1, retry_delay=0)
             if slider:
-                return {"slider": slider, "summary": summary}
+                signature = tuple(
+                    round(float(slider.get(key) or 0), 1)
+                    for key in ("x", "y", "width", "height")
+                )
+                if signature == stable_slider_signature:
+                    stable_slider_samples += 1
+                else:
+                    stable_slider_signature = signature
+                    stable_slider_samples = 1
+                if stable_slider_samples >= 3:
+                    return {"slider": slider, "summary": summary}
             time.sleep(0.35)
         return {"authenticated": False}
 
@@ -2843,7 +3274,7 @@ class CaptchaSolver:
         raw = os.getenv("FAPAI_SOLVER_ENABLE_HEADED_PLAYWRIGHT")
         if raw is not None:
             return raw.strip().lower() in {"1", "true", "yes", "y", "on"}
-        return bool(os.getenv("DISPLAY") or os.getenv("WAYLAND_DISPLAY"))
+        return False
 
     def _is_local_mock_slider_target(self):
         target_url = self._normalize_target_url(self.target_url)
@@ -3113,8 +3544,20 @@ class CaptchaSolver:
                             profile_variant_index=drag_profile_variant,
                         )
                         if drag_result is None:
-                            print("[SOLVER] OS mouse unavailable; falling back to CDP drag.")
-                            drag_result = self._do_drag(start_x, start_y, distance)
+                            os_drag_failure = str(self.last_failure_reason or "")
+                            mapping_or_focus_failure = (
+                                os_drag_failure == "window_focus_failed"
+                                or os_drag_failure.startswith("screen_mapping_")
+                                or os_drag_failure == "os_cursor_position_unverified"
+                            )
+                            if mapping_or_focus_failure:
+                                print(
+                                    "[SOLVER] OS focus/mapping was not verified; "
+                                    "skipping unsafe CDP drag fallback."
+                                )
+                            else:
+                                print("[SOLVER] OS mouse unavailable; falling back to CDP drag.")
+                                drag_result = self._do_drag(start_x, start_y, distance)
                     else:
                         drag_result = self._do_drag(start_x, start_y, distance)
                     if drag_result is None:

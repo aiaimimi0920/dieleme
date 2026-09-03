@@ -11,7 +11,7 @@ PC2 (`192.168.15.104`) runs one Compose project named `fapaifang-pc2`:
 - `pc2-detail-1..3`: raw detail-page collection.
 - `pc2-analysis-1..4`: AI-only analysis of already collected raw records. These services do not depend on browser health, so collection challenges do not stop analysis.
 
-The central API and PostgreSQL remain on NAS (`192.168.15.200`). The LLM gateway remains on `192.168.15.20:8317`; analysis routes to `deepseek-v4-flash` first and `deepseek-v4-pro` second.
+The central API and PostgreSQL remain on NAS (`192.168.15.200`). The LLM gateway remains on `192.168.15.20:8317`; analysis routes to the gateway's current concrete DeepSeek V4 Flash model first and DeepSeek V4 Pro model second. Re-check `/v1/models` before changing these IDs because the unversioned aliases are not guaranteed to exist.
 
 ## Persistent paths
 
@@ -37,8 +37,8 @@ Stage an immutable source tree under the release directory. Create `runtime.env`
 - `FAPAI_WORKER_DB_URL` with NAS address `192.168.15.200:55432`
 - `OPENAI_BASE_URL=http://192.168.15.20:8317/v1`
 - `OPENAI_API_KEY`
-- `OPENAI_MODEL=deepseek-v4-flash`
-- `OPENAI_MODEL_CANDIDATES=deepseek-v4-flash,deepseek-v4-pro`
+- `OPENAI_MODEL=deepseek-v4-flash-0731`
+- `OPENAI_MODEL_CANDIDATES=deepseek-v4-flash-0731,deepseek-v4-pro-0813`
 
 Copy the preserved inputs before the first start:
 

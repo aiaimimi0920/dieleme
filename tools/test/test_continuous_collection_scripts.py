@@ -200,6 +200,10 @@ def test_pc1_nas_auth_recovery_watcher_keeps_single_window_and_publishes_only_me
     script = _script("watch-pc1-nas-auth-recovery.ps1")
 
     assert '[int]$LoginWindowSeconds = 300' in script
+    assert "Get-Command curl.exe" in script
+    assert "--max-time 3" in script
+    assert "$request.KeepAlive = $false" in script
+    assert "$stream.ReadTimeout = 3000" in script
     assert '$withinWindow' in script
     assert 'Test-TaobaoAuthPageExists' in script
     assert 'if (-not $existingAuthPage -and -not $withinWindow)' in script

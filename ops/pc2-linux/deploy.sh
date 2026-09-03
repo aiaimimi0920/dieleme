@@ -113,6 +113,32 @@ verify_runtime_inputs() {
   fi
 }
 
+prepare_host_display_access() {
+  local display_mode host_display display_number display_socket runtime_dir host_xauthority
+  display_mode="$(sed -n 's/^FAPAI_BROWSER_DISPLAY_MODE=//p' "$runtime_env" | tail -n 1)"
+  display_mode="${display_mode:-auto}"
+  [[ "$display_mode" != "xvfb" ]] || return 0
+
+  host_display="$(sed -n 's/^FAPAI_BROWSER_HOST_DISPLAY=//p' "$runtime_env" | tail -n 1)"
+  host_display="${host_display:-:0}"
+  display_number="${host_display#:}"
+  display_socket="/tmp/.X11-unix/X${display_number}"
+  runtime_dir="/run/user/$(id -u)"
+  host_xauthority="$(find "$runtime_dir" -maxdepth 1 -type f -name '.mutter-Xwaylandauth.*' -readable -print -quit 2>/dev/null || true)"
+
+  if [[ -S "$display_socket" && -n "$host_xauthority" ]] \
+    && DISPLAY="$host_display" XAUTHORITY="$host_xauthority" \
+      xhost +SI:localuser:root >/dev/null 2>&1; then
+    echo "Prepared logged-in host display for the browser solver: $host_display"
+    return 0
+  fi
+  if [[ "$display_mode" == "host" ]]; then
+    echo "Requested host browser display is unavailable: $host_display" >&2
+    return 1
+  fi
+  echo "Logged-in host display is unavailable; browser solver will use Xvfb." >&2
+}
+
 compose_for() {
   local target_release="$1"
   shift
@@ -280,7 +306,8 @@ deploy_release() {
   elif (( browser_only )); then
     docker image inspect "$app_image" >/dev/null
     docker image inspect "$browser_base_image" >/dev/null
-    docker build \
+    docker run --rm --entrypoint python "$browser_base_image" -c 'import evdev'
+    if ! docker build \
       --build-arg "FAPAI_BASE_IMAGE=$browser_base_image" \
       --build-arg "FAPAI_BUILD_VERSION=$release_id" \
       --build-arg "FAPAI_BUILD_COMMIT=$build_commit" \
@@ -288,7 +315,14 @@ deploy_release() {
       --build-arg "FAPAI_SOURCE_DIGEST=$source_digest" \
       --tag "$browser_image" \
       --file "$release_dir/ops/pc2-linux/Dockerfile.auth-recovery" \
-      "$release_dir"
+      "$release_dir"; then
+      echo "Browser hotfix layer build failed; rebuilding from the worker image to collapse the layer chain." >&2
+      docker build \
+        --build-arg "FAPAI_BASE_IMAGE=$app_image" \
+        --tag "$browser_image" \
+        --file "$release_dir/ops/pc2-linux/Dockerfile.browser" \
+        "$release_dir"
+    fi
   else
     docker build \
       --build-arg "FAPAI_BUILD_VERSION=$release_id" \
@@ -306,6 +340,7 @@ deploy_release() {
   fi
   write_release_metadata "$release_dir" "$app_image" "$browser_image"
   validate_release_tree "$release_dir"
+  prepare_host_display_access
 
   if (( browser_only )); then
     if compose_for "$release_dir" up -d --no-deps pc2-browser-solver && wait_for_browser_health; then

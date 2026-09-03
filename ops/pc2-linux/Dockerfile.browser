@@ -3,12 +3,18 @@ FROM ${FAPAI_BASE_IMAGE}
 
 USER root
 
+ARG FAPAI_GOOGLE_CHROME_VERSION=152.0.7977.64-1
+ARG FAPAI_GOOGLE_CHROME_SHA256=4eae0736a812d9bc851cd2937f7af00e47dbaf8305845eed452703ff009873c7
+
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         curl \
         fluxbox \
         fonts-noto-cjk \
         gnome-screenshot \
+        gcc \
+        libc6-dev \
+        linux-libc-dev \
         novnc \
         procps \
         python3-tk \
@@ -19,12 +25,26 @@ RUN apt-get update \
         x11-utils \
         xdotool \
         xvfb \
+    && chrome_deb="/tmp/google-chrome-stable_${FAPAI_GOOGLE_CHROME_VERSION}_amd64.deb" \
+    && curl -fsSL --retry 3 \
+        -o "$chrome_deb" \
+        "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${FAPAI_GOOGLE_CHROME_VERSION}_amd64.deb" \
+    && echo "${FAPAI_GOOGLE_CHROME_SHA256}  $chrome_deb" | sha256sum -c - \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "$chrome_deb" \
+    && test "$(dpkg-query -W -f='${Version}' google-chrome-stable)" = "$FAPAI_GOOGLE_CHROME_VERSION" \
+    && rm -f "$chrome_deb" \
     && rm -rf /var/lib/apt/lists/* \
-    && pip install --no-cache-dir Pillow==11.3.0 PyAutoGUI==0.9.54
+    && pip install --no-cache-dir Pillow==11.3.0 PyAutoGUI==0.9.54 evdev==1.9.2
 
 COPY ops/pc2-linux/start-browser-solver.sh /usr/local/bin/start-browser-solver
+COPY tools/internal_api_http.py /app/tools/internal_api_http.py
+COPY tools/pc2_auth_recovery.py /app/tools/pc2_auth_recovery.py
+COPY tools/pc2_local_solver.py /app/tools/pc2_local_solver.py
 COPY tools/cdp_host_relay.py /app/tools/cdp_host_relay.py
+COPY tools/cdp_browser_identity.py /app/tools/cdp_browser_identity.py
+COPY tools/pc2_linux_healthcheck.py /app/tools/pc2_linux_healthcheck.py
 COPY tools/pc2_solver_watchdog.py /app/tools/pc2_solver_watchdog.py
+COPY src/captcha_solver.py /app/src/captcha_solver.py
 RUN chmod 0755 /usr/local/bin/start-browser-solver
 
 EXPOSE 6080 9224

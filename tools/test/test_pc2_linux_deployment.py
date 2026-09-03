@@ -101,7 +101,11 @@ def test_browser_image_keeps_solver_and_os_mouse_in_one_display() -> None:
         "xdotool",
         "novnc",
         "gnome-screenshot",
+        "gcc",
+        "libc6-dev",
+        "linux-libc-dev",
         "Pillow==11.3.0",
+        "evdev==1.9.2",
     ):
         assert package in dockerfile
     assert 'export DISPLAY="$display"' in start_script
@@ -110,8 +114,18 @@ def test_browser_image_keeps_solver_and_os_mouse_in_one_display() -> None:
     assert "tools/pc2_local_solver.py" in start_script
     assert "--remote-debugging-port=9223" in start_script
     assert "tools/cdp_host_relay.py" in start_script
+    assert "tools/cdp_browser_identity.py" in start_script
     assert "COPY tools/cdp_host_relay.py /app/tools/cdp_host_relay.py" in dockerfile
+    assert "COPY tools/cdp_browser_identity.py /app/tools/cdp_browser_identity.py" in dockerfile
     assert "COPY tools/pc2_solver_watchdog.py /app/tools/pc2_solver_watchdog.py" in dockerfile
+    for runtime_file in (
+        "tools/internal_api_http.py",
+        "tools/pc2_auth_recovery.py",
+        "tools/pc2_local_solver.py",
+        "tools/pc2_linux_healthcheck.py",
+        "src/captcha_solver.py",
+    ):
+        assert f"COPY {runtime_file} /app/{runtime_file}" in dockerfile
     assert "--upstream-host 127.0.0.1" in start_script
     assert "--upstream-port 9223" in start_script
     assert "--allow-cidr" in start_script
@@ -127,6 +141,42 @@ def test_browser_image_keeps_solver_and_os_mouse_in_one_display() -> None:
     assert 'rm -f "$display_lock" "$display_socket"' in start_script
 
 
+def test_browser_uses_a_pinned_official_chrome_with_a_coherent_identity() -> None:
+    dockerfile = _read(OPS_ROOT / "Dockerfile.browser")
+    compose = _read(OPS_ROOT / "compose.yaml")
+    auth_recovery_dockerfile = _read(OPS_ROOT / "Dockerfile.auth-recovery")
+    env_example = _read(OPS_ROOT / "env.example")
+    start_script = _read(OPS_ROOT / "start-browser-solver.sh")
+
+    assert "FAPAI_BROWSER_USER_AGENT: ${FAPAI_BROWSER_USER_AGENT:-}" in compose
+    assert "FAPAI_BROWSER_IDENTITY_FULL_VERSION: ${FAPAI_BROWSER_IDENTITY_FULL_VERSION:-}" in compose
+    assert "ARG FAPAI_GOOGLE_CHROME_VERSION=152.0.7977.64-1" in dockerfile
+    assert "ARG FAPAI_GOOGLE_CHROME_SHA256=" in dockerfile
+    assert "google-chrome-stable_${FAPAI_GOOGLE_CHROME_VERSION}_amd64.deb" in dockerfile
+    assert "sha256sum -c -" in dockerfile
+    assert "dpkg-query -W" in dockerfile
+    assert "FAPAI_BROWSER_EXECUTABLE=/usr/bin/google-chrome-stable" in env_example
+    assert "FAPAI_BROWSER_USER_AGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64)" in env_example
+    assert "Chrome/152.0.0.0" in env_example
+    assert "FAPAI_BROWSER_IDENTITY_FULL_VERSION=152.0.7977.64" in env_example
+    assert 'browser_user_agent="${FAPAI_BROWSER_USER_AGENT:-}"' in start_script
+    assert 'browser_executable="${FAPAI_BROWSER_EXECUTABLE:-}"' in start_script
+    assert "/usr/bin/google-chrome-stable" in start_script
+    assert "playwright.chromium.executable_path" in start_script
+    assert '"$browser_executable" --version' in start_script
+    assert '"$browser_executable" \\' in start_script
+    assert "Configured browser identity version does not match" in start_script
+    assert "Configured browser user agent does not match" in start_script
+    assert 'browser_identity_args+=(--user-agent="$browser_user_agent")' in start_script
+    assert '"${browser_identity_args[@]}"' in start_script
+    assert "tools/cdp_browser_identity.py" in start_script
+    assert "FAPAI_BROWSER_IDENTITY_READY_PATH" in start_script
+    assert (
+        "COPY --chmod=0755 ops/pc2-linux/start-browser-solver.sh /usr/local/bin/start-browser-solver"
+        in auth_recovery_dockerfile
+    )
+
+
 def test_browser_enables_webgl_in_the_xvfb_runtime() -> None:
     start_script = _read(OPS_ROOT / "start-browser-solver.sh")
 
@@ -138,6 +188,44 @@ def test_browser_enables_webgl_in_the_xvfb_runtime() -> None:
         "--use-angle=swiftshader",
     ):
         assert flag in start_script
+
+
+def test_browser_prefers_the_logged_in_host_display_and_hardware_gpu() -> None:
+    compose = _read(OPS_ROOT / "compose.yaml")
+    env_example = _read(OPS_ROOT / "env.example")
+    start_script = _read(OPS_ROOT / "start-browser-solver.sh")
+
+    assert "FAPAI_BROWSER_DISPLAY_MODE: ${FAPAI_BROWSER_DISPLAY_MODE:-auto}" in compose
+    assert "FAPAI_BROWSER_HOST_DISPLAY: ${FAPAI_BROWSER_HOST_DISPLAY:-:0}" in compose
+    assert "source: /tmp/.X11-unix" in compose
+    assert "- /dev/dri:/dev/dri" in compose
+    assert "FAPAI_BROWSER_DISPLAY_MODE=auto" in env_example
+    assert "FAPAI_BROWSER_HOST_DISPLAY=:0" in env_example
+    assert "FAPAI_BROWSER_HOST_XAUTHORITY_DIR" not in compose
+    assert "prepare_host_display_access" in _read(OPS_ROOT / "deploy.sh")
+    assert "xhost +SI:localuser:root" in _read(OPS_ROOT / "deploy.sh")
+    assert "xhost +SI:localuser:root" not in start_script
+    assert 'browser_graphics_args+=(--ozone-platform=x11)' in start_script
+    assert 'about:blank >/tmp/chromium.log 2>&1 &' in start_script
+    assert 'python - "$start_url" <<\'PY\'' in start_script
+    assert '"method": "Page.navigate"' in start_script
+    assert "FAPAI_SOLVER_OS_INPUT_BACKEND: pyautogui" in compose
+    assert "- /dev/uinput:/dev/uinput" in compose
+    assert "FAPAI_SOLVER_OS_INPUT_BACKEND=pyautogui" in env_example
+    auth_recovery_dockerfile = _read(OPS_ROOT / "Dockerfile.auth-recovery")
+    assert "FROM scratch AS hotfix" in auth_recovery_dockerfile
+    assert "COPY --from=hotfix / /" in auth_recovery_dockerfile
+    assert "COPY --chmod=0755 ops/pc2-linux/start-browser-solver.sh" in auth_recovery_dockerfile
+    assert "apt-get" not in auth_recovery_dockerfile
+    assert "pip install" not in auth_recovery_dockerfile
+    assert "docker run --rm --entrypoint python \"$browser_base_image\" -c 'import evdev'" in _read(
+        OPS_ROOT / "deploy.sh"
+    )
+    assert 'if [[ "$use_host_display" == "0" ]]; then' in start_script
+    assert 'echo "Browser display mode: host ($display)"' in start_script
+    assert 'solver_pid="$!"' in start_script
+    assert 'wait "$solver_pid"' in start_script
+    assert "trap - EXIT" not in start_script
 
 
 def test_browser_healthcheck_does_not_trigger_rfb_authentication() -> None:
@@ -212,11 +300,13 @@ def test_deploy_script_has_identity_gate_and_rollback_links() -> None:
     assert "wait_for_browser_health" in deploy
     assert "up -d --no-deps pc2-browser-solver" in deploy
     assert "Dockerfile.auth-recovery" in deploy
+    assert "Browser hotfix layer build failed" in deploy
+    assert '--build-arg "FAPAI_BASE_IMAGE=$app_image"' in deploy
     assert "docker system prune" not in deploy
     assert "rm -rf" not in deploy
 
 
-def test_pc2_auth_recovery_browser_hotfix_only_overlays_recovery_client() -> None:
+def test_pc2_auth_recovery_browser_hotfix_only_overlays_browser_side_files() -> None:
     dockerfile = _read(OPS_ROOT / "Dockerfile.auth-recovery")
 
     copy_lines = [line.strip() for line in dockerfile.splitlines() if line.startswith("COPY ")]
@@ -224,6 +314,28 @@ def test_pc2_auth_recovery_browser_hotfix_only_overlays_recovery_client() -> Non
         "COPY tools/internal_api_http.py /app/tools/internal_api_http.py",
         "COPY tools/pc2_auth_recovery.py /app/tools/pc2_auth_recovery.py",
         "COPY tools/pc2_local_solver.py /app/tools/pc2_local_solver.py",
+        "COPY tools/cdp_browser_identity.py /app/tools/cdp_browser_identity.py",
+        "COPY tools/pc2_linux_healthcheck.py /app/tools/pc2_linux_healthcheck.py",
+        "COPY src/captcha_solver.py /app/src/captcha_solver.py",
+        "COPY --chmod=0755 ops/pc2-linux/start-browser-solver.sh /usr/local/bin/start-browser-solver",
+        "COPY --from=hotfix / /",
+    ]
+
+
+def test_pc2_worker_hotfix_overlays_analysis_module_b_runtime_files() -> None:
+    dockerfile = _read(OPS_ROOT / "Dockerfile.worker-hotfix")
+
+    copy_lines = [line.strip() for line in dockerfile.splitlines() if line.startswith("COPY ")]
+    assert copy_lines == [
+        "COPY tools/cdp_browser_identity.py /app/tools/cdp_browser_identity.py",
+        "COPY tools/detail_worker.py /app/tools/detail_worker.py",
+        "COPY tools/live_batch_smoke.py /app/tools/live_batch_smoke.py",
+        "COPY src/analysis_ensemble.py /app/src/analysis_ensemble.py",
+        "COPY src/llm_helper.py /app/src/llm_helper.py",
+        "COPY src/storage/models.py /app/src/storage/models.py",
+        "COPY src/storage/repository.py /app/src/storage/repository.py",
+        "COPY alembic/versions/20260606_0008_add_seed_scan_rescan_state.py /app/alembic/versions/20260606_0008_add_seed_scan_rescan_state.py",
+        "COPY alembic/versions/20260901_0009_add_analysis_ensemble_runs.py /app/alembic/versions/20260901_0009_add_analysis_ensemble_runs.py",
     ]
 
 

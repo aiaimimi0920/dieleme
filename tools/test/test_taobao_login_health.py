@@ -97,6 +97,7 @@ def test_report_captcha_via_api_prefers_explicit_report_cdp_endpoint_override(mo
         "http://192.168.15.200:8001/api",
         "http://127.0.0.1:9223",
         "https://sf.taobao.com/list/page",
+        scope="detail",
     )
 
     assert result == {"status": "queued"}
@@ -105,6 +106,7 @@ def test_report_captcha_via_api_prefers_explicit_report_cdp_endpoint_override(mo
     assert captured["payload"]["cdp_endpoint"] == "http://192.168.15.104:9224"
     assert captured["payload"]["node_id"] == "pc2"
     assert captured["payload"]["url"] == "https://sf.taobao.com/list/page"
+    assert captured["payload"]["scope"] == "detail"
 
 
 def test_report_captcha_via_api_can_request_manual_only_authentication(monkeypatch) -> None:

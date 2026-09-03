@@ -971,7 +971,7 @@ def build_avm_risk_prompt(page_text_content):
 """.strip()
 
 
-def _extract_avm_risk_features_raw(text, item_id=None):
+def _extract_avm_risk_features_raw(text, item_id=None, *, model=None):
     """Extract AVM risk features using the 23-rule structured prompt."""
     page_text_content = (text or "").strip()
     if not page_text_content:
@@ -983,9 +983,9 @@ def _extract_avm_risk_features_raw(text, item_id=None):
         f"DEBUG: Extracting AVM risk features (item_id={item_id}, text_len={len(page_text_content)}, "
         f"prompt_len={len(prompt)})."
     )
-    return chat_with_glm(prompt)
+    return chat_with_glm(prompt, model=model) if model else chat_with_glm(prompt)
 
-def extract_auction_data(html_content, item_id=None):
+def extract_auction_data(html_content, item_id=None, *, model=None):
     """
     Extract structured auction data from HTML/Text content using AI.
     Applies filtering first.
@@ -1185,7 +1185,7 @@ def extract_auction_data(html_content, item_id=None):
     #         f.write(prompt)
     # except: pass
 
-    ai_response = chat_with_glm(prompt)
+    ai_response = chat_with_glm(prompt, model=model) if model else chat_with_glm(prompt)
 
     try:
         data = json.loads(ai_response)
@@ -1417,7 +1417,7 @@ def _normalize_evidence_source(value):
     return "页面主文"
 
 
-def extract_avm_risk_features(page_text, item_id=None):
+def extract_avm_risk_features(page_text, item_id=None, *, model=None):
     """
     Independent AVM risk feature extraction aligned with the frozen collection contract
     and the in-code AVM risk prompt rules.
@@ -1430,7 +1430,7 @@ def extract_avm_risk_features(page_text, item_id=None):
     prompt = build_avm_risk_prompt(str(page_text)[:100000])
 
     try:
-        raw = chat_with_glm(prompt)
+        raw = chat_with_glm(prompt, model=model) if model else chat_with_glm(prompt)
         features = json.loads(raw)
     except Exception as e:
         print(f"[AVM-RISK] LLM parse error item={item_label}: {e}")
@@ -1470,6 +1470,17 @@ def _strip_json_markdown(result):
     return result
 
 
+def require_non_gpt_analysis_model(model, *, setting):
+    normalized = str(model or "").strip()
+    lowered = normalized.casefold()
+    is_openai_reasoning_route = bool(
+        re.match(r"^(?:openai[/:._-])?o\d+(?:[/:._-]|$)", lowered)
+    )
+    if not normalized or "gpt" in lowered or "codex" in lowered or is_openai_reasoning_route:
+        raise ValueError(f"{setting} must use an explicit non-GPT analysis model route")
+    return normalized
+
+
 def _get_openai_compatible_config():
     base_url = (
         os.environ.get("OPENAI_BASE_URL")
@@ -1479,11 +1490,20 @@ def _get_openai_compatible_config():
     api_key = os.environ.get("OPENAI_API_KEY")
     if not base_url or not api_key:
         return None
-    primary_model = os.environ.get("OPENAI_MODEL") or os.environ.get("OPENAI_COMPATIBLE_MODEL") or "gpt-5.5"
+    primary_model = (
+        os.environ.get("OPENAI_MODEL")
+        or os.environ.get("OPENAI_COMPATIBLE_MODEL")
+        or "deepseek-v4-flash-0731"
+    )
     candidate_text = os.environ.get("OPENAI_MODEL_CANDIDATES") or ""
     models = []
     for candidate in [primary_model, *re.split(r"[;,]", candidate_text)]:
         normalized = str(candidate or "").strip()
+        if normalized:
+            normalized = require_non_gpt_analysis_model(
+                normalized,
+                setting="OPENAI_MODEL/OPENAI_MODEL_CANDIDATES",
+            )
         if normalized and normalized not in models:
             models.append(normalized)
     config = {
@@ -1788,12 +1808,21 @@ def preflight_llm_backend(timeout=15.0, *, check_chat=False):
     return result
 
 
-def chat_with_glm(content):
+def chat_with_glm(content, *, model=None):
     """
     Send content to the configured LLM backend and return response.
     """
     openai_config = _get_openai_compatible_config()
     if openai_config:
+        requested_model = str(model or "").strip()
+        if requested_model:
+            requested_model = require_non_gpt_analysis_model(
+                requested_model,
+                setting="explicit analysis model",
+            )
+            openai_config = dict(openai_config)
+            openai_config["model"] = requested_model
+            openai_config["models"] = [requested_model]
         print(f"DEBUG: Sending request to OpenAI-compatible backend (model={openai_config['model']})...")
         result = _chat_with_openai_compatible(content, openai_config)
         print(f"DEBUG: OpenAI-compatible response received (len={len(result)}).")
@@ -1802,6 +1831,10 @@ def chat_with_glm(content):
             raise LLMBackendUnavailableError("LLM backend unavailable: OpenAI-compatible backend returned empty response")
         return stripped
 
+    if model:
+        raise LLMBackendUnavailableError(
+            "LLM backend unavailable: explicit model routing requires the OpenAI-compatible backend"
+        )
     service = AIService()
     print("DEBUG: Sending request to GLM-4.7...")
     result = service.get_response(content)

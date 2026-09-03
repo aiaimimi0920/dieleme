@@ -238,6 +238,38 @@ class FapaiSeedItem(Base, TimestampMixin):
     selected_json_path: Mapped[str | None] = mapped_column(Text)
 
 
+class FapaiAnalysisRun(Base, TimestampMixin):
+    __tablename__ = "fapai_analysis_run"
+
+    run_id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    item_id: Mapped[str] = mapped_column(
+        String(64),
+        ForeignKey("fapai_seed_item.item_id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    pipeline_version: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    input_sha256: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    mode: Mapped[str] = mapped_column(String(16), nullable=False, index=True)
+    status: Mapped[str] = mapped_column(String(32), nullable=False, index=True)
+    candidate_models: Mapped[list | None] = mapped_column(JSON)
+    arbiter_model: Mapped[str | None] = mapped_column(String(128))
+    arbiter_independent_model: Mapped[bool | None] = mapped_column(Boolean)
+    artifact_paths: Mapped[dict | None] = mapped_column(JSON)
+    receipt: Mapped[dict | None] = mapped_column(JSON)
+    error: Mapped[str | None] = mapped_column(Text)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=False), index=True)
+
+    __table_args__ = (
+        UniqueConstraint(
+            "item_id",
+            "pipeline_version",
+            "input_sha256",
+            name="uq_fapai_analysis_run_item_version_input",
+        ),
+    )
+
+
 class FapaiSeedOccurrence(Base):
     __tablename__ = "fapai_seed_occurrence"
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 import ctypes
 import json
 import sys
+import types
 
 from src import captcha_solver
 
@@ -116,7 +117,11 @@ def test_connect_tab_prioritizes_request_target_url(monkeypatch) -> None:
 
     assert solver.connect_tab() is True
     assert connected_urls == ["ws://target"]
-    assert sent_methods[:3] == ["DOM.enable", "Runtime.enable", "Page.enable"]
+    assert "DOM.enable" not in sent_methods
+    assert "Runtime.enable" not in sent_methods
+    assert "Page.enable" not in sent_methods
+    assert "Page.addScriptToEvaluateOnNewDocument" in sent_methods
+    assert "Runtime.evaluate" in sent_methods
 
 
 def test_connect_tab_matches_requested_target_url_after_query_normalization(monkeypatch) -> None:
@@ -339,10 +344,11 @@ def test_open_target_tab_encodes_nested_query_delimiters(monkeypatch) -> None:
 
 def test_open_target_tab_collapses_duplicate_http_path_slashes(monkeypatch) -> None:
     requested_urls: list[str] = []
+    prepared_urls: list[str] = []
 
     class FakeResponse:
         def json(self) -> dict[str, str]:
-            return {"id": "target-1"}
+            return {"id": "target-1", "url": "about:blank", "webSocketDebuggerUrl": "ws://target-1"}
 
     monkeypatch.setattr(
         captcha_solver.requests,
@@ -354,12 +360,50 @@ def test_open_target_tab_collapses_duplicate_http_path_slashes(monkeypatch) -> N
         target_url="https://sf-item.taobao.com//sf_item/664322499931.htm?source=test",
         cdp_endpoint="http://host.docker.internal:9223",
     )
+    solver._prepare_opened_target_before_navigation = (
+        lambda payload, target_url: prepared_urls.append(target_url)
+        or payload.__setitem__("url", target_url)
+        or True
+    )
 
-    assert solver._open_target_tab() == {"id": "target-1"}
+    assert solver._open_target_tab() == {
+        "id": "target-1",
+        "url": "https://sf-item.taobao.com/sf_item/664322499931.htm?source=test",
+        "webSocketDebuggerUrl": "ws://target-1",
+    }
     assert requested_urls == [
-        "http://host.docker.internal:9223/json/new?"
-        "https://sf-item.taobao.com/sf_item/664322499931.htm%3Fsource%3Dtest"
+        "http://host.docker.internal:9223/json/new?about:blank"
     ]
+    assert prepared_urls == [
+        "https://sf-item.taobao.com/sf_item/664322499931.htm?source=test"
+    ]
+
+
+def test_taobao_target_installs_identity_before_navigation(monkeypatch) -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    connected: list[tuple[str, str]] = []
+    commands: list[tuple[str, dict[str, object]]] = []
+    solver._connect_to_target = (
+        lambda target_ws, title: connected.append((target_ws, title)) or True
+    )
+    solver._send_cdp = (
+        lambda method, params=None: commands.append((method, params or {})) or {}
+    )
+    payload = {
+        "id": "target-1",
+        "url": "about:blank",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/target-1",
+    }
+    target_url = "https://sf-item.taobao.com/sf_item/664322499931.htm"
+
+    assert solver._prepare_opened_target_before_navigation(payload, target_url) is True
+
+    assert connected == [
+        ("ws://127.0.0.1:9223/devtools/page/target-1", "new solver target")
+    ]
+    assert commands == [("Page.navigate", {"url": target_url})]
+    assert payload["url"] == target_url
+    assert solver.current_target_url == target_url
 
 
 def test_compact_cdp_pages_keeps_browser_alive_at_threshold(monkeypatch) -> None:
@@ -824,6 +868,49 @@ def test_connect_tab_keeps_other_collection_scope_challenge_open() -> None:
     assert connected == ["ws://127.0.0.1:9223/devtools/page/detail-slider"]
 
 
+def test_connect_tab_prefers_exact_detail_route_over_cached_scope_target() -> None:
+    target_url = "https://sf-item.taobao.com/sf_item/783241065461.htm?__captcha_solver_bg=1"
+    solver = captcha_solver.CaptchaSolver(port=9223, target_url=target_url)
+    solver.target_id = "stale-detail"
+    stale = {
+        "id": "stale-detail",
+        "type": "page",
+        "title": "CAPTCHA Verification",
+        "url": "https://sf-item.taobao.com/sf_item/798660177183.htm/_____tmd_____/punish",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/stale-detail",
+    }
+    requested = {
+        "id": "requested-detail",
+        "type": "page",
+        "title": "CAPTCHA Verification",
+        "url": "https://sf-item.taobao.com/sf_item/783241065461.htm/_____tmd_____/punish",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/requested-detail",
+    }
+    seed = {
+        "id": "seed-challenge",
+        "type": "page",
+        "title": "CAPTCHA Verification",
+        "url": "https://sf.taobao.com/list/50025969__2.htm/_____tmd_____/punish",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/page/seed-challenge",
+    }
+    list_calls = 0
+
+    def fake_get_json(_endpoint):
+        nonlocal list_calls
+        list_calls += 1
+        return [stale, requested, seed] if list_calls == 1 else [requested, seed]
+
+    closed: list[str] = []
+    connected: list[str] = []
+    solver._get_json = fake_get_json
+    solver._close_cdp_target = lambda target_id: closed.append(target_id) or True
+    solver._connect_to_target = lambda target_ws, _title: connected.append(target_ws) or True
+
+    assert solver.connect_tab() is True
+    assert closed == ["stale-detail"]
+    assert connected == ["ws://127.0.0.1:9223/devtools/page/requested-detail"]
+
+
 def test_connect_tab_prunes_title_only_challenge_duplicates_and_refreshes_tabs() -> None:
     target_url = "https://sf.taobao.com/list/50025969__2.htm?page=7&__captcha_solver_bg=1"
     solver = captcha_solver.CaptchaSolver(port=9223, target_url=target_url)
@@ -1104,6 +1191,63 @@ def test_target_websocket_connection_has_a_bounded_bootstrap_timeout(monkeypatch
     assert fake_websocket.timeout == 5
 
 
+def test_target_connection_applies_windows_identity_to_the_current_challenge(monkeypatch) -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    sent: list[tuple[str, dict[str, object]]] = []
+
+    class FakeWebSocket:
+        timeout = None
+
+        def settimeout(self, value: float) -> None:
+            self.timeout = value
+
+        def close(self) -> None:
+            return None
+
+    monkeypatch.setenv(
+        "FAPAI_BROWSER_USER_AGENT",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/151.0.0.0 Safari/537.36",
+    )
+    monkeypatch.setenv("FAPAI_BROWSER_IDENTITY_FULL_VERSION", "151.0.7922.174")
+    monkeypatch.setattr(
+        captcha_solver.websocket,
+        "create_connection",
+        lambda *_args, **_kwargs: FakeWebSocket(),
+    )
+
+    def fake_send(method: str, params: dict[str, object] | None = None):
+        sent.append((method, params or {}))
+        return {}
+
+    monkeypatch.setattr(solver, "_send_cdp", fake_send)
+
+    assert solver._connect_to_target(
+        "ws://127.0.0.1:9223/devtools/page/test",
+        "CAPTCHA Verification",
+    ) is True
+
+    methods = [method for method, _params in sent]
+    assert methods.index("Emulation.setUserAgentOverride") < methods.index(
+        "Page.addScriptToEvaluateOnNewDocument"
+    )
+    identity = next(params for method, params in sent if method == "Emulation.setUserAgentOverride")
+    assert identity["platform"] == "Win32"
+    assert identity["userAgentMetadata"]["platform"] == "Windows"
+    stealth = next(
+        params["source"]
+        for method, params in sent
+        if method == "Page.addScriptToEvaluateOnNewDocument"
+    )
+    assert "'platform', 'Win32'" in stealth
+    assert "'language', 'zh-CN'" in stealth
+    assert "'webdriver', false" in stealth
+    assert "'languages', ['zh-CN', 'zh']" in stealth
+    assert ("Emulation.setTimezoneOverride", {"timezoneId": "Asia/Shanghai"}) in sent
+    assert ("Emulation.setLocaleOverride", {"locale": "zh-CN"}) in sent
+
+
 def test_preflight_propagates_manual_required_from_failed_punish_connection() -> None:
     solver = captcha_solver.CaptchaSolver(port=9223)
 
@@ -1187,7 +1331,11 @@ def test_connect_tab_reuses_existing_login_target_and_bootstraps_websocket(monke
 
     assert solver.connect_tab() is True
     assert connected_urls == ["ws://localhost:9223/devtools/page/login-target"]
-    assert sent_methods[:3] == ["DOM.enable", "Runtime.enable", "Page.enable"]
+    assert "DOM.enable" not in sent_methods
+    assert "Runtime.enable" not in sent_methods
+    assert "Page.enable" not in sent_methods
+    assert "Page.addScriptToEvaluateOnNewDocument" in sent_methods
+    assert "Runtime.evaluate" in sent_methods
     assert solver.last_failure_reason is None
 
 
@@ -1447,6 +1595,18 @@ def test_solver_skips_headed_playwright_branches_without_display(monkeypatch) ->
     assert "playwright_stealth" not in calls
     assert "userscript" not in calls
     assert calls == ["cdp"]
+
+
+def test_headed_playwright_fallback_requires_explicit_opt_in(monkeypatch) -> None:
+    monkeypatch.setenv("DISPLAY", ":99")
+    monkeypatch.delenv("FAPAI_SOLVER_ENABLE_HEADED_PLAYWRIGHT", raising=False)
+    solver = captcha_solver.CaptchaSolver(port=9223)
+
+    assert solver._headed_playwright_enabled() is False
+
+    monkeypatch.setenv("FAPAI_SOLVER_ENABLE_HEADED_PLAYWRIGHT", "1")
+
+    assert solver._headed_playwright_enabled() is True
 
 
 def test_preflight_marks_normal_auction_page_as_already_authenticated() -> None:
@@ -2755,6 +2915,40 @@ def test_live_solve_uses_os_mouse_when_enabled(monkeypatch) -> None:
     assert calls == ["os"]
 
 
+def test_live_solve_does_not_fall_back_to_cdp_after_unverified_screen_mapping(monkeypatch) -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223, target_url="https://sf.taobao.com/list/1.htm")
+    calls = {"os": 0, "cdp": 0, "reload": 0}
+    solver._preflight_current_challenge = lambda: {
+        "connected": True,
+        "manual_required": False,
+        "has_slider": True,
+        "already_authenticated": False,
+    }
+    solver._os_mouse_enabled = lambda: True
+    solver._bring_to_front = lambda: True
+    solver._find_slider = lambda: {
+        "x": 100, "y": 100, "width": 40, "height": 40,
+        "selector": "#nc_1_n1z", "context": "main",
+    }
+    solver._get_track_width = lambda: 300
+    solver._get_track_rect = lambda: None
+
+    def fail_os_drag(_x, _y, _distance, **_kwargs):
+        calls["os"] += 1
+        solver.last_failure_reason = "screen_mapping_unverified"
+        return None
+
+    solver._do_drag_os = fail_os_drag
+    solver._do_drag = lambda *_args: calls.__setitem__("cdp", calls["cdp"] + 1)
+    solver._reload_page = lambda: calls.__setitem__("reload", calls["reload"] + 1)
+    solver._recover_authenticated_list_page = lambda: False
+    solver._close_owned_target_tabs = lambda: None
+    monkeypatch.setattr(captcha_solver.time, "sleep", lambda _seconds: None)
+
+    assert solver.solve(max_attempts=1) is False
+    assert calls == {"os": 1, "cdp": 0, "reload": 1}
+
+
 def test_wait_for_verification_success_accepts_authenticated_auction_page(monkeypatch) -> None:
     solver = captcha_solver.CaptchaSolver(port=9223, target_url="https://sf.taobao.com/list/1.htm")
     solver._verify_success = lambda: False
@@ -2988,7 +3182,8 @@ def test_map_css_to_screen_rejects_implausible_screenshot_after_target_activatio
     assert mapped["activation_verified"] is True
 
 
-def test_map_css_to_screen_bounds_template_search_around_expected_slider() -> None:
+def test_map_css_to_screen_bounds_template_search_around_expected_slider(monkeypatch) -> None:
+    monkeypatch.setattr(captcha_solver.os, "name", "nt")
     solver = captcha_solver.CaptchaSolver(port=9223)
     solver._target_activation_verified = True
     solver._css_to_client_screen = lambda *_args: {
@@ -3018,6 +3213,268 @@ def test_map_css_to_screen_bounds_template_search_around_expected_slider() -> No
     assert mapped["x"] == 592.0
     assert mapped["y"] == 596.0
     assert mapped["activation_verified"] is True
+
+
+def test_linux_map_requires_screenshot_match_for_slider(monkeypatch) -> None:
+    monkeypatch.setattr(captcha_solver.os, "name", "posix")
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._target_activation_verified = True
+    solver._css_to_client_screen = lambda *_args: {
+        "x": 592.0,
+        "y": 596.0,
+        "distance": 256.0,
+        "source": "dpr_fallback",
+    }
+    solver._css_to_cdp_window_screen = lambda *_args: None
+    solver._css_to_x11_window_screen = lambda *_args: None
+    solver._viewport_origin_on_screen = lambda *_args, **_kwargs: None
+
+    assert solver._map_css_to_screen(
+        588,
+        468,
+        256,
+        slider_info={"x": 567.5, "y": 453.0, "width": 42.0, "height": 30.0},
+    ) is None
+    assert solver.last_failure_reason == "screen_mapping_unverified"
+
+
+def test_linux_x11_mapping_matches_the_exact_cdp_window(monkeypatch) -> None:
+    monkeypatch.setattr(captcha_solver.os, "name", "posix")
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._target_activation_verified = True
+    solver._linux_window_id = "101"
+    solver._linux_window_geometry = lambda: {
+        "x": 0.0,
+        "y": 22.0,
+        "width": 1440.0,
+        "height": 900.0,
+    }
+    solver._linux_window_frame_extents = lambda: {
+        "left": 16.0,
+        "right": 16.0,
+        "top": 10.0,
+        "bottom": 32.0,
+    }
+    solver._window_metrics = lambda: {
+        "innerWidth": 1408,
+        "innerHeight": 715,
+        "outerWidth": 1440,
+        "outerHeight": 900,
+        "dpr": 1,
+    }
+    solver._browser_window_bounds = lambda: {
+        "left": 0,
+        "top": 22,
+        "width": 1440,
+        "height": 900,
+    }
+
+    mapped = solver._css_to_x11_window_screen(588, 468, 256)
+
+    assert mapped is not None
+    assert mapped["source"] == "x11_window_geometry"
+    assert mapped["x"] == 604.0
+    assert mapped["y"] == 643.0
+    assert mapped["distance"] == 256.0
+    assert mapped["frame_bottom"] == 32.0
+
+
+def test_linux_x11_mapping_falls_back_when_frame_extents_are_unavailable(monkeypatch) -> None:
+    monkeypatch.setattr(captcha_solver.os, "name", "posix")
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._target_activation_verified = True
+    solver._linux_window_id = "101"
+    solver._linux_window_geometry = lambda: {
+        "x": 0.0,
+        "y": 22.0,
+        "width": 1440.0,
+        "height": 900.0,
+    }
+    solver._linux_window_frame_extents = lambda: None
+    solver._window_metrics = lambda: {
+        "innerWidth": 1408,
+        "innerHeight": 715,
+        "outerWidth": 1440,
+        "outerHeight": 900,
+        "dpr": 1,
+    }
+    solver._browser_window_bounds = lambda: {
+        "left": 0,
+        "top": 22,
+        "width": 1440,
+        "height": 900,
+    }
+
+    mapped = solver._css_to_x11_window_screen(588, 468, 256)
+
+    assert mapped is not None
+    assert mapped["y"] == 675.0
+    assert mapped["frame_bottom"] == 0.0
+
+
+def test_linux_map_accepts_verified_x11_geometry_when_gpu_screenshot_is_opaque(monkeypatch) -> None:
+    monkeypatch.setattr(captcha_solver.os, "name", "posix")
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._target_activation_verified = True
+    solver._css_to_client_screen = lambda *_args: {
+        "x": 592.0,
+        "y": 596.0,
+        "distance": 256.0,
+        "source": "dpr_fallback",
+    }
+    solver._css_to_cdp_window_screen = lambda *_args: None
+    solver._css_to_x11_window_screen = lambda *_args: {
+        "x": 604.0,
+        "y": 675.0,
+        "distance": 256.0,
+        "source": "x11_window_geometry",
+        "region": (0, 22, 1440, 900),
+    }
+    solver._viewport_origin_on_screen = lambda *_args, **_kwargs: (_ for _ in ()).throw(
+        AssertionError("opaque GPU screenshots must not be required")
+    )
+
+    mapped = solver._map_css_to_screen(
+        588,
+        468,
+        256,
+        slider_info={"x": 567.5, "y": 453.0, "width": 42.0, "height": 30.0},
+    )
+
+    assert mapped is not None
+    assert mapped["source"] == "x11_window_geometry"
+    assert mapped["located"] is True
+    assert mapped["activation_verified"] is True
+
+
+def test_linux_map_trusts_nearby_screenshot_over_dpr_fallback(monkeypatch) -> None:
+    monkeypatch.setattr(captcha_solver.os, "name", "posix")
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._target_activation_verified = True
+    solver._css_to_client_screen = lambda *_args: {
+        "x": 592.0,
+        "y": 596.0,
+        "distance": 256.0,
+        "source": "dpr_fallback",
+    }
+    solver._css_to_cdp_window_screen = lambda *_args: None
+    solver._viewport_origin_on_screen = lambda *_args, **_kwargs: {
+        "left": 569.5,
+        "top": 577.0,
+        "width": 304.0,
+        "height": 38.0,
+        "clipped": True,
+        "clip_x": 565.5,
+        "clip_y": 449.0,
+        "clip_w": 304.0,
+        "clip_h": 38.0,
+    }
+
+    mapped = solver._map_css_to_screen(
+        588,
+        468,
+        256,
+        slider_info={"x": 567.5, "y": 453.0, "width": 42.0, "height": 30.0},
+    )
+
+    assert mapped["source"] == "screenshot_handle"
+    assert mapped["x"] == 592.0
+    assert mapped["y"] == 596.0
+    assert mapped["located"] is True
+
+
+def test_linux_map_rechecks_full_viewport_after_far_clipped_match(monkeypatch) -> None:
+    monkeypatch.setattr(captcha_solver.os, "name", "posix")
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._target_activation_verified = True
+    solver._css_to_client_screen = lambda *_args: {
+        "x": 592.0,
+        "y": 596.0,
+        "distance": 256.0,
+        "source": "dpr_fallback",
+    }
+    solver._css_to_cdp_window_screen = lambda *_args: None
+    calls: list[object] = []
+
+    def locate(slider_info, **_kwargs):
+        calls.append(slider_info)
+        if slider_info is not None:
+            return {
+                "left": 4.0,
+                "top": 124.0,
+                "width": 304.0,
+                "height": 38.0,
+                "clipped": True,
+                "clip_x": 565.5,
+                "clip_y": 449.0,
+                "clip_w": 304.0,
+                "clip_h": 38.0,
+            }
+        return {
+            "left": 4.0,
+            "top": 124.0,
+            "width": 1431.0,
+            "height": 752.0,
+            "clipped": False,
+            "clip_x": 0.0,
+            "clip_y": 0.0,
+            "clip_w": 1431.0,
+            "clip_h": 752.0,
+        }
+
+    solver._viewport_origin_on_screen = locate
+
+    mapped = solver._map_css_to_screen(
+        588,
+        468,
+        256,
+        slider_info={"x": 567.5, "y": 453.0, "width": 42.0, "height": 30.0},
+    )
+
+    assert calls[0] is not None
+    assert calls[1] is None
+    assert mapped["source"] == "screenshot_viewport"
+    assert mapped["x"] == 592.0
+    assert mapped["y"] == 592.0
+    assert mapped["located"] is True
+
+
+def test_linux_map_rejects_far_clipped_match_without_viewport_confirmation(monkeypatch) -> None:
+    monkeypatch.setattr(captcha_solver.os, "name", "posix")
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._target_activation_verified = True
+    solver._css_to_client_screen = lambda *_args: {
+        "x": 592.0,
+        "y": 596.0,
+        "distance": 256.0,
+        "source": "dpr_fallback",
+    }
+    solver._css_to_cdp_window_screen = lambda *_args: None
+
+    def locate(slider_info, **_kwargs):
+        if slider_info is None:
+            return None
+        return {
+            "left": 4.0,
+            "top": 124.0,
+            "width": 304.0,
+            "height": 38.0,
+            "clipped": True,
+            "clip_x": 565.5,
+            "clip_y": 449.0,
+            "clip_w": 304.0,
+            "clip_h": 38.0,
+        }
+
+    solver._viewport_origin_on_screen = locate
+
+    assert solver._map_css_to_screen(
+        588,
+        468,
+        256,
+        slider_info={"x": 567.5, "y": 453.0, "width": 42.0, "height": 30.0},
+    ) is None
+    assert solver.last_failure_reason == "screen_mapping_unverified"
 
 
 def test_prune_challenge_tabs_keeps_only_requested_target_route() -> None:
@@ -3151,8 +3608,69 @@ def test_native_os_input_requires_explicit_opt_in(monkeypatch) -> None:
     assert solver._native_os_input_enabled() is True
 
 
+def test_linux_uinput_requires_explicit_opt_in(monkeypatch) -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    monkeypatch.setattr(captcha_solver.os, "name", "posix")
+    monkeypatch.delenv("FAPAI_SOLVER_OS_INPUT_BACKEND", raising=False)
+
+    assert solver._uinput_os_input_enabled() is False
+
+    monkeypatch.setenv("FAPAI_SOLVER_OS_INPUT_BACKEND", "uinput")
+    assert solver._uinput_os_input_enabled() is True
+
+
+def test_uinput_moves_with_cursor_feedback_and_emits_button_events(monkeypatch) -> None:
+    class Codes:
+        EV_REL = 2
+        EV_KEY = 1
+        REL_X = 0
+        REL_Y = 1
+        BTN_LEFT = 272
+
+    class FakePyAutoGUI:
+        x = 0.0
+        y = 0.0
+
+        def position(self):
+            return (self.x, self.y)
+
+    class FakeHandle:
+        def __init__(self, mouse):
+            self.mouse = mouse
+            self.events = []
+
+        def write(self, event_type, code, value):
+            self.events.append((event_type, code, value))
+            if event_type == Codes.EV_REL and code == Codes.REL_X:
+                self.mouse.x += value * 0.25
+            if event_type == Codes.EV_REL and code == Codes.REL_Y:
+                self.mouse.y += value * 0.25
+
+        def syn(self):
+            self.events.append(("syn",))
+
+    monkeypatch.setattr(captcha_solver.os, "name", "posix")
+    monkeypatch.setenv("FAPAI_SOLVER_OS_INPUT_BACKEND", "uinput")
+    monkeypatch.setattr(captcha_solver.time, "sleep", lambda _seconds: None)
+    mouse = FakePyAutoGUI()
+    handle = FakeHandle(mouse)
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._uinput_handle = handle
+    solver._uinput_ecodes = Codes
+
+    solver._move_uinput_cursor_to(mouse, 200.0, 100.0)
+    solver._set_os_left_button(mouse, down=True)
+    solver._set_os_left_button(mouse, down=False)
+
+    assert abs(mouse.x - 200.0) <= 1.25
+    assert abs(mouse.y - 100.0) <= 1.25
+    assert (Codes.EV_KEY, Codes.BTN_LEFT, 1) in handle.events
+    assert (Codes.EV_KEY, Codes.BTN_LEFT, 0) in handle.events
+
+
 def test_linux_window_focus_activates_visible_chromium(monkeypatch) -> None:
     calls: list[tuple[str, ...]] = []
+    activations: list[bool] = []
 
     class Result:
         def __init__(self, *, stdout="", returncode=0):
@@ -3167,10 +3685,37 @@ def test_linux_window_focus_activates_visible_chromium(monkeypatch) -> None:
 
     solver = captcha_solver.CaptchaSolver(port=9223)
     monkeypatch.setenv("DISPLAY", ":99")
-    monkeypatch.setattr(solver, "_bring_to_front", lambda: True)
+    monkeypatch.setattr(solver, "_activate_target_tab", lambda: activations.append(True) or True)
+    monkeypatch.setattr(captcha_solver.time, "sleep", lambda _seconds: None)
     monkeypatch.setattr(captcha_solver.subprocess, "run", fake_run)
 
     assert solver._focus_linux_window() is True
+    assert ("xdotool", "windowactivate", "--sync", "101") in calls
+    assert activations == [True, True]
+    assert solver._linux_window_id == "101"
+
+
+def test_linux_window_focus_fails_when_exact_target_cannot_be_reactivated(monkeypatch) -> None:
+    calls: list[tuple[str, ...]] = []
+
+    class Result:
+        def __init__(self, *, stdout="", returncode=0):
+            self.stdout = stdout
+            self.returncode = returncode
+
+    def fake_run(command, **_kwargs):
+        calls.append(tuple(command))
+        if command[1] == "search":
+            return Result(stdout="101\n" if command[-1] == "chromium" else "")
+        return Result()
+
+    activations = iter((True, False))
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    monkeypatch.setenv("DISPLAY", ":99")
+    monkeypatch.setattr(solver, "_activate_target_tab", lambda: next(activations))
+    monkeypatch.setattr(captcha_solver.subprocess, "run", fake_run)
+
+    assert solver._focus_linux_window() is False
     assert ("xdotool", "windowactivate", "--sync", "101") in calls
 
 
@@ -3321,12 +3866,103 @@ def test_os_drag_skips_unverified_slider_screen_mapping(monkeypatch) -> None:
     assert len(map_calls) == 3
 
 
+def test_os_drag_rejects_x11_mapping_when_cursor_does_not_reach_slider(monkeypatch) -> None:
+    class FakePyAutoGUI:
+        FAILSAFE = True
+        PAUSE = 0
+
+        @staticmethod
+        def position():
+            return (0.0, 0.0)
+
+        @staticmethod
+        def moveTo(_x, _y, duration=0):
+            return None
+
+        def __getattr__(self, name):
+            raise AssertionError(f"unexpected pyautogui call: {name}")
+
+    monkeypatch.setattr(captcha_solver.os, "name", "posix")
+    monkeypatch.setitem(sys.modules, "pyautogui", FakePyAutoGUI())
+    monkeypatch.setattr(captcha_solver.time, "sleep", lambda _seconds: None)
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._focus_os_window = lambda: True
+    solver._map_css_to_screen = lambda *_args, **_kwargs: {
+        "x": 100.0,
+        "y": 50.0,
+        "distance": 260.0,
+        "source": "x11_window_geometry",
+        "located": True,
+        "clipped": False,
+    }
+    solver._os_drag_profile = lambda _index=0: {
+        "name": "test",
+        "pre_pause": (0, 0),
+        "press_hold": (0, 0),
+        "approach_duration": (0, 0),
+        "start_duration": (0, 0),
+    }
+
+    assert solver._do_drag_os(100, 50, 260, slider_info={"x": 80, "y": 35}) is None
+    assert solver.last_failure_reason == "os_cursor_position_unverified"
+
+
 def test_clamp_search_region_trims_negative_region_to_screen() -> None:
     solver = captcha_solver.CaptchaSolver(port=9223)
 
     clamped = solver._clamp_search_region((-65, 212, 2177, 1437), (3840, 2160))
 
     assert clamped == (0, 212, 2112, 1437)
+
+
+def test_viewport_origin_retries_full_screen_after_regional_locate_miss(monkeypatch) -> None:
+    calls: list[dict[str, object]] = []
+
+    class Box:
+        left = 111
+        top = 222
+        width = 304
+        height = 38
+
+    class FakePyAutoGUI:
+        @staticmethod
+        def size():
+            return (1280, 720)
+
+        @staticmethod
+        def locateOnScreen(_path, **kwargs):
+            calls.append(dict(kwargs))
+            if "region" in kwargs:
+                if "confidence" in kwargs:
+                    return None
+                raise ValueError("needle exceeds haystack")
+            return Box()
+
+    class FakeImage:
+        @staticmethod
+        def open(_stream):
+            return types.SimpleNamespace(size=(304, 38))
+
+    fake_pil = types.ModuleType("PIL")
+    fake_pil.Image = FakeImage
+    monkeypatch.setitem(sys.modules, "pyautogui", FakePyAutoGUI())
+    monkeypatch.setitem(sys.modules, "PIL", fake_pil)
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    solver._send_cdp = lambda *_args, **_kwargs: {"data": "ZmFrZQ=="}
+
+    located = solver._viewport_origin_on_screen(
+        {"x": 567.5, "y": 453.0, "width": 42.0, "height": 30.0, "track_width": 300.0},
+        search_region=(500, 500, 100, 100),
+        drag_distance=256,
+    )
+
+    assert located["left"] == 111.0
+    assert located["top"] == 222.0
+    assert [call.get("region") for call in calls] == [
+        (500, 500, 100, 100),
+        (500, 500, 100, 100),
+        None,
+    ]
 
 
 def test_os_drag_track_produces_monotonic_eased_steps(monkeypatch) -> None:
@@ -3337,23 +3973,22 @@ def test_os_drag_track_produces_monotonic_eased_steps(monkeypatch) -> None:
     fracs, dwells = solver._os_drag_track(320, profile)
 
     assert len(fracs) == len(dwells)
-    assert len(fracs) >= 32
+    assert len(fracs) >= profile["steps"][0]
     assert fracs[0] > 0
     assert fracs[-1] == 1.0
     assert all(left < right for left, right in zip(fracs, fracs[1:]))
     assert all(0.006 <= dwell <= 0.09 for dwell in dwells)
 
 
-def test_os_drag_release_plan_releases_beyond_target(monkeypatch) -> None:
+def test_os_drag_release_plan_releases_at_target(monkeypatch) -> None:
     solver = captcha_solver.CaptchaSolver(port=9223)
     monkeypatch.setattr(captcha_solver.random, "uniform", lambda start, end: (start + end) / 2)
     profile = solver._os_drag_profile()
 
     peak_x, settle_xs, release_x = solver._os_drag_release_plan(100.0, 300.0, profile)
 
-    assert peak_x > 400.0
-    assert release_x > 400.0
-    assert release_x < peak_x
+    assert 400.0 <= peak_x <= 401.2
+    assert release_x == 400.0
     assert settle_xs
     assert settle_xs[-1] == release_x
     assert all(left >= right for left, right in zip(settle_xs, settle_xs[1:]))
@@ -3366,9 +4001,12 @@ def test_os_drag_profile_switches_variants_by_index() -> None:
     second = solver._os_drag_profile(1)
     third = solver._os_drag_profile(2)
 
-    assert first["name"] == "overshoot_release"
+    assert first["name"] == "fast_exact_v3"
     assert second["name"] == "legacy_exact_release"
-    assert third["name"] == "dense_slow_tail"
+    assert third["name"] == "dense_exact_release"
+    assert first["release_mode"] == "exact_release"
+    assert first["total_time"] == (0.4, 0.65)
+    assert first["release_overshoot"] == (0.0, 0.0)
     assert second["release_mode"] == "exact_release"
     assert second["warmup_steps"] == (2, 3)
 
@@ -3381,9 +4019,8 @@ def test_os_drag_warmup_points_respect_profile(monkeypatch) -> None:
 
     points = solver._os_drag_warmup_points(100.0, 200.0, profile)
 
-    assert len(points) == 2
-    assert points[0][0] > 100.0
-    assert points[-1][0] > points[0][0]
+    assert len(points) == 1
+    assert points[0][0] == 102.0
 
 
 def test_nc_retry_click_candidates_prioritize_retry_text_then_widget() -> None:
@@ -3417,3 +4054,24 @@ def test_reset_failed_nc_challenge_tries_multiple_click_points_until_slider_retu
 
     assert solver._reset_failed_nc_challenge() is True
     assert len(clicks) == 2
+
+
+def test_nc_retry_outcome_waits_for_three_stable_slider_samples(monkeypatch) -> None:
+    solver = captcha_solver.CaptchaSolver(port=9223)
+    slider_calls = 0
+
+    solver._refresh_challenge_summary = lambda _summary: {}
+
+    def find_slider(**_kwargs):
+        nonlocal slider_calls
+        slider_calls += 1
+        x = 100.0 if slider_calls == 1 else 101.0
+        return {"x": x, "y": 200.0, "width": 42.0, "height": 30.0}
+
+    solver._find_slider = find_slider
+    monkeypatch.setattr(captcha_solver.time, "sleep", lambda _seconds: None)
+
+    outcome = solver._nc_retry_outcome(timeout_seconds=1.0)
+
+    assert outcome["slider"]["x"] == 101.0
+    assert slider_calls == 4

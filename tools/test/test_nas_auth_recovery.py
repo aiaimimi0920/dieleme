@@ -133,6 +133,137 @@ def test_timeout_enters_cooldown_and_does_not_immediately_retrigger(tmp_path):
     assert retriggered["active"]["status"] == "requested"
 
 
+def test_exhausted_solver_signal_retries_failed_recovery_after_signal_stall(tmp_path):
+    coordinator = _coordinator(
+        tmp_path,
+        pc1_timeout_seconds=10,
+        cooldown_seconds=1800,
+    )
+    coordinator.sample(7, 3, now=10)
+    assert coordinator.sample(7, 3, now=1811)["active"]["status"] == "requested"
+
+    failed = coordinator.sample(7, 3, now=1822)
+    assert failed["last_result"]["status"] == "failed"
+    assert failed["cooldown_until_epoch"] == 3622
+
+    still_cooling = coordinator.sample(
+        7,
+        3,
+        recovery_signal="node_solver_retries_exhausted",
+        recovery_signal_stall_seconds=300,
+        now=2121,
+    )
+    assert still_cooling["active"] is None
+
+    retried = coordinator.sample(
+        7,
+        3,
+        recovery_signal="node_solver_retries_exhausted",
+        recovery_signal_stall_seconds=300,
+        now=2122,
+    )
+    assert retried["active"]["status"] == "requested"
+    assert retried["active"]["trigger_reason"] == "node_solver_retries_exhausted"
+
+
+def test_stalled_detail_signal_retries_failed_recovery_after_signal_stall(tmp_path):
+    coordinator = _coordinator(
+        tmp_path,
+        pc1_timeout_seconds=10,
+        cooldown_seconds=1800,
+    )
+    coordinator.sample(7, 3, now=10)
+    assert coordinator.sample(7, 3, now=1811)["active"]["status"] == "requested"
+    failed = coordinator.sample(7, 3, now=1822)
+    assert failed["last_result"]["status"] == "failed"
+
+    still_cooling = coordinator.sample(
+        7,
+        3,
+        recovery_signal="detail_challenge_stalled",
+        recovery_signal_stall_seconds=300,
+        now=2121,
+    )
+    assert still_cooling["active"] is None
+
+    retried = coordinator.sample(
+        7,
+        3,
+        recovery_signal="detail_challenge_stalled",
+        recovery_signal_stall_seconds=300,
+        now=2122,
+    )
+    assert retried["active"]["status"] == "requested"
+    assert retried["active"]["trigger_reason"] == "detail_challenge_stalled"
+
+
+def test_exhausted_solver_signal_does_not_bypass_cooldown_after_success(tmp_path):
+    coordinator = _coordinator(tmp_path, cooldown_seconds=1800)
+    coordinator.sample(7, 3, now=10)
+    active = coordinator.sample(7, 3, now=1811)["active"]
+    recovery_id = active["recovery_id"]
+    coordinator.claim("pc1", recovery_id, "pc1", now=1812)
+    coordinator.snapshot_ready(
+        recovery_id,
+        sha256="c" * 64,
+        cookie_count=2,
+        now=1813,
+    )
+    coordinator.claim("pc2", recovery_id, "pc2", now=1814)
+    coordinator.pc2_restarting(recovery_id, now=1815)
+    coordinator.result(recovery_id, success=True, now=1816)
+    succeeded = coordinator.sample(8, 3, now=1817)
+    assert succeeded["last_result"]["status"] == "succeeded"
+
+    still_cooling = coordinator.sample(
+        8,
+        3,
+        recovery_signal="node_solver_retries_exhausted",
+        recovery_signal_stall_seconds=300,
+        now=2117,
+    )
+    assert still_cooling["active"] is None
+
+
+def test_new_stalled_detail_challenge_bypasses_success_cooldown_only_after_progress(tmp_path):
+    coordinator = _coordinator(tmp_path, cooldown_seconds=1800)
+    coordinator.sample(7, 3, now=10)
+    active = coordinator.sample(7, 3, now=1811)["active"]
+    recovery_id = active["recovery_id"]
+    coordinator.claim("pc1", recovery_id, "pc1", now=1812)
+    coordinator.snapshot_ready(
+        recovery_id,
+        sha256="d" * 64,
+        cookie_count=2,
+        now=1813,
+    )
+    coordinator.claim("pc2", recovery_id, "pc2", now=1814)
+    coordinator.pc2_restarting(recovery_id, now=1815)
+    coordinator.result(recovery_id, success=True, now=1816)
+    succeeded = coordinator.sample(8, 3, now=1817)
+    assert succeeded["last_result"]["captured_count"] == 8
+
+    same_generation = coordinator.sample(
+        8,
+        3,
+        recovery_signal="detail_challenge_stalled",
+        recovery_signal_stall_seconds=300,
+        now=2117,
+    )
+    assert same_generation["active"] is None
+
+    coordinator.sample(9, 3, now=2118)
+    new_challenge = coordinator.sample(
+        9,
+        3,
+        recovery_signal="detail_challenge_stalled",
+        recovery_signal_stall_seconds=300,
+        now=2418,
+    )
+    assert new_challenge["active"]["status"] == "requested"
+    assert new_challenge["active"]["trigger_reason"] == "detail_challenge_stalled"
+
+
 def test_persisted_state_contains_metadata_but_no_cookie_values(tmp_path):
     coordinator = _coordinator(tmp_path)
     coordinator.sample(1, 1, now=1)

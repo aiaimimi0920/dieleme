@@ -4,7 +4,21 @@ from pathlib import Path
 import json
 
 
-_EXCLUDE_DIRS = {"node_modules", "dist", ".git", "__pycache__", "venv", ".debug", "output"}
+_EXCLUDE_DIRS = {
+    "node_modules",
+    "dist",
+    ".git",
+    "__pycache__",
+    "venv",
+    ".venv",
+    ".debug",
+    "output",
+    "target",
+    ".codex-temp",
+    ".memsearch",
+    ".playwright-cli",
+    "graphify-out",
+}
 _LOCAL_HTML_TEST_PREFIXES = ("mock_", "test_")
 
 

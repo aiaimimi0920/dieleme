@@ -66,6 +66,7 @@ def test_runtime_status_keeps_taobao_manual_only_after_challenge_memory_resets(m
     from src import server
 
     monkeypatch.delenv("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", raising=False)
+    monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(tmp_path / "missing.flag"))
     monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
     monkeypatch.setattr(server, "SOLVER_RUNNING", False)
@@ -92,6 +93,7 @@ def test_runtime_status_delegates_taobao_when_auto_solver_is_explicitly_enabled(
     from src import server
 
     monkeypatch.setenv("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", "1")
+    monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(tmp_path / "missing.flag"))
     monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
     monkeypatch.setattr(server, "SOLVER_RUNNING", False)
@@ -1437,6 +1439,47 @@ def test_resume_after_cooldown_only_clears_collection_auth_pause(monkeypatch, tm
     assert server.SOLVER_LAST_STATUS == "resumed_after_cooldown"
     assert not (tmp_path / "force_unlock.flag").exists()
     assert remembered_requests == [server.SOLVER_LAST_REQUEST]
+
+
+def test_resume_after_cooldown_preserves_reporting_node_for_challenge_grace(monkeypatch, tmp_path) -> None:
+    from src import server
+
+    monkeypatch.delenv("FAPAI_SOLVER_STATE_DIR", raising=False)
+    monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
+    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
+    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
+    monkeypatch.setattr(server, "PAUSED", True)
+    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    remembered_requests: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        server,
+        "_remember_solver_auth_completion",
+        lambda request: remembered_requests.append(dict(request)),
+    )
+    (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
+
+    payload = server._collection_observer_resume_after_cooldown_payload(
+        {
+            "source": "pc2_local_solver",
+            "resume_request_id": "pc2-resume-node-source",
+            "scope": "detail",
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9224",
+        }
+    )
+
+    assert payload["ok"] is True
+    assert remembered_requests == [
+        {
+            "node_id": "pc2",
+            "cdp_endpoint": "http://192.168.15.104:9224",
+            "scope": "detail",
+        }
+    ]
 
 
 def test_resume_after_cooldown_is_idempotent_for_same_request_id(monkeypatch, tmp_path) -> None:

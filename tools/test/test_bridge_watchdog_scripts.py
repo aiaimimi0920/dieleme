@@ -112,6 +112,19 @@ def test_solver_force_retry_monitor_manages_pid_file() -> None:
     assert "Remove-Item -Path $pidFile" in script
 
 
+def test_pc2_solver_launcher_uses_an_exclusive_lock_without_cim_process_scan() -> None:
+    script = _read_script(".codex-temp/bridge-control/start-pc2-local-solver.ps1")
+
+    assert "[IO.FileShare]::None" in script
+    assert "function Try-AcquireWorkerLock" in script
+    assert "FAPAI_SOLVER_COOLDOWN_FAIL_THRESHOLD' -DefaultValue '10'" in script
+    assert "FAPAI_SOLVER_COOLDOWN_SECONDS' -DefaultValue '180'" in script
+    assert "FAPAI_SLIDER_RETRY_INTERVAL_SECONDS' -DefaultValue '5'" in script
+    assert "FAPAI_LOCAL_SOLVER_POLL_SECONDS' -DefaultValue '5'" in script
+    assert "$workerLock.Dispose()" in script
+    assert "Get-CimInstance Win32_Process" not in script
+
+
 def test_bridge_control_scripts_skip_duplicate_wrapper_launches_when_pid_is_alive() -> None:
     for path in (
         ".codex-temp/bridge-control/solver-force-retry-monitor.ps1",

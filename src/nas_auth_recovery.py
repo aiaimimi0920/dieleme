@@ -20,6 +20,12 @@ ACTIVE_STATUSES = {
     "verifying",
 }
 
+FAILED_RECOVERY_FAST_RETRY_SIGNALS = {
+    "detail_challenge_stalled",
+    "node_solver_retries_exhausted",
+}
+SUCCESSFUL_RECOVERY_NEW_PROGRESS_RETRY_SIGNALS = {"detail_challenge_stalled"}
+
 
 class NasAuthRecoveryCoordinator:
     """Durable single-flight coordination for PC1 -> NAS -> PC2 auth recovery."""
@@ -269,13 +275,46 @@ class NasAuthRecoveryCoordinator:
             signal_triggered = bool(
                 normalized_signal and stalled_for >= signal_stall_seconds
             )
+            last_result = self._state.get("last_result")
+            failed_signal_retry_ready = False
+            if (
+                signal_triggered
+                and normalized_signal in FAILED_RECOVERY_FAST_RETRY_SIGNALS
+                and isinstance(last_result, dict)
+                and last_result.get("status") == "failed"
+            ):
+                try:
+                    failed_at = float(last_result.get("finished_at_epoch") or 0)
+                except (TypeError, ValueError):
+                    failed_at = 0.0
+                failed_signal_retry_ready = bool(
+                    failed_at > 0
+                    and current >= failed_at + signal_stall_seconds
+                )
+            successful_signal_retry_ready = False
+            if (
+                signal_triggered
+                and normalized_signal in SUCCESSFUL_RECOVERY_NEW_PROGRESS_RETRY_SIGNALS
+                and normalized_count is not None
+                and isinstance(last_result, dict)
+                and last_result.get("status") == "succeeded"
+            ):
+                try:
+                    completed_count = int(last_result.get("captured_count"))
+                except (TypeError, ValueError):
+                    completed_count = normalized_count
+                successful_signal_retry_ready = normalized_count > completed_count
             may_trigger = bool(
                 self.enabled
                 and normalized_count is not None
                 and pending > 0
                 and not operator_paused
                 and not isinstance(active, dict)
-                and current >= cooldown_until
+                and (
+                    current >= cooldown_until
+                    or failed_signal_retry_ready
+                    or successful_signal_retry_ready
+                )
                 and last_progress is not None
                 and (stalled_for >= self.stall_seconds or signal_triggered)
             )

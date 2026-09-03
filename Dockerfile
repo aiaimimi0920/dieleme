@@ -24,11 +24,7 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     FAPAI_RUN_MODE=seed-collector \
     FAPAI_OUTPUT_DIR=/data/output/seed_collector \
-    FAPAI_CDP_ENDPOINT=http://host.docker.internal:9223 \
-    FAPAI_BUILD_VERSION=${FAPAI_BUILD_VERSION} \
-    FAPAI_BUILD_COMMIT=${FAPAI_BUILD_COMMIT} \
-    FAPAI_BUILD_TIME=${FAPAI_BUILD_TIME} \
-    FAPAI_SOURCE_DIGEST=${FAPAI_SOURCE_DIGEST}
+    FAPAI_CDP_ENDPOINT=http://host.docker.internal:9223
 
 WORKDIR /app
 
@@ -40,6 +36,11 @@ RUN if [ -d /tmp/wheels ] && [ "$(find /tmp/wheels -type f -name '*.whl' | head 
         pip install --no-cache-dir -r requirements.txt; \
     fi \
     && playwright install --with-deps chromium
+
+ENV FAPAI_BUILD_VERSION=${FAPAI_BUILD_VERSION} \
+    FAPAI_BUILD_COMMIT=${FAPAI_BUILD_COMMIT} \
+    FAPAI_BUILD_TIME=${FAPAI_BUILD_TIME} \
+    FAPAI_SOURCE_DIGEST=${FAPAI_SOURCE_DIGEST}
 
 COPY . .
 COPY --from=collector_desktop_builder /collector-desktop/dist /app/collector-desktop/dist

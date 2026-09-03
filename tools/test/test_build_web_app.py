@@ -107,7 +107,10 @@ def test_repo_web_build_dirs_ignores_pytest_temp_package_json(tmp_path: Path):
 def test_repo_web_build_inventory_matches_current_surface():
     repo_root = Path(__file__).resolve().parents[2]
 
-    assert build_web_app.repo_web_build_dirs(repo_root) == [repo_root / "game" / "web-app"]
+    assert build_web_app.repo_web_build_dirs(repo_root) == [
+        repo_root / "collector-desktop",
+        repo_root / "game" / "web-app",
+    ]
 
 
 def test_repo_web_app_build_helper_succeeds_for_current_repo():

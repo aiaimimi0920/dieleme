@@ -300,7 +300,7 @@ def test_archive_raw_detail_if_configured_returns_empty_when_disabled_or_source_
     assert calls == []
 
 
-def test_seed_collector_metadata_reaches_detail_worker_and_live_target_uses_source_page(
+def test_seed_collector_metadata_reaches_detail_worker_and_live_target_uses_detail_url(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
@@ -428,7 +428,7 @@ def test_seed_collector_metadata_reaches_detail_worker_and_live_target_uses_sour
     assert seed_payload["list_page"] == 1
     assert seed_payload["list_sort_key"] == "bid_desc"
     assert seed_payload["list_st_param"] == "2"
-    assert captured[0]["target_url"] == seed_payload["source_page_url"]
+    assert captured[0]["target_url"] == "https://sf-item.taobao.com/sf_item/4001.htm"
 
 
 def test_run_detail_worker_once_raw_only_rejects_challenge_artifact(tmp_path: Path, monkeypatch) -> None:
@@ -562,6 +562,40 @@ def test_run_detail_worker_once_ignores_challenge_suppressed_after_recent_detail
     assert summary["challenge_suppressed"] is True
     assert summary["retry_budget_preserved"] is True
     assert repo.seed_queue_counts()["seed_item_pending_detail"] == 1
+
+
+def test_recent_force_reset_response_suppresses_detail_challenge() -> None:
+    assert detail_worker._captcha_report_suppresses_challenge(
+        {"status": "recent_force_reset", "scope": "detail"}
+    ) is True
+
+
+def test_recent_force_reset_stops_detail_batch_and_honors_retry_after(tmp_path: Path) -> None:
+    config = detail_worker.DetailWorkerConfig(
+        output_dir=tmp_path,
+        cdp_endpoint="http://127.0.0.1:9223",
+        target_success=10,
+        max_attempts=30,
+        worker_id="detail-test",
+        do_risk=False,
+        solver_enabled=True,
+        loop_interval_seconds=30,
+    )
+    item_result = {
+        "decision": "detail_item_retryable_failure",
+        "reason": "detail_stale_challenge_ignored",
+        "captcha_solver_report": {
+            "status": "recent_force_reset",
+            "scope": "detail",
+            "retry_after_seconds": 142,
+        },
+    }
+
+    assert detail_worker._detail_challenge_should_break_batch(config, item_result) is True
+    assert detail_worker._detail_batch_sleep_seconds(
+        config,
+        {"completed": 0, "results": [item_result]},
+    ) == 142
 
 
 def test_run_detail_worker_once_raw_only_rejects_login_artifact(tmp_path: Path, monkeypatch) -> None:
@@ -698,7 +732,7 @@ def test_detail_worker_report_keeps_real_taobao_on_automatic_solver_path(monkeyp
     )
 
     assert result == {"status": "manual_required"}
-    assert captured["kwargs"] == {}
+    assert captured["kwargs"] == {"scope": "detail"}
 
 
 def test_detail_worker_config_reads_llm_preflight_retry_env(monkeypatch) -> None:
@@ -783,6 +817,135 @@ def test_run_detail_analysis_once_claims_raw_item_while_collection_is_paused(
     assert counts["seed_item_raw_detail_captured"] == 0
     assert counts["seed_item_analysis_in_progress"] == 0
     assert repo.get_flat_item("3001")["community_stable_key"] == "collector::广州市::南沙区::南沙分析小区"
+
+
+def test_run_detail_analysis_once_persists_module_b_receipt_on_success(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _seed_one_item(repo)
+    claimed = repo.claim_seed_detail_item("raw-worker", lease_seconds=30)
+    assert claimed is not None
+    item_dir = tmp_path / "3001"
+    item_dir.mkdir()
+    (item_dir / "detail.html").write_text("<html>raw</html>", encoding="utf-8")
+    (item_dir / "description-data.json").write_text("{}", encoding="utf-8")
+    (item_dir / "selected.json").write_text("{}", encoding="utf-8")
+    repo.mark_seed_raw_detail_captured(
+        "3001",
+        detail_html_path=str(item_dir / "detail.html"),
+        description_json_path=str(item_dir / "description-data.json"),
+        selected_json_path=str(item_dir / "selected.json"),
+    )
+    receipt = {
+        "schema_version": "analysis_module_b_v1",
+        "run_id": "3" * 64,
+        "item_id": "3001",
+        "input_sha256": "4" * 64,
+        "mode": "shadow",
+        "status": "finalized",
+        "candidate_models": ["flash", "pro", "grok"],
+        "arbiter_model": "arbiter",
+        "arbiter_independent_model": True,
+        "analysis_provenance": {
+            "module": "B",
+            "pipeline_version": "analysis_module_b_v1",
+            "run_id": "3" * 64,
+            "input_sha256": "4" * 64,
+            "model_routing_sha256": "7" * 64,
+        },
+        "artifacts": {"receipt_path": str(item_dir / "analysis-b" / "receipt.json")},
+    }
+
+    def _analyze_raw_item(item_id: str, *, output_dir: Path, do_risk: bool):
+        assert item_id == "3001"
+        assert output_dir == tmp_path
+        assert do_risk is False
+        final = {
+            "id": item_id,
+            "title": "南沙详情 A",
+            "source_url": "https://sf-item.taobao.com/sf_item/3001.htm",
+            "is_processed": True,
+            "detail_captured": True,
+        }
+        (item_dir / "final.json").write_text(json.dumps(final, ensure_ascii=False), encoding="utf-8")
+        (item_dir / "selected.json").write_text("{}", encoding="utf-8")
+        return {"item_id": item_id, "analysis_module_b": receipt}
+
+    summary = detail_worker.run_detail_analysis_once(
+        detail_worker.DetailWorkerConfig(
+            output_dir=tmp_path,
+            cdp_endpoint="http://127.0.0.1:9223",
+            target_success=1,
+            max_attempts=1,
+            worker_id="analysis-test",
+            do_risk=False,
+            analysis_only=True,
+        ),
+        repository=repo,
+        analyze_item_func=_analyze_raw_item,
+    )
+
+    stored = repo.get_analysis_ensemble_run("3" * 64)
+    assert summary["decision"] == "detail_analysis_completed"
+    assert stored is not None
+    assert stored["status"] == "finalized"
+    assert stored["receipt"]["analysis_provenance"]["module"] == "B"
+
+
+def test_run_detail_analysis_once_persists_latest_module_b_receipt_on_failure(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _seed_one_item(repo)
+    claimed = repo.claim_seed_detail_item("raw-worker", lease_seconds=30)
+    assert claimed is not None
+    item_dir = tmp_path / "3001"
+    item_dir.mkdir()
+    (item_dir / "detail.html").write_text("<html>raw</html>", encoding="utf-8")
+    (item_dir / "description-data.json").write_text("{}", encoding="utf-8")
+    (item_dir / "selected.json").write_text("{}", encoding="utf-8")
+    repo.mark_seed_raw_detail_captured(
+        "3001",
+        detail_html_path=str(item_dir / "detail.html"),
+        description_json_path=str(item_dir / "description-data.json"),
+        selected_json_path=str(item_dir / "selected.json"),
+    )
+    receipt = {
+        "schema_version": "analysis_module_b_v1",
+        "run_id": "5" * 64,
+        "item_id": "3001",
+        "input_sha256": "6" * 64,
+        "mode": "primary",
+        "status": "candidate_partial",
+        "candidate_models": ["flash", "pro", "grok"],
+        "arbiter_model": "arbiter",
+        "arbiter_independent_model": True,
+        "artifacts": {},
+    }
+
+    def _analyze_raw_item(_item_id: str, *, output_dir: Path, do_risk: bool):
+        assert output_dir == tmp_path
+        assert do_risk is False
+        analysis_dir = item_dir / "analysis-b"
+        analysis_dir.mkdir()
+        (analysis_dir / "latest.json").write_text(json.dumps(receipt), encoding="utf-8")
+        raise live_batch_smoke.AnalysisModuleBIncompleteError("candidate_partial")
+
+    summary = detail_worker.run_detail_analysis_once(
+        detail_worker.DetailWorkerConfig(
+            output_dir=tmp_path,
+            cdp_endpoint="http://127.0.0.1:9223",
+            target_success=1,
+            max_attempts=1,
+            worker_id="analysis-test",
+            do_risk=False,
+            analysis_only=True,
+        ),
+        repository=repo,
+        analyze_item_func=_analyze_raw_item,
+    )
+
+    stored = repo.get_analysis_ensemble_run("5" * 64)
+    assert summary["decision"] == "detail_analysis_retryable_failure"
+    assert stored is not None
+    assert stored["status"] == "candidate_partial"
 
 
 def test_run_detail_analysis_once_releases_claim_without_consuming_retry_budget_when_llm_backend_unavailable(
