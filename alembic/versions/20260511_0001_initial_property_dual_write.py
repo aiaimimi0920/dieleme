@@ -139,9 +139,10 @@ def upgrade() -> None:
     op.create_index("ix_property_ingest_event_item_id", "property_ingest_event", ["item_id"])
     op.create_index("ix_property_ingest_event_event_type", "property_ingest_event", ["event_type"])
 
-    op.execute("CREATE EXTENSION IF NOT EXISTS postgis")
-    op.execute("ALTER TABLE property_listing ADD COLUMN IF NOT EXISTS geom geography(Point, 4326)")
-    op.execute("CREATE INDEX IF NOT EXISTS idx_property_listing_geom ON property_listing USING GIST (geom)")
+    if op.get_bind().dialect.name == "postgresql":
+        op.execute("CREATE EXTENSION IF NOT EXISTS postgis")
+        op.execute("ALTER TABLE property_listing ADD COLUMN IF NOT EXISTS geom geography(Point, 4326)")
+        op.execute("CREATE INDEX IF NOT EXISTS idx_property_listing_geom ON property_listing USING GIST (geom)")
 
 
 def downgrade() -> None:

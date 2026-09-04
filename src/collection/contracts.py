@@ -52,6 +52,12 @@ class CollectionAdapter(Protocol):
     def location_prompt(self, *, address: str, title: str) -> str | None: ...
 
 
+class DetailExtractor(Protocol):
+    """Source-neutral AI/detail parser used by the detail lifecycle."""
+
+    def extract(self, content: str, *, item_id: str | None = None) -> str: ...
+
+
 class AnalysisProfile(Protocol):
     """Field policy for evidence-based multi-model AI archiving."""
 

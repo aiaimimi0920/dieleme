@@ -7,7 +7,8 @@ from pathlib import Path
 from typing import Any, Callable, Dict
 
 from .adapters.taobao_judicial import TaobaoJudicialAuctionAdapter
-from .contracts import CollectionAdapter
+from .contracts import CollectionAdapter, DetailExtractor
+from .detail_extractors import resolve_detail_extractor
 from .detail_processor import DetailProcessor
 
 
@@ -275,13 +276,18 @@ class DetailCollectionService:
         evict_runtime_item: Callable[[str], None],
         prefer_db_task_reads: Callable[[], bool],
         sync_avm_risk_aliases: Callable[[Dict[str, Any]], Dict[str, Any]],
-        extract_auction_data: Callable[[str, str | None], str],
         extract_avm_risk_features: Callable[[str, str | None], Dict[str, Any]],
         log_prediction_event: Callable[..., None],
         current_processing: set[str],
         seen_ids: Dict[str, Any],
         pending_tasks: list[str],
+        detail_extractor: DetailExtractor | None = None,
+        extract_auction_data: Callable[..., str] | None = None,
     ) -> None:
+        resolved_detail_extractor = resolve_detail_extractor(
+            detail_extractor=detail_extractor,
+            legacy_extract_auction_data=extract_auction_data,
+        )
         DetailProcessor(
             data_root=self.data_root,
             failed_dir=self.failed_dir,
@@ -298,7 +304,7 @@ class DetailCollectionService:
             evict_runtime_item=evict_runtime_item,
             prefer_db_task_reads=prefer_db_task_reads,
             sync_avm_risk_aliases=sync_avm_risk_aliases,
-            extract_auction_data=extract_auction_data,
+            detail_extractor=resolved_detail_extractor,
             extract_avm_risk_features=extract_avm_risk_features,
             log_prediction_event=log_prediction_event,
             current_processing=current_processing,

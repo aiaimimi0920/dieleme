@@ -9,6 +9,7 @@ from src.analysis_ensemble import (
     compose_final_payload,
 )
 from src.collection import (
+    CallableDetailExtractor,
     DetailCollectionService,
     GenericProductAdapter,
     SeedCollectionService,
@@ -112,12 +113,14 @@ def test_generic_adapter_processes_alphanumeric_detail_id(tmp_path: Path) -> Non
         evict_runtime_item=lambda *_args: None,
         prefer_db_task_reads=lambda: False,
         sync_avm_risk_aliases=reject_avm_callback,
-        extract_auction_data=lambda *_args, **_kwargs: json.dumps({"name": "Updated", "price": 99}),
         extract_avm_risk_features=reject_avm_callback,
         log_prediction_event=lambda **_kwargs: None,
         current_processing={str(html_path)},
         seen_ids={},
         pending_tasks=["sku-7"],
+        detail_extractor=CallableDetailExtractor(
+            lambda *_args, **_kwargs: json.dumps({"name": "Updated", "price": 99})
+        ),
     )
 
     assert updated[0]["source_item_id"] == "sku-7"

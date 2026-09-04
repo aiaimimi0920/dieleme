@@ -28,6 +28,8 @@ class PropertyListing(Base, TimestampMixin):
     source_url: Mapped[str | None] = mapped_column(Text)
     source_title: Mapped[str | None] = mapped_column(Text)
     source_platform: Mapped[str | None] = mapped_column(String(32))
+    record_schema_version: Mapped[int | None] = mapped_column(Integer)
+    canonical_payload: Mapped[dict | None] = mapped_column(JSON)
 
     status: Mapped[str | None] = mapped_column(String(32))
     auction_date: Mapped[datetime | None] = mapped_column(DateTime(timezone=False))

@@ -10,7 +10,7 @@ from typing import Any, Callable, Dict
 
 from src.detail_artifacts import extract_detail_artifacts, get_detail_archive_path
 
-from .contracts import CollectionAdapter
+from .contracts import CollectionAdapter, DetailExtractor
 
 
 class DetailProcessor:
@@ -163,7 +163,7 @@ class DetailProcessor:
         evict_runtime_item: Callable[[str], None],
         prefer_db_task_reads: Callable[[], bool],
         sync_avm_risk_aliases: Callable[[Dict[str, Any]], Dict[str, Any]],
-        extract_auction_data: Callable[[str, str | None], str],
+        detail_extractor: DetailExtractor,
         extract_avm_risk_features: Callable[[str, str | None], Dict[str, Any]],
         log_prediction_event: Callable[..., None],
         current_processing: set[str],
@@ -201,7 +201,7 @@ class DetailProcessor:
 
             print(f"Processing {item_id}...")
             started_at = time.time()
-            raw = extract_auction_data(content, item_id=item_id)
+            raw = detail_extractor.extract(content, item_id=item_id)
             if raw:
                 print(f"\033[92m[AI SUCCESS] {item_id}: {raw[:200]}...\033[0m")
             if not raw:
