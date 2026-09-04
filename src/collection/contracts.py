@@ -11,6 +11,7 @@ class CollectionAdapter(Protocol):
     """Domain rules consumed by the source-neutral collection orchestration."""
 
     source_platform: str
+    collects_avm_risk: bool
 
     def item_id(self, item: Mapping[str, Any]) -> str: ...
 

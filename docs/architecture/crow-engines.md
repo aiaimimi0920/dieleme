@@ -40,7 +40,9 @@ Every seed should preserve, when available:
 `DetailProcessor` owns the lifecycle of one captured page: AI extraction,
 source archiving, artifact attachment, retry control, persistence, and cleanup.
 The adapter decides whether the record belongs in the dataset, whether a
-domain-specific retry is required, and how the final detail record is synced.
+domain-specific retry is required, whether AVM risk enrichment applies, and how
+the final detail record is synced. Generic detail collection never invokes the
+judicial-auction AVM callbacks.
 
 ### 3. AI archive: joint evidence decision
 
@@ -72,6 +74,10 @@ To add a new product source, implement the `CollectionAdapter` protocol and,
 when AI joint archiving is needed, an `AnalysisProfile`. Inject the adapter into
 the seed and detail services. Do not add another source conditional to the
 orchestration services.
+
+Every adapter must persist a stable `source_platform`. Repository stage tracking
+uses that value to select the generic readiness contract for explicit non-Taobao
+sources while retaining the Taobao judicial-auction contract for legacy records.
 
 ## Cross-cutting runtime capabilities
 

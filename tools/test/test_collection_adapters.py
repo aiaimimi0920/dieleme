@@ -13,7 +13,6 @@ from src.collection import (
     GenericProductAdapter,
     SeedCollectionService,
     derive_stage_state,
-    generic_product_analysis_missing_fields,
 )
 
 
@@ -59,6 +58,27 @@ def test_generic_adapter_collects_arbitrary_product_seed(tmp_path: Path) -> None
     assert record["inventory"] == 12
 
 
+def test_seed_stub_uses_the_configured_adapter() -> None:
+    service = SeedCollectionService(
+        adapter=GenericProductAdapter(source_platform="catalog_x"),
+    )
+
+    record = service.build_seed_stub(
+        {
+            "sku": "sku-8",
+            "name": "Portable seed",
+            "detail_url": "https://catalog.example/items/sku-8",
+        },
+        parse_price=lambda value: value,
+        safe_int=lambda value: value,
+    )
+
+    assert record["source_item_id"] == "sku-8"
+    assert record["source_platform"] == "catalog_x"
+    assert record["source_title"] == "Portable seed"
+    assert "auction_date" not in record
+
+
 def test_generic_adapter_processes_alphanumeric_detail_id(tmp_path: Path) -> None:
     html_dir = tmp_path / "html"
     html_dir.mkdir()
@@ -71,6 +91,9 @@ def test_generic_adapter_processes_alphanumeric_detail_id(tmp_path: Path) -> Non
         "inventory": 12,
         "url": "https://catalog.example/items/sku-7",
     }
+
+    def reject_avm_callback(*_args, **_kwargs):
+        raise AssertionError("generic detail collection must not invoke AVM callbacks")
 
     DetailCollectionService(
         tmp_path,
@@ -88,9 +111,9 @@ def test_generic_adapter_processes_alphanumeric_detail_id(tmp_path: Path) -> Non
         mark_item_deleted_in_db=lambda *_args: None,
         evict_runtime_item=lambda *_args: None,
         prefer_db_task_reads=lambda: False,
-        sync_avm_risk_aliases=lambda record: record,
+        sync_avm_risk_aliases=reject_avm_callback,
         extract_auction_data=lambda *_args, **_kwargs: json.dumps({"name": "Updated", "price": 99}),
-        extract_avm_risk_features=lambda *_args, **_kwargs: {},
+        extract_avm_risk_features=reject_avm_callback,
         log_prediction_event=lambda **_kwargs: None,
         current_processing={str(html_path)},
         seen_ids={},
@@ -140,14 +163,33 @@ def test_generic_stage_state_does_not_require_auction_or_property_fields() -> No
     state = derive_stage_state(
         {
             "source_item_id": "sku-7",
+            "source_platform": "catalog_x",
             "source_url": "https://catalog.example/items/sku-7",
             "detail_archive_path": "html/sku-7.html",
             "detail_captured": True,
         },
-        analysis_requirements=generic_product_analysis_missing_fields,
     )
 
     assert state["seed_status"] == "stored"
     assert state["detail_status"] == "archived"
     assert state["analysis_ready"] is True
     assert state["analysis_missing_fields"] == []
+    assert state["analysis_model_version"] == "generic_product_v1"
+
+
+def test_stage_state_preserves_taobao_readiness_for_legacy_and_explicit_sources() -> None:
+    for source_platform in (None, "taobao_sf", "https://sf.taobao.com/"):
+        record = {
+            "source_item_id": "legacy-7",
+            "source_url": "https://sf.taobao.com/item/legacy-7",
+            "detail_archive_path": "html/legacy-7.html",
+            "detail_captured": True,
+        }
+        if source_platform is not None:
+            record["source_platform"] = source_platform
+
+        state = derive_stage_state(record)
+
+        assert state["analysis_ready"] is False
+        assert "auction_date" in state["analysis_missing_fields"]
+        assert "status" in state["analysis_missing_fields"]

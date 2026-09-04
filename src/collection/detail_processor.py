@@ -208,13 +208,14 @@ class DetailProcessor:
                 raise ValueError("Empty response from AI")
             record = self._parse_ai_record(raw, item_id)
 
-            risk_features = extract_avm_risk_features(content, item_id=item_id)
-            if risk_features:
-                record["avm_risk_features"] = risk_features
-                sync_avm_risk_aliases(record)
-                print(f"[AVM-RISK] Attached risk features for item={item_id}")
-            else:
-                print(f"[AVM-RISK] Extraction failed for item={item_id}; skipped attachment")
+            if getattr(self.adapter, "collects_avm_risk", False):
+                risk_features = extract_avm_risk_features(content, item_id=item_id)
+                if risk_features:
+                    record["avm_risk_features"] = risk_features
+                    sync_avm_risk_aliases(record)
+                    print(f"[AVM-RISK] Attached risk features for item={item_id}")
+                else:
+                    print(f"[AVM-RISK] Extraction failed for item={item_id}; skipped attachment")
 
             original_record = get_working_item(item_id, include_processed=True)
             existing = original_record.get("data", {}) if original_record else {}

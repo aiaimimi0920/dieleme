@@ -3,7 +3,11 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Callable, Dict, Mapping, Optional
 
-from .readiness import taobao_judicial_analysis_missing_fields
+from .readiness import (
+    GENERIC_PRODUCT_MODEL_VERSION,
+    default_analysis_missing_fields,
+    uses_generic_product_analysis,
+)
 
 
 DETAIL_BLOCKED_STATES = {"login_redirect", "anti_bot_gate", "empty_html"}
@@ -39,9 +43,8 @@ def derive_stage_state(
     event_type: Optional[str] = None,
     existing: Optional[Dict[str, Any]] = None,
     now: Optional[datetime] = None,
-    analysis_requirements: Callable[[Mapping[str, Any], str | None], list[str]] = (
-        taobao_judicial_analysis_missing_fields
-    ),
+    analysis_requirements: Callable[[Mapping[str, Any], str | None], list[str]] | None = None,
+    analysis_model_version: str | None = None,
 ) -> Dict[str, Any]:
     raw_item = raw_item or {}
     existing = existing or {}
@@ -134,7 +137,8 @@ def derive_stage_state(
 
     detail_lease_until = existing.get("detail_lease_until")
 
-    missing_fields = analysis_requirements(record, detail_status)
+    requirements = analysis_requirements or default_analysis_missing_fields
+    missing_fields = requirements(record, detail_status)
     analysis_ready = len(missing_fields) == 0
     analysis_status = "ready" if analysis_ready else "not_ready"
     if event_type == "mark_deleted":
@@ -142,9 +146,13 @@ def derive_stage_state(
         analysis_ready = False
 
     analysis_last_scored_at = existing.get("analysis_last_scored_at")
-    analysis_model_version = existing.get("analysis_model_version")
+    resolved_model_version = analysis_model_version or existing.get("analysis_model_version")
     if analysis_ready:
-        analysis_model_version = _model_version()
+        resolved_model_version = (
+            GENERIC_PRODUCT_MODEL_VERSION
+            if analysis_model_version is None and uses_generic_product_analysis(record)
+            else analysis_model_version or _model_version()
+        )
 
     return {
         "seed_status": seed_status,
@@ -159,5 +167,5 @@ def derive_stage_state(
         "analysis_ready": analysis_ready,
         "analysis_missing_fields": missing_fields,
         "analysis_last_scored_at": analysis_last_scored_at,
-        "analysis_model_version": analysis_model_version,
+        "analysis_model_version": resolved_model_version,
     }

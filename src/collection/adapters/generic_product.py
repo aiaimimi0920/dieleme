@@ -21,6 +21,7 @@ class GenericProductAdapter:
     """Default domain policy for collecting arbitrary product-like records."""
 
     source_platform: str = "generic"
+    collects_avm_risk: bool = False
 
     def item_id(self, item: Mapping[str, Any]) -> str:
         value = _first_non_empty(item, "source_item_id", "id", "item_id", "sku")

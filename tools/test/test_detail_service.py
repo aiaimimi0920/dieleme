@@ -135,6 +135,14 @@ def test_process_html_file_preserves_seed_values_when_ai_returns_null_fields(tmp
         }
         """
 
+    def extract_avm_risk_features(_content, item_id=None):
+        state.setdefault("risk_extractions", []).append(item_id)
+        return {"is_occupied": True}
+
+    def sync_avm_risk_aliases(item):
+        state.setdefault("risk_syncs", []).append(item_id)
+        return item
+
     service.process_html_file(
         str(html_path),
         get_working_item=get_working_item,
@@ -145,9 +153,9 @@ def test_process_html_file_preserves_seed_values_when_ai_returns_null_fields(tmp
         mark_item_deleted_in_db=lambda *_args: None,
         evict_runtime_item=lambda *_args: None,
         prefer_db_task_reads=lambda: False,
-        sync_avm_risk_aliases=lambda item: item,
+        sync_avm_risk_aliases=sync_avm_risk_aliases,
         extract_auction_data=extract_auction_data,
-        extract_avm_risk_features=lambda _content, item_id=None: {},
+        extract_avm_risk_features=extract_avm_risk_features,
         log_prediction_event=lambda **_kwargs: None,
         current_processing=set(),
         seen_ids={item_id: True},
@@ -167,3 +175,6 @@ def test_process_html_file_preserves_seed_values_when_ai_returns_null_fields(tmp
     assert updated["出价次数"] == seed_data["bidCount"]
     assert updated["建筑面积"] == 117.06
     assert updated["单价"] == 115792.59
+    assert updated["avm_risk_features"]["is_occupied"] is True
+    assert state["risk_extractions"] == [item_id]
+    assert state["risk_syncs"] == [item_id]

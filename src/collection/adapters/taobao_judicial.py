@@ -32,6 +32,7 @@ class TaobaoJudicialAuctionAdapter(GenericProductAdapter):
     """Compatibility adapter for the existing Taobao judicial-auction workflow."""
 
     source_platform: str = "taobao_sf"
+    collects_avm_risk: bool = True
 
     def build_seed_record(
         self,

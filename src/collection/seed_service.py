@@ -32,9 +32,13 @@ class SeedCollectionService:
         self.data_root = data_root
         self.adapter = adapter or TaobaoJudicialAuctionAdapter()
 
-    @staticmethod
-    def build_seed_stub(item: Dict[str, Any], parse_price: Callable[[Any], Any], safe_int: Callable[[Any], Any]) -> Dict[str, Any]:
-        return TaobaoJudicialAuctionAdapter().build_seed_record(
+    def build_seed_stub(
+        self,
+        item: Dict[str, Any],
+        parse_price: Callable[[Any], Any],
+        safe_int: Callable[[Any], Any],
+    ) -> Dict[str, Any]:
+        return self.adapter.build_seed_record(
             item,
             parse_number=parse_price,
             safe_int=safe_int,
