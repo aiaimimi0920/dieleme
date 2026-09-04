@@ -1,0 +1,310 @@
+from __future__ import annotations
+
+from .captcha_context import *  # noqa: F401,F403
+
+
+class CaptchaPreflightMixin:
+    def _close_page(self):
+        """Close the dedicated solver page."""
+        try:
+            self._send_cdp("Page.close")
+            time.sleep(1)
+        except:
+            pass
+
+    def _reload_page(self):
+        """Reload the page via CDP."""
+        try:
+            self._send_cdp("Page.reload", {"ignoreCache": False})
+            time.sleep(3)  # Wait for page to reload
+        except:
+            pass
+
+    def _page_challenge_summary(self):
+        js_script = """
+        (function() {
+            function scan(doc) {
+                var body = doc.body || document.body || null;
+                var className = body && body.className ? String(body.className) : '';
+                var bodyText = body && body.innerText ? String(body.innerText) : '';
+                var title = doc.title || '';
+                var href = (doc.location && doc.location.href) ? String(doc.location.href) : '';
+                var readyState = doc.readyState || '';
+                var slider = doc.querySelector('#nc_1_n1z, #nc_2_n1z, [id^="nc_"][id$="_n1z"], #nc_1_n1t, #nc_2_n1t, [id^="nc_"][id$="_n1t"], .btn_slide, .nc_iconfont.btn_slide, .nc-slider-btn, .slider-btn');
+                var hasSlider = !!(slider && slider.offsetParent !== null);
+                var lowerHref = href.toLowerCase();
+                var combined = (className + '\\n' + bodyText + '\\n' + title + '\\n' + href).toLowerCase();
+                var listRoute = lowerHref.indexOf('sf.taobao.com/list/') !== -1;
+                var detailRoute = lowerHref.indexOf('sf-item.taobao.com/sf_item/') !== -1;
+                var challengeRedirect = lowerHref.indexOf('/_____tmd_____/') !== -1 || lowerHref.indexOf('/login_jump') !== -1;
+                var auctionItemCount = 0;
+                try {
+                    auctionItemCount = doc.querySelectorAll('a[href*="sf_item/"], [data-itemid], [data-auction-id]').length;
+                } catch (e) {}
+                var validAuctionPayload = (listRoute && auctionItemCount >= 3) || (detailRoute && bodyText.trim().length > 80);
+                var supportedAuctionPage = (listRoute || detailRoute) && !challengeRedirect;
+                var hardBlock = combined.indexOf('baxia') !== -1 || combined.indexOf('punish') !== -1 || combined.indexOf('denyfromx5') !== -1 || challengeRedirect;
+                var errorMatch = combined.match(/error\\s*:\\s*[a-z0-9/_-]{1,64}/i);
+                var errorWidget = doc.querySelector('.errloading, [id*="_refresh1"], [id*="refresh1"]');
+                var explicitFailure = combined.indexOf('验证失败') !== -1 ||
+                    combined.indexOf('点击框体重试') !== -1 ||
+                    combined.indexOf("oops... something's wrong") !== -1 ||
+                    combined.indexOf('please refresh page and try again') !== -1 ||
+                    !!(errorWidget && errorWidget.offsetParent !== null) ||
+                    !!errorMatch;
+                var challengeMarker = combined.indexOf('验证码拦截') !== -1 || combined.indexOf('请按住滑块') !== -1 || combined.indexOf('安全验证') !== -1;
+                var loginUrl = lowerHref.indexOf('login.taobao.com') !== -1 || lowerHref.indexOf('login.tmall.com') !== -1 || lowerHref.indexOf('third-party-cookie') !== -1 || lowerHref.indexOf('/passport/') !== -1 || lowerHref.indexOf('/login') !== -1;
+                var loginText = title.trim().toLowerCase() === '登录' || combined.indexOf('请登录') !== -1 || combined.indexOf('请先登录') !== -1;
+                var loginRequired = !validAuctionPayload && (!supportedAuctionPage || challengeRedirect) && (loginUrl || loginText);
+                // A valid auction payload wins over generic hidden challenge copy from an iframe.
+                var challengePresent = hasSlider || explicitFailure || ((hardBlock || challengeMarker) && !validAuctionPayload);
+                var authenticatedPage = validAuctionPayload && readyState !== 'loading' && bodyText.trim().length > 80 && !hasSlider && !explicitFailure;
+                return {
+                    hardBlock: hardBlock,
+                    explicitFailure: explicitFailure,
+                    hasSlider: hasSlider,
+                    auctionItemCount: auctionItemCount,
+                    validAuctionPayload: validAuctionPayload,
+                    loginRequired: loginRequired,
+                    challengeMarker: challengeMarker,
+                    challengePresent: challengePresent,
+                    authenticatedPage: authenticatedPage,
+                    href: href,
+                    readyState: readyState,
+                    title: title,
+                    className: className,
+                    errorCode: errorMatch ? errorMatch[0].replace(/\\s+/g, '').toLowerCase() : '',
+                    bodyText: bodyText.slice(0, 1000)
+                };
+            }
+            var summary = scan(document);
+            var frames = document.getElementsByTagName('iframe');
+            for (var i = 0; i < frames.length; i++) {
+                try {
+                    if (frames[i].offsetParent === null) continue;
+                    var doc = frames[i].contentDocument;
+                    if (!doc) continue;
+                    var frameSummary = scan(doc);
+                    summary.hardBlock = summary.hardBlock || frameSummary.hardBlock;
+                    summary.explicitFailure = summary.explicitFailure || frameSummary.explicitFailure;
+                    summary.hasSlider = summary.hasSlider || frameSummary.hasSlider;
+                    summary.challengeMarker = summary.challengeMarker || frameSummary.challengeMarker;
+                    summary.loginRequired = summary.loginRequired || frameSummary.loginRequired;
+                    summary.auctionItemCount = Math.max(summary.auctionItemCount || 0, frameSummary.auctionItemCount || 0);
+                    if (!summary.title && frameSummary.title) summary.title = frameSummary.title;
+                    if (!summary.className && frameSummary.className) summary.className = frameSummary.className;
+                    if (!summary.errorCode && frameSummary.errorCode) summary.errorCode = frameSummary.errorCode;
+                    if (!summary.bodyText && frameSummary.bodyText) summary.bodyText = frameSummary.bodyText;
+                } catch (e) {}
+            }
+            summary.validAuctionPayload = !!summary.validAuctionPayload;
+            summary.challengePresent = !!(
+                summary.hasSlider ||
+                summary.explicitFailure ||
+                ((summary.hardBlock || summary.challengeMarker) && !summary.validAuctionPayload)
+            );
+            summary.authenticatedPage = summary.validAuctionPayload && !summary.challengePresent;
+            return summary;
+        })()
+        """
+        ret = self._send_cdp("Runtime.evaluate", {
+            "expression": js_script,
+            "returnByValue": True
+        })
+        if ret and "result" in ret and ret["result"].get("value"):
+            return ret["result"]["value"]
+        return {
+            "hardBlock": False,
+            "explicitFailure": False,
+            "hasSlider": False,
+            "validAuctionPayload": False,
+            "loginRequired": False,
+            "challengeMarker": False,
+            "challengePresent": False,
+            "authenticatedPage": False,
+            "href": "",
+            "readyState": "",
+            "title": "",
+            "className": "",
+            "errorCode": "",
+            "bodyText": "",
+        }
+
+    def _close_solver_ws(self):
+        if not self.ws:
+            return
+        try:
+            self.ws.close()
+        except Exception:
+            pass
+        self.ws = None
+
+    def _refresh_challenge_summary(self, fallback):
+        try:
+            refreshed = self._page_challenge_summary()
+        except Exception as error:
+            print(f"[SOLVER] Challenge summary refresh failed: {error}")
+            return fallback if isinstance(fallback, dict) else {}
+        return refreshed or fallback or {}
+
+    def _challenge_failure_diagnostic(self, summary):
+        """Return bounded, query-free NC failure context for runtime logs."""
+        payload = summary if isinstance(summary, dict) else {}
+        title = re.sub(r"\s+", " ", str(payload.get("title") or "")).strip()[:100]
+        class_name = re.sub(r"\s+", " ", str(payload.get("className") or "")).strip()[:120]
+        error_code = re.sub(r"[^a-zA-Z0-9_:/-]", "", str(payload.get("errorCode") or ""))[:80]
+        href = str(payload.get("href") or "").strip()
+        try:
+            parsed = urlsplit(href)
+            safe_href = urlunsplit((parsed.scheme, parsed.netloc, parsed.path, "", ""))[:220]
+        except ValueError:
+            safe_href = ""
+        return (
+            f"code={error_code or 'none'} title={title or 'none'} "
+            f"class={class_name or 'none'} path={safe_href or 'none'}"
+        )
+
+    def _preflight_already_authenticated(self):
+        print("[SOLVER] Auction page is already accessible; no captcha solve is required.")
+        self.last_failure_reason = None
+        self._close_solver_ws()
+        return {
+            "connected": False,
+            "manual_required": False,
+            "has_slider": False,
+            "already_authenticated": True,
+        }
+
+    def _preflight_manual_required(self):
+        self.last_failure_reason = "manual_required"
+        self._close_solver_ws()
+        return {
+            "connected": False,
+            "manual_required": True,
+            "has_slider": False,
+            "already_authenticated": False,
+        }
+
+    def _preflight_current_challenge(self):
+        """Inspect the current CDP tab before slower solver fallbacks."""
+        if not self.connect_tab():
+            return {
+                "connected": False,
+                "manual_required": self.last_failure_reason == "manual_required",
+                "has_slider": False,
+                "already_authenticated": False,
+            }
+
+        try:
+            challenge_summary = self._page_challenge_summary()
+        except Exception as error:
+            print(f"[SOLVER] Challenge preflight failed: {error}")
+            challenge_summary = {}
+
+        has_slider = bool(challenge_summary.get("hasSlider"))
+        if challenge_summary.get("authenticatedPage"):
+            return self._preflight_already_authenticated()
+        if challenge_summary.get("loginRequired") and not has_slider:
+            print("[SOLVER] Login page detected; waiting for QR/manual login to complete.")
+            if self._poll_until_authenticated():
+                return self._preflight_already_authenticated()
+            challenge_summary = self._refresh_challenge_summary(challenge_summary)
+            has_slider = bool(challenge_summary.get("hasSlider"))
+            if challenge_summary.get("authenticatedPage"):
+                return self._preflight_already_authenticated()
+            if has_slider:
+                print("[SOLVER] Slider appeared after login wait; continuing with drag solver.")
+            else:
+                print("[SOLVER] Login page detected; manual login is required.")
+                return self._preflight_manual_required()
+        if challenge_summary.get("hardBlock") and not has_slider:
+            # A failed NC widget is actionable immediately. Waiting for the full
+            # login-recovery window first only delays the retry by two minutes.
+            if challenge_summary.get("explicitFailure"):
+                print("[SOLVER] Failed NC widget detected; trying retry-click immediately.")
+                if self._reset_failed_nc_challenge():
+                    challenge_summary = self._refresh_challenge_summary(challenge_summary)
+                    has_slider = bool(challenge_summary.get("hasSlider"))
+                    if challenge_summary.get("authenticatedPage"):
+                        return self._preflight_already_authenticated()
+                    if has_slider:
+                        print("[SOLVER] Slider restored after immediate NC retry-click.")
+
+            if not has_slider:
+                print("[SOLVER] [X] Unsupported hard block detected; waiting to see if the session recovers.")
+                if self._poll_until_authenticated():
+                    return self._preflight_already_authenticated()
+                challenge_summary = self._refresh_challenge_summary(challenge_summary)
+                has_slider = bool(challenge_summary.get("hasSlider"))
+                if challenge_summary.get("authenticatedPage"):
+                    return self._preflight_already_authenticated()
+                if has_slider:
+                    print("[SOLVER] Slider appeared after hard-block wait; continuing with drag solver.")
+
+            if not has_slider:
+                print("[SOLVER] Hard block without slider; trying NC retry-click to restore slider.")
+                if self._reset_failed_nc_challenge():
+                    challenge_summary = self._refresh_challenge_summary(challenge_summary)
+                    has_slider = bool(challenge_summary.get("hasSlider"))
+                    if challenge_summary.get("authenticatedPage"):
+                        return self._preflight_already_authenticated()
+                    if has_slider:
+                        print("[SOLVER] Slider restored after NC retry-click; continuing with drag solver.")
+
+            if not has_slider:
+                print("[SOLVER] [X] Unsupported hard block detected; manual verification required.")
+                return self._preflight_manual_required()
+
+        if not has_slider and self.ws:
+            try:
+                self.ws.close()
+            except:
+                pass
+            self.ws = None
+        return {
+            "connected": has_slider,
+            "manual_required": False,
+            "has_slider": has_slider,
+            "already_authenticated": False,
+        }
+
+    def _headed_playwright_enabled(self):
+        raw = os.getenv("FAPAI_SOLVER_ENABLE_HEADED_PLAYWRIGHT")
+        if raw is not None:
+            return raw.strip().lower() in {"1", "true", "yes", "y", "on"}
+        return False
+
+    def _is_local_mock_slider_target(self):
+        target_url = self._normalize_target_url(self.target_url)
+        if not target_url:
+            return False
+        lowered = target_url.lower()
+        if "mock_slider.html" in lowered or "test_slider_simple.html" in lowered:
+            return True
+        try:
+            parsed = urlsplit(target_url)
+        except ValueError:
+            return False
+        if parsed.scheme != "file":
+            return False
+        filename = Path(parsed.path or "").name.lower()
+        return filename in {"mock_slider.html", "test_slider_simple.html"}
+
+    def _local_mock_verification_mode(self):
+        if not self._is_local_mock_slider_target():
+            return None
+        target_url = self._normalize_target_url(self.target_url)
+        if not target_url:
+            return "strict_success_text"
+        try:
+            parsed = urlsplit(target_url)
+        except ValueError:
+            return "strict_success_text"
+        raw_mode = parse_qs(parsed.query or "").get("verifyMode", ["strict_success_text"])[0]
+        mode = str(raw_mode or "").strip().lower()
+        if mode in LOCAL_MOCK_VERIFY_MODES:
+            return mode
+        return "strict_success_text"
+
+
+__all__ = ["CaptchaPreflightMixin"]

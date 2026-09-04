@@ -1,0 +1,463 @@
+from __future__ import annotations
+
+from .captcha_context import *  # noqa: F401,F403
+
+
+class CaptchaOSInputMixin:
+    def _os_drag_profiles(self):
+        # Keep the historically successful fast profile first. NC has a short
+        # interaction window, and slower multi-second paths were consistently
+        # rejected even when the cursor reached the exact physical endpoint.
+        return (
+            {
+                "name": "fast_exact_v3",
+                "pre_pause": (0.05, 0.15),
+                "press_hold": (0.04, 0.08),
+                "total_time": (0.4, 0.65),
+                "steps": (24, 32),
+                "tremor_x": 0.2,
+                "tremor_y": 0.4,
+                "micro_pause_prob": 0.05,
+                "micro_pause": (0.015, 0.05),
+                "overshoot": (0.0, 1.2),
+                "release_overshoot": (0.0, 0.0),
+                "settle_steps": (2, 3),
+                "hold_before_release": (0.08, 0.18),
+                "release_mode": "exact_release",
+                "warmup_px": (1.0, 3.0),
+                "warmup_steps": (1, 2),
+                "approach_duration": (0.05, 0.15),
+                "start_duration": (0.05, 0.15),
+            },
+            {
+                "name": "legacy_exact_release",
+                "pre_pause": (0.35, 0.7),
+                "press_hold": (0.12, 0.24),
+                "total_time": (1.8, 2.6),
+                "steps": (48, 68),
+                "tremor_x": 0.5,
+                "tremor_y": 0.9,
+                "micro_pause_prob": 0.08,
+                "micro_pause": (0.02, 0.06),
+                "overshoot": (4.0, 8.0),
+                "release_overshoot": (0.0, 0.0),
+                "settle_steps": (3, 5),
+                "hold_before_release": (0.15, 0.3),
+                "release_mode": "exact_release",
+                "warmup_px": (2.0, 5.0),
+                "warmup_steps": (2, 3),
+                "approach_duration": (0.25, 0.5),
+                "start_duration": (0.2, 0.4),
+            },
+            {
+                "name": "dense_exact_release",
+                "pre_pause": (0.4, 0.8),
+                "press_hold": (0.14, 0.28),
+                "total_time": (2.4, 3.4),
+                "steps": (72, 96),
+                "tremor_x": 0.6,
+                "tremor_y": 1.1,
+                "micro_pause_prob": 0.1,
+                "micro_pause": (0.025, 0.07),
+                "overshoot": (5.0, 9.0),
+                "release_overshoot": (0.0, 0.0),
+                "settle_steps": (4, 6),
+                "hold_before_release": (0.18, 0.35),
+                "release_mode": "exact_release",
+                "warmup_px": (2.0, 6.0),
+                "warmup_steps": (2, 4),
+                "approach_duration": (0.3, 0.6),
+                "start_duration": (0.25, 0.5),
+            },
+        )
+
+    def _os_drag_profile(self, variant_index=0):
+        profiles = self._os_drag_profiles()
+        if not profiles:
+            raise RuntimeError("OS drag profiles are unavailable")
+        normalized_index = int(variant_index or 0) % len(profiles)
+        return dict(profiles[normalized_index])
+
+    def _os_drag_track(self, distance, profile):
+        steps = max(int(random.uniform(*profile["steps"])), 1)
+        total = random.uniform(*profile["total_time"])
+        fracs = []
+        dwells = []
+        phase = random.uniform(1.5, 2.5) * math.pi
+        previous = 0.0
+        for index in range(1, steps + 1):
+            ratio = index / steps
+            eased = ratio * ratio * (3.0 - 2.0 * ratio)
+            if index < steps:
+                eased += math.sin(ratio * phase) * 0.002
+                eased += random.gauss(0.0, 0.0008)
+                eased = max(previous + 0.0005, min(eased, 0.998))
+            else:
+                eased = 1.0
+            fracs.append(eased)
+            previous = eased
+            step_dwell = (total / steps) * random.uniform(0.75, 1.25)
+            dwells.append(max(0.006, min(step_dwell, 0.06)))
+        return fracs, dwells
+
+    def _os_drag_release_plan(self, sx, phys_distance, profile):
+        release_mode = str(profile.get("release_mode") or "overshoot_release").strip().lower()
+        if release_mode == "exact_release":
+            peak_overshoot = max(random.uniform(*profile["overshoot"]), 0.0)
+            peak_x = sx + phys_distance + peak_overshoot
+            release_x = sx + phys_distance
+            settle_steps = max(int(random.uniform(*profile["settle_steps"])), 1)
+            settle_xs = []
+            for step in range(settle_steps):
+                ratio = (step + 1) / settle_steps
+                settle_xs.append(peak_x + (release_x - peak_x) * ratio)
+            return peak_x, settle_xs, release_x
+
+        release_overshoot = random.uniform(*profile["release_overshoot"])
+        peak_overshoot = max(random.uniform(*profile["overshoot"]), release_overshoot)
+        peak_x = sx + phys_distance + peak_overshoot
+        release_x = sx + phys_distance + release_overshoot
+        settle_steps = max(int(random.uniform(*profile["settle_steps"])), 1)
+        settle_xs = []
+        for step in range(settle_steps):
+            ratio = (step + 1) / settle_steps
+            settle_xs.append(peak_x + (release_x - peak_x) * ratio)
+        return peak_x, settle_xs, release_x
+
+    def _os_drag_warmup_points(self, sx, sy, profile):
+        warmup_steps = max(int(random.uniform(*profile.get("warmup_steps", (0, 0)))), 0)
+        if warmup_steps <= 0:
+            return []
+        warmup_px = random.uniform(*profile.get("warmup_px", (0.0, 0.0)))
+        points = []
+        for step in range(1, warmup_steps + 1):
+            ratio = step / warmup_steps
+            points.append((
+                sx + warmup_px * ratio,
+                sy + random.gauss(0, min(profile["tremor_y"], 0.8)),
+            ))
+        return points
+
+    def _native_os_input_enabled(self):
+        # PyAutoGUI is the production-proven input path for Aliyun NC. Keep the
+        # lower-level Win32 injector as an explicit fallback instead of silently
+        # changing the mouse event stream on every Windows deployment.
+        backend = str(os.getenv("FAPAI_SOLVER_OS_INPUT_BACKEND", "pyautogui")).strip().lower()
+        return os.name == "nt" and backend in {"native", "win32"}
+
+    def _uinput_os_input_enabled(self):
+        backend = str(os.getenv("FAPAI_SOLVER_OS_INPUT_BACKEND", "pyautogui")).strip().lower()
+        return os.name != "nt" and backend == "uinput"
+
+    def _get_uinput_handle(self):
+        if not self._uinput_os_input_enabled():
+            return None
+        if self._uinput_handle is not None:
+            return self._uinput_handle
+        if not os.path.exists("/dev/uinput"):
+            raise RuntimeError("/dev/uinput is unavailable")
+        try:
+            from evdev import UInput, ecodes
+        except ImportError as error:
+            raise RuntimeError("python-evdev is unavailable") from error
+        capabilities = {
+            ecodes.EV_KEY: [ecodes.BTN_LEFT],
+            ecodes.EV_REL: [ecodes.REL_X, ecodes.REL_Y],
+        }
+        self._uinput_handle = UInput(
+            capabilities,
+            name="fapaifang-virtual-mouse",
+            vendor=0x046D,
+            product=0xC077,
+            version=1,
+        )
+        self._uinput_ecodes = ecodes
+        # Allow the host compositor to register the new input device before
+        # the first relative move.
+        time.sleep(0.35)
+        return self._uinput_handle
+
+    def _move_uinput_cursor_to(self, pyautogui, target_x, target_y):
+        handle = self._get_uinput_handle()
+        ecodes = self._uinput_ecodes
+        if handle is None or ecodes is None:
+            raise RuntimeError("uinput mouse is not initialized")
+        for _ in range(36):
+            current_x, current_y = self._get_os_cursor_position(pyautogui)
+            error_x = float(target_x) - float(current_x)
+            error_y = float(target_y) - float(current_y)
+            if math.hypot(error_x, error_y) <= 1.25:
+                return
+
+            def bounded_step(value):
+                if abs(value) < 0.5:
+                    return 0
+                magnitude = max(1, min(int(round(abs(value))), 64))
+                return magnitude if value > 0 else -magnitude
+
+            relative_x = bounded_step(error_x)
+            relative_y = bounded_step(error_y)
+            if relative_x:
+                handle.write(ecodes.EV_REL, ecodes.REL_X, relative_x)
+            if relative_y:
+                handle.write(ecodes.EV_REL, ecodes.REL_Y, relative_y)
+            handle.syn()
+            time.sleep(0.01)
+        final_x, final_y = self._get_os_cursor_position(pyautogui)
+        final_error = math.hypot(float(target_x) - float(final_x), float(target_y) - float(final_y))
+        self.last_failure_reason = "os_cursor_position_unverified"
+        raise RuntimeError(f"uinput cursor did not converge (delta={final_error:.1f}px)")
+
+    def _get_os_cursor_position(self, pyautogui):
+        if not self._native_os_input_enabled():
+            return pyautogui.position()
+        import ctypes
+        from ctypes import wintypes
+
+        point = wintypes.POINT()
+        if not ctypes.windll.user32.GetCursorPos(ctypes.byref(point)):
+            raise OSError("GetCursorPos failed")
+        return float(point.x), float(point.y)
+
+    def _set_os_cursor_position(self, pyautogui, x, y):
+        if self._uinput_os_input_enabled():
+            self._move_uinput_cursor_to(pyautogui, x, y)
+            return
+        if not self._native_os_input_enabled():
+            pyautogui.moveTo(x, y, duration=0)
+            return
+        import ctypes
+
+        user32 = ctypes.windll.user32
+        if user32.SetCursorPos(int(round(x)), int(round(y))):
+            return
+
+        # SetCursorPos can be denied for a scheduled process even in the same
+        # interactive session. Inject an absolute move on the virtual desktop.
+        virtual_left = int(user32.GetSystemMetrics(76))
+        virtual_top = int(user32.GetSystemMetrics(77))
+        virtual_width = max(int(user32.GetSystemMetrics(78)), 1)
+        virtual_height = max(int(user32.GetSystemMetrics(79)), 1)
+        absolute_x = int(round((float(x) - virtual_left) * 65535 / max(virtual_width - 1, 1)))
+        absolute_y = int(round((float(y) - virtual_top) * 65535 / max(virtual_height - 1, 1)))
+        absolute_x = min(max(absolute_x, 0), 65535)
+        absolute_y = min(max(absolute_y, 0), 65535)
+        user32.mouse_event(0x0001 | 0x4000 | 0x8000, absolute_x, absolute_y, 0, 0)
+
+    def _set_os_left_button(self, pyautogui, *, down):
+        if self._uinput_os_input_enabled():
+            handle = self._get_uinput_handle()
+            ecodes = self._uinput_ecodes
+            if handle is None or ecodes is None:
+                raise RuntimeError("uinput mouse is not initialized")
+            handle.write(ecodes.EV_KEY, ecodes.BTN_LEFT, 1 if down else 0)
+            handle.syn()
+            return
+        if not self._native_os_input_enabled():
+            (pyautogui.mouseDown if down else pyautogui.mouseUp)()
+            return
+        import ctypes
+
+        flag = 0x0002 if down else 0x0004
+        ctypes.windll.user32.mouse_event(flag, 0, 0, 0, 0)
+
+    def _move_os_cursor_bounded(self, pyautogui, target_x, target_y, duration):
+        """Move in a small fixed number of steps so Windows timer granularity cannot amplify duration."""
+        duration = max(float(duration or 0), 0.0)
+        try:
+            start_x, start_y = self._get_os_cursor_position(pyautogui)
+        except Exception:
+            self._set_os_cursor_position(pyautogui, target_x, target_y)
+            if duration:
+                time.sleep(duration)
+            return
+        steps = max(3, min(12, int(math.ceil(duration * 30))))
+        dwell = duration / steps if steps else 0.0
+        for step in range(1, steps + 1):
+            ratio = step / steps
+            eased = ratio * ratio * (3.0 - 2.0 * ratio)
+            x = float(start_x) + (float(target_x) - float(start_x)) * eased
+            y = float(start_y) + (float(target_y) - float(start_y)) * eased
+            self._set_os_cursor_position(pyautogui, x, y)
+            if dwell:
+                time.sleep(dwell)
+
+    def _move_os_cursor_timed(self, pyautogui, target_x, target_y, duration):
+        """Keep PyAutoGUI's proven timing; bound only the opt-in native backend."""
+        if self._uinput_os_input_enabled():
+            self._move_os_cursor_bounded(pyautogui, target_x, target_y, duration)
+            return
+        if not self._native_os_input_enabled():
+            pyautogui.moveTo(target_x, target_y, duration=max(float(duration or 0), 0.0))
+            return
+        self._move_os_cursor_bounded(pyautogui, target_x, target_y, duration)
+
+    def _do_drag_os(self, start_x, start_y, distance, slider_info=None, profile_variant_index=0):
+        """OS-level mouse drag. CDP Input events are rejected by Aliyun NC (error:TJiA4d/Vx6urd)."""
+        self.last_failure_reason = None
+        try:
+            import pyautogui
+        except ImportError:
+            print("[SOLVER] pyautogui not installed; skipping OS mouse drag.")
+            return None
+        self._enable_process_dpi_awareness()
+        pyautogui.FAILSAFE = False
+        pyautogui.PAUSE = 0
+        if self._uinput_os_input_enabled():
+            try:
+                self._get_uinput_handle()
+            except Exception as error:
+                self.last_failure_reason = "uinput_unavailable"
+                print(f"[SOLVER] uinput mouse unavailable: {error}")
+                return None
+        try:
+            focused = self._focus_os_window()
+        except Exception as error:
+            self.last_failure_reason = "window_focus_failed"
+            print(f"[SOLVER] OS window focus failed: {error}")
+            return None
+        if not focused:
+            self.last_failure_reason = "window_focus_failed"
+            print("[SOLVER] OS window focus failed; skipping OS mouse drag.")
+            return None
+        time.sleep(0.45)
+        mapped = None
+        mapping_attempts = 3 if isinstance(slider_info, dict) else 1
+        for mapping_attempt in range(1, mapping_attempts + 1):
+            try:
+                mapped = self._map_css_to_screen(start_x, start_y, distance, slider_info=slider_info)
+            except Exception as error:
+                self.last_failure_reason = "screen_mapping_exception"
+                print(f"[SOLVER] Screen mapping failed: {error}")
+                return None
+            if mapped and (not isinstance(slider_info, dict) or mapped.get("located")):
+                break
+            if mapping_attempt < mapping_attempts:
+                print(
+                    f"[SOLVER] Waiting for verified slider screen mapping "
+                    f"({mapping_attempt}/{mapping_attempts})..."
+                )
+                time.sleep(0.3)
+        if not mapped:
+            if not self.last_failure_reason:
+                self.last_failure_reason = "screen_mapping_unavailable"
+            return None
+        if isinstance(slider_info, dict) and not mapped.get("located"):
+            self.last_failure_reason = "screen_mapping_unverified"
+            print("[SOLVER] Slider screenshot mapping could not be verified; skipping OS drag.")
+            return None
+        sx = mapped["x"]
+        sy = mapped["y"]
+        phys_distance = mapped["distance"]
+        profile = self._os_drag_profile(profile_variant_index)
+        print(
+            f"[SOLVER] OS mouse drag from ({sx:.0f},{sy:.0f}) +{phys_distance:.0f}px "
+            f"source={mapped.get('source')} located={mapped.get('located')} "
+            f"clipped={mapped.get('clipped')} profile={profile.get('name')} "
+            f"input={'uinput' if self._uinput_os_input_enabled() else ('win32' if self._native_os_input_enabled() else 'pyautogui')}"
+        )
+        mouse_is_down = False
+        drag_completed = False
+        try:
+            # 1. 移动到滑块起点附近的随机位置（更像人眼/鼠标先找位置）
+            self._move_os_cursor_timed(
+                pyautogui,
+                sx - random.uniform(18, 36),
+                sy + random.uniform(-10, 10),
+                random.uniform(*profile.get("approach_duration", (0.25, 0.5))),
+            )
+            time.sleep(random.uniform(*profile["pre_pause"]))
+            self._move_os_cursor_timed(
+                pyautogui,
+                sx,
+                sy,
+                random.uniform(*profile.get("start_duration", (0.25, 0.6))),
+            )
+            if os.name != "nt" and mapped.get("source") == "x11_window_geometry":
+                try:
+                    cursor_x, cursor_y = self._get_os_cursor_position(pyautogui)
+                    cursor_delta = math.hypot(float(cursor_x) - sx, float(cursor_y) - sy)
+                except Exception as error:
+                    self.last_failure_reason = "os_cursor_position_unverified"
+                    print(f"[SOLVER] OS cursor position check failed: {error}")
+                    return None
+                print(
+                    f"[SOLVER] OS cursor position expected=({sx:.0f},{sy:.0f}) "
+                    f"actual=({float(cursor_x):.0f},{float(cursor_y):.0f}) "
+                    f"delta={cursor_delta:.1f}px"
+                )
+                if cursor_delta > 5.0:
+                    self.last_failure_reason = "os_cursor_position_unverified"
+                    print("[SOLVER] OS cursor did not reach the verified slider point.")
+                    return None
+            time.sleep(random.uniform(*profile["press_hold"]))
+            self._set_os_left_button(pyautogui, down=True)
+            mouse_is_down = True
+            time.sleep(random.uniform(*profile["press_hold"]))
+            for warmup_x, warmup_y in self._os_drag_warmup_points(sx, sy, profile):
+                if self._stop_if_cancelled():
+                    self.last_failure_reason = "cancelled"
+                    return None
+                self._set_os_cursor_position(pyautogui, warmup_x, warmup_y)
+                time.sleep(random.uniform(0.04, 0.09))
+            fracs, dwells = self._os_drag_track(phys_distance, profile)
+            prev_x = sx
+            target_x = sx + phys_distance
+            for eased, dwell in zip(fracs, dwells):
+                if self._stop_if_cancelled():
+                    self.last_failure_reason = "cancelled"
+                    return None
+                x = sx + phys_distance * eased
+                # 极小幅度回拉（0.5-1.5px），避免严格单调递增
+                if random.random() < 0.04:
+                    x -= random.uniform(0.5, 1.5)
+                x += random.gauss(0, profile["tremor_x"])
+                if profile.get("monotonic_x"):
+                    # Preserve the monotonic profile after random perturbations.
+                    # The final sample remains exactly on the target endpoint.
+                    minimum_x = min(prev_x + 0.01, target_x)
+                    x = max(minimum_x, min(x, target_x))
+                # Y 轴：主体使用 tremor 抖动，末尾 20% 加大 Y 漂移模拟"快到终点时手抖"
+                y = sy + random.gauss(0, profile["tremor_y"])
+                if eased > 0.8 and random.random() < 0.25:
+                    y += random.uniform(-1.5, 1.5)
+                self._set_os_cursor_position(pyautogui, x, y)
+                prev_x = x
+                time.sleep(dwell)
+                if random.random() < profile["micro_pause_prob"]:
+                    time.sleep(random.uniform(*profile["micro_pause"]))
+            peak_x, settle_xs, release_x = self._os_drag_release_plan(sx, phys_distance, profile)
+            self._set_os_cursor_position(pyautogui, peak_x, sy)
+            time.sleep(random.uniform(0.06, 0.16))
+            for settle_x in settle_xs:
+                self._set_os_cursor_position(pyautogui, settle_x, sy + random.gauss(0, 1.2))
+                time.sleep(random.uniform(0.03, 0.07))
+            # 释放前最后一次下压/微调
+            self._move_os_cursor_timed(
+                pyautogui,
+                release_x,
+                sy + random.gauss(0, 0.8),
+                random.uniform(0.05, 0.15),
+            )
+            time.sleep(random.uniform(*profile["hold_before_release"]))
+            self._set_os_left_button(pyautogui, down=False)
+            mouse_is_down = False
+            time.sleep(random.uniform(0.4, 0.7))
+            drag_completed = True
+        except Exception as error:
+            if not self.last_failure_reason:
+                self.last_failure_reason = "mouse_drag_exception"
+            print(f"[SOLVER] OS mouse drag failed: {error}")
+        finally:
+            if mouse_is_down:
+                try:
+                    self._set_os_left_button(pyautogui, down=False)
+                    print("[SOLVER] Released OS mouse button after interrupted drag.")
+                except Exception as release_error:
+                    print(f"[SOLVER] OS mouse release failed: {release_error}")
+        if not drag_completed:
+            return None
+        return start_x + distance
+
+
+__all__ = ["CaptchaOSInputMixin"]

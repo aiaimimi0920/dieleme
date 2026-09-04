@@ -1,0 +1,383 @@
+from __future__ import annotations
+
+from .captcha_context import *  # noqa: F401,F403
+
+
+class CaptchaNCRetryMixin:
+    def _do_drag_local_mock(self, start_x, start_y, distance):
+        """Deterministic drag path for the local mock slider harness."""
+        target_x = start_x + distance
+        target_y = start_y
+
+        def dispatch_mouse_event(params):
+            result = self._send_cdp("Input.dispatchMouseEvent", params)
+            if result is not None:
+                return True
+            print("[SOLVER] CDP mouse input is unavailable; manual verification required.")
+            self.last_failure_reason = "manual_required"
+            return False
+
+        steps = max(24, min(48, int(abs(distance) / 8)))
+        if not dispatch_mouse_event({
+            "type": "mouseMoved",
+            "x": start_x,
+            "y": start_y,
+            "button": "left",
+        }):
+            return None
+        time.sleep(0.02)
+        if not dispatch_mouse_event({
+            "type": "mousePressed",
+            "x": start_x,
+            "y": start_y,
+            "button": "left",
+            "clickCount": 1,
+        }):
+            return None
+        time.sleep(0.02)
+        for index in range(1, steps + 1):
+            if self._stop_if_cancelled():
+                return None
+            ratio = index / steps
+            eased = ratio * ratio * (3 - 2 * ratio)
+            x = start_x + (distance * eased)
+            y = target_y + math.sin(ratio * math.pi) * 0.3
+            if not dispatch_mouse_event({
+                "type": "mouseMoved",
+                "x": x,
+                "y": y,
+                "button": "left",
+            }):
+                return None
+            time.sleep(0.008)
+        time.sleep(0.02)
+        if not dispatch_mouse_event({
+            "type": "mouseReleased",
+            "x": target_x,
+            "y": target_y,
+            "button": "left",
+            "clickCount": 1,
+        }):
+            return None
+        time.sleep(0.1)
+        return target_x
+
+    def _nc_widget_rect(self):
+        js_script = """
+        (function() {
+            var el = document.querySelector('.nc_scale, #nc_1_n1t, #nc_2_n1t, .nc-container, .nc_wrapper');
+            if (!el || el.offsetParent === null) return null;
+            var r = el.getBoundingClientRect();
+            if (r.width < 8 || r.height < 8) return null;
+            return {x: r.left, y: r.top, width: r.width, height: r.height};
+        })()
+        """
+        ret = self._send_cdp("Runtime.evaluate", {"expression": js_script, "returnByValue": True})
+        if ret and "result" in ret and isinstance(ret["result"].get("value"), dict):
+            return ret["result"]["value"]
+        return None
+
+    def _nc_retry_targets(self):
+        js_script = """
+        (function() {
+            function visibleRect(el, frameOffsetX, frameOffsetY) {
+                if (!el || el.offsetParent === null) return null;
+                var rect = el.getBoundingClientRect();
+                if (rect.width < 8 || rect.height < 8) return null;
+                return {
+                    x: rect.left + frameOffsetX,
+                    y: rect.top + frameOffsetY,
+                    width: rect.width,
+                    height: rect.height
+                };
+            }
+
+            function scan(doc, frameOffsetX, frameOffsetY) {
+                var result = {
+                    widget: null,
+                    retryText: null,
+                    slider: null
+                };
+                var widget = doc.querySelector('.nc_scale, #nc_1_n1t, #nc_2_n1t, .nc-container, .nc_wrapper');
+                result.widget = visibleRect(widget, frameOffsetX, frameOffsetY);
+                var slider = doc.querySelector('#nc_1_n1z, #nc_2_n1z, [id^="nc_"][id$="_n1z"], .btn_slide, .nc-slider-btn');
+                result.slider = visibleRect(slider, frameOffsetX, frameOffsetY);
+                var errorWidget = doc.querySelector('.errloading, [id*="_refresh1"], [id*="refresh1"]');
+                result.retryText = visibleRect(errorWidget, frameOffsetX, frameOffsetY);
+
+                var allNodes = doc.querySelectorAll('div, span, p, button, a');
+                for (var i = 0; i < allNodes.length; i++) {
+                    var node = allNodes[i];
+                    if (!node || node.offsetParent === null) continue;
+                    var text = (node.innerText || node.textContent || '').trim();
+                    if (!text) continue;
+                    if (
+                        text.indexOf('点击框体重试') !== -1 ||
+                        text.indexOf('验证失败') !== -1 ||
+                        text.indexOf('拖动未达标') !== -1 ||
+                        text.toLowerCase().indexOf("oops... something's wrong") !== -1 ||
+                        text.toLowerCase().indexOf('please refresh page and try again') !== -1
+                    ) {
+                        result.retryText = visibleRect(node, frameOffsetX, frameOffsetY);
+                        if (result.retryText) break;
+                    }
+                }
+                return result;
+            }
+
+            var summary = scan(document, 0, 0);
+            var frames = document.getElementsByTagName('iframe');
+            for (var i = 0; i < frames.length; i++) {
+                try {
+                    if (frames[i].offsetParent === null) continue;
+                    var doc = frames[i].contentDocument;
+                    if (!doc) continue;
+                    var frameRect = frames[i].getBoundingClientRect();
+                    var frameSummary = scan(doc, frameRect.left, frameRect.top);
+                    if (!summary.widget && frameSummary.widget) summary.widget = frameSummary.widget;
+                    if (!summary.retryText && frameSummary.retryText) summary.retryText = frameSummary.retryText;
+                    if (!summary.slider && frameSummary.slider) summary.slider = frameSummary.slider;
+                } catch (e) {}
+            }
+            return summary;
+        })()
+        """
+        ret = self._send_cdp("Runtime.evaluate", {"expression": js_script, "returnByValue": True})
+        if ret and "result" in ret and isinstance(ret["result"].get("value"), dict):
+            return ret["result"]["value"]
+        return {}
+
+    def _nc_retry_click_candidates(self, targets):
+        candidates = []
+        seen = set()
+
+        def add_point(label, rect, x_ratio, y_ratio=0.5):
+            if not isinstance(rect, dict):
+                return
+            width = float(rect.get("width") or 0)
+            height = float(rect.get("height") or 0)
+            if width < 8 or height < 8:
+                return
+            x = float(rect.get("x") or 0) + width * x_ratio
+            y = float(rect.get("y") or 0) + height * y_ratio
+            key = (round(x, 1), round(y, 1))
+            if key in seen:
+                return
+            seen.add(key)
+            candidates.append({
+                "label": label,
+                "x": x,
+                "y": y,
+                "rect": rect,
+            })
+
+        retry_text = targets.get("retryText") if isinstance(targets, dict) else None
+        widget = targets.get("widget") if isinstance(targets, dict) else None
+
+        for ratio in (0.5, 0.35, 0.65):
+            add_point("widget_centerline", widget, ratio)
+        for y_ratio in (0.35, 0.65):
+            add_point("widget_vertical", widget, 0.5, y_ratio)
+        for ratio in (0.5, 0.35, 0.65):
+            add_point("retry_text", retry_text, ratio)
+        return candidates
+
+    def _nc_retry_outcome(self, timeout_seconds=8.0):
+        deadline = time.time() + max(float(timeout_seconds or 0), 0.5)
+        stable_slider_signature = None
+        stable_slider_samples = 0
+        while time.time() < deadline:
+            if self._stop_if_cancelled():
+                return {"cancelled": True}
+            summary = self._refresh_challenge_summary({})
+            if summary.get("authenticatedPage"):
+                return {"authenticated": True, "summary": summary}
+            if summary.get("explicitFailure"):
+                stable_slider_signature = None
+                stable_slider_samples = 0
+                time.sleep(0.35)
+                continue
+            slider = self._find_slider(max_retries=1, retry_delay=0)
+            if slider:
+                signature = tuple(
+                    round(float(slider.get(key) or 0), 1)
+                    for key in ("x", "y", "width", "height")
+                )
+                if signature == stable_slider_signature:
+                    stable_slider_samples += 1
+                else:
+                    stable_slider_signature = signature
+                    stable_slider_samples = 1
+                if stable_slider_samples >= 3:
+                    return {"slider": slider, "summary": summary}
+            time.sleep(0.35)
+        return {"authenticated": False}
+
+    def _click_css_point(self, css_x, css_y, *, slider_info=None):
+        if self._os_mouse_enabled():
+            try:
+                import pyautogui
+            except ImportError:
+                pyautogui = None
+            if pyautogui is not None:
+                self._enable_process_dpi_awareness()
+                pyautogui.FAILSAFE = False
+                pyautogui.PAUSE = 0
+                self._focus_os_window()
+                mapped = self._map_css_to_screen(
+                    css_x,
+                    css_y,
+                    0,
+                    slider_info=slider_info,
+                    allow_zero_distance=True,
+                )
+                if mapped:
+                    print(f"[SOLVER] OS click at ({mapped['x']:.0f},{mapped['y']:.0f}) source={mapped.get('source')}")
+                    self._move_os_cursor_bounded(
+                        pyautogui,
+                        mapped["x"],
+                        mapped["y"],
+                        random.uniform(0.12, 0.25),
+                    )
+                    time.sleep(random.uniform(0.08, 0.18))
+                    self._set_os_left_button(pyautogui, down=True)
+                    time.sleep(random.uniform(0.04, 0.1))
+                    self._set_os_left_button(pyautogui, down=False)
+                    return True
+                print("[SOLVER] OS click mapping unavailable; falling back to CDP click.")
+        pressed = self._dispatch_mouse("mousePressed", css_x, css_y, buttons=1, click_count=1)
+        released = self._dispatch_mouse("mouseReleased", css_x, css_y, buttons=0, click_count=1)
+        return bool(pressed and released)
+
+    def _reset_failed_nc_challenge(self):
+        """Click '点击框体重试' so NC rebuilds a fresh slider instead of locking collection."""
+        targets = self._nc_retry_targets()
+        widget = targets.get("widget") if isinstance(targets, dict) else None
+        if not widget:
+            widget = self._nc_widget_rect()
+            if isinstance(targets, dict) and widget:
+                targets["widget"] = widget
+        if not widget:
+            print("[SOLVER] NC retry widget not found.")
+            return False
+        candidates = self._nc_retry_click_candidates(targets)
+        if not candidates:
+            candidates = [{
+                "label": "widget_fallback",
+                "x": widget["x"] + widget["width"] / 2,
+                "y": widget["y"] + widget["height"] / 2,
+                "rect": widget,
+            }]
+        for index, candidate in enumerate(candidates, 1):
+            click_x = candidate["x"]
+            click_y = candidate["y"]
+            print(
+                f"[SOLVER] Clicking NC retry target {index}/{len(candidates)} "
+                f"({candidate['label']}) at ({click_x:.0f},{click_y:.0f})"
+            )
+            if not self._click_css_point(click_x, click_y, slider_info=candidate.get("rect") or widget):
+                continue
+            time.sleep(random.uniform(0.6, 1.0))
+            outcome = self._nc_retry_outcome(timeout_seconds=3.0)
+            if outcome.get("authenticated"):
+                print("[SOLVER] NC retry click recovered an authenticated page.")
+                self.last_failure_reason = None
+                return True
+            if outcome.get("slider"):
+                print("[SOLVER] NC slider restored after retry click.")
+                return True
+        print("[SOLVER] NC retry click did not restore a slider.")
+        return False
+
+    def _nc_retry_replay_limit(self):
+        raw = os.getenv("FAPAI_SOLVER_NC_RETRY_REPLAYS", "2")
+        try:
+            return max(int(str(raw or "").strip() or "0"), 0)
+        except ValueError:
+            return 2
+
+    def _destination_list_url(self):
+        href = ""
+        ret = self._send_cdp("Runtime.evaluate", {
+            "expression": "location.href",
+            "returnByValue": True,
+        })
+        if ret and "result" in ret and ret["result"].get("value"):
+            href = str(ret["result"]["value"])
+        if not href:
+            href = str(self.current_target_url or self.target_url or "")
+        if "/_____tmd_____/" in href:
+            dest = href.split("/_____tmd_____/", 1)[0]
+            dest = self._normalize_target_url(dest)
+            if dest.startswith("http"):
+                return dest
+        if "sf.taobao.com/list/" in href:
+            return self._normalize_target_url(href)
+        return "https://sf.taobao.com/list/50025969__2.htm"
+
+    def _recover_authenticated_list_page(self):
+        dest = self._destination_list_url()
+        if not dest:
+            return False
+        print(f"[SOLVER] Probing whether the auction list is already authenticated: {dest}")
+        navigated = self._send_cdp("Page.navigate", {"url": dest})
+        if navigated is None:
+            return False
+        time.sleep(3.2)
+        summary = self._page_challenge_summary()
+        if summary.get("authenticatedPage"):
+            self.last_failure_reason = None
+            return True
+        return False
+
+    def _login_wait_seconds(self):
+        if os.environ.get("PYTEST_CURRENT_TEST"):
+            return 0
+        raw = os.getenv("FAPAI_SOLVER_LOGIN_WAIT_SECONDS", "120")
+        try:
+            return max(int(str(raw or "").strip() or "0"), 0)
+        except ValueError:
+            return 120
+
+    def _looks_like_login_ui(self, summary):
+        if not isinstance(summary, dict):
+            return False
+        href = str(summary.get("href") or "").lower()
+        title = str(summary.get("title") or "")
+        return bool(
+            summary.get("loginRequired")
+            or "login.taobao.com" in href
+            or "login_jump" in href
+            or "/passport/" in href
+            or title.strip() == "登录"
+        )
+
+    def _poll_until_authenticated(self):
+        wait_seconds = self._login_wait_seconds()
+        if wait_seconds <= 0:
+            return False
+        print(f"[SOLVER] Waiting up to {wait_seconds}s for login/list recovery; keep the Edge window in front.")
+        try:
+            self._focus_os_window()
+        except Exception:
+            self._bring_to_front()
+        deadline = time.time() + wait_seconds
+        while time.time() < deadline:
+            if self._stop_if_cancelled():
+                return False
+            summary = self._page_challenge_summary()
+            if summary.get("authenticatedPage"):
+                print("[SOLVER] Page became authenticated while waiting for login.")
+                self.last_failure_reason = None
+                return True
+            if summary.get("hasSlider"):
+                print("[SOLVER] Slider returned while waiting for login; handing off to drag solver.")
+                return False
+            if not self._looks_like_login_ui(summary):
+                if self._recover_authenticated_list_page():
+                    return True
+            time.sleep(5)
+        return False
+
+
+__all__ = ["CaptchaNCRetryMixin"]
