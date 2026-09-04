@@ -8,6 +8,24 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 APP_ROOT = REPO_ROOT / "collector-desktop"
 
 
+def _frontend_js() -> str:
+    source_root = APP_ROOT / "src"
+    source_files = (
+        "desktop_template.js",
+        "desktop_state.js",
+        "desktop_shared.js",
+        "desktop_regions.js",
+        "desktop_collection_views.js",
+        "desktop_auth.js",
+        "desktop_actions.js",
+        "main.js",
+    )
+    return "\n".join(
+        (source_root / name).read_text(encoding="utf-8")
+        for name in source_files
+    )
+
+
 def test_collector_desktop_is_independent_tauri_application() -> None:
     package_json = json.loads((APP_ROOT / "package.json").read_text(encoding="utf-8"))
     tauri_config = json.loads((APP_ROOT / "src-tauri" / "tauri.conf.json").read_text(encoding="utf-8"))
@@ -28,7 +46,7 @@ def test_collector_desktop_is_independent_tauri_application() -> None:
 
 def test_collector_desktop_frontend_uses_collection_observer_api_not_browser_page() -> None:
     index_html = (APP_ROOT / "index.html").read_text(encoding="utf-8")
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "FapaiFang 运维观察台（PC2 采集）" in index_html
     assert "本机不运行采集 Worker" in main_js
@@ -43,7 +61,7 @@ def test_collector_desktop_frontend_uses_collection_observer_api_not_browser_pag
 
 
 def test_links_stage_is_operator_focused_and_paginated_to_ten_items() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert 'limit: 10' in main_js
     assert '<option selected>10</option>' in main_js
@@ -59,7 +77,7 @@ def test_links_stage_is_operator_focused_and_paginated_to_ten_items() -> None:
 
 
 def test_details_stage_click_opens_right_side_collected_html_panel() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert '<aside class="panel detail hidden" id="detailPanel">' in main_js
     assert "已采集 HTML 文本" in main_js
@@ -72,7 +90,7 @@ def test_details_stage_click_opens_right_side_collected_html_panel() -> None:
 
 
 def test_analysis_stage_click_opens_standardized_field_table() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "AI 标准化数据" in main_js
     assert "条目名称" in main_js
@@ -88,7 +106,7 @@ def test_analysis_stage_click_opens_standardized_field_table() -> None:
 
 
 def test_analysis_stage_supports_reanalysis_and_manual_edit_update_controls() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "AI 分析次数" in main_js
     assert "AI 再分析" in main_js
@@ -106,7 +124,7 @@ def test_analysis_stage_supports_reanalysis_and_manual_edit_update_controls() ->
 
 
 def test_runtime_status_card_exposes_operator_controls_and_auth_challenge_dialog() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
     tauri_config = json.loads((APP_ROOT / "src-tauri" / "tauri.conf.json").read_text(encoding="utf-8"))
     rust_lib = (APP_ROOT / "src-tauri" / "src" / "lib.rs").read_text(encoding="utf-8")
 
@@ -168,7 +186,7 @@ def test_runtime_status_card_exposes_operator_controls_and_auth_challenge_dialog
 
 
 def test_auth_challenge_open_buttons_pause_before_opening_browser() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "async function openAndQueueAuthChallenge" in main_js
     assert "function normalizeAuthChallengeUrl" in main_js
@@ -200,7 +218,7 @@ def test_auth_challenge_open_buttons_pause_before_opening_browser() -> None:
 
 
 def test_auth_challenge_default_url_is_sanitized_before_open_and_queue() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     default_function = main_js[
         main_js.index("function defaultAuthChallengeUrl"):
@@ -218,7 +236,7 @@ def test_auth_challenge_default_url_is_sanitized_before_open_and_queue() -> None
 
 
 def test_auth_challenge_manual_mode_never_submits_background_solver_request() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "function buildSolverReportPayload" not in main_js
     assert "/api/report_captcha" not in main_js
@@ -237,7 +255,7 @@ def test_auth_challenge_manual_mode_never_submits_background_solver_request() ->
 
 
 def test_auth_challenge_network_calls_have_timeout_and_resume_does_not_wait_for_cookie_export() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "function fetchWithTimeout" in main_js
     assert "AbortController" in main_js
@@ -264,7 +282,7 @@ def test_tauri_inplace_auth_uses_port_9225_without_browser_restart_switch() -> N
 
 
 def test_collector_desktop_frontend_can_run_as_plain_html_console() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
     tauri_config = json.loads((APP_ROOT / "src-tauri" / "tauri.conf.json").read_text(encoding="utf-8"))
 
     assert "function isTauriRuntime()" in main_js
@@ -279,7 +297,7 @@ def test_collector_desktop_frontend_can_run_as_plain_html_console() -> None:
 
 
 def test_runtime_start_always_forces_auth_complete_without_cookie_refresh() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "runtimeActionLabel(runtimeState)" in main_js
     assert 'runtimeState === "运行中" ? "暂停" : "开始"' in main_js
@@ -298,7 +316,7 @@ def test_runtime_start_always_forces_auth_complete_without_cookie_refresh() -> N
 
 
 def test_runtime_state_prefers_server_provided_runtime_state_before_solver_fallback() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     runtime_function = main_js[
         main_js.index("function runtimeStateFromOverview"):
@@ -312,7 +330,7 @@ def test_runtime_state_prefers_server_provided_runtime_state_before_solver_fallb
 
 
 def test_runtime_state_fallback_keeps_running_for_detail_only_auth_when_seed_stage_can_continue() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     runtime_function = main_js[
         main_js.index("function runtimeStateFromOverview"):
@@ -327,7 +345,7 @@ def test_runtime_state_fallback_keeps_running_for_detail_only_auth_when_seed_sta
 
 
 def test_collector_desktop_auto_refreshes_every_sixty_seconds() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "AUTO_REFRESH_INTERVAL_MS = 60_000" in main_js
     assert "setInterval" in main_js
@@ -346,7 +364,7 @@ def test_collector_desktop_auto_refreshes_every_sixty_seconds() -> None:
 
 
 def test_collector_desktop_runtime_cards_show_challenge_metrics_and_auth_watcher_status() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "function formatPercent" in main_js
     assert "function formatDurationSeconds" in main_js
@@ -367,7 +385,7 @@ def test_collector_desktop_runtime_cards_show_challenge_metrics_and_auth_watcher
 
 
 def test_collector_desktop_refreshes_region_status_separately_every_ten_minutes() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "REGION_REFRESH_INTERVAL_MS = 600_000" in main_js
     assert "refreshRegions" in main_js
@@ -381,7 +399,7 @@ def test_collector_desktop_refreshes_region_status_separately_every_ten_minutes(
 
 
 def test_collector_desktop_overview_cards_show_recent_sixty_second_growth() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
 
     assert "currentOverviewSample" in main_js
     assert "previousOverviewSample" in main_js
@@ -395,7 +413,7 @@ def test_collector_desktop_overview_cards_show_recent_sixty_second_growth() -> N
 
 
 def test_collector_desktop_has_stage_specific_region_tabs_and_link_reset_control() -> None:
-    main_js = (APP_ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    main_js = _frontend_js()
     styles = (APP_ROOT / "src" / "styles.css").read_text(encoding="utf-8")
 
     assert "所在地" in main_js

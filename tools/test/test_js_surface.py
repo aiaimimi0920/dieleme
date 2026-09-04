@@ -9,6 +9,13 @@ def test_repo_js_syntax_check_files_inventory_matches_current_surface():
     repo_root = Path(__file__).resolve().parents[2]
 
     assert [path.relative_to(repo_root) for path in js_surface.repo_js_syntax_check_files(repo_root)] == [
+        Path("collector-desktop/src/desktop_actions.js"),
+        Path("collector-desktop/src/desktop_auth.js"),
+        Path("collector-desktop/src/desktop_collection_views.js"),
+        Path("collector-desktop/src/desktop_regions.js"),
+        Path("collector-desktop/src/desktop_shared.js"),
+        Path("collector-desktop/src/desktop_state.js"),
+        Path("collector-desktop/src/desktop_template.js"),
         Path("collector-desktop/src/main.js"),
         Path("game/web-app/src/composables/useGameState.js"),
         Path("game/web-app/src/main.js"),

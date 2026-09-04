@@ -2,8 +2,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 import analyze_progress
 import fix_original_urls
+from tools.test.powershell_script_test_support import read_powershell_script_tree
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -80,11 +83,23 @@ def test_local_operator_scripts_do_not_embed_legacy_data_roots() -> None:
     )
 
     for name in relative_default_scripts:
-        text = (REPO_ROOT / "scripts" / name).read_text(encoding="utf-8")
+        text = read_powershell_script_tree(REPO_ROOT / "scripts" / name)
         assert "PSScriptRoot" in text, name
         assert "FPFData" in text, name
         for legacy_root in LEGACY_DATA_ROOTS:
             assert legacy_root not in text, name
+
+
+def test_powershell_script_tree_rejects_missing_dot_sourced_module(tmp_path: Path) -> None:
+    entry_path = tmp_path / "entry.ps1"
+    entry_path.write_text(
+        '$moduleRoot = Join-Path $PSScriptRoot "entry"\n'
+        '. (Join-Path $moduleRoot "missing.ps1")\n',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(FileNotFoundError, match="missing.ps1"):
+        read_powershell_script_tree(entry_path)
 
 
 def test_repository_rules_protect_live_pc2_and_nas() -> None:

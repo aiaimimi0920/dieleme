@@ -2,12 +2,20 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from tools.test.powershell_script_test_support import read_powershell_script_tree
+
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
+def _browser_script() -> str:
+    return read_powershell_script_tree(
+        REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1")
+    )
+
+
 def test_start_taobao_cdp_browser_script_opens_visible_cdp_browser_when_missing() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "FAPAI_DATA_ROOT_HOST" in script
     assert "docker.local.env" in script
@@ -32,7 +40,7 @@ def test_start_taobao_cdp_browser_script_opens_visible_cdp_browser_when_missing(
 
 
 def test_start_taobao_cdp_browser_can_use_system_proxy_when_requested() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "[switch]$UseSystemProxy" in script
     assert "if (-not $UseSystemProxy)" in script
@@ -40,7 +48,7 @@ def test_start_taobao_cdp_browser_can_use_system_proxy_when_requested() -> None:
 
 
 def test_start_taobao_cdp_browser_force_new_stops_existing_cdp_profile_processes() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "function Stop-ExistingCdpBrowser" in script
     assert "function Get-CdpBrowserProcesses" in script
@@ -54,7 +62,7 @@ def test_start_taobao_cdp_browser_force_new_stops_existing_cdp_profile_processes
 
 
 def test_start_taobao_cdp_browser_pc2_recovery_can_avoid_cim_process_enumeration() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "[switch]$TerminateAllBrowserProcesses" in script
     assert "[switch]$AllBrowserProcesses" in script
@@ -63,7 +71,7 @@ def test_start_taobao_cdp_browser_pc2_recovery_can_avoid_cim_process_enumeration
 
 
 def test_start_taobao_cdp_browser_existing_cdp_endpoint_opens_requested_start_url() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "function Open-CdpBrowserPage" in script
     assert "[System.Uri]::EscapeDataString($Url)" in script
@@ -74,7 +82,7 @@ def test_start_taobao_cdp_browser_existing_cdp_endpoint_opens_requested_start_ur
 
 
 def test_start_taobao_cdp_browser_bypasses_system_proxy_for_loopback_cdp_calls() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "function Invoke-CdpWebRequest" in script
     assert "[System.Net.HttpWebRequest]::Create" in script
@@ -84,7 +92,7 @@ def test_start_taobao_cdp_browser_bypasses_system_proxy_for_loopback_cdp_calls()
 
 
 def test_start_taobao_cdp_browser_bounds_cdp_response_reads() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "ReadToEnd()" not in script
     assert "MaxResponseBytes" in script
@@ -93,7 +101,7 @@ def test_start_taobao_cdp_browser_bounds_cdp_response_reads() -> None:
 
 
 def test_start_taobao_cdp_browser_falls_back_when_cdp_new_url_times_out() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "function Open-BrowserProcessPage" in script
     assert "Open-CdpBrowserPage -Endpoint $hostEndpoint -Url $StartUrl" in script
@@ -103,7 +111,7 @@ def test_start_taobao_cdp_browser_falls_back_when_cdp_new_url_times_out() -> Non
 
 
 def test_start_taobao_cdp_browser_uses_process_open_for_long_punish_urls() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "function Test-BrowserProcessOpenPreferred" in script
     assert "_____tmd_____/punish" in script
@@ -114,13 +122,13 @@ def test_start_taobao_cdp_browser_uses_process_open_for_long_punish_urls() -> No
 
 
 def test_start_taobao_cdp_browser_process_detection_includes_edge_and_chrome() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert '$browserProcessNames = @("chrome.exe", "msedge.exe")' in script
 
 
 def test_start_taobao_cdp_browser_existing_cdp_endpoint_raises_existing_browser_window() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "function Show-CdpBrowserWindow" in script
     assert "ShowWindowAsync" in script
@@ -129,13 +137,13 @@ def test_start_taobao_cdp_browser_existing_cdp_endpoint_raises_existing_browser_
 
 
 def test_start_taobao_cdp_browser_new_browser_path_also_raises_window_after_startup() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert script.count("Show-CdpBrowserWindow -Port $Port -ProfileDir $ProfileDir") >= 2
 
 
 def test_start_taobao_cdp_browser_restarts_stale_process_when_endpoint_is_unavailable() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "staleProcesses = @(Get-CdpBrowserProcesses -Port $Port -ProfileDir $ProfileDir)" in script
     assert "Existing CDP browser process exists but endpoint is unavailable" in script
@@ -144,7 +152,7 @@ def test_start_taobao_cdp_browser_restarts_stale_process_when_endpoint_is_unavai
 
 
 def test_start_taobao_cdp_browser_keeps_top_level_filter_for_window_activation_only() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "[switch]$TopLevelOnly" in script
     assert 'if ($TopLevelOnly)' in script
@@ -161,7 +169,7 @@ def test_start_taobao_cdp_browser_keeps_top_level_filter_for_window_activation_o
 
 
 def test_start_taobao_cdp_browser_force_new_aborts_if_old_browser_does_not_exit() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "return $false" in script
     assert "return $true" in script
@@ -170,7 +178,7 @@ def test_start_taobao_cdp_browser_force_new_aborts_if_old_browser_does_not_exit(
 
 
 def test_start_taobao_cdp_browser_force_new_status_messages_do_not_pollute_boolean_return() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert 'Write-Host "Stopping existing CDP browser processes for port $Port / profile $ProfileDir."' in script
     assert 'Write-Host "Timed out waiting for matching CDP browser processes and endpoint to exit."' in script
@@ -179,7 +187,7 @@ def test_start_taobao_cdp_browser_force_new_status_messages_do_not_pollute_boole
 
 
 def test_start_taobao_cdp_browser_waits_for_endpoint_readiness_with_deadline() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "function Wait-CdpEndpoint" in script
     assert "[int]$CdpStartupTimeoutSeconds = 30" in script
@@ -191,7 +199,7 @@ def test_start_taobao_cdp_browser_waits_for_endpoint_readiness_with_deadline() -
 
 
 def test_start_taobao_cdp_browser_serializes_profile_startup_across_processes() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "FapaiFangTaobaoCdp-$Port" in script
     assert "[System.Threading.Mutex]::new" in script
@@ -202,7 +210,7 @@ def test_start_taobao_cdp_browser_serializes_profile_startup_across_processes() 
 
 
 def test_start_taobao_cdp_browser_ensure_only_does_not_replace_existing_page() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "[switch]$EnsureOnly" in script
     assert "if (-not $EnsureOnly)" in script
@@ -210,7 +218,7 @@ def test_start_taobao_cdp_browser_ensure_only_does_not_replace_existing_page() -
 
 
 def test_start_taobao_cdp_browser_force_new_waits_for_endpoint_shutdown_and_all_profile_processes() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert '[Parameter(Mandatory = $true)][string]$Endpoint' in script
     assert "Stop-ExistingCdpBrowser -Port $Port -ProfileDir $ProfileDir -Endpoint $hostEndpoint" in script
@@ -220,7 +228,7 @@ def test_start_taobao_cdp_browser_force_new_waits_for_endpoint_shutdown_and_all_
 
 
 def test_start_taobao_cdp_browser_supports_isolated_profile_and_optional_extension_disable() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "[switch]$IsolatedProfile" in script
     assert "[switch]$DisableExtensions" in script
@@ -231,7 +239,7 @@ def test_start_taobao_cdp_browser_supports_isolated_profile_and_optional_extensi
 
 
 def test_start_taobao_cdp_browser_supports_minimized_recovery_and_visible_manual_windows() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "[switch]$StartMinimized" in script
     assert "if ($StartMinimized)" in script
@@ -240,7 +248,7 @@ def test_start_taobao_cdp_browser_supports_minimized_recovery_and_visible_manual
 
 
 def test_start_taobao_cdp_browser_includes_low_noise_edge_flags_from_legacy_recovery_flow() -> None:
-    script = REPO_ROOT.joinpath("scripts", "start-taobao-cdp-browser.ps1").read_text(encoding="utf-8")
+    script = _browser_script()
 
     assert "--disable-background-networking" in script
     assert "--disable-sync" in script

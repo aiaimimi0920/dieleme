@@ -109,7 +109,14 @@ def test_direct_script_execution_adds_repo_root_to_python_path() -> None:
     assert "sys.path.insert(0, str(REPO_ROOT))" in script
 
 def test_taobao_login_health_uses_extended_cdp_connect_timeout_like_live_smoke() -> None:
-    script = REPO_ROOT.joinpath("tools", "taobao_login_health.py").read_text(encoding="utf-8")
+    script = "\n".join(
+        REPO_ROOT.joinpath("tools", filename).read_text(encoding="utf-8")
+        for filename in (
+            "taobao_health_context.py",
+            "taobao_health_cdp_transport.py",
+            "taobao_health_cdp_session.py",
+        )
+    )
 
     assert "DEFAULT_CDP_CONNECT_TIMEOUT_MS = 120000" in script
     assert "playwright.chromium.connect_over_cdp(resolve_playwright_cdp_endpoint(cdp_endpoint), timeout=DEFAULT_CDP_CONNECT_TIMEOUT_MS)" in script
