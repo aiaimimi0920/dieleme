@@ -17,8 +17,7 @@ def analyze_raw_item(
     do_risk: bool = False,
 ) -> dict[str, Any]:
     from src import llm_helper
-    from src.avm.collection_template import sync_collection_record
-    from src.collection.detail_service import DetailCollectionService
+    from src.collection.runtime_adapter import extract_detail_payload, resolve_record_adapter
 
     seed_id = str(item_id)
     item_dir = output_dir / seed_id
@@ -48,6 +47,9 @@ def analyze_raw_item(
         selected=raw_selected,
         description_data=description_data,
     )
+    if not effective_seed.get("source_item_id"):
+        effective_seed["source_item_id"] = source_item_id
+    adapter = resolve_record_adapter(effective_seed)
     fetch = as_dict(raw_selected.get("fetch"))
     final_url = pick_first(
         fetch.get("detail_final_url"),
@@ -84,6 +86,7 @@ def analyze_raw_item(
             effective_seed=effective_seed,
             do_risk=do_risk,
             mode=module_b_mode,
+            adapter=adapter,
         )
         if module_b_result.get("status") != "finalized":
             raise AnalysisModuleBIncompleteError(
@@ -93,12 +96,16 @@ def analyze_raw_item(
         extracted = dict(module_b_result.get("final_payload") or {})
         risk = as_dict(extracted.pop("avm_risk_features", {}))
     else:
-        extracted = json.loads(llm_helper.extract_auction_data(analysis_text, item_id=seed_id))
-        extracted["id"] = int(seed_id) if seed_id.isdigit() else seed_id
-        extracted["source_item_id"] = source_item_id
-        DetailCollectionService._preserve_seed_values(extracted, effective_seed)
+        extracted = json.loads(
+            extract_detail_payload(
+                analysis_text,
+                item_id=seed_id,
+                adapter=adapter,
+            )
+        )
+        adapter.prepare_detail_record(extracted, existing=effective_seed, item_id=seed_id)
         risk = {}
-        if do_risk:
+        if do_risk and adapter.collects_avm_risk:
             risk = llm_helper.extract_avm_risk_features(html, item_id=seed_id) or {}
         if module_b_mode == "shadow" and module_b_shadow_selected:
             try:
@@ -111,6 +118,7 @@ def analyze_raw_item(
                     effective_seed=effective_seed,
                     do_risk=do_risk,
                     mode=module_b_mode,
+                    adapter=adapter,
                 )
             except Exception as exc:
                 module_b_result = {
@@ -132,28 +140,25 @@ def analyze_raw_item(
                 "updated_at": utc_now_iso(),
             }
 
-    extracted["id"] = int(seed_id) if seed_id.isdigit() else seed_id
-    extracted["source_item_id"] = source_item_id
-    DetailCollectionService._preserve_seed_values(extracted, effective_seed)
+    adapter.prepare_detail_record(extracted, existing=effective_seed, item_id=seed_id)
     write_json(item_dir / "extracted.json", extracted)
     if risk:
         write_json(item_dir / "risk.json", risk)
 
     combined = dict(effective_seed)
     combined.update(extracted)
-    DetailCollectionService._preserve_seed_values(combined, effective_seed)
-    combined["id"] = int(seed_id) if seed_id.isdigit() else seed_id
-    combined["source_item_id"] = source_item_id
-    combined["source_url"] = final_url
-    combined["原始网站"] = final_url
-    combined.setdefault("source_platform", "taobao_sf")
-    combined["detail_captured"] = True
-    combined["is_processed"] = True
+    adapter.prepare_detail_record(combined, existing=effective_seed, item_id=seed_id)
+    resolved_source_url = str(final_url or adapter.source_url(combined) or "").strip()
+    if resolved_source_url:
+        combined["source_url"] = resolved_source_url
+        if adapter.collects_avm_risk:
+            combined["原始网站"] = resolved_source_url
+    adapter.finalize_detail_record(combined)
     if risk:
         combined["avm_risk_features"] = risk
         risk_aliases(combined)
 
-    final_item = sync_collection_record(combined)
+    final_item = combined
     write_json(item_dir / "final.json", final_item)
     selected = selected_summary(
         seed=seed,

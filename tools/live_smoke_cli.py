@@ -127,6 +127,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 def config_from_args(args: argparse.Namespace) -> LiveSmokeConfig:
+    from src.collection.adapter_resolver import collection_adapter_from_env
+
     output_dir = args.output_dir or DEFAULT_OUTPUT_DIR
     max_attempts = args.max_attempts or int(
         os.environ.get("LIVE_BATCH_SMOKE_MAX_ATTEMPTS", str(max(args.target_success * 3, args.target_success)))
@@ -148,6 +150,7 @@ def config_from_args(args: argparse.Namespace) -> LiveSmokeConfig:
         llm_preflight_enabled=bool(args.llm_preflight),
         llm_preflight_timeout_seconds=float(args.llm_preflight_timeout_seconds),
         raw_only=bool(args.raw_only),
+        collection_adapter=collection_adapter_from_env(default="taobao_judicial"),
     )
 
 def main(argv: list[str] | None = None) -> int:

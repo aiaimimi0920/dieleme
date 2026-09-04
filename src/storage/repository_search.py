@@ -1,6 +1,10 @@
 from __future__ import annotations
 
-from src.collection.search_task_policy import DEFAULT_SEARCH_TASK_POLICY, SearchTaskPolicy
+from src.collection.search_task_policy import (
+    DEFAULT_SEARCH_TASK_POLICY,
+    SearchTaskPolicy,
+    TaobaoJudicialSearchTaskPolicy,
+)
 
 from .repository_context import *  # noqa: F401,F403
 
@@ -12,9 +16,11 @@ class RepositorySearchMixin:
 
     @staticmethod
     def _build_search_task_url(location_code: str, category: str, sort_param: str, page: int) -> str:
-        return (
-            f"https://sf.taobao.com/list/{category}__2.htm"
-            f"?location_code={location_code}&st_param={sort_param}&auction_start_seg=-1&page={page}"
+        return TaobaoJudicialSearchTaskPolicy.build_url(
+            location_code,
+            category,
+            sort_param,
+            page,
         )
 
     def bootstrap_search_task(
@@ -210,6 +216,7 @@ class RepositorySearchMixin:
             return int(session.scalar(select(func.count()).select_from(PropertySearchTask)) or 0)
 
     def ensure_seed_search_tasks(self, location_codes: Sequence[str], categories: Sequence[str], sort_param: str = "2") -> int:
+        """Bootstrap legacy Taobao search rows; generic sources use bootstrap_search_task."""
         if not self.enabled:
             return 0
         self.initialize()

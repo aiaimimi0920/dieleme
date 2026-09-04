@@ -32,6 +32,8 @@ import requests
 
 from bs4 import BeautifulSoup
 
+from src.collection.contracts import CollectionAdapter, DetailExtractor
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 if str(REPO_ROOT) not in sys.path:
@@ -135,5 +137,7 @@ class LiveSmokeConfig:
     llm_preflight_enabled: bool = False
     llm_preflight_timeout_seconds: float = 15.0
     raw_only: bool = False
+    collection_adapter: CollectionAdapter | None = None
+    detail_extractor: DetailExtractor | None = None
 
 __all__ = [name for name in globals() if not name.startswith("__")]

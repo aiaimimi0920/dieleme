@@ -100,12 +100,8 @@ def run_seed_collector_once(
 
     page_completed = False
     try:
-        if config.collection_adapter is not None:
-            list_parser = config.collection_adapter.create_seed_list_parser(browserless_seed_probe)
-        elif isinstance(config.seed_scan_policy, GenericSeedScanPolicy):
-            list_parser = GenericJsonSeedListParser()
-        else:
-            list_parser = TaobaoSeedListParser(browserless_seed_probe)
+        adapter = config.collection_adapter or resolve_record_adapter(task)
+        list_parser = adapter.create_seed_list_parser(browserless_seed_probe)
         runtime_user_agent = resolve_runtime_user_agent(config.cdp_endpoint)
         html, final_url, status_code, fetch_method = fetch_list_page(
             http_session,

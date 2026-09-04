@@ -19,6 +19,7 @@ class CollectionAdapter(Protocol):
     bootstraps_legacy_search_tasks: bool
     search_task_policy: SearchTaskPolicy
     seed_scan_policy: SeedScanPolicy
+    analysis_profile: AnalysisProfile
 
     def create_seed_list_parser(self, legacy_probe: Any) -> SeedListParser: ...
 

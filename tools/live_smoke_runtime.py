@@ -18,11 +18,15 @@ def process_item(
     *,
     config: LiveSmokeConfig,
 ) -> dict[str, Any]:
-    from src.avm.collection_template import sync_collection_record
-    from src.collection.detail_service import DetailCollectionService
+    from src.collection.runtime_adapter import extract_detail_payload, resolve_record_adapter
 
-    item_id = str(seed.get("item_id") or seed.get("id") or seed.get("source_item_id"))
-    source_item_id = str(seed.get("source_item_id") or seed.get("id") or item_id)
+    adapter = resolve_record_adapter(seed, configured=config.collection_adapter)
+    supplied_item_id = seed.get("item_id")
+    if not supplied_item_id and not seed.get("source_item_id"):
+        raw_source_item_id = seed.get("id") or seed.get("sku")
+        if raw_source_item_id not in (None, ""):
+            seed = {**seed, "source_item_id": str(raw_source_item_id)}
+    item_id = str(supplied_item_id or adapter.item_id(seed))
     item_dir = config.output_dir / item_id
     item_dir.mkdir(parents=True, exist_ok=True)
     write_json(item_dir / "seed.json", seed)
@@ -54,32 +58,36 @@ def process_item(
 
     from src import llm_helper
 
-    extracted = json.loads(llm_helper.extract_auction_data(html, item_id=item_id))
-    extracted["id"] = int(item_id) if item_id.isdigit() else item_id
-    extracted["source_item_id"] = source_item_id
-    DetailCollectionService._preserve_seed_values(extracted, seed)
+    extracted = json.loads(
+        extract_detail_payload(
+            html,
+            item_id=item_id,
+            adapter=adapter,
+            detail_extractor=config.detail_extractor,
+        )
+    )
+    adapter.prepare_detail_record(extracted, existing=seed, item_id=item_id)
     write_json(item_dir / "extracted.json", extracted)
 
     risk = {}
-    if config.do_risk:
+    if config.do_risk and adapter.collects_avm_risk:
         risk = llm_helper.extract_avm_risk_features(html, item_id=item_id) or {}
         write_json(item_dir / "risk.json", risk)
 
     combined = dict(seed)
     combined.update(extracted)
-    DetailCollectionService._preserve_seed_values(combined, seed)
-    combined["id"] = int(item_id) if item_id.isdigit() else item_id
-    combined["source_item_id"] = source_item_id
-    combined["source_url"] = final_url
-    combined["原始网站"] = final_url
-    combined.setdefault("source_platform", "taobao_sf")
-    combined["detail_captured"] = True
-    combined["is_processed"] = True
+    adapter.prepare_detail_record(combined, existing=seed, item_id=item_id)
+    resolved_source_url = str(final_url or adapter.source_url(combined) or "").strip()
+    if resolved_source_url:
+        combined["source_url"] = resolved_source_url
+        if adapter.collects_avm_risk:
+            combined["原始网站"] = resolved_source_url
+    adapter.finalize_detail_record(combined)
     if risk:
         combined["avm_risk_features"] = risk
         risk_aliases(combined)
 
-    final_item = sync_collection_record(combined)
+    final_item = combined
     write_json(item_dir / "final.json", final_item)
     selected = selected_summary(
         seed=seed,

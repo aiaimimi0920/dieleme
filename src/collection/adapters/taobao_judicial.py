@@ -46,6 +46,10 @@ class TaobaoJudicialAuctionAdapter(GenericProductAdapter):
     def seed_scan_policy(self) -> SeedScanPolicy:
         return TaobaoJudicialSeedScanPolicy()
 
+    @property
+    def analysis_profile(self) -> TaobaoJudicialAnalysisProfile:
+        return TaobaoJudicialAnalysisProfile()
+
     def create_seed_list_parser(self, legacy_probe: Any) -> SeedListParser:
         return TaobaoSeedListParser(legacy_probe)
 
@@ -278,11 +282,11 @@ class TaobaoJudicialAnalysisProfile:
     derived_fields = frozenset({"单价", "unit_price"})
     system_fields = frozenset(
         {
-            "id", "唯一id", "source_item_id", "原始网站", "source_url", "url", "标题", "title",
+            "id", "item_id", "唯一id", "source_item_id", "source_platform", "原始网站", "source_url", "url", "标题", "title",
             "source_title", "is_processed", "detail_captured", "status", "auction_date", "currentPrice",
             "initialPrice", "applyCount", "bidCount", "bidderCount", "deposit", "latitude", "longitude",
             "纬度", "经度", "coordinate_source", "extraction_confidence", "evidence_span",
-            "evidence_source", "extraction_version",
+            "evidence_source", "extraction_version", "avm_risk_features",
         }
     )
     high_risk_fields = frozenset(

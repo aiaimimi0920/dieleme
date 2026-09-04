@@ -38,6 +38,9 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.storage.repository import PropertyRepository, create_repository_from_env
+from src.collection.adapter_resolver import collection_adapter_from_env
+from src.collection.contracts import CollectionAdapter
+from src.collection.runtime_adapter import resolve_record_adapter
 
 from tools.internal_api_http import fetch_json
 
@@ -84,6 +87,7 @@ class DetailWorkerConfig:
     analysis_only: bool = False
     manual_challenge_reporting: bool = False
     detail_archive_root: Path | None = None
+    collection_adapter: CollectionAdapter | None = None
 
 ProcessItemFunc = Callable[[Any, dict[str, Any], dict[str, tuple[str, str]], Any], dict[str, Any]]
 
@@ -122,6 +126,9 @@ __all__ = (
     'REPO_ROOT',
     'PropertyRepository',
     'create_repository_from_env',
+    'collection_adapter_from_env',
+    'CollectionAdapter',
+    'resolve_record_adapter',
     'fetch_json',
     'CdpEndpointUnavailableError',
     'DEFAULT_CDP_ENDPOINT',

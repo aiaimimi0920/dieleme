@@ -144,6 +144,7 @@ def _run_analysis_module_b(
     effective_seed: dict[str, Any],
     do_risk: bool,
     mode: str,
+    adapter: CollectionAdapter | None = None,
 ) -> dict[str, Any]:
     from src import llm_helper
     from src.analysis_ensemble import (
@@ -154,7 +155,9 @@ def _run_analysis_module_b(
         final_status,
         validate_adjudication,
     )
-    from src.collection.detail_service import DetailCollectionService
+    from src.collection.runtime_adapter import extract_detail_payload, resolve_record_adapter
+
+    active_adapter = resolve_record_adapter(effective_seed, configured=adapter)
 
     models = _analysis_module_b_models()
     arbiter_model = _analysis_module_b_arbiter_model()
@@ -213,14 +216,17 @@ def _run_analysis_module_b(
         for attempt in range(1, max_attempts + 1):
             try:
                 extracted = json.loads(
-                    llm_helper.extract_auction_data(analysis_text, item_id=item_id, model=model)
+                    extract_detail_payload(
+                        analysis_text,
+                        item_id=item_id,
+                        adapter=active_adapter,
+                        model=model,
+                    )
                 )
                 if not isinstance(extracted, dict):
-                    raise ValueError(f"candidate model {model} returned a non-object auction payload")
-                extracted["id"] = int(item_id) if item_id.isdigit() else item_id
-                extracted["source_item_id"] = item_id
-                DetailCollectionService._preserve_seed_values(extracted, effective_seed)
-                if do_risk:
+                    raise ValueError(f"candidate model {model} returned a non-object product payload")
+                active_adapter.prepare_detail_record(extracted, existing=effective_seed, item_id=item_id)
+                if do_risk and active_adapter.collects_avm_risk:
                     risk = llm_helper.extract_avm_risk_features(html, item_id=item_id, model=model)
                     if isinstance(risk, dict):
                         extracted["avm_risk_features"] = risk
@@ -321,7 +327,11 @@ def _run_analysis_module_b(
         return receipt
 
     candidates = [record["result"] for record in candidate_records if record is not None]
-    consensus = build_field_consensus(candidates, source_text=evidence_text)
+    consensus = build_field_consensus(
+        candidates,
+        source_text=evidence_text,
+        profile=active_adapter.analysis_profile,
+    )
     consensus_path = Path(artifacts["consensus_path"])
     conflicts_path = Path(artifacts["conflicts_path"])
     write_json(consensus_path, consensus)
@@ -381,12 +391,14 @@ def _run_analysis_module_b(
                     consensus=consensus,
                     candidates=candidates,
                     source_text=evidence_text,
+                    profile=active_adapter.analysis_profile,
                 )
                 raw_adjudication = llm_helper.chat_with_glm(prompt, model=arbiter_model)
                 adjudication = validate_adjudication(
                     raw_adjudication,
                     consensus=consensus,
                     source_text=evidence_text,
+                    profile=active_adapter.analysis_profile,
                 )
             except Exception as exc:
                 receipt = {
@@ -441,7 +453,11 @@ def _run_analysis_module_b(
         quality_gates["arbiter_model_independent"] = False
         adjudication["quality_gates"] = quality_gates
 
-    final_payload = compose_final_payload(consensus=consensus, adjudication=adjudication)
+    final_payload = compose_final_payload(
+        consensus=consensus,
+        adjudication=adjudication,
+        profile=active_adapter.analysis_profile,
+    )
     final_payload[ANALYSIS_PROVENANCE_FIELD] = dict(analysis_provenance)
     status = final_status(adjudication)
     write_json(Path(artifacts["final_path"]), final_payload)

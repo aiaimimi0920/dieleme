@@ -39,6 +39,10 @@ class GenericProductAdapter:
     def seed_scan_policy(self) -> SeedScanPolicy:
         return GenericSeedScanPolicy(source_platform=self.source_platform)
 
+    @property
+    def analysis_profile(self) -> GenericProductAnalysisProfile:
+        return GenericProductAnalysisProfile()
+
     def create_seed_list_parser(self, legacy_probe: Any) -> SeedListParser:
         del legacy_probe
         return GenericJsonSeedListParser()
@@ -111,7 +115,17 @@ class GenericProductAdapter:
         for key, value in existing.items():
             if value not in (None, "", []) and record.get(key) in (None, "", []):
                 record[key] = value
-        source_item_id = existing.get("source_item_id") or record.get("source_item_id") or item_id
+        source_item_id = _first_non_empty(
+            existing,
+            "source_item_id",
+            "raw_source_item_id",
+        ) or _first_non_empty(
+            record,
+            "source_item_id",
+            "raw_source_item_id",
+        )
+        if source_item_id is None:
+            raise ValueError("generic detail record is missing its source_item_id")
         record["id"] = item_id
         record["item_id"] = item_id
         record["source_item_id"] = str(source_item_id)

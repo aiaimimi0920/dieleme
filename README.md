@@ -818,6 +818,52 @@ python tools/run_data_supply_optimization_loop.py --dry-run --max-rounds 2
 python tools/avm_release_gate.py --reuse-eval-report --reuse-drift-report
 ```
 
+#### offline pytest shards
+
+The repository-wide test runner collects the suite once, assigns complete test
+files to deterministic shards, and executes each file in an isolated process.
+It permits loopback traffic only and refuses the live-network override.
+
+```powershell
+0..3 | ForEach-Object {
+    python scripts/run_pytest_shards.py --shard-count 4 --shard-index $_
+}
+```
+
+Detailed logs, JUnit XML, and shard summaries are written below
+`artifacts/pytest-shards/`.
+
+#### historical seed collision audit
+
+Run the audit only against an offline local SQLite copy. The default action is
+read-only and reports collisions that require manual review as well as the
+small subset eligible for a conservative automatic split.
+
+```powershell
+python scripts/repair_seed_collisions.py `
+    --database-url "sqlite:///FPFData/offline/crow-copy.db" `
+    --item-id "<historical-item-id>"
+```
+
+Applying a repair requires an explicit durable receipt. The same receipt is
+required to roll the batch back:
+
+```powershell
+python scripts/repair_seed_collisions.py `
+    --database-url "sqlite:///FPFData/offline/crow-copy.db" `
+    --item-id "<historical-item-id>" `
+    --apply `
+    --receipt "artifacts/seed-collision-repair.json"
+
+python scripts/repair_seed_collisions.py `
+    --database-url "sqlite:///FPFData/offline/crow-copy.db" `
+    --rollback "artifacts/seed-collision-repair.json"
+```
+
+The command rejects non-SQLite databases. Never point it at a PC2 or NAS live
+database; copy the database locally, stop all writers to that copy, and review
+the dry-run report before using `--apply`.
+
 ---
 
 ## 常用接口

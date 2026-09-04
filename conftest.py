@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import copy
 from collections.abc import Iterator
+import ipaddress
 from pathlib import Path
+import socket
 import time
 from typing import Any
 
@@ -27,6 +29,130 @@ _SLOW_TERMS = (
     "recovery",
     "solver",
 )
+
+
+def pytest_addoption(parser: pytest.Parser) -> None:
+    parser.addoption(
+        "--allow-live-network",
+        action="store_true",
+        default=False,
+        help="allow tests marked live_network to use non-loopback sockets",
+    )
+
+
+def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
+    if config.getoption("--allow-live-network"):
+        return
+    skip_live = pytest.mark.skip(reason="live network tests require --allow-live-network")
+    for item in items:
+        if item.get_closest_marker("live_network") is not None:
+            item.add_marker(skip_live)
+
+
+def _network_host_is_local(host: Any) -> bool:
+    if host is None:
+        return True
+    normalized = str(host.decode() if isinstance(host, bytes) else host).strip().strip("[]")
+    if not normalized or normalized.lower() == "localhost":
+        return True
+    try:
+        address = ipaddress.ip_address(normalized)
+    except ValueError:
+        return False
+    return address.is_loopback
+
+
+def _socket_address_host(sock: socket.socket, address: Any) -> Any:
+    if sock.family == getattr(socket, "AF_UNIX", None):
+        return None
+    return address[0] if isinstance(address, tuple) and address else address
+
+
+def _reject_external_socket_address(
+    sock: socket.socket,
+    address: Any,
+    *,
+    operation: str,
+) -> None:
+    host = _socket_address_host(sock, address)
+    if not _network_host_is_local(host):
+        raise OSError(f"external network disabled during tests ({operation}): {host}")
+
+
+@pytest.fixture(autouse=True)
+def _deny_external_network(
+    request: pytest.FixtureRequest,
+    monkeypatch: pytest.MonkeyPatch,
+) -> Iterator[None]:
+    """Make repository tests offline unless the operator explicitly opts in."""
+
+    live_network_test = request.node.get_closest_marker("live_network") is not None
+    if request.config.getoption("--allow-live-network") and live_network_test:
+        yield
+        return
+    original_connect = socket.socket.connect
+    original_connect_ex = socket.socket.connect_ex
+    original_create_connection = socket.create_connection
+    original_getaddrinfo = socket.getaddrinfo
+    original_sendto = socket.socket.sendto
+    original_sendmsg = getattr(socket.socket, "sendmsg", None)
+
+    def checked_connect(sock: socket.socket, address: Any) -> Any:
+        _reject_external_socket_address(sock, address, operation="connect")
+        return original_connect(sock, address)
+
+    def checked_connect_ex(sock: socket.socket, address: Any) -> int:
+        _reject_external_socket_address(sock, address, operation="connect_ex")
+        return original_connect_ex(sock, address)
+
+    def checked_create_connection(address: Any, *args: Any, **kwargs: Any) -> Any:
+        host = address[0] if isinstance(address, tuple) and address else address
+        if not _network_host_is_local(host):
+            raise OSError(f"external network disabled during tests (create_connection): {host}")
+        return original_create_connection(address, *args, **kwargs)
+
+    def checked_getaddrinfo(host: Any, *args: Any, **kwargs: Any) -> Any:
+        if not _network_host_is_local(host):
+            raise OSError(f"external DNS disabled during tests: {host}")
+        results = original_getaddrinfo(host, *args, **kwargs)
+        if str(host or "").lower() == "localhost":
+            for result in results:
+                address = result[4]
+                resolved_host = address[0] if isinstance(address, tuple) and address else address
+                if not _network_host_is_local(resolved_host):
+                    raise OSError(
+                        f"localhost resolved outside loopback during tests: {resolved_host}"
+                    )
+        return results
+
+    def checked_sendto(sock: socket.socket, data: Any, *args: Any) -> Any:
+        if not args:
+            raise TypeError("sendto requires a destination address")
+        _reject_external_socket_address(sock, args[-1], operation="sendto")
+        return original_sendto(sock, data, *args)
+
+    def checked_sendmsg(
+        sock: socket.socket,
+        buffers: Any,
+        *args: Any,
+        **kwargs: Any,
+    ) -> Any:
+        address = kwargs.get("address")
+        if address is None and len(args) >= 3:
+            address = args[-1]
+        if address is not None:
+            _reject_external_socket_address(sock, address, operation="sendmsg")
+        assert original_sendmsg is not None
+        return original_sendmsg(sock, buffers, *args, **kwargs)
+
+    monkeypatch.setattr(socket.socket, "connect", checked_connect)
+    monkeypatch.setattr(socket.socket, "connect_ex", checked_connect_ex)
+    monkeypatch.setattr(socket, "create_connection", checked_create_connection)
+    monkeypatch.setattr(socket, "getaddrinfo", checked_getaddrinfo)
+    monkeypatch.setattr(socket.socket, "sendto", checked_sendto)
+    if original_sendmsg is not None:
+        monkeypatch.setattr(socket.socket, "sendmsg", checked_sendmsg)
+    yield
 
 
 def pytest_itemcollected(item: pytest.Item) -> None:

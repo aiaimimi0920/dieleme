@@ -36,6 +36,7 @@ from src.collection.adapter_resolver import collection_adapter_from_env
 from src.collection.contracts import CollectionAdapter
 from src.collection.seed_list_parser import GenericJsonSeedListParser, SeedListParser, TaobaoSeedListParser
 from src.collection.seed_scan_policy import DEFAULT_SEED_SCAN_POLICY, GenericSeedScanPolicy, SeedScanPolicy
+from src.collection.runtime_adapter import resolve_record_adapter
 
 from tools.internal_api_http import fetch_json, post_json
 
@@ -144,6 +145,17 @@ class SeedCollectorConfig:
     seed_scan_policy: SeedScanPolicy | None = None
     collection_adapter: CollectionAdapter | None = None
 
+    def __post_init__(self) -> None:
+        if self.collection_adapter is None:
+            return
+        adapter_policy = self.collection_adapter.seed_scan_policy
+        if self.seed_scan_policy is not None and (
+            self.seed_scan_policy.source_platform != adapter_policy.source_platform
+        ):
+            raise ValueError("seed scan policy does not match the collection adapter")
+        if self.seed_scan_policy is None:
+            object.__setattr__(self, "seed_scan_policy", adapter_policy)
+
 SeedRuntimeContextFactory = Callable[[], Any]
 
 SeedProgressEmitFunc = Callable[[dict[str, Any]], None]
@@ -179,6 +191,7 @@ __all__ = (
     'DEFAULT_SEED_SCAN_POLICY',
     'GenericSeedScanPolicy',
     'SeedScanPolicy',
+    'resolve_record_adapter',
     'fetch_json',
     'post_json',
     'CdpEndpointUnavailableError',

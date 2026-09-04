@@ -43,8 +43,13 @@ def run_detail_worker_once(
         return summary
 
     item_id = str(seed.get("item_id") or seed.get("id") or seed.get("source_item_id"))
-    detail_target_url = _detail_seed_target_url(seed, item_id)
+    detail_target_url = ""
     try:
+        detail_target_url = _detail_seed_target_url(
+            seed,
+            item_id,
+            adapter=config.collection_adapter,
+        )
         selected = process_item_func(
             http_session,
             seed,

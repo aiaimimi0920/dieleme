@@ -38,6 +38,7 @@ _IMPLEMENTATION_MODULES = (
     "src.llm_websocket",
     "src.llm_openai_compatible",
     "src.llm_text_extraction",
+    "src.llm_product_extraction",
     "src.llm_auction_extraction",
     "src.llm_avm_risk",
 )

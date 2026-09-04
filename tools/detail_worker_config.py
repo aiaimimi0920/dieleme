@@ -110,6 +110,7 @@ def _live_config(config: DetailWorkerConfig, *, target_url: str) -> LiveSmokeCon
         resume_enabled=False,
         llm_preflight_enabled=False,
         raw_only=config.raw_only,
+        collection_adapter=config.collection_adapter,
     )
 
 
@@ -121,6 +122,7 @@ def _env_flag(name: str, default: bool = False) -> bool:
 
 
 def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailWorkerConfig, bool]:
+    adapter = collection_adapter_from_env(default="taobao_judicial")
     loop_interval_default = _safe_non_negative_int(os.getenv("FAPAI_DETAIL_LOOP_INTERVAL_SECONDS"), 900)
     active_loop_interval_default = _safe_non_negative_int(
         os.getenv("FAPAI_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS"),
@@ -236,6 +238,7 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailW
             analysis_only=analysis_only,
             manual_challenge_reporting=bool(args.manual_challenge_reporting),
             detail_archive_root=args.detail_archive_root,
+            collection_adapter=adapter,
         ),
         bool(args.loop),
     )

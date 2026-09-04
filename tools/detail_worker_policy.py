@@ -195,13 +195,23 @@ def _report_captcha_solver(
     return dict(report_captcha_via_api(api_base_url, cdp_endpoint, normalized_target_url, **report_kwargs))
 
 
-def _detail_seed_target_url(seed: dict[str, Any], item_id: str) -> str:
+def _detail_seed_target_url(
+    seed: dict[str, Any],
+    item_id: str,
+    *,
+    adapter: CollectionAdapter | None = None,
+) -> str:
     """Return a canonical detail URL; list provenance must never own detail challenge state."""
+    active_adapter = resolve_record_adapter(seed, configured=adapter)
+    source_item_id = str(seed.get("source_item_id") or seed.get("id") or item_id)
     for key in ("url", "source_url"):
         candidate = str(seed.get(key) or "").strip()
-        if DETAIL_ITEM_ID_RE.search(candidate):
-            return PropertyRepository._seed_item_url(item_id, candidate)
-    return PropertyRepository._seed_item_url(item_id)
+        if candidate and (
+            active_adapter.source_platform != "taobao_sf"
+            or DETAIL_ITEM_ID_RE.search(candidate)
+        ):
+            return active_adapter.seed_scan_policy.item_url(source_item_id, candidate)
+    return active_adapter.seed_scan_policy.item_url(source_item_id)
 
 
 def _challenge_retry_budget_preserved(*, is_challenge_error: bool, is_transient_dns: bool) -> bool:
@@ -259,7 +269,7 @@ def _env_bool(name: str, default: bool = False) -> bool:
 def _build_cdp_unreachable_health(config: DetailWorkerConfig, target_url: str) -> dict[str, Any]:
     from tools import taobao_login_health
 
-    effective_target_url = str(target_url or "").strip() or "https://sf.taobao.com/list/50025969__2.htm"
+    effective_target_url = str(target_url or "").strip()
     return {
         "status": taobao_login_health.CDP_UNREACHABLE,
         "cdp_endpoint": config.cdp_endpoint,
