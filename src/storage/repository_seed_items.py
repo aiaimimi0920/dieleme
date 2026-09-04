@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.collection.seed_scan_policy import SeedScanPolicy
+
 from .repository_context import *  # noqa: F401,F403
 
 
@@ -16,6 +18,8 @@ class RepositorySeedItemsMixin:
         source_page_url: str,
         items: Sequence[Dict[str, Any]],
         source_final_url: str | None = None,
+        policy: SeedScanPolicy | None = None,
+        worker_id: str | None = None,
     ) -> Dict[str, int]:
         if not self.enabled:
             return {"seen": 0, "new_items": 0, "existing_items": 0, "new_occurrences": 0}
@@ -26,6 +30,21 @@ class RepositorySeedItemsMixin:
         existing_items = 0
         new_occurrences = 0
         with self.session_factory.begin() as session:
+            if policy is not None:
+                job = session.get(FapaiSeedScanJob, job_key)
+                progress = session.get(FapaiSeedScanProgress, progress_key)
+                if (
+                    job is None
+                    or progress is None
+                    or progress.job_key != job_key
+                    or not policy.owns_job(job.job_key, job.metadata_json)
+                ):
+                    raise ValueError(f"seed scan write does not belong to policy: {progress_key}")
+                if policy.requires_lease_owner and (
+                    progress.status != "in_progress"
+                    or progress.leased_by != str(worker_id or "").strip()
+                ):
+                    raise ValueError(f"seed scan lease is not owned by worker: {progress_key}")
             dialect_name = session.get_bind().dialect.name
             for rank, item in enumerate(items, start=1):
                 if not isinstance(item, dict):
@@ -34,7 +53,11 @@ class RepositorySeedItemsMixin:
                 if not item_id:
                     continue
                 seen += 1
-                url = self._seed_item_url(item_id, item.get("url") or item.get("source_url") or item.get("itemUrl"))
+                url = self._seed_item_url(
+                    item_id,
+                    item.get("url") or item.get("source_url") or item.get("itemUrl"),
+                    policy,
+                )
                 title = _normalized_seed_text(item.get("title") or item.get("source_title"))
                 seed_item = session.get(FapaiSeedItem, item_id)
                 if seed_item is None:

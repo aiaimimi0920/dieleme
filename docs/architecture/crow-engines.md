@@ -105,6 +105,20 @@ The current compatibility table persists a canonical next-request URL in
 `source_url`. Sources whose cursors cannot be represented as URLs require a
 separate reversible schema migration rather than overloading legacy columns.
 
+The unattended page scanner uses a separate `seed_scan_policy` because its
+state machine is a job crossed with one or more sort cursors. Generic adapters
+render explicit `source_url_template` values with `category`, `location_code`,
+`sort_key`, `st_param`, and `page`; Taobao keeps its historical URL and category
+priority. Generic scan writes, completion, and failure also require the claiming
+worker ID. The collector selects this policy through the same
+`CROW_COLLECTION_ADAPTER` and `CROW_COLLECTION_SOURCE_PLATFORM` configuration.
+Generic unattended scans also require `CROW_SEED_SOURCE_URL_TEMPLATE` (the
+legacy alias `FAPAI_SEED_SOURCE_URL_TEMPLATE` remains accepted). Templates may
+use `category`, `location_code`, `sort_key`, `st_param`, and `page` placeholders.
+URL scheduling and persistence are source-neutral; the bundled unattended HTML
+probe still parses Taobao payloads, so another source must inject a parser that
+implements the same list-extraction boundary.
+
 Every adapter must persist a stable `source_platform`. Repository stage tracking
 uses that value to select the generic readiness contract for explicit non-Taobao
 sources while retaining the Taobao judicial-auction contract for legacy records.

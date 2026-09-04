@@ -32,6 +32,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.storage.repository import PropertyRepository, create_repository_from_env
+from src.collection.adapter_resolver import collection_adapter_from_env
+from src.collection.seed_scan_policy import DEFAULT_SEED_SCAN_POLICY, SeedScanPolicy
 
 from tools.internal_api_http import fetch_json, post_json
 
@@ -95,9 +97,10 @@ class SeedScanJobSpec:
     category: str
     sort_specs: tuple[SeedSortSpec, ...]
     max_page: int
+    source_url_template: str = ""
 
     def as_job_dict(self) -> dict[str, Any]:
-        return {
+        payload = {
             "job_key": self.job_key,
             "province": self.province,
             "city": self.city,
@@ -105,6 +108,9 @@ class SeedScanJobSpec:
             "location_code": self.location_code,
             "category": self.category,
         }
+        if self.source_url_template:
+            payload["source_url_template"] = self.source_url_template
+        return payload
 
 @dataclass(frozen=True)
 class SeedCollectorConfig:
@@ -132,6 +138,8 @@ class SeedCollectorConfig:
     failure_cooldown_threshold: int = 0
     failure_cooldown_seconds: int = 0
     auth_probe_interval_seconds: int = DEFAULT_AUTH_PROBE_INTERVAL_SECONDS
+    source_url_template: str = ""
+    seed_scan_policy: SeedScanPolicy | None = None
 
 SeedRuntimeContextFactory = Callable[[], Any]
 
@@ -160,6 +168,9 @@ __all__ = (
     'REPO_ROOT',
     'PropertyRepository',
     'create_repository_from_env',
+    'collection_adapter_from_env',
+    'DEFAULT_SEED_SCAN_POLICY',
+    'SeedScanPolicy',
     'fetch_json',
     'post_json',
     'CdpEndpointUnavailableError',

@@ -5,6 +5,31 @@ from __future__ import annotations
 from tools.seed_collector_context import *
 
 
+def _fail_claimed_seed_page(
+    config: SeedCollectorConfig,
+    repository: PropertyRepository,
+    task: dict[str, Any],
+    error: str,
+) -> bool:
+    policy_kwargs = (
+        {"worker_id": config.worker_id, "policy": config.seed_scan_policy}
+        if config.seed_scan_policy
+        else {}
+    )
+    try:
+        repository.fail_seed_scan_page(
+            str(task["progress_key"]),
+            error,
+            retryable=True,
+            **policy_kwargs,
+        )
+    except ValueError:
+        if config.seed_scan_policy and config.seed_scan_policy.requires_lease_owner:
+            return False
+        raise
+    return True
+
+
 def run_seed_collector_once(
     config: SeedCollectorConfig,
     *,
@@ -48,12 +73,14 @@ def run_seed_collector_once(
 
     if ensure_jobs:
         _ensure_seed_scan_jobs(config, repository)
+    policy_kwargs = {"policy": config.seed_scan_policy} if config.seed_scan_policy else {}
     task = repository.claim_seed_scan_page(
         config.worker_id,
         lease_seconds=config.lease_seconds,
         parallel_sorts=config.parallel_sorts,
         failure_cooldown_threshold=config.failure_cooldown_threshold,
         failure_cooldown_seconds=config.failure_cooldown_seconds,
+        **policy_kwargs,
     )
     if task is None:
         summary = {"decision": "seed_scan_queue_empty", "counts": repository.seed_queue_counts()}
@@ -71,6 +98,7 @@ def run_seed_collector_once(
         claimed_summary["auth_probe"] = auth_probe_summary
     _write_runtime_summary(config.output_dir, claimed_summary)
 
+    page_completed = False
     try:
         runtime_user_agent = resolve_runtime_user_agent(config.cdp_endpoint)
         html, final_url, status_code, fetch_method = fetch_list_page(
@@ -88,7 +116,7 @@ def run_seed_collector_once(
                 if config.solver_enabled
                 else _report_manual_seed_challenge(config, str(task["url"]))
             )
-            repository.fail_seed_scan_page(str(task["progress_key"]), "list_payload_missing", retryable=True)
+            _fail_claimed_seed_page(config, repository, task, "list_payload_missing")
             post_challenge_pause_state = _collection_pause_state_with_retry(config.api_base_url)
             if _pause_state_blocks_seed_stage(post_challenge_pause_state):
                 summary = {
@@ -129,7 +157,7 @@ def run_seed_collector_once(
             _write_runtime_summary(config.output_dir, summary)
             return summary
         if _browser_page_payload_missing_without_challenge(fetch_method, list_summary):
-            repository.fail_seed_scan_page(str(task["progress_key"]), "browser_list_payload_missing", retryable=True)
+            _fail_claimed_seed_page(config, repository, task, "browser_list_payload_missing")
             summary = {
                 "decision": "seed_page_retryable_failure",
                 "reason": "browser_list_payload_missing",
@@ -148,6 +176,8 @@ def run_seed_collector_once(
             return summary
 
         for item in items:
+            if task.get("source_platform"):
+                item.setdefault("source_platform", task["source_platform"])
             item.setdefault("source_page_url", final_url)
             item.setdefault("list_location_code", task.get("location_code"))
             item.setdefault("list_category", task.get("category"))
@@ -166,6 +196,11 @@ def run_seed_collector_once(
             source_page_url=str(task["url"]),
             source_final_url=final_url,
             items=items,
+            **(
+                {"policy": config.seed_scan_policy, "worker_id": config.worker_id}
+                if config.seed_scan_policy
+                else {}
+            ),
         )
         has_next = _seed_page_has_next(
             task_page=task.get("page"),
@@ -179,7 +214,13 @@ def run_seed_collector_once(
             item_count=len(items),
             has_next=has_next,
             source_url=final_url,
+            **(
+                {"worker_id": config.worker_id, "policy": config.seed_scan_policy}
+                if config.seed_scan_policy
+                else {}
+            ),
         )
+        page_completed = True
         summary = {
             "decision": "seed_page_collected",
             "task": task,
@@ -199,7 +240,8 @@ def run_seed_collector_once(
         _write_runtime_summary(config.output_dir, summary)
         return summary
     except Exception as exc:
-        repository.fail_seed_scan_page(str(task["progress_key"]), repr(exc), retryable=True)
+        if not page_completed:
+            _fail_claimed_seed_page(config, repository, task, repr(exc))
         if isinstance(exc, CdpEndpointUnavailableError):
             summary = {
                 "decision": "seed_collection_paused",
@@ -229,5 +271,6 @@ def run_seed_collector_once(
 
 
 __all__ = (
+    '_fail_claimed_seed_page',
     'run_seed_collector_once',
 )

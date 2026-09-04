@@ -95,6 +95,9 @@ def parse_seed_job_specs(
     *,
     fallback_sort_specs: tuple[SeedSortSpec, ...],
     fallback_max_page: int,
+    fallback_source_url_template: str = "",
+    fallback_category: str = DEFAULT_SEED_CATEGORY,
+    requires_location_code: bool = True,
 ) -> tuple[SeedScanJobSpec, ...]:
     if raw_jobs in (None, ""):
         return ()
@@ -109,9 +112,10 @@ def parse_seed_job_specs(
         if not isinstance(item, dict):
             continue
         location_code = _clean_text(item.get("location_code"))
-        if not location_code:
+        if not location_code and requires_location_code:
             raise ValueError(f"seed job at index {index} requires location_code")
-        category = _clean_text(item.get("category"), DEFAULT_SEED_CATEGORY)
+        location_code = location_code or "source"
+        category = _clean_text(item.get("category"), fallback_category)
         sort_specs = _parse_seed_sort_specs_value(
             item.get("sorts") if "sorts" in item else item.get("sort_specs"),
             fallback_sort_specs,
@@ -128,12 +132,27 @@ def parse_seed_job_specs(
                 category=category,
                 sort_specs=sort_specs,
                 max_page=max_page,
+                source_url_template=_clean_text(
+                    item.get("source_url_template") or item.get("url_template"),
+                    fallback_source_url_template,
+                ),
             )
         )
     return tuple(jobs)
 
 
 def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[SeedCollectorConfig, bool]:
+    adapter = collection_adapter_from_env(default="taobao_judicial")
+    seed_scan_policy = adapter.seed_scan_policy
+    generic_defaults = not seed_scan_policy.requires_location_code
+    default_job_key = f"{adapter.source_platform}-seed" if generic_defaults else DEFAULT_SEED_JOB_KEY
+    default_location = "source" if generic_defaults else DEFAULT_SEED_LOCATION_CODE
+    default_category = adapter.source_platform if generic_defaults else DEFAULT_SEED_CATEGORY
+    default_sorts = "source:source:default" if generic_defaults else DEFAULT_SEED_SORTS
+    default_max_page = 1 if generic_defaults else 83
+    source_url_template_default = os.getenv("CROW_SEED_SOURCE_URL_TEMPLATE") or os.getenv(
+        "FAPAI_SEED_SOURCE_URL_TEMPLATE", ""
+    )
     loop_interval_default = _safe_non_negative_int(os.getenv("FAPAI_SEED_LOOP_INTERVAL_SECONDS"), 1800)
     active_loop_interval_default = _safe_non_negative_int(
         os.getenv("FAPAI_SEED_ACTIVE_LOOP_INTERVAL_SECONDS"),
@@ -143,15 +162,16 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[SeedCol
         os.getenv("FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS"),
         DEFAULT_AUTH_PROBE_INTERVAL_SECONDS,
     )
-    parser = argparse.ArgumentParser(description="DB backed seed URL collector for Taobao legal auction pages.")
-    parser.add_argument("--job-key", default=os.getenv("FAPAI_SEED_JOB_KEY", DEFAULT_SEED_JOB_KEY))
-    parser.add_argument("--province", default=os.getenv("FAPAI_SEED_PROVINCE", "广东省"))
-    parser.add_argument("--city", default=os.getenv("FAPAI_SEED_CITY", "广州市"))
-    parser.add_argument("--district", default=os.getenv("FAPAI_SEED_DISTRICT", "南沙区"))
-    parser.add_argument("--location-code", default=os.getenv("FAPAI_SEED_LOCATION_CODE", DEFAULT_SEED_LOCATION_CODE))
-    parser.add_argument("--category", default=os.getenv("FAPAI_SEED_CATEGORY", DEFAULT_SEED_CATEGORY))
-    parser.add_argument("--sorts", default=os.getenv("FAPAI_SEED_SORTS", DEFAULT_SEED_SORTS))
-    parser.add_argument("--max-page", type=int, default=_safe_int(os.getenv("FAPAI_SEED_MAX_PAGE"), 83))
+    parser = argparse.ArgumentParser(description="DB-backed rough-collection page scanner.")
+    parser.add_argument("--job-key", default=os.getenv("FAPAI_SEED_JOB_KEY", default_job_key))
+    parser.add_argument("--province", default=os.getenv("FAPAI_SEED_PROVINCE", "" if generic_defaults else "广东省"))
+    parser.add_argument("--city", default=os.getenv("FAPAI_SEED_CITY", "" if generic_defaults else "广州市"))
+    parser.add_argument("--district", default=os.getenv("FAPAI_SEED_DISTRICT", "" if generic_defaults else "南沙区"))
+    parser.add_argument("--location-code", default=os.getenv("FAPAI_SEED_LOCATION_CODE", default_location))
+    parser.add_argument("--category", default=os.getenv("FAPAI_SEED_CATEGORY", default_category))
+    parser.add_argument("--sorts", default=os.getenv("FAPAI_SEED_SORTS", default_sorts))
+    parser.add_argument("--max-page", type=int, default=_safe_int(os.getenv("FAPAI_SEED_MAX_PAGE"), default_max_page))
+    parser.add_argument("--source-url-template", default=source_url_template_default)
     parser.add_argument("--cdp-endpoint", default=os.getenv("FAPAI_CDP_ENDPOINT", DEFAULT_CDP_ENDPOINT))
     parser.add_argument("--output-dir", type=Path, default=Path(os.getenv("FAPAI_OUTPUT_DIR", str(DEFAULT_OUTPUT_DIR / "seed_collector"))))
     parser.add_argument("--worker-id", default=os.getenv("FAPAI_SEED_WORKER_ID", f"seed-{os.getpid()}"))
@@ -207,16 +227,19 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[SeedCol
         jobs_source,
         fallback_sort_specs=sort_specs,
         fallback_max_page=max_page,
+        fallback_source_url_template=_clean_text(args.source_url_template),
+        fallback_category=default_category,
+        requires_location_code=seed_scan_policy.requires_location_code,
     )
 
     return (
         SeedCollectorConfig(
-            job_key=_clean_text(args.job_key, DEFAULT_SEED_JOB_KEY),
+            job_key=_clean_text(args.job_key, default_job_key),
             province=_clean_text(args.province),
             city=_clean_text(args.city),
             district=_clean_text(args.district),
-            location_code=_clean_text(args.location_code, DEFAULT_SEED_LOCATION_CODE),
-            category=_clean_text(args.category, DEFAULT_SEED_CATEGORY),
+            location_code=_clean_text(args.location_code, default_location),
+            category=_clean_text(args.category, default_category),
             sort_specs=sort_specs,
             max_page=max_page,
             cdp_endpoint=_clean_text(args.cdp_endpoint, DEFAULT_CDP_ENDPOINT),
@@ -235,6 +258,8 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[SeedCol
             parallel_sorts=bool(args.parallel_sorts),
             failure_cooldown_threshold=max(int(args.failure_cooldown_threshold), 0),
             failure_cooldown_seconds=max(int(args.failure_cooldown_seconds), 0),
+            source_url_template=_clean_text(args.source_url_template),
+            seed_scan_policy=seed_scan_policy,
         ),
         bool(args.loop),
     )

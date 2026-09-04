@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.collection.seed_scan_policy import DEFAULT_SEED_SCAN_POLICY, SeedScanPolicy
+
 from .repository_context import *  # noqa: F401,F403
 
 
@@ -12,10 +14,12 @@ class RepositorySeedScanPagesMixin:
         parallel_sorts: bool = False,
         failure_cooldown_threshold: int | None = None,
         failure_cooldown_seconds: int | None = None,
+        policy: SeedScanPolicy | None = None,
     ) -> Optional[Dict[str, Any]]:
         if not self.enabled:
             return None
         self.initialize()
+        active_policy = policy or DEFAULT_SEED_SCAN_POLICY
         now = _utc_now()
         lease_until = now + timedelta(seconds=max(lease_seconds, 1))
         cooldown_threshold = max(int(failure_cooldown_threshold or 0), 0)
@@ -32,16 +36,32 @@ class RepositorySeedScanPagesMixin:
             return _cooldown_active(row.updated_at, now=now, cutoff=failure_cooldown_cutoff)
 
         with self.session_factory.begin() as session:
+            jobs_by_key = {
+                job.job_key: job
+                for job in session.scalars(select(FapaiSeedScanJob)).all()
+                if active_policy.owns_job(job.job_key, job.metadata_json)
+            }
+            if not jobs_by_key:
+                return None
+            progress_query = select(FapaiSeedScanProgress).where(
+                FapaiSeedScanProgress.status.in_(("pending", "in_progress")),
+                FapaiSeedScanProgress.job_key.in_(jobs_by_key),
+            )
             if parallel_sorts:
+                category_ranks = {
+                    job.category: active_policy.category_order(job.category)[0]
+                    for job in jobs_by_key.values()
+                }
                 category_rank_expr = case(
-                    (FapaiSeedScanJob.category == "50025969", 0),
-                    (FapaiSeedScanJob.category == "200782003", 1),
+                    *[
+                        (FapaiSeedScanJob.category == category, rank)
+                        for category, rank in sorted(category_ranks.items())
+                    ],
                     else_=10_000,
                 )
                 ordered = session.scalars(
-                    select(FapaiSeedScanProgress)
+                    progress_query
                     .join(FapaiSeedScanJob, FapaiSeedScanProgress.job_key == FapaiSeedScanJob.job_key)
-                    .where(FapaiSeedScanProgress.status.in_(("pending", "in_progress")))
                     .order_by(
                         FapaiSeedScanJob.province,
                         FapaiSeedScanJob.city,
@@ -59,19 +79,17 @@ class RepositorySeedScanPagesMixin:
                 ).all()
                 progress_by_job: Dict[str, list[FapaiSeedScanProgress]] = {}
             else:
-                rows = session.scalars(select(FapaiSeedScanProgress)).all()
-                jobs_by_key = {
-                    job.job_key: job
-                    for job in session.scalars(select(FapaiSeedScanJob)).all()
-                }
+                rows = session.scalars(progress_query).all()
                 progress_by_job = {}
                 for row in rows:
                     progress_by_job.setdefault(row.job_key, []).append(row)
-
                 ordered = sorted(
                     rows,
                     key=lambda row: (
-                        self._seed_scan_scope_order_key(jobs_by_key.get(row.job_key)),
+                        self._seed_scan_scope_order_key(
+                            jobs_by_key.get(row.job_key),
+                            active_policy,
+                        ),
                         int(row.sort_order or 0),
                         int(row.next_page or 1),
                         row.progress_key,
@@ -80,8 +98,6 @@ class RepositorySeedScanPagesMixin:
             blocked_job_keys: set[str] = set()
             for row in ordered:
                 if not parallel_sorts and row.job_key in blocked_job_keys:
-                    continue
-                if row.status not in {"pending", "in_progress"}:
                     continue
                 if row.status == "in_progress" and row.leased_by != worker_id:
                     if not _lease_reclaimable(row.lease_until, row.updated_at, now=now, lease_seconds=lease_seconds):
@@ -124,7 +140,7 @@ class RepositorySeedScanPagesMixin:
                         blocked_job_keys.add(row.job_key)
                         continue
 
-                job = session.get(FapaiSeedScanJob, row.job_key)
+                job = jobs_by_key.get(row.job_key)
                 if job is None:
                     continue
                 row.status = "in_progress"
@@ -132,7 +148,7 @@ class RepositorySeedScanPagesMixin:
                 row.lease_until = lease_until
                 session.add(row)
                 self._refresh_seed_scan_job_status(session, row.job_key, now)
-                return self._seed_scan_progress_payload(row, job)
+                return self._seed_scan_progress_payload(row, job, active_policy)
         return None
 
     def complete_seed_scan_page(
@@ -143,15 +159,28 @@ class RepositorySeedScanPagesMixin:
         item_count: int,
         has_next: bool,
         source_url: str | None = None,
+        worker_id: str | None = None,
+        policy: SeedScanPolicy | None = None,
     ) -> None:
         if not self.enabled:
             return
         self.initialize()
+        active_policy = policy or DEFAULT_SEED_SCAN_POLICY
         now = _utc_now()
         with self.session_factory.begin() as session:
             row = session.get(FapaiSeedScanProgress, progress_key)
             if row is None:
+                if active_policy.requires_lease_owner:
+                    raise ValueError(f"unknown seed scan progress: {progress_key}")
                 return
+            job = session.get(FapaiSeedScanJob, row.job_key)
+            normalized_worker = str(worker_id or "").strip()
+            if active_policy.requires_lease_owner and (
+                job is None
+                or not active_policy.owns_job(job.job_key, job.metadata_json)
+                or row.leased_by != normalized_worker
+            ):
+                raise ValueError(f"seed scan lease is not owned by worker: {progress_key}")
             row.last_success_page = max(int(page or 1), int(row.last_success_page or 0))
             row.last_item_count = int(item_count or 0)
             row.last_fetch_url = source_url
@@ -172,15 +201,34 @@ class RepositorySeedScanPagesMixin:
             session.add(row)
             self._refresh_seed_scan_job_status(session, row.job_key, now)
 
-    def fail_seed_scan_page(self, progress_key: str, error: str, *, retryable: bool = True) -> None:
+    def fail_seed_scan_page(
+        self,
+        progress_key: str,
+        error: str,
+        *,
+        retryable: bool = True,
+        worker_id: str | None = None,
+        policy: SeedScanPolicy | None = None,
+    ) -> None:
         if not self.enabled:
             return
         self.initialize()
+        active_policy = policy or DEFAULT_SEED_SCAN_POLICY
         now = _utc_now()
         with self.session_factory.begin() as session:
             row = session.get(FapaiSeedScanProgress, progress_key)
             if row is None:
+                if active_policy.requires_lease_owner:
+                    raise ValueError(f"unknown seed scan progress: {progress_key}")
                 return
+            job = session.get(FapaiSeedScanJob, row.job_key)
+            normalized_worker = str(worker_id or "").strip()
+            if active_policy.requires_lease_owner and (
+                job is None
+                or not active_policy.owns_job(job.job_key, job.metadata_json)
+                or row.leased_by != normalized_worker
+            ):
+                raise ValueError(f"seed scan lease is not owned by worker: {progress_key}")
             previous_error = str(row.last_error or "").strip()
             row.last_error = str(error)
             if previous_error:

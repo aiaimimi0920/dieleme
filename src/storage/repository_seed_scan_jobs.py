@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.collection.seed_scan_policy import DEFAULT_SEED_SCAN_POLICY, SeedScanPolicy
+
 from .repository_context import *  # noqa: F401,F403
 
 
@@ -23,13 +25,6 @@ class RepositorySeedScanJobsMixin:
         return f"{job_key[:210]}:{digest}"
 
     @staticmethod
-    def _build_seed_scan_url(location_code: str, category: str, st_param: str, page: int) -> str:
-        return (
-            f"https://sf.taobao.com/list/{category}__2.htm"
-            f"?location_code={location_code}&st_param={st_param}&auction_start_seg=-1&page={page}"
-        )
-
-    @staticmethod
     def _occurrence_key(
         *,
         item_id: str,
@@ -42,35 +37,33 @@ class RepositorySeedScanJobsMixin:
         return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
     @staticmethod
-    def _seed_item_url(item_id: str, explicit_url: Any = None) -> str:
-        url = _normalized_seed_text(explicit_url)
-        if url:
-            if url.startswith("//"):
-                url = f"https:{url}"
-            try:
-                parsed = urlsplit(url)
-            except ValueError:
-                return url
-            if (parsed.hostname or "").lower() == "sf-item.taobao.com":
-                path = parsed.path
-                while "//" in path:
-                    path = path.replace("//", "/")
-                return urlunsplit((parsed.scheme or "https", parsed.netloc, path, parsed.query, parsed.fragment))
-            return url
-        return f"https://sf-item.taobao.com/sf_item/{item_id}.htm"
+    def _seed_item_url(
+        item_id: str,
+        explicit_url: Any = None,
+        policy: SeedScanPolicy | None = None,
+    ) -> str:
+        return (policy or DEFAULT_SEED_SCAN_POLICY).item_url(item_id, explicit_url)
 
     @staticmethod
-    def _seed_scan_progress_payload(row: FapaiSeedScanProgress, job: FapaiSeedScanJob) -> Dict[str, Any]:
+    def _seed_scan_progress_payload(
+        row: FapaiSeedScanProgress,
+        job: FapaiSeedScanJob,
+        policy: SeedScanPolicy | None = None,
+    ) -> Dict[str, Any]:
+        active_policy = policy or DEFAULT_SEED_SCAN_POLICY
         page = int(row.next_page or 1)
-        url = RepositorySeedScanJobsMixin._build_seed_scan_url(
-            job.location_code,
-            job.category,
-            row.st_param,
-            page,
+        url = active_policy.build_page_url(
+            source_url_template=job.source_url_template,
+            location_code=job.location_code,
+            category=job.category,
+            sort_key=row.sort_key,
+            st_param=row.st_param,
+            page=page,
         )
         return {
             "job_key": row.job_key,
             "progress_key": row.progress_key,
+            "source_platform": active_policy.source_platform,
             "province": job.province,
             "city": job.city,
             "district": job.district,
@@ -86,19 +79,20 @@ class RepositorySeedScanJobsMixin:
         }
 
     @staticmethod
-    def _seed_category_order(category: str | None) -> tuple[int, str]:
-        normalized = _normalized_seed_text(category)
-        preferred = {
-            "50025969": 0,
-            "200782003": 1,
-        }
-        return preferred.get(normalized, 10_000), normalized
+    def _seed_category_order(
+        category: str | None,
+        policy: SeedScanPolicy | None = None,
+    ) -> tuple[int, str]:
+        return (policy or DEFAULT_SEED_SCAN_POLICY).category_order(category)
 
     @staticmethod
-    def _seed_scan_scope_order_key(job: FapaiSeedScanJob | None) -> tuple[Any, ...]:
+    def _seed_scan_scope_order_key(
+        job: FapaiSeedScanJob | None,
+        policy: SeedScanPolicy | None = None,
+    ) -> tuple[Any, ...]:
         if job is None:
             return ("", "", "", "", 10_000, "", "")
-        category_rank, category = RepositorySeedScanJobsMixin._seed_category_order(job.category)
+        category_rank, category = RepositorySeedScanJobsMixin._seed_category_order(job.category, policy)
         return (
             _normalized_seed_text(job.province),
             _normalized_seed_text(job.city),
@@ -143,15 +137,19 @@ class RepositorySeedScanJobsMixin:
         *,
         sort_specs: Sequence[Dict[str, Any]],
         max_page: int | None = None,
+        policy: SeedScanPolicy | None = None,
     ) -> Dict[str, Any]:
+        active_policy = policy or DEFAULT_SEED_SCAN_POLICY
         if not self.enabled:
-            return {"job_key": self._seed_scan_job_key(job), "created": False, "progress_created": 0}
+            job_key = (
+                active_policy.normalize_job(job).job_key
+                if policy is not None
+                else self._seed_scan_job_key(job)
+            )
+            return {"job_key": job_key, "created": False, "progress_created": 0}
         self.initialize()
-        job_key = self._seed_scan_job_key(job)
-        location_code = _normalized_seed_text(job.get("location_code"))
-        category = _normalized_seed_text(job.get("category")) or "50025969"
-        if not location_code:
-            raise ValueError("seed scan job requires location_code")
+        normalized_job = active_policy.normalize_job(job)
+        job_key = normalized_job.job_key
         if not sort_specs:
             raise ValueError("seed scan job requires at least one sort spec")
 
@@ -159,16 +157,16 @@ class RepositorySeedScanJobsMixin:
         progress_created = 0
 
         def apply_job_fields(row: FapaiSeedScanJob) -> None:
-            row.province = _normalized_seed_text(job.get("province"))
-            row.city = _normalized_seed_text(job.get("city"))
-            row.district = _normalized_seed_text(job.get("district"))
-            row.location_code = location_code
-            row.category = category
+            row.province = normalized_job.province
+            row.city = normalized_job.city
+            row.district = normalized_job.district
+            row.location_code = normalized_job.location_code
+            row.category = normalized_job.category
             if row.status in (None, ""):
                 row.status = "pending"
                 row.completed_at = None
-            row.source_url_template = self._build_seed_scan_url(location_code, category, "{st_param}", 1)
-            row.metadata_json = dict(job.get("metadata") or {})
+            row.source_url_template = normalized_job.source_url_template
+            row.metadata_json = normalized_job.metadata
 
         with self.session_factory.begin() as session:
             row = session.get(FapaiSeedScanJob, job_key)
@@ -233,10 +231,16 @@ class RepositorySeedScanJobsMixin:
             self._refresh_seed_scan_job_status(session, job_key, now)
         return {"job_key": job_key, "created": created, "progress_created": progress_created}
 
-    def archive_seed_scan_jobs_except(self, active_job_keys: Sequence[str]) -> Dict[str, int]:
+    def archive_seed_scan_jobs_except(
+        self,
+        active_job_keys: Sequence[str],
+        *,
+        policy: SeedScanPolicy | None = None,
+    ) -> Dict[str, int]:
+        active_policy = policy or DEFAULT_SEED_SCAN_POLICY
         normalized_keys = sorted(
             {
-                key
+                active_policy.normalize_job_key(key)
                 for key in (_normalized_seed_text(value) for value in active_job_keys)
                 if key
             }
@@ -257,6 +261,11 @@ class RepositorySeedScanJobsMixin:
             stale_jobs = session.scalars(
                 select(FapaiSeedScanJob).where(not_(FapaiSeedScanJob.job_key.in_(normalized_keys)))
             ).all()
+            stale_jobs = [
+                row
+                for row in stale_jobs
+                if active_policy.owns_job(row.job_key, row.metadata_json)
+            ]
             stale_job_keys = [row.job_key for row in stale_jobs]
             stale_progress_rows: list[FapaiSeedScanProgress] = []
             if stale_job_keys:
@@ -268,8 +277,6 @@ class RepositorySeedScanJobsMixin:
                 if row.status != "archived":
                     archived_jobs += 1
                 row.status = "archived"
-                row.leased_by = None
-                row.lease_until = None
                 row.updated_at = now
                 session.add(row)
 

@@ -5,17 +5,6 @@ from __future__ import annotations
 from tools.seed_collector_context import *
 
 
-def _job_payload(config: SeedCollectorConfig) -> dict[str, Any]:
-    return {
-        "job_key": config.job_key,
-        "province": config.province,
-        "city": config.city,
-        "district": config.district,
-        "location_code": config.location_code,
-        "category": config.category,
-    }
-
-
 def _default_seed_job(config: SeedCollectorConfig) -> SeedScanJobSpec:
     return SeedScanJobSpec(
         job_key=config.job_key,
@@ -26,6 +15,7 @@ def _default_seed_job(config: SeedCollectorConfig) -> SeedScanJobSpec:
         category=config.category,
         sort_specs=config.sort_specs,
         max_page=config.max_page,
+        source_url_template=config.source_url_template,
     )
 
 
@@ -36,11 +26,13 @@ def _seed_jobs(config: SeedCollectorConfig) -> tuple[SeedScanJobSpec, ...]:
 def _ensure_seed_scan_jobs(config: SeedCollectorConfig, repository: PropertyRepository) -> list[dict[str, Any]]:
     ensured: list[dict[str, Any]] = []
     for job in _seed_jobs(config):
+        policy_kwargs = {"policy": config.seed_scan_policy} if config.seed_scan_policy else {}
         ensured.append(
             repository.ensure_seed_scan_job(
                 job.as_job_dict(),
                 sort_specs=[spec.as_dict() for spec in job.sort_specs],
                 max_page=job.max_page,
+                **policy_kwargs,
             )
         )
     return ensured
@@ -57,7 +49,8 @@ def _should_archive_stale_seed_jobs(config: SeedCollectorConfig) -> bool:
 
 def _archive_stale_seed_jobs(config: SeedCollectorConfig, repository: PropertyRepository) -> dict[str, int]:
     active_job_keys = [job.job_key for job in _seed_jobs(config)]
-    return repository.archive_seed_scan_jobs_except(active_job_keys)
+    policy_kwargs = {"policy": config.seed_scan_policy} if config.seed_scan_policy else {}
+    return repository.archive_seed_scan_jobs_except(active_job_keys, **policy_kwargs)
 
 
 def _has_seed_scan_work(repository: PropertyRepository) -> tuple[bool, dict[str, int]]:
@@ -86,7 +79,6 @@ def _should_ensure_seed_jobs(config: SeedCollectorConfig, counts: dict[str, int]
 
 
 __all__ = (
-    '_job_payload',
     '_default_seed_job',
     '_seed_jobs',
     '_ensure_seed_scan_jobs',

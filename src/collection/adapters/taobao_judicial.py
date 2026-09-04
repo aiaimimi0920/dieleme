@@ -10,6 +10,7 @@ from src.avm.collection_template import sync_collection_record
 
 from ..contracts import NumberParser, Record
 from ..search_task_policy import SearchTaskPolicy, TaobaoJudicialSearchTaskPolicy
+from ..seed_scan_policy import SeedScanPolicy, TaobaoJudicialSeedScanPolicy
 from .generic_product import GenericProductAdapter
 
 
@@ -39,6 +40,10 @@ class TaobaoJudicialAuctionAdapter(GenericProductAdapter):
     @property
     def search_task_policy(self) -> SearchTaskPolicy:
         return TaobaoJudicialSearchTaskPolicy()
+
+    @property
+    def seed_scan_policy(self) -> SeedScanPolicy:
+        return TaobaoJudicialSeedScanPolicy()
 
     def build_seed_record(
         self,
