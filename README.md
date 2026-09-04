@@ -106,6 +106,16 @@ cmd /c auto\seed_hybrid_collector.bat
 
 做本地 load-time smoke，而不需要直接碰真实站点。
 
+可维护源码位于 `tampermonkey_scripts/src/fapaifang_unified/`。Tampermonkey
+安装入口仍保持为一个共享 IIFE 的单文件产物，避免 `@require` 改变授权、加载
+时序和闭包状态。修改分源后执行：
+
+```powershell
+node scripts/build-userscript.mjs --write
+node scripts/build-userscript.mjs --check
+node --check tampermonkey_scripts/fapaifang_unified.user.js
+```
+
 ### 本地 mock 滑块回归入口
 
 这组入口只访问仓库内的 `file://.../tools/mock_slider.html`，用于稳定回归：
@@ -650,7 +660,8 @@ docker compose --env-file docker.local.env -f docker-compose.collection.yml --pr
 ### 1. 数据采集
 
 - 后端主入口：`src/server.py`
-- 浏览器脚本入口：`tampermonkey_scripts/fapaifang_unified.user.js`
+- 浏览器脚本安装入口：`tampermonkey_scripts/fapaifang_unified.user.js`
+- 浏览器脚本可维护分源：`tampermonkey_scripts/src/fapaifang_unified/`
 - 采集服务实现：
   - `src/collection/seed_service.py`
   - `src/collection/detail_service.py`

@@ -30,6 +30,28 @@ def test_repo_js_syntax_check_files_ignore_operator_output_tree(tmp_path: Path):
     assert js_surface.repo_js_syntax_check_files(tmp_path) == [tracked_script]
 
 
+def test_repo_js_syntax_check_files_ignore_userscript_build_fragments(tmp_path: Path):
+    built_script = tmp_path / "tampermonkey_scripts" / "fapaifang_unified.user.js"
+    built_script.parent.mkdir(parents=True)
+    built_script.write_text("const built = true;\n", encoding="utf-8")
+    fragment = (
+        tmp_path
+        / "tampermonkey_scripts"
+        / "src"
+        / "fapaifang_unified"
+        / "00_bootstrap.js"
+    )
+    fragment.parent.mkdir(parents=True)
+    fragment.write_text("(() => {\n", encoding="utf-8")
+    independent_source = tmp_path / "tampermonkey_scripts" / "src" / "independent.js"
+    independent_source.write_text("const independent = true;\n", encoding="utf-8")
+
+    assert js_surface.repo_js_syntax_check_files(tmp_path) == [
+        built_script,
+        independent_source,
+    ]
+
+
 def test_repo_js_syntax_check_files_pass_node_check():
     repo_root = Path(__file__).resolve().parents[2]
 

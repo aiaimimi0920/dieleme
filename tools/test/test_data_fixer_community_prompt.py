@@ -18,7 +18,8 @@ def _new_app_without_tk() -> data_fixer.DataFixerApp:
 
 
 def test_data_fixer_source_prompts_use_stable_location_index_contract():
-    source = (SRC_ROOT / "data_fixer.py").read_text(encoding="utf-8")
+    source_paths = [SRC_ROOT / "data_fixer.py", *sorted(SRC_ROOT.glob("data_fixer_*.py"))]
+    source = "\n".join(path.read_text(encoding="utf-8") for path in source_paths)
 
     assert "参考贝壳网数据库" not in source
     assert "标准小区名称" not in source

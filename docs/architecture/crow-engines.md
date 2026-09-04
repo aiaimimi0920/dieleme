@@ -123,3 +123,10 @@ node scripts/effective-code-lines.mjs --mode ratchet --json artifacts/effective-
 Split along the stage, domain-policy, persistence, I/O, orchestration, and test
 fixture boundaries above. Never game the limit through minification, broad
 exclusions, or removal of useful tests.
+
+The unified Tampermonkey install file is a deterministic compatibility artifact:
+its numbered maintained fragments live under
+`tampermonkey_scripts/src/fapaifang_unified/`, while
+`scripts/build-userscript.mjs` proves that they reproduce the tracked one-file
+output exactly. Do not edit the generated install file directly or replace its
+shared IIFE with runtime `@require` dependencies.
