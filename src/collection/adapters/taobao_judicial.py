@@ -142,6 +142,25 @@ class TaobaoJudicialAuctionAdapter(GenericProductAdapter):
         existing: Mapping[str, Any],
         item_id: str,
     ) -> None:
+        self.preserve_seed_values(record, existing)
+
+        if record.get("交易时间") and not record.get("auction_date"):
+            record["auction_date"] = record.get("交易时间")
+        if record.get("原始网站") and not record.get("source_url"):
+            record["source_url"] = record.get("原始网站")
+        record["id"] = int(item_id) if item_id.isdigit() else item_id
+        record["source_item_id"] = item_id
+        record.setdefault("source_platform", self.source_platform)
+        if "avm_risk_features" not in record:
+            record["avm_risk_features"] = existing.get("avm_risk_features", {})
+        if "avm_extraction_version" not in record:
+            record["avm_extraction_version"] = existing.get("avm_extraction_version")
+
+    def preserve_seed_values(
+        self,
+        record: MutableMapping[str, Any],
+        existing: Mapping[str, Any],
+    ) -> None:
         for key in _SEED_FIELDS_TO_PRESERVE:
             value = existing.get(key)
             if _has_value(value) and not _has_value(record.get(key)):
@@ -163,17 +182,6 @@ class TaobaoJudicialAuctionAdapter(GenericProductAdapter):
         status_text = str(record.get("status") or existing.get("status") or "").lower()
         if status_text in {"done", "成交", "ended", "finished", "结束"}:
             record["是否成交"] = True
-        if record.get("交易时间") and not record.get("auction_date"):
-            record["auction_date"] = record.get("交易时间")
-        if record.get("原始网站") and not record.get("source_url"):
-            record["source_url"] = record.get("原始网站")
-        record["id"] = int(item_id) if item_id.isdigit() else item_id
-        record["source_item_id"] = item_id
-        record.setdefault("source_platform", self.source_platform)
-        if "avm_risk_features" not in record:
-            record["avm_risk_features"] = existing.get("avm_risk_features", {})
-        if "avm_extraction_version" not in record:
-            record["avm_extraction_version"] = existing.get("avm_extraction_version")
 
     def accepts_detail(self, record: Mapping[str, Any]) -> bool:
         status = str(record.get("status", "")).lower()

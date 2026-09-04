@@ -178,3 +178,20 @@ def test_process_html_file_preserves_seed_values_when_ai_returns_null_fields(tmp
     assert updated["avm_risk_features"]["is_occupied"] is True
     assert state["risk_extractions"] == [item_id]
     assert state["risk_syncs"] == [item_id]
+
+
+def test_legacy_seed_preservation_entrypoint_delegates_to_auction_adapter():
+    record = {"id": "legacy-1", "source_item_id": "legacy-1", "建筑面积": 80, "成交价格": None}
+    seed = {
+        "id": "legacy-1",
+        "title": "Seed title",
+        "currentPrice": 1_000_000,
+        "url": "https://example.test/items/legacy-1",
+        "status": "done",
+    }
+
+    DetailCollectionService._preserve_seed_values(record, seed)
+
+    assert record["标题"] == "Seed title"
+    assert record["成交价格"] == 1_000_000
+    assert record["建筑面积"] == 80

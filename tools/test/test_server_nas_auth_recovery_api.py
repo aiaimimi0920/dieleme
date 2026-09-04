@@ -50,6 +50,24 @@ def _request_json(url, *, method="GET", payload=None, recovery_token=""):
         return json.load(response)
 
 
+def _request_error(url, *, method="GET", payload=None, raw_data=None, recovery_token=""):
+    data = raw_data if raw_data is not None else (
+        None if payload is None else json.dumps(payload).encode("utf-8")
+    )
+    request = Request(
+        url,
+        data=data,
+        method=method,
+        headers={
+            "Content-Type": "application/json",
+            "X-Fapai-Recovery-Token": recovery_token,
+        },
+    )
+    with pytest.raises(HTTPError) as caught:
+        urlopen(request, timeout=5)
+    return caught.value.code, json.load(caught.value)
+
+
 def test_recovery_api_exposes_safe_state_and_accepts_exact_pc1_claim(monkeypatch, tmp_path):
     coordinator = FakeCoordinator()
     token_path = tmp_path / "nas-auth-recovery.token"
@@ -61,8 +79,7 @@ def test_recovery_api_exposes_safe_state_and_accepts_exact_pc1_claim(monkeypatch
     thread.start()
     try:
         base = f"http://127.0.0.1:{httpd.server_address[1]}/api/collection/auth/recovery"
-        with pytest.raises(HTTPError) as forbidden:
-            _request_json(base, recovery_token="wrong-token")
+        forbidden_status, forbidden_body = _request_error(base, recovery_token="wrong-token")
         state = _request_json(base, recovery_token="test-recovery-token")
         claim = _request_json(
             f"{base}/claim",
@@ -76,7 +93,8 @@ def test_recovery_api_exposes_safe_state_and_accepts_exact_pc1_claim(monkeypatch
         thread.join(timeout=5)
 
     assert state["auth_recovery"]["active"]["status"] == "requested"
-    assert forbidden.value.code == 403
+    assert forbidden_status == 403
+    assert forbidden_body["error"]["code"] == "COLLECTION_AUTH_RECOVERY_FORBIDDEN"
     assert claim["ok"] is True
     assert coordinator.claims == [("pc1", "auth-recovery-1", "pc1")]
     assert "cookies" not in json.dumps(state)
@@ -125,6 +143,164 @@ def test_recovery_snapshot_endpoint_relays_only_the_active_digest_matched_file(m
     assert payload["sha256"] == digest
     assert payload["encoding"] == "base64"
     assert base64.b64decode(payload["snapshot"]) == raw
+
+
+def test_recovery_snapshot_endpoint_reports_each_validation_failure(monkeypatch, tmp_path):
+    class SnapshotCoordinator:
+        enabled = True
+
+        def __init__(self):
+            self.active = None
+
+        def snapshot(self):
+            return {"enabled": True, "active": self.active}
+
+    coordinator = SnapshotCoordinator()
+    snapshot_path = tmp_path / "taobao-cookies.json"
+    token_path = tmp_path / "nas-auth-recovery.token"
+    token_path.write_text("test-recovery-token\n", encoding="utf-8")
+    monkeypatch.setattr(server, "NAS_AUTH_RECOVERY", coordinator)
+    monkeypatch.setattr(server, "NAS_AUTH_RECOVERY_TOKEN_FILE", token_path)
+    monkeypatch.setattr(server, "_resolve_auth_cookie_snapshot_path", lambda _payload: str(snapshot_path))
+    httpd = server.ReusableTCPServer(("127.0.0.1", 0), server.DataHandler)
+    thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+    thread.start()
+    try:
+        endpoint = (
+            f"http://127.0.0.1:{httpd.server_address[1]}"
+            "/api/collection/auth/recovery/snapshot?recovery_id=auth-recovery-1"
+        )
+        cases = [
+            (
+                {"recovery_id": "other", "status": "requested", "snapshot": None},
+                None,
+                "COLLECTION_AUTH_RECOVERY_NOT_ACTIVE",
+            ),
+            (
+                {"recovery_id": "auth-recovery-1", "status": "requested", "snapshot": None},
+                None,
+                "COLLECTION_AUTH_RECOVERY_SNAPSHOT_NOT_READY",
+            ),
+            (
+                {
+                    "recovery_id": "auth-recovery-1",
+                    "status": "snapshot_ready",
+                    "snapshot": {"sha256": hashlib.sha256(b"missing").hexdigest()},
+                },
+                None,
+                "COLLECTION_AUTH_RECOVERY_SNAPSHOT_MISSING",
+            ),
+            (
+                {
+                    "recovery_id": "auth-recovery-1",
+                    "status": "snapshot_ready",
+                    "snapshot": {"sha256": hashlib.sha256(b"").hexdigest()},
+                },
+                b"",
+                "COLLECTION_AUTH_RECOVERY_SNAPSHOT_INVALID",
+            ),
+            (
+                {
+                    "recovery_id": "auth-recovery-1",
+                    "status": "snapshot_ready",
+                    "snapshot": {"sha256": hashlib.sha256(b"expected").hexdigest()},
+                },
+                b"changed",
+                "COLLECTION_AUTH_RECOVERY_SNAPSHOT_CHANGED",
+            ),
+        ]
+        assert {case[2] for case in cases} == {
+            "COLLECTION_AUTH_RECOVERY_NOT_ACTIVE",
+            "COLLECTION_AUTH_RECOVERY_SNAPSHOT_CHANGED",
+            "COLLECTION_AUTH_RECOVERY_SNAPSHOT_INVALID",
+            "COLLECTION_AUTH_RECOVERY_SNAPSHOT_MISSING",
+            "COLLECTION_AUTH_RECOVERY_SNAPSHOT_NOT_READY",
+        }
+        for active, contents, expected_code in cases:
+            coordinator.active = active
+            snapshot_path.unlink(missing_ok=True)
+            if contents is not None:
+                snapshot_path.write_bytes(contents)
+            status, body = _request_error(endpoint, recovery_token="test-recovery-token")
+            assert status in {404, 409}
+            assert body["error"]["code"] == expected_code
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        thread.join(timeout=5)
+
+
+def test_recovery_post_routes_validate_authenticated_object_bodies(monkeypatch, tmp_path):
+    token_path = tmp_path / "nas-auth-recovery.token"
+    token_path.write_text("test-recovery-token\n", encoding="utf-8")
+    monkeypatch.setattr(server, "NAS_AUTH_RECOVERY", FakeCoordinator())
+    monkeypatch.setattr(server, "NAS_AUTH_RECOVERY_TOKEN_FILE", token_path)
+    httpd = server.ReusableTCPServer(("127.0.0.1", 0), server.DataHandler)
+    thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+    thread.start()
+    try:
+        origin = f"http://127.0.0.1:{httpd.server_address[1]}"
+        routes = (
+            "/api/collection/auth/recovery/claim",
+            "/api/collection/auth/recovery/snapshot_ready",
+            "/api/collection/auth/recovery/pc2_restarting",
+            "/api/collection/auth/recovery/result",
+        )
+        for route in routes:
+            status, body = _request_error(
+                origin + route,
+                method="POST",
+                raw_data=b"[",
+                recovery_token="test-recovery-token",
+            )
+            assert status == 400
+            assert body["error"]["code"] == "AVM_INVALID_JSON"
+            status, body = _request_error(
+                origin + route,
+                method="POST",
+                payload=[],
+                recovery_token="test-recovery-token",
+            )
+            assert status == 400
+            assert body["error"]["code"] == "AVM_INVALID_REQUEST_BODY"
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        thread.join(timeout=5)
+
+
+def test_recovery_claim_and_force_reset_expose_structured_rejections(monkeypatch, tmp_path):
+    coordinator = FakeCoordinator()
+    coordinator.claim = lambda *_args: {"ok": False, "error": "rejected"}
+    token_path = tmp_path / "nas-auth-recovery.token"
+    token_path.write_text("test-recovery-token\n", encoding="utf-8")
+    monkeypatch.setattr(server, "NAS_AUTH_RECOVERY", coordinator)
+    monkeypatch.setattr(server, "NAS_AUTH_RECOVERY_TOKEN_FILE", token_path)
+    monkeypatch.setattr(server, "_force_reset_solver_scope", lambda *_args: {"ok": False})
+    httpd = server.ReusableTCPServer(("127.0.0.1", 0), server.DataHandler)
+    thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+    thread.start()
+    try:
+        origin = f"http://127.0.0.1:{httpd.server_address[1]}"
+        status, body = _request_error(
+            origin + "/api/collection/auth/recovery/claim",
+            method="POST",
+            payload={"recovery_id": "auth-recovery-1", "role": "pc1", "node_id": "pc1"},
+            recovery_token="test-recovery-token",
+        )
+        assert status == 400
+        assert body["error"]["code"] == "COLLECTION_AUTH_RECOVERY_REJECTED"
+        status, body = _request_error(
+            origin + "/api/collection/auth/force_reset",
+            method="POST",
+            payload={"scope": "detail", "challenge_id": "challenge-1"},
+        )
+        assert status == 409
+        assert body["error"]["code"] == "COLLECTION_CHALLENGE_FORCE_RESET_REJECTED"
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        thread.join(timeout=5)
 
 
 def test_successful_pc2_result_clears_auth_pause_then_waits_for_real_progress(monkeypatch):

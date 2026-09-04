@@ -15,6 +15,12 @@ from .detail_processor import DetailProcessor
 class DetailCollectionService:
     """Thin orchestration wrapper for detail-stage automation entrypoints."""
 
+    @staticmethod
+    def _preserve_seed_values(record: Dict[str, Any], seed: Dict[str, Any]) -> None:
+        """Preserve the legacy auction-analysis call contract."""
+
+        TaobaoJudicialAuctionAdapter().preserve_seed_values(record, seed)
+
     def __init__(
         self,
         data_root: str | Path,
