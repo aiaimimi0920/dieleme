@@ -1,6 +1,6 @@
 param(
-    [string]$SourceRoot = "C:\Users\Public\nas_home\AI\FPFData",
-    [string]$TargetRoot = "\\192.168.15.200\docker\fapaifang",
+    [string]$SourceRoot = "",
+    [string]$TargetRoot = "",
     [string[]]$IncludeDirs = @("output", "datas", "jobs", "secrets"),
     [int]$LoopIntervalSeconds = 0,
     [int]$RetryCount = 2,
@@ -8,6 +8,27 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$repoRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
+
+if ([string]::IsNullOrWhiteSpace($SourceRoot)) {
+    $configuredSourceRoot = [string]$env:FAPAI_DATA_ROOT_HOST
+    $SourceRoot = if ([string]::IsNullOrWhiteSpace($configuredSourceRoot)) { "FPFData" } else { $configuredSourceRoot }
+}
+if (-not [System.IO.Path]::IsPathRooted($SourceRoot)) {
+    $SourceRoot = Join-Path $repoRoot $SourceRoot
+}
+$SourceRoot = [System.IO.Path]::GetFullPath($SourceRoot)
+
+if ([string]::IsNullOrWhiteSpace($TargetRoot)) {
+    $TargetRoot = [string]$env:FAPAI_ARTIFACT_SYNC_TARGET_ROOT
+}
+if ([string]::IsNullOrWhiteSpace($TargetRoot)) {
+    throw "TargetRoot is required. Pass -TargetRoot or set FAPAI_ARTIFACT_SYNC_TARGET_ROOT."
+}
+if (-not [System.IO.Path]::IsPathRooted($TargetRoot)) {
+    throw "TargetRoot must be an absolute local or UNC path: $TargetRoot"
+}
+$TargetRoot = [System.IO.Path]::GetFullPath($TargetRoot)
 
 function Invoke-ArtifactSyncOnce {
     param(

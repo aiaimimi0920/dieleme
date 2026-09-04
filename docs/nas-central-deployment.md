@@ -173,10 +173,15 @@ mount。推荐每台 Windows worker 使用本机数据根，再把关键 artifac
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass `
   -File scripts\sync-worker-artifacts-to-nas.ps1 `
-  -SourceRoot 'C:\Users\Public\nas_home\AI\FPFData' `
+  -SourceRoot '.\FPFData' `
   -TargetRoot '\\192.168.15.200\docker\fapaifang' `
   -LoopIntervalSeconds 60
 ```
+
+`SourceRoot` defaults to the checkout-local `FPFData/` directory (or
+`FAPAI_DATA_ROOT_HOST`). `TargetRoot` has no machine-specific default; pass it
+explicitly or set `FAPAI_ARTIFACT_SYNC_TARGET_ROOT` before registering a sync
+task.
 
 中央 API 读取 NAS 上的镜像副本；worker 本地继续用同样的 `/data/output`、
 `/data/datas`、`/data/jobs`、`/data/secrets` 容器路径，所以数据库里的 artifact

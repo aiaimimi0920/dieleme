@@ -6,6 +6,7 @@ import time
 from pathlib import Path
 from typing import Any, Callable, Dict
 
+from .adapters.generic_product import GenericProductAdapter
 from .adapters.taobao_judicial import TaobaoJudicialAuctionAdapter
 from .contracts import CollectionAdapter, DetailExtractor
 from .detail_extractors import resolve_detail_extractor
@@ -29,7 +30,7 @@ class DetailCollectionService:
     ):
         self.data_root = Path(data_root)
         self.repository = repository
-        self.adapter = adapter or TaobaoJudicialAuctionAdapter()
+        self.adapter = adapter or GenericProductAdapter()
 
     @property
     def failed_dir(self) -> Path:

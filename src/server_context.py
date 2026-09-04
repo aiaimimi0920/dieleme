@@ -159,7 +159,11 @@ from src.avm.service import AVMService
 from src.avm.pipeline import AVMPipelineManager, AVMPipelineConfig
 from src.avm.collection_template import sync_collection_record
 from src.avm.alert_policy import build_alert_blockers
-from src.collection import DetailCollectionService, SeedCollectionService
+from src.collection import (
+    DetailCollectionService,
+    SeedCollectionService,
+    collection_adapter_from_env,
+)
 from src.detail_artifacts import (
     extract_detail_artifacts as _shared_extract_detail_artifacts,
     get_detail_archive_path as _shared_get_detail_archive_path,

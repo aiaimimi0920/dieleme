@@ -457,6 +457,9 @@ FAPAI_DATA_ROOT_HOST=.\FPFData
 OPENAI_BASE_URL=https://your-openai-compatible-base-url/v1
 OPENAI_API_KEY=<your-key>
 OPENAI_MODEL=<optional-model-name>
+CROW_COLLECTION_ADAPTER=taobao_judicial
+# CROW_COLLECTION_SOURCE_PLATFORM is required only for the generic adapter.
+# CROW_COLLECTION_SOURCE_PLATFORM=catalog_x
 FAPAI_CDP_ENDPOINT=http://host.docker.internal:9223
 FAPAI_DB_URL=postgresql+psycopg://fapaifang:fapaifang@host.docker.internal:55432/fapaifang
 FAPAI_DB_AUTO_CREATE=1

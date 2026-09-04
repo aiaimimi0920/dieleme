@@ -16,6 +16,8 @@ from src.avm.collection_template import build_collection_record, sync_collection
 
 from src.collection.seed_service import SeedCollectionService
 
+from src.collection.adapters import TaobaoJudicialAuctionAdapter
+
 from src.avm.service import AVMService
 
 from src.storage.models import (

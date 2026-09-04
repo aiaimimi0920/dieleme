@@ -33,6 +33,7 @@ class TaobaoJudicialAuctionAdapter(GenericProductAdapter):
 
     source_platform: str = "taobao_sf"
     collects_avm_risk: bool = True
+    bootstraps_legacy_search_tasks: bool = True
 
     def build_seed_record(
         self,

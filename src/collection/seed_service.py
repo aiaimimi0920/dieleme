@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 from typing import Any, Callable, Dict
 
-from .adapters.taobao_judicial import TaobaoJudicialAuctionAdapter
+from .adapters.generic_product import GenericProductAdapter
 from .contracts import CollectionAdapter
 from .search_bootstrap import (
     DEFAULT_CATEGORIES,
@@ -18,7 +18,7 @@ from .search_bootstrap import (
 
 
 class SeedCollectionService:
-    """Bridge legacy sniff-task orchestration into explicit collection-stage APIs."""
+    """Orchestrate source-neutral seed intake and task assignment."""
 
     def __init__(
         self,
@@ -30,7 +30,7 @@ class SeedCollectionService:
         self.repository = repository
         self.jobs_dir = jobs_dir
         self.data_root = data_root
-        self.adapter = adapter or TaobaoJudicialAuctionAdapter()
+        self.adapter = adapter or GenericProductAdapter()
 
     def build_seed_stub(
         self,
@@ -45,6 +45,8 @@ class SeedCollectionService:
         )
 
     def _bootstrap_db_search_tasks(self) -> None:
+        if not getattr(self.adapter, "bootstraps_legacy_search_tasks", False):
+            return
         if not (self.repository and getattr(self.repository, "enabled", False)):
             return
         try:

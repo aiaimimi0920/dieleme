@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import importlib
 import json
 from pathlib import Path
+
+import pytest
 
 from src.analysis_ensemble import (
     GENERIC_ANALYSIS_PROFILE,
@@ -13,6 +16,9 @@ from src.collection import (
     DetailCollectionService,
     GenericProductAdapter,
     SeedCollectionService,
+    TaobaoJudicialAuctionAdapter,
+    collection_adapter_from_env,
+    create_collection_adapter,
     derive_stage_state,
 )
 
@@ -57,6 +63,72 @@ def test_generic_adapter_collects_arbitrary_product_seed(tmp_path: Path) -> None
     assert record["source_title"] == "Reusable product"
     assert record["source_url"] == "https://catalog.example/items/sku-7"
     assert record["inventory"] == 12
+
+
+def test_collection_services_default_to_source_neutral_adapter(tmp_path: Path) -> None:
+    seed_service = SeedCollectionService()
+    detail_service = DetailCollectionService(tmp_path)
+
+    assert type(seed_service.adapter) is GenericProductAdapter
+    assert type(detail_service.adapter) is GenericProductAdapter
+
+
+def test_generic_seed_service_does_not_bootstrap_legacy_search_tasks() -> None:
+    class RepositoryProbe:
+        enabled = True
+
+        def count_search_tasks(self) -> int:
+            raise AssertionError("generic service must not inspect legacy search tasks")
+
+    SeedCollectionService(repository=RepositoryProbe())._bootstrap_db_search_tasks()
+
+
+def test_collection_adapter_factory_supports_runtime_compatibility_default() -> None:
+    adapter = collection_adapter_from_env(
+        default="taobao_judicial",
+        environ={},
+    )
+
+    assert type(adapter) is TaobaoJudicialAuctionAdapter
+
+
+def test_collection_adapter_factory_configures_generic_source_platform() -> None:
+    adapter = collection_adapter_from_env(
+        environ={
+            "CROW_COLLECTION_ADAPTER": "generic",
+            "CROW_COLLECTION_SOURCE_PLATFORM": "catalog_x",
+        }
+    )
+
+    assert type(adapter) is GenericProductAdapter
+    assert adapter.source_platform == "catalog_x"
+
+
+def test_collection_adapter_factory_rejects_unknown_adapter() -> None:
+    with pytest.raises(ValueError, match="unsupported collection adapter"):
+        create_collection_adapter("typoed-adapter")
+
+
+def test_server_collection_factories_keep_explicit_legacy_default(monkeypatch) -> None:
+    monkeypatch.delenv("CROW_COLLECTION_ADAPTER", raising=False)
+    monkeypatch.delenv("CROW_COLLECTION_SOURCE_PLATFORM", raising=False)
+    server = importlib.import_module("src.server")
+
+    assert type(server._seed_collection_service().adapter) is TaobaoJudicialAuctionAdapter
+    assert type(server._detail_collection_service().adapter) is TaobaoJudicialAuctionAdapter
+
+
+def test_server_collection_factories_honor_generic_runtime_config(monkeypatch) -> None:
+    monkeypatch.setenv("CROW_COLLECTION_ADAPTER", "generic")
+    monkeypatch.setenv("CROW_COLLECTION_SOURCE_PLATFORM", "catalog_x")
+    server = importlib.import_module("src.server")
+
+    seed_adapter = server._seed_collection_service().adapter
+    detail_adapter = server._detail_collection_service().adapter
+    assert type(seed_adapter) is GenericProductAdapter
+    assert type(detail_adapter) is GenericProductAdapter
+    assert seed_adapter.source_platform == "catalog_x"
+    assert detail_adapter.source_platform == "catalog_x"
 
 
 def test_seed_stub_uses_the_configured_adapter() -> None:

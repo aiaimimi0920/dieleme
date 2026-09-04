@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from src.collection.adapters import TaobaoJudicialAuctionAdapter
 from src.collection.detail_service import DetailCollectionService
 
 
@@ -18,7 +19,7 @@ def _submit_detail_html(tmp_path: Path, *, status: str):
         },
     }
 
-    service = DetailCollectionService(tmp_path)
+    service = DetailCollectionService(tmp_path, adapter=TaobaoJudicialAuctionAdapter())
 
     def get_working_item(candidate_id: str, include_processed: bool = False):
         return state["item"] if candidate_id == item_id else None
@@ -103,7 +104,7 @@ def test_process_html_file_preserves_seed_values_when_ai_returns_null_fields(tmp
         "item": {"file_path": str(tmp_path / "seed.json"), "cached": True, "data": dict(seed_data)},
     }
 
-    service = DetailCollectionService(tmp_path)
+    service = DetailCollectionService(tmp_path, adapter=TaobaoJudicialAuctionAdapter())
 
     def get_working_item(candidate_id: str, include_processed: bool = False):
         return state["item"] if candidate_id == item_id else None

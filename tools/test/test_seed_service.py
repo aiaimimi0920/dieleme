@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from src.collection.adapters import TaobaoJudicialAuctionAdapter
 from src.collection.seed_service import SeedCollectionService
 
 
@@ -15,7 +16,12 @@ def test_submit_batch_writes_new_seed_file_for_new_items(tmp_path: Path):
     pending_tasks: list[str] = []
     persisted: list[tuple[dict[str, object], str, dict[str, object] | None]] = []
 
-    service = SeedCollectionService(repository=None, jobs_dir=None, data_root=str(data_root))
+    service = SeedCollectionService(
+        repository=None,
+        jobs_dir=None,
+        data_root=str(data_root),
+        adapter=TaobaoJudicialAuctionAdapter(),
+    )
     result = service.submit_batch(
         {
             "items": [

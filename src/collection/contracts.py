@@ -12,6 +12,7 @@ class CollectionAdapter(Protocol):
 
     source_platform: str
     collects_avm_risk: bool
+    bootstraps_legacy_search_tasks: bool
 
     def item_id(self, item: Mapping[str, Any]) -> str: ...
 

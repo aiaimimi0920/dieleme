@@ -175,10 +175,15 @@ def _seed_collection_service():
         repository=DB_REPOSITORY,
         jobs_dir=JOBS_DIR,
         data_root=DATA_DIR,
+        adapter=collection_adapter_from_env(default="taobao_judicial"),
     )
 
 def _detail_collection_service(data_root=None):
-    return DetailCollectionService(data_root=data_root or DATA_DIR, repository=DB_REPOSITORY)
+    return DetailCollectionService(
+        data_root=data_root or DATA_DIR,
+        repository=DB_REPOSITORY,
+        adapter=collection_adapter_from_env(default="taobao_judicial"),
+    )
 
 def submit_task(file_path):
     """

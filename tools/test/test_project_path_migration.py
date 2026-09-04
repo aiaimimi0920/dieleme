@@ -76,6 +76,7 @@ def test_local_operator_scripts_do_not_embed_legacy_data_roots() -> None:
         "start-pc1-manual-auth-session.ps1",
         "start-seed-scan-only.ps1",
         "start-taobao-cdp-browser.ps1",
+        "sync-worker-artifacts-to-nas.ps1",
         "sync-docker-data-to-host.ps1",
         "trigger-taobao-login-recovery-if-needed.ps1",
         "watch-pc1-auth-auto-resume.ps1",

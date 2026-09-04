@@ -75,6 +75,21 @@ when AI joint archiving is needed, an `AnalysisProfile`. Inject the adapter into
 the seed and detail services. Do not add another source conditional to the
 orchestration services.
 
+The service classes default to `GenericProductAdapter`. The existing HTTP server
+explicitly keeps `taobao_judicial` as its compatibility default. A source-neutral
+server instance can select the generic adapter without code changes:
+
+```env
+CROW_COLLECTION_ADAPTER=generic
+CROW_COLLECTION_SOURCE_PLATFORM=catalog_x
+```
+
+Unknown adapter names fail during service construction instead of silently
+falling back to a domain policy. New adapters should be registered in
+`src/collection/adapter_resolver.py`; orchestration services remain unchanged.
+Only adapters that explicitly enable `bootstraps_legacy_search_tasks` may seed
+the historical Taobao location/category queue.
+
 Every adapter must persist a stable `source_platform`. Repository stage tracking
 uses that value to select the generic readiness contract for explicit non-Taobao
 sources while retaining the Taobao judicial-auction contract for legacy records.

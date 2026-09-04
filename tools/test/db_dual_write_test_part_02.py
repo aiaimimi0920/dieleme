@@ -67,7 +67,12 @@ def test_seed_collection_service_bootstraps_and_claims_db_search_tasks(tmp_path:
     jobs_root.mkdir(parents=True, exist_ok=True)
     (jobs_root / "priority.json").write_text(json.dumps(["310115"], ensure_ascii=False), encoding="utf-8")
 
-    service = SeedCollectionService(repository=repo, jobs_dir=str(jobs_root), data_root=str(data_root))
+    service = SeedCollectionService(
+        repository=repo,
+        jobs_dir=str(jobs_root),
+        data_root=str(data_root),
+        adapter=TaobaoJudicialAuctionAdapter(),
+    )
     result = service.next_task("seed-session-1", paused=False)
 
     assert result["task"] is not None
