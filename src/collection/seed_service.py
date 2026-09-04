@@ -6,8 +6,8 @@ import os
 from pathlib import Path
 from typing import Any, Callable, Dict
 
-from src.avm.collection_template import sync_collection_record
-
+from .adapters.taobao_judicial import TaobaoJudicialAuctionAdapter
+from .contracts import CollectionAdapter
 from .search_bootstrap import (
     DEFAULT_CATEGORIES,
     DEFAULT_SORT_ORDER,
@@ -20,86 +20,25 @@ from .search_bootstrap import (
 class SeedCollectionService:
     """Bridge legacy sniff-task orchestration into explicit collection-stage APIs."""
 
-    def __init__(self, repository: Any = None, jobs_dir: str | None = None, data_root: str | None = None):
+    def __init__(
+        self,
+        repository: Any = None,
+        jobs_dir: str | None = None,
+        data_root: str | None = None,
+        adapter: CollectionAdapter | None = None,
+    ):
         self.repository = repository
         self.jobs_dir = jobs_dir
         self.data_root = data_root
+        self.adapter = adapter or TaobaoJudicialAuctionAdapter()
 
     @staticmethod
     def build_seed_stub(item: Dict[str, Any], parse_price: Callable[[Any], Any], safe_int: Callable[[Any], Any]) -> Dict[str, Any]:
-        deal_price = parse_price(item.get("currentPrice")) or parse_price(item.get("成交价格"))
-        starting_price = parse_price(item.get("initialPrice")) or parse_price(item.get("起拍价格"))
-        apply_count = safe_int(item.get("applyCount")) or safe_int(item.get("竞拍人数"))
-        bid_count = safe_int(item.get("bidCount")) or safe_int(item.get("出价次数"))
-        bidder_count = safe_int(item.get("bidderCount")) or safe_int(item.get("bidder_count")) or safe_int(item.get("出价人数"))
-        deposit = parse_price(item.get("deposit")) or parse_price(item.get("保证金"))
-        auction_date = str(item.get("auction_date", "") or "").strip()
-        auction_start_time = str(item.get("auction_start_time", "") or item.get("startTime", "") or "").strip()
-        full_address = item.get("full_address") or item.get("完整地址") or item.get("location") or item.get("地点")
-        coordinate_source = item.get("coordinate_source")
-        watch_count = safe_int(item.get("watchCount")) or safe_int(item.get("watch_count")) or safe_int(item.get("围观人数"))
-        reminder_count = safe_int(item.get("remindCount")) or safe_int(item.get("reminder_count")) or safe_int(item.get("提醒人数"))
-        view_count = safe_int(item.get("viewCount")) or safe_int(item.get("view_count")) or safe_int(item.get("浏览次数"))
-
-        stub = {
-            "id": str(item.get("id")),
-            "title": item.get("title"),
-            "source_title": item.get("title"),
-            "source_platform": item.get("source_platform") or "taobao_sf",
-            "url": item.get("url"),
-            "source_url": item.get("url"),
-            "地点": full_address,
-            "full_address": full_address,
-            "完整地址": full_address,
-            "城市": item.get("city"),
-            "区": item.get("district"),
-            "end": item.get("end"),
-            "status": "done",
-            "is_processed": False,
-            "auction_date": auction_date,
-            "交易时间": auction_date or None,
-            "auction_start_time": auction_start_time or None,
-            "开拍时间": auction_start_time or None,
-            "currentPrice": deal_price,
-            "initialPrice": starting_price,
-            "transaction_price": deal_price,
-            "starting_price": starting_price,
-            "成交价格": deal_price,
-            "起拍价格": starting_price,
-            "applyCount": apply_count,
-            "竞拍人数": apply_count,
-            "apply_count": apply_count,
-            "bidCount": bid_count,
-            "bid_count": bid_count,
-            "出价次数": bid_count,
-            "bidderCount": bidder_count,
-            "bidder_count": bidder_count,
-            "出价人数": bidder_count,
-            "watchCount": watch_count,
-            "watch_count": watch_count,
-            "围观人数": watch_count,
-            "remindCount": reminder_count,
-            "reminder_count": reminder_count,
-            "提醒人数": reminder_count,
-            "viewCount": view_count,
-            "view_count": view_count,
-            "浏览次数": view_count,
-            "deposit": deposit,
-            "保证金": deposit,
-            "latitude": parse_price(item.get("latitude")) if item.get("latitude") is not None else None,
-            "longitude": parse_price(item.get("longitude")) if item.get("longitude") is not None else None,
-            "纬度": parse_price(item.get("latitude")) if item.get("latitude") is not None else None,
-            "经度": parse_price(item.get("longitude")) if item.get("longitude") is not None else None,
-            "coordinate_source": coordinate_source,
-            "auction_round": safe_int(item.get("auction_round")),
-            "housing_type": item.get("housing_type"),
-            "source_item_id": str(item.get("id")),
-            "list_payload_path": item.get("list_payload_path"),
-            "source_page_url": item.get("source_page_url") or item.get("page_url"),
-        }
-
-        filtered = {key: value for key, value in stub.items() if value not in (None, "")}
-        return sync_collection_record(filtered)
+        return TaobaoJudicialAuctionAdapter().build_seed_record(
+            item,
+            parse_number=parse_price,
+            safe_int=safe_int,
+        )
 
     def _bootstrap_db_search_tasks(self) -> None:
         if not (self.repository and getattr(self.repository, "enabled", False)):
@@ -209,20 +148,22 @@ class SeedCollectionService:
         items_by_date: Dict[str, list[Dict[str, Any]]] = {}
 
         for item in items:
-            item_id = str(item.get("id"))
+            item_id = self.adapter.item_id(item)
             status = str(item.get("status", "")).lower()
-            is_sold = item.get("是否成交")
             if list_payload_path and not item.get("list_payload_path"):
                 item["list_payload_path"] = list_payload_path
             if source_page_url and not item.get("source_page_url"):
                 item["source_page_url"] = source_page_url
 
-            prepared_item = self.build_seed_stub(item, parse_price=parse_price, safe_int=safe_int)
+            prepared_item = self.adapter.build_seed_record(
+                item,
+                parse_number=parse_price,
+                safe_int=safe_int,
+            )
             if source_page_url and not prepared_item.get("source_page_url"):
                 prepared_item["source_page_url"] = source_page_url
 
-            is_done = (status in ["done", "成交"]) or (is_sold is True) or (str(item.get("outcome", "")).lower() == "成交")
-            if not is_done:
+            if not self.adapter.accepts_seed(item, prepared_item):
                 continue
 
             existing_entry = get_seen_entry(item_id)
@@ -245,7 +186,7 @@ class SeedCollectionService:
                 for key, value in prepared_item.items():
                     if value not in (None, "") and merged.get(key) in (None, ""):
                         merged[key] = value
-                sync_collection_record(merged)
+                self.adapter.sync_record(merged)
                 if existing_entry and not prefer_db_task_reads():
                     entry = seen_ids[item_id]
                     entry["data"] = merged
@@ -253,7 +194,7 @@ class SeedCollectionService:
                         pending_tasks.append(item_id)
                     target_file_path = existing_entry["file_path"]
                 else:
-                    target_file_path = get_data_path((merged.get("auction_date", "") or "").split(" ")[0] or "unknown")
+                    target_file_path = get_data_path(self.adapter.partition_key(merged))
                 update_file_global(target_file_path, item_id, merged)
                 event_payload["source_file"] = target_file_path
                 persist_item_to_db(merged, "sniff_saved", event_payload)
@@ -263,7 +204,7 @@ class SeedCollectionService:
 
             print(f"[SEED ITEM] [NEW] Found: {item.get('title', 'Unknown')} | Status: {status} | URL: {item.get('url')}")
             if item_id not in seen_ids:
-                a_date = prepared_item.get("auction_date", "").split(" ")[0] or "unknown"
+                a_date = self.adapter.partition_key(prepared_item)
                 items_by_date.setdefault(a_date, []).append(prepared_item)
                 file_path = get_data_path(a_date)
                 if not prefer_db_task_reads():

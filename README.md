@@ -1,4 +1,4 @@
-# 法拍房采集与 AVM 分析系统
+# Crow（乌鸦引擎）
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Storage](https://img.shields.io/badge/Storage-JSON%20%2B%20PostgreSQL-green)
@@ -7,7 +7,15 @@
 
 ## 项目简介
 
-本仓库当前的核心不是“演示型游戏项目”，而是一套正在持续演进的 **法拍房数据采集、结构化治理、AVM 分析、以及 operator handoff control-plane**。
+Crow 是一套面向任意商品来源的采集、分析与预测引擎。法拍房是当前首个且最完整的领域适配器，不是采集引擎本身的边界。
+
+三个产品级模块的当前状态：
+
+- **采集引擎**：当前核心，覆盖粗采集（链接发现）、细采集（详情页抓取）和 AI 联合决策归档。
+- **数据分析引擎**：尚未完成；已有 AVM/分析代码作为迁移输入保留。
+- **预测引擎**：尚未完成；现阶段不宣称具备完整产品契约。
+
+模块边界、通用适配器和扩展方式见 [`docs/architecture/crow-engines.md`](docs/architecture/crow-engines.md)。
 
 当前实现重点包括：
 
@@ -19,7 +27,7 @@
 
 如果你是第一次进入这个仓库，可以把它理解为：
 
-> **一个正在从“采集系统”升级为“采集 + 数据治理 + AVM + operator control-plane”一体化平台的工程。**
+> **以通用商品采集为当前核心，逐步建设数据分析与预测能力的 Crow 引擎。**
 
 ---
 

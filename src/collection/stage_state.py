@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Callable, Dict, Mapping, Optional
+
+from .readiness import taobao_judicial_analysis_missing_fields
 
 
 DETAIL_BLOCKED_STATES = {"login_redirect", "anti_bot_gate", "empty_html"}
@@ -21,17 +23,6 @@ def _coerce_int(value: Any, default: int = 0) -> int:
         return default
 
 
-def _normalized_status(value: Any) -> str:
-    text = str(value or "").strip().lower()
-    if not text:
-        return ""
-    if text in {"done", "成交", "true", "finished", "ended", "success"}:
-        return "done"
-    if text in {"pending", "todo", "false"}:
-        return "pending"
-    return text
-
-
 def _model_version() -> str:
     try:
         from src.avm.service import MODEL_VERSION
@@ -48,6 +39,9 @@ def derive_stage_state(
     event_type: Optional[str] = None,
     existing: Optional[Dict[str, Any]] = None,
     now: Optional[datetime] = None,
+    analysis_requirements: Callable[[Mapping[str, Any], str | None], list[str]] = (
+        taobao_judicial_analysis_missing_fields
+    ),
 ) -> Dict[str, Any]:
     raw_item = raw_item or {}
     existing = existing or {}
@@ -55,14 +49,11 @@ def derive_stage_state(
 
     source = record.get("source", {}) or {}
     archive = record.get("archive", {}) or {}
-    auction = record.get("auction", {}) or {}
-    location = record.get("location", {}) or {}
-    property_section = record.get("property", {}) or {}
     legal_context = record.get("legal_context", {}) or {}
     risk_flags = record.get("risk_flags", {}) or {}
     audit = record.get("audit", {}) or {}
 
-    has_source_url = _present(source.get("source_url"))
+    has_source_url = _present(source.get("source_url") or record.get("source_url") or record.get("url"))
     has_seed_payload = has_source_url or _present(raw_item.get("url")) or _present(raw_item.get("source_url"))
     seed_status = "stored" if has_seed_payload else existing.get("seed_status")
     seed_first_seen_at = existing.get("seed_first_seen_at")
@@ -75,13 +66,17 @@ def derive_stage_state(
         raw_item.get("source_page_url")
         or raw_item.get("list_page_url")
         or source.get("list_payload_path")
+        or record.get("list_payload_path")
         or existing.get("seed_source_page_url")
     )
 
     detail_fetch_status = str(raw_item.get("detail_fetch_status") or existing.get("detail_fetch_status") or "").strip()
     replay_requested = _present(raw_item.get("detail_replay_requested_at")) or _present(raw_item.get("detail_replay_reason"))
     has_detail_archive = any(
-        _present(source.get("detail_archive_path")) or _present(archive.get(key))
+        _present(source.get("detail_archive_path"))
+        or _present(record.get("detail_archive_path"))
+        or _present(archive.get(key))
+        or _present(record.get(key))
         for key in (
             "detail_text_path",
             "component_payload_path",
@@ -91,9 +86,13 @@ def derive_stage_state(
             "image_manifest_path",
         )
     )
-    detail_captured = bool(audit.get("detail_captured") or raw_item.get("detail_captured"))
+    detail_captured = bool(
+        audit.get("detail_captured")
+        or record.get("detail_captured")
+        or raw_item.get("detail_captured")
+    )
     detail_sidecar_ready = any(
-        _present(archive.get(key))
+        _present(archive.get(key)) or _present(record.get(key))
         for key in (
             "detail_text_path",
             "component_payload_path",
@@ -135,33 +134,7 @@ def derive_stage_state(
 
     detail_lease_until = existing.get("detail_lease_until")
 
-    status_text = _normalized_status(auction.get("status"))
-    missing_fields: list[str] = []
-    for name, value in (
-        ("auction_date", auction.get("auction_date")),
-        ("area_sqm", property_section.get("area_sqm")),
-        ("city", location.get("city")),
-        ("district", location.get("district")),
-        ("business_area", location.get("business_area")),
-    ):
-        if not _present(value):
-            missing_fields.append(name)
-
-    if not any(
-        _present(auction.get(key))
-        for key in ("transaction_price", "starting_price", "actual_paid_price", "evaluation_price")
-    ):
-        missing_fields.append("price_anchor")
-
-    if detail_status not in {"archived", "enriched"}:
-        missing_fields.append("detail_stage")
-
-    if status_text != "done":
-        missing_fields.append("status")
-
-    if not _present(location.get("latitude")) and not _present(location.get("community_name")):
-        missing_fields.append("location_precision")
-
+    missing_fields = analysis_requirements(record, detail_status)
     analysis_ready = len(missing_fields) == 0
     analysis_status = "ready" if analysis_ready else "not_ready"
     if event_type == "mark_deleted":

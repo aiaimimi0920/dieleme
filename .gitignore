@@ -32,6 +32,7 @@ env.worker.local
 
 # Local debug and generated run artifacts
 .debug/
+artifacts/
 output/
 cdp_sf_*.json
 tmp_regions_links*.json

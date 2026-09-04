@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "checkerVersion": 2,
+  "baselineSourceCommit": "a9228125623b16588f5bfda604faecb8a9c87aba",
+  "baselineSourceTree": "a76752dc80811662401770d40693daed4391a31f",
+  "thresholds": {
+    "target": 150,
+    "acceptable": 500,
+    "soft": 700,
+    "hard": 1500
+  },
+  "sourceExtensions": [
+    ".rs",
+    ".ts",
+    ".tsx",
+    ".js",
+    ".jsx",
+    ".mjs",
+    ".cjs",
+    ".css",
+    ".scss",
+    ".html",
+    ".htm",
+    ".vue",
+    ".ps1",
+    ".py",
+    ".cmd",
+    ".bat"
+  ],
+  "excludedDirectories": [
+    { "name": ".git", "reason": "Git metadata is not product source." },
+    { "name": ".codex-temp", "reason": "Codex scratch output is generated local state." },
+    { "name": ".debug", "reason": "Captured browser pages and local diagnostic output are runtime artifacts." },
+    { "name": ".memsearch", "reason": "Local search index state is generated." },
+    { "name": ".playwright-cli", "reason": "Local browser automation state is generated." },
+    { "name": ".pytest_cache", "reason": "Pytest cache data is generated." },
+    { "name": "__pycache__", "reason": "Python bytecode cache data is generated." },
+    { "name": ".venv", "reason": "Installed Python dependencies are immutable inputs." },
+    { "name": "venv", "reason": "Installed Python dependencies are immutable inputs." },
+    { "name": "node_modules", "reason": "Installed JavaScript dependencies are immutable inputs." },
+    { "name": "target", "reason": "Cargo build output is generated." },
+    { "name": "dist", "reason": "Bundled application output is generated." },
+    { "name": "build", "reason": "Build output is generated." },
+    { "name": "release", "reason": "Published artifacts are generated from reviewed source." },
+    { "name": "output", "reason": "Runtime and packaging output is generated." },
+    { "name": ".output", "reason": "Frontend build output is generated." },
+    { "name": "artifacts", "reason": "Test and quality evidence is generated." },
+    { "name": "coverage", "reason": "Coverage output is generated." },
+    { "name": "htmlcov", "reason": "Coverage HTML output is generated." },
+    { "name": ".runtime", "reason": "Local runtime state is generated." },
+    { "name": ".tmp", "reason": "Temporary files are generated." }
+  ],
+  "excludedDirectoryPrefixes": [
+    { "prefix": "target-", "reason": "Alternate Cargo target directories are generated." },
+    { "prefix": "target_", "reason": "Alternate Cargo target directories are generated." }
+  ],
+  "excludedPaths": [
+    { "path": "FPFData", "reason": "Runtime data, credentials, browser profiles, and imported legacy artifacts are not source." },
+    { "path": "graphify-out", "reason": "The repository knowledge graph is generated from source." },
+    { "path": "src/graphify-out", "reason": "A legacy nested repository knowledge graph is generated from source." },
+    { "path": "game/web-app/index.html", "reason": "The local web preview entrypoint is generated and ignored by Git." },
+    { "path": "scripts/tests/fixtures/effective-code-lines", "reason": "Lexer fixture text is test data, not repository source." }
+  ]
+}

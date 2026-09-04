@@ -1,0 +1,341 @@
+{
+  "schemaVersion": 1,
+  "checkerVersion": 2,
+  "sourceCommit": "a9228125623b16588f5bfda604faecb8a9c87aba",
+  "sourceTree": "a76752dc80811662401770d40693daed4391a31f",
+  "checkerSha256": "702a0649be878ac8210bea7e7f8b129eee81a24c41f233dfc95fde44ca1e40c1",
+  "lexerSha256": "9fd46a3a38f9afb46b810880b25dcebad296758941a4887006e760b2c7d15fbf",
+  "policySha256": "d9fb03d2de91fc87dd1d3dd488dde00ad6aea3007fb3c729641b7689452f1439",
+  "files": [
+    {
+      "path": "collector-desktop/src/main.js",
+      "effectiveLines": 1232,
+      "physicalLines": 1323,
+      "sourceSha256": "5e1f6f3c9f09e68622312fe8a38eadc9b048ffe3eee576b18ac73719f8fd6a8e"
+    },
+    {
+      "path": "ops/pc2-host/launch-host-direct-workers.ps1",
+      "effectiveLines": 718,
+      "physicalLines": 784,
+      "sourceSha256": "3f4b16f0d6944c12504993cdc5603dd4c064e0da2c549ab7b9ea510851871b73"
+    },
+    {
+      "path": "ops/pc2-host/watch-pc2-cdp-self-heal.ps1",
+      "effectiveLines": 739,
+      "physicalLines": 797,
+      "sourceSha256": "a5346af448cf9fffcd3078054776fdab2e86de6fe38b34a1299079cf323c613b"
+    },
+    {
+      "path": "scripts/start-taobao-cdp-browser.ps1",
+      "effectiveLines": 521,
+      "physicalLines": 604,
+      "sourceSha256": "a70c5ed7633de2878846e59a8c8b275419bcfd460b3ac65c1743a677007e2f52"
+    },
+    {
+      "path": "scripts/trigger-taobao-login-recovery-if-needed.ps1",
+      "effectiveLines": 580,
+      "physicalLines": 643,
+      "sourceSha256": "487207f9700d603da41e33eef37ad938271a74086438d130b25c98c8f89a4c89"
+    },
+    {
+      "path": "src/analysis_ensemble.py",
+      "effectiveLines": 531,
+      "physicalLines": 585,
+      "sourceSha256": "af3871a4a1e141d2f4206dbc5eab35efaa59a1d3fa9a733a198a96be015c3469"
+    },
+    {
+      "path": "src/avm/collection_template.py",
+      "effectiveLines": 1685,
+      "physicalLines": 1733,
+      "sourceSha256": "094a44c51990ec17b4a03d5f5c8e14ddcbf595a75b5eaad884c8d81bd4534968"
+    },
+    {
+      "path": "src/avm/engine.py",
+      "effectiveLines": 1175,
+      "physicalLines": 1370,
+      "sourceSha256": "0b53330287b5cb00353e36243fe161078c99e6cf2ed26358c82b3bae54a55b9f"
+    },
+    {
+      "path": "src/avm/service.py",
+      "effectiveLines": 714,
+      "physicalLines": 782,
+      "sourceSha256": "b8c5c62039dbb06c6394bbe88fae91ba18400be8b79657dbc220b8e3c84c10a8"
+    },
+    {
+      "path": "src/captcha_solver.py",
+      "effectiveLines": 3585,
+      "physicalLines": 4021,
+      "sourceSha256": "ef3f3223b8609136ea592a7104475209c4d9e59e6628cc398817a47954102f05"
+    },
+    {
+      "path": "src/collection/detail_service.py",
+      "effectiveLines": 575,
+      "physicalLines": 635,
+      "sourceSha256": "977e27640333fc7164c8771c8f6969dab9e6e42886504ce87d2b50e22b9100ad"
+    },
+    {
+      "path": "src/data_fixer.py",
+      "effectiveLines": 1538,
+      "physicalLines": 2132,
+      "sourceSha256": "5583b98425363952560e36b67f12432e47740b9108f9c236cc4efa3ced50b985"
+    },
+    {
+      "path": "src/llm_helper.py",
+      "effectiveLines": 1465,
+      "physicalLines": 1856,
+      "sourceSha256": "37420594df7fee10e413fc02f89ec06df1a3f07db468d0b3fddf814cfcce35b1"
+    },
+    {
+      "path": "src/server.py",
+      "effectiveLines": 10282,
+      "physicalLines": 11576,
+      "sourceSha256": "c83bb021b369c971ca023f4b7a93860f78dd9265eb96ee3f4ff256f8ef474d21"
+    },
+    {
+      "path": "src/storage/repository.py",
+      "effectiveLines": 4169,
+      "physicalLines": 4409,
+      "sourceSha256": "aabf2f55e343643db8d57b2d130c035414812251ab09ef88c55d4590aecc9ce6"
+    },
+    {
+      "path": "tampermonkey_scripts/fapaifang_unified.user.js",
+      "effectiveLines": 1909,
+      "physicalLines": 2420,
+      "sourceSha256": "145ef726b10d4b5d91a40a73237be5c191dcb3b5209aab4022cd06cf6ba12dac"
+    },
+    {
+      "path": "tools/analysis_stage_planner.py",
+      "effectiveLines": 1282,
+      "physicalLines": 1369,
+      "sourceSha256": "6446de5e88ab127ae2239a6c41c7fbf54cda7084dace9e9f9abf0fb82ac3021f"
+    },
+    {
+      "path": "tools/apply_avm_calibration_patch.py",
+      "effectiveLines": 906,
+      "physicalLines": 1006,
+      "sourceSha256": "09858bc15a02b31d4ab8d6ad2c02c2bf88e98c8939d08e87cfc1798ddf072037"
+    },
+    {
+      "path": "tools/area_followup_runner.py",
+      "effectiveLines": 579,
+      "physicalLines": 657,
+      "sourceSha256": "5b86c8dd5813dbed31e8474a92e4350fdc119714221798d10e0ba992c078d320"
+    },
+    {
+      "path": "tools/avm_release_gate.py",
+      "effectiveLines": 693,
+      "physicalLines": 766,
+      "sourceSha256": "448ae926d59cacbf02cd2d12c051ea7a382ec1db81d53cde47977f096fbdb871"
+    },
+    {
+      "path": "tools/backfill_manual_review_control_plane_to_db.py",
+      "effectiveLines": 791,
+      "physicalLines": 884,
+      "sourceSha256": "9cd4e41358c2219c501c6afbb33109baaf57bccde9e90d993cbfb6282e986176"
+    },
+    {
+      "path": "tools/browserless_seed_probe.py",
+      "effectiveLines": 616,
+      "physicalLines": 698,
+      "sourceSha256": "32a73253679d8ba45f759e92d325fd34a239deafa6f1bde897069a9c328ca8a5"
+    },
+    {
+      "path": "tools/detail_worker.py",
+      "effectiveLines": 1152,
+      "physicalLines": 1286,
+      "sourceSha256": "afc8c42dabf75f4701e544b2b0396737deaf95c9409ee63132ed8f75a88dc2e8"
+    },
+    {
+      "path": "tools/evaluate_avm.py",
+      "effectiveLines": 536,
+      "physicalLines": 628,
+      "sourceSha256": "5e225b5723543c229faef01429827b506d5396a6fd08c92a796fd3a83a6a1305"
+    },
+    {
+      "path": "tools/live_batch_smoke.py",
+      "effectiveLines": 2858,
+      "physicalLines": 3212,
+      "sourceSha256": "eeaaa50a07e81a8af957219d2d7177e9e450ccc67f98e623e94d3f3b4f231b19"
+    },
+    {
+      "path": "tools/pc2_local_solver.py",
+      "effectiveLines": 2265,
+      "physicalLines": 2471,
+      "sourceSha256": "b69099658de09456b0193461b3f6630afd6765b87c3e80c75fbb93d43cc65eef"
+    },
+    {
+      "path": "tools/run_avm_pipeline.py",
+      "effectiveLines": 513,
+      "physicalLines": 570,
+      "sourceSha256": "38adc34b8f7a2feed8f9d50969df0d37e62af6ce264408bfe2d2e49d5078f4df"
+    },
+    {
+      "path": "tools/run_hybrid_seed_collection.py",
+      "effectiveLines": 2960,
+      "physicalLines": 3129,
+      "sourceSha256": "edea4b34b9d3ca54b801bf69d6e21529471008c4417723615aad9716c5021332"
+    },
+    {
+      "path": "tools/seed_collector.py",
+      "effectiveLines": 1179,
+      "physicalLines": 1310,
+      "sourceSha256": "6e8644a405fd5f510e1c3e3273d4c348a6fb027e7f7bdb0c9843156c44891ef6"
+    },
+    {
+      "path": "tools/suggest_avm_calibration_targets.py",
+      "effectiveLines": 550,
+      "physicalLines": 602,
+      "sourceSha256": "b24a1317d34687c7986a398478f4fbb9c1fb9b1da7a6e08a7ba74b76fb1777ae"
+    },
+    {
+      "path": "tools/taobao_login_health.py",
+      "effectiveLines": 1210,
+      "physicalLines": 1375,
+      "sourceSha256": "d7b6b0be4e0ee8803ae590c806f7a0bd34e234331e7ca6c13ac2c23971498e08"
+    },
+    {
+      "path": "tools/taobao_sf_locations.py",
+      "effectiveLines": 741,
+      "physicalLines": 852,
+      "sourceSha256": "0988fbe363a5f2dceaaf431ecc9a06c89d41650a501a26b85deeedd8b5b6f98e"
+    },
+    {
+      "path": "tools/test/test_analysis_module_b_integration.py",
+      "effectiveLines": 558,
+      "physicalLines": 641,
+      "sourceSha256": "648bbb1499c9fb688a596676e9d42cb098b8bcf1f26391449dc8ad1735c0c6d9"
+    },
+    {
+      "path": "tools/test/test_analysis_stage_planner.py",
+      "effectiveLines": 1061,
+      "physicalLines": 1195,
+      "sourceSha256": "e361d320b2035f155de521e78a5f492e581b932875f6100f71024c2d250f2086"
+    },
+    {
+      "path": "tools/test/test_apply_avm_calibration_patch.py",
+      "effectiveLines": 2364,
+      "physicalLines": 2626,
+      "sourceSha256": "8c0aed2ee446575b3ae437ee9e83c05a28af393381a64d374f23905431a7bec8"
+    },
+    {
+      "path": "tools/test/test_avm_engine_service.py",
+      "effectiveLines": 2331,
+      "physicalLines": 2583,
+      "sourceSha256": "60bf5a8aa8419c4fdd12479ab87cc5bf59cd093fae48228dcefc180a74e1a80d"
+    },
+    {
+      "path": "tools/test/test_avm_http_contract.py",
+      "effectiveLines": 9018,
+      "physicalLines": 9837,
+      "sourceSha256": "83c4b72ba836004f2903c653b640e87d008a559db20d2476c321bb325bf156a4"
+    },
+    {
+      "path": "tools/test/test_avm_pipeline.py",
+      "effectiveLines": 1989,
+      "physicalLines": 2100,
+      "sourceSha256": "e0a2c3a0c91c594ef278a240a0b45398c0e0a608758c6acbfd2c39af22046e7d"
+    },
+    {
+      "path": "tools/test/test_avm_release_gate.py",
+      "effectiveLines": 709,
+      "physicalLines": 776,
+      "sourceSha256": "17de8065229c135dbb994970971d922cb3f150a30a4741fe23b5137c771ad60f"
+    },
+    {
+      "path": "tools/test/test_browserless_seed_probe.py",
+      "effectiveLines": 714,
+      "physicalLines": 897,
+      "sourceSha256": "fa82c4c7eb14e14b7e33e730e0c996f0b9a25cb590991cb3c58841067a788b1d"
+    },
+    {
+      "path": "tools/test/test_captcha_solver.py",
+      "effectiveLines": 3381,
+      "physicalLines": 4077,
+      "sourceSha256": "240fcde248daebc852f9fa20e0deedc413449dc2c7afda20232a1ec5bcb63ee3"
+    },
+    {
+      "path": "tools/test/test_continuous_collection_scripts.py",
+      "effectiveLines": 1184,
+      "physicalLines": 1403,
+      "sourceSha256": "121448767a02078fec6101c5adc4dfa7ac073716e7fffca8a8376e30c7cc11a3"
+    },
+    {
+      "path": "tools/test/test_db_dual_write.py",
+      "effectiveLines": 8364,
+      "physicalLines": 9293,
+      "sourceSha256": "7823a18debaa9e38093f7dea355d3b88d6dfa4885b247714617b2c994f4493c5"
+    },
+    {
+      "path": "tools/test/test_detail_worker.py",
+      "effectiveLines": 2352,
+      "physicalLines": 2703,
+      "sourceSha256": "62b204e603d51817123a9bfa44678f5142a0d8c01f9921ee5bf0c3259d318caa"
+    },
+    {
+      "path": "tools/test/test_live_batch_smoke.py",
+      "effectiveLines": 3109,
+      "physicalLines": 3772,
+      "sourceSha256": "1a3a52f168898e80c9c049b09c1266d1a93b3ee262ffc9ba1ab1a8ccec2f8e13"
+    },
+    {
+      "path": "tools/test/test_llm_helper_openai_compatible.py",
+      "effectiveLines": 654,
+      "physicalLines": 848,
+      "sourceSha256": "896ade87af0b7475a61aa1276d3ecb227349f10523d8c2ea5ed70fceef6d3122"
+    },
+    {
+      "path": "tools/test/test_operator_entrypoint_smoke.py",
+      "effectiveLines": 1489,
+      "physicalLines": 1750,
+      "sourceSha256": "dea82d91e60ed52b906da1edd723d6e47c7c2b4e530406b95687345a9497a70b"
+    },
+    {
+      "path": "tools/test/test_pc2_local_solver.py",
+      "effectiveLines": 2301,
+      "physicalLines": 2734,
+      "sourceSha256": "97655cb781f840694faeb6571b939787fb64df054701d0fd954b51b56ee707a9"
+    },
+    {
+      "path": "tools/test/test_run_data_supply_optimization_loop.py",
+      "effectiveLines": 871,
+      "physicalLines": 965,
+      "sourceSha256": "195bea47f9adee728b8e0c7e324b9f3bc767dd27e8f89b7767fc3bd0058dc8d0"
+    },
+    {
+      "path": "tools/test/test_run_hybrid_seed_collection.py",
+      "effectiveLines": 19554,
+      "physicalLines": 21471,
+      "sourceSha256": "d01679ec1d431ae687c3bcd0a2de0d697b987cd1ec91bd922e5bd7a70f0d257c"
+    },
+    {
+      "path": "tools/test/test_run_recent_enrich_maintenance.py",
+      "effectiveLines": 711,
+      "physicalLines": 810,
+      "sourceSha256": "7440eaeefdb3c31aa04e262dda7041e7d29213adc81769858d9c05310044f84b"
+    },
+    {
+      "path": "tools/test/test_seed_collector.py",
+      "effectiveLines": 2662,
+      "physicalLines": 3007,
+      "sourceSha256": "78a51a905294eef4168f9b27da91d217202240fca70c513d23a72d59b0dcf847"
+    },
+    {
+      "path": "tools/test/test_seed_queue_repository.py",
+      "effectiveLines": 1836,
+      "physicalLines": 2128,
+      "sourceSha256": "708bab056cc37137f8d0f69bfb9fd3413cbdddbbdd61cff33be032daf7d0c2b6"
+    },
+    {
+      "path": "tools/test/test_server_collection_api_status.py",
+      "effectiveLines": 2494,
+      "physicalLines": 3042,
+      "sourceSha256": "c9827d1b8757b026457d0ffd4cc65dd81add67e4318362b2985316f251ac5809"
+    },
+    {
+      "path": "tools/test/test_taobao_login_health.py",
+      "effectiveLines": 2049,
+      "physicalLines": 2500,
+      "sourceSha256": "2225a9079ccd96ce763b25713cec208f958d50a7b1ec040be479c399e78cc213"
+    }
+  ]
+}

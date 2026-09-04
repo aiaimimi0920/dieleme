@@ -1,0 +1,119 @@
+# Crow engine architecture
+
+Crow (乌鸦引擎) is a reusable product-intelligence system. Judicial-auction
+housing is the first domain adapter, not the definition of the engine.
+
+## Product engines and current maturity
+
+| Engine | Responsibility | Current state |
+| --- | --- | --- |
+| Collection engine | Discover links, capture detail sources, and archive structured evidence | Implemented and actively used; this is the current core |
+| Data analysis engine | Turn collected facts into reproducible descriptive and comparative analysis | Incomplete; existing analysis/AVM code is migration input, not a finished engine |
+| Prediction engine | Produce versioned predictions with calibrated uncertainty and validation | Incomplete; no production-complete contract is claimed |
+
+The distinction is contractual. Collection records facts and evidence. Analysis
+derives explanations and comparisons. Prediction produces future or unknown
+estimates. A module must not silently move a derived value into the collection
+truth layer.
+
+## Collection engine stages
+
+### 1. Rough collection: discover links
+
+`SeedCollectionService` owns source task intake, deduplication, raw list-payload
+archiving, canonical source identity, and enqueueing detail work. It delegates
+domain-specific acceptance, field aliases, and partitioning to a
+`CollectionAdapter`.
+
+Every seed should preserve, when available:
+
+- `source_platform`
+- `source_item_id`
+- `source_url`
+- `source_title`
+- raw source fields needed for later reprocessing
+- a relative path to the archived list payload
+
+### 2. Fine collection: capture detail pages
+
+`DetailCollectionService` owns task-facing APIs and maintenance entrypoints.
+`DetailProcessor` owns the lifecycle of one captured page: AI extraction,
+source archiving, artifact attachment, retry control, persistence, and cleanup.
+The adapter decides whether the record belongs in the dataset, whether a
+domain-specific retry is required, and how the final detail record is synced.
+
+### 3. AI archive: joint evidence decision
+
+`src.analysis_ensemble` is the compatibility API for three independent
+candidate extractions, evidence locking, conflict adjudication, and final
+composition. Its algorithms are source-neutral; an `AnalysisProfile` supplies
+domain field types, evidence keywords, risk classification, adjudication
+instructions, and derived fields.
+
+AI output is never accepted solely because models agree. A non-system,
+non-derived value must be supported by source evidence. Unsupported or
+ambiguous conflicts are archived as `needs_review`.
+
+## Domain adapters
+
+- `GenericProductAdapter` preserves arbitrary product fields and adds only the
+  canonical source identity and collection lifecycle fields. It accepts
+  alphanumeric item identifiers and does not assume auctions, buildings, area,
+  prices, or a sold state.
+- `TaobaoJudicialAuctionAdapter` preserves the existing Taobao judicial-auction
+  aliases, sold-item filtering, area retry, AVM collection record, and location
+  inference prompt.
+- `GenericProductAnalysisProfile` performs evidence consensus without adding
+  auction-derived fields.
+- `TaobaoJudicialAnalysisProfile` owns the auction/property field policy and
+  unit-price derivation used by the existing workflow.
+
+To add a new product source, implement the `CollectionAdapter` protocol and,
+when AI joint archiving is needed, an `AnalysisProfile`. Inject the adapter into
+the seed and detail services. Do not add another source conditional to the
+orchestration services.
+
+## Cross-cutting runtime capabilities
+
+These capabilities support the collection engine but do not own product-domain
+rules:
+
+- storage and source-artifact retention;
+- queue leases, deduplication, and multi-machine coordination;
+- unattended scheduling, watchdogs, and recovery receipts;
+- browser/CDP automation and automatic challenge solving;
+- observability, replay, and manual-review handoff.
+
+Current database model names such as `FapaiSeedItem` are legacy storage debt.
+They may be adapted behind repository interfaces, but must not leak into new
+generic collection contracts. Renaming them requires a separate reversible data
+migration with compatibility and rollback proof.
+
+## Live safety boundary
+
+Repository refactoring never authorizes deployment. PC2 and NAS live services
+remain immutable unless the user explicitly requests that exact deployment or
+runtime action. All normal validation is repository-local and offline.
+
+## File-size governance
+
+Crow adopts the Neuro Hook/Loom effective-line policy:
+
+- target around 150 effective lines;
+- 100-250 preferred;
+- 251-500 acceptable for one responsibility;
+- 501-700 only with a current independent exception;
+- 701-1500 must be split before changed work is complete;
+- above 1500 has no waiver.
+
+The ratchet baseline records existing debt without legitimizing it. New,
+moved, or modified files must meet the current limits. Run:
+
+```powershell
+node --test scripts/tests/effective-code-lines.test.mjs
+node scripts/effective-code-lines.mjs --mode ratchet --json artifacts/effective-code-lines.json
+```
+
+Split along the stage, domain-policy, persistence, I/O, orchestration, and test
+fixture boundaries above. Never game the limit through minification, broad
+exclusions, or removal of useful tests.

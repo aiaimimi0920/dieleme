@@ -1,0 +1,77 @@
+from __future__ import annotations
+
+from typing import Any, Callable, Mapping, MutableMapping, Protocol, Sequence
+
+
+Record = dict[str, Any]
+NumberParser = Callable[[Any], Any]
+
+
+class CollectionAdapter(Protocol):
+    """Domain rules consumed by the source-neutral collection orchestration."""
+
+    source_platform: str
+
+    def item_id(self, item: Mapping[str, Any]) -> str: ...
+
+    def build_seed_record(
+        self,
+        item: Mapping[str, Any],
+        *,
+        parse_number: NumberParser,
+        safe_int: NumberParser,
+    ) -> Record: ...
+
+    def accepts_seed(self, item: Mapping[str, Any], record: Mapping[str, Any]) -> bool: ...
+
+    def sync_record(self, record: MutableMapping[str, Any]) -> None: ...
+
+    def partition_key(self, record: Mapping[str, Any]) -> str: ...
+
+    def prepare_detail_record(
+        self,
+        record: MutableMapping[str, Any],
+        *,
+        existing: Mapping[str, Any],
+        item_id: str,
+    ) -> None: ...
+
+    def accepts_detail(self, record: Mapping[str, Any]) -> bool: ...
+
+    def retry_reason(self, record: Mapping[str, Any]) -> str | None: ...
+
+    def finalize_detail_record(self, record: MutableMapping[str, Any]) -> None: ...
+
+    def archive_date(self, record: Mapping[str, Any]) -> Any: ...
+
+    def source_url(self, record: Mapping[str, Any]) -> str | None: ...
+
+    def quality_summary(self, record: Mapping[str, Any]) -> str: ...
+
+    def location_prompt(self, *, address: str, title: str) -> str | None: ...
+
+
+class AnalysisProfile(Protocol):
+    """Field policy for evidence-based multi-model AI archiving."""
+
+    money_fields: frozenset[str]
+    area_fields: frozenset[str]
+    ratio_fields: frozenset[str]
+    count_fields: frozenset[str]
+    boolean_fields: frozenset[str]
+    datetime_fields: frozenset[str]
+    derived_fields: frozenset[str]
+    system_fields: frozenset[str]
+    high_risk_fields: frozenset[str]
+    field_keywords: Mapping[str, Sequence[str]]
+
+    def adjudication_prompt(
+        self,
+        *,
+        item_id: str,
+        conflicts: Mapping[str, Any],
+        candidates: Sequence[Mapping[str, Any]],
+        source_text: str,
+    ) -> str: ...
+
+    def derive_final_fields(self, field_values: MutableMapping[str, Any]) -> None: ...
