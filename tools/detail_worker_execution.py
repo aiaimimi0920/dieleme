@@ -42,7 +42,7 @@ def run_detail_worker_once(
         _write_runtime_summary(config.output_dir, summary)
         return summary
 
-    item_id = str(seed.get("id") or seed.get("item_id") or seed.get("source_item_id"))
+    item_id = str(seed.get("item_id") or seed.get("id") or seed.get("source_item_id"))
     detail_target_url = _detail_seed_target_url(seed, item_id)
     try:
         selected = process_item_func(
@@ -207,7 +207,7 @@ def run_detail_analysis_once(
         _write_runtime_summary(config.output_dir, summary)
         return summary
 
-    item_id = str(seed.get("id") or seed.get("item_id") or seed.get("source_item_id"))
+    item_id = str(seed.get("item_id") or seed.get("id") or seed.get("source_item_id"))
     try:
         staged_artifacts = _stage_raw_detail_artifacts_for_analysis(seed, output_dir=config.output_dir, item_id=item_id)
         selected = analyze_item_func(item_id, output_dir=config.output_dir, do_risk=config.do_risk)

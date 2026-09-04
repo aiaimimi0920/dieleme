@@ -214,6 +214,8 @@ class FapaiSeedScanProgress(Base, TimestampMixin):
     retry_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     last_error: Mapped[str | None] = mapped_column(Text)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=False), index=True)
+    last_rescan_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=False), index=True)
+    rescan_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
 
     __table_args__ = (UniqueConstraint("job_key", "sort_key", name="uq_fapai_seed_scan_progress_job_sort"),)
 
@@ -223,6 +225,7 @@ class FapaiSeedItem(Base, TimestampMixin):
 
     item_id: Mapped[str] = mapped_column(String(64), primary_key=True)
     source_item_id: Mapped[str | None] = mapped_column(String(64), index=True)
+    source_platform: Mapped[str | None] = mapped_column(String(32), index=True)
     source_url: Mapped[str | None] = mapped_column(Text)
     title: Mapped[str | None] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(32), nullable=False, default="pending_detail", index=True)

@@ -65,7 +65,7 @@ def test_generic_seed_scan_uses_template_cursor_and_lease_owner(tmp_path: Path) 
         "new_occurrences": 1,
     }
     with repo.session_factory() as session:
-        assert session.get(FapaiSeedItem, "sku-1").source_url == (
+        assert session.get(FapaiSeedItem, policy.storage_item_id("sku-1")).source_url == (
             "https://catalog.example/products/sku-1"
         )
 
@@ -314,3 +314,5 @@ def test_seed_collector_generic_defaults_come_from_adapter_policy(
     assert config.source_url_template.endswith("?page={page}")
     assert config.sort_specs[0].sort_key == "source"
     assert isinstance(config.seed_scan_policy, GenericSeedScanPolicy)
+    assert config.collection_adapter is not None
+    assert config.collection_adapter.source_platform == "catalog_x"

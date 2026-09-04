@@ -145,11 +145,19 @@ class RepositoryDetailClaimMixin:
                     session.add(row)
                     claimed_item_id = row.item_id
                     claimed_payload = dict(row.source_payload or {})
-                    claimed_payload.setdefault("id", row.item_id)
-                    claimed_payload.setdefault("item_id", row.item_id)
-                    claimed_payload.setdefault("source_item_id", row.source_item_id or row.item_id)
+                    source_item_id = str(
+                        row.source_item_id
+                        or claimed_payload.get("source_item_id")
+                        or claimed_payload.get("id")
+                        or row.item_id
+                    )
+                    claimed_payload.setdefault("id", source_item_id)
+                    claimed_payload["item_id"] = row.item_id
+                    claimed_payload["source_item_id"] = source_item_id
+                    if row.source_platform:
+                        claimed_payload["source_platform"] = row.source_platform
                     canonical_url = self._seed_item_url(
-                        row.item_id,
+                        source_item_id,
                         row.source_url or claimed_payload.get("url") or claimed_payload.get("source_url"),
                     )
                     claimed_payload["url"] = canonical_url
@@ -422,10 +430,18 @@ class RepositoryDetailClaimMixin:
                     row.detail_leased_by = worker_id
                     row.detail_lease_until = lease_until
                     payload["_analysis_attempt_count"] = attempt_count + 1
-                    payload.setdefault("id", row.item_id)
-                    payload.setdefault("item_id", row.item_id)
-                    payload.setdefault("source_item_id", row.source_item_id or row.item_id)
-                    payload.setdefault("url", self._seed_item_url(row.item_id, row.source_url))
+                    source_item_id = str(
+                        row.source_item_id
+                        or payload.get("source_item_id")
+                        or payload.get("id")
+                        or row.item_id
+                    )
+                    payload.setdefault("id", source_item_id)
+                    payload["item_id"] = row.item_id
+                    payload["source_item_id"] = source_item_id
+                    if row.source_platform:
+                        payload["source_platform"] = row.source_platform
+                    payload.setdefault("url", self._seed_item_url(source_item_id, row.source_url))
                     payload.setdefault("source_url", payload.get("url"))
                     if row.title:
                         payload.setdefault("title", row.title)

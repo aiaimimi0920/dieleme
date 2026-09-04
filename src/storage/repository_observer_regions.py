@@ -63,6 +63,7 @@ class RepositoryObserverRegionsMixin:
         return {
             "item_id": row.item_id,
             "source_item_id": row.source_item_id,
+            "source_platform": row.source_platform,
             "source_url": row.source_url,
             "title": row.title,
             "status": row.status,

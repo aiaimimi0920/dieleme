@@ -31,6 +31,7 @@ def analyze_raw_item(
         raise FileNotFoundError(f"raw detail html not found: {detail_html_path}")
 
     seed = load_json(seed_path) if seed_path.exists() else {"id": seed_id, "item_id": seed_id, "source_item_id": seed_id}
+    source_item_id = str(seed.get("source_item_id") or seed.get("id") or seed_id)
     html = detail_html_path.read_text(encoding="utf-8")
     if description_json_path.exists():
         description_data = load_json(description_json_path)
@@ -94,7 +95,7 @@ def analyze_raw_item(
     else:
         extracted = json.loads(llm_helper.extract_auction_data(analysis_text, item_id=seed_id))
         extracted["id"] = int(seed_id) if seed_id.isdigit() else seed_id
-        extracted["source_item_id"] = seed_id
+        extracted["source_item_id"] = source_item_id
         DetailCollectionService._preserve_seed_values(extracted, effective_seed)
         risk = {}
         if do_risk:
@@ -132,7 +133,7 @@ def analyze_raw_item(
             }
 
     extracted["id"] = int(seed_id) if seed_id.isdigit() else seed_id
-    extracted["source_item_id"] = seed_id
+    extracted["source_item_id"] = source_item_id
     DetailCollectionService._preserve_seed_values(extracted, effective_seed)
     write_json(item_dir / "extracted.json", extracted)
     if risk:
@@ -142,7 +143,7 @@ def analyze_raw_item(
     combined.update(extracted)
     DetailCollectionService._preserve_seed_values(combined, effective_seed)
     combined["id"] = int(seed_id) if seed_id.isdigit() else seed_id
-    combined["source_item_id"] = seed_id
+    combined["source_item_id"] = source_item_id
     combined["source_url"] = final_url
     combined["原始网站"] = final_url
     combined.setdefault("source_platform", "taobao_sf")

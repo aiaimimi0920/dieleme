@@ -115,9 +115,25 @@ worker ID. The collector selects this policy through the same
 Generic unattended scans also require `CROW_SEED_SOURCE_URL_TEMPLATE` (the
 legacy alias `FAPAI_SEED_SOURCE_URL_TEMPLATE` remains accepted). Templates may
 use `category`, `location_code`, `sort_key`, `st_param`, and `page` placeholders.
-URL scheduling and persistence are source-neutral; the bundled unattended HTML
-probe still parses Taobao payloads, so another source must inject a parser that
-implements the same list-extraction boundary.
+URL scheduling and persistence are source-neutral. Each adapter also creates a
+`SeedListParser`: the generic parser accepts raw JSON and JSON/JSON-LD embedded
+in HTML, while the Taobao parser wraps the retained browser-probe contract.
+Source-specific DOM parsing belongs in another parser implementation, not in
+the collector state machine.
+
+Seed identity has two layers. `source_item_id` is the source's original stable
+identifier and `source_platform` names its identity domain. `item_id` is Crow's
+storage identifier used by queue foreign keys, artifact directories, analysis
+runs, and canonical persistence. Taobao retains its historical raw `item_id`;
+new generic sources use a deterministic platform-scoped storage ID so equal raw
+IDs from different catalogs cannot merge. Source platform labels are required,
+trimmed, and limited to 32 characters; invalid labels fail before writes rather
+than being silently truncated into another identity domain. Migration 0011 only adds and
+backfills nullable `source_platform`; it does not rewrite existing primary or
+foreign keys. A legacy generic row already carrying the same platform and
+source ID is reused during upsert. Already-merged historical collisions cannot
+be reconstructed without source evidence and therefore require an explicit
+repair workflow rather than an automatic migration guess.
 
 Every adapter must persist a stable `source_platform`. Repository stage tracking
 uses that value to select the generic readiness contract for explicit non-Taobao

@@ -21,8 +21,9 @@ def process_item(
     from src.avm.collection_template import sync_collection_record
     from src.collection.detail_service import DetailCollectionService
 
-    seed_id = str(seed.get("id"))
-    item_dir = config.output_dir / seed_id
+    item_id = str(seed.get("item_id") or seed.get("id") or seed.get("source_item_id"))
+    source_item_id = str(seed.get("source_item_id") or seed.get("id") or item_id)
+    item_dir = config.output_dir / item_id
     item_dir.mkdir(parents=True, exist_ok=True)
     write_json(item_dir / "seed.json", seed)
 
@@ -53,22 +54,22 @@ def process_item(
 
     from src import llm_helper
 
-    extracted = json.loads(llm_helper.extract_auction_data(html, item_id=seed_id))
-    extracted["id"] = int(seed_id) if seed_id.isdigit() else seed_id
-    extracted["source_item_id"] = seed_id
+    extracted = json.loads(llm_helper.extract_auction_data(html, item_id=item_id))
+    extracted["id"] = int(item_id) if item_id.isdigit() else item_id
+    extracted["source_item_id"] = source_item_id
     DetailCollectionService._preserve_seed_values(extracted, seed)
     write_json(item_dir / "extracted.json", extracted)
 
     risk = {}
     if config.do_risk:
-        risk = llm_helper.extract_avm_risk_features(html, item_id=seed_id) or {}
+        risk = llm_helper.extract_avm_risk_features(html, item_id=item_id) or {}
         write_json(item_dir / "risk.json", risk)
 
     combined = dict(seed)
     combined.update(extracted)
     DetailCollectionService._preserve_seed_values(combined, seed)
-    combined["id"] = int(seed_id) if seed_id.isdigit() else seed_id
-    combined["source_item_id"] = seed_id
+    combined["id"] = int(item_id) if item_id.isdigit() else item_id
+    combined["source_item_id"] = source_item_id
     combined["source_url"] = final_url
     combined["原始网站"] = final_url
     combined.setdefault("source_platform", "taobao_sf")
@@ -176,7 +177,7 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
     for index, seed in enumerate(items, start=1):
         if len(results) >= config.target_success:
             break
-        seed_id = str(seed.get("id"))
+        seed_id = str(seed.get("item_id") or seed.get("id") or seed.get("source_item_id"))
         try:
             print(f"[SMOKE] {index}/{len(items)} item={seed_id}")
             if config.resume_enabled:

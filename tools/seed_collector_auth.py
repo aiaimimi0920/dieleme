@@ -5,17 +5,19 @@ from __future__ import annotations
 from tools.seed_collector_context import *
 
 
-def _extract_seed_items(browserless_seed_probe: Any, html: str, *, final_url: str) -> tuple[list[dict[str, Any]], dict[str, Any], bool]:
-    summary = browserless_seed_probe.summarize_list_page(html, final_url=final_url)
-    if not isinstance(summary, dict):
-        summary = {}
-    payload = browserless_seed_probe.extract_list_payload(html)
-    if payload is None:
-        has_challenge = bool(summary.get("body_has_challenge") or summary.get("body_has_login") or summary.get("body_has_punish"))
-        return [], summary, has_challenge
-    batch = browserless_seed_probe.build_userscript_like_batch_payload(payload, source_page_url=final_url)
-    items = [dict(item) for item in (batch.get("items") or []) if isinstance(item, dict)]
-    return items, summary, False
+def _extract_seed_items(
+    parser_or_probe: Any,
+    html: str,
+    *,
+    final_url: str,
+) -> tuple[list[dict[str, Any]], dict[str, Any], bool]:
+    parser: SeedListParser = (
+        parser_or_probe
+        if callable(getattr(parser_or_probe, "parse", None))
+        else TaobaoSeedListParser(parser_or_probe)
+    )
+    result = parser.parse(html, final_url=final_url)
+    return [dict(item) for item in result.items], dict(result.summary), result.has_challenge
 
 
 def _browser_page_payload_missing_without_challenge(fetch_method: str, list_summary: dict[str, Any]) -> bool:

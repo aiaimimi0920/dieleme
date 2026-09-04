@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from src.collection.seed_scan_policy import SeedScanPolicy
+from src.collection.seed_list_parser import normalize_source_item_id
+from src.collection.seed_scan_policy import DEFAULT_SEED_SCAN_POLICY, SeedScanPolicy
 
 from .repository_context import *  # noqa: F401,F403
 
@@ -29,6 +30,12 @@ class RepositorySeedItemsMixin:
         new_items = 0
         existing_items = 0
         new_occurrences = 0
+        active_policy = policy or DEFAULT_SEED_SCAN_POLICY
+        source_platform = _normalized_seed_text(active_policy.source_platform)
+        if not source_platform:
+            raise ValueError("seed source platform is required")
+        if len(source_platform) > 32:
+            raise ValueError("seed source platform must be at most 32 characters")
         with self.session_factory.begin() as session:
             if policy is not None:
                 job = session.get(FapaiSeedScanJob, job_key)
@@ -49,28 +56,49 @@ class RepositorySeedItemsMixin:
             for rank, item in enumerate(items, start=1):
                 if not isinstance(item, dict):
                     continue
-                item_id = _normalized_seed_text(item.get("id") or item.get("item_id") or item.get("source_item_id"))
-                if not item_id:
+                raw_source_item_id = _normalized_seed_text(
+                    item.get("source_item_id") or item.get("id") or item.get("item_id")
+                )
+                if not raw_source_item_id:
                     continue
+                source_item_id = normalize_source_item_id(raw_source_item_id)
+                item_id = active_policy.storage_item_id(source_item_id)
                 seen += 1
                 url = self._seed_item_url(
-                    item_id,
+                    source_item_id,
                     item.get("url") or item.get("source_url") or item.get("itemUrl"),
-                    policy,
+                    active_policy,
                 )
                 title = _normalized_seed_text(item.get("title") or item.get("source_title"))
+                item_payload = dict(item)
+                if raw_source_item_id != source_item_id:
+                    item_payload.setdefault("raw_source_item_id", raw_source_item_id)
+                item_payload["source_item_id"] = source_item_id
+                item_payload["source_platform"] = source_platform
+                item_payload.setdefault("url", url)
+                item_payload.setdefault("source_url", url)
                 seed_item = session.get(FapaiSeedItem, item_id)
+                if seed_item is None and item_id != source_item_id:
+                    seed_item = session.scalars(
+                        select(FapaiSeedItem).where(
+                            FapaiSeedItem.source_item_id == source_item_id,
+                            FapaiSeedItem.source_platform == source_platform,
+                        )
+                    ).first()
+                    if seed_item is not None:
+                        item_id = seed_item.item_id
                 if seed_item is None:
                     insert_values = {
                         "item_id": item_id,
-                        "source_item_id": item_id,
+                        "source_item_id": source_item_id,
+                        "source_platform": source_platform,
                         "source_url": url,
                         "title": title,
                         "first_seen_job_key": job_key,
                         "first_seen_sort_key": sort_key,
                         "first_seen_at": now,
                         "last_seen_at": now,
-                        "source_payload": dict(item),
+                        "source_payload": item_payload,
                         "status": "pending_detail",
                         "detail_attempt_count": 0,
                     }
@@ -93,14 +121,15 @@ class RepositorySeedItemsMixin:
                             session.add(
                                 FapaiSeedItem(
                                     item_id=item_id,
-                                    source_item_id=item_id,
+                                    source_item_id=source_item_id,
+                                    source_platform=source_platform,
                                     source_url=url,
                                     title=title,
                                     first_seen_job_key=job_key,
                                     first_seen_sort_key=sort_key,
                                     first_seen_at=now,
                                     last_seen_at=now,
-                                    source_payload=dict(item),
+                                    source_payload=item_payload,
                                     status="pending_detail",
                                     detail_attempt_count=0,
                                 )
@@ -115,12 +144,20 @@ class RepositorySeedItemsMixin:
                         continue
                 else:
                     existing_items += 1
+                if seed_item.source_platform not in (None, "", source_platform):
+                    raise ValueError(f"seed item identity belongs to another source: {item_id}")
+                if seed_item.source_item_id not in (None, "", source_item_id):
+                    raise ValueError(f"seed item identity belongs to another source item: {item_id}")
+                if not seed_item.source_platform:
+                    seed_item.source_platform = source_platform
+                if not seed_item.source_item_id:
+                    seed_item.source_item_id = source_item_id
                 if not seed_item.source_url and url:
                     seed_item.source_url = url
                 if not seed_item.title and title:
                     seed_item.title = title
                 seed_item.last_seen_at = now
-                seed_item.source_payload = dict(item)
+                seed_item.source_payload = item_payload
                 if seed_item.status in (None, "", "blocked"):
                     seed_item.status = "pending_detail"
                 session.add(seed_item)
@@ -144,7 +181,7 @@ class RepositorySeedItemsMixin:
                     "rank": rank,
                     "source_page_url": source_page_url,
                     "source_final_url": source_final_url,
-                    "raw_item": dict(item),
+                    "raw_item": item_payload,
                     "seen_at": now,
                 }
                 if dialect_name == "postgresql":

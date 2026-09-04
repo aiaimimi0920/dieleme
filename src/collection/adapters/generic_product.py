@@ -7,6 +7,7 @@ from typing import Any, Mapping, MutableMapping, Sequence
 
 from ..contracts import NumberParser, Record
 from ..search_task_policy import GenericSearchTaskPolicy, SearchTaskPolicy
+from ..seed_list_parser import GenericJsonSeedListParser, SeedListParser, normalize_source_item_id
 from ..seed_scan_policy import GenericSeedScanPolicy, SeedScanPolicy
 
 
@@ -26,6 +27,10 @@ class GenericProductAdapter:
     collects_avm_risk: bool = False
     bootstraps_legacy_search_tasks: bool = False
 
+    def __post_init__(self) -> None:
+        policy = GenericSeedScanPolicy(source_platform=self.source_platform)
+        object.__setattr__(self, "source_platform", policy.source_platform)
+
     @property
     def search_task_policy(self) -> SearchTaskPolicy:
         return GenericSearchTaskPolicy(source_platform=self.source_platform)
@@ -34,11 +39,16 @@ class GenericProductAdapter:
     def seed_scan_policy(self) -> SeedScanPolicy:
         return GenericSeedScanPolicy(source_platform=self.source_platform)
 
+    def create_seed_list_parser(self, legacy_probe: Any) -> SeedListParser:
+        del legacy_probe
+        return GenericJsonSeedListParser()
+
     def item_id(self, item: Mapping[str, Any]) -> str:
-        value = _first_non_empty(item, "source_item_id", "id", "item_id", "sku")
-        if value is None:
+        raw_source_item_id = _first_non_empty(item, "source_item_id", "id", "item_id", "sku")
+        if raw_source_item_id is None:
             raise ValueError("collection item is missing source_item_id/id/item_id/sku")
-        return str(value)
+        source_item_id = normalize_source_item_id(str(raw_source_item_id))
+        return self.seed_scan_policy.storage_item_id(source_item_id)
 
     def build_seed_record(
         self,
@@ -49,17 +59,27 @@ class GenericProductAdapter:
     ) -> Record:
         del parse_number, safe_int
         record = {str(key): value for key, value in item.items() if value not in (None, "")}
+        raw_source_item_id = _first_non_empty(item, "source_item_id", "id", "item_id", "sku")
+        if raw_source_item_id is None:
+            raise ValueError("collection item is missing source_item_id/id/item_id/sku")
+        source_item_id = normalize_source_item_id(str(raw_source_item_id))
         item_id = self.item_id(item)
+        declared_platform = str(item.get("source_platform") or "").strip()
+        if declared_platform and declared_platform != self.source_platform:
+            raise ValueError("collection item source_platform does not match its adapter")
         title = _first_non_empty(item, "source_title", "title", "name")
         source_url = _first_non_empty(item, "source_url", "url", "detail_url")
         record.update(
             {
                 "id": item_id,
-                "source_item_id": item_id,
-                "source_platform": item.get("source_platform") or self.source_platform,
+                "item_id": item_id,
+                "source_item_id": source_item_id,
+                "source_platform": self.source_platform,
                 "is_processed": False,
             }
         )
+        if str(raw_source_item_id) != source_item_id:
+            record.setdefault("raw_source_item_id", str(raw_source_item_id))
         if title is not None:
             record.setdefault("title", title)
             record.setdefault("source_title", title)
@@ -91,8 +111,10 @@ class GenericProductAdapter:
         for key, value in existing.items():
             if value not in (None, "", []) and record.get(key) in (None, "", []):
                 record[key] = value
+        source_item_id = existing.get("source_item_id") or record.get("source_item_id") or item_id
         record["id"] = item_id
-        record["source_item_id"] = item_id
+        record["item_id"] = item_id
+        record["source_item_id"] = str(source_item_id)
         record.setdefault("source_platform", existing.get("source_platform") or self.source_platform)
         source_url = self.source_url(record) or self.source_url(existing)
         if source_url:

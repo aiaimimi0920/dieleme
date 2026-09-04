@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any, Callable, Mapping, MutableMapping, Protocol, Sequence
 
 from .search_task_policy import SearchTaskPolicy
+from .seed_list_parser import SeedListParser
 from .seed_scan_policy import SeedScanPolicy
 
 
@@ -18,6 +19,8 @@ class CollectionAdapter(Protocol):
     bootstraps_legacy_search_tasks: bool
     search_task_policy: SearchTaskPolicy
     seed_scan_policy: SeedScanPolicy
+
+    def create_seed_list_parser(self, legacy_probe: Any) -> SeedListParser: ...
 
     def item_id(self, item: Mapping[str, Any]) -> str: ...
 

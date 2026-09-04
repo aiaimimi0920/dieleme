@@ -49,6 +49,8 @@ class SeedScanPolicy(Protocol):
 
     def item_url(self, item_id: str, explicit_url: Any = None) -> str: ...
 
+    def storage_item_id(self, source_item_id: str) -> str: ...
+
 
 @dataclass(frozen=True)
 class GenericSeedScanPolicy:
@@ -57,6 +59,14 @@ class GenericSeedScanPolicy:
     source_platform: str = "generic"
     requires_location_code: bool = False
     requires_lease_owner: bool = True
+
+    def __post_init__(self) -> None:
+        platform = _text(self.source_platform)
+        if not platform:
+            raise ValueError("generic seed source platform is required")
+        if len(platform) > 32:
+            raise ValueError("generic seed source platform must be at most 32 characters")
+        object.__setattr__(self, "source_platform", platform)
 
     @property
     def job_key_prefix(self) -> str:
@@ -135,6 +145,15 @@ class GenericSeedScanPolicy:
         if not url:
             raise ValueError("generic seed item requires source URL")
         return f"https:{url}" if url.startswith("//") else url
+
+    def storage_item_id(self, source_item_id: str) -> str:
+        normalized = _text(source_item_id)
+        if not normalized:
+            raise ValueError("generic seed item requires source item ID")
+        platform = _text(self.source_platform) or "generic"
+        platform_hash = hashlib.sha256(platform.encode("utf-8")).hexdigest()[:8]
+        item_hash = hashlib.sha256(normalized.encode("utf-8")).hexdigest()[:40]
+        return f"src-{platform_hash}-{item_hash}"
 
 
 @dataclass(frozen=True)
@@ -230,6 +249,12 @@ class TaobaoJudicialSeedScanPolicy:
                 )
             return url
         return f"https://sf-item.taobao.com/sf_item/{item_id}.htm"
+
+    def storage_item_id(self, source_item_id: str) -> str:
+        normalized = _text(source_item_id)
+        if not normalized:
+            raise ValueError("seed item requires item ID")
+        return normalized
 
 
 DEFAULT_SEED_SCAN_POLICY = TaobaoJudicialSeedScanPolicy()

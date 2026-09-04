@@ -100,6 +100,12 @@ def run_seed_collector_once(
 
     page_completed = False
     try:
+        if config.collection_adapter is not None:
+            list_parser = config.collection_adapter.create_seed_list_parser(browserless_seed_probe)
+        elif isinstance(config.seed_scan_policy, GenericSeedScanPolicy):
+            list_parser = GenericJsonSeedListParser()
+        else:
+            list_parser = TaobaoSeedListParser(browserless_seed_probe)
         runtime_user_agent = resolve_runtime_user_agent(config.cdp_endpoint)
         html, final_url, status_code, fetch_method = fetch_list_page(
             http_session,
@@ -109,7 +115,11 @@ def run_seed_collector_once(
             solver_enabled=config.solver_enabled,
             api_base_url=config.api_base_url,
         )
-        items, list_summary, has_challenge = _extract_seed_items(browserless_seed_probe, html, final_url=final_url)
+        items, list_summary, has_challenge = _extract_seed_items(
+            list_parser,
+            html,
+            final_url=final_url,
+        )
         if has_challenge:
             captcha_solver_report = (
                 None

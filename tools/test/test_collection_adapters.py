@@ -58,6 +58,10 @@ def test_generic_adapter_collects_arbitrary_product_seed(tmp_path: Path) -> None
 
     assert result == {"status": "ok", "new": 1}
     record = persisted[0]
+    assert record["id"] == GenericProductAdapter(source_platform="catalog_x").item_id(
+        {"sku": "sku-7"}
+    )
+    assert record["item_id"] == record["id"]
     assert record["source_item_id"] == "sku-7"
     assert record["source_platform"] == "catalog_x"
     assert record["source_title"] == "Reusable product"
@@ -109,6 +113,21 @@ def test_collection_adapter_factory_rejects_unknown_adapter() -> None:
         create_collection_adapter("typoed-adapter")
 
 
+def test_generic_adapter_rejects_item_from_another_source_platform() -> None:
+    adapter = GenericProductAdapter(source_platform="catalog_x")
+
+    with pytest.raises(ValueError, match="does not match"):
+        adapter.build_seed_record(
+            {
+                "id": "shared-1",
+                "source_platform": "catalog_y",
+                "url": "https://catalog.example/items/shared-1",
+            },
+            parse_number=lambda value: value,
+            safe_int=lambda value: value,
+        )
+
+
 def test_server_collection_factories_keep_explicit_legacy_default(monkeypatch) -> None:
     monkeypatch.delenv("CROW_COLLECTION_ADAPTER", raising=False)
     monkeypatch.delenv("CROW_COLLECTION_SOURCE_PLATFORM", raising=False)
@@ -147,6 +166,9 @@ def test_seed_stub_uses_the_configured_adapter() -> None:
     )
 
     assert record["source_item_id"] == "sku-8"
+    assert record["item_id"] == GenericProductAdapter(source_platform="catalog_x").item_id(
+        {"sku": "sku-8"}
+    )
     assert record["source_platform"] == "catalog_x"
     assert record["source_title"] == "Portable seed"
     assert "auction_date" not in record

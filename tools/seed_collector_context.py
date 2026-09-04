@@ -33,7 +33,9 @@ if str(REPO_ROOT) not in sys.path:
 
 from src.storage.repository import PropertyRepository, create_repository_from_env
 from src.collection.adapter_resolver import collection_adapter_from_env
-from src.collection.seed_scan_policy import DEFAULT_SEED_SCAN_POLICY, SeedScanPolicy
+from src.collection.contracts import CollectionAdapter
+from src.collection.seed_list_parser import GenericJsonSeedListParser, SeedListParser, TaobaoSeedListParser
+from src.collection.seed_scan_policy import DEFAULT_SEED_SCAN_POLICY, GenericSeedScanPolicy, SeedScanPolicy
 
 from tools.internal_api_http import fetch_json, post_json
 
@@ -140,6 +142,7 @@ class SeedCollectorConfig:
     auth_probe_interval_seconds: int = DEFAULT_AUTH_PROBE_INTERVAL_SECONDS
     source_url_template: str = ""
     seed_scan_policy: SeedScanPolicy | None = None
+    collection_adapter: CollectionAdapter | None = None
 
 SeedRuntimeContextFactory = Callable[[], Any]
 
@@ -169,7 +172,12 @@ __all__ = (
     'PropertyRepository',
     'create_repository_from_env',
     'collection_adapter_from_env',
+    'CollectionAdapter',
+    'GenericJsonSeedListParser',
+    'SeedListParser',
+    'TaobaoSeedListParser',
     'DEFAULT_SEED_SCAN_POLICY',
+    'GenericSeedScanPolicy',
     'SeedScanPolicy',
     'fetch_json',
     'post_json',

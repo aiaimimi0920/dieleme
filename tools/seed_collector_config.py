@@ -260,6 +260,7 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[SeedCol
             failure_cooldown_seconds=max(int(args.failure_cooldown_seconds), 0),
             source_url_template=_clean_text(args.source_url_template),
             seed_scan_policy=seed_scan_policy,
+            collection_adapter=adapter,
         ),
         bool(args.loop),
     )
