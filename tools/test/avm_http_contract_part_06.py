@@ -294,6 +294,27 @@ class AVMHttpContractPart06:
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_SEED_PROGRESS_MISSING_URL')
 
+    def test_collection_seed_report_progress_accepts_generic_task_identity(self):
+        fake_service = mock.Mock()
+        fake_service.report_progress.return_value = {'status': 'ok'}
+        payload = {'task_key': 'source:catalog:test', 'session_id': 'worker-1', 'page_num': 2, 'has_next': False}
+        with mock.patch.object(server_module, '_seed_collection_service', return_value=fake_service):
+            (status, body) = self._post_json('/api/collection/seeds/report_progress', payload)
+        self.assertEqual(status, 200)
+        self.assertEqual(body, {'status': 'ok'})
+        fake_service.report_progress.assert_called_once_with(payload)
+
+    def test_collection_seed_report_progress_maps_service_validation_to_400(self):
+        fake_service = mock.Mock()
+        fake_service.report_progress.side_effect = ValueError('requires task_key')
+        payload = {'url': 'https://catalog.example/products', 'has_next': True}
+        with mock.patch.object(server_module, '_seed_collection_service', return_value=fake_service):
+            with self.assertRaises(urllib.error.HTTPError) as ctx:
+                self._post_json('/api/collection/seeds/report_progress', payload)
+        self.assertEqual(ctx.exception.code, 400)
+        body = json.loads(ctx.exception.read().decode('utf-8'))
+        self.assertEqual(body['error']['code'], 'AVM_SEED_PROGRESS_INVALID')
+
     def test_collection_seed_report_progress_alias_returns_500_on_invalid_json(self):
         req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/collection/seeds/report_progress', data=b'{', headers={'Content-Type': 'application/json'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:

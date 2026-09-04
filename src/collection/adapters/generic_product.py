@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from typing import Any, Mapping, MutableMapping, Sequence
 
 from ..contracts import NumberParser, Record
+from ..search_task_policy import GenericSearchTaskPolicy, SearchTaskPolicy
 
 
 def _first_non_empty(item: Mapping[str, Any], *keys: str) -> Any:
@@ -23,6 +24,10 @@ class GenericProductAdapter:
     source_platform: str = "generic"
     collects_avm_risk: bool = False
     bootstraps_legacy_search_tasks: bool = False
+
+    @property
+    def search_task_policy(self) -> SearchTaskPolicy:
+        return GenericSearchTaskPolicy(source_platform=self.source_platform)
 
     def item_id(self, item: Mapping[str, Any]) -> str:
         value = _first_non_empty(item, "source_item_id", "id", "item_id", "sku")

@@ -44,6 +44,25 @@ class SeedCollectionService:
             safe_int=safe_int,
         )
 
+    def register_search_task(
+        self,
+        task: Dict[str, Any],
+        *,
+        leased_by: str | None = None,
+        lease_seconds: int = 90,
+    ) -> bool:
+        """Register one source-specific rough-collection task."""
+        if not (self.repository and getattr(self.repository, "enabled", False)):
+            return False
+        return bool(
+            self.repository.bootstrap_search_task(
+                task,
+                leased_by=leased_by,
+                lease_seconds=lease_seconds,
+                policy=self.adapter.search_task_policy,
+            )
+        )
+
     def _bootstrap_db_search_tasks(self) -> None:
         if not getattr(self.adapter, "bootstraps_legacy_search_tasks", False):
             return
@@ -83,11 +102,13 @@ class SeedCollectionService:
                 session_id,
                 priority_codes=priority_codes,
                 sort_order=DEFAULT_SORT_ORDER,
+                policy=self.adapter.search_task_policy,
             )
         except Exception:
             task = None
 
         if task:
+            task.setdefault("session_id", session_id)
             return {
                 "task": task,
                 "location": {"code": task.get("location_code"), "name": task.get("location_code")},
@@ -98,8 +119,15 @@ class SeedCollectionService:
 
     def report_progress(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         url = payload.get("url")
-        if not url:
-            raise ValueError("Missing URL")
+        task_key = payload.get("task_key")
+        session_id = payload.get("session_id")
+        if not url and not task_key:
+            raise ValueError("Missing URL or task_key")
+        policy = self.adapter.search_task_policy
+        if policy.requires_lease_owner and not task_key:
+            raise ValueError("Source-scoped search progress requires task_key")
+        if policy.requires_lease_owner and not session_id:
+            raise ValueError("Source-scoped search progress requires session_id")
 
         if self.repository and getattr(self.repository, "enabled", False):
             self.repository.report_search_task_progress(
@@ -108,6 +136,10 @@ class SeedCollectionService:
                 has_next=bool(payload.get("has_next", True)),
                 max_page=int(payload.get("total_pages")) if payload.get("total_pages") else None,
                 zero_bid_detected=bool(payload.get("zero_bid_detected", False)),
+                task_key=str(task_key) if task_key else None,
+                next_url=str(payload.get("next_url")) if payload.get("next_url") else None,
+                session_id=str(session_id) if session_id else None,
+                policy=policy,
             )
 
         return {"status": "ok"}

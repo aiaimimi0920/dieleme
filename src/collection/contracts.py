@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any, Callable, Mapping, MutableMapping, Protocol, Sequence
 
+from .search_task_policy import SearchTaskPolicy
+
 
 Record = dict[str, Any]
 NumberParser = Callable[[Any], Any]
@@ -13,6 +15,7 @@ class CollectionAdapter(Protocol):
     source_platform: str
     collects_avm_risk: bool
     bootstraps_legacy_search_tasks: bool
+    search_task_policy: SearchTaskPolicy
 
     def item_id(self, item: Mapping[str, Any]) -> str: ...
 

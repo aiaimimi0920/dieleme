@@ -237,6 +237,7 @@ def _server_post_branch_01(self):
         return
     try:
         url = data.get('url')
+        task_key = data.get('task_key')
         has_next = data.get('has_next', True)
         is_empty = data.get('is_empty', False)
         page_num = data.get('page_num', 1)
@@ -246,10 +247,13 @@ def _server_post_branch_01(self):
         if zero_bid_detected:
             log_msg += ' | [ZERO-BID EARLY TERMINATION]'
         print(log_msg + f' | URL: {url}')
-        if url:
+        if url or task_key:
             self.send_json(_seed_collection_service().report_progress(data))
         else:
-            self.send_error_json(status=400, code='AVM_SEED_PROGRESS_MISSING_URL', message='缺少 URL', details={'required': ['url']})
+            self.send_error_json(status=400, code='AVM_SEED_PROGRESS_MISSING_URL', message='缺少 URL 或 task_key', details={'required_any': ['url', 'task_key']})
+    except ValueError as e:
+        print(f'Invalid report_sniff_status payload: {e}')
+        self.send_error_json(status=400, code='AVM_SEED_PROGRESS_INVALID', message='种子进度参数无效', details={'error': str(e)})
     except Exception as e:
         print(f'Error in report_sniff_status: {e}')
         self.send_error_json(status=500, code='AVM_SEED_PROGRESS_FAILED', message='种子进度回报失败', details={'error': str(e)})

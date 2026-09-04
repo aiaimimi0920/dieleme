@@ -90,6 +90,21 @@ falling back to a domain policy. New adapters should be registered in
 Only adapters that explicitly enable `bootstraps_legacy_search_tasks` may seed
 the historical Taobao location/category queue.
 
+Each adapter also owns a `search_task_policy`. Storage owns task persistence,
+leases, and status transitions; the policy owns source task identity, request
+URLs, pagination, and optional sibling expansion. Generic sources register an
+initial URL through `SeedCollectionService.register_search_task()`. Assigned
+tasks include a stable `task_key` and `source_platform`; progress reports use
+that `task_key`, the assigned `session_id`, and may provide `next_url` for the
+next opaque URL cursor. Generic progress is rejected when the session no longer
+owns the task lease, preventing a stale worker from advancing another worker's
+cursor.
+Legacy Taobao workers may continue reporting only the current `url`.
+
+The current compatibility table persists a canonical next-request URL in
+`source_url`. Sources whose cursors cannot be represented as URLs require a
+separate reversible schema migration rather than overloading legacy columns.
+
 Every adapter must persist a stable `source_platform`. Repository stage tracking
 uses that value to select the generic readiness contract for explicit non-Taobao
 sources while retaining the Taobao judicial-auction contract for legacy records.

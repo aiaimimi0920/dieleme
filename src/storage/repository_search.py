@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.collection.search_task_policy import DEFAULT_SEARCH_TASK_POLICY, SearchTaskPolicy
+
 from .repository_context import *  # noqa: F401,F403
 
 
@@ -15,25 +17,29 @@ class RepositorySearchMixin:
             f"?location_code={location_code}&st_param={sort_param}&auction_start_seg=-1&page={page}"
         )
 
-    def bootstrap_search_task(self, task: Dict[str, Any], leased_by: str | None = None, lease_seconds: int = 90) -> None:
+    def bootstrap_search_task(
+        self,
+        task: Dict[str, Any],
+        leased_by: str | None = None,
+        lease_seconds: int = 90,
+        *,
+        policy: SearchTaskPolicy | None = None,
+    ) -> bool:
         if not self.enabled:
-            return
+            return False
         self.initialize()
-        location_code = str(task.get("location_code") or "").strip()
-        category = str(task.get("category") or "").strip()
-        sort_param = str(task.get("st_param") or "").strip()
-        page = int(task.get("page") or 1)
-        if not location_code or not category or not sort_param:
-            return
-        task_key = self._search_task_key(location_code, category, sort_param)
+        active_policy = policy or DEFAULT_SEARCH_TASK_POLICY
+        seed = active_policy.normalize_bootstrap(task)
+        if seed is None:
+            return False
         now = _utc_now()
         with self.session_factory.begin() as session:
-            row = session.get(PropertySearchTask, task_key) or PropertySearchTask(task_key=task_key)
-            row.location_code = location_code
-            row.category = category
-            row.sort_param = sort_param
-            row.next_page = page
-            row.source_url = task.get("url") or self._build_search_task_url(location_code, category, sort_param, page)
+            row = session.get(PropertySearchTask, seed.task_key) or PropertySearchTask(task_key=seed.task_key)
+            row.location_code = seed.location_code
+            row.category = seed.category
+            row.sort_param = seed.sort_param
+            row.next_page = seed.page
+            row.source_url = seed.source_url
             row.last_seen_at = now
             if leased_by:
                 row.leased_by = leased_by
@@ -42,6 +48,7 @@ class RepositorySearchMixin:
             else:
                 row.status = row.status or "pending"
             session.add(row)
+        return True
 
     def claim_search_task(
         self,
@@ -50,10 +57,12 @@ class RepositorySearchMixin:
         *,
         priority_codes: Sequence[str] | None = None,
         sort_order: Sequence[str] | None = None,
+        policy: SearchTaskPolicy | None = None,
     ) -> Optional[Dict[str, Any]]:
         if not self.enabled:
             return None
         self.initialize()
+        active_policy = policy or DEFAULT_SEARCH_TASK_POLICY
         now = _utc_now()
         priority_index = {code: idx for idx, code in enumerate(priority_codes or [])}
         sort_index = {code: idx for idx, code in enumerate(sort_order or ("2", "1", "0", "3", "4", "5"))}
@@ -62,7 +71,7 @@ class RepositorySearchMixin:
                 select(PropertySearchTask).where(PropertySearchTask.status.in_(("pending", "in_progress")))
             ).scalars().all()
             ordered_rows = sorted(
-                rows,
+                (row for row in rows if active_policy.owns_task(str(row.task_key))),
                 key=lambda row: (
                     0 if row.status == "pending" else 1,
                     priority_index.get(str(row.location_code), 10**9),
@@ -81,85 +90,95 @@ class RepositorySearchMixin:
                 row.last_seen_at = now
                 session.add(row)
                 page = int(row.next_page or 1)
-                return {
-                    "location_code": row.location_code,
-                    "category": row.category,
-                    "st_param": row.sort_param,
-                    "page": page,
-                    "url": self._build_search_task_url(row.location_code, row.category or "", row.sort_param or "", page),
-                    "desc": f"Sniff-{row.location_code}-S{row.sort_param}-P{page}",
-                    "is_resume": page > 1,
-                }
+                return active_policy.claim_payload(
+                    task_key=str(row.task_key),
+                    location_code=str(row.location_code),
+                    category=str(row.category or ""),
+                    sort_param=str(row.sort_param or ""),
+                    page=page,
+                    source_url=row.source_url,
+                )
         return None
 
     def report_search_task_progress(
         self,
         *,
-        url: str,
+        url: str | None = None,
         page_num: int,
         has_next: bool = True,
         max_page: int | None = None,
         zero_bid_detected: bool = False,
+        task_key: str | None = None,
+        next_url: str | None = None,
+        session_id: str | None = None,
+        policy: SearchTaskPolicy | None = None,
     ) -> None:
         if not self.enabled:
             return
         self.initialize()
-        from urllib.parse import parse_qs, urlparse
-        import re
-
-        parsed = urlparse(url)
-        params = parse_qs(parsed.query)
-        location_code = params.get("location_code", [""])[0]
-        sort_param = params.get("st_param", ["2"])[0]
-        match = re.search(r"/list/(\d+)", parsed.path)
-        category = match.group(1) if match else "50025969"
-        if not location_code:
+        active_policy = policy or DEFAULT_SEARCH_TASK_POLICY
+        resolved_key = active_policy.resolve_progress_task_key(task_key=task_key, url=url)
+        if not resolved_key:
+            if active_policy.requires_lease_owner:
+                raise ValueError("source-scoped search progress requires task_key")
             return
 
-        task_key = self._search_task_key(location_code, category, sort_param)
         now = _utc_now()
         with self.session_factory.begin() as session:
-            row = session.get(PropertySearchTask, task_key) or PropertySearchTask(task_key=task_key)
-            row.location_code = location_code
-            row.category = category
-            row.sort_param = sort_param
-            row.source_url = url
+            row = session.get(PropertySearchTask, resolved_key)
+            if row is None:
+                seed = active_policy.normalize_bootstrap({"url": url, "page": page_num})
+                if seed is None or seed.task_key != resolved_key:
+                    raise ValueError(f"unknown search task: {resolved_key}")
+                row = PropertySearchTask(task_key=resolved_key)
+                row.location_code = seed.location_code
+                row.category = seed.category
+                row.sort_param = seed.sort_param
+                row.next_page = seed.page
+
+            normalized_session = str(session_id or "").strip()
+            if active_policy.requires_lease_owner and row.leased_by != normalized_session:
+                raise ValueError(f"search task lease is not owned by session: {resolved_key}")
+            if normalized_session and row.leased_by not in (None, normalized_session):
+                raise ValueError(f"search task lease is owned by another session: {resolved_key}")
+
+            decision = active_policy.progress_decision(
+                sort_param=str(row.sort_param or ""),
+                current_next_page=int(row.next_page or 1),
+                current_source_url=row.source_url,
+                page_num=page_num,
+                has_next=has_next,
+                zero_bid_detected=zero_bid_detected,
+                url=url,
+                next_url=next_url,
+            )
+            row.source_url = decision.source_url
             row.last_seen_at = now
             if max_page and (row.max_page is None or max_page > row.max_page):
                 row.max_page = max_page
-
-            if zero_bid_detected or (sort_param == "2" and not has_next and int(page_num or 1) < 83):
-                row.status = "done"
-                row.zero_bid_terminated = True
-                row.next_page = max(int(page_num or 1), 1)
-                row.leased_by = None
-                row.lease_until = None
-                sibling_status = "pruned"
-            elif has_next:
-                row.status = "pending"
-                row.next_page = max(int(page_num or 1) + 1, row.next_page or 1)
-                row.leased_by = None
-                row.lease_until = None
-                sibling_status = None
-            else:
-                row.status = "done"
-                row.next_page = max(int(page_num or 1), row.next_page or 1)
-                row.leased_by = None
-                row.lease_until = None
-                sibling_status = "pending" if sort_param == "2" and int(page_num or 1) >= 83 else None
-
+            row.status = decision.status
+            row.next_page = decision.next_page
+            if decision.zero_bid_terminated is not None:
+                row.zero_bid_terminated = decision.zero_bid_terminated
+            row.leased_by = None
+            row.lease_until = None
             session.add(row)
-            if sort_param == "2" and sibling_status in {"pending", "pruned"}:
-                for sibling_sort in ("1", "0", "3", "4", "5"):
-                    sibling_key = self._search_task_key(location_code, category, sibling_sort)
+            if decision.sibling_status in {"pending", "pruned"}:
+                for sibling_sort in active_policy.sibling_sort_params:
+                    sibling_key = self._search_task_key(row.location_code, row.category or "", sibling_sort)
                     sibling = session.get(PropertySearchTask, sibling_key) or PropertySearchTask(task_key=sibling_key)
-                    sibling.location_code = location_code
-                    sibling.category = category
+                    sibling.location_code = row.location_code
+                    sibling.category = row.category
                     sibling.sort_param = sibling_sort
                     sibling.next_page = max(int(sibling.next_page or 1), 1)
-                    sibling.source_url = self._build_search_task_url(location_code, category, sibling_sort, sibling.next_page)
-                    sibling.status = sibling_status
-                    sibling.zero_bid_terminated = sibling_status == "pruned"
+                    sibling.source_url = active_policy.sibling_url(
+                        location_code=row.location_code,
+                        category=row.category or "",
+                        sort_param=sibling_sort,
+                        page=sibling.next_page,
+                    )
+                    sibling.status = decision.sibling_status
+                    sibling.zero_bid_terminated = decision.sibling_status == "pruned"
                     sibling.leased_by = None
                     sibling.lease_until = None
                     sibling.last_seen_at = now

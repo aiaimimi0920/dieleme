@@ -9,6 +9,7 @@ from typing import Any, Mapping, MutableMapping, Sequence
 from src.avm.collection_template import sync_collection_record
 
 from ..contracts import NumberParser, Record
+from ..search_task_policy import SearchTaskPolicy, TaobaoJudicialSearchTaskPolicy
 from .generic_product import GenericProductAdapter
 
 
@@ -34,6 +35,10 @@ class TaobaoJudicialAuctionAdapter(GenericProductAdapter):
     source_platform: str = "taobao_sf"
     collects_avm_risk: bool = True
     bootstraps_legacy_search_tasks: bool = True
+
+    @property
+    def search_task_policy(self) -> SearchTaskPolicy:
+        return TaobaoJudicialSearchTaskPolicy()
 
     def build_seed_record(
         self,
