@@ -62,6 +62,7 @@ class CaptchaPreflightMixin:
                 return {
                     hardBlock: hardBlock,
                     explicitFailure: explicitFailure,
+                    retryableFailure: !!(explicitFailure && !loginRequired && errorWidget && errorWidget.offsetParent !== null),
                     hasSlider: hasSlider,
                     auctionItemCount: auctionItemCount,
                     validAuctionPayload: validAuctionPayload,
@@ -87,6 +88,7 @@ class CaptchaPreflightMixin:
                     var frameSummary = scan(doc);
                     summary.hardBlock = summary.hardBlock || frameSummary.hardBlock;
                     summary.explicitFailure = summary.explicitFailure || frameSummary.explicitFailure;
+                    summary.retryableFailure = summary.retryableFailure || frameSummary.retryableFailure;
                     summary.hasSlider = summary.hasSlider || frameSummary.hasSlider;
                     summary.challengeMarker = summary.challengeMarker || frameSummary.challengeMarker;
                     summary.loginRequired = summary.loginRequired || frameSummary.loginRequired;
@@ -104,6 +106,7 @@ class CaptchaPreflightMixin:
                 ((summary.hardBlock || summary.challengeMarker) && !summary.validAuctionPayload)
             );
             summary.authenticatedPage = summary.validAuctionPayload && !summary.challengePresent;
+            summary.retryableFailure = !!(summary.retryableFailure && !summary.loginRequired);
             return summary;
         })()
         """
@@ -116,6 +119,7 @@ class CaptchaPreflightMixin:
         return {
             "hardBlock": False,
             "explicitFailure": False,
+            "retryableFailure": False,
             "hasSlider": False,
             "validAuctionPayload": False,
             "loginRequired": False,
@@ -161,7 +165,8 @@ class CaptchaPreflightMixin:
             safe_href = ""
         return (
             f"code={error_code or 'none'} title={title or 'none'} "
-            f"class={class_name or 'none'} path={safe_href or 'none'}"
+            f"class={class_name or 'none'} path={safe_href or 'none'} "
+            f"retryable={bool(payload.get('retryableFailure'))}"
         )
 
     def _preflight_already_authenticated(self):
@@ -255,14 +260,8 @@ class CaptchaPreflightMixin:
                 print("[SOLVER] [X] Unsupported hard block detected; manual verification required.")
                 return self._preflight_manual_required()
 
-        if not has_slider and self.ws:
-            try:
-                self.ws.close()
-            except:
-                pass
-            self.ws = None
         return {
-            "connected": has_slider,
+            "connected": bool(self.ws) or has_slider,
             "manual_required": False,
             "has_slider": has_slider,
             "already_authenticated": False,

@@ -35,6 +35,8 @@ def run_detail_worker_batch(
     attempted_item_ids: set[str] = set()
     completed = 0
     attempts = 0
+    challenge_break = False
+    challenge_retry_after_seconds = 0
     while attempts < config.max_attempts and completed < config.target_success:
         attempts += 1
         if config.analysis_only:
@@ -68,10 +70,12 @@ def run_detail_worker_batch(
             completed += 1
         if result.get("decision") == "detail_analysis_backend_unavailable":
             break
-        if _detail_challenge_should_break_batch(config, result):
+        challenge_break = _detail_challenge_should_break_batch(config, result)
+        challenge_retry_after_seconds = _detail_challenge_retry_after_seconds(config, result)
+        if challenge_break:
             break
         if attempts < config.max_attempts and completed < config.target_success:
-            delay_seconds = config.success_delay_seconds if item_completed else config.failure_delay_seconds
+            delay_seconds = _detail_inter_item_delay_seconds(config, item_completed=item_completed)
             if delay_seconds > 0:
                 time.sleep(delay_seconds)
     summary = {
@@ -81,11 +85,20 @@ def run_detail_worker_batch(
         "target_success": config.target_success,
         "max_attempts": config.max_attempts,
         "llm_preflight": preflight,
+        "challenge_break": challenge_break,
+        "retry_after_seconds": challenge_retry_after_seconds,
         "results": results,
         "counts": repository.seed_queue_counts(),
     }
     _write_runtime_summary(config.output_dir, summary)
     return summary
+
+
+def _detail_inter_item_delay_seconds(config: DetailWorkerConfig, *, item_completed: bool) -> float:
+    if config.analysis_only:
+        return 0.0
+    base_delay = config.success_delay_seconds if item_completed else config.failure_delay_seconds
+    return jittered_delay_seconds(base_delay, config.pacing_jitter_ratio)
 
 
 def _detail_batch_sleep_seconds(config: DetailWorkerConfig, result: dict[str, Any]) -> int:
@@ -102,23 +115,15 @@ def _detail_batch_sleep_seconds(config: DetailWorkerConfig, result: dict[str, An
     else:
         base_sleep = max(config.loop_interval_seconds, 0)
 
-    force_reset_retry_after = 0
+    challenge_retry_after = 0
     for item_result in result.get("results") or []:
         if not isinstance(item_result, dict):
             continue
-        report = item_result.get("captcha_solver_report")
-        if not isinstance(report, dict):
-            continue
-        if str(report.get("status") or "").strip().lower() != "recent_force_reset":
-            continue
-        try:
-            force_reset_retry_after = max(
-                force_reset_retry_after,
-                int(math.ceil(max(float(report.get("retry_after_seconds") or 0), 0.0))),
-            )
-        except (TypeError, ValueError):
-            continue
-    return max(base_sleep, force_reset_retry_after)
+        challenge_retry_after = max(
+            challenge_retry_after,
+            _detail_challenge_retry_after_seconds(config, item_result),
+        )
+    return max(base_sleep, challenge_retry_after)
 
 
 def run_detail_worker_loop(
@@ -224,6 +229,7 @@ def run_detail_worker_loop(
 
 __all__ = (
     'run_detail_worker_batch',
+    '_detail_inter_item_delay_seconds',
     '_detail_batch_sleep_seconds',
     'run_detail_worker_loop',
 )

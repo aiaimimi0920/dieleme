@@ -169,6 +169,13 @@ def run_seed_collector_loop(
                 break
             if result.get("decision") == "seed_collection_paused":
                 break
+            if _page_index + 1 < max(int(config.pages_per_run or 1), 1):
+                delay_seconds = jittered_delay_seconds(
+                    config.page_delay_seconds,
+                    config.pacing_jitter_ratio,
+                )
+                if delay_seconds > 0:
+                    time.sleep(delay_seconds)
         run_event = _seed_run_progress_event(runs, run_results)
         cycle_summaries.append(dict(run_event.get("cycle_summary") or {}))
         emit_progress(run_event)

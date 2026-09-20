@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import inspect
 import json
 import os
@@ -17,7 +18,22 @@ if str(REPO_ROOT) not in sys.path:
 from tools import browserless_seed_probe, taobao_login_health
 
 
-DETAIL_URL_RE = re.compile(r"https://sf-item\.taobao\.com/sf_item/(\d+)\.htm", re.IGNORECASE)
+def _load_canonical_auth_target():
+    # The desktop bundle carries this credential-free adapter without the full
+    # collection engine. Load it by file path so package-level imports do not
+    # pull unrelated collection modules into the authentication helper.
+    target_path = REPO_ROOT / "src" / "collection" / "adapters" / "taobao_auth_target.py"
+    spec = importlib.util.spec_from_file_location("crow_taobao_auth_target", target_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Missing Taobao authentication target module: {target_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.canonical_auth_target
+
+
+canonical_auth_target = _load_canonical_auth_target()
+
+
 LIST_URL_RE = re.compile(r"https://sf\.taobao\.com/list/", re.IGNORECASE)
 DEFAULT_LIST_SAMPLES = (
     "https://sf.taobao.com/list/50025969__2.htm",
@@ -25,18 +41,38 @@ DEFAULT_LIST_SAMPLES = (
 )
 
 
+class CookieHealthPending(RuntimeError):
+    def __init__(self, health: dict[str, object], *, scope: str = "") -> None:
+        super().__init__("The current detail page is open, but reusable list/detail Cookie health is not ready.")
+        list_healthy = int(health.get("list_healthy_samples") or 0)
+        detail_healthy = health.get("detail_http_healthy") is True
+        blocking_scope = scope or (
+            "seed" if not list_healthy and (detail_healthy or health.get("list_only_mode"))
+            else "detail" if list_healthy and not detail_healthy else "both"
+        )
+        self.diagnostics = {
+            "blocking_scope": blocking_scope,
+            "list_healthy_samples": list_healthy,
+            "detail_http_healthy": detail_healthy,
+        }
+
+
 def _canonical_detail_url(url: str) -> str:
-    match = DETAIL_URL_RE.search(str(url or ""))
-    if match is None:
+    try:
+        return canonical_auth_target("detail", str(url or ""))
+    except (ValueError, TypeError):
         return ""
-    return f"https://sf-item.taobao.com/sf_item/{match.group(1)}.htm"
 
 
-def _healthy_open_taobao_page(cdp_endpoint: str) -> dict[str, str]:
+def _healthy_open_taobao_page(
+    cdp_endpoint: str, *, required_target_id: str = "", require_detail: bool = False,
+) -> dict[str, str]:
     # Inspect the already-open page through CDP. This deliberately does not
     # create, navigate, refresh, or close a browser target.
     for target in taobao_login_health.list_cdp_targets(cdp_endpoint):
         if str(target.get("type") or "") != "page":
+            continue
+        if required_target_id and str(target.get("id") or "") != required_target_id:
             continue
         websocket_url = str(target.get("webSocketDebuggerUrl") or "").strip()
         if not websocket_url:
@@ -62,13 +98,13 @@ def _healthy_open_taobao_page(cdp_endpoint: str) -> dict[str, str]:
             continue
         if canonical_url and len(str(html or "")) >= 1000:
             return {"kind": "detail", "html": html, "url": canonical_url}
-        if LIST_URL_RE.search(final_url) and summary.get("has_script") is True:
+        if not require_detail and LIST_URL_RE.search(final_url) and summary.get("has_script") is True:
             return {"kind": "list", "html": html, "url": str(final_url)}
     raise RuntimeError("No healthy open Taobao detail page is available in the PC1 browser.")
 
 
 def _healthy_open_detail_page(cdp_endpoint: str) -> tuple[str, str]:
-    page = _healthy_open_taobao_page(cdp_endpoint)
+    page = _healthy_open_taobao_page(cdp_endpoint, require_detail=True)
     if page.get("kind") != "detail":
         raise RuntimeError("No healthy open Taobao detail page is available in the PC1 browser.")
     return str(page.get("html") or ""), str(page.get("url") or "")
@@ -80,10 +116,13 @@ def _validate_cookie_http(
     *,
     user_agent: str,
     allow_list_only: bool = False,
+    scope: str = "",
+    target_url: str = "",
 ) -> dict[str, Any]:
     session = browserless_seed_probe.build_session_from_playwright_cookies(cookies)
     list_healthy = 0
-    for sample_url in DEFAULT_LIST_SAMPLES:
+    samples = () if scope == "detail" else (target_url,) if scope == "seed" else DEFAULT_LIST_SAMPLES
+    for sample_url in samples:
         summary = browserless_seed_probe.probe_seed_page(
             sample_url,
             cookies=cookies,
@@ -125,24 +164,34 @@ def _validate_cookie_http(
     return {
         "list_healthy_samples": list_healthy,
         "detail_http_healthy": detail_http_healthy,
-        "healthy": list_healthy > 0 and (detail_http_healthy or list_only_mode),
+        "healthy": detail_http_healthy if scope == "detail" else list_healthy > 0 and (detail_http_healthy or list_only_mode),
         "list_only_mode": list_only_mode,
     }
 
 
-def complete_inplace_auth(*, cdp_endpoint: str, output_path: Path, allow_list_only: bool = False) -> dict[str, Any]:
-    if allow_list_only:
-        page = _healthy_open_taobao_page(cdp_endpoint)
+def complete_inplace_auth(
+    *, cdp_endpoint: str, output_path: Path, allow_list_only: bool = False, required_target_id: str = "",
+    scope: str = "", target_url: str = "",
+) -> dict[str, Any]:
+    if required_target_id or allow_list_only:
+        page = (
+            _healthy_open_taobao_page(cdp_endpoint, required_target_id=required_target_id,
+                                     require_detail=not allow_list_only)
+            if required_target_id else _healthy_open_taobao_page(cdp_endpoint)
+        )
         page_kind = str(page.get("kind") or "")
         detail_url = str(page.get("url") or "") if page_kind == "detail" else ""
     else:
         _html, detail_url = _healthy_open_detail_page(cdp_endpoint)
         page_kind = "detail"
+    if scope and page_kind != {"seed": "list", "detail": "detail"}.get(scope):
+        raise RuntimeError("The selected page does not match the authentication stage.")
     cookies = browserless_seed_probe.export_cdp_cookies(
         cdp_endpoint,
         origins=(
             "https://sf.taobao.com",
             "https://sf-item.taobao.com",
+            "https://susong-item.taobao.com",
             "https://login.taobao.com",
         ),
     )
@@ -158,9 +207,10 @@ def complete_inplace_auth(*, cdp_endpoint: str, output_path: Path, allow_list_on
             detail_url,
             user_agent=user_agent,
             allow_list_only=allow_list_only,
+            **({"scope": scope, "target_url": target_url} if scope else {}),
         )
     if health.get("healthy") is not True:
-        raise RuntimeError("The current detail page is open, but reusable list/detail Cookie health is not ready.")
+        raise CookieHealthPending(health, scope=scope)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     candidate_fd, candidate_name = tempfile.mkstemp(
@@ -195,6 +245,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--cdp-endpoint", required=True)
     parser.add_argument("--output-path", type=Path, required=True)
     parser.add_argument("--allow-list-only", action="store_true")
+    parser.add_argument("--required-target-id", default="")
     return parser
 
 
@@ -205,6 +256,7 @@ def main(argv: list[str] | None = None) -> int:
             cdp_endpoint=args.cdp_endpoint,
             output_path=args.output_path,
             allow_list_only=bool(args.allow_list_only),
+            required_target_id=args.required_target_id,
         )
     except Exception as exc:
         print(
@@ -213,6 +265,7 @@ def main(argv: list[str] | None = None) -> int:
                     "ok": False,
                     "official_snapshot_promoted": False,
                     "error_type": type(exc).__name__,
+                    **(exc.diagnostics if isinstance(exc, CookieHealthPending) else {}),
                 },
                 ensure_ascii=False,
             )

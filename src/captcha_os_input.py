@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .captcha_context import *  # noqa: F401,F403
+from .captcha_x11_pointer import recover_xwayland_left_button
 
 
 class CaptchaOSInputMixin:
@@ -292,6 +293,18 @@ class CaptchaOSInputMixin:
             return
         self._move_os_cursor_bounded(pyautogui, target_x, target_y, duration)
 
+    def _ensure_os_left_button_released(self, mapped):
+        if os.name == "nt" or mapped.get("source") != "x11_window_geometry":
+            return True
+        result = recover_xwayland_left_button()
+        if result.get("released"):
+            print(f"[SOLVER] Released stale Xwayland left button devices={result['released']}")
+        if not result.get("verified"):
+            self.last_failure_reason = "os_button_state_unverified"
+            print(f"[SOLVER] OS left-button release not verified: {result.get('reason')}")
+            return False
+        return True
+
     def _do_drag_os(self, start_x, start_y, distance, slider_info=None, profile_variant_index=0):
         """OS-level mouse drag. CDP Input events are rejected by Aliyun NC (error:TJiA4d/Vx6urd)."""
         self.last_failure_reason = None
@@ -349,6 +362,8 @@ class CaptchaOSInputMixin:
         sx = mapped["x"]
         sy = mapped["y"]
         phys_distance = mapped["distance"]
+        if not self._ensure_os_left_button_released(mapped):
+            return None
         profile = self._os_drag_profile(profile_variant_index)
         print(
             f"[SOLVER] OS mouse drag from ({sx:.0f},{sy:.0f}) +{phys_distance:.0f}px "
@@ -442,6 +457,8 @@ class CaptchaOSInputMixin:
             time.sleep(random.uniform(*profile["hold_before_release"]))
             self._set_os_left_button(pyautogui, down=False)
             mouse_is_down = False
+            if not self._ensure_os_left_button_released(mapped):
+                return None
             time.sleep(random.uniform(0.4, 0.7))
             drag_completed = True
         except Exception as error:

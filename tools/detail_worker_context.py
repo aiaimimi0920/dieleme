@@ -40,6 +40,7 @@ if str(REPO_ROOT) not in sys.path:
 from src.storage.repository import PropertyRepository, create_repository_from_env
 from src.collection.adapter_resolver import collection_adapter_from_env
 from src.collection.contracts import CollectionAdapter
+from src.collection.pacing import jittered_delay_seconds
 from src.collection.runtime_adapter import resolve_record_adapter
 
 from tools.internal_api_http import fetch_json
@@ -72,8 +73,10 @@ class DetailWorkerConfig:
     lease_seconds: int = 900
     item_max_attempts: int = 3
     failure_cooldown_seconds: int = 0
-    success_delay_seconds: float = 0.0
-    failure_delay_seconds: float = 1.0
+    success_delay_seconds: float = 6.0
+    failure_delay_seconds: float = 15.0
+    pacing_jitter_ratio: float = 0.35
+    challenge_cooldown_seconds: int = 900
     loop_interval_seconds: int = 900
     active_loop_interval_seconds: int | None = None
     max_runs: int | None = None
@@ -128,6 +131,7 @@ __all__ = (
     'create_repository_from_env',
     'collection_adapter_from_env',
     'CollectionAdapter',
+    'jittered_delay_seconds',
     'resolve_record_adapter',
     'fetch_json',
     'CdpEndpointUnavailableError',

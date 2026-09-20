@@ -15,6 +15,7 @@ from src.llm_model_selector import (
     model_selector,
 )
 from src.llm_websocket import AIService
+from src.llm_analysis_policy import require_non_gpt_analysis_model
 
 
 def _strip_json_markdown(result):
@@ -23,17 +24,6 @@ def _strip_json_markdown(result):
     if "```" in result:
         return result.split("```")[1].split("```")[0].strip()
     return result
-
-
-def require_non_gpt_analysis_model(model, *, setting):
-    normalized = str(model or "").strip()
-    lowered = normalized.casefold()
-    is_openai_reasoning_route = bool(
-        re.match(r"^(?:openai[/:._-])?o\d+(?:[/:._-]|$)", lowered)
-    )
-    if not normalized or "gpt" in lowered or "codex" in lowered or is_openai_reasoning_route:
-        raise ValueError(f"{setting} must use an explicit non-GPT analysis model route")
-    return normalized
 
 
 def _get_openai_compatible_config():
@@ -190,6 +180,17 @@ def preflight_openai_compatible_backend(timeout=15.0, *, check_chat=False):
     config = _get_openai_compatible_config()
     if not config:
         return {"enabled": False}
+    from src.llm_qualification_pool import QualifiedModelPool, pool_enabled
+    if pool_enabled():
+        import sqlite3
+        try:
+            pool = QualifiedModelPool(config, proxies=_get_openai_compatible_proxies(config["base_url"]))
+            models = pool.refresh_in_background()
+        except (OSError, sqlite3.Error, ValueError):
+            models = []
+        return {"enabled": True, "status_code": 200 if models else 503,
+                "chat_status_code": 200 if models else 503, "qualified_models": models,
+                "model_pool": "ready" if models else "exhausted_or_probing"}
     url = f"{config['base_url']}/models"
     session = requests.Session()
     session.trust_env = False
@@ -379,7 +380,16 @@ def chat_with_glm(content, *, model=None):
             openai_config["model"] = requested_model
             openai_config["models"] = [requested_model]
         print(f"DEBUG: Sending request to OpenAI-compatible backend (model={openai_config['model']})...")
-        result = _chat_with_openai_compatible(content, openai_config)
+        from src.llm_qualification_pool import QualifiedModelPool, pool_enabled
+        if pool_enabled():
+            import sqlite3
+            try:
+                pool = QualifiedModelPool(openai_config, proxies=_get_openai_compatible_proxies(openai_config["base_url"]))
+                result = pool.chat(content, model=requested_model or None)
+            except (OSError, sqlite3.Error, ValueError):
+                raise LLMBackendUnavailableError("LLM backend unavailable: model pool state unavailable") from None
+        else:
+            result = _chat_with_openai_compatible(content, openai_config)
         print(f"DEBUG: OpenAI-compatible response received (len={len(result)}).")
         stripped = _strip_json_markdown(result)
         if not str(stripped or "").strip():

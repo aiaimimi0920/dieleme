@@ -1,0 +1,86 @@
+"""One explicitly enabled host controller for settings and engine restarts."""
+import argparse
+import json
+import os
+from pathlib import Path
+import subprocess
+import time
+
+from .collection_control_lock import operation_lock
+from .pc2_engine_controller import ControllerError, EngineController, MailboxClient, validate_command
+from .pc2_settings_controller import SettingsClient, SettingsController
+from .pc2_settings_runtime import SettingsRuntime, write_private
+from .pc2_collection_watchdog import CollectionWatchdog
+
+
+class RestartController:
+    def __init__(self, client, engine, root):
+        self.client, self.engine, self.root = client, engine, Path(root)
+        self.journal = self.root / "restart-receipt.json"
+
+    def persist(self, receipt):
+        staged = self.root / "restart-receipt.new"
+        if staged.exists():
+            staged.unlink()
+        write_private(staged, receipt)
+        os.replace(staged, self.journal)
+
+    def step(self):
+        if self.journal.exists():
+            self.client.post("result", json.loads(self.journal.read_text(encoding="utf-8")))
+            self.journal.unlink()
+            return
+        self.engine.inspect()
+        command = self.client.post("poll", {}).get("command")
+        if command:
+            command = validate_command(command)
+            receipt = {"request_id": command["request_id"], "claim": command["claim"], "result": "controller_interrupted"}
+            self.persist(receipt)
+            receipt["result"] = self.engine.restart()
+            self.persist(receipt)
+
+
+def step(root, settings, restart, watchdog=None):
+    with operation_lock(root):
+        if (root / "release-operation.json").exists():
+            raise ControllerError("Release result needs reconciliation")
+        if watchdog is not None and not settings.journal.exists() and not restart.journal.exists():
+            watchdog.step()
+        # An uncertain settings operation must not be followed by a restart.
+        settings.step()
+        if settings.journal.exists():
+            return
+        restart.step()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--api-base", required=True)
+    parser.add_argument("--token-file", required=True, type=Path)
+    parser.add_argument("--ca-file", required=True, type=Path)
+    parser.add_argument("--runtime-root", required=True, type=Path)
+    parser.add_argument("--compose-file", required=True, type=Path)
+    parser.add_argument("--env-file", action="append", type=Path, default=[])
+    parser.add_argument("--run", action="store_true")
+    args = parser.parse_args()
+    if not args.run or os.name != "posix":
+        parser.error("--run on the PC2 Linux host is required")
+    compose = []
+    for path in args.env_file:
+        compose.extend(["--env-file", str(path.resolve(strict=True))])
+    compose.extend(["-f", str(args.compose_file.resolve(strict=True))])
+    runtime = SettingsRuntime(args.runtime_root.resolve(), compose)
+    settings = SettingsController(SettingsClient(args.api_base, args.token_file, ca_file=args.ca_file), runtime)
+    restart = RestartController(MailboxClient(args.api_base, args.token_file, ca_file=args.ca_file), EngineController(), runtime.root)
+    watchdog = CollectionWatchdog(runtime.root)
+    with operation_lock(runtime.root, name="controller.lock"):
+        while True:
+            try:
+                step(runtime.root, settings, restart, watchdog)
+            except (OSError, ValueError, RuntimeError, subprocess.SubprocessError, ControllerError):
+                print("Collection controller unavailable; no operation replayed", flush=True)
+            time.sleep(5)
+
+
+if __name__ == "__main__":
+    main()

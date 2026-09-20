@@ -11,6 +11,7 @@ from typing import Any, Callable
 from urllib.parse import quote
 
 from tools.internal_api_http import fetch_json, post_json
+from tools.pc2_seed_auth_probe import probe_seed_access
 
 
 # Chromium pages legitimately rotate or remove analytics cookies immediately
@@ -251,7 +252,7 @@ def process_nas_auth_recovery_once(
 ) -> dict[str, Any]:
     token = load_recovery_token(token_path)
     headers = {"X-Fapai-Recovery-Token": token}
-    response = fetcher(_recovery_url(api_base_url), timeout=10, headers=headers)
+    response = fetcher(_recovery_url(api_base_url, "?protocol_version=2&node_id=pc2"), timeout=10, headers=headers)
     recovery_status = response.get("auth_recovery") if isinstance(response, dict) else None
     active = recovery_status.get("active") if isinstance(recovery_status, dict) else None
     if not isinstance(active, dict):
@@ -268,14 +269,17 @@ def process_nas_auth_recovery_once(
         return {"action": "ignored", "reason": "node_is_not_pc2", "recovery_id": recovery_id}
 
     if status == "snapshot_ready":
-        poster(
+        claimed = poster(
             _recovery_url(api_base_url, "/claim"),
             {"recovery_id": recovery_id, "role": "pc2", "node_id": "pc2"},
             timeout=10,
             headers=headers,
         )
+        if not isinstance(claimed, dict) or claimed.get("ok") is not True:
+            raise OSError("NAS did not acknowledge the PC2 claim")
         status = "pc2_claimed"
 
+    imported = None
     if status == "pc2_claimed":
         ensure_cookie_snapshot(
             api_base_url,
@@ -298,19 +302,26 @@ def process_nas_auth_recovery_once(
             "imported_at_epoch": time.time(),
         }
         _write_marker(marker_path, marker)
-        poster(
+        acknowledged = poster(
             _recovery_url(api_base_url, "/pc2_restarting"),
             {"recovery_id": recovery_id, "node_id": "pc2"},
             timeout=10,
             headers=headers,
         )
-        return {
-            "action": "restart_requested",
-            "recovery_id": recovery_id,
-            "cookie_count": imported["cookie_count"],
-        }
+        if not isinstance(acknowledged, dict) or acknowledged.get("ok") is not True:
+            raise OSError("NAS did not acknowledge the PC2 verification phase")
+        if not active.get("scope"):
+            return {
+                "action": "restart_requested",
+                "recovery_id": recovery_id,
+                "cookie_count": imported["cookie_count"],
+            }
+        # Scoped handoffs already imported and verified cookies through CDP.
+        # Validate a fresh page in that browser; restarting it discards useful
+        # session state and can strand the receipt while CDP is unavailable.
+        status = "restarting"
 
-    if status == "restarting":
+    if status == "restarting" and imported is None:
         ensure_cookie_snapshot(
             api_base_url,
             recovery_id,
@@ -343,6 +354,25 @@ def process_nas_auth_recovery_once(
                 cdp_endpoint,
                 expected_sha256=expected_sha256,
             )
+    if status == "restarting":
+        stage_receipt = {}
+        if active.get("scope"):
+            scope = active["scope"]
+            authenticated = True
+            reason = "cookie_import_verified"
+            if scope == "seed":
+                try:
+                    authenticated = probe_seed_access(cdp_endpoint, active.get("target_url", ""))
+                    reason = "seed_payload_verified" if authenticated else "stage_probe_failed"
+                except Exception:
+                    authenticated = False
+                    reason = "stage_probe_unavailable"
+            stage_receipt = {
+                "scope": scope, "protocol_version": 2,
+                "snapshot_sha256": expected_sha256, "target_url": active.get("target_url"),
+                "probe_authenticated": authenticated, "success": authenticated,
+                "reason": reason,
+            }
         result = poster(
             _recovery_url(api_base_url, "/result"),
             {
@@ -350,17 +380,23 @@ def process_nas_auth_recovery_once(
                 "node_id": "pc2",
                 "success": True,
                 "reason": "cookie_import_verified_after_restart",
+                **stage_receipt,
             },
             timeout=15,
             headers=headers,
         )
         if not isinstance(result, dict) or result.get("ok") is not True:
             raise OSError("NAS did not acknowledge the PC2 recovery result")
+        if active.get("scope") and result.get("status") == "failed":
+            return {"action": "recovery_failed", "recovery_id": recovery_id, "scope": active["scope"]}
+        if active.get("scope") == "seed" and result.get("status") != "succeeded":
+            raise OSError("NAS has not confirmed seed access")
         Path(marker_path).unlink(missing_ok=True)
         return {
             "action": "recovery_confirmed",
             "recovery_id": recovery_id,
             "cookie_count": imported["cookie_count"],
+            "scope": active.get("scope"),
         }
 
     if status == "verifying":

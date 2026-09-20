@@ -4,7 +4,7 @@ param(
     [string]$OutputPath = "",
     [string]$TokenPath = "",
     [int]$Port = 9225,
-    [string]$Python = "python",
+    [string]$Python = "",
     [string]$ProfileDir = "",
     [string]$BrowserPath = "",
     [string]$StartUrl = "https://sf.taobao.com/list/50025969__2.htm",
@@ -114,7 +114,8 @@ function Get-CdpTabs {
             if ($LASTEXITCODE -ne 0 -or -not $payload) {
                 return @()
             }
-            return @(([string]::Join("`n", @($payload))) | ConvertFrom-Json)
+            $parsed = [string]::Join("`n", @($payload)) | ConvertFrom-Json
+            return $parsed
         }
         catch {
             return @()
@@ -133,7 +134,8 @@ function Get-CdpTabs {
             $stream.ReadTimeout = 3000
             $reader = New-Object System.IO.StreamReader($stream)
             try {
-                return @($reader.ReadToEnd() | ConvertFrom-Json)
+                $parsed = $reader.ReadToEnd() | ConvertFrom-Json
+                return $parsed
             }
             finally {
                 $reader.Dispose()
@@ -148,21 +150,16 @@ function Get-CdpTabs {
     }
 }
 
-function Test-TaobaoAuthPageExists {
-    param([Parameter(Mandatory = $true)]$Tabs)
-    foreach ($tab in @($Tabs)) {
-        if ([string]$tab.type -ne "page") {
-            continue
-        }
-        $url = ([string]$tab.url).ToLowerInvariant()
-        if ($url -match "(^|//)([^/]+\.)?taobao\.com" -or $url -match "(^|//)([^/]+\.)?tmall\.com") {
-            return $true
-        }
-    }
-    return $false
-}
-
 $repoRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath
+$pythonResolver = Join-Path $PSScriptRoot "resolve-pc1-auth-python.ps1"
+if (-not (Test-Path -LiteralPath $pythonResolver -PathType Leaf)) {
+    throw "Missing PC1 auth Python resolver."
+}
+. $pythonResolver
+$Python = Resolve-Pc1AuthPython -Requested $Python
+. (Join-Path $PSScriptRoot "pc1-auth-recovery-policy.ps1")
+. (Join-Path $PSScriptRoot "start-taobao-cdp-browser\http-and-pages.ps1")
+. (Join-Path $PSScriptRoot "start-taobao-cdp-browser\browser-processes.ps1")
 $startBrowserScript = Join-Path $repoRoot "scripts\start-taobao-cdp-browser.ps1"
 $completeAuthScript = Join-Path $repoRoot "scripts\complete-pc1-inplace-auth.ps1"
 foreach ($required in @($startBrowserScript, $completeAuthScript)) {
@@ -208,6 +205,10 @@ $active = $response.auth_recovery.active
 if ($null -eq $active) {
     exit 0
 }
+if ($active.manual_request_id) {
+    # The desktop owns this explicit handoff; do not probe or publish concurrently.
+    exit 0
+}
 
 $recoveryId = [string]$active.recovery_id
 $status = [string]$active.status
@@ -226,6 +227,20 @@ if ($status -eq "requested") {
 
 $now = [DateTimeOffset]::UtcNow
 $sameRecovery = $null -ne $state -and [string]$state.recovery_id -eq $recoveryId
+$targetLookupFailed = $false
+$recoveryUrl = if ($sameRecovery -and $state.target_url -and -not $state.target_lookup_failed) {
+    [string]$state.target_url
+} else {
+    try {
+        $apiStatus = Invoke-RestMethod -Uri "$apiBaseResolved/status" -TimeoutSec 20
+        Get-Pc1RecoveryTargetUrl -SolverStatus $apiStatus.captcha_solver -FallbackUrl $StartUrl
+    }
+    catch {
+        $targetLookupFailed = $true
+        Write-Warning "NAS target lookup is unavailable; showing the auth entry point and retrying later."
+        $StartUrl
+    }
+}
 $openedAt = if ($sameRecovery -and $state.auth_window_opened_at) {
     try { [DateTimeOffset]::Parse([string]$state.auth_window_opened_at) } catch { $null }
 } else {
@@ -234,9 +249,10 @@ $openedAt = if ($sameRecovery -and $state.auth_window_opened_at) {
 $withinWindow = $null -ne $openedAt -and ($now - $openedAt).TotalSeconds -lt [Math]::Max($LoginWindowSeconds, 1)
 $cdpEndpoint = "http://127.0.0.1:$Port"
 $tabs = @(Get-CdpTabs -Endpoint $cdpEndpoint)
-$existingAuthPage = Test-TaobaoAuthPageExists -Tabs $tabs
+$preferredId = if ($sameRecovery) { [string]$state.target_id } else { "" }
+$authTab = Get-Pc1RecoveryTab -Tabs $tabs -PreferredId $preferredId -TargetUrl $recoveryUrl
 
-if (-not $existingAuthPage -and -not $withinWindow) {
+if ($null -eq $authTab -and -not $withinWindow) {
     $browserArgs = @(
         "-NoProfile", "-ExecutionPolicy", "Bypass",
         "-File", $startBrowserScript,
@@ -245,7 +261,7 @@ if (-not $existingAuthPage -and -not $withinWindow) {
         "-ProfileDir", $ProfileDir,
         "-BrowserPath", $BrowserPath,
         "-DebuggingAddress", "127.0.0.1",
-        "-StartUrl", $StartUrl,
+        "-StartUrl", $recoveryUrl,
         "-HumanAuthMode"
     )
     if ($UseSystemProxy) {
@@ -256,6 +272,7 @@ if (-not $existingAuthPage -and -not $withinWindow) {
         throw "PC1 authentication browser failed to start."
     }
     $openedAt = [DateTimeOffset]::UtcNow
+    $authTab = Wait-Pc1RecoveryTab -Endpoint $cdpEndpoint -TargetUrl $recoveryUrl
 }
 elseif ($null -eq $openedAt) {
     $openedAt = $now
@@ -269,10 +286,28 @@ $newState = [ordered]@{
     login_window_seconds = [Math]::Max($LoginWindowSeconds, 1)
     cdp_endpoint = $cdpEndpoint
     output_path = $OutputPath
+    target_url = $recoveryUrl
+    target_lookup_failed = $targetLookupFailed
+    target_id = [string]$authTab.id
+    prompted_at = if ($sameRecovery) { [string]$state.prompted_at } else { "" }
+    seed_target_url = if ($sameRecovery) { [string]$state.seed_target_url } else { "" }
+    seed_target_id = if ($sameRecovery) { [string]$state.seed_target_id } else { "" }
+    seed_prompted_at = if ($sameRecovery) { [string]$state.seed_prompted_at } else { "" }
+}
+if ($null -ne $authTab -and (Test-Pc1RecoveryPromptDue -SameRecovery $sameRecovery `
+        -PromptedAt $newState.prompted_at)) {
+    # Persist the attempt before presentation; desktop failures must not cause repeat focus.
+    $newState["prompted_at"] = [DateTimeOffset]::UtcNow.ToString("o")
+    Write-State -Path $statePath -State $newState
+    $newState["presentation"] = Show-Pc1RecoveryPrompt -Endpoint $cdpEndpoint -TargetId $authTab.id -Port $Port -ProfileDir $ProfileDir
 }
 Write-State -Path $statePath -State $newState
+if ($null -eq $authTab) {
+    Write-Output "PC1 recovery is waiting for the dedicated authentication tab; no snapshot was published."
+    exit 0
+}
 
-& powershell.exe `
+$probeOutput = @(& powershell.exe `
     -NoProfile `
     -ExecutionPolicy Bypass `
     -File $completeAuthScript `
@@ -280,8 +315,26 @@ Write-State -Path $statePath -State $newState
     -DataRoot $DataRoot `
     -OutputPath $OutputPath `
     -Python $Python `
-    -AllowListOnly | Out-Null
-if ($LASTEXITCODE -ne 0) {
+    -TargetId $authTab.id `
+    -NoThrowOnPending)
+$probeExit = $LASTEXITCODE
+$newState["last_probe_at"] = [DateTimeOffset]::UtcNow.ToString("o")
+$newState["last_probe_exit_code"] = $probeExit
+Write-State -Path $statePath -State $newState
+if ($probeExit -ne 0) {
+    foreach ($line in $probeOutput) {
+        try { $probeResult = [string]$line | ConvertFrom-Json } catch { continue }
+        if ($probeResult.blocking_scope -eq 'seed') {
+            try {
+                $apiStatus = Invoke-RestMethod -Uri "$apiBaseResolved/status" -TimeoutSec 20
+                Show-Pc1RecoverySeedPrompt -State $newState -StatePath $statePath -Endpoint $cdpEndpoint `
+                    -SolverStatus $apiStatus.captcha_solver -FallbackUrl $StartUrl -Port $Port -ProfileDir $ProfileDir
+            }
+            catch { Write-Warning 'The required list authentication page is not available yet; recovery remains pending.' }
+            break
+        }
+    }
+    Write-Output "PC1 verification remains pending (probe exit $probeExit); no snapshot was published."
     exit 0
 }
 

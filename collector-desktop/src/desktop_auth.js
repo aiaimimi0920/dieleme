@@ -1,130 +1,174 @@
 import { callAction } from "./desktop_actions.js";
 import { isTauriRuntime, state, tryInvoke } from "./desktop_state.js";
-import { $, esc, postJson } from "./desktop_shared.js";
-import {
-  defaultAuthChallengeUrl,
-  loadOverview,
-  normalizeAuthChallengeUrl,
-  runtimeStateFromOverview,
-} from "./desktop_collection_views.js";
+import { $, showManagedDialog, closeManagedDialog, getJson } from "./desktop_shared.js";
+import { authScopeState, authScopeTarget, scopeLabel } from "./desktop_auth_scope.ts";
+import { authResult, authWaitState } from "./desktop_auth_contract.ts";
 
-export async function toggleRuntimePause() {
-  const runtimeState = state.lastOverview ? runtimeStateFromOverview(state.lastOverview) : "运行中";
-  if (runtimeState === "运行中") {
-    const endpoint = "/api/collection/control/pause";
-    $("connectionStatus").textContent = "正在暂停采集...";
+let session = null;
+let phase = "";
+let busy = false;
+let generation = 0;
+let timer;
+let wired = false;
+let waitStartedAt = null;
+const sessions = new Map();
+const sharedStorageKey = "crow.sharedAuth";
+
+function rememberShared() {
+  try {
+    if (phase === "pending_pc2" && session?.recovery_id?.startsWith("shared-auth-")) {
+      localStorage.setItem(sharedStorageKey, JSON.stringify({ session, waitStartedAt }));
+    } else localStorage.removeItem(sharedStorageKey);
+  } catch { /* Storage failure must not interrupt an acknowledged handoff. */ }
+}
+
+function statusText(message) {
+  $("authChallengeStatus").textContent = `${session?.recovery_id?.startsWith("shared-auth-") ? "链接与详情采集" : scopeLabel(session?.scope || "seed")}：${message}`;
+}
+
+function controls() {
+  $("authChallengeReload").disabled = busy || phase === "pending_pc2";
+  $("authChallengeResume").disabled = busy;
+}
+
+export function resetAuthChallenge() {
+  generation += 1;
+  clearTimeout(timer);
+  session = null;
+  sessions.clear();
+  phase = "";
+  busy = false;
+  waitStartedAt = null;
+  if ($("authChallengeDialog").open) closeManagedDialog($("authChallengeDialog"));
+}
+
+export function openAuthChallenge(scope = "seed") {
+  if (busy || !["seed", "detail"].includes(scope)) return;
+  if (!session) {
     try {
-      await postJson(endpoint, {});
-      await callAction("reloadAll");
-    } catch (error) {
-      $("connectionStatus").innerHTML = `<span class="error">切换运行状态失败：${esc(error.message)}</span>`;
-    }
-  } else {
-    await forceStartCollection();
+      const saved = JSON.parse(localStorage.getItem(sharedStorageKey) || "null");
+      if (saved?.session?.api_base === state.apiBase && /^shared-auth-[a-f0-9]{32}$/.test(saved.session.recovery_id)
+          && ["seed", "detail"].includes(saved.session.scope)) {
+        session = saved.session;
+        phase = "pending_pc2";
+        waitStartedAt = saved.waitStartedAt ?? Date.now();
+      }
+    } catch { /* Invalid local UI metadata is ignored. */ }
   }
-}
-
-export async function forceStartCollection() {
-  $("connectionStatus").textContent = "正在开始采集（清除待认证/暂停标记并重新尝试）...";
-  try {
-    await postJson("/api/collection/auth/complete", {
-      source: "collector_desktop_force_start",
-      refresh_cookie_snapshot: false,
+  if (phase === "pending_pc2" && session?.recovery_id?.startsWith("shared-auth-")) scope = session.scope;
+  if (session && session.scope !== scope) {
+    sessions.set(session.scope, { session, phase, waitStartedAt });
+    generation += 1;
+    clearTimeout(timer);
+    const saved = sessions.get(scope);
+    session = saved?.session || null;
+    phase = saved?.phase || "";
+    waitStartedAt = saved?.waitStartedAt ?? null;
+  }
+  const dialog = $("authChallengeDialog");
+  if (!wired) {
+    dialog.addEventListener("close", () => {
+      if (!session?.recovery_id?.startsWith("shared-auth-")) clearTimeout(timer);
     });
-    await callAction("reloadAll");
-  } catch (error) {
-    $("connectionStatus").innerHTML = `<span class="error">强制开始采集失败：${esc(error.message)}</span>`;
+    dialog.addEventListener("click", (event) => {
+      const box = dialog.getBoundingClientRect();
+      if (event.target === dialog && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom)) closeManagedDialog(dialog);
+    });
+    wired = true;
   }
+  if (!session || session.api_base !== state.apiBase || ["failed", "succeeded"].includes(phase)) {
+    session = { api_base: state.apiBase, scope, target_url: authScopeTarget(state.lastOverview, scope, state.selectedItemId),
+      challenge_id: String(authScopeState(state.lastOverview, scope)?.challenge_id || ""),
+      target_id: "", recovery_id: "", request_id: crypto.randomUUID().replaceAll("-", "") };
+    phase = "";
+    waitStartedAt = null;
+  }
+  dialog.setAttribute("aria-label", `${scopeLabel(scope)}人工认证`);
+  dialog.dataset.scope = scope;
+  statusText(phase === "pending_pc2" ? "等待 PC2 验证此阶段。" : "请打开挑战页面，完成后提交。");
+  controls();
+  showManagedDialog(dialog);
+  if (phase === "pending_pc2") void run("status");
 }
 
-export async function openAuthChallenge() {
-  const dialog = $("authChallengeDialog");
-  const url = defaultAuthChallengeUrl();
-  $("authChallengeUrl").value = url;
-  $("authChallengeStatus").textContent = "正在打开外部认证浏览器...";
-  if (typeof dialog.showModal === "function") {
-    dialog.showModal();
-  } else {
-    dialog.classList.add("open");
-  }
+async function run(action) {
+  if (busy || !session) return;
+  const id = generation;
+  const current = session;
+  busy = true;
+  clearTimeout(timer);
+  controls();
+  // Background status checks must not replace the last acknowledged stage.
+  if (action !== "status") statusText(action === "open" ? "正在打开挑战页面…" : "正在验证并同步认证会话…");
   try {
-    $("authChallengeStatus").textContent = await openAndQueueAuthChallenge(url);
-  } catch (error) {
-    $("authChallengeStatus").innerHTML = `<span class="error">打开外部认证浏览器失败：${esc(error.message || error)}</span>`;
-  }
-}
-
-export async function openAndQueueAuthChallenge(url) {
-  const targetUrl = normalizeAuthChallengeUrl(url);
-  const pauseResult = await postJson("/api/collection/control/pause", {}, { timeoutMs: 10_000 });
-  await loadOverview();
-  let output = "";
-  try {
-    output = await tryInvoke("open_auth_browser", { url: targetUrl });
-  } catch (_error) {
-    const opened = window.open(targetUrl, "_blank", "noopener,noreferrer");
-    output = opened
-      ? `已在当前浏览器打开认证页面：${targetUrl}。请完成认证后回到控制台点击“我已完成认证，开始”。`
-      : `当前浏览器阻止了弹窗。请手动打开认证地址：${targetUrl}`;
-  }
-  return [
-    `采集已暂停，当前浏览器完全由人工控制：${pauseResult.runtime_state || "暂停中"}`,
-    output || "已打开外部认证浏览器。请在当前详情页完成认证，不要关闭、刷新或重新导航，然后点击“我已完成认证，开始”。",
-  ].join("\n");
-}
-
-export function closeAuthChallenge() {
-  const dialog = $("authChallengeDialog");
-  if (typeof dialog.close === "function") {
-    dialog.close();
-  } else {
-    dialog.classList.remove("open");
-  }
-}
-
-export async function reloadAuthChallenge() {
-  const url = normalizeAuthChallengeUrl($("authChallengeUrl").value.trim() || defaultAuthChallengeUrl());
-  $("authChallengeUrl").value = url;
-  $("authChallengeStatus").textContent = "正在暂停采集并打开外部认证浏览器...";
-  try {
-    $("authChallengeStatus").textContent = await openAndQueueAuthChallenge(url);
-  } catch (error) {
-    $("authChallengeStatus").innerHTML = `<span class="error">打开外部认证浏览器失败：${esc(error.message || error)}</span>`;
-  }
-}
-
-export async function queueAuthChallenge() {
-  const targetUrl = normalizeAuthChallengeUrl($("authChallengeUrl").value.trim() || defaultAuthChallengeUrl());
-  $("authChallengeUrl").value = targetUrl;
-  $("authChallengeStatus").textContent = "正在提交认证任务...";
-  try {
-    const result = await postJson("/api/collection/control/pause", {}, { timeoutMs: 10_000 });
-    $("authChallengeStatus").textContent = `已保持人工认证模式：${result.runtime_state || "暂停中"}`;
-    await loadOverview();
-  } catch (error) {
-    $("authChallengeStatus").innerHTML = `<span class="error">提交认证任务失败：${esc(error.message)}</span>`;
-  }
-}
-
-export async function resumeAfterAuthChallenge() {
-  const tauriRuntime = isTauriRuntime();
-  $("authChallengeStatus").textContent = tauriRuntime
-    ? "正在原地检查当前详情页并验证可复用 cookie；浏览器不会关闭或刷新..."
-    : "正在通知 API 清除待认证状态...";
-  try {
-    if (tauriRuntime) {
-      await tryInvoke("export_taobao_cookie_snapshot");
+    if (action === "open" || (action === "complete" && !current.recovery_id)) {
+      const overview = await getJson("/api/collection/overview");
+      if (id !== generation || current !== session) return;
+      state.lastOverview = overview;
+      if (action === "open") {
+        current.target_url = authScopeTarget(overview, current.scope, state.selectedItemId);
+        current.challenge_id = String(authScopeState(overview, current.scope)?.challenge_id || "");
+      }
     }
-    await postJson("/api/collection/auth/complete", {
-      source: "collector_desktop",
-      refresh_cookie_snapshot: !tauriRuntime,
-    }, { timeoutMs: 10_000 });
-    $("authChallengeStatus").textContent = tauriRuntime
-      ? "当前详情页和可复用 cookie 均已验证，已通知 API 让 PC2 worker 继续。"
-      : "已通知 API 开始采集；cookie 快照将由当前采集节点刷新。";
-    closeAuthChallenge();
-    await callAction("reloadAll");
+    if (action === "open" && current.scope === "detail" && !current.target_url) {
+      const items = await getJson("/api/collection/items?stage=links&limit=1&offset=0");
+      if (id !== generation || current !== session) return;
+      const item = items.items?.[0];
+      current.target_url = authScopeTarget(state.lastOverview, "detail", item?.item_id || item?.id);
+      if (!current.target_url) { statusText("暂无可认证的商品详情，请先选择一个商品后重试。"); return; }
+    }
+    if (!isTauriRuntime()) {
+      if (action === "open") window.open(current.target_url, "_blank", "noopener,noreferrer");
+      $("authChallengeStatus").textContent = "请使用桌面版同步认证会话；普通浏览器无法读取挑战窗口的 cookie。";
+      return;
+    }
+    if (action === "complete") {
+      const peer = current.scope === "seed" ? "detail" : "seed";
+      current.peer_url = authScopeTarget(state.lastOverview, peer, state.selectedItemId);
+      current.peer_challenge_id = String(authScopeState(state.lastOverview, peer)?.challenge_id || "");
+      if (!current.peer_url && peer === "detail") {
+        const items = await getJson("/api/collection/items?stage=links&limit=1&offset=0");
+        if (id !== generation || current !== session) return;
+        current.peer_url = authScopeTarget(state.lastOverview, peer, items.items?.[0]?.item_id || items.items?.[0]?.id);
+      }
+      if (!current.peer_url) { statusText("暂无详情验证目标，请先选择一个商品后提交；已完成的浏览器认证仍可复用。"); return; }
+    }
+    const response = await tryInvoke("desktop_auth_action", { request: { ...current, action } });
+    if (id !== generation || current !== session) return;
+    const result = authResult(response);
+    phase = result.phase;
+    if (typeof response.target_id === "string") current.target_id = response.target_id;
+    if (typeof response.recovery_id === "string") current.recovery_id = response.recovery_id;
+    if (phase === "pending_pc2" && waitStartedAt === null) waitStartedAt = Date.now();
+    if (phase !== "pending_pc2") waitStartedAt = null;
+    rememberShared();
+    const wait = authWaitState(waitStartedAt, Date.now());
+    statusText(wait.poll ? result.message : `${result.message} ${wait.hint}`);
+    if (result.completed) {
+      closeManagedDialog($("authChallengeDialog"));
+      await callAction("reloadAll");
+    } else if (phase === "pending_pc2" && wait.poll && ($("authChallengeDialog").open || response.shared)) {
+      timer = setTimeout(() => void run("status"), 3000);
+    }
   } catch (error) {
-    $("authChallengeStatus").innerHTML = `<span class="error">开始失败：${esc(error.message)}</span>`;
+    if (id === generation) $("authChallengeStatus").textContent = `认证同步未完成：${error.message || error}`;
+  } finally {
+    if (id === generation) { busy = false; controls(); }
   }
+}
+
+export function reloadAuthChallenge() {
+  if (phase === "failed") {
+    session.request_id = crypto.randomUUID().replaceAll("-", "");
+    session.target_url = authScopeTarget(state.lastOverview, session.scope, state.selectedItemId);
+    session.challenge_id = String(authScopeState(state.lastOverview, session.scope)?.challenge_id || "");
+    session.target_id = "";
+    session.recovery_id = "";
+    waitStartedAt = null;
+  }
+  return run("open");
+}
+
+export function resumeAfterAuthChallenge() {
+  return run(phase === "pending_pc2" ? "status" : "complete");
 }

@@ -41,7 +41,7 @@ def test_run_detail_worker_batch_stops_current_cycle_after_solver_enabled_challe
     assert summary["completed"] == 0
     assert summary["results"][0]["reason"] == "detail_challenge_page"
 
-def test_run_detail_worker_batch_continues_when_global_solver_is_already_busy(
+def test_run_detail_worker_batch_stops_when_global_solver_is_already_busy(
     tmp_path: Path, monkeypatch
 ) -> None:
     repo = _make_repo(tmp_path)
@@ -88,10 +88,12 @@ def test_run_detail_worker_batch_continues_when_global_solver_is_already_busy(
         process_item_func=lambda *_args, **_kwargs: {},
     )
 
-    assert calls == [1, 2]
-    assert summary["attempts"] == 2
-    assert summary["completed"] == 1
-    assert [result["item_id"] for result in summary["results"]] == ["3001", "3002"]
+    assert calls == [1]
+    assert summary["attempts"] == 1
+    assert summary["completed"] == 0
+    assert summary["challenge_break"] is True
+    assert summary["retry_after_seconds"] == 900
+    assert [result["item_id"] for result in summary["results"]] == ["3001"]
 
 def test_detail_challenge_should_break_batch_respects_solver_status_matrix(tmp_path: Path) -> None:
     base_result = {
@@ -130,7 +132,7 @@ def test_detail_challenge_should_break_batch_respects_solver_status_matrix(tmp_p
     assert detail_worker._detail_challenge_should_break_batch(
         disabled_config,
         dict(base_result),
-    ) is False
+    ) is True
     assert detail_worker._detail_challenge_should_break_batch(
         solver_enabled_config,
         dict(base_result, captcha_solver_report={"status": " queued "}),
@@ -138,7 +140,7 @@ def test_detail_challenge_should_break_batch_respects_solver_status_matrix(tmp_p
     assert detail_worker._detail_challenge_should_break_batch(
         solver_enabled_config,
         dict(base_result, captcha_solver_report={"status": " Already_Running "}),
-    ) is False
+    ) is True
     assert detail_worker._detail_challenge_should_break_batch(
         manual_reporting_config,
         dict(base_result, captcha_solver_report={"status": "manual_required"}),
@@ -153,9 +155,9 @@ def test_detail_challenge_should_break_batch_respects_solver_status_matrix(tmp_p
                 "captured_since_auth": 1,
             },
         ),
-    ) is False
+    ) is True
 
-def test_detail_challenge_report_recent_auth_is_labeled_and_does_not_break_batch(tmp_path: Path) -> None:
+def test_detail_challenge_report_recent_auth_is_labeled_and_breaks_batch(tmp_path: Path) -> None:
     result = {
         "decision": "detail_item_retryable_failure",
         "reason": "detail_challenge_page",
@@ -178,7 +180,7 @@ def test_detail_challenge_report_recent_auth_is_labeled_and_does_not_break_batch
             solver_enabled=True,
         ),
         result,
-    ) is False
+    ) is True
 
 def test_detail_challenge_should_break_batch_always_breaks_on_cdp_unreachable(tmp_path: Path) -> None:
     config = detail_worker.DetailWorkerConfig(

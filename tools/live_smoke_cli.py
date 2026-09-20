@@ -101,6 +101,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="Maximum page number to fetch for each location/category/sort combination.",
     )
     parser.add_argument(
+        "--list-delay-seconds",
+        type=float,
+        default=float(os.environ.get("LIVE_BATCH_LIST_DELAY_SECONDS", "8")),
+        help="Base delay between list-page requests in a multi-source union.",
+    )
+    parser.add_argument(
         "--no-list-stop-on-empty",
         action="store_true",
         default=os.environ.get("LIVE_BATCH_LIST_STOP_ON_EMPTY", "1").strip().lower() in {"0", "false", "no", "off"},
@@ -124,6 +130,30 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=os.environ.get("LIVE_BATCH_RAW_ONLY", os.environ.get("FAPAI_DETAIL_RAW_ONLY", "0")).strip().lower() in TRUE_VALUES,
         help="Fetch and archive raw detail artifacts without invoking the LLM extraction stage.",
     )
+    parser.add_argument(
+        "--success-delay-seconds",
+        type=float,
+        default=float(os.environ.get("LIVE_BATCH_SUCCESS_DELAY_SECONDS", "6")),
+        help="Base delay between successful detail items.",
+    )
+    parser.add_argument(
+        "--failure-delay-seconds",
+        type=float,
+        default=float(os.environ.get("LIVE_BATCH_FAILURE_DELAY_SECONDS", "15")),
+        help="Base delay after a non-challenge detail failure.",
+    )
+    parser.add_argument(
+        "--pacing-jitter-ratio",
+        type=float,
+        default=float(os.environ.get("LIVE_BATCH_PACING_JITTER_RATIO", "0.35")),
+        help="Symmetric jitter ratio for per-item delays; clamped to 0..1.",
+    )
+    parser.add_argument(
+        "--challenge-cooldown-seconds",
+        type=float,
+        default=float(os.environ.get("LIVE_BATCH_CHALLENGE_COOLDOWN_SECONDS", "900")),
+        help="Recommended cooldown after a detail challenge stops the batch.",
+    )
     return parser.parse_args(argv)
 
 def config_from_args(args: argparse.Namespace) -> LiveSmokeConfig:
@@ -146,11 +176,16 @@ def config_from_args(args: argparse.Namespace) -> LiveSmokeConfig:
         list_location_codes=parse_csv_values(args.list_location_codes),
         list_categories=parse_csv_values(args.list_categories),
         list_max_pages=int(args.list_max_pages),
+        list_delay_seconds=max(float(args.list_delay_seconds), 0.0),
         list_stop_on_empty=not bool(args.no_list_stop_on_empty),
         llm_preflight_enabled=bool(args.llm_preflight),
         llm_preflight_timeout_seconds=float(args.llm_preflight_timeout_seconds),
         raw_only=bool(args.raw_only),
         collection_adapter=collection_adapter_from_env(default="taobao_judicial"),
+        success_delay_seconds=max(float(args.success_delay_seconds), 0.0),
+        failure_delay_seconds=max(float(args.failure_delay_seconds), 0.0),
+        pacing_jitter_ratio=min(max(float(args.pacing_jitter_ratio), 0.0), 1.0),
+        challenge_cooldown_seconds=max(float(args.challenge_cooldown_seconds), 0.0),
     )
 
 def main(argv: list[str] | None = None) -> int:

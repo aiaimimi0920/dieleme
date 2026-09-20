@@ -6,6 +6,7 @@ x-common-env: &common-env
   FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:?set FAPAI_WORKER_DB_URL}
   FAPAI_DB_AUTO_CREATE: "0"
   FAPAI_DB_ENABLE_POSTGIS: "0"
+  FAPAI_SHARED_ARTIFACT_ROOT: /data/legacy-shared
   FAPAI_CDP_ENDPOINT: ${FAPAI_CDP_ENDPOINT:-http://pc2-browser-solver:9224}
   FAPAI_REPORT_CDP_ENDPOINT: ${FAPAI_REPORT_CDP_ENDPOINT:-http://192.168.15.104:9224}
   FAPAI_COOKIE_SNAPSHOT: /data/secrets/nodes/${FAPAI_NODE_ID:-pc2}/taobao-cookies.json
@@ -16,6 +17,11 @@ x-common-env: &common-env
   FAPAI_BROWSER_IDENTITY_FULL_VERSION: ${FAPAI_BROWSER_IDENTITY_FULL_VERSION:-}
 
 x-worker-volumes: &worker-volumes
+  # Legacy evidence is read-only; new captures keep using the existing local output.
+  - type: bind
+    source: ${FAPAI_LEGACY_ARTIFACT_OUTPUT_ROOT:-${FAPAI_DATA_ROOT:?set FAPAI_DATA_ROOT}/output}
+    target: /data/legacy-shared/output
+    read_only: true
   - type: bind
     source: ${FAPAI_DATA_ROOT:?set FAPAI_DATA_ROOT}/output
     target: /data/output
@@ -211,6 +217,8 @@ services:
       FAPAI_DETAIL_ACTIVE_LOOP_INTERVAL_SECONDS: ${FAPAI_DETAIL_ANALYSIS_ACTIVE_LOOP_INTERVAL_SECONDS:-5}
       FAPAI_LLM_PREFLIGHT: "1"
       FAPAI_ANALYSIS_LLM_PREFLIGHT: "1"
+      FAPAI_ANALYSIS_MODEL_POOL_ENABLED: ${FAPAI_ANALYSIS_MODEL_POOL_ENABLED:-1}
+      FAPAI_ANALYSIS_MODEL_POOL_PATH: /data/datas/model-pool/pool.sqlite3
       FAPAI_ANALYSIS_MODULE_B_MODE: ${FAPAI_ANALYSIS_MODULE_B_MODE:-off}
       FAPAI_ANALYSIS_MODULE_B_MAX_PARALLEL: ${FAPAI_ANALYSIS_MODULE_B_MAX_PARALLEL:-3}
     mem_limit: 768m

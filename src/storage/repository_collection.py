@@ -98,19 +98,23 @@ class RepositoryCollectionMixin:
         audit = record["audit"]
         item_id = source["item_id"]
         now = _utc_now()
-        listing = session.get(PropertyListing, item_id) or PropertyListing(item_id=item_id)
-        canonical_payload = build_canonical_payload(
-            aux_data or record,
-            record,
-            previous=listing.canonical_payload,
-            captured_at=now,
-        )
+        listing = session.get(PropertyListing, item_id)
+        is_new = listing is None
+        if listing is None:
+            listing = PropertyListing(item_id=item_id)
+        # A normal retry is not an opt-in migration of an existing legacy row.
+        if is_new or listing.record_schema_version == CANONICAL_RECORD_SCHEMA_VERSION:
+            listing.canonical_payload = build_canonical_payload(
+                aux_data or record,
+                record,
+                previous=listing.canonical_payload,
+                captured_at=now,
+            )
+            listing.record_schema_version = CANONICAL_RECORD_SCHEMA_VERSION
         listing.source_item_id = source.get("source_item_id")
         listing.source_url = source.get("source_url")
         listing.source_title = source.get("source_title")
         listing.source_platform = source.get("source_platform")
-        listing.record_schema_version = CANONICAL_RECORD_SCHEMA_VERSION
-        listing.canonical_payload = canonical_payload
         listing.status = auction.get("status")
         listing.auction_date = _parse_dt(auction.get("auction_date"))
         listing.auction_start_time = _parse_dt(auction.get("auction_start_time"))

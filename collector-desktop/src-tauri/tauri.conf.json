@@ -13,14 +13,16 @@
     "windows": [
       {
         "title": "FapaiFang 运维观察台（PC2 采集）",
-        "width": 1280,
-        "height": 860,
+        "width": 1120,
+        "height": 760,
+        "decorations": false,
         "minWidth": 980,
-        "minHeight": 680
+        "minHeight": 680,
+        "center": true
       }
     ],
     "security": {
-      "csp": "default-src 'self'; connect-src http://127.0.0.1:8001 http://localhost:8001 http://192.168.15.200:8001; img-src 'self' data:; style-src 'self' 'unsafe-inline'"
+      "csp": "default-src 'self'; connect-src http://127.0.0.1:8001 http://localhost:8001 http://192.168.15.200:8001 http://127.0.0.1:18001 http://localhost:18001 https:; img-src 'self' data:; style-src 'self' 'unsafe-inline'"
     }
   },
   "bundle": {

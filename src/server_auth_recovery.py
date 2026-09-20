@@ -14,15 +14,11 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
     if not last_request and force_unlock_flag_exists:
         last_request = _solver_manual_flag_request()
     elapsed_seconds = max(int(current_time - started_at), 0) if active_run and started_at > 0 else 0
-    if not last_request and SOLVER_LAST_STATUS == "idle" and not force_unlock_flag_exists:
-        scope_statuses = {scope: _solver_scope_runtime_status(scope, now=current_time) for scope in CHALLENGE_SCOPES}
-        for status in scope_statuses.values():
-            status.update({"challenge_id": None, "paused": False, "manual_required": False, "force_reset_required": False})
-    else:
-        scope_statuses = {
-            scope: _solver_scope_runtime_status(scope, now=current_time)
-            for scope in CHALLENGE_SCOPES
-        }
+    # Persisted stage challenges survive an idle legacy singleton/API restart.
+    scope_statuses = {
+        scope: _solver_scope_runtime_status(scope, now=current_time)
+        for scope in CHALLENGE_SCOPES
+    }
     active_scope = _challenge_scope_for_request(last_request)
     if active_scope not in CHALLENGE_SCOPES:
         active_scope = next(
@@ -182,24 +178,21 @@ def _nas_auth_recovery_signal() -> str | None:
     solver_status = _captcha_solver_runtime_status()
     if not solver_status.get("paused"):
         return None
+    scoped_statuses = solver_status.get("scopes") or solver_status.get("collection_scopes")
+    for scope in ("detail", "seed"):
+        stage_status = scoped_statuses.get(scope) if isinstance(scoped_statuses, dict) else None
+        try:
+            challenge_age = float((stage_status or {}).get("challenge_age_seconds") or 0)
+        except (TypeError, ValueError):
+            challenge_age = 0.0
+        if (
+            isinstance(stage_status, dict)
+            and stage_status.get("paused")
+            and challenge_age >= NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS
+        ):
+            return f"{scope}_challenge_stalled"
     if solver_status.get("manual_required"):
         return "captcha_manual_required"
-    scoped_statuses = solver_status.get("scopes") or solver_status.get("collection_scopes")
-    detail_status = (
-        scoped_statuses.get("detail")
-        if isinstance(scoped_statuses, dict)
-        else None
-    )
-    try:
-        detail_challenge_age = float((detail_status or {}).get("challenge_age_seconds") or 0)
-    except (TypeError, ValueError):
-        detail_challenge_age = 0.0
-    if (
-        isinstance(detail_status, dict)
-        and detail_status.get("paused")
-        and detail_challenge_age >= NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS
-    ):
-        return "detail_challenge_stalled"
     if isinstance(scoped_statuses, dict) and any(
         isinstance(status, dict)
         and status.get("paused")
@@ -226,6 +219,8 @@ def _sample_nas_auth_recovery() -> dict[str, Any]:
         operator_paused=COLLECTION_PAUSE_REASON == "operator",
         recovery_signal=_nas_auth_recovery_signal(),
         recovery_signal_stall_seconds=NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS,
+        blocked_scopes=tuple(scope for scope in CHALLENGE_SCOPES
+                             if _solver_scope_runtime_status(scope).get("challenge_id")),
     )
 
 def _nas_auth_recovery_authorized(headers: Any) -> tuple[bool, str]:
@@ -263,6 +258,25 @@ def _nas_auth_recovery_result(payload: dict[str, Any]) -> dict[str, Any]:
     reason = str(payload.get("reason") or "").strip()
     if not recovery_id:
         return {"ok": False, "error": "recovery_id is required"}
+    snapshot = NAS_AUTH_RECOVERY.snapshot()
+    active = snapshot.get("active") or {}
+    last = snapshot.get("last_result") or {}
+    if active.get("scope") or (last.get("recovery_id") == recovery_id and last.get("scope")):
+        def validate_and_clear(recovery):
+            from src.collection.adapters.taobao_auth_target import matches_challenge_target
+            scope = recovery["scope"]
+            with SOLVER_SCOPE_LOCK:
+                status = _solver_scope_runtime_status(scope)
+                current = str(status.get("challenge_id") or "")
+                if current and current != recovery.get("challenge_id"):
+                    return "challenge_changed"
+                if not matches_challenge_target(scope, recovery.get("target_url"), status):
+                    return "challenge_changed"
+                if COLLECTION_PAUSE_REASON == "operator":
+                    return "operator_pause_active"
+                return _clear_solver_manual_required_pause(scope=scope, preserve_running_state=True)
+        return NAS_AUTH_RECOVERY.accept_stage_result(
+            payload, validate_and_clear=validate_and_clear, captured_count=_solver_detail_captured_count())
     if not success:
         return NAS_AUTH_RECOVERY.result(
             recovery_id,
@@ -311,6 +325,13 @@ def _solver_request_matches_auth_source(
     completed_request: dict[str, Any],
     incoming_request: dict[str, Any],
 ) -> bool:
+    completed_scope = _challenge_scope_for_request(completed_request)
+    incoming_scope = _challenge_scope_for_request(incoming_request)
+    # Legacy unscoped recovery only proved detail progress, never list access.
+    if incoming_scope == "seed" and completed_scope != "seed":
+        return False
+    if completed_scope and incoming_scope and completed_scope != incoming_scope:
+        return False
     completed_node, completed_cdp, completed_target = _solver_challenge_request_key(
         completed_request
     )
@@ -397,6 +418,13 @@ def _solver_auth_report_suppression(
     if not _solver_request_matches_auth_source(completed, incoming):
         return None
 
+    incoming_scope = _challenge_scope_for_request(incoming)
+    if incoming_scope == "seed":
+        from src.collection.adapters.taobao_auth_target import same_auth_target
+
+        if not same_auth_target("seed", _solver_challenge_request_key(completed)[2],
+                                _solver_challenge_request_key(incoming)[2]):
+            return None
     if SOLVER_AUTH_REPORT_GRACE_SECONDS > 0 and age <= SOLVER_AUTH_REPORT_GRACE_SECONDS:
         return {
             "reason": "recent_auth_complete",
@@ -405,6 +433,8 @@ def _solver_auth_report_suppression(
             "captured_since_auth": 0,
         }
 
+    if incoming_scope != "detail":
+        return None
     baseline = SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT
     current_count = _solver_detail_captured_count()
     if baseline is None or current_count is None:
@@ -432,10 +462,9 @@ def _solver_report_is_recent_auth_duplicate(
     Worker captcha reports are fire-and-forget and do not carry the active
     challenge id.  A report already in flight can therefore arrive after the
     solver has cleared the challenge and otherwise create a new pause.  Keep a
-    short, same-node grace window so the next worker cycle can observe the
-    authenticated cookie instead of reopening the just-cleared challenge. If
-    detail capture then advances, extend only that same-node protection to the
-    configured progress-backed window.
+    short, same-stage grace window so the next worker cycle can observe the
+    authenticated cookie. Seed reports also require the verified list target.
+    Detail capture advances extend protection only for detail reports.
     """
     return _solver_auth_report_suppression(request_payload, now=now) is not None
 

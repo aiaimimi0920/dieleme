@@ -27,6 +27,23 @@ def test_build_solver_request_normalizes_taobao_punish_target() -> None:
         "&__captcha_solver_bg=1"
     )
 
+
+def test_build_solver_request_normalizes_detail_punish_target_without_stale_tokens() -> None:
+    from src import server
+
+    request = server._build_solver_request(
+        {
+            "challenge_target_url": (
+                "https://sf-item.taobao.com//sf_item/570192626894.htm/_____tmd_____/punish"
+                "?x5secdata=stale-secret&x5step=1&track_id=stale"
+            )
+        }
+    )
+
+    assert request["challenge_target_url"] == (
+        "https://sf-item.taobao.com/sf_item/570192626894.htm"
+    )
+
 def test_real_taobao_solver_targets_are_forced_to_manual_only(monkeypatch) -> None:
     from src import server
 
@@ -119,7 +136,7 @@ def test_recent_auth_completion_suppresses_same_node_delayed_captcha_report(monk
     delayed = {
         "node_id": "pc2",
         "cdp_endpoint": "http://192.168.15.104:9223",
-        "url": "https://sf.taobao.com/list/other.htm",
+        "url": "https://sf.taobao.com/list/50025969__2.htm",
     }
 
     assert server._solver_report_is_recent_auth_duplicate(delayed, now=150.0) is True
@@ -157,7 +174,7 @@ def test_recent_auth_completion_does_not_suppress_a_different_node_report(monkey
         now=150.0,
     ) is False
 
-def test_recent_auth_with_detail_progress_suppresses_same_node_report_for_three_minutes(monkeypatch) -> None:
+def test_recent_auth_with_detail_progress_suppresses_detail_report_for_three_minutes(monkeypatch) -> None:
     from src import server
 
     monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 100.0)
@@ -167,7 +184,7 @@ def test_recent_auth_with_detail_progress_suppresses_same_node_report_for_three_
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9223",
-            "target_url": "https://sf.taobao.com/list/50025969__2.htm",
+            "target_url": "https://sf-item.taobao.com/sf_item/2001.htm",
         },
     )
     monkeypatch.setattr(server, "SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT", 10)
@@ -180,7 +197,7 @@ def test_recent_auth_with_detail_progress_suppresses_same_node_report_for_three_
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9223",
-            "url": "https://sf.taobao.com/list/other.htm",
+            "url": "https://sf-item.taobao.com/sf_item/2002.htm",
         },
         now=220.0,
     )
@@ -192,7 +209,7 @@ def test_recent_auth_with_detail_progress_suppresses_same_node_report_for_three_
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9223",
-            "url": "https://sf.taobao.com/list/other.htm",
+            "url": "https://sf-item.taobao.com/sf_item/2002.htm",
         },
         now=280.0,
     ) is True
@@ -200,7 +217,7 @@ def test_recent_auth_with_detail_progress_suppresses_same_node_report_for_three_
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9223",
-            "url": "https://sf.taobao.com/list/other.htm",
+            "url": "https://sf-item.taobao.com/sf_item/2002.htm",
         },
         now=281.0,
     ) is False

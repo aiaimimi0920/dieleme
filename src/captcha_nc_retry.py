@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .captcha_context import *  # noqa: F401,F403
+from .collection.adapters.taobao_auth_target import canonical_auth_target
 
 
 class CaptchaNCRetryMixin:
@@ -306,6 +307,13 @@ class CaptchaNCRetryMixin:
             href = str(ret["result"]["value"])
         if not href:
             href = str(self.current_target_url or self.target_url or "")
+        for target in (self.target_url, href):
+            scope = self._solver_target_scope(target)
+            if scope in {"seed", "detail"}:
+                try:
+                    return canonical_auth_target(scope, target)
+                except (ValueError, TypeError):
+                    continue
         if "/_____tmd_____/" in href:
             dest = href.split("/_____tmd_____/", 1)[0]
             dest = self._normalize_target_url(dest)

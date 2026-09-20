@@ -81,6 +81,7 @@ def test_recent_force_reset_stops_detail_batch_and_honors_retry_after(tmp_path: 
         do_risk=False,
         solver_enabled=True,
         loop_interval_seconds=30,
+        challenge_cooldown_seconds=60,
     )
     item_result = {
         "decision": "detail_item_retryable_failure",
@@ -208,11 +209,15 @@ def test_detail_worker_config_reads_failure_cooldown_env(monkeypatch) -> None:
 def test_detail_worker_config_reads_per_attempt_delay_env(monkeypatch) -> None:
     monkeypatch.setenv("FAPAI_DETAIL_SUCCESS_DELAY_SECONDS", "0.25")
     monkeypatch.setenv("FAPAI_DETAIL_FAILURE_DELAY_SECONDS", "1.75")
+    monkeypatch.setenv("FAPAI_DETAIL_PACING_JITTER_RATIO", "0.2")
+    monkeypatch.setenv("FAPAI_DETAIL_CHALLENGE_COOLDOWN_SECONDS", "480")
 
     config, _loop = detail_worker.config_from_env_and_args([])
 
     assert config.success_delay_seconds == 0.25
     assert config.failure_delay_seconds == 1.75
+    assert config.pacing_jitter_ratio == 0.2
+    assert config.challenge_cooldown_seconds == 480
 
 def test_detail_worker_report_keeps_real_taobao_on_automatic_solver_path(monkeypatch) -> None:
     captured: dict[str, object] = {}

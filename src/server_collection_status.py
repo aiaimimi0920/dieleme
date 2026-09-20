@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .server_context import *  # noqa: F401,F403
+from . import collection_statistics as _collection_statistics
 
 def _run_auth_cookie_snapshot_retry(
     payload: dict[str, Any],
@@ -259,22 +260,21 @@ def _empty_seed_queue_counts() -> dict[str, Any]:
         "seed_occurrence_total": 0,
     }
 
-def _collection_api_lightweight_status_payload() -> dict[str, Any]:
+def _load_collection_seed_queue_counts() -> dict[str, int]:
     seed_queue_counts = _empty_seed_queue_counts()
     if DB_REPOSITORY.enabled and hasattr(DB_REPOSITORY, "seed_queue_counts"):
-        try:
-            seed_queue_counts.update(DB_REPOSITORY.seed_queue_counts())
-        except Exception as error:
-            seed_queue_counts["error"] = str(error)
+        seed_queue_counts.update(DB_REPOSITORY.seed_queue_counts())
     elif DB_REPOSITORY.enabled and hasattr(DB_REPOSITORY, "search_task_counts"):
-        try:
-            search_counts = DB_REPOSITORY.search_task_counts()
-            seed_queue_counts["seed_scan_job_pending"] = int(search_counts.get("search_pending", 0) or 0)
-            seed_queue_counts["seed_scan_job_in_progress"] = int(search_counts.get("search_in_progress", 0) or 0)
-            seed_queue_counts["seed_scan_job_completed"] = int(search_counts.get("search_done", 0) or 0)
-            seed_queue_counts["seed_scan_job_blocked"] = int(search_counts.get("search_pruned", 0) or 0)
-        except Exception as error:
-            seed_queue_counts["error"] = str(error)
+        search_counts = DB_REPOSITORY.search_task_counts()
+        seed_queue_counts["seed_scan_job_pending"] = int(search_counts.get("search_pending", 0) or 0)
+        seed_queue_counts["seed_scan_job_in_progress"] = int(search_counts.get("search_in_progress", 0) or 0)
+        seed_queue_counts["seed_scan_job_completed"] = int(search_counts.get("search_done", 0) or 0)
+        seed_queue_counts["seed_scan_job_blocked"] = int(search_counts.get("search_pruned", 0) or 0)
+    return seed_queue_counts
+
+def _collection_api_lightweight_status_payload() -> dict[str, Any]:
+    snapshot = _collection_statistics.SNAPSHOTS.snapshot(DB_REPOSITORY, _load_collection_seed_queue_counts)
+    seed_queue_counts = snapshot["counts"]
 
     pending_detail = int(seed_queue_counts.get("seed_item_pending_detail", 0) or 0)
     in_progress = int(seed_queue_counts.get("seed_item_in_progress", 0) or 0)
@@ -300,10 +300,12 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
 
     payload = {
         "collection_api_lightweight": True,
+        "statistics": snapshot["metadata"],
         "build_info": _build_info_payload(),
         "capabilities": {
             "manual_captcha_report_v1": True,
             "nas_auth_recovery_v1": True,
+            "stage_auth_recovery_v2": True,
         },
         "paused": bool(solver_status_snapshot.get("paused")),
         "total_ids": total_items,
@@ -372,7 +374,8 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
             },
         },
     }
-    payload["runtime_state"] = _collection_runtime_state_label_from_status_payload(payload)
+    payload["runtime_state"] = (_collection_runtime_state_label_from_status_payload(payload)
+                                if snapshot["metadata"]["valid"] else "统计不可用")
     return payload
 
 def _collection_query_int(query: dict[str, list[str]], key: str, default: int, *, minimum: int, maximum: int) -> int:
@@ -385,11 +388,13 @@ def _collection_query_int(query: dict[str, list[str]], key: str, default: int, *
 def _collection_observer_overview_payload() -> dict[str, Any]:
     status = _collection_api_lightweight_status_payload()
     seed_queue = dict((status.get("collection_stage") or {}).get("seed_queue") or {})
+    status["operator_paused"] = bool(PAUSED and COLLECTION_PAUSE_REASON in (None, "operator"))
     active_data_root = Path(getattr(AVM_SERVICE, "data_dir", DATA_DIR))
     return {
         "ok": True,
         "status": status,
         "runtime_state": status.get("runtime_state"),
+        "engine_restart": _engine_restart_status(),
         "challenge_metrics": _hybrid_collection_challenge_metrics_summary(active_data_root),
         "auth_watcher": _pc1_auth_auto_resume_state_summary(active_data_root),
         "modules": {
@@ -417,4 +422,4 @@ def _collection_observer_overview_payload() -> dict[str, Any]:
         },
     }
 
-__all__ = ["_run_auth_cookie_snapshot_retry", "_schedule_auth_cookie_snapshot_refresh", "_prefer_db_task_reads", "_db_pending_task_candidates", "_db_counts_snapshot", "_db_data_supply_snapshot", "_collection_api_lightweight_status_enabled", "_build_info_payload", "_empty_seed_queue_counts", "_collection_api_lightweight_status_payload", "_collection_query_int", "_collection_observer_overview_payload"]
+__all__ = ["_collection_statistics", "_load_collection_seed_queue_counts", "_run_auth_cookie_snapshot_retry", "_schedule_auth_cookie_snapshot_refresh", "_prefer_db_task_reads", "_db_pending_task_candidates", "_db_counts_snapshot", "_db_data_supply_snapshot", "_collection_api_lightweight_status_enabled", "_build_info_payload", "_empty_seed_queue_counts", "_collection_api_lightweight_status_payload", "_collection_query_int", "_collection_observer_overview_payload"]

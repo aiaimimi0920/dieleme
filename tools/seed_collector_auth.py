@@ -174,10 +174,12 @@ def _pause_state_seed_probe_target_url(pause_state: dict[str, Any], *, allow_def
     captcha_solver = pause_state.get("captcha_solver")
     if not isinstance(captcha_solver, dict):
         return _default_seed_auth_probe_target_url() if allow_default else ""
+    allow_default = allow_default and not captcha_solver.get("challenge_id")
     last_request = captcha_solver.get("last_request")
     if not isinstance(last_request, dict):
         return _default_seed_auth_probe_target_url() if allow_default else ""
-    target_url = str(last_request.get("target_url") or last_request.get("url") or "").strip()
+    target_url = str(last_request.get("challenge_target_url") or last_request.get("target_url")
+                     or last_request.get("url") or "").strip()
     return _normalize_seed_challenge_target_url(target_url, allow_default=allow_default)
 
 
@@ -197,6 +199,7 @@ def _notify_auth_probe_passed(api_base_url: str, target_url: str) -> dict[str, A
         endpoint,
         {
             "source": "seed_auth_probe",
+            "scope": "seed",
             "refresh_cookie_snapshot": False,
             "target_url": target_url,
         },
@@ -212,6 +215,8 @@ def _probe_seed_auth_state(
     http_session: Any,
     browserless_seed_probe: Any,
 ) -> dict[str, Any]:
+    from src.collection.adapters.taobao_auth_target import seed_payload_is_authenticated
+
     target_url = _pause_state_seed_probe_target_url(
         pause_state,
         allow_default=bool(str(config.api_base_url or "").strip()),
@@ -229,9 +234,10 @@ def _probe_seed_auth_state(
             solver_enabled=False,
             api_base_url=config.api_base_url,
         )
-        items, list_summary, has_challenge = _extract_seed_items(browserless_seed_probe, html, final_url=final_url)
-        payload_missing = _browser_page_payload_missing_without_challenge(fetch_method, list_summary)
-        authenticated = not has_challenge and not payload_missing
+        items, list_summary, _ = _extract_seed_items(browserless_seed_probe, html, final_url=final_url)
+        payload = browserless_seed_probe.extract_list_payload(html)
+        authenticated = seed_payload_is_authenticated(payload, list_summary, final_url=final_url, target_url=target_url)
+        authenticated = authenticated and (status_code is None or 200 <= status_code < 300)
         result: dict[str, Any] = {
             "attempted": True,
             "authenticated": authenticated,
@@ -242,10 +248,18 @@ def _probe_seed_auth_state(
             "item_count": len(items),
             "list_summary": list_summary,
         }
-        if not authenticated and payload_missing:
+        if not authenticated:
             result["reason"] = "probe_not_authenticated"
         if authenticated:
-            result["auth_complete"] = _notify_auth_probe_passed(config.api_base_url, target_url)
+            completion = _notify_auth_probe_passed(config.api_base_url, target_url)
+            result["auth_complete"] = completion
+            confirmed = (completion.get("ok") is True and completion.get("auth_state_confirmed") is True
+                         and completion.get("scope") == "seed"
+                         and not completion.get("scope_paused") and not completion.get("scope_manual_required"))
+            if not confirmed:
+                result["authenticated"] = False
+                result["reason"] = ("auth_confirmation_pending" if completion.get("auth_confirmation_pending")
+                                    else "auth_completion_rejected")
         return result
     except Exception as exc:
         return {

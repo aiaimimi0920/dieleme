@@ -15,11 +15,14 @@ _CONTEXT = importlib.import_module(f"{_PACKAGE}.server_context")
 _CORE_MODULES = (
     "server_solver_scope",
     "server_auth_recovery",
+    "server_desktop_auth",
     "server_solver_state",
     "server_solver_dispatch",
     "server_auth_cookie",
     "server_collection_status",
     "server_collection_control",
+    "server_engine_control",
+    "server_collection_settings",
     "server_collection_console",
     "server_manual_review",
     "server_hybrid_runtime",
@@ -108,6 +111,8 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
         parsed = urlparse(self.path)
         request_path = parsed.path
         query = parse_qs(parsed.query)
+        if request_path == _settings_schema.PREFIX:
+            return _server_collection_settings(self, read=True)
         if request_path in ('/collection', '/collection/'):
             return self._server_get_branch_01(parsed, request_path, query)
         elif request_path.startswith('/collection/') or request_path.startswith('/assets/'):
@@ -186,8 +191,16 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             return self._server_post_branch_03()
         elif self.path == '/api/collection/item/manual_update':
             return self._server_post_branch_04()
+        elif urlparse(self.path).path in _engine_control.ROUTES:
+            return _server_engine_control(self)
+        elif urlparse(self.path).path in _settings_schema.ROLES:
+            return _server_collection_settings(self)
+        elif self.path == '/api/collection/control/start':
+            return self.send_json(_collection_operator_start())
         elif self.path in ('/api/collection/control/pause', '/api/collection/control/resume'):
             return self._server_post_branch_05()
+        elif self.path == '/api/collection/auth/recovery/request':
+            return _server_desktop_auth_request(self)
         elif self.path in {'/api/collection/auth/recovery/claim', '/api/collection/auth/recovery/snapshot_ready', '/api/collection/auth/recovery/pc2_restarting', '/api/collection/auth/recovery/result'}:
             return self._server_post_branch_06()
         elif self.path == '/api/collection/auth/force_reset':

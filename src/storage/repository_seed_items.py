@@ -105,6 +105,7 @@ class RepositorySeedItemsMixin:
                     if dialect_name == "postgresql":
                         insert_stmt = postgresql_insert(FapaiSeedItem).values(**insert_values)
                         insert_stmt = insert_stmt.on_conflict_do_nothing(index_elements=[FapaiSeedItem.item_id])
+                        insert_stmt = insert_stmt.returning(FapaiSeedItem.item_id)
                     elif dialect_name == "sqlite":
                         insert_stmt = sqlite_insert(FapaiSeedItem).values(**insert_values)
                         insert_stmt = insert_stmt.on_conflict_do_nothing(index_elements=[FapaiSeedItem.item_id])
@@ -112,7 +113,10 @@ class RepositorySeedItemsMixin:
                         insert_stmt = None
                     if insert_stmt is not None:
                         result = session.execute(insert_stmt)
-                        if int(result.rowcount or 0) > 0:
+                        # Psycopg may expose rowcount=-1 for INSERT; returned IDs prove insertion.
+                        inserted = (result.scalar_one_or_none() is not None if dialect_name == "postgresql"
+                                    else int(result.rowcount or 0) > 0)
+                        if inserted:
                             new_items += 1
                         else:
                             existing_items += 1
@@ -188,9 +192,9 @@ class RepositorySeedItemsMixin:
                     occurrence_stmt = postgresql_insert(FapaiSeedOccurrence).values(**occurrence_values)
                     occurrence_stmt = occurrence_stmt.on_conflict_do_nothing(
                         index_elements=[FapaiSeedOccurrence.occurrence_key]
-                    )
+                    ).returning(FapaiSeedOccurrence.id)
                     occurrence_result = session.execute(occurrence_stmt)
-                    if int(occurrence_result.rowcount or 0) > 0:
+                    if occurrence_result.scalar_one_or_none() is not None:
                         new_occurrences += 1
                 elif dialect_name == "sqlite":
                     occurrence_stmt = sqlite_insert(FapaiSeedOccurrence).values(**occurrence_values)

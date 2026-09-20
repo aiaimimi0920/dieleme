@@ -121,6 +121,7 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
     list_collection = collect_list_union(browserless_seed_probe, http, config)
     all_items = list_collection["items"]
     list_union = list_collection["list_union"]
+    list_challenge_break = list_collection.get("challenge_break")
     first_fetch = list_collection["first_fetch"]
     list_status = first_fetch.get("list_status")
     list_final_url = first_fetch.get("list_final_url") or config.target_url
@@ -143,7 +144,7 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
     else:
         items = all_items[: config.max_attempts]
         skipped_completed_ids = []
-    if not items:
+    if list_challenge_break or not items:
         summary_path = config.output_dir / "summary.json"
         summary = {
             "summary_path": str(summary_path),
@@ -168,7 +169,19 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
             "artifact_completed_items": len(artifact_completed_ids),
             "artifact_completed_item_ids": artifact_completed_ids[:50],
             "llm_preflight": llm_preflight_result,
-            "no_candidate_reason": "all_candidates_already_completed" if skipped_completed_ids else "no_eligible_done_items",
+            "challenge_break": list_challenge_break,
+            "retry_after_seconds": (
+                list_challenge_break.get("retry_after_seconds", 0.0)
+                if isinstance(list_challenge_break, dict)
+                else 0.0
+            ),
+            "no_candidate_reason": (
+                "list_challenge_page"
+                if list_challenge_break
+                else "all_candidates_already_completed"
+                if skipped_completed_ids
+                else "no_eligible_done_items"
+            ),
             "results": [],
             "errors": [],
         }
@@ -177,15 +190,17 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
         write_json(config.output_dir / "area_followup_queue.json", queue)
         write_json(summary_path, enriched)
         print(json.dumps(enriched, ensure_ascii=False, indent=2))
-        return 0 if skipped_completed_ids else 1
+        return 0 if skipped_completed_ids and not list_challenge_break else 1
 
     browser_pages = load_open_browser_pages(config.cdp_endpoint)
     results = []
     errors = []
+    challenge_break: dict[str, Any] | None = None
     for index, seed in enumerate(items, start=1):
         if len(results) >= config.target_success:
             break
         seed_id = str(seed.get("item_id") or seed.get("id") or seed.get("source_item_id"))
+        item_succeeded = False
         try:
             print(f"[SMOKE] {index}/{len(items)} item={seed_id}")
             if config.resume_enabled:
@@ -207,6 +222,7 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
                 save_resume_state(resume_state_path, resume_state)
             selected = process_item(http, seed, browser_pages, config=config)
             results.append(selected)
+            item_succeeded = True
             if config.resume_enabled:
                 mark_resume_item(
                     resume_state,
@@ -227,6 +243,7 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
                 )
                 save_resume_state(resume_state_path, resume_state)
         except Exception as exc:
+            is_challenge = isinstance(exc, DetailChallengeError)
             errors.append({"item_id": seed_id, "error": repr(exc), "traceback": traceback.format_exc()})
             write_json(config.output_dir / f"{seed_id}.error.json", errors[-1])
             if config.resume_enabled:
@@ -248,7 +265,18 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
                 )
                 save_resume_state(resume_state_path, resume_state)
             print(f"[SMOKE][ERROR] item={seed_id}: {exc}")
-        time.sleep(1)
+            if is_challenge:
+                challenge_break = {
+                    "item_id": seed_id,
+                    "operation": exc.operation,
+                    "retry_after_seconds": max(float(config.challenge_cooldown_seconds), 0.0),
+                }
+                break
+        if index < len(items) and len(results) < config.target_success:
+            base_delay = config.success_delay_seconds if item_succeeded else config.failure_delay_seconds
+            delay_seconds = jittered_delay_seconds(base_delay, config.pacing_jitter_ratio)
+            if delay_seconds > 0:
+                time.sleep(delay_seconds)
 
     summary_path = config.output_dir / "summary.json"
     summary = {
@@ -274,6 +302,10 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
         "artifact_completed_items": len(artifact_completed_ids),
         "artifact_completed_item_ids": artifact_completed_ids[:50],
         "llm_preflight": llm_preflight_result,
+        "challenge_break": challenge_break,
+        "retry_after_seconds": (
+            challenge_break["retry_after_seconds"] if challenge_break else 0.0
+        ),
         "results": results,
         "errors": errors,
     }
@@ -283,6 +315,21 @@ def run_live_smoke(config: LiveSmokeConfig) -> int:
     write_json(summary_path, enriched)
     print(json.dumps(enriched, ensure_ascii=False, indent=2))
     return 0 if len(results) >= min(config.target_success, len(items)) else 1
+
+
+def _live_smoke_loop_sleep_seconds(
+    config: LiveSmokeConfig,
+    interval_seconds: float,
+) -> float:
+    sleep_seconds = max(float(interval_seconds), 0.0)
+    try:
+        summary = load_json(config.output_dir / "summary.json")
+    except (OSError, ValueError, TypeError):
+        return sleep_seconds
+    if isinstance(summary, dict) and summary.get("challenge_break"):
+        return max(sleep_seconds, max(float(config.challenge_cooldown_seconds), 0.0))
+    return sleep_seconds
+
 
 def run_loop(
     config: LiveSmokeConfig,
@@ -312,8 +359,9 @@ def run_loop(
             print(json.dumps({"loop_error": error}, ensure_ascii=False, indent=2), flush=True)
         if max_runs is not None and run_count >= max_runs:
             break
-        if interval_seconds > 0:
-            time.sleep(interval_seconds)
+        sleep_seconds = _live_smoke_loop_sleep_seconds(config, interval_seconds)
+        if sleep_seconds > 0:
+            time.sleep(sleep_seconds)
     return {
         "run_count": run_count,
         "exit_codes": exit_codes,
@@ -326,4 +374,4 @@ def run_loop(
         "errors": errors,
     }
 
-__all__ = ('process_item', 'run_live_smoke', 'run_loop')
+__all__ = ('process_item', 'run_live_smoke', '_live_smoke_loop_sleep_seconds', 'run_loop')

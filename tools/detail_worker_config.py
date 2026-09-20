@@ -111,6 +111,10 @@ def _live_config(config: DetailWorkerConfig, *, target_url: str) -> LiveSmokeCon
         llm_preflight_enabled=False,
         raw_only=config.raw_only,
         collection_adapter=config.collection_adapter,
+        success_delay_seconds=config.success_delay_seconds,
+        failure_delay_seconds=config.failure_delay_seconds,
+        pacing_jitter_ratio=config.pacing_jitter_ratio,
+        challenge_cooldown_seconds=float(config.challenge_cooldown_seconds),
     )
 
 
@@ -143,14 +147,26 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailW
     parser.add_argument(
         "--success-delay-seconds",
         type=float,
-        default=_safe_non_negative_float(os.getenv("FAPAI_DETAIL_SUCCESS_DELAY_SECONDS"), 0.0),
-        help="Delay between successful items in the same batch.",
+        default=_safe_non_negative_float(os.getenv("FAPAI_DETAIL_SUCCESS_DELAY_SECONDS"), 6.0),
+        help="Base delay between successful collection items in the same batch.",
     )
     parser.add_argument(
         "--failure-delay-seconds",
         type=float,
-        default=_safe_non_negative_float(os.getenv("FAPAI_DETAIL_FAILURE_DELAY_SECONDS"), 1.0),
-        help="Backoff between failed items in the same batch.",
+        default=_safe_non_negative_float(os.getenv("FAPAI_DETAIL_FAILURE_DELAY_SECONDS"), 15.0),
+        help="Base backoff between failed collection items in the same batch.",
+    )
+    parser.add_argument(
+        "--pacing-jitter-ratio",
+        type=float,
+        default=_safe_non_negative_float(os.getenv("FAPAI_DETAIL_PACING_JITTER_RATIO"), 0.35),
+        help="Symmetric jitter ratio for per-item delays; clamped to the range 0..1.",
+    )
+    parser.add_argument(
+        "--challenge-cooldown-seconds",
+        type=int,
+        default=_safe_non_negative_int(os.getenv("FAPAI_DETAIL_CHALLENGE_COOLDOWN_SECONDS"), 900),
+        help="Minimum delay before a looped worker resumes after a challenge page.",
     )
     parser.add_argument("--worker-id", default=os.getenv("FAPAI_DETAIL_WORKER_ID", f"detail-{os.getpid()}"))
     parser.add_argument("--lease-seconds", type=int, default=_safe_int(os.getenv("FAPAI_DETAIL_LEASE_SECONDS"), 900))
@@ -225,6 +241,8 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[DetailW
             failure_cooldown_seconds=max(int(args.failure_cooldown_seconds), 0),
             success_delay_seconds=max(float(args.success_delay_seconds), 0.0),
             failure_delay_seconds=max(float(args.failure_delay_seconds), 0.0),
+            pacing_jitter_ratio=min(max(float(args.pacing_jitter_ratio), 0.0), 1.0),
+            challenge_cooldown_seconds=max(int(args.challenge_cooldown_seconds), 0),
             loop_interval_seconds=max(int(args.loop_interval_seconds), 0),
             active_loop_interval_seconds=max(int(args.active_loop_interval_seconds), 0),
             max_runs=args.max_runs,

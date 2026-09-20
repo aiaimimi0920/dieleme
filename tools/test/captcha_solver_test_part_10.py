@@ -22,6 +22,7 @@ def test_os_drag_rejects_x11_mapping_when_cursor_does_not_reach_slider(monkeypat
     monkeypatch.setattr(captcha_solver.time, "sleep", lambda _seconds: None)
     solver = captcha_solver.CaptchaSolver(port=9223)
     solver._focus_os_window = lambda: True
+    solver._ensure_os_left_button_released = lambda _mapped: True
     solver._map_css_to_screen = lambda *_args, **_kwargs: {
         "x": 100.0,
         "y": 50.0,

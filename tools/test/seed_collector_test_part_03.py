@@ -106,7 +106,7 @@ def test_run_seed_collector_once_probes_list_page_during_manual_required_and_aut
         seed_collector,
         "_notify_auth_probe_passed",
         lambda api_base_url, target_url: resumed.append({"api_base_url": api_base_url, "target_url": target_url})
-        or {"ok": True},
+        or {"ok": True, "auth_state_confirmed": True, "scope": "seed"},
     )
 
     summary = seed_collector.run_seed_collector_once(

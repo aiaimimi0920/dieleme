@@ -132,7 +132,7 @@ def test_recover_browser_list_page_after_challenge_ignores_solver_failures_and_k
     assert "sf-item-list-data" in html
     assert final_url == "https://sf.taobao.com/list/page=5"
     assert report_calls == [
-        ("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=5/_____tmd_____/punish?x5secdata=first")
+        ("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=5")
     ]
     assert sleep_calls == [2]
     assert fetch_calls == [("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=5")]
@@ -233,7 +233,7 @@ def test_fetch_list_page_reports_captcha_before_waiting_for_browser_recovery(mon
     )
 
     assert report_calls == [
-        ("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=4/_____tmd_____/punish?x5secdata=abc")
+        ("http://127.0.0.1:9223", "https://sf.taobao.com/list/page=4")
     ]
 
 def test_expand_list_urls_builds_sort_page_union_specs() -> None:
@@ -332,8 +332,8 @@ def test_collect_list_union_stops_remaining_pages_after_unsolved_challenge(monke
     assert [item["id"] for item in result["items"]] == ["first"]
     sources = result["list_union"]["sources"]
     assert sources[1]["body_has_challenge"] is True
-    assert sources[2]["skipped"] is True
-    assert sources[3]["skipped"] is True
+    assert len(sources) == 2
+    assert result["challenge_break"]["scope"] == "list"
 
 def test_collect_list_union_stops_remaining_pages_after_unsolved_challenge_even_when_empty_stop_disabled(
     monkeypatch,
@@ -391,5 +391,5 @@ def test_collect_list_union_stops_remaining_pages_after_unsolved_challenge_even_
     assert [item["id"] for item in result["items"]] == ["first"]
     sources = result["list_union"]["sources"]
     assert sources[1]["body_has_challenge"] is True
-    assert sources[2]["skipped"] is True
-    assert sources[3]["skipped"] is True
+    assert len(sources) == 2
+    assert result["challenge_break"]["scope"] == "list"

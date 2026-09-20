@@ -25,6 +25,8 @@ def _default_fallback_state():
         "window_started_at": None,
         "last_success_at": None,
         "manual_pushed": False,
+        "terminal_manual_pending": False,
+        "terminal_manual_next_report": 0,
         "auth_complete_pending": False,
         "auth_completion_id": None,
         "auth_complete_attempts": 0,
@@ -89,6 +91,8 @@ def _load_fallback_state():
                     "window_started_at": float(data.get("window_started_at") or 0) or None,
                     "last_success_at": float(data.get("last_success_at") or 0) or None,
                     "manual_pushed": bool(data.get("manual_pushed", False)),
+                    "terminal_manual_pending": bool(data.get("terminal_manual_pending", False)),
+                    "terminal_manual_next_report": float(data.get("terminal_manual_next_report") or 0),
                     "auth_complete_pending": bool(data.get("auth_complete_pending", False)),
                     "auth_completion_id": str(data.get("auth_completion_id") or "").strip() or None,
                     "auth_complete_attempts": int(data.get("auth_complete_attempts", 0) or 0),
@@ -226,6 +230,22 @@ def _solver_cooldown_active(state, now=None):
     current_time = time.time() if now is None else float(now)
     cooldown_until = float(state.get("solver_cooldown_until") or 0)
     return cooldown_until > current_time
+
+
+def _node_solver_cooldown_can_resume(state, status):
+    """An automatic blocked report must not turn its cooldown into a manual latch."""
+    return bool(
+        status.get("node_solver_blocked")
+        and status.get("last_failure_reason") == "repeated_solver_failures"
+        and state.get("node_solver_blocked_reported")
+        and state.get("solver_cooldown_reason") == "repeated_solver_failures"
+        and state.get("solver_cooldown_until")
+        and state.get("challenge_id")
+        and state.get("challenge_id") == status.get("challenge_id")
+        and state.get("scope") == status.get("scope")
+        and not state.get("terminal_manual_pending")
+        and not state.get("manual_pushed")
+    )
 
 def _begin_solver_cooldown_if_needed(state, now=None):
     if not isinstance(state, dict) or state.get("solver_cooldown_until"):
@@ -368,4 +388,4 @@ def _retry_pending_collection_resume(api_base_url, state=None, now=None):
         "state": state,
     }
 
-__all__ = ('FALLBACK_STATE_PATH', 'FALLBACK_FAIL_THRESHOLD', 'FALLBACK_STALL_SECONDS', 'SOLVER_COOLDOWN_FAIL_THRESHOLD', 'SOLVER_COOLDOWN_SECONDS', 'SLIDER_RETRY_INTERVAL_SECONDS', '_default_fallback_state', 'manual_fallback_enabled', '_manual_fallback_latch_active', '_report_manual_captcha', '_load_fallback_state', '_save_fallback_state', '_reset_fallback_state', '_sync_challenge_state', '_retry_node_solver_blocked_report', '_solver_cooldown_active', '_begin_solver_cooldown_if_needed', '_slider_retry_due', '_record_slider_attempt_started', '_record_slider_attempt_failure', '_new_collection_resume_request_id', '_mark_collection_resume_pending', '_retry_pending_collection_resume')
+__all__ = ('FALLBACK_STATE_PATH', 'FALLBACK_FAIL_THRESHOLD', 'FALLBACK_STALL_SECONDS', 'SOLVER_COOLDOWN_FAIL_THRESHOLD', 'SOLVER_COOLDOWN_SECONDS', 'SLIDER_RETRY_INTERVAL_SECONDS', '_default_fallback_state', 'manual_fallback_enabled', '_manual_fallback_latch_active', '_report_manual_captcha', '_load_fallback_state', '_save_fallback_state', '_reset_fallback_state', '_sync_challenge_state', '_retry_node_solver_blocked_report', '_solver_cooldown_active', '_node_solver_cooldown_can_resume', '_begin_solver_cooldown_if_needed', '_slider_retry_due', '_record_slider_attempt_started', '_record_slider_attempt_failure', '_new_collection_resume_request_id', '_mark_collection_resume_pending', '_retry_pending_collection_resume')

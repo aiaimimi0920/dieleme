@@ -1,4 +1,4 @@
-import { AUTO_REFRESH_INTERVAL_MS, state } from "./desktop_state.js";
+import { state } from "./desktop_state.js";
 
 export const $ = (id) => document.getElementById(id);
 export const esc = (value) =>
@@ -10,6 +10,85 @@ export const statusClass = (status) =>
     : String(status || "").includes("失败") || String(status || "").includes("阻塞")
       ? "bad"
       : "warn";
+
+const dialogFocus = new WeakMap();
+const initializedDialogs = new WeakSet();
+
+export function setDetailActionStatus(message, tone = "info") {
+  const status = $("detailActionStatus");
+  status.textContent = message;
+  status.dataset.tone = tone;
+  status.classList.toggle("hidden", !message);
+}
+
+export function setDetailBusy(busy) {
+  $("analysisActions").setAttribute("aria-busy", String(busy));
+  ["reanalysisButton", "editButton", "manualUpdateButton"].forEach((id) => {
+    $(id).disabled = busy || (id === "editButton" && !state.selectedAnalysisRecord);
+  });
+}
+
+export function showManagedDialog(dialog) {
+  if (dialog.open || dialog.classList.contains("open")) return;
+  dialogFocus.set(dialog, document.activeElement);
+  if (!initializedDialogs.has(dialog)) {
+    dialog.addEventListener("close", () => {
+      dialog.classList.remove("open");
+      if (!document.querySelector("dialog[open], dialog.open")) {
+        document.body.classList.remove("modal-open");
+        document.querySelector(".app-shell").inert = false;
+      }
+      const previous = dialogFocus.get(dialog);
+      const fallback = dialog.id === "authChallengeDialog" ? $(`${dialog.dataset.scope || "seed"}AuthButton`)
+        : dialog.id === "engineRestartDialog" ? $("engineRestartButton") : $("resetRegionLinks");
+      (previous?.isConnected ? previous : fallback)?.focus();
+    });
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeManagedDialog(dialog);
+      }
+      if (event.key !== "Tab") return;
+      const controls = [...dialog.querySelectorAll("button, input, select, textarea, a[href]")]
+        .filter((control) => !control.disabled && control.getClientRects().length);
+      const first = controls[0];
+      const last = controls.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    });
+    initializedDialogs.add(dialog);
+  }
+  document.body.classList.add("modal-open");
+  document.querySelector(".app-shell").inert = true;
+  if (typeof dialog.showModal === "function") dialog.showModal();
+  else dialog.classList.add("open");
+  (dialog.querySelector("[autofocus]") || dialog.querySelector("button"))?.focus();
+}
+
+export function closeManagedDialog(dialog) {
+  if (typeof dialog.close === "function" && dialog.open) dialog.close();
+  else {
+    dialog.classList.remove("open");
+    dialog.dispatchEvent(new Event("close"));
+  }
+}
+
+export async function confirmRegionReset(message) {
+  const dialog = $("regionResetDialog");
+  if (dialog.open || dialog.classList.contains("open")) return false;
+  $("regionResetDescription").textContent = message;
+  dialog.returnValue = "cancel";
+  const completed = new Promise((resolve) => dialog.addEventListener("close", () => {
+    resolve(dialog.returnValue === "confirm");
+  }, { once: true }));
+  showManagedDialog(dialog);
+  return completed;
+}
 
 export function apiUrl(path) {
   return `${state.apiBase.replace(/\/+$/, "")}${path}`;
@@ -30,120 +109,6 @@ export function setAutoRefreshStatus(text) {
 
 export function setRegionRefreshStatus(text) {
   $("regionRefreshStatus").textContent = text;
-}
-
-export function formatSigned(value) {
-  const number = Number(value || 0);
-  return `${number >= 0 ? "+" : ""}${number}`;
-}
-
-export function formatPercent(rate) {
-  const number = Number(rate);
-  if (!Number.isFinite(number)) {
-    return "等待数据";
-  }
-  return `${(number * 100).toFixed(number > 0 && number < 0.1 ? 1 : 0)}%`;
-}
-
-export function formatDurationSeconds(value) {
-  const number = Number(value);
-  if (!Number.isFinite(number) || number < 0) {
-    return "等待数据";
-  }
-  if (number < 60) {
-    return `${Math.round(number)} 秒`;
-  }
-  const minutes = Math.floor(number / 60);
-  const seconds = Math.round(number % 60);
-  if (minutes < 60) {
-    return seconds > 0 ? `${minutes} 分 ${seconds} 秒` : `${minutes} 分`;
-  }
-  const hours = Math.floor(minutes / 60);
-  const remainMinutes = minutes % 60;
-  return remainMinutes > 0 ? `${hours} 小时 ${remainMinutes} 分` : `${hours} 小时`;
-}
-
-export function overviewMetric(data, path) {
-  const parts = String(path || "").split(".");
-  let current = data && data.modules;
-  for (const part of parts) {
-    if (!current || typeof current !== "object") {
-      return 0;
-    }
-    current = current[part];
-  }
-  const number = Number(current || 0);
-  return Number.isFinite(number) ? number : 0;
-}
-
-export function formatGrowthDelta(currentValue, previousValue, elapsedMs) {
-  if (previousValue === null || previousValue === undefined || !Number.isFinite(Number(previousValue))) {
-    return "近60秒增长：等待下一次刷新";
-  }
-  const delta = Number(currentValue || 0) - Number(previousValue || 0);
-  const seconds = Math.max(Number(elapsedMs || AUTO_REFRESH_INTERVAL_MS) / 1000, 1);
-  const perMinute = Math.round((delta * 60) / seconds);
-  return `近60秒增长：${formatSigned(delta)}（约 ${formatSigned(perMinute)}/分钟）`;
-}
-
-export function renderGrowthLine(path) {
-  const currentSample = state.currentOverviewSample;
-  const previousSample = state.previousOverviewSample;
-  const currentValue = currentSample ? overviewMetric(currentSample.overview, path) : null;
-  const previousValue = previousSample ? overviewMetric(previousSample.overview, path) : null;
-  const elapsedMs =
-    currentSample && previousSample
-      ? currentSample.capturedAt.getTime() - previousSample.capturedAt.getTime()
-      : AUTO_REFRESH_INTERVAL_MS;
-  return `<div class="growth-line">${esc(formatGrowthDelta(currentValue, previousValue, elapsedMs))}</div>`;
-}
-
-export function authWatcherStatusLabel(authWatcher) {
-  const status = String((authWatcher && authWatcher.status) || "").trim().toLowerCase();
-  if (!authWatcher || !authWatcher.available) {
-    return "未启动";
-  }
-  if (status === "watching") {
-    return "等待自动恢复";
-  }
-  if (status === "completed") {
-    return "已自动恢复";
-  }
-  if (status === "timed_out") {
-    return "自动恢复超时";
-  }
-  return status || "待机";
-}
-
-export function authWatcherStatusClass(authWatcher) {
-  const status = String((authWatcher && authWatcher.status) || "").trim().toLowerCase();
-  if (!authWatcher || !authWatcher.available) {
-    return "warn";
-  }
-  if (status === "completed") {
-    return "ok";
-  }
-  if (status === "timed_out") {
-    return "bad";
-  }
-  return "warn";
-}
-
-export function authWatcherStatusMessage(authWatcher, runtimeState) {
-  if (!authWatcher || !authWatcher.available) {
-    return "";
-  }
-  const status = String(authWatcher.status || "").trim().toLowerCase();
-  if (status === "watching") {
-    return "正在等待当前 PC1 认证恢复，可先不用手动点击“我已完成认证，开始”。";
-  }
-  if (status === "completed" && runtimeState === "运行中") {
-    return "已检测到 PC1 认证自动恢复完成，PC2 已继续运行。";
-  }
-  if (status === "timed_out") {
-    return "后台自动恢复已超时；如果你已经完成认证，请点击“我已完成认证，开始”兜底恢复。";
-  }
-  return "";
 }
 
 export async function fetchWithTimeout(url, options = {}, timeoutMs = 30_000) {

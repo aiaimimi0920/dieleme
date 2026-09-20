@@ -102,6 +102,12 @@ class RepositoryDetailClaimMixin:
                     locked_rows.append(row)
                 remaining_rows: list[FapaiSeedItem] = []
                 for row in locked_rows:
+                    if row.status not in {"pending_detail", "detail_failed", "in_progress"}:
+                        continue
+                    if row.detail_leased_by and row.detail_leased_by != worker_id and not _lease_reclaimable(
+                        row.detail_lease_until, row.updated_at, now=now, lease_seconds=lease_seconds
+                    ):
+                        continue
                     attempt_count = int(row.detail_attempt_count or 0)
                     if attempt_limit is not None and attempt_count >= attempt_limit:
                         row.status = "detail_blocked"
@@ -366,6 +372,12 @@ class RepositoryDetailClaimMixin:
                     locked_rows.append(row)
                 remaining_rows: list[tuple[FapaiSeedItem, Dict[str, Any], Dict[str, Any], str, str, str]] = []
                 for row in locked_rows:
+                    if row.status not in {"raw_detail_captured", "analysis_failed", "analysis_in_progress"}:
+                        continue
+                    if row.detail_leased_by and row.detail_leased_by != worker_id and not _lease_reclaimable(
+                        row.detail_lease_until, row.updated_at, now=now, lease_seconds=lease_seconds
+                    ):
+                        continue
                     payload = dict(row.source_payload or {})
                     artifacts = dict(payload.get("_raw_detail_artifacts") or {})
                     detail_html_path = str(

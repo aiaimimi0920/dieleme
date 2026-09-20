@@ -67,6 +67,8 @@ def test_collection_observer_lists_detail_and_analysis_stages(tmp_path: Path) ->
 
     details = repo.collection_observer_items(stage="details", limit=20, offset=0)
     assert details["total"] == 1
+    assert repo.collection_observer_items(stage="links")["total"] == 0
+    assert repo.collection_observer_items(stage="analysis")["total"] == 0
     assert details["items"][0]["status"] == "raw_detail_captured"
     assert details["items"][0]["artifacts"]["detail_html_path"] == str(detail_html)
 
@@ -76,6 +78,14 @@ def test_collection_observer_lists_detail_and_analysis_stages(tmp_path: Path) ->
     assert analysis["total"] == 1
     assert analysis["items"][0]["status"] == "detail_completed"
     assert analysis["items"][0]["final_json_path"] == str(final_json)
+    assert repo.collection_observer_items(stage="links")["total"] == 0
+    assert repo.collection_observer_items(stage="details")["total"] == 0
+
+    repo.requeue_seed_detail_analysis("1001")
+    assert repo.collection_observer_items(stage="analysis")["total"] == 0
+    reanalysis = repo.collection_observer_items(stage="details")
+    assert reanalysis["total"] == 1
+    assert reanalysis["items"][0]["final_json_path"] == str(final_json)
 
 def test_collection_observer_item_detail_loads_collected_content(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)

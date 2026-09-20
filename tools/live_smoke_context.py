@@ -33,6 +33,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from src.collection.contracts import CollectionAdapter, DetailExtractor
+from src.collection.pacing import jittered_delay_seconds
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -119,6 +120,14 @@ class CdpEndpointUnavailableError(RuntimeError):
             f"CDP endpoint unavailable during {self.operation} on {self.cdp_endpoint}: {cause!r}"
         )
 
+
+class DetailChallengeError(RuntimeError):
+    def __init__(self, operation: str, challenge_url: str = ""):
+        self.operation = str(operation or "detail request")
+        self.challenge_url = str(challenge_url or "")
+        super().__init__(f"{self.operation} returned anti-bot challenge")
+
+
 @dataclass(frozen=True)
 class LiveSmokeConfig:
     output_dir: Path
@@ -134,10 +143,15 @@ class LiveSmokeConfig:
     list_categories: tuple[str, ...] = ()
     list_max_pages: int = 1
     list_stop_on_empty: bool = True
+    list_delay_seconds: float = 8.0
     llm_preflight_enabled: bool = False
     llm_preflight_timeout_seconds: float = 15.0
     raw_only: bool = False
     collection_adapter: CollectionAdapter | None = None
     detail_extractor: DetailExtractor | None = None
+    success_delay_seconds: float = 6.0
+    failure_delay_seconds: float = 15.0
+    pacing_jitter_ratio: float = 0.35
+    challenge_cooldown_seconds: float = 900.0
 
 __all__ = [name for name in globals() if not name.startswith("__")]

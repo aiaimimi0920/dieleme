@@ -7,6 +7,7 @@ import os
 import threading
 import time
 import uuid
+from .nas_auth_recovery_stage import StageRecoveryMixin
 from pathlib import Path
 from typing import Any
 
@@ -21,13 +22,18 @@ ACTIVE_STATUSES = {
 }
 
 FAILED_RECOVERY_FAST_RETRY_SIGNALS = {
+    "seed_challenge_stalled",
     "detail_challenge_stalled",
     "node_solver_retries_exhausted",
 }
 SUCCESSFUL_RECOVERY_NEW_PROGRESS_RETRY_SIGNALS = {"detail_challenge_stalled"}
+SCOPED_CHALLENGE_STALL_SIGNALS = {
+    "seed_challenge_stalled": "seed",
+    "detail_challenge_stalled": "detail",
+}
 
 
-class NasAuthRecoveryCoordinator:
+class NasAuthRecoveryCoordinator(StageRecoveryMixin):
     """Durable single-flight coordination for PC1 -> NAS -> PC2 auth recovery."""
 
     def __init__(
@@ -62,6 +68,7 @@ class NasAuthRecoveryCoordinator:
             "cooldown_until_epoch": None,
             "active": None,
             "last_result": None,
+            "pc2_stage_auth_seen_at": None,
         }
 
     def _load_state(self) -> dict[str, Any]:
@@ -148,6 +155,10 @@ class NasAuthRecoveryCoordinator:
             "restart_requested_at_epoch": active.get("restart_requested_at_epoch"),
             "verify_deadline_epoch": active.get("verify_deadline_epoch"),
             "trigger_reason": active.get("trigger_reason"),
+            "manual_request_id": active.get("manual_request_id"),
+            "scope": active.get("scope"),
+            "challenge_id": active.get("challenge_id"),
+            "target_url": active.get("target_url"),
             "snapshot": safe_snapshot,
         }
 
@@ -163,6 +174,8 @@ class NasAuthRecoveryCoordinator:
         )
         return {
             "enabled": self.enabled,
+            "stage_auth_protocol": 2,
+            "pc2_stage_auth_ready": current - float(state.get("pc2_stage_auth_seen_at") or 0) < 120,
             "stall_seconds": self.stall_seconds,
             "stalled_for_seconds": stalled_for,
             "last_captured_count": state.get("last_captured_count"),
@@ -192,6 +205,11 @@ class NasAuthRecoveryCoordinator:
             "baseline_captured_count": active.get("baseline_captured_count"),
             "captured_count": captured_count,
             "trigger_reason": active.get("trigger_reason"),
+            "manual_request_id": active.get("manual_request_id"),
+            "scope": active.get("scope"),
+            "challenge_id": active.get("challenge_id"),
+            "target_url": active.get("target_url"),
+            "snapshot_sha256": (active.get("snapshot") or {}).get("sha256"),
             "finished_at_epoch": now,
         }
         self._state["active"] = None
@@ -228,6 +246,7 @@ class NasAuthRecoveryCoordinator:
         operator_paused: bool = False,
         recovery_signal: str | None = None,
         recovery_signal_stall_seconds: float | None = None,
+        blocked_scopes: tuple[str, ...] = (),
         now: float | None = None,
     ) -> dict[str, Any]:
         current = time.time() if now is None else float(now)
@@ -246,7 +265,17 @@ class NasAuthRecoveryCoordinator:
                     self._state["last_captured_count"] = normalized_count
                     self._state["last_progress_at_epoch"] = current
                     active = self._state.get("active")
-                    if isinstance(active, dict):
+                    if (
+                        isinstance(active, dict)
+                        and active.get("scope") != "seed"
+                        and (
+                            active.get("scope") not in blocked_scopes
+                            if active.get("scope")
+                            else not blocked_scopes
+                        )
+                        and not (active.get("scope") and operator_paused)
+                        and (not active.get("manual_request_id") or active.get("status") == "verifying")
+                    ):
                         self._finish_locked(
                             status="succeeded",
                             reason="captured_count_advanced",
@@ -272,8 +301,11 @@ class NasAuthRecoveryCoordinator:
                 ),
                 1.0,
             )
+            stalled_scope = SCOPED_CHALLENGE_STALL_SIGNALS.get(normalized_signal)
+            scoped_stall = bool(stalled_scope and stalled_scope in blocked_scopes)
+            # Scoped signals have already passed their own challenge-age threshold.
             signal_triggered = bool(
-                normalized_signal and stalled_for >= signal_stall_seconds
+                normalized_signal and (scoped_stall or stalled_for >= signal_stall_seconds)
             )
             last_result = self._state.get("last_result")
             failed_signal_retry_ready = False
@@ -307,7 +339,7 @@ class NasAuthRecoveryCoordinator:
             may_trigger = bool(
                 self.enabled
                 and normalized_count is not None
-                and pending > 0
+                and (pending > 0 or (scoped_stall and stalled_scope == "seed"))
                 and not operator_paused
                 and not isinstance(active, dict)
                 and (

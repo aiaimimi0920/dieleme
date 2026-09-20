@@ -49,6 +49,45 @@ def _reuse_existing_taobao_login_page(
         return None
     return html, final_url
 
+
+def _reuse_existing_taobao_challenge_page(
+    cdp_endpoint: str,
+) -> tuple[str, str] | None:
+    """Reuse an obvious Taobao challenge tab before opening another target."""
+    from tools import taobao_login_health
+
+    try:
+        targets = list(taobao_login_health.list_cdp_targets(cdp_endpoint))
+    except Exception:
+        return None
+    for target in targets:
+        if not isinstance(target, dict) or str(target.get("type") or "").lower() != "page":
+            continue
+        target_url = str(target.get("url") or "")
+        parsed = urlparse(target_url)
+        host = (parsed.hostname or "").lower()
+        obvious_challenge = _is_taobao_challenge_target_url(target_url)
+        is_taobao_list = host == "sf.taobao.com" and "/list/" in (parsed.path or "")
+        if not obvious_challenge and not is_taobao_list:
+            continue
+        try:
+            html, final_url = _read_cdp_list_target_html(cdp_endpoint, target)
+        except Exception:
+            if obvious_challenge:
+                return "", target_url
+            continue
+        if is_challenge_page(html, final_url):
+            return html, final_url
+    return None
+
+
+def _is_taobao_challenge_target_url(value: str) -> bool:
+    parsed = urlparse(str(value or "").strip())
+    host = (parsed.hostname or "").lower()
+    is_taobao = bool(host and (host == "taobao.com" or host.endswith(".taobao.com")))
+    return is_taobao and _list_final_url_has_challenge(value) and not _is_taobao_login_target_url(value)
+
+
 def fetch_open_browser_list_page(
     cdp_endpoint: str,
     target_url: str,
@@ -191,6 +230,9 @@ def fetch_browser_navigation_list_page(cdp_endpoint: str, target_url: str) -> tu
         existing_login_page = _reuse_existing_taobao_login_page(cdp_endpoint)
         if existing_login_page is not None:
             return existing_login_page
+        existing_challenge_page = _reuse_existing_taobao_challenge_page(cdp_endpoint)
+        if existing_challenge_page is not None:
+            return existing_challenge_page
         taobao_login_health.compact_cdp_pages_if_needed(cdp_endpoint, reserve_for_new_page=True)
         opened = taobao_login_health.read_cdp_json(
             cdp_endpoint,
@@ -273,7 +315,7 @@ def recover_browser_list_page_after_challenge(
                 login_required = is_login_page(html, final_url)
                 request_captcha_solver(
                     cdp_endpoint,
-                    target_url if login_required else (final_url or target_url),
+                    target_url,
                     api_base_url=api_base_url,
                     manual_only=login_required,
                 )
@@ -322,7 +364,7 @@ def fetch_list_page(
                         login_required = is_login_page(response.text, response.url)
                         request_captcha_solver(
                             cdp_endpoint,
-                            target_url if login_required else (response.url or target_url),
+                            target_url,
                             api_base_url=api_base_url,
                             manual_only=login_required,
                         )
@@ -367,11 +409,22 @@ def fetch_detail_with_browser(seed: dict[str, Any], *, cdp_endpoint: str) -> tup
             if not browser.contexts:
                 raise RuntimeError("attached browser has no contexts")
             context = browser.contexts[0]
-            # A list challenge may already have redirected an operator to the
-            # shared Taobao login tab.  Reuse it for detail probes instead of
-            # opening a second login window while the first one is active.
+            # Do not open another target while an unresolved login/challenge
+            # page is already visible in the shared operator browser.
             for existing_page in getattr(context, "pages", []):
-                if not _is_taobao_login_target_url(str(getattr(existing_page, "url", ""))):
+                existing_url = str(getattr(existing_page, "url", "") or "")
+                try:
+                    existing_hostname = str(urlparse(existing_url).hostname or "").lower()
+                except ValueError:
+                    existing_hostname = ""
+                is_taobao_page = existing_hostname == "taobao.com" or existing_hostname.endswith(
+                    ".taobao.com"
+                )
+                if not (
+                    is_taobao_page
+                    or _is_taobao_login_target_url(existing_url)
+                    or is_challenge_page("", existing_url)
+                ):
                     continue
                 try:
                     existing_page.bring_to_front()
@@ -381,13 +434,11 @@ def fetch_detail_with_browser(seed: dict[str, Any], *, cdp_endpoint: str) -> tup
                     existing_html = str(existing_page.content() or "")
                 except Exception:
                     existing_html = ""
-                if existing_html:
-                    return (
-                        existing_html,
-                        str(getattr(existing_page, "url", "") or ""),
-                        len(existing_html.encode("utf-8")),
-                        "open_existing_login_page",
-                    )
+                if _is_taobao_login_target_url(existing_url) or is_challenge_page(
+                    existing_html,
+                    existing_url,
+                ):
+                    raise DetailChallengeError("existing browser detail page", existing_url)
             page = context.new_page()
             preserve_challenge_page = False
             try:
@@ -403,7 +454,7 @@ def fetch_detail_with_browser(seed: dict[str, Any], *, cdp_endpoint: str) -> tup
                     raise RuntimeError(f"browser detail request returned HTTP {response.status}")
                 if is_challenge_page(html, final_url):
                     preserve_challenge_page = True
-                    raise RuntimeError("browser detail request returned anti-bot challenge")
+                    raise DetailChallengeError("browser detail request", final_url)
                 return html, final_url, len(html.encode("utf-8")), "browser_navigation"
             finally:
                 if not preserve_challenge_page:
@@ -424,6 +475,8 @@ def fetch_detail_html(
     seed_id = str(seed.get("id"))
     if seed_id in browser_pages:
         html, final_url = browser_pages[seed_id]
+        if is_challenge_page(html, final_url):
+            raise DetailChallengeError("open browser detail page", final_url)
         return html, final_url, len(html.encode("utf-8")), "open_browser_page"
 
     detail_url = seed.get("url")
@@ -441,8 +494,25 @@ def fetch_detail_html(
     html = response.text
     if is_challenge_page(html, response.url):
         if not detail_browser_fallback_enabled():
-            raise RuntimeError(f"HTTP detail request returned anti-bot challenge: {response.url}")
+            raise DetailChallengeError("HTTP detail request", response.url)
         return fetch_detail_with_browser(seed, cdp_endpoint=cdp_endpoint)
     return html, response.url, len(response.content), "http_cookie"
 
-__all__ = ('_reuse_existing_taobao_login_page', 'fetch_open_browser_list_page', '_read_text_if_exists', '_redact_detail_analysis_text', '_detail_input_value', '_detail_node_text', '_detail_countdown_text', '_build_detail_analysis_input', 'fetch_browser_navigation_list_page', 'fetch_browser_list_page', 'recover_browser_list_page_after_challenge', 'fetch_list_page', 'fetch_detail_with_browser', 'fetch_detail_html')
+__all__ = (
+    '_reuse_existing_taobao_login_page',
+    '_reuse_existing_taobao_challenge_page',
+    '_is_taobao_challenge_target_url',
+    'fetch_open_browser_list_page',
+    '_read_text_if_exists',
+    '_redact_detail_analysis_text',
+    '_detail_input_value',
+    '_detail_node_text',
+    '_detail_countdown_text',
+    '_build_detail_analysis_input',
+    'fetch_browser_navigation_list_page',
+    'fetch_browser_list_page',
+    'recover_browser_list_page_after_challenge',
+    'fetch_list_page',
+    'fetch_detail_with_browser',
+    'fetch_detail_html',
+)

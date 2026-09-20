@@ -42,6 +42,7 @@ def select_solver_scope_status(solver_status, preferred_challenge_id=None):
             "paused": bool(scoped_status.get("paused")),
             "manual_required": bool(scoped_status.get("manual_required")),
             "manual_only": bool(scoped_status.get("manual_only")),
+            "node_solver_blocked": bool(scoped_status.get("node_solver_blocked")),
             "last_status": scoped_status.get("last_status") or projected.get("last_status"),
             "last_failure_reason": scoped_status.get("last_failure_reason"),
             "last_request": dict(scoped_request) if isinstance(scoped_request, dict) else {},
@@ -196,6 +197,8 @@ def manual_challenge_registration_needed(solver_status):
     )
 
 def canonical_manual_challenge_target(value):
+    from src.collection.adapters.taobao_auth_target import canonical_auth_target
+
     target_url = str(value or "").strip()
     try:
         parsed = urlsplit(target_url)
@@ -204,6 +207,12 @@ def canonical_manual_challenge_target(value):
     hostname = str(parsed.hostname or "").strip().lower()
     if not hostname or not (hostname == "taobao.com" or hostname.endswith(".taobao.com")):
         return ""
+    scope = _challenge_scope_for_url(target_url)
+    if scope in {"seed", "detail"}:
+        try:
+            return canonical_auth_target(scope, target_url)
+        except (ValueError, TypeError):
+            return ""
     path = parsed.path.split("/_____tmd_____/punish", 1)[0]
     while "//" in path:
         path = path.replace("//", "/")
@@ -227,6 +236,8 @@ def notify_manual_challenge(api_base, solver_status, expected_node_id=None):
         "timestamp": int(time.time() * 1000),
     }
     scope = str(solver_status.get("scope") or "").strip()
+    if solver_status.get("challenge_id"):
+        payload["challenge_id"] = solver_status["challenge_id"]
     if scope:
         payload["scope"] = scope
     try:

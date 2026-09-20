@@ -1,17 +1,43 @@
 # Repository operating rules
 
-## Live systems are immutable by default
+## Deployment after user-requested updates
 
-- Never deploy, synchronize, restart, stop, reconfigure, or hot-patch the
-  running PC2 or NAS services unless the user explicitly requests that exact
-  live action in the current conversation.
-- Do not run deployment, rollback, watchdog-registration, worker-launch,
-  Docker/Compose mutation, remote copy, SSH mutation, or process-control
-  commands against PC2 or NAS as part of ordinary development or validation.
-- Source changes do not authorize deployment. Validate them with offline unit
-  tests, syntax checks, builds, and repository-local fixtures only.
+- User-requested feature updates and fixes authorize deployment of the verified
+  changes to the affected local, PC2, and NAS applications, followed by the
+  required application restarts. Complete this flow without asking the user
+  for deployment or restart approval again.
+- Keep deployment scoped to the affected applications. Do not restart computers,
+  unrelated services, or the PC1 human-authentication browser. Preserve runtime
+  configuration, credentials, cookies, browser profiles, and database contents.
+- Validate the changes before activation, back up replaced artifacts, retain a
+  scoped rollback path, and verify installed hashes and actual runtime behavior.
+  Never activate a failed build or claim an unverified deployment succeeded.
+- Inspect Compose project/service label matches before replacing a container.
+  If stopped backups share those labels, do not use service-wide Compose
+  recreation. Replace the canonical container by exact ID and retain the old
+  container for rollback.
+- Read-only audits and ordinary exploration do not authorize unrelated live
+  mutations. A specific user instruction to defer deployment takes precedence.
 - Read-only inspection must not be presented as a deployment or runtime
   verification.
+
+## Local Crow desktop updates
+
+- After completing and validating Crow changes, automatically apply the latest
+  verified desktop build and restart the local Crow application for manual
+  testing. The user has authorized this routine local application restart;
+  do not ask for the same approval on every completed change.
+- Restart Crow, never the computer or the human-authentication browser. PC2/NAS
+  updates follow the user-requested deployment workflow above.
+- Preserve runtime configuration, credentials, cookies, browser profiles and
+  database contents. Back up replaced application files and verify the new
+  process executable path and installed hashes before reporting completion.
+- Do not activate an unverified or failed build. If activation is blocked,
+  report the precise blocker instead of claiming the latest app is running.
+- After each successful local update, refresh the user's desktop `Crow.lnk`
+  with `scripts/update-collector-desktop-shortcut.ps1` and the verified EXE
+  SHA-256. Reuse this stable name, repair missing/stale shortcuts, and verify
+  the target, working directory and icon. Do not delete other desktop files.
 
 ## Project paths and runtime data
 

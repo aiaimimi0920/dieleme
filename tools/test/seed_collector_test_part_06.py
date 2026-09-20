@@ -296,6 +296,8 @@ def test_run_seed_collector_loop_collects_multiple_pages_per_cycle(tmp_path: Pat
             worker_id="seed-test",
             max_runs=1,
             pages_per_run=3,
+            page_delay_seconds=8.0,
+            pacing_jitter_ratio=0.0,
         ),
         repository=repo,
         http_session=object(),
@@ -312,7 +314,7 @@ def test_run_seed_collector_loop_collects_multiple_pages_per_cycle(tmp_path: Pat
     written_summary = json.loads((tmp_path / "seed_collector_summary.json").read_text(encoding="utf-8"))
     assert written_summary["last_cycle_summary"]["pages_collected"] == 3
     assert len(fetched_urls) == 3
-    assert sleep_calls == []
+    assert sleep_calls == [8.0, 8.0]
     assert repo.seed_queue_counts()["seed_scan_progress_pending"] == 1
 
 def test_run_seed_collector_loop_waits_instead_of_exiting_when_queue_is_empty(tmp_path: Path, monkeypatch) -> None:

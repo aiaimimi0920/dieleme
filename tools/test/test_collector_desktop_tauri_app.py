@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 
@@ -14,9 +15,14 @@ def _frontend_js() -> str:
         "desktop_template.js",
         "desktop_state.js",
         "desktop_shared.js",
+        "desktop_standardized_fields.json",
         "desktop_regions.js",
         "desktop_collection_views.js",
+        "desktop_overview.ts",
+        "desktop_runtime_controls.ts",
         "desktop_auth.js",
+        "desktop_auth_target.ts",
+        "desktop_auth_scope.ts",
         "desktop_actions.js",
         "main.js",
     )
@@ -49,15 +55,13 @@ def test_collector_desktop_frontend_uses_collection_observer_api_not_browser_pag
     main_js = _frontend_js()
 
     assert "FapaiFang 运维观察台（PC2 采集）" in index_html
-    assert "本机不运行采集 Worker" in main_js
-    assert "Worker 均运行在 PC2" in main_js
-    assert "商品链接采集" in main_js
-    assert "商品详情页采集" in main_js
-    assert "商品详情页 AI 分析" in main_js
+    assert "链接采集" in main_js
+    assert "商品详情" in main_js
+    assert "商品分析" in main_js
     assert "/api/collection/overview" in main_js
     assert "/api/collection/items" in main_js
     assert "window.location.href = '/collection'" not in main_js
-    assert "http://127.0.0.1:8001" in main_js
+    assert "http://192.168.15.200:8001" in main_js
 
 
 def test_links_stage_is_operator_focused_and_paginated_to_ten_items() -> None:
@@ -65,10 +69,10 @@ def test_links_stage_is_operator_focused_and_paginated_to_ten_items() -> None:
 
     assert 'limit: 10' in main_js
     assert '<option selected>10</option>' in main_js
-    assert "商品唯一编号" in main_js
-    assert "商品直达链接" in main_js
-    assert "商品采集地区" in main_js
-    assert "当前采集状态" in main_js
+    assert "<th>商品编号</th>" in main_js
+    assert "<th>链接</th>" in main_js
+    assert "<th>地区</th>" in main_js
+    assert "<th>状态</th>" in main_js
     assert "链接已采集" in main_js
     assert "详情已采集" in main_js
     assert "AI 已分析" in main_js
@@ -132,107 +136,64 @@ def test_runtime_status_card_exposes_operator_controls_and_auth_challenge_dialog
     assert "运行中" in main_js
     assert "待认证" in main_js
     assert "已完成" in main_js
-    assert "暂停/开始" in main_js
+    assert "暂停采集" in main_js
+    assert "开始采集" in main_js
     assert "认证" in main_js
-    assert "认证挑战" in main_js
+    assert "打开挑战页面" in main_js
     assert "authChallengeDialog" in main_js
     assert "authChallengeFrame" not in main_js
     assert "toggleRuntimePause" in main_js
     assert "openAuthChallenge" in main_js
-    assert 'tryInvoke("open_auth_browser"' in main_js
-    auth_resume_function = main_js[
-        main_js.index("async function resumeAfterAuthChallenge"):
-        main_js.index("async function reloadAll")
-    ]
-    assert 'refresh_cookie_snapshot: !tauriRuntime' in auth_resume_function
-    assert 'tryInvoke("export_taobao_cookie_snapshot"' in auth_resume_function
-    assert "open_auth_browser" in rust_lib
-    assert "export_taobao_cookie_snapshot" in rust_lib
-    assert '"-NoProfile"' in rust_lib
-    assert "CREATE_NO_WINDOW" in rust_lib
-    assert "Stdio::null()" in rust_lib
-    assert "complete-pc1-inplace-auth.ps1" in rust_lib
-    assert "open-remote-auth-browser.ps1" in rust_lib
+    assert 'tryInvoke("desktop_auth_action"' in main_js
+    assert "auth_bridge::desktop_auth_action" in rust_lib
+    assert "export_taobao_cookie_snapshot" not in rust_lib
+    bridge = (APP_ROOT / "src-tauri/src/auth_bridge.rs").read_text(encoding="utf-8")
+    assert '"-NoProfile"' in bridge
+    assert "creation_flags(0x08000000)" in bridge
+    assert "Stdio::null()" in bridge
+    assert "desktop-auth-challenge.ps1" in bridge
+    assert "spawn_blocking" in bridge
+    assert "CROW_AUTH_RESULT=" in bridge
     assert "std::env::current_exe" in rust_lib
     assert "std::env::current_dir" in rust_lib
     assert '.join("scripts")' in rust_lib
     assert "\\\\192.168.15.200\\home\\project\\project\\fapaifang" not in rust_lib
-    open_auth_function = rust_lib[
-        rust_lib.index("fn open_auth_browser"):
-        rust_lib.index("#[tauri::command]\nfn export_taobao_cookie_snapshot")
-    ]
-    assert "spawn_hidden_powershell" in open_auth_function
-    assert ".output()" not in open_auth_function
-    assert "后台" in open_auth_function
-    helper_function = rust_lib[
-        rust_lib.index("fn spawn_hidden_powershell"):
-        rust_lib.index("#[tauri::command]\nfn open_auth_browser")
-    ]
-    assert ".spawn()" in helper_function
-    assert ".output()" not in helper_function
-    assert "let mut command = Command::new(\"powershell\");" in helper_function
-    assert "command.creation_flags(CREATE_NO_WINDOW);" in helper_function
-    cookie_export_function = rust_lib[rust_lib.index("fn export_taobao_cookie_snapshot") :]
-    assert "run_hidden_powershell" in cookie_export_function
-    assert ".status()" in rust_lib
-    assert "/api/collection/control/pause" in main_js
-    assert "/api/collection/auth/complete" in main_js
+    assert "api/collection/control/${action}" in main_js
+    assert "/api/collection/auth/complete" not in main_js
     assert "/api/report_captcha" not in main_js
     assert "frame-src https://*.taobao.com" not in tauri_config["app"]["security"]["csp"]
-    assert "Challenge 触发率" in main_js
-    assert "PC1 认证自动续跑" in main_js
-    assert "challenge_metrics" in main_js
-    assert "auth_watcher" in main_js
+    assert "auth-stage-row" in main_js
+    assert "链接采集" in main_js and "详情采集" in main_js
+    assert "engineRestartButton" in main_js
+    assert "challenge_metrics" not in main_js
 
 
-def test_auth_challenge_open_buttons_pause_before_opening_browser() -> None:
+def test_auth_dialog_open_is_passive_and_browser_open_is_explicit() -> None:
     main_js = _frontend_js()
 
-    assert "async function openAndQueueAuthChallenge" in main_js
+    assert "openAndQueueAuthChallenge" not in main_js
     assert "function normalizeAuthChallengeUrl" in main_js
     assert "_____tmd_____/punish" in main_js
-    assert "x5secdata" in main_js
+    assert "transient challenge credentials" in main_js
     assert "sf-item.taobao.com" in main_js
     assert "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1" in main_js
-    assert 'await tryInvoke("open_auth_browser", { url: targetUrl })' in main_js
-    open_and_queue_function = main_js[
-        main_js.index("async function openAndQueueAuthChallenge"):
-        main_js.index("function closeAuthChallenge")
-    ]
-    pause_call = 'await postJson("/api/collection/control/pause", {}, { timeoutMs: 10_000 })'
-    open_call = 'await tryInvoke("open_auth_browser", { url: targetUrl })'
-    assert open_and_queue_function.index(pause_call) < open_and_queue_function.index(open_call)
-    assert "/api/report_captcha" not in open_and_queue_function
-
-    open_function = main_js[
-        main_js.index("async function openAuthChallenge"):
-        main_js.index("function closeAuthChallenge")
-    ]
-    assert "await openAndQueueAuthChallenge(url)" in open_function
-
-    reload_function = main_js[
-        main_js.index("async function reloadAuthChallenge"):
-        main_js.index("async function queueAuthChallenge")
-    ]
-    assert "await openAndQueueAuthChallenge(url)" in reload_function
+    auth = (APP_ROOT / "src/desktop_auth.js").read_text(encoding="utf-8")
+    open_function = auth[auth.index("export function openAuthChallenge"):auth.index("async function run")]
+    assert 'run("open")' not in open_function
+    assert "control/pause" not in auth
+    assert 'return run("open")' in auth
 
 
-def test_auth_challenge_default_url_is_sanitized_before_open_and_queue() -> None:
+def test_auth_challenge_default_url_is_sanitized_before_native_handoff() -> None:
     main_js = _frontend_js()
 
-    default_function = main_js[
-        main_js.index("function defaultAuthChallengeUrl"):
-        main_js.index("async function loadOverview")
-    ]
-    assert "normalizeAuthChallengeUrl" in default_function
-
-    open_and_queue_function = main_js[
-        main_js.index("async function openAndQueueAuthChallenge"):
-        main_js.index("function closeAuthChallenge")
-    ]
-    assert "const targetUrl = normalizeAuthChallengeUrl(url);" in open_and_queue_function
-    assert 'await tryInvoke("open_auth_browser", { url: targetUrl })' in open_and_queue_function
-    assert 'postJson("/api/collection/control/pause", {}, { timeoutMs: 10_000 })' in open_and_queue_function
+    scoped_target = (APP_ROOT / "src/desktop_auth_scope.ts").read_text(encoding="utf-8")
+    assert "normalizeAuthChallengeUrl(candidate)" in scoped_target
+    assert "target_url: authScopeTarget(state.lastOverview, scope" in main_js
+    helper = (REPO_ROOT / "tools/pc1_desktop_auth.py").read_text(encoding="utf-8")
+    assert "target_identity(url)" in helper
+    assert 'url.scheme != "https"' in helper
+    assert "url.username or url.password" in helper
 
 
 def test_auth_challenge_manual_mode_never_submits_background_solver_request() -> None:
@@ -241,44 +202,32 @@ def test_auth_challenge_manual_mode_never_submits_background_solver_request() ->
     assert "function buildSolverReportPayload" not in main_js
     assert "/api/report_captcha" not in main_js
 
-    open_and_queue_function = main_js[
-        main_js.index("async function openAndQueueAuthChallenge"):
-        main_js.index("function closeAuthChallenge")
-    ]
-    assert 'postJson("/api/collection/control/pause", {}, { timeoutMs: 10_000 })' in open_and_queue_function
-
-    queue_function = main_js[
-        main_js.index("async function queueAuthChallenge"):
-        main_js.index("async function resumeAfterAuthChallenge")
-    ]
-    assert 'postJson("/api/collection/control/pause", {}, { timeoutMs: 10_000 })' in queue_function
+    assert "queueAuthChallenge" not in main_js
+    assert "提交认证任务" not in main_js
+    helper = (REPO_ROOT / "tools/pc1_desktop_auth.py").read_text(encoding="utf-8")
+    assert '"-HumanAuthMode"' in helper
+    assert "required_target_id=selected" in helper
 
 
-def test_auth_challenge_network_calls_have_timeout_and_resume_does_not_wait_for_cookie_export() -> None:
+def test_auth_challenge_network_is_bounded_and_completion_waits_for_verification() -> None:
     main_js = _frontend_js()
 
     assert "function fetchWithTimeout" in main_js
     assert "AbortController" in main_js
     assert "timeoutMs" in main_js
-    assert 'postJson("/api/collection/control/pause", {}, { timeoutMs: 10_000 })' in main_js
-
-    auth_resume_function = main_js[
-        main_js.index("async function resumeAfterAuthChallenge"):
-        main_js.index("async function reloadAll")
-    ]
-    assert 'postJson("/api/collection/auth/complete"' in auth_resume_function
-    assert "{ timeoutMs: 10_000 }" in auth_resume_function
-    assert 'refresh_cookie_snapshot: !tauriRuntime' in auth_resume_function
-    assert 'tryInvoke("export_taobao_cookie_snapshot"' in auth_resume_function
+    assert 'run(phase === "pending_pc2" ? "status" : "complete")' in main_js
+    assert "if (result.completed)" in main_js
+    assert "refresh_cookie_snapshot" not in main_js
+    client = (REPO_ROOT / "tools/pc1_desktop_recovery.py").read_text(encoding="utf-8")
+    assert "timeout=20" in client
+    assert "NoRedirect" in client
 
 
 def test_tauri_inplace_auth_uses_port_9225_without_browser_restart_switch() -> None:
-    rust_lib = (APP_ROOT / "src-tauri" / "src" / "lib.rs").read_text(encoding="utf-8")
-
-    cookie_export_function = rust_lib[rust_lib.index("fn export_taobao_cookie_snapshot") :]
-    assert "complete-pc1-inplace-auth.ps1" in cookie_export_function
-    assert 'unwrap_or_else(|| "9225".to_string())' in cookie_export_function
-    assert '"-SkipBrowserStart"' not in cookie_export_function
+    helper = (REPO_ROOT / "tools/pc1_desktop_auth.py").read_text(encoding="utf-8")
+    assert "handoff.complete_inplace_auth" in helper
+    assert '"FAPAI_AUTH_LOCAL_CDP_PORT") or 9225' in helper
+    assert '"-ForceNew"' not in helper
 
 
 def test_collector_desktop_frontend_can_run_as_plain_html_console() -> None:
@@ -291,28 +240,25 @@ def test_collector_desktop_frontend_can_run_as_plain_html_console() -> None:
     assert 'value="${defaultBrowserApiBase()}"' in main_js
     assert "state.apiBase = defaultBrowserApiBase();" in main_js
     assert "not running inside Tauri" in main_js
-    assert 'window.open(targetUrl, "_blank", "noopener,noreferrer")' in main_js
-    assert "cookie 快照将由当前采集节点刷新" in main_js
+    assert 'window.open(current.target_url, "_blank", "noopener,noreferrer")' in main_js
+    assert "普通浏览器无法读取挑战窗口的 cookie" in main_js
     assert "http://192.168.15.200:8001" in tauri_config["app"]["security"]["csp"]
 
 
-def test_runtime_start_always_forces_auth_complete_without_cookie_refresh() -> None:
+def test_runtime_start_preserves_authentication_and_restart_is_separate() -> None:
     main_js = _frontend_js()
 
-    assert "runtimeActionLabel(runtimeState)" in main_js
-    assert 'runtimeState === "运行中" ? "暂停" : "开始"' in main_js
-    assert "forceStartCollection" in main_js
+    assert 'paused ? "开始采集" : "暂停采集"' in main_js
+    assert "forceStartCollection" not in main_js
     toggle_function = main_js[
         main_js.index("async function toggleRuntimePause"):
-        main_js.index("async function forceStartCollection")
+        main_js.index("async function requestEngineRestart")
     ]
-    assert 'runtimeState === "运行中"' in toggle_function
-    assert "/api/collection/control/pause" in toggle_function
-    assert "await forceStartCollection()" in toggle_function
-    assert "/api/collection/control/resume" not in toggle_function
-    assert 'refresh_cookie_snapshot: false' in main_js
-    assert 'source: "collector_desktop_force_start"' in main_js
-    assert "正在开始采集（清除待认证/暂停标记并重新尝试）" in main_js
+    assert "dataset.action" in toggle_function
+    assert "await post(base, action, {})" in toggle_function
+    assert "/auth/complete" not in toggle_function
+    assert 'X-FAPAI-Control-Token' in main_js
+    assert 'await decision !== "confirm"' in main_js
 
 
 def test_runtime_state_prefers_server_provided_runtime_state_before_solver_fallback() -> None:
@@ -320,7 +266,7 @@ def test_runtime_state_prefers_server_provided_runtime_state_before_solver_fallb
 
     runtime_function = main_js[
         main_js.index("function runtimeStateFromOverview"):
-        main_js.index("function runtimeStateClass")
+        main_js.index("async function loadOverview")
     ]
     assert "data.runtime_state" in runtime_function
     assert 'return data.runtime_state;' in runtime_function
@@ -334,7 +280,7 @@ def test_runtime_state_fallback_keeps_running_for_detail_only_auth_when_seed_sta
 
     runtime_function = main_js[
         main_js.index("function runtimeStateFromOverview"):
-        main_js.index("function runtimeStateClass")
+        main_js.index("async function loadOverview")
     ]
     assert "last_request" in runtime_function
     assert "target_url" in runtime_function
@@ -363,25 +309,15 @@ def test_collector_desktop_auto_refreshes_every_sixty_seconds() -> None:
     assert "await loadRegions()" not in reload_all_function
 
 
-def test_collector_desktop_runtime_cards_show_challenge_metrics_and_auth_watcher_status() -> None:
+def test_collector_desktop_current_challenge_is_independent_and_overview_cannot_overwrite_handoff() -> None:
     main_js = _frontend_js()
 
-    assert "function formatPercent" in main_js
-    assert "function formatDurationSeconds" in main_js
-    assert "function authWatcherStatusLabel" in main_js
-    assert "function authWatcherStatusClass" in main_js
-    assert "function authWatcherStatusMessage" in main_js
-    assert "recent_challenge_hit_rate" in main_js
-    assert "current_challenge_hit_rate" in main_js
-    assert "recent_challenge_detected_count" in main_js
-    assert "recent_browserless_attempt_count" in main_js
-    assert "poll_seconds" in main_js
-    assert "max_wait_seconds" in main_js
-    assert "wait_elapsed_seconds" in main_js
-    assert "等待自动恢复" in main_js
-    assert "已自动恢复" in main_js
-    assert "自动恢复超时" in main_js
-    assert "后台 watcher 会自动检测恢复并让 PC2 续跑" in main_js
+    assert "authWatcherStatusMessage" not in main_js
+    assert "function challengeActive" in main_js
+    assert "solver.scopes || solver.collection_scopes" in main_js
+    assert "force_reset_required" in main_js
+    views = (APP_ROOT / "src/desktop_collection_views.js").read_text(encoding="utf-8")
+    assert '$("authChallengeStatus")' not in views
 
 
 def test_collector_desktop_refreshes_region_status_separately_every_ten_minutes() -> None:
@@ -401,20 +337,24 @@ def test_collector_desktop_refreshes_region_status_separately_every_ten_minutes(
 def test_collector_desktop_overview_cards_show_recent_sixty_second_growth() -> None:
     main_js = _frontend_js()
 
-    assert "currentOverviewSample" in main_js
-    assert "previousOverviewSample" in main_js
-    assert "formatGrowthDelta" in main_js
-    assert "renderGrowthLine" in main_js
-    assert "近60秒增长" in main_js
-    assert "约" in main_js
-    assert "links.total" in main_js
-    assert "details.captured" in main_js
-    assert "analysis.finalized" in main_js
+    assert "function minuteGrowth" in main_js
+    assert "statistics.minute_delta" in main_js
+    assert "统计暂未更新" in main_js
+    assert "等待分钟采样" not in main_js
+    assert '["links", "unique_items"]' in main_js
+    assert '["details", "captured"]' in main_js
+    assert '["analysis", "finalized"]' in main_js
+    assert "now - 60_000" in main_js
+    assert "perMinute" not in main_js
 
 
 def test_collector_desktop_has_stage_specific_region_tabs_and_link_reset_control() -> None:
     main_js = _frontend_js()
     styles = (APP_ROOT / "src" / "styles.css").read_text(encoding="utf-8")
+    styles += "\n".join(
+        (APP_ROOT / "src" / relative).read_text(encoding="utf-8")
+        for relative in re.findall(r'@import "([^"]+)"', styles)
+    )
 
     assert "所在地" in main_js
     assert "provinceTabs" in main_js
@@ -441,8 +381,8 @@ def test_collector_desktop_has_stage_specific_region_tabs_and_link_reset_control
     assert "全部地区" in main_js
     assert "请先选择省份" in main_js
     assert "请先选择城市" in main_js
-    assert "此地区的链接是否已经全部收集完毕" in main_js
-    assert "此地区的商品是否已经完全完成了该阶段任务" in main_js
+    assert "aggregateRegionStatus" in main_js
+    assert "region.status_label" in main_js
     assert "region-panel" in styles
     assert "region-level" in styles
     assert "region-level-title" in styles
@@ -454,7 +394,7 @@ def test_collector_desktop_readme_documents_api_dependency_and_commands() -> Non
     readme = (APP_ROOT / "README.md").read_text(encoding="utf-8")
 
     assert "Rust + Tauri" in readme
-    assert "http://127.0.0.1:8001" in readme
+    assert "http://192.168.15.200:8001" in readme
     assert "npm run tauri:dev" in readme
     assert "npm run tauri:build" in readme
     assert "AI 再分析" in readme
@@ -489,11 +429,15 @@ def test_collector_desktop_local_deploy_script_builds_to_temp_and_copies_local_r
     assert "id_rsa" in script
     assert "Stop-Process" in script
     assert "Start-Process" in script
-    assert "CreateShortcut" in script
-    assert "WScript.Shell" in script
-    assert "FapaiFang 运维观察台.lnk" in script
-    assert "FapaiFang 采集观察台.lnk" in script
-    assert "Remove-Item -LiteralPath $legacyDesktopShortcutPath -Force" in script
+    assert "update-collector-desktop-shortcut.ps1" in script
+    assert "-ExpectedSha256 (Get-FileHash" in script
+    assert '[string]$DataRoot = ""' in script
+    assert '$previousEnvironment.FAPAI_DATA_ROOT_HOST' in script
+    assert '$previousEnvironment.FAPAI_AUTH_BROWSER_PROFILE_DIR' in script
+    shortcut = REPO_ROOT.joinpath("scripts", "update-collector-desktop-shortcut.ps1").read_text(encoding="utf-8")
+    assert "CreateShortcut" in shortcut
+    assert "WScript.Shell" in shortcut
+    assert "Crow.lnk" in shortcut
     assert "backup" in script.lower()
     assert "cmd /d /c" in script
     assert "Push-Location $env:SystemRoot" in script

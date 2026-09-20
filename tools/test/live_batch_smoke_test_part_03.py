@@ -135,6 +135,59 @@ def test_fetch_detail_with_browser_preserves_challenge_page_for_solver(monkeypat
         "navigation:goto",
     ]
 
+
+def test_fetch_detail_with_browser_reuses_existing_challenge_without_opening_another_page(
+    monkeypatch,
+) -> None:
+    fake_sync_api = types.ModuleType("playwright.sync_api")
+
+    class FakePlaywrightContext:
+        def __enter__(self):
+            return object()
+
+        def __exit__(self, *_args):
+            return None
+
+    fake_sync_api.sync_playwright = FakePlaywrightContext
+    fake_playwright = types.ModuleType("playwright")
+    fake_playwright.sync_api = fake_sync_api
+    monkeypatch.setitem(sys.modules, "playwright", fake_playwright)
+    monkeypatch.setitem(sys.modules, "playwright.sync_api", fake_sync_api)
+
+    class ExistingPage:
+        url = "https://sf-item.taobao.com/sf_item/3003.htm"
+        brought_to_front = False
+
+        def bring_to_front(self):
+            self.brought_to_front = True
+
+        @staticmethod
+        def content():
+            return "<html>_____tmd_____/punish x5secdata=challenge</html>"
+
+    existing_page = ExistingPage()
+
+    class FakeContext:
+        pages = [existing_page]
+
+        @staticmethod
+        def new_page():
+            raise AssertionError("an unresolved challenge must not open another detail page")
+
+    class FakeBrowser:
+        contexts = [FakeContext()]
+
+    monkeypatch.setattr(live_batch_smoke, "connect_browser_over_cdp", lambda *_args, **_kwargs: FakeBrowser())
+    monkeypatch.setattr(live_batch_smoke, "detach_attached_cdp_browser", lambda *_args, **_kwargs: None)
+
+    with pytest.raises(live_batch_smoke.DetailChallengeError, match="anti-bot challenge"):
+        live_batch_smoke.fetch_detail_with_browser(
+            {"id": "3004", "url": "https://sf-item.taobao.com/sf_item/3004.htm"},
+            cdp_endpoint="http://127.0.0.1:9223",
+        )
+
+    assert existing_page.brought_to_front is True
+
 def test_fetch_browser_list_page_falls_back_to_navigation_when_open_page_probe_closes(monkeypatch) -> None:
     events: list[str] = []
 

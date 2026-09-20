@@ -156,7 +156,7 @@ def test_collect_list_union_raises_when_first_page_fetch_error_leaves_no_success
             ),
         )
 
-def test_collect_list_union_challenge_stops_only_same_sort_key(monkeypatch) -> None:
+def test_collect_list_union_challenge_stops_all_sort_keys(monkeypatch) -> None:
     class _FakeProbe:
         DEFAULT_USER_AGENT = live_batch_smoke.DEFAULT_USER_AGENT
 
@@ -217,19 +217,14 @@ def test_collect_list_union_challenge_stops_only_same_sort_key(monkeypatch) -> N
         ),
     )
 
-    assert len(fetched) == 5
+    assert len(fetched) == 2
     assert "st_param=2&page=3" not in "".join(fetched)
-    assert any("st_param=1&page=3" in url for url in fetched)
+    assert not any("st_param=1" in url for url in fetched)
     sources = result["list_union"]["sources"]
-    assert sources[2]["skipped"] is True
-    assert sources[2]["skip_reason"] == "previous_empty_page"
-    assert sources[5]["eligible_item_count"] == 1
-    assert [item["id"] for item in result["items"]] == [
-        "st2-page1",
-        "st1-page1",
-        "st1-page2",
-        "st1-page3",
-    ]
+    assert len(sources) == 2
+    assert sources[1]["body_has_challenge"] is True
+    assert result["challenge_break"]["scope"] == "list"
+    assert [item["id"] for item in result["items"]] == ["st2-page1"]
 
 def test_build_area_followup_queue_includes_only_area_missing_items(tmp_path: Path) -> None:
     summary = {

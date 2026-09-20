@@ -370,6 +370,7 @@ def test_run_detail_worker_batch_does_not_retry_same_failed_item_in_same_batch(t
             do_risk=False,
             success_delay_seconds=9.0,
             failure_delay_seconds=1.25,
+            pacing_jitter_ratio=0.0,
         ),
         repository=repo,
         http_session=object(),
@@ -383,7 +384,7 @@ def test_run_detail_worker_batch_does_not_retry_same_failed_item_in_same_batch(t
     assert [result["item_id"] for result in summary["results"]] == ["3001", "3002"]
     assert sleep_calls == [1.25]
 
-def test_run_detail_worker_batch_has_no_default_delay_between_successful_items(
+def test_run_detail_worker_batch_applies_default_jittered_delay_between_successful_items(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
@@ -398,6 +399,11 @@ def test_run_detail_worker_batch_has_no_default_delay_between_successful_items(
 
     monkeypatch.setattr(detail_worker, "run_detail_worker_once", lambda *_args, **_kwargs: next(results))
     monkeypatch.setattr(detail_worker.time, "sleep", sleep_calls.append)
+    monkeypatch.setattr(
+        detail_worker,
+        "jittered_delay_seconds",
+        lambda base, ratio: base + ratio,
+    )
 
     summary = detail_worker.run_detail_worker_batch(
         detail_worker.DetailWorkerConfig(
@@ -414,4 +420,4 @@ def test_run_detail_worker_batch_has_no_default_delay_between_successful_items(
     )
 
     assert summary["completed"] == 2
-    assert sleep_calls == []
+    assert sleep_calls == [6.35]

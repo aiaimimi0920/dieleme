@@ -34,6 +34,7 @@ if str(REPO_ROOT) not in sys.path:
 from src.storage.repository import PropertyRepository, create_repository_from_env
 from src.collection.adapter_resolver import collection_adapter_from_env
 from src.collection.contracts import CollectionAdapter
+from src.collection.pacing import jittered_delay_seconds
 from src.collection.seed_list_parser import GenericJsonSeedListParser, SeedListParser, TaobaoSeedListParser
 from src.collection.seed_scan_policy import DEFAULT_SEED_SCAN_POLICY, GenericSeedScanPolicy, SeedScanPolicy
 from src.collection.runtime_adapter import resolve_record_adapter
@@ -73,7 +74,7 @@ STATUS_UNAVAILABLE_RETRY_ATTEMPTS = 3
 
 STATUS_UNAVAILABLE_RETRY_SLEEP_SECONDS = 1.0
 
-DEFAULT_AUTH_PROBE_INTERVAL_SECONDS = 60
+DEFAULT_AUTH_PROBE_INTERVAL_SECONDS = 900
 
 @dataclass(frozen=True)
 class SeedSortSpec:
@@ -133,6 +134,8 @@ class SeedCollectorConfig:
     active_loop_interval_seconds: int | None = None
     max_runs: int | None = None
     pages_per_run: int = 10
+    page_delay_seconds: float = 8.0
+    pacing_jitter_ratio: float = 0.35
     solver_enabled: bool = False
     manual_challenge_reporting: bool = False
     api_base_url: str = ""
@@ -185,6 +188,7 @@ __all__ = (
     'create_repository_from_env',
     'collection_adapter_from_env',
     'CollectionAdapter',
+    'jittered_delay_seconds',
     'GenericJsonSeedListParser',
     'SeedListParser',
     'TaobaoSeedListParser',

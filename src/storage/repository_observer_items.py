@@ -57,13 +57,14 @@ class RepositoryObserverItemsMixin:
                 .offset(safe_offset)
                 .limit(safe_limit)
             ).all()
+            occurrences = self._latest_seed_occurrence_payloads(session, [row.item_id for row in rows])
             return {
                 "stage": normalized_stage,
                 "limit": safe_limit,
                 "offset": safe_offset,
                 "location_code": safe_location_code or None,
                 "total": total,
-                "items": [self._seed_item_observer_payload(session, row) for row in rows],
+                "items": [self._seed_item_observer_payload(session, row, occurrences) for row in rows],
             }
 
     @staticmethod

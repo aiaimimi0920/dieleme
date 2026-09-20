@@ -76,7 +76,8 @@ def collect_list_union(
     first_fetch: dict[str, Any] | None = None
     successful_payload_count = 0
 
-    for spec in specs:
+    challenge_break: dict[str, Any] | None = None
+    for spec_index, spec in enumerate(specs):
         key = (
             str(spec.get("location_code") or ""),
             str(spec.get("category") or ""),
@@ -104,10 +105,11 @@ def collect_list_union(
             )
             list_summary = browserless_seed_probe.summarize_list_page(list_html, final_url=list_final_url)
             payload = browserless_seed_probe.extract_list_payload(list_html)
+            recorded_final_url = _safe_list_result_url(list_final_url)
             record.update(
                 {
                     "list_status": list_status,
-                    "list_final_url": list_final_url,
+                    "list_final_url": recorded_final_url,
                     "list_fetch_method": list_fetch_method,
                     "list_item_count": list_summary.get("item_count") if isinstance(list_summary, dict) else None,
                     "body_has_challenge": list_summary.get("body_has_challenge") if isinstance(list_summary, dict) else None,
@@ -118,11 +120,35 @@ def collect_list_union(
             )
             if first_fetch is None:
                 first_fetch = dict(record)
-            if payload is None:
-                record["error"] = f"list payload missing: {list_summary}"
+            if _list_final_url_has_challenge(list_final_url):
+                record["error"] = "list challenge URL"
                 list_fetches.append(record)
-                if isinstance(list_summary, dict) and list_summary.get("body_has_challenge"):
+                stopped_keys.add(key)
+                challenge_break = {
+                    "scope": "list",
+                    "operation": "list page fetch",
+                    "retry_after_seconds": max(float(config.challenge_cooldown_seconds), 0.0),
+                }
+                break
+            if payload is None:
+                list_has_challenge = bool(
+                    isinstance(list_summary, dict)
+                    and any(
+                        list_summary.get(key)
+                        for key in ("body_has_challenge", "body_has_login", "body_has_punish")
+                    )
+                )
+                record["error"] = "list challenge page" if list_has_challenge else "list payload missing"
+                list_fetches.append(record)
+                if list_has_challenge:
                     stopped_keys.add(key)
+                    challenge_break = {
+                        "scope": "list",
+                        "operation": "list page fetch",
+                        "retry_after_seconds": max(float(config.challenge_cooldown_seconds), 0.0),
+                    }
+                    break
+                _sleep_between_list_sources(config, spec_index=spec_index, source_count=len(specs))
                 continue
 
             successful_payload_count += 1
@@ -147,8 +173,9 @@ def collect_list_union(
             list_fetches.append(record)
             if config.list_stop_on_empty and int(spec.get("page") or 1) > 1:
                 stopped_keys.add(key)
+        _sleep_between_list_sources(config, spec_index=spec_index, source_count=len(specs))
 
-    if successful_payload_count == 0:
+    if successful_payload_count == 0 and challenge_break is None:
         raise RuntimeError(f"list payload missing for all list sources: {list_fetches[:5]}")
 
     all_items, duplicate_item_count = deduplicate_list_items(raw_items)
@@ -156,6 +183,7 @@ def collect_list_union(
     fetched_source_count = sum(1 for record in list_fetches if not record.get("skipped"))
     return {
         "items": all_items,
+        "challenge_break": challenge_break,
         "first_fetch": first_fetch or {},
         "list_union": {
             "source_count": source_count,
@@ -169,4 +197,51 @@ def collect_list_union(
         },
     }
 
-__all__ = ('expand_list_urls', 'deduplicate_list_items', 'collect_list_union')
+
+def _list_final_url_has_challenge(final_url: str) -> bool:
+    lowered = str(final_url or "").lower()
+    parsed = urlparse(lowered)
+    host = parsed.hostname or ""
+    path = parsed.path or ""
+    return (
+        host in {"sec.taobao.com", "login.taobao.com", "login.m.taobao.com"}
+        or "havanaone/login" in lowered
+        or "/challenge" in path
+        or "/_____tmd_____/punish" in lowered
+        or "x5secdata=" in lowered
+        or "x5step=" in lowered
+    )
+
+
+def _safe_list_result_url(final_url: str) -> str:
+    text = str(final_url or "")
+    if not _list_final_url_has_challenge(text):
+        return text
+    parsed = urlparse(text)
+    return urlunparse(parsed._replace(query="", fragment=""))
+
+
+def _sleep_between_list_sources(
+    config: LiveSmokeConfig,
+    *,
+    spec_index: int,
+    source_count: int,
+) -> None:
+    if spec_index + 1 >= source_count:
+        return
+    delay_seconds = jittered_delay_seconds(
+        config.list_delay_seconds,
+        config.pacing_jitter_ratio,
+    )
+    if delay_seconds > 0:
+        time.sleep(delay_seconds)
+
+
+__all__ = (
+    'expand_list_urls',
+    'deduplicate_list_items',
+    'collect_list_union',
+    '_list_final_url_has_challenge',
+    '_safe_list_result_url',
+    '_sleep_between_list_sources',
+)

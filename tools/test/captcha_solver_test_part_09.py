@@ -234,6 +234,8 @@ def test_linux_window_focus_activates_visible_chromium(monkeypatch) -> None:
         calls.append(tuple(command))
         if command[1] == "search":
             return Result(stdout="101\n" if command[-1] == "chromium" else "")
+        if command[1] == "getwindowfocus":
+            return Result(stdout="101\n" if any(call[1] == "windowactivate" for call in calls) else "")
         return Result()
 
     solver = captcha_solver.CaptchaSolver(port=9223)
@@ -259,6 +261,8 @@ def test_linux_window_focus_fails_when_exact_target_cannot_be_reactivated(monkey
         calls.append(tuple(command))
         if command[1] == "search":
             return Result(stdout="101\n" if command[-1] == "chromium" else "")
+        if command[1] == "getwindowfocus":
+            return Result(stdout="101\n" if any(call[1] == "windowactivate" for call in calls) else "")
         return Result()
 
     activations = iter((True, False))

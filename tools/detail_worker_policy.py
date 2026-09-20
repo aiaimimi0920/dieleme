@@ -230,33 +230,34 @@ def _captcha_report_suppresses_challenge(report: Any) -> bool:
     }
 
 
-def _detail_challenge_should_break_batch(config: DetailWorkerConfig, result: dict[str, Any]) -> bool:
+def _detail_challenge_should_break_batch(_config: DetailWorkerConfig, result: dict[str, Any]) -> bool:
     if result.get("decision") != "detail_item_retryable_failure":
         return False
     if result.get("reason") == "detail_cdp_unreachable":
         return True
-    captcha_solver_report = result.get("captcha_solver_report")
-    report_status = (
-        str(captcha_solver_report.get("status") or "").strip().lower()
-        if isinstance(captcha_solver_report, dict)
-        else ""
-    )
-    # A force reset means "try collection again once", not "hammer the same
-    # blocked scope for the whole batch". Keep recent-auth suppression separate:
-    # after a real solve, short-lived stale challenge reports may still continue.
-    if report_status == "recent_force_reset":
-        return True
-    if not (config.solver_enabled or config.manual_challenge_reporting):
-        return False
-    if result.get("reason") != "detail_challenge_page":
-        return False
-    if isinstance(captcha_solver_report, dict):
-        solver_status = str(captcha_solver_report.get("status") or "").strip().lower()
-        if solver_status == "already_running" or _captcha_report_suppresses_challenge(
-            captcha_solver_report
-        ):
-            return False
-    return True
+    return result.get("reason") in {
+        "detail_challenge_page",
+        "detail_stale_challenge_ignored",
+    }
+
+
+def _detail_challenge_retry_after_seconds(
+    config: DetailWorkerConfig,
+    result: dict[str, Any],
+) -> int:
+    if not _detail_challenge_should_break_batch(config, result):
+        return 0
+    retry_after = max(int(config.challenge_cooldown_seconds), 0)
+    report = result.get("captcha_solver_report")
+    if isinstance(report, dict):
+        try:
+            retry_after = max(
+                retry_after,
+                int(math.ceil(max(float(report.get("retry_after_seconds") or 0), 0.0))),
+            )
+        except (TypeError, ValueError):
+            pass
+    return retry_after
 
 
 def _env_bool(name: str, default: bool = False) -> bool:
@@ -298,6 +299,7 @@ __all__ = (
     '_challenge_retry_budget_preserved',
     '_captcha_report_suppresses_challenge',
     '_detail_challenge_should_break_batch',
+    '_detail_challenge_retry_after_seconds',
     '_env_bool',
     '_build_cdp_unreachable_health',
 )

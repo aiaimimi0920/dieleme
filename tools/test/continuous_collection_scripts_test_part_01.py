@@ -194,9 +194,15 @@ def test_pc1_nas_auth_recovery_watcher_keeps_single_window_and_publishes_only_me
     assert "$request.KeepAlive = $false" in script
     assert "$stream.ReadTimeout = 3000" in script
     assert '$withinWindow' in script
-    assert 'Test-TaobaoAuthPageExists' in script
-    assert 'if (-not $existingAuthPage -and -not $withinWindow)' in script
+    assert 'Get-Pc1RecoveryTab' in script
+    assert 'if ($null -eq $authTab -and -not $withinWindow)' in script
+    assert 'Show-Pc1RecoveryPrompt' in script
+    assert '-TargetId $authTab.id' in script
+    assert '-AllowListOnly' not in script
+    assert 'last_probe_exit_code' in script
     assert 'complete-pc1-inplace-auth.ps1' in script
+    assert 'resolve-pc1-auth-python.ps1' in script
+    assert 'Resolve-Pc1AuthPython' in script
     assert 'Get-FileHash -LiteralPath $OutputPath -Algorithm SHA256' in script
     assert 'X-Fapai-Recovery-Token' in script
     assert 'secrets\\nas-auth-recovery.token' in script
@@ -217,9 +223,18 @@ def test_register_pc1_nas_auth_recovery_task_is_interactive_single_flight() -> N
     assert 'LogonType Interactive' in script
     assert 'LoginWindowSeconds must be at least 300' in script
     assert '"-TokenPath", "`"$TokenPath`""' in script
+    assert '"-Python", "`"$resolvedPython`""' in script
     assert '"-ProfileDir", "`"$ProfileDir`""' in script
     assert '"-BrowserPath", "`"$BrowserPath`""' in script
     assert 'ExecutionTimeLimit (New-TimeSpan -Minutes $ExecutionTimeLimitMinutes)' in script
+
+
+def test_desktop_runtime_config_pins_python_with_requests_preflight() -> None:
+    script = _script("write-collector-desktop-runtime-config.ps1")
+
+    assert "resolve-pc1-auth-python.ps1" in script
+    assert "Resolve-Pc1AuthPython" in script
+    assert "FAPAI_DESKTOP_PYTHON_PATH = $resolvedPython" in script
 
 
 def test_deploy_pc2_llm_helper_hotfix_uses_ssh_hash_verification_and_optional_analysis_restart() -> None:

@@ -55,3 +55,10 @@ node_modules/
 dist/
 target/
 collector-desktop/src-tauri/gen/
+
+# Local agent / tooling caches (never commit)
+.codex-temp/
+.memsearch/
+.playwright-cli/
+graphify-out/
+src/graphify-out/

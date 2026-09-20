@@ -39,7 +39,8 @@ def _normalize_solver_target_url(value: Any) -> str:
     except ValueError:
         return target_url
 
-    if (parsed.hostname or "").lower() != "sf.taobao.com":
+    hostname = (parsed.hostname or "").lower()
+    if hostname != "taobao.com" and not hostname.endswith(".taobao.com"):
         return target_url
 
     path = parsed.path
@@ -50,7 +51,10 @@ def _normalize_solver_target_url(value: Any) -> str:
         path = path[:marker_index]
     while "//" in path:
         path = path.replace("//", "/")
-    if "/list/" not in path.lower():
+    lowered_path = path.lower()
+    if hostname == "sf-item.taobao.com" and re.fullmatch(r"/sf_item/\d+\.htm", lowered_path):
+        return urlunsplit((parsed.scheme or "https", parsed.netloc, path, "", ""))
+    if hostname != "sf.taobao.com" or "/list/" not in lowered_path:
         return target_url
 
     source_query = dict(parse_qsl(parsed.query, keep_blank_values=True))

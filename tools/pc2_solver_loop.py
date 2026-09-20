@@ -8,6 +8,7 @@ from tools.pc2_solver_auth_pending import *  # noqa: F401,F403
 from tools.pc2_solver_cdp import *  # noqa: F401,F403
 from tools.pc2_solver_execution import *  # noqa: F401,F403
 from tools.pc2_solver_loop_control import *  # noqa: F401,F403
+from tools.pc2_solver_manual_handoff import *  # noqa: F401,F403
 
 
 def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, max_attempts=None, expected_node_id=None):
@@ -77,7 +78,12 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
             if (
                 solver_status_requires_manual_only(solver_status)
                 and not manual_challenge_registration_needed(solver_status)
+                and not _node_solver_cooldown_can_resume(fallback_state, solver_status)
             ):
+                if fallback_state.get("terminal_manual_pending"):
+                    fallback_state["terminal_manual_pending"] = False
+                    fallback_state["manual_pushed"] = True
+                    _save_fallback_state(fallback_state)
                 log_event({"kind": "waiting_for_manual_auth", "challenge_id": solver_status.get("challenge_id")})
                 time.sleep(poll_seconds)
                 continue
@@ -94,6 +100,13 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                     "kind": "slider_challenge_changed",
                     "challenge_id": fallback_state.get("challenge_id"),
                 })
+            if retry_terminal_manual_report(
+                fallback_state, solver_status,
+                lambda: notify_manual_challenge(api_base_url, solver_status, expected_node_id),
+                _save_fallback_state,
+            ):
+                time.sleep(poll_seconds)
+                continue
             cooldown_started = _begin_solver_cooldown_if_needed(fallback_state)
             if cooldown_started:
                 _save_fallback_state(fallback_state)
@@ -397,42 +410,23 @@ def local_solver_loop(api_base_url=None, cdp_endpoint=None, poll_seconds=None, m
                 challenge_id=fallback_state.get("challenge_id"),
                 attempt=scheduled_attempt,
             )
-            success = run_solver_local_with_deadline(
-                cdp_endpoint,
-                target_url,
-                max_attempts=max_attempts,
-                probe_target=probe_target,
-                drag_profile_offset=drag_profile_offset,
+            success = attempt_or_manual_handoff(
+                lambda: run_solver_local_with_deadline(cdp_endpoint, target_url,
+                    max_attempts=max_attempts, probe_target=probe_target, drag_profile_offset=drag_profile_offset),
+                fallback_state, solver_status,
+                lambda: notify_manual_challenge(api_base_url, solver_status, expected_node_id),
+                _save_fallback_state,
             )
+            if success is None:
+                write_solver_heartbeat("waiting_for_manual_auth")
+                log_event({"kind": "terminal_manual_handoff", "scope": solver_status.get("scope")})
+                time.sleep(poll_seconds)
+                continue
             write_solver_heartbeat("polling")
             if success:
-                log_event({"kind": "local_solver_success"})
-                completed_state = _load_fallback_state()
-                completed_state["slider_attempt_started_at"] = None
-                completed_state["slider_last_progress_at"] = time.time()
-                _save_fallback_state(completed_state)
-                completion_status = select_solver_scope_status(
-                    read_solver_status(api_base_url),
-                    preferred_challenge_id=solver_status.get("challenge_id"),
+                confirmation = confirm_local_solver_success(
+                    api_base_url, solver_status, target_url, cdp_endpoint, expected_node_id,
                 )
-                completion_challenge_id = _completion_challenge_id(
-                    solver_status,
-                    completion_status,
-                    target_url,
-                    cdp_endpoint,
-                    expected_node_id,
-                )
-                log_event({
-                    "kind": "auth_completion_challenge_resolved",
-                    "started_challenge_id": solver_status.get("challenge_id"),
-                    "completion_challenge_id": completion_challenge_id,
-                })
-                pending_state = _mark_auth_complete_pending(
-                    target_url,
-                    challenge_id=completion_challenge_id,
-                )
-                confirmation = _retry_pending_auth_confirmation(api_base_url, state=pending_state)
-                log_event({"kind": "auth_complete_result", "result": confirmation})
                 if confirmation.get("confirmed"):
                     last_auth_confirmed_at = time.time()
                     local_solver_loop._probe_counter = 0

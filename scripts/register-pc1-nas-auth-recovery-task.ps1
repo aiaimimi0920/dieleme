@@ -5,6 +5,7 @@ param(
     [string]$DataRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData"),
     [string]$OutputPath = "",
     [string]$TokenPath = "",
+    [string]$Python = "",
     [string]$ProfileDir = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData\chrome-cdp-profile-pc1-human-clean"),
     [string]$BrowserPath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
     [int]$Port = 9225,
@@ -21,6 +22,12 @@ if ($LoginWindowSeconds -lt 300) { throw "LoginWindowSeconds must be at least 30
 if ($ExecutionTimeLimitMinutes -lt 5) { throw "ExecutionTimeLimitMinutes must be at least 5." }
 
 $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
+$pythonResolver = Join-Path $repoRoot "scripts\resolve-pc1-auth-python.ps1"
+if (-not (Test-Path -LiteralPath $pythonResolver -PathType Leaf)) {
+    throw "PC1 auth Python resolver not found: $pythonResolver"
+}
+. $pythonResolver
+$resolvedPython = Resolve-Pc1AuthPython -Requested $Python
 $watcher = [System.IO.Path]::GetFullPath((Join-Path $repoRoot "scripts\watch-pc1-nas-auth-recovery.ps1"))
 if (-not (Test-Path -LiteralPath $watcher)) {
     throw "NAS auth recovery watcher not found: $watcher"
@@ -39,6 +46,7 @@ $arguments = @(
     "-DataRoot", "`"$DataRoot`"",
     "-OutputPath", "`"$OutputPath`"",
     "-TokenPath", "`"$TokenPath`"",
+    "-Python", "`"$resolvedPython`"",
     "-ProfileDir", "`"$ProfileDir`"",
     "-BrowserPath", "`"$BrowserPath`"",
     "-Port", $Port,

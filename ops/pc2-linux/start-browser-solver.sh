@@ -278,7 +278,12 @@ connection = websocket.create_connection(
 try:
     connection.send(json.dumps({"id": 1, "method": "Page.navigate", "params": {"url": start_url}}))
     while True:
-        message = json.loads(connection.recv())
+        try:
+            message = json.loads(connection.recv())
+        except websocket.WebSocketTimeoutException:
+            # A slow site must not terminate the healthy browser and its supervisor.
+            print(json.dumps({"kind": "initial_navigation_pending", "reason": "cdp_response_timeout"}))
+            break
         if message.get("id") != 1:
             continue
         if message.get("error"):

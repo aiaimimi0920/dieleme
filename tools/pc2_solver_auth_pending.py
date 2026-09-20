@@ -173,4 +173,28 @@ def _retry_pending_auth_confirmation(api_base_url, state=None, now=None):
         "state": state,
     }
 
-__all__ = ('_new_auth_completion_id', '_mark_auth_complete_pending', '_completion_challenge_id', '_auth_complete_retry_delay', '_clear_expired_auth_confirmation', '_retry_pending_auth_confirmation')
+def confirm_local_solver_success(api_base_url, solver_status, target_url, cdp_endpoint, expected_node_id):
+    log_event({"kind": "local_solver_success"})
+    completed_state = _load_fallback_state()
+    completed_state["slider_attempt_started_at"] = None
+    completed_state["slider_last_progress_at"] = time.time()
+    _save_fallback_state(completed_state)
+    completion_status = select_solver_scope_status(
+        read_solver_status(api_base_url),
+        preferred_challenge_id=solver_status.get("challenge_id"),
+    )
+    completion_challenge_id = _completion_challenge_id(
+        solver_status, completion_status, target_url, cdp_endpoint, expected_node_id,
+    )
+    log_event({
+        "kind": "auth_completion_challenge_resolved",
+        "started_challenge_id": solver_status.get("challenge_id"),
+        "completion_challenge_id": completion_challenge_id,
+    })
+    pending_state = _mark_auth_complete_pending(target_url, challenge_id=completion_challenge_id)
+    confirmation = _retry_pending_auth_confirmation(api_base_url, state=pending_state)
+    log_event({"kind": "auth_complete_result", "result": confirmation})
+    return confirmation
+
+
+__all__ = ('_new_auth_completion_id', '_mark_auth_complete_pending', '_completion_challenge_id', '_auth_complete_retry_delay', '_clear_expired_auth_confirmation', '_retry_pending_auth_confirmation', 'confirm_local_solver_success')

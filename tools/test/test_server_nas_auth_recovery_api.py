@@ -307,6 +307,9 @@ def test_successful_pc2_result_clears_auth_pause_then_waits_for_real_progress(mo
     calls = []
 
     class ResultCoordinator:
+        def snapshot(self):
+            return {"active": {"recovery_id": "auth-recovery-1"}}
+
         def result(self, recovery_id, *, success, reason=""):
             calls.append((recovery_id, success, reason))
             return {"ok": True, "status": "verifying"}
@@ -359,7 +362,7 @@ def test_unhealthy_cookie_signal_requires_an_active_solver_pause(monkeypatch):
     assert server._nas_auth_recovery_signal() == "captcha_manual_required"
 
 
-def test_stalled_detail_challenge_is_an_independent_auth_recovery_signal(monkeypatch):
+def test_stalled_stage_challenges_are_independent_auth_recovery_signals(monkeypatch):
     monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver")
     monkeypatch.setattr(server, "NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS", 300)
     monkeypatch.setattr(server, "_auth_cookie_snapshot_runtime_status", lambda: {"status": "idle"})
@@ -375,7 +378,7 @@ def test_stalled_detail_challenge_is_an_independent_auth_recovery_signal(monkeyp
             },
         },
     )
-    assert server._nas_auth_recovery_signal() is None
+    assert server._nas_auth_recovery_signal() == "seed_challenge_stalled"
 
     monkeypatch.setattr(
         server,
@@ -425,7 +428,7 @@ def test_node_solver_blocked_report_persists_strong_recovery_signal(monkeypatch,
 
     assert first["status"] == "node_solver_blocked"
     assert first["scope"] == "detail"
-    assert first["captcha_solver"]["manual_required"] is False
+    assert first["captcha_solver"]["manual_required"] is True
     assert first["captcha_solver"]["scopes"]["detail"]["node_solver_blocked"] is True
     assert first["captcha_solver"]["scopes"]["detail"][
         "node_solver_blocked_reason"
@@ -436,7 +439,7 @@ def test_node_solver_blocked_report_persists_strong_recovery_signal(monkeypatch,
     assert second["captcha_solver"]["scopes"]["detail"][
         "node_solver_blocked_at_epoch"
     ] == blocked_at
-    assert server._nas_auth_recovery_signal() == "node_solver_retries_exhausted"
+    assert server._nas_auth_recovery_signal() == "captcha_manual_required"
 
     assert server._clear_solver_challenge_state(scope="detail") is None
     assert server._nas_auth_recovery_signal() is None

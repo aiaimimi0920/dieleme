@@ -1,0 +1,68 @@
+:root {
+  color-scheme: dark;
+  /* Canonical palette: docs/design/neuro/tokens.json. */
+  --bg: #06080d;
+  --surface: #090c11;
+  --panel: #0e1218;
+  --rail: #070a0f;
+  --control: #111720;
+  --control-hover: #18222c;
+  --line: rgba(255, 255, 255, 0.12);
+  --text: #f7f8ef;
+  --muted: #929a9f;
+  --primary: #d9ff38;
+  --ok: #22c55e;
+  --info: #06b6d4;
+  --bad: #f43f5e;
+  --warn: var(--primary);
+  --focus-surface: #f3f5f1;
+  --focus-ink: #20252b;
+  --focus-muted: #656b72;
+  --primary-hover: color-mix(in srgb, var(--primary) 86%, white);
+  --primary-pressed: color-mix(in srgb, var(--primary) 82%, black);
+  --primary-soft: color-mix(in srgb, var(--primary) 14%, var(--panel));
+  --primary-line: color-mix(in srgb, var(--primary) 42%, var(--line));
+  --on-primary: color-mix(in srgb, var(--primary) 14%, black);
+  --ok-soft: color-mix(in srgb, var(--ok) 14%, var(--panel));
+  --ok-text: color-mix(in srgb, var(--ok) 76%, white);
+  --info-soft: color-mix(in srgb, var(--info) 12%, var(--panel));
+  --info-text: color-mix(in srgb, var(--info) 76%, white);
+  --bad-soft: color-mix(in srgb, var(--bad) 12%, var(--panel));
+  --bad-text: color-mix(in srgb, var(--bad) 78%, white);
+  --shadow: rgba(0, 0, 0, 0.38);
+  --font-mono: "Cascadia Code", Consolas, ui-monospace, monospace;
+  font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--control-hover) transparent;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

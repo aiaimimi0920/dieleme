@@ -26,6 +26,22 @@ def get_cdp_page_url(cdp_endpoint):
     except Exception:
         return None
 
+
+def _challenge_target_matches_request(solver, target_url, tab_url):
+    requested = solver._solver_target_route(target_url)
+    candidate = solver._solver_target_route(tab_url)
+    if requested == candidate:
+        return True
+    if (_challenge_scope_for_url(target_url) != "seed"
+            or not CaptchaSolver._is_manual_challenge_url(tab_url)):
+        return False
+    # The site may omit list parameters on its challenge redirect. This fallback
+    # locates that challenge only; authenticated-page matching remains exact.
+    expected, redirected = urlsplit(requested), urlsplit(candidate)
+    return not redirected.query and (
+        expected.scheme, expected.netloc, expected.path
+    ) == (redirected.scheme, redirected.netloc, redirected.path)
+
 def check_cdp_browser_for_challenge_page(cdp_endpoint, target_url=None):
     """Find an existing challenge target using metadata, then fail-closed DOM evidence."""
     solver = None
@@ -60,7 +76,7 @@ def check_cdp_browser_for_challenge_page(cdp_endpoint, target_url=None):
             candidates = [
                 tab
                 for tab in candidates
-                if solver._solver_target_route(tab.get("url")) == requested_route
+                if _challenge_target_matches_request(solver, target_url, tab.get("url"))
             ]
         if candidates:
             tab = candidates[0]
@@ -181,6 +197,8 @@ def check_cdp_browser_for_authenticated_target(cdp_endpoint, target_url):
             elif requested_route and solver._solver_target_route(tab_url) == requested_route:
                 route_tabs.append(tab)
         scoped_tabs = exact_tabs + route_tabs
+        if _challenge_scope_for_url(target_url) == "seed" and not scoped_tabs:
+            return None
         target_scoped = bool(scoped_tabs)
         candidates = scoped_tabs or page_tabs
         if not candidates:
@@ -263,7 +281,7 @@ def check_cdp_browser_for_slider(cdp_endpoint, target_url=None):
                 challenge_tabs = [
                     tab
                     for tab in challenge_tabs
-                    if solver._solver_target_route(tab.get("url")) == requested_route
+                    if _challenge_target_matches_request(solver, target_url, tab.get("url"))
                 ]
         for target in challenge_tabs + page_tabs + other_tabs:
             ws_url = str(target.get("webSocketDebuggerUrl") or "").strip()
@@ -316,4 +334,4 @@ def check_cdp_browser_for_slider(cdp_endpoint, target_url=None):
         })
         return None
 
-__all__ = ('get_cdp_page_url', 'check_cdp_browser_for_challenge_page', 'solver_request_target_urls', 'solver_request_target_url', 'match_solver_request_target_url', 'check_cdp_browser_for_authenticated_target', 'check_cdp_browser_for_slider')
+__all__ = ('get_cdp_page_url', '_challenge_target_matches_request', 'check_cdp_browser_for_challenge_page', 'solver_request_target_urls', 'solver_request_target_url', 'match_solver_request_target_url', 'check_cdp_browser_for_authenticated_target', 'check_cdp_browser_for_slider')

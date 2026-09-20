@@ -18,6 +18,16 @@ from tools import live_batch_smoke
 
 from tools import taobao_login_health
 
+
+@pytest.fixture(autouse=True)
+def _disable_live_smoke_pacing(monkeypatch) -> None:
+    monkeypatch.setattr(
+        live_batch_smoke,
+        "jittered_delay_seconds",
+        lambda _base, _ratio: 0.0,
+    )
+
+
 def _result(
     item_id: str,
     *,

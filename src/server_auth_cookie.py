@@ -181,8 +181,10 @@ def _node_solver_blocked_report_payload(payload: dict[str, Any]) -> dict[str, An
     state.update(
         {
             "paused": True,
-            "pause_reason": "captcha_solver",
-            "last_status": "node_solver_blocked",
+            "pause_reason": "manual_required",
+            "manual_required": True,
+            "manual_only": True,
+            "last_status": "manual_required",
             "last_failure_reason": reason,
             "node_solver_blocked": True,
             "node_solver_blocked_at_epoch": blocked_at,
@@ -194,7 +196,7 @@ def _node_solver_blocked_report_payload(payload: dict[str, Any]) -> dict[str, An
         }
     )
     persist_error = _persist_solver_scope_state(scope, state)
-    _set_collection_pause_state(True, "captcha_solver", scope=scope)
+    _set_collection_pause_state(True, "manual_required", scope=scope)
     response: dict[str, Any] = {
         "status": "node_solver_blocked",
         "scope": scope,

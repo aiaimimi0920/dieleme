@@ -1,22 +1,26 @@
 import { callAction } from "./desktop_actions.js";
-import { DEFAULT_AUTH_CHALLENGE_URL, state } from "./desktop_state.js";
+import { state } from "./desktop_state.js";
 import {
   $,
-  authWatcherStatusClass,
-  authWatcherStatusLabel,
-  authWatcherStatusMessage,
   esc,
   fmt,
-  formatDurationSeconds,
-  formatPercent,
   getJson,
   postJson,
-  renderGrowthLine,
+  setDetailActionStatus,
+  setDetailBusy,
   statusClass,
 } from "./desktop_shared.js";
 import { collectionStatusLabel, itemRegion } from "./desktop_regions.js";
+import standardizedFields from "./desktop_standardized_fields.json";
+import { renderOverview } from "./desktop_overview.ts";
+import { updateRuntimeControls, refreshEngineRestartStatus } from "./desktop_runtime_controls.ts";
 
 export function hideDetailPanel() {
+  state.detailRequestId += 1;
+  setDetailActionStatus("");
+  $("refresh").classList.add("primary-button");
+  state.selectedItemId = null;
+  document.querySelectorAll("tr.item-row.selected").forEach((row) => row.classList.remove("selected"));
   $("detailPanel").classList.add("hidden");
   $("contentLayout").classList.add("detail-hidden");
   $("detailTitle").textContent = "已采集 HTML 文本";
@@ -40,37 +44,7 @@ export function showDetailPanel() {
   $("contentLayout").classList.remove("detail-hidden");
 }
 
-export const STANDARDIZED_FIELD_LABELS = [
-  ["商品唯一编号", ["item_id", "source_item_id", "id"]],
-  ["标题", ["title", "source_title"]],
-  ["商品直达链接", ["source_url", "url"]],
-  ["交易时间", ["交易时间", "auction_date"]],
-  ["成交价格", ["成交价格", "transaction_price"]],
-  ["起拍价格", ["起拍价格", "starting_price"]],
-  ["市场评估价", ["市场评估价", "evaluation_price"]],
-  ["保证金", ["保证金", "deposit"]],
-  ["竞拍人数", ["竞拍人数", "apply_count"]],
-  ["出价次数", ["出价次数", "bid_count"]],
-  ["完整地址", ["完整地址", "full_address", "地点"]],
-  ["省份", ["省份", "province"]],
-  ["城市", ["城市", "city"]],
-  ["区", ["区", "district"]],
-  ["最靠近商圈", ["最靠近商圈", "business_area"]],
-  ["所属小区", ["所属小区", "community_name"]],
-  ["建筑面积", ["建筑面积", "area_sqm"]],
-  ["产权建筑面积", ["产权建筑面积", "gross_area_sqm"]],
-  ["产权份额比例", ["产权份额比例", "ownership_share_ratio"]],
-  ["户型", ["layout"]],
-  ["建成年份", ["build_year"]],
-  ["总楼层", ["total_floors"]],
-  ["所在楼层", ["floor_level"]],
-  ["是否有电梯", ["has_elevator"]],
-  ["朝向", ["orientation"]],
-  ["法院名称", ["法院名称", "court_name"]],
-  ["案号", ["案号", "case_number"]],
-  ["分析状态", ["analysis_status"]],
-  ["分析模型版本", ["analysis_model_version"]],
-];
+export const STANDARDIZED_FIELD_LABELS = standardizedFields;
 
 export function isMeaningfulValue(value) {
   if (value === null || value === undefined) {
@@ -222,136 +196,32 @@ export function runtimeStateFromOverview(data) {
   return "运行中";
 }
 
-export function runtimeStateClass(label) {
-  if (label === "运行中" || label === "已完成") {
-    return "ok";
-  }
-  if (label === "待认证") {
-    return "bad";
-  }
-  return "warn";
-}
-
-export function runtimeActionLabel(runtimeState) {
-  return runtimeState === "运行中" ? "暂停" : "开始";
-}
-
-export function normalizeAuthChallengeUrl(url) {
-  const rawUrl = String(url || "").trim();
-  if (!rawUrl) {
-    return DEFAULT_AUTH_CHALLENGE_URL;
-  }
-
-  let parsed;
-  try {
-    parsed = new URL(rawUrl);
-  } catch (_error) {
-    return DEFAULT_AUTH_CHALLENGE_URL;
-  }
-
-  const host = parsed.hostname.toLowerCase();
-  const pathname = parsed.pathname || "";
-  const loweredPath = pathname.toLowerCase();
-
-  if (host.includes("sf-item.taobao.com") || loweredPath.includes("/sf_item/")) {
-    return DEFAULT_AUTH_CHALLENGE_URL;
-  }
-
-  if (!host.includes("sf.taobao.com")) {
-    return DEFAULT_AUTH_CHALLENGE_URL;
-  }
-
-  const buildListUrl = (pathValue, sourceParams) => {
-    const normalizedPath = String(pathValue || "").replace(/\/{2,}/g, "/");
-    if (!normalizedPath.toLowerCase().includes("/list/")) {
-      return DEFAULT_AUTH_CHALLENGE_URL;
-    }
-    const next = new URL(`${parsed.origin}${normalizedPath}`);
-    ["location_code", "st_param", "auction_start_seg", "page"].forEach((key) => {
-      const value = sourceParams.get(key);
-      if (value) {
-        next.searchParams.set(key, value);
-      }
-    });
-    next.searchParams.set("__captcha_solver_bg", "1");
-    return next.toString();
-  };
-
-  if (loweredPath.includes("/_____tmd_____/punish")) {
-    const cleanPath = pathname.split("/_____tmd_____/punish", 1)[0];
-    return buildListUrl(cleanPath, parsed.searchParams);
-  }
-
-  if (loweredPath.includes("/list/")) {
-    parsed.searchParams.delete("x5secdata");
-    parsed.searchParams.delete("x5step");
-    return buildListUrl(pathname, parsed.searchParams);
-  }
-
-  return DEFAULT_AUTH_CHALLENGE_URL;
-}
-
-export function defaultAuthChallengeUrl() {
-  const solver = state.lastOverview && state.lastOverview.status && state.lastOverview.status.captcha_solver;
-  const lastRequest = (solver && solver.last_request) || {};
-  return normalizeAuthChallengeUrl(
-    lastRequest.target_url ||
-    lastRequest.url ||
-    DEFAULT_AUTH_CHALLENGE_URL
-  );
-}
-
 export async function loadOverview() {
+  const requestId = ++state.overviewRequestId;
+  const apiBase = state.apiBase;
   const data = await getJson("/api/collection/overview");
-  const capturedAt = new Date();
-  state.previousOverviewSample = state.currentOverviewSample;
-  state.currentOverviewSample = { overview: data, capturedAt };
+  if (requestId !== state.overviewRequestId || apiBase !== state.apiBase) return false;
   state.lastOverview = data;
-  const modules = data.modules || {};
   const runtimeState = runtimeStateFromOverview(data);
-  const challengeMetrics = data.challenge_metrics || {};
-  const authWatcher = data.auth_watcher || {};
-  const recentChallengeRateText = formatPercent(challengeMetrics.recent_challenge_hit_rate);
-  const currentChallengeRateText = formatPercent(challengeMetrics.current_challenge_hit_rate);
-  const authWatcherStatusText = authWatcherStatusLabel(authWatcher);
-  const authWatcherMessage = authWatcherStatusMessage(authWatcher, runtimeState);
-  $("cards").innerHTML = `
-    <div class="card runtime-card">
-      <div class="label">运行状态</div>
-      <div class="value"><span class="pill ${runtimeStateClass(runtimeState)}">${runtimeState}</span></div>
-      <div class="hint">状态条目：暂停中 / 运行中 / 待认证 / 已完成；控制按钮按状态显示暂停/开始</div>
-      <div class="card-actions">
-        <button id="runtimePauseButton">${runtimeActionLabel(runtimeState)}</button>
-        <button id="authButton">认证</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="label">Challenge 触发率</div>
-      <div class="value">${fmt(recentChallengeRateText)}</div>
-      <div class="hint">最近 ${fmt(challengeMetrics.recent_runs)} 轮：${fmt(challengeMetrics.recent_challenge_detected_count)} / ${fmt(challengeMetrics.recent_browserless_attempt_count)}；当前会话：${fmt(challengeMetrics.current_challenge_detected_count)} / ${fmt(challengeMetrics.current_browserless_attempt_count)}</div>
-      <div class="growth-line">当前会话 ${esc(currentChallengeRateText)}；最近原因 ${fmt(challengeMetrics.recent_top_fallback_reason || challengeMetrics.top_fallback_reason || challengeMetrics.last_reason || "等待数据")}</div>
-    </div>
-    <div class="card">
-      <div class="label">PC1 认证自动续跑</div>
-      <div class="value"><span class="pill ${authWatcherStatusClass(authWatcher)}">${authWatcherStatusText}</span></div>
-      <div class="hint">轮询 ${fmt(authWatcher.poll_seconds)} 秒 / 最长 ${fmt(authWatcher.max_wait_seconds)} 秒；累计等待 ${fmt(formatDurationSeconds(authWatcher.wait_elapsed_seconds))}</div>
-      <div class="growth-line">${fmt(authWatcher.last_error || authWatcher.status || "等待认证任务")}</div>
-    </div>
-    <div class="card"><div class="label">商品链接采集</div><div class="value">${fmt(modules.links && modules.links.total)}</div><div class="hint">总链接出现次数；唯一商品 ${fmt(modules.links && modules.links.unique_items)}</div>${renderGrowthLine("links.total")}</div>
-    <div class="card"><div class="label">商品详情页采集</div><div class="value">${fmt(modules.details && modules.details.captured)}</div><div class="hint">待抓 ${fmt(modules.details && modules.details.pending)} / 失败 ${fmt(modules.details && modules.details.failed)} / 阻塞 ${fmt(modules.details && modules.details.blocked)}</div>${renderGrowthLine("details.captured")}</div>
-    <div class="card"><div class="label">商品详情页 AI 分析</div><div class="value">${fmt(modules.analysis && modules.analysis.finalized)}</div><div class="hint">待分析 ${fmt(modules.analysis && modules.analysis.pending)} / 失败 ${fmt(modules.analysis && modules.analysis.failed)} / 阻塞 ${fmt(modules.analysis && modules.analysis.blocked)}</div>${renderGrowthLine("analysis.finalized")}</div>
-  `;
+  $("cards").innerHTML = renderOverview(data, runtimeState);
   $("runtimePauseButton").addEventListener("click", () => callAction("toggleRuntimePause"));
-  $("authButton").addEventListener("click", () => callAction("openAuthChallenge"));
-  $("connectionStatus").textContent = `已连接 ${state.apiBase}`;
-  if (authWatcherMessage) {
-    $("authChallengeStatus").textContent = authWatcherMessage;
+  $("engineRestartButton").addEventListener("click", () => callAction("requestEngineRestart"));
+  for (const scope of ["seed", "detail"]) {
+    $(`${scope}AuthButton`).addEventListener("click", () => callAction("openAuthChallenge", scope));
   }
+  updateRuntimeControls();
+  void refreshEngineRestartStatus();
+  $("connectionStatus").textContent = `已连接 ${state.apiBase}`;
+  $("overviewNotice").classList.add("hidden");
+  return true;
 }
 
 export function renderItems(data) {
   state.total = data.total || 0;
-  $("listStatus").textContent = `阶段 ${state.stage}，总数 ${state.total}，当前 ${state.offset + 1}-${Math.min(state.offset + state.limit, state.total)}`;
+  const first = state.total ? state.offset + 1 : 0;
+  $("listStatus").textContent = `共 ${state.total} 项 · 当前 ${first}-${Math.min(state.offset + state.limit, state.total)}`;
+  $("prev").disabled = state.offset === 0;
+  $("next").disabled = state.offset + state.limit >= state.total;
   if (state.stage !== "details" && state.stage !== "analysis") {
     $("detailPanel").classList.add("hidden");
     $("contentLayout").classList.add("detail-hidden");
@@ -359,36 +229,69 @@ export function renderItems(data) {
   $("items").innerHTML = (data.items || [])
     .map((item) => {
       const currentStatus = collectionStatusLabel(item);
-      return `<tr class="item-row" data-id="${esc(item.item_id)}">
+      const selected = String(item.item_id) === state.selectedItemId ? " selected" : "";
+      return `<tr class="item-row${selected}" data-id="${esc(item.item_id)}" tabindex="0" aria-label="商品 ${esc(item.item_id)}">
         <td><strong>${fmt(item.item_id)}</strong></td>
-        <td><a href="${esc(item.source_url || "#")}" target="_blank">${fmt(item.source_url)}</a></td>
+        <td><a href="${esc(item.source_url || "#")}" target="_blank" rel="noopener noreferrer">${fmt(item.source_url)}</a></td>
         <td>${fmt(itemRegion(item))}</td>
         <td><span class="pill ${statusClass(currentStatus)}">${fmt(currentStatus)}</span></td>
       </tr>`;
     })
-    .join("");
-  document.querySelectorAll("tr.item-row").forEach((row) =>
-    row.addEventListener("click", () => {
+    .join("") || '<tr><td colspan="4" class="empty-state">当前阶段和地区没有商品。<br>可调整地区筛选或刷新数据。</td></tr>';
+  document.querySelectorAll("tr.item-row").forEach((row) => {
+    const open = () => {
       if (state.stage === "details") {
         loadDetailHtml(row.dataset.id);
       } else if (state.stage === "analysis") {
         loadAnalysisData(row.dataset.id);
       }
-    }),
-  );
+    };
+    row.addEventListener("click", (event) => {
+      if (!event.target.closest("a")) open();
+    });
+    row.addEventListener("keydown", (event) => {
+      if (event.target !== row || !["Enter", " "].includes(event.key)) return;
+      event.preventDefault();
+      open();
+    });
+  });
 }
 
 export async function loadItems() {
+  const requestId = ++state.itemsRequestId;
   $("listStatus").textContent = "加载中...";
+  $("items").setAttribute("aria-busy", "true");
+  $("prev").disabled = true;
+  $("next").disabled = true;
   const regionParam = state.selectedLocationCode ? `&location_code=${encodeURIComponent(state.selectedLocationCode)}` : "";
-  const data = await getJson(`/api/collection/items?stage=${encodeURIComponent(state.stage)}&limit=${state.limit}&offset=${state.offset}${regionParam}`);
-  renderItems(data);
+  try {
+    const data = await getJson(`/api/collection/items?stage=${encodeURIComponent(state.stage)}&limit=${state.limit}&offset=${state.offset}${regionParam}`);
+    if (requestId === state.itemsRequestId) renderItems(data);
+  } catch (error) {
+    if (requestId !== state.itemsRequestId) return;
+    $("listStatus").textContent = `列表读取失败：${error.message}`;
+    $("items").innerHTML = '<tr><td colspan="4" class="empty-state error">无法读取商品列表，请检查 API 连接后重试。</td></tr>';
+    throw error;
+  } finally {
+    if (requestId === state.itemsRequestId) $("items").setAttribute("aria-busy", "false");
+  }
+}
+
+function selectItemRow(itemId) {
+  setDetailActionStatus("");
+  $("refresh").classList.add("primary-button");
+  state.selectedItemId = String(itemId);
+  document.querySelectorAll("tr.item-row").forEach((row) => {
+    row.classList.toggle("selected", row.dataset.id === state.selectedItemId);
+  });
+  return ++state.detailRequestId;
 }
 
 export async function loadDetailHtml(itemId) {
   if (state.stage !== "details") {
     return;
   }
+  const requestId = selectItemRow(itemId);
   showDetailPanel();
   $("detailTitle").textContent = `已采集 HTML 文本 - ${itemId}`;
   $("detailHint").textContent = "商品详情页采集完成后保存的 HTML/文本内容，用于后续 AI 分析。";
@@ -400,11 +303,13 @@ export async function loadDetailHtml(itemId) {
 
   try {
     const data = await getJson(`/api/collection/item?item_id=${encodeURIComponent(itemId)}&max_chars=200000`);
+    if (requestId !== state.detailRequestId || state.stage !== "details" || state.selectedItemId !== String(itemId)) return;
     const artifact = data.artifacts && data.artifacts.detail_html;
     const content = artifact && (artifact.content || (artifact.json ? JSON.stringify(artifact.json, null, 2) : ""));
     $("detailPath").textContent = artifact && artifact.path ? artifact.path : "未返回详情文件路径";
     $("detailHtmlText").textContent = content || "未找到已采集的 HTML 文本。";
   } catch (error) {
+    if (requestId !== state.detailRequestId || state.stage !== "details" || state.selectedItemId !== String(itemId)) return;
     $("detailPath").textContent = "";
     $("detailHtmlText").textContent = `读取失败：${error.message}`;
   }
@@ -414,6 +319,8 @@ export async function loadAnalysisData(itemId) {
   if (state.stage !== "analysis") {
     return;
   }
+  const requestId = selectItemRow(itemId);
+  setDetailBusy(true);
   showDetailPanel();
   state.selectedAnalysisItemId = itemId;
   state.selectedAnalysisRecord = null;
@@ -430,6 +337,7 @@ export async function loadAnalysisData(itemId) {
 
   try {
     const data = await getJson(`/api/collection/item?item_id=${encodeURIComponent(itemId)}&max_chars=200000`);
+    if (requestId !== state.detailRequestId || state.stage !== "analysis" || state.selectedItemId !== String(itemId)) return;
     const finalArtifact = data.artifacts && data.artifacts.final_json;
     const standardized = data.flat_item || (finalArtifact && finalArtifact.json) || {};
     state.selectedAnalysisRecord = standardized;
@@ -437,8 +345,11 @@ export async function loadAnalysisData(itemId) {
     $("detailPath").textContent = finalArtifact && finalArtifact.path ? finalArtifact.path : "标准化数据来自数据库字段";
     $("standardizedRows").innerHTML = renderStandardizedEntries(standardized);
   } catch (error) {
+    if (requestId !== state.detailRequestId || state.stage !== "analysis" || state.selectedItemId !== String(itemId)) return;
     $("detailPath").textContent = "";
     $("standardizedRows").innerHTML = `<p class="error">读取失败：${esc(error.message)}</p>`;
+  } finally {
+    if (requestId === state.detailRequestId) setDetailBusy(false);
   }
 }
 
@@ -447,6 +358,8 @@ export function startManualEdit() {
     return;
   }
   state.editingAnalysis = true;
+  $("refresh").classList.remove("primary-button");
+  setDetailActionStatus("编辑尚未保存；手动更新后才会写入数据库。", "warn");
   $("editButton").textContent = "取消编辑";
   $("manualUpdateButton").classList.remove("hidden");
   $("standardizedRows").innerHTML = renderStandardizedEntries(state.selectedAnalysisRecord, true);
@@ -466,6 +379,7 @@ export async function submitManualUpdate() {
   if (!state.selectedAnalysisItemId || !state.editingAnalysis) {
     return;
   }
+  const requestId = state.detailRequestId;
   const updates = {};
   document.querySelectorAll(".editable-field").forEach((field) => {
     const key = field.dataset.field;
@@ -473,30 +387,33 @@ export async function submitManualUpdate() {
       updates[key] = parseEditableValue(field.value);
     }
   });
-  $("detailPath").textContent = "正在手动更新数据库...";
+  setDetailActionStatus("正在手动更新数据库...");
   const result = await postJson("/api/collection/item/manual_update", {
     item_id: state.selectedAnalysisItemId,
     updates,
   });
+  if (requestId !== state.detailRequestId) return;
   state.selectedAnalysisRecord = result.flat_item || updates;
   state.editingAnalysis = false;
   $("editButton").textContent = "手动编辑";
   $("manualUpdateButton").classList.add("hidden");
-  $("detailPath").textContent = `手动更新完成：${(result.updated_fields || []).length} 个字段`;
+  $("refresh").classList.add("primary-button");
+  setDetailActionStatus(`手动更新完成：${(result.updated_fields || []).length} 个字段`, "ok");
   $("standardizedRows").innerHTML = renderStandardizedEntries(state.selectedAnalysisRecord);
-  await loadItems();
+  await callAction("reloadAfterDetailAction", { requestId });
 }
 
 export async function requestReanalysis() {
   if (!state.selectedAnalysisItemId) {
     return;
   }
-  $("detailPath").textContent = "正在提交 AI 再分析请求...";
+  const requestId = state.detailRequestId;
+  setDetailActionStatus("正在提交 AI 再分析请求...");
   const result = await postJson("/api/collection/item/reanalyze", {
     item_id: state.selectedAnalysisItemId,
     reason: "operator_requested",
   });
-  $("detailPath").textContent = `已加入 AI 再分析队列；当前分析次数：${result.analysis_attempt_count}`;
-  await loadOverview();
-  await loadItems();
+  if (requestId !== state.detailRequestId) return;
+  setDetailActionStatus(`已加入 AI 再分析队列；当前分析次数：${result.analysis_attempt_count}`, "ok");
+  await callAction("reloadAfterDetailAction", { requestId, includeOverview: true });
 }

@@ -18,6 +18,7 @@ _IMPLEMENTATION_MODULES = (
     'tools.pc2_solver_fallback',
     'tools.pc2_solver_auth_pending',
     'tools.pc2_solver_cdp',
+    'tools.pc2_solver_manual_handoff',
     'tools.pc2_solver_execution',
     'tools.pc2_solver_loop_control',
     'tools.pc2_solver_loop',

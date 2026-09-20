@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .captcha_context import *  # noqa: F401,F403
+from .collection.adapters.taobao_auth_target import SEED_IDENTITY_QUERY_KEYS
 
 
 class CaptchaTargetMixin:
@@ -347,11 +348,12 @@ class CaptchaTargetMixin:
             (parsed.hostname or "").lower() == "sf.taobao.com"
             and re.fullmatch(r"/list/[^/]+\.htm", path)
         )
-        if not is_taobao_list_route:
-            for key, item in parse_qsl(parsed.query, keep_blank_values=True):
-                if key in {"__captcha_solver_bg", "track_id", "x5step", "x5secdata"}:
-                    continue
-                query_pairs.append((key, item))
+        for key, item in parse_qsl(parsed.query, keep_blank_values=True):
+            if is_taobao_list_route and key not in SEED_IDENTITY_QUERY_KEYS:
+                continue
+            if key in {"__captcha_solver_bg", "track_id", "x5step", "x5secdata"}:
+                continue
+            query_pairs.append((key, item))
         query = urlencode(sorted(query_pairs), doseq=True)
         return urlunsplit((parsed.scheme, parsed.netloc, path, query, ""))
 

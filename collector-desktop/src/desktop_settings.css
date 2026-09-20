@@ -1,0 +1,9 @@
+.runtime-settings-group { margin: 16px 0; }
+.runtime-settings-group h2 { font-size: 14px; margin: 0 0 10px; }
+.runtime-settings-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+#runtimeSettings label { display: grid; gap: 6px; min-width: 0; }
+.runtime-settings-grid input, .settings-secret input, .settings-control-address input { width: 100%; min-width: 0; box-sizing: border-box; }
+#runtimeSettingsFields { border: 0; padding: 0; margin: 0; min-width: 0; }
+#runtimeSettingsFields:disabled { opacity: 0.6; }
+.settings-secret, .settings-control-address { margin: 12px 0; }
+@media (max-width: 800px) { .runtime-settings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

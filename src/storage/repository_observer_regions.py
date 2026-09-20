@@ -14,13 +14,12 @@ class RepositoryObserverRegionsMixin:
                         "analysis_in_progress",
                         "analysis_failed",
                         "analysis_blocked",
-                        "detail_completed",
                     )
                 )
             ]
         if normalized == "analysis":
             return [FapaiSeedItem.status == "detail_completed"]
-        return []
+        return [FapaiSeedItem.status.in_(("pending_detail", "in_progress", "detail_failed", "detail_blocked"))]
 
     def _latest_seed_occurrence_payload(self, session: Session, item_id: str) -> Dict[str, Any] | None:
         occurrence = session.scalars(
@@ -31,16 +30,48 @@ class RepositoryObserverRegionsMixin:
                 FapaiSeedScanJob.status != "archived",
             )
             .order_by(FapaiSeedOccurrence.seen_at.desc(), FapaiSeedOccurrence.id.desc())
+            .limit(1)
         ).first()
         if occurrence is None:
             occurrence = session.scalars(
                 select(FapaiSeedOccurrence)
                 .where(FapaiSeedOccurrence.item_id == str(item_id))
                 .order_by(FapaiSeedOccurrence.seen_at.desc(), FapaiSeedOccurrence.id.desc())
+                .limit(1)
             ).first()
         if occurrence is None:
             return None
         job = session.get(FapaiSeedScanJob, occurrence.job_key)
+        return self._seed_occurrence_payload(occurrence, job)
+
+    def _latest_seed_occurrence_payloads(self, session: Session, item_ids) -> dict:
+        if not item_ids:
+            return {}
+        # Prefer a non-archived job, even when an archived occurrence is newer.
+        ranked = (
+            select(
+                FapaiSeedOccurrence.id,
+                func.row_number().over(
+                    partition_by=FapaiSeedOccurrence.item_id,
+                    order_by=(
+                        case((FapaiSeedScanJob.status != "archived", 0), else_=1),
+                        FapaiSeedOccurrence.seen_at.desc(), FapaiSeedOccurrence.id.desc(),
+                    ),
+                ).label("position"),
+            )
+            .outerjoin(FapaiSeedScanJob, FapaiSeedOccurrence.job_key == FapaiSeedScanJob.job_key)
+            .where(FapaiSeedOccurrence.item_id.in_(item_ids))
+            .subquery()
+        )
+        rows = session.execute(
+            select(FapaiSeedOccurrence, FapaiSeedScanJob)
+            .join(ranked, ranked.c.id == FapaiSeedOccurrence.id)
+            .outerjoin(FapaiSeedScanJob, FapaiSeedOccurrence.job_key == FapaiSeedScanJob.job_key)
+            .where(ranked.c.position == 1)
+        ).all()
+        return {occurrence.item_id: self._seed_occurrence_payload(occurrence, job) for occurrence, job in rows}
+
+    def _seed_occurrence_payload(self, occurrence, job) -> dict:
         return {
             "id": occurrence.id,
             "job_key": occurrence.job_key,
@@ -59,7 +90,7 @@ class RepositoryObserverRegionsMixin:
             "seen_at": self._fmt_dt(occurrence.seen_at),
         }
 
-    def _seed_item_observer_payload(self, session: Session, row: FapaiSeedItem) -> Dict[str, Any]:
+    def _seed_item_observer_payload(self, session: Session, row: FapaiSeedItem, occurrences: dict | None = None) -> Dict[str, Any]:
         return {
             "item_id": row.item_id,
             "source_item_id": row.source_item_id,
@@ -81,7 +112,7 @@ class RepositoryObserverRegionsMixin:
             "selected_json_path": row.selected_json_path,
             "source_payload": dict(row.source_payload or {}),
             "artifacts": self._seed_artifacts_from_row(row),
-            "latest_occurrence": self._latest_seed_occurrence_payload(session, row.item_id),
+            "latest_occurrence": occurrences.get(row.item_id) if occurrences is not None else self._latest_seed_occurrence_payload(session, row.item_id),
         }
 
     @staticmethod

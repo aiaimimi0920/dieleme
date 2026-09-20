@@ -6,6 +6,7 @@ from tools.pc2_solver_auth import *  # noqa: F401,F403
 from tools.pc2_solver_fallback import *  # noqa: F401,F403
 from tools.pc2_solver_auth_pending import *  # noqa: F401,F403
 from tools.pc2_solver_cdp import *  # noqa: F401,F403
+from tools.pc2_solver_manual_handoff import ManualChallengeRequired
 
 
 def run_solver_local(cdp_endpoint, target_url, max_attempts=50, probe_target=None, drag_profile_offset=0):
@@ -31,7 +32,11 @@ def run_solver_local(cdp_endpoint, target_url, max_attempts=50, probe_target=Non
             drag_profile_offset=drag_profile_offset,
         )
         log_event({"kind": "local_solver_end", "success": success, "failure_reason": solver.last_failure_reason})
+        if not success and solver.last_failure_reason == "manual_required":
+            raise ManualChallengeRequired("Official challenge requires human verification")
         return bool(success)
+    except ManualChallengeRequired:
+        raise
     except Exception as exc:
         log_event({"kind": "local_solver_error", "error": repr(exc), "traceback": traceback.format_exc()})
         return False
@@ -53,6 +58,8 @@ def _run_solver_process_entry(
             drag_profile_offset=drag_profile_offset,
         )
         result = {"success": bool(success)}
+    except ManualChallengeRequired:
+        result = {"success": False, "failure_reason": "manual_required"}
     except BaseException as exc:
         result = {"success": False, "error": repr(exc)}
     finally:
@@ -152,6 +159,8 @@ def run_solver_local_with_deadline(
                 "error": result["error"],
             }
         )
+    if result.get("failure_reason") == "manual_required":
+        raise ManualChallengeRequired("Official challenge requires human verification")
     return bool(result.get("success"))
 
 def close_stale_challenge_probe_target(cdp_endpoint, probe_target):
@@ -254,7 +263,8 @@ def rotate_failed_challenge_target(cdp_endpoint, target_url, probe_target=None):
     # without carrying x5secdata or any other rejected challenge query.
     parsed = urlsplit(canonical_target)
     fresh_target = urlunsplit(
-        (parsed.scheme, parsed.netloc, parsed.path, "__captcha_solver_bg=1", "")
+        (parsed.scheme, parsed.netloc, parsed.path,
+         "&".join(filter(None, (parsed.query, "__captcha_solver_bg=1"))), "")
     )
     opener = CaptchaSolver(cdp_endpoint=cdp_endpoint, target_url=fresh_target)
     opened = opener._open_target_tab()
@@ -329,7 +339,8 @@ def rebuild_missing_challenge_target(cdp_endpoint, target_url):
 
     parsed = urlsplit(canonical_target)
     fresh_target = urlunsplit(
-        (parsed.scheme, parsed.netloc, parsed.path, "__captcha_solver_bg=1", "")
+        (parsed.scheme, parsed.netloc, parsed.path,
+         "&".join(filter(None, (parsed.query, "__captcha_solver_bg=1"))), "")
     )
     opener = CaptchaSolver(cdp_endpoint=cdp_endpoint, target_url=fresh_target)
     opened = opener._open_target_tab()

@@ -1,0 +1,135 @@
+// Playwright CLI run-code fixture: no production requests or credentials.
+async (page) => {
+  const origin = "http://127.0.0.1:1436";
+  const checks = [];
+  const errors = [];
+  const check = (value, name) => { if (!value) throw new Error(name); checks.push(name); };
+  const readOnline = async () => {
+    await page.locator("#settingsLoad").click();
+    if (await page.locator("#settingsReloadDialog").isVisible()) await page.locator('#settingsReloadDialog button[value="confirm"]').click();
+  };
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.context().route("**/*", (route) => route.request().url().startsWith(`${origin}/`) ? route.continue() : route.abort());
+  const config = {
+    workers: { links: 1, details: 3, analysis: 4 },
+    intervals: { links: 30, details: 30, analysis: 5, links_idle: 60, details_idle: 60, analysis_idle: 60, success_delay: 6, failure_delay: 15 },
+    retries: { detail_item_attempts: 3, analysis_item_attempts: 3, detail_batch_attempts: 30, analysis_batch_attempts: 20, ai_attempts: 2 },
+    ai: { base_url: "https://ai.example.invalid/v1", model: "deepseek-fixture", timeout_seconds: 180 },
+  };
+  let state = { ok: true, revision: 3, available: true, effective: config, api_key_configured: true, request: null };
+  const submissions = [];
+  let reads = 0;
+  let releaseRead;
+  let gate = null;
+  let enteredRead;
+  let missingEndpoint = false;
+  await page.route("**/api/collection/settings**", async (route) => {
+    if (missingEndpoint) return route.fulfill({ status: 404, body: "not installed" });
+    if (route.request().method() === "GET") {
+      reads += 1;
+      const response = JSON.parse(JSON.stringify(state));
+      if (gate) { enteredRead(); await gate; }
+      return route.fulfill({ json: response });
+    }
+    const body = route.request().postDataJSON();
+    submissions.push(body);
+    state = { ...state, revision: 4, request: { id: body.request_id, revision: 4, status: "requested" } };
+    return route.fulfill({ json: { ok: true, request: state.request } });
+  });
+  await page.setViewportSize({ width: 1120, height: 760 });
+  await page.goto(origin);
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  await page.locator("#items tr.item-row").first().waitFor();
+  await page.locator("#openSettings").click();
+  await page.locator("#runtimeSettings summary").click();
+  check(await page.locator('[id="setting-workers.details"]').isEnabled(), "defaults are editable before live inventory");
+  check(await page.locator('[id="setting-workers.details"]').inputValue() === "3", "default detail workers match deployment");
+  check(await page.locator('[id="setting-ai.base_url"]').inputValue() === "http://192.168.15.20:8317/v1", "default AI endpoint matches deployment");
+  check(await page.locator('[id="setting-ai.model"]').inputValue() === "deepseek-v4-flash", "default AI model matches deployment");
+  await page.locator('[id="setting-workers.details"]').fill("2");
+  await page.locator("#settingsAiKey").fill("synthetic-never-store-this");
+  await page.locator("#settingsSaveDraft").click();
+  await page.locator("#settingsStatus").filter({ hasText: "草稿已保存到本机" }).waitFor();
+  check(!await page.evaluate(() => JSON.stringify(localStorage).includes("synthetic-never-store-this")), "draft never persists API key");
+  await page.reload();
+  await page.locator("#openSettings").click();
+  await page.locator("#runtimeSettings summary").click();
+  check(await page.locator('[id="setting-workers.details"]').inputValue() === "2", "saved draft survives application reload");
+  check(await page.locator("#settingsAiKey").inputValue() === "", "draft restores no secret");
+  await page.locator("#settingsApply").click();
+  await page.locator("#settingsStatus").filter({ hasText: "草稿已保存，未应用" }).waitFor();
+  check(submissions.length === 0 && reads === 0, "offline save does not imply live apply");
+  await page.locator("#restartToken").fill("offline-fixture-operator-token-00001");
+  await page.locator("#settingsControlBase").fill("http://192.0.2.1:8001");
+  await readOnline();
+  await page.locator("#settingsStatus").filter({ hasText: "不能经远程明文" }).waitFor();
+  check(reads === 0, "remote plaintext rejected before sending credentials");
+  await page.locator("#settingsControlBase").fill(origin);
+  missingEndpoint = true;
+  await page.locator("#settingsApply").click();
+  await page.locator("#settingsStatus").filter({ hasText: "线上尚未启用" }).waitFor();
+  check(await page.locator('[id="setting-workers.details"]').isEnabled(), "missing endpoint preserves editable draft");
+  missingEndpoint = false;
+  await readOnline();
+  await page.locator("#settingsConfigSource").filter({ hasText: "线上生效配置" }).waitFor();
+  check(await page.locator('[id="setting-workers.details"]').inputValue() === "3", "editor populated from effective config");
+  check(await page.locator("#settingsAiKey").inputValue() === "", "AI key never echoed by inventory");
+  await page.locator('[id="setting-workers.details"]').fill("2");
+  await page.locator("#settingsAiKey").fill("synthetic-ui-key-only");
+  await page.locator("#settingsApply").click();
+  await page.locator("#settingsApplyDialog").waitFor({ state: "visible" });
+  check(await page.locator("#settingsApplyDialog").isVisible(), "confirmation uses app-managed dialog");
+  await page.locator('#settingsApplyDialog button[value="cancel"]').click();
+  check(submissions.length === 0, "cancel does not enqueue configuration");
+  await page.locator("#settingsApply").click();
+  await page.locator('#settingsApplyDialog button[value="confirm"]').click();
+  await page.locator("#settingsStatus").filter({ hasText: "等待 PC2 应用" }).waitFor();
+  check(submissions.length === 1 && submissions[0].expected_revision === 3, "one revision-checked apply request");
+  check(submissions[0].config.workers.details === 2, "edited worker count reaches request");
+  check(await page.locator("#settingsAiKey").inputValue() === "", "secret cleared after submission");
+  check(await page.locator("#settingsApply").isDisabled(), "pending apply cannot be submitted twice");
+  check(await page.locator('[id="setting-workers.details"]').isEnabled(), "pending apply still permits editing the next draft");
+  state = { ...state, effective: submissions[0].config, request: { ...state.request, status: "succeeded" } };
+  await page.locator("#settingsStatusRefresh").click();
+  await page.locator("#settingsStatus").filter({ hasText: "不代表 AI 推理成功" }).waitFor();
+  check(await page.locator("#settingsApply").isEnabled(), "controller receipt unlocks editor, not HTTP acceptance");
+  await page.locator("#settingsAiKey").fill("discard-on-token-change");
+  await page.locator("#restartToken").fill("offline-fixture-replacement-token");
+  check(await page.locator('[id="setting-workers.details"]').isEnabled(), "authorization change preserves editable values");
+  check(await page.locator("#settingsAiKey").inputValue() === "", "authorization change clears draft secret");
+  gate = new Promise((resolve) => { releaseRead = resolve; });
+  const readEntered = new Promise((resolve) => { enteredRead = resolve; });
+  await readOnline();
+  await readEntered;
+  await page.locator("#settingsControlBase").fill(`${origin}/api`);
+  releaseRead();
+  gate = null;
+  await page.waitForTimeout(150);
+  check((await page.locator("#settingsStatus").textContent()).includes("连接或授权已变化"), "stale inventory cannot overwrite newer connection state");
+  state = { ...state, request: { ...state.request, status: "unknown" } };
+  await readOnline();
+  await page.locator("#settingsStatus").filter({ hasText: "应用结果未确认" }).waitFor();
+  check(await page.locator("#settingsApply").isDisabled(), "uncertain operation blocks subsequent writes");
+  check(await page.locator('[id="setting-workers.details"]').isEnabled(), "uncertain operation does not lock draft inputs");
+  check((await page.locator("#runtimeSettings").textContent()).includes("人工认证失败次数阈值尚未接入"), "unimplemented auth threshold is explicit");
+  state = { ...state, request: { ...state.request, status: "succeeded" } };
+  await readOnline();
+  await page.locator("#settingsStatus").filter({ hasText: "不代表 AI 推理成功" }).waitFor();
+  await page.locator('[id="setting-workers.details"]').fill("3");
+  state = { ...state, revision: 5 };
+  await page.locator("#settingsApply").click();
+  await page.locator("#settingsStatus").filter({ hasText: "线上配置版本或控制地址已变化" }).waitFor();
+  check(submissions.length === 1, "stale draft cannot overwrite a newer live revision");
+  check(await page.locator(".settings-control-address").evaluate((label) => getComputedStyle(label).display === "grid"), "settings labels override connection toolbar layout");
+  await page.locator("main").evaluate((main) => { main.scrollTop = 0; });
+  await page.screenshot({ path: "output/playwright/crow-settings/settings-1120.png", fullPage: true });
+  await page.locator("#settingsApply").scrollIntoViewIfNeeded();
+  await page.screenshot({ path: "output/playwright/crow-settings/settings-1120-bottom.png", fullPage: true });
+  await page.setViewportSize({ width: 800, height: 760 });
+  check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), "settings have no horizontal page overflow at 800px");
+  await page.locator("main").evaluate((main) => { main.scrollTop = 0; });
+  await page.screenshot({ path: "output/playwright/crow-settings/settings-800.png", fullPage: true });
+  check(errors.length === 0, "no browser runtime errors");
+  return { checks };
+}

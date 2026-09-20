@@ -5,6 +5,7 @@ app_root="/srv/apps/fapaifang-worker"
 data_root="/srv/data/fapaifang-worker"
 shared_root="$app_root/shared"
 runtime_env="$shared_root/runtime.env"
+control_root="${FAPAI_COLLECTION_CONTROL_ROOT:-$shared_root/collection-control}"
 vnc_password_file="$shared_root/vnc-password"
 project_name="fapaifang-pc2"
 expected_ip="192.168.15.104"
@@ -142,6 +143,13 @@ prepare_host_display_access() {
 compose_for() {
   local target_release="$1"
   shift
+  if [[ -f "$control_root/active.json" ]]; then
+    PYTHONPATH="$control_root/runtime" python3 -m tools.pc2_settings_release \
+      --runtime-root "$control_root" --env-file "$runtime_env" \
+      --env-file "$target_release/.release.env" \
+      --compose-file "$target_release/ops/pc2-linux/compose.yaml" compose "$@"
+    return
+  fi
   docker compose \
     --project-name "$project_name" \
     --env-file "$runtime_env" \
@@ -151,6 +159,10 @@ compose_for() {
 }
 
 wait_for_health() {
+  if [[ -f "$control_root/active.json" ]]; then
+    PYTHONPATH="$control_root/runtime" python3 -m tools.pc2_settings_release --runtime-root "$control_root" finish
+    return
+  fi
   local deadline=$((SECONDS + 600))
   local containers=(
     fapaifang-pc2-browser-solver
@@ -183,6 +195,10 @@ wait_for_health() {
 }
 
 wait_for_browser_health() {
+  if [[ -f "$control_root/active.json" ]]; then
+    wait_for_health
+    return
+  fi
   local deadline=$((SECONDS + 600))
   local state
   while (( SECONDS < deadline )); do
@@ -406,6 +422,19 @@ rollback_release() {
 }
 
 verify_identity
+
+# Serialize the entire release, including rollback, against settings and restarts.
+if (( ! dry_run )) && [[ -d "$control_root" ]]; then
+  [[ ! -L "$control_root" && "$(stat -c '%u:%a' "$control_root")" == "$(id -u):700" ]] || { echo "Unsafe controller state directory" >&2; exit 1; }
+  umask 077
+  [[ ! -L "$control_root/operation.lock" ]] || { echo "Unsafe operation lock" >&2; exit 1; }
+  exec 9<>"$control_root/operation.lock"
+  flock -n 9 || { echo "A collection operation is already running" >&2; exit 1; }
+  [[ ! -e "$control_root/release-operation.json" ]] || { echo "Previous release needs reconciliation" >&2; exit 1; }
+  if [[ -f "$control_root/active.json" ]]; then
+    [[ -f "$control_root/runtime/tools/pc2_settings_release.py" ]] || { echo "Settings-aware release helper is missing" >&2; exit 1; }
+  fi
+fi
 
 if (( dry_run )) && [[ "$mode" == "rollback" ]]; then
   echo "--dry-run cannot be combined with --rollback." >&2

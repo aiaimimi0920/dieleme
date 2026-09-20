@@ -32,6 +32,7 @@ def test_run_seed_collector_loop_emits_compact_run_and_sleep_events(tmp_path: Pa
             loop_interval_seconds=7,
             max_runs=2,
             pages_per_run=2,
+            page_delay_seconds=0,
         ),
         repository=repo,
         http_session=object(),

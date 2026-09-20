@@ -376,6 +376,18 @@ def test_config_from_env_reads_seed_failure_cooldown(monkeypatch) -> None:
     assert config.failure_cooldown_threshold == 10
     assert config.failure_cooldown_seconds == 120
 
+
+def test_config_from_env_reads_seed_request_pacing(monkeypatch) -> None:
+    monkeypatch.setenv("FAPAI_SEED_PAGE_DELAY_SECONDS", "12.5")
+    monkeypatch.setenv("FAPAI_SEED_PACING_JITTER_RATIO", "0.2")
+    monkeypatch.setenv("FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS", "600")
+
+    config, _loop = seed_collector.config_from_env_and_args([])
+
+    assert config.page_delay_seconds == 12.5
+    assert config.pacing_jitter_ratio == 0.2
+    assert config.auth_probe_interval_seconds == 600
+
 def test_config_from_env_reads_seed_jobs_json_as_multi_job_task_pool(monkeypatch) -> None:
     monkeypatch.setenv(
         "FAPAI_SEED_JOBS_JSON",

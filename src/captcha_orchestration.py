@@ -39,9 +39,12 @@ class CaptchaOrchestrationMixin:
                 return finish(False)
             if preflight.get("already_authenticated"):
                 return finish(True)
-            if preflight.get("connected") and preflight.get("has_slider"):
+            if preflight.get("connected"):
                 connected_for_first_attempt = True
-                print("[SOLVER] Active slider challenge detected; using CDP method first.")
+                if preflight.get("has_slider"):
+                    print("[SOLVER] Active slider challenge detected; using CDP method first.")
+                else:
+                    print("[SOLVER] Challenge target is connected; waiting for its slider over CDP.")
             else:
                 if not local_mock_target and self._headed_playwright_enabled():
                     # Try ddddocr AI FIRST
@@ -244,7 +247,7 @@ class CaptchaOrchestrationMixin:
                             mapping_or_focus_failure = (
                                 os_drag_failure == "window_focus_failed"
                                 or os_drag_failure.startswith("screen_mapping_")
-                                or os_drag_failure == "os_cursor_position_unverified"
+                                or os_drag_failure in {"os_cursor_position_unverified", "os_button_state_unverified"}
                             )
                             if mapping_or_focus_failure:
                                 print(
@@ -347,6 +350,14 @@ class CaptchaOrchestrationMixin:
                                 self._close_solver_ws()
                                 attempt = max(attempt - 1, 0)
                                 continue
+                        if not local_mock_target and challenge_summary.get("retryableFailure"):
+                            print(
+                                "[SOLVER] Retryable challenge attempts exhausted; "
+                                "returning to the bounded retry/cooldown policy."
+                            )
+                            self.last_failure_reason = "challenge_retry_exhausted"
+                            self._close_solver_ws()
+                            return finish(False)
                         print("[SOLVER] [X] Official challenge explicitly rejected the automated drag; manual verification required.")
                         self.last_failure_reason = "manual_required"
                         self._close_solver_ws()

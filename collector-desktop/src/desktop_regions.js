@@ -1,6 +1,6 @@
 import { callAction } from "./desktop_actions.js";
 import { state } from "./desktop_state.js";
-import { $, esc, fmt, formatRefreshTime, getJson, postJson, setRegionRefreshStatus } from "./desktop_shared.js";
+import { $, esc, fmt, formatRefreshTime, getJson, postJson, setRegionRefreshStatus, confirmRegionReset } from "./desktop_shared.js";
 
 export function itemRegion(item) {
   const payload = item.source_payload || {};
@@ -14,21 +14,13 @@ export function itemRegion(item) {
 }
 
 export function collectionStatusLabel(item) {
-  const artifacts = item.artifacts || {};
-  if (item.final_json_path || artifacts.final_json_path) {
+  if (item.status === "detail_completed") {
     return "AI 已分析";
   }
-  if (item.detail_completed_at || artifacts.detail_html_path || item.status === "detail_completed") {
+  if (["raw_detail_captured", "analysis_in_progress", "analysis_failed", "analysis_blocked"].includes(item.status)) {
     return "详情已采集";
   }
   return "链接已采集";
-}
-
-export function regionHintForStage() {
-  if (state.stage === "links") {
-    return "此地区的链接是否已经全部收集完毕";
-  }
-  return "此地区的商品是否已经完全完成了该阶段任务";
 }
 
 export function regionStatusClass(region) {
@@ -223,14 +215,22 @@ export function renderDistrictTabs(city) {
 }
 
 export function renderRegionSelectors() {
-  $("regionStageHint").textContent = regionHintForStage();
   const regionTree = buildRegionTree(state.regions || []);
   validateRegionSelection(regionTree);
   const province = selectedProvinceNode(regionTree);
   const city = selectedCityNode(province);
+  const district = (state.regions || []).find((region) => region.location_code === state.selectedLocationCode);
+  $("regionSelection").textContent = [state.selectedProvince, state.selectedCity, district?.district || district?.label]
+    .filter(Boolean).join(" / ") || "全部地区";
+  if (state.selectedProvince && !state.selectedLocationCode) {
+    $("regionSelection").textContent += "（选定区县后筛选商品）";
+  }
   renderProvinceTabs(regionTree);
   renderCityTabs(province);
   renderDistrictTabs(city);
+  document.querySelectorAll(".region-tab").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.classList.contains("active")));
+  });
   if (state.stage === "links" && state.selectedLocationCode) {
     $("resetRegionLinks").classList.remove("hidden");
   } else {
@@ -240,12 +240,10 @@ export function renderRegionSelectors() {
 
 export async function loadRegions(options = {}) {
   const silent = Boolean(options && options.silent);
-  if (state.regionRefreshInFlight) {
-    if (!silent) {
-      setRegionRefreshStatus("所在地刷新已在进行中");
-    }
-    return;
-  }
+  const requestId = ++state.regionsRequestId;
+  const stage = state.stage;
+  const apiBase = state.apiBase;
+  const current = () => requestId === state.regionsRequestId && stage === state.stage && apiBase === state.apiBase;
   state.regionRefreshInFlight = true;
   if (!silent) {
     setRegionRefreshStatus("所在地刷新中...");
@@ -256,18 +254,21 @@ export async function loadRegions(options = {}) {
     $("districtTabs").innerHTML = "";
   }
   try {
-    const payload = await getJson(`/api/collection/regions?stage=${encodeURIComponent(state.stage)}`);
+    const payload = await getJson(`/api/collection/regions?stage=${encodeURIComponent(stage)}`);
+    if (!current()) return;
     state.regions = Array.isArray(payload.regions) ? payload.regions : [];
     renderRegionSelectors();
     state.lastRegionRefreshAt = new Date();
     setRegionRefreshStatus(`最后刷新所在地 ${formatRefreshTime(state.lastRegionRefreshAt)}；每 10 分钟自动刷新所在地状态`);
   } catch (error) {
+    if (!current()) return;
+    $("regionSelection").textContent = state.regions.length ? "地区状态已过期，请展开筛选重试" : "地区读取失败，请展开筛选重试";
     setRegionRefreshStatus(`所在地刷新失败；每 10 分钟自动重试：${error.message}`);
     if (!(state.regions || []).length) {
       $("provinceTabs").innerHTML = `<span class="error">所在地加载失败：${esc(error.message)}</span>`;
     }
   } finally {
-    state.regionRefreshInFlight = false;
+    if (current()) state.regionRefreshInFlight = false;
   }
 }
 
@@ -277,14 +278,16 @@ export async function resetSelectedRegionLinks() {
   }
   const selected = (state.regions || []).find((region) => region.location_code === state.selectedLocationCode);
   const label = (selected && selected.label) || state.selectedLocationCode;
-  const confirmed = window.confirm(`确定要重置“${label}”的商品链接采集状态吗？已有商品、详情页文本和 AI 分析数据会保留，但该地区链接会从第一页重新扫描。`);
-  if (!confirmed) {
+  const locationCode = state.selectedLocationCode;
+  const apiBase = state.apiBase;
+  const confirmed = await confirmRegionReset(`确定要重置“${label}”的商品链接采集状态吗？已有商品、详情页文本和 AI 分析数据会保留，但该地区链接会从第一页重新扫描。`);
+  if (!confirmed || state.stage !== "links" || state.selectedLocationCode !== locationCode || state.apiBase !== apiBase) {
     return;
   }
   $("listStatus").textContent = `正在重置 ${label} 的链接采集状态...`;
   try {
     await postJson("/api/collection/region/reset_links", {
-      location_code: state.selectedLocationCode,
+      location_code: locationCode,
     });
     state.offset = 0;
     await callAction("loadOverview");

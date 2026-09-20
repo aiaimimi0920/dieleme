@@ -1,17 +1,21 @@
 param(
     [string]$InstallRoot = "",
     [string]$BuildTargetRoot = "",
+    [string]$DesktopDirectory = [Environment]::GetFolderPath('Desktop'),
     [string]$ApiBase = "http://192.168.15.200:8001",
+    [string]$SettingsApiBase = "",
+    [string]$SettingsCaFile = "",
+    [string]$OperatorTokenFile = "",
     [string]$RemoteAuthHost = "192.168.15.104",
     [string]$RemoteAuthUser = "Admin",
     [string]$RemoteAuthPassword = "",
     [string]$RemoteAuthKeyPath = "",
-    [string]$DataRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData"),
+    [string]$DataRoot = "",
     [string]$CookieSnapshotPath = "",
     [ValidateSet("remote", "local-bridge")][string]$AuthBrowserMode = "local-bridge",
     [int]$AuthLocalCdpPort = 9225,
     [int]$AuthRemoteCdpPort = 9225,
-    [string]$AuthBrowserProfileDir = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData\chrome-cdp-profile-pc1-human-clean"),
+    [string]$AuthBrowserProfileDir = "",
     [string]$AuthBrowserPath = "C:\Program Files\Google\Chrome\Application\chrome.exe",
     [switch]$SkipBuild,
     [switch]$SkipLaunch,
@@ -103,6 +107,7 @@ function Backup-ExistingInstall {
     foreach ($relativePath in @(
             "fapaifang_collector_desktop.exe",
             "start-fapaifang-collector.ps1",
+            "crow-desktop.runtime.json",
             "scripts",
             "tools"
         )) {
@@ -206,24 +211,6 @@ function Write-LauncherScript {
     Write-Utf8NoBomFile -Path $LauncherPath -Content ($launcherLines -join [Environment]::NewLine)
 }
 
-function Update-DesktopShortcut {
-    param(
-        [Parameter(Mandatory = $true)][string]$ShortcutPath,
-        [Parameter(Mandatory = $true)][string]$LauncherPath,
-        [Parameter(Mandatory = $true)][string]$ExecutablePath,
-        [Parameter(Mandatory = $true)][string]$WorkingDirectory
-    )
-
-    $powershellExecutable = (Get-Command powershell -ErrorAction Stop).Source
-    $shell = New-Object -ComObject WScript.Shell
-    $shortcut = $shell.CreateShortcut($ShortcutPath)
-    $shortcut.TargetPath = $powershellExecutable
-    $shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LauncherPath`""
-    $shortcut.WorkingDirectory = $WorkingDirectory
-    $shortcut.IconLocation = "$ExecutablePath,0"
-    $shortcut.Save()
-}
-
 function Resolve-RemoteAuthKeyPath {
     param([string]$ExplicitPath)
 
@@ -257,11 +244,36 @@ else {
     Join-Path $env:TEMP "fapaifang-collector-desktop-target"
 }
 
+$previousRuntime = $null
+$runtimeConfigPath = Join-Path $deployRoot "crow-desktop.runtime.json"
+if (Test-Path -LiteralPath $runtimeConfigPath -PathType Leaf) {
+    try {
+        $previousRuntime = Get-Content -LiteralPath $runtimeConfigPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    }
+    catch {
+        $previousRuntime = $null
+    }
+}
+$previousEnvironment = if ($previousRuntime) { $previousRuntime.environment } else { $null }
+if (-not $DataRoot -and $previousEnvironment.FAPAI_DATA_ROOT_HOST) {
+    $DataRoot = [string]$previousEnvironment.FAPAI_DATA_ROOT_HOST
+}
+if (-not $DataRoot) {
+    $DataRoot = Join-Path $repoRoot "FPFData"
+}
+if (-not $CookieSnapshotPath -and $previousEnvironment.FAPAI_COOKIE_SNAPSHOT) {
+    $CookieSnapshotPath = [string]$previousEnvironment.FAPAI_COOKIE_SNAPSHOT
+}
+if (-not $AuthBrowserProfileDir -and $previousEnvironment.FAPAI_AUTH_BROWSER_PROFILE_DIR) {
+    $AuthBrowserProfileDir = [string]$previousEnvironment.FAPAI_AUTH_BROWSER_PROFILE_DIR
+}
+if (-not $AuthBrowserProfileDir) {
+    $AuthBrowserProfileDir = Join-Path $DataRoot "chrome-cdp-profile-pc1-human-clean"
+}
+
 $buildExecutable = Join-Path $resolvedBuildTargetRoot "release\fapaifang_collector_desktop.exe"
 $destinationExecutable = Join-Path $deployRoot "fapaifang_collector_desktop.exe"
 $launcherPath = Join-Path $deployRoot "start-fapaifang-collector.ps1"
-$desktopShortcutPath = Join-Path ([Environment]::GetFolderPath("Desktop")) "FapaiFang 运维观察台.lnk"
-$legacyDesktopShortcutPath = Join-Path ([Environment]::GetFolderPath("Desktop")) "FapaiFang 采集观察台.lnk"
 $resolvedRemoteAuthKeyPath = Resolve-RemoteAuthKeyPath -ExplicitPath $RemoteAuthKeyPath
 $resolvedCookieSnapshotPath = if ($CookieSnapshotPath) {
     $CookieSnapshotPath
@@ -296,15 +308,48 @@ foreach ($relativePath in @(
         "scripts\start-pc1-analysis-proxy-bridge.ps1",
         "scripts\register-pc1-analysis-proxy-bridge-task.ps1",
         "scripts\start-taobao-cdp-browser.ps1",
+        "scripts\start-taobao-cdp-browser\http-and-pages.ps1",
+        "scripts\start-taobao-cdp-browser\browser-processes.ps1",
         "scripts\export-taobao-cookie-snapshot.ps1",
         "scripts\complete-pc1-inplace-auth.ps1",
+        "scripts\resolve-pc1-auth-python.ps1",
+        "scripts\desktop-auth-challenge.ps1",
+        "tools\pc1_desktop_auth.py",
+        "tools\pc1_shared_auth.py",
+        "tools\pc1_desktop_recovery.py",
+        "tools\desktop_runtime_config.py",
+        "tools\desktop_settings_client.py",
+        "src\collection_settings_schema.py",
+        "src\collection\adapters\taobao_auth_target.py",
+        "src\collection_engine_restart.py",
+        "src\llm_analysis_policy.py",
+        "tools\manual_auth_snapshot.py",
         "tools\browserless_seed_probe.py",
+        "tools\browserless_seed_probe_context.py",
+        "tools\browserless_seed_probe_core.py",
+        "tools\browserless_seed_probe_transport.py",
+        "tools\browserless_seed_probe_navigation.py",
+        "tools\browserless_seed_probe_cookies.py",
+        "tools\browserless_seed_probe_cli.py",
         "tools\taobao_login_health.py",
+        "tools\taobao_health_context.py",
+        "tools\taobao_health_classification.py",
+        "tools\taobao_health_cdp_transport.py",
+        "tools\taobao_health_captcha.py",
+        "tools\taobao_health_cdp_session.py",
+        "tools\taobao_health_probe.py",
+        "tools\taobao_health_cli.py",
         "tools\taobao_inplace_auth_handoff.py",
         "tools\internal_api_http.py"
     )) {
     Copy-BundleFile -SourceRoot $repoRoot -DestinationRoot $deployRoot -RelativePath $relativePath
 }
+
+& (Join-Path $PSScriptRoot 'write-collector-desktop-runtime-config.ps1') `
+    -InstallRoot $deployRoot -DataRoot $DataRoot -ApiBase $ApiBase `
+    -CookieSnapshotPath $resolvedCookieSnapshotPath -AuthLocalCdpPort $AuthLocalCdpPort `
+    -AuthBrowserProfileDir $AuthBrowserProfileDir -AuthBrowserPath $AuthBrowserPath `
+    -SettingsApiBase $SettingsApiBase -SettingsCaFile $SettingsCaFile -OperatorTokenFile $OperatorTokenFile
 
 Write-LauncherScript `
     -LauncherPath $launcherPath `
@@ -323,14 +368,9 @@ Write-LauncherScript `
     -AuthBrowserPathValue $AuthBrowserPath
 
 if (-not $SkipShortcut) {
-    Update-DesktopShortcut `
-        -ShortcutPath $desktopShortcutPath `
-        -LauncherPath $launcherPath `
-        -ExecutablePath $destinationExecutable `
-        -WorkingDirectory $deployRoot
-    if (($legacyDesktopShortcutPath -ne $desktopShortcutPath) -and (Test-Path -LiteralPath $legacyDesktopShortcutPath)) {
-        Remove-Item -LiteralPath $legacyDesktopShortcutPath -Force
-    }
+    $shortcut = & (Join-Path $PSScriptRoot 'update-collector-desktop-shortcut.ps1') `
+        -InstallRoot $deployRoot -DesktopDirectory $DesktopDirectory `
+        -ExpectedSha256 (Get-FileHash -LiteralPath $buildExecutable -Algorithm SHA256).Hash
 }
 
 if (-not $SkipLaunch) {
@@ -346,5 +386,5 @@ Write-Output "Collector desktop deployed to: $deployRoot"
 Write-Output "Desktop executable: $destinationExecutable"
 Write-Output "Launcher script: $launcherPath"
 if (-not $SkipShortcut) {
-    Write-Output "Desktop shortcut: $desktopShortcutPath"
+    Write-Output "Desktop shortcut: $($shortcut.path)"
 }

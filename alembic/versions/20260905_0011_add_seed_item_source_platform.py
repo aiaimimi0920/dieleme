@@ -34,7 +34,8 @@ def upgrade() -> None:
             sa.text(
                 "UPDATE fapai_seed_item "
                 "SET source_platform = LEFT(NULLIF(source_payload ->> 'source_platform', ''), 32) "
-                "WHERE source_platform IS NULL AND source_payload IS NOT NULL"
+                "WHERE source_platform IS NULL AND source_payload IS NOT NULL "
+                "AND NULLIF(source_payload ->> 'source_platform', '') IS NOT NULL"
             )
         )
     elif dialect == "sqlite":
@@ -43,7 +44,8 @@ def upgrade() -> None:
                 "UPDATE fapai_seed_item "
                 "SET source_platform = substr(NULLIF(json_extract(source_payload, '$.source_platform'), ''), 1, 32) "
                 "WHERE source_platform IS NULL AND source_payload IS NOT NULL "
-                "AND json_valid(source_payload)"
+                "AND json_valid(source_payload) "
+                "AND NULLIF(json_extract(source_payload, '$.source_platform'), '') IS NOT NULL"
             )
         )
 

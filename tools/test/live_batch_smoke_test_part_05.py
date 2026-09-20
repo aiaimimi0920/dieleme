@@ -422,7 +422,7 @@ def test_recover_browser_list_page_after_challenge_stops_after_second_challenge(
     assert report_calls == [
         (
             "http://127.0.0.1:9223",
-            "https://sf.taobao.com/list/page=5/_____tmd_____/punish?x5secdata=first",
+            "https://sf.taobao.com/list/page=5",
             {"api_base_url": None, "manual_only": False},
         )
     ]

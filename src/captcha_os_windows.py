@@ -250,6 +250,40 @@ class CaptchaOSWindowsMixin:
             "uses_render_widget": bool(render_windows),
         }
 
+    def _linux_window_has_focus(self, window_id):
+        try:
+            result = subprocess.run(
+                ["xdotool", "getwindowfocus"], check=False,
+                capture_output=True, text=True, timeout=3,
+            )
+            return result.returncode == 0 and result.stdout.strip() == window_id
+        except (OSError, subprocess.SubprocessError):
+            return False
+
+    def _activate_linux_window_id(self, window_id):
+        if self._linux_window_has_focus(window_id):
+            return True
+        try:
+            result = subprocess.run(
+                ["xdotool", "windowactivate", "--sync", window_id], check=False,
+                capture_output=True, text=True, timeout=3,
+            )
+            if result.returncode == 0 and self._linux_window_has_focus(window_id):
+                return True
+        except (OSError, subprocess.SubprocessError):
+            pass
+        # Xwayland may leave _NET_ACTIVE_WINDOW on the compositor's focus proxy.
+        # Verify native X11 input focus instead of treating EWMH timeout as final.
+        try:
+            for command in (["xdotool", "windowraise", window_id],
+                            ["xdotool", "windowfocus", "--sync", window_id]):
+                result = subprocess.run(command, check=False, capture_output=True, text=True, timeout=3)
+                if result.returncode != 0:
+                    return False
+        except (OSError, subprocess.SubprocessError):
+            return False
+        return self._linux_window_has_focus(window_id)
+
     def _focus_linux_window(self):
         """Focus the visible Chromium window that owns the active CDP tab."""
         if not str(os.environ.get("DISPLAY") or "").strip():
@@ -276,17 +310,7 @@ class CaptchaOSWindowsMixin:
                 if window_id.isdigit() and window_id not in window_ids:
                     window_ids.append(window_id)
         for window_id in reversed(window_ids):
-            try:
-                activated = subprocess.run(
-                    ["xdotool", "windowactivate", "--sync", window_id],
-                    check=False,
-                    capture_output=True,
-                    text=True,
-                    timeout=3,
-                )
-            except subprocess.SubprocessError:
-                continue
-            if activated.returncode == 0:
+            if self._activate_linux_window_id(window_id):
                 # Focusing an outer Chromium window can leave a different tab active.
                 # Re-activate the exact CDP target after the OS focus transition.
                 if not self._activate_target_tab():
@@ -296,6 +320,9 @@ class CaptchaOSWindowsMixin:
                     )
                     continue
                 time.sleep(0.35)
+                if not self._linux_window_has_focus(window_id):
+                    print(f"[SOLVER] Linux input focus changed before drag id={window_id}")
+                    continue
                 self._linux_window_id = window_id
                 print(f"[SOLVER] Linux browser window focused id={window_id}")
                 return True

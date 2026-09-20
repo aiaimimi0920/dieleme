@@ -26,6 +26,13 @@ def _safe_non_negative_int(value: Any, default: int) -> int:
     return parsed if parsed >= 0 else default
 
 
+def _safe_float(value: Any, default: float) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
 def parse_seed_sort_specs(raw: str | None) -> tuple[SeedSortSpec, ...]:
     text = _clean_text(raw, DEFAULT_SEED_SORTS)
     specs: list[SeedSortSpec] = []
@@ -181,6 +188,18 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[SeedCol
     parser.add_argument("--active-loop-interval-seconds", type=int, default=active_loop_interval_default)
     parser.add_argument("--auth-probe-interval-seconds", type=int, default=auth_probe_interval_default)
     parser.add_argument("--pages-per-run", type=int, default=_safe_int(os.getenv("FAPAI_SEED_PAGES_PER_RUN"), 10))
+    parser.add_argument(
+        "--page-delay-seconds",
+        type=float,
+        default=max(_safe_float(os.getenv("FAPAI_SEED_PAGE_DELAY_SECONDS"), 8.0), 0.0),
+        help="Base delay between list-page requests in the same rough-collection cycle.",
+    )
+    parser.add_argument(
+        "--pacing-jitter-ratio",
+        type=float,
+        default=max(_safe_float(os.getenv("FAPAI_SEED_PACING_JITTER_RATIO"), 0.35), 0.0),
+        help="Symmetric jitter ratio for list-page delays; clamped to 0..1.",
+    )
     parser.add_argument("--max-runs", type=int, default=None)
     parser.add_argument("--api-base-url", default=os.getenv("FAPAI_API_BASE_URL", ""))
     parser.add_argument("--jobs-file", default=os.getenv("FAPAI_SEED_JOBS_FILE", ""))
@@ -251,6 +270,8 @@ def config_from_env_and_args(argv: Sequence[str] | None = None) -> tuple[SeedCol
             auth_probe_interval_seconds=max(int(args.auth_probe_interval_seconds), 0),
             max_runs=args.max_runs,
             pages_per_run=max(int(args.pages_per_run), 1),
+            page_delay_seconds=max(float(args.page_delay_seconds), 0.0),
+            pacing_jitter_ratio=min(max(float(args.pacing_jitter_ratio), 0.0), 1.0),
             solver_enabled=bool(args.solver_enabled),
             manual_challenge_reporting=bool(args.manual_challenge_reporting),
             api_base_url=_clean_text(args.api_base_url),
@@ -270,6 +291,7 @@ __all__ = (
     '_clean_text',
     '_safe_int',
     '_safe_non_negative_int',
+    '_safe_float',
     'parse_seed_sort_specs',
     '_safe_sort_order',
     '_parse_seed_sort_specs_value',

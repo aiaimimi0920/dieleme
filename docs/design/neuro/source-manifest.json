@@ -1,0 +1,12 @@
+{
+  "captured_on": "2026-09-05",
+  "source_project": "Neuro",
+  "source_directory": "docs/UI设计与颜色方案",
+  "verification": "Byte-identical UTF-8 without BOM snapshots; source repositories were read-only.",
+  "sha256": {
+    "AI_PROMPT.md": "e149c129e43b3c16595055155d7cfab91c35d20c61875db8cce5da7b6468a51f",
+    "DESIGN_SYSTEM.md": "ad905ad9a1546193dff3c2ec2039a4e543ece8da0669dd79c3749301bc79255b",
+    "tokens.json": "429ec802b45b095ad081f8995edacb5cb96daf49ac3761da7eb78c9ab34ef42f",
+    "tokens.css": "7877d0140684ec6cdc39be2732f26310381843aa4880671d3a885bc7ed99b43d"
+  }
+}

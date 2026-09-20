@@ -353,6 +353,9 @@ def _solver_scope_runtime_status(scope: str, now: float | None = None) -> dict[s
         and age >= CHALLENGE_FORCE_RESET_SECONDS
     )
     state["force_reset_required"] = force_reset_required
+    # Older persisted terminal reports omitted the manual flag. Do not present
+    # an exhausted worker as still solving, or prevent its human-auth probe.
+    terminal_blocked = bool(state.get("paused") and state.get("node_solver_blocked"))
     return {
         "scope": normalized_scope,
         "challenge_id": challenge_id,
@@ -360,11 +363,11 @@ def _solver_scope_runtime_status(scope: str, now: float | None = None) -> dict[s
         "pause_started_epoch": float(state.get("pause_started_epoch") or 0) or None,
         "challenge_age_seconds": age,
         "paused": bool(state.get("paused")),
-        "pause_reason": state.get("pause_reason"),
-        "manual_required": bool(state.get("manual_required")),
-        "manual_only": bool(state.get("manual_only")),
+        "pause_reason": "manual_required" if terminal_blocked else state.get("pause_reason"),
+        "manual_required": bool(state.get("manual_required") or terminal_blocked),
+        "manual_only": bool(state.get("manual_only") or terminal_blocked),
         "force_reset_required": force_reset_required,
-        "last_status": state.get("last_status") or "idle",
+        "last_status": "manual_required" if terminal_blocked else state.get("last_status") or "idle",
         "last_failure_reason": state.get("last_failure_reason"),
         "node_solver_blocked": bool(state.get("node_solver_blocked")),
         "node_solver_blocked_at_epoch": float(state.get("node_solver_blocked_at_epoch") or 0) or None,

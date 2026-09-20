@@ -156,6 +156,8 @@ def _server_get_branch_13(self, parsed, request_path, query):
     if not authorized:
         self.send_error_json(status=403, code='COLLECTION_AUTH_RECOVERY_FORBIDDEN', message='跨设备认证恢复凭据无效', details={'error': auth_error})
         return
+    if query.get('protocol_version') == ['2'] and query.get('node_id') == ['pc2']:
+        NAS_AUTH_RECOVERY.register_stage_auth_pc2()
     self.send_json({'ok': True, 'auth_recovery': NAS_AUTH_RECOVERY.snapshot()})
 
 def _server_get_branch_14(self, parsed, request_path, query):
@@ -177,6 +179,9 @@ def _server_get_branch_14(self, parsed, request_path, query):
         self.send_error_json(status=409, code='COLLECTION_AUTH_RECOVERY_SNAPSHOT_NOT_READY', message='认证快照尚未就绪')
         return
     snapshot_path = Path(_resolve_auth_cookie_snapshot_path({'node_id': 'pc2'}))
+    if active.get('manual_request_id'):
+        from tools.manual_auth_snapshot import snapshot_path as manual_snapshot_path
+        snapshot_path = manual_snapshot_path(snapshot_path, recovery_id, expected_sha256)
     try:
         raw_snapshot = snapshot_path.read_bytes()
     except OSError:

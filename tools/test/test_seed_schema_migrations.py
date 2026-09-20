@@ -70,3 +70,20 @@ def test_source_platform_migration_backfills_and_downgrades_on_sqlite() -> None:
         assert "source_platform" not in {
             column["name"] for column in sa.inspect(connection).get_columns("fapai_seed_item")
         }
+
+
+def test_source_platform_migration_does_not_rewrite_legacy_rows_without_platform() -> None:
+    engine = sa.create_engine("sqlite://")
+    migration = _load_migration("20260905_0011_add_seed_item_source_platform.py")
+    with engine.begin() as connection:
+        connection.execute(sa.text("CREATE TABLE fapai_seed_item (item_id TEXT PRIMARY KEY, source_payload JSON)"))
+        connection.execute(sa.text("CREATE TABLE touched (item_id TEXT)"))
+        connection.execute(sa.text(
+            "CREATE TRIGGER record_updates AFTER UPDATE ON fapai_seed_item "
+            "BEGIN INSERT INTO touched VALUES (new.item_id); END"
+        ))
+        connection.execute(sa.text("INSERT INTO fapai_seed_item VALUES ('legacy', '{}')"))
+        migration.op = Operations(MigrationContext.configure(connection))
+        migration.upgrade()
+        assert connection.scalar(sa.text("SELECT count(*) FROM touched")) == 0
+        assert connection.scalar(sa.text("SELECT source_platform FROM fapai_seed_item")) is None

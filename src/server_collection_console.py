@@ -8,6 +8,12 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
     completion_id = _normalize_auth_completion_id(payload.get("completion_id"))
     source = str(payload.get("source") or "operator")
     completion_scope = _normalize_challenge_scope(payload.get("scope")) or _scope_for_challenge_id(payload.get("challenge_id"))
+    if source == "seed_auth_probe":
+        from src.collection.adapters.taobao_auth_target import matches_challenge_target
+        status = _solver_scope_runtime_status("seed")
+        if not matches_challenge_target("seed", payload.get("target_url"), status):
+            return {"ok": False, "auth_state_confirmed": False, "stale_challenge": True,
+                    "error": "seed probe target does not match the blocked collection page"}
     if source == "pc2_local_solver" and not completion_id:
         solver_status = _captcha_solver_runtime_status()
         return {

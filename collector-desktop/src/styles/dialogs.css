@@ -1,0 +1,96 @@
+dialog {
+  width: min(800px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  overflow: auto;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--primary-line);
+  border-radius: 8px;
+  padding: 0;
+  box-shadow: 0 24px 80px var(--shadow);
+}
+
+dialog::backdrop {
+  background: rgba(4, 6, 10, 0.78);
+}
+
+dialog.open {
+  display: block;
+  position: fixed;
+  inset: 24px 16px;
+  z-index: 20;
+}
+
+.auth-dialog-header, .auth-dialog-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.auth-dialog-header {
+  justify-content: space-between;
+  align-items: start;
+  background: var(--surface);
+}
+
+.auth-dialog-header > div {
+  flex: 1 1 260px;
+}
+
+.auth-dialog-header h2 {
+  margin: 0 0 8px;
+  font-size: 19px;
+}
+
+.auth-dialog-header p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 12px;
+}
+
+.auth-dialog-toolbar label {
+  flex-basis: 100%;
+}
+
+.auth-dialog-toolbar input {
+  display: block;
+  width: 100%;
+  margin: 6px 0;
+  font: 12px var(--font-mono);
+}
+
+#authChallengeStatus {
+  padding: 0 18px 18px;
+  white-space: pre-line;
+}
+
+#authChallengeDialog { width: min(420px, calc(100vw - 32px)); }
+#authChallengeDialog .auth-dialog-toolbar { border-bottom: 0; }
+#authChallengeStatus:empty { display: none; }
+
+.confirm-dialog {
+  width: min(480px, calc(100vw - 32px));
+  padding: 22px;
+  border-top: 2px solid var(--bad);
+}
+
+.confirm-dialog h2 {
+  font-size: 18px;
+  margin: 0 0 12px;
+}
+
+.confirm-dialog p {
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.confirm-dialog form {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
