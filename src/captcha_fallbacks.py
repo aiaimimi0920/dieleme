@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import logging
 
-from .captcha_context import *  # noqa: F401,F403
 from . import captcha_dom
 
 logger = logging.getLogger(__name__)

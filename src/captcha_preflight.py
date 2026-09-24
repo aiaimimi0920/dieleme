@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 import logging
+import os
+import re
+from pathlib import Path
+from urllib.parse import parse_qs, urlsplit, urlunsplit
 
-from .captcha_context import *  # noqa: F401,F403
+from .captcha_context import LOCAL_MOCK_VERIFY_MODES
+from .captcha_dom import eval_in_all_frames
 
 logger = logging.getLogger(__name__)
-from .captcha_dom import eval_in_all_frames
 
 
 class CaptchaPreflightMixin:

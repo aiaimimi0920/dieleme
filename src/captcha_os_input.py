@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import logging
-
-from .captcha_context import *  # noqa: F401,F403
+import math
+import os
+import random
 from .captcha_budget import SolveStopped
 from .captcha_pointer_backend import (
     OSPointerBackend, PyAutoGUIPointerBackend, UInputPointerBackend, Win32PointerBackend,

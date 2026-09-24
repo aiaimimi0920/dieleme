@@ -2065,3 +2065,14 @@ ratchet 与 `git diff --check` 通过。此前更大 captcha 扩展集合仍有�
 
 验证码 solver、deadline、DOM evaluation、retryable challenge 和 logging 回归
 **95 passed**，有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: captcha preflight, fallback, and OS input imports made explicit
+
+`captcha_preflight.py`、`captcha_fallbacks.py` 与 `captcha_os_input.py` 已移除
+`captcha_context` 通配符导入。Preflight 直接声明 URL 解析、路径、正则和 mock 模式
+依赖；OS input 直接声明 `math`、`os` 与 `random`；fallbacks 删除了无实际使用的
+context 导入。OS pointer backend、DOM preflight、fallback 和 PC2 retry 回归保持
+原有行为。
+
+相关验证码、pointer backend、DOM evaluation 与 PC2 回归 **133 passed**，有效代码行
+ratchet 与 `git diff --check` 通过。没有部署或重启。
