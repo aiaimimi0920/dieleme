@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from _thread import RLock
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Any
 
 
@@ -76,3 +77,29 @@ class CollectionRuntimeIndex:
     def snapshot(self) -> tuple[dict[str, dict[str, object]], tuple[str, ...]]:
         with self.lock:
             return dict(self.seen_ids), tuple(self.pending_tasks)
+
+    def state_snapshot(
+        self,
+    ) -> tuple[dict[str, dict[str, object]], tuple[str, ...], dict[str, Any]]:
+        """Return consistent copies for status and read-only dispatch decisions."""
+        with self.lock:
+            return dict(self.seen_ids), tuple(self.pending_tasks), dict(self.dispatched_tasks)
+
+    def claim_next_pending(self, now: datetime, cooldown_seconds: int) -> dict[str, object] | None:
+        """Atomically choose and mark one legacy detail task."""
+        with self.lock:
+            self.pending_tasks[:] = [
+                item_id for item_id in self.pending_tasks
+                if item_id in self.seen_ids
+                and not self.seen_ids[item_id].get("data", {}).get("is_processed")
+            ]
+            for item_id in self.pending_tasks:
+                dispatched_at = self.dispatched_tasks.get(item_id)
+                if dispatched_at is not None:
+                    if dispatched_at.tzinfo is None:
+                        dispatched_at = dispatched_at.replace(tzinfo=now.tzinfo)
+                    if (now - dispatched_at).total_seconds() < cooldown_seconds:
+                        continue
+                self.dispatched_tasks[item_id] = now
+                return dict(self.seen_ids[item_id].get("data", {}))
+        return None

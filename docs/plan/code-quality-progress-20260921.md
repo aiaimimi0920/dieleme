@@ -1927,3 +1927,13 @@ RuntimeState、collection processing 和 server data runtime 回归 **18 passed*
 
 seed service、seed identity、collection processing 和 RuntimeState 回归 **26 passed**，
 有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: collection read snapshots and atomic legacy next-task claim
+
+`CollectionRuntimeIndex` 新增 `state_snapshot()` 和
+`claim_next_pending()`。状态概览现在使用一致的 seen/pending/dispatch 快照，
+legacy 详情任务入口则在 RuntimeState 内部一次锁操作中完成 pending 清理、冷却检查、
+条目读取和 dispatch 标记，避免 handler 直接访问内部容器或把 check-then-mark 拆开。
+
+RuntimeState、详情 dispatch、collection restart 和 server facade 契约回归 **45 passed**，
+有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。

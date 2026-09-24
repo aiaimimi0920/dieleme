@@ -231,27 +231,27 @@ def _get_status(self, parsed, request_path, query):
                 if not last_time or (now - last_time).total_seconds() >= DISPATCH_COOLDOWN_SECONDS:
                     next_batch.append(tid)
         else:
-            with runtime_index.lock:
-                total_ids = len(runtime_index.seen_ids)
-                captured_ids = set()
-                for (tid, entry) in runtime_index.seen_ids.items():
-                    if entry.get('data', {}).get('is_processed'):
-                        captured_ids.add(tid)
-                ai_finalized_count = len(captured_ids)
-                for f in os.listdir(DATA_DIR):
-                    if f.startswith('item-') and (f.endswith('.txt') or f.endswith('.html')):
-                        m = re.search('item-(\\d+)', f)
-                        if m:
-                            captured_ids.add(m.group(1))
-                captured_count = len(captured_ids)
-                next_batch = []
-                now = _utc_now()
-                for tid in runtime_index.pending_tasks[:100]:
-                    if len(next_batch) >= 10:
-                        break
-                    last_time = _as_utc_timestamp(runtime_index.dispatched_tasks.get(tid))
-                    if not last_time or (now - last_time).total_seconds() >= DISPATCH_COOLDOWN_SECONDS:
-                        next_batch.append(tid)
+            seen_ids, pending_tasks, dispatched_tasks = runtime_index.state_snapshot()
+            total_ids = len(seen_ids)
+            captured_ids = {
+                tid for tid, entry in seen_ids.items()
+                if entry.get('data', {}).get('is_processed')
+            }
+            ai_finalized_count = len(captured_ids)
+            for f in os.listdir(DATA_DIR):
+                if f.startswith('item-') and (f.endswith('.txt') or f.endswith('.html')):
+                    m = re.search('item-(\\d+)', f)
+                    if m:
+                        captured_ids.add(m.group(1))
+            captured_count = len(captured_ids)
+            next_batch = []
+            now = _utc_now()
+            for tid in pending_tasks[:100]:
+                if len(next_batch) >= 10:
+                    break
+                last_time = _as_utc_timestamp(dispatched_tasks.get(tid))
+                if not last_time or (now - last_time).total_seconds() >= DISPATCH_COOLDOWN_SECONDS:
+                    next_batch.append(tid)
         if _prefer_db_task_reads():
             pass
         if DB_REPOSITORY.enabled:
@@ -291,19 +291,8 @@ def _post_detail_next_task(self):
         return
     else:
         now = _utc_now()
-        next_task = None
-        with runtime_index.lock:
-            runtime_index.prune_unavailable_pending()
-            check_candidates = list(runtime_index.pending_tasks)
-            for tid in check_candidates:
-                last_time = _as_utc_timestamp(runtime_index.dispatched_tasks.get(tid))
-                if last_time and (now - last_time).total_seconds() < DISPATCH_COOLDOWN_SECONDS:
-                    continue
-                if tid in runtime_index.seen_ids:
-                    item = runtime_index.seen_ids[tid]['data']
-                    next_task = {'url': item.get('url')}
-                    runtime_index.mark_dispatched(tid, now)
-                    break
+        item = runtime_index.claim_next_pending(now, DISPATCH_COOLDOWN_SECONDS)
+        next_task = {'url': item.get('url')} if item is not None else None
     if next_task:
         self.send_json(next_task)
     else:
