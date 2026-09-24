@@ -2137,6 +2137,13 @@ adapter、detail/seed service、数据库、风险标签、RuntimeState、execut
 时间依赖。collection jobs、controller coordination 与 server source contract 回归
 **28 passed, 1 skipped**，没有部署或重启。
 
+### 2026-09-24: analysis handler imports made explicit
+
+`server_handler_analysis.py` 已移除 `server_context` 通配符，直接声明 AVM pipeline、
+AVM service、数据库、manual-review receipt、maintenance、可选 llm helper、路径和
+RuntimeState 依赖。analysis handler import smoke、server source contract 与 AVM HTTP
+contract 回归 **14 passed**，没有部署或重启。
+
 ### 2026-09-24: collection handler and solver dispatch imports made explicit
 
 `server_handler_get_collection.py` 与 `server_solver_dispatch.py` 已移除
