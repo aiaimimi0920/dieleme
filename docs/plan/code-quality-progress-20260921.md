@@ -2109,6 +2109,13 @@ CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ra
 码合同、浏览器 URL 和社区提示回归 **8 passed**；有效代码行 ratchet 与
 `git diff --check` 仍需在提交前运行。
 
+### 2026-09-24: data runtime imports made explicit
+
+`server_data_runtime.py` 已移除最后一个 `server_context` 通配符，直接声明 runtime
+archive、detail artifact、collection sync、数据库、认证恢复、JSON、文件扫描、线程
+和时间依赖。data runtime import smoke、server source contract、RuntimeState、runtime
+JSON 与 collection processing 回归 **37 passed**，没有部署或重启。
+
 ### 2026-09-24: auth recovery imports made explicit
 
 `server_auth_recovery.py` 已移除 `server_context` 通配符，直接声明 recovery
