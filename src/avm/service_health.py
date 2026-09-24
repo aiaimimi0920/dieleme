@@ -1,6 +1,14 @@
 from __future__ import annotations
 
-from .service_context import *  # noqa: F401,F403
+from typing import Any, Dict, List
+
+from .service_context import (
+    MAX_CANDIDATE_POOL,
+    MODEL_VERSION,
+    get_active_risk_factor_overrides,
+    get_effective_risk_discount_factor,
+    get_effective_weighting,
+)
 
 
 class AVMHealthMixin:
