@@ -2130,6 +2130,13 @@ backup、receipt、analysis-stage、数据库和路径依赖。manual-review fac
 server source contract、control-plane backfill 与 analysis-stage planner 回归
 **69 passed**，没有部署或重启。
 
+### 2026-09-24: collection operations imports made explicit
+
+`server_collection_operations.py` 已移除 `server_context` 通配符，直接声明 collection
+adapter、detail/seed service、数据库、风险标签、RuntimeState、executor、JSON 和
+时间依赖。collection jobs、controller coordination 与 server source contract 回归
+**28 passed, 1 skipped**，没有部署或重启。
+
 ### 2026-09-24: collection handler and solver dispatch imports made explicit
 
 `server_handler_get_collection.py` 与 `server_solver_dispatch.py` 已移除
