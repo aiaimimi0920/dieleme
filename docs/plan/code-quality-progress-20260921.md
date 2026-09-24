@@ -221,6 +221,10 @@ AVM facade 的公共常量、类型依赖和五个可 monkeypatch 的函数，�
 验证：AVM engine、HTTP contract 与 weighting 聚焦集合 **53 passed**；本项不包含
 FunctionType 动态克隆、其他 facade 或生产数据库迁移，剩余 facade 收口仍未完成。
 
+`src/server.py` 的 facade 重绑定循环已抽取为 `_publish_rebound_function()`，统一维护
+`FunctionType`、`src.server` globals、`_CONTEXT` 同步和函数元数据行为。没有改变动态
+路由绑定或历史 RuntimeState patch point。`test_server_source_contract.py` **14 passed**。
+
 ## 续作：安全运行控制、快照缓存和存储查询
 
 以下为用户明确延期部署之后新增的源码工作。全部测试使用临时目录、合成凭据或独立

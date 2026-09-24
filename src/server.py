@@ -84,14 +84,19 @@ def _rebind_function(function):
     return rebound
 
 
+def _publish_rebound_function(name, function):
+    rebound = _rebind_function(function)
+    globals()[name] = rebound
+    setattr(_CONTEXT, name, rebound)
+    return rebound
+
+
 _IMPLEMENTATION_NAMES = {f"{_PACKAGE}.server_context"} | {
     f"{_PACKAGE}.{name}" for name in _IMPLEMENTATION_MODULES
 }
 for _name, _value in list(globals().items()):
     if isinstance(_value, types.FunctionType) and _value.__module__ in _IMPLEMENTATION_NAMES:
-        _value = _rebind_function(_value)
-        globals()[_name] = _value
-        setattr(_CONTEXT, _name, _value)
+        _publish_rebound_function(_name, _value)
 
 for _module_name in _HANDLER_MODULES:
     _module = importlib.import_module(f"{_PACKAGE}.{_module_name}")
@@ -100,9 +105,7 @@ for _module_name in _HANDLER_MODULES:
         _value = globals()[_name]
         if not isinstance(_value, types.FunctionType):
             continue
-        _value = _rebind_function(_value)
-        globals()[_name] = _value
-        setattr(_CONTEXT, _name, _value)
+        _publish_rebound_function(_name, _value)
 
 # Keep the historical patch points used by maintenance scripts and tests while
 # the runtime state remains owned by the structured RuntimeState object.
