@@ -2109,6 +2109,14 @@ CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ra
 码合同、浏览器 URL 和社区提示回归 **8 passed**；有效代码行 ratchet 与
 `git diff --check` 仍需在提交前运行。
 
+### 2026-09-24: auth recovery imports made explicit
+
+`server_auth_recovery.py` 已移除 `server_context` 通配符，直接声明 recovery
+coordinator、challenge scope、solver grace、token 文件、HMAC、JSON、路径和时间
+依赖。server source contract 与 RuntimeState 回归 **27 passed**，import smoke 通过。
+control-plane 组合仍有既有错误码合同失败：测试期望 `AUTH_RECOVERY_FORBIDDEN`，
+当前实际返回 `COLLECTION_AUTH_RECOVERY_FORBIDDEN`；该失败与本次 import 收口无关。
+
 ### 2026-09-24: hybrid context/runtime imports made explicit
 
 `server_hybrid_context.py` 与 `server_hybrid_runtime.py` 已移除 `server_context`
