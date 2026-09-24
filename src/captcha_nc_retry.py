@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import logging
+import math
+import os
+import random
+import time
 
-from .captcha_context import *  # noqa: F401,F403
 from .collection.adapters.taobao_auth_target import canonical_auth_target
 from .captcha_dom import eval_in_all_frames
 

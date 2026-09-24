@@ -2055,3 +2055,13 @@ RuntimeState、runtime JSON、quality collection 和 server facade 回归 **43 p
 captcha solver 分片、pointer backend 与 logging 回归 **72 passed**，有效代码行
 ratchet 与 `git diff --check` 通过。此前更大 captcha 扩展集合仍有一个与本切片无关
 的 drag geometry 源码断言失败，未将其报告为全通过；没有部署或重启。
+
+### 2026-09-24: captcha orchestration, slider, and NC retry imports made explicit
+
+`captcha_orchestration.py`、`captcha_slider.py` 与 `captcha_nc_retry.py` 已移除
+`captcha_context` 通配符导入，分别声明实际使用的 `random`、`json`、`math`、`os`
+和 `time` 标准库依赖。验证码 mixin 的共享模块对象、随机数 monkeypatch、CDP DOM
+评估和 NC 重试行为保持不变，未扩大 facade 的公开导出面。
+
+验证码 solver、deadline、DOM evaluation、retryable challenge 和 logging 回归
+**95 passed**，有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
