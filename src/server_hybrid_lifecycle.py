@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .server_context import *  # noqa: F401,F403
+from typing import Any
 
 def _hybrid_collection_lifecycle_state_summary(
     runtime_summary: dict[str, Any],

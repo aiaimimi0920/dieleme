@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .server_context import *  # noqa: F401,F403
+from typing import Any
 
 def _hybrid_collection_operator_intervention_policy_overview_fields(summary: dict[str, Any]) -> dict[str, Any]:
     return {

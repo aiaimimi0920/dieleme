@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .server_context import *  # noqa: F401,F403
+from typing import Any
 
 def _hybrid_collection_operator_escalation_event_stability_summary(
     escalation_event_trend_summary: dict[str, Any],

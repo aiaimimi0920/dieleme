@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from .server_context import *  # noqa: F401,F403
+from pathlib import Path
+from typing import Any
 
 def _hybrid_collection_runtime_history_summary(data_root: Path, *, limit: int = 20) -> dict[str, Any]:
     entries = _load_jsonl_snapshots(data_root / "avm" / "hybrid_seed_collection_runtime_history.jsonl")
