@@ -1884,3 +1884,14 @@ seed batch 请求拆开；service 的既有参数和持久化契约保持不变�
 RuntimeState、详情服务、详情并发和 runtime data 组合回归 **28 passed**。
 `compileall`、有效行数 ratchet（1125 files，三档 oversized 均为 0）和
 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-23: runtime data loader 使用 RuntimeState collection API
+
+`server_data_runtime.load_data()` 不再直接写入 `seen_ids` 和 `pending_tasks`。
+文件扫描和数据库 hydration 现在通过 `CollectionRuntimeIndex.set_seen()` 与
+`queue_pending()` 完成，保留重复入队抑制和既有 done/processed 判定。这样
+启动加载路径与在线 handler 使用同一套受锁 RuntimeState API，减少裸容器写入面。
+
+`test_runtime_json.py`、`test_runtime_state.py` 和
+`test_collection_processing_state.py` 组合回归 **23 passed**。没有部署或重启；
+其他 service 的兼容参数和剩余裸容器写入仍需继续迁移。

@@ -148,18 +148,13 @@ def load_data(data_root: str | Path | None = None):
                     continue
                 sync_collection_record(item)
 
-                with collection.lock:
-                    collection.seen_ids[item_id] = {
-                        "file_path": file_path,
-                        "data": item
-                    }
+                collection.set_seen(item_id, {"file_path": file_path, "data": item})
+                is_done = item.get("status") in ["done", "成交", "failure", "failed_timeout"] or item.get("是否成交") is True
+                is_processed = item.get("is_processed", False)
 
-                    is_done = item.get("status") in ["done", "成交", "failure", "failed_timeout"] or item.get("是否成交") is True
-                    is_processed = item.get("is_processed", False)
-
-                    # QUEUE LOGIC: If it's a valid item (done/failed) AND not processed, queue it.
-                    if is_done and not is_processed:
-                        collection.pending_tasks.append(item_id)
+                # Queue valid, unprocessed items through the RuntimeState API.
+                if is_done and not is_processed:
+                    collection.queue_pending(item_id)
             except (AttributeError, KeyError, TypeError, ValueError):
                 logger.exception("Failed to process collection item file=%s", file_path)
     if DB_REPOSITORY.enabled:
@@ -170,19 +165,18 @@ def load_data(data_root: str | Path | None = None):
                 if not item_id:
                     continue
                 sync_collection_record(item)
-                existing = collection.seen_ids.get(item_id, {})
+                existing = collection.get_seen(item_id) or {}
                 existing_data = dict(existing.get("data", {}))
                 existing_data.update(item)
                 sync_collection_record(existing_data)
                 file_path = existing.get("file_path")
                 if not file_path:
                     file_path = get_data_path(existing_data.get("auction_date") or datetime.datetime.now())
-                with collection.lock:
-                    collection.seen_ids[item_id] = {"file_path": file_path, "data": existing_data}
-                    is_done = existing_data.get("status") in ["done", "成交", "failure", "failed_timeout"] or existing_data.get("是否成交") is True
-                    is_processed = existing_data.get("is_processed", False)
-                    if is_done and not is_processed and item_id not in collection.pending_tasks:
-                        collection.pending_tasks.append(item_id)
+                collection.set_seen(item_id, {"file_path": file_path, "data": existing_data})
+                is_done = existing_data.get("status") in ["done", "成交", "failure", "failed_timeout"] or existing_data.get("是否成交") is True
+                is_processed = existing_data.get("is_processed", False)
+                if is_done and not is_processed:
+                    collection.queue_pending(item_id)
             logger.info("Hydrated %s items from database into runtime index", len(db_items))
         except Exception as db_load_error:
             logger.exception("Runtime index hydration failed")
