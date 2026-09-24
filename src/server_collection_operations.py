@@ -24,9 +24,8 @@ def _json_payload_type_name(payload: Any) -> str:
 def _evict_runtime_item(item_id):
     item_id = str(item_id)
     collection = _collection_runtime_index()
-    with collection.lock:
-        collection.seen_ids.pop(item_id, None)
-        collection.remove_pending(item_id)
+    collection.remove_seen(item_id)
+    collection.remove_pending(item_id)
 
 def _reset_structured_sections_for_resync(item):
     for key in ("source", "archive", "auction", "location", "property", "legal_context", "risk_flags", "audit"):

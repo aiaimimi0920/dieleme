@@ -1895,3 +1895,14 @@ RuntimeState、详情服务、详情并发和 runtime data 组合回归 **28 pas
 `test_runtime_json.py`、`test_runtime_state.py` 和
 `test_collection_processing_state.py` 组合回归 **23 passed**。没有部署或重启；
 其他 service 的兼容参数和剩余裸容器写入仍需继续迁移。
+
+### 2026-09-23: runtime eviction 使用 RuntimeState collection API
+
+`_evict_runtime_item()` 不再直接操作 `seen_ids.pop()`；
+`CollectionRuntimeIndex` 新增受锁的 `remove_seen()`，并与既有
+`remove_pending()` 一起用于运行时条目驱逐。该切片保持删除内存索引的原有语义，
+不删除磁盘归档或业务数据库记录。
+
+RuntimeState、collection processing 和 server data runtime 回归 **18 passed**，
+有效代码行 ratchet 与 `git diff --check` 通过。其他 service 的裸容器参数和写入
+仍需继续迁移；没有部署或重启。

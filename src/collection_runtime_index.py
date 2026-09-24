@@ -37,6 +37,10 @@ class CollectionRuntimeIndex:
         with self.lock:
             return self.seen_ids.get(item_id)
 
+    def remove_seen(self, item_id: str) -> None:
+        with self.lock:
+            self.seen_ids.pop(item_id, None)
+
     def remove_pending(self, item_id: str) -> None:
         with self.lock:
             try:
