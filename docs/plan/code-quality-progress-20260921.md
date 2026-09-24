@@ -199,6 +199,16 @@ NAS 只读检查：`/api/status`、`/api/collection/overview` 均 HTTP 200；DB 
 行数政策沿用 AGENTS.md，没有修改基线、排除项或自行放宽测试目录。
 后续先补齐全部剩余代码与验证任务；部署、应用重启、NAS/PC2 实际运行测试继续延期。
 
+## 续作：AVM facade 显式依赖收口
+
+`src/avm/service.py` 已将 `service_context` 的通配符导入替换为显式导入。保留
+AVM facade 的公共常量、类型依赖和五个可 monkeypatch 的函数，并继续由
+`_ServiceFacadeModule` 将这些 patch 同步到各 mixin 模块。这样减少隐式名称泄漏，
+同时不改变 `AVMService` 的公共导入路径和现有测试替身语义。
+
+验证：AVM engine、HTTP contract 与 weighting 聚焦集合 **26 passed**；本项不包含
+FunctionType 动态克隆、其他 facade 或生产数据库迁移，剩余 facade 收口仍未完成。
+
 ## 续作：安全运行控制、快照缓存和存储查询
 
 以下为用户明确延期部署之后新增的源码工作。全部测试使用临时目录、合成凭据或独立
