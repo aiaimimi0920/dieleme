@@ -227,8 +227,7 @@ class DetailCollectionService:
         evict_runtime_item: Callable[[str], None],
         submit_task: Callable[[str], None],
         prefer_db_task_reads: Callable[[], bool],
-        pending_tasks: list[str],
-        remove_pending: Callable[[str], bool | None] | None = None,
+        remove_pending: Callable[[str], bool | None],
     ) -> Dict[str, Any]:
         working_item = get_working_item(item_id, True)
         if not working_item:
@@ -248,10 +247,7 @@ class DetailCollectionService:
             self.adapter.sync_record(working_data)
             with self._dispatch_lock:
                 if working_item["cached"]:
-                    if remove_pending is not None:
-                        remove_pending(item_id)
-                    elif item_id in pending_tasks:
-                        pending_tasks.remove(item_id)
+                    remove_pending(item_id)
             update_file_global(working_item["file_path"], item_id, working_data)
             event_type = "analyze_html_status"
             persist_item_to_db(
@@ -281,8 +277,7 @@ class DetailCollectionService:
         persist_item_to_db: Callable[[Dict[str, Any], str, Dict[str, Any] | None], None],
         evict_runtime_item: Callable[[str], None],
         prefer_db_task_reads: Callable[[], bool],
-        pending_tasks: list[str],
-        remove_pending: Callable[[str], bool | None] | None = None,
+        remove_pending: Callable[[str], bool | None],
         mark_processed: bool = False,
         force_status: str | None = None,
     ) -> Dict[str, Any]:
@@ -304,10 +299,7 @@ class DetailCollectionService:
 
         with self._dispatch_lock:
             if working_item["cached"]:
-                if remove_pending is not None:
-                    remove_pending(item_id)
-                elif item_id in pending_tasks:
-                    pending_tasks.remove(item_id)
+                remove_pending(item_id)
 
         file_path = working_item["file_path"]
         update_file_global(file_path, item_id, current_data)

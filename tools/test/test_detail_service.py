@@ -54,7 +54,7 @@ def _submit_detail_html(tmp_path: Path, *, status: str):
         evict_runtime_item=evict_runtime_item,
         submit_task=submit_task,
         prefer_db_task_reads=lambda: False,
-        pending_tasks=state["pending_tasks"],
+        remove_pending=lambda candidate_id: state["pending_tasks"].remove(candidate_id),
     )
     return result, state, tmp_path / "html" / f"item-{item_id}.html"
 

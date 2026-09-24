@@ -283,7 +283,7 @@ def _post_detail_update_item(self):
             self.send_error_json(status=400, code='AVM_INVALID_ID', message='id is required')
             return
         force_status = 'failed_timeout' if data.get('status') == 'failed_timeout' else None
-        result = _detail_collection_service().apply_working_item_patch(item_id=item_id, patch_data=data, event_type='update_item', get_working_item=_get_working_item, apply_flat_override_patch=_apply_flat_override_patch, reset_structured_sections_for_resync=_reset_structured_sections_for_resync, update_file_global=update_file_global, persist_item_to_db=persist_item_to_db, evict_runtime_item=_evict_runtime_item, prefer_db_task_reads=_prefer_db_task_reads, pending_tasks=runtime_index.pending_tasks, remove_pending=runtime_index.remove_pending, force_status=force_status)
+        result = _detail_collection_service().apply_working_item_patch(item_id=item_id, patch_data=data, event_type='update_item', get_working_item=_get_working_item, apply_flat_override_patch=_apply_flat_override_patch, reset_structured_sections_for_resync=_reset_structured_sections_for_resync, update_file_global=update_file_global, persist_item_to_db=persist_item_to_db, evict_runtime_item=_evict_runtime_item, prefer_db_task_reads=_prefer_db_task_reads, remove_pending=runtime_index.remove_pending, force_status=force_status)
         if result['status'] == 'ok':
             if force_status == 'failed_timeout':
                 logger.info('Item %s TIMED OUT.', item_id)
@@ -333,7 +333,7 @@ def _post_detail_html(self):
             return
         html_content = data.get('html', '')
         status = data.get('status')
-        result = _detail_collection_service().submit_html(item_id=item_id, html_content=html_content, status=status, get_working_item=_get_working_item, apply_flat_override_patch=_apply_flat_override_patch, reset_structured_sections_for_resync=_reset_structured_sections_for_resync, update_file_global=update_file_global, persist_item_to_db=persist_item_to_db, evict_runtime_item=_evict_runtime_item, submit_task=submit_task, prefer_db_task_reads=_prefer_db_task_reads, pending_tasks=runtime_index.pending_tasks, remove_pending=runtime_index.remove_pending)
+        result = _detail_collection_service().submit_html(item_id=item_id, html_content=html_content, status=status, get_working_item=_get_working_item, apply_flat_override_patch=_apply_flat_override_patch, reset_structured_sections_for_resync=_reset_structured_sections_for_resync, update_file_global=update_file_global, persist_item_to_db=persist_item_to_db, evict_runtime_item=_evict_runtime_item, submit_task=submit_task, prefer_db_task_reads=_prefer_db_task_reads, remove_pending=runtime_index.remove_pending)
         if result.get('status') == 'id_not_found':
             self.send_error_json(status=404, code='AVM_DETAIL_ITEM_NOT_FOUND', message='Item not found', details={'id': item_id})
             return

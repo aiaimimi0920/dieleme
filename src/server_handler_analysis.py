@@ -295,7 +295,7 @@ def _post_area_result(self):
     try:
         runtime_index = _collection_runtime_index()
         item_id = str(data.get('id'))
-        result = _detail_collection_service().apply_working_item_patch(item_id=item_id, patch_data=data, event_type='area_result', get_working_item=_get_working_item, apply_flat_override_patch=_apply_flat_override_patch, reset_structured_sections_for_resync=_reset_structured_sections_for_resync, update_file_global=update_file_global, persist_item_to_db=persist_item_to_db, evict_runtime_item=_evict_runtime_item, prefer_db_task_reads=_prefer_db_task_reads, pending_tasks=runtime_index.pending_tasks, remove_pending=runtime_index.remove_pending, mark_processed=True)
+        result = _detail_collection_service().apply_working_item_patch(item_id=item_id, patch_data=data, event_type='area_result', get_working_item=_get_working_item, apply_flat_override_patch=_apply_flat_override_patch, reset_structured_sections_for_resync=_reset_structured_sections_for_resync, update_file_global=update_file_global, persist_item_to_db=persist_item_to_db, evict_runtime_item=_evict_runtime_item, prefer_db_task_reads=_prefer_db_task_reads, remove_pending=runtime_index.remove_pending, mark_processed=True)
         if result['status'] == 'ok':
             logger.info('[AREA RESULT] Updated %s | Area: %s', item_id, data.get('建筑面积', 0))
             self.send_json(result)
@@ -354,7 +354,7 @@ def _post_approve_area(self):
     try:
         runtime_index = _collection_runtime_index()
         item_id = str(data.get('id'))
-        result = _detail_collection_service().apply_working_item_patch(item_id=item_id, patch_data=data, event_type='manual_approve_area', get_working_item=_get_working_item, apply_flat_override_patch=_apply_flat_override_patch, reset_structured_sections_for_resync=_reset_structured_sections_for_resync, update_file_global=update_file_global, persist_item_to_db=persist_item_to_db, evict_runtime_item=_evict_runtime_item, prefer_db_task_reads=_prefer_db_task_reads, pending_tasks=runtime_index.pending_tasks, remove_pending=runtime_index.remove_pending, mark_processed=True, force_status='done')
+        result = _detail_collection_service().apply_working_item_patch(item_id=item_id, patch_data=data, event_type='manual_approve_area', get_working_item=_get_working_item, apply_flat_override_patch=_apply_flat_override_patch, reset_structured_sections_for_resync=_reset_structured_sections_for_resync, update_file_global=update_file_global, persist_item_to_db=persist_item_to_db, evict_runtime_item=_evict_runtime_item, prefer_db_task_reads=_prefer_db_task_reads, remove_pending=runtime_index.remove_pending, mark_processed=True, force_status='done')
         if result['status'] == 'ok':
             logger.info('[APPROVE AREA] Manually Approved %s | Area: %s', item_id, data.get('建筑面积', 0))
             self.send_json(result)

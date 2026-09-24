@@ -147,7 +147,7 @@ def test_detail_updates_remove_pending_tasks_under_runtime_lock(tmp_path, operat
         "persist_item_to_db": lambda *_args: None,
         "evict_runtime_item": lambda *_args: None,
         "prefer_db_task_reads": lambda: False,
-        "pending_tasks": pending_tasks,
+        "remove_pending": lambda item_id: pending_tasks.remove(item_id),
     }
     if operation == "submit_html":
         result = service.submit_html(
@@ -189,7 +189,6 @@ def test_detail_updates_can_use_runtime_index_remove_callback(tmp_path) -> None:
         persist_item_to_db=lambda *_args: None,
         evict_runtime_item=lambda *_args: None,
         prefer_db_task_reads=lambda: False,
-        pending_tasks=[],
         remove_pending=lambda item_id: removed.append(item_id),
     )
 

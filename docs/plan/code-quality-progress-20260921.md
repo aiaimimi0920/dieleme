@@ -1968,3 +1968,13 @@ collection runtime、RuntimeState、detail dispatch 和 server facade 回归 **4
 
 collection adapter、detail service、detail dispatch 和 RuntimeState 回归 **40 passed**，
 有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: detail update handlers remove raw pending container contract
+
+`submit_html()` 和 `apply_working_item_patch()` 不再接收原始 `pending_tasks` 列表，
+只接受必需的 `remove_pending()` callback。详情 ingest、area result 和 manual approve
+handler 已全部改为传入 RuntimeState callback；detail service 内不再保留直接
+`pending_tasks.remove()` fallback。相关 RuntimeState 测试改为验证 callback 身份。
+
+detail service、detail dispatch、collection adapter、RuntimeState 和 quality collection
+回归 **48 passed**，有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。

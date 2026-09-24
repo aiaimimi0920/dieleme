@@ -243,7 +243,7 @@ def test_area_handlers_use_the_injected_runtime_pending_queue(
 
     getattr(server, handler_name)(handler)
 
-    assert captured["pending_tasks"] is pending_tasks
+    assert captured["remove_pending"] == state.collection.remove_pending
     assert state.collection.pending_tasks is pending_tasks
     assert response == [{"status": "ok"}]
 
