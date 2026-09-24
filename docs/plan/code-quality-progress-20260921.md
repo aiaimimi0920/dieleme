@@ -2116,6 +2116,14 @@ CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ra
 smoke 与 server facade/source contract 回归 **14 passed**，没有改变 token、CORS、
 request-size 或 CDP endpoint 合同；没有部署或重启。
 
+### 2026-09-24: server handler/control imports made explicit
+
+`server_handler_task_control.py`、`server_handler_core.py`、`server_collection_control.py`
+与 `server_collection_console.py` 已移除 `server_context` 通配符，直接声明各自的
+时间、URL、JSON、文件系统、RuntimeState、challenge 和 collection control 依赖。
+server source contract、collection controller coordination 与 HTTPS control 回归
+**19 passed, 1 skipped**，没有部署或重启。
+
 ### 2026-09-24: hybrid summary imports made explicit
 
 `server_hybrid_escalation.py`、`server_hybrid_events.py`、`server_hybrid_history.py`、
