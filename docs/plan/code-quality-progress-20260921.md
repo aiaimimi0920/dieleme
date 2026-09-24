@@ -208,6 +208,10 @@ AVM facade 的公共常量、类型依赖和五个可 monkeypatch 的函数，�
 `_ServiceFacadeModule` 将这些 patch 同步到各 mixin 模块。这样减少隐式名称泄漏，
 同时不改变 `AVMService` 的公共导入路径和现有测试替身语义。
 
+`src/avm/engine.py` 同步改为显式重导出 `predict_price`、`predict_fair_price`、
+`AVM_CONFIG_MANAGER` 和 `get_active_risk_factor_overrides`，避免通过预测引擎的
+通配符链泄漏整个内部模块命名空间，同时保留现有配置 monkeypatch 入口。
+
 验证：AVM engine、HTTP contract 与 weighting 聚焦集合 **53 passed**；本项不包含
 FunctionType 动态克隆、其他 facade 或生产数据库迁移，剩余 facade 收口仍未完成。
 
