@@ -1875,6 +1875,14 @@ service 保留 `seen_ids` / `pending_tasks` 参数作为旧调用兼容面，但
 `compileall`、有效行数 ratchet（1125 files，三档 oversized 均为 0）和
 `git diff --check` 通过。没有部署或重启。
 
+### 2026-09-24: server settings and auto-tuning imports made explicit
+
+`server_collection_settings.py` 与 `server_auto_tuning.py` 已移除
+`server_context` 通配符，分别直接声明 URL/JSON 和定时器依赖。collection settings
+回归 **12 passed**，两个模块 import smoke 通过。扩展的 control-plane 组合中仍有
+一个既有 `AUTH_RECOVERY_FORBIDDEN` 与 `COLLECTION_AUTH_RECOVERY_FORBIDDEN` 错误码
+合同不一致失败，和本次 import 收口无关；没有部署或重启。
+
 ### 2026-09-24: server facade contract coverage
 
 在不改变动态 facade 实现的前提下，补充两项低风险契约回归：所有被重绑定到
