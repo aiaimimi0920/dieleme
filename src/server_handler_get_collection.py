@@ -279,6 +279,7 @@ def _post_detail_next_task(self):
                 dispatched_tasks=runtime_index.dispatched_tasks,
                 cooldown_seconds=DISPATCH_COOLDOWN_SECONDS,
                 dispatch_lock=runtime_index.lock,
+                mark_dispatched=runtime_index.mark_dispatched,
             )
         except Exception as e:
             self.send_error_json(status=500, code='AVM_DETAIL_NEXT_TASK_FAILED', message='详情任务分发失败', details={'error': str(e)})

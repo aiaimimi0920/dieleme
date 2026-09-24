@@ -1906,3 +1906,14 @@ RuntimeState、详情服务、详情并发和 runtime data 组合回归 **28 pas
 RuntimeState、collection processing 和 server data runtime 回归 **18 passed**，
 有效代码行 ratchet 与 `git diff --check` 通过。其他 service 的裸容器参数和写入
 仍需继续迁移；没有部署或重启。
+
+### 2026-09-23: detail dispatch 写入通过 RuntimeState callback
+
+详情服务的 `next_task()`、`next_visit_task()` 和 `batch_tasks()` 现在支持显式的
+`mark_dispatched()` callback。在线 server handler 将 dispatch 时间写入
+`CollectionRuntimeIndex`，兼容测试和旧调用仍可使用原始字典参数。这样新的详情
+分发写入不再直接修改 RuntimeState 拥有的 `dispatched_tasks` 容器。
+
+详情 dispatch、RuntimeState 和 collection restart 组合回归 **37 passed**，有效代码
+行 ratchet 与 `git diff --check` 通过。过期清理和旧 service 参数仍保留兼容面，
+没有部署或重启。

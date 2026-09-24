@@ -105,6 +105,7 @@ class DetailCollectionService:
         dispatched_tasks: Dict[str, datetime.datetime],
         cooldown_seconds: int,
         dispatch_lock: ContextManager[object] | None = None,
+        mark_dispatched: Callable[[str, datetime.datetime], None] | None = None,
     ) -> Dict[str, Any]:
         now = _utc_now()
         lock = dispatch_lock or self._dispatch_lock
@@ -117,7 +118,11 @@ class DetailCollectionService:
                     last_time = dispatched_tasks.get(tid)
                     if last_time and (now - _as_utc(last_time)).total_seconds() < cooldown_seconds:
                         continue
-                    dispatched_tasks[tid] = now.replace(tzinfo=None) if last_time and last_time.tzinfo is None else now
+                    timestamp = now.replace(tzinfo=None) if last_time and last_time.tzinfo is None else now
+                    if mark_dispatched is not None:
+                        mark_dispatched(tid, timestamp)
+                    else:
+                        dispatched_tasks[tid] = timestamp
                     return {"url": candidate.get("url")}
         return {}
 
@@ -128,6 +133,7 @@ class DetailCollectionService:
         cooldown_seconds: int,
         legacy_entries: list[tuple[str, Dict[str, Any]]] | None = None,
         dispatch_lock: ContextManager[object] | None = None,
+        mark_dispatched: Callable[[str, datetime.datetime], None] | None = None,
     ) -> Dict[str, Any]:
         now = _utc_now()
         lock = dispatch_lock or self._dispatch_lock
@@ -160,7 +166,11 @@ class DetailCollectionService:
                 last_time = dispatched_tasks.get(item_id)
                 if last_time and (now - _as_utc(last_time)).total_seconds() < cooldown_seconds:
                     continue
-                dispatched_tasks[item_id] = now.replace(tzinfo=None) if last_time and last_time.tzinfo is None else now
+                timestamp = now.replace(tzinfo=None) if last_time and last_time.tzinfo is None else now
+                if mark_dispatched is not None:
+                    mark_dispatched(item_id, timestamp)
+                else:
+                    dispatched_tasks[item_id] = timestamp
                 return {
                     "task_type": "visit",
                     "id": item_id,
@@ -174,6 +184,7 @@ class DetailCollectionService:
         dispatched_tasks: Dict[str, datetime.datetime],
         cooldown_seconds: int,
         batch_size: int = 300,
+        mark_dispatched: Callable[[str, datetime.datetime], None] | None = None,
     ) -> Dict[str, Any]:
         now = _utc_now()
         with self._dispatch_lock:
@@ -192,7 +203,11 @@ class DetailCollectionService:
                     if last_time and (now - _as_utc(last_time)).total_seconds() < cooldown_seconds:
                         continue
                     tasks.append({"id": tid, "url": candidate.get("url")})
-                    dispatched_tasks[tid] = now.replace(tzinfo=None) if last_time and last_time.tzinfo is None else now
+                    timestamp = now.replace(tzinfo=None) if last_time and last_time.tzinfo is None else now
+                    if mark_dispatched is not None:
+                        mark_dispatched(tid, timestamp)
+                    else:
+                        dispatched_tasks[tid] = timestamp
                     if len(tasks) >= batch_size:
                         break
             return {"tasks": tasks, "total": total_count, "done": done_count, "pending": pending_count}

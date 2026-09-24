@@ -73,7 +73,7 @@ def _post_detail_tasks(self):
     batch_size = 300
     if _prefer_db_task_reads():
         try:
-            result = _detail_collection_service().batch_tasks(dispatched_tasks=runtime_index.dispatched_tasks, cooldown_seconds=DISPATCH_COOLDOWN_SECONDS, batch_size=batch_size)
+            result = _detail_collection_service().batch_tasks(dispatched_tasks=runtime_index.dispatched_tasks, cooldown_seconds=DISPATCH_COOLDOWN_SECONDS, batch_size=batch_size, mark_dispatched=runtime_index.mark_dispatched)
         except Exception as e:
             self.send_error_json(status=500, code='AVM_DETAIL_BATCH_TASKS_FAILED', message='详情批量任务分发失败', details={'error': str(e)})
             return

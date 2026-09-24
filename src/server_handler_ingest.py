@@ -311,6 +311,7 @@ def _post_detail_next_visit(self):
             cooldown_seconds=DISPATCH_COOLDOWN_SECONDS,
             legacy_entries=legacy_entries,
             dispatch_lock=runtime_index.lock,
+            mark_dispatched=getattr(runtime_index, "mark_dispatched", None),
         )
     except Exception as e:
         self.send_error_json(status=500, code='AVM_NEXT_VISIT_TASK_FAILED', message='下一条访问任务分发失败', details={'error': str(e)})
