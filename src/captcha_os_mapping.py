@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import logging
-
-from .captcha_context import *  # noqa: F401,F403
+import math
+import os
 
 logger = logging.getLogger(__name__)
 

@@ -2045,3 +2045,13 @@ detail dispatch、RuntimeState、legacy UTC dispatch、quality collection 和 se
 
 RuntimeState、runtime JSON、quality collection 和 server facade 回归 **43 passed**，
 有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: captcha OS mapping imports made explicit
+
+`captcha_os_mapping.py` 不再通过 `captcha_context` 通配符导入。该模块实际使用的
+`math` 与 `os` 改为直接声明的标准库依赖；其余图像、指针和临时文件依赖继续在
+对应方法内局部导入，避免把无关的 context 命名空间和副作用泄漏到 mapping facade。
+
+captcha solver 分片、pointer backend 与 logging 回归 **72 passed**，有效代码行
+ratchet 与 `git diff --check` 通过。此前更大 captcha 扩展集合仍有一个与本切片无关
+的 drag geometry 源码断言失败，未将其报告为全通过；没有部署或重启。
