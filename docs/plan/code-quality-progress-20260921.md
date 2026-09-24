@@ -225,6 +225,11 @@ FunctionType 动态克隆、其他 facade 或生产数据库迁移，剩余 faca
 `FunctionType`、`src.server` globals、`_CONTEXT` 同步和函数元数据行为。没有改变动态
 路由绑定或历史 RuntimeState patch point。`test_server_source_contract.py` **14 passed**。
 
+`src/captcha_target.py` 已移除对 `captcha_context` 的通配符导入，改为显式声明 CDP
+目标管理实际使用的标准库、`requests`、URL 解析函数和页面目标上限常量。保留
+`CaptchaTargetMixin` 的模块级 monkeypatch 入口。验证码 deadline 和日志回归 **17 passed**，
+并通过模块导入 smoke；其他 captcha facade 仍需继续迁移。
+
 ## 续作：安全运行控制、快照缓存和存储查询
 
 以下为用户明确延期部署之后新增的源码工作。全部测试使用临时目录、合成凭据或独立

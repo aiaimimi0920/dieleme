@@ -1,8 +1,16 @@
 from __future__ import annotations
 
+import json
 import logging
+import os
+import re
+import threading
+import time
+from urllib.parse import parse_qsl, quote, urlencode, urlsplit, urlunsplit
 
-from .captcha_context import *  # noqa: F401,F403
+import requests
+
+from .captcha_context import DEFAULT_CDP_PAGE_TARGET_LIMIT
 from .captcha_pointer_backend import OSPointerBackend
 from .collection.adapters.taobao_auth_target import SEED_IDENTITY_QUERY_KEYS
 
