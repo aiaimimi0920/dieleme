@@ -1,7 +1,13 @@
 """Request guards shared by every public handler: body limits, CORS, tokens."""
 from __future__ import annotations
 
-from .server_context import *  # noqa: F401,F403
+import hmac
+import json
+import os
+from typing import Any
+from urllib.parse import urlsplit
+
+from .server_context import NAS_AUTH_RECOVERY_TOKEN_FILE
 from . import collection_engine_restart as _engine_tokens
 from . import collection_api_credentials as _worker_credentials
 

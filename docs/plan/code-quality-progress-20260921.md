@@ -2109,6 +2109,13 @@ CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ra
 码合同、浏览器 URL 和社区提示回归 **8 passed**；有效代码行 ratchet 与
 `git diff --check` 仍需在提交前运行。
 
+### 2026-09-24: server request-guard imports made explicit
+
+`server_request_guard.py` 已移除 `server_context` 通配符，直接声明 HMAC、JSON、环境
+变量、类型和 URL 解析依赖，并保留认证恢复 token 文件常量。request guard import
+smoke 与 server facade/source contract 回归 **14 passed**，没有改变 token、CORS、
+request-size 或 CDP endpoint 合同；没有部署或重启。
+
 ### 2026-09-24: server engine-control imports made explicit
 
 `server_engine_control.py` 已移除 `server_context` 通配符，直接声明 JSON、URL
