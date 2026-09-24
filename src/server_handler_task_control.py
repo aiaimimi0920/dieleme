@@ -67,6 +67,12 @@ def _post_seed_next_task(self):
 
 def _post_detail_tasks(self):
     runtime_index = _collection_runtime_index()
+    legacy_pending = globals().get("PENDING_TASKS")
+    if isinstance(legacy_pending, list) and legacy_pending is not runtime_index.pending_tasks:
+        runtime_index.pending_tasks = legacy_pending
+    legacy_dispatched = globals().get("DISPATCHED_TASKS")
+    if isinstance(legacy_dispatched, dict) and legacy_dispatched is not runtime_index.dispatched_tasks:
+        runtime_index.dispatched_tasks = legacy_dispatched
     accepted, _payload = _read_json_body(self)
     if not accepted:
         return
@@ -76,7 +82,7 @@ def _post_detail_tasks(self):
     batch_size = 300
     if _prefer_db_task_reads():
         try:
-            result = _detail_collection_service().batch_tasks(dispatched_tasks=runtime_index.dispatched_tasks, cooldown_seconds=DISPATCH_COOLDOWN_SECONDS, batch_size=batch_size, mark_dispatched=runtime_index.mark_dispatched)
+            result = _detail_collection_service().batch_tasks(dispatched_tasks=runtime_index.dispatched_tasks, cooldown_seconds=DISPATCH_COOLDOWN_SECONDS, batch_size=batch_size, mark_dispatched=runtime_index.mark_dispatched, get_dispatched=runtime_index.get_dispatched, prune_dispatched=runtime_index.prune_dispatched)
         except Exception as e:
             self.send_error_json(status=500, code='AVM_DETAIL_BATCH_TASKS_FAILED', message='详情批量任务分发失败', details={'error': str(e)})
             return

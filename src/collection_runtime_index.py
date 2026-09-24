@@ -74,6 +74,21 @@ class CollectionRuntimeIndex:
         with self.lock:
             self.dispatched_tasks[item_id] = timestamp
 
+    def get_dispatched(self, item_id: str) -> Any:
+        with self.lock:
+            return self.dispatched_tasks.get(item_id)
+
+    def prune_dispatched(self, now: datetime, cooldown_seconds: int) -> None:
+        with self.lock:
+            expired = []
+            for item_id, dispatched_at in self.dispatched_tasks.items():
+                if dispatched_at.tzinfo is None:
+                    dispatched_at = dispatched_at.replace(tzinfo=now.tzinfo)
+                if (now - dispatched_at).total_seconds() >= cooldown_seconds:
+                    expired.append(item_id)
+            for item_id in expired:
+                self.dispatched_tasks.pop(item_id, None)
+
     def snapshot(self) -> tuple[dict[str, dict[str, object]], tuple[str, ...]]:
         with self.lock:
             return dict(self.seen_ids), tuple(self.pending_tasks)

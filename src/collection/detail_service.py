@@ -106,16 +106,21 @@ class DetailCollectionService:
         cooldown_seconds: int,
         dispatch_lock: ContextManager[object] | None = None,
         mark_dispatched: Callable[[str, datetime.datetime], None] | None = None,
+        get_dispatched: Callable[[str], datetime.datetime | None] | None = None,
+        prune_dispatched: Callable[[datetime.datetime, int], None] | None = None,
     ) -> Dict[str, Any]:
         now = _utc_now()
         lock = dispatch_lock or self._dispatch_lock
         with lock:
-            self._expire_dispatches(dispatched_tasks, now, cooldown_seconds)
+            if prune_dispatched is not None:
+                prune_dispatched(now, cooldown_seconds)
+            else:
+                self._expire_dispatches(dispatched_tasks, now, cooldown_seconds)
         if self.repository and getattr(self.repository, "enabled", False):
             for candidate in self.repository.iter_pending_task_items(limit=100):
                 tid = str(candidate["id"])
                 with lock:
-                    last_time = dispatched_tasks.get(tid)
+                    last_time = get_dispatched(tid) if get_dispatched is not None else dispatched_tasks.get(tid)
                     if last_time and (now - _as_utc(last_time)).total_seconds() < cooldown_seconds:
                         continue
                     timestamp = now.replace(tzinfo=None) if last_time and last_time.tzinfo is None else now
@@ -134,11 +139,16 @@ class DetailCollectionService:
         legacy_entries: list[tuple[str, Dict[str, Any]]] | None = None,
         dispatch_lock: ContextManager[object] | None = None,
         mark_dispatched: Callable[[str, datetime.datetime], None] | None = None,
+        get_dispatched: Callable[[str], datetime.datetime | None] | None = None,
+        prune_dispatched: Callable[[datetime.datetime, int], None] | None = None,
     ) -> Dict[str, Any]:
         now = _utc_now()
         lock = dispatch_lock or self._dispatch_lock
         with lock:
-            self._expire_dispatches(dispatched_tasks, now, cooldown_seconds)
+            if prune_dispatched is not None:
+                prune_dispatched(now, cooldown_seconds)
+            else:
+                self._expire_dispatches(dispatched_tasks, now, cooldown_seconds)
         candidate_entries: list[tuple[str, Dict[str, Any]]] = []
         if self.repository and getattr(self.repository, "enabled", False):
             candidate_entries = [
@@ -163,7 +173,7 @@ class DetailCollectionService:
             if exists:
                 continue
             with lock:
-                last_time = dispatched_tasks.get(item_id)
+                last_time = get_dispatched(item_id) if get_dispatched is not None else dispatched_tasks.get(item_id)
                 if last_time and (now - _as_utc(last_time)).total_seconds() < cooldown_seconds:
                     continue
                 timestamp = now.replace(tzinfo=None) if last_time and last_time.tzinfo is None else now
@@ -185,10 +195,15 @@ class DetailCollectionService:
         cooldown_seconds: int,
         batch_size: int = 300,
         mark_dispatched: Callable[[str, datetime.datetime], None] | None = None,
+        get_dispatched: Callable[[str], datetime.datetime | None] | None = None,
+        prune_dispatched: Callable[[datetime.datetime, int], None] | None = None,
     ) -> Dict[str, Any]:
         now = _utc_now()
         with self._dispatch_lock:
-            self._expire_dispatches(dispatched_tasks, now, cooldown_seconds)
+            if prune_dispatched is not None:
+                prune_dispatched(now, cooldown_seconds)
+            else:
+                self._expire_dispatches(dispatched_tasks, now, cooldown_seconds)
         if self.repository and getattr(self.repository, "enabled", False):
             counts = self.repository.counts_snapshot()
             total_count = counts["db_total_ids"]
@@ -199,7 +214,7 @@ class DetailCollectionService:
             for candidate in pending_candidates:
                 tid = str(candidate["id"])
                 with self._dispatch_lock:
-                    last_time = dispatched_tasks.get(tid)
+                    last_time = get_dispatched(tid) if get_dispatched is not None else dispatched_tasks.get(tid)
                     if last_time and (now - _as_utc(last_time)).total_seconds() < cooldown_seconds:
                         continue
                     tasks.append({"id": tid, "url": candidate.get("url")})

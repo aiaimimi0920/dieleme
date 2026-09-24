@@ -1988,3 +1988,13 @@ fallback。相关 seed 和 source-neutral adapter 测试已改为验证 callback
 
 seed service、collection adapters、quality collection 和 seed identity 回归 **34 passed**，
 有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: detail dispatch reads and expiry use RuntimeState callbacks
+
+`CollectionRuntimeIndex` 新增 `get_dispatched()` 与 `prune_dispatched()`。detail
+service 的在线 `next_task()`、`next_visit_task()` 和 `batch_tasks()` 现在通过
+RuntimeState callback 读取和清理 dispatch cooldown；只有旧的字典调用才使用兼容
+路径。handler 保持共享锁、时间语义和历史 facade alias 行为。
+
+detail dispatch、RuntimeState、legacy UTC dispatch、quality collection 和 server facade
+回归 **44 passed**，有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
