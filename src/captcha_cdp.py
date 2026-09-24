@@ -1,8 +1,16 @@
 from __future__ import annotations
 
+import json
 import logging
+import os
+import re
+import time
+from urllib.parse import quote
 
-from .captcha_context import *  # noqa: F401,F403
+import requests
+import websocket
+
+from .captcha_context import browser_identity_init_script, build_user_agent_override
 
 logger = logging.getLogger(__name__)
 

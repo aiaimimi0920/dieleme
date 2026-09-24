@@ -230,6 +230,12 @@ FunctionType 动态克隆、其他 facade 或生产数据库迁移，剩余 faca
 `CaptchaTargetMixin` 的模块级 monkeypatch 入口。验证码 deadline 和日志回归 **17 passed**，
 并通过模块导入 smoke；其他 captcha facade 仍需继续迁移。
 
+`src/captcha_cdp.py` 同样已改为显式声明 JSON、CDP 网络、WebSocket、URL 编码和浏览器
+身份注入依赖，保留共享模块对象的 monkeypatch 行为。针对 captcha deadline、日志和
+相关 solver 分片的聚焦回归通过；扩展 captcha 合并集本次为 **300 passed, 1 failed**，
+唯一失败是既有 `test_live_drag_distance_uses_remaining_track_geometry` 的源码断言，
+与本次 import 收口无关，未将其报告为全套通过。
+
 ## 续作：安全运行控制、快照缓存和存储查询
 
 以下为用户明确延期部署之后新增的源码工作。全部测试使用临时目录、合成凭据或独立
