@@ -1,6 +1,5 @@
-// Playwright CLI run-code --filename contract: a standalone async function.
-async (page) => {
-  const origin = "http://127.0.0.1:1436";
+// Disposable fixture flow, run by collector-desktop/tests/desktop-smoke.spec.ts.
+export default async function collectionSmoke(page, { origin, artifactDir }) {
   const errors = [];
   const checks = [];
   const check = (condition, name) => { if (!condition) throw new Error(name); checks.push(name); };
@@ -23,7 +22,7 @@ async (page) => {
   check(await page.locator("#toggleOverview").count() === 0, "no details toggle");
   check(await page.locator(".metric-card .value").allTextContents().then((values) => values.join() === "3200,1260,730"), "unique counts instead of occurrences");
   check(await page.locator("#engineRestartButton").isDisabled(), "restart disabled without authorization");
-  check(await page.locator("#authButton").isEnabled(), "challenge auth available independently from running state");
+  check(await page.locator("#seedAuthButton").isEnabled(), "challenge auth available independently from running state");
   await page.clock.fastForward(5_000);
   await refresh();
   check((await page.locator(".pending-growth").count()) === 3, "short refresh does not invent minute delta");
@@ -31,6 +30,12 @@ async (page) => {
   await page.clock.fastForward(61_000);
   await page.locator(".metric-card .growth-line").first().filter({ hasText: "+7" }).waitFor();
   check((await page.locator(".metric-card .growth-line").allTextContents()).join() === "+7,+3,+2", "observed minute deltas");
+  await page.locator("#runtimePauseButton").click();
+  await page.locator("#overviewNotice").filter({ hasText: "Control authorization is required" }).waitFor();
+  check(!(await events()).some((event) => event.path.includes("/control/")), "missing authorization never sends a control mutation");
+  await page.locator("#openSettings").click();
+  await page.locator("#restartToken").fill("offline-fixture-operator-token-00001");
+  await page.locator("#openCollection").click();
   await page.locator("#runtimePauseButton").click();
   await page.getByRole("button", { name: "开始采集", exact: true }).waitFor();
   await page.locator("#runtimePauseButton").click();
@@ -58,14 +63,14 @@ async (page) => {
   await fixture({ restart: { available: true, request: { status: "succeeded" } } });
   await refresh();
   check((await page.locator(".restart-status").textContent()).includes("Worker 已重启"), "success only comes from controller receipt");
-  await page.locator("#authButton").click();
+  await page.locator("#seedAuthButton").click();
   await page.locator("#authChallengeDialog[open]").waitFor();
   await page.keyboard.press("Escape");
   check((await events()).filter((event) => event.path.endsWith("/control/pause")).length === 1, "opening auth dialog does not add an operator pause");
   await fixture({ challenge: false });
   await refresh();
-  check(await page.locator("#authButton").isEnabled(), "no challenge still allows manual authentication");
-  await page.locator("#authButton").click();
+  check(await page.locator("#seedAuthButton").isEnabled(), "no challenge still allows manual authentication");
+  await page.locator("#seedAuthButton").click();
   await page.locator("#authChallengeDialog[open]").waitFor();
   await page.keyboard.press("Escape");
   check((await events()).filter((event) => event.path.endsWith("/control/pause")).length === 1, "proactive auth entry does not pause collection");
@@ -73,21 +78,21 @@ async (page) => {
   await refresh();
   await page.locator('[data-stage="links"]').click();
   await page.locator("#toggleRegions").click();
-  await page.screenshot({ path: "output/playwright/crow-collection-controls/collection.png", fullPage: true });
+  await page.screenshot({ path: `${artifactDir}/collection.png`, fullPage: true });
   for (const width of [980, 720]) {
     await page.setViewportSize({ width, height: 760 });
     const fits = await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth && document.querySelector("main").scrollWidth <= document.querySelector("main").clientWidth);
     check(fits, `no horizontal page overflow at ${width}`);
   }
-  await page.screenshot({ path: "output/playwright/crow-collection-controls/narrow.png", fullPage: true });
+  await page.screenshot({ path: `${artifactDir}/narrow.png`, fullPage: true });
   await page.setViewportSize({ width: 1120, height: 760 });
   await page.locator("#openSettings").click();
-  await page.screenshot({ path: "output/playwright/crow-collection-controls/settings.png", fullPage: true });
+  await page.screenshot({ path: `${artifactDir}/settings.png`, fullPage: true });
   await page.locator("#openCollection").click();
   await fixture({ scenario: "error" });
   await refresh();
   check(await page.locator("#overviewNotice").isVisible(), "connection errors are visible");
-  await page.screenshot({ path: "output/playwright/crow-collection-controls/error.png", fullPage: true });
+  await page.screenshot({ path: `${artifactDir}/error.png`, fullPage: true });
   await fixture({ scenario: "normal" });
   check(errors.length === 0, `no browser exceptions: ${errors.join("; ")}`);
   return { checks, browserErrors: errors };

@@ -1,6 +1,11 @@
 from __future__ import annotations
 
+import logging
+
 from .captcha_context import *  # noqa: F401,F403
+from .captcha_dom import eval_in_all_frames
+
+logger = logging.getLogger(__name__)
 
 
 class CaptchaSliderMixin:
@@ -12,7 +17,7 @@ class CaptchaSliderMixin:
         (function() {{
             var selectors = {selectors_js};
 
-            function tryFind(doc, frameOffsetX, frameOffsetY) {{
+            function tryFind(doc, frameOffsetX, frameOffsetY, context) {{
                 for (var i = 0; i < selectors.length; i++) {{
                     var el = doc.querySelector(selectors[i]);
                     if (el && el.offsetParent !== null) {{
@@ -25,7 +30,7 @@ class CaptchaSliderMixin:
                                 width: rect.width,
                                 height: rect.height,
                                 selector: selectors[i],
-                                context: frameOffsetX === 0 ? 'main' : 'iframe'
+                                context: context
                             }};
                         }}
                     }}
@@ -33,28 +38,11 @@ class CaptchaSliderMixin:
                 return null;
             }}
 
-            // Try main document
-            var result = tryFind(document, 0, 0);
-            if (result) return result;
-
-            // Try iframes
-            var frames = document.getElementsByTagName('iframe');
-            for (var i = 0; i < frames.length; i++) {{
-                try {{
-                    var iframe = frames[i];
-                    var doc = iframe.contentDocument;
-                    if (doc) {{
-                        var frameRect = iframe.getBoundingClientRect();
-                        result = tryFind(doc, frameRect.left, frameRect.top);
-                        if (result) return result;
-                    }}
-                }} catch(e) {{}}
-            }}
-            return null;
+            return visitAccessibleDocuments(tryFind, false);
         }})()
         """
         ret = self._send_cdp("Runtime.evaluate", {
-            "expression": js_script,
+            "expression": eval_in_all_frames(js_script),
             "returnByValue": True
         })
 
@@ -75,9 +63,9 @@ class CaptchaSliderMixin:
             if slider_info:
                 return slider_info
 
-            print(f"[SOLVER] Slider not found... Retrying... (Attempt {attempt+1}/{attempts})")
+            logger.info("[SOLVER] Slider not found; retrying attempt=%s/%s", attempt + 1, attempts)
             if attempt + 1 < attempts and retry_delay:
-                time.sleep(retry_delay)
+                self._wait_interruptibly(retry_delay)
 
         return None
 
@@ -102,35 +90,22 @@ class CaptchaSliderMixin:
                 return null;
             }}
 
-            var result = tryFind(document);
-            if (result) return result;
-
-            var frames = document.getElementsByTagName('iframe');
-            for (var i = 0; i < frames.length; i++) {{
-                try {{
-                    var doc = frames[i].contentDocument;
-                    if (doc) {{
-                        result = tryFind(doc);
-                        if (result) return result;
-                    }}
-                }} catch(e) {{}}
-            }}
-            return null;
+            return visitAccessibleDocuments(tryFind, false);
         }})()
         """
 
         ret = self._send_cdp("Runtime.evaluate", {
-            "expression": js_script,
+            "expression": eval_in_all_frames(js_script),
             "returnByValue": True
         })
 
         if ret and "result" in ret and ret["result"].get("value"):
             info = ret["result"]["value"]
-            print(f"[SOLVER] Track width: {info['width']}px (selector: {info['selector']})")
+            logger.info("[SOLVER] Track width: %spx selector=%s", info["width"], info["selector"])
             return info["width"]
 
         # Fallback: try to get from viewport if track not found
-        print("[SOLVER] ⚠ Could not detect track width, using fallback 340px")
+        logger.warning("[SOLVER] Could not detect track width; using fallback 340px")
         return 340
 
     def _get_track_rect(self):
@@ -145,7 +120,7 @@ class CaptchaSliderMixin:
                     if (!el) continue;
                     var rect = el.getBoundingClientRect();
                     if (rect.width > 50 && rect.height > 5) {{
-                        var handle = doc.querySelector('#nc_1_n1z, #nc_2_n1z, [id^="nc_"][id$="_n1z"], .btn_slide, .nc-slider-btn');
+                        var handle = doc.querySelector(__NC_HANDLE_SELECTOR__);
                         return {{
                             left: rect.left,
                             top: rect.top,
@@ -159,20 +134,11 @@ class CaptchaSliderMixin:
                 }}
                 return null;
             }}
-            var result = find(document);
-            if (result) return result;
-            var frames = document.getElementsByTagName('iframe');
-            for (var i = 0; i < frames.length; i++) {{
-                try {{
-                    var doc = frames[i].contentDocument;
-                    if (doc) {{ result = find(doc); if (result) return result; }}
-                }} catch (e) {{}}
-            }}
-            return null;
+            return visitAccessibleDocuments(find, false);
         }})()
         """
         ret = self._send_cdp("Runtime.evaluate", {
-            "expression": js_script,
+            "expression": eval_in_all_frames(js_script),
             "returnByValue": True,
         })
         if ret and "result" in ret and ret["result"].get("value"):
@@ -218,9 +184,9 @@ class CaptchaSliderMixin:
                 }
 
                 // Check if slider is still visible
-                var slider = doc.querySelector('#nc_1_n1t, .icon-slide-arrow, #nc_1_n1z');
+                var slider = doc.querySelector(__VERIFY_SLIDER_SELECTOR__);
                 var sliderVisible = !!(slider && slider.offsetParent !== null);
-                var challenge = doc.querySelector('.nc-container, #nocaptcha, .nc_wrapper, .nc_scale');
+                var challenge = doc.querySelector(__VERIFY_CHALLENGE_SELECTOR__);
                 var challengeVisible = !!(challenge && challenge.offsetParent !== null);
 
                 return {
@@ -259,7 +225,7 @@ class CaptchaSliderMixin:
         """
 
         ret = self._send_cdp("Runtime.evaluate", {
-            "expression": js_check,
+            "expression": eval_in_all_frames(js_check),
             "returnByValue": True
         })
 
@@ -278,7 +244,7 @@ class CaptchaSliderMixin:
                     f"mockFailure={result.get('mockStateFailure')}",
                     f"mockMode={result.get('mockVerifyMode') or local_mock_mode}",
                 ])
-            print(", ".join(log_parts))
+            logger.info("[SOLVER] %s", ", ".join(log_parts))
             success = bool(result.get("success"))
             if "success" not in result:
                 success = bool(result.get("successDetected"))
@@ -327,7 +293,7 @@ class CaptchaSliderMixin:
             if not local_mock_target:
                 challenge_summary = self._page_challenge_summary()
                 if challenge_summary.get("authenticatedPage"):
-                    print("[SOLVER] Auction page became accessible after drag; treating as solved.")
+                    logger.info("[SOLVER] Auction page became accessible after drag; treating as solved.")
                     return True
             terminal_state = self._last_mock_terminal_state
             if terminal_state == "manual_required":
@@ -342,9 +308,9 @@ class CaptchaSliderMixin:
                     return False
             if check_index < checks - 1:
                 if local_mock_target:
-                    time.sleep(0.15)
+                    self._wait_interruptibly(0.15)
                 else:
-                    time.sleep(random.uniform(0.6, 1.1))
+                    self._wait_interruptibly(random.uniform(0.6, 1.1))
         return False
 
     def _generate_bezier_path(self, start_x, start_y, target_x, target_y):
@@ -403,8 +369,11 @@ class CaptchaSliderMixin:
             params["button"] = "left"
         result = self._send_cdp("Input.dispatchMouseEvent", params)
         if result is not None:
+            self._cdp_mouse_position = (x, y)
+            if event_type in {"mousePressed", "mouseReleased"}:
+                self._cdp_mouse_down = event_type == "mousePressed"
             return True
-        print("[SOLVER] CDP mouse input is unavailable; manual verification required.")
+        logger.warning("[SOLVER] CDP mouse input is unavailable; manual verification required.")
         self.last_failure_reason = "manual_required"
         return False
 
@@ -418,19 +387,19 @@ class CaptchaSliderMixin:
         pre_y = start_y + random.uniform(-10, 10)
         if not self._dispatch_mouse("mouseMoved", pre_x, pre_y, buttons=0):
             return None
-        time.sleep(random.uniform(0.55, 1.05))
+        self._wait_interruptibly(random.uniform(0.55, 1.05))
 
         # 2. Approach slider
         if not self._dispatch_mouse("mouseMoved", start_x, start_y, buttons=0):
             return None
-        time.sleep(random.uniform(0.35, 0.75))
+        self._wait_interruptibly(random.uniform(0.35, 0.75))
 
         # 3. Mouse down with hesitation
         if not self._dispatch_mouse(
             "mousePressed", start_x, start_y, buttons=1, click_count=1
         ):
             return None
-        time.sleep(random.uniform(0.18, 0.38))
+        self._wait_interruptibly(random.uniform(0.18, 0.38))
 
         # 4. Generate bezier path
         path = self._generate_bezier_path(start_x, start_y, target_x, target_y)
@@ -451,7 +420,7 @@ class CaptchaSliderMixin:
                 delay = random.uniform(0.040, 0.070)
             if random.random() < 0.14:
                 delay += random.uniform(0.04, 0.10)
-            time.sleep(delay)
+            self._wait_interruptibly(delay)
             if not self._dispatch_mouse(
                 "mouseMoved",
                 px + random.gauss(0, 0.7),
@@ -461,31 +430,31 @@ class CaptchaSliderMixin:
                 return None
 
         # 6. Small overshoot + settle (keep the button down)
-        time.sleep(random.uniform(0.08, 0.16))
+        self._wait_interruptibly(random.uniform(0.08, 0.16))
         overshoot = random.uniform(0, 3)
         if not self._dispatch_mouse(
             "mouseMoved", target_x + overshoot, target_y, buttons=1
         ):
             return None
-        time.sleep(random.uniform(0.06, 0.12))
+        self._wait_interruptibly(random.uniform(0.06, 0.12))
         for _ in range(random.randint(2, 4)):
             target_x -= random.uniform(0.6, 2.2)
             target_y += random.uniform(-0.8, 0.8)
             if not self._dispatch_mouse("mouseMoved", target_x, target_y, buttons=1):
                 return None
-            time.sleep(random.uniform(0.025, 0.050))
+            self._wait_interruptibly(random.uniform(0.025, 0.050))
         if not self._dispatch_mouse("mouseMoved", start_x + distance, target_y, buttons=1):
             return None
 
         # 7. Hold before release (important!)
-        time.sleep(random.uniform(0.9, 2.2))
+        self._wait_interruptibly(random.uniform(0.9, 2.2))
 
         # 8. Release
         if not self._dispatch_mouse(
             "mouseReleased", start_x + distance, target_y, buttons=0, click_count=1
         ):
             return None
-        time.sleep(random.uniform(0.4, 0.7))
+        self._wait_interruptibly(random.uniform(0.4, 0.7))
 
         return start_x + distance
 

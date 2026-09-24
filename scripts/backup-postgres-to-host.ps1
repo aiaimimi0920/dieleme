@@ -3,7 +3,7 @@ param(
     [string]$PostgresContainer = "fapaifang-postgres",
     [string]$PostgresDb = "fapaifang",
     [string]$PostgresUser = "fapaifang",
-    [string]$PostgresPassword = "fapaifang",
+    [string]$PostgresPassword = $env:FAPAI_POSTGRES_PASSWORD,
     [int]$KeepLast = 96,
     [int]$CommandTimeoutSeconds = 900
 )
@@ -176,14 +176,6 @@ finally {
         -IgnoreExitCode | Out-Null
 }
 
-$oldBackups = Get-ChildItem -LiteralPath $backupDir -Filter "fapaifang-*.dump" -File |
-    Sort-Object LastWriteTime -Descending |
-    Select-Object -Skip $KeepLast
-
-foreach ($oldBackup in $oldBackups) {
-    Remove-Item -LiteralPath $oldBackup.FullName -Force
-}
-
 Write-Output "Verified Postgres backup written to $destPath ($($backup.Length) bytes)."
 Write-Output "Verified copied host dump with pg_restore -l."
-Write-Output "Retained newest $KeepLast Postgres dump files under $backupDir."
+Write-Output "All existing Postgres dump files retained under $backupDir; KeepLast no longer deletes backups."

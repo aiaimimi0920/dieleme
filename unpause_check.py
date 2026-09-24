@@ -1,34 +1,39 @@
-
-import requests
-import json
 import time
 
-BASE_URL = "http://127.0.0.1:8001"
+from src.collection_api_credentials import configured_api_base
+from src.collection_engine_restart import token
+from tools.internal_api_http import fetch_json, post_json
+
 
 def check():
     print("Attempting to unpause server...")
     try:
-        # 1. Resume
-        resp = requests.get(f"{BASE_URL}/api/resume", timeout=5)
-        print(f"Resume Response: {resp.status_code} {resp.text}")
-        
+        base = configured_api_base()
+        operator = token("operator")
+        if not operator:
+            raise OSError("An operator token file is required")
+        headers = {"X-FAPAI-Control-Token": operator}
+        result = post_json(
+            base + "/collection/control/resume", {}, timeout=5, headers=headers
+        )
+        print(f"Resume Response: {result}")
+
         time.sleep(1)
-        
+
         # 2. Check Status
-        resp = requests.get(f"{BASE_URL}/api/status", timeout=5)
-        status_data = resp.json()
+        status_data = fetch_json(base + "/status", timeout=5)
         print(f"Server Paused: {status_data.get('paused')}")
-        
-        # 3. Get Tasks (GET)
-        resp = requests.get(f"{BASE_URL}/api/get_tasks", timeout=5)
-        tasks_data = resp.json()
-        tasks = tasks_data.get('tasks', [])
+
+        # Task claims are authenticated writes.
+        tasks_data = post_json(base + "/get_tasks", {}, timeout=5, headers=headers)
+        tasks = tasks_data.get("tasks", [])
         print(f"Tasks Returned: {len(tasks)}")
         if tasks:
             print(f"Sample Task: {tasks[0]}")
-            
+
     except Exception as e:
         print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     check()

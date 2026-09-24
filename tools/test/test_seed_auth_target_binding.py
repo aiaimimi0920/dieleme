@@ -24,7 +24,7 @@ def setup_server(tmp_path, monkeypatch):
     monkeypatch.setattr(server, "NAS_AUTH_RECOVERY", manager)
     monkeypatch.setattr(server, "_nas_auth_recovery_authorized", lambda _: (True, ""))
     monkeypatch.setattr(server, "_solver_scope_runtime_status", lambda _: status())
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
     monkeypatch.setattr(server, "_solver_detail_captured_count", lambda: 30)
     return server, manager
 

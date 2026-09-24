@@ -2,10 +2,13 @@ from __future__ import annotations
 
 from html import unescape
 import json
+import logging
 import re
 
 import requests
 from bs4 import BeautifulSoup
+
+logger = logging.getLogger(__name__)
 
 
 def filter_content(html_content):
@@ -38,7 +41,7 @@ def filter_content(html_content):
         return text.strip()
 
     except Exception as e:
-        print(f"Error in filter_content: {e}")
+        logger.exception("Error in filter_content")
         # Fallback to simple filtering if bs4 fails
         # Using string replacement for basic cleanup
         text = html_content
@@ -173,7 +176,7 @@ def fetch_description_data_text(html_content, *, timeout=20):
         desc_soup = BeautifulSoup(desc_html, "html.parser")
         return desc_soup.get_text("\n", strip=True) or desc_html
     except Exception as exc:
-        print(f"[AREA_FALLBACK_WARN] description-data fetch failed: {exc}")
+        logger.warning("[AREA_FALLBACK_WARN] description-data fetch failed: %s", exc)
         return None
 
 

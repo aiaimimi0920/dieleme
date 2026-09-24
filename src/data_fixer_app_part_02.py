@@ -1,5 +1,8 @@
 from __future__ import annotations
+import logging
 from src.data_fixer_context import *  # noqa: F401,F403
+
+logger = logging.getLogger(__name__)
 
 
 class DataFixerAppPart02:
@@ -194,7 +197,7 @@ class DataFixerAppPart02:
                          if val and val != '0':
                              try:
                                  item['建筑面积'] = float(val)
-                             except:
+                             except Exception:
                                  self.log(f"警告: 建筑面积 {val} 不是有效数字")
                          else:
                              item['建筑面积'] = 0
@@ -240,7 +243,7 @@ class DataFixerAppPart02:
                         # 1. Location Inference
                         if address and (needs_community or needs_bizarea):
                             # Use pool 1 for interactive
-                            pool_idx = 1 if len(MODEL_POOL) > 1 else 0
+                            pool_idx = 1 if len(get_model_pool()) > 1 else 0
                             inferred = self._infer_location_ai(address, item.get('title', ''))
 
                             if inferred:
@@ -274,8 +277,7 @@ class DataFixerAppPart02:
 
         except Exception as e:
             self.log(f"处理失败: {e}")
-            import traceback
-            print(traceback.format_exc())
+            logger.exception("处理失败")
             return
 
         if self.save_record(item):
@@ -311,7 +313,7 @@ class DataFixerAppPart02:
             self.log_text.insert('end', f"[{datetime.now().strftime('%H:%M:%S')}] {msg}\n")
             self.log_text.see('end')
             self.log_text.config(state='disabled')
-        except:
+        except Exception:
             pass
 
     def approve_external(self, data):
@@ -368,7 +370,7 @@ class DataFixerAppPart02:
                             else:
                                 target_item = full_data
                                 target_item['json_file'] = item['json_file']
-                    except:
+                    except Exception:
                         pass
                     break
 

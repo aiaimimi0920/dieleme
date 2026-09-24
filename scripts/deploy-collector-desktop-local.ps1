@@ -2,7 +2,8 @@ param(
     [string]$InstallRoot = "",
     [string]$BuildTargetRoot = "",
     [string]$DesktopDirectory = [Environment]::GetFolderPath('Desktop'),
-    [string]$ApiBase = "http://192.168.15.200:8001",
+    [string]$ApiBase = $env:FAPAI_COLLECTOR_API_BASE,
+    [string]$ApiCaFile = "",
     [string]$SettingsApiBase = "",
     [string]$SettingsCaFile = "",
     [string]$OperatorTokenFile = "",
@@ -100,7 +101,7 @@ function Backup-ExistingInstall {
     }
 
     $backupRoot = Join-Path $DestinationRoot "backup"
-    $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+    $timestamp = (Get-Date -Format "yyyyMMdd-HHmmss") + '-' + [Guid]::NewGuid().ToString('N')
     $backupDir = Join-Path $backupRoot $timestamp
     New-Item -ItemType Directory -Force -Path $backupDir | Out-Null
 
@@ -109,7 +110,8 @@ function Backup-ExistingInstall {
             "start-fapaifang-collector.ps1",
             "crow-desktop.runtime.json",
             "scripts",
-            "tools"
+            "tools",
+            "src"
         )) {
         $sourcePath = Join-Path $DestinationRoot $relativePath
         if (-not (Test-Path -LiteralPath $sourcePath)) {
@@ -120,10 +122,7 @@ function Backup-ExistingInstall {
         Copy-Item -LiteralPath $sourcePath -Destination $backupPath -Recurse -Force
     }
 
-    $oldBackups = @(Get-ChildItem -LiteralPath $backupRoot -Directory -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -Skip 5)
-    foreach ($backup in $oldBackups) {
-        Remove-Item -LiteralPath $backup.FullName -Recurse -Force
-    }
+    # Deployment never deletes prior backups or organized runtime data.
 }
 
 function Stop-ExistingCollectorDesktop {
@@ -184,7 +183,12 @@ function Write-LauncherScript {
         $launcherLines.Add(('$env:FAPAI_REMOTE_AUTH_USER = ''{0}''' -f $RemoteUserName.Replace("'", "''")))
     }
     if ($RemotePasswordValue) {
-        $launcherLines.Add(('$env:FAPAI_REMOTE_AUTH_PASSWORD = ''{0}''' -f $RemotePasswordValue.Replace("'", "''")))
+        $credentialPath = Join-Path (Split-Path -Parent $LauncherPath) ("secrets\remote-auth-{0}.dpapi" -f [Guid]::NewGuid().ToString('N'))
+        $protected = ConvertTo-SecureString -String $RemotePasswordValue -AsPlainText -Force | ConvertFrom-SecureString
+        Write-Utf8NoBomFile -Path $credentialPath -Content $protected
+        $launcherLines.Add(('$protectedPassword = [IO.File]::ReadAllText(''{0}'') | ConvertTo-SecureString' -f $credentialPath.Replace("'", "''")))
+        $launcherLines.Add('$env:FAPAI_REMOTE_AUTH_PASSWORD = ([pscredential]::new(''remote-auth'', $protectedPassword)).GetNetworkCredential().Password')
+        $launcherLines.Add('$protectedPassword.Dispose()')
     }
     if ($RemoteKeyPath) {
         $launcherLines.Add(('$env:FAPAI_REMOTE_AUTH_KEY_PATH = ''{0}''' -f $RemoteKeyPath.Replace("'", "''")))
@@ -251,10 +255,32 @@ if (Test-Path -LiteralPath $runtimeConfigPath -PathType Leaf) {
         $previousRuntime = Get-Content -LiteralPath $runtimeConfigPath -Raw -Encoding UTF8 | ConvertFrom-Json
     }
     catch {
-        $previousRuntime = $null
+        throw 'Existing desktop runtime configuration is invalid; deployment was not started.'
     }
 }
 $previousEnvironment = if ($previousRuntime) { $previousRuntime.environment } else { $null }
+if (-not $ApiBase) { $ApiBase = [string]$previousEnvironment.FAPAI_COLLECTOR_API_BASE }
+if (-not $ApiCaFile) { $ApiCaFile = [string]$previousEnvironment.FAPAI_API_CA_FILE }
+if (-not $SettingsApiBase) { $SettingsApiBase = [string]$previousEnvironment.FAPAI_SETTINGS_API_BASE }
+if (-not $SettingsCaFile) { $SettingsCaFile = [string]$previousEnvironment.FAPAI_SETTINGS_CA_FILE }
+if (-not $OperatorTokenFile) { $OperatorTokenFile = [string]$previousEnvironment.FAPAI_ENGINE_OPERATOR_TOKEN_FILE }
+. (Join-Path $PSScriptRoot 'collection-api-origin.ps1')
+$ApiBase = ConvertTo-CollectionApiOrigin -ApiBase $ApiBase
+if ($ApiCaFile -and -not (Test-Path -LiteralPath $ApiCaFile -PathType Leaf)) {
+    throw 'Collection API CA file is unavailable; deployment was not started.'
+}
+if ($SettingsApiBase -or $SettingsCaFile -or $OperatorTokenFile) {
+    $settingsUri = [uri]$SettingsApiBase
+    if (-not $settingsUri.IsAbsoluteUri -or $settingsUri.Scheme -ne 'https' -or $settingsUri.UserInfo -or $settingsUri.Query -or $settingsUri.Fragment -or $settingsUri.AbsolutePath -ne '/' -or -not $SettingsCaFile -or -not $OperatorTokenFile) {
+        throw 'Settings requires an HTTPS origin, application CA file and operator token file; deployment was not started.'
+    }
+    if (-not (Test-Path -LiteralPath $SettingsCaFile -PathType Leaf)) {
+        throw 'Settings API CA file is unavailable; deployment was not started.'
+    }
+    if (-not (Test-Path -LiteralPath $OperatorTokenFile -PathType Leaf)) {
+        throw 'Settings operator token file is unavailable; deployment was not started.'
+    }
+}
 if (-not $DataRoot -and $previousEnvironment.FAPAI_DATA_ROOT_HOST) {
     $DataRoot = [string]$previousEnvironment.FAPAI_DATA_ROOT_HOST
 }
@@ -319,9 +345,12 @@ foreach ($relativePath in @(
         "tools\pc1_desktop_recovery.py",
         "tools\desktop_runtime_config.py",
         "tools\desktop_settings_client.py",
+        "src\auth_recovery_codes.py",
+        "src\collection_api_credentials.py",
         "src\collection_settings_schema.py",
         "src\collection\adapters\taobao_auth_target.py",
         "src\collection_engine_restart.py",
+        "src\collection_operator_actions.py",
         "src\llm_analysis_policy.py",
         "tools\manual_auth_snapshot.py",
         "tools\browserless_seed_probe.py",
@@ -346,7 +375,7 @@ foreach ($relativePath in @(
 }
 
 & (Join-Path $PSScriptRoot 'write-collector-desktop-runtime-config.ps1') `
-    -InstallRoot $deployRoot -DataRoot $DataRoot -ApiBase $ApiBase `
+    -InstallRoot $deployRoot -DataRoot $DataRoot -ApiBase $ApiBase -ApiCaFile $ApiCaFile `
     -CookieSnapshotPath $resolvedCookieSnapshotPath -AuthLocalCdpPort $AuthLocalCdpPort `
     -AuthBrowserProfileDir $AuthBrowserProfileDir -AuthBrowserPath $AuthBrowserPath `
     -SettingsApiBase $SettingsApiBase -SettingsCaFile $SettingsCaFile -OperatorTokenFile $OperatorTokenFile

@@ -1,8 +1,15 @@
 from __future__ import annotations
 
+from datetime import timedelta
+from typing import Any, Dict, Optional
+
+from sqlalchemy import select
+
 from src.collection.seed_scan_policy import DEFAULT_SEED_SCAN_POLICY, SeedScanPolicy
 
-from .repository_context import *  # noqa: F401,F403
+from .models import FapaiSeedScanJob, FapaiSeedScanProgress
+from .repository_context import _cooldown_active, _lease_reclaimable, _utc_now
+from .seed_scan_candidates import seed_scan_candidates
 
 
 class RepositorySeedScanPagesMixin:
@@ -36,71 +43,40 @@ class RepositorySeedScanPagesMixin:
             return _cooldown_active(row.updated_at, now=now, cutoff=failure_cooldown_cutoff)
 
         with self.session_factory.begin() as session:
-            jobs_by_key = {
-                job.job_key: job
-                for job in session.scalars(select(FapaiSeedScanJob)).all()
-                if active_policy.owns_job(job.job_key, job.metadata_json)
-            }
-            if not jobs_by_key:
-                return None
-            progress_query = select(FapaiSeedScanProgress).where(
-                FapaiSeedScanProgress.status.in_(("pending", "in_progress")),
-                FapaiSeedScanProgress.job_key.in_(jobs_by_key),
-            )
-            if parallel_sorts:
-                category_ranks = {
-                    job.category: active_policy.category_order(job.category)[0]
-                    for job in jobs_by_key.values()
-                }
-                category_rank_expr = case(
-                    *[
-                        (FapaiSeedScanJob.category == category, rank)
-                        for category, rank in sorted(category_ranks.items())
-                    ],
-                    else_=10_000,
-                )
-                ordered = session.scalars(
-                    progress_query
-                    .join(FapaiSeedScanJob, FapaiSeedScanProgress.job_key == FapaiSeedScanJob.job_key)
-                    .order_by(
-                        FapaiSeedScanJob.province,
-                        FapaiSeedScanJob.city,
-                        FapaiSeedScanJob.district,
-                        FapaiSeedScanJob.location_code,
-                        category_rank_expr,
-                        FapaiSeedScanJob.category,
-                        FapaiSeedScanProgress.retry_count,
-                        FapaiSeedScanProgress.next_page,
-                        FapaiSeedScanProgress.job_key,
-                        FapaiSeedScanProgress.sort_order,
-                        FapaiSeedScanProgress.progress_key,
-                    )
-                    .limit(512)
-                ).all()
-                progress_by_job: Dict[str, list[FapaiSeedScanProgress]] = {}
-            else:
-                rows = session.scalars(progress_query).all()
-                progress_by_job = {}
-                for row in rows:
-                    progress_by_job.setdefault(row.job_key, []).append(row)
-                ordered = sorted(
-                    rows,
-                    key=lambda row: (
-                        self._seed_scan_scope_order_key(
-                            jobs_by_key.get(row.job_key),
-                            active_policy,
-                        ),
-                        int(row.sort_order or 0),
-                        int(row.next_page or 1),
-                        row.progress_key,
-                    ),
-                )
             blocked_job_keys: set[str] = set()
-            for row in ordered:
-                if not parallel_sorts and row.job_key in blocked_job_keys:
+            locked_job_keys: set[str] = set()
+            ordered = seed_scan_candidates(
+                session, active_policy, parallel_sorts=parallel_sorts,
+                blocked_job_keys=blocked_job_keys,
+            )
+            for row, job in ordered:
+                if row.job_key in blocked_job_keys:
+                    continue
+                if row.job_key not in locked_job_keys:
+                    # Lock the job before its pages so sequential sorts stay ordered.
+                    job = session.scalars(
+                        select(FapaiSeedScanJob)
+                        .where(FapaiSeedScanJob.job_key == row.job_key)
+                        .with_for_update(skip_locked=True)
+                        .execution_options(populate_existing=True)
+                    ).first()
+                    if job is None or not active_policy.owns_job(job.job_key, job.metadata_json):
+                        blocked_job_keys.add(row.job_key)
+                        continue
+                    locked_job_keys.add(row.job_key)
+                # Refresh only this candidate; a job can have many configured sorts.
+                row = session.scalars(
+                    select(FapaiSeedScanProgress)
+                    .where(FapaiSeedScanProgress.progress_key == row.progress_key)
+                    .with_for_update()
+                    .execution_options(populate_existing=True)
+                ).first()
+                if row is None:
+                    continue
+                if row.status not in {"pending", "in_progress"}:
                     continue
                 if row.status == "in_progress" and row.leased_by != worker_id:
-                    if not _lease_reclaimable(row.lease_until, row.updated_at, now=now, lease_seconds=lease_seconds):
+                    if not _lease_reclaimable(row.lease_until, now=now):
                         if parallel_sorts:
                             continue
                         blocked_job_keys.add(row.job_key)
@@ -120,29 +96,31 @@ class RepositorySeedScanPagesMixin:
                     continue
 
                 if not parallel_sorts:
-                    siblings = sorted(progress_by_job.get(row.job_key, []), key=lambda sibling: (int(sibling.sort_order or 0), sibling.progress_key))
-                    if any(
-                        int(sibling.sort_order or 0) < int(row.sort_order or 0)
-                        and sibling.status in {"pending", "in_progress"}
-                        and not failure_in_cooldown(sibling)
-                        and not (
-                            sibling.status == "in_progress"
-                            and sibling.leased_by != worker_id
-                            and _lease_reclaimable(
-                                sibling.lease_until,
-                                sibling.updated_at,
-                                now=now,
-                                lease_seconds=lease_seconds,
-                            )
+                    earlier_sorts = (
+                        select(FapaiSeedScanProgress)
+                        .where(
+                            FapaiSeedScanProgress.job_key == row.job_key,
+                            FapaiSeedScanProgress.sort_order < row.sort_order,
+                            FapaiSeedScanProgress.status.in_(("pending", "in_progress")),
                         )
-                        for sibling in siblings
-                    ):
+                        .order_by(FapaiSeedScanProgress.sort_order, FapaiSeedScanProgress.progress_key)
+                        .with_for_update()
+                        .execution_options(populate_existing=True, yield_per=128)
+                    )
+                    with session.scalars(earlier_sorts) as siblings:
+                        blocked = any(
+                            not failure_in_cooldown(sibling)
+                            and not (
+                                sibling.status == "in_progress"
+                                and sibling.leased_by != worker_id
+                                and _lease_reclaimable(sibling.lease_until, now=now)
+                            )
+                            for sibling in siblings
+                        )
+                    if blocked:
                         blocked_job_keys.add(row.job_key)
                         continue
 
-                job = jobs_by_key.get(row.job_key)
-                if job is None:
-                    continue
                 row.status = "in_progress"
                 row.leased_by = worker_id
                 row.lease_until = lease_until

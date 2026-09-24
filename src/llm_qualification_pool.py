@@ -10,7 +10,9 @@ import requests
 from src.llm_analysis_policy import require_non_gpt_analysis_model
 from src.llm_model_selector import LLMBackendUnavailableError
 from src.llm_qualification_cases import CASES, INSTRUCTION, VERSION, exact_match
-from src.llm_qualification_store import QualificationStore
+from src.llm_qualification_runtime import (
+    QualificationCancelled, check_cancelled, shared_store, wait_for_slot,
+)
 from src.llm_qualification_transport import ModelHttpError, ModelRateLimitedError, request_json
 
 MAX_CANDIDATES = 8
@@ -51,10 +53,11 @@ class RequestBudgetExceeded(LLMBackendUnavailableError):
 
 
 class QualifiedModelPool:
-    def __init__(self, config, *, proxies=None, store=None, session=None):
+    def __init__(self, config, *, proxies=None, store=None, session=None, cancel_event=None):
         self.config = config
         self.probe_timeout = min(PROBE_TIMEOUT, max(1, float(config["timeout"])))
-        self.store = store or QualificationStore(config)
+        self.store = store if store is not None else shared_store(config)
+        self.cancel_event = cancel_event if cancel_event is not None else threading.Event()
         self.session = session or requests.Session()
         self.session.trust_env = False
         self.session.proxies = proxies or {}
@@ -80,9 +83,13 @@ class QualifiedModelPool:
             self.store.defer_scan(seconds)
 
     def request(self, model, content, *, probe=False, deadline=None):
+        from src.llm_request_policy import MAX_OUTPUT_TOKENS
+        from src.llm_evidence_prompt import request_messages
+
+        check_cancelled(self.cancel_event)
         if not eligible_model(model):
             raise LLMBackendUnavailableError("LLM backend unavailable: excluded model")
-        payload = {"model": model, "messages": [{"role": "user", "content": content}], "temperature": 0}
+        payload = {"model": model, "messages": request_messages(content), "temperature": 0, "max_tokens": MAX_OUTPUT_TOKENS}
         if self.config.get("reasoning_effort"):
             payload["reasoning_effort"] = self.config["reasoning_effort"]
         if probe:
@@ -92,6 +99,7 @@ class QualifiedModelPool:
         if deadline is not None:
             slot_deadline = min(slot_deadline, deadline - timeout)
         while True:
+            check_cancelled(self.cancel_event)
             if time.monotonic() > slot_deadline:
                 raise RequestBudgetExceeded()
             delay = self.store.reserve_request_slot()
@@ -101,7 +109,8 @@ class QualifiedModelPool:
                 break
             if time.monotonic() + delay > slot_deadline:
                 raise RequestBudgetExceeded()
-            time.sleep(delay)
+            wait_for_slot(self.cancel_event, delay)
+        check_cancelled(self.cancel_event)
         if time.monotonic() > slot_deadline:
             raise RequestBudgetExceeded()
         if self.store.snapshot().get("cooldown_until", 0) > time.time():
@@ -112,11 +121,13 @@ class QualifiedModelPool:
                                 timeout=timeout,
                                 max_bytes=65536 if probe else 2097152)
         except (requests.RequestException, LLMBackendUnavailableError, ValueError) as exc:
+            check_cancelled(self.cancel_event)
             if probe:
                 self._backoff_qualification(exc)
             elif isinstance(exc, ModelHttpError) and exc.status_code in {401, 403, 429}:
                 self.store.cool_down(failure_cooldown(exc))
             raise
+        check_cancelled(self.cancel_event)
         try:
             value = body["choices"][0]["message"]["content"]
         except (ValueError, KeyError, IndexError, TypeError):
@@ -126,6 +137,7 @@ class QualifiedModelPool:
         return value
 
     def discover(self):
+        check_cancelled(self.cancel_event)
         body = request_json(self.session, "get", self.config["base_url"] + "/models",
                             headers=self.headers, timeout=min(10, self.probe_timeout), max_bytes=2097152)
         data = body.get("data") if isinstance(body, dict) else None
@@ -149,6 +161,16 @@ class QualifiedModelPool:
         return [row[-1] for row in sorted(ranked)]
 
     def ensure(self, *, continue_scan=True):
+        check_cancelled(self.cancel_event)
+        if not self.store.scan_lock.acquire(blocking=False):
+            return self.available()
+        try:
+            return self._ensure(continue_scan=continue_scan)
+        finally:
+            self.store.scan_lock.release()
+
+    def _ensure(self, *, continue_scan=True):
+        from src.llm_evidence_prompt import EvidencePrompt
         active = self.available()
         snapshot = self.store.snapshot()
         if active and (not continue_scan or snapshot.get("scan_complete")):
@@ -171,6 +193,7 @@ class QualifiedModelPool:
             ordered.sort(key=lambda name: (name in records, records.get(name, {}).get("checked_at", 0)))
             tested = 0
             for model in ordered[:MAX_CANDIDATES]:
+                check_cancelled(self.cancel_event)
                 if time.monotonic() + len(CASES) * (self.probe_timeout + 4) > deadline:
                     break
                 start = time.monotonic()
@@ -178,9 +201,11 @@ class QualifiedModelPool:
                 errors = []
                 for source, expected in CASES:
                     try:
-                        answer = self.request(model, INSTRUCTION + source, probe=True, deadline=deadline)
+                        answer = self.request(model, EvidencePrompt(INSTRUCTION, source), probe=True, deadline=deadline)
                         matches.append(int(exact_match(answer, expected)))
                         errors.append(None)
+                    except QualificationCancelled:
+                        raise
                     except (ModelRateLimitedError, RequestBudgetExceeded):
                         # An account limit is not five wrong answers from this model.
                         return self.available()
@@ -199,6 +224,8 @@ class QualifiedModelPool:
             cursor = len(set(candidates) & self.store.snapshot()["models"].keys())
             complete = tested == len(ordered)
             return self.available()
+        except QualificationCancelled:
+            raise
         except (requests.RequestException, ValueError, LLMBackendUnavailableError) as exc:
             self._backoff_qualification(exc)
             return self.available()
@@ -232,6 +259,7 @@ class QualifiedModelPool:
         return active
 
     def chat(self, content, *, model=None):
+        check_cancelled(self.cancel_event)
         candidates = self.available()
         if model:
             candidates = [model] if model in candidates else []
@@ -244,6 +272,8 @@ class QualifiedModelPool:
                 answer = self.request(candidate, content)
                 self.config["last_successful_model"] = candidate
                 return answer
+            except QualificationCancelled:
+                raise
             except (ModelRateLimitedError, RequestBudgetExceeded):
                 break  # Do not spend the same account's quota on more aliases.
             except (requests.RequestException, LLMBackendUnavailableError, ValueError):

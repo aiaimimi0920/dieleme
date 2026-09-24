@@ -79,7 +79,7 @@ def test_api_result_clears_only_selected_scope_and_rejects_new_challenge(tmp_pat
         import time
         manager._state["active"]["updated_at_epoch"] = time.time()
         manager._persist_locked()
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
     monkeypatch.setattr(server, "_solver_detail_captured_count", lambda: 30)
     current = {"challenge_id": "new-challenge" if changed else "challenge",
                "last_request": {"target_url": SEED if scope == "seed" else DETAIL}}
@@ -102,7 +102,7 @@ def test_stage_request_requires_fresh_pc2_capability_and_scope_identity(tmp_path
     monkeypatch.setattr(server, "_nas_auth_recovery_authorized", lambda _: (True, ""))
     monkeypatch.setattr(server, "_solver_scope_runtime_status", lambda scope: {
         "challenge_id": f"{scope}-challenge", "last_request": {"target_url": SEED}})
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
     pauses = []
     monkeypatch.setattr(server, "_set_collection_pause_state", lambda *a, **k: pauses.append((a, k)))
     def request(challenge="seed-challenge"):
@@ -159,6 +159,8 @@ def test_pc2_seed_receipt_reports_logical_failure_not_transport_success(tmp_path
     monkeypatch.setattr(pc2, "probe_seed_access", lambda endpoint, url: authenticated)
     clear = []
     def poster(url, payload, **kwargs):
+        if url.endswith("/heartbeat"):
+            return {"ok": True}
         assert url.endswith("/result")
         return manager.accept_stage_result(payload, validate_and_clear=lambda active: clear.append(active["scope"]), captured_count=10, now=8)
     marker = tmp_path / "marker"

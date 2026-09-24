@@ -23,9 +23,6 @@ _IMPLEMENTATION_MODULES = (
     'tools.pc2_solver_loop_control',
     'tools.pc2_solver_loop',
 )
-_DIRECT_FUNCTION_ALIASES = set()
-
-
 def _clone_function(function: _types.FunctionType) -> _types.FunctionType:
     clone = _types.FunctionType(
         function.__code__,
@@ -49,7 +46,6 @@ for _module in _loaded_modules:
         if (
             isinstance(_value, _types.FunctionType)
             and _value.__module__ == _module.__name__
-            and _name not in _DIRECT_FUNCTION_ALIASES
         ):
             _clone = _clone_function(_value)
             globals()[_name] = _clone

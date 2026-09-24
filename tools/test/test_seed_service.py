@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from src.collection.adapters import TaobaoJudicialAuctionAdapter
 from src.collection.seed_service import SeedCollectionService
 
@@ -75,3 +77,61 @@ def test_submit_batch_writes_new_seed_file_for_new_items(tmp_path: Path):
     payload = json.loads(target_file.read_text(encoding="utf-8"))
     assert len(payload) == 1
     assert payload[0]["id"] == "123456"
+
+
+def test_next_task_propagates_database_failures_instead_of_reporting_completion() -> None:
+    class FailingRepository:
+        enabled = True
+
+        def count_search_tasks(self):
+            return 1
+
+        def claim_search_task(self, *args, **kwargs):
+            raise RuntimeError("database unavailable")
+
+    service = SeedCollectionService(repository=FailingRepository(), adapter=TaobaoJudicialAuctionAdapter())
+
+    with pytest.raises(RuntimeError, match="database unavailable"):
+        service.next_task("worker-1")
+
+
+def test_submit_batch_propagates_existing_item_lookup_failures(tmp_path: Path) -> None:
+    class Adapter:
+        search_task_policy = object()
+
+        def item_id(self, item):
+            return str(item["id"])
+
+        def build_seed_record(self, item, *, parse_number, safe_int):
+            return dict(item)
+
+        def accepts_seed(self, item, prepared_item):
+            return True
+
+        def sync_record(self, record):
+            return None
+
+        def partition_key(self, record):
+            return "2026-05-18"
+
+    persisted = []
+    service = SeedCollectionService(adapter=Adapter())
+
+    with pytest.raises(OSError, match="database unavailable"):
+        service.submit_batch(
+            {"items": [{"id": "item-1", "title": "fixture"}]},
+            parse_price=lambda value: value,
+            safe_int=lambda value: value,
+            prefer_db_task_reads=lambda: True,
+            get_seen_entry=lambda item_id: None,
+            get_flat_item=lambda item_id: (_ for _ in ()).throw(OSError("database unavailable")),
+            get_data_path=lambda date_str: str(tmp_path / "items.json"),
+            update_file_global=lambda *args, **kwargs: None,
+            persist_item_to_db=lambda *args, **kwargs: persisted.append(args),
+            evict_runtime_item=lambda item_id: None,
+            seen_ids={},
+            pending_tasks=[],
+            archive_list_payload=lambda *args, **kwargs: None,
+        )
+
+    assert persisted == []

@@ -192,7 +192,7 @@ def _hybrid_collection_recovery_latency_summary(data_root: Path, *, limit: int =
     matched_escalation_at = None
     for entry in reversed(recent_escalations):
         escalation_at = _coerce_optional_text(entry.get("generated_at"))
-        if escalation_at and recovery_at and escalation_at <= recovery_at:
+        if escalation_at and recovery_at and _utc_timestamp_leq(escalation_at, recovery_at):
             matched_escalation = entry
             matched_escalation_at = escalation_at
             break
@@ -211,8 +211,10 @@ def _hybrid_collection_recovery_latency_summary(data_root: Path, *, limit: int =
     latency_seconds = None
     latency_minutes = None
     try:
-        recovery_dt = datetime.datetime.strptime(recovery_at, "%Y-%m-%d %H:%M:%S")
-        escalation_dt = datetime.datetime.strptime(matched_escalation_at, "%Y-%m-%d %H:%M:%S")
+        recovery_dt = _parse_utc_timestamp(recovery_at)
+        escalation_dt = _parse_utc_timestamp(matched_escalation_at)
+        if recovery_dt is None or escalation_dt is None:
+            raise ValueError("invalid hybrid timestamp")
         latency_seconds = int((recovery_dt - escalation_dt).total_seconds())
         latency_minutes = round(latency_seconds / 60, 2)
         if latency_seconds < 0:

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.runtime_json import load_json_file
 from .service_context import *  # noqa: F401,F403
 
 
@@ -95,8 +96,7 @@ class AVMDataMixin:
                 pass
         for path in self._iter_data_files():
             try:
-                with open(path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
+                data = load_json_file(path)
                 if isinstance(data, list):
                     for item in data:
                         if isinstance(item, dict):

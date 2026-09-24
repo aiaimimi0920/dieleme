@@ -6,10 +6,10 @@ function Resolve-Pc1AuthPython {
         $candidate = $env:FAPAI_DESKTOP_PYTHON_PATH
     }
     if (-not $candidate) {
-        $candidate = (Get-Command python -CommandType Application -ErrorAction Stop).Source
+        $candidate = (Get-Command python -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
     }
     if (-not [IO.Path]::IsPathRooted($candidate)) {
-        $candidate = (Get-Command $candidate -CommandType Application -ErrorAction Stop).Source
+        $candidate = (Get-Command $candidate -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
     }
     if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {
         throw "PC1 auth Python executable was not found: $candidate"

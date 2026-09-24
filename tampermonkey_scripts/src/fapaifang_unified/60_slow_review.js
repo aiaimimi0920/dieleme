@@ -36,7 +36,7 @@
         if (status) status.innerText = `Tabs: ${slowReviewState.slots.length}/${slowReviewState.maxSlots}`;
 
         if (slowReviewState.slots.length < slowReviewState.maxSlots) {
-             fetchApi('/get_tasks', {}, (res) => {
+             fetchApi('/collection/details/tasks', {}, (res) => {
                  if (res.tasks && res.tasks.length > 0) {
                      const task = res.tasks[0]; // Take one
                      log(`打开任务: ${task.id}`, 'info');
@@ -126,4 +126,3 @@
              }
          }, 5000); // Check every 5s
     }
-

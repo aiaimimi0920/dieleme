@@ -6,7 +6,7 @@ def test_repeated_old_completion_id_does_not_clear_a_new_manual_required_state(m
 
     completion_id = "pc2-old-completion"
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "confirmations", {})
     monkeypatch.setattr(
         server,
         "_schedule_auth_cookie_snapshot_refresh",
@@ -17,10 +17,10 @@ def test_repeated_old_completion_id_does_not_clear_a_new_manual_required_state(m
             "retry_queued": False,
         },
     )
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
     flag_path = tmp_path / "force_unlock.flag"
     flag_path.write_text("first challenge", encoding="utf-8")
 
@@ -30,10 +30,10 @@ def test_repeated_old_completion_id_does_not_clear_a_new_manual_required_state(m
     assert first["auth_state_confirmed"] is True
 
     server.AUTH_COMPLETION_CONFIRMATIONS.clear()
-    server.PAUSED = True
-    server.COLLECTION_PAUSE_REASON = "manual_required"
-    server.SOLVER_LAST_STATUS = "manual_required"
-    server.SOLVER_LAST_FAILURE_REASON = "manual_required"
+    server.RUNTIME.control.paused = True
+    server.RUNTIME.control.reason = "manual_required"
+    server.RUNTIME.solver.last_status = "manual_required"
+    server.RUNTIME.solver.failure_reason = "manual_required"
     flag_path.write_text("new challenge", encoding="utf-8")
 
     stale = server._collection_observer_auth_complete_payload(
@@ -44,8 +44,8 @@ def test_repeated_old_completion_id_does_not_clear_a_new_manual_required_state(m
     assert stale["auth_state_confirmed"] is False
     assert "stale" in stale["error"]
     assert flag_path.exists()
-    assert server.PAUSED is True
-    assert server.SOLVER_LAST_STATUS == "manual_required"
+    assert server.RUNTIME.control.paused is True
+    assert server.RUNTIME.solver.last_status == "manual_required"
 
 def test_collection_observer_auth_complete_rejects_unconfirmed_cleanup(monkeypatch, tmp_path) -> None:
     from src import server
@@ -62,10 +62,10 @@ def test_collection_observer_auth_complete_rejects_unconfirmed_cleanup(monkeypat
             "retry_queued": False,
         },
     )
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
     payload = server._collection_observer_auth_complete_payload(
@@ -81,9 +81,9 @@ def test_collection_observer_auth_complete_rejects_unconfirmed_cleanup(monkeypat
 def test_pc2_auth_complete_requires_completion_id(monkeypatch) -> None:
     from src import server
 
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver")
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-current")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "captcha_solver")
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", "challenge-current")
 
     payload = server._collection_observer_auth_complete_payload(
         {
@@ -102,16 +102,16 @@ def test_resume_after_cooldown_only_clears_collection_auth_pause(monkeypatch, tm
 
     monkeypatch.delenv("FAPAI_SOLVER_STATE_DIR", raising=False)
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.recovery, "confirmations", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", None)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_REQUEST",
+        server.RUNTIME.recovery,
+        "last_request",
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9223",
@@ -139,23 +139,23 @@ def test_resume_after_cooldown_only_clears_collection_auth_pause(monkeypatch, tm
     assert payload["captcha_solver"]["manual_required"] is False
     assert payload["captcha_solver"]["force_unlock_flag_exists"] is False
     assert payload["cookie_snapshot"]["status"] == "skipped"
-    assert server.SOLVER_LAST_STATUS == "resumed_after_cooldown"
+    assert server.RUNTIME.solver.last_status == "resumed_after_cooldown"
     assert not (tmp_path / "force_unlock.flag").exists()
-    assert remembered_requests == [server.SOLVER_LAST_REQUEST]
+    assert remembered_requests == [server.RUNTIME.recovery.last_request]
 
 def test_resume_after_cooldown_preserves_reporting_node_for_challenge_grace(monkeypatch, tmp_path) -> None:
     from src import server
 
     monkeypatch.delenv("FAPAI_SOLVER_STATE_DIR", raising=False)
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.recovery, "confirmations", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
     remembered_requests: list[dict[str, object]] = []
     monkeypatch.setattr(
         server,
@@ -188,13 +188,13 @@ def test_resume_after_cooldown_is_idempotent_for_same_request_id(monkeypatch, tm
 
     monkeypatch.delenv("FAPAI_SOLVER_STATE_DIR", raising=False)
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.recovery, "confirmations", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", None)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
     request = {"source": "pc2_local_solver", "resume_request_id": "pc2-resume-repeat"}
 
@@ -214,13 +214,13 @@ def test_old_pc2_request_cannot_clear_new_challenge(monkeypatch, tmp_path, actio
 
     monkeypatch.delenv("FAPAI_SOLVER_STATE_DIR", raising=False)
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-b")
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.recovery, "confirmations", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", "challenge-b")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
     flag_path = tmp_path / "force_unlock.flag"
     flag_path.write_text("new challenge", encoding="utf-8")
 
@@ -244,9 +244,9 @@ def test_old_pc2_request_cannot_clear_new_challenge(monkeypatch, tmp_path, actio
     assert payload["ok"] is False
     assert payload["stale_challenge"] is True
     assert payload["challenge_id"] == "challenge-b"
-    assert server.PAUSED is True
-    assert server.SOLVER_LAST_STATUS == "manual_required"
-    assert server.SOLVER_LAST_FAILURE_REASON == "manual_required"
+    assert server.RUNTIME.control.paused is True
+    assert server.RUNTIME.solver.last_status == "manual_required"
+    assert server.RUNTIME.solver.failure_reason == "manual_required"
     assert flag_path.exists()
 
 def test_solver_challenge_id_survives_api_process_restart(monkeypatch, tmp_path) -> None:
@@ -258,10 +258,10 @@ def test_solver_challenge_id_survives_api_process_restart(monkeypatch, tmp_path)
         "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
     }
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", dict(request))
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", dict(request))
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", None)
 
     challenge_id = server._begin_solver_challenge()
     state_path = tmp_path / "solver-challenge-state.json"
@@ -270,29 +270,29 @@ def test_solver_challenge_id_survives_api_process_restart(monkeypatch, tmp_path)
     assert persisted["challenge_id"] == challenge_id
     assert persisted["last_request"] == request
 
-    server.SOLVER_CHALLENGE_ID = None
-    server.SOLVER_LAST_REQUEST = dict(request)
-    server.PAUSED = False
-    server.COLLECTION_PAUSE_REASON = None
+    server.RUNTIME.recovery.challenge_id = None
+    server.RUNTIME.recovery.last_request = dict(request)
+    server.RUNTIME.control.paused = False
+    server.RUNTIME.control.reason = None
 
     assert server._begin_solver_challenge() == challenge_id
     assert server._restore_solver_challenge_state() is True
-    assert server.SOLVER_CHALLENGE_ID == challenge_id
-    assert server.SOLVER_LAST_REQUEST == request
-    assert server.PAUSED is True
-    assert server.COLLECTION_PAUSE_REASON == "captcha_solver"
+    assert server.RUNTIME.recovery.challenge_id == challenge_id
+    assert server.RUNTIME.recovery.last_request == request
+    assert server.RUNTIME.control.paused is True
+    assert server.RUNTIME.control.reason == "captcha_solver"
 
 def test_different_solver_request_starts_new_persisted_challenge(monkeypatch, tmp_path) -> None:
     from src import server
 
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", None)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", None)
     monkeypatch.setattr(server.time, "time_ns", lambda: 1001)
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_REQUEST",
+        server.RUNTIME.recovery,
+        "last_request",
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9224",
@@ -301,10 +301,10 @@ def test_different_solver_request_starts_new_persisted_challenge(monkeypatch, tm
     )
     first_id = server._begin_solver_challenge()
 
-    server.SOLVER_CHALLENGE_ID = None
-    server.PAUSED = False
-    server.COLLECTION_PAUSE_REASON = None
-    server.SOLVER_LAST_REQUEST = {
+    server.RUNTIME.recovery.challenge_id = None
+    server.RUNTIME.control.paused = False
+    server.RUNTIME.control.reason = None
+    server.RUNTIME.recovery.last_request = {
         "node_id": "pc2",
         "cdp_endpoint": "http://192.168.15.104:9224",
         "target_url": "https://sf.taobao.com/list/second.htm",
@@ -322,13 +322,13 @@ def test_paused_challenge_changes_only_when_node_owner_changes(monkeypatch, tmp_
     from src import server
 
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", None)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", None)
     monkeypatch.setattr(server.time, "time_ns", lambda: 2001)
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_REQUEST",
+        server.RUNTIME.recovery,
+        "last_request",
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9224",
@@ -336,17 +336,17 @@ def test_paused_challenge_changes_only_when_node_owner_changes(monkeypatch, tmp_
         },
     )
     first_id = server._begin_solver_challenge()
-    server.PAUSED = True
-    server.COLLECTION_PAUSE_REASON = "captcha_solver"
+    server.RUNTIME.control.paused = True
+    server.RUNTIME.control.reason = "captcha_solver"
 
-    server.SOLVER_LAST_REQUEST = {
+    server.RUNTIME.recovery.last_request = {
         "node_id": "pc2",
         "cdp_endpoint": "http://192.168.15.104:9224",
         "target_url": "https://sf.taobao.com/list/second.htm",
     }
     assert server._begin_solver_challenge() == first_id
 
-    server.SOLVER_LAST_REQUEST = {
+    server.RUNTIME.recovery.last_request = {
         "node_id": "pc3",
         "cdp_endpoint": "http://192.168.15.105:9224",
         "target_url": "https://sf.taobao.com/list/second.htm",
@@ -364,19 +364,19 @@ def test_challenge_cleanup_failure_keeps_runtime_paused(monkeypatch, tmp_path) -
 
     monkeypatch.delenv("FAPAI_SOLVER_STATE_DIR", raising=False)
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-current")
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver")
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", "challenge-current")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "captcha_solver")
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
     monkeypatch.setattr(server, "_solver_challenge_state_path", lambda: UnremovableChallengeState())
 
     error = server._clear_solver_manual_required_pause()
 
     assert "challenge state is busy" in str(error)
-    assert server.SOLVER_CHALLENGE_ID == "challenge-current"
-    assert server.PAUSED is True
-    assert server.COLLECTION_PAUSE_REASON == "captcha_solver"
-    assert server.SOLVER_LAST_STATUS == "manual_required"
+    assert server.RUNTIME.recovery.challenge_id == "challenge-current"
+    assert server.RUNTIME.control.paused is True
+    assert server.RUNTIME.control.reason == "captcha_solver"
+    assert server.RUNTIME.solver.last_status == "manual_required"
 
 def test_resume_after_cooldown_clears_persisted_challenge_state(monkeypatch, tmp_path) -> None:
     from src import server
@@ -387,14 +387,14 @@ def test_resume_after_cooldown_clears_persisted_challenge_state(monkeypatch, tmp
         "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
     }
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", dict(request))
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "confirmations", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", dict(request))
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", None)
     challenge_id = server._begin_solver_challenge()
-    server.PAUSED = True
-    server.COLLECTION_PAUSE_REASON = "captcha_solver"
+    server.RUNTIME.control.paused = True
+    server.RUNTIME.control.reason = "captcha_solver"
 
     payload = server._collection_observer_resume_after_cooldown_payload(
         {
@@ -406,5 +406,5 @@ def test_resume_after_cooldown_clears_persisted_challenge_state(monkeypatch, tmp
 
     assert payload["ok"] is True
     assert payload["auth_state_confirmed"] is True
-    assert server.SOLVER_CHALLENGE_ID is None
+    assert server.RUNTIME.recovery.challenge_id is None
     assert not (tmp_path / "solver-challenge-state.json").exists()

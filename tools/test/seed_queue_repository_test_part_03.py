@@ -313,6 +313,9 @@ def test_upsert_seed_items_recovers_when_parallel_worker_inserted_same_item(
     tmp_path: Path, monkeypatch
 ) -> None:
     repo = _make_repo(tmp_path)
+    # Force the generic dialect branch so the savepoint-protected fallback is
+    # exercised even though the fixture uses SQLite's native upsert normally.
+    monkeypatch.setattr(repo.engine.dialect, "name", "other")
     _ensure_nansha_job(repo)
     task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
     assert task is not None

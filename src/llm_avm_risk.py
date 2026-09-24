@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import json
+import logging
 
 from src.llm_auction_extraction import build_avm_risk_prompt
 from src.llm_openai_compatible import chat_with_glm
+
+
+logger = logging.getLogger(__name__)
 
 
 AVM_RISK_BOOLEAN_FIELDS = {
@@ -129,9 +133,9 @@ def validate_avm_risk_features_schema(features, item_id=None):
 
     passed = len(errors) == 0
     if passed:
-        print(f"[AVM-RISK][SCHEMA PASS] item={item_label}")
+        logger.info(f"[AVM-RISK][SCHEMA PASS] item={item_label}")
     else:
-        print(f"[AVM-RISK][SCHEMA FAILED] item={item_label}; errors={errors}")
+        logger.warning(f"[AVM-RISK][SCHEMA FAILED] item={item_label}; errors={errors}")
 
     return passed, errors
 
@@ -148,7 +152,7 @@ def sanitize_avm_risk_features(features, item_id=None):
     item_label = item_id if item_id is not None else "unknown"
 
     if not isinstance(features, dict):
-        print(f"[AVM-RISK][SANITIZE REJECT] item={item_label}: payload is not a dict")
+        logger.warning(f"[AVM-RISK][SANITIZE REJECT] item={item_label}: payload is not a dict")
         return None, []
 
     sanitized = dict(features)
@@ -157,7 +161,7 @@ def sanitize_avm_risk_features(features, item_id=None):
     def _drop(key, reason):
         sanitized[key] = None
         dropped.append(key)
-        print(f"[AVM-RISK][FIELD DROPPED] item={item_label}: {key} ({reason})")
+        logger.warning(f"[AVM-RISK][FIELD DROPPED] item={item_label}: {key} ({reason})")
 
     for key in AVM_RISK_BOOLEAN_FIELDS:
         value = sanitized.get(key)
@@ -187,9 +191,9 @@ def sanitize_avm_risk_features(features, item_id=None):
         _drop("evidence_span", f"expects str/list/null, got {type(evidence_span).__name__}")
 
     if dropped:
-        print(f"[AVM-RISK][SANITIZED] item={item_label}: dropped={dropped}")
+        logger.warning(f"[AVM-RISK][SANITIZED] item={item_label}: dropped={dropped}")
     else:
-        print(f"[AVM-RISK][SANITIZE CLEAN] item={item_label}")
+        logger.info(f"[AVM-RISK][SANITIZE CLEAN] item={item_label}")
 
     return sanitized, dropped
 
@@ -217,20 +221,22 @@ def extract_avm_risk_features(page_text, item_id=None, *, model=None):
     """
     item_label = item_id if item_id is not None else "unknown"
     if not page_text or not str(page_text).strip():
-        print(f"[AVM-RISK] Empty page text for item={item_label}")
+        logger.warning(f"[AVM-RISK] Empty page text for item={item_label}")
         return None
 
-    prompt = build_avm_risk_prompt(str(page_text)[:100000])
+    from src.llm_request_policy import MAX_INPUT_CHARACTERS
+
+    prompt = build_avm_risk_prompt(str(page_text)[:MAX_INPUT_CHARACTERS])
 
     try:
         raw = chat_with_glm(prompt, model=model) if model else chat_with_glm(prompt)
         features = json.loads(raw)
     except Exception as e:
-        print(f"[AVM-RISK] LLM parse error item={item_label}: {e}")
+        logger.error(f"[AVM-RISK] LLM parse error item={item_label}: {e}")
         return None
 
     if not isinstance(features, dict):
-        print(f"[AVM-RISK] Non-dict response item={item_label}: {type(features).__name__}")
+        logger.warning(f"[AVM-RISK] Non-dict response item={item_label}: {type(features).__name__}")
         return None
 
     for key in AVM_RISK_KEYS:

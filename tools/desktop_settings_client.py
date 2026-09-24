@@ -15,6 +15,7 @@ from tools.desktop_runtime_config import load_runtime_environment
 from tools.pc1_desktop_recovery import RecoveryError, NoRedirect
 from src.collection_settings_schema import validate, validate_key
 from src.collection_engine_restart import RestartError
+from src.collection_operator_actions import OPERATOR_ACTION_PATHS, validate_operator_body
 
 
 def origin(value):
@@ -29,7 +30,7 @@ def execute(request, root):
     if not isinstance(request, dict) or set(request) - {"action", "origin", "body"}:
         raise ValueError("invalid_request")
     action = request.get("action")
-    if action not in {"config", "get", "apply", "restart_status", "restart"}:
+    if action not in {"config", "get", "apply", "restart_status", "restart"} | OPERATOR_ACTION_PATHS.keys():
         raise ValueError("invalid_action")
     env = load_runtime_environment(root)
     configured = origin(env.get("FAPAI_SETTINGS_API_BASE", ""))
@@ -57,6 +58,8 @@ def execute(request, root):
             raise ValueError("invalid_restart")
         if not isinstance(body["request_id"], str) or not re.fullmatch(r"[A-Za-z0-9_-]{16,80}", body["request_id"]):
             raise ValueError("invalid_request_id")
+    elif action in OPERATOR_ACTION_PATHS:
+        validate_operator_body(action, body)
     elif body is not None:
         raise ValueError("unexpected_body")
     context = ssl.create_default_context(cafile=str(ca))
@@ -69,6 +72,8 @@ def execute(request, root):
     url = configured + "/api/collection/settings" + ("/apply" if action == "apply" else "")
     if action in {"restart_status", "restart"}:
         url = configured + "/api/collection/control/restart"
+    elif action in OPERATOR_ACTION_PATHS:
+        url = configured + OPERATOR_ACTION_PATHS[action]
     query = urllib.request.Request(url, data=raw, method="GET" if read_only else "POST",
                                    headers={"Content-Type": "application/json", "X-FAPAI-Control-Token": token})
     try:

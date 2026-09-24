@@ -1,6 +1,17 @@
 from __future__ import annotations
 
-from .repository_context import *  # noqa: F401,F403
+from datetime import timedelta
+from typing import Any, Dict, Iterator, Optional
+
+from sqlalchemy import func, select
+from sqlalchemy.orm import Session
+
+from .models import (
+    PropertyAudit,
+    PropertyLegalContext,
+    PropertyListing,
+    PropertyRiskFlags,
+)
 
 
 class RepositoryFlatQueryMixin:

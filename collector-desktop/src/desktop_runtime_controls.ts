@@ -1,5 +1,9 @@
-import { installedControlOrigin, installedRestartRequest } from "./desktop_settings_transport.ts";
-import { object } from "./desktop_overview.ts";
+import { installedControlOrigin, installedRestartRequest, installedRuntimeRequest } from "./desktop_settings_transport.ts";
+import { controlOrigin } from "./desktop_settings_contract.ts";
+import { object } from "./desktop_value.ts";
+import { element } from "./desktop_dom.ts";
+import { fetchWithTimeout } from "./desktop_http.ts";
+import { AUTO_REFRESH_INTERVAL_MS, CONTROL_ORIGIN_CACHE_MS, RESTART_POLL_INTERVAL_MS, RUNTIME_TIMEOUT_MS } from "./desktop_config.ts";
 
 type Controls = {
   apiBase: () => string;
@@ -12,12 +16,9 @@ let retryRequest: { base: string; id: string } | null = null;
 let installedOrigin: string | null = null;
 let statusBusy = false;
 let statusTimer: ReturnType<typeof setTimeout> | undefined;
-
-function element<T extends HTMLElement>(id: string): T {
-  const node = document.getElementById(id);
-  if (!node) throw new Error(`Missing control: ${id}`);
-  return node as T;
-}
+let statusBase = "";
+let nextStatusAt = 0;
+let originExpiresAt = 0;
 
 function notice(message: string): void {
   const node = element("overviewNotice");
@@ -38,16 +39,24 @@ export function initializeRuntimeControls(options: Controls): void {
   element("restartToken").addEventListener("input", updateRuntimeControls);
 }
 
-export async function refreshEngineRestartStatus(): Promise<void> {
+export async function refreshEngineRestartStatus(force = false): Promise<void> {
   if (statusBusy || !document.getElementById("engineRestartButton")) return;
-  statusBusy = true;
   const base = controls.apiBase();
+  if (!force && base === statusBase && Date.now() < nextStatusAt) return;
+  if (base !== statusBase) { installedOrigin = null; originExpiresAt = 0; }
+  statusBase = base;
+  statusBusy = true;
+  let delay = AUTO_REFRESH_INTERVAL_MS;
   try {
-    installedOrigin = await installedControlOrigin();
+    if (Date.now() >= originExpiresAt) {
+      installedOrigin = await installedControlOrigin();
+      originExpiresAt = Date.now() + CONTROL_ORIGIN_CACHE_MS;
+    }
     if (!installedOrigin) return;
     const status = await installedRestartRequest(installedOrigin);
     if (base !== controls.apiBase()) return;
     const request = object(status.request);
+    if (["requested", "restarting"].includes(String(request.status))) delay = RESTART_POLL_INTERVAL_MS;
     const labels: Record<string, string> = {
       requested: "等待 PC2 接收", restarting: "PC2 正在重启", succeeded: "PC2 采集 Worker 已重启",
       failed: "重启失败，请检查 PC2", expired: "重启请求已过期", unknown: "重启结果未确认，请检查 PC2",
@@ -60,6 +69,7 @@ export async function refreshEngineRestartStatus(): Promise<void> {
   } catch {
     if (base !== controls.apiBase()) return;
     installedOrigin = null;
+    originExpiresAt = 0;
     const button = document.getElementById("engineRestartButton") as HTMLButtonElement | null;
     if (button) button.dataset.available = "false";
     const hint = document.getElementById("engineRestartStatus");
@@ -68,24 +78,22 @@ export async function refreshEngineRestartStatus(): Promise<void> {
     statusBusy = false;
     updateRuntimeControls();
     clearTimeout(statusTimer);
-    statusTimer = setTimeout(() => void refreshEngineRestartStatus(), 5_000);
+    nextStatusAt = Date.now() + delay;
+    statusTimer = setTimeout(() => void refreshEngineRestartStatus(), delay);
   }
 }
 
 async function post(base: string, action: string, payload: object, token = ""): Promise<Record<string, unknown>> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 15_000);
-  try {
-    const headers: Record<string, string> = { "Content-Type": "application/json" };
-    if (token) headers["X-FAPAI-Control-Token"] = token;
-    const response = await fetch(`${base.replace(/\/$/, "")}/api/collection/control/${action}`, {
-      method: "POST", headers, body: JSON.stringify(payload), signal: controller.signal, redirect: "error",
-    });
-    const result: unknown = await response.json();
-    const record = result && typeof result === "object" ? result as Record<string, unknown> : {};
-    if (!response.ok || record.ok === false) throw new Error(String(record.message || record.error || `HTTP ${response.status}`));
-    return record;
-  } finally { clearTimeout(timer); }
+  base = controlOrigin(base);
+  if (!token) throw new Error("Control authorization is required");
+  const headers = { "Content-Type": "application/json", "X-FAPAI-Control-Token": token };
+  const response = await fetchWithTimeout(`${base.replace(/\/$/, "")}/api/collection/control/${action}`, {
+    method: "POST", headers, body: JSON.stringify(payload), redirect: "error",
+  }, RUNTIME_TIMEOUT_MS);
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const record = object(await response.json());
+  if (record.ok === false) throw new Error(String(record.message || record.error || `HTTP ${response.status}`));
+  return record;
 }
 
 export async function toggleRuntimePause(): Promise<void> {
@@ -95,7 +103,10 @@ export async function toggleRuntimePause(): Promise<void> {
   busy = true;
   updateRuntimeControls();
   try {
-    await post(base, action, {});
+    if (!["start", "pause", "resume"].includes(action)) throw new Error("Unsupported runtime action");
+    const origin = await installedControlOrigin();
+    if (origin) await installedRuntimeRequest(origin, action);
+    else await post(base, action, {}, element<HTMLInputElement>("restartToken").value.trim());
     if (base === controls.apiBase()) await controls.reload();
   } catch (error) {
     if (base === controls.apiBase()) notice(`切换运行状态失败：${error instanceof Error ? error.message : String(error)}`);
@@ -123,10 +134,11 @@ export async function requestEngineRestart(): Promise<void> {
     retryRequest = null;
     if (base !== controls.apiBase()) return;
     await controls.reload();
-    await refreshEngineRestartStatus();
+    await refreshEngineRestartStatus(true);
     notice(result.warning ? String(result.warning) : "重启请求已提交 NAS，执行结果以状态栏中的 PC2 回执为准；提交不代表重启完成。");
   } catch (error) {
     if (base === controls.apiBase()) notice(`重启请求未确认：${error instanceof Error ? error.message : String(error)}。请先刷新状态；重试会复用请求编号。`);
+    await refreshEngineRestartStatus(true);
   } finally {
     busy = false;
     updateRuntimeControls();

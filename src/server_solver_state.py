@@ -1,12 +1,17 @@
 from __future__ import annotations
 
+import logging
+
 from .server_context import *  # noqa: F401,F403
+
+logger = logging.getLogger(__name__)
 
 def _solver_report_predates_auth_completion(
     payload: dict[str, Any] | None,
 ) -> bool:
     """Identify an in-flight worker report created before auth completed."""
-    completed_at = float(SOLVER_LAST_AUTH_COMPLETED_TIME or 0)
+    recovery = RUNTIME.recovery.snapshot()
+    completed_at = recovery.completed_at
     if completed_at <= 0 or not isinstance(payload, dict):
         return False
     raw_timestamp = payload.get("timestamp")
@@ -21,7 +26,7 @@ def _solver_report_predates_auth_completion(
     if reported_at <= 0 or reported_at > completed_at:
         return False
 
-    completed = _build_solver_request(SOLVER_LAST_AUTH_COMPLETED_REQUEST)
+    completed = _build_solver_request(recovery.completed_request)
     incoming = _build_solver_request(payload)
     if not completed or not incoming:
         return False
@@ -39,7 +44,7 @@ def _solver_report_stale_challenge_id(payload: dict[str, Any] | None) -> str | N
             _solver_scope_runtime_status(scope).get("challenge_id") or ""
         ).strip()
     else:
-        active_challenge_id = str(SOLVER_CHALLENGE_ID or "").strip()
+        active_challenge_id = str(RUNTIME.recovery.snapshot().challenge_id or "").strip()
     if reported_challenge_id == active_challenge_id:
         return None
     return reported_challenge_id
@@ -82,7 +87,10 @@ def _scope_for_challenge_id(challenge_id: str | None) -> str | None:
 
 def _clear_solver_challenge_state(scope: str | None = None) -> str | None:
     """Clear one scoped challenge, or all challenge state for legacy callers."""
-    global SOLVER_CHALLENGE_ID, SOLVER_LAST_REQUEST
+    with RUNTIME.lock:
+        return _clear_solver_challenge_state_locked(scope)
+
+def _clear_solver_challenge_state_locked(scope: str | None) -> str | None:
     normalized_scope = _normalize_challenge_scope(scope)
     scopes = (normalized_scope,) if normalized_scope else CHALLENGE_SCOPES
     errors: list[str] = []
@@ -93,12 +101,12 @@ def _clear_solver_challenge_state(scope: str | None = None) -> str | None:
         else ""
     )
     for candidate in scopes:
-        with SOLVER_SCOPE_LOCK:
-            SOLVER_SCOPE_STATES[candidate] = _new_solver_scope_state()
         try:
             _solver_scope_state_path(candidate).unlink(missing_ok=True)
         except Exception as error:
             errors.append(f"{candidate}: {error!r}")
+        else:
+            RUNTIME.control.set_scope(candidate, _new_solver_scope_state())
     if not normalized_scope:
         path = _solver_challenge_state_path()
         legacy_cleared = True
@@ -108,16 +116,18 @@ def _clear_solver_challenge_state(scope: str | None = None) -> str | None:
             errors.append(f"legacy: {error!r}")
             legacy_cleared = False
         if legacy_cleared:
-            SOLVER_CHALLENGE_ID = None
-    elif str(SOLVER_CHALLENGE_ID or "").strip() and _challenge_scope_for_request(SOLVER_LAST_REQUEST) == normalized_scope:
-        SOLVER_CHALLENGE_ID = None
+            RUNTIME.recovery.set_challenge(None)
+    elif str(RUNTIME.recovery.snapshot().challenge_id or "").strip() and _challenge_scope_for_request(RUNTIME.recovery.snapshot().last_request) == normalized_scope:
+        RUNTIME.recovery.set_challenge(None)
         for other_scope in CHALLENGE_SCOPES:
             if other_scope == normalized_scope:
                 continue
             other_state = _read_solver_scope_state(other_scope)
             if other_state.get("challenge_id"):
-                SOLVER_CHALLENGE_ID = str(other_state.get("challenge_id"))
-                SOLVER_LAST_REQUEST = dict(other_state.get("last_request") or {})
+                RUNTIME.recovery.set_challenge(
+                    str(other_state.get("challenge_id")),
+                    dict(other_state.get("last_request") or {}),
+                )
                 break
     if normalized_scope and scoped_challenge_id and legacy_payload.get("challenge_id") == scoped_challenge_id:
         # A scoped solve may have refreshed the compatibility receipt. Remove
@@ -130,38 +140,40 @@ def _clear_solver_challenge_state(scope: str | None = None) -> str | None:
     return "; ".join(errors) if errors else None
 
 def _restore_solver_challenge_state() -> bool:
-    global SOLVER_CHALLENGE_ID, SOLVER_LAST_REQUEST
     payload = _read_solver_challenge_state()
     if not payload:
         return False
-    SOLVER_CHALLENGE_ID = payload["challenge_id"]
     persisted_request = payload.get("last_request")
-    if isinstance(persisted_request, dict) and persisted_request:
-        SOLVER_LAST_REQUEST = dict(persisted_request)
-    _set_collection_pause_state(True, str(payload.get("pause_reason") or "captcha_solver"))
+    with RUNTIME.lock:
+        RUNTIME.recovery.set_challenge(
+            payload["challenge_id"],
+            persisted_request if isinstance(persisted_request, dict) and persisted_request else None,
+        )
+        _set_collection_pause_state(True, str(payload.get("pause_reason") or "captcha_solver"))
     return True
 
 def _restore_solver_scope_states() -> bool:
     """Restore independent list/detail challenge latches after a process restart."""
-    global SOLVER_CHALLENGE_ID, SOLVER_LAST_REQUEST
     restored = False
     for scope in CHALLENGE_SCOPES:
         state = _read_solver_scope_state(scope)
         if not state.get("challenge_id"):
             continue
-        with SOLVER_SCOPE_LOCK:
-            SOLVER_SCOPE_STATES[scope] = dict(state)
-        _set_collection_pause_state(True, str(state.get("pause_reason") or "captcha_solver"), scope=scope)
-        if not SOLVER_CHALLENGE_ID:
-            SOLVER_CHALLENGE_ID = str(state.get("challenge_id"))
-            SOLVER_LAST_REQUEST = dict(state.get("last_request") or {})
+        with RUNTIME.lock:
+            RUNTIME.control.set_scope(scope, state)
+            _set_collection_pause_state(True, str(state.get("pause_reason") or "captcha_solver"), scope=scope)
+            if not RUNTIME.recovery.snapshot().challenge_id:
+                RUNTIME.recovery.set_challenge(str(state.get("challenge_id")), dict(state.get("last_request") or {}))
         restored = True
     return restored
 
 def _begin_solver_challenge(request_payload: dict[str, Any] | None = None) -> str:
     """Create/reuse the unique challenge latch for the request's collection scope."""
-    global SOLVER_CHALLENGE_ID, SOLVER_LAST_REQUEST
-    supplied_request = request_payload if isinstance(request_payload, dict) else SOLVER_LAST_REQUEST
+    with RUNTIME.lock:
+        return _begin_solver_challenge_locked(request_payload)
+
+def _begin_solver_challenge_locked(request_payload: dict[str, Any] | None) -> str:
+    supplied_request = request_payload if isinstance(request_payload, dict) else RUNTIME.recovery.snapshot().last_request
     last_request = _build_solver_request(supplied_request or {})
     # Direct legacy callers without a request use the singleton state. New
     # collection workers always pass their request explicitly, enabling scope
@@ -169,8 +181,8 @@ def _begin_solver_challenge(request_payload: dict[str, Any] | None = None) -> st
     scope = _challenge_scope_for_request(last_request) if isinstance(request_payload, dict) else ""
     if scope in CHALLENGE_SCOPES:
         now = time.time()
-        with SOLVER_SCOPE_LOCK:
-            state = dict(SOLVER_SCOPE_STATES.get(scope) or _new_solver_scope_state())
+        _solver_scope_state_root_path()
+        state = RUNTIME.control.scope_snapshot(scope)
         persisted = _read_solver_scope_state(scope)
         if not state.get("challenge_id") and persisted.get("challenge_id"):
             state.update(persisted)
@@ -192,42 +204,41 @@ def _begin_solver_challenge(request_payload: dict[str, Any] | None = None) -> st
         )
         persist_error = _persist_solver_scope_state(scope, state)
         if persist_error:
-            print(f"[SOLVER] Failed to persist {scope} challenge state: {persist_error}")
+            logger.error("[SOLVER] Failed to persist %s challenge state: %s", scope, persist_error)
         # Keep the legacy singleton receipt for older operators/clients. The
         # scoped files above remain authoritative when list and detail overlap.
         legacy_error = _persist_solver_challenge_state(challenge_id, last_request)
         if legacy_error:
-            print(f"[SOLVER] Failed to refresh legacy challenge state: {legacy_error}")
+            logger.error("[SOLVER] Failed to refresh legacy challenge state: %s", legacy_error)
         _set_collection_pause_state(True, "captcha_solver", scope=scope)
-        SOLVER_CHALLENGE_ID = challenge_id
-        SOLVER_LAST_REQUEST = dict(last_request)
+        RUNTIME.recovery.set_challenge(challenge_id, last_request)
         return challenge_id
 
     # Legacy/unknown request path retained for older API clients and tests.
-    last_request = dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
+    last_request = dict(RUNTIME.recovery.snapshot().last_request) if isinstance(RUNTIME.recovery.snapshot().last_request, dict) else {}
     persisted = _read_solver_challenge_state()
-    if SOLVER_CHALLENGE_ID and _collection_effectively_paused():
+    if RUNTIME.recovery.snapshot().challenge_id and _collection_effectively_paused():
         if (
             not persisted
             or _solver_challenge_owner_key(persisted.get("last_request"))
             == _solver_challenge_owner_key(last_request)
         ):
-            persist_error = _persist_solver_challenge_state(SOLVER_CHALLENGE_ID, last_request)
+            persist_error = _persist_solver_challenge_state(RUNTIME.recovery.snapshot().challenge_id, last_request)
             if persist_error:
-                print(f"[SOLVER] Failed to refresh persisted challenge state: {persist_error}")
-            return SOLVER_CHALLENGE_ID
+                logger.error("[SOLVER] Failed to refresh persisted challenge state: %s", persist_error)
+            return RUNTIME.recovery.snapshot().challenge_id
     if (
         persisted
         and _solver_challenge_request_key(persisted.get("last_request"))
         == _solver_challenge_request_key(last_request)
     ):
-        SOLVER_CHALLENGE_ID = persisted["challenge_id"]
+        RUNTIME.recovery.set_challenge(persisted["challenge_id"])
     else:
-        SOLVER_CHALLENGE_ID = f"captcha-{time.time_ns()}"
-    persist_error = _persist_solver_challenge_state(SOLVER_CHALLENGE_ID, last_request)
+        RUNTIME.recovery.set_challenge(f"captcha-{time.time_ns()}")
+    persist_error = _persist_solver_challenge_state(RUNTIME.recovery.snapshot().challenge_id, last_request)
     if persist_error:
-        print(f"[SOLVER] Failed to persist challenge state: {persist_error}")
-    return SOLVER_CHALLENGE_ID
+        logger.error("[SOLVER] Failed to persist challenge state: %s", persist_error)
+    return RUNTIME.recovery.snapshot().challenge_id
 
 def _solver_last_request_target_url(solver_status: dict[str, Any] | None = None) -> str:
     payload = solver_status if isinstance(solver_status, dict) else _captcha_solver_runtime_status()
@@ -300,27 +311,28 @@ def _collection_runtime_state_label_from_status_payload(status_payload: dict[str
 
 def _clear_auth_lock_after_solver_success(scope: str | None = None) -> None:
     """After an automated captcha pass, drop the durable auth lock so workers resume."""
-    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_ONLY, SOLVER_MANUAL_RESUME_EPOCH
     normalized_scope = _normalize_challenge_scope(scope)
+    recovery = RUNTIME.recovery.snapshot()
     if not normalized_scope:
-        normalized_scope = _challenge_scope_for_request(SOLVER_LAST_REQUEST)
-    completed_request = dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
+        normalized_scope = _challenge_scope_for_request(recovery.last_request)
+    completed_request = dict(recovery.last_request) if isinstance(recovery.last_request, dict) else {}
     challenge_state_error = _clear_solver_challenge_state(normalized_scope or None)
     if challenge_state_error:
-        SOLVER_LAST_STATUS = "manual_required"
-        SOLVER_LAST_FAILURE_REASON = "manual_required"
+        RUNTIME.solver.record_outcome("manual_required", "manual_required")
         _set_collection_pause_state(True, "manual_required", scope=normalized_scope or None)
-        print(f"[SOLVER] Failed to clear persisted challenge state after success: {challenge_state_error}")
+        logger.error("[SOLVER] Failed to clear persisted challenge state after success: %s", challenge_state_error)
         return
-    SOLVER_LAST_STATUS = "solved"
-    SOLVER_LAST_FAILURE_REASON = None
-    SOLVER_MANUAL_ONLY = False
-    SOLVER_MANUAL_RESUME_EPOCH = time.time()
+    RUNTIME.solver.record_outcome("solved")
+    with RUNTIME.lock:
+        RUNTIME.recovery.clear_manual()
+        RUNTIME.recovery.resume(time.time())
     _remember_solver_auth_completion(completed_request)
     if normalized_scope:
         _set_collection_pause_state(False, scope=normalized_scope)
-    elif PAUSED and COLLECTION_PAUSE_REASON in {None, "captcha_solver", "manual_required"}:
-        _set_collection_pause_state(False)
+    else:
+        control = RUNTIME.control.snapshot()
+        if control.paused and control.reason in {None, "captcha_solver", "manual_required"}:
+            _set_collection_pause_state(False)
     flag_path = _solver_force_unlock_flag_path()
     flag_scope = _solver_manual_flag_scope()
     if os.path.exists(flag_path) and (
@@ -328,40 +340,31 @@ def _clear_auth_lock_after_solver_success(scope: str | None = None) -> None:
     ):
         try:
             os.remove(flag_path)
-            print("[SOLVER] Cleared force_unlock.flag after automated captcha success.")
+            logger.info("[SOLVER] Cleared force_unlock.flag after automated captcha success.")
         except Exception as error:
-            print(f"[SOLVER] Failed to remove force_unlock.flag after success: {error}")
+            logger.error("[SOLVER] Failed to remove force_unlock.flag after success: %s", error)
     if normalized_scope:
         try:
             Path(_solver_scope_manual_flag_path(normalized_scope)).unlink(missing_ok=True)
         except Exception as error:
-            print(f"[SOLVER] Failed to remove scoped manual flag after success: {error}")
+            logger.error("[SOLVER] Failed to remove scoped manual flag after success: %s", error)
 
 def _clear_solver_manual_required_state() -> None:
-    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_ONLY
-    if SOLVER_LAST_STATUS == "manual_required":
-        SOLVER_LAST_STATUS = "resumed"
-    if SOLVER_LAST_FAILURE_REASON == "manual_required":
-        SOLVER_LAST_FAILURE_REASON = None
-    SOLVER_MANUAL_ONLY = False
+    with RUNTIME.lock:
+        RUNTIME.solver.clear_manual()
+        RUNTIME.recovery.clear_manual()
 
 def _clear_solver_running_state() -> None:
-    global SOLVER_RUNNING, SOLVER_PENDING_TOKEN, SOLVER_START_TIME, SOLVER_LAST_FINISHED_TIME
-    with SOLVER_LOCK:
-        if SOLVER_RUNNING:
-            SOLVER_LAST_FINISHED_TIME = time.time()
-        SOLVER_RUNNING = False
-        SOLVER_PENDING_TOKEN = None
-        SOLVER_START_TIME = 0
+    RUNTIME.solver.clear(finished_at=time.time())
 
 def _request_solver_cancel() -> None:
-    global SOLVER_CANCEL_EPOCH
-    SOLVER_CANCEL_EPOCH = time.time()
+    with RUNTIME.lock:
+        RUNTIME.recovery.cancel(time.time())
+        RUNTIME.solver.cancel()
 
 def _clear_solver_manual_required_pause(
     *, preserve_running_state: bool = False, scope: str | None = None
 ) -> str | None:
-    global SOLVER_MANUAL_RESUME_EPOCH
     normalized_scope = _normalize_challenge_scope(scope)
     flag_path = _solver_force_unlock_flag_path()
     flag_scope = _solver_manual_flag_scope()
@@ -382,10 +385,12 @@ def _clear_solver_manual_required_pause(
     if challenge_state_error:
         return challenge_state_error
     _set_collection_pause_state(False, scope=normalized_scope or None)
-    SOLVER_MANUAL_RESUME_EPOCH = time.time()
-    if not preserve_running_state:
-        _clear_solver_running_state()
-    _clear_solver_manual_required_state()
+    with RUNTIME.lock:
+        RUNTIME.recovery.resume(time.time())
+        RUNTIME.solver.cancel()
+        if not preserve_running_state:
+            _clear_solver_running_state()
+        _clear_solver_manual_required_state()
     return None
 
 def _clear_solver_manual_required_pause_compat(scope: str | None = None) -> str | None:
@@ -400,21 +405,15 @@ def _clear_solver_manual_required_pause_compat(scope: str | None = None) -> str 
 def _mark_solver_manual_required(
     *, manual_only: bool = False, scope: str | None = None
 ) -> str | None:
-    global SOLVER_PENDING_TOKEN, SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON, SOLVER_MANUAL_REQUIRED_EPOCH
-    global SOLVER_MANUAL_ONLY
-    with SOLVER_LOCK:
-        SOLVER_PENDING_TOKEN = None
-        solver_running = bool(SOLVER_RUNNING)
-    SOLVER_MANUAL_REQUIRED_EPOCH = time.time()
-    SOLVER_LAST_STATUS = "manual_required"
-    SOLVER_LAST_FAILURE_REASON = "manual_required"
-    SOLVER_MANUAL_ONLY = bool(manual_only)
-    if solver_running:
-        _request_solver_cancel()
+    with RUNTIME.lock:
+        solver_running = RUNTIME.solver.require_manual()
+        RUNTIME.recovery.require_manual(time.time(), manual_only=bool(manual_only))
+        if solver_running:
+            _request_solver_cancel()
     normalized_scope = _normalize_challenge_scope(scope)
     if normalized_scope:
-        with SOLVER_SCOPE_LOCK:
-            state = dict(SOLVER_SCOPE_STATES.get(normalized_scope) or _new_solver_scope_state())
+        with RUNTIME.lock:
+            state = RUNTIME.control.scope_snapshot(normalized_scope)
             state.update(
                 {
                     "paused": True,
@@ -428,14 +427,14 @@ def _mark_solver_manual_required(
         _persist_solver_scope_state(normalized_scope, state)
     _set_collection_pause_state(True, "manual_required", scope=normalized_scope or None)
     flag_error = _write_solver_manual_required_flag(
-        SOLVER_MANUAL_REQUIRED_EPOCH,
+        RUNTIME.recovery.snapshot().required_epoch,
         scope=normalized_scope or None,
     )
     if normalized_scope:
         # Retain the legacy flag for old operators while the scoped flag above
         # is authoritative for independent workers.
-        legacy_error = _write_solver_manual_required_flag(SOLVER_MANUAL_REQUIRED_EPOCH)
+        legacy_error = _write_solver_manual_required_flag(RUNTIME.recovery.snapshot().required_epoch)
         return flag_error or legacy_error
     return flag_error
 
-__all__ = ["_solver_report_predates_auth_completion", "_solver_report_stale_challenge_id", "_persist_solver_challenge_state", "_scope_for_challenge_id", "_clear_solver_challenge_state", "_restore_solver_challenge_state", "_restore_solver_scope_states", "_begin_solver_challenge", "_solver_last_request_target_url", "_solver_request_scope_from_target_url", "_solver_last_request_scope", "_solver_request_scope", "_seed_stage_has_remaining_work", "_collection_runtime_state_label_from_status_payload", "_clear_auth_lock_after_solver_success", "_clear_solver_manual_required_state", "_clear_solver_running_state", "_request_solver_cancel", "_clear_solver_manual_required_pause", "_clear_solver_manual_required_pause_compat", "_mark_solver_manual_required"]
+__all__ = ["_solver_report_predates_auth_completion", "_solver_report_stale_challenge_id", "_persist_solver_challenge_state", "_scope_for_challenge_id", "_clear_solver_challenge_state", "_clear_solver_challenge_state_locked", "_restore_solver_challenge_state", "_restore_solver_scope_states", "_begin_solver_challenge", "_begin_solver_challenge_locked", "_solver_last_request_target_url", "_solver_request_scope_from_target_url", "_solver_last_request_scope", "_solver_request_scope", "_seed_stage_has_remaining_work", "_collection_runtime_state_label_from_status_payload", "_clear_auth_lock_after_solver_success", "_clear_solver_manual_required_state", "_clear_solver_running_state", "_request_solver_cancel", "_clear_solver_manual_required_pause", "_clear_solver_manual_required_pause_compat", "_mark_solver_manual_required"]

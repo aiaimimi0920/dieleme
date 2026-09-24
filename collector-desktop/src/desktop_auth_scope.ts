@@ -1,4 +1,4 @@
-import { object } from "./desktop_overview.ts";
+import { object } from "./desktop_value.ts";
 import { DEFAULT_AUTH_CHALLENGE_URL, normalizeAuthChallengeUrl } from "./desktop_auth_target.ts";
 
 export type AuthScope = "seed" | "detail";

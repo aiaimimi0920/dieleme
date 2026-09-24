@@ -214,13 +214,9 @@ def _avm_operator_eval_summary(data_root: Path, gate_report_override: dict[str, 
     config_preview_path = avm_dir / "config.json"
 
     def _json_file_is_object(path: Path) -> bool:
-        try:
-            if not path.exists():
-                return False
-            payload = json.loads(path.read_text(encoding="utf-8"))
-            return isinstance(payload, dict)
-        except Exception:
-            return False
+        from src.runtime_snapshot_cache import snapshots
+
+        return isinstance(snapshots.read(path, invalid=None), dict)
 
     use_temp_calibration_path = (
         not calibration_preview_path.exists()

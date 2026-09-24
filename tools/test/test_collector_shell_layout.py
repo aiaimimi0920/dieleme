@@ -30,7 +30,7 @@ def test_shell_uses_loom_window_and_navigation_dimensions():
 
 
 def test_settings_is_a_separate_page_and_keeps_api_controls():
-    template = read("desktop_template.js")
+    template = read("desktop_template.ts")
     settings = template[template.index('<section class="settings-page'):]
     for control in ("settingsTitle", "connectionSettings", "apiBase", "applyApiBase", "connectionStatus"):
         assert f'id="{control}"' in settings
@@ -41,12 +41,12 @@ def test_settings_is_a_separate_page_and_keeps_api_controls():
     assert 'element("settingsTitle").focus()' in shell
     assert "settingsButton.focus()" in shell
     assert "collectionScroll" in shell
-    main = read("main.js")
-    assert main.index("initializeShell(reloadAll)") < main.index('document.querySelectorAll("button[data-stage]")')
+    main = read("main.ts")
+    assert main.index("initializeShell(reloadAll)") < main.index('document.querySelectorAll<HTMLButtonElement>("button[data-stage]")')
 
 
 def test_shell_removes_redundant_labels_not_business_controls():
-    template = read("desktop_template.js")
+    template = read("desktop_template.ts")
     for retired in ("COLLECTION CONSOLE", "COLLECTION /", "TOPOLOGY", "stageIndex", "采集运行总览", "regionStageHint"):
         assert retired not in template
     for control in ("openCollection", "toggleRegions", "resetRegionLinks", "items", "analysisActions", "detailActionStatus"):

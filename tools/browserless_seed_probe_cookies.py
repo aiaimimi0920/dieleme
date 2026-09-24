@@ -6,12 +6,22 @@ from tools.browserless_seed_probe_context import *
 
 
 def write_cookie_snapshot(cookies: Iterable[dict[str, Any]], output_path: str | Path) -> None:
+    import os
+    import tempfile
+
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(list(cookies), ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
+    contents = json.dumps(list(cookies), ensure_ascii=False, indent=2)
+    descriptor, staged = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+            stream.write(contents)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(staged, path)
+    finally:
+        if os.path.exists(staged):
+            os.unlink(staged)
 
 
 def load_cookie_snapshot(output_path: str | Path) -> list[dict[str, Any]]:

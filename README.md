@@ -637,7 +637,7 @@ docker compose --env-file docker.local.env -f docker-compose.collection.yml --pr
 采集 API 可按需启动，不是长驻三段式 worker 的必需项：
 
 ```powershell
-docker compose --env-file docker.local.env -f docker-compose.collection.yml --profile api up -d fapaifang-api
+docker compose --env-file docker.local.env -f docker-compose.collection.yml --profile api up -d crow-api
 ```
 
 面积二级补全可作为一次性 profile 运行：
@@ -652,7 +652,7 @@ docker compose --env-file docker.local.env -f docker-compose.collection.yml --pr
 
 ```powershell
 # 在 docker.local.env 中设置：
-# FAPAI_AREA_PUSH_URL=http://fapaifang-api:8001/api/collection/details/area_result
+# FAPAI_AREA_PUSH_URL=http://crow-api:8001/api/collection/details/area_result
 docker compose --env-file docker.local.env -f docker-compose.collection.yml --profile area-followup run --rm fapaifang-area-followup
 ```
 

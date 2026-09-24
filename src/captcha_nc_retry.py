@@ -1,7 +1,12 @@
 from __future__ import annotations
 
+import logging
+
 from .captcha_context import *  # noqa: F401,F403
 from .collection.adapters.taobao_auth_target import canonical_auth_target
+from .captcha_dom import eval_in_all_frames
+
+logger = logging.getLogger(__name__)
 
 
 class CaptchaNCRetryMixin:
@@ -14,7 +19,7 @@ class CaptchaNCRetryMixin:
             result = self._send_cdp("Input.dispatchMouseEvent", params)
             if result is not None:
                 return True
-            print("[SOLVER] CDP mouse input is unavailable; manual verification required.")
+            logger.warning("[SOLVER] CDP mouse input is unavailable; manual verification required.")
             self.last_failure_reason = "manual_required"
             return False
 
@@ -26,7 +31,7 @@ class CaptchaNCRetryMixin:
             "button": "left",
         }):
             return None
-        time.sleep(0.02)
+        self._wait_interruptibly(0.02)
         if not dispatch_mouse_event({
             "type": "mousePressed",
             "x": start_x,
@@ -35,7 +40,7 @@ class CaptchaNCRetryMixin:
             "clickCount": 1,
         }):
             return None
-        time.sleep(0.02)
+        self._wait_interruptibly(0.02)
         for index in range(1, steps + 1):
             if self._stop_if_cancelled():
                 return None
@@ -50,8 +55,8 @@ class CaptchaNCRetryMixin:
                 "button": "left",
             }):
                 return None
-            time.sleep(0.008)
-        time.sleep(0.02)
+            self._wait_interruptibly(0.008)
+        self._wait_interruptibly(0.02)
         if not dispatch_mouse_event({
             "type": "mouseReleased",
             "x": target_x,
@@ -60,20 +65,20 @@ class CaptchaNCRetryMixin:
             "clickCount": 1,
         }):
             return None
-        time.sleep(0.1)
+        self._wait_interruptibly(0.1)
         return target_x
 
     def _nc_widget_rect(self):
         js_script = """
         (function() {
-            var el = document.querySelector('.nc_scale, #nc_1_n1t, #nc_2_n1t, .nc-container, .nc_wrapper');
+            var el = document.querySelector(__NC_WIDGET_SELECTOR__);
             if (!el || el.offsetParent === null) return null;
             var r = el.getBoundingClientRect();
             if (r.width < 8 || r.height < 8) return null;
             return {x: r.left, y: r.top, width: r.width, height: r.height};
         })()
         """
-        ret = self._send_cdp("Runtime.evaluate", {"expression": js_script, "returnByValue": True})
+        ret = self._send_cdp("Runtime.evaluate", {"expression": eval_in_all_frames(js_script), "returnByValue": True})
         if ret and "result" in ret and isinstance(ret["result"].get("value"), dict):
             return ret["result"]["value"]
         return None
@@ -99,11 +104,11 @@ class CaptchaNCRetryMixin:
                     retryText: null,
                     slider: null
                 };
-                var widget = doc.querySelector('.nc_scale, #nc_1_n1t, #nc_2_n1t, .nc-container, .nc_wrapper');
+                var widget = doc.querySelector(__NC_WIDGET_SELECTOR__);
                 result.widget = visibleRect(widget, frameOffsetX, frameOffsetY);
-                var slider = doc.querySelector('#nc_1_n1z, #nc_2_n1z, [id^="nc_"][id$="_n1z"], .btn_slide, .nc-slider-btn');
+                var slider = doc.querySelector(__NC_HANDLE_SELECTOR__);
                 result.slider = visibleRect(slider, frameOffsetX, frameOffsetY);
-                var errorWidget = doc.querySelector('.errloading, [id*="_refresh1"], [id*="refresh1"]');
+                var errorWidget = doc.querySelector(__NC_ERROR_SELECTOR__);
                 result.retryText = visibleRect(errorWidget, frameOffsetX, frameOffsetY);
 
                 var allNodes = doc.querySelectorAll('div, span, p, button, a');
@@ -126,24 +131,19 @@ class CaptchaNCRetryMixin:
                 return result;
             }
 
-            var summary = scan(document, 0, 0);
-            var frames = document.getElementsByTagName('iframe');
-            for (var i = 0; i < frames.length; i++) {
-                try {
-                    if (frames[i].offsetParent === null) continue;
-                    var doc = frames[i].contentDocument;
-                    if (!doc) continue;
-                    var frameRect = frames[i].getBoundingClientRect();
-                    var frameSummary = scan(doc, frameRect.left, frameRect.top);
+            var summary = null;
+            visitAccessibleDocuments(function(doc, x, y) {
+                    if (summary === null) { summary = scan(doc, x, y); return null; }
+                    var frameSummary = scan(doc, x, y);
                     if (!summary.widget && frameSummary.widget) summary.widget = frameSummary.widget;
                     if (!summary.retryText && frameSummary.retryText) summary.retryText = frameSummary.retryText;
                     if (!summary.slider && frameSummary.slider) summary.slider = frameSummary.slider;
-                } catch (e) {}
-            }
+                    return null;
+            }, true);
             return summary;
         })()
         """
-        ret = self._send_cdp("Runtime.evaluate", {"expression": js_script, "returnByValue": True})
+        ret = self._send_cdp("Runtime.evaluate", {"expression": eval_in_all_frames(js_script), "returnByValue": True})
         if ret and "result" in ret and isinstance(ret["result"].get("value"), dict):
             return ret["result"]["value"]
         return {}
@@ -196,7 +196,7 @@ class CaptchaNCRetryMixin:
             if summary.get("explicitFailure"):
                 stable_slider_signature = None
                 stable_slider_samples = 0
-                time.sleep(0.35)
+                self._wait_interruptibly(0.35)
                 continue
             slider = self._find_slider(max_retries=1, retry_delay=0)
             if slider:
@@ -211,7 +211,7 @@ class CaptchaNCRetryMixin:
                     stable_slider_samples = 1
                 if stable_slider_samples >= 3:
                     return {"slider": slider, "summary": summary}
-            time.sleep(0.35)
+            self._wait_interruptibly(0.35)
         return {"authenticated": False}
 
     def _click_css_point(self, css_x, css_y, *, slider_info=None):
@@ -233,19 +233,19 @@ class CaptchaNCRetryMixin:
                     allow_zero_distance=True,
                 )
                 if mapped:
-                    print(f"[SOLVER] OS click at ({mapped['x']:.0f},{mapped['y']:.0f}) source={mapped.get('source')}")
+                    logger.info("[SOLVER] OS click at (%.0f,%.0f) source=%s", mapped["x"], mapped["y"], mapped.get("source"))
                     self._move_os_cursor_bounded(
                         pyautogui,
                         mapped["x"],
                         mapped["y"],
                         random.uniform(0.12, 0.25),
                     )
-                    time.sleep(random.uniform(0.08, 0.18))
+                    self._wait_interruptibly(random.uniform(0.08, 0.18))
                     self._set_os_left_button(pyautogui, down=True)
-                    time.sleep(random.uniform(0.04, 0.1))
+                    self._wait_interruptibly(random.uniform(0.04, 0.1))
                     self._set_os_left_button(pyautogui, down=False)
                     return True
-                print("[SOLVER] OS click mapping unavailable; falling back to CDP click.")
+                logger.info("[SOLVER] OS click mapping unavailable; falling back to CDP click.")
         pressed = self._dispatch_mouse("mousePressed", css_x, css_y, buttons=1, click_count=1)
         released = self._dispatch_mouse("mouseReleased", css_x, css_y, buttons=0, click_count=1)
         return bool(pressed and released)
@@ -259,7 +259,7 @@ class CaptchaNCRetryMixin:
             if isinstance(targets, dict) and widget:
                 targets["widget"] = widget
         if not widget:
-            print("[SOLVER] NC retry widget not found.")
+            logger.warning("[SOLVER] NC retry widget not found.")
             return False
         candidates = self._nc_retry_click_candidates(targets)
         if not candidates:
@@ -272,22 +272,22 @@ class CaptchaNCRetryMixin:
         for index, candidate in enumerate(candidates, 1):
             click_x = candidate["x"]
             click_y = candidate["y"]
-            print(
+            logger.info(
                 f"[SOLVER] Clicking NC retry target {index}/{len(candidates)} "
                 f"({candidate['label']}) at ({click_x:.0f},{click_y:.0f})"
             )
             if not self._click_css_point(click_x, click_y, slider_info=candidate.get("rect") or widget):
                 continue
-            time.sleep(random.uniform(0.6, 1.0))
+            self._wait_interruptibly(random.uniform(0.6, 1.0))
             outcome = self._nc_retry_outcome(timeout_seconds=3.0)
             if outcome.get("authenticated"):
-                print("[SOLVER] NC retry click recovered an authenticated page.")
+                logger.info("[SOLVER] NC retry click recovered an authenticated page.")
                 self.last_failure_reason = None
                 return True
             if outcome.get("slider"):
-                print("[SOLVER] NC slider restored after retry click.")
+                logger.info("[SOLVER] NC slider restored after retry click.")
                 return True
-        print("[SOLVER] NC retry click did not restore a slider.")
+        logger.warning("[SOLVER] NC retry click did not restore a slider.")
         return False
 
     def _nc_retry_replay_limit(self):
@@ -327,11 +327,11 @@ class CaptchaNCRetryMixin:
         dest = self._destination_list_url()
         if not dest:
             return False
-        print(f"[SOLVER] Probing whether the auction list is already authenticated: {dest}")
+        logger.info("[SOLVER] Probing whether the auction list is already authenticated: %s", dest)
         navigated = self._send_cdp("Page.navigate", {"url": dest})
         if navigated is None:
             return False
-        time.sleep(3.2)
+        self._wait_interruptibly(3.2)
         summary = self._page_challenge_summary()
         if summary.get("authenticatedPage"):
             self.last_failure_reason = None
@@ -364,7 +364,7 @@ class CaptchaNCRetryMixin:
         wait_seconds = self._login_wait_seconds()
         if wait_seconds <= 0:
             return False
-        print(f"[SOLVER] Waiting up to {wait_seconds}s for login/list recovery; keep the Edge window in front.")
+        logger.info("[SOLVER] Waiting up to %ss for login/list recovery; keep the Edge window in front.", wait_seconds)
         try:
             self._focus_os_window()
         except Exception:
@@ -375,16 +375,16 @@ class CaptchaNCRetryMixin:
                 return False
             summary = self._page_challenge_summary()
             if summary.get("authenticatedPage"):
-                print("[SOLVER] Page became authenticated while waiting for login.")
+                logger.info("[SOLVER] Page became authenticated while waiting for login.")
                 self.last_failure_reason = None
                 return True
             if summary.get("hasSlider"):
-                print("[SOLVER] Slider returned while waiting for login; handing off to drag solver.")
+                logger.info("[SOLVER] Slider returned while waiting for login; handing off to drag solver.")
                 return False
             if not self._looks_like_login_ui(summary):
                 if self._recover_authenticated_list_page():
                     return True
-            time.sleep(5)
+            self._wait_interruptibly(5)
         return False
 
 

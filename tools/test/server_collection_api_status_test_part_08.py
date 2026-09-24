@@ -23,7 +23,7 @@ def test_api_status_uses_lightweight_payload_when_collection_api_mode_is_enabled
         raise AssertionError("full AVM/database status path should not run in collection API mode")
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
-    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
     monkeypatch.setattr(server, "_db_counts_snapshot", fail_if_called)
     monkeypatch.setattr(server, "_db_pending_task_candidates", fail_if_called)
     monkeypatch.setattr(server, "_db_collection_stage_snapshot", fail_if_called)

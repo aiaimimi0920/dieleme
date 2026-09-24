@@ -23,6 +23,10 @@ from tools import run_hybrid_seed_collection
 class _FakeResponse:
     def __init__(self, payload):
         self._payload = payload
+        self.status_code = 200
+
+    def raise_for_status(self):
+        return None
 
     def json(self):
         return self._payload
@@ -34,6 +38,11 @@ class _FakeHttpSession:
 
     def get(self, url: str, *, timeout: int):
         self.calls.append({"url": url, "timeout": timeout})
+        return _FakeResponse(self.payload)
+
+    def post(self, url, *, json, timeout, allow_redirects, headers=None):
+        assert allow_redirects is False
+        self.calls.append({"url": url, "timeout": timeout, "json": json})
         return _FakeResponse(self.payload)
 
 __all__ = [name for name in globals() if not name.startswith("__")]

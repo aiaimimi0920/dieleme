@@ -98,6 +98,16 @@ def _setup_logging() -> None:
     )
 
 
+def format_batch_results(results: Iterable[AVMResult]) -> str:
+    """Render the CLI result table without coupling it to evaluation logic."""
+    lines = ["=== Sorted by margin_of_safety (DESC) ==="]
+    lines.extend(
+        f"{idx}. item_id={result.item_id}, margin_of_safety={result.margin_of_safety}, payload={result.payload}"
+        for idx, result in enumerate(results, start=1)
+    )
+    return "\n".join(lines)
+
+
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="输入 item_id 列表，批量调用 AVMService，并按 margin_of_safety 降序输出。"
@@ -134,9 +144,7 @@ def main() -> None:
         max_batch_size=args.max_batch_size,
     )
 
-    print("\n=== Sorted by margin_of_safety (DESC) ===")
-    for idx, r in enumerate(results, start=1):
-        print(f"{idx}. item_id={r.item_id}, margin_of_safety={r.margin_of_safety}, payload={r.payload}")
+    print(f"\n{format_batch_results(results)}")
 
 
 if __name__ == "__main__":

@@ -2,8 +2,8 @@ from src import server
 
 
 def test_idle_legacy_solver_preserves_persisted_stage_challenge(monkeypatch):
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "idle")
     monkeypatch.setattr(server, "_solver_force_unlock_flag_exists", lambda: False)
     monkeypatch.setattr(server, "_auth_cookie_snapshot_runtime_status", lambda: {})
     stage = {

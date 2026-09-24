@@ -3,8 +3,8 @@ x-fapaifang-image: &fapaifang-image
     context: .
     dockerfile: ${FAPAI_DOCKERFILE:-Dockerfile}
     args:
-      PYTHON_BASE_IMAGE: ${PYTHON_BASE_IMAGE:-python:3.10-slim}
-      NODE_BASE_IMAGE: ${NODE_BASE_IMAGE:-node:22-alpine}
+      PYTHON_BASE_IMAGE: ${PYTHON_BASE_IMAGE:-python:3.10-slim@sha256:31dd4d9529d02d7436659061cb7564cd4733fc90e5e152709a942d53382ec8d0}
+      NODE_BASE_IMAGE: ${NODE_BASE_IMAGE:-node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85}
       BASE_IMAGE: ${FAPAI_BASE_IMAGE:-fapaifang-collector:local}
       FAPAI_BUILD_VERSION: ${FAPAI_BUILD_VERSION:-development}
       FAPAI_BUILD_COMMIT: ${FAPAI_BUILD_COMMIT:-unknown}
@@ -35,9 +35,9 @@ services:
         source: ${FAPAI_NAS_DATA_ROOT:?set FAPAI_NAS_DATA_ROOT}/postgres
         target: /var/lib/postgresql/data
 
-  fapaifang-api:
+  crow-api:
     <<: *fapaifang-image
-    container_name: fapaifang-api
+    container_name: crow-api
     restart: unless-stopped
     labels:
       org.opencontainers.image.version: ${FAPAI_BUILD_VERSION:-development}
@@ -53,6 +53,11 @@ services:
       FAPAI_SOURCE_DIGEST: ${FAPAI_SOURCE_DIGEST:-unknown}
       FAPAI_RUN_MODE: api
       FAPAI_API_PORT: 8001
+      FAPAI_API_TLS_CERT_FILE: ${FAPAI_API_TLS_CERT_FILE:-}
+      FAPAI_API_TLS_KEY_FILE: ${FAPAI_API_TLS_KEY_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
+      FAPAI_ENGINE_OPERATOR_TOKEN_FILE: ${FAPAI_ENGINE_OPERATOR_TOKEN_FILE:-/data/secrets/engine-operator.token}
+      FAPAI_ENGINE_AGENT_TOKEN_FILE: ${FAPAI_ENGINE_AGENT_TOKEN_FILE:-/data/secrets/engine-agent.token}
       FAPAI_DB_URL: ${FAPAI_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_API_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_API_DB_AUTO_CREATE:-0}
@@ -78,7 +83,7 @@ services:
       # container artifact resolution must use the mounted target path.
       FAPAI_SHARED_ARTIFACT_ROOT: /data/shared
     ports:
-      - "${FAPAI_API_HOST_PORT:-8001}:8001"
+      - "${FAPAI_API_HOST_BIND_ADDRESS:-127.0.0.1}:${FAPAI_API_HOST_PORT:-9520}:8001"
     volumes:
       - type: bind
         source: ${FAPAI_NAS_DATA_ROOT:?set FAPAI_NAS_DATA_ROOT}/output

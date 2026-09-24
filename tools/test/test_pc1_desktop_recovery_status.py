@@ -17,6 +17,9 @@ def test_receipt_stages_are_explicit_but_not_success(status, code):
 
 
 @pytest.mark.parametrize(("reason", "code"), [
+    ("requested_timeout", "pc1_receive_timeout"),
+    ("pc1_claimed_timeout", "pc1_publish_timeout"),
+    ("desktop_manual_takeover", "desktop_manual_takeover"),
     ("snapshot_ready_timeout", "pc2_receive_timeout"),
     ("pc2_claimed_timeout", "pc2_import_timeout"),
     ("restarting_timeout", "pc2_restart_timeout"),
@@ -39,4 +42,11 @@ def test_unknown_active_state_does_not_create_an_unbounded_receiving_state():
 def test_only_matching_completed_recovery_is_success():
     snapshot = {"last_result": {"recovery_id": "fixture", "status": "succeeded"}}
     assert recovery_phase(snapshot, "fixture")["phase"] == "succeeded"
-    assert recovery_phase(snapshot, "another")["phase"] == "failed"
+    assert recovery_phase(snapshot, "another") == {"phase": "unavailable", "code": "recovery_unknown", "recovery_id": "another"}
+
+
+@pytest.mark.parametrize("snapshot", [None, [], {"active": []}, {"last_result": "invalid"}])
+def test_malformed_or_missing_recovery_snapshot_fails_closed(snapshot):
+    assert recovery_phase(snapshot, "fixture") == {
+        "phase": "unavailable", "code": "recovery_unknown", "recovery_id": "fixture",
+    }

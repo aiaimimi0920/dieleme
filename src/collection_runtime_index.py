@@ -1,0 +1,74 @@
+"""Shared in-process collection index and pending task queue."""
+
+from __future__ import annotations
+
+from _thread import RLock
+from dataclasses import dataclass, field
+from typing import Any
+
+
+@dataclass
+class CollectionRuntimeIndex:
+    """Own collection records, pending IDs and dispatch cooldowns under one lock."""
+
+    lock: RLock = field(default_factory=RLock, repr=False)
+    seen_ids: dict[str, dict[str, object]] = field(default_factory=dict)
+    pending_tasks: list[str] = field(default_factory=list)
+    dispatched_tasks: dict[str, Any] = field(default_factory=dict)
+
+    def clear(self) -> None:
+        with self.lock:
+            self.seen_ids.clear()
+            self.pending_tasks.clear()
+            self.dispatched_tasks.clear()
+
+    def queue_pending(self, item_id: str) -> bool:
+        with self.lock:
+            if item_id in self.pending_tasks:
+                return False
+            self.pending_tasks.append(item_id)
+            return True
+
+    def set_seen(self, item_id: str, entry: dict[str, object]) -> None:
+        with self.lock:
+            self.seen_ids[item_id] = entry
+
+    def get_seen(self, item_id: str) -> dict[str, object] | None:
+        with self.lock:
+            return self.seen_ids.get(item_id)
+
+    def remove_pending(self, item_id: str) -> None:
+        with self.lock:
+            try:
+                self.pending_tasks.remove(item_id)
+            except ValueError:
+                pass
+
+    def prune_processed_pending(self) -> int:
+        with self.lock:
+            before = len(self.pending_tasks)
+            self.pending_tasks[:] = [
+                item_id
+                for item_id in self.pending_tasks
+                if not self.seen_ids.get(item_id, {}).get("data", {}).get("is_processed")
+            ]
+            return before - len(self.pending_tasks)
+
+    def prune_unavailable_pending(self) -> int:
+        with self.lock:
+            before = len(self.pending_tasks)
+            self.pending_tasks[:] = [
+                item_id
+                for item_id in self.pending_tasks
+                if item_id in self.seen_ids
+                and not self.seen_ids[item_id].get("data", {}).get("is_processed")
+            ]
+            return before - len(self.pending_tasks)
+
+    def mark_dispatched(self, item_id: str, timestamp: Any) -> None:
+        with self.lock:
+            self.dispatched_tasks[item_id] = timestamp
+
+    def snapshot(self) -> tuple[dict[str, dict[str, object]], tuple[str, ...]]:
+        with self.lock:
+            return dict(self.seen_ids), tuple(self.pending_tasks)

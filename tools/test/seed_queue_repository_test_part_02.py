@@ -352,7 +352,7 @@ def test_seed_scan_progress_completes_region_categories_sorts_and_pages_before_n
     ]
 
     seen: list[tuple[str, str, int]] = []
-    for job_key, sort_key, page, has_next in expected:
+    for _job_key, _sort_key, _page, has_next in expected:
         task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
         assert task is not None
         seen.append((task["job_key"], task["sort_key"], task["page"]))

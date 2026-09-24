@@ -20,15 +20,15 @@ def test_manual_required_auto_retry_uses_default_target_when_last_request_is_mis
     monkeypatch.setenv("FAPAI_SOLVER_MANUAL_RETRY_INTERVAL_SECONDS", "0")
     monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT_SAMPLE_URLS", "https://sf.taobao.com/list/50025969__2.htm")
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_MANUAL_REQUIRED_EPOCH", 0, raising=False)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_LAST_EPOCH", 0, raising=False)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "required_epoch", 0, raising=False)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "retry_last_epoch", 0, raising=False)
 
     result = server._trigger_manual_solver_retry_if_due(
         now=1000.0,
@@ -56,23 +56,23 @@ def test_manual_required_auto_retry_keeps_pc2_delegated_when_seed_stage_has_rema
     monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT_SAMPLE_URLS", "https://sf.taobao.com/list/50025969__2.htm")
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
     monkeypatch.setattr(server, "_probe_solver_cdp_endpoint", lambda endpoint: True)
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_MANUAL_REQUIRED_EPOCH", 0, raising=False)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "required_epoch", 0, raising=False)
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_REQUEST",
+        server.RUNTIME.recovery,
+        "last_request",
         {
             "cdp_endpoint": "http://192.168.15.104:9224",
             "node_id": "pc2",
             "target_url": "https://sf-item.taobao.com/sf_item/817695886927.htm?track_id=test&__captcha_solver_bg=1",
         },
     )
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_LAST_EPOCH", 0, raising=False)
+    monkeypatch.setattr(server.RUNTIME.recovery, "retry_last_epoch", 0, raising=False)
     monkeypatch.setattr(
         server,
         "_collection_api_lightweight_status_payload",
@@ -107,14 +107,14 @@ def test_manual_retry_monitor_marks_running_solver_manual_required_after_timeout
     monkeypatch.setenv("FAPAI_SOLVER_MAX_RUNTIME_SECONDS", "120")
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
     monkeypatch.setattr(server.time, "time", lambda: 221.0)
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", True)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", 100.0)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "running")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_CANCEL_EPOCH", 0, raising=False)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {"target_url": "https://sf.taobao.com/list/50025969__2.htm"})
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "captcha_solver")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", True)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", 100.0)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "running")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "cancel_epoch", 0, raising=False)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {"target_url": "https://sf.taobao.com/list/50025969__2.htm"})
 
     result = server._trigger_manual_solver_retry_if_due(
         now=221.0,
@@ -125,11 +125,11 @@ def test_manual_retry_monitor_marks_running_solver_manual_required_after_timeout
     assert result["reason"] == "running_solver_timed_out"
     assert result["elapsed_seconds"] == 121
     assert queued == []
-    assert server.PAUSED is True
-    assert server.COLLECTION_PAUSE_REASON == "manual_required"
-    assert server.SOLVER_LAST_STATUS == "manual_required"
-    assert server.SOLVER_LAST_FAILURE_REASON == "manual_required"
-    assert server.SOLVER_CANCEL_EPOCH == 221.0
+    assert server.RUNTIME.control.paused is True
+    assert server.RUNTIME.control.reason == "manual_required"
+    assert server.RUNTIME.solver.last_status == "manual_required"
+    assert server.RUNTIME.solver.failure_reason == "manual_required"
+    assert server.RUNTIME.recovery.cancel_epoch == 221.0
     assert flag_path.exists()
 
 def test_send_json_ignores_client_disconnect() -> None:
@@ -140,6 +140,8 @@ def test_send_json_ignores_client_disconnect() -> None:
             raise BrokenPipeError("client disconnected")
 
     handler = object.__new__(server.DataHandler)
+    handler.path = "/api/test"
+    handler.headers = {}
     handler.wfile = BrokenWriter()
     handler.send_response = lambda *_args, **_kwargs: None
     handler.send_header = lambda *_args, **_kwargs: None
@@ -155,6 +157,8 @@ def test_send_error_json_ignores_client_disconnect() -> None:
             raise ConnectionResetError("connection reset")
 
     handler = object.__new__(server.DataHandler)
+    handler.path = "/api/test"
+    handler.headers = {}
     handler.wfile = BrokenWriter()
     handler.send_response = lambda *_args, **_kwargs: None
     handler.send_header = lambda *_args, **_kwargs: None
@@ -174,21 +178,22 @@ def test_run_solver_marks_not_running_while_waiting_for_manual_verification(monk
     flag_path = tmp_path / "force_unlock.flag"
     snapshots: list[dict[str, object]] = []
 
-    def fake_sleep(_seconds: float) -> None:
+    def fake_manual_poll(_execution, _deadline) -> bool:
         snapshots.append(server._captcha_solver_runtime_status())
         if flag_path.exists():
             flag_path.unlink()
+        return True
 
     monkeypatch.setattr(server, "_build_solver_for_request", lambda _request: FakeSolver())
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
-    monkeypatch.setattr(server.time, "sleep", fake_sleep)
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
+    monkeypatch.setattr(server, "_wait_for_solver_manual_poll", fake_manual_poll)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", 0)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "idle")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
 
     handler = object.__new__(server.DataHandler)
     handler.run_solver({"target_url": "https://contest.local/captcha"})
@@ -196,8 +201,8 @@ def test_run_solver_marks_not_running_while_waiting_for_manual_verification(monk
     assert snapshots
     assert snapshots[0]["manual_required"] is True
     assert snapshots[0]["running"] is False
-    assert server.SOLVER_RUNNING is False
-    assert server.SOLVER_LAST_STATUS == "resumed"
+    assert server.RUNTIME.solver.running is False
+    assert server.RUNTIME.solver.last_status == "resumed"
 
 def test_run_solver_manual_required_flag_preserves_retry_request(monkeypatch, tmp_path) -> None:
     from src import server
@@ -211,9 +216,10 @@ def test_run_solver_manual_required_flag_preserves_retry_request(monkeypatch, tm
     flag_path = tmp_path / "force_unlock.flag"
     snapshots: list[dict[str, object]] = []
 
-    def fake_sleep(_seconds: float) -> None:
+    def fake_manual_poll(_execution, _deadline) -> bool:
         snapshots.append(json.loads(flag_path.read_text(encoding="utf-8")))
         flag_path.unlink()
+        return True
 
     solver_request = {
         "cdp_endpoint": "http://host.docker.internal:9223",
@@ -222,14 +228,14 @@ def test_run_solver_manual_required_flag_preserves_retry_request(monkeypatch, tm
 
     monkeypatch.setattr(server, "_build_solver_for_request", lambda _request: FakeSolver())
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
-    monkeypatch.setattr(server.time, "sleep", fake_sleep)
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
+    monkeypatch.setattr(server, "_wait_for_solver_manual_poll", fake_manual_poll)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", 0)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "idle")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
 
     handler = object.__new__(server.DataHandler)
     handler.run_solver(solver_request)
@@ -251,29 +257,29 @@ def test_run_solver_success_clears_manual_auth_lock(monkeypatch, tmp_path) -> No
             return True
 
     monkeypatch.setattr(server, "_build_solver_for_request", lambda _request: FakeSolver())
-    monkeypatch.setattr(server, "_wait_for_solver_cdp_ready", lambda _request: True)
+    monkeypatch.setattr(server, "_wait_for_solver_cdp_ready", lambda _request, **_options: True)
     monkeypatch.setattr(server, "_solver_worker_quiesce_seconds", lambda: 0)
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
     monkeypatch.setattr(server.time, "sleep", lambda _seconds: None)
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
-    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", 0)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "idle")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "manual_only", False)
+    monkeypatch.setattr(server.RUNTIME.recovery, "resume_epoch", 0)
 
     handler = object.__new__(server.DataHandler)
     handler.run_solver({"target_url": "https://contest.local/captcha"})
 
     assert flag_path.exists() is False
-    assert server.PAUSED is False
-    assert server.COLLECTION_PAUSE_REASON is None
-    assert server.SOLVER_LAST_STATUS == "solved"
-    assert server.SOLVER_LAST_FAILURE_REASON is None
+    assert server.RUNTIME.control.paused is False
+    assert server.RUNTIME.control.reason is None
+    assert server.RUNTIME.solver.last_status == "solved"
+    assert server.RUNTIME.solver.failure_reason is None
     assert server._captcha_solver_runtime_status()["manual_required"] is False
 
 def test_run_solver_clears_stale_lock_when_page_already_authenticated(monkeypatch, tmp_path) -> None:
@@ -301,27 +307,27 @@ def test_run_solver_clears_stale_lock_when_page_already_authenticated(monkeypatc
     fake = FakeSolver()
     monkeypatch.setattr(server, "_build_solver_for_request", lambda _request: fake)
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
-    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
-    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", 0)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "manual_only", False)
+    monkeypatch.setattr(server.RUNTIME.recovery, "resume_epoch", 0)
+    monkeypatch.setattr(server.RUNTIME.solver, "pending_token", None)
 
     handler = object.__new__(server.DataHandler)
     handler.run_solver({"target_url": "https://sf.taobao.com/list/1.htm"})
 
     assert fake.solve_called is False
     assert flag_path.exists() is False
-    assert server.PAUSED is False
-    assert server.COLLECTION_PAUSE_REASON is None
-    assert server.SOLVER_LAST_STATUS == "solved"
-    assert server.SOLVER_LAST_FAILURE_REASON is None
+    assert server.RUNTIME.control.paused is False
+    assert server.RUNTIME.control.reason is None
+    assert server.RUNTIME.solver.last_status == "solved"
+    assert server.RUNTIME.solver.failure_reason is None
     assert server._captcha_solver_runtime_status()["manual_required"] is False
 
 def test_run_solver_wait_clears_lock_when_page_becomes_authenticated(monkeypatch, tmp_path) -> None:
@@ -344,29 +350,29 @@ def test_run_solver_wait_clears_lock_when_page_becomes_authenticated(monkeypatch
             }
 
     monkeypatch.setattr(server, "_build_solver_for_request", lambda _request: FakeSolver())
-    monkeypatch.setattr(server, "_wait_for_solver_cdp_ready", lambda _request: True)
+    monkeypatch.setattr(server, "_wait_for_solver_cdp_ready", lambda _request, **_options: True)
     monkeypatch.setattr(server, "_solver_worker_quiesce_seconds", lambda: 0)
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
     monkeypatch.setattr(server.time, "sleep", lambda _seconds: None)
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
-    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
-    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", 0)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "idle")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "manual_only", False)
+    monkeypatch.setattr(server.RUNTIME.recovery, "resume_epoch", 0)
+    monkeypatch.setattr(server.RUNTIME.solver, "pending_token", None)
 
     handler = object.__new__(server.DataHandler)
     handler.run_solver({"target_url": "https://sf.taobao.com/list/1.htm"})
 
     assert flag_path.exists() is False
-    assert server.PAUSED is False
-    assert server.COLLECTION_PAUSE_REASON is None
-    assert server.SOLVER_LAST_STATUS == "solved"
+    assert server.RUNTIME.control.paused is False
+    assert server.RUNTIME.control.reason is None
+    assert server.RUNTIME.solver.last_status == "solved"
     assert server._captcha_solver_runtime_status()["manual_required"] is False
 
 def test_stale_manual_solver_wait_does_not_clear_new_solver_state(monkeypatch, tmp_path) -> None:
@@ -382,33 +388,35 @@ def test_stale_manual_solver_wait_does_not_clear_new_solver_state(monkeypatch, t
 
     flag_path = tmp_path / "force_unlock.flag"
 
-    def fake_sleep(_seconds: float) -> None:
+    def fake_manual_poll(_execution, _deadline) -> bool:
         flag_path.unlink()
         fake_now[0] = 2000.0
-        server.SOLVER_RUNNING = True
-        server.SOLVER_START_TIME = 2000.0
-        server.SOLVER_LAST_STATUS = "running"
-        server.SOLVER_LAST_FAILURE_REASON = None
+        server.RUNTIME.solver.begin(
+            2000.0,
+            resume_epoch=server.RUNTIME.recovery.resume_epoch,
+            cancel_epoch=server.RUNTIME.recovery.cancel_epoch,
+        )
         server._set_collection_pause_state(True, "captcha_solver")
+        return True
 
     monkeypatch.setattr(server, "_build_solver_for_request", lambda _request: FakeSolver())
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
     monkeypatch.setattr(server.time, "time", lambda: fake_now[0])
-    monkeypatch.setattr(server.time, "sleep", fake_sleep)
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
+    monkeypatch.setattr(server, "_wait_for_solver_manual_poll", fake_manual_poll)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", 0)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "idle")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "resume_epoch", 0)
 
     handler = object.__new__(server.DataHandler)
     handler.run_solver({"target_url": "https://contest.local/captcha"})
 
-    assert server.PAUSED is True
-    assert server.COLLECTION_PAUSE_REASON == "captcha_solver"
-    assert server.SOLVER_RUNNING is True
-    assert server.SOLVER_START_TIME == 2000.0
-    assert server.SOLVER_LAST_STATUS == "running"
+    assert server.RUNTIME.control.paused is True
+    assert server.RUNTIME.control.reason == "captcha_solver"
+    assert server.RUNTIME.solver.running is True
+    assert server.RUNTIME.solver.started_at == 2000.0
+    assert server.RUNTIME.solver.last_status == "running"

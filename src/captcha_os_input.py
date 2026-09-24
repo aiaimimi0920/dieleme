@@ -1,7 +1,15 @@
 from __future__ import annotations
 
+import logging
+
 from .captcha_context import *  # noqa: F401,F403
+from .captcha_budget import SolveStopped
+from .captcha_pointer_backend import (
+    OSPointerBackend, PyAutoGUIPointerBackend, UInputPointerBackend, Win32PointerBackend,
+)
 from .captcha_x11_pointer import recover_xwayland_left_button
+
+logger = logging.getLogger(__name__)
 
 
 class CaptchaOSInputMixin:
@@ -175,7 +183,7 @@ class CaptchaOSInputMixin:
         self._uinput_ecodes = ecodes
         # Allow the host compositor to register the new input device before
         # the first relative move.
-        time.sleep(0.35)
+        self._wait_interruptibly(0.35)
         return self._uinput_handle
 
     def _move_uinput_cursor_to(self, pyautogui, target_x, target_y):
@@ -203,74 +211,53 @@ class CaptchaOSInputMixin:
             if relative_y:
                 handle.write(ecodes.EV_REL, ecodes.REL_Y, relative_y)
             handle.syn()
-            time.sleep(0.01)
+            self._wait_interruptibly(0.01)
         final_x, final_y = self._get_os_cursor_position(pyautogui)
         final_error = math.hypot(float(target_x) - float(final_x), float(target_y) - float(final_y))
         self.last_failure_reason = "os_cursor_position_unverified"
         raise RuntimeError(f"uinput cursor did not converge (delta={final_error:.1f}px)")
 
     def _get_os_cursor_position(self, pyautogui):
-        if not self._native_os_input_enabled():
-            return pyautogui.position()
-        import ctypes
-        from ctypes import wintypes
+        return self._os_pointer_backend(pyautogui).position()
 
-        point = wintypes.POINT()
-        if not ctypes.windll.user32.GetCursorPos(ctypes.byref(point)):
-            raise OSError("GetCursorPos failed")
-        return float(point.x), float(point.y)
+    def _uinput_button_device(self):
+        handle = self._get_uinput_handle()
+        ecodes = self._uinput_ecodes
+        if handle is None or ecodes is None:
+            raise RuntimeError("uinput mouse is not initialized")
+        return handle, ecodes.EV_KEY, ecodes.BTN_LEFT
+
+    def _os_pointer_backend(self, pyautogui) -> OSPointerBackend:
+        override = getattr(self, "_pointer_backend_override", None)
+        if override is not None:
+            return override
+        if self._uinput_os_input_enabled():
+            return UInputPointerBackend(
+                pyautogui.position,
+                lambda x, y: self._move_uinput_cursor_to(pyautogui, x, y),
+                self._uinput_button_device,
+            )
+        if self._native_os_input_enabled():
+            return Win32PointerBackend()
+        return PyAutoGUIPointerBackend(pyautogui)
 
     def _set_os_cursor_position(self, pyautogui, x, y):
-        if self._uinput_os_input_enabled():
-            self._move_uinput_cursor_to(pyautogui, x, y)
-            return
-        if not self._native_os_input_enabled():
-            pyautogui.moveTo(x, y, duration=0)
-            return
-        import ctypes
-
-        user32 = ctypes.windll.user32
-        if user32.SetCursorPos(int(round(x)), int(round(y))):
-            return
-
-        # SetCursorPos can be denied for a scheduled process even in the same
-        # interactive session. Inject an absolute move on the virtual desktop.
-        virtual_left = int(user32.GetSystemMetrics(76))
-        virtual_top = int(user32.GetSystemMetrics(77))
-        virtual_width = max(int(user32.GetSystemMetrics(78)), 1)
-        virtual_height = max(int(user32.GetSystemMetrics(79)), 1)
-        absolute_x = int(round((float(x) - virtual_left) * 65535 / max(virtual_width - 1, 1)))
-        absolute_y = int(round((float(y) - virtual_top) * 65535 / max(virtual_height - 1, 1)))
-        absolute_x = min(max(absolute_x, 0), 65535)
-        absolute_y = min(max(absolute_y, 0), 65535)
-        user32.mouse_event(0x0001 | 0x4000 | 0x8000, absolute_x, absolute_y, 0, 0)
+        self._os_pointer_backend(pyautogui).move(x, y)
 
     def _set_os_left_button(self, pyautogui, *, down):
-        if self._uinput_os_input_enabled():
-            handle = self._get_uinput_handle()
-            ecodes = self._uinput_ecodes
-            if handle is None or ecodes is None:
-                raise RuntimeError("uinput mouse is not initialized")
-            handle.write(ecodes.EV_KEY, ecodes.BTN_LEFT, 1 if down else 0)
-            handle.syn()
-            return
-        if not self._native_os_input_enabled():
-            (pyautogui.mouseDown if down else pyautogui.mouseUp)()
-            return
-        import ctypes
-
-        flag = 0x0002 if down else 0x0004
-        ctypes.windll.user32.mouse_event(flag, 0, 0, 0, 0)
+        self._os_pointer_backend(pyautogui).left_button(down=down)
 
     def _move_os_cursor_bounded(self, pyautogui, target_x, target_y, duration):
         """Move in a small fixed number of steps so Windows timer granularity cannot amplify duration."""
         duration = max(float(duration or 0), 0.0)
         try:
             start_x, start_y = self._get_os_cursor_position(pyautogui)
+        except SolveStopped:
+            raise
         except Exception:
             self._set_os_cursor_position(pyautogui, target_x, target_y)
             if duration:
-                time.sleep(duration)
+                self._wait_interruptibly(duration)
             return
         steps = max(3, min(12, int(math.ceil(duration * 30))))
         dwell = duration / steps if steps else 0.0
@@ -281,15 +268,13 @@ class CaptchaOSInputMixin:
             y = float(start_y) + (float(target_y) - float(start_y)) * eased
             self._set_os_cursor_position(pyautogui, x, y)
             if dwell:
-                time.sleep(dwell)
+                self._wait_interruptibly(dwell)
 
     def _move_os_cursor_timed(self, pyautogui, target_x, target_y, duration):
         """Keep PyAutoGUI's proven timing; bound only the opt-in native backend."""
-        if self._uinput_os_input_enabled():
-            self._move_os_cursor_bounded(pyautogui, target_x, target_y, duration)
-            return
-        if not self._native_os_input_enabled():
-            pyautogui.moveTo(target_x, target_y, duration=max(float(duration or 0), 0.0))
+        backend = self._os_pointer_backend(pyautogui)
+        if backend.supports_duration:
+            backend.move(target_x, target_y, duration=max(float(duration or 0), 0.0))
             return
         self._move_os_cursor_bounded(pyautogui, target_x, target_y, duration)
 
@@ -298,66 +283,74 @@ class CaptchaOSInputMixin:
             return True
         result = recover_xwayland_left_button()
         if result.get("released"):
-            print(f"[SOLVER] Released stale Xwayland left button devices={result['released']}")
+            logger.info("[SOLVER] Released stale Xwayland left button devices=%s", result["released"])
         if not result.get("verified"):
             self.last_failure_reason = "os_button_state_unverified"
-            print(f"[SOLVER] OS left-button release not verified: {result.get('reason')}")
+            logger.warning("[SOLVER] OS left-button release not verified: %s", result.get("reason"))
             return False
         return True
 
     def _do_drag_os(self, start_x, start_y, distance, slider_info=None, profile_variant_index=0):
         """OS-level mouse drag. CDP Input events are rejected by Aliyun NC (error:TJiA4d/Vx6urd)."""
         self.last_failure_reason = None
-        try:
-            import pyautogui
-        except ImportError:
-            print("[SOLVER] pyautogui not installed; skipping OS mouse drag.")
-            return None
+        pyautogui = None
+        if self._pointer_backend_override is None:
+            try:
+                import pyautogui
+            except ImportError:
+                logger.warning("[SOLVER] pyautogui not installed; skipping OS mouse drag.")
+                return None
+            pyautogui.FAILSAFE = False
+            pyautogui.PAUSE = 0
         self._enable_process_dpi_awareness()
-        pyautogui.FAILSAFE = False
-        pyautogui.PAUSE = 0
-        if self._uinput_os_input_enabled():
+        if self._pointer_backend_override is None and self._uinput_os_input_enabled():
             try:
                 self._get_uinput_handle()
+            except SolveStopped:
+                raise
             except Exception as error:
                 self.last_failure_reason = "uinput_unavailable"
-                print(f"[SOLVER] uinput mouse unavailable: {error}")
+                logger.warning("[SOLVER] uinput mouse unavailable: %s", error)
                 return None
         try:
             focused = self._focus_os_window()
+        except SolveStopped:
+            raise
         except Exception as error:
             self.last_failure_reason = "window_focus_failed"
-            print(f"[SOLVER] OS window focus failed: {error}")
+            logger.warning("[SOLVER] OS window focus failed: %s", error)
             return None
         if not focused:
             self.last_failure_reason = "window_focus_failed"
-            print("[SOLVER] OS window focus failed; skipping OS mouse drag.")
+            logger.warning("[SOLVER] OS window focus failed; skipping OS mouse drag.")
             return None
-        time.sleep(0.45)
+        self._wait_interruptibly(0.45)
         mapped = None
         mapping_attempts = 3 if isinstance(slider_info, dict) else 1
         for mapping_attempt in range(1, mapping_attempts + 1):
             try:
                 mapped = self._map_css_to_screen(start_x, start_y, distance, slider_info=slider_info)
+            except SolveStopped:
+                raise
             except Exception as error:
                 self.last_failure_reason = "screen_mapping_exception"
-                print(f"[SOLVER] Screen mapping failed: {error}")
+                logger.warning("[SOLVER] Screen mapping failed: %s", error)
                 return None
             if mapped and (not isinstance(slider_info, dict) or mapped.get("located")):
                 break
             if mapping_attempt < mapping_attempts:
-                print(
+                logger.info(
                     f"[SOLVER] Waiting for verified slider screen mapping "
                     f"({mapping_attempt}/{mapping_attempts})..."
                 )
-                time.sleep(0.3)
+                self._wait_interruptibly(0.3)
         if not mapped:
             if not self.last_failure_reason:
                 self.last_failure_reason = "screen_mapping_unavailable"
             return None
         if isinstance(slider_info, dict) and not mapped.get("located"):
             self.last_failure_reason = "screen_mapping_unverified"
-            print("[SOLVER] Slider screenshot mapping could not be verified; skipping OS drag.")
+            logger.warning("[SOLVER] Slider screenshot mapping could not be verified; skipping OS drag.")
             return None
         sx = mapped["x"]
         sy = mapped["y"]
@@ -365,7 +358,7 @@ class CaptchaOSInputMixin:
         if not self._ensure_os_left_button_released(mapped):
             return None
         profile = self._os_drag_profile(profile_variant_index)
-        print(
+        logger.info(
             f"[SOLVER] OS mouse drag from ({sx:.0f},{sy:.0f}) +{phys_distance:.0f}px "
             f"source={mapped.get('source')} located={mapped.get('located')} "
             f"clipped={mapped.get('clipped')} profile={profile.get('name')} "
@@ -381,7 +374,7 @@ class CaptchaOSInputMixin:
                 sy + random.uniform(-10, 10),
                 random.uniform(*profile.get("approach_duration", (0.25, 0.5))),
             )
-            time.sleep(random.uniform(*profile["pre_pause"]))
+            self._wait_interruptibly(random.uniform(*profile["pre_pause"]))
             self._move_os_cursor_timed(
                 pyautogui,
                 sx,
@@ -392,35 +385,37 @@ class CaptchaOSInputMixin:
                 try:
                     cursor_x, cursor_y = self._get_os_cursor_position(pyautogui)
                     cursor_delta = math.hypot(float(cursor_x) - sx, float(cursor_y) - sy)
+                except SolveStopped:
+                    raise
                 except Exception as error:
                     self.last_failure_reason = "os_cursor_position_unverified"
-                    print(f"[SOLVER] OS cursor position check failed: {error}")
+                    logger.warning("[SOLVER] OS cursor position check failed: %s", error)
                     return None
-                print(
+                logger.info(
                     f"[SOLVER] OS cursor position expected=({sx:.0f},{sy:.0f}) "
                     f"actual=({float(cursor_x):.0f},{float(cursor_y):.0f}) "
                     f"delta={cursor_delta:.1f}px"
                 )
                 if cursor_delta > 5.0:
                     self.last_failure_reason = "os_cursor_position_unverified"
-                    print("[SOLVER] OS cursor did not reach the verified slider point.")
+                    logger.warning("[SOLVER] OS cursor did not reach the verified slider point.")
                     return None
-            time.sleep(random.uniform(*profile["press_hold"]))
+            self._wait_interruptibly(random.uniform(*profile["press_hold"]))
             self._set_os_left_button(pyautogui, down=True)
             mouse_is_down = True
-            time.sleep(random.uniform(*profile["press_hold"]))
+            self._wait_interruptibly(random.uniform(*profile["press_hold"]))
             for warmup_x, warmup_y in self._os_drag_warmup_points(sx, sy, profile):
                 if self._stop_if_cancelled():
-                    self.last_failure_reason = "cancelled"
+                    self.last_failure_reason = self.last_failure_reason or "cancelled"
                     return None
                 self._set_os_cursor_position(pyautogui, warmup_x, warmup_y)
-                time.sleep(random.uniform(0.04, 0.09))
+                self._wait_interruptibly(random.uniform(0.04, 0.09))
             fracs, dwells = self._os_drag_track(phys_distance, profile)
             prev_x = sx
             target_x = sx + phys_distance
-            for eased, dwell in zip(fracs, dwells):
+            for eased, dwell in zip(fracs, dwells, strict=True):
                 if self._stop_if_cancelled():
-                    self.last_failure_reason = "cancelled"
+                    self.last_failure_reason = self.last_failure_reason or "cancelled"
                     return None
                 x = sx + phys_distance * eased
                 # 极小幅度回拉（0.5-1.5px），避免严格单调递增
@@ -438,15 +433,15 @@ class CaptchaOSInputMixin:
                     y += random.uniform(-1.5, 1.5)
                 self._set_os_cursor_position(pyautogui, x, y)
                 prev_x = x
-                time.sleep(dwell)
+                self._wait_interruptibly(dwell)
                 if random.random() < profile["micro_pause_prob"]:
-                    time.sleep(random.uniform(*profile["micro_pause"]))
+                    self._wait_interruptibly(random.uniform(*profile["micro_pause"]))
             peak_x, settle_xs, release_x = self._os_drag_release_plan(sx, phys_distance, profile)
             self._set_os_cursor_position(pyautogui, peak_x, sy)
-            time.sleep(random.uniform(0.06, 0.16))
+            self._wait_interruptibly(random.uniform(0.06, 0.16))
             for settle_x in settle_xs:
                 self._set_os_cursor_position(pyautogui, settle_x, sy + random.gauss(0, 1.2))
-                time.sleep(random.uniform(0.03, 0.07))
+                self._wait_interruptibly(random.uniform(0.03, 0.07))
             # 释放前最后一次下压/微调
             self._move_os_cursor_timed(
                 pyautogui,
@@ -454,24 +449,26 @@ class CaptchaOSInputMixin:
                 sy + random.gauss(0, 0.8),
                 random.uniform(0.05, 0.15),
             )
-            time.sleep(random.uniform(*profile["hold_before_release"]))
+            self._wait_interruptibly(random.uniform(*profile["hold_before_release"]))
             self._set_os_left_button(pyautogui, down=False)
             mouse_is_down = False
             if not self._ensure_os_left_button_released(mapped):
                 return None
-            time.sleep(random.uniform(0.4, 0.7))
+            self._wait_interruptibly(random.uniform(0.4, 0.7))
             drag_completed = True
+        except SolveStopped:
+            raise
         except Exception as error:
             if not self.last_failure_reason:
                 self.last_failure_reason = "mouse_drag_exception"
-            print(f"[SOLVER] OS mouse drag failed: {error}")
+            logger.exception("[SOLVER] OS mouse drag failed")
         finally:
             if mouse_is_down:
                 try:
                     self._set_os_left_button(pyautogui, down=False)
-                    print("[SOLVER] Released OS mouse button after interrupted drag.")
+                    logger.info("[SOLVER] Released OS mouse button after interrupted drag.")
                 except Exception as release_error:
-                    print(f"[SOLVER] OS mouse release failed: {release_error}")
+                    logger.warning("[SOLVER] OS mouse release failed: %s", release_error)
         if not drag_completed:
             return None
         return start_x + distance

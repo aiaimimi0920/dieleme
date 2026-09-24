@@ -176,7 +176,7 @@ if (-not $SkipDockerStart) {
         $composeArgs += "--build"
     }
     $composeArgs += @(
-        "fapaifang-api",
+        "crow-api",
         "fapaifang-seed-collector",
         "fapaifang-seed-collector-2",
         "fapaifang-seed-collector-3",

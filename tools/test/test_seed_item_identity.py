@@ -112,6 +112,55 @@ def test_taobao_seed_identity_keeps_legacy_item_id(tmp_path: Path) -> None:
     assert claimed["item_id"] == "1001"
 
 
+def test_generic_detail_claim_requires_source_url_instead_of_fabricating_taobao_url(
+    tmp_path: Path,
+) -> None:
+    repo = _make_repo(tmp_path)
+    repo.initialize()
+    policy = GenericSeedScanPolicy(source_platform="catalog_x")
+    item_id = policy.storage_item_id("missing-url")
+    with repo.session_factory.begin() as session:
+        session.add(
+            FapaiSeedItem(
+                item_id=item_id,
+                source_item_id="missing-url",
+                source_platform="catalog_x",
+                source_payload={"source_item_id": "missing-url"},
+            )
+        )
+
+    with pytest.raises(ValueError, match="generic seed item requires source URL"):
+        repo.claim_seed_detail_item("detail-worker", lease_seconds=30)
+
+    with repo.session_factory() as session:
+        row = session.get(FapaiSeedItem, item_id)
+        assert row is not None
+        assert row.status == "pending_detail"
+        assert row.detail_leased_by is None
+
+    analysis_policy = GenericSeedScanPolicy(source_platform="catalog_y")
+    analysis_item_id = analysis_policy.storage_item_id("missing-analysis-url")
+    with repo.session_factory.begin() as session:
+        session.add(
+            FapaiSeedItem(
+                item_id=analysis_item_id,
+                source_item_id="missing-analysis-url",
+                source_platform="catalog_y",
+                status="raw_detail_captured",
+                source_payload={"source_item_id": "missing-analysis-url"},
+            )
+        )
+
+    with pytest.raises(ValueError, match="generic seed item requires source URL"):
+        repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30)
+
+    with repo.session_factory() as session:
+        row = session.get(FapaiSeedItem, analysis_item_id)
+        assert row is not None
+        assert row.status == "raw_detail_captured"
+        assert row.detail_leased_by is None
+
+
 def test_generic_upsert_reuses_legacy_platform_scoped_row(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     policy = GenericSeedScanPolicy(source_platform="catalog_x")

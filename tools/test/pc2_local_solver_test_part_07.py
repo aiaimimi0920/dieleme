@@ -1,5 +1,7 @@
 from tools.test.pc2_local_solver_test_context import *  # noqa: F401,F403
 
+import types
+
 
 def test_resume_after_cooldown_clears_state_only_after_nas_confirmation(monkeypatch, tmp_path) -> None:
     state_path = tmp_path / "solver-fallback-state.json"
@@ -34,6 +36,22 @@ def test_resume_after_cooldown_clears_state_only_after_nas_confirmation(monkeypa
     assert persisted["collection_resume_request_id"] is None
     assert persisted["slider_attempts"] == 0
     assert persisted["solver_cooldown_until"] is None
+
+
+def test_implementation_functions_are_rebound_to_solver_facade() -> None:
+    originals = {}
+    for module_name in pc2_local_solver._IMPLEMENTATION_MODULES:
+        module = __import__(module_name, fromlist=["*"])
+        for name in module.__all__:
+            value = getattr(module, name)
+            if isinstance(value, types.FunctionType) and value.__module__ == module.__name__:
+                originals[name] = value
+
+    assert originals
+    for name, original in originals.items():
+        rebound = getattr(pc2_local_solver, name)
+        assert rebound is not original
+        assert rebound.__module__ == pc2_local_solver.__name__
 
 def test_stale_auth_completion_is_abandoned_for_new_challenge(monkeypatch, tmp_path) -> None:
     state_path = tmp_path / "solver-fallback-state.json"

@@ -1,16 +1,11 @@
-import { object } from "./desktop_overview.ts";
+import { object } from "./desktop_value.ts";
+import { element } from "./desktop_dom.ts";
 import { controlOrigin, groups, readConfig, type Config } from "./desktop_settings_contract.ts";
 import { localCollectionDefaults } from "./collection_defaults.ts";
 import { draftKey, loadDraft, saveDraft, type Baseline } from "./desktop_settings_draft.ts";
 import { settingsTemplate } from "./desktop_settings_template.ts";
 import { installedControlOrigin, settingsRequest } from "./desktop_settings_transport.ts";
 import { settingsWaitExpired } from "./desktop_settings_wait.ts";
-
-function element<T extends HTMLElement>(id: string): T {
-  const value = document.getElementById(id);
-  if (!value) throw new Error(`Missing settings element: ${id}`);
-  return value as T;
-}
 
 export function initializeSettings(apiBase: () => string, showDialog: (dialog: HTMLDialogElement) => void): () => void {
   element("runtimeSettings").innerHTML = settingsTemplate;
@@ -63,7 +58,7 @@ export function initializeSettings(apiBase: () => string, showDialog: (dialog: H
       const dialog = element<HTMLDialogElement>(name);
       if (dialog.open) dialog.close("cancel");
     }
-    generation += 1; busy = false; pending = false; polling = false; secret().value = "";
+    generation += 1; busy = false; pending = false; polling = false;
     operationId = ""; operationStartedAt = null;
     clearTimeout(pollTimer);
     element("settingsKeyStatus").textContent = "";
@@ -118,6 +113,7 @@ export function initializeSettings(apiBase: () => string, showDialog: (dialog: H
     if (busy || activeRequests > 0) return;
     const id = generation;
     const editVersion = edits;
+    let pollFailureEligible = !populate;
     busy = true; buttons();
     try {
       if (populate && dirty && !await confirm("settingsReloadDialog")) return;
@@ -126,21 +122,29 @@ export function initializeSettings(apiBase: () => string, showDialog: (dialog: H
       const value = await request("");
       if (id !== generation) return;
       showState(value);
+      // Once transport succeeded, malformed effective config is a response
+      // contract problem and must not consume the transient poll retry budget.
+      pollFailureEligible = false;
       const effective = liveConfig(value);
       if (populate) {
         if (editVersion !== edits) throw new Error("读取期间编辑内容已变化；已保留编辑内容，请重试");
         fill(effective); baseline = { origin, revision: Number(value.revision) }; secret().value = "";
         localStorage.removeItem(draftKey(apiBase())); dirty = false;
         source("线上生效配置");
-      } else if (!pending && JSON.stringify(config()) === JSON.stringify(effective)) {
-        baseline = { origin, revision: Number(value.revision) };
-        saveDraft(localStorage, draftKey(apiBase()), { config: effective, baseline });
-        source("编辑内容与线上生效配置一致");
+      } else if (!pending) {
+        let matches = false;
+        try { matches = JSON.stringify(config()) === JSON.stringify(effective); }
+        catch { /* An unfinished draft does not make a successful status poll fail. */ }
+        if (matches) {
+          baseline = { origin, revision: Number(value.revision) };
+          saveDraft(localStorage, draftKey(apiBase()), { config: effective, baseline });
+          source("编辑内容与线上生效配置一致");
+        }
       }
       element("settingsKeyStatus").textContent = value.api_key_configured ? "当前 AI 密钥已配置" : "当前未配置 AI 密钥";
     } catch (error) {
       if (id === generation) {
-        if (++pollFailures >= 5) polling = false;
+        if (pollFailureEligible && ++pollFailures >= 5) polling = false;
         status(error instanceof Error ? error.message : "读取失败；已保留编辑内容");
       }
     }
@@ -149,8 +153,8 @@ export function initializeSettings(apiBase: () => string, showDialog: (dialog: H
   element("runtimeSettingsForm").addEventListener("input", () => { edits += 1; dirty = true; source("编辑中 · 尚未保存或应用"); });
   element("settingsLoad").addEventListener("click", () => void load(true));
   element("settingsStatusRefresh").addEventListener("click", () => void load(false));
-  element("settingsControlBase").addEventListener("input", reset);
-  element("restartToken").addEventListener("input", reset);
+  element("settingsControlBase").addEventListener("change", reset);
+  element("restartToken").addEventListener("change", reset);
   element("settingsSaveDraft").addEventListener("click", () => {
     try { save(); status("草稿已保存到本机，尚未应用到 PC2；AI 密钥不会写入草稿。"); }
     catch (error) { status(error instanceof Error ? error.message : "草稿保存失败"); }

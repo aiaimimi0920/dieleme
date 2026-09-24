@@ -250,7 +250,8 @@ def test_push_area_result_posts_json_payload_and_returns_response(tmp_path: Path
             return None
 
     class FakeSession:
-        def post(self, url: str, *, json: dict[str, object], timeout: float):
+        def post(self, url: str, *, json: dict[str, object], timeout: float, allow_redirects: bool):
+            assert allow_redirects is False
             calls.append({"url": url, "json": json, "timeout": timeout})
             return FakeResponse()
 
@@ -295,6 +296,8 @@ def test_push_resolved_patches_writes_summary(tmp_path: Path) -> None:
     calls: list[dict[str, object]] = []
 
     class FakeResponse:
+        status_code = 200
+
         def json(self):
             return {"status": "ok"}
 
@@ -302,7 +305,8 @@ def test_push_resolved_patches_writes_summary(tmp_path: Path) -> None:
             return None
 
     class FakeSession:
-        def post(self, url: str, *, json: dict[str, object], timeout: float):
+        def post(self, url: str, *, json: dict[str, object], timeout: float, allow_redirects: bool):
+            assert allow_redirects is False
             calls.append({"url": url, "json": json, "timeout": timeout})
             return FakeResponse()
 

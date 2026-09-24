@@ -75,10 +75,10 @@ def test_http_status_can_surface_escalation_resolution_trend_summary(tmp_path: P
     )
 
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -149,10 +149,10 @@ def test_http_status_can_surface_hybrid_collection_recovery_latency_summary(tmp_
     )
 
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]

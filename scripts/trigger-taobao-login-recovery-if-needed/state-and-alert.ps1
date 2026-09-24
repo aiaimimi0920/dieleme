@@ -149,7 +149,8 @@ function Resolve-ApiBaseUrl {
     } elseif ($env:FAPAI_CENTRAL_API_BASE_URL) {
         $env:FAPAI_CENTRAL_API_BASE_URL
     } else {
-        "http://192.168.15.200:8001/api"
+        throw "An explicit HTTPS API origin or protected loopback tunnel is required."
     }
-    return ([string]$candidate).TrimEnd("/")
+    . (Join-Path $PSScriptRoot "..\collection-api-origin.ps1")
+    return ((ConvertTo-CollectionApiOrigin ([string]$candidate)) + "/api")
 }

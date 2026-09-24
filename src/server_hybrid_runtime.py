@@ -71,13 +71,8 @@ def _load_manual_review_receipt_snapshot_for_runtime(data_root: Path) -> dict[st
         return load_manual_review_receipt_snapshot(receipt_path)
 
 def _load_json_snapshot(path: Path) -> dict[str, Any]:
-    try:
-        if not path.exists():
-            return {}
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        return payload if isinstance(payload, dict) else {}
-    except Exception:
-        return {}
+    from .runtime_snapshot_cache import snapshots
+    return snapshots.read(path)
 
 def _coerce_optional_mapping(value: Any) -> dict[str, Any]:
     return dict(value) if isinstance(value, dict) else {}
@@ -121,20 +116,8 @@ def _coerce_optional_text(value: Any) -> str | None:
     return normalized
 
 def _load_jsonl_snapshots(path: Path) -> list[dict[str, Any]]:
-    try:
-        if not path.exists():
-            return []
-        rows: list[dict[str, Any]] = []
-        for line in path.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            payload = json.loads(line)
-            if isinstance(payload, dict):
-                rows.append(payload)
-        return rows
-    except Exception:
-        return []
+    from .runtime_snapshot_cache import snapshots
+    return snapshots.read(path, lines=True)
 
 def _coerce_optional_iso_datetime(value: Any) -> datetime.datetime | None:
     text = _coerce_optional_text(value)

@@ -6,7 +6,8 @@ import io
 original_stdout = sys.stdout
 sys.stdout = io.StringIO()
 try:
-    from llm_helper import model_selector
+    from src.llm_model_selector import get_model_selector
+    model_selector = get_model_selector()
 except Exception as e:
     sys.stdout = original_stdout
     print(f"Import Error: {e}")

@@ -74,12 +74,12 @@ def test_runtime_status_keeps_taobao_manual_only_after_challenge_memory_resets(m
     monkeypatch.delenv("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", raising=False)
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(tmp_path / "missing.flag"))
-    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "manual_only", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "pending_token", None)
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_REQUEST",
+        server.RUNTIME.recovery,
+        "last_request",
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9224",
@@ -100,12 +100,12 @@ def test_runtime_status_delegates_taobao_when_auto_solver_is_explicitly_enabled(
     monkeypatch.setenv("FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED", "1")
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(tmp_path / "missing.flag"))
-    monkeypatch.setattr(server, "SOLVER_MANUAL_ONLY", False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "manual_only", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "pending_token", None)
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_REQUEST",
+        server.RUNTIME.recovery,
+        "last_request",
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9224",
@@ -129,8 +129,8 @@ def test_recent_auth_completion_suppresses_same_node_delayed_captcha_report(monk
         "cdp_endpoint": "http://192.168.15.104:9223",
         "target_url": "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1",
     }
-    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 100.0)
-    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_REQUEST", completed_request)
+    monkeypatch.setattr(server.RUNTIME.recovery, "completed_at", 100.0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "completed_request", completed_request)
     monkeypatch.setattr(server, "SOLVER_AUTH_REPORT_GRACE_SECONDS", 90.0)
 
     delayed = {
@@ -145,10 +145,10 @@ def test_recent_auth_completion_suppresses_same_node_delayed_captcha_report(monk
 def test_recent_auth_completion_does_not_suppress_a_different_node_report(monkeypatch) -> None:
     from src import server
 
-    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 100.0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "completed_at", 100.0)
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_AUTH_COMPLETED_REQUEST",
+        server.RUNTIME.recovery,
+        "completed_request",
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9223",
@@ -177,17 +177,17 @@ def test_recent_auth_completion_does_not_suppress_a_different_node_report(monkey
 def test_recent_auth_with_detail_progress_suppresses_detail_report_for_three_minutes(monkeypatch) -> None:
     from src import server
 
-    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 100.0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "completed_at", 100.0)
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_AUTH_COMPLETED_REQUEST",
+        server.RUNTIME.recovery,
+        "completed_request",
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9223",
             "target_url": "https://sf-item.taobao.com/sf_item/2001.htm",
         },
     )
-    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT", 10)
+    monkeypatch.setattr(server.RUNTIME.recovery, "completed_detail_count", 10)
     monkeypatch.setattr(server, "SOLVER_AUTH_REPORT_GRACE_SECONDS", 90.0)
     monkeypatch.setattr(server, "SOLVER_DETAIL_PROGRESS_GRACE_SECONDS", 180.0)
     monkeypatch.setattr(server, "SOLVER_DETAIL_PROGRESS_GRACE_MIN_ITEMS", 1)
@@ -225,17 +225,17 @@ def test_recent_auth_with_detail_progress_suppresses_detail_report_for_three_min
 def test_recent_auth_without_detail_progress_does_not_extend_grace(monkeypatch) -> None:
     from src import server
 
-    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 100.0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "completed_at", 100.0)
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_AUTH_COMPLETED_REQUEST",
+        server.RUNTIME.recovery,
+        "completed_request",
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9223",
             "target_url": "https://sf.taobao.com/list/50025969__2.htm",
         },
     )
-    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT", 10)
+    monkeypatch.setattr(server.RUNTIME.recovery, "completed_detail_count", 10)
     monkeypatch.setattr(server, "SOLVER_AUTH_REPORT_GRACE_SECONDS", 90.0)
     monkeypatch.setattr(server, "SOLVER_DETAIL_PROGRESS_GRACE_SECONDS", 180.0)
     monkeypatch.setattr(server, "_solver_detail_captured_count", lambda: 10)
@@ -254,8 +254,8 @@ def test_recent_force_reset_suppresses_only_same_scope_and_node(monkeypatch) -> 
 
     monkeypatch.setattr(server, "SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS", 180.0)
     monkeypatch.setattr(
-        server,
-        "SOLVER_SCOPE_FORCE_RESET_RECOVERIES",
+        server.RUNTIME.control,
+        "force_reset_recoveries",
         {"seed": {}, "detail": {}},
     )
     server._remember_solver_force_reset_recovery(
@@ -346,10 +346,10 @@ def test_force_reset_records_scoped_report_grace(monkeypatch, tmp_path) -> None:
 def test_report_created_before_auth_completion_is_stale_for_same_node(monkeypatch) -> None:
     from src import server
 
-    monkeypatch.setattr(server, "SOLVER_LAST_AUTH_COMPLETED_TIME", 1_787_170_100.0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "completed_at", 1_787_170_100.0)
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_AUTH_COMPLETED_REQUEST",
+        server.RUNTIME.recovery,
+        "completed_request",
         {
             "node_id": "pc2",
             "cdp_endpoint": "http://192.168.15.104:9223",
@@ -381,7 +381,7 @@ def test_report_created_before_auth_completion_is_stale_for_same_node(monkeypatc
 def test_report_with_old_challenge_id_is_rejected_after_challenge_changes(monkeypatch) -> None:
     from src import server
 
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-current")
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", "challenge-current")
 
     assert server._solver_report_stale_challenge_id({"challenge_id": "challenge-old"}) == "challenge-old"
     assert server._solver_report_stale_challenge_id({"challenge_id": "challenge-current"}) is None
@@ -406,7 +406,7 @@ def test_collection_api_lightweight_status_uses_seed_queue_counts(monkeypatch) -
             }
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
-    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
     monkeypatch.setattr(server, "_solver_force_unlock_flag_exists", lambda: False)
 
     payload = server._collection_api_lightweight_status_payload()

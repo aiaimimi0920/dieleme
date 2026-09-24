@@ -26,7 +26,7 @@ def test_requests_preserve_configured_reasoning(tmp_path, probe, effort):
         assert "reasoning_effort" not in payloads[0]
     else:
         assert payloads[0]["reasoning_effort"] == effort
-    assert ("max_tokens" in payloads[0]) is probe
+    assert payloads[0]["max_tokens"] == (256 if probe else 8192)
 
 
 @pytest.mark.parametrize("settings", [{"reasoning_effort": "none"}, {"timeout": 60}])

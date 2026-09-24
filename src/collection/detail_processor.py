@@ -2,15 +2,19 @@ from __future__ import annotations
 
 import datetime
 import json
+import logging
 import os
 import re
 import time
+from collections.abc import MutableSet
 from pathlib import Path
 from typing import Any, Callable, Dict
 
 from src.detail_artifacts import extract_detail_artifacts, get_detail_archive_path
 
 from .contracts import CollectionAdapter, DetailExtractor
+
+logger = logging.getLogger(__name__)
 
 
 class DetailProcessor:
@@ -60,7 +64,7 @@ class DetailProcessor:
             archive_path.write_text(content, encoding="utf-8")
             record["detail_archive_path"] = os.path.relpath(archive_path, self.data_root).replace("\\", "/")
         except Exception as error:
-            print(f"[DETAIL-ARCHIVE] Failed for {item_id}: {error}")
+            logger.exception("Detail archive failed for item=%s", item_id)
 
         try:
             artifacts = extract_detail_artifacts(
@@ -74,7 +78,7 @@ class DetailProcessor:
                 if value not in (None, "", []):
                     record.setdefault(key, value)
         except Exception as error:
-            print(f"[DETAIL-ARTIFACT] Failed for {item_id}: {error}")
+            logger.exception("Detail artifact extraction failed for item=%s", item_id)
 
     def _schedule_retry(
         self,
@@ -84,20 +88,24 @@ class DetailProcessor:
         file_path: str,
         prefer_db_task_reads: Callable[[], bool],
         pending_tasks: list[str],
+        queue_pending: Callable[[str], bool] | None = None,
     ) -> bool:
         retry_path = self.retry_dir / f"item-{item_id}.html.retry"
         if retry_path.exists():
-            print(f"\033[93m[DETAIL RETRY] {item_id}: second attempt still failed ({reason}); continuing.\033[0m")
+            logger.warning("Detail retry exhausted for item=%s: %s", item_id, reason)
             retry_path.unlink(missing_ok=True)
             return False
 
-        print(f"\033[93m[DETAIL RETRY] {item_id}: {reason}; scheduling one retry.\033[0m")
+        logger.warning("Scheduling detail retry for item=%s: %s", item_id, reason)
         retry_path.write_text(
-            f"Retry scheduled at {datetime.datetime.now().isoformat()}: {reason}",
+            f"Retry scheduled at {datetime.datetime.now(datetime.timezone.utc).isoformat()}: {reason}",
             encoding="utf-8",
         )
-        if not prefer_db_task_reads() and item_id not in pending_tasks:
-            pending_tasks.append(item_id)
+        if not prefer_db_task_reads():
+            if queue_pending is not None:
+                queue_pending(item_id)
+            elif item_id not in pending_tasks:
+                pending_tasks.append(item_id)
         try:
             os.remove(file_path)
             (self.data_root / "html" / f"item-{item_id}.html").unlink(missing_ok=True)
@@ -118,6 +126,8 @@ class DetailProcessor:
         prefer_db_task_reads: Callable[[], bool],
         seen_ids: Dict[str, Any],
         pending_tasks: list[str],
+        set_seen: Callable[[str, Dict[str, Any]], None] | None = None,
+        remove_pending: Callable[[str], None] | None = None,
     ) -> None:
         self.adapter.finalize_detail_record(record)
         update_item_in_json(target_json_path, item_id, record)
@@ -129,10 +139,16 @@ class DetailProcessor:
         if prefer_db_task_reads():
             evict_runtime_item(item_id)
         else:
-            seen_ids[item_id] = {"file_path": target_json_path, "data": record}
-            if item_id in pending_tasks:
+            entry = {"file_path": target_json_path, "data": record}
+            if set_seen is not None:
+                set_seen(item_id, entry)
+            else:
+                seen_ids[item_id] = entry
+            if remove_pending is not None:
+                remove_pending(item_id)
+            elif item_id in pending_tasks:
                 pending_tasks.remove(item_id)
-        print(f"\033[92mSuccess {item_id}: Saved to {target_json_path} ({self.adapter.quality_summary(record)})\033[0m")
+        logger.info("Detail saved item=%s path=%s quality=%s", item_id, target_json_path, self.adapter.quality_summary(record))
 
     def _cleanup_success(self, *, file_path: str, item_id: str, failed_marker_path: Path) -> None:
         try:
@@ -166,14 +182,17 @@ class DetailProcessor:
         detail_extractor: DetailExtractor,
         extract_avm_risk_features: Callable[[str, str | None], Dict[str, Any]],
         log_prediction_event: Callable[..., None],
-        current_processing: set[str],
+        current_processing: MutableSet[str],
         seen_ids: Dict[str, Any],
         pending_tasks: list[str],
+        queue_pending: Callable[[str], bool] | None = None,
+        set_seen: Callable[[str, Dict[str, Any]], None] | None = None,
+        remove_pending: Callable[[str], None] | None = None,
     ) -> None:
         filename = os.path.basename(file_path)
         match = re.search(r"item-(.+?)(?:\.html|\.txt|$)", filename)
         if not match:
-            print(f"Skipping {filename}: No ID found")
+            logger.warning("Skipping detail file without item ID: %s", filename)
             try:
                 os.remove(file_path)
             except Exception:
@@ -186,11 +205,11 @@ class DetailProcessor:
         try:
             failed_once = failed_marker_path.exists()
             if not os.path.exists(file_path):
-                print(f"File {filename} disappeared (race condition), skipping.")
+                logger.warning("Detail file disappeared before processing: %s", filename)
                 return
             content = Path(file_path).read_text(encoding="utf-8")
             if not content.strip():
-                print(f"Empty content for {item_id}, deleting.")
+                logger.warning("Empty detail content for item=%s; deleting", item_id)
                 try:
                     Path(file_path).unlink(missing_ok=True)
                 except Exception:
@@ -199,11 +218,11 @@ class DetailProcessor:
                     failed_marker_path.unlink(missing_ok=True)
                 return
 
-            print(f"Processing {item_id}...")
+            logger.info("Processing detail item=%s", item_id)
             started_at = time.time()
             raw = detail_extractor.extract(content, item_id=item_id)
             if raw:
-                print(f"\033[92m[AI SUCCESS] {item_id}: {raw[:200]}...\033[0m")
+                logger.info("AI detail extraction succeeded item=%s preview=%s", item_id, raw[:200])
             if not raw:
                 raise ValueError("Empty response from AI")
             record = self._parse_ai_record(raw, item_id)
@@ -213,9 +232,9 @@ class DetailProcessor:
                 if risk_features:
                     record["avm_risk_features"] = risk_features
                     sync_avm_risk_aliases(record)
-                    print(f"[AVM-RISK] Attached risk features for item={item_id}")
+                    logger.info("Attached AVM risk features item=%s", item_id)
                 else:
-                    print(f"[AVM-RISK] Extraction failed for item={item_id}; skipped attachment")
+                    logger.warning("AVM risk extraction failed item=%s; skipped attachment", item_id)
 
             original_record = get_working_item(item_id, include_processed=True)
             existing = original_record.get("data", {}) if original_record else {}
@@ -228,7 +247,7 @@ class DetailProcessor:
             self._archive_source(record=record, content=content, item_id=item_id, file_path=file_path)
 
             if not self.adapter.accepts_detail(record):
-                print(f"\033[93mAI rejected item {item_id}; removing it from collection storage.\033[0m")
+                logger.warning("AI rejected item=%s; removing it from collection storage", item_id)
                 remove_item_from_json(target_json_path, item_id)
                 mark_item_deleted_in_db(
                     item_id,
@@ -244,6 +263,7 @@ class DetailProcessor:
                     file_path=file_path,
                     prefer_db_task_reads=prefer_db_task_reads,
                     pending_tasks=pending_tasks,
+                    queue_pending=queue_pending,
                 ):
                     return
                 self._save_completed(
@@ -257,6 +277,8 @@ class DetailProcessor:
                     prefer_db_task_reads=prefer_db_task_reads,
                     seen_ids=seen_ids,
                     pending_tasks=pending_tasks,
+                    set_seen=set_seen,
+                    remove_pending=remove_pending,
                 )
                 recall_count = record.get("recall_count", record.get("召回数"))
                 confidence = record.get("final_confidence")
@@ -277,7 +299,7 @@ class DetailProcessor:
                 failed_marker_path=failed_marker_path,
             )
         except Exception as error:
-            print(f"\033[91mError processing {item_id}: {error}\033[0m")
+            logger.exception("Error processing detail item=%s", item_id)
             duration_ms = (time.time() - started_at) * 1000 if started_at is not None else None
             log_prediction_event(
                 task_type="analyze_html",
@@ -289,14 +311,14 @@ class DetailProcessor:
                 failure_reason=str(error),
             )
             if failed_marker_path.exists():
-                print(f"Second failure for {item_id}. Deleting file to avoid deadlock.")
+                logger.error("Second detail failure item=%s; deleting file to avoid deadlock", item_id)
                 try:
                     Path(file_path).unlink(missing_ok=True)
                 except Exception:
                     pass
                 failed_marker_path.unlink(missing_ok=True)
             else:
-                print(f"First failure for {item_id}. Marking as failed.")
+                logger.warning("First detail failure item=%s; marking as failed", item_id)
                 failed_marker_path.write_text(str(error), encoding="utf-8")
         finally:
             current_processing.discard(file_path)

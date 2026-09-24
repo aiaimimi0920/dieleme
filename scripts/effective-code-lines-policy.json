@@ -9,6 +9,13 @@
     "soft": 700,
     "hard": 1500
   },
+  "generatedArtifacts": [
+    {
+      "path": "tampermonkey_scripts/fapaifang_unified.user.js",
+      "reason": "Single installable artifact; all maintained fragments remain scanned, with mandatory generation and Node syntax verification.",
+      "approval": "docs/plan/userscript-generated-artifact-review-20260921.md"
+    }
+  ],
   "sourceExtensions": [
     ".rs",
     ".ts",

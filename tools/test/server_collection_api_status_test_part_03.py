@@ -75,30 +75,30 @@ def test_collection_observer_runtime_control_can_pause_and_resume(monkeypatch, t
     from src import server
 
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
 
     paused = server._collection_observer_runtime_control_payload("pause")
 
     assert paused["ok"] is True
     assert paused["runtime_state"] == "暂停中"
-    assert server.PAUSED is True
+    assert server.RUNTIME.control.paused is True
 
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", True)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", time.time() - 300)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", True)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", time.time() - 300)
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
     resumed = server._collection_observer_runtime_control_payload("resume")
 
     assert resumed["ok"] is True
     assert resumed["runtime_state"] == "运行中"
-    assert server.PAUSED is False
+    assert server.RUNTIME.control.paused is False
     assert not (tmp_path / "force_unlock.flag").exists()
-    assert server.SOLVER_LAST_STATUS == "resumed"
-    assert server.SOLVER_LAST_FAILURE_REASON is None
-    assert server.SOLVER_RUNNING is False
+    assert server.RUNTIME.solver.last_status == "resumed"
+    assert server.RUNTIME.solver.failure_reason is None
+    assert server.RUNTIME.solver.running is False
     assert resumed["captcha_solver"]["running"] is False
 
 def test_collection_api_lightweight_status_keeps_running_when_manual_required_only_targets_detail_and_seed_work_remains(
@@ -131,19 +131,19 @@ def test_collection_api_lightweight_status_keeps_running_when_manual_required_on
             }
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_REQUEST",
+        server.RUNTIME.recovery,
+        "last_request",
         {"target_url": "https://sf-item.taobao.com/sf_item/647559663666.htm?__captcha_solver_bg=1"},
     )
-    monkeypatch.setattr(server, "SOLVER_MANUAL_REQUIRED_EPOCH", 1000.0, raising=False)
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_LAST_EPOCH", 1000.0, raising=False)
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 1000.0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "required_epoch", 1000.0, raising=False)
+    monkeypatch.setattr(server.RUNTIME.recovery, "retry_last_epoch", 1000.0, raising=False)
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 1000.0)
 
     payload = server._collection_api_lightweight_status_payload()
 
@@ -181,19 +181,19 @@ def test_collection_api_lightweight_status_reports_pending_auth_when_manual_requ
             }
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_REQUEST",
+        server.RUNTIME.recovery,
+        "last_request",
         {"target_url": "https://sf.taobao.com/list/50025969__2.htm?location_code=440115&__captcha_solver_bg=1"},
     )
-    monkeypatch.setattr(server, "SOLVER_MANUAL_REQUIRED_EPOCH", 1000.0, raising=False)
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RETRY_LAST_EPOCH", 1000.0, raising=False)
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 1000.0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "required_epoch", 1000.0, raising=False)
+    monkeypatch.setattr(server.RUNTIME.recovery, "retry_last_epoch", 1000.0, raising=False)
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 1000.0)
 
     payload = server._collection_api_lightweight_status_payload()
 
@@ -208,13 +208,13 @@ def test_collection_observer_auth_complete_clears_pause_and_marks_manual_auth(mo
         "_schedule_auth_cookie_snapshot_refresh",
         lambda _payload, _completion_id: {"status": "skipped", "refreshed": False, "retry_queued": False},
     )
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", True)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", time.time() - 10)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "running")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {"target_url": "https://contest.local/auth"})
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", True)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", time.time() - 10)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "running")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {"target_url": "https://contest.local/auth"})
+    monkeypatch.setattr(server.RUNTIME.recovery, "resume_epoch", 0)
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
     payload = server._collection_observer_auth_complete_payload(
@@ -226,12 +226,12 @@ def test_collection_observer_auth_complete_clears_pause_and_marks_manual_auth(mo
     assert payload["auth_state_confirmed"] is True
     assert payload["runtime_state"] == "运行中"
     assert payload["manual_auth_completed"] is True
-    assert server.PAUSED is False
-    assert server.SOLVER_LAST_STATUS == "manual_auth_completed"
-    assert server.SOLVER_LAST_FAILURE_REASON is None
-    assert server.SOLVER_RUNNING is False
+    assert server.RUNTIME.control.paused is False
+    assert server.RUNTIME.solver.last_status == "manual_auth_completed"
+    assert server.RUNTIME.solver.failure_reason is None
+    assert server.RUNTIME.solver.running is False
     assert payload["captcha_solver"]["running"] is False
-    assert server.SOLVER_MANUAL_RESUME_EPOCH > 0
+    assert server.RUNTIME.recovery.resume_epoch > 0
     assert not (tmp_path / "force_unlock.flag").exists()
 
 def test_collection_observer_auth_complete_keeps_pause_while_cookie_snapshot_is_pending(monkeypatch, tmp_path) -> None:
@@ -261,9 +261,9 @@ def test_collection_observer_auth_complete_keeps_pause_while_cookie_snapshot_is_
 
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
     monkeypatch.setattr(server, "_schedule_auth_cookie_snapshot_refresh", fake_schedule)
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
     payload = server._collection_observer_auth_complete_payload(
@@ -287,7 +287,7 @@ def test_collection_observer_auth_complete_keeps_pause_while_cookie_snapshot_is_
     assert payload["auth_confirmation_pending"] is True
     assert payload["cookie_snapshot"]["status"] == "pending"
     assert payload["cookie_snapshot"]["retry_queued"] is True
-    assert server.SOLVER_LAST_STATUS == "manual_required"
+    assert server.RUNTIME.solver.last_status == "manual_required"
     assert (tmp_path / "force_unlock.flag").exists()
 
 def test_pc2_auth_complete_cannot_disable_cookie_snapshot_gate(monkeypatch, tmp_path) -> None:
@@ -310,11 +310,11 @@ def test_pc2_auth_complete_cannot_disable_cookie_snapshot_gate(monkeypatch, tmp_
 
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
     monkeypatch.setattr(server, "_schedule_auth_cookie_snapshot_refresh", fake_schedule)
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-gate-required")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", "challenge-gate-required")
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
     payload = server._collection_observer_auth_complete_payload(
@@ -348,9 +348,9 @@ def test_collection_observer_auth_complete_keeps_pause_when_cookie_refresh_fails
             "result": {"error": "cdp unavailable"},
         },
     )
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
 
     payload = server._collection_observer_auth_complete_payload({"source": "desktop"})
 
@@ -359,14 +359,14 @@ def test_collection_observer_auth_complete_keeps_pause_when_cookie_refresh_fails
     assert payload["paused"] is True
     assert payload["cookie_snapshot"]["refreshed"] is False
     assert "cdp unavailable" in payload["cookie_snapshot"]["result"]["error"]
-    assert server.SOLVER_LAST_STATUS == "manual_required"
+    assert server.RUNTIME.solver.last_status == "manual_required"
 
 def test_collection_observer_auth_complete_is_idempotent_for_repeated_completion_id(monkeypatch, tmp_path) -> None:
     from src import server
 
     completion_id = "pc2-completion-idempotent"
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "confirmations", {})
     monkeypatch.setattr(
         server,
         "_schedule_auth_cookie_snapshot_refresh",
@@ -377,10 +377,10 @@ def test_collection_observer_auth_complete_is_idempotent_for_repeated_completion
             "retry_queued": False,
         },
     )
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
     first = server._collection_observer_auth_complete_payload(

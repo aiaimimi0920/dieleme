@@ -5,8 +5,8 @@ import json
 import os
 import socket
 import sys
+import time
 from pathlib import Path
-from urllib.parse import urljoin
 from urllib.request import urlopen
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -114,12 +114,19 @@ def check_browser() -> None:
 
 
 def check_worker() -> None:
-    os.kill(1, 0)
-    api_base_url = str(os.environ.get("FAPAI_API_BASE_URL") or "http://192.168.15.200:8001/api").rstrip("/")
-    status = _read_json(urljoin(f"{api_base_url}/", "status"))
-    if not status.get("db_mode"):
-        raise RuntimeError("central API is not running in DB mode")
-    output_root = Path("/data/output")
+    path = Path(os.environ.get("FAPAI_WORKER_HEARTBEAT_PATH", "/tmp/fapaifang-worker-heartbeat.json"))
+    try:
+        heartbeat = json.loads(path.read_text(encoding="utf-8"))
+        updated = float(heartbeat["updated_at_epoch"])
+        pid = int(heartbeat["pid"])
+    except (OSError, ValueError, TypeError, KeyError) as error:
+        raise RuntimeError("worker progress heartbeat is missing or invalid") from error
+    age = time.time() - updated
+    maximum = max(1, float(os.environ.get("FAPAI_WORKER_HEARTBEAT_STALE_SECONDS", "900")))
+    if not 0 <= age <= maximum or pid < 1 or heartbeat.get("stage") == "stopped":
+        raise RuntimeError("worker progress heartbeat is stale or stopped")
+    os.kill(pid, 0)
+    output_root = Path(os.environ.get("FAPAI_OUTPUT_DIR", "/data/output"))
     if not output_root.is_dir() or not os.access(output_root, os.W_OK):
         raise RuntimeError("worker output root is not writable")
 

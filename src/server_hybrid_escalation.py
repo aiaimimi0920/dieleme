@@ -220,8 +220,10 @@ def _hybrid_collection_unresolved_escalation_window_summary(
     duration_minutes = None
     try:
         if last_escalation_at:
-            escalation_dt = datetime.datetime.strptime(str(last_escalation_at), "%Y-%m-%d %H:%M:%S")
-            duration_seconds = int((datetime.datetime.now() - escalation_dt).total_seconds())
+            escalation_dt = _parse_utc_timestamp(last_escalation_at)
+            if escalation_dt is None:
+                raise ValueError("invalid escalation timestamp")
+            duration_seconds = int((_utc_now() - escalation_dt).total_seconds())
             duration_minutes = round(duration_seconds / 60, 2)
             if duration_seconds < 0:
                 duration_seconds = None
@@ -331,7 +333,7 @@ def _hybrid_collection_escalation_priority_mix_trend_summary(data_root: Path, *,
             if index in matched_escalation_indexes:
                 continue
             escalation_at = _coerce_optional_text(recent_escalations[index].get("generated_at"))
-            if escalation_at and recovery_at and escalation_at <= recovery_at:
+            if escalation_at and recovery_at and _utc_timestamp_leq(escalation_at, recovery_at):
                 matched_index = index
                 break
         if matched_index is None:

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/process-supervisor.sh"
 
 requested_display="${DISPLAY:-:99}"
 display_mode="${FAPAI_BROWSER_DISPLAY_MODE:-auto}"
@@ -39,12 +40,12 @@ export DBUS_SESSION_BUS_ADDRESS=/dev/null
 pids=()
 use_host_display=0
 cleanup() {
-  local pid
-  for pid in "${pids[@]:-}"; do
-    kill "$pid" 2>/dev/null || true
-  done
+  trap - EXIT INT TERM
+  crow_stop_children
 }
-trap cleanup EXIT INT TERM
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
 if [[ "$display_mode" != "auto" && "$display_mode" != "host" && "$display_mode" != "xvfb" ]]; then
   echo "Unsupported FAPAI_BROWSER_DISPLAY_MODE: $display_mode" >&2
@@ -173,6 +174,16 @@ if [[ -n "$browser_user_agent" ]]; then
 fi
 echo "Browser executable: $browser_executable (version $runtime_browser_version)"
 
+if [[ "$(id -u)" == "0" ]]; then
+  echo "PC2 browser must run as the non-root fapaifang user" >&2
+  exit 1
+fi
+if [[ -r /proc/sys/kernel/unprivileged_userns_clone ]] \
+  && [[ "$(cat /proc/sys/kernel/unprivileged_userns_clone)" != "1" ]]; then
+  echo "Chromium user-namespace sandbox is unavailable; refusing an unsandboxed browser" >&2
+  exit 1
+fi
+
 # Keep launch-time UA, CDP UA-CH metadata, and the HTTP-cookie workers on one
 # identity when an explicit Windows user agent is configured.
 browser_identity_args=()
@@ -196,7 +207,6 @@ else
 fi
 
 "$browser_executable" \
-  --no-sandbox \
   --disable-dev-shm-usage \
   --disable-blink-features=AutomationControlled \
   "${browser_graphics_args[@]}" \
@@ -337,7 +347,7 @@ python tools/pc2_solver_watchdog.py \
   --stale-seconds "${FAPAI_LOCAL_SOLVER_WATCHDOG_STALE_SECONDS:-300}" \
   --startup-grace-seconds "${FAPAI_LOCAL_SOLVER_WATCHDOG_STARTUP_GRACE_SECONDS:-180}" \
   --poll-seconds "${FAPAI_LOCAL_SOLVER_WATCHDOG_POLL_SECONDS:-30}" \
-  --parent-pid 1 &
+  --parent-pid "$$" &
 pids+=("$!")
 
 python tools/pc2_local_solver.py \
@@ -348,4 +358,4 @@ python tools/pc2_local_solver.py \
   --node-id "$node_id" &
 solver_pid="$!"
 pids+=("$solver_pid")
-wait "$solver_pid"
+crow_wait_children

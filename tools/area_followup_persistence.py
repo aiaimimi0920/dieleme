@@ -78,19 +78,10 @@ def push_area_result(
     session: Any | None = None,
     timeout: float = 30,
 ) -> dict[str, Any]:
-    http = session or requests.Session()
+    from tools.internal_api_http import post_json
+
     payload = build_area_result_payload(patch_result)
-    response = http.post(api_url, json=payload, timeout=timeout)
-    if hasattr(response, "raise_for_status"):
-        response.raise_for_status()
-    body: Any
-    if hasattr(response, "json"):
-        try:
-            body = response.json()
-        except Exception:
-            body = None
-    else:
-        body = None
+    body = post_json(api_url, payload, timeout=timeout, session=session)
     return {"status": "ok", "response": body}
 
 

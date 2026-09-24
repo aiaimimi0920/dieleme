@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import re
 
 from bs4 import BeautifulSoup
@@ -14,6 +15,8 @@ from src.llm_text_extraction import (
     fetch_description_data_text,
     filter_content,
 )
+
+logger = logging.getLogger(__name__)
 
 
 AVM_RISK_SYSTEM_PROMPT = (
@@ -66,11 +69,12 @@ AVM_RISK_PROMPT_OUTPUT_RULE = (
 
 def build_avm_risk_prompt(page_text_content):
     """Build AVM risk extraction prompt from independent rule constants."""
+    from src.llm_evidence_prompt import EvidencePrompt
     rules_text = "\n".join(
         f"{idx}. `{field}`：{instruction}"
         for idx, (field, instruction) in enumerate(AVM_RISK_PROMPT_RULES, start=1)
     )
-    return f"""
+    return EvidencePrompt(f"""
 # 系统 Prompt
 {AVM_RISK_SYSTEM_PROMPT}
 
@@ -82,24 +86,24 @@ def build_avm_risk_prompt(page_text_content):
 
 {AVM_RISK_PROMPT_OUTPUT_RULE}
 
-以下是目标网页的文本内容：
-```
-{page_text_content}
-```
-""".strip()
+""".strip(), page_text_content)
 
 
 def _extract_avm_risk_features_raw(text, item_id=None, *, model=None):
     """Extract AVM risk features using the 23-rule structured prompt."""
+    from src.llm_request_policy import MAX_INPUT_CHARACTERS
+
     page_text_content = (text or "").strip()
     if not page_text_content:
         return "{}"
 
-    truncated_text = page_text_content[:120000]
+    truncated_text = page_text_content[:MAX_INPUT_CHARACTERS]
     prompt = build_avm_risk_prompt(truncated_text)
-    print(
-        f"DEBUG: Extracting AVM risk features (item_id={item_id}, text_len={len(page_text_content)}, "
-        f"prompt_len={len(prompt)})."
+    logger.debug(
+        "Extracting AVM risk features (item_id=%s, text_len=%s, prompt_len=%s).",
+        item_id,
+        len(page_text_content),
+        len(prompt),
     )
     return chat_with_glm(prompt, model=model) if model else chat_with_glm(prompt)
 
@@ -110,7 +114,7 @@ def extract_auction_data(html_content, item_id=None, *, model=None):
     Applies filtering first.
     """
     # 0. Pre-Extraction of Critical Data (Area, Address)
-    print("DEBUG: Pre-extracting critical data...")
+    logger.debug("Pre-extracting critical data...")
     critical_text = ""
     trusted_url = None
     trusted_title = None
@@ -175,7 +179,7 @@ def extract_auction_data(html_content, item_id=None, *, model=None):
             clean_notice = re.sub(r'\s+', '', text_val)
             critical_text += f"【重要竞买公告（含建筑面积）】\n{clean_notice}\n\n"
         else:
-            print("DEBUG: J_NoticeDetail not found, skipping this part.")
+            logger.debug("J_NoticeDetail not found, skipping this part.")
 
         desc_async_text = fetch_description_data_text(html_content)
         if desc_async_text:
@@ -183,7 +187,7 @@ def extract_auction_data(html_content, item_id=None, *, model=None):
             critical_text += f"【异步标的物描述（含可能面积）】\n{desc_async_text[:20000]}\n\n"
 
     except Exception as e:
-        print(f"Warning: Pre-extraction failed: {e}")
+        logger.warning("Pre-extraction failed: %s", e)
 
     if coordinate_payload:
         critical_text += (
@@ -193,12 +197,14 @@ def extract_auction_data(html_content, item_id=None, *, model=None):
         )
 
     # 1. Filter Content
-    print(f"DEBUG: Filtering content (len={len(html_content)})...")
+    logger.debug("Filtering content (len=%s)...", len(html_content))
     filtered_text = filter_content(html_content)
-    print(f"DEBUG: Filtered content (len={len(filtered_text)}). Preparing prompt...")
+    logger.debug("Filtered content (len=%s). Preparing prompt...", len(filtered_text))
 
     # Limit length to avoid context overflow, though filtered text should be smaller
-    truncated_text = filtered_text[:100000]
+    from src.llm_request_policy import MAX_INPUT_CHARACTERS
+
+    truncated_text = filtered_text[:MAX_INPUT_CHARACTERS]
 
     # 2. Construct Prompt (Strict User Rules)
     prompt = f"""
@@ -290,11 +296,10 @@ def extract_auction_data(html_content, item_id=None, *, model=None):
     "is_processed": true
 }}
 
-# Input Data
-{critical_text}
----
-{truncated_text}
     """
+    from src.llm_evidence_prompt import EvidencePrompt
+
+    prompt = EvidencePrompt(prompt, critical_text + "\n---\n" + truncated_text)
 
     # Debug: Save prompt for inspection
     # Debug: Save prompt for inspection (DISABLED by user request)
@@ -309,7 +314,7 @@ def extract_auction_data(html_content, item_id=None, *, model=None):
     try:
         data = json.loads(ai_response)
         if trusted_url:
-            print(f"DEBUG: Overwriting AI URL with trusted metadata: {trusted_url}")
+            logger.debug("Overwriting AI URL with trusted metadata: %s", trusted_url)
             data["原始网站"] = trusted_url
         if trusted_title and not data.get("标题"):
             data["标题"] = trusted_title
@@ -332,7 +337,7 @@ def extract_auction_data(html_content, item_id=None, *, model=None):
             data.setdefault("coordinate_source", coordinate_payload.get("coordinate_evidence", "html"))
         return json.dumps(data, ensure_ascii=False, indent=4)
     except Exception as e:
-        print(f"Warning: Failed to normalize extracted JSON: {e}. Returning original response.")
+        logger.warning("Failed to normalize extracted JSON: %s. Returning original response.", e)
         return ai_response
 
 

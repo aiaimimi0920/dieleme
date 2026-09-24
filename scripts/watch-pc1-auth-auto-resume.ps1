@@ -9,32 +9,19 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+. (Join-Path $PSScriptRoot "collection-api-origin.ps1")
 
 function Resolve-ApiBase {
-    function Normalize-ApiBaseValue {
-        param([string]$Value)
-
-        $trimmed = [string]$Value
-        if (-not $trimmed) {
-            return ""
-        }
-        $trimmed = $trimmed.TrimEnd("/")
-        if ($trimmed -notmatch "/api$") {
-            $trimmed = "$trimmed/api"
-        }
-        return $trimmed
-    }
-
     if ($ApiBase) {
-        return Normalize-ApiBaseValue -Value $ApiBase
+        return (ConvertTo-CollectionApiOrigin $ApiBase) + "/api"
     }
     if ($env:FAPAI_COLLECTOR_API_BASE) {
-        return Normalize-ApiBaseValue -Value $env:FAPAI_COLLECTOR_API_BASE
+        return (ConvertTo-CollectionApiOrigin $env:FAPAI_COLLECTOR_API_BASE) + "/api"
     }
     if ($env:FAPAI_API_BASE_URL) {
-        return Normalize-ApiBaseValue -Value $env:FAPAI_API_BASE_URL
+        return (ConvertTo-CollectionApiOrigin $env:FAPAI_API_BASE_URL) + "/api"
     }
-    return "http://192.168.15.200:8001/api"
+    throw "An explicit HTTPS API origin or protected loopback tunnel is required."
 }
 
 function Write-Utf8NoBomFile {

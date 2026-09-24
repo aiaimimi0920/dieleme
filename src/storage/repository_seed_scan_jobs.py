@@ -1,8 +1,27 @@
 from __future__ import annotations
 
-from src.collection.seed_scan_policy import DEFAULT_SEED_SCAN_POLICY, SeedScanPolicy
+import hashlib
+from datetime import datetime
+from typing import Any, Dict, Sequence
+from urllib.parse import urlsplit
 
-from .repository_context import *  # noqa: F401,F403
+from sqlalchemy import not_, select
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
+
+from src.collection.seed_scan_policy import (
+    DEFAULT_SEED_SCAN_POLICY,
+    GenericSeedScanPolicy,
+    SeedScanPolicy,
+    TaobaoJudicialSeedScanPolicy,
+)
+
+from .models import FapaiSeedScanJob, FapaiSeedScanProgress
+from .repository_context import _normalized_seed_text, _utc_now
+
+
+SEED_SCAN_MAINTENANCE_BATCH_SIZE = 128
+_TAOBAO_SOURCE_PLATFORMS = frozenset({"taobao", "taobao_judicial", "taobao_sf", "sf.taobao.com"})
 
 
 class RepositorySeedScanJobsMixin:
@@ -43,6 +62,34 @@ class RepositorySeedScanJobsMixin:
         policy: SeedScanPolicy | None = None,
     ) -> str:
         return (policy or DEFAULT_SEED_SCAN_POLICY).item_url(item_id, explicit_url)
+
+    @staticmethod
+    def _seed_item_policy(
+        *,
+        source_platform: Any = None,
+        explicit_url: Any = None,
+        policy: SeedScanPolicy | None = None,
+    ) -> SeedScanPolicy:
+        """Resolve detail URL semantics without fabricating Taobao URLs for generic rows."""
+        if policy is not None:
+            return policy
+        platform = _normalized_seed_text(source_platform)
+        if platform:
+            if platform.lower() in _TAOBAO_SOURCE_PLATFORMS:
+                return TaobaoJudicialSeedScanPolicy()
+            return GenericSeedScanPolicy(source_platform=platform)
+        url = _normalized_seed_text(explicit_url)
+        if url:
+            candidate = f"https:{url}" if url.startswith("//") else url
+            try:
+                hostname = (urlsplit(candidate).hostname or "").lower()
+            except ValueError:
+                hostname = ""
+            if hostname == "taobao.com" or hostname.endswith(".taobao.com"):
+                return TaobaoJudicialSeedScanPolicy()
+            return GenericSeedScanPolicy()
+        # Rows created before source_platform existed retain the legacy fallback.
+        return DEFAULT_SEED_SCAN_POLICY
 
     @staticmethod
     def _seed_scan_progress_payload(
@@ -108,15 +155,16 @@ class RepositorySeedScanJobsMixin:
         job = session.get(FapaiSeedScanJob, job_key)
         if job is None:
             return
-        progress_rows = session.scalars(
-            select(FapaiSeedScanProgress).where(FapaiSeedScanProgress.job_key == job_key)
-        ).all()
-        if not progress_rows:
+        statuses = set(session.scalars(
+            select(FapaiSeedScanProgress.status)
+            .where(FapaiSeedScanProgress.job_key == job_key)
+            .distinct()
+        ))
+        if not statuses:
             job.status = "pending"
             job.completed_at = None
             session.add(job)
             return
-        statuses = {row.status for row in progress_rows}
         if statuses and statuses.issubset({"exhausted"}):
             job.status = "completed"
             job.completed_at = job.completed_at or now
@@ -258,37 +306,66 @@ class RepositorySeedScanJobsMixin:
         archived_jobs = 0
         archived_progress = 0
         with self.session_factory.begin() as session:
-            stale_jobs = session.scalars(
-                select(FapaiSeedScanJob).where(not_(FapaiSeedScanJob.job_key.in_(normalized_keys)))
-            ).all()
-            stale_jobs = [
-                row
-                for row in stale_jobs
-                if active_policy.owns_job(row.job_key, row.metadata_json)
-            ]
-            stale_job_keys = [row.job_key for row in stale_jobs]
-            stale_progress_rows: list[FapaiSeedScanProgress] = []
-            if stale_job_keys:
-                stale_progress_rows = session.scalars(
-                    select(FapaiSeedScanProgress).where(FapaiSeedScanProgress.job_key.in_(stale_job_keys))
+            last_job_key: str | None = None
+            while True:
+                job_query = select(FapaiSeedScanJob).where(
+                    not_(FapaiSeedScanJob.job_key.in_(normalized_keys))
+                )
+                if last_job_key is not None:
+                    job_query = job_query.where(FapaiSeedScanJob.job_key > last_job_key)
+                stale_jobs = session.scalars(
+                    job_query.order_by(FapaiSeedScanJob.job_key).limit(
+                        SEED_SCAN_MAINTENANCE_BATCH_SIZE
+                    )
                 ).all()
+                if not stale_jobs:
+                    break
+                last_job_key = stale_jobs[-1].job_key
+                owned_stale_jobs = [
+                    row
+                    for row in stale_jobs
+                    if active_policy.owns_job(row.job_key, row.metadata_json)
+                ]
+                stale_job_keys = [row.job_key for row in owned_stale_jobs]
 
-            for row in stale_jobs:
-                if row.status != "archived":
-                    archived_jobs += 1
-                row.status = "archived"
-                row.updated_at = now
-                session.add(row)
+                for row in owned_stale_jobs:
+                    if row.status != "archived":
+                        archived_jobs += 1
+                    row.status = "archived"
+                    row.updated_at = now
+                    session.add(row)
+                session.flush()
 
-            for row in stale_progress_rows:
-                if row.status != "archived":
-                    archived_progress += 1
-                row.status = "archived"
-                row.leased_by = None
-                row.lease_until = None
-                row.updated_at = now
-                session.add(row)
+                last_progress_key: str | None = None
+                while stale_job_keys:
+                    progress_query = select(FapaiSeedScanProgress).where(
+                        FapaiSeedScanProgress.job_key.in_(stale_job_keys)
+                    )
+                    if last_progress_key is not None:
+                        progress_query = progress_query.where(
+                            FapaiSeedScanProgress.progress_key > last_progress_key
+                        )
+                    stale_progress_rows = session.scalars(
+                        progress_query.order_by(
+                            FapaiSeedScanProgress.progress_key
+                        ).limit(SEED_SCAN_MAINTENANCE_BATCH_SIZE)
+                    ).all()
+                    if not stale_progress_rows:
+                        break
+                    last_progress_key = stale_progress_rows[-1].progress_key
+                    for row in stale_progress_rows:
+                        if row.status != "archived":
+                            archived_progress += 1
+                        row.status = "archived"
+                        row.leased_by = None
+                        row.lease_until = None
+                        row.updated_at = now
+                        session.add(row)
+                    session.flush()
 
+                # Release references from each bounded window before loading the
+                # next one. The enclosing transaction remains atomic.
+                session.expunge_all()
         return {
             "active_job_count": len(normalized_keys),
             "archived_jobs": archived_jobs,
@@ -305,18 +382,32 @@ class RepositorySeedScanJobsMixin:
         now = _utc_now()
         released = 0
         with self.session_factory.begin() as session:
-            rows = session.scalars(
-                select(FapaiSeedScanProgress).where(
-                    FapaiSeedScanProgress.status == "in_progress",
-                    FapaiSeedScanProgress.leased_by == normalized_worker_id,
-                )
-            ).all()
-            for row in rows:
-                row.status = "pending"
-                row.leased_by = None
-                row.lease_until = None
-                row.updated_at = now
-                session.add(row)
-                self._refresh_seed_scan_job_status(session, row.job_key, now)
-                released += 1
+            while True:
+                rows = session.scalars(
+                    select(FapaiSeedScanProgress)
+                    .where(
+                        FapaiSeedScanProgress.status == "in_progress",
+                        FapaiSeedScanProgress.leased_by == normalized_worker_id,
+                    )
+                    .order_by(FapaiSeedScanProgress.progress_key)
+                    .limit(SEED_SCAN_MAINTENANCE_BATCH_SIZE)
+                ).all()
+                if not rows:
+                    break
+
+                job_keys = {row.job_key for row in rows}
+                for row in rows:
+                    row.status = "pending"
+                    row.leased_by = None
+                    row.lease_until = None
+                    row.updated_at = now
+                    session.add(row)
+                session.flush()
+                for job_key in job_keys:
+                    self._refresh_seed_scan_job_status(session, job_key, now)
+                session.flush()
+                released += len(rows)
+                # Do not retain ORM rows from a completed batch in a long-lived
+                # worker session while the next window is loaded.
+                session.expunge_all()
         return {"released": released}

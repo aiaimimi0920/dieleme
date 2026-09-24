@@ -12,8 +12,8 @@ import {
 } from "../build-userscript.mjs";
 
 
-const REVIEWED_PRE_SPLIT_SHA256 =
-  "145ef726b10d4b5d91a40a73237be5c191dcb3b5209aab4022cd06cf6ba12dac";
+const REVIEWED_SOURCE_SHA256 =
+  "775624987431dbee86ba43c07d4a624327853d74496c27314ee87e72c44c45e4";
 
 
 test("userscript parts deterministically reproduce the installable script", () => {
@@ -36,10 +36,10 @@ test("userscript build keeps metadata first and one shared IIFE", () => {
 });
 
 
-test("initial source split preserves the reviewed legacy script", () => {
+test("generated script matches the reviewed authenticated client revision", () => {
   const digest = crypto
     .createHash("sha256")
     .update(buildUserscriptSource(), "utf8")
     .digest("hex");
-  assert.equal(digest, REVIEWED_PRE_SPLIT_SHA256);
+  assert.equal(digest, REVIEWED_SOURCE_SHA256);
 });

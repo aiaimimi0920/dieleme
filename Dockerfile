@@ -1,5 +1,5 @@
-ARG PYTHON_BASE_IMAGE=python:3.10-slim
-ARG NODE_BASE_IMAGE=node:22-alpine
+ARG PYTHON_BASE_IMAGE=python:3.10-slim@sha256:31dd4d9529d02d7436659061cb7564cd4733fc90e5e152709a942d53382ec8d0
+ARG NODE_BASE_IMAGE=node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85
 
 FROM ${NODE_BASE_IMAGE} AS collector_desktop_builder
 
@@ -28,12 +28,12 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /app
 
-COPY requirements.txt ./
+COPY requirements.txt requirements.lock ./
 COPY vendor/wheels/ /tmp/wheels/
 RUN if [ -d /tmp/wheels ] && [ "$(find /tmp/wheels -type f -name '*.whl' | head -n 1)" ]; then \
-        pip install --no-cache-dir --no-index --find-links=/tmp/wheels -r requirements.txt; \
+        pip install --no-cache-dir --require-hashes --no-index --find-links=/tmp/wheels -r requirements.lock; \
     else \
-        pip install --no-cache-dir -r requirements.txt; \
+        pip install --no-cache-dir --require-hashes -r requirements.lock; \
     fi \
     && playwright install --with-deps chromium
 

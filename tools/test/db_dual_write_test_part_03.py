@@ -1,4 +1,5 @@
 from tools.test.db_dual_write_test_context import *  # noqa: F401,F403
+from tools.test.collection_job_checks import wait_for_http_job
 
 
 def test_http_status_can_surface_incomplete_manual_review_receipt(tmp_path: Path, monkeypatch):
@@ -36,10 +37,10 @@ def test_http_status_can_surface_incomplete_manual_review_receipt(tmp_path: Path
             ]
         },
     )
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -63,6 +64,7 @@ def test_http_status_can_surface_incomplete_manual_review_receipt(tmp_path: Path
         httpd.server_close()
 
 def test_http_receipt_control_plane_can_feed_status_summary_end_to_end(tmp_path: Path, monkeypatch):
+    monkeypatch.setenv("FAPAI_CONTROL_PLANE_TOKEN", "isolated-operator")
     repo = _make_repo(tmp_path)
     repo.upsert_flat_item(_make_flat_item(id="stage-http-7", url="https://x/stage-http-7", status="pending", detail_archive_path=None), event_type="seed")
 
@@ -84,13 +86,13 @@ def test_http_receipt_control_plane_can_feed_status_summary_end_to_end(tmp_path:
     monkeypatch.setattr(server_module, "load_action_effectiveness_snapshot", lambda path=None: {})
     monkeypatch.setattr(server_module, "load_optimization_loop_progress_snapshot", lambda path=None: {})
     original_service = server_module.AVM_SERVICE
-    original_start_time = server_module.AVM_SERVICE_START_TIME
+    original_start_time = server_module.RUNTIME.started_at
     server_module.AVM_SERVICE = AVMService(data_dir=server_module.DATA_DIR, repository=repo)
-    server_module.AVM_SERVICE_START_TIME = 0
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.started_at = 0
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
     monkeypatch.setattr(server_module, "run_recent_enrich_maintenance", lambda **kwargs: {"generated_at": "x"})
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
@@ -115,13 +117,19 @@ def test_http_receipt_control_plane_can_feed_status_summary_end_to_end(tmp_path:
                     "mode": "async",
                 }
             ).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            headers={"Content-Type": "application/json", server_module.CONTROL_TOKEN_HEADER: "isolated-operator"},
             method="POST",
         )
         with urllib.request.urlopen(req) as resp:
             write_body = json.loads(resp.read().decode("utf-8"))
         assert write_body["operation"] == "created"
         assert write_body["execution_mode"] == "async"
+
+        job = wait_for_http_job(
+            f"http://127.0.0.1:{port}", write_body["status_url"],
+            {server_module.CONTROL_TOKEN_HEADER: "isolated-operator"},
+        )
+        assert job["status"] == "completed", job
 
         with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/status") as resp:
             status_body = json.loads(resp.read().decode("utf-8"))
@@ -132,7 +140,7 @@ def test_http_receipt_control_plane_can_feed_status_summary_end_to_end(tmp_path:
         assert overview["handoff_lifecycle_state"] == "receipt_ready_for_reentry"
         assert overview["matched_ready_signals"] == ["location_artifacts_complete"]
         jobs_summary = status_body["collection_stage"]["manual_review_receipt_jobs_summary"]
-        assert jobs_summary["last_job_status"] in {"queued", "running", "completed"}
+        assert jobs_summary["last_job_status"] == "completed"
         assert jobs_summary["last_job_receipt_key"]["action"] == "manual_location_review"
         operations_summary = status_body["collection_stage"]["manual_review_receipt_operations_summary"]
         assert operations_summary["last_operation_type"] == "created"
@@ -145,9 +153,10 @@ def test_http_receipt_control_plane_can_feed_status_summary_end_to_end(tmp_path:
         httpd.shutdown()
         httpd.server_close()
         server_module.AVM_SERVICE = original_service
-        server_module.AVM_SERVICE_START_TIME = original_start_time
+        server_module.RUNTIME.started_at = original_start_time
 
 def test_http_receipt_control_plane_prefers_database_backed_state_when_repo_enabled(tmp_path: Path, monkeypatch):
+    monkeypatch.setenv("FAPAI_CONTROL_PLANE_TOKEN", "isolated-operator")
     repo = _make_repo(tmp_path)
 
     server_module = importlib.import_module("src.server")
@@ -168,13 +177,13 @@ def test_http_receipt_control_plane_prefers_database_backed_state_when_repo_enab
     monkeypatch.setattr(server_module, "load_action_effectiveness_snapshot", lambda path=None: {})
     monkeypatch.setattr(server_module, "load_optimization_loop_progress_snapshot", lambda path=None: {})
     original_service = server_module.AVM_SERVICE
-    original_start_time = server_module.AVM_SERVICE_START_TIME
+    original_start_time = server_module.RUNTIME.started_at
     server_module.AVM_SERVICE = AVMService(data_dir=server_module.DATA_DIR, repository=repo)
-    server_module.AVM_SERVICE_START_TIME = 0
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.started_at = 0
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -198,13 +207,19 @@ def test_http_receipt_control_plane_prefers_database_backed_state_when_repo_enab
                     "mode": "async",
                 }
             ).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            headers={"Content-Type": "application/json", server_module.CONTROL_TOKEN_HEADER: "isolated-operator"},
             method="POST",
         )
         with urllib.request.urlopen(req) as resp:
             write_body = json.loads(resp.read().decode("utf-8"))
         assert write_body["operation"] == "created"
         assert write_body["execution_mode"] == "async"
+
+        job = wait_for_http_job(
+            f"http://127.0.0.1:{port}", write_body["status_url"],
+            {server_module.CONTROL_TOKEN_HEADER: "isolated-operator"},
+        )
+        assert job["status"] == "completed", job
 
         avm_root = Path(server_module.DATA_DIR) / "avm"
         receipt_path = avm_root / "manual_review_receipts.json"
@@ -218,7 +233,12 @@ def test_http_receipt_control_plane_prefers_database_backed_state_when_repo_enab
         assert receipt_backup["receipts"][0]["action"] == "manual_location_review"
 
         jobs_backup = json.loads(jobs_path.read_text(encoding="utf-8"))
-        assert jobs_backup["jobs"][0]["job_id"] == write_body["maintenance_job_id"]
+        assert jobs_backup["jobs"] == []
+        durable_path = Path(server_module.DATA_DIR) / "runtime" / "collection-jobs" / f"{write_body['job_id']}.json"
+        durable_job = json.loads(durable_path.read_text(encoding="utf-8"))
+        assert durable_job["job_id"] == write_body["maintenance_job_id"]
+        assert durable_job["status"] == "completed"
+        assert durable_job["result"]["receipt"]["action"] == "manual_location_review"
 
         operation_lines = operations_path.read_text(encoding="utf-8").splitlines()
         assert len(operation_lines) == 1
@@ -243,7 +263,7 @@ def test_http_receipt_control_plane_prefers_database_backed_state_when_repo_enab
         httpd.shutdown()
         httpd.server_close()
         server_module.AVM_SERVICE = original_service
-        server_module.AVM_SERVICE_START_TIME = original_start_time
+        server_module.RUNTIME.started_at = original_start_time
 
 def test_http_receipt_control_plane_bootstraps_db_from_existing_json_files(tmp_path: Path, monkeypatch):
     repo = _make_repo(tmp_path)
@@ -307,13 +327,13 @@ def test_http_receipt_control_plane_bootstraps_db_from_existing_json_files(tmp_p
     monkeypatch.setattr(server_module, "load_action_effectiveness_snapshot", lambda path=None: {})
     monkeypatch.setattr(server_module, "load_optimization_loop_progress_snapshot", lambda path=None: {})
     original_service = server_module.AVM_SERVICE
-    original_start_time = server_module.AVM_SERVICE_START_TIME
+    original_start_time = server_module.RUNTIME.started_at
     server_module.AVM_SERVICE = AVMService(data_dir=server_module.DATA_DIR, repository=repo)
-    server_module.AVM_SERVICE_START_TIME = 0
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.started_at = 0
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -337,4 +357,4 @@ def test_http_receipt_control_plane_bootstraps_db_from_existing_json_files(tmp_p
         httpd.shutdown()
         httpd.server_close()
         server_module.AVM_SERVICE = original_service
-        server_module.AVM_SERVICE_START_TIME = original_start_time
+        server_module.RUNTIME.started_at = original_start_time

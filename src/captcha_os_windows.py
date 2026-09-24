@@ -1,18 +1,18 @@
 from __future__ import annotations
 
+import logging
+
 from .captcha_context import *  # noqa: F401,F403
+
+logger = logging.getLogger(__name__)
 
 
 class CaptchaOSWindowsMixin:
     def _os_mouse_enabled(self):
         if self._is_local_mock_slider_target():
             return False
-        if os.environ.get("PYTEST_CURRENT_TEST"):
-            return False
-        raw = os.getenv("FAPAI_SOLVER_OS_MOUSE")
-        if raw is not None:
-            return raw.strip().lower() in {"1", "true", "yes", "y", "on"}
-        return os.name == "nt"
+        raw = os.getenv("FAPAI_SOLVER_OS_MOUSE", "")
+        return raw.strip().lower() in {"1", "true", "yes", "y", "on"}
 
     def _window_metrics(self):
         ret = self._send_cdp("Runtime.evaluate", {
@@ -85,7 +85,7 @@ class CaptchaOSWindowsMixin:
                         break
             return focused
         except Exception as error:
-            print(f"[SOLVER] SetForegroundWindow failed: {error}")
+            logger.warning("[SOLVER] SetForegroundWindow failed: %s", error)
             return False
 
     def _iter_top_level_windows(self):
@@ -287,10 +287,10 @@ class CaptchaOSWindowsMixin:
     def _focus_linux_window(self):
         """Focus the visible Chromium window that owns the active CDP tab."""
         if not str(os.environ.get("DISPLAY") or "").strip():
-            print("[SOLVER] DISPLAY is not set; cannot focus the Linux browser window.")
+            logger.warning("[SOLVER] DISPLAY is not set; cannot focus the Linux browser window.")
             return False
         if not self._activate_target_tab():
-            print("[SOLVER] Exact CDP target activation failed before Linux window focus.")
+            logger.warning("[SOLVER] Exact CDP target activation failed before Linux window focus.")
             return False
         window_ids = []
         for window_class in ("chromium", "google-chrome", "microsoft-edge"):
@@ -303,7 +303,7 @@ class CaptchaOSWindowsMixin:
                     timeout=3,
                 )
             except (FileNotFoundError, subprocess.SubprocessError) as error:
-                print(f"[SOLVER] Linux window search failed: {error}")
+                logger.warning("[SOLVER] Linux window search failed: %s", error)
                 return False
             for raw_window_id in result.stdout.splitlines():
                 window_id = raw_window_id.strip()
@@ -314,19 +314,19 @@ class CaptchaOSWindowsMixin:
                 # Focusing an outer Chromium window can leave a different tab active.
                 # Re-activate the exact CDP target after the OS focus transition.
                 if not self._activate_target_tab():
-                    print(
+                    logger.warning(
                         "[SOLVER] Exact CDP target activation failed after "
                         f"focusing Linux window id={window_id}"
                     )
                     continue
                 time.sleep(0.35)
                 if not self._linux_window_has_focus(window_id):
-                    print(f"[SOLVER] Linux input focus changed before drag id={window_id}")
+                    logger.warning("[SOLVER] Linux input focus changed before drag id=%s", window_id)
                     continue
                 self._linux_window_id = window_id
-                print(f"[SOLVER] Linux browser window focused id={window_id}")
+                logger.info("[SOLVER] Linux browser window focused id=%s", window_id)
                 return True
-        print("[SOLVER] No focusable Linux Chromium window was found.")
+        logger.warning("[SOLVER] No focusable Linux Chromium window was found.")
         return False
 
     def _focus_os_window(self):
@@ -340,7 +340,7 @@ class CaptchaOSWindowsMixin:
         if not hwnd:
             hwnd = self._edge_hwnd()
         focused = self._force_foreground_hwnd(hwnd) if hwnd else False
-        print(f"[SOLVER] OS window focus hwnd={hwnd} focused={focused}")
+        logger.info("[SOLVER] OS window focus hwnd=%s focused=%s", hwnd, focused)
         return focused
 
     def _linux_window_geometry(self):
@@ -436,7 +436,7 @@ class CaptchaOSWindowsMixin:
             abs(geometry["height"] - bound_height),
         )
         if position_delta > 48.0 or size_delta > 64.0:
-            print(
+            logger.warning(
                 f"[SOLVER] X11/CDP window geometry mismatch "
                 f"position_delta={position_delta:.0f}px size_delta={size_delta:.0f}px."
             )

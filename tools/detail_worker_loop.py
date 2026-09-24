@@ -14,6 +14,8 @@ def run_detail_worker_batch(
     process_item_func: Callable[..., dict[str, Any]] = process_item,
     analyze_item_func: AnalyzeItemFunc = analyze_raw_item,
 ) -> dict[str, Any]:
+    from tools.worker_lifecycle import checkpoint, wait
+
     if config.llm_preflight_enabled and not config.raw_only:
         preflight = _run_llm_preflight(config)
     else:
@@ -37,7 +39,7 @@ def run_detail_worker_batch(
     attempts = 0
     challenge_break = False
     challenge_retry_after_seconds = 0
-    while attempts < config.max_attempts and completed < config.target_success:
+    while attempts < config.max_attempts and completed < config.target_success and checkpoint("detail_item"):
         attempts += 1
         if config.analysis_only:
             result = run_detail_analysis_once(
@@ -77,7 +79,7 @@ def run_detail_worker_batch(
         if attempts < config.max_attempts and completed < config.target_success:
             delay_seconds = _detail_inter_item_delay_seconds(config, item_completed=item_completed)
             if delay_seconds > 0:
-                time.sleep(delay_seconds)
+                wait(delay_seconds)
     summary = {
         "decision": "detail_worker_batch_finished",
         "attempts": attempts,
@@ -135,6 +137,8 @@ def run_detail_worker_loop(
     runtime_context_factory: RuntimeContextFactory | None = None,
     progress_emit_func: ProgressEmitFunc | None = None,
 ) -> dict[str, Any]:
+    from tools.worker_lifecycle import checkpoint, wait
+
     if runtime_context_factory is None:
         if http_session is None or browser_pages is None:
             runtime_context_factory = lambda: _build_runtime_context(config)
@@ -156,7 +160,7 @@ def run_detail_worker_loop(
             }
             emit_progress({"event": "detail_worker_leases_released", **release_event})
             _write_runtime_summary(config.output_dir, release_event)
-    while True:
+    while checkpoint("detail_cycle"):
         runs += 1
         try:
             current_http_session, current_browser_pages = runtime_context_factory()
@@ -194,7 +198,7 @@ def run_detail_worker_loop(
                         "counts": failure_event.get("counts"),
                     }
                 )
-                time.sleep(sleep_seconds)
+                wait(sleep_seconds)
                 continue
         result = run_detail_worker_batch(
             config,
@@ -215,7 +219,7 @@ def run_detail_worker_loop(
                 "counts": result.get("counts"),
             }
         )
-        time.sleep(sleep_seconds)
+        wait(sleep_seconds)
     summary = {
         "decision": "detail_worker_loop_finished",
         "runs": runs,

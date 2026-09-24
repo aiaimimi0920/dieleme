@@ -7,6 +7,8 @@ def test_fetch_json_ignores_proxy_env(monkeypatch) -> None:
     calls: list[dict[str, object]] = []
 
     class _Response:
+        status_code = 200
+
         def raise_for_status(self) -> None:
             return None
 
@@ -25,7 +27,8 @@ def test_fetch_json_ignores_proxy_env(monkeypatch) -> None:
         def __exit__(self, exc_type, exc, tb) -> None:
             return None
 
-        def get(self, url: str, *, timeout: float):
+        def get(self, url: str, *, timeout: float, allow_redirects: bool):
+            assert allow_redirects is False
             calls.append(
                 {
                     "url": url,
@@ -55,6 +58,8 @@ def test_post_json_ignores_proxy_env(monkeypatch) -> None:
     calls: list[dict[str, object]] = []
 
     class _Response:
+        status_code = 200
+
         def raise_for_status(self) -> None:
             return None
 
@@ -73,7 +78,8 @@ def test_post_json_ignores_proxy_env(monkeypatch) -> None:
         def __exit__(self, exc_type, exc, tb) -> None:
             return None
 
-        def post(self, url: str, *, json: dict[str, object], timeout: float):
+        def post(self, url: str, *, json: dict[str, object], timeout: float, allow_redirects: bool):
+            assert allow_redirects is False
             calls.append(
                 {
                     "url": url,

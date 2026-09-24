@@ -62,8 +62,61 @@ postgres_container="${FAPAI_POSTGRES_CONTAINER:-fapaifang-postgres}"
 postgres_db="${FAPAI_POSTGRES_DB:-fapaifang}"
 postgres_user="${FAPAI_POSTGRES_USER:-fapaifang}"
 postgres_password="${FAPAI_POSTGRES_PASSWORD:-fapaifang}"
-api_container="${FAPAI_API_CONTAINER:-fapaifang-api}"
+api_container="${FAPAI_API_CONTAINER:-crow-api}"
 api_port="${FAPAI_API_HOST_PORT:-8001}"
+api_host_bind_address="${FAPAI_API_HOST_BIND_ADDRESS:-127.0.0.1}"
+api_tls_cert_file="${FAPAI_API_TLS_CERT_FILE:-}"
+api_tls_key_file="${FAPAI_API_TLS_KEY_FILE:-}"
+api_health_scheme=http
+api_health_host=127.0.0.1
+api_health_resolve_address="$api_host_bind_address"
+api_health_curl_args=()
+
+if ! api_bind_is_loopback="$(python3 - "$api_host_bind_address" <<'PY'
+import ipaddress
+import sys
+
+try:
+    address = ipaddress.ip_address(sys.argv[1])
+except ValueError:
+    raise SystemExit(2)
+if not isinstance(address, ipaddress.IPv4Address):
+    raise SystemExit(2)
+print(int(address.is_loopback))
+PY
+)"; then
+  echo "FAPAI_API_HOST_BIND_ADDRESS must be a literal IPv4 address." >&2
+  exit 1
+fi
+if [[ "$api_host_bind_address" == "0.0.0.0" ]]; then
+  api_health_resolve_address=127.0.0.1
+fi
+
+if [[ -n "$api_tls_cert_file" || -n "$api_tls_key_file" ]]; then
+  if [[ -z "$api_tls_cert_file" || -z "$api_tls_key_file" ]]; then
+    echo "FAPAI_API_TLS_CERT_FILE and FAPAI_API_TLS_KEY_FILE must be set together." >&2
+    exit 1
+  fi
+  api_health_scheme=https
+  api_health_host="${FAPAI_API_HEALTH_HOST:-localhost}"
+  if [[ -z "$api_health_host" ]]; then
+    echo "FAPAI_API_HEALTH_HOST must match a host name in the API certificate." >&2
+    exit 1
+  fi
+  api_health_curl_args=(--resolve "${api_health_host}:${api_port}:${api_health_resolve_address}")
+  api_health_ca_file="${FAPAI_API_HEALTH_CA_FILE:-}"
+  if [[ -n "$api_health_ca_file" ]]; then
+    if [[ ! -r "$api_health_ca_file" ]]; then
+      echo "FAPAI_API_HEALTH_CA_FILE is not readable on this host." >&2
+      exit 1
+    fi
+    api_health_curl_args+=(--cacert "$api_health_ca_file")
+  fi
+fi
+if [[ "$api_bind_is_loopback" != 1 && -z "$api_tls_cert_file" ]]; then
+  echo "External NAS API binding requires a configured TLS certificate and key." >&2
+  exit 1
+fi
 
 version="$(date -u +%Y%m%d-%H%M%S)"
 commit="$(git rev-parse --short=12 HEAD 2>/dev/null || printf unknown)"
@@ -204,37 +257,37 @@ rollback() {
   FAPAI_IMAGE="$rollback_tag" docker compose --project-name "$compose_project" \
     --env-file "$env_file" \
     -f "$compose_file" \
-    up -d --no-deps --no-build fapaifang-api
+    up -d --no-deps --no-build crow-api
 }
 
 if ! docker compose --project-name "$compose_project" \
-  --env-file "$env_file" -f "$compose_file" build fapaifang-api; then
+  --env-file "$env_file" -f "$compose_file" build crow-api; then
   echo "Candidate image build failed; the running API was not replaced." >&2
   exit 1
 fi
 if ! docker compose --project-name "$compose_project" \
-  --env-file "$env_file" -f "$compose_file" up -d --no-deps fapaifang-api; then
+  --env-file "$env_file" -f "$compose_file" up -d --no-deps crow-api; then
   rollback
   exit 1
 fi
 
-health_url="http://127.0.0.1:$api_port/api/status"
+health_url="${api_health_scheme}://${api_health_host}:${api_port}/api/status"
 healthy=0
 for _ in $(seq 1 60); do
-  if payload="$(curl -fsS --max-time 5 "$health_url" 2>/dev/null)"; then
+  if payload="$(curl -fsS --max-time 5 "${api_health_curl_args[@]}" "$health_url" 2>/dev/null)"; then
     if EXPECTED_VERSION="$version" EXPECTED_DIGEST="$source_digest" PAYLOAD="$payload" python3 - <<'PY'
 import json
 import os
 
 payload = json.loads(os.environ["PAYLOAD"])
+if not (payload.get("auth_recovery") or {}).get("enabled"):
+    raise SystemExit(1)
 build = payload.get("build_info") or {}
 if build.get("version") != os.environ["EXPECTED_VERSION"]:
     raise SystemExit(1)
 if build.get("source_digest") != os.environ["EXPECTED_DIGEST"]:
     raise SystemExit(1)
 if not payload.get("db_mode"):
-    raise SystemExit(1)
-if not (payload.get("auth_recovery") or {}).get("enabled"):
     raise SystemExit(1)
 PY
     then
@@ -257,5 +310,6 @@ if [[ "$healthy" -ne 1 ]]; then
 fi
 
 docker exec "$postgres_container" pg_isready -U "$postgres_user" -d "$postgres_db" >/dev/null
-curl -fsS --max-time 10 "http://127.0.0.1:$api_port/api/collection/overview" >/dev/null
+curl -fsS --max-time 10 "${api_health_curl_args[@]}" \
+  "${api_health_scheme}://${api_health_host}:${api_port}/api/collection/overview" >/dev/null
 echo "NAS API deployment passed build identity, database, and collection overview health gates."

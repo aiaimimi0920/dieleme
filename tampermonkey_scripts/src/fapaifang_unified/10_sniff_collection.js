@@ -31,7 +31,7 @@
              const sessionId = sniffSessions[sniffState.currSessionIdx % sniffSessions.length];
              sniffState.currSessionIdx++;
 
-             fetchApi('/collection/seeds/next_task?session_id=' + encodeURIComponent(sessionId), {}, (res) => {
+             fetchApi('/collection/seeds/next_task', { session_id: sessionId }, (res) => {
                 if (res.task && res.task.url) {
                     log(`分配任务: ${res.task.desc || res.task.url}`, 'success');
                     

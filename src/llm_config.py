@@ -4,7 +4,10 @@ import json
 import os
 import json as _json
 import os as _os
+import logging
+import threading
 
+logger = logging.getLogger(__name__)
 
 _SECRETS_FILE = _os.path.join(_os.path.dirname(__file__), "..", "secrets.json")
 
@@ -22,14 +25,15 @@ def _load_secrets():
     """Load API credentials from secrets.json."""
     if not _os.path.exists(_SECRETS_FILE):
         if not _has_openai_compatible_env():
-            print(f"[ERROR] secrets.json not found at {_SECRETS_FILE}")
-            print("[ERROR] Please copy secrets.example.json to secrets.json and fill in your API keys.")
+            logger.error("[ERROR] secrets.json not found at %s", _SECRETS_FILE)
+            logger.error("[ERROR] Please copy secrets.example.json to secrets.json and fill in your API keys.")
         return None
     with open(_SECRETS_FILE, 'r', encoding='utf-8') as f:
         return _json.load(f)
 
 
-_secrets = _load_secrets()
+_POOL_LOCK = threading.Lock()
+_model_pool = None
 
 
 def _build_model_pool(secrets):
@@ -77,20 +81,31 @@ def _build_model_pool(secrets):
     return pool
 
 
-MODEL_POOL = _build_model_pool(_secrets)
+def get_model_pool():
+    """Load legacy credentials only when the legacy backend is requested."""
+    # Local module reference also preserves ownership through the legacy facade.
+    from src import llm_config as config
+
+    with config._POOL_LOCK:
+        if config._model_pool is None:
+            config._model_pool = config._build_model_pool(config._load_secrets())
+            config.load_model_config(config._model_pool)
+        return config._model_pool
 
 
 CONFIG_FILE = os.path.join(os.path.dirname(__file__), "..", "datas", "model_config.json")
 
 
-def load_model_config():
+def load_model_config(pool=None):
     """Load model concurrency config from file if exists, else use defaults from MODEL_POOL."""
+    if pool is None:
+        pool = get_model_pool()
     if os.path.exists(CONFIG_FILE):
         try:
             with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
                 saved = json.load(f)
                 # Merge saved config into MODEL_POOL
-                for model in MODEL_POOL:
+                for model in pool:
                     name = model["name"]
                     base = model.get("base_name", name)
 
@@ -99,31 +114,10 @@ def load_model_config():
                          model["max_concurrent"] = saved[name].get("max_concurrent", model.get("max_concurrent", 5))
                     elif base in saved:
                          model["max_concurrent"] = saved[base].get("max_concurrent", model.get("max_concurrent", 5))
-                print(f"[CONFIG] Loaded model config from {CONFIG_FILE}")
+                logger.info("[CONFIG] Loaded model config from %s", CONFIG_FILE)
         except Exception as e:
-            print(f"[CONFIG] Error loading config: {e}, using defaults")
-    return MODEL_POOL
+            logger.exception("[CONFIG] Error loading config; using defaults")
+    return pool
 
 
-_LEGACY_DEFAULT_MODEL = MODEL_POOL[0] if MODEL_POOL else {}
-
-
-APP_ID = _LEGACY_DEFAULT_MODEL.get("app_id", "")
-
-
-API_KEY = _LEGACY_DEFAULT_MODEL.get("api_key", "")
-
-
-API_SECRET = _LEGACY_DEFAULT_MODEL.get("api_secret", "")
-
-
-WS_URL = _LEGACY_DEFAULT_MODEL.get("ws_url", "")
-
-
-MODEL_ID = _LEGACY_DEFAULT_MODEL.get("model_id", "")
-
-
-load_model_config()
-
-
-__all__ = ['_SECRETS_FILE', '_has_openai_compatible_env', '_load_secrets', '_secrets', '_build_model_pool', 'MODEL_POOL', 'CONFIG_FILE', 'load_model_config', '_LEGACY_DEFAULT_MODEL', 'APP_ID', 'API_KEY', 'API_SECRET', 'WS_URL', 'MODEL_ID']
+__all__ = ['_SECRETS_FILE', '_has_openai_compatible_env', '_load_secrets', '_build_model_pool', 'get_model_pool', 'CONFIG_FILE', 'load_model_config']

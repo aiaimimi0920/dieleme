@@ -36,7 +36,16 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && pip install --no-cache-dir Pillow==11.3.0 PyAutoGUI==0.9.54 evdev==1.9.2
 
+ARG FAPAI_BROWSER_UID=1000
+ARG FAPAI_BROWSER_GID=1000
+RUN groupadd --gid "$FAPAI_BROWSER_GID" fapaifang 2>/dev/null || true \
+    && useradd --uid "$FAPAI_BROWSER_UID" --gid "$FAPAI_BROWSER_GID" \
+        --create-home --shell /usr/sbin/nologin fapaifang 2>/dev/null || true \
+    && mkdir -p /app/.codex-temp /data/browser-profile /data/output \
+    && chown -R "$FAPAI_BROWSER_UID:$FAPAI_BROWSER_GID" /app/.codex-temp /data/browser-profile /data/output
+
 COPY ops/pc2-linux/start-browser-solver.sh /usr/local/bin/start-browser-solver
+COPY ops/pc2-linux/process-supervisor.sh /usr/local/bin/process-supervisor.sh
 COPY tools/internal_api_http.py /app/tools/internal_api_http.py
 COPY tools/pc2_auth_recovery.py /app/tools/pc2_auth_recovery.py
 COPY tools/pc2_local_solver.py /app/tools/pc2_local_solver.py
@@ -46,6 +55,8 @@ COPY tools/pc2_linux_healthcheck.py /app/tools/pc2_linux_healthcheck.py
 COPY tools/pc2_solver_watchdog.py /app/tools/pc2_solver_watchdog.py
 COPY src/captcha_solver.py /app/src/captcha_solver.py
 RUN chmod 0755 /usr/local/bin/start-browser-solver
+
+USER fapaifang
 
 EXPOSE 6080 9224
 

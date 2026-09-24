@@ -2,7 +2,7 @@
 
 目标拓扑：
 
-- NAS `192.168.15.200` 运行中央 PostgreSQL + PostGIS、`fapaifang-api`、HTML 采集观察台。
+- NAS `192.168.15.200` 运行中央 PostgreSQL + PostGIS、`crow-api`、HTML 采集观察台。
 - 每台采集 PC 只运行 seed/detail/analysis workers、本机 CDP 浏览器和本机认证流程。
 - 所有 worker 连接同一个中央数据库，通过 DB lease/claim 避免重复采集。
 - 文件型产物统一写入 NAS 共享目录；不同采集节点通过 `FAPAI_NODE_ID` 隔离 output 和 cookie snapshot。
@@ -41,6 +41,16 @@ mkdir -p /volume1/docker/fapaifang/{postgres,output,datas,jobs,secrets,backups}
 cp env.nas.example env.nas.local
 ```
 
+中央 API 的 HTTPS listener 需要 NAS 管理员先把证书和私钥放到
+`<FAPAI_NAS_DATA_ROOT>/secrets/`，再把容器内路径设置为
+`FAPAI_API_TLS_CERT_FILE=/data/secrets/<certificate>` 与
+`FAPAI_API_TLS_KEY_FILE=/data/secrets/<private-key>`。证书必须包含
+`FAPAI_API_HEALTH_HOST` 中的主机名；受控更新脚本会把该主机名解析到 loopback
+执行 TLS 健康检查。私有 CA 还需设置主机可读的
+`FAPAI_API_HEALTH_CA_FILE`，公有系统信任链可以留空。不要把证书、私钥或 CA 文件提交到 Git。
+留空 cert/key 时 API 保持 HTTP，限于 loopback 开发验证；没有完成证书供应及 worker CA
+验证前，不要将生产 worker 切换到 HTTPS API。
+
 启动中央 DB/API：
 
 ```bash
@@ -50,7 +60,7 @@ docker compose --env-file env.nas.local -f docker-compose.nas-central.yml up -d 
 ### 中央 API 受控更新
 
 中央 API 更新使用 `scripts/deploy-nas-central-api.sh`。脚本只重建/重启
-`fapaifang-api`，不会重建 PostgreSQL；但每次部署前仍强制创建并验证一份
+`crow-api`，不会重建 PostgreSQL；但每次部署前仍强制创建并验证一份
 `pg_dump -Fc` 备份。
 
 先在 NAS 项目目录做无副作用检查：
@@ -85,8 +95,8 @@ bash scripts/deploy-nas-central-api.sh --env-file env.nas.local --auth-recovery-
 1. 计算并注入 `FAPAI_BUILD_VERSION`、Git commit、构建时间和关键源码摘要；
 2. 验证 PostgreSQL dump 能被 `pg_restore -l` 读取；
 3. 给当前 API 镜像创建独立 rollback tag；
-4. 只更新 `fapaifang-api`；
-5. 等待 `/api/status` 返回本次准确的 `build_info.version` 和
+4. 只更新 `crow-api`；
+5. 根据 TLS 配置使用 HTTPS 或 loopback HTTP，等待 `/api/status` 返回本次准确的 `build_info.version` 和
    `build_info.source_digest`；
 6. 验证 DB mode、`pg_isready` 和 `/api/collection/overview`；
 7. 任一健康门失败时自动恢复 rollback 镜像。
@@ -99,22 +109,57 @@ bash scripts/deploy-nas-central-api.sh --env-file env.nas.local --auth-recovery-
 
 ```bash
 docker exec fapaifang-postgres pg_isready -U fapaifang -d fapaifang
+```
+
+TLS 启用且使用私有 CA 时，host-side 检查示例：
+
+```bash
+api_resolve_address="${FAPAI_API_HOST_BIND_ADDRESS:-127.0.0.1}"
+[[ "$api_resolve_address" != 0.0.0.0 ]] || api_resolve_address=127.0.0.1
+curl --resolve "${FAPAI_API_HEALTH_HOST}:${FAPAI_API_HOST_PORT}:${api_resolve_address}" \
+  --cacert "$FAPAI_API_HEALTH_CA_FILE" \
+  "https://${FAPAI_API_HEALTH_HOST}:${FAPAI_API_HOST_PORT}/api/collection/overview"
+```
+
+公有系统信任链无需 `--cacert`。无 TLS 的 loopback HTTP 仅用于开发验证：
+
+```bash
 curl http://127.0.0.1:8001/api/collection/overview
 curl http://127.0.0.1:8001/collection
 ```
 
-同时检查实际运行版本：
+NAS Compose 默认只将 API 发布到 `127.0.0.1`。要让局域网 worker 直连，必须配置有效的
+`FAPAI_API_TLS_CERT_FILE` / `FAPAI_API_TLS_KEY_FILE`，并把
+`FAPAI_API_HOST_BIND_ADDRESS` 设为 NAS 的 IPv4 地址或 `0.0.0.0`；部署脚本会拒绝
+没有 TLS 的非 loopback 绑定。使用证书 SAN 中的主机名配置 worker 的 HTTPS 地址，客户端
+和 worker 必须信任签发 CA。
+
+根据当前 listener 配置检查实际运行版本：
 
 ```bash
-curl -s http://127.0.0.1:8001/api/status | python3 -c \
+api_scheme=http
+api_health_host=127.0.0.1
+api_resolve_address="${FAPAI_API_HOST_BIND_ADDRESS:-127.0.0.1}"
+api_curl_args=()
+if [[ -n "${FAPAI_API_TLS_CERT_FILE:-}" || -n "${FAPAI_API_TLS_KEY_FILE:-}" ]]; then
+  api_scheme=https
+  api_health_host="${FAPAI_API_HEALTH_HOST:-localhost}"
+  [[ "$api_resolve_address" != 0.0.0.0 ]] || api_resolve_address=127.0.0.1
+  api_curl_args=(--resolve "${api_health_host}:${FAPAI_API_HOST_PORT:-9520}:${api_resolve_address}")
+  [[ -z "${FAPAI_API_HEALTH_CA_FILE:-}" ]] || api_curl_args+=(--cacert "$FAPAI_API_HEALTH_CA_FILE")
+fi
+curl -fsS "${api_curl_args[@]}" \
+  "${api_scheme}://${api_health_host}:${FAPAI_API_HOST_PORT:-9520}/api/status" | python3 -c \
   'import json,sys; print(json.load(sys.stdin)["build_info"])'
 ```
 
 局域网客户端访问：
 
 ```text
-http://192.168.15.200:8001/collection
+https://<certificate-host>:8001/collection
 ```
+
+HTTP 示例仅限 loopback 开发；不要将明文中央 API 暴露给局域网 worker。
 
 ## 恢复数据库到 NAS
 
@@ -147,7 +192,8 @@ Copy-Item env.worker.example env.worker.local
 ```text
 FAPAI_NODE_ID=pc1
 FAPAI_SHARED_DATA_ROOT_HOST=C:\Users\Public\nas_home\AI\FPFData
-FAPAI_CENTRAL_API_BASE_URL=http://host.docker.internal:18081/api
+FAPAI_CENTRAL_API_BASE_URL=https://<certificate-host>:8001/api
+FAPAI_API_CA_FILE=/data/secrets/api-ca.pem
 FAPAI_WORKER_DB_URL=postgresql+psycopg://fapaifang:fapaifang@host.docker.internal:15532/fapaifang
 FAPAI_LIST_BROWSER_FALLBACK=1
 FAPAI_SEED_CAPTCHA_SOLVER_ENABLED=1
@@ -156,6 +202,10 @@ FAPAI_DETAIL_BROWSER_FALLBACK=1
 FAPAI_DETAIL_CAPTCHA_SOLVER_ENABLED=1
 FAPAI_SEED_AUTH_PROBE_INTERVAL_SECONDS=60
 ```
+
+将 CA bundle 放在 worker secrets 目录，Compose 会以只读方式挂载为
+`/data/secrets`。生产 central URL 必须匹配 API 证书主机名；`env.worker.example` 提供
+loopback/reverse-tunnel 开发示例，不能替代 NAS 的证书配置。
 
 `FAPAI_LIST_BROWSER_FALLBACK=1` 很关键：当 HTTP cookie 请求命中淘宝
 `_____tmd_____/punish` 验证页时，seed worker 会回退到本机已认证的 CDP

@@ -1,17 +1,10 @@
 import { authScopeChallenge, scopeLabel, type AuthScope } from "./desktop_auth_scope.ts";
+import { object } from "./desktop_value.ts";
+import { escapeHtml as escape } from "./desktop_dom.ts";
 
-type RecordValue = Record<string, unknown>;
 type Sample = { at: number; counts: number[] };
 const history: Sample[] = [];
 let sampleWindow: number | null = null;
-
-export function object(value: unknown): RecordValue {
-  return value !== null && typeof value === "object" && !Array.isArray(value) ? value as RecordValue : {};
-}
-
-function escape(value: unknown): string {
-  return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]!);
-}
 
 export function uniqueCounts(value: unknown): number[] {
   if (object(object(object(value).status).statistics).valid === false) return [NaN, NaN, NaN];

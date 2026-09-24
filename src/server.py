@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import importlib
+import logging
 from pathlib import Path
 import sys
+import threading
 import types
+
+logger = logging.getLogger(__name__)
 
 
 if __package__:
@@ -13,6 +17,7 @@ else:
     _PACKAGE = "src"
 _CONTEXT = importlib.import_module(f"{_PACKAGE}.server_context")
 _CORE_MODULES = (
+    "server_request_guard",
     "server_solver_scope",
     "server_auth_recovery",
     "server_desktop_auth",
@@ -92,182 +97,210 @@ for _module_name in _HANDLER_MODULES:
     _module = importlib.import_module(f"{_PACKAGE}.{_module_name}")
     _publish_module(_module)
     for _name in _module.__all__:
-        _value = _rebind_function(globals()[_name])
+        _value = globals()[_name]
+        if not isinstance(_value, types.FunctionType):
+            continue
+        _value = _rebind_function(_value)
         globals()[_name] = _value
         setattr(_CONTEXT, _name, _value)
 
+# Keep the historical patch points used by maintenance scripts and tests while
+# the runtime state remains owned by the structured RuntimeState object.
+PENDING_TASKS = RUNTIME.collection.pending_tasks
+DISPATCHED_TASKS = RUNTIME.collection.dispatched_tasks
+DATA_LOCK = threading.RLock()
+
+
+_route_definitions = importlib.import_module(f"{_PACKAGE}.server_routes")
+_route_access = importlib.import_module(f"{_PACKAGE}.server_route_access")
+ROUTES = _route_definitions.build_routes(
+    {
+        **_route_definitions.GET_GROUPS,
+        '_get_collection_settings': (_settings_schema.PREFIX,),
+        '_get_manual_review_receipts': tuple(MANUAL_REVIEW_RECEIPT_ENDPOINTS),
+        '_get_manual_review_jobs': tuple(MANUAL_REVIEW_RECEIPT_JOB_ENDPOINTS),
+        '_get_manual_review_operations': tuple(MANUAL_REVIEW_RECEIPT_OPERATION_ENDPOINTS),
+        '_get_manual_review_control_status': tuple(MANUAL_REVIEW_CONTROL_PLANE_STATUS_ENDPOINTS),
+        '_get_manual_review_backup_repairs': tuple(MANUAL_REVIEW_CONTROL_PLANE_BACKUP_REPAIR_ENDPOINTS),
+        '_get_manual_review_integrity_history': tuple(MANUAL_REVIEW_CONTROL_PLANE_INTEGRITY_HISTORY_ENDPOINTS),
+    },
+    {
+        **_route_definitions.POST_GROUPS,
+        '_post_manual_review_receipt': tuple(MANUAL_REVIEW_RECEIPT_ENDPOINTS),
+        '_post_engine_control': tuple(_engine_control.ROUTES),
+        '_post_collection_settings': tuple(_settings_schema.ROLES),
+    },
+)
+
 
 class DataHandler(http.server.SimpleHTTPRequestHandler):
+    timeout = 30
+
+    def do_HEAD(self):
+        self.send_response(404)
+        self.end_headers()
+
     def do_OPTIONS(self):
         self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
+        _apply_cors_headers(self)
         self.send_header('Access-Control-Allow-Methods', 'POST, GET, DELETE, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type, X-FAPAI-Control-Token')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type, X-FAPAI-Control-Token, X-Fapai-Recovery-Token, X-FAPAI-Collection-Token')
         self.end_headers()
 
     def do_GET(self):
-        global PAUSED, PENDING_TASKS, LAST_REQUEST_TIME
-        LAST_REQUEST_TIME = time.time()
         parsed = urlparse(self.path)
         request_path = parsed.path
         query = parse_qs(parsed.query)
-        if request_path == _settings_schema.PREFIX:
-            return _server_collection_settings(self, read=True)
-        if request_path in ('/collection', '/collection/'):
-            return self._server_get_branch_01(parsed, request_path, query)
-        elif request_path.startswith('/collection/') or request_path.startswith('/assets/'):
-            return self._server_get_branch_02(parsed, request_path, query)
-        elif request_path == '/api/collection/overview':
-            return self._server_get_branch_03(parsed, request_path, query)
-        elif request_path == '/api/collection/items':
-            return self._server_get_branch_04(parsed, request_path, query)
-        elif request_path == '/api/collection/regions':
-            return self._server_get_branch_05(parsed, request_path, query)
-        elif request_path == '/api/collection/item' or request_path.startswith('/api/collection/items/'):
-            return self._server_get_branch_06(parsed, request_path, query)
-        elif request_path in MANUAL_REVIEW_RECEIPT_ENDPOINTS:
-            return self._server_get_branch_07(parsed, request_path, query)
-        elif request_path in MANUAL_REVIEW_RECEIPT_JOB_ENDPOINTS:
-            return self._server_get_branch_08(parsed, request_path, query)
-        elif request_path in MANUAL_REVIEW_RECEIPT_OPERATION_ENDPOINTS:
-            return self._server_get_branch_09(parsed, request_path, query)
-        elif request_path in MANUAL_REVIEW_CONTROL_PLANE_STATUS_ENDPOINTS:
-            return self._server_get_branch_10(parsed, request_path, query)
-        elif request_path in MANUAL_REVIEW_CONTROL_PLANE_BACKUP_REPAIR_ENDPOINTS:
-            return self._server_get_branch_11(parsed, request_path, query)
-        elif request_path in MANUAL_REVIEW_CONTROL_PLANE_INTEGRITY_HISTORY_ENDPOINTS:
-            return self._server_get_branch_12(parsed, request_path, query)
-        elif request_path == '/api/collection/auth/recovery':
-            return self._server_get_branch_13(parsed, request_path, query)
-        elif request_path == '/api/collection/auth/recovery/snapshot':
-            return self._server_get_branch_14(parsed, request_path, query)
-        elif request_path == '/api/status':
-            return self._server_get_branch_15(parsed, request_path, query)
-        elif self.path in ('/api/next_task', '/api/collection/details/next_task'):
-            return self._server_get_branch_16(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/predict') or self.path.startswith('/api/analysis/predict'):
-            return self._server_get_branch_17(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/health') or self.path.startswith('/api/analysis/health') or self.path.startswith('/api/analysis/status'):
-            return self._server_get_branch_18(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/collection_template'):
-            return self._server_get_branch_19(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/drift_status') or self.path.startswith('/api/analysis/drift_status'):
-            return self._server_get_branch_20(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/release_gate') or self.path.startswith('/api/analysis/release_gate'):
-            return self._server_get_branch_21(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/recent_gap_audit'):
-            return self._server_get_branch_22(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/recent_detail_replay') or self.path.startswith('/api/collection/details/prepare_replay'):
-            return self._server_get_branch_23(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/fetch_missing_detail_archives') or self.path.startswith('/api/collection/details/fetch_missing'):
-            return self._server_get_branch_24(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/archive_detail_replay'):
-            return self._server_get_branch_25(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/pipeline_status'):
-            return self._server_get_branch_26(parsed, request_path, query)
-        elif self.path.startswith('/api/avm/merge_check'):
-            return self._server_get_branch_27(parsed, request_path, query)
-        elif self.path.startswith('/api/get_item'):
-            return self._server_get_branch_28(parsed, request_path, query)
-        elif self.path.startswith('/api/get_or_create_sniff_task') or self.path.startswith('/api/collection/seeds/next_task'):
-            return self._server_get_branch_29(parsed, request_path, query)
-        elif self.path in ('/api/get_tasks', '/api/collection/details/tasks'):
-            return self._server_get_branch_30(parsed, request_path, query)
-        elif self.path == '/api/resume':
-            return self._server_get_branch_31(parsed, request_path, query)
-        elif request_path.startswith('/api/'):
-            return self._server_get_branch_32(parsed, request_path, query)
-        else:
-            return self._server_get_fallback(parsed, request_path, query)
+        if request_path in _route_definitions.RETIRED_GET_ROUTES:
+            self.send_error_json(status=405, code='API_METHOD_NOT_ALLOWED', message='This operation requires an authenticated POST', details={'method': 'POST', 'path': _route_definitions.RETIRED_GET_ROUTES[request_path]})
+            return
+        handler = ROUTES.get(('GET', request_path))
+        if handler is not None:
+            return getattr(self, handler)(parsed, request_path, query)
+        if request_path.startswith('/collection/') or request_path.startswith('/assets/'):
+            return self._get_collection_asset(parsed, request_path, query)
+        if request_path.startswith('/api/collection/items/'):
+            return self._get_collection_item(parsed, request_path, query)
+        if request_path.startswith('/api/'):
+            return self._get_api_not_found(parsed, request_path, query)
+        return self._server_get_fallback(parsed, request_path, query)
 
     def do_POST(self):
-        global PAUSED, LAST_REQUEST_TIME
-        LAST_REQUEST_TIME = time.time()
-        if self.path in ('/api/report_sniff_status', '/api/collection/seeds/report_progress'):
-            return self._server_post_branch_01()
-        elif self.path == '/api/collection/region/reset_links':
-            return self._server_post_branch_02()
-        elif self.path == '/api/collection/item/reanalyze':
-            return self._server_post_branch_03()
-        elif self.path == '/api/collection/item/manual_update':
-            return self._server_post_branch_04()
-        elif urlparse(self.path).path in _engine_control.ROUTES:
-            return _server_engine_control(self)
-        elif urlparse(self.path).path in _settings_schema.ROLES:
-            return _server_collection_settings(self)
-        elif self.path == '/api/collection/control/start':
-            return self.send_json(_collection_operator_start())
-        elif self.path in ('/api/collection/control/pause', '/api/collection/control/resume'):
-            return self._server_post_branch_05()
-        elif self.path == '/api/collection/auth/recovery/request':
-            return _server_desktop_auth_request(self)
-        elif self.path in {'/api/collection/auth/recovery/claim', '/api/collection/auth/recovery/snapshot_ready', '/api/collection/auth/recovery/pc2_restarting', '/api/collection/auth/recovery/result'}:
-            return self._server_post_branch_06()
-        elif self.path == '/api/collection/auth/force_reset':
-            return self._server_post_branch_07()
-        elif self.path == '/api/collection/auth/complete':
-            return self._server_post_branch_08()
-        elif self.path == '/api/collection/auth/resume_after_cooldown':
-            return self._server_post_branch_09()
-        elif self.path in MANUAL_REVIEW_RECEIPT_ENDPOINTS:
-            return self._server_post_branch_10()
-        elif self.path in ('/api/avm/run', '/api/analysis/pipeline/run'):
-            return self._server_post_branch_11()
-        elif self.path in ('/api/avm/evaluate', '/api/analysis/evaluate'):
-            return self._server_post_branch_12()
-        elif self.path in ('/api/avm/recent_enrich_maintenance', '/api/collection/details/maintenance'):
-            return self._server_post_branch_13()
-        elif self.path in ('/api/avm/fetch_missing_detail_archives', '/api/collection/details/fetch_missing'):
-            return self._server_post_branch_14()
-        elif self.path in ('/api/avm/archive_detail_replay', '/api/collection/details/prepare_replay'):
-            return self._server_post_branch_15()
-        elif self.path == '/api/avm/start_all_subtasks':
-            return self._server_post_branch_16()
-        elif self.path == '/api/avm/run_all_subtasks_sync':
-            return self._server_post_branch_17()
-        elif self.path == '/api/save_locations':
-            return self._server_post_branch_18()
-        elif self.path in ('/api/area_result', '/api/collection/details/area_result'):
-            return self._server_post_branch_19()
-        elif self.path in ('/api/infer_location', '/api/collection/details/infer_location'):
-            return self._server_post_branch_20()
-        elif self.path in ('/api/approve_area', '/api/collection/details/approve_area'):
-            return self._server_post_branch_21()
-        elif self.path in ('/api/save', '/api/collection/seeds/batch'):
-            return self._server_post_branch_22()
-        elif self.path == '/api/avm/screen':
-            return self._server_post_branch_23()
-        elif self.path in ('/api/report_captcha', '/api/report_manual_captcha'):
-            return self._server_post_branch_24()
-        elif self.path == '/api/log':
-            return self._server_post_branch_25()
-        elif self.path.startswith('/api/upload'):
-            return self._server_post_branch_26()
-        elif self.path in ('/api/update_item', '/api/collection/details/update_item'):
-            return self._server_post_branch_27()
-        elif self.path == '/api/get_next_task':
-            return self._server_post_branch_28()
-        elif self.path in ('/api/analyze_html', '/api/collection/details/html'):
-            return self._server_post_branch_29()
-        else:
-            return self._server_post_fallback()
+        request_path = urlparse(self.path).path
+        handler = ROUTES.get(('POST', request_path))
+        if handler is not None:
+            if not self._authorize_write(handler, request_path):
+                return
+            return getattr(self, handler)()
+        return self._server_post_fallback()
+
+    def _authorize_write(self, handler, request_path):
+        access = _route_access.required_access('POST', handler)
+        if access == 'worker':
+            return _require_collection_worker(self)
+        if access == 'node':
+            return _require_node_auth(self)
+        if access == 'recovery':
+            authorized, _error = _nas_auth_recovery_authorized(self.headers)
+            if not authorized:
+                _send_guard_error(self, {'status': 403, 'code': 'COLLECTION_AUTH_RECOVERY_FORBIDDEN', 'message': 'Authentication recovery authorization rejected', 'details': {}})
+            return authorized
+        if access in {'engine', 'settings'}:
+            role = _settings_schema.ROLES.get(request_path) if access == 'settings' else ('operator' if request_path == _engine_control.PREFIX else 'agent')
+            try:
+                _engine_control.authorize(self.headers, role)
+            except _engine_control.RestartError as error:
+                code = 'SETTINGS_REJECTED' if access == 'settings' else 'ENGINE_RESTART_REJECTED'
+                _send_guard_error(self, {'status': error.status, 'code': code, 'message': str(error), 'details': {}})
+                return False
+            return True
+        return _require_control_plane(self)
+
+    def _post_collection_start(self):
+        if not _require_control_plane(self):
+            return
+        accepted, _payload = _read_json_body(self)
+        if accepted:
+            self.send_json(_collection_operator_start())
+
+    def _post_desktop_auth_request(self):
+        return _server_desktop_auth_request(self)
+
+    def _get_collection_settings(self, parsed, request_path, query):
+        return _server_collection_settings(self, read=True)
+
+    def _post_engine_control(self):
+        return _server_engine_control(self)
+
+    def _post_collection_settings(self):
+        return _server_collection_settings(self)
+
+    def _enqueue_collection_job(
+        self,
+        operation,
+        work,
+        failure_code,
+        *,
+        job_id=None,
+        response_status=202,
+        response_extra=None,
+    ):
+        from src.collection_jobs import JobQueueFull
+
+        active_root = Path(getattr(AVM_SERVICE, 'data_dir', DATA_DIR))
+        try:
+            job = self.server.collection_jobs(active_root).submit(
+                operation,
+                work,
+                failure_code,
+                job_id=job_id,
+            )
+        except JobQueueFull:
+            self.send_error_json(status=503, code='COLLECTION_JOB_QUEUE_FULL', message='Collection operation queue is unavailable')
+            return
+        except Exception as error:
+            self.send_error_json(status=503, code='COLLECTION_JOB_SUBMISSION_FAILED', message='Unable to persist collection job', details={'error': str(error)})
+            return
+        response = {
+            'status': 'accepted', 'job_id': job['job_id'], 'job_status': job['status'],
+            'status_url': '/api/collection/jobs?id=' + job['job_id'],
+        }
+        if response_extra:
+            response.update(dict(response_extra))
+        _write_json_response(self, response_status, response)
+
+    def _submit_maintenance_job(self, operation, failure_code):
+        from src.collection_maintenance_jobs import prepare_maintenance
+
+        if not _require_control_plane(self):
+            return
+        accepted, payload = _read_json_body(self)
+        if not accepted:
+            return
+        active_root = Path(getattr(AVM_SERVICE, 'data_dir', DATA_DIR))
+        try:
+            work = prepare_maintenance(operation, payload, active_root, _detail_collection_service(active_root), load_data)
+        except Exception as error:
+            self.send_error_json(status=500, code=failure_code, message='Unable to prepare collection operation', details={'error': str(error)})
+            return
+        self._enqueue_collection_job(operation, work, failure_code)
+
+    def _submit_pipeline_job(self, config, failure_code):
+        pipeline = AVM_PIPELINE
+
+        def run():
+            result = pipeline.run(async_mode=False, config=config)
+            if result.get('status') != 'completed':
+                raise RuntimeError('Pipeline did not complete this request; inspect the pipeline log')
+            return result
+
+        self._enqueue_collection_job('pipeline', run, failure_code)
+
+    def _get_collection_job(self, parsed, request_path, query):
+        if not _require_control_plane(self):
+            return
+        job_id = query.get('id', [''])[0]
+        if re.fullmatch(r'[a-f0-9]{32}', job_id) is None:
+            self.send_error_json(status=400, code='COLLECTION_JOB_INVALID_ID', message='A valid collection job ID is required')
+            return
+        active_root = Path(getattr(AVM_SERVICE, 'data_dir', DATA_DIR))
+        try:
+            job = self.server.collection_jobs(active_root).get(job_id)
+        except Exception as error:
+            self.send_error_json(status=503, code='COLLECTION_JOB_STATE_UNAVAILABLE', message='Collection job receipt is unavailable', details={'error': str(error)})
+            return
+        if job is None:
+            self.send_error_json(status=404, code='COLLECTION_JOB_NOT_FOUND', message='Collection job was not found')
+            return
+        self.send_json(job)
 
     def do_DELETE(self):
-        global LAST_REQUEST_TIME
-        LAST_REQUEST_TIME = time.time()
-        if self.path in MANUAL_REVIEW_RECEIPT_ENDPOINTS:
-            content_length = int(self.headers['Content-Length']) if self.headers.get('Content-Length') else 0
-            try:
-                payload = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
-            except Exception:
-                self.send_error_json(status=400, code='AVM_INVALID_JSON', message='请求体不是合法 JSON', details={})
+        request_path = urlparse(self.path).path
+        if request_path in MANUAL_REVIEW_RECEIPT_ENDPOINTS:
+            if not _require_control_plane(self):
                 return
-            if not isinstance(payload, dict):
-                self.send_invalid_request_body(payload)
-                return
-            (token_valid, token_error) = _verify_control_plane_token(self.headers)
-            if not token_valid:
-                self.send_error_json(status=403, code=token_error['code'], message=token_error['message'], details=token_error.get('details', {}))
+            (accepted, payload) = _read_json_body(self)
+            if not accepted:
                 return
             (valid, error_payload) = _validate_manual_review_receipt_delete_payload(payload if isinstance(payload, dict) else {})
             if not valid:
@@ -282,7 +315,6 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
             except Exception as e:
                 self.send_error_json(status=500, code='AVM_MANUAL_REVIEW_RECEIPT_DELETE_FAILED', message='manual review receipt 删除失败', details={'error': str(e)})
             return
-        request_path = urlparse(self.path).path
         if request_path.startswith('/api/'):
             self.send_error_json(status=404, code='AVM_ENDPOINT_NOT_FOUND', message='未找到接口', details={'path': request_path})
         else:
@@ -293,20 +325,30 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
         return None
 
 
-for _method_name in ['_server_get_branch_01', '_server_get_branch_02', '_server_get_branch_03', '_server_get_branch_04', '_server_get_branch_05', '_server_get_branch_06', '_server_get_branch_07', '_server_get_branch_08', '_server_get_branch_09', '_server_get_branch_10', '_server_get_branch_11', '_server_get_branch_12', '_server_get_branch_13', '_server_get_branch_14', '_server_get_branch_15', '_server_get_branch_16', '_server_get_branch_17', '_server_get_branch_18', '_server_get_branch_19', '_server_get_branch_20', '_server_get_branch_21', '_server_get_branch_22', '_server_get_branch_23', '_server_get_branch_24', '_server_get_branch_25', '_server_get_branch_26', '_server_get_branch_27', '_server_get_branch_28', '_server_get_branch_29', '_server_get_branch_30', '_server_get_branch_31', '_server_get_branch_32', '_server_get_fallback', '_server_post_branch_01', '_server_post_branch_02', '_server_post_branch_03', '_server_post_branch_04', '_server_post_branch_05', '_server_post_branch_06', '_server_post_branch_07', '_server_post_branch_08', '_server_post_branch_09', '_server_post_branch_10', '_server_post_branch_11', '_server_post_branch_12', '_server_post_branch_13', '_server_post_branch_14', '_server_post_branch_15', '_server_post_branch_16', '_server_post_branch_17', '_server_post_branch_18', '_server_post_branch_19', '_server_post_branch_20', '_server_post_branch_21', '_server_post_branch_22', '_server_post_branch_23', '_server_post_branch_24', '_server_post_branch_25', '_server_post_branch_26', '_server_post_branch_27', '_server_post_branch_28', '_server_post_branch_29', '_server_post_fallback', 'send_json', 'send_error_json', 'send_invalid_request_body', 'update_file', 'run_solver', 'log_message']:
+_method_names = set(ROUTES.values()) | {
+    '_get_collection_asset', '_get_api_not_found', '_server_get_fallback', '_server_post_fallback',
+    'send_json', 'send_error_json', 'send_invalid_request_body', 'update_file', 'run_solver', 'log_message',
+}
+for _method_name in sorted(_method_names):
+    if _method_name in DataHandler.__dict__:
+        continue
     _method = globals()[_method_name]
     _method.__qualname__ = f"DataHandler.{_method_name}"
     setattr(DataHandler, _method_name, _method)
 
 
-class ReusableTCPServer(socketserver.TCPServer):
+from src.collection_http_server import CollectionHTTPServer, tls_context_from_env
+
+
+class ReusableTCPServer(CollectionHTTPServer):
     allow_reuse_address = True
 
 
 if __name__ == '__main__':
+    _listener_tls = tls_context_from_env(os.environ)
     print(f'Starting Data Receiver on port {PORT}...')
     print(f'Serving Pending Tasks from: {os.path.abspath(DATA_DIR)}')
-    initialize_runtime(start_watchdog=True, ensure_browser=True)
+    initialize_runtime()
     AVM_CONFIG_MANAGER.load_on_startup()
     AVM_CONFIG_MANAGER.start_hot_reload_watcher()
     print(f'[AVM-CONFIG] Active config: {AVM_CONFIG_MANAGER.get_config()}')
@@ -314,7 +356,7 @@ if __name__ == '__main__':
     threading.Thread(target=background_file_processor, daemon=True).start()
     threading.Thread(target=auto_tuner_thread, daemon=True).start()
     try:
-        with ReusableTCPServer(('', PORT), DataHandler) as httpd:
+        with ReusableTCPServer(('', PORT), DataHandler, tls=_listener_tls) as httpd:
             print('Server running. Press Ctrl+C to stop.')
             try:
                 httpd.serve_forever()

@@ -19,6 +19,10 @@ from urllib.request import Request, urlopen
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Callable
 
+from .collection_control_state import CHALLENGE_SCOPES, new_scope_state
+from .collection_runtime_index import CollectionRuntimeIndex
+from .runtime_state import RuntimeState
+
 from src import llm_helper
 from src.avm_config import AVM_CONFIG_MANAGER
 from src.avm_config import DEFAULT_AVM_CONFIG
@@ -137,16 +141,13 @@ def _build_solver_request(payload):
 
 
 def _refresh_solver_last_request(request_payload):
-    global SOLVER_LAST_REQUEST
-
     request = _build_solver_request(request_payload)
-    if not request:
-        return dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
-
-    merged = dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
-    merged.update(request)
-    SOLVER_LAST_REQUEST = _build_solver_request(merged)
-    return dict(SOLVER_LAST_REQUEST)
+    with RUNTIME.lock:
+        merged = RUNTIME.recovery.snapshot().last_request
+        if not request:
+            return merged
+        merged.update(request)
+        return RUNTIME.recovery.set_request(_build_solver_request(merged))
 
 
 def _build_solver_for_request(request_payload):
@@ -196,7 +197,6 @@ from tools.manual_review_receipt_audit import (
     summarize_manual_review_receipt_operations_snapshot,
 )
 from tools.manual_review_receipt_jobs import (
-    ManualReviewMaintenanceManager,
     load_manual_review_receipt_jobs,
     summarize_manual_review_receipt_jobs_snapshot,
 )
@@ -246,56 +246,11 @@ DB_REPOSITORY = create_repository_from_env()
 AVM_SERVICE = AVMService(data_dir=DATA_DIR, repository=DB_REPOSITORY)
 AVM_PIPELINE = AVMPipelineManager(data_dir=DATA_DIR)
 
-# Global state
-SEEN_IDS = {}  # id -> {file_path, status, data}
-PENDING_TASKS = [] # list of ids
-DISPATCHED_TASKS = {} # id -> timestamp
-PAUSED = False
-COLLECTION_PAUSE_REASON = None
-SOLVER_LOCK = threading.Lock()
-FILE_LOCK = threading.Lock()
-DATA_LOCK = threading.Lock() # Protects SEEN_IDS and PENDING_TASKS
-CURRENT_PROCESSING = set() # Track running tasks to avoid duplicate submission
-SOLVER_RUNNING = False
-SOLVER_PENDING_TOKEN = None
-SOLVER_START_TIME = 0
-SOLVER_LAST_STATUS = "idle"
-SOLVER_LAST_FAILURE_REASON = None
-SOLVER_LAST_FINISHED_TIME = 0
-SOLVER_LAST_REQUEST = {}
-SOLVER_MANUAL_RESUME_EPOCH = 0
-SOLVER_CANCEL_EPOCH = 0
-SOLVER_MANUAL_REQUIRED_EPOCH = 0
-SOLVER_MANUAL_ONLY = False
-SOLVER_MANUAL_RETRY_LAST_EPOCH = 0
-SOLVER_MANUAL_RETRY_ATTEMPTS = 0
-SOLVER_CHALLENGE_ID = None
-CHALLENGE_SCOPES = ("seed", "detail")
-SOLVER_SCOPE_LOCK = threading.RLock()
-SOLVER_SCOPE_STATES: dict[str, dict[str, Any]] = {
-    scope: {
-        "challenge_id": None,
-        "last_request": {},
-        "first_seen_epoch": 0.0,
-        "pause_started_epoch": 0.0,
-        "paused": False,
-        "pause_reason": None,
-        "manual_required": False,
-        "manual_only": False,
-        "last_status": "idle",
-        "last_failure_reason": None,
-        "force_reset_required": False,
-    }
-    for scope in CHALLENGE_SCOPES
-}
-SOLVER_SCOPE_STATE_ROOT: str | None = None
+RUNTIME = RuntimeState()
 CHALLENGE_FORCE_RESET_SECONDS = max(
     1.0,
     float(os.getenv("FAPAI_CHALLENGE_FORCE_RESET_SECONDS", "900")),
 )
-SOLVER_LAST_AUTH_COMPLETED_TIME = 0.0
-SOLVER_LAST_AUTH_COMPLETED_REQUEST: dict[str, Any] = {}
-SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT: int | None = None
 SOLVER_AUTH_REPORT_GRACE_SECONDS = max(
     0.0,
     float(os.getenv("FAPAI_SOLVER_AUTH_REPORT_GRACE_SECONDS", "90")),
@@ -312,22 +267,6 @@ SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS = max(
     0.0,
     float(os.getenv("FAPAI_SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS", "180")),
 )
-SOLVER_SCOPE_FORCE_RESET_RECOVERIES: dict[str, dict[str, Any]] = {
-    scope: {} for scope in CHALLENGE_SCOPES
-}
-AUTH_COMPLETION_LOCK = threading.Lock()
-AUTH_COMPLETION_CONFIRMATIONS: dict[str, float] = {}
-AUTH_COMPLETION_FINALIZE_LOCK = threading.Lock()
-AUTH_COOKIE_SNAPSHOT_LOCK = threading.Lock()
-AUTH_COOKIE_SNAPSHOT_THREAD: threading.Thread | None = None
-AUTH_COOKIE_SNAPSHOT_STATE: dict[str, Any] = {
-    "status": "idle",
-    "completion_id": None,
-    "attempts": 0,
-    "max_attempts": 0,
-    "refreshed": False,
-    "retry_queued": False,
-}
 NAS_AUTH_RECOVERY_POLL_SECONDS = max(
     5.0,
     float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_POLL_SECONDS", "60")),
@@ -354,8 +293,67 @@ NAS_AUTH_RECOVERY = NasAuthRecoveryCoordinator(
     verify_timeout_seconds=float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_VERIFY_TIMEOUT_SECONDS", "600")),
     cooldown_seconds=float(os.getenv("FAPAI_NAS_AUTH_RECOVERY_COOLDOWN_SECONDS", "1800")),
 )
-RUNTIME_INITIALIZED = False
-AVM_SERVICE_START_TIME = time.time()
+
+
+def _utc_now() -> datetime.datetime:
+    """Return an aware UTC instant while tolerating legacy zero-argument clocks."""
+    try:
+        value = datetime.datetime.now(datetime.timezone.utc)
+    except TypeError:
+        value = datetime.datetime.now()
+    return value if value.tzinfo is not None else value.replace(tzinfo=datetime.timezone.utc)
+
+
+def _as_utc_timestamp(value: datetime.datetime | None) -> datetime.datetime | None:
+    """Normalize legacy naive dispatch timestamps as UTC for safe subtraction."""
+    if value is None:
+        return None
+    if value.tzinfo is None:
+        return value.replace(tzinfo=datetime.timezone.utc)
+    return value.astimezone(datetime.timezone.utc)
+
+
+def _parse_utc_timestamp(value: Any) -> datetime.datetime | None:
+    """Parse legacy or ISO timestamps and normalize them to aware UTC."""
+    text = str(value or "").strip()
+    if not text:
+        return None
+    normalized = text[:-1] + "+00:00" if text.endswith(("Z", "z")) else text
+    try:
+        parsed = datetime.datetime.fromisoformat(normalized)
+    except (AttributeError, TypeError, ValueError):
+        try:
+            parsed = datetime.datetime.strptime(text, "%Y-%m-%d %H:%M:%S")
+        except (AttributeError, TypeError, ValueError):
+            return None
+    return _as_utc_timestamp(parsed)
+
+
+def _utc_timestamp_leq(left: Any, right: Any) -> bool:
+    """Compare canonical mixed timestamps by UTC while preserving legacy ordering."""
+    left_text = str(left or "").strip()
+    right_text = str(right or "").strip()
+    left_dt = _parse_utc_timestamp(left_text)
+    right_dt = _parse_utc_timestamp(right_text)
+    canonical = re.compile(r"^\d{4}-\d{2}-\d{2}(?:[T ].*)?$")
+    if (
+        left_dt is not None
+        and right_dt is not None
+        and canonical.fullmatch(left_text)
+        and canonical.fullmatch(right_text)
+    ):
+        return left_dt <= right_dt
+    return left_text <= right_text
+
+def _collection_runtime_index() -> CollectionRuntimeIndex:
+    """Read the index from the currently injected runtime."""
+    return RUNTIME.collection
+
+
+def _runtime_started_at() -> float:
+    """Read the runtime-owned clock without changing state during a status request."""
+    with RUNTIME.lock:
+        return RUNTIME.started_at
 
 DEFAULT_MARGIN_THRESHOLD = 0.15
 MALIGNANT_RISK_LABELS = {

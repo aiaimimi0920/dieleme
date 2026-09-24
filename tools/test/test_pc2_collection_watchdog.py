@@ -85,6 +85,30 @@ def test_healthy_starting_and_deliberately_stopped_containers_are_untouched(tmp_
     assert not docker.restarts
 
 
+def test_persistent_restart_limit_backoff_and_healthy_reset(tmp_path):
+    docker, now = BrowserDocker(), [1000]
+    make_watcher = lambda: CollectionWatchdog(tmp_path, runner=docker, clock=lambda: now[0], grace=0, cooldown=10, max_attempts=3)
+    watcher = make_watcher()
+    assert watcher.step() == "restart_requested"
+    now[0] += 10
+    assert make_watcher().step() == "restart_requested"
+    now[0] += 10
+    assert make_watcher().step() == "waiting"
+    now[0] += 10
+    assert make_watcher().step() == "restart_requested"
+    docker.row["State"]["Health"]["Status"] = "starting"
+    assert make_watcher().step() == "healthy_or_stopped"
+    docker.row["State"]["Health"]["Status"] = "unhealthy"
+    now[0] += 10000
+    assert make_watcher().step() == "restart_limit_reached"
+    assert len(docker.restarts) == 3
+    assert json.loads(watcher.path.read_text())["alert"] == "manual_intervention_required"
+    docker.row["State"]["Health"]["Status"] = "healthy"
+    assert make_watcher().step() == "healthy_or_stopped"
+    docker.row["State"]["Health"]["Status"] = "unhealthy"
+    assert make_watcher().step() == "restart_requested"
+
+
 def test_watchdog_recovers_locally_before_nas_poll_and_skips_unresolved_operations(tmp_path, monkeypatch):
     from contextlib import nullcontext
     monkeypatch.setattr("tools.pc2_collection_controller.operation_lock", lambda _: nullcontext())

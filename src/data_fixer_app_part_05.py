@@ -1,5 +1,8 @@
 from __future__ import annotations
+import logging
 from src.data_fixer_context import *  # noqa: F401,F403
+
+logger = logging.getLogger(__name__)
 
 
 class DataFixerAppPart05:
@@ -16,7 +19,7 @@ class DataFixerAppPart05:
                     if self.save_area(item):
                         approved += 1
                         to_remove.append(row_data['idx'])
-                except:
+                except Exception:
                     pass
 
         for idx in to_remove:
@@ -50,7 +53,7 @@ class DataFixerAppPart05:
                         if k in row_data['vars']:
                             try:
                                 row_data['vars'][k].set(str(v))
-                            except:
+                            except Exception:
                                 pass
 
                 # Update item data
@@ -76,7 +79,7 @@ class DataFixerAppPart05:
                         if k in row_data['vars']:
                              try:
                                  row_data['vars'][k].set(str(v))
-                             except:
+                             except Exception:
                                  pass
 
                 # Update item data
@@ -210,7 +213,7 @@ class DataFixerAppPart05:
                                         record['单价'] = round(float(price) / area_float, 2)
                                 else:
                                     record['单价'] = 0
-                            except:
+                            except Exception:
                                 pass
 
                     # Fallback: update 建筑面积 directly from item
@@ -237,8 +240,7 @@ class DataFixerAppPart05:
 
         except Exception as e:
             self.log(f"保存失败: {e}")
-            import traceback
-            print(traceback.format_exc())
+            logger.exception("保存失败")
 
         return False
 

@@ -54,10 +54,10 @@ def test_nas_and_worker_compose_templates_exist_and_separate_roles() -> None:
     worker_env = (REPO_ROOT / "env.worker.example").read_text(encoding="utf-8")
 
     assert "fapaifang-postgres" in nas_compose
-    assert "fapaifang-api" in nas_compose
+    assert "crow-api" in nas_compose
     assert "fapaifang-seed-collector" not in nas_compose
     assert "fapaifang-postgres" not in worker_compose
-    assert "fapaifang-api" not in worker_compose
+    assert "crow-api" not in worker_compose
     assert "FAPAI_NODE_ID" in worker_compose
     assert "FAPAI_LIST_BROWSER_FALLBACK" in worker_compose
     assert "FAPAI_DETAIL_CDP_ENDPOINT" in worker_env
@@ -103,7 +103,7 @@ def test_nas_api_image_exposes_verifiable_build_identity_and_hotfix_dockerfile()
     assert "org.opencontainers.image.revision" in compose
     assert "io.fapaifang.source-digest" in compose
 
-    api_environment = compose.split("  fapaifang-api:", 1)[1].split("    ports:", 1)[0]
+    api_environment = compose.split("  crow-api:", 1)[1].split("    ports:", 1)[0]
     assert "FAPAI_COOKIE_SNAPSHOT_ROOT: ${FAPAI_COOKIE_SNAPSHOT_ROOT:-/data/shared}" in api_environment
     assert "FAPAI_COOKIE_SNAPSHOT_ROOT=/data/shared" in nas_env
     for name in (
@@ -126,7 +126,7 @@ def test_nas_api_deploy_helper_requires_backup_identity_health_gate_and_rollback
     assert "FAPAI_SOURCE_DIGEST" in script
     assert 'build.get("version")' in script
     assert 'build.get("source_digest")' in script
-    assert "up -d --no-deps --no-build fapaifang-api" in script
+    assert "up -d --no-deps --no-build crow-api" in script
     assert "Candidate container state before rollback" in script
     assert "docker logs --tail 200 --timestamps" in script
     assert "/api/collection/overview" in script
@@ -142,6 +142,36 @@ def test_nas_api_deploy_helper_requires_backup_identity_health_gate_and_rollback
     assert 'export FAPAI_IMAGE="$candidate_image"' in script
     assert '--project-name "$compose_project"' in script
     assert "Candidate image build failed; the running API was not replaced." in script
+
+
+def test_nas_api_deploy_health_gate_follows_tls_config_and_public_status() -> None:
+    script = (REPO_ROOT / "scripts" / "deploy-nas-central-api.sh").read_text(encoding="utf-8")
+    nas_env = (REPO_ROOT / "env.nas.example").read_text(encoding="utf-8")
+
+    assert "FAPAI_API_TLS_CERT_FILE=" in nas_env
+    assert "FAPAI_API_TLS_KEY_FILE=" in nas_env
+    assert "FAPAI_API_HOST_BIND_ADDRESS=127.0.0.1" in nas_env
+    assert "FAPAI_API_HEALTH_HOST=localhost" in nas_env
+    assert "api_health_scheme=https" in script
+    assert 'api_health_curl_args=(--resolve "${api_health_host}:${api_port}:${api_health_resolve_address}")' in script
+    assert 'api_health_curl_args+=(--cacert "$api_health_ca_file")' in script
+    assert 'health_url="${api_health_scheme}://${api_health_host}:${api_port}/api/status"' in script
+    assert 'curl -fsS --max-time 5 "${api_health_curl_args[@]}" "$health_url"' in script
+    assert 'if not (payload.get("auth_recovery") or {}).get("enabled"):' in script
+
+
+def test_nas_api_defaults_to_loopback_and_guards_external_binding_with_tls() -> None:
+    compose = (REPO_ROOT / "docker-compose.nas-central.yml").read_text(encoding="utf-8")
+    script = (REPO_ROOT / "scripts" / "deploy-nas-central-api.sh").read_text(encoding="utf-8")
+    runbook = (REPO_ROOT / "docs" / "nas-central-deployment.md").read_text(encoding="utf-8")
+
+    assert '"${FAPAI_API_HOST_BIND_ADDRESS:-127.0.0.1}:${FAPAI_API_HOST_PORT:-9520}:8001"' in compose
+    assert 'api_host_bind_address="${FAPAI_API_HOST_BIND_ADDRESS:-127.0.0.1}"' in script
+    assert 'if [[ "$api_bind_is_loopback" != 1 && -z "$api_tls_cert_file" ]]; then' in script
+    assert "External NAS API binding requires a configured TLS certificate and key." in script
+    assert "FAPAI_API_HOST_BIND_ADDRESS` 设为 NAS 的 IPv4 地址或 `0.0.0.0`" in runbook
+    assert '"${api_scheme}://${api_health_host}:${FAPAI_API_HOST_PORT:-9520}/api/status"' in runbook
+    assert "curl -s http://127.0.0.1:8001/api/status" not in runbook
 
 
 def test_nas_auth_recovery_hotfix_only_overlays_recovery_server_files() -> None:

@@ -97,7 +97,6 @@ def _collection_runtime_state_label() -> str:
     return "运行中"
 
 def _collection_observer_runtime_control_payload(action: str) -> dict[str, Any]:
-    global SOLVER_MANUAL_RESUME_EPOCH
     safe_action = str(action or "").strip().lower()
     if safe_action not in {"pause", "resume"}:
         return {"ok": False, "error": "action must be pause or resume", "action": safe_action}
@@ -105,7 +104,7 @@ def _collection_observer_runtime_control_payload(action: str) -> dict[str, Any]:
         _set_collection_pause_state(True, "operator")
     else:
         _set_collection_pause_state(False)
-        SOLVER_MANUAL_RESUME_EPOCH = time.time()
+        RUNTIME.recovery.resume(time.time())
         _clear_solver_running_state()
         _clear_solver_manual_required_state()
         flag_path = _solver_force_unlock_flag_path()
@@ -165,19 +164,27 @@ def _read_auth_completion_confirmations() -> dict[str, float]:
             continue
     return confirmations
 
+
+def _auth_completion_recovery_state():
+    return RUNTIME.recovery
+
 def _auth_completion_was_confirmed(completion_id: str | None) -> bool:
     if not completion_id:
         return False
-    with AUTH_COMPLETION_LOCK:
-        AUTH_COMPLETION_CONFIRMATIONS.update(_read_auth_completion_confirmations())
-        return completion_id in AUTH_COMPLETION_CONFIRMATIONS
+    state = _auth_completion_recovery_state()
+    with state.lock:
+        confirmations = state.confirmation_snapshot()
+        confirmations.update(_read_auth_completion_confirmations())
+        state.replace_confirmations(confirmations)
+        return state.was_confirmation_recorded(completion_id)
 
 def _remember_auth_completion_confirmation(completion_id: str | None) -> str | None:
     if not completion_id:
         return None
-    with AUTH_COMPLETION_LOCK:
+    state = _auth_completion_recovery_state()
+    with state.lock:
         confirmations = _read_auth_completion_confirmations()
-        confirmations.update(AUTH_COMPLETION_CONFIRMATIONS)
+        confirmations.update(state.confirmation_snapshot())
         confirmations[completion_id] = time.time()
         if len(confirmations) > 256:
             confirmations = dict(sorted(confirmations.items(), key=lambda item: item[1])[-192:])
@@ -196,8 +203,7 @@ def _remember_auth_completion_confirmation(completion_id: str | None) -> str | N
             except Exception:
                 pass
             return repr(error)
-        AUTH_COMPLETION_CONFIRMATIONS.clear()
-        AUTH_COMPLETION_CONFIRMATIONS.update(confirmations)
+        state.replace_confirmations(confirmations)
     return None
 
 def _auth_state_is_confirmed(
@@ -226,7 +232,6 @@ def _finalize_auth_completion_after_cookie_snapshot(
 ) -> dict[str, Any]:
     """Clear a manual pause only after a healthy cookie snapshot is durable."""
 
-    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
     normalized_expected = str(expected_challenge_id or "").strip() or None
     completion_scope = _challenge_scope_for_request(completion_request)
     if completion_scope not in CHALLENGE_SCOPES:
@@ -234,14 +239,14 @@ def _finalize_auth_completion_after_cookie_snapshot(
     if (
         completion_scope in CHALLENGE_SCOPES
         and not _solver_scope_runtime_status(completion_scope).get("challenge_id")
-        and normalized_expected == str(SOLVER_CHALLENGE_ID or "").strip()
+        and normalized_expected == str(RUNTIME.recovery.snapshot().challenge_id or "").strip()
     ):
         completion_scope = None
-    with AUTH_COMPLETION_FINALIZE_LOCK:
+    with RUNTIME.recovery.finalize_lock:
         normalized_current = (
             str(_solver_scope_runtime_status(completion_scope).get("challenge_id") or "").strip() or None
             if completion_scope in CHALLENGE_SCOPES
-            else str(SOLVER_CHALLENGE_ID or "").strip() or None
+            else str(RUNTIME.recovery.snapshot().challenge_id or "").strip() or None
         )
         if normalized_current != normalized_expected:
             return {
@@ -270,8 +275,7 @@ def _finalize_auth_completion_after_cookie_snapshot(
             auth_state_confirmed = receipt_error is None
 
         if auth_state_confirmed:
-            SOLVER_LAST_STATUS = "manual_auth_completed"
-            SOLVER_LAST_FAILURE_REASON = None
+            RUNTIME.solver.record_outcome("manual_auth_completed")
             _remember_solver_auth_completion(completion_request)
         else:
             recovery_error: str | None = None
@@ -283,14 +287,13 @@ def _finalize_auth_completion_after_cookie_snapshot(
                     manual_only=_solver_target_requires_manual_only(completion_request),
                     scope=completion_scope or None,
                 )
-            SOLVER_LAST_STATUS = "manual_required"
-            SOLVER_LAST_FAILURE_REASON = "manual_required"
+            RUNTIME.solver.record_outcome("manual_required", "manual_required")
             _set_collection_pause_state(True, "manual_required")
 
         result: dict[str, Any] = {
             "auth_state_confirmed": auth_state_confirmed,
             "idempotent": bool(previously_confirmed and auth_state_confirmed),
-            "challenge_id": SOLVER_CHALLENGE_ID,
+            "challenge_id": RUNTIME.recovery.snapshot().challenge_id,
         }
         if clear_error is not None:
             result["error"] = f"failed to clear force unlock flag: {clear_error}"
@@ -308,7 +311,7 @@ def _node_auth_challenge_matches(payload: dict[str, Any], source: str) -> bool:
     active_id = (
         str(_solver_scope_runtime_status(scope).get("challenge_id") or "").strip()
         if scope in CHALLENGE_SCOPES
-        else str(SOLVER_CHALLENGE_ID or "").strip()
+        else str(RUNTIME.recovery.snapshot().challenge_id or "").strip()
     )
     if source != "pc2_local_solver" or not active_id:
         return True
@@ -322,17 +325,16 @@ def _collection_observer_resume_after_cooldown_payload(
     The request id is recorded in the same durable receipt store as auth
     completions so a NAS timeout or PC2 restart can safely replay the request.
     """
-    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
     payload = payload if isinstance(payload, dict) else {}
     request_id = _normalize_auth_completion_id(payload.get("resume_request_id"))
     source = str(payload.get("source") or "pc2_local_solver")
     resume_scope = _normalize_challenge_scope(payload.get("scope")) or _scope_for_challenge_id(payload.get("challenge_id"))
     if resume_scope not in CHALLENGE_SCOPES:
         reported_resume_id = str(payload.get("challenge_id") or "").strip()
-        if reported_resume_id and reported_resume_id == str(SOLVER_CHALLENGE_ID or "").strip():
+        if reported_resume_id and reported_resume_id == str(RUNTIME.recovery.snapshot().challenge_id or "").strip():
             resume_scope = None
         else:
-            resume_scope = _challenge_scope_for_request(SOLVER_LAST_REQUEST)
+            resume_scope = _challenge_scope_for_request(RUNTIME.recovery.snapshot().last_request)
     if not request_id:
         return {
             "ok": False,
@@ -353,7 +355,7 @@ def _collection_observer_resume_after_cooldown_payload(
             "resume_request_id": request_id,
             "auth_state_confirmed": False,
             "stale_challenge": True,
-            "challenge_id": SOLVER_CHALLENGE_ID,
+            "challenge_id": RUNTIME.recovery.snapshot().challenge_id,
             "paused": bool(solver_status.get("paused")),
             "captcha_solver": solver_status,
             "error": "resume request belongs to an older captcha challenge",
@@ -376,13 +378,12 @@ def _collection_observer_resume_after_cooldown_payload(
             auth_state_confirmed = receipt_error is None
 
     if auth_state_confirmed:
-        SOLVER_LAST_STATUS = "resumed_after_cooldown"
-        SOLVER_LAST_FAILURE_REASON = None
+        RUNTIME.solver.record_outcome("resumed_after_cooldown")
         # The scoped clear can remove last_request before the grace baseline is
         # recorded. Keep the reporting node/CDP carried by the resume receipt,
         # then fill any missing target metadata from the retained server state.
         resume_request = _build_solver_request(payload)
-        retained_request = SOLVER_LAST_REQUEST
+        retained_request = RUNTIME.recovery.snapshot().last_request
         if resume_scope in CHALLENGE_SCOPES:
             scoped_request = _solver_scope_runtime_status(resume_scope).get("last_request")
             if isinstance(scoped_request, dict) and scoped_request:
@@ -391,8 +392,7 @@ def _collection_observer_resume_after_cooldown_payload(
             resume_request.setdefault(key, value)
         _remember_solver_auth_completion(resume_request)
     else:
-        SOLVER_LAST_STATUS = "manual_required"
-        SOLVER_LAST_FAILURE_REASON = "manual_required"
+        RUNTIME.solver.record_outcome("manual_required", "manual_required")
         _set_collection_pause_state(True, "manual_required", scope=resume_scope or None)
     solver_status = _captcha_solver_runtime_status()
     scoped_result_status = (
@@ -431,4 +431,4 @@ def _collection_observer_resume_after_cooldown_payload(
         result["error"] = "auth state remained paused or manual_required after cleanup"
     return result
 
-__all__ = ["_collection_observer_items_payload", "_collection_observer_regions_payload", "_collection_observer_item_payload", "_collection_observer_reanalysis_payload", "_collection_observer_manual_update_payload", "_collection_observer_reset_region_links_payload", "_collection_runtime_state_label", "_collection_observer_runtime_control_payload", "_normalize_auth_completion_id", "_auth_completion_confirmation_path", "_read_auth_completion_confirmations", "_auth_completion_was_confirmed", "_remember_auth_completion_confirmation", "_auth_state_is_confirmed", "_finalize_auth_completion_after_cookie_snapshot", "_node_auth_challenge_matches", "_collection_observer_resume_after_cooldown_payload"]
+__all__ = ["_collection_observer_items_payload", "_collection_observer_regions_payload", "_collection_observer_item_payload", "_collection_observer_reanalysis_payload", "_collection_observer_manual_update_payload", "_collection_observer_reset_region_links_payload", "_collection_runtime_state_label", "_collection_observer_runtime_control_payload", "_normalize_auth_completion_id", "_auth_completion_confirmation_path", "_read_auth_completion_confirmations", "_auth_completion_recovery_state", "_auth_completion_was_confirmed", "_remember_auth_completion_confirmation", "_auth_state_is_confirmed", "_finalize_auth_completion_after_cookie_snapshot", "_node_auth_challenge_matches", "_collection_observer_resume_after_cooldown_payload"]

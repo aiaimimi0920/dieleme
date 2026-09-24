@@ -151,6 +151,12 @@ curl -X POST "http://127.0.0.1:8001/api/avm/evaluate" \
 - `current_market` 是在线默认模式，估值语义偏“今天的公允价”。
 - `historical_strict` 用于历史严格回测，会剔除晚于标的时间的 future comparables。
 
+估值请求默认同步执行。要将耗时估值放入后台队列，在请求顶层添加
+`"execution_mode": "async"`；不要将 `options.valuation_mode` 改为 `async`，它只用于
+`current_market` / `historical_strict` 估值语义。异步提交返回 `job_id` 和
+`status_url`，完成后的原估值结果位于任务回执的 `result` 字段。查询任务需要 operator
+control token；默认同步响应不变。
+
 #### 响应示例
 ```json
 {
@@ -808,8 +814,9 @@ curl -X POST "http://127.0.0.1:8001/api/avm/manual_review_receipts" \
 ```
 
 说明：
-- `mode=sync`：提交后同步执行一轮 `recent_enrich_maintenance`
-- `mode=async`：提交后创建后台 maintenance job，异步执行恢复链
+- `mode=sync`：提交到通用后台队列，完成后执行一轮 `recent_enrich_maintenance`
+- `mode=async`：同样提交到通用后台队列；响应保留 `maintenance_job_id` 兼容字段，并
+  同时返回通用 `job_id`/`status_url`
 - 重复提交同一 `action + ready_signal` 时会覆盖旧记录
 - 如果环境变量 `FAPAI_CONTROL_PLANE_TOKEN` 已配置，则 `POST / DELETE` 必须带 `X-FAPAI-Control-Token`
 
@@ -841,7 +848,7 @@ curl -X DELETE "http://127.0.0.1:8001/api/avm/manual_review_receipts" \
 
 ### 6.4 查看异步 job
 
-如果使用 `mode=async`，提交后继续查询：
+提交后使用响应中的 `status_url` 查询通用回执；旧客户端也可以继续查询：
 
 ```bash
 curl "http://127.0.0.1:8001/api/avm/manual_review_receipt_jobs"
@@ -849,7 +856,7 @@ curl "http://127.0.0.1:8001/api/avm/manual_review_receipt_jobs?job_id=<job_id>"
 ```
 
 重点看：
-- `status`：`queued / running / completed / failed`
+- `status`：`queued / running / completed / failed / cancelled / interrupted`
 - `result_summary`
 - `manual_review_receipt_summary`
 - `operator_overview`

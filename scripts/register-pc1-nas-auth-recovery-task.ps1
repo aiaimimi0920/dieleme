@@ -1,10 +1,11 @@
 param(
     [string]$TaskName = "FapaiFangNasAuthRecovery",
     [string]$TaskPath = "\FapaiFang\",
-    [string]$ApiBase = "http://192.168.15.200:8001/api",
+    [string]$ApiBase = "",
     [string]$DataRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData"),
     [string]$OutputPath = "",
     [string]$TokenPath = "",
+    [string]$ApiCaFile = "",
     [string]$Python = "",
     [string]$ProfileDir = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData\chrome-cdp-profile-pc1-human-clean"),
     [string]$BrowserPath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
@@ -17,6 +18,15 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+. (Join-Path $PSScriptRoot "collection-api-origin.ps1")
+if (-not $ApiBase) {
+    $ApiBase = if ($env:FAPAI_COLLECTOR_API_BASE) { $env:FAPAI_COLLECTOR_API_BASE } else { $env:FAPAI_API_BASE_URL }
+}
+$ApiBase = (ConvertTo-CollectionApiOrigin $ApiBase) + "/api"
+if (-not $ApiCaFile) { $ApiCaFile = $env:FAPAI_API_CA_FILE }
+if ($ApiCaFile -and -not (Test-Path -LiteralPath $ApiCaFile -PathType Leaf)) {
+    throw "Collection API CA file is unavailable."
+}
 if ($IntervalMinutes -lt 1) { throw "IntervalMinutes must be at least 1." }
 if ($LoginWindowSeconds -lt 300) { throw "LoginWindowSeconds must be at least 300." }
 if ($ExecutionTimeLimitMinutes -lt 5) { throw "ExecutionTimeLimitMinutes must be at least 5." }
@@ -36,7 +46,11 @@ if (-not $OutputPath) {
     $OutputPath = Join-Path $DataRoot "secrets\nodes\pc2\taobao-cookies.json"
 }
 if (-not $TokenPath) {
-    $TokenPath = Join-Path $DataRoot "secrets\nas-auth-recovery.token"
+    $TokenPath = if ($env:FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE) {
+        $env:FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE
+    } else {
+        Join-Path $DataRoot "secrets\nas-auth-recovery.token"
+    }
 }
 
 $arguments = @(
@@ -54,6 +68,9 @@ $arguments = @(
 )
 if ($UseSystemProxy) {
     $arguments += "-UseSystemProxy"
+}
+if ($ApiCaFile) {
+    $arguments += @("-ApiCaFile", "`"$ApiCaFile`"")
 }
 
 $action = New-ScheduledTaskAction `

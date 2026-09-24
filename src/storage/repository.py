@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-from datetime import datetime
 
 from .repository_context import DatabaseSettings, _env_flag
 from .repository_core import RepositoryCoreMixin
@@ -48,7 +47,7 @@ def create_repository_from_env() -> PropertyRepository:
         url=os.environ.get("FAPAI_DB_URL", "").strip(),
         echo=_env_flag("FAPAI_DB_ECHO", False),
         enable_postgis=_env_flag("FAPAI_DB_ENABLE_POSTGIS", False),
-        auto_create=_env_flag("FAPAI_DB_AUTO_CREATE", True),
+        auto_create=_env_flag("FAPAI_DB_AUTO_CREATE", False),
         enabled=_env_flag("FAPAI_DB_ENABLED", True),
     )
     return PropertyRepository(settings=settings)

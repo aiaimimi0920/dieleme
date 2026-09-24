@@ -11,7 +11,8 @@ param(
     [int]$MissingPayloadThreshold = 20,
     [int]$RecoveryCooldownMinutes = 10,
     [int]$ManualAuthGraceMinutes = 30,
-    [string]$ApiBase = "http://192.168.15.200:8001/api",
+    [string]$ApiBase = "",
+    [string]$ApiCaFile = "",
     [int]$NasRecoveryIntervalMinutes = 1,
     [int]$LoginWindowSeconds = 300,
     [string]$ProfileDir = (Join-Path (Split-Path -Parent $PSScriptRoot) "FPFData\chrome-cdp-profile-pc1-human-clean"),
@@ -23,6 +24,15 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+. (Join-Path $PSScriptRoot "collection-api-origin.ps1")
+if (-not $ApiBase) {
+    $ApiBase = if ($env:FAPAI_COLLECTOR_API_BASE) { $env:FAPAI_COLLECTOR_API_BASE } else { $env:FAPAI_API_BASE_URL }
+}
+$ApiBase = (ConvertTo-CollectionApiOrigin $ApiBase) + "/api"
+if (-not $ApiCaFile) { $ApiCaFile = $env:FAPAI_API_CA_FILE }
+if ($ApiCaFile -and -not (Test-Path -LiteralPath $ApiCaFile -PathType Leaf)) {
+    throw "Collection API CA file is unavailable."
+}
 
 function Resolve-DefaultDataRoot {
     if ($DataRoot) {
@@ -81,6 +91,9 @@ $nasRecoveryArgs = @(
 )
 if ($UseSystemProxy) {
     $nasRecoveryArgs += "-UseSystemProxy"
+}
+if ($ApiCaFile) {
+    $nasRecoveryArgs += @("-ApiCaFile", $ApiCaFile)
 }
 
 & powershell.exe @watchdogArgs | Out-Null

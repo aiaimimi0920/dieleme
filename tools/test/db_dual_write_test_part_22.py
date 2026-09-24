@@ -111,10 +111,10 @@ def test_http_status_can_surface_hybrid_retrial_budget_after_pin_release(tmp_pat
     )
 
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -304,10 +304,10 @@ def test_http_status_can_surface_escalate_repeated_repin_after_multiple_release_
     )
 
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -366,13 +366,13 @@ def test_http_receipt_control_plane_can_repair_missing_backup_from_repository_st
     monkeypatch.setattr(server_module, "load_action_effectiveness_snapshot", lambda path=None: {})
     monkeypatch.setattr(server_module, "load_optimization_loop_progress_snapshot", lambda path=None: {})
     original_service = server_module.AVM_SERVICE
-    original_start_time = server_module.AVM_SERVICE_START_TIME
+    original_start_time = server_module.RUNTIME.started_at
     server_module.AVM_SERVICE = AVMService(data_dir=server_module.DATA_DIR, repository=repo)
-    server_module.AVM_SERVICE_START_TIME = 0
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.started_at = 0
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -420,4 +420,4 @@ def test_http_receipt_control_plane_can_repair_missing_backup_from_repository_st
         httpd.shutdown()
         httpd.server_close()
         server_module.AVM_SERVICE = original_service
-        server_module.AVM_SERVICE_START_TIME = original_start_time
+        server_module.RUNTIME.started_at = original_start_time

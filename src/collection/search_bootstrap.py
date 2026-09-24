@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import json
+from src.runtime_json import load_json_file
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -15,8 +15,8 @@ def load_priority_codes(jobs_dir: str | Path) -> List[str]:
     if not priority_file.exists():
         return []
     try:
-        payload = json.loads(priority_file.read_text(encoding="utf-8"))
-    except Exception:
+        payload = load_json_file(priority_file)
+    except (OSError, UnicodeError, ValueError):
         return []
     return [str(code).strip() for code in payload if str(code).strip()]
 
@@ -26,20 +26,24 @@ def load_all_location_codes(data_root: str | Path) -> List[str]:
     if not all_locations_file.exists():
         return []
     try:
-        payload = json.loads(all_locations_file.read_text(encoding="utf-8"))
-    except Exception:
+        payload = load_json_file(all_locations_file)
+    except (OSError, UnicodeError, ValueError):
         return []
 
     codes: List[str] = []
 
     def _extract(nodes: List[Dict[str, Any]]) -> None:
-        for node in nodes:
+        pending = list(reversed(nodes))
+        while pending:
+            node = pending.pop()
+            if not isinstance(node, dict):
+                continue
             code = str(node.get("code", "")).strip()
             if len(code) == 6:
                 codes.append(code)
             children = node.get("children", [])
             if isinstance(children, list) and children:
-                _extract(children)
+                pending.extend(reversed(children))
 
     if isinstance(payload, list):
         _extract(payload)
@@ -56,8 +60,8 @@ def iter_job_snapshots(jobs_dir: str | Path) -> List[Dict[str, Any]]:
         if path.name == "priority.json":
             continue
         try:
-            payload = json.loads(path.read_text(encoding="utf-8"))
-        except Exception:
+            payload = load_json_file(path)
+        except (OSError, UnicodeError, ValueError):
             continue
         if not isinstance(payload, dict):
             continue

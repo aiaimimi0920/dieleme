@@ -13,7 +13,8 @@ def test_analysis_stage_planner_facade_preserves_receipt_store_monkeypatch(
     receipt_path = tmp_path / "receipts.json"
     calls = []
 
-    def fake_list_manual_review_receipts(path, *, repository=None):
+    def fake_list_manual_review_receipts(path, *, repository=None, cached=False):
+        assert cached is True
         calls.append((path, repository))
         return {"receipts": [{"action": "manual_location_review"}]}
 

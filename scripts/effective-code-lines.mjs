@@ -12,6 +12,11 @@ import {
   languageForExtension,
   SUPPORTED_EXTENSIONS,
 } from "./effective-code-lines-lexer.mjs";
+import {
+  checkUserscriptOutput,
+  OUTPUT_RELATIVE_PATH,
+  PART_RELATIVE_PATHS,
+} from "./build-userscript.mjs";
 
 export const CHECKER_VERSION = 2;
 
@@ -55,6 +60,11 @@ function validatePolicy(policy) {
     assert.ok(entry.reason?.trim(), "every exclusion requires a reason");
   }
   for (const entry of policy.excludedPaths) normalizeRepoPath(entry.path);
+  assert.equal(policy.generatedArtifacts?.length, 1, "exactly one reviewed generated artifact is allowed");
+  const [generated] = policy.generatedArtifacts;
+  assert.equal(generated.path, OUTPUT_RELATIVE_PATH, "unapproved generated artifact");
+  assert.ok(generated.reason?.trim(), "generated artifact requires a reason");
+  assert.equal(generated.approval, "docs/plan/userscript-generated-artifact-review-20260921.md");
 }
 
 function exclusionIndex(policy) {
@@ -188,7 +198,13 @@ function lexerSha256() {
 }
 
 export function toolHashes() {
-  return { checkerSha256: checkerSha256(), lexerSha256: lexerSha256() };
+  return {
+    checkerSha256: checkerSha256(),
+    lexerSha256: lexerSha256(),
+    userscriptBuilderSha256: canonicalTextSha256(
+      fileURLToPath(new URL("./build-userscript.mjs", import.meta.url)), "userscript builder",
+    ),
+  };
 }
 
 function policySha256(policyPath) {
@@ -214,8 +230,7 @@ export function createBaseline(root, policy, policyPath) {
     checkerVersion: CHECKER_VERSION,
     sourceCommit: commit,
     sourceTree: tree,
-    checkerSha256: checkerSha256(),
-    lexerSha256: lexerSha256(),
+    ...toolHashes(),
     policySha256: policySha256(policyPath),
     files,
   };
@@ -233,6 +248,7 @@ function validateBaseline(root, policy, policyPath, baseline) {
   );
   assert.equal(baseline.checkerSha256, checkerSha256(), "checker changed; regenerate and review baseline");
   assert.equal(baseline.lexerSha256, lexerSha256(), "lexer changed; regenerate and review baseline");
+  assert.equal(baseline.userscriptBuilderSha256, toolHashes().userscriptBuilderSha256, "userscript builder changed; review integrity hashes");
   assert.equal(baseline.policySha256, policySha256(policyPath), "policy changed; regenerate and review baseline");
   const seen = new Set();
   for (const entry of baseline.files) {
@@ -253,6 +269,7 @@ export function validateExceptions(exceptions, rows, policyPath, today) {
   assert.equal(exceptions.checkerVersion, CHECKER_VERSION, "exceptions checkerVersion mismatch");
   assert.equal(exceptions.checkerSha256, checkerSha256(), "exceptions checker hash mismatch");
   assert.equal(exceptions.lexerSha256, lexerSha256(), "exceptions lexer hash mismatch");
+  assert.equal(exceptions.userscriptBuilderSha256, toolHashes().userscriptBuilderSha256, "exceptions userscript builder hash mismatch");
   assert.equal(exceptions.policySha256, policySha256(policyPath), "exceptions policy hash mismatch");
   const byPath = new Map(rows.map((row) => [row.path, row]));
   const valid = new Map();
@@ -342,6 +359,16 @@ export function summarizeRows(rows) {
   };
 }
 
+export function verifyGeneratedArtifacts(root, policy, rows) {
+  validatePolicy(policy);
+  const scanned = new Set(rows.map((row) => row.path));
+  for (const required of [OUTPUT_RELATIVE_PATH, ...PART_RELATIVE_PATHS]) {
+    assert.ok(scanned.has(required), `${required}: generated artifact input/output must remain scanned`);
+  }
+  checkUserscriptOutput(root);
+  return rows.filter((row) => row.path === OUTPUT_RELATIVE_PATH);
+}
+
 export async function main(argv = process.argv.slice(2)) {
   const options = parseArguments(argv);
   const root = fs.realpathSync(options.root || path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."));
@@ -361,18 +388,21 @@ export async function main(argv = process.argv.slice(2)) {
   const baseline = readJson(baselinePath, "effective-line baseline");
   validateBaseline(root, policy, policyPath, baseline);
   const { rows, diagnostics } = scanRepository(root, policy);
+  const generatedArtifacts = verifyGeneratedArtifacts(root, policy, rows);
+  const handwrittenRows = rows.filter((row) => !generatedArtifacts.includes(row));
   const today = new Date().toISOString().slice(0, 10);
   const exceptions = readJson(exceptionsPath, "effective-line exceptions");
   const validExceptions = validateExceptions(exceptions, rows, policyPath, today);
-  const evaluation = evaluateRows(rows, baseline, validExceptions, options.mode);
+  const evaluation = evaluateRows(handwrittenRows, baseline, validExceptions, options.mode);
   const violations = [...diagnostics, ...evaluation.violations];
-  const summary = summarizeRows(rows);
+  const summary = summarizeRows(handwrittenRows);
   const report = {
     schemaVersion: 1,
     checkerVersion: CHECKER_VERSION,
     mode: options.mode,
     thresholds: FIXED_THRESHOLDS,
     summary,
+    generatedArtifacts,
     violations,
     warnings: evaluation.warnings,
     files: rows.filter((row) => row.effectiveLines > FIXED_THRESHOLDS.acceptable)

@@ -2,7 +2,7 @@ import logging
 import unittest
 from unittest import mock
 
-from src.avm_batch_runner import AVMService, batch_evaluate_item_ids
+from src.avm_batch_runner import AVMResult, AVMService, batch_evaluate_item_ids, format_batch_results
 
 
 class FakeAVMService:
@@ -55,6 +55,21 @@ class TestBatchAvmRunner(unittest.TestCase):
                 max_batch_size=1,
                 logger=logging.getLogger("test"),
             )
+
+    def test_format_batch_results_preserves_cli_order_and_payload(self):
+        rendered = format_batch_results(
+            [
+                AVMResult(item_id="b", margin_of_safety=0.35, payload={"rank": 1}),
+                AVMResult(item_id="a", margin_of_safety=None, payload={"rank": 2}),
+            ]
+        )
+
+        self.assertEqual(
+            rendered,
+            "=== Sorted by margin_of_safety (DESC) ===\n"
+            "1. item_id=b, margin_of_safety=0.35, payload={'rank': 1}\n"
+            "2. item_id=a, margin_of_safety=None, payload={'rank': 2}",
+        )
 
 
 if __name__ == "__main__":

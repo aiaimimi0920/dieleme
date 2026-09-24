@@ -153,7 +153,7 @@
         document.getElementById('uni-status-text').textContent = '已强制解锁';
         
         // AUTO-RESUME BACKEND
-        fetchApi('/resume', {}, () => {
+        fetchApi('/collection/control/resume', {}, () => {
              log('🔄 已通知服务器解除暂停状态', 'success');
              if (isRunning && currentMode === 'REVIEW_FAST') {
                  fastReviewLoop(); // Resume
@@ -201,5 +201,4 @@
     // MODULE 1: SNIFFING (Master Page)
     // ==========================================
     // Logic is implemented at the top of the file.
-
 

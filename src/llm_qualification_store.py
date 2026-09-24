@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import sqlite3
+import threading
 import time
 import uuid
 
@@ -12,14 +13,24 @@ from src.llm_qualification_cases import VERSION
 
 
 class QualificationStore:
-    def __init__(self, config, path=None):
+    @staticmethod
+    def resolve_path(path=None):
         root = Path(__file__).resolve().parents[1] / "FPFData" / "model-pool"
-        self.path = Path(path or os.environ.get("FAPAI_ANALYSIS_MODEL_POOL_PATH") or root / "pool.sqlite3")
-        self.path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        return Path(path or os.environ.get("FAPAI_ANALYSIS_MODEL_POOL_PATH") or root / "pool.sqlite3").resolve()
+
+    @staticmethod
+    def identity(config):
         identity = json.dumps([config["base_url"], config["api_key"], VERSION,
                                config.get("reasoning_effort") or None, config.get("timeout")])
-        self.key = hashlib.sha256(identity.encode()).hexdigest()
+        return hashlib.sha256(identity.encode()).hexdigest()
+
+    def __init__(self, config, path=None):
+        self.path = self.resolve_path(path)
+        self.path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        self.key = self.identity(config)
         self.owner = uuid.uuid4().hex
+        # A reused owner's lease must never be acquired by two local scans.
+        self.scan_lock = threading.Lock()
         with self._connection() as db:
             db.execute("CREATE TABLE IF NOT EXISTS pools (id TEXT PRIMARY KEY, state TEXT NOT NULL)")
             db.execute("INSERT OR IGNORE INTO pools VALUES (?, ?)", (self.key, json.dumps({

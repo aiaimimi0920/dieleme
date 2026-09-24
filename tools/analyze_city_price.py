@@ -39,7 +39,7 @@ def analyze_prices(file_path):
         try:
             str_val = str(x).split('至')[0].strip()
             return pd.to_datetime(str_val).strftime('%Y-%m')
-        except:
+        except (TypeError, ValueError, OverflowError):
             return None
 
     df['Month'] = df['交易时间'].apply(parse_date)

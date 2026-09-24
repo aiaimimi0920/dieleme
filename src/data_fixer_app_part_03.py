@@ -63,7 +63,7 @@ class DataFixerAppPart03:
 - 价格请转换为纯数字（元），不要带“万”等单位。"""
 
         # Use pool 1 (Inference Pool)
-        pool_idx = 1 if len(MODEL_POOL) > 1 else 0
+        pool_idx = 1 if len(get_model_pool()) > 1 else 0
         self.log(f"执行全量推断 (Stage 1)...")
 
         try:
@@ -97,7 +97,7 @@ class DataFixerAppPart03:
                     if val is not None:
                         try:
                             return float(str(val).replace(',', '').replace('元', ''))
-                        except:
+                        except Exception:
                             pass
                     return None
 
@@ -138,7 +138,7 @@ class DataFixerAppPart03:
 返回JSON格式：{{"所属小区": "xxx", "最靠近商圈": "xxx"}}"""
 
         # Use pool index 1 for inference if available to avoid blocking main worker
-        pool_idx = 1 if len(MODEL_POOL) > 1 else 0
+        pool_idx = 1 if len(get_model_pool()) > 1 else 0
         self.log(f"AI推断中 (Pool-{pool_idx})...")
 
         ai_result = simple_ai_call(prompt, pool_idx=pool_idx)
@@ -146,7 +146,7 @@ class DataFixerAppPart03:
         if json_match:
             try:
                 parsed = json.loads(json_match.group())
-            except:
+            except Exception:
                 parsed = {}
 
             result = {}
@@ -183,12 +183,12 @@ class DataFixerAppPart03:
              if match:
                  try:
                     parsed = json.loads(match.group())
-                 except:
+                 except Exception:
                     parsed = {}
                  val = parsed.get('建筑面积')
                  if val and float(val) > 0:
                      return float(val)
-        except:
+        except Exception:
              pass
         return None
 
@@ -269,7 +269,7 @@ class DataFixerAppPart03:
                             else:
                                 full_data['json_file'] = item['json_file']
                                 return full_data
-                     except:
+                     except Exception:
                          pass
                 return item
 
@@ -290,7 +290,7 @@ class DataFixerAppPart03:
                         if str(i.get('id')) == item_id:
                             i['json_file'] = j_file
                             return i
-            except:
+            except Exception:
                 pass
 
         return None
@@ -305,6 +305,27 @@ class DataFixerAppPart03:
             else:
                 self.log("无法打开链接：没有URL或ID")
                 return
+
+        # Treat stored URLs as untrusted data.  Never pass them through a
+        # shell command: quotes and cmd metacharacters would otherwise allow
+        # command injection from a corrupted or externally supplied record.
+        from urllib.parse import urlsplit
+        import webbrowser
+
+        if any(ord(char) < 0x20 or ord(char) == 0x7F for char in str(url)):
+            self.log("无法打开链接：URL 包含控制字符")
+            return
+        try:
+            parsed_url = urlsplit(str(url))
+        except ValueError:
+            self.log("无法打开链接：URL 格式无效")
+            return
+        if parsed_url.scheme.lower() not in {"http", "https"} or not parsed_url.netloc:
+            self.log("无法打开链接：仅支持 HTTP/HTTPS 地址")
+            return
+        if '"' in str(url) or "'" in str(url):
+            self.log("无法打开链接：URL 包含非法引号")
+            return
 
         # Prepare URL with port and mode
         # Always inject port so helper knows where to submit
@@ -325,20 +346,11 @@ class DataFixerAppPart03:
             if url.endswith('?') or url.endswith('&'):
                 url = url[:-1]
 
-        import subprocess
         try:
-            # Open default browser
-            # If auto, don't steal focus (SW_SHOWMINNOACTIVE)
-            # If manual, allow focus
-            si = subprocess.STARTUPINFO()
-            if auto:
-                si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-                si.wShowWindow = 7  # SW_SHOWMINNOACTIVE
-
-            # Use shell=True with start command to open in default browser
-            # Quote the URL to handle ampersands correctly
-            cmd = f'start "" "{url}"'
-            subprocess.Popen(cmd, shell=True, startupinfo=si)
+            # webbrowser.open delegates to the registered browser without
+            # constructing a command shell string.  The auto flag only
+            # controls URL parameters; focus policy belongs to the browser.
+            webbrowser.open(url, new=0, autoraise=not auto)
             self.log(f"已打开: {url[:60]}...")
         except Exception as e:
             self.log(f"打开浏览器失败: {e}")

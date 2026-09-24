@@ -1,6 +1,6 @@
 use serde::Deserialize;
 use serde_json::Value;
-use std::process::{Command, Stdio};
+use std::process::Command;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 #[cfg(windows)]
@@ -66,6 +66,8 @@ fn decode_result(raw: &[u8]) -> Result<Value, String> {
 }
 
 fn execute(request: AuthRequest) -> Result<Value, String> {
+    let api_base = super::runtime_config::validate_api_base(&request.api_base)
+        .ok_or("Invalid authentication API URL")?;
     if !matches!(request.action.as_str(), "open" | "complete" | "status") {
         return Err("不支持的认证操作".into());
     }
@@ -85,7 +87,7 @@ fn execute(request: AuthRequest) -> Result<Value, String> {
     command.args(["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", &script]);
     for (name, value) in [
         ("-Action", request.action),
-        ("-ApiBase", request.api_base),
+        ("-ApiBase", api_base),
         ("-TargetUrl", request.target_url),
         ("-TargetId", request.target_id),
         ("-RequestId", request.request_id),
@@ -95,14 +97,13 @@ fn execute(request: AuthRequest) -> Result<Value, String> {
         ("-PeerUrl", request.peer_url),
         ("-PeerChallengeId", request.peer_challenge_id),
     ] {
-        if value.len() > 8192 || value.chars().any(char::is_control) {
+        if value.len() > 8192 || value.chars().any(char::is_control) || value.starts_with('-') {
             return Err("认证参数无效".into());
         }
         if !value.is_empty() {
             command.args([name, &value]);
         }
     }
-    command.stdin(Stdio::null());
     #[cfg(windows)]
     command.creation_flags(0x08000000);
     let output = super::helper_process::run(
@@ -110,9 +111,17 @@ fn execute(request: AuthRequest) -> Result<Value, String> {
         Vec::new(),
         std::time::Duration::from_secs(180),
     )
-    .map_err(|_| "认证助手超时或异常；请查询同步状态，不要重复提交认证任务")?;
+    .map_err(|code| {
+        eprintln!("Authentication helper failed: {code}");
+        format!("认证助手未完成请求（{code}）；请查询同步状态，不要重复提交认证任务")
+    })?;
     if !output.status.success() {
-        return Err("本机认证助手执行失败，请检查 Python 和运行文件".into());
+        eprintln!(
+            "Authentication helper exit={:?}, stderr_bytes={}",
+            output.status.code(),
+            output.stderr.len()
+        );
+        return Err("本机认证助手执行失败（helper_exit_failed），请检查 Python 和运行文件".into());
     }
     decode_result(&output.stdout)
 }

@@ -9,14 +9,17 @@ from wsgiref.handlers import format_date_time
 import hashlib
 import hmac
 import json
+import logging
 import ssl
 import time
 
 import websocket
 
-from src.llm_config import APP_ID, MODEL_ID
 from src.llm_metrics import record_api_metrics
-from src.llm_model_selector import AUTH_INVALID_ERROR_CODES, model_selector
+from src.llm_model_selector import AUTH_INVALID_ERROR_CODES, get_model_selector
+
+
+logger = logging.getLogger(__name__)
 
 
 class Ws_Param(object):
@@ -65,7 +68,7 @@ class AIService:
         self.model_config = model_config
 
     def on_error(self, ws, error):
-        print(f"### WS Error ({self.model_config['name'] if self.model_config else 'default'}): {error} ###")
+        logger.error(f"### WS Error ({self.model_config['name'] if self.model_config else 'default'}): {error} ###")
 
     def on_close(self, ws, one, two):
         # print("### WS Closed ###")
@@ -76,8 +79,8 @@ class AIService:
 
     def run(self, ws, *args):
         config = self.model_config or {}
-        app_id = config.get("app_id", APP_ID)
-        model_id = config.get("model_id", MODEL_ID)
+        app_id = config.get("app_id", "")
+        model_id = config.get("model_id", "")
         data = json.dumps(self.gen_params(appid=app_id, domain=model_id))
         # print(f"Sending payload...")
         ws.send(data)
@@ -89,8 +92,8 @@ class AIService:
             self.error_code = code
             self.error_msg = data['header']['message']
             model_name = self.model_config['name'] if self.model_config else 'default'
-            print(f"AI Error ({model_name}) Code: {code}")
-            print(f"AI Error Message: {self.error_msg}")
+            logger.error(f"AI Error ({model_name}) Code: {code}")
+            logger.error(f"AI Error Message: {self.error_msg}")
             ws.close()
         else:
             choices = data["payload"]["choices"]
@@ -101,6 +104,9 @@ class AIService:
                 ws.close()
 
     def gen_params(self, appid, domain):
+        from src.llm_evidence_prompt import request_messages
+        from src.llm_request_policy import MAX_OUTPUT_TOKENS
+
         data = {
             "header": {
                 "app_id": appid,
@@ -110,14 +116,12 @@ class AIService:
                 "chat": {
                     "domain": domain,
                     "temperature": 0.5,
-                    "max_tokens": 4096
+                    "max_tokens": MAX_OUTPUT_TOKENS
                 }
             },
             "payload": {
                 "message": {
-                    "text": [
-                        {"role": "user", "content": self.prompt}
-                    ]
+                    "text": request_messages(self.prompt)
                 }
             }
         }
@@ -135,6 +139,7 @@ class AIService:
         self.error_msg = ""
         from_queue = False  # Track how we acquired the slot
         started_at = time.time()
+        model_selector = get_model_selector()
 
         # Determine model and acquire slot
         # Determine model and acquire slot
@@ -143,24 +148,24 @@ class AIService:
             # Use get_next to find a suitable base model
             config = model_selector.get_next('community_search')
             model_name = config['name']
-            print(f"DEBUG: [community_search] Waiting for slot on '{model_name}'...")
+            logger.debug(f"DEBUG: [community_search] Waiting for slot on '{model_name}'...")
             model_selector.acquire(model_name)
             from_queue = False
         elif self.model_config:
             # Explicitly provided model config
             config = self.model_config
             model_name = config['name']
-            print(f"DEBUG: [explicit] Waiting for slot on '{model_name}'...")
+            logger.debug(f"DEBUG: [explicit] Waiting for slot on '{model_name}'...")
             model_selector.acquire(model_name)
             from_queue = False
         else:
             # Instant slot from queue
-            print(f"DEBUG: Getting slot from queue...")
+            logger.debug("DEBUG: Getting slot from queue...")
             config, _ = model_selector.acquire_any()
             model_name = config['name']
             from_queue = True
 
-        print(f"DEBUG: Using model '{model_name}' (ID: {config['model_id']})")
+        logger.debug(f"DEBUG: Using model '{model_name}' (ID: {config['model_id']})")
         self.model_config = config
 
         try:
@@ -190,19 +195,19 @@ class AIService:
                         f"error_code={self.error_code}, error_msg={self.error_msg or 'AppIdNoAuthError'}",
                     )
                 if is_concurrency_err:
-                    print(f"[STATS] Concurrency error on '{model_name}' (code: {self.error_code})")
+                    logger.warning(f"[STATS] Concurrency error on '{model_name}' (code: {self.error_code})")
                     # INSTANT limit reduction: Immediately reduce limit by 1 when concurrency error detected
                     current_limit = model_selector.limits.get(model_name, 10)
                     if current_limit > 3:  # Don't go below 3
                         new_limit = current_limit - 1
                         model_selector.update_limit(model_name, new_limit)
-                        print(f"[INSTANT-TUNE] Reduced '{model_name}' limit: {current_limit} → {new_limit}")
+                        logger.info(f"[INSTANT-TUNE] Reduced '{model_name}' limit: {current_limit} → {new_limit}")
             elif self.final_result:
                 model_selector.record_success(model_name)
         finally:
             # Release slot back to queue or semaphore
             model_selector.release(model_name, model_config=config, from_queue=from_queue)
-            print(f"DEBUG: Released slot on '{model_name}' (queue={from_queue})")
+            logger.debug(f"DEBUG: Released slot on '{model_name}' (queue={from_queue})")
 
             elapsed_ms = (time.time() - started_at) * 1000
             record_api_metrics(success=bool(self.error_code == 0 and self.final_result), response_time_ms=elapsed_ms)

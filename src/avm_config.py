@@ -1,8 +1,11 @@
 import copy
 import json
+import logging
 import os
 import threading
 import time
+
+logger = logging.getLogger(__name__)
 
 DEFAULT_AVM_CONFIG = {
     "radius_km": 3.0,
@@ -102,12 +105,12 @@ class AvmConfigManager:
             with self._lock:
                 self._config = config
                 self._last_mtime = os.path.getmtime(self.config_path)
-            print(f"[AVM-CONFIG] Loaded config from {self.config_path}")
+            logger.info("[AVM-CONFIG] Loaded config from %s", self.config_path)
         except Exception as e:
             with self._lock:
                 self._config = copy.deepcopy(self.defaults)
                 self._last_mtime = None
-            print(f"[AVM-CONFIG] Startup load failed, using defaults. reason={e}")
+            logger.exception("[AVM-CONFIG] Startup load failed, using defaults")
 
     def hot_reload(self):
         try:
@@ -115,7 +118,7 @@ class AvmConfigManager:
             with self._lock:
                 self._config = config
                 self._last_mtime = os.path.getmtime(self.config_path)
-            print(f"[AVM-CONFIG] Hot-reload applied: {self.config_path}")
+            logger.info("[AVM-CONFIG] Hot-reload applied: %s", self.config_path)
             return True
         except Exception as e:
             with self._lock:
@@ -124,7 +127,7 @@ class AvmConfigManager:
                     self._last_mtime = os.path.getmtime(self.config_path)
                 else:
                     self._last_mtime = None
-            print(f"[AVM-CONFIG] Hot-reload failed, fallback to defaults. reason={e}")
+            logger.exception("[AVM-CONFIG] Hot-reload failed, fallback to defaults")
             return False
 
     def get_config(self):
@@ -150,11 +153,11 @@ class AvmConfigManager:
                             self.hot_reload()
                     time.sleep(interval_seconds)
                 except Exception as e:
-                    print(f"[AVM-CONFIG] Watcher error: {e}")
+                    logger.exception("[AVM-CONFIG] Watcher error")
                     time.sleep(interval_seconds)
 
         threading.Thread(target=_watch_loop, daemon=True).start()
-        print(f"[AVM-CONFIG] Hot-reload watcher started (interval={interval_seconds}s)")
+        logger.info("[AVM-CONFIG] Hot-reload watcher started (interval=%s s)", interval_seconds)
 
 
 _CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "datas", "avm", "config.json")

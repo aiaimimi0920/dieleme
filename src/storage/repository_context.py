@@ -3,7 +3,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-import sys
+from contextlib import contextmanager
+from contextvars import ContextVar
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -46,9 +47,27 @@ from .models import (
 )
 
 
-def _repository_datetime():
-    facade = sys.modules.get(f"{__package__}.repository")
-    return getattr(facade, "datetime", datetime)
+RepositoryClock = Callable[[], datetime]
+_INJECTED_REPOSITORY_CLOCK: ContextVar[RepositoryClock | None] = ContextVar(
+    "fapai_repository_clock",
+    default=None,
+)
+
+
+@contextmanager
+def use_repository_clock(clock: RepositoryClock) -> Iterator[None]:
+    """Inject a deterministic UTC clock for one request or test context.
+
+    Repository callers retain UTC-naive Python values; the column type handles
+    physical storage. The callable may return an aware instant or naive UTC.
+    """
+    if not callable(clock):
+        raise TypeError("repository clock must be callable")
+    token = _INJECTED_REPOSITORY_CLOCK.set(clock)
+    try:
+        yield
+    finally:
+        _INJECTED_REPOSITORY_CLOCK.reset(token)
 
 
 def _parse_dt(value: Any) -> Optional[datetime]:
@@ -59,7 +78,7 @@ def _parse_dt(value: Any) -> Optional[datetime]:
     text = str(value).strip()
     for fmt in ("%Y-%m-%d %H:%M:%S", "%Y/%m/%d %H:%M:%S", "%Y-%m-%d", "%Y/%m/%d"):
         try:
-            dt = _repository_datetime().strptime(text, fmt)
+            dt = datetime.strptime(text, fmt)
             if fmt in {"%Y-%m-%d", "%Y/%m/%d"}:
                 dt = dt.replace(hour=0, minute=0, second=0)
             return _coerce_naive_utc(dt)
@@ -77,7 +96,10 @@ def _coerce_naive_utc(value: Optional[datetime]) -> Optional[datetime]:
 
 
 def _utc_now() -> datetime:
-    value = _coerce_naive_utc(_repository_datetime().utcnow())
+    injected_clock = _INJECTED_REPOSITORY_CLOCK.get()
+    value = _coerce_naive_utc(
+        injected_clock() if injected_clock is not None else datetime.now(timezone.utc)
+    )
     if value is None:
         raise RuntimeError("utc clock returned no value")
     return value
@@ -85,21 +107,12 @@ def _utc_now() -> datetime:
 
 def _lease_reclaimable(
     lease_until: Optional[datetime],
-    updated_at: Optional[datetime],
     *,
     now: datetime,
-    lease_seconds: int,
 ) -> bool:
+    # The persisted expiry belongs to the holder; a contender cannot shorten it.
     normalized_lease_until = _coerce_naive_utc(lease_until)
-    normalized_updated_at = _coerce_naive_utc(updated_at)
-    if normalized_lease_until is None or normalized_lease_until < now:
-        return True
-    max_window = timedelta(seconds=max(max(int(lease_seconds or 0), 1) * 4, 300))
-    if normalized_lease_until - now > max_window:
-        return True
-    if normalized_updated_at is not None and normalized_lease_until - normalized_updated_at > max_window:
-        return True
-    return False
+    return normalized_lease_until is None or normalized_lease_until <= _coerce_naive_utc(now)
 
 
 def _cooldown_active(updated_at: Optional[datetime], *, now: datetime, cutoff: Optional[datetime]) -> bool:
@@ -273,7 +286,7 @@ class DatabaseSettings:
     url: str | None
     echo: bool = False
     enable_postgis: bool = True
-    auto_create: bool = True
+    auto_create: bool = False
     enabled: bool = True
 
 

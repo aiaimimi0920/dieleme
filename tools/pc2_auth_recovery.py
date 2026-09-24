@@ -31,6 +31,12 @@ def load_recovery_token(token_path: str | Path) -> str:
     token = Path(token_path).read_text(encoding="utf-8").strip()
     if not token:
         raise ValueError("NAS auth recovery token file is empty")
+    if (
+        not 16 <= len(token) <= 4096
+        or not token.isascii()
+        or any(char.isspace() for char in token)
+    ):
+        raise ValueError("NAS auth recovery token is invalid")
     return token
 
 
@@ -252,7 +258,14 @@ def process_nas_auth_recovery_once(
 ) -> dict[str, Any]:
     token = load_recovery_token(token_path)
     headers = {"X-Fapai-Recovery-Token": token}
-    response = fetcher(_recovery_url(api_base_url, "?protocol_version=2&node_id=pc2"), timeout=10, headers=headers)
+    if str(node_id or '').strip().lower() == 'pc2':
+        heartbeat = poster(
+            _recovery_url(api_base_url, '/heartbeat'),
+            {'protocol_version': 2, 'node_id': 'pc2'}, timeout=10, headers=headers,
+        )
+        if not isinstance(heartbeat, dict) or heartbeat.get('ok') is not True:
+            return {'action': 'ignored', 'reason': 'heartbeat_rejected'}
+    response = fetcher(_recovery_url(api_base_url), timeout=10, headers=headers)
     recovery_status = response.get("auth_recovery") if isinstance(response, dict) else None
     active = recovery_status.get("active") if isinstance(recovery_status, dict) else None
     if not isinstance(active, dict):

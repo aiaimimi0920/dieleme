@@ -9,6 +9,7 @@ from pathlib import Path
 
 from tools.manual_auth_snapshot import completion_lock, publish_snapshot, snapshot_path, validate_snapshot
 from tools.pc1_desktop_recovery import RecoveryError, recovery_phase
+from src.auth_recovery_codes import CHALLENGE_CHANGED_CODE
 
 MAX_AGE = 30 * 60
 
@@ -67,7 +68,7 @@ def shared_challenge(client, *, output, request_id, endpoint="", scope="", url="
             if job["api"] != client.url:
                 raise RecoveryError("api_not_configured")
         elif status:
-            raise RecoveryError("challenge_changed")
+            raise RecoveryError(CHALLENGE_CHANGED_CODE)
         else:
             if scope not in {"seed", "detail"} or not target_id:
                 raise RecoveryError("challenge_page_not_ready")
@@ -137,9 +138,9 @@ def _advance(client, output, path, job):
         except RecoveryError as error:
             if str(error) == "handoff_busy":
                 return _response(job, code="shared_queued")
-            if str(error) != "challenge_changed":
+            if str(error) != CHALLENGE_CHANGED_CODE:
                 raise
-            entry["result"] = {"phase": "failed", "code": "challenge_changed"}
+            entry["result"] = {"phase": "failed", "code": CHALLENGE_CHANGED_CODE}
             _save(path, job)
             continue
         if start.get("result"):

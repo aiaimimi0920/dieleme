@@ -37,11 +37,17 @@ def _write_store(path: Path, payload: dict[str, list[dict[str, Any]]]) -> None:
 def list_manual_review_receipts(
     path: str | Path,
     repository: "PropertyRepository | None" = None,
+    *,
+    cached: bool = False,
 ) -> dict[str, list[dict[str, Any]]]:
     if repository is not None and getattr(repository, "enabled", False):
         ensure_manual_review_control_plane_backfilled(Path(path).parent.parent, repository=repository)
         return dict(repository.list_manual_review_receipts())
     store_path = Path(path)
+    if cached:
+        from src.runtime_snapshot_cache import snapshots
+
+        return _normalize_store_payload(snapshots.read(store_path))
     try:
         raw = json.loads(store_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):

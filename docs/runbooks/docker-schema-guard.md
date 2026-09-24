@@ -36,6 +36,21 @@ model table/column set before workers start.
 
 ## Migration command
 
+Revision `20260922_0013` converts only system/instant columns from legacy
+UTC-naive values to PostgreSQL `timestamp with time zone`. It leaves the three
+civil/business dates (`auction_date`, `auction_start_time`, and
+`appraisal_benchmark_date`) unchanged. The conversion interprets every stored
+naive value as UTC; it does not guess or repair historical local-time values.
+Before applying it, verify that the deployed schema and UTC-naive data match this
+contract and keep a verified PostgreSQL backup.
+
+This revision requires a maintenance window: stop API and worker writers before
+the schema upgrade, then start only the matching code that binds UTC-aware
+PostgreSQL values. The old application can interpret writes to the new columns
+using the PostgreSQL session timezone. If rollback is needed, stop writers,
+restore the old code, then downgrade to `20260921_0012` so stored instants are
+converted back to UTC-naive values.
+
 For local host-side migrations, use the host-visible PostgreSQL port:
 
 ```powershell

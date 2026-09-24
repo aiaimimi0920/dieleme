@@ -51,8 +51,8 @@ python tools/test/collector_ui_preview.py --port 1436
 
 - Rust / Cargo
 - Node.js / npm
-- 正在运行的 `fapaifang-api`
-  - 默认地址：`http://192.168.15.200:8001`（桌面端；Web 预览仍使用当前页面地址）
+- 正在运行的 `crow-api`
+  - 默认地址：`http://127.0.0.1:8001`（桌面端；Web 预览仍使用当前页面地址）
   - 如需覆盖，设置环境变量：`FAPAI_COLLECTOR_API_BASE`
 
 ## 开发运行

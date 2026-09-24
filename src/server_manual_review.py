@@ -343,8 +343,6 @@ MANUAL_REVIEW_CONTROL_PLANE_INTEGRITY_HISTORY_ENDPOINTS = (
     "/api/analysis/manual_review_control_plane_integrity_history",
 )
 
-MANUAL_REVIEW_MAINTENANCE_MANAGERS: dict[str, ManualReviewMaintenanceManager] = {}
-
 def _manual_review_receipt_store_path(data_root: Path) -> Path:
     return data_root / "avm" / "manual_review_receipts.json"
 
@@ -370,40 +368,23 @@ def _normalize_manual_review_maintenance_options(payload: dict[str, Any] | None)
         "fetch_archives": bool(payload.get("fetch_archives", False)),
     }
 
-def _run_manual_review_receipt_maintenance(data_root: Path, maintenance_options: dict[str, Any]) -> dict[str, Any]:
-    normalized = _normalize_manual_review_maintenance_options(maintenance_options)
-    return run_recent_enrich_maintenance(
-        data_root=data_root,
-        window_days=normalized["window_days"],
-        archive_limit=normalized["archive_limit"],
-        sample_limit=normalized["sample_limit"],
-        replay_limit=normalized["replay_limit"],
-        fetch_limit=normalized["fetch_limit"],
-        fetch_timeout=normalized["fetch_timeout"],
-        reconcile_limit=normalized["reconcile_limit"],
-        dry_run=normalized["dry_run"],
-        extract_risk=normalized["extract_risk"],
-        prepare_replay=normalized["prepare_replay"],
-        fetch_archives=normalized["fetch_archives"],
-        repository=DB_REPOSITORY if DB_REPOSITORY.enabled else None,
-    )
+def _manual_review_receipt_jobs_snapshot(data_root: Path, collection_manager=None) -> dict[str, Any]:
+    from src.manual_review_job_view import merge_job_snapshot, persisted_receipts
 
-def _get_manual_review_maintenance_manager(data_root: Path) -> ManualReviewMaintenanceManager:
-    key = str(data_root.resolve())
-    manager = MANUAL_REVIEW_MAINTENANCE_MANAGERS.get(key)
-    if manager is None:
-        manager = ManualReviewMaintenanceManager(
-            _manual_review_receipt_jobs_path(data_root),
-            maintenance_runner=lambda **kwargs: _run_manual_review_receipt_maintenance(data_root, kwargs),
-            repository=DB_REPOSITORY if DB_REPOSITORY.enabled else None,
-        )
-        MANUAL_REVIEW_MAINTENANCE_MANAGERS[key] = manager
-    return manager
+    legacy = (
+        DB_REPOSITORY.manual_review_receipt_jobs_snapshot()
+        if DB_REPOSITORY.enabled
+        else load_manual_review_receipt_jobs(_manual_review_receipt_jobs_path(data_root))
+    )
+    receipts = (
+        collection_manager.list(operation="manual_review_receipt")
+        if collection_manager is not None
+        else persisted_receipts(data_root)
+    )
+    return merge_job_snapshot(legacy, receipts)
 
 def _manual_review_receipt_jobs_summary(data_root: Path) -> dict[str, Any]:
-    key = str(data_root.resolve())
-    manager = MANUAL_REVIEW_MAINTENANCE_MANAGERS.get(key)
-    snapshot = manager.snapshot() if manager is not None else load_manual_review_receipt_jobs(_manual_review_receipt_jobs_path(data_root))
+    snapshot = _manual_review_receipt_jobs_snapshot(data_root)
     return summarize_manual_review_receipt_jobs_snapshot(snapshot)
 
 def _manual_review_receipt_operations_summary(data_root: Path) -> dict[str, Any]:
@@ -440,4 +421,4 @@ def _manual_review_control_plane_integrity(data_root: Path) -> dict[str, Any]:
     record_manual_review_control_plane_integrity(data_root, integrity)
     return integrity
 
-__all__ = ["_db_collection_stage_snapshot", "MANUAL_REVIEW_RECEIPT_ENDPOINTS", "MANUAL_REVIEW_RECEIPT_JOB_ENDPOINTS", "MANUAL_REVIEW_RECEIPT_OPERATION_ENDPOINTS", "MANUAL_REVIEW_CONTROL_PLANE_STATUS_ENDPOINTS", "MANUAL_REVIEW_CONTROL_PLANE_BACKUP_REPAIR_ENDPOINTS", "MANUAL_REVIEW_CONTROL_PLANE_INTEGRITY_HISTORY_ENDPOINTS", "MANUAL_REVIEW_MAINTENANCE_MANAGERS", "_manual_review_receipt_store_path", "_manual_review_receipt_operations_path", "_manual_review_receipt_jobs_path", "_normalize_manual_review_maintenance_options", "_run_manual_review_receipt_maintenance", "_get_manual_review_maintenance_manager", "_manual_review_receipt_jobs_summary", "_manual_review_receipt_operations_summary", "_manual_review_control_plane_storage", "_manual_review_control_plane_backup", "_manual_review_control_plane_backup_repairs_summary", "_manual_review_control_plane_integrity"]
+__all__ = ["_db_collection_stage_snapshot", "MANUAL_REVIEW_RECEIPT_ENDPOINTS", "MANUAL_REVIEW_RECEIPT_JOB_ENDPOINTS", "MANUAL_REVIEW_RECEIPT_OPERATION_ENDPOINTS", "MANUAL_REVIEW_CONTROL_PLANE_STATUS_ENDPOINTS", "MANUAL_REVIEW_CONTROL_PLANE_BACKUP_REPAIR_ENDPOINTS", "MANUAL_REVIEW_CONTROL_PLANE_INTEGRITY_HISTORY_ENDPOINTS", "_manual_review_receipt_store_path", "_manual_review_receipt_operations_path", "_manual_review_receipt_jobs_path", "_normalize_manual_review_maintenance_options", "_manual_review_receipt_jobs_snapshot", "_manual_review_receipt_jobs_summary", "_manual_review_receipt_operations_summary", "_manual_review_control_plane_storage", "_manual_review_control_plane_backup", "_manual_review_control_plane_backup_repairs_summary", "_manual_review_control_plane_integrity"]

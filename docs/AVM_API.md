@@ -510,6 +510,20 @@
   1. `{"id": "xxx"}` 对象（可覆盖补充字段）
   2. 纯 ID 字符串列表（例如 `"4873096974090"`）
 
+默认在请求内同步完成。批次较大时可在顶层传入 `"execution_mode": "async"`，
+提交将返回 HTTP 202 和通用 collection job 回执；完成后的筛选响应保存在回执的
+`result` 中，告警写入也在后台任务完成前执行。省略字段或传入 `"sync"` 保持原
+HTTP 200 响应。该字段只接受 `sync` 或 `async`（大小写不敏感），异步任务失败码为
+`AVM_SCREEN_ASYNC_FAILED`。
+
+```json
+{
+  "execution_mode": "async",
+  "margin_threshold": 0.15,
+  "items": [{"id": "4873096974090"}]
+}
+```
+
 ### 返回示例
 
 ```json
@@ -634,6 +648,29 @@
   - `missing_required_count`
   - `invalid_field_count`
   - `feature_completeness`
+
+### 可选后台执行
+
+估值默认仍在请求内同步完成。需要避免长时间占用 HTTP 请求时，可在顶层添加
+`execution_mode: "async"`；该字段与 `options.valuation_mode` 分开，后者仍只控制
+估值时间语义。`execution_mode` 接受 `sync` 或 `async`，缺省为 `sync`，大小写不敏感。
+
+异步提交会先执行 `subject` 和 `subject.area_sqm` 校验，再返回通用任务回执：
+
+```json
+{
+  "status": "accepted",
+  "job_id": "0123456789abcdef0123456789abcdef",
+  "job_status": "queued",
+  "status_url": "/api/collection/jobs?id=0123456789abcdef0123456789abcdef",
+  "execution_mode": "async",
+  "request_id": "req-1"
+}
+```
+
+使用 operator control token 查询 `status_url`。完成后的原估值响应保存在回执的
+`result` 字段；后台失败显示在 `error` 中，错误码为 `AVM_EVALUATE_ASYNC_FAILED`。
+队列不可用时提交返回 HTTP 503。同步模式仍直接返回原估值响应和现有错误码。
 
 ---
 
@@ -866,8 +903,8 @@ margin = (predicted_price - starting_price) / predicted_price
 - `action + ready_signal` 作为唯一键
 - 同键再次提交时会覆盖旧 receipt
 - `mode` 支持：
-  - `sync`：提交后同步触发一轮 maintenance
-  - `async`：提交后创建后台 maintenance job，异步执行恢复链
+  - `sync`：提交到通用后台队列，完成后在任务回执中执行一轮 maintenance
+  - `async`：同样提交到通用后台队列，保留旧客户端的 `maintenance_job_id` 字段
 
 返回示例：
 
@@ -877,8 +914,10 @@ margin = (predicted_price - starting_price) / predicted_price
   "operation": "created",
   "execution_mode": "async",
   "maintenance_triggered": true,
-  "maintenance_job_id": "job-123",
+  "maintenance_job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "maintenance_job_status": "queued",
+  "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "status_url": "/api/collection/jobs?id=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "receipt": {
     "action": "manual_location_review",
     "ready_signal": "location_artifacts_complete",
@@ -945,15 +984,15 @@ margin = (predicted_price - starting_price) / predicted_price
   "job_count": 1,
   "jobs": [
     {
-      "job_id": "job-123",
+      "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "status": "completed",
       "receipt_key": {
         "action": "manual_location_review",
         "ready_signal": "location_artifacts_complete"
       },
-      "created_at": "2026-05-14 20:00:00",
-      "started_at": "2026-05-14 20:00:01",
-      "finished_at": "2026-05-14 20:00:04",
+      "created_at": "2026-05-14T12:00:00+00:00",
+      "started_at": "2026-05-14T12:00:01+00:00",
+      "finished_at": "2026-05-14T12:00:04+00:00",
       "result_summary": {
         "generated_at": "2026-05-14 20:00:04",
         "reentry_applied": true,
@@ -967,13 +1006,16 @@ margin = (predicted_price - starting_price) / predicted_price
 }
 ```
 
-按 `job_id` 查询单个任务时：
+按旧 `job_id` 查询单个任务时：
 
 - 请求：`GET /api/avm/manual_review_receipt_jobs?job_id=<job_id>`
 - 返回会额外带：
   - `job`
   - `manual_review_receipt_summary`
   - `operator_overview`
+
+新客户端应优先使用提交响应中的 `status_url`。通用回执的状态为 `queued`、`running`、
+`completed`、`failed`、`cancelled` 或 `interrupted`；任务 ID 必须是 32 位小写十六进制。
 
 ### 6.5 GET operations
 

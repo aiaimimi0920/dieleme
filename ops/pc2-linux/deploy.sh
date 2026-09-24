@@ -16,6 +16,12 @@ dry_run=0
 skip_build=0
 browser_only=0
 
+# Capacity checks are intentionally read-only.  Crow retains historical
+# evidence and release metadata, so deployment must stop before exhaustion
+# instead of pruning data or Docker state automatically.
+min_free_space_percent="${FAPAI_MIN_FREE_SPACE_PERCENT:-10}"
+min_free_inodes_percent="${FAPAI_MIN_FREE_INODES_PERCENT:-5}"
+
 usage() {
   cat <<'EOF'
 Usage:
@@ -114,6 +120,45 @@ verify_runtime_inputs() {
   fi
 }
 
+validate_capacity_threshold() {
+  local name="$1"
+  local value="$2"
+  [[ "$value" =~ ^[0-9]+$ && "$value" -lt 100 ]] || {
+    echo "${name} must be an integer between 0 and 99." >&2
+    return 1
+  }
+}
+
+check_capacity() {
+  validate_capacity_threshold FAPAI_MIN_FREE_SPACE_PERCENT "$min_free_space_percent"
+  validate_capacity_threshold FAPAI_MIN_FREE_INODES_PERCENT "$min_free_inodes_percent"
+
+  local path probe space_line inode_line used_pct free_pct free_inodes_pct
+  local -a paths=("$app_root" "$data_root" "$control_root")
+  for path in "${paths[@]}"; do
+    probe="$path"
+    while [[ ! -e "$probe" && "$probe" != "/" ]]; do
+      probe="$(dirname "$probe")"
+    done
+    used_pct="$(df -Pk "$probe" | awk 'NR==2 {gsub(/%/, "", $5); print $5}')"
+    free_inodes_pct="$(df -Pi "$probe" | awk 'NR==2 {gsub(/%/, "", $5); print 100 - $5}')"
+    [[ -n "$used_pct" && -n "$free_inodes_pct" && "$used_pct" =~ ^[0-9]+$ && "$free_inodes_pct" =~ ^[0-9]+$ ]] || {
+      echo "Unable to read filesystem capacity for $path." >&2
+      return 1
+    }
+    free_pct=$((100 - used_pct))
+    echo "Capacity $path: free=${free_pct}% inodes=${free_inodes_pct}% (probe=$probe)"
+    if (( free_pct < min_free_space_percent )); then
+      echo "Refusing deployment: $path has only ${free_pct}% free space (minimum ${min_free_space_percent}%)." >&2
+      return 1
+    fi
+    if (( free_inodes_pct < min_free_inodes_percent )); then
+      echo "Refusing deployment: $path has only ${free_inodes_pct}% free inodes (minimum ${min_free_inodes_percent}%)." >&2
+      return 1
+    fi
+  done
+}
+
 prepare_host_display_access() {
   local display_mode host_display display_number display_socket runtime_dir host_xauthority
   display_mode="$(sed -n 's/^FAPAI_BROWSER_DISPLAY_MODE=//p' "$runtime_env" | tail -n 1)"
@@ -129,7 +174,7 @@ prepare_host_display_access() {
 
   if [[ -S "$display_socket" && -n "$host_xauthority" ]] \
     && DISPLAY="$host_display" XAUTHORITY="$host_xauthority" \
-      xhost +SI:localuser:root >/dev/null 2>&1; then
+      xhost +SI:localuser:"${FAPAI_BROWSER_XHOST_USER:-$(id -un)}" >/dev/null 2>&1; then
     echo "Prepared logged-in host display for the browser solver: $host_display"
     return 0
   fi
@@ -218,6 +263,9 @@ validate_release_tree() {
   [[ -f "$target_release/ops/pc2-linux/Dockerfile.browser" ]]
   [[ -f "$target_release/ops/pc2-linux/compose.yaml" ]]
   [[ -f "$target_release/tools/pc2_linux_healthcheck.py" ]]
+  [[ -f "$target_release/requirements.lock" ]]
+  [[ -f "$target_release/ops/pc2-linux/process-supervisor.sh" ]]
+  bash -n "$target_release/ops/pc2-linux/process-supervisor.sh"
   bash -n "$target_release/ops/pc2-linux/start-browser-solver.sh"
   compose_for "$target_release" config --quiet
 }
@@ -284,6 +332,7 @@ deploy_release() {
     return 0
   fi
 
+  check_capacity
   verify_runtime_inputs
   local prior_release=""
   if [[ -L "$app_root/current" ]]; then

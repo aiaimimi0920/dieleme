@@ -84,6 +84,30 @@ def test_result_rejects_forged_claim_and_invalid_payload(mailbox):
     assert box.finish({"request_id": command["request_id"], "claim": command["claim"], "result": "controller_interrupted"})["request"]["status"] == "unknown"
 
 
+def test_settings_receipt_rejects_non_ascii_claim_without_type_error(tmp_path, monkeypatch):
+    from src.collection_settings_store import SettingsStore
+    from tools.test.collection_settings_fixtures import config_fixture
+
+    store = SettingsStore(tmp_path)
+    store.poll({"effective": config_fixture(), "api_key_configured": True})
+    requested = store.apply({
+        "request_id": "settings-utf8-0001",
+        "expected_revision": 0,
+        "config": config_fixture(),
+        "api_key": None,
+    })
+    command = store.poll({"effective": config_fixture(), "api_key_configured": True})
+    assert command["command"] is not None
+    with pytest.raises(restart.RestartError, match="Invalid settings claim"):
+        store.finish({
+            "request_id": requested["request"]["id"],
+            "claim": "☃",
+            "result": "applied",
+            "effective": command["command"]["config"],
+            "api_key_configured": False,
+        })
+
+
 @pytest.fixture
 def authorized_api(monkeypatch, tmp_path, mailbox):
     tokens = {"operator": "operator-offline-fixture-token-00001", "agent": "agent-offline-fixture-token-0000001"}
@@ -155,9 +179,9 @@ def test_api_rejects_shell_payloads_and_roundtrips_receipt(authorized_api, monke
 ])
 def test_start_does_not_clear_challenges(monkeypatch, reason, last_status, scoped, expected):
     calls = []
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", reason)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", last_status)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", reason)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", last_status)
     monkeypatch.setattr(server, "_solver_scope_runtime_status", lambda _: {"paused": scoped})
     monkeypatch.setattr(server, "_set_collection_pause_state", lambda paused, reason=None: calls.append((paused, reason)))
     monkeypatch.setattr(server, "_collection_runtime_state_label", lambda: "待认证")

@@ -10,9 +10,13 @@ import ssl
 from src.collection_engine_restart import PREFIX as RESTART, RestartError, RestartMailbox, authorize, configured
 from src.collection_settings_schema import PREFIX, ROLES
 from src.collection_settings_store import SettingsStore
+from tools.collection_runtime_proxy import RUNTIME_ROUTES, forward_runtime
 
 
 def dispatch(root, method, path, headers, body):
+    if path in RUNTIME_ROUTES:
+        authorize(headers, "operator")
+        return forward_runtime(method, path, body)
     role = ROLES.get(path)
     if path in {RESTART, RESTART + "/poll", RESTART + "/result"}:
         role = "operator" if path == RESTART else "agent"

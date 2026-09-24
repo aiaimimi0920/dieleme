@@ -12,19 +12,22 @@ APP_ROOT = REPO_ROOT / "collector-desktop"
 def _frontend_js() -> str:
     source_root = APP_ROOT / "src"
     source_files = (
-        "desktop_template.js",
-        "desktop_state.js",
-        "desktop_shared.js",
+        "desktop_template.ts",
+        "desktop_state.ts",
+        "desktop_shared.ts",
+        "desktop_config.ts",
+        "desktop_http.ts",
+        "desktop_native.ts",
         "desktop_standardized_fields.json",
-        "desktop_regions.js",
-        "desktop_collection_views.js",
+        "desktop_regions.ts",
+        "desktop_collection_views.ts",
         "desktop_overview.ts",
         "desktop_runtime_controls.ts",
-        "desktop_auth.js",
+        "desktop_auth.ts",
         "desktop_auth_target.ts",
         "desktop_auth_scope.ts",
-        "desktop_actions.js",
-        "main.js",
+        "desktop_actions.ts",
+        "main.ts",
     )
     return "\n".join(
         (source_root / name).read_text(encoding="utf-8")
@@ -61,7 +64,8 @@ def test_collector_desktop_frontend_uses_collection_observer_api_not_browser_pag
     assert "/api/collection/overview" in main_js
     assert "/api/collection/items" in main_js
     assert "window.location.href = '/collection'" not in main_js
-    assert "http://192.168.15.200:8001" in main_js
+    assert "http://127.0.0.1:8001" in main_js
+    assert "http://192.168.15.200:8001" not in main_js
 
 
 def test_links_stage_is_operator_focused_and_paginated_to_ten_items() -> None:
@@ -90,7 +94,7 @@ def test_details_stage_click_opens_right_side_collected_html_panel() -> None:
     assert 'state.stage === "details"' in main_js
     assert 'detailPanel").classList.add("hidden")' in main_js
     assert "/api/collection/item?item_id=" in main_js
-    assert "artifacts.detail_html" in main_js
+    assert "object(data.artifacts).detail_html" in main_js
 
 
 def test_analysis_stage_click_opens_standardized_field_table() -> None:
@@ -177,7 +181,7 @@ def test_auth_dialog_open_is_passive_and_browser_open_is_explicit() -> None:
     assert "transient challenge credentials" in main_js
     assert "sf-item.taobao.com" in main_js
     assert "https://sf.taobao.com/list/50025969__2.htm?__captcha_solver_bg=1" in main_js
-    auth = (APP_ROOT / "src/desktop_auth.js").read_text(encoding="utf-8")
+    auth = (APP_ROOT / "src/desktop_auth.ts").read_text(encoding="utf-8")
     open_function = auth[auth.index("export function openAuthChallenge"):auth.index("async function run")]
     assert 'run("open")' not in open_function
     assert "control/pause" not in auth
@@ -242,7 +246,8 @@ def test_collector_desktop_frontend_can_run_as_plain_html_console() -> None:
     assert "not running inside Tauri" in main_js
     assert 'window.open(current.target_url, "_blank", "noopener,noreferrer")' in main_js
     assert "普通浏览器无法读取挑战窗口的 cookie" in main_js
-    assert "http://192.168.15.200:8001" in tauri_config["app"]["security"]["csp"]
+    assert "http://127.0.0.1:8001" in tauri_config["app"]["security"]["csp"]
+    assert "http://192.168.15.200:8001" not in tauri_config["app"]["security"]["csp"]
 
 
 def test_runtime_start_preserves_authentication_and_restart_is_separate() -> None:
@@ -255,7 +260,7 @@ def test_runtime_start_preserves_authentication_and_restart_is_separate() -> Non
         main_js.index("async function requestEngineRestart")
     ]
     assert "dataset.action" in toggle_function
-    assert "await post(base, action, {})" in toggle_function
+    assert 'await post(base, action, {}, element<HTMLInputElement>("restartToken").value.trim())' in toggle_function
     assert "/auth/complete" not in toggle_function
     assert 'X-FAPAI-Control-Token' in main_js
     assert 'await decision !== "confirm"' in main_js
@@ -302,7 +307,7 @@ def test_collector_desktop_auto_refreshes_every_sixty_seconds() -> None:
     assert 'reloadAll({ silent: true })' in main_js
     reload_all_function = main_js[
         main_js.index("async function reloadAll"):
-        main_js.index('document.querySelectorAll("button[data-stage]")')
+        main_js.index('document.querySelectorAll<HTMLButtonElement>("button[data-stage]")')
     ]
     assert "await loadOverview()" in reload_all_function
     assert "await loadItems()" in reload_all_function
@@ -316,7 +321,7 @@ def test_collector_desktop_current_challenge_is_independent_and_overview_cannot_
     assert "function challengeActive" in main_js
     assert "solver.scopes || solver.collection_scopes" in main_js
     assert "force_reset_required" in main_js
-    views = (APP_ROOT / "src/desktop_collection_views.js").read_text(encoding="utf-8")
+    views = (APP_ROOT / "src/desktop_collection_views.ts").read_text(encoding="utf-8")
     assert '$("authChallengeStatus")' not in views
 
 
@@ -327,7 +332,7 @@ def test_collector_desktop_refreshes_region_status_separately_every_ten_minutes(
     assert "refreshRegions" in main_js
     assert "刷新所在地" in main_js
     assert "regionRefreshStatus" in main_js
-    assert "regionRefreshInFlight" in main_js
+    assert "requestId === state.regionsRequestId" in main_js
     assert "最后刷新所在地" in main_js
     assert 'setInterval(() => loadRegions({ silent: true }), REGION_REFRESH_INTERVAL_MS)' in main_js
     assert '$("refreshRegions").addEventListener("click", () => loadRegions({ silent: false }))' in main_js

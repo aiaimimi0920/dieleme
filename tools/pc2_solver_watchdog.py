@@ -94,7 +94,7 @@ def main() -> int:
         type=float,
         default=float(os.environ.get("FAPAI_LOCAL_SOLVER_WATCHDOG_POLL_SECONDS", "30")),
     )
-    parser.add_argument("--parent-pid", type=int, default=1)
+    parser.add_argument("--parent-pid", type=int, default=os.getppid())
     args = parser.parse_args()
     return run_watchdog(
         Path(args.heartbeat_path),

@@ -18,13 +18,15 @@ def build_runtime_config(
     port: int,
     db_url: str | None = None,
     seed_location_codes: list[str] | None = None,
+    tls_cert_file: str | None = None,
+    tls_key_file: str | None = None,
 ) -> dict[str, Any]:
     return {
         "repo_root": repo_root,
         "data_dir": repo_root / "datas",
         "port": port,
-        "ensure_browser": False,
-        "start_watchdog": False,
+        "tls_cert_file": tls_cert_file,
+        "tls_key_file": tls_key_file,
         "start_background_processors": False,
         "start_hot_reload": False,
         "skip_load_data": True,
@@ -35,6 +37,9 @@ def build_runtime_config(
 
 
 def run_server(config: dict[str, Any]) -> int:
+    from src.collection_http_server import tls_context
+
+    listener_tls = tls_context(config.get("tls_cert_file"), config.get("tls_key_file"))
     if config.get("db_url"):
         os.environ["FAPAI_DB_URL"] = str(config["db_url"])
         os.environ["FAPAI_DB_ENABLED"] = "1"
@@ -48,10 +53,17 @@ def run_server(config: dict[str, Any]) -> int:
     fapai_server.DATA_DIR = str(config["data_dir"])
     fapai_server.AVM_DIR = str(Path(fapai_server.DATA_DIR) / "avm")
     fapai_server.AVM_SERVICE.data_dir = fapai_server.DATA_DIR
-    fapai_server.AVM_PIPELINE._data_dir = fapai_server.DATA_DIR  # align manager data root
+    fapai_server.AVM_PIPELINE._data_dir = (
+        fapai_server.DATA_DIR
+    )  # align manager data root
     if config.get("skip_load_data"):
+
         def _skip_load_data():
-            print("[isolated_collection_api] Skipping full load_data() for collection-only startup.", flush=True)
+            print(
+                "[isolated_collection_api] Skipping full load_data() for collection-only startup.",
+                flush=True,
+            )
+
         fapai_server.load_data = _skip_load_data
     if config.get("db_url") and config.get("seed_location_codes"):
         seed_location_codes = list(config["seed_location_codes"])
@@ -59,16 +71,19 @@ def run_server(config: dict[str, Any]) -> int:
         def _minimal_bootstrap(self):
             if not (self.repository and getattr(self.repository, "enabled", False)):
                 return
-            self.repository.ensure_seed_search_tasks(seed_location_codes, DEFAULT_CATEGORIES, sort_param="2")
+            self.repository.ensure_seed_search_tasks(
+                seed_location_codes, DEFAULT_CATEGORIES, sort_param="2"
+            )
 
         SeedCollectionService._bootstrap_db_search_tasks = _minimal_bootstrap
-    print(f"[isolated_collection_api] Starting on port {fapai_server.PORT} with data dir {fapai_server.DATA_DIR}")
-    fapai_server.initialize_runtime(
-        start_watchdog=bool(config["start_watchdog"]),
-        ensure_browser=bool(config["ensure_browser"]),
+    print(
+        f"[isolated_collection_api] Starting on port {fapai_server.PORT} with data dir {fapai_server.DATA_DIR}"
     )
+    fapai_server.initialize_runtime()
     fapai_server.AVM_CONFIG_MANAGER.load_on_startup()
-    with fapai_server.ReusableTCPServer(("", fapai_server.PORT), fapai_server.DataHandler) as httpd:
+    with fapai_server.ReusableTCPServer(
+        ("", fapai_server.PORT), fapai_server.DataHandler, tls=listener_tls
+    ) as httpd:
         print("[isolated_collection_api] Server running. Press Ctrl+C to stop.")
         try:
             httpd.serve_forever()
@@ -78,10 +93,16 @@ def run_server(config: dict[str, Any]) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Start an isolated collection API without browser watchdog side effects.")
+    parser = argparse.ArgumentParser(
+        description="Start an isolated collection API without browser watchdog side effects."
+    )
     parser.add_argument("--port", type=int, default=8011)
     parser.add_argument("--db-url", default=None)
-    parser.add_argument("--seed-location-code", action="append", dest="seed_location_codes")
+    parser.add_argument("--tls-cert-file", default=None)
+    parser.add_argument("--tls-key-file", default=None)
+    parser.add_argument(
+        "--seed-location-code", action="append", dest="seed_location_codes"
+    )
     parser.add_argument("--print-config", action="store_true")
     args = parser.parse_args(argv)
 
@@ -89,6 +110,8 @@ def main(argv: list[str] | None = None) -> int:
         REPO_ROOT,
         port=args.port,
         db_url=args.db_url,
+        tls_cert_file=args.tls_cert_file,
+        tls_key_file=args.tls_key_file,
         seed_location_codes=args.seed_location_codes,
     )
     if args.print_config:

@@ -72,10 +72,10 @@ def test_standardized_schema_keeps_legacy_and_new_aliases():
 
 
 def test_keyboard_dialog_and_async_result_contracts():
-    template = read(SOURCE / "desktop_template.js")
-    shared = read(SOURCE / "desktop_shared.js")
-    views = read(SOURCE / "desktop_collection_views.js")
-    regions = read(SOURCE / "desktop_regions.js")
+    template = read(SOURCE / "desktop_template.ts")
+    shared = read(SOURCE / "desktop_shared.ts")
+    views = read(SOURCE / "desktop_collection_views.ts")
+    regions = read(SOURCE / "desktop_regions.ts")
     assert template.count('data-stage="') == 3
     assert 'aria-label="人工认证"' in template
     assert 'id="authDialogTitle"' not in template
@@ -93,7 +93,7 @@ def test_keyboard_dialog_and_async_result_contracts():
 
 
 def test_initial_connection_failure_does_not_keep_loading_placeholders():
-    main = read(SOURCE / "main.js")
+    main = read(SOURCE / "main.ts")
     assert "if (!state.lastOverview)" in main
     assert "运行指标读取失败，等待重新连接。" in main
     assert "尚未读取商品列表，请恢复连接后刷新。" in main
@@ -101,7 +101,7 @@ def test_initial_connection_failure_does_not_keep_loading_placeholders():
 
 
 def test_board_always_shows_metrics_and_only_regions_can_fold():
-    template = read(SOURCE / "desktop_template.js")
+    template = read(SOURCE / "desktop_template.ts")
     css = read(SOURCE / "styles" / "overview.css")
     assert 'class="cards"' in template
     assert 'id="toggleOverview"' not in template
@@ -112,8 +112,8 @@ def test_board_always_shows_metrics_and_only_regions_can_fold():
 
 
 def test_detail_generation_protects_revisiting_the_same_item_and_writes():
-    views = read(SOURCE / "desktop_collection_views.js")
-    state = read(SOURCE / "desktop_state.js")
+    views = read(SOURCE / "desktop_collection_views.ts")
+    state = read(SOURCE / "desktop_state.ts")
     assert "detailRequestId: 0" in state
     assert "state.detailRequestId += 1" in views
     assert "return ++state.detailRequestId" in views
@@ -122,10 +122,10 @@ def test_detail_generation_protects_revisiting_the_same_item_and_writes():
 
 
 def test_detail_actions_have_explicit_status_and_one_primary_action():
-    template = read(SOURCE / "desktop_template.js")
-    main = read(SOURCE / "main.js")
-    views = read(SOURCE / "desktop_collection_views.js")
-    shared = read(SOURCE / "desktop_shared.js")
+    template = read(SOURCE / "desktop_template.ts")
+    main = read(SOURCE / "main.ts")
+    views = read(SOURCE / "desktop_collection_views.ts")
+    shared = read(SOURCE / "desktop_shared.ts")
     assert 'id="detailActionStatus" role="status" aria-live="polite"' in template
     assert '$("refresh").classList.remove("primary-button")' in views
     assert "setDetailBusy(true)" in main

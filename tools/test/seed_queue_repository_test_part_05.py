@@ -1,7 +1,10 @@
 from tools.test.seed_queue_repository_test_context import *  # noqa: F401,F403
+from datetime import timezone
+
+from src.storage.repository_context import use_repository_clock
 
 
-def test_analysis_claim_skips_rows_whose_raw_detail_artifact_is_missing(tmp_path: Path) -> None:
+def test_analysis_worker_can_retry_missing_artifacts_without_blocking_next_item(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _ensure_nansha_job(repo)
     task = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
@@ -39,14 +42,17 @@ def test_analysis_claim_skips_rows_whose_raw_detail_artifact_is_missing(tmp_path
     )
 
     analysis_claim = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30)
-
+    assert analysis_claim is not None
+    assert analysis_claim["id"] == "1001"
+    repo.mark_seed_detail_analysis_failed("1001", "raw detail artifact missing", retryable=True)
+    analysis_claim = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30, exclude_item_ids={"1001"})
     assert analysis_claim is not None
     assert analysis_claim["id"] == "1002"
     with repo.session_factory() as session:
         missing_row = session.get(FapaiSeedItem, "1001")
         claimed_row = session.get(FapaiSeedItem, "1002")
         assert missing_row is not None
-        assert missing_row.status == "analysis_blocked"
+        assert missing_row.status == "analysis_failed"
         assert "raw detail artifact missing" in (missing_row.detail_last_error or "")
         assert claimed_row is not None
         assert claimed_row.status == "analysis_in_progress"
@@ -124,7 +130,7 @@ def test_detail_queue_reclaims_expired_in_progress_before_pending_backlog(
         assert pending is not None
         expired.status = "in_progress"
         expired.detail_leased_by = "dead-worker"
-        expired.detail_lease_until = datetime.now() - timedelta(hours=1)
+        expired.detail_lease_until = datetime.utcnow() - timedelta(hours=1)
         expired.first_seen_at = expired.first_seen_at.replace(year=2099)
         pending.status = "pending_detail"
         pending.first_seen_at = pending.first_seen_at.replace(year=2000)
@@ -337,23 +343,16 @@ def test_release_seed_scan_worker_leases_resets_in_progress_rows_for_worker(tmp_
         assert row.leased_by is None
         assert row.lease_until is None
 
-def test_seed_scan_page_claim_uses_utc_naive_clock_for_lease_timestamps(tmp_path: Path, monkeypatch) -> None:
+def test_seed_scan_page_claim_uses_utc_naive_clock_for_lease_timestamps(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _ensure_nansha_job(repo)
     base_utc = datetime(2026, 7, 5, 10, 0, 0)
 
-    class SkewedLocalDateTime(datetime):
-        @classmethod
-        def now(cls, tz=None):
-            return base_utc + timedelta(hours=8)
-
-        @classmethod
-        def utcnow(cls):
-            return base_utc
-
-    monkeypatch.setattr(repository_module, "datetime", SkewedLocalDateTime)
-
-    claimed = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
+    local_time = (base_utc + timedelta(hours=8)).replace(
+        tzinfo=timezone(timedelta(hours=8))
+    )
+    with use_repository_clock(lambda: local_time):
+        claimed = repo.claim_seed_scan_page("seed-worker", lease_seconds=30)
 
     assert claimed is not None
     with repo.session_factory() as session:
@@ -361,7 +360,7 @@ def test_seed_scan_page_claim_uses_utc_naive_clock_for_lease_timestamps(tmp_path
         assert row is not None
         assert row.lease_until == base_utc + timedelta(seconds=30)
 
-def test_seed_scan_page_reclaims_suspicious_future_lease_written_by_skewed_host(tmp_path: Path) -> None:
+def test_seed_scan_page_preserves_future_lease_until_expiry(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     repo.ensure_seed_scan_job(
         {
@@ -381,13 +380,13 @@ def test_seed_scan_page_reclaims_suspicious_future_lease_written_by_skewed_host(
         assert row is not None
         row.status = "in_progress"
         row.leased_by = "dead-worker"
-        row.updated_at = datetime.now() - timedelta(hours=2)
+        row.updated_at = datetime.utcnow() - timedelta(hours=2)
         row.lease_until = row.updated_at + timedelta(hours=8, seconds=90)
         session.add(row)
         progress_key = row.progress_key
 
     claimed = repo.claim_seed_scan_page("seed-worker-2", lease_seconds=30)
 
-    assert claimed is not None
-    assert claimed["progress_key"] == progress_key
-    assert claimed["page"] == 1
+    assert claimed is None
+    with repo.session_factory() as session:
+        assert session.get(FapaiSeedScanProgress, progress_key).leased_by == "dead-worker"

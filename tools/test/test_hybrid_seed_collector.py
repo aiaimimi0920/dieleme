@@ -5,6 +5,9 @@ import subprocess
 import sys
 from typing import Any
 
+import pytest
+import requests
+
 from tools import hybrid_seed_collector
 
 
@@ -48,6 +51,10 @@ class _FakeResponse:
     def json(self) -> dict[str, Any]:
         return self._json_payload
 
+    def raise_for_status(self) -> None:
+        if self.status_code >= 400:
+            raise requests.HTTPError(f"HTTP {self.status_code}")
+
 
 class _FakeHttpSession:
     def __init__(self, response: _FakeResponse):
@@ -70,7 +77,8 @@ class _FakeApiSession:
     def __init__(self):
         self.post_calls: list[dict[str, Any]] = []
 
-    def post(self, url: str, *, json: dict[str, Any], timeout: int):
+    def post(self, url: str, *, json: dict[str, Any], timeout: int, allow_redirects: bool, headers=None):
+        assert allow_redirects is False
         self.post_calls.append({"url": url, "json": json, "timeout": timeout})
         if url.endswith("/collection/seeds/batch"):
             return _FakeResponse(url=url, text="{}", json_payload={"new": 1})
@@ -91,6 +99,29 @@ def test_classify_probe_summary_marks_login_as_browser_fallback():
         "decision": "browser_fallback_required",
         "reason": "login_required",
     }
+
+
+@pytest.mark.parametrize("status,body", [
+    (302, {"new": 1}), (403, {"error": "forbidden"}), (500, {}),
+    (200, {}), (200, {"ok": False, "new": 0}), (200, {"new": True}),
+    (200, {"status": "error", "new": 0}),
+])
+def test_rejected_seed_batch_never_advances_scan_progress(monkeypatch, status, body):
+    monkeypatch.delenv("FAPAI_COLLECTION_WORKER_TOKEN_FILE", raising=False)
+    calls = []
+
+    class Session:
+        def post(self, url, **kwargs):
+            calls.append(url)
+            assert kwargs["allow_redirects"] is False
+            return _FakeResponse(url=url, text="{}", status_code=status, json_payload=body)
+
+    with pytest.raises(OSError):
+        hybrid_seed_collector.submit_seed_results(
+            api_base="http://127.0.0.1:8001/api", batch_payload={"items": []},
+            progress_payload={"page_num": 1}, api_session=Session(),
+        )
+    assert calls == ["http://127.0.0.1:8001/api/collection/seeds/batch"]
 
 
 def test_classify_probe_summary_marks_punish_as_browser_fallback():

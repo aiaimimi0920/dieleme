@@ -203,7 +203,7 @@ services:
         source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/jobs
         target: /data/jobs
 
-  fapaifang-api:
+  crow-api:
     volumes:
       - type: bind
         source: ${FAPAI_DATA_ROOT_HOST:?set FAPAI_DATA_ROOT_HOST}/output

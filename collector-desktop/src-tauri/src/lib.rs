@@ -20,7 +20,7 @@ fn default_api_base() -> String {
 fn api_base_or_default(value: Option<String>) -> String {
     value
         .filter(|value| !value.trim().is_empty())
-        .unwrap_or_else(|| "http://192.168.15.200:8001".to_string())
+        .unwrap_or_else(|| "http://127.0.0.1:8001".to_string())
 }
 
 #[cfg(test)]
@@ -28,11 +28,11 @@ mod api_base_tests {
     use super::api_base_or_default;
 
     #[test]
-    fn defaults_to_nas_and_keeps_explicit_override() {
-        assert_eq!(api_base_or_default(None), "http://192.168.15.200:8001");
+    fn defaults_to_loopback_and_keeps_explicit_override() {
+        assert_eq!(api_base_or_default(None), "http://127.0.0.1:8001");
         assert_eq!(
             api_base_or_default(Some("  ".into())),
-            "http://192.168.15.200:8001"
+            "http://127.0.0.1:8001"
         );
         assert_eq!(
             api_base_or_default(Some("http://localhost:9000".into())),
@@ -51,6 +51,7 @@ fn bundled_script_path(script_name: &str) -> Option<String> {
         }
     }
 
+    #[cfg(debug_assertions)]
     if let Ok(current_dir) = std::env::current_dir() {
         for root in current_dir.ancestors() {
             let candidate = root.join("scripts").join(script_name);

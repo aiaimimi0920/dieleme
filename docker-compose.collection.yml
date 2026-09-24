@@ -2,7 +2,7 @@ x-fapaifang-image: &fapaifang-image
   build:
     context: .
     args:
-      PYTHON_BASE_IMAGE: ${PYTHON_BASE_IMAGE:-python:3.10-slim}
+      PYTHON_BASE_IMAGE: ${PYTHON_BASE_IMAGE:-python:3.10-slim@sha256:31dd4d9529d02d7436659061cb7564cd4733fc90e5e152709a942d53382ec8d0}
   env_file:
     - path: docker.local.env
       required: false
@@ -22,7 +22,9 @@ services:
     environment:
       FAPAI_RUN_MODE: seed-collector
       FAPAI_OUTPUT_DIR: /data/output/seed_collector
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -50,7 +52,9 @@ services:
     environment:
       FAPAI_RUN_MODE: seed-collector
       FAPAI_OUTPUT_DIR: /data/output/seed_collector_2
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -70,7 +74,9 @@ services:
     environment:
       FAPAI_RUN_MODE: seed-collector
       FAPAI_OUTPUT_DIR: /data/output/seed_collector_3
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -90,7 +96,9 @@ services:
     environment:
       FAPAI_RUN_MODE: seed-collector
       FAPAI_OUTPUT_DIR: /data/output/seed_collector_4
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -110,7 +118,9 @@ services:
     environment:
       FAPAI_RUN_MODE: seed-collector
       FAPAI_OUTPUT_DIR: /data/output/seed_collector_5
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -130,7 +140,9 @@ services:
     environment:
       FAPAI_RUN_MODE: seed-collector
       FAPAI_OUTPUT_DIR: /data/output/seed_collector_6
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -150,7 +162,9 @@ services:
     environment:
       FAPAI_RUN_MODE: detail-worker
       FAPAI_OUTPUT_DIR: /data/output/detail_worker
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -171,7 +185,9 @@ services:
     environment:
       FAPAI_RUN_MODE: detail-worker
       FAPAI_OUTPUT_DIR: /data/output/detail_worker_2
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -193,7 +209,9 @@ services:
     environment:
       FAPAI_RUN_MODE: detail-worker
       FAPAI_OUTPUT_DIR: /data/output/detail_worker_3
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -216,7 +234,9 @@ services:
     environment:
       FAPAI_RUN_MODE: detail-analysis-worker
       FAPAI_OUTPUT_DIR: /data/output/detail_analysis_worker
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -241,7 +261,9 @@ services:
     environment:
       FAPAI_RUN_MODE: detail-analysis-worker
       FAPAI_OUTPUT_DIR: /data/output/detail_analysis_worker_2
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -266,7 +288,9 @@ services:
     environment:
       FAPAI_RUN_MODE: detail-analysis-worker
       FAPAI_OUTPUT_DIR: /data/output/detail_analysis_worker_3
-      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}
+      FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}
+      FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
       FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_WORKER_DB_SCHEMA_GUARD:-0}
       FAPAI_DB_AUTO_CREATE: ${FAPAI_WORKER_DB_AUTO_CREATE:-0}
@@ -293,14 +317,19 @@ services:
       FAPAI_OUTPUT_DIR: /data/output/live_batch_smoke
     volumes: *fapaifang-volumes
 
-  fapaifang-api:
+  crow-api:
     <<: *fapaifang-image
-    container_name: fapaifang-api
+    container_name: crow-api
     restart: ${FAPAI_API_RESTART:-unless-stopped}
     profiles: ["api"]
     environment:
       FAPAI_RUN_MODE: api
       FAPAI_API_PORT: ${FAPAI_API_PORT:-8001}
+      FAPAI_API_TLS_CERT_FILE: ${FAPAI_API_TLS_CERT_FILE:-}
+      FAPAI_API_TLS_KEY_FILE: ${FAPAI_API_TLS_KEY_FILE:-}
+      FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
+      FAPAI_ENGINE_OPERATOR_TOKEN_FILE: ${FAPAI_ENGINE_OPERATOR_TOKEN_FILE:-/data/secrets/engine-operator.token}
+      FAPAI_ENGINE_AGENT_TOKEN_FILE: ${FAPAI_ENGINE_AGENT_TOKEN_FILE:-/data/secrets/engine-agent.token}
       FAPAI_SEED_LOCATION_CODES: ${FAPAI_SEED_LOCATION_CODES:-440115}
       FAPAI_DB_URL: ${FAPAI_DB_URL:-postgresql+psycopg://fapaifang:fapaifang@postgres:5432/fapaifang}
       FAPAI_DB_SCHEMA_GUARD: ${FAPAI_API_DB_SCHEMA_GUARD:-0}

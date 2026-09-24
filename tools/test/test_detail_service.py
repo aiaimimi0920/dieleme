@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from src.collection.adapters import TaobaoJudicialAuctionAdapter
+from src.collection.adapters import GenericProductAdapter, TaobaoJudicialAuctionAdapter
 from src.collection.detail_service import DetailCollectionService
 
 
@@ -181,6 +181,24 @@ def test_process_html_file_preserves_seed_values_when_ai_returns_null_fields(tmp
     assert state["risk_syncs"] == [item_id]
 
 
+def test_generic_seed_preservation_entrypoint_uses_the_configured_adapter():
+    record = {"source_item_id": "sku-1", "source_platform": "catalog_x", "price": None}
+    seed = {"source_item_id": "sku-1", "source_platform": "catalog_x", "price": 42, "name": "Seed"}
+
+    DetailCollectionService._preserve_seed_values(
+        record,
+        seed,
+        adapter=GenericProductAdapter(source_platform="catalog_x"),
+    )
+
+    assert record == {
+        "source_item_id": "sku-1",
+        "source_platform": "catalog_x",
+        "price": 42,
+        "name": "Seed",
+    }
+
+
 def test_legacy_seed_preservation_entrypoint_delegates_to_auction_adapter():
     record = {"id": "legacy-1", "source_item_id": "legacy-1", "建筑面积": 80, "成交价格": None}
     seed = {
@@ -196,3 +214,19 @@ def test_legacy_seed_preservation_entrypoint_delegates_to_auction_adapter():
     assert record["标题"] == "Seed title"
     assert record["成交价格"] == 1_000_000
     assert record["建筑面积"] == 80
+
+
+def test_run_maintenance_forwards_reconcile_limit(tmp_path, monkeypatch):
+    import tools.run_recent_enrich_maintenance as maintenance_module
+
+    calls = {}
+
+    def fake_run(**options):
+        calls.update(options)
+        return {"reconcile_limit": options["reconcile_limit"]}
+
+    monkeypatch.setattr(maintenance_module, "run_recent_enrich_maintenance", fake_run)
+    service = DetailCollectionService(tmp_path)
+
+    assert service.run_maintenance(reconcile_limit=7) == {"reconcile_limit": 7}
+    assert calls["reconcile_limit"] == 7

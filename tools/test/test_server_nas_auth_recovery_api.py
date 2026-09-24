@@ -295,6 +295,14 @@ def test_recovery_claim_and_force_reset_expose_structured_rejections(monkeypatch
             method="POST",
             payload={"scope": "detail", "challenge_id": "challenge-1"},
         )
+        assert status == 403
+        assert body["error"]["code"] == "COLLECTION_AUTH_RECOVERY_FORBIDDEN"
+        status, body = _request_error(
+            origin + "/api/collection/auth/force_reset",
+            method="POST",
+            payload={"scope": "detail", "challenge_id": "challenge-1"},
+            recovery_token="test-recovery-token",
+        )
         assert status == 409
         assert body["error"]["code"] == "COLLECTION_CHALLENGE_FORCE_RESET_REJECTED"
     finally:
@@ -315,7 +323,7 @@ def test_successful_pc2_result_clears_auth_pause_then_waits_for_real_progress(mo
             return {"ok": True, "status": "verifying"}
 
     monkeypatch.setattr(server, "NAS_AUTH_RECOVERY", ResultCoordinator())
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
     monkeypatch.setattr(server, "_clear_solver_manual_required_pause", lambda: None)
     monkeypatch.setattr(server, "_remember_solver_auth_completion", lambda payload: calls.append(("remember", payload)))
     monkeypatch.setattr(server, "_collection_effectively_paused", lambda: False)
@@ -363,7 +371,7 @@ def test_unhealthy_cookie_signal_requires_an_active_solver_pause(monkeypatch):
 
 
 def test_stalled_stage_challenges_are_independent_auth_recovery_signals(monkeypatch):
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver")
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "captcha_solver")
     monkeypatch.setattr(server, "NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS", 300)
     monkeypatch.setattr(server, "_auth_cookie_snapshot_runtime_status", lambda: {"status": "idle"})
 
@@ -396,19 +404,19 @@ def test_stalled_stage_challenges_are_independent_auth_recovery_signals(monkeypa
 
 def test_node_solver_blocked_report_persists_strong_recovery_signal(monkeypatch, tmp_path):
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "SOLVER_SCOPE_STATE_ROOT", None)
+    monkeypatch.setattr(server.RUNTIME.control, "scope_root", None)
     monkeypatch.setattr(
-        server,
-        "SOLVER_SCOPE_STATES",
+        server.RUNTIME.control,
+        "scopes",
         {scope: server._new_solver_scope_state() for scope in server.CHALLENGE_SCOPES},
     )
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", None)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "idle")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "pending_token", None)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", None)
     monkeypatch.setattr(server, "_solver_force_unlock_flag_exists", lambda: False)
 
     request = {
@@ -446,7 +454,7 @@ def test_node_solver_blocked_report_persists_strong_recovery_signal(monkeypatch,
 
 
 def test_node_solver_blocked_signal_requires_paused_scoped_failure(monkeypatch):
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver")
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "captcha_solver")
     monkeypatch.setattr(server, "_auth_cookie_snapshot_runtime_status", lambda: {"status": "idle"})
     base_scope = {
         "paused": True,
@@ -461,7 +469,7 @@ def test_node_solver_blocked_signal_requires_paused_scoped_failure(monkeypatch):
     )
     assert server._nas_auth_recovery_signal() is None
 
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "operator")
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "operator")
     monkeypatch.setattr(
         server,
         "_captcha_solver_runtime_status",
@@ -469,7 +477,7 @@ def test_node_solver_blocked_signal_requires_paused_scoped_failure(monkeypatch):
     )
     assert server._nas_auth_recovery_signal() is None
 
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver")
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "captcha_solver")
     monkeypatch.setattr(
         server,
         "_captcha_solver_runtime_status",

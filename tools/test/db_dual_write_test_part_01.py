@@ -239,8 +239,8 @@ def test_load_data_db_first_keeps_runtime_cache_empty_until_items_are_requested(
 
     server_module.load_data()
 
-    assert server_module.SEEN_IDS == {}
-    assert server_module.PENDING_TASKS == []
+    assert server_module.RUNTIME.collection.seen_ids == {}
+    assert server_module.RUNTIME.collection.pending_tasks == []
 
 def test_repository_counts_snapshot_and_coordinate_centroids(tmp_path: Path):
     repo = _make_repo(tmp_path)
@@ -355,10 +355,10 @@ def test_load_data_prefers_database_over_stale_json_when_db_is_enabled(tmp_path:
 
     server_module.load_data()
 
-    assert server_module.SEEN_IDS == {}
+    assert server_module.RUNTIME.collection.seen_ids == {}
     working = server_module._get_working_item("9201", include_processed=True)
     assert working["data"]["source_title"] == "DB Title"
-    assert server_module.SEEN_IDS == {}
+    assert server_module.RUNTIME.collection.seen_ids == {}
 
 def test_repository_pending_task_queries_and_processed_counts(tmp_path: Path):
     repo = _make_repo(tmp_path)

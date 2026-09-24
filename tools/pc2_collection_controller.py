@@ -7,6 +7,7 @@ import subprocess
 import time
 
 from .collection_control_lock import operation_lock
+from .controller_receipts import deliver_receipt
 from .pc2_engine_controller import ControllerError, EngineController, MailboxClient, validate_command
 from .pc2_settings_controller import SettingsClient, SettingsController
 from .pc2_settings_runtime import SettingsRuntime, write_private
@@ -27,8 +28,7 @@ class RestartController:
 
     def step(self):
         if self.journal.exists():
-            self.client.post("result", json.loads(self.journal.read_text(encoding="utf-8")))
-            self.journal.unlink()
+            deliver_receipt(self.client, self.journal)
             return
         self.engine.inspect()
         command = self.client.post("poll", {}).get("command")
@@ -45,7 +45,8 @@ def step(root, settings, restart, watchdog=None):
         if (root / "release-operation.json").exists():
             raise ControllerError("Release result needs reconciliation")
         if watchdog is not None and not settings.journal.exists() and not restart.journal.exists():
-            watchdog.step()
+            if watchdog.step() == "restart_requested":
+                return
         # An uncertain settings operation must not be followed by a restart.
         settings.step()
         if settings.journal.exists():

@@ -3,7 +3,6 @@ from __future__ import annotations
 from .server_context import *  # noqa: F401,F403
 
 def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = None) -> dict[str, Any]:
-    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
     payload = payload if isinstance(payload, dict) else {}
     completion_id = _normalize_auth_completion_id(payload.get("completion_id"))
     source = str(payload.get("source") or "operator")
@@ -22,7 +21,7 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
             "source": source,
             "completion_id": None,
             "auth_state_confirmed": False,
-            "challenge_id": SOLVER_CHALLENGE_ID,
+            "challenge_id": RUNTIME.recovery.snapshot().challenge_id,
             "paused": bool(solver_status.get("paused")),
             "captcha_solver": solver_status,
             "error": "completion_id is required for pc2_local_solver",
@@ -36,7 +35,7 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
             "completion_id": completion_id,
             "auth_state_confirmed": False,
             "stale_challenge": True,
-            "challenge_id": SOLVER_CHALLENGE_ID,
+            "challenge_id": RUNTIME.recovery.snapshot().challenge_id,
             "paused": bool(solver_status.get("paused")),
             "captcha_solver": solver_status,
             "error": "completion belongs to an older captcha challenge",
@@ -45,7 +44,7 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
     before_status = _captcha_solver_runtime_status()
     completion_request = before_status.get("last_request")
     if not isinstance(completion_request, dict) or not completion_request:
-        completion_request = SOLVER_LAST_REQUEST
+        completion_request = RUNTIME.recovery.snapshot().last_request
     if completion_scope not in CHALLENGE_SCOPES:
         completion_scope = _challenge_scope_for_request(completion_request)
     if completion_scope in CHALLENGE_SCOPES:
@@ -56,7 +55,7 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
     if (
         completion_scope in CHALLENGE_SCOPES
         and not _solver_scope_runtime_status(completion_scope).get("challenge_id")
-        and reported_completion_id == str(SOLVER_CHALLENGE_ID or "").strip()
+        and reported_completion_id == str(RUNTIME.recovery.snapshot().challenge_id or "").strip()
     ):
         completion_scope = None
     already_clear = _auth_state_is_confirmed(before_status, completion_scope)
@@ -72,7 +71,7 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
     expected_challenge_id = (
         str(_solver_scope_runtime_status(completion_scope).get("challenge_id") or "").strip() or None
         if completion_scope in CHALLENGE_SCOPES
-        else str(SOLVER_CHALLENGE_ID or "").strip() or None
+        else str(RUNTIME.recovery.snapshot().challenge_id or "").strip() or None
     )
 
     clear_error: str | None = None
@@ -95,8 +94,7 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
         # health probe used by collection.  The background retry performs phase
         # two and clears this exact challenge only after a healthy snapshot.
         auth_state_confirmed = False
-        SOLVER_LAST_STATUS = "manual_required"
-        SOLVER_LAST_FAILURE_REASON = "manual_required"
+        RUNTIME.solver.record_outcome("manual_required", "manual_required")
         _set_collection_pause_state(True, "manual_required", scope=completion_scope or None)
         cookie_snapshot = _schedule_auth_cookie_snapshot_refresh(
             snapshot_payload,
@@ -124,12 +122,10 @@ def _collection_observer_auth_complete_payload(payload: dict[str, Any] | None = 
             }
 
     if auth_state_confirmed:
-        SOLVER_LAST_STATUS = "manual_auth_completed"
-        SOLVER_LAST_FAILURE_REASON = None
+        RUNTIME.solver.record_outcome("manual_auth_completed")
         _remember_solver_auth_completion(completion_request)
     elif not previously_confirmed:
-        SOLVER_LAST_STATUS = "manual_required"
-        SOLVER_LAST_FAILURE_REASON = "manual_required"
+        RUNTIME.solver.record_outcome("manual_required", "manual_required")
         _set_collection_pause_state(True, "manual_required", scope=completion_scope or None)
     solver_status = _captcha_solver_runtime_status()
     scoped_result_status = (

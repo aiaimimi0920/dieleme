@@ -14,6 +14,8 @@ def run_seed_collector_loop(
     runtime_context_factory: SeedRuntimeContextFactory | None = None,
     progress_emit_func: SeedProgressEmitFunc | None = None,
 ) -> dict[str, Any]:
+    from tools.worker_lifecycle import checkpoint, wait
+
     if runtime_context_factory is None:
         if http_session is None:
             runtime_context_factory = lambda: _build_runtime_context(config)
@@ -82,7 +84,7 @@ def run_seed_collector_loop(
                 "counts": initial_counts,
             },
         )
-    while True:
+    while checkpoint("seed_cycle"):
         runs += 1
         has_work, queue_counts = _has_seed_scan_work(repository)
         if not has_work:
@@ -104,7 +106,7 @@ def run_seed_collector_loop(
                     "counts": run_event.get("counts"),
                 }
             )
-            time.sleep(sleep_seconds)
+            wait(sleep_seconds)
             continue
         try:
             current_http_session = runtime_context_factory()
@@ -142,10 +144,12 @@ def run_seed_collector_loop(
                         "counts": failure_event.get("counts"),
                     }
                 )
-                time.sleep(sleep_seconds)
+                wait(sleep_seconds)
                 continue
         run_results: list[dict[str, Any]] = []
         for _page_index in range(max(int(config.pages_per_run or 1), 1)):
+            if not checkpoint("seed_page"):
+                break
             result = run_seed_collector_once(
                 config,
                 repository=repository,
@@ -175,7 +179,7 @@ def run_seed_collector_loop(
                     config.pacing_jitter_ratio,
                 )
                 if delay_seconds > 0:
-                    time.sleep(delay_seconds)
+                    wait(delay_seconds)
         run_event = _seed_run_progress_event(runs, run_results)
         cycle_summaries.append(dict(run_event.get("cycle_summary") or {}))
         emit_progress(run_event)
@@ -191,7 +195,7 @@ def run_seed_collector_loop(
                 "counts": run_event.get("counts"),
             }
         )
-        time.sleep(sleep_seconds)
+        wait(sleep_seconds)
     summary = {
         "decision": "seed_collector_loop_finished",
         "runs": runs,

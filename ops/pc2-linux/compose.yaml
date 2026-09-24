@@ -2,7 +2,9 @@ name: fapaifang-pc2
 
 x-common-env: &common-env
   FAPAI_NODE_ID: ${FAPAI_NODE_ID:-pc2}
-  FAPAI_API_BASE_URL: ${FAPAI_CENTRAL_API_BASE_URL:-http://192.168.15.200:8001/api}
+  FAPAI_API_BASE_URL: ${FAPAI_CENTRAL_API_BASE_URL:?set FAPAI_CENTRAL_API_BASE_URL}
+  FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}
+  FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}
   FAPAI_DB_URL: ${FAPAI_WORKER_DB_URL:?set FAPAI_WORKER_DB_URL}
   FAPAI_DB_AUTO_CREATE: "0"
   FAPAI_DB_ENABLE_POSTGIS: "0"
@@ -15,6 +17,14 @@ x-common-env: &common-env
   FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED: "1"
   FAPAI_BROWSER_USER_AGENT: ${FAPAI_BROWSER_USER_AGENT:-}
   FAPAI_BROWSER_IDENTITY_FULL_VERSION: ${FAPAI_BROWSER_IDENTITY_FULL_VERSION:-}
+  FAPAI_WORKER_HEARTBEAT_PATH: /tmp/fapaifang-worker-heartbeat.json
+  FAPAI_WORKER_HEARTBEAT_STALE_SECONDS: ${FAPAI_WORKER_HEARTBEAT_STALE_SECONDS:-900}
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "20m"
+    max-file: "5"
 
 x-worker-volumes: &worker-volumes
   # Legacy evidence is read-only; new captures keep using the existing local output.
@@ -48,6 +58,9 @@ x-worker-service: &worker-service
   env_file:
     - ${FAPAI_RUNTIME_ENV_FILE:?set FAPAI_RUNTIME_ENV_FILE}
   restart: unless-stopped
+  init: true
+  stop_grace_period: 5m
+  logging: *logging
   volumes: *worker-volumes
   security_opt:
     - no-new-privileges:true
@@ -68,6 +81,9 @@ services:
     env_file:
       - ${FAPAI_RUNTIME_ENV_FILE:?set FAPAI_RUNTIME_ENV_FILE}
     restart: unless-stopped
+    init: true
+    stop_grace_period: 60s
+    logging: *logging
     environment:
       <<: *common-env
       DISPLAY: :99

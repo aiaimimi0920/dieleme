@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import json
+import logging
 import random
 import threading
+import time
 
-from src.llm_config import CONFIG_FILE, MODEL_POOL
+from src.llm_config import CONFIG_FILE, get_model_pool
+
+logger = logging.getLogger(__name__)
 
 
 AUTH_INVALID_ERROR_CODES = {11200}
@@ -39,7 +43,7 @@ class ModelSelector:
         self.base_models = [m for m in pool if "Base" in m.get("base_name", m["name"])]
 
         total = sum(self.limits.values())
-        print(f"[ModelSelector] Counter-based init: {len(pool)} models, Total concurrency: {total}")
+        logger.info("Model selector initialized models=%s total_concurrency=%s", len(pool), total)
 
     def get_next(self, task_type=None):
         """
@@ -48,18 +52,14 @@ class ModelSelector:
         - task_type=None: Returns None to signal use of acquire_any()
         """
         if task_type == 'community_search':
-            # Random choice from available base models
-            available = []
-            for m in self.base_models:
-                name = m["name"]
-                if self.active_counts.get(name, 0) < self.limits.get(name, 0):
-                    available.append(m)
-
-            if available:
-                return random.choice(available)
-
-            # If all full, just return a random one and let it block to distribute wait time
-            return random.choice(self.base_models) if self.base_models else self.pool[0]
+            with self.condition:
+                candidates = [m for m in (self.base_models or self.pool)
+                              if m["name"] not in self.disabled_models]
+                if not candidates:
+                    raise LLMBackendUnavailableError("No community-search model is available")
+                available = [m for m in candidates
+                             if self.active_counts[m["name"]] < self.limits[m["name"]]]
+                return random.choice(available or candidates)
         return None
 
     def _find_available_model(self):
@@ -78,15 +78,26 @@ class ModelSelector:
             return random.choice(available)
         return None
 
-    def acquire_any(self):
+    @staticmethod
+    def _remaining_wait(deadline, cancel_event):
+        if cancel_event is not None and cancel_event.is_set():
+            raise LLMBackendUnavailableError("Model capacity wait cancelled")
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise LLMBackendUnavailableError("Model capacity wait deadline exceeded")
+        return min(remaining, 0.1)
+
+    def acquire_any(self, *, deadline=None, cancel_event=None):
         """
         Get any available model slot.
         INSTANT if slots available, blocks only if ALL slots are busy.
         Returns (model_config, acquired).
         """
+        deadline = time.monotonic() + 180 if deadline is None else deadline
         with self.condition:
             # Wait until a slot is available
             while True:
+                remaining = self._remaining_wait(deadline, cancel_event)
                 enabled_model_names = [m["name"] for m in self.pool if m["name"] not in self.disabled_models]
                 if not enabled_model_names:
                     raise LLMBackendUnavailableError("All configured models are disabled or unavailable")
@@ -98,17 +109,19 @@ class ModelSelector:
                         self.stats[name]["active"] = self.active_counts[name]
                     return model, True
                 # No slots available, wait for a release
-                self.condition.wait()
+                self.condition.wait(remaining)
 
-    def acquire(self, model_name):
+    def acquire(self, model_name, *, deadline=None, cancel_event=None):
         """Acquire a connection slot for a SPECIFIC model. Blocks if at limit."""
+        deadline = time.monotonic() + 180 if deadline is None else deadline
         with self.condition:
-            if model_name in self.disabled_models:
-                raise LLMBackendUnavailableError(
-                    f"Model '{model_name}' is disabled: {self.disabled_models.get(model_name) or 'unavailable'}"
-                )
-            while self.active_counts.get(model_name, 0) >= self.limits.get(model_name, 5):
-                self.condition.wait()
+            while True:
+                remaining = self._remaining_wait(deadline, cancel_event)
+                if model_name not in self.stats or model_name in self.disabled_models:
+                    raise LLMBackendUnavailableError("Requested model is disabled or unavailable")
+                if self.active_counts[model_name] < self.limits[model_name]:
+                    break
+                self.condition.wait(remaining)
 
             self.active_counts[model_name] = self.active_counts.get(model_name, 0) + 1
             with self.stats_lock:
@@ -121,7 +134,7 @@ class ModelSelector:
             if model_name in self.disabled_models:
                 return
             self.disabled_models[model_name] = str(reason or "unavailable")
-            print(f"[MODEL-DISABLE] Disabled '{model_name}': {self.disabled_models[model_name]}")
+            logger.warning("[MODEL-DISABLE] Disabled '%s': %s", model_name, self.disabled_models[model_name])
             self.condition.notify_all()
 
     def release(self, model_name, model_config=None, from_queue=False):
@@ -179,9 +192,9 @@ class ModelSelector:
         try:
             with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
                 json.dump(config, f, indent=2)
-            print(f"[CONFIG] Saved to {CONFIG_FILE}")
+            logger.info("[CONFIG] Saved to %s", CONFIG_FILE)
         except Exception as e:
-            print(f"[CONFIG] Save error: {e}")
+            logger.error("[CONFIG] Save error: %s", e)
 
     def update_limit(self, model_name, new_limit):
         """
@@ -197,7 +210,7 @@ class ModelSelector:
                     if model["name"] == model_name:
                         model["max_concurrent"] = new_limit
                         break
-                print(f"[CONFIG] Runtime update: {model_name} {old_limit} -> {new_limit}")
+                logger.info("[CONFIG] Runtime update: %s %s -> %s", model_name, old_limit, new_limit)
                 # If limit increased, wake up waiters
                 if new_limit > old_limit:
                     self.condition.notify_all()
@@ -210,7 +223,17 @@ class ModelSelector:
         return sum(self.limits.values())
 
 
-model_selector = ModelSelector(MODEL_POOL)
+_SELECTOR_LOCK = threading.Lock()
+_selector = None
+
+
+def get_model_selector():
+    from src import llm_model_selector as state
+
+    with state._SELECTOR_LOCK:
+        if state._selector is None:
+            state._selector = state.ModelSelector(get_model_pool())
+        return state._selector
 
 
 def get_model_for_task(task_type=None):
@@ -219,7 +242,7 @@ def get_model_for_task(task_type=None):
     - 'community_search': Returns GLM-4.7-Base only
     - None: Returns next model in round-robin
     """
-    return model_selector.get_next(task_type)
+    return get_model_selector().get_next(task_type)
 
 
-__all__ = ['AUTH_INVALID_ERROR_CODES', 'LLMBackendUnavailableError', 'ModelSelector', 'model_selector', 'get_model_for_task']
+__all__ = ['AUTH_INVALID_ERROR_CODES', 'LLMBackendUnavailableError', 'ModelSelector', 'get_model_selector', 'get_model_for_task']

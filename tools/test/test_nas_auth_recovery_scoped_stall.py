@@ -36,7 +36,7 @@ def test_scoped_challenge_recovery_is_independent_of_detail_progress(
     }
     monkeypatch.setattr(server, "NAS_AUTH_RECOVERY", coordinator)
     monkeypatch.setattr(server, "NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS", 300)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "operator" if operator_paused else "")
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "operator" if operator_paused else "")
     monkeypatch.setattr(server, "_solver_detail_captured_count", lambda: 101)
     monkeypatch.setattr(server, "_nas_auth_recovery_pending_detail_count", lambda: pending)
     monkeypatch.setattr(server, "_solver_scope_runtime_status", lambda stage: stages[stage])

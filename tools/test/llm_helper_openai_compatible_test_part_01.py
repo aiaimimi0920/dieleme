@@ -4,11 +4,13 @@ from src import llm_model_selector, llm_websocket
 from tools.test.llm_helper_openai_compatible_test_context import *
 
 
-def test_compatibility_facade_preserves_exported_class_identity():
+def test_compatibility_facade_preserves_exported_class_identity(monkeypatch):
     assert llm_helper.ModelSelector is llm_model_selector.ModelSelector
     assert llm_helper.AIService is llm_websocket.AIService
     assert llm_helper.Ws_Param is llm_websocket.Ws_Param
-    assert isinstance(llm_helper.model_selector, llm_helper.ModelSelector)
+    monkeypatch.setattr(llm_model_selector, "_selector", None)
+    monkeypatch.setattr(llm_helper, "get_model_pool", lambda: [])
+    assert isinstance(llm_helper.get_model_selector(), llm_helper.ModelSelector)
 
 
 def test_chat_with_glm_uses_openai_compatible_backend_when_env_is_set(monkeypatch):
@@ -306,9 +308,10 @@ def test_llm_helper_import_allows_openai_env_without_secrets_json(tmp_path):
             sys.executable,
             "-c",
             "from src import llm_helper; "
-            "assert llm_helper.MODEL_POOL == []; "
-            "assert llm_helper.APP_ID == ''; "
-            "assert llm_helper.MODEL_ID == ''; "
+            "from src import llm_config; "
+            "assert llm_config._model_pool is None; "
+            "assert not hasattr(llm_helper, 'API_KEY'); "
+            "assert not hasattr(llm_helper, 'API_SECRET'); "
             "print('import-ok')",
         ],
         cwd=tmp_path,

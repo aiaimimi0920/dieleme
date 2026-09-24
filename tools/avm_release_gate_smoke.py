@@ -39,9 +39,9 @@ def run_api_smoke(data_root: Path, thresholds: GateThresholds, sample_size: int)
     )
 
     original_service = server_module.AVM_SERVICE
-    original_start = server_module.AVM_SERVICE_START_TIME
+    original_start = server_module.RUNTIME.started_at
     server_module.AVM_SERVICE = AVMService(data_dir=str(smoke_data_root))
-    server_module.AVM_SERVICE_START_TIME = time.time()
+    server_module.RUNTIME.started_at = time.time()
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -83,7 +83,7 @@ def run_api_smoke(data_root: Path, thresholds: GateThresholds, sample_size: int)
         httpd.shutdown()
         httpd.server_close()
         server_module.AVM_SERVICE = original_service
-        server_module.AVM_SERVICE_START_TIME = original_start
+        server_module.RUNTIME.started_at = original_start
         smoke_temp.cleanup()
 
     if not latencies:

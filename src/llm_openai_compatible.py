@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 import re
 import time
@@ -8,14 +9,17 @@ from urllib.parse import urlparse
 
 import requests
 
-from src.llm_config import MODEL_POOL
+from src.llm_config import get_model_pool
 from src.llm_model_selector import (
     AUTH_INVALID_ERROR_CODES,
     LLMBackendUnavailableError,
-    model_selector,
+    get_model_selector,
 )
 from src.llm_websocket import AIService
 from src.llm_analysis_policy import require_non_gpt_analysis_model
+
+
+logger = logging.getLogger(__name__)
 
 
 def _strip_json_markdown(result):
@@ -112,6 +116,9 @@ def _get_openai_compatible_proxies(base_url=None):
 
 
 def _chat_with_openai_compatible(content, config):
+    from src.llm_request_policy import MAX_OUTPUT_TOKENS, MAX_RETRY_WAIT_SECONDS, retry_delay
+    from src.llm_evidence_prompt import request_messages
+
     url = f"{config['base_url']}/chat/completions"
     session = requests.Session()
     session.trust_env = False
@@ -121,12 +128,17 @@ def _chat_with_openai_compatible(content, config):
     max_retries = max(int(config.get("max_retries", 3)), 1)
     models = list(config.get("models") or [config["model"]])
     response = None
+    forbidden_models = set()
     for attempt in range(1, max_retries + 1):
+        wait_seconds = min(2 ** (attempt - 1), 8)
         for model in models:
+            if model in forbidden_models:
+                continue
             request_payload = {
                 "model": model,
-                "messages": [{"role": "user", "content": content}],
+                "messages": request_messages(content),
                 "temperature": 0,
+                "max_tokens": MAX_OUTPUT_TOKENS,
             }
             if config.get("reasoning_effort"):
                 request_payload["reasoning_effort"] = config["reasoning_effort"]
@@ -145,16 +157,25 @@ def _chat_with_openai_compatible(content, config):
                 break
             if status_code in (400, 401):
                 response.raise_for_status()
+            if status_code == 403:
+                forbidden_models.add(model)
+            if status_code == 429:
+                wait_seconds = retry_delay(getattr(response, "headers", {}), attempt)
+                # Rate limiting can be account-wide; do not fan out to every model.
+                break
             if status_code not in (403, 429, 500, 502, 503, 504, 524):
                 response.raise_for_status()
         if response is not None and getattr(response, "status_code", None) is not None and response.status_code < 400:
             break
-        if attempt >= max_retries:
+        if attempt >= max_retries or len(forbidden_models) == len(models):
             break
-        wait_seconds = min(2 ** (attempt - 1), 8)
-        print(
-            "DEBUG: OpenAI-compatible candidate models unavailable; "
-            f"retry {attempt}/{max_retries} after {wait_seconds}s"
+        if wait_seconds > MAX_RETRY_WAIT_SECONDS:
+            response.raise_for_status()
+        logger.debug(
+            "OpenAI-compatible candidate models unavailable; retry %s/%s after %ss",
+            attempt,
+            max_retries,
+            wait_seconds,
         )
         time.sleep(wait_seconds)
     if response is None:
@@ -273,19 +294,20 @@ def preflight_llm_backend(timeout=15.0, *, check_chat=False):
         result = preflight_openai_compatible_backend(timeout=timeout, check_chat=check_chat)
         result.setdefault("backend", "openai_compatible")
         return result
-    if not MODEL_POOL:
+    pool = get_model_pool()
+    if not pool:
         return {"enabled": False}
 
     result = {
         "enabled": True,
         "backend": "glm_websocket_pool",
-        "model_pool_size": len(MODEL_POOL),
+        "model_pool_size": len(pool),
     }
     if not check_chat:
         return result
 
-    disabled_models = dict(getattr(model_selector, "disabled_models", {}) or {})
-    enabled_models = [model for model in MODEL_POOL if str(model.get("name") or "") not in disabled_models]
+    disabled_models = dict(getattr(get_model_selector(), "disabled_models", {}) or {})
+    enabled_models = [model for model in pool if str(model.get("name") or "") not in disabled_models]
     if not enabled_models:
         result.update(
             {
@@ -379,7 +401,10 @@ def chat_with_glm(content, *, model=None):
             openai_config = dict(openai_config)
             openai_config["model"] = requested_model
             openai_config["models"] = [requested_model]
-        print(f"DEBUG: Sending request to OpenAI-compatible backend (model={openai_config['model']})...")
+        logger.debug(
+            "Sending request to OpenAI-compatible backend (model=%s)...",
+            openai_config["model"],
+        )
         from src.llm_qualification_pool import QualifiedModelPool, pool_enabled
         if pool_enabled():
             import sqlite3
@@ -390,7 +415,7 @@ def chat_with_glm(content, *, model=None):
                 raise LLMBackendUnavailableError("LLM backend unavailable: model pool state unavailable") from None
         else:
             result = _chat_with_openai_compatible(content, openai_config)
-        print(f"DEBUG: OpenAI-compatible response received (len={len(result)}).")
+        logger.debug("OpenAI-compatible response received (len=%s).", len(result))
         stripped = _strip_json_markdown(result)
         if not str(stripped or "").strip():
             raise LLMBackendUnavailableError("LLM backend unavailable: OpenAI-compatible backend returned empty response")
@@ -401,9 +426,9 @@ def chat_with_glm(content, *, model=None):
             "LLM backend unavailable: explicit model routing requires the OpenAI-compatible backend"
         )
     service = AIService()
-    print("DEBUG: Sending request to GLM-4.7...")
+    logger.debug("Sending request to GLM-4.7...")
     result = service.get_response(content)
-    print(f"DEBUG: GLM-4.7 response received (len={len(result)}).")
+    logger.debug("GLM-4.7 response received (len=%s).", len(result))
 
     if service.error_code in AUTH_INVALID_ERROR_CODES:
         raise LLMBackendUnavailableError(

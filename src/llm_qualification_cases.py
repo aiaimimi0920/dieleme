@@ -1,6 +1,6 @@
 """Versioned, exact-answer collection extraction qualification (not a judge LLM)."""
 
-VERSION = "collection-exact-v1"
+VERSION = "collection-exact-v2-evidence"
 INSTRUCTION = (
     "Extract only facts stated in the source. Return compact JSON, with exactly "
     "these keys in this order: price_yuan,area_sqm,sold. Use numbers (no trailing "

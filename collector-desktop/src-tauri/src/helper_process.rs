@@ -10,21 +10,40 @@ pub fn run(
     timeout: Duration,
 ) -> Result<Output, &'static str> {
     command
-        .stdin(Stdio::piped())
+        .stdin(if input.is_empty() {
+            Stdio::null()
+        } else {
+            Stdio::piped()
+        })
         .stdout(Stdio::piped())
-        .stderr(Stdio::null());
+        .stderr(Stdio::piped());
     #[cfg(windows)]
     {
         use std::os::windows::process::CommandExt;
         command.creation_flags(0x08000000);
     }
     let mut child = command.spawn().map_err(|_| "helper_start_failed")?;
-    let mut stdin = child.stdin.take().ok_or("helper_input_unavailable")?;
     let stdout = child.stdout.take().ok_or("helper_output_unavailable")?;
+    let mut stderr = child.stderr.take().ok_or("helper_output_unavailable")?;
     let (sender, receiver) = mpsc::channel();
+    let (error_sender, error_receiver) = mpsc::channel();
     // Neither a full input/output pipe nor a silent child may hold the UI gate.
+    if let Some(mut stdin) = child.stdin.take() {
+        thread::spawn(move || {
+            let _ = stdin.write_all(&input);
+        });
+    }
     thread::spawn(move || {
-        let _ = stdin.write_all(&input);
+        let mut bytes = Vec::new();
+        let mut buffer = [0_u8; 4096];
+        while let Ok(count) = stderr.read(&mut buffer) {
+            if count == 0 {
+                break;
+            }
+            let kept = count.min(8192 - bytes.len());
+            bytes.extend_from_slice(&buffer[..kept]);
+        }
+        let _ = error_sender.send(bytes);
     });
     thread::spawn(move || {
         let mut bytes = Vec::new();
@@ -38,11 +57,14 @@ pub fn run(
                 break match receiver
                     .recv_timeout(deadline.saturating_duration_since(Instant::now()))
                 {
-                    Ok(Ok(stdout)) if stdout.len() <= 65536 => Ok(Output {
-                        status,
-                        stdout,
-                        stderr: Vec::new(),
-                    }),
+                    Ok(Ok(stdout)) if stdout.len() <= 65536 => error_receiver
+                        .recv_timeout(deadline.saturating_duration_since(Instant::now()))
+                        .map(|stderr| Output {
+                            status,
+                            stdout,
+                            stderr,
+                        })
+                        .map_err(|_| "helper_timeout"),
                     Ok(_) => Err("helper_output_invalid"),
                     Err(_) => Err("helper_timeout"),
                 };
@@ -102,5 +124,29 @@ mod tests {
             .unwrap_err(),
             "helper_timeout"
         );
+    }
+
+    #[test]
+    fn stderr_is_bounded_and_drained_without_blocking_the_helper() {
+        #[cfg(windows)]
+        let mut command = {
+            let mut command = Command::new("powershell.exe");
+            command.args([
+                "-NoProfile",
+                "-Command",
+                "[Console]::Error.Write(('x' * 131072)); [Console]::Out.Write('ok')",
+            ]);
+            command
+        };
+        #[cfg(not(windows))]
+        let mut command = {
+            let mut command = Command::new("sh");
+            command.args(["-c", "printf '%131072s' x >&2; printf ok"]);
+            command
+        };
+        let output = run(&mut command, Vec::new(), Duration::from_secs(20)).unwrap();
+        assert!(output.status.success());
+        assert_eq!(output.stdout, b"ok");
+        assert_eq!(output.stderr.len(), 8192);
     }
 }

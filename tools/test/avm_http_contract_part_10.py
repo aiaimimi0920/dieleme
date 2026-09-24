@@ -5,44 +5,44 @@ from tools.test.avm_http_contract_context import *  # noqa: F401,F403
 
 class AVMHttpContractPart10:
     def test_report_captcha_endpoint_force_retry_clears_manual_state_without_queueing_parallel_solver(self):
-        original_paused = server_module.PAUSED
-        original_pause_reason = server_module.COLLECTION_PAUSE_REASON
-        original_running = server_module.SOLVER_RUNNING
-        original_start_time = server_module.SOLVER_START_TIME
-        original_last_status = server_module.SOLVER_LAST_STATUS
-        original_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
-        original_resume_epoch = server_module.SOLVER_MANUAL_RESUME_EPOCH
+        original_paused = server_module.RUNTIME.control.paused
+        original_pause_reason = server_module.RUNTIME.control.reason
+        original_running = server_module.RUNTIME.solver.running
+        original_start_time = server_module.RUNTIME.solver.started_at
+        original_last_status = server_module.RUNTIME.solver.last_status
+        original_last_failure = server_module.RUNTIME.solver.failure_reason
+        original_resume_epoch = server_module.RUNTIME.recovery.resume_epoch
         original_data_dir = server_module.DATA_DIR
-        server_module.PAUSED = True
-        server_module.COLLECTION_PAUSE_REASON = 'manual_required'
-        server_module.SOLVER_RUNNING = True
-        server_module.SOLVER_START_TIME = time.time() - 1800
-        server_module.SOLVER_LAST_STATUS = 'manual_required'
-        server_module.SOLVER_LAST_FAILURE_REASON = 'manual_required'
-        server_module.SOLVER_MANUAL_RESUME_EPOCH = 0
+        server_module.RUNTIME.control.paused = True
+        server_module.RUNTIME.control.reason = 'manual_required'
+        server_module.RUNTIME.solver.running = True
+        server_module.RUNTIME.solver.started_at = time.time() - 1800
+        server_module.RUNTIME.solver.last_status = 'manual_required'
+        server_module.RUNTIME.solver.failure_reason = 'manual_required'
+        server_module.RUNTIME.recovery.resume_epoch = 0
         server_module.DATA_DIR = self.data_dir
         flag_path = os.path.join(self.data_dir, 'force_unlock.flag')
         with open(flag_path, 'w', encoding='utf-8') as f:
             f.write('manual verification required')
         try:
             with mock.patch.object(server_module.executor, 'submit') as mocked_submit:
-                request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=json.dumps({'target_url': 'https://contest.local/challenge?__captcha_solver_bg=1', 'force_retry': True}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+                request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=json.dumps({'target_url': 'https://contest.local/challenge?__captcha_solver_bg=1', 'force_retry': True}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
                 with urllib.request.urlopen(request) as resp:
                     self.assertEqual(resp.status, 200)
                     body = json.loads(resp.read().decode('utf-8'))
-                observed_paused = server_module.PAUSED
-                observed_running = server_module.SOLVER_RUNNING
-                observed_last_status = server_module.SOLVER_LAST_STATUS
-                observed_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
+                observed_paused = server_module.RUNTIME.control.paused
+                observed_running = server_module.RUNTIME.solver.running
+                observed_last_status = server_module.RUNTIME.solver.last_status
+                observed_last_failure = server_module.RUNTIME.solver.failure_reason
         finally:
             server_module.DATA_DIR = original_data_dir
-            server_module.SOLVER_MANUAL_RESUME_EPOCH = original_resume_epoch
-            server_module.SOLVER_LAST_FAILURE_REASON = original_last_failure
-            server_module.SOLVER_LAST_STATUS = original_last_status
-            server_module.SOLVER_START_TIME = original_start_time
-            server_module.SOLVER_RUNNING = original_running
-            server_module.COLLECTION_PAUSE_REASON = original_pause_reason
-            server_module.PAUSED = original_paused
+            server_module.RUNTIME.recovery.resume_epoch = original_resume_epoch
+            server_module.RUNTIME.solver.failure_reason = original_last_failure
+            server_module.RUNTIME.solver.last_status = original_last_status
+            server_module.RUNTIME.solver.started_at = original_start_time
+            server_module.RUNTIME.solver.running = original_running
+            server_module.RUNTIME.control.reason = original_pause_reason
+            server_module.RUNTIME.control.paused = original_paused
         self.assertEqual(body['status'], 'resuming')
         mocked_submit.assert_not_called()
         self.assertFalse(os.path.exists(flag_path))
@@ -52,44 +52,44 @@ class AVMHttpContractPart10:
         self.assertIsNone(observed_last_failure)
 
     def test_report_captcha_endpoint_force_retry_queues_solver_when_manual_state_exists_but_solver_is_not_running(self):
-        original_paused = server_module.PAUSED
-        original_pause_reason = server_module.COLLECTION_PAUSE_REASON
-        original_running = server_module.SOLVER_RUNNING
-        original_start_time = server_module.SOLVER_START_TIME
-        original_last_status = server_module.SOLVER_LAST_STATUS
-        original_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
-        original_resume_epoch = server_module.SOLVER_MANUAL_RESUME_EPOCH
+        original_paused = server_module.RUNTIME.control.paused
+        original_pause_reason = server_module.RUNTIME.control.reason
+        original_running = server_module.RUNTIME.solver.running
+        original_start_time = server_module.RUNTIME.solver.started_at
+        original_last_status = server_module.RUNTIME.solver.last_status
+        original_last_failure = server_module.RUNTIME.solver.failure_reason
+        original_resume_epoch = server_module.RUNTIME.recovery.resume_epoch
         original_data_dir = server_module.DATA_DIR
-        server_module.PAUSED = True
-        server_module.COLLECTION_PAUSE_REASON = 'manual_required'
-        server_module.SOLVER_RUNNING = False
-        server_module.SOLVER_START_TIME = 0
-        server_module.SOLVER_LAST_STATUS = 'manual_required'
-        server_module.SOLVER_LAST_FAILURE_REASON = 'manual_required'
-        server_module.SOLVER_MANUAL_RESUME_EPOCH = 0
+        server_module.RUNTIME.control.paused = True
+        server_module.RUNTIME.control.reason = 'manual_required'
+        server_module.RUNTIME.solver.running = False
+        server_module.RUNTIME.solver.started_at = 0
+        server_module.RUNTIME.solver.last_status = 'manual_required'
+        server_module.RUNTIME.solver.failure_reason = 'manual_required'
+        server_module.RUNTIME.recovery.resume_epoch = 0
         server_module.DATA_DIR = self.data_dir
         flag_path = os.path.join(self.data_dir, 'force_unlock.flag')
         with open(flag_path, 'w', encoding='utf-8') as f:
             f.write('manual verification required')
         try:
             with mock.patch.object(server_module.executor, 'submit') as mocked_submit:
-                request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=json.dumps({'target_url': 'https://contest.local/challenge?__captcha_solver_bg=1', 'force_retry': True}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+                request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=json.dumps({'target_url': 'https://contest.local/challenge?__captcha_solver_bg=1', 'force_retry': True}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
                 with urllib.request.urlopen(request) as resp:
                     self.assertEqual(resp.status, 200)
                     body = json.loads(resp.read().decode('utf-8'))
-                observed_paused = server_module.PAUSED
-                observed_running = server_module.SOLVER_RUNNING
-                observed_last_status = server_module.SOLVER_LAST_STATUS
-                observed_last_failure = server_module.SOLVER_LAST_FAILURE_REASON
+                observed_paused = server_module.RUNTIME.control.paused
+                observed_running = server_module.RUNTIME.solver.running
+                observed_last_status = server_module.RUNTIME.solver.last_status
+                observed_last_failure = server_module.RUNTIME.solver.failure_reason
         finally:
             server_module.DATA_DIR = original_data_dir
-            server_module.SOLVER_MANUAL_RESUME_EPOCH = original_resume_epoch
-            server_module.SOLVER_LAST_FAILURE_REASON = original_last_failure
-            server_module.SOLVER_LAST_STATUS = original_last_status
-            server_module.SOLVER_START_TIME = original_start_time
-            server_module.SOLVER_RUNNING = original_running
-            server_module.COLLECTION_PAUSE_REASON = original_pause_reason
-            server_module.PAUSED = original_paused
+            server_module.RUNTIME.recovery.resume_epoch = original_resume_epoch
+            server_module.RUNTIME.solver.failure_reason = original_last_failure
+            server_module.RUNTIME.solver.last_status = original_last_status
+            server_module.RUNTIME.solver.started_at = original_start_time
+            server_module.RUNTIME.solver.running = original_running
+            server_module.RUNTIME.control.reason = original_pause_reason
+            server_module.RUNTIME.control.paused = original_paused
         self.assertEqual(body['status'], 'solving')
         mocked_submit.assert_called_once()
         self.assertEqual(mocked_submit.call_args.args[1], {'target_url': 'https://contest.local/challenge?__captcha_solver_bg=1'})
@@ -101,7 +101,7 @@ class AVMHttpContractPart10:
 
     def test_report_captcha_endpoint_passes_cdp_endpoint_and_target_url_to_solver(self):
         with mock.patch.object(server_module.executor, 'submit') as mocked_submit:
-            request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=json.dumps({'cdp_endpoint': 'http://192.168.65.254:9223', 'url': 'https://contest.local/challenge?__captcha_solver_bg=1', 'timestamp': 123}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+            request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=json.dumps({'cdp_endpoint': 'http://192.168.65.254:9223', 'url': 'https://contest.local/challenge?__captcha_solver_bg=1', 'timestamp': 123}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
             with urllib.request.urlopen(request) as resp:
                 status = resp.status
                 payload = json.loads(resp.read().decode('utf-8'))
@@ -113,21 +113,21 @@ class AVMHttpContractPart10:
         self.assertEqual(mocked_submit.call_args.args[1], {'cdp_endpoint': 'http://192.168.65.254:9223', 'target_url': 'https://contest.local/challenge?__captcha_solver_bg=1'})
 
     def test_report_captcha_endpoint_preserves_detail_challenge_when_seed_stage_still_has_work(self):
-        with mock.patch.dict(os.environ, {'FAPAI_COOKIE_SNAPSHOT_SAMPLE_URLS': 'https://sf.taobao.com/list/50025969__2.htm', 'FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED': '1'}, clear=False), mock.patch.object(server_module, '_collection_api_lightweight_status_payload', return_value={'seed_scan_job_pending': 10, 'seed_scan_job_in_progress': 1, 'seed_scan_progress_pending': 20, 'seed_scan_progress_in_progress': 0}), mock.patch.object(server_module, '_solver_force_unlock_flag_exists', return_value=False), mock.patch.object(server_module, 'PAUSED', False), mock.patch.object(server_module, 'SOLVER_LAST_STATUS', None), mock.patch.object(server_module, 'SOLVER_MANUAL_ONLY', False), mock.patch.object(server_module, 'SOLVER_LAST_REQUEST', {}), mock.patch.object(server_module, 'SOLVER_CHALLENGE_ID', None), mock.patch.object(server_module.executor, 'submit') as mocked_submit:
-            request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=json.dumps({'cdp_endpoint': 'http://192.168.65.254:9223', 'node_id': 'pc2', 'target_url': 'https://sf-item.taobao.com/sf_item/817695886927.htm?track_id=test&__captcha_solver_bg=1'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        with mock.patch.dict(os.environ, {'FAPAI_COOKIE_SNAPSHOT_SAMPLE_URLS': 'https://sf.taobao.com/list/50025969__2.htm', 'FAPAI_REAL_TAOBAO_AUTO_SOLVER_ENABLED': '1'}, clear=False), mock.patch.object(server_module, '_collection_api_lightweight_status_payload', return_value={'seed_scan_job_pending': 10, 'seed_scan_job_in_progress': 1, 'seed_scan_progress_pending': 20, 'seed_scan_progress_in_progress': 0}), mock.patch.object(server_module, '_solver_force_unlock_flag_exists', return_value=False), mock.patch.object(server_module.RUNTIME.control, 'paused', False), mock.patch.object(server_module.RUNTIME.solver, 'last_status', None), mock.patch.object(server_module.RUNTIME.recovery, 'manual_only', False), mock.patch.object(server_module.RUNTIME.recovery, 'last_request', {}), mock.patch.object(server_module.RUNTIME.recovery, 'challenge_id', None), mock.patch.object(server_module.executor, 'submit') as mocked_submit:
+            request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=json.dumps({'cdp_endpoint': 'http://192.168.65.254:9223', 'node_id': 'pc2', 'target_url': 'https://sf-item.taobao.com/sf_item/817695886927.htm?track_id=test&__captcha_solver_bg=1'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
             with urllib.request.urlopen(request) as resp:
                 status = resp.status
                 payload = json.loads(resp.read().decode('utf-8'))
         self.assertEqual(status, 200)
         self.assertEqual(payload['status'], 'solving')
-        self.assertEqual(mocked_submit.call_args.args[1], {'cdp_endpoint': 'http://192.168.65.254:9223', 'node_id': 'pc2', 'target_url': 'https://sf-item.taobao.com/sf_item/817695886927.htm?track_id=test&__captcha_solver_bg=1'})
+        self.assertEqual(mocked_submit.call_args.args[1], {'cdp_endpoint': 'http://192.168.65.254:9223', 'node_id': 'pc2', 'target_url': 'https://sf-item.taobao.com/sf_item/817695886927.htm'})
 
     def test_report_captcha_endpoint_rewrites_loopback_cdp_endpoint_for_container_runtime(self):
         original_endpoint = os.environ.get('FAPAI_CDP_ENDPOINT')
         try:
             os.environ['FAPAI_CDP_ENDPOINT'] = 'http://192.168.65.254:9223'
             with mock.patch.object(server_module.executor, 'submit') as mocked_submit:
-                request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=json.dumps({'cdp_endpoint': 'http://127.0.0.1:9223', 'url': 'https://contest.local/challenge?__captcha_solver_bg=1', 'timestamp': 456}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+                request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=json.dumps({'cdp_endpoint': 'http://127.0.0.1:9223', 'url': 'https://contest.local/challenge?__captcha_solver_bg=1', 'timestamp': 456}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
                 with urllib.request.urlopen(request) as resp:
                     status = resp.status
                     payload = json.loads(resp.read().decode('utf-8'))
@@ -141,14 +141,14 @@ class AVMHttpContractPart10:
                 os.environ['FAPAI_CDP_ENDPOINT'] = original_endpoint
 
     def test_report_captcha_endpoint_returns_json_error_on_queue_failure(self):
-        request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=b'', method='POST')
+        request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/report_captcha', data=b'', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module.executor, 'submit', side_effect=RuntimeError('boom')):
             with self.assertRaises(urllib.error.HTTPError) as ctx:
                 urllib.request.urlopen(request)
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_CAPTCHA_SOLVER_QUEUE_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_solver_instance_prefers_fapai_cdp_endpoint_for_live_runtime(self):
         original_endpoint = os.environ.get('FAPAI_CDP_ENDPOINT')
@@ -172,14 +172,14 @@ class AVMHttpContractPart10:
         self.assertEqual(request_solver.target_url, 'https://contest.local/challenge?__captcha_solver_bg=1')
 
     def test_log_endpoint_records_client_error_message(self):
-        with mock.patch.object(server_module, 'print') as mocked_print:
+        with self.assertLogs(server_module.logger, level='INFO') as logged:
             (status, payload) = self._post_json('/api/log', {'msg': 'frontend exploded', 'isError': True})
         self.assertEqual(status, 200)
         self.assertEqual(payload['status'], 'ok')
-        mocked_print.assert_called_once_with('[Client Error] frontend exploded')
+        self.assertTrue(any(record.getMessage() == '[Client Error] frontend exploded' for record in logged.records))
 
     def test_log_endpoint_rejects_invalid_json(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/log', data=b'{', headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/log', data=b'{', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -190,7 +190,7 @@ class AVMHttpContractPart10:
         original_data_dir = server_module.DATA_DIR
         server_module.DATA_DIR = self.data_dir
         try:
-            request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/upload?id=3001&name=test%20image.jpg', data=b'fake-image-bytes', method='POST')
+            request = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/upload?id=3001&name=test%20image.jpg', data=b'fake-image-bytes', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
             with urllib.request.urlopen(request) as resp:
                 status = resp.status
                 payload = json.loads(resp.read().decode('utf-8'))
@@ -203,7 +203,7 @@ class AVMHttpContractPart10:
             self.assertEqual(f.read(), b'fake-image-bytes')
 
     def test_upload_endpoint_requires_id_and_name(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/upload?id=3001', data=b'fake-image-bytes', method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/upload?id=3001', data=b'fake-image-bytes', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -213,7 +213,7 @@ class AVMHttpContractPart10:
     def test_upload_endpoint_returns_json_error_on_failure(self):
         original_data_dir = server_module.DATA_DIR
         server_module.DATA_DIR = self.data_dir
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/upload?id=3001&name=test%20image.jpg', data=b'fake-image-bytes', method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/upload?id=3001&name=test%20image.jpg', data=b'fake-image-bytes', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         try:
             with mock.patch.object(server_module, 'open', side_effect=RuntimeError('boom'), create=True):
                 with self.assertRaises(urllib.error.HTTPError) as ctx:
@@ -223,7 +223,7 @@ class AVMHttpContractPart10:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_UPLOAD_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_screen_endpoint_summary(self):
         (status, payload) = self._post_json('/api/avm/screen', {'margin_threshold': 0.01, 'items': [{'id': '3001'}, {'id': '3002'}]})
@@ -278,7 +278,7 @@ class AVMHttpContractPart10:
         self.assertTrue(payload['results'][0]['meets_alert_threshold'])
 
     def test_screen_endpoint_rejects_invalid_json_body(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/screen', data=b'{', headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/screen', data=b'{', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -286,7 +286,7 @@ class AVMHttpContractPart10:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_JSON')
 
     def test_screen_endpoint_rejects_non_object_json_body(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/screen', data=json.dumps([]).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/screen', data=json.dumps([]).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -296,7 +296,7 @@ class AVMHttpContractPart10:
         self.assertEqual(body['error']['details']['received_type'], 'list')
 
     def test_screen_endpoint_rejects_non_list_items(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/screen', data=json.dumps({'items': {'id': '3001'}}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/screen', data=json.dumps({'items': {'id': '3001'}}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -304,14 +304,14 @@ class AVMHttpContractPart10:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_SCREEN_ITEMS')
 
     def test_screen_endpoint_returns_json_error_on_failure(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/screen', data=json.dumps({'items': [{'id': '3001'}]}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/screen', data=json.dumps({'items': [{'id': '3001'}]}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module, 'write_avm_alerts', side_effect=RuntimeError('boom')):
             with self.assertRaises(urllib.error.HTTPError) as ctx:
                 urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_SCREEN_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_collection_observer_get_error_routes_return_structured_codes(self):
         with mock.patch.object(server_module, '_collection_observer_overview_payload', side_effect=RuntimeError('boom')):
@@ -320,7 +320,7 @@ class AVMHttpContractPart10:
             self._assert_http_error_code('/api/collection/items', 500, 'COLLECTION_OBSERVER_ITEMS_FAILED')
         with mock.patch.object(server_module, '_collection_observer_regions_payload', side_effect=RuntimeError('boom')):
             self._assert_http_error_code('/api/collection/regions', 500, 'COLLECTION_OBSERVER_REGIONS_FAILED')
-        with mock.patch.object(server_module, '_collection_observer_item_payload', side_effect=RuntimeError('boom')):
+        with mock.patch.object(server_module, 'DB_REPOSITORY', mock.Mock(enabled=True)), mock.patch.object(server_module, '_collection_observer_item_payload', side_effect=RuntimeError('boom')):
             self._assert_http_error_code('/api/collection/items/1001', 500, 'COLLECTION_OBSERVER_ITEM_FAILED')
         self._assert_http_error_code('/collection/assets/missing.js', 404, 'COLLECTION_STATIC_ASSET_NOT_FOUND')
 
@@ -423,7 +423,7 @@ class AVMHttpContractPart10:
     def test_manual_review_receipts_routes_reject_invalid_json(self):
         for path in ('/api/avm/manual_review_receipts', '/api/analysis/manual_review_receipts'):
             with self.subTest(path=path):
-                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=b'{', headers={'Content-Type': 'application/json'}, method='POST')
+                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=b'{', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
                 with self.assertRaises(urllib.error.HTTPError) as ctx:
                     urllib.request.urlopen(req)
                 self.assertEqual(ctx.exception.code, 400)
@@ -433,7 +433,7 @@ class AVMHttpContractPart10:
     def test_manual_review_receipts_delete_routes_reject_invalid_json(self):
         for path in ('/api/avm/manual_review_receipts', '/api/analysis/manual_review_receipts'):
             with self.subTest(path=path):
-                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=b'{', headers={'Content-Type': 'application/json'}, method='DELETE')
+                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=b'{', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='DELETE')
                 with self.assertRaises(urllib.error.HTTPError) as ctx:
                     urllib.request.urlopen(req)
                 self.assertEqual(ctx.exception.code, 400)
@@ -453,7 +453,7 @@ class AVMHttpContractPart10:
     def test_update_item_routes_reject_invalid_json(self):
         for path in ('/api/update_item', '/api/collection/details/update_item'):
             with self.subTest(path=path):
-                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=b'{', headers={'Content-Type': 'application/json'}, method='POST')
+                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=b'{', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
                 with self.assertRaises(urllib.error.HTTPError) as ctx:
                     urllib.request.urlopen(req)
                 self.assertEqual(ctx.exception.code, 400)

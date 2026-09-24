@@ -1,6 +1,16 @@
 from __future__ import annotations
 
-from .repository_context import *  # noqa: F401,F403
+from typing import Any, Dict, Iterator
+
+from sqlalchemy import and_, case, func, not_, or_, select
+from sqlalchemy.orm import Session
+
+from .models import (
+    PropertyAudit,
+    PropertyLegalContext,
+    PropertyListing,
+    PropertyRiskFlags,
+)
 
 
 class RepositoryReadinessMixin:
@@ -216,7 +226,7 @@ class RepositoryReadinessMixin:
         )
         blockers = {
             key: int(value or 0)
-            for key, value in zip(blocker_keys, row)
+            for key, value in zip(blocker_keys, row, strict=True)
             if int(value or 0) > 0
         }
         return {

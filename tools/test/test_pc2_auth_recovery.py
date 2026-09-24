@@ -34,6 +34,41 @@ def _snapshot(tmp_path):
     return path, digest
 
 
+@pytest.mark.parametrize(
+    ("raw_token", "expected"),
+    [
+        ("a" * 16, "a" * 16),
+        ("a" * 4096, "a" * 4096),
+        ("\n" + "a" * 16 + "\n", "a" * 16),
+    ],
+)
+def test_load_recovery_token_accepts_ascii_boundaries_and_strips_outer_newlines(
+    tmp_path, raw_token, expected
+) -> None:
+    path = tmp_path / "nas-auth-recovery.token"
+    path.write_text(raw_token, encoding="utf-8")
+
+    assert pc2_auth_recovery.load_recovery_token(path) == expected
+
+
+@pytest.mark.parametrize(
+    "raw_token",
+    [
+        "a" * 15,
+        "a" * 4097,
+        "a" * 8 + " " + "a" * 8,
+        "a" * 8 + "\n" + "a" * 8,
+        "a" * 15 + "雪",
+    ],
+)
+def test_load_recovery_token_rejects_invalid_format(tmp_path, raw_token) -> None:
+    path = tmp_path / "nas-auth-recovery.token"
+    path.write_text(raw_token, encoding="utf-8")
+
+    with pytest.raises(ValueError, match="token is invalid"):
+        pc2_auth_recovery.load_recovery_token(path)
+
+
 def test_load_cookie_snapshot_verifies_digest_and_filters_non_taobao_domains(tmp_path):
     path, digest = _snapshot(tmp_path)
 
@@ -246,8 +281,10 @@ def test_recovery_cycle_claims_imports_restarts_then_confirms(tmp_path, monkeypa
     assert imports == [digest, digest]
     assert all("secret-cookie-value" not in json.dumps(payload) for _, payload, _ in posted)
     assert [url.rsplit("/", 1)[-1] for url, _, _ in posted] == [
+        "heartbeat",
         "claim",
         "pc2_restarting",
+        "heartbeat",
         "result",
     ]
 

@@ -16,14 +16,13 @@ def test_preflight_llm_backend_passes_chat_probe_flag(monkeypatch) -> None:
     assert calls == [{"timeout": 3.5, "check_chat": True}]
 
 def test_preflight_llm_backend_skips_models_already_disabled_by_auth_failures(monkeypatch) -> None:
-    original_pool = llm_helper.MODEL_POOL
-    original_selector = llm_helper.model_selector
     pool = [
         {"name": "model-a", "app_id": "a", "api_key": "ak", "api_secret": "as", "ws_url": "wss://unit.test/a", "model_id": "mid-a", "max_concurrent": 1},
         {"name": "model-b", "app_id": "b", "api_key": "bk", "api_secret": "bs", "ws_url": "wss://unit.test/b", "model_id": "mid-b", "max_concurrent": 1},
     ]
-    monkeypatch.setattr(llm_helper, "MODEL_POOL", pool)
-    monkeypatch.setattr(llm_helper, "model_selector", llm_helper.ModelSelector(pool))
+    selector = llm_helper.ModelSelector(pool)
+    monkeypatch.setattr(llm_helper, "get_model_pool", lambda: pool)
+    monkeypatch.setattr(llm_helper, "get_model_selector", lambda: selector)
     monkeypatch.setattr(llm_helper, "_get_openai_compatible_config", lambda: None)
 
     calls = {"count": 0}
@@ -32,7 +31,7 @@ def test_preflight_llm_backend_skips_models_already_disabled_by_auth_failures(mo
         calls["count"] += 1
         self.error_code = 11200
         self.error_msg = "AppIdNoAuthError"
-        llm_helper.model_selector.disable_model(
+        selector.disable_model(
             self.model_config["name"],
             "error_code=11200, error_msg=AppIdNoAuthError",
         )
@@ -47,8 +46,6 @@ def test_preflight_llm_backend_skips_models_already_disabled_by_auth_failures(mo
     assert second["chat_status_code"] == 401
     assert calls["count"] == len(pool)
 
-    monkeypatch.setattr(llm_helper, "MODEL_POOL", original_pool)
-    monkeypatch.setattr(llm_helper, "model_selector", original_selector)
 
 def test_process_item_raw_only_writes_raw_artifacts_without_llm(tmp_path: Path, monkeypatch) -> None:
     html = '<html><script>var description-data = {"area":"88.8㎡"};</script>建筑面积88.8平方米</html>'

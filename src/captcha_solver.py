@@ -3,6 +3,8 @@ from __future__ import annotations
 import sys
 import types
 
+from . import captcha_dom
+
 from .captcha_context import *  # noqa: F401,F403
 from .captcha_target import CaptchaTargetMixin
 from .captcha_cdp import CaptchaCDPMixin
@@ -29,21 +31,8 @@ class CaptchaSolver(
     CaptchaFallbacksMixin,
 ):
     # Multiple selectors for different captcha variants
-    SLIDER_SELECTORS = [
-        '#nc_1_n1z', '#nc_2_n1z', '[id^="nc_"][id$="_n1z"]',
-        '#nc_1_n1t', '#nc_2_n1t', '[id^="nc_"][id$="_n1t"]',  # NC captcha uses _n1t for button
-        '.btn_slide', '.nc_iconfont.btn_slide', '.nc_scale .btn_slide', '.nc_wrapper .btn_slide',
-        '.nc-slider-btn', '.slider-btn', '.nc-lang-cnt .btn_ok', '.btn_ok',
-        '.icon-slide-arrow', '.nc-iconfont.icon-slide-arrow',  # NC specific
-        '#mock-slider-handle'  # For testing with mock page
-    ]
-    TRACK_SELECTORS = [
-        '#nc_1_n1t', '#nc_2_n1t', '[id^="nc_"][id$="_n1t"]',
-        '.nc_scale', '.nc-lang-cnt', '.scale_text', '.slidetounlock', '.nc_wrapper',
-        '.nc_scale_text', '[id^="nc_"][id*="scale_text"]',
-        '.slider', '.nc-container .slider',  # NC track
-        '#mock-slider-track'  # For testing with mock page
-    ]
+    SLIDER_SELECTORS = list(captcha_dom.SLIDER_SELECTORS)
+    TRACK_SELECTORS = list(captcha_dom.TRACK_SELECTORS)
 
 
 _MIXIN_MODULES = (

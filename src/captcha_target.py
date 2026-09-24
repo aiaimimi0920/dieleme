@@ -1,11 +1,18 @@
 from __future__ import annotations
 
+import logging
+
 from .captcha_context import *  # noqa: F401,F403
+from .captcha_pointer_backend import OSPointerBackend
 from .collection.adapters.taobao_auth_target import SEED_IDENTITY_QUERY_KEYS
+
+logger = logging.getLogger(__name__)
 
 
 class CaptchaTargetMixin:
-    def __init__(self, port=9222, target_url=None, cdp_endpoint=None, cancel_checker=None):
+    def __init__(self, port=9222, target_url=None, cdp_endpoint=None, cancel_checker=None,
+                 *, pointer_backend: OSPointerBackend | None = None):
+        self._pointer_backend_override = pointer_backend
         configured_endpoint = (cdp_endpoint or os.getenv("FAPAI_CDP_ENDPOINT") or "").strip()
         if configured_endpoint:
             self.cdp_endpoint = configured_endpoint.rstrip("/")
@@ -38,14 +45,17 @@ class CaptchaTargetMixin:
         try:
             return bool(checker())
         except Exception as error:
-            print(f"[SOLVER] Cancel checker failed: {error}")
+            logger.exception("[SOLVER] Cancel checker failed")
             return False
 
     def _stop_if_cancelled(self):
-        if not self._cancel_requested():
+        budget = getattr(self, "_solve_budget", None)
+        stopped = budget.stopped(self._cancel_requested) if budget is not None else self._cancel_requested()
+        if not stopped:
             return False
-        print("[SOLVER] Stop requested after manual resume/auth completion; exiting solver loop.")
-        self.last_failure_reason = "cancelled"
+        logger.info("[SOLVER] Stop requested after manual resume/auth completion; exiting solver loop.")
+        self.last_failure_reason = budget.reason if budget is not None else "cancelled"
+        self._release_cdp_mouse()
         if self.ws:
             try:
                 self.ws.close()
@@ -53,6 +63,38 @@ class CaptchaTargetMixin:
                 pass
             self.ws = None
         return True
+
+    def _wait_interruptibly(self, seconds):
+        budget = getattr(self, "_solve_budget", None)
+        if budget is not None:
+            budget.wait(seconds, self._cancel_requested)
+        else:
+            time.sleep(seconds)
+
+    def _release_cdp_mouse(self):
+        if not getattr(self, "_cdp_mouse_down", False) or not self.ws:
+            return
+        try:
+            x, y = getattr(self, "_cdp_mouse_position", (0, 0))
+            if callable(getattr(self.ws, "settimeout", None)):
+                self.ws.settimeout(0.1)
+            self.ws.send(json.dumps({"id": self.message_id, "method": "Input.dispatchMouseEvent",
+                                    "params": {"type": "mouseReleased", "x": x, "y": y,
+                                               "button": "left", "buttons": 0, "clickCount": 1}}))
+            self.message_id += 1
+        except Exception:
+            pass
+        finally:
+            self._cdp_mouse_down = False
+
+    def _bounded_io_timeout(self, seconds):
+        from .captcha_budget import SolveStopped
+        budget = getattr(self, "_solve_budget", None)
+        if budget is None:
+            return seconds
+        if budget.stopped(self._cancel_requested):
+            raise SolveStopped(budget.reason)
+        return min(seconds, max(0.001, budget.remaining()))
 
     def _remember_target_tab(self, tab):
         if not isinstance(tab, dict):
@@ -72,13 +114,14 @@ class CaptchaTargetMixin:
     def _get_json(self, endpoint):
         last_error = None
         for timeout in (2, 4, 6):
+            timeout = self._bounded_io_timeout(timeout)
             try:
                 resp = requests.get(f"{self.cdp_endpoint}/json/{endpoint}", timeout=timeout)
                 return resp.json()
             except Exception as error:
                 last_error = error
         if last_error is not None:
-            print(f"[SOLVER] Failed to fetch /json/{endpoint}: {last_error}")
+            logger.warning("[SOLVER] Failed to fetch /json/%s: %s", endpoint, last_error)
         return None
 
     def _page_target_limit(self):
@@ -154,7 +197,7 @@ class CaptchaTargetMixin:
             )
             return True
         except Exception as error:
-            print(f"[SOLVER] Failed to close CDP target {target_id}: {error}")
+            logger.warning("[SOLVER] Failed to close CDP target %s: %s", target_id, error)
             return False
 
     def _open_keepalive_tab(self):
@@ -164,7 +207,7 @@ class CaptchaTargetMixin:
             if isinstance(payload, dict):
                 return str(payload.get("id") or "").strip() or None
         except Exception as error:
-            print(f"[SOLVER] Failed to open keepalive tab before page compaction: {error}")
+            logger.warning("[SOLVER] Failed to open keepalive tab before page compaction: %s", error)
         return None
 
     def _compact_cdp_pages_if_needed(self, tabs=None, reserve_for_new_page=False):
@@ -184,7 +227,7 @@ class CaptchaTargetMixin:
         if page_count < trigger_count:
             return {"triggered": False, "page_count": page_count, "closed": 0}
 
-        print(
+        logger.info(
             f"[SOLVER] CDP page target count reached {page_count}; "
             "closing stale page targets before retrying current task."
         )
@@ -209,6 +252,10 @@ class CaptchaTargetMixin:
         return summary
 
     def _close_owned_target_tabs(self):
+        budget = getattr(self, "_solve_budget", None)
+        if budget is not None and budget.stopped(self._cancel_requested):
+            # Keep tabs for manual recovery rather than extend an expired run with cleanup I/O.
+            return 0
         owned_target_ids = [target_id for target_id in self._opened_target_ids if target_id]
         if not owned_target_ids:
             return 0
@@ -289,7 +336,7 @@ class CaptchaTargetMixin:
                 closed += 1
                 self._opened_target_ids.discard(target_id)
         if closed:
-            print(
+            logger.info(
                 f"[SOLVER] Compacted stale challenge targets for "
                 f"{requested_scope or 'route ' + requested_route}: "
                 f"kept={preserve_id} closed={closed}"
@@ -428,11 +475,11 @@ class CaptchaTargetMixin:
             return False
         navigation = self._send_cdp("Page.navigate", {"url": target_url})
         if navigation is None:
-            print("[SOLVER] Identity-first target navigation failed.")
+            logger.warning("[SOLVER] Identity-first target navigation failed.")
             return False
         payload["url"] = target_url
         self.current_target_url = target_url
-        print("[SOLVER] Opened target with browser identity installed before navigation.")
+        logger.info("[SOLVER] Opened target with browser identity installed before navigation.")
         return True
 
 

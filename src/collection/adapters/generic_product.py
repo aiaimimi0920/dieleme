@@ -103,7 +103,16 @@ class GenericProductAdapter:
         raw = _first_non_empty(record, "collected_at", "published_at", "updated_at")
         if raw:
             return str(raw).split(" ", 1)[0][:10] or "unknown"
-        return datetime.date.today().isoformat()
+        return datetime.datetime.now(datetime.timezone.utc).date().isoformat()
+
+    def preserve_seed_values(
+        self,
+        record: MutableMapping[str, Any],
+        existing: Mapping[str, Any],
+    ) -> None:
+        for key, value in existing.items():
+            if value not in (None, "", []) and record.get(key) in (None, "", []):
+                record[key] = value
 
     def prepare_detail_record(
         self,
@@ -152,7 +161,7 @@ class GenericProductAdapter:
         record["is_processed"] = True
 
     def archive_date(self, record: Mapping[str, Any]) -> Any:
-        return _first_non_empty(record, "collected_at", "published_at", "updated_at") or datetime.datetime.now()
+        return _first_non_empty(record, "collected_at", "published_at", "updated_at") or datetime.datetime.now(datetime.timezone.utc)
 
     def source_url(self, record: Mapping[str, Any]) -> str | None:
         value = _first_non_empty(record, "source_url", "url", "detail_url")

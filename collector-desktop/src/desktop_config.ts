@@ -1,0 +1,10 @@
+export const DEFAULT_API_BASE = "http://127.0.0.1:8001";
+export const AUTO_REFRESH_INTERVAL_MS = 60_000;
+export const REGION_REFRESH_INTERVAL_MS = 600_000;
+export const READ_TIMEOUT_MS = 30_000;
+export const CONTROL_TIMEOUT_MS = 20_000;
+export const RUNTIME_TIMEOUT_MS = 15_000;
+export const CONTROL_ORIGIN_CACHE_MS = 60_000;
+export const RESTART_POLL_INTERVAL_MS = 5_000;
+export const AUTH_POLL_INTERVAL_MS = 3_000;
+export const DETAIL_PREVIEW_MAX_CHARS = 200_000;

@@ -20,6 +20,8 @@ import os
 import json
 import datetime
 import threading
+import tempfile
+from copy import deepcopy
 from typing import Optional, Dict, List, Tuple
 
 # 默认类别和排序参数
@@ -161,25 +163,24 @@ class JobManager:
             if file_path in self._job_cache:
                 cached_mtime, cached_data = self._job_cache[file_path]
                 if cached_mtime == mtime:
-                    return cached_data
+                    return deepcopy(cached_data)
             
             # Cache miss or stale
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
+            if not isinstance(data, dict):
+                raise ValueError(f"job file must contain an object: {file_path}")
                 
-            self._job_cache[file_path] = (mtime, data)
+            self._job_cache[file_path] = (mtime, deepcopy(data))
             return data
-        except Exception as e:
-            # print(f"[JobManager] Error loading {file_path}: {e}")
-            pass
-            
-        return {"all_done": False}
+        except (OSError, ValueError):
+            self._job_cache.pop(file_path, None)
+            raise
     
     def _save_job_file(self, file_path: str, data: Dict):
         """保存job文件并更新缓存"""
         import re
         try:
-            temp = file_path + ".tmp"
             content = json.dumps(data, ensure_ascii=False, indent=2)
             
             # Compact arrays (pages) to single line for readability
@@ -190,18 +191,27 @@ class JobManager:
             
             content = re.sub(r'\[\s*\n\s*(\d+,?\s*\n?\s*)+\]', compact_array, content)
             
-            with open(temp, 'w', encoding='utf-8') as f:
+            with tempfile.NamedTemporaryFile(
+                mode='w', encoding='utf-8', dir=os.path.dirname(os.path.abspath(file_path)),
+                prefix=os.path.basename(file_path) + '.', suffix='.tmp', delete=False,
+            ) as f:
+                temp = f.name
                 f.write(content)
+                f.flush()
+                os.fsync(f.fileno())
             os.replace(temp, file_path)
             
             # Update cache immediately
             try:
                 mtime = os.path.getmtime(file_path)
-                self._job_cache[file_path] = (mtime, data)
-            except: pass
+                self._job_cache[file_path] = (mtime, deepcopy(data))
+            except OSError:
+                self._job_cache.pop(file_path, None)
             
         except Exception as e:
+            self._job_cache.pop(file_path, None)
             print(f"[JobManager] Error saving {file_path}: {e}")
+            raise
     
     def _get_default_st_param_entry(self) -> Dict:
         """创建默认的st_param条目"""
@@ -636,6 +646,7 @@ class JobManager:
         
         except Exception as e:
             print(f"[JobManager] Error updating progress: {e}")
+            raise
     
     
     def release_session(self, session_id: str):

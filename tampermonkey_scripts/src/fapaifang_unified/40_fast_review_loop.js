@@ -166,7 +166,7 @@
             return;
         }
 
-        fetchApi('/resume', {}, () => {
+        fetchApi('/collection/control/resume', {}, () => {
             if (!silent) log('🔄 已通知服务器解除暂停状态', 'success');
             done();
         }, () => {

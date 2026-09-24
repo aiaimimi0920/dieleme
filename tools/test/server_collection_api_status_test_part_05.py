@@ -61,16 +61,16 @@ def test_auth_cookie_snapshot_success_finalizes_matching_paused_challenge(monkey
         "target_url": "https://sf-item.taobao.com/sf_item/1.htm",
     }
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "confirmations", {})
     monkeypatch.setattr(server, "AUTH_COOKIE_SNAPSHOT_STATE", {})
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_PENDING_TOKEN", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", dict(request))
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-two-phase")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "pending_token", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", dict(request))
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", "challenge-two-phase")
     monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_attempts", lambda: 1)
     monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_backoff_seconds", lambda: 0)
     monkeypatch.setattr(
@@ -92,9 +92,9 @@ def test_auth_cookie_snapshot_success_finalizes_matching_paused_challenge(monkey
     assert status["status"] == "completed"
     assert status["auth_state_confirmed"] is True
     assert status["result"]["auth_finalization"]["auth_state_confirmed"] is True
-    assert server.PAUSED is False
-    assert server.SOLVER_CHALLENGE_ID is None
-    assert server.SOLVER_LAST_STATUS == "manual_auth_completed"
+    assert server.RUNTIME.control.paused is False
+    assert server.RUNTIME.recovery.challenge_id is None
+    assert server.RUNTIME.solver.last_status == "manual_auth_completed"
     assert not (tmp_path / "force_unlock.flag").exists()
     assert server._auth_completion_was_confirmed(completion_id) is True
 
@@ -103,10 +103,10 @@ def test_auth_cookie_snapshot_failure_keeps_paused_challenge(monkeypatch, tmp_pa
 
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
     monkeypatch.setattr(server, "AUTH_COOKIE_SNAPSHOT_STATE", {})
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-still-paused")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", "challenge-still-paused")
     monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_attempts", lambda: 1)
     monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_backoff_seconds", lambda: 0)
     monkeypatch.setattr(
@@ -126,20 +126,20 @@ def test_auth_cookie_snapshot_failure_keeps_paused_challenge(monkeypatch, tmp_pa
     status = server._auth_cookie_snapshot_runtime_status()
 
     assert status["status"] == "failed"
-    assert server.PAUSED is True
-    assert server.SOLVER_CHALLENGE_ID == "challenge-still-paused"
+    assert server.RUNTIME.control.paused is True
+    assert server.RUNTIME.recovery.challenge_id == "challenge-still-paused"
     assert (tmp_path / "force_unlock.flag").exists()
 
 def test_cookie_snapshot_success_for_old_challenge_cannot_clear_new_pause(monkeypatch, tmp_path) -> None:
     from src import server
 
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "AUTH_COMPLETION_CONFIRMATIONS", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "confirmations", {})
     monkeypatch.setattr(server, "AUTH_COOKIE_SNAPSHOT_STATE", {})
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "manual_required")
-    monkeypatch.setattr(server, "SOLVER_CHALLENGE_ID", "challenge-new")
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "manual_required")
+    monkeypatch.setattr(server.RUNTIME.recovery, "challenge_id", "challenge-new")
     monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_attempts", lambda: 1)
     monkeypatch.setattr(server, "_auth_cookie_snapshot_retry_backoff_seconds", lambda: 0)
     monkeypatch.setattr(
@@ -161,8 +161,8 @@ def test_cookie_snapshot_success_for_old_challenge_cannot_clear_new_pause(monkey
     assert status["status"] == "completed"
     assert status["auth_state_confirmed"] is False
     assert status["result"]["auth_finalization"]["stale_challenge"] is True
-    assert server.PAUSED is True
-    assert server.SOLVER_CHALLENGE_ID == "challenge-new"
+    assert server.RUNTIME.control.paused is True
+    assert server.RUNTIME.recovery.challenge_id == "challenge-new"
     assert (tmp_path / "force_unlock.flag").exists()
     assert server._auth_completion_was_confirmed("pc2-two-phase-stale") is False
 
@@ -248,10 +248,13 @@ def test_refresh_auth_cookie_snapshot_derives_node_scoped_path_when_env_is_missi
 
     monkeypatch.delenv("FAPAI_COOKIE_SNAPSHOT", raising=False)
     monkeypatch.setenv("FAPAI_CDP_ENDPOINT", "http://192.168.15.104:9224")
+    monkeypatch.setenv("FAPAI_NODE_ID", "pc2")
+    monkeypatch.delenv("FAPAI_COOKIE_SNAPSHOT_ROOT", raising=False)
+    monkeypatch.delenv("FAPAI_SHARED_DATA_ROOT_HOST", raising=False)
     monkeypatch.setattr(server, "REPO_ROOT", repo_root)
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_REQUEST",
+        server.RUNTIME.recovery,
+        "last_request",
         {"cdp_endpoint": "http://192.168.15.104:9224", "node_id": "pc2"},
     )
     monkeypatch.setattr(server, "_export_auth_cdp_cookies", lambda endpoint: cookies)
@@ -281,9 +284,10 @@ def test_cookie_snapshot_root_resolves_node_path_inside_shared_mount(monkeypatch
     shared_root.mkdir()
     monkeypatch.delenv("FAPAI_COOKIE_SNAPSHOT", raising=False)
     monkeypatch.setenv("FAPAI_COOKIE_SNAPSHOT_ROOT", str(shared_root))
+    monkeypatch.setenv("FAPAI_NODE_ID", "pc2")
     monkeypatch.setattr(
-        server,
-        "SOLVER_LAST_REQUEST",
+        server.RUNTIME.recovery,
+        "last_request",
         {"node_id": "pc2", "cdp_endpoint": "http://192.168.15.104:9224"},
     )
 
@@ -326,9 +330,10 @@ def test_refresh_auth_cookie_snapshot_does_not_overwrite_when_probe_is_unhealthy
     assert result["health"]["healthy_samples"] == 0
     assert writes == []
 
-def test_manual_resume_suppresses_stale_solver_manual_required_result(monkeypatch, tmp_path, capsys) -> None:
+def test_manual_resume_suppresses_stale_solver_manual_required_result(monkeypatch, tmp_path, caplog) -> None:
     from src import server
 
+    caplog.set_level("INFO", logger="src.server")
     fake_now = [1000.0]
 
     class FakeSolver:
@@ -345,24 +350,24 @@ def test_manual_resume_suppresses_stale_solver_manual_required_result(monkeypatc
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
     monkeypatch.setattr(server.time, "time", lambda: fake_now[0])
     monkeypatch.setattr(server.time, "sleep", lambda _seconds: None)
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", 0)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "idle")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "resume_epoch", 0)
 
     handler = object.__new__(server.DataHandler)
     handler.run_solver({"target_url": "https://contest.local/captcha"})
 
-    assert server.PAUSED is False
-    assert server.SOLVER_RUNNING is False
-    assert server.SOLVER_LAST_STATUS == "resumed"
-    assert server.SOLVER_LAST_FAILURE_REASON is None
+    assert server.RUNTIME.control.paused is False
+    assert server.RUNTIME.solver.running is False
+    assert server.RUNTIME.solver.last_status == "resumed"
+    assert server.RUNTIME.solver.failure_reason is None
     assert not flag_path.exists()
-    assert "Total time: 5.0s" in capsys.readouterr().out
+    assert "Total time: 5.0s" in caplog.text
 
 def test_run_solver_installs_cancel_checker_for_manual_resume(monkeypatch, tmp_path) -> None:
     from src import server
@@ -374,7 +379,7 @@ def test_run_solver_installs_cancel_checker_for_manual_resume(monkeypatch, tmp_p
         def solve(self):
             assert self.cancel_checker is not None
             assert self.cancel_checker() is False
-            server.SOLVER_MANUAL_RESUME_EPOCH = server.SOLVER_START_TIME + 1
+            server.RUNTIME.recovery.resume_epoch = server.RUNTIME.solver.started_at + 1
             assert self.cancel_checker() is True
             return False
 
@@ -384,20 +389,20 @@ def test_run_solver_installs_cancel_checker_for_manual_resume(monkeypatch, tmp_p
     monkeypatch.setattr(server, "_build_solver_for_request", lambda _request: fake_solver)
     monkeypatch.setattr(server, "_solver_force_unlock_flag_path", lambda: str(flag_path))
     monkeypatch.setattr(server.time, "sleep", lambda _seconds: None)
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "idle")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_LAST_FINISHED_TIME", 0)
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {})
-    monkeypatch.setattr(server, "SOLVER_MANUAL_RESUME_EPOCH", 0)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", 0)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "idle")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "finished_at", 0)
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {})
+    monkeypatch.setattr(server.RUNTIME.recovery, "resume_epoch", 0)
 
     handler = object.__new__(server.DataHandler)
     handler.run_solver({"target_url": "https://contest.local/captcha"})
 
-    assert server.PAUSED is False
-    assert server.SOLVER_RUNNING is False
-    assert server.SOLVER_LAST_STATUS == "resumed"
-    assert server.SOLVER_LAST_FAILURE_REASON is None
+    assert server.RUNTIME.control.paused is False
+    assert server.RUNTIME.solver.running is False
+    assert server.RUNTIME.solver.last_status == "resumed"
+    assert server.RUNTIME.solver.failure_reason is None
     assert not flag_path.exists()

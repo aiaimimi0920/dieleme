@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import logging
+
 from .captcha_context import *  # noqa: F401,F403
+
+logger = logging.getLogger(__name__)
 
 
 class CaptchaOSMappingMixin:
@@ -181,12 +185,12 @@ class CaptchaOSMappingMixin:
 
         box, locate_error = locate_on_screen(locate_kwargs)
         if box is None and clamped_region:
-            print("[SOLVER] Regional screenshot locate missed; retrying on the full screen.")
+            logger.info("[SOLVER] Regional screenshot locate missed; retrying on the full screen.")
             box, full_screen_error = locate_on_screen({})
             locate_error = full_screen_error or locate_error
         if box is None:
             if locate_error is not None:
-                print(f"[SOLVER] Screenshot locate failed: {locate_error}")
+                logger.warning("[SOLVER] Screenshot locate failed: %s", locate_error)
             return None
         return {
             "left": float(box.left),
@@ -220,7 +224,7 @@ class CaptchaOSMappingMixin:
             # win32 enumeration can pick the wrong top-level window when multiple Edge
             # windows exist on different monitors. CDP window bounds are authoritative.
             if dx > 200.0 or dy > 200.0:
-                print(
+                logger.info(
                     f"[SOLVER] Screen map win32=({expected['x']:.0f},{expected['y']:.0f}) "
                     f"cdp=({cdp_expected['x']:.0f},{cdp_expected['y']:.0f}) "
                     f"delta=({dx:.0f},{dy:.0f}); using CDP window bounds"
@@ -253,7 +257,7 @@ class CaptchaOSMappingMixin:
             # XGetImage/scrot. Matching the exact activated target's CDP bounds
             # to its physical X11 window is the stronger available proof.
             located = None
-            print("[SOLVER] X11/CDP window geometry verified for physical slider mapping.")
+            logger.info("[SOLVER] X11/CDP window geometry verified for physical slider mapping.")
         elif activation_verified:
             # Activation proves the tab identity, not that the render widget is
             # still at the same physical origin. Take a screenshot-backed sample
@@ -264,7 +268,7 @@ class CaptchaOSMappingMixin:
                 drag_distance=distance,
             )
             if located is None:
-                print(
+                logger.info(
                     "[SOLVER] Exact CDP target activation verified; "
                     f"screenshot mapping unavailable, falling back to {expected.get('source')}."
                 )
@@ -298,7 +302,7 @@ class CaptchaOSMappingMixin:
             # A narrow NC track is visually repetitive and can produce a high-
             # confidence false match elsewhere on the desktop. Verify the whole
             # foregrounded viewport before trusting a large coordinate jump.
-            print(
+            logger.warning(
                 f"[SOLVER] Clipped screenshot map drifted {delta:.0f}px; "
                 "retrying with the full viewport."
             )
@@ -342,12 +346,12 @@ class CaptchaOSMappingMixin:
         ):
             chosen = expected
         elif screenshot_point and delta is not None and delta > screenshot_delta_limit:
-            print(
+            logger.warning(
                 f"[SOLVER] Rejecting screenshot map with implausible {delta:.0f}px drift; "
                 f"using {expected.get('source')}."
             )
         if screenshot_point and expected:
-            print(
+            logger.info(
                 f"[SOLVER] Screen map expected=({expected['x']:.0f},{expected['y']:.0f}) "
                 f"screenshot=({screenshot_point['x']:.0f},{screenshot_point['y']:.0f}) "
                 f"delta={delta:.0f}px source={chosen.get('source')} "
@@ -355,22 +359,22 @@ class CaptchaOSMappingMixin:
             )
         if not chosen:
             self.last_failure_reason = "screen_mapping_unavailable"
-            print("[SOLVER] Screen mapping unavailable; skipping OS drag.")
+            logger.warning("[SOLVER] Screen mapping unavailable; skipping OS drag.")
             return None
         try:
             mapped_values = (float(chosen["x"]), float(chosen["y"]), float(chosen["distance"]))
         except (KeyError, TypeError, ValueError):
             self.last_failure_reason = "screen_mapping_invalid"
-            print("[SOLVER] Screen mapping is invalid; skipping OS drag.")
+            logger.warning("[SOLVER] Screen mapping is invalid; skipping OS drag.")
             return None
         invalid_distance = mapped_values[2] < 0 if allow_zero_distance else mapped_values[2] <= 0
         if not all(math.isfinite(value) for value in mapped_values) or invalid_distance:
             self.last_failure_reason = "screen_mapping_invalid"
-            print("[SOLVER] Screen mapping contains non-finite coordinates; skipping OS drag.")
+            logger.warning("[SOLVER] Screen mapping contains non-finite coordinates; skipping OS drag.")
             return None
         if physical_mapping_required and not located and not x11_expected:
             self.last_failure_reason = "screen_mapping_unverified"
-            print("[SOLVER] Linux slider mapping requires screenshot or X11 geometry verification.")
+            logger.warning("[SOLVER] Linux slider mapping requires screenshot or X11 geometry verification.")
             return None
         return {
             "x": mapped_values[0],

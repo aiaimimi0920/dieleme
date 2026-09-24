@@ -1,6 +1,14 @@
 from __future__ import annotations
 
-from .repository_context import *  # noqa: F401,F403
+from threading import RLock
+from typing import Any
+
+from sqlalchemy import create_engine, text
+from sqlalchemy.engine import Engine
+from sqlalchemy.orm import Session, sessionmaker
+
+from .models import Base
+from .repository_context import DatabaseSettings
 
 
 class RepositoryCoreMixin:
@@ -9,6 +17,7 @@ class RepositoryCoreMixin:
         self._engine: Engine | None = None
         self._Session: sessionmaker[Session] | None = None
         self._initialized = False
+        self._initialization_lock = RLock()
 
     @property
     def enabled(self) -> bool:
@@ -16,26 +25,29 @@ class RepositoryCoreMixin:
 
     @property
     def engine(self) -> Engine:
-        if self._engine is None:
-            if not self.enabled:
-                raise RuntimeError("database repository is disabled")
-            self._engine = create_engine(self.settings.url, echo=self.settings.echo, future=True)
-        return self._engine
+        with self._initialization_lock:
+            if self._engine is None:
+                if not self.enabled:
+                    raise RuntimeError("database repository is disabled")
+                self._engine = create_engine(self.settings.url, echo=self.settings.echo, future=True)
+            return self._engine
 
     @property
     def session_factory(self) -> sessionmaker[Session]:
-        if self._Session is None:
-            self._Session = sessionmaker(bind=self.engine, expire_on_commit=False, future=True)
-        return self._Session
+        with self._initialization_lock:
+            if self._Session is None:
+                self._Session = sessionmaker(bind=self.engine, expire_on_commit=False, future=True)
+            return self._Session
 
     def initialize(self) -> None:
-        if not self.enabled or self._initialized:
-            return
-        if self.settings.auto_create:
-            Base.metadata.create_all(self.engine)
-        if self.settings.enable_postgis and self.engine.dialect.name == "postgresql":
-            self._ensure_postgis()
-        self._initialized = True
+        with self._initialization_lock:
+            if not self.enabled or self._initialized:
+                return
+            if self.settings.auto_create:
+                Base.metadata.create_all(self.engine)
+            if self.settings.enable_postgis and self.engine.dialect.name == "postgresql":
+                self._ensure_postgis()
+            self._initialized = True
 
     def _ensure_postgis(self) -> None:
         with self.engine.begin() as conn:

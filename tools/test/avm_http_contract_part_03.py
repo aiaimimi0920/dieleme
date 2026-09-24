@@ -36,7 +36,7 @@ class AVMHttpContractPart03:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_COLLECTION_TEMPLATE_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_build_sniff_stub_preserves_address_and_bid_semantics(self):
         stub = server_module.build_sniff_stub({'id': 'stub-1', 'title': '测试标题', 'url': 'https://x/stub-1', 'location': '上海市浦东新区测试路99号', 'city': '上海市', 'district': '浦东新区', 'auction_date': '2026-04-01 10:00:00', 'currentPrice': '100万', 'initialPrice': '80万', 'applyCount': 3, 'bidCount': 7, 'bidderCount': 2, 'deposit': '5万', 'latitude': 31.2, 'longitude': 121.5, 'coordinate_source': 'list', 'auction_round': 2, 'housing_type': '住宅'})
@@ -90,7 +90,7 @@ class AVMHttpContractPart03:
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_PREDICT_FAILED')
         self.assertEqual(body['error']['details']['id'], '3001')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_analysis_predict_alias_endpoint(self):
         (status, payload) = self._get_json('/api/analysis/predict?id=3001')
@@ -124,11 +124,11 @@ class AVMHttpContractPart03:
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_PREDICT_FAILED')
         self.assertEqual(body['error']['details']['id'], '3001')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_evaluate_endpoint(self):
         payload = {'request_id': 'req-test-1', 'subject': {'city': '上海市', 'district': '浦东新区', 'community_name': '测试小区', 'area_sqm': 100, 'housing_type': '住宅'}, 'auction': {'starting_price': 850000, 'auction_date': '2026-04-01'}, 'risk_flags': {'is_occupied': True}}
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=json.dumps(payload).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=json.dumps(payload).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with urllib.request.urlopen(req) as resp:
             body = json.loads(resp.read().decode('utf-8'))
         self.assertEqual(resp.status, 200)
@@ -142,7 +142,7 @@ class AVMHttpContractPart03:
         self.assertIn(body['trace']['strategy'], {'spatial', 'community_fallback'})
 
     def test_evaluate_missing_subject_returns_json_error(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=json.dumps({'request_id': 'bad'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=json.dumps({'request_id': 'bad'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -150,7 +150,7 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_SUBJECT')
 
     def test_evaluate_missing_area_returns_json_error(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=json.dumps({'request_id': 'bad', 'subject': {'city': '上海市'}}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=json.dumps({'request_id': 'bad', 'subject': {'city': '上海市'}}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -158,7 +158,7 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['code'], 'AVM_MISSING_AREA')
 
     def test_evaluate_invalid_json_returns_json_error(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=b'{', headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=b'{', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -166,7 +166,7 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_JSON')
 
     def test_evaluate_rejects_non_object_json_body(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=json.dumps([]).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=json.dumps([]).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -176,18 +176,18 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['details']['received_type'], 'list')
 
     def test_evaluate_failure_returns_json_error(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=json.dumps({'request_id': 'req-test-1', 'subject': {'area_sqm': 100}}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/evaluate', data=json.dumps({'request_id': 'req-test-1', 'subject': {'area_sqm': 100}}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module.AVM_SERVICE, 'evaluate_request', side_effect=RuntimeError('boom')):
             with self.assertRaises(urllib.error.HTTPError) as ctx:
                 urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_EVALUATE_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_analysis_evaluate_alias_endpoint(self):
         payload = {'request_id': 'req-test-1', 'subject': {'city': '上海市', 'district': '浦东新区', 'community_name': '测试小区', 'area_sqm': 100, 'housing_type': '住宅'}, 'auction': {'starting_price': 850000, 'auction_date': '2026-04-01'}, 'risk_flags': {'is_occupied': True}}
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=json.dumps(payload).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=json.dumps(payload).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with urllib.request.urlopen(req) as resp:
             body = json.loads(resp.read().decode('utf-8'))
         self.assertEqual(resp.status, 200)
@@ -201,7 +201,7 @@ class AVMHttpContractPart03:
         self.assertIn(body['trace']['strategy'], {'spatial', 'community_fallback'})
 
     def test_analysis_evaluate_alias_missing_subject_returns_json_error(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=json.dumps({'request_id': 'bad'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=json.dumps({'request_id': 'bad'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -209,7 +209,7 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_SUBJECT')
 
     def test_analysis_evaluate_alias_missing_area_returns_json_error(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=json.dumps({'request_id': 'bad', 'subject': {'city': '上海市'}}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=json.dumps({'request_id': 'bad', 'subject': {'city': '上海市'}}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -217,7 +217,7 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['code'], 'AVM_MISSING_AREA')
 
     def test_analysis_evaluate_alias_invalid_json_returns_json_error(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=b'{', headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=b'{', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -225,7 +225,7 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_JSON')
 
     def test_analysis_evaluate_alias_rejects_non_object_json_body(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=json.dumps([]).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=json.dumps([]).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -235,20 +235,20 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['details']['received_type'], 'list')
 
     def test_analysis_evaluate_alias_failure_returns_json_error(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=json.dumps({'request_id': 'req-test-1', 'subject': {'area_sqm': 100}}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/evaluate', data=json.dumps({'request_id': 'req-test-1', 'subject': {'area_sqm': 100}}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module.AVM_SERVICE, 'evaluate_request', side_effect=RuntimeError('boom')):
             with self.assertRaises(urllib.error.HTTPError) as ctx:
                 urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_EVALUATE_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_run_endpoint_passes_sync_config_to_pipeline_manager(self):
         expected_result = {'status': 'completed', 'source': 'http'}
         with mock.patch.object(server_module.AVM_PIPELINE, 'run', return_value=expected_result) as mocked_run:
-            (status, payload) = self._post_json('/api/avm/run', {'mode': 'sync', 'data_dir': self.data_dir, 'alerts_threshold': 0.05, 'alerts_limit': 12})
-        self.assertEqual(status, 200)
+            (status, payload) = self._post_collection_job('/api/avm/run', {'mode': 'sync', 'data_dir': self.data_dir, 'alerts_threshold': 0.05, 'alerts_limit': 12})
+        self.assertEqual(status, 202)
         self.assertEqual(payload, expected_result)
         mocked_run.assert_called_once()
         (_, kwargs) = mocked_run.call_args
@@ -257,23 +257,24 @@ class AVMHttpContractPart03:
         self.assertEqual(kwargs['config'].alerts_threshold, 0.05)
         self.assertEqual(kwargs['config'].alerts_limit, 12)
 
-    def test_run_endpoint_defaults_to_async_when_body_is_empty(self):
-        expected_result = {'status': 'started', 'source': 'http-main'}
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/run', data=b'', headers={'Content-Type': 'application/json'}, method='POST')
+    def test_run_endpoint_queues_tracked_work_when_body_is_empty(self):
+        expected_result = {'status': 'completed', 'source': 'http-main'}
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/run', data=b'', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module.AVM_PIPELINE, 'run', return_value=expected_result) as mocked_run:
             with urllib.request.urlopen(req) as resp:
-                body = json.loads(resp.read().decode('utf-8'))
-        self.assertEqual(resp.status, 200)
+                accepted = json.loads(resp.read().decode('utf-8'))
+            body = self._complete_collection_job(resp.status, accepted)
+        self.assertEqual(resp.status, 202)
         self.assertEqual(body, expected_result)
         mocked_run.assert_called_once()
         (_, kwargs) = mocked_run.call_args
-        self.assertTrue(kwargs['async_mode'])
-        self.assertEqual(kwargs['config'].data_dir, server_module.DATA_DIR)
+        self.assertFalse(kwargs['async_mode'])
+        self.assertEqual(kwargs['config'].data_dir, self.data_dir)
         self.assertEqual(kwargs['config'].alerts_threshold, 0.15)
         self.assertEqual(kwargs['config'].alerts_limit, 500)
 
     def test_run_endpoint_rejects_invalid_json(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/run', data=b'{', headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/run', data=b'{', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -281,7 +282,7 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_JSON')
 
     def test_run_endpoint_rejects_non_object_json_body(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/run', data=json.dumps([]).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/run', data=json.dumps([]).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -291,7 +292,7 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['details']['received_type'], 'list')
 
     def test_run_endpoint_rejects_invalid_pipeline_config_values(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/run', data=json.dumps({'alerts_threshold': 'bad'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/run', data=json.dumps({'alerts_threshold': 'bad'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -302,8 +303,8 @@ class AVMHttpContractPart03:
     def test_analysis_pipeline_run_alias_passes_sync_config_to_pipeline_manager(self):
         expected_result = {'status': 'completed', 'source': 'http-alias-sync'}
         with mock.patch.object(server_module.AVM_PIPELINE, 'run', return_value=expected_result) as mocked_run:
-            (status, payload) = self._post_json('/api/analysis/pipeline/run', {'mode': 'sync', 'data_dir': self.data_dir, 'alerts_threshold': 0.05, 'alerts_limit': 12})
-        self.assertEqual(status, 200)
+            (status, payload) = self._post_collection_job('/api/analysis/pipeline/run', {'mode': 'sync', 'data_dir': self.data_dir, 'alerts_threshold': 0.05, 'alerts_limit': 12})
+        self.assertEqual(status, 202)
         self.assertEqual(payload, expected_result)
         mocked_run.assert_called_once()
         (_, kwargs) = mocked_run.call_args
@@ -312,23 +313,24 @@ class AVMHttpContractPart03:
         self.assertEqual(kwargs['config'].alerts_threshold, 0.05)
         self.assertEqual(kwargs['config'].alerts_limit, 12)
 
-    def test_analysis_pipeline_run_alias_defaults_to_async_when_body_is_empty(self):
-        expected_result = {'status': 'started', 'source': 'http-alias'}
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/pipeline/run', data=b'', headers={'Content-Type': 'application/json'}, method='POST')
+    def test_analysis_pipeline_run_alias_queues_tracked_work_when_body_is_empty(self):
+        expected_result = {'status': 'completed', 'source': 'http-alias'}
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/pipeline/run', data=b'', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module.AVM_PIPELINE, 'run', return_value=expected_result) as mocked_run:
             with urllib.request.urlopen(req) as resp:
-                body = json.loads(resp.read().decode('utf-8'))
-        self.assertEqual(resp.status, 200)
+                accepted = json.loads(resp.read().decode('utf-8'))
+            body = self._complete_collection_job(resp.status, accepted)
+        self.assertEqual(resp.status, 202)
         self.assertEqual(body, expected_result)
         mocked_run.assert_called_once()
         (_, kwargs) = mocked_run.call_args
-        self.assertTrue(kwargs['async_mode'])
-        self.assertEqual(kwargs['config'].data_dir, server_module.DATA_DIR)
+        self.assertFalse(kwargs['async_mode'])
+        self.assertEqual(kwargs['config'].data_dir, self.data_dir)
         self.assertEqual(kwargs['config'].alerts_threshold, 0.15)
         self.assertEqual(kwargs['config'].alerts_limit, 500)
 
     def test_analysis_pipeline_run_alias_rejects_invalid_json(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/pipeline/run', data=b'{', headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/pipeline/run', data=b'{', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -336,7 +338,7 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_JSON')
 
     def test_analysis_pipeline_run_alias_rejects_non_object_json_body(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/pipeline/run', data=json.dumps([]).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/pipeline/run', data=json.dumps([]).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -346,7 +348,7 @@ class AVMHttpContractPart03:
         self.assertEqual(body['error']['details']['received_type'], 'list')
 
     def test_analysis_pipeline_run_alias_rejects_invalid_pipeline_config_values(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/pipeline/run', data=json.dumps({'alerts_limit': 'bad'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/pipeline/run', data=json.dumps({'alerts_limit': 'bad'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -355,92 +357,78 @@ class AVMHttpContractPart03:
         self.assertIn('alerts_limit', body['error']['details']['invalid_fields'])
 
     def test_run_endpoint_returns_json_error_on_pipeline_failure(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/run', data=json.dumps({'mode': 'sync'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/run', data=json.dumps({'mode': 'sync'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module.AVM_PIPELINE, 'run', side_effect=RuntimeError('boom')):
-            with self.assertRaises(urllib.error.HTTPError) as ctx:
-                urllib.request.urlopen(req)
-        self.assertEqual(ctx.exception.code, 500)
-        body = json.loads(ctx.exception.read().decode('utf-8'))
-        self.assertEqual(body['error']['code'], 'AVM_PIPELINE_RUN_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+            with urllib.request.urlopen(req) as resp:
+                accepted = json.loads(resp.read().decode('utf-8'))
+            self._assert_collection_job_failed(resp.status, accepted, 'AVM_PIPELINE_RUN_FAILED')
 
     def test_analysis_pipeline_run_alias_returns_json_error_on_pipeline_failure(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/pipeline/run', data=json.dumps({'mode': 'sync'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/pipeline/run', data=json.dumps({'mode': 'sync'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module.AVM_PIPELINE, 'run', side_effect=RuntimeError('boom')):
-            with self.assertRaises(urllib.error.HTTPError) as ctx:
-                urllib.request.urlopen(req)
-        self.assertEqual(ctx.exception.code, 500)
-        body = json.loads(ctx.exception.read().decode('utf-8'))
-        self.assertEqual(body['error']['code'], 'AVM_PIPELINE_RUN_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+            with urllib.request.urlopen(req) as resp:
+                accepted = json.loads(resp.read().decode('utf-8'))
+            self._assert_collection_job_failed(resp.status, accepted, 'AVM_PIPELINE_RUN_FAILED')
 
     def test_drift_status_endpoint(self):
-        (status, payload) = self._get_json('/api/avm/drift_status?window_days=30')
-        self.assertEqual(status, 200)
+        (status, payload) = self._post_collection_job('/api/avm/drift_status', {'window_days': '30'})
+        self.assertEqual(status, 202)
         self.assertEqual(payload['window_days'], 30)
         self.assertIn('feature_metrics', payload)
         self.assertIn('alerts', payload)
 
-    def test_drift_status_endpoint_defaults_invalid_numeric_query_params(self):
+    def test_drift_status_endpoint_defaults_invalid_numeric_body_fields(self):
         mocked_output = {'window_days': 30, 'feature_metrics': [], 'alerts': []}
         with mock.patch('tools.check_feature_drift.generate_drift_report', return_value=mocked_output) as mocked_report:
-            (status, payload) = self._get_json('/api/avm/drift_status?window_days=bad')
-        self.assertEqual(status, 200)
+            (status, payload) = self._post_collection_job('/api/avm/drift_status', {'window_days': 'bad'})
+        self.assertEqual(status, 202)
         self.assertEqual(payload['window_days'], 30)
         mocked_report.assert_called_once()
         self.assertEqual(mocked_report.call_args.kwargs['window_days'], 30)
 
-    def test_drift_status_endpoint_clamps_negative_numeric_query_params(self):
+    def test_drift_status_endpoint_clamps_negative_numeric_body_fields(self):
         mocked_output = {'window_days': 30, 'feature_metrics': [], 'alerts': []}
         with mock.patch('tools.check_feature_drift.generate_drift_report', return_value=mocked_output) as mocked_report:
-            (status, payload) = self._get_json('/api/avm/drift_status?window_days=-1')
-        self.assertEqual(status, 200)
+            (status, payload) = self._post_collection_job('/api/avm/drift_status', {'window_days': '-1'})
+        self.assertEqual(status, 202)
         self.assertEqual(payload['window_days'], 30)
         mocked_report.assert_called_once()
         self.assertEqual(mocked_report.call_args.kwargs['window_days'], 30)
 
     def test_drift_status_endpoint_returns_json_error_on_failure(self):
         with mock.patch('tools.check_feature_drift.generate_drift_report', side_effect=RuntimeError('boom')):
-            with self.assertRaises(urllib.error.HTTPError) as ctx:
-                urllib.request.urlopen(f'http://127.0.0.1:{self.port}/api/avm/drift_status?window_days=30')
-        self.assertEqual(ctx.exception.code, 500)
-        body = json.loads(ctx.exception.read().decode('utf-8'))
-        self.assertEqual(body['error']['code'], 'AVM_DRIFT_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+            with self._open_post('/api/avm/drift_status', {'window_days': '30'}) as response:
+                self._assert_collection_job_failed(response.status, json.load(response), 'AVM_DRIFT_FAILED')
 
     def test_analysis_drift_status_alias_endpoint(self):
-        (status, payload) = self._get_json('/api/analysis/drift_status?window_days=30')
-        self.assertEqual(status, 200)
+        (status, payload) = self._post_collection_job('/api/analysis/drift_status', {'window_days': '30'})
+        self.assertEqual(status, 202)
         self.assertEqual(payload['window_days'], 30)
         self.assertIn('feature_metrics', payload)
         self.assertIn('alerts', payload)
 
-    def test_analysis_drift_status_alias_defaults_invalid_numeric_query_params(self):
+    def test_analysis_drift_status_alias_defaults_invalid_numeric_body_fields(self):
         mocked_output = {'window_days': 30, 'feature_metrics': [], 'alerts': []}
         with mock.patch('tools.check_feature_drift.generate_drift_report', return_value=mocked_output) as mocked_report:
-            (status, payload) = self._get_json('/api/analysis/drift_status?window_days=bad')
-        self.assertEqual(status, 200)
+            (status, payload) = self._post_collection_job('/api/analysis/drift_status', {'window_days': 'bad'})
+        self.assertEqual(status, 202)
         self.assertEqual(payload['window_days'], 30)
         mocked_report.assert_called_once()
         self.assertEqual(mocked_report.call_args.kwargs['window_days'], 30)
 
-    def test_analysis_drift_status_alias_clamps_negative_numeric_query_params(self):
+    def test_analysis_drift_status_alias_clamps_negative_numeric_body_fields(self):
         mocked_output = {'window_days': 30, 'feature_metrics': [], 'alerts': []}
         with mock.patch('tools.check_feature_drift.generate_drift_report', return_value=mocked_output) as mocked_report:
-            (status, payload) = self._get_json('/api/analysis/drift_status?window_days=-1')
-        self.assertEqual(status, 200)
+            (status, payload) = self._post_collection_job('/api/analysis/drift_status', {'window_days': '-1'})
+        self.assertEqual(status, 202)
         self.assertEqual(payload['window_days'], 30)
         mocked_report.assert_called_once()
         self.assertEqual(mocked_report.call_args.kwargs['window_days'], 30)
 
     def test_analysis_drift_status_alias_returns_json_error_on_failure(self):
         with mock.patch('tools.check_feature_drift.generate_drift_report', side_effect=RuntimeError('boom')):
-            with self.assertRaises(urllib.error.HTTPError) as ctx:
-                urllib.request.urlopen(f'http://127.0.0.1:{self.port}/api/analysis/drift_status?window_days=30')
-        self.assertEqual(ctx.exception.code, 500)
-        body = json.loads(ctx.exception.read().decode('utf-8'))
-        self.assertEqual(body['error']['code'], 'AVM_DRIFT_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+            with self._open_post('/api/analysis/drift_status', {'window_days': '30'}) as response:
+                self._assert_collection_job_failed(response.status, json.load(response), 'AVM_DRIFT_FAILED')
 
     def test_pipeline_status_endpoint(self):
         expected_state = {'running': False, 'started_at': None, 'finished_at': None, 'last_error': None, 'last_result': {'status': 'completed'}, 'config': {'data_dir': self.data_dir}, 'merge_check': {'is_fully_merged': True}}
@@ -457,7 +445,7 @@ class AVMHttpContractPart03:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_PIPELINE_STATUS_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_merge_check_endpoint(self):
         expected_merge = {'expected_subtasks': ['build_canonical_dataset', 'build_avm_features', 'generate_avm_alerts', 'evaluate_avm', 'suggest_calibration_targets', 'generate_release_gate_report'], 'observed_subtasks': ['build_canonical_dataset', 'build_avm_features', 'generate_avm_alerts', 'evaluate_avm', 'suggest_calibration_targets', 'generate_release_gate_report'], 'missing_subtasks': [], 'unexpected_subtasks': [], 'is_fully_merged': True}

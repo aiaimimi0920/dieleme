@@ -94,6 +94,11 @@ class Handler(SimpleHTTPRequestHandler):
             if isinstance(body.get("growth"), list) and len(body["growth"]) == 3:
                 self.server.growth = [int(value) for value in body["growth"]]
             return self.respond({"ok": True})
+        if path in {
+            "/api/collection/control/pause", "/api/collection/control/start",
+            "/api/collection/control/restart",
+        } and self.headers.get("X-FAPAI-Control-Token") != "offline-fixture-operator-token-00001":
+            return self.respond({"error": "Fixture authorization rejected"}, 403)
         self.server.events.append({"path": path, "body": body})
         if path == "/api/collection/item/manual_update":
             item_id = str(body["item_id"])
@@ -113,8 +118,6 @@ class Handler(SimpleHTTPRequestHandler):
             self.server.runtime = "运行中"
             return self.respond({"ok": True})
         if path == "/api/collection/control/restart":
-            if self.headers.get("X-FAPAI-Control-Token") != "offline-fixture-operator-token-00001":
-                return self.respond({"error": "Fixture authorization rejected"}, 403)
             self.server.restart = {"available": True, "request": {"id": body["request_id"], "status": "requested"}}
             return self.respond({"ok": True, "created": True, "request": self.server.restart["request"]})
         if path == "/api/collection/auth/complete":

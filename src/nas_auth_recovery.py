@@ -12,14 +12,7 @@ from pathlib import Path
 from typing import Any
 
 
-ACTIVE_STATUSES = {
-    "requested",
-    "pc1_claimed",
-    "snapshot_ready",
-    "pc2_claimed",
-    "restarting",
-    "verifying",
-}
+from .auth_recovery_codes import ACTIVE_STATUSES as ACTIVE_STATUSES, TIMEOUT_REASONS
 
 FAILED_RECOVERY_FAST_RETRY_SIGNALS = {
     "seed_challenge_stalled",
@@ -233,7 +226,7 @@ class NasAuthRecoveryCoordinator(StageRecoveryMixin):
         if deadline > 0 and now >= deadline:
             self._finish_locked(
                 status="failed",
-                reason=f"{status}_timeout",
+                reason=TIMEOUT_REASONS[status],
                 now=now,
                 captured_count=self._state.get("last_captured_count"),
             )

@@ -1,12 +1,18 @@
 from __future__ import annotations
 
+from datetime import timedelta
+from typing import Any, Dict, Optional, Sequence
+
+from sqlalchemy import case, func, literal, or_, select
+
 from src.collection.search_task_policy import (
     DEFAULT_SEARCH_TASK_POLICY,
     SearchTaskPolicy,
     TaobaoJudicialSearchTaskPolicy,
 )
 
-from .repository_context import *  # noqa: F401,F403
+from .models import PropertySearchTask
+from .repository_context import _lease_reclaimable, _parse_dt, _utc_now
 
 
 class RepositorySearchMixin:
@@ -73,37 +79,70 @@ class RepositorySearchMixin:
         priority_index = {code: idx for idx, code in enumerate(priority_codes or [])}
         sort_index = {code: idx for idx, code in enumerate(sort_order or ("2", "1", "0", "3", "4", "5"))}
         with self.session_factory.begin() as session:
-            rows = session.execute(
-                select(PropertySearchTask).where(PropertySearchTask.status.in_(("pending", "in_progress")))
-            ).scalars().all()
-            ordered_rows = sorted(
-                (row for row in rows if active_policy.owns_task(str(row.task_key))),
-                key=lambda row: (
-                    0 if row.status == "pending" else 1,
-                    priority_index.get(str(row.location_code), 10**9),
-                    sort_index.get(str(row.sort_param), 10**9),
-                    row.updated_at or datetime.min,
-                    row.task_key,
-                ),
-            )
-            for row in ordered_rows:
-                if row.status == "in_progress" and row.leased_by != session_id:
-                    if not _lease_reclaimable(row.lease_until, row.updated_at, now=now, lease_seconds=lease_seconds):
-                        continue
-                row.status = "in_progress"
-                row.leased_by = session_id
-                row.lease_until = now + timedelta(seconds=max(lease_seconds, 1))
-                row.last_seen_at = now
-                session.add(row)
-                page = int(row.next_page or 1)
-                return active_policy.claim_payload(
-                    task_key=str(row.task_key),
-                    location_code=str(row.location_code),
-                    category=str(row.category or ""),
-                    sort_param=str(row.sort_param or ""),
-                    page=page,
-                    source_url=row.source_url,
+            # Stream candidate keys without locking unrelated work. Each actual
+            # claim below locks and refreshes only its selected row.
+            pending_order = case((PropertySearchTask.status == "pending", 0), else_=1)
+            location_order = (
+                case(
+                    *[(PropertySearchTask.location_code == code, index) for code, index in priority_index.items()],
+                    else_=10**9,
                 )
+                if priority_index
+                else literal(10**9)
+            )
+            sort_order_expr = case(
+                *[(PropertySearchTask.sort_param == code, index) for code, index in sort_index.items()],
+                else_=10**9,
+            )
+            available = or_(
+                PropertySearchTask.status == "pending",
+                PropertySearchTask.leased_by == session_id,
+                PropertySearchTask.lease_until.is_(None),
+                PropertySearchTask.lease_until <= now,
+            )
+            candidates = session.scalars(
+                select(PropertySearchTask.task_key)
+                .where(PropertySearchTask.status.in_(("pending", "in_progress")), available)
+                .order_by(
+                    pending_order,
+                    location_order,
+                    sort_order_expr,
+                    # Python's previous ``row.updated_at or datetime.min`` put
+                    # missing timestamps first; preserve that ordering here.
+                    PropertySearchTask.updated_at.asc().nulls_first(),
+                    PropertySearchTask.task_key,
+                )
+                .execution_options(yield_per=128)
+            )
+            with candidates:
+                for task_key in candidates:
+                    if not active_policy.owns_task(str(task_key)):
+                        continue
+                    row = session.scalar(
+                        select(PropertySearchTask)
+                        .where(PropertySearchTask.task_key == task_key, available)
+                        .with_for_update(skip_locked=True)
+                        .execution_options(populate_existing=True)
+                    )
+                    if row is None or row.status not in {"pending", "in_progress"}:
+                        continue
+                    if row.status == "in_progress" and row.leased_by != session_id:
+                        if not _lease_reclaimable(row.lease_until, now=now):
+                            continue
+                    row.status = "in_progress"
+                    row.leased_by = session_id
+                    row.lease_until = now + timedelta(seconds=max(lease_seconds, 1))
+                    row.last_seen_at = now
+                    session.add(row)
+                    page = int(row.next_page or 1)
+                    return active_policy.claim_payload(
+                        task_key=str(row.task_key),
+                        location_code=str(row.location_code),
+                        category=str(row.category or ""),
+                        sort_param=str(row.sort_param or ""),
+                        page=page,
+                        source_url=row.source_url,
+                    )
         return None
 
     def report_search_task_progress(

@@ -1,7 +1,17 @@
 from tools.test.db_dual_write_test_context import *  # noqa: F401,F403
+from tools.test.collection_job_checks import wait_for_http_job
 
 
-def test_http_endpoints_can_read_pending_and_item_data_from_database(tmp_path: Path, monkeypatch):
+@pytest.fixture
+def db_worker_headers(tmp_path: Path, monkeypatch):
+    token = "isolated-db-worker-credential-" * 2
+    token_file = tmp_path / "worker.token"
+    token_file.write_text(token, encoding="utf-8")
+    monkeypatch.setenv("FAPAI_COLLECTION_WORKER_TOKEN_FILE", str(token_file))
+    return {"Content-Type": "application/json", "X-FAPAI-Collection-Token": token}
+
+
+def test_http_endpoints_can_read_pending_and_item_data_from_database(tmp_path: Path, monkeypatch, db_worker_headers):
     repo = _make_repo(tmp_path)
     repo.upsert_flat_item(_make_flat_item(id="9401", title="DB Pending", url="https://x/9401"), event_type="seed")
 
@@ -11,10 +21,10 @@ def test_http_endpoints_can_read_pending_and_item_data_from_database(tmp_path: P
     Path(server_module.DATA_DIR).mkdir(parents=True, exist_ok=True)
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
 
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -25,20 +35,24 @@ def test_http_endpoints_can_read_pending_and_item_data_from_database(tmp_path: P
             item_body = json.loads(resp.read().decode("utf-8"))
         assert item_body["item_id"] == "9401"
         assert item_body["source_title"] == "DB Pending"
-        assert server_module.SEEN_IDS == {}
+        assert server_module.RUNTIME.collection.seen_ids == {}
 
-        with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/get_tasks") as resp:
+        req = urllib.request.Request(
+            f"http://127.0.0.1:{port}/api/get_tasks", data=b"{}",
+            headers=db_worker_headers, method="POST",
+        )
+        with urllib.request.urlopen(req) as resp:
             task_body = json.loads(resp.read().decode("utf-8"))
         assert task_body["total"] == 1
         assert len(task_body["tasks"]) == 1
         assert task_body["tasks"][0]["id"] == "9401"
         assert task_body["tasks"][0]["url"] == "https://x/9401"
-        assert server_module.SEEN_IDS == {}
+        assert server_module.RUNTIME.collection.seen_ids == {}
     finally:
         httpd.shutdown()
         httpd.server_close()
 
-def test_http_status_and_next_task_can_use_database_pending_counts(tmp_path: Path, monkeypatch):
+def test_http_status_and_next_task_can_use_database_pending_counts(tmp_path: Path, monkeypatch, db_worker_headers):
     repo = _make_repo(tmp_path)
     repo.upsert_flat_item(_make_flat_item(id="9451", title="DB Pending A", url="https://x/9451"), event_type="seed")
     repo.upsert_flat_item(_make_flat_item(id="9452", title="DB Pending B", url="https://x/9452"), event_type="seed")
@@ -53,10 +67,10 @@ def test_http_status_and_next_task_can_use_database_pending_counts(tmp_path: Pat
     Path(server_module.DATA_DIR).mkdir(parents=True, exist_ok=True)
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
 
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -74,17 +88,21 @@ def test_http_status_and_next_task_can_use_database_pending_counts(tmp_path: Pat
         assert status_body["db_pending_ids"] == 2
         assert status_body["db_detail_captured_ids"] == 1
         assert len(status_body["next_batch_preview"]) >= 1
-        assert server_module.SEEN_IDS == {}
+        assert server_module.RUNTIME.collection.seen_ids == {}
 
-        with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/next_task") as resp:
+        req = urllib.request.Request(
+            f"http://127.0.0.1:{port}/api/next_task", data=b"{}",
+            headers=db_worker_headers, method="POST",
+        )
+        with urllib.request.urlopen(req) as resp:
             next_body = json.loads(resp.read().decode("utf-8"))
         assert next_body["url"] in {"https://x/9451", "https://x/9452"}
-        assert server_module.SEEN_IDS == {}
+        assert server_module.RUNTIME.collection.seen_ids == {}
     finally:
         httpd.shutdown()
         httpd.server_close()
 
-def test_http_get_next_task_can_use_database_pending_counts(tmp_path: Path, monkeypatch):
+def test_http_get_next_task_can_use_database_pending_counts(tmp_path: Path, monkeypatch, db_worker_headers):
     repo = _make_repo(tmp_path)
     repo.upsert_flat_item(_make_flat_item(id="9461", title="DB Pending Visit", url="https://x/9461"), event_type="seed")
 
@@ -94,10 +112,10 @@ def test_http_get_next_task_can_use_database_pending_counts(tmp_path: Path, monk
     Path(server_module.DATA_DIR).mkdir(parents=True, exist_ok=True)
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
 
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -107,7 +125,7 @@ def test_http_get_next_task_can_use_database_pending_counts(tmp_path: Path, monk
         req = urllib.request.Request(
             f"http://127.0.0.1:{port}/api/get_next_task",
             data=b"{}",
-            headers={"Content-Type": "application/json"},
+            headers=db_worker_headers,
             method="POST",
         )
         with urllib.request.urlopen(req) as resp:
@@ -115,12 +133,12 @@ def test_http_get_next_task_can_use_database_pending_counts(tmp_path: Path, monk
         assert body["task_type"] == "visit"
         assert body["id"] == "9461"
         assert body["url"] == "https://x/9461"
-        assert server_module.SEEN_IDS == {}
+        assert server_module.RUNTIME.collection.seen_ids == {}
     finally:
         httpd.shutdown()
         httpd.server_close()
 
-def test_http_update_and_analyze_can_on_demand_cache_item_from_database(tmp_path: Path, monkeypatch):
+def test_http_update_and_analyze_can_on_demand_cache_item_from_database(tmp_path: Path, monkeypatch, db_worker_headers):
     repo = _make_repo(tmp_path)
     repo.upsert_flat_item(_make_flat_item(id="9601", title="DB Analyze", url="https://x/9601"), event_type="seed")
 
@@ -130,10 +148,10 @@ def test_http_update_and_analyze_can_on_demand_cache_item_from_database(tmp_path
     Path(server_module.DATA_DIR).mkdir(parents=True, exist_ok=True)
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
 
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     submitted = []
     monkeypatch.setattr(server_module, "submit_task", lambda path: submitted.append(path))
@@ -146,20 +164,20 @@ def test_http_update_and_analyze_can_on_demand_cache_item_from_database(tmp_path
         req = urllib.request.Request(
             f"http://127.0.0.1:{port}/api/update_item",
             data=json.dumps({"id": "9601", "status": "failed_timeout"}).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            headers=db_worker_headers,
             method="POST",
         )
         with urllib.request.urlopen(req) as resp:
             update_body = json.loads(resp.read().decode("utf-8"))
         assert update_body["status"] == "updated"
-        assert "9601" not in server_module.SEEN_IDS
+        assert "9601" not in server_module.RUNTIME.collection.seen_ids
         stored = repo.get_flat_item("9601")
         assert stored["status"] == "failed_timeout"
 
         req = urllib.request.Request(
             f"http://127.0.0.1:{port}/api/analyze_html",
             data=json.dumps({"id": "9601", "html": "<html>ok</html>", "status": "done"}).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            headers=db_worker_headers,
             method="POST",
         )
         with urllib.request.urlopen(req) as resp:
@@ -170,7 +188,7 @@ def test_http_update_and_analyze_can_on_demand_cache_item_from_database(tmp_path
         httpd.shutdown()
         httpd.server_close()
 
-def test_analyze_html_failed_timeout_persists_without_runtime_residency(tmp_path: Path, monkeypatch):
+def test_analyze_html_failed_timeout_persists_without_runtime_residency(tmp_path: Path, monkeypatch, db_worker_headers):
     repo = _make_repo(tmp_path)
     repo.upsert_flat_item(_make_flat_item(id="9602", title="DB Analyze Timeout", url="https://x/9602"), event_type="seed")
 
@@ -180,10 +198,10 @@ def test_analyze_html_failed_timeout_persists_without_runtime_residency(tmp_path
     Path(server_module.DATA_DIR).mkdir(parents=True, exist_ok=True)
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
 
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     submitted = []
     monkeypatch.setattr(server_module, "submit_task", lambda path: submitted.append(path))
@@ -196,7 +214,7 @@ def test_analyze_html_failed_timeout_persists_without_runtime_residency(tmp_path
         req = urllib.request.Request(
             f"http://127.0.0.1:{port}/api/analyze_html",
             data=json.dumps({"id": "9602", "html": "<html>ok</html>", "status": "failed_timeout"}).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            headers=db_worker_headers,
             method="POST",
         )
         with urllib.request.urlopen(req) as resp:
@@ -205,12 +223,12 @@ def test_analyze_html_failed_timeout_persists_without_runtime_residency(tmp_path
         assert submitted == []
         stored = repo.get_flat_item("9602")
         assert stored["status"] == "failed_timeout"
-        assert "9602" not in server_module.SEEN_IDS
+        assert "9602" not in server_module.RUNTIME.collection.seen_ids
     finally:
         httpd.shutdown()
         httpd.server_close()
 
-def test_area_result_persists_to_db_and_evicts_runtime_cache_in_db_first_mode(tmp_path: Path, monkeypatch):
+def test_area_result_persists_to_db_and_evicts_runtime_cache_in_db_first_mode(tmp_path: Path, monkeypatch, db_worker_headers):
     repo = _make_repo(tmp_path)
     repo.upsert_flat_item(_make_flat_item(id="9801", title="DB Area", url="https://x/9801"), event_type="seed")
 
@@ -220,10 +238,10 @@ def test_area_result_persists_to_db_and_evicts_runtime_cache_in_db_first_mode(tm
     Path(server_module.DATA_DIR).mkdir(parents=True, exist_ok=True)
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
 
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -233,13 +251,13 @@ def test_area_result_persists_to_db_and_evicts_runtime_cache_in_db_first_mode(tm
         req = urllib.request.Request(
             f"http://127.0.0.1:{port}/api/area_result",
             data=json.dumps({"id": "9801", "建筑面积": 88.8}).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            headers=db_worker_headers,
             method="POST",
         )
         with urllib.request.urlopen(req) as resp:
             body = json.loads(resp.read().decode("utf-8"))
         assert body["status"] == "ok"
-        assert "9801" not in server_module.SEEN_IDS
+        assert "9801" not in server_module.RUNTIME.collection.seen_ids
         stored = repo.get_flat_item("9801")
         assert stored["建筑面积"] == pytest.approx(88.8)
         assert stored["is_processed"] is True
@@ -247,7 +265,8 @@ def test_area_result_persists_to_db_and_evicts_runtime_cache_in_db_first_mode(tm
         httpd.shutdown()
         httpd.server_close()
 
-def test_api_save_and_screen_can_pull_existing_item_from_database(tmp_path: Path, monkeypatch):
+def test_api_save_and_screen_can_pull_existing_item_from_database(tmp_path: Path, monkeypatch, db_worker_headers):
+    monkeypatch.setenv("FAPAI_CONTROL_PLANE_TOKEN", "isolated-operator")
     repo = _make_repo(tmp_path)
     repo.upsert_flat_item(
         _make_flat_item(id="9701", title="DB Existing", url="https://x/9701", currentPrice="1000000"),
@@ -260,14 +279,14 @@ def test_api_save_and_screen_can_pull_existing_item_from_database(tmp_path: Path
     Path(server_module.DATA_DIR).mkdir(parents=True, exist_ok=True)
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
 
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
     original_service = server_module.AVM_SERVICE
-    original_start_time = server_module.AVM_SERVICE_START_TIME
+    original_start_time = server_module.RUNTIME.started_at
     server_module.AVM_SERVICE = AVMService(data_dir=server_module.DATA_DIR, repository=repo)
-    server_module.AVM_SERVICE_START_TIME = 0
+    server_module.RUNTIME.started_at = 0
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -291,30 +310,37 @@ def test_api_save_and_screen_can_pull_existing_item_from_database(tmp_path: Path
                     ]
                 }
             ).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            headers=db_worker_headers,
             method="POST",
         )
         with urllib.request.urlopen(req) as resp:
             save_body = json.loads(resp.read().decode("utf-8"))
         assert save_body["status"] == "ok"
-        assert "9701" not in server_module.SEEN_IDS
+        assert "9701" not in server_module.RUNTIME.collection.seen_ids
 
         req = urllib.request.Request(
             f"http://127.0.0.1:{port}/api/avm/screen",
-            data=json.dumps({"items": [{"id": "9701"}], "margin_threshold": 0.01}).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            data=json.dumps({"items": [{"id": "9701"}], "margin_threshold": 0.01, "execution_mode": "async"}).encode("utf-8"),
+            headers={"Content-Type": "application/json", server_module.CONTROL_TOKEN_HEADER: "isolated-operator"},
             method="POST",
         )
         with urllib.request.urlopen(req) as resp:
-            screen_body = json.loads(resp.read().decode("utf-8"))
+            assert resp.status == 202
+            accepted = json.loads(resp.read().decode("utf-8"))
+        job = wait_for_http_job(
+            f"http://127.0.0.1:{port}", accepted["status_url"],
+            {server_module.CONTROL_TOKEN_HEADER: "isolated-operator"},
+        )
+        assert job["status"] == "completed", job
+        screen_body = job["result"]
         assert screen_body["total"] == 1
         assert screen_body["results"][0]["id"] == "9701"
-        assert "9701" not in server_module.SEEN_IDS
+        assert "9701" not in server_module.RUNTIME.collection.seen_ids
     finally:
         httpd.shutdown()
         httpd.server_close()
         server_module.AVM_SERVICE = original_service
-        server_module.AVM_SERVICE_START_TIME = original_start_time
+        server_module.RUNTIME.started_at = original_start_time
 
 def test_process_single_file_can_work_from_database_without_runtime_preload(tmp_path: Path, monkeypatch):
     repo = _make_repo(tmp_path)
@@ -328,8 +354,8 @@ def test_process_single_file_can_work_from_database_without_runtime_preload(tmp_
     monkeypatch.setattr(server_module, "DATA_DIR", str(tmp_path / "datas"))
     Path(server_module.DATA_DIR).mkdir(parents=True, exist_ok=True)
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
 
     monkeypatch.setattr(
         server_module.llm_helper,
@@ -358,7 +384,7 @@ def test_process_single_file_can_work_from_database_without_runtime_preload(tmp_
     stored = repo.get_flat_item("9901")
     assert stored["is_processed"] is True
     assert stored["建筑面积"] == pytest.approx(88.8)
-    assert "9901" not in server_module.SEEN_IDS
+    assert "9901" not in server_module.RUNTIME.collection.seen_ids
     assert not html_path.exists()
 
 def test_load_data_db_first_uses_lazy_runtime_cache_for_pending_items(tmp_path: Path, monkeypatch):
@@ -378,6 +404,6 @@ def test_load_data_db_first_uses_lazy_runtime_cache_for_pending_items(tmp_path: 
 
     server_module.load_data()
 
-    assert server_module.SEEN_IDS == {}
-    assert server_module.PENDING_TASKS == []
+    assert server_module.RUNTIME.collection.seen_ids == {}
+    assert server_module.RUNTIME.collection.pending_tasks == []
     assert repo.count_pending_task_items() == 1

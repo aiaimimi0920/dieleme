@@ -1,7 +1,12 @@
 from __future__ import annotations
 
+import logging
+
 from .server_context import *  # noqa: F401,F403
 from . import collection_statistics as _collection_statistics
+from .server_auth_cookie import _auth_cookie_snapshot_runtime_state
+
+logger = logging.getLogger(__name__)
 
 def _run_auth_cookie_snapshot_retry(
     payload: dict[str, Any],
@@ -107,8 +112,6 @@ def _schedule_auth_cookie_snapshot_refresh(
     expected_challenge_id: str | None = None,
     completion_request: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    global AUTH_COOKIE_SNAPSHOT_THREAD
-
     if not _payload_flag(payload, "refresh_cookie_snapshot", True):
         return _set_auth_cookie_snapshot_state(
             status="skipped",
@@ -121,16 +124,16 @@ def _schedule_auth_cookie_snapshot_refresh(
             result={"refreshed": False, "reason": "disabled_by_request"},
         )
 
-    with AUTH_COOKIE_SNAPSHOT_LOCK:
-        current = dict(AUTH_COOKIE_SNAPSHOT_STATE)
-        if AUTH_COOKIE_SNAPSHOT_THREAD is not None and AUTH_COOKIE_SNAPSHOT_THREAD.is_alive():
+    state = _auth_cookie_snapshot_runtime_state()
+    with state.lock:
+        current = state.snapshot()
+        if state.active_thread() is not None:
             current["retry_queued"] = True
             current["reason"] = "refresh_already_running"
             return current
         if completion_id and current.get("completion_id") == completion_id and current.get("status") == "completed":
             return current
-        AUTH_COOKIE_SNAPSHOT_STATE.clear()
-        AUTH_COOKIE_SNAPSHOT_STATE.update(
+        state.replace(
             {
                 "status": "pending",
                 "completion_id": completion_id,
@@ -154,8 +157,8 @@ def _schedule_auth_cookie_snapshot_refresh(
             name="auth-cookie-snapshot-refresh",
             daemon=True,
         )
-        AUTH_COOKIE_SNAPSHOT_THREAD = thread
-        scheduled = dict(AUTH_COOKIE_SNAPSHOT_STATE)
+        state.set_thread(thread)
+        scheduled = state.snapshot()
         thread.start()
         return scheduled
 
@@ -168,7 +171,7 @@ def _db_pending_task_candidates(limit=100):
     try:
         return DB_REPOSITORY.iter_pending_task_items(limit=limit)
     except Exception as error:
-        print(f"[DB] Pending task query failed: {error}")
+        logger.exception("[DB] Pending task query failed")
     return []
 
 def _db_counts_snapshot():
@@ -272,6 +275,20 @@ def _load_collection_seed_queue_counts() -> dict[str, int]:
         seed_queue_counts["seed_scan_job_blocked"] = int(search_counts.get("search_pruned", 0) or 0)
     return seed_queue_counts
 
+
+def _collection_runtime_snapshot() -> dict[str, Any]:
+    """Read the shared collection runtime state once for status responses."""
+    solver_status = _captcha_solver_runtime_status()
+    scopes = solver_status.get("collection_scopes", {})
+    if not isinstance(scopes, dict):
+        scopes = {}
+    return {
+        "paused": bool(solver_status.get("paused")),
+        "captcha_solver": solver_status,
+        "auth_recovery": NAS_AUTH_RECOVERY.snapshot(),
+        "collection_scopes": scopes,
+    }
+
 def _collection_api_lightweight_status_payload() -> dict[str, Any]:
     snapshot = _collection_statistics.SNAPSHOTS.snapshot(DB_REPOSITORY, _load_collection_seed_queue_counts)
     seed_queue_counts = snapshot["counts"]
@@ -296,7 +313,8 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
         key: int(seed_queue_counts.get(key, 0) or 0)
         for key in _empty_seed_queue_counts().keys()
     }
-    solver_status_snapshot = _captcha_solver_runtime_status()
+    runtime_snapshot = _collection_runtime_snapshot()
+    solver_status_snapshot = runtime_snapshot["captcha_solver"]
 
     payload = {
         "collection_api_lightweight": True,
@@ -307,7 +325,7 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
             "nas_auth_recovery_v1": True,
             "stage_auth_recovery_v2": True,
         },
-        "paused": bool(solver_status_snapshot.get("paused")),
+        "paused": runtime_snapshot["paused"],
         "total_ids": total_items,
         "captured_count": captured_items,
         "ai_finalized_count": detail_completed,
@@ -337,8 +355,8 @@ def _collection_api_lightweight_status_payload() -> dict[str, Any]:
         "api_success_calls": api_metrics.get("success_calls", 0),
         **top_level_seed_queue_counts,
         "captcha_solver": solver_status_snapshot,
-        "auth_recovery": NAS_AUTH_RECOVERY.snapshot(),
-        "collection_scopes": solver_status_snapshot.get("collection_scopes", {}),
+        "auth_recovery": runtime_snapshot["auth_recovery"],
+        "collection_scopes": runtime_snapshot["collection_scopes"],
         "data_supply_recent_24h": {},
         "avm": {"lightweight_skipped": True},
         "collection_stage": {
@@ -388,7 +406,8 @@ def _collection_query_int(query: dict[str, list[str]], key: str, default: int, *
 def _collection_observer_overview_payload() -> dict[str, Any]:
     status = _collection_api_lightweight_status_payload()
     seed_queue = dict((status.get("collection_stage") or {}).get("seed_queue") or {})
-    status["operator_paused"] = bool(PAUSED and COLLECTION_PAUSE_REASON in (None, "operator"))
+    control = RUNTIME.control.snapshot()
+    status["operator_paused"] = bool(control.paused and control.reason in (None, "operator"))
     active_data_root = Path(getattr(AVM_SERVICE, "data_dir", DATA_DIR))
     return {
         "ok": True,
@@ -422,4 +441,4 @@ def _collection_observer_overview_payload() -> dict[str, Any]:
         },
     }
 
-__all__ = ["_collection_statistics", "_load_collection_seed_queue_counts", "_run_auth_cookie_snapshot_retry", "_schedule_auth_cookie_snapshot_refresh", "_prefer_db_task_reads", "_db_pending_task_candidates", "_db_counts_snapshot", "_db_data_supply_snapshot", "_collection_api_lightweight_status_enabled", "_build_info_payload", "_empty_seed_queue_counts", "_collection_api_lightweight_status_payload", "_collection_query_int", "_collection_observer_overview_payload"]
+__all__ = ["_collection_statistics", "_load_collection_seed_queue_counts", "_collection_runtime_snapshot", "_run_auth_cookie_snapshot_retry", "_schedule_auth_cookie_snapshot_refresh", "_prefer_db_task_reads", "_db_pending_task_candidates", "_db_counts_snapshot", "_db_data_supply_snapshot", "_collection_api_lightweight_status_enabled", "_build_info_payload", "_empty_seed_queue_counts", "_collection_api_lightweight_status_payload", "_collection_query_int", "_collection_observer_overview_payload"]

@@ -1,12 +1,7 @@
-import { isTauri } from "@tauri-apps/api/core";
+import { isTauriRuntime as isTauri } from "./desktop_native.ts";
 import { getCurrentWindow } from "@tauri-apps/api/window";
-import { mountShellIcons } from "./desktop_shell_icons";
-
-function element<T extends HTMLElement = HTMLElement>(id: string): T {
-  const node = document.getElementById(id);
-  if (!node) throw new Error(`Missing shell element: ${id}`);
-  return node as T;
-}
+import { mountShellIcons } from "./desktop_shell_icons.ts";
+import { element } from "./desktop_dom.ts";
 
 export function initializeShell(refresh: () => Promise<void>): void {
   mountShellIcons();

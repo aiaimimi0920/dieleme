@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Callable, Dict, Mapping, Optional
 
 from .readiness import (
@@ -48,7 +48,7 @@ def derive_stage_state(
 ) -> Dict[str, Any]:
     raw_item = raw_item or {}
     existing = existing or {}
-    now = now or datetime.now()
+    now = now or datetime.now(timezone.utc)
 
     source = record.get("source", {}) or {}
     archive = record.get("archive", {}) or {}

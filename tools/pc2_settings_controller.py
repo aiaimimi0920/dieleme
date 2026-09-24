@@ -13,6 +13,7 @@ from src.collection_settings_schema import PREFIX, validate, validate_key
 from .pc2_engine_controller import ControllerError, MailboxClient
 from .pc2_settings_runtime import SettingsRuntime, write_private
 from .collection_control_lock import operation_lock
+from .controller_receipts import deliver_receipt
 
 
 class SettingsClient(MailboxClient):
@@ -51,9 +52,7 @@ class SettingsController:
 
     def step(self):
         if self.journal.exists():
-            receipt = json.loads(self.journal.read_text(encoding="utf-8"))
-            self.client.post("result", receipt)
-            self.journal.unlink()
+            deliver_receipt(self.client, self.journal)
             return
         snapshot = self.runtime.snapshot()
         command = self.client.post("poll", snapshot).get("command")

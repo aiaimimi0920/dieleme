@@ -12,14 +12,22 @@ fn parse_api_base(raw: &[u8]) -> Option<String> {
     let api = value
         .get("environment")?
         .get("FAPAI_COLLECTOR_API_BASE")?
-        .as_str()?
-        .trim();
+        .as_str()?;
+    validate_api_base(api)
+}
+
+pub fn validate_api_base(api: &str) -> Option<String> {
+    if api.len() > 8192 || api.chars().any(char::is_control) {
+        return None;
+    }
+    let api = api.trim();
     let url = tauri::Url::parse(api).ok()?;
     if !matches!(url.scheme(), "http" | "https")
         || !url.username().is_empty()
         || url.password().is_some()
         || url.query().is_some()
         || url.fragment().is_some()
+        || url.host_str().is_none()
         || !matches!(url.path(), "" | "/" | "/api" | "/api/")
     {
         return None;
@@ -82,6 +90,8 @@ mod tests {
     #[test]
     fn rejects_credential_bearing_and_non_api_urls() {
         for api in [
+            "-ExecutionPolicy",
+            "https://example.invalid\n",
             "file:///secret",
             "https://user:secret@example.invalid",
             "https://example.invalid?key=secret",

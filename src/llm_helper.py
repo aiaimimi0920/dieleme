@@ -13,6 +13,7 @@ import hmac
 import importlib as _importlib
 import json
 import json as _json
+import logging
 import os
 import os as _os
 import queue
@@ -30,6 +31,7 @@ from bs4 import BeautifulSoup
 import requests
 import websocket
 
+logger = logging.getLogger(__name__)
 
 _IMPLEMENTATION_MODULES = (
     "src.llm_config",
@@ -67,7 +69,10 @@ for _module_name in _IMPLEMENTATION_MODULES:
     _module = _importlib.import_module(_module_name)
     for _name in _module.__all__:
         _value = getattr(_module, _name)
-        if isinstance(_value, _types.FunctionType) and _value.__module__ == _module.__name__:
+        if (
+            isinstance(_value, _types.FunctionType)
+            and _value.__module__ == _module.__name__
+        ):
             globals()[_name] = _clone_function(_value)
         else:
             globals()[_name] = _value

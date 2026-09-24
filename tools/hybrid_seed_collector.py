@@ -14,6 +14,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from tools import browserless_seed_probe
+from tools.internal_api_http import post_json
 
 DEFAULT_API_BASE = "http://127.0.0.1:8001/api"
 
@@ -53,20 +54,26 @@ def submit_seed_results(
     api_session: requests.Session | Any | None = None,
     timeout: int = 30,
 ) -> dict[str, Any]:
-    http = api_session or requests.Session()
-    batch_response = http.post(
+    batch_result = post_json(
         f"{api_base.rstrip('/')}/collection/seeds/batch",
-        json=batch_payload,
-        timeout=timeout,
+        batch_payload, timeout=timeout, session=api_session,
     )
-    progress_response = http.post(
+    if (
+        not isinstance(batch_result, dict)
+        or type(batch_result.get("new")) is not int
+        or batch_result["new"] < 0
+        or batch_result.get("status") not in (None, "ok", "success")
+        or batch_result.get("ok") is False
+        or batch_result.get("error")
+    ):
+        raise OSError("Seed batch was not acknowledged; progress was not submitted")
+    progress_result = post_json(
         f"{api_base.rstrip('/')}/collection/seeds/report_progress",
-        json=progress_payload,
-        timeout=timeout,
+        progress_payload, timeout=timeout, session=api_session,
     )
     return {
-        "batch": batch_response.json(),
-        "progress": progress_response.json(),
+        "batch": batch_result,
+        "progress": progress_result,
     }
 
 

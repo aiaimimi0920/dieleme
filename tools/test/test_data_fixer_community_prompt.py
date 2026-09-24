@@ -37,7 +37,7 @@ def test_infer_location_ai_prompt_uses_stable_location_index_contract(monkeypatc
         return '{"所属小区": "朝阳区八里庄位置片区", "最靠近商圈": "八里庄"}'
 
     monkeypatch.setattr(data_fixer, "AI_AVAILABLE", True)
-    monkeypatch.setattr(data_fixer, "MODEL_POOL", [{"name": "fake"}], raising=False)
+    monkeypatch.setattr(data_fixer, "get_model_pool", lambda: [{"name": "fake"}])
     monkeypatch.setattr(data_fixer, "simple_ai_call", fake_simple_ai_call, raising=False)
 
     result = _new_app_without_tk()._infer_location_ai(
@@ -60,7 +60,7 @@ def test_infer_full_info_ai_prompt_uses_stable_location_index_contract(monkeypat
         return '{"所属小区": "朝阳区八里庄位置片区", "最靠近商圈": "八里庄", "建筑面积": 88.5}'
 
     monkeypatch.setattr(data_fixer, "AI_AVAILABLE", True)
-    monkeypatch.setattr(data_fixer, "MODEL_POOL", [{"name": "fake"}, {"name": "fake-infer"}], raising=False)
+    monkeypatch.setattr(data_fixer, "get_model_pool", lambda: [{"name": "fake"}, {"name": "fake-infer"}])
     monkeypatch.setattr(data_fixer, "simple_ai_call", fake_simple_ai_call, raising=False)
 
     result = _new_app_without_tk()._infer_full_info_ai(

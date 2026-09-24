@@ -1,5 +1,10 @@
 from __future__ import annotations
+import logging
+
 from src.data_fixer_context import *  # noqa: F401,F403
+
+
+logger = logging.getLogger(__name__)
 
 
 class DataFixerAppPart01:
@@ -151,7 +156,7 @@ class DataFixerAppPart01:
         for json_file in all_files:
             file_count += 1
             if file_count % 100 == 0:
-                print(f"[SCAN] Scanned {file_count}/{len(all_files)} files...")
+                logger.info("[SCAN] Scanned %s/%s files...", file_count, len(all_files))
 
             if "model_config.json" in json_file or "monitor_state.json" in json_file or "sniff_progress.json" in json_file:
                 continue
@@ -242,15 +247,23 @@ class DataFixerAppPart01:
                                 'missing': missing_fields,
                                 'dataset_item': item
                             })
-            except:
+            except Exception:
                 pass
 
         ai_queue_count = len(self.ai_verify_queue)
         scrape_count = len(self.task_queue)
         self.log(f"扫描完成：AI推断队列 {ai_queue_count} 条 | 爬虫队列 {scrape_count} 条")
-        print(f"[SCAN] Found {len(all_files)} files. AI infer queue: {ai_queue_count}, Scraper queue: {scrape_count}")
+        logger.info(
+            "[SCAN] Found %s files. AI infer queue: %s, Scraper queue: %s",
+            len(all_files),
+            ai_queue_count,
+            scrape_count,
+        )
         if scrape_count == 0:
-            print("[SCAN] WARNING: Scraper queue is empty. Check if data is already complete or paths are correct.")
+            logger.warning(
+                "[SCAN] WARNING: Scraper queue is empty. "
+                "Check if data is already complete or paths are correct."
+            )
         self.update_status()
 
     def log(self, msg):
@@ -260,7 +273,7 @@ class DataFixerAppPart01:
                 self.log_text.insert('end', f"[{datetime.now().strftime('%H:%M:%S')}] {msg}\n")
                 self.log_text.see('end')
                 self.log_text.config(state='disabled')
-            except:
+            except Exception:
                 pass
         self.root.after(0, _log)
 
@@ -300,7 +313,11 @@ class DataFixerAppPart01:
     def add_item(self, data):
         """Add item from userscript (thread-safe)"""
         # Log received data for debugging
-        print(f"[DEBUG] Received: id={data.get('id')}, url={data.get('url')[:50] if data.get('url') else 'N/A'}...")
+        logger.debug(
+            "[DEBUG] Received: id=%s, url=%s...",
+            data.get('id'),
+            data.get('url')[:50] if data.get('url') else 'N/A',
+        )
 
         # Deduplication: check if this URL already exists in display_items
         data_url = data.get('url', '')
@@ -308,13 +325,13 @@ class DataFixerAppPart01:
             existing_url = existing.get('url', '')
             # Compare URLs by extracting item ID from URL
             if data_url and existing_url and data_url == existing_url:
-                print(f"[DEBUG] Skipping duplicate URL")
+                logger.debug("[DEBUG] Skipping duplicate URL")
                 return  # Skip duplicate
 
         # Also check pending items
         for pending in self.pending_items:
             if data_url and pending.get('url', '') == data_url:
-                print(f"[DEBUG] Skipping duplicate in pending")
+                logger.debug("[DEBUG] Skipping duplicate in pending")
                 return
 
         # Merge with task_queue info
@@ -340,8 +357,8 @@ class DataFixerAppPart01:
 
         self.pending_items.append(data)
         # Log keys for debug
-        print(f"[DEBUG] Added item keys: {list(data.keys())}")
-        print(f"[DEBUG] Added to pending, total pending: {len(self.pending_items)}")
+        logger.debug("[DEBUG] Added item keys: %s", list(data.keys()))
+        logger.debug("[DEBUG] Added to pending, total pending: %s", len(self.pending_items))
 
     def check_pending_items(self):
         while self.pending_items:

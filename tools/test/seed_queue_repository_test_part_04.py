@@ -377,11 +377,17 @@ def test_analysis_queue_claim_scans_beyond_first_candidate_window_when_front_bat
     valid_detail.write_text("<html>2016</html>", encoding="utf-8")
     repo.mark_seed_raw_detail_captured("2016", detail_html_path=str(valid_detail))
 
-    claimed = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30)
-
+    excluded = set()
+    for index in range(16):
+        claimed = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30, exclude_item_ids=excluded)
+        assert claimed is not None
+        assert claimed["id"] == str(2000 + index)
+        repo.mark_seed_detail_analysis_failed(claimed["id"], "raw detail artifact missing", retryable=True)
+        excluded.add(claimed["id"])
+    claimed = repo.claim_seed_raw_detail_item("analysis-worker", lease_seconds=30, exclude_item_ids=excluded)
     assert claimed is not None
     assert claimed["id"] == "2016"
     with repo.session_factory() as session:
         blocked = session.get(FapaiSeedItem, "2000")
         assert blocked is not None
-        assert blocked.status == "analysis_blocked"
+        assert blocked.status == "analysis_failed"

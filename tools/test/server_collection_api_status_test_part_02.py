@@ -21,7 +21,7 @@ def test_collection_api_lightweight_status_separates_raw_capture_from_ai_finaliz
             }
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
-    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
 
     payload = server._collection_api_lightweight_status_payload()
 
@@ -54,7 +54,7 @@ def test_collection_api_lightweight_status_exposes_analysis_only_status_fields(m
             }
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
-    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
 
     payload = server._collection_api_lightweight_status_payload()
     detail_stage = payload["collection_stage"]["detail_stage"]
@@ -81,7 +81,7 @@ def test_solver_force_unlock_flag_path_uses_persistent_state_dir(monkeypatch, tm
 
     state_dir = tmp_path / "solver-state"
     monkeypatch.setenv("FAPAI_SOLVER_STATE_DIR", str(state_dir))
-    monkeypatch.setattr(server, "SOLVER_LAST_REQUEST", {"node_id": "pc2"})
+    monkeypatch.setattr(server.RUNTIME.recovery, "last_request", {"node_id": "pc2"})
 
     assert Path(server._solver_force_unlock_flag_path()) == state_dir / "force_unlock.flag"
     assert server._write_solver_manual_required_flag(1234.0) is None
@@ -96,9 +96,9 @@ def test_collection_api_lightweight_status_surfaces_manual_required_solver_state
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", True)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", time.time() - 5)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", True)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", time.time() - 5)
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
     payload = server._collection_api_lightweight_status_payload()
@@ -116,9 +116,9 @@ def test_collection_api_lightweight_status_treats_force_unlock_flag_as_durable_m
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "PAUSED", False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", False)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", 0)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", False)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", 0)
     (tmp_path / "force_unlock.flag").write_text("manual verification required", encoding="utf-8")
 
     payload = server._collection_api_lightweight_status_payload()
@@ -135,12 +135,12 @@ def test_collection_api_lightweight_status_does_not_pause_for_transient_solver_r
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "captcha_solver", raising=False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", True)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "running")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", time.time() - 3)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "captcha_solver", raising=False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", True)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "running")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", time.time() - 3)
 
     payload = server._collection_api_lightweight_status_payload()
 
@@ -157,12 +157,12 @@ def test_collection_api_lightweight_status_preserves_operator_pause_during_solve
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
     monkeypatch.setattr(server, "DATA_DIR", str(tmp_path))
-    monkeypatch.setattr(server, "PAUSED", True)
-    monkeypatch.setattr(server, "COLLECTION_PAUSE_REASON", "operator", raising=False)
-    monkeypatch.setattr(server, "SOLVER_RUNNING", True)
-    monkeypatch.setattr(server, "SOLVER_LAST_STATUS", "running")
-    monkeypatch.setattr(server, "SOLVER_LAST_FAILURE_REASON", None)
-    monkeypatch.setattr(server, "SOLVER_START_TIME", time.time() - 3)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", True)
+    monkeypatch.setattr(server.RUNTIME.control, "reason", "operator", raising=False)
+    monkeypatch.setattr(server.RUNTIME.solver, "running", True)
+    monkeypatch.setattr(server.RUNTIME.solver, "last_status", "running")
+    monkeypatch.setattr(server.RUNTIME.solver, "failure_reason", None)
+    monkeypatch.setattr(server.RUNTIME.solver, "started_at", time.time() - 3)
 
     payload = server._collection_api_lightweight_status_payload()
 
@@ -201,7 +201,7 @@ def test_collection_observer_overview_wraps_lightweight_status(monkeypatch) -> N
             }
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
-    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
 
     payload = server._collection_observer_overview_payload()
 
@@ -322,7 +322,7 @@ def test_collection_observer_overview_exposes_challenge_metrics_and_auth_watcher
     )
 
     monkeypatch.setattr(server, "DB_REPOSITORY", FakeRepository())
-    monkeypatch.setattr(server, "PAUSED", False)
+    monkeypatch.setattr(server.RUNTIME.control, "paused", False)
     monkeypatch.setattr(server, "AVM_SERVICE", type("FakeService", (), {"data_dir": str(data_root)})())
 
     payload = server._collection_observer_overview_payload()

@@ -1,6 +1,11 @@
 from __future__ import annotations
 
+import logging
+
 from .captcha_context import *  # noqa: F401,F403
+from . import captcha_dom
+
+logger = logging.getLogger(__name__)
 
 
 class CaptchaFallbacksMixin:
@@ -13,25 +18,27 @@ class CaptchaFallbacksMixin:
 
         try:
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=False, args=['--disable-blink-features=AutomationControlled'])
+                browser = p.chromium.launch(headless=False, timeout=self._bounded_io_timeout(30) * 1000, args=['--disable-blink-features=AutomationControlled'])
                 context = browser.new_context(viewport={'width': 1920, 'height': 1080})
                 context.add_init_script('Object.defineProperty(navigator, "webdriver", {get: () => undefined});')
                 page = context.new_page()
-                page.goto(self.target_url, timeout=30000)
-                time.sleep(2)
+                page.set_default_timeout(self._bounded_io_timeout(30) * 1000)
+                page.goto(self.target_url, timeout=self._bounded_io_timeout(30) * 1000)
+                self._wait_interruptibly(2)
 
-                slider = page.query_selector('#nc_1_n1z, .btn_slide')
+                slider = page.query_selector(captcha_dom.FALLBACK_SLIDER)
                 if not slider:
                     browser.close()
                     return False
 
                 box = slider.bounding_box()
-                track = page.query_selector('#nc_1_n1t, .nc_scale')
+                track = page.query_selector(captcha_dom.FALLBACK_TRACK)
                 distance = track.bounding_box()['width'] - box['width'] - 10 if track else 260
 
                 tracks = []
                 current, mid, v = 0, distance * 4/5, 0
                 while current < distance:
+                    self._bounded_io_timeout(1)
                     import random
                     a = random.randint(2,4) if current < mid else -random.randint(3,5)
                     s = v * 0.2 + 0.5 * a * 0.04
@@ -42,24 +49,24 @@ class CaptchaFallbacksMixin:
 
                 start_x, start_y = box['x'] + box['width']/2, box['y'] + box['height']/2
                 page.mouse.move(start_x, start_y)
-                time.sleep(0.3)
+                self._wait_interruptibly(0.3)
                 page.mouse.down()
-                time.sleep(0.2)
+                self._wait_interruptibly(0.2)
 
                 cx = start_x
                 for t in tracks:
                     cx += t
                     page.mouse.move(cx, start_y + random.uniform(-1, 1))
-                    time.sleep(0.01)
+                    self._wait_interruptibly(0.01)
 
-                time.sleep(0.5)
+                self._wait_interruptibly(0.5)
                 page.mouse.up()
-                time.sleep(3)
+                self._wait_interruptibly(3)
 
                 success = '验证通过' in page.content()
                 browser.close()
                 return success
-        except:
+        except Exception:
             return False
 
     def _solve_with_userscript(self):
@@ -68,14 +75,14 @@ class CaptchaFallbacksMixin:
             return False
 
         self._bring_to_front()
-        time.sleep(1)
+        self._wait_interruptibly(1)
 
         # Check if slider exists
         slider_check = self._find_slider()
         if not slider_check:
             return False
 
-        print("[SOLVER] Injecting userscript...")
+        logger.info("[SOLVER] Injecting userscript...")
 
         # Read userscript
         import os
@@ -87,8 +94,8 @@ class CaptchaFallbacksMixin:
                 # Remove userscript header
                 userscript = '\n'.join([line for line in userscript.split('\n')
                                        if not line.strip().startswith('// @')])
-        except:
-            print("[SOLVER] Userscript file not found")
+        except Exception:
+            logger.warning("[SOLVER] Userscript file not found")
             return False
 
         # Inject script
@@ -96,7 +103,7 @@ class CaptchaFallbacksMixin:
             "expression": userscript
         })
 
-        time.sleep(0.5)
+        self._wait_interruptibly(0.5)
 
         # Trigger solve
         trigger_js = "window.solveNCCaptcha ? window.solveNCCaptcha() : false"
@@ -105,8 +112,8 @@ class CaptchaFallbacksMixin:
             "returnByValue": True
         })
 
-        print("[SOLVER] Userscript triggered, waiting for result...")
-        time.sleep(4)
+        logger.info("[SOLVER] Userscript triggered, waiting for result...")
+        self._wait_interruptibly(4)
 
         # Check success
         result = self._verify_success()
@@ -114,11 +121,11 @@ class CaptchaFallbacksMixin:
         if self.ws:
             try:
                 self.ws.close()
-            except:
+            except Exception:
                 pass
 
         if result:
-            print("[SOLVER] [OK] Userscript method succeeded!")
+            logger.info("[SOLVER] Userscript method succeeded")
 
         return result
 
@@ -131,34 +138,36 @@ class CaptchaFallbacksMixin:
         except ImportError:
             return False
 
-        print("[SOLVER] Starting Playwright Stealth...")
+        logger.info("[SOLVER] Starting Playwright Stealth...")
 
         try:
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=False)
+                browser = p.chromium.launch(headless=False, timeout=self._bounded_io_timeout(30) * 1000)
                 page = browser.new_page()
 
                 # Apply stealth - KEY!
                 stealth = Stealth()
                 stealth.apply_stealth_sync(page)
 
-                page.goto(self.target_url, timeout=60000)
-                time.sleep(3)
+                page.set_default_timeout(self._bounded_io_timeout(30) * 1000)
+                page.goto(self.target_url, timeout=self._bounded_io_timeout(60) * 1000)
+                self._wait_interruptibly(3)
 
-                slider = page.query_selector('#nc_1_n1z, .btn_slide, .nc-slider-btn')
+                slider = page.query_selector(captcha_dom.FALLBACK_STEALTH_SLIDER)
                 if not slider:
                     browser.close()
                     return False
 
                 box = slider.bounding_box()
-                track = page.query_selector('#nc_1_n1t, .nc_scale')
+                track = page.query_selector(captcha_dom.FALLBACK_TRACK)
                 distance = track.bounding_box()['width'] - box['width'] - 10 if track else 260
 
-                print(f"[SOLVER] Playwright Stealth drag: {distance}px")
+                logger.info("[SOLVER] Playwright Stealth drag: %spx", distance)
 
                 tracks = []
                 current, mid, v = 0, distance * 4/5, 0
                 while current < distance:
+                    self._bounded_io_timeout(1)
                     a = random.randint(2,4) if current < mid else -random.randint(3,5)
                     s = v * 0.2 + 0.5 * a * 0.04
                     current += s
@@ -168,28 +177,28 @@ class CaptchaFallbacksMixin:
 
                 start_x, start_y = box['x'] + box['width']/2, box['y'] + box['height']/2
                 page.mouse.move(start_x, start_y)
-                time.sleep(0.4)
+                self._wait_interruptibly(0.4)
                 page.mouse.down()
-                time.sleep(0.2)
+                self._wait_interruptibly(0.2)
 
                 cx = start_x
                 for t in tracks:
                     cx += t
                     page.mouse.move(cx, start_y + random.uniform(-1.5, 1.5))
-                    time.sleep(0.015)
+                    self._wait_interruptibly(0.015)
 
-                time.sleep(0.5)
+                self._wait_interruptibly(0.5)
                 page.mouse.up()
-                time.sleep(3)
+                self._wait_interruptibly(3)
 
                 success = '验证通过' in page.content()
                 browser.close()
 
                 if success:
-                    print("[SOLVER] [OK] Playwright Stealth succeeded!")
+                    logger.info("[SOLVER] Playwright Stealth succeeded")
                 return success
         except Exception as e:
-            print(f"[SOLVER] Playwright Stealth error: {e}")
+            logger.exception("[SOLVER] Playwright Stealth error")
             return False
 
     def _solve_with_ddddocr(self):
@@ -205,30 +214,31 @@ class CaptchaFallbacksMixin:
             det = ddddocr.DdddOcr(det=False, ocr=False, show_ad=False)
 
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=False)
+                browser = p.chromium.launch(headless=False, timeout=self._bounded_io_timeout(30) * 1000)
                 page = browser.new_page()
                 stealth = Stealth()
                 stealth.apply_stealth_sync(page)
 
-                page.goto(self.target_url, timeout=60000)
-                time.sleep(3)
+                page.set_default_timeout(self._bounded_io_timeout(30) * 1000)
+                page.goto(self.target_url, timeout=self._bounded_io_timeout(60) * 1000)
+                self._wait_interruptibly(3)
 
-                slider = page.query_selector('#nc_1_n1z, .btn_slide')
+                slider = page.query_selector(captcha_dom.FALLBACK_SLIDER)
                 if not slider:
                     browser.close()
                     return False
 
                 # 截图识别
-                bg = page.query_selector('.nc_bg, canvas')
-                slider_img = page.query_selector('.nc_slider')
+                bg = page.query_selector(captcha_dom.OCR_BACKGROUND)
+                slider_img = page.query_selector(captcha_dom.OCR_PIECE)
 
                 if bg and slider_img:
                     bg_bytes = bg.screenshot()
                     slider_bytes = slider_img.screenshot()
                     distance = det.slide_match(slider_bytes, bg_bytes)
-                    print(f"[SOLVER] ddddocr识别距离: {distance}px")
+                    logger.info("[SOLVER] ddddocr识别距离: %spx", distance)
                 else:
-                    track = page.query_selector('#nc_1_n1t')
+                    track = page.query_selector(captcha_dom.OCR_TRACK)
                     box = slider.bounding_box()
                     distance = track.bounding_box()['width'] - box['width'] - 10 if track else 260
 
@@ -237,27 +247,27 @@ class CaptchaFallbacksMixin:
                 box = slider.bounding_box()
                 start_x, start_y = box['x'] + box['width']/2, box['y'] + box['height']/2
                 page.mouse.move(start_x, start_y)
-                time.sleep(0.3)
+                self._wait_interruptibly(0.3)
                 page.mouse.down()
-                time.sleep(0.2)
+                self._wait_interruptibly(0.2)
 
                 cx = start_x
-                for i in range(int(distance/5)):
+                for _ in range(int(distance/5)):
                     cx += 5
                     page.mouse.move(cx, start_y + random.uniform(-1, 1))
-                    time.sleep(0.015)
+                    self._wait_interruptibly(0.015)
 
                 page.mouse.up()
-                time.sleep(3)
+                self._wait_interruptibly(3)
 
                 success = '验证通过' in page.content()
                 browser.close()
 
                 if success:
-                    print("[SOLVER] [OK] ddddocr AI识别成功!")
+                    logger.info("[SOLVER] ddddocr AI识别成功")
                 return success
         except Exception as e:
-            print(f"[SOLVER] ddddocr error: {e}")
+            logger.exception("[SOLVER] ddddocr error")
             return False
 
 
@@ -273,21 +283,22 @@ class CaptchaFallbacksMixin:
 
         try:
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
+                browser = p.chromium.launch(headless=True, timeout=self._bounded_io_timeout(30) * 1000)
                 page = browser.new_page()
                 stealth = Stealth()
                 stealth.apply_stealth_sync(page)
 
-                page.goto(self.target_url, timeout=60000)
-                time.sleep(3)
+                page.set_default_timeout(self._bounded_io_timeout(30) * 1000)
+                page.goto(self.target_url, timeout=self._bounded_io_timeout(60) * 1000)
+                self._wait_interruptibly(3)
 
-                slider = page.query_selector('#nc_1_n1z, .btn_slide')
+                slider = page.query_selector(captcha_dom.FALLBACK_SLIDER)
                 if not slider:
                     browser.close()
                     return False
 
                 # 截图并用OpenCV找缺口
-                bg_area = page.query_selector('.nc_wrapper')
+                bg_area = page.query_selector(captcha_dom.WIDGET_SCREENSHOT)
                 if bg_area:
                     bg_bytes = bg_area.screenshot()
                     nparr = np.frombuffer(bg_bytes, np.uint8)
@@ -306,7 +317,7 @@ class CaptchaFallbacksMixin:
                                 break
 
                     distance = gap_x - 40 if gap_x else 260
-                    print(f"[SOLVER] OpenCV检测距离: {distance}px")
+                    logger.info("[SOLVER] OpenCV检测距离: %spx", distance)
                 else:
                     distance = 260
 
@@ -315,27 +326,27 @@ class CaptchaFallbacksMixin:
                 box = slider.bounding_box()
                 start_x, start_y = box['x'] + box['width']/2, box['y'] + box['height']/2
                 page.mouse.move(start_x, start_y)
-                time.sleep(0.4)
+                self._wait_interruptibly(0.4)
                 page.mouse.down()
-                time.sleep(0.2)
+                self._wait_interruptibly(0.2)
 
                 cx = start_x
-                for i in range(int(distance/5)):
+                for _ in range(int(distance/5)):
                     cx += 5
                     page.mouse.move(cx, start_y + random.uniform(-1,1))
-                    time.sleep(0.015)
+                    self._wait_interruptibly(0.015)
 
                 page.mouse.up()
-                time.sleep(3)
+                self._wait_interruptibly(3)
 
                 success = '验证通过' in page.content()
                 browser.close()
 
                 if success:
-                    print("[SOLVER] [OK] OpenCV边缘检测成功!")
+                    logger.info("[SOLVER] OpenCV边缘检测成功")
                 return success
         except Exception as e:
-            print(f"[SOLVER] OpenCV error: {e}")
+            logger.exception("[SOLVER] OpenCV error")
             return False
 
 

@@ -67,7 +67,7 @@ class AVMHttpContractPart02:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_HEALTH_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_analysis_status_alias_surfaces_risk_validation_summary(self):
         (status, payload) = self._get_json('/api/analysis/status')

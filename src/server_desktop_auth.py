@@ -1,19 +1,17 @@
 """Authenticated entry into the existing PC1 -> NAS -> PC2 cookie handoff."""
 from .server_context import *  # noqa: F401,F403
+from .server_request_guard import _read_limited_body
 
 
 def _server_desktop_auth_request(handler):
     from src.collection.adapters.taobao_auth_target import auth_target, matches_challenge_target
-    global SOLVER_LAST_STATUS, SOLVER_LAST_FAILURE_REASON
     authorized, _error = _nas_auth_recovery_authorized(handler.headers)
     if not authorized:
         handler.send_error_json(status=403, code="AUTH_RECOVERY_FORBIDDEN", message="认证恢复凭据不可用", details={})
         return
     try:
-        length = int(handler.headers.get("Content-Length", "0"))
-        if not 2 <= length <= 4096:
-            raise ValueError("Invalid request length")
-        payload = json.loads(handler.rfile.read(length))
+        body = _read_limited_body(handler, max_bytes=4096, min_bytes=2)
+        payload = json.loads(body)
         if not isinstance(payload, dict) or set(payload) not in (
                 {"request_id", "challenge_id"}, {"request_id", "challenge_id", "scope", "target_url", "protocol_version"}):
             raise ValueError("Invalid request fields")
@@ -44,14 +42,13 @@ def _server_desktop_auth_request(handler):
         recovery = result.get("recovery") or {}
         if recovery.get("manual_request_id") and recovery.get("status") in {"requested", "pc1_claimed"}:
             if scope:
-                if COLLECTION_PAUSE_REASON != "operator":
+                if RUNTIME.control.snapshot().reason != "operator":
                     _set_collection_pause_state(True, "manual_required", scope=scope)
                 handler.send_json(result)
                 return
             # This explicit completion supersedes an earlier desktop/operator pause;
             # a new operator pause during recovery still blocks automatic resume.
-            SOLVER_LAST_STATUS = "manual_required"
-            SOLVER_LAST_FAILURE_REASON = "manual_required"
+            RUNTIME.solver.record_outcome("manual_required", "manual_required")
             _set_collection_pause_state(True, "manual_required")
         handler.send_json(result)
     except (ValueError, TypeError, UnicodeError):

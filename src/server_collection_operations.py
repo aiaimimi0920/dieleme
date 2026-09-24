@@ -1,19 +1,10 @@
 from __future__ import annotations
 
+import logging
+
 from .server_context import *  # noqa: F401,F403
 
-def _verify_control_plane_token(headers) -> tuple[bool, dict[str, Any] | None]:
-    expected = str(os.getenv("FAPAI_CONTROL_PLANE_TOKEN") or "").strip()
-    if not expected:
-        return True, None
-    actual = str(headers.get("X-FAPAI-Control-Token") or "").strip()
-    if actual == expected:
-        return True, None
-    return False, {
-        "code": "AVM_CONTROL_PLANE_FORBIDDEN",
-        "message": "control-plane token 校验失败",
-        "details": {},
-    }
+logger = logging.getLogger(__name__)
 
 def _json_payload_type_name(payload: Any) -> str:
     if payload is None:
@@ -32,10 +23,10 @@ def _json_payload_type_name(payload: Any) -> str:
 
 def _evict_runtime_item(item_id):
     item_id = str(item_id)
-    with DATA_LOCK:
-        SEEN_IDS.pop(item_id, None)
-        if item_id in PENDING_TASKS:
-            PENDING_TASKS.remove(item_id)
+    collection = _collection_runtime_index()
+    with collection.lock:
+        collection.seen_ids.pop(item_id, None)
+        collection.remove_pending(item_id)
 
 def _reset_structured_sections_for_resync(item):
     for key in ("source", "archive", "auction", "location", "property", "legal_context", "risk_flags", "audit"):
@@ -95,7 +86,8 @@ def _apply_flat_override_patch(item, patch):
 
 def _get_working_item(item_id, include_processed=False):
     item_id = str(item_id)
-    entry = SEEN_IDS.get(item_id)
+    collection = _collection_runtime_index()
+    entry = collection.seen_ids.get(item_id)
     if entry:
         return {
             "data": entry["data"],
@@ -106,7 +98,7 @@ def _get_working_item(item_id, include_processed=False):
         try:
             item = DB_REPOSITORY.get_flat_item(item_id)
         except Exception as error:
-            print(f"[DB] Working item fetch failed item={item_id}: {error}")
+            logger.exception("Working item fetch failed item=%s", item_id)
             return None
         if not item:
             return None
@@ -120,29 +112,6 @@ def _get_working_item(item_id, include_processed=False):
         }
     return None
 
-LAST_REQUEST_TIME = time.time()
-
-WATCHDOG_TIMEOUT = 10 * 60
-
-WATCHDOG_CHECK_INTERVAL = 60
-
-def watchdog_thread():
-    """Monitor for service continuity. If no requests for 10 minutes, restart Edge with recovery URLs."""
-    global LAST_REQUEST_TIME
-    import subprocess
-
-    while True:
-        time.sleep(WATCHDOG_CHECK_INTERVAL)
-
-        elapsed = time.time() - LAST_REQUEST_TIME
-        if elapsed > WATCHDOG_TIMEOUT:
-            print(f"[WATCHDOG] No requests for {int(elapsed)}s. Triggering recovery...")
-
-            # Disabled: Do not kill user's browser or open recovery windows
-            # This was interrupting user's active browser sessions
-            print("[WATCHDOG] Auto-recovery disabled to avoid interrupting user browser.")
-            return
-
 def manual_solver_retry_thread():
     """Retry the automated solver at a controlled interval while manual verification is required."""
     while True:
@@ -150,23 +119,13 @@ def manual_solver_retry_thread():
             result = _trigger_manual_solver_retry_if_due()
             if result.get("queued"):
                 solver_request = result.get("solver_request") if isinstance(result.get("solver_request"), dict) else {}
-                print(
-                    "[SOLVER] Manual-required auto retry queued "
-                    f"(attempt {result.get('attempt')}, target={solver_request.get('target_url')})."
+                logger.info(
+                    "Manual-required solver retry queued attempt=%s target=%s",
+                    result.get("attempt"), solver_request.get("target_url"),
                 )
         except Exception as error:
-            print(f"[SOLVER] Manual-required auto retry monitor failed: {error}")
+            logger.exception("Manual-required solver retry monitor failed")
         time.sleep(_manual_solver_retry_poll_seconds())
-
-def check_and_launch_browser():
-    """Check if debug port 9222 is open, if not, launch browser."""
-    import socket
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    result = sock.connect_ex(('127.0.0.1', 9222))
-    sock.close()
-
-    if result != 0:
-        print("[STARTUP] Debug port 9222 not open. Auto-launch disabled to avoid interrupting user browser.")
 
 JOBS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "jobs")
 
@@ -183,6 +142,7 @@ def _detail_collection_service(data_root=None):
         data_root=data_root or DATA_DIR,
         repository=DB_REPOSITORY,
         adapter=collection_adapter_from_env(default="taobao_judicial"),
+        dispatch_lock=_collection_runtime_index().lock,
     )
 
 def submit_task(file_path):
@@ -190,19 +150,17 @@ def submit_task(file_path):
     Thread-safe task submission helper.
     Ensures we don't submit the same file twice.
     """
-    with DATA_LOCK:
-        if file_path in CURRENT_PROCESSING:
-            return
-        CURRENT_PROCESSING.add(file_path)
+    if not RUNTIME.processing.claim(file_path):
+        return
 
     try:
         # Submit to global executor
         future = executor.submit(process_single_file, file_path)
         # Ensure cleanup
-        future.add_done_callback(lambda f: CURRENT_PROCESSING.discard(file_path))
+        future.add_done_callback(lambda f: RUNTIME.processing.release(file_path))
     except Exception as e:
-        print(f"Failed to submit task {file_path}: {e}")
-        CURRENT_PROCESSING.discard(file_path)
+        logger.exception("Failed to submit task file=%s", file_path)
+        RUNTIME.processing.release(file_path)
 
 def parse_price(raw_value):
     """Parse price-like fields to float (RMB Yuan)."""
@@ -295,21 +253,25 @@ def build_sniff_stub(item):
     return _seed_collection_service().build_seed_stub(item, parse_price=parse_price, safe_int=_safe_int)
 
 def handle_seed_batch_submission(data):
-    return _seed_collection_service().submit_batch(
-        data,
-        parse_price=parse_price,
-        safe_int=_safe_int,
-        prefer_db_task_reads=_prefer_db_task_reads,
-        get_seen_entry=lambda item_id: SEEN_IDS.get(item_id),
-        get_flat_item=lambda item_id: DB_REPOSITORY.get_flat_item(item_id) if DB_REPOSITORY.enabled else None,
-        get_data_path=get_data_path,
-        update_file_global=update_file_global,
-        persist_item_to_db=persist_item_to_db,
-        evict_runtime_item=_evict_runtime_item,
-        seen_ids=SEEN_IDS,
-        pending_tasks=PENDING_TASKS,
-        archive_list_payload=archive_list_payload,
-    )
+    collection = _collection_runtime_index()
+    with collection.lock:
+        return _seed_collection_service().submit_batch(
+            data,
+            parse_price=parse_price,
+            safe_int=_safe_int,
+            prefer_db_task_reads=_prefer_db_task_reads,
+            get_seen_entry=getattr(collection, "get_seen", lambda item_id: collection.seen_ids.get(item_id)),
+            get_flat_item=lambda item_id: DB_REPOSITORY.get_flat_item(item_id) if DB_REPOSITORY.enabled else None,
+            get_data_path=get_data_path,
+            update_file_global=update_file_global,
+            persist_item_to_db=persist_item_to_db,
+            evict_runtime_item=_evict_runtime_item,
+            seen_ids=collection.seen_ids,
+            pending_tasks=collection.pending_tasks,
+            archive_list_payload=archive_list_payload,
+            set_seen=getattr(collection, "set_seen", None),
+            queue_pending=getattr(collection, "queue_pending", None),
+        )
 
 def extract_risk_signals(item):
     major_risks = []
@@ -420,7 +382,7 @@ def write_avm_alerts(alerts):
 
     os.makedirs(AVM_DIR, exist_ok=True)
 
-    with FILE_LOCK:
+    with RUNTIME.file_lock:
         existing = []
         if os.path.exists(AVM_ALERTS_PATH):
             try:
@@ -438,4 +400,4 @@ def write_avm_alerts(alerts):
         with open(AVM_ALERTS_PATH, "w", encoding="utf-8") as f:
             json.dump(list(existing_by_id.values()), f, ensure_ascii=False, indent=2)
 
-__all__ = ["_verify_control_plane_token", "_json_payload_type_name", "_evict_runtime_item", "_reset_structured_sections_for_resync", "_FLAT_OVERRIDE_ALIAS_MAP", "_apply_flat_override_patch", "_get_working_item", "LAST_REQUEST_TIME", "WATCHDOG_TIMEOUT", "WATCHDOG_CHECK_INTERVAL", "watchdog_thread", "manual_solver_retry_thread", "check_and_launch_browser", "JOBS_DIR", "_seed_collection_service", "_detail_collection_service", "submit_task", "parse_price", "get_starting_price", "get_predicted_price", "compute_margin", "_safe_int", "_get_risk_payload", "_risk_value", "sync_avm_risk_aliases", "build_sniff_stub", "handle_seed_batch_submission", "extract_risk_signals", "build_avm_result", "_prediction_confidence_bucket", "summarize_screen_results", "write_avm_alerts"]
+__all__ = ["_json_payload_type_name", "_evict_runtime_item", "_reset_structured_sections_for_resync", "_FLAT_OVERRIDE_ALIAS_MAP", "_apply_flat_override_patch", "_get_working_item", "manual_solver_retry_thread", "JOBS_DIR", "_seed_collection_service", "_detail_collection_service", "submit_task", "parse_price", "get_starting_price", "get_predicted_price", "compute_margin", "_safe_int", "_get_risk_payload", "_risk_value", "sync_avm_risk_aliases", "build_sniff_stub", "handle_seed_batch_submission", "extract_risk_signals", "build_avm_result", "_prediction_confidence_bucket", "summarize_screen_results", "write_avm_alerts"]

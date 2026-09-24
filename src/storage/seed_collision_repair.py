@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Mapping
 
 from sqlalchemy import func, select
@@ -115,7 +115,7 @@ def apply_seed_item_collision_repair(
         "schema_version": RECEIPT_SCHEMA_VERSION,
         "report_schema_version": REPORT_SCHEMA_VERSION,
         "status": "applied",
-        "applied_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        "applied_at": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(timespec="seconds") + "Z",
         "old_item_id": item_id,
         "evidence_sha256": report["evidence_sha256"],
         "created_seed_item_ids": created_seed_item_ids,
@@ -242,7 +242,7 @@ def rollback_seed_item_collision_repair(
     return {
         "schema_version": RECEIPT_SCHEMA_VERSION,
         "status": "rolled_back",
-        "rolled_back_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        "rolled_back_at": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(timespec="seconds") + "Z",
         "old_item_id": old_item_id,
         "restored_occurrence_count": len(moves),
         "removed_seed_item_ids": created_ids,

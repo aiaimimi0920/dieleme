@@ -1,4 +1,5 @@
 """Non-secret desktop installation settings; explicit environment wins."""
+
 import json
 import os
 from pathlib import Path
@@ -7,12 +8,21 @@ from tools.pc1_desktop_recovery import RecoveryError
 
 CONFIG_NAME = "crow-desktop.runtime.json"
 PATH_KEYS = {
-    "FAPAI_DATA_ROOT_HOST", "FAPAI_COOKIE_SNAPSHOT", "FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE",
-    "FAPAI_AUTH_BROWSER_PROFILE_DIR", "FAPAI_AUTH_BROWSER_PATH",
-    "FAPAI_SETTINGS_CA_FILE", "FAPAI_ENGINE_OPERATOR_TOKEN_FILE",
+    "FAPAI_DATA_ROOT_HOST",
+    "FAPAI_COOKIE_SNAPSHOT",
+    "FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE",
+    "FAPAI_AUTH_BROWSER_PROFILE_DIR",
+    "FAPAI_AUTH_BROWSER_PATH",
+    "FAPAI_SETTINGS_CA_FILE",
+    "FAPAI_ENGINE_OPERATOR_TOKEN_FILE",
+    "FAPAI_API_CA_FILE",
     "FAPAI_DESKTOP_PYTHON_PATH",
 }
-ALLOWED_KEYS = PATH_KEYS | {"FAPAI_COLLECTOR_API_BASE", "FAPAI_AUTH_LOCAL_CDP_PORT", "FAPAI_SETTINGS_API_BASE"}
+ALLOWED_KEYS = PATH_KEYS | {
+    "FAPAI_COLLECTOR_API_BASE",
+    "FAPAI_AUTH_LOCAL_CDP_PORT",
+    "FAPAI_SETTINGS_API_BASE",
+}
 
 
 def load_runtime_environment(root, environ=None):
@@ -31,13 +41,21 @@ def load_runtime_environment(root, environ=None):
         if len(raw) > 16384:
             raise ValueError("oversized")
         config = json.loads(raw.decode("utf-8"))
-        if not isinstance(config, dict) or set(config) != {"version", "environment"} or config["version"] != 1:
+        if (
+            not isinstance(config, dict)
+            or set(config) != {"version", "environment"}
+            or config["version"] != 1
+        ):
             raise ValueError("schema")
         values = config["environment"]
         if not isinstance(values, dict) or set(values) - ALLOWED_KEYS:
             raise ValueError("fields")
         for key, value in values.items():
-            if not isinstance(value, str) or not value.strip() or any(ord(char) < 32 for char in value):
+            if (
+                not isinstance(value, str)
+                or not value.strip()
+                or any(ord(char) < 32 for char in value)
+            ):
                 raise ValueError("value")
             if key in PATH_KEYS:
                 candidate = Path(value)

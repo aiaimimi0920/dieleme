@@ -62,7 +62,7 @@ class AVMHttpContractPart07:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_RECEIPTS_READ_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_manual_review_control_plane_status_records_integrity_once_per_request(self):
         original = server_module.record_manual_review_control_plane_integrity
@@ -84,7 +84,7 @@ class AVMHttpContractPart07:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_CONTROL_PLANE_STATUS_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_manual_review_control_plane_backup_repairs_endpoint_returns_json_error_on_failure(self):
         with mock.patch.object(server_module, 'load_manual_review_control_plane_backup_repairs', side_effect=RuntimeError('boom')):
@@ -93,7 +93,7 @@ class AVMHttpContractPart07:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_CONTROL_PLANE_BACKUP_REPAIRS_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_manual_review_control_plane_backup_repairs_endpoints_default_invalid_limit_query_params(self):
         mocked_repairs = [{'repair_status': 'scheduled'}, {'repair_status': 'completed'}]
@@ -123,7 +123,7 @@ class AVMHttpContractPart07:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_CONTROL_PLANE_INTEGRITY_HISTORY_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_manual_review_control_plane_integrity_history_endpoints_default_invalid_limit_query_params(self):
         mocked_history = [{'integrity_status': 'healthy_json_runtime'}, {'integrity_status': 'backup_repair_scheduled'}]
@@ -166,7 +166,7 @@ class AVMHttpContractPart07:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_CONTROL_PLANE_STATUS_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_analysis_manual_review_control_plane_backup_repairs_endpoint_returns_json_error_on_failure(self):
         with mock.patch.object(server_module, 'load_manual_review_control_plane_backup_repairs', side_effect=RuntimeError('boom')):
@@ -175,7 +175,7 @@ class AVMHttpContractPart07:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_CONTROL_PLANE_BACKUP_REPAIRS_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_analysis_manual_review_control_plane_integrity_history_endpoint_returns_json_error_on_failure(self):
         with mock.patch.object(server_module, 'load_manual_review_control_plane_integrity_history', side_effect=RuntimeError('boom')):
@@ -184,47 +184,39 @@ class AVMHttpContractPart07:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_CONTROL_PLANE_INTEGRITY_HISTORY_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_manual_review_receipts_sync_mode_can_trigger_maintenance(self):
         fake_report = {'generated_at': 'x', 'manual_review_reentry_application_summary': {'reentry_applied': False}, 'operator_overview': {'handoff_lifecycle_state': 'receipt_ready_for_reentry'}}
         with mock.patch.object(server_module, 'run_recent_enrich_maintenance', return_value=fake_report) as mocked_maintenance:
-            (status, payload) = self._post_json('/api/avm/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'sync'})
-        self.assertEqual(status, 200)
+            (status, payload) = self._post_collection_job('/api/avm/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'sync'})
+        self.assertEqual(status, 202)
         self.assertEqual(payload['execution_mode'], 'sync')
         self.assertTrue(payload['maintenance_triggered'])
         self.assertEqual(payload['maintenance_report']['generated_at'], 'x')
         mocked_maintenance.assert_called_once()
 
     def test_manual_review_receipts_sync_mode_returns_json_error_on_maintenance_failure(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'sync'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'sync'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module, 'run_recent_enrich_maintenance', side_effect=RuntimeError('boom')):
-            with self.assertRaises(urllib.error.HTTPError) as ctx:
-                urllib.request.urlopen(req)
-        self.assertEqual(ctx.exception.code, 500)
-        body = json.loads(ctx.exception.read().decode('utf-8'))
-        self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_RECEIPT_MAINTENANCE_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+            with urllib.request.urlopen(req) as response:
+                self._assert_collection_job_failed(response.status, json.load(response), 'AVM_MANUAL_REVIEW_RECEIPT_MAINTENANCE_FAILED')
 
     def test_analysis_manual_review_receipts_sync_mode_can_trigger_maintenance(self):
         fake_report = {'generated_at': 'x', 'manual_review_reentry_application_summary': {'reentry_applied': False}, 'operator_overview': {'handoff_lifecycle_state': 'receipt_ready_for_reentry'}}
         with mock.patch.object(server_module, 'run_recent_enrich_maintenance', return_value=fake_report) as mocked_maintenance:
-            (status, payload) = self._post_json('/api/analysis/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'sync'})
-        self.assertEqual(status, 200)
+            (status, payload) = self._post_collection_job('/api/analysis/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'sync'})
+        self.assertEqual(status, 202)
         self.assertEqual(payload['execution_mode'], 'sync')
         self.assertTrue(payload['maintenance_triggered'])
         self.assertEqual(payload['maintenance_report']['generated_at'], 'x')
         mocked_maintenance.assert_called_once()
 
     def test_analysis_manual_review_receipts_sync_mode_returns_json_error_on_maintenance_failure(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'sync'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'sync'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module, 'run_recent_enrich_maintenance', side_effect=RuntimeError('boom')):
-            with self.assertRaises(urllib.error.HTTPError) as ctx:
-                urllib.request.urlopen(req)
-        self.assertEqual(ctx.exception.code, 500)
-        body = json.loads(ctx.exception.read().decode('utf-8'))
-        self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_RECEIPT_MAINTENANCE_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+            with urllib.request.urlopen(req) as response:
+                self._assert_collection_job_failed(response.status, json.load(response), 'AVM_MANUAL_REVIEW_RECEIPT_MAINTENANCE_FAILED')
 
     def test_manual_review_receipt_jobs_endpoint_lists_async_jobs(self):
         with mock.patch.object(server_module, 'run_recent_enrich_maintenance', return_value={'generated_at': 'x'}) as mocked_maintenance:
@@ -240,27 +232,22 @@ class AVMHttpContractPart07:
         mocked_maintenance.assert_called_once()
 
     def test_manual_review_receipt_jobs_endpoint_returns_null_job_for_unknown_job_id(self):
-        fake_manager = mock.Mock()
-        fake_manager.snapshot.return_value = {'jobs': [], 'running_job_id': None}
-        fake_manager.get_job.return_value = None
-        with mock.patch.object(server_module, '_get_manual_review_maintenance_manager', return_value=fake_manager):
+        snapshot = {'jobs': [], 'running_job_id': None}
+        with mock.patch.object(server_module, '_manual_review_receipt_jobs_snapshot', return_value=snapshot):
             (status, payload) = self._get_json('/api/avm/manual_review_receipt_jobs?job_id=missing-job')
         self.assertEqual(status, 200)
         self.assertEqual(payload['job_count'], 0)
         self.assertIsNone(payload['job'])
         self.assertEqual(payload['queued_jobs'], [])
-        fake_manager.get_job.assert_called_once_with('missing-job')
 
     def test_manual_review_receipt_jobs_endpoint_returns_json_error_on_failure(self):
-        fake_manager = mock.Mock()
-        fake_manager.snapshot.side_effect = RuntimeError('boom')
-        with mock.patch.object(server_module, '_get_manual_review_maintenance_manager', return_value=fake_manager):
+        with mock.patch.object(server_module, '_manual_review_receipt_jobs_snapshot', side_effect=RuntimeError('boom')):
             with self.assertRaises(urllib.error.HTTPError) as ctx:
                 urllib.request.urlopen(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipt_jobs')
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_RECEIPT_JOBS_READ_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_analysis_manual_review_receipt_jobs_alias_endpoint_lists_async_jobs(self):
         with mock.patch.object(server_module, 'run_recent_enrich_maintenance', return_value={'generated_at': 'x'}) as mocked_maintenance:
@@ -276,35 +263,30 @@ class AVMHttpContractPart07:
         mocked_maintenance.assert_called_once()
 
     def test_analysis_manual_review_receipt_jobs_alias_returns_null_job_for_unknown_job_id(self):
-        fake_manager = mock.Mock()
-        fake_manager.snapshot.return_value = {'jobs': [], 'running_job_id': None}
-        fake_manager.get_job.return_value = None
-        with mock.patch.object(server_module, '_get_manual_review_maintenance_manager', return_value=fake_manager):
+        snapshot = {'jobs': [], 'running_job_id': None}
+        with mock.patch.object(server_module, '_manual_review_receipt_jobs_snapshot', return_value=snapshot):
             (status, payload) = self._get_json('/api/analysis/manual_review_receipt_jobs?job_id=missing-job')
         self.assertEqual(status, 200)
         self.assertEqual(payload['job_count'], 0)
         self.assertIsNone(payload['job'])
         self.assertEqual(payload['queued_jobs'], [])
-        fake_manager.get_job.assert_called_once_with('missing-job')
 
     def test_analysis_manual_review_receipt_jobs_alias_returns_json_error_on_failure(self):
-        fake_manager = mock.Mock()
-        fake_manager.snapshot.side_effect = RuntimeError('boom')
-        with mock.patch.object(server_module, '_get_manual_review_maintenance_manager', return_value=fake_manager):
+        with mock.patch.object(server_module, '_manual_review_receipt_jobs_snapshot', side_effect=RuntimeError('boom')):
             with self.assertRaises(urllib.error.HTTPError) as ctx:
                 urllib.request.urlopen(f'http://127.0.0.1:{self.port}/api/analysis/manual_review_receipt_jobs')
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_RECEIPT_JOBS_READ_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_manual_review_receipt_operations_endpoint_lists_and_filters_history(self):
         with mock.patch.object(server_module, 'run_recent_enrich_maintenance', return_value={'generated_at': 'x'}):
             (status, created) = self._post_json('/api/avm/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'async'})
             self.assertEqual(status, 200)
             self._wait_for_job(created['maintenance_job_id'])
-            (status, updated) = self._post_json('/api/avm/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'B'}, 'mode': 'sync'})
-            self.assertEqual(status, 200)
+            (status, updated) = self._post_collection_job('/api/avm/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'B'}, 'mode': 'sync'})
+            self.assertEqual(status, 202)
             (status, deleted) = self._delete_json('/api/avm/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete'})
             self.assertEqual(status, 200)
         (status, payload) = self._get_json('/api/avm/manual_review_receipt_operations')
@@ -327,7 +309,7 @@ class AVMHttpContractPart07:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_RECEIPT_OPERATIONS_READ_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_manual_review_receipt_operations_endpoints_default_invalid_limit_query_params(self):
         mocked_operations = [{'operation': 'created', 'ready_signal': 'location_artifacts_complete'}, {'operation': 'updated', 'ready_signal': 'location_artifacts_complete'}]
@@ -359,8 +341,8 @@ class AVMHttpContractPart07:
             (status, created) = self._post_json('/api/analysis/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'async'})
             self.assertEqual(status, 200)
             self._wait_for_job(created['maintenance_job_id'])
-            (status, updated) = self._post_json('/api/analysis/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'B'}, 'mode': 'sync'})
-            self.assertEqual(status, 200)
+            (status, updated) = self._post_collection_job('/api/analysis/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'B'}, 'mode': 'sync'})
+            self.assertEqual(status, 202)
             (status, deleted) = self._delete_json('/api/analysis/manual_review_receipts', {'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete'})
             self.assertEqual(status, 200)
         (status, payload) = self._get_json('/api/analysis/manual_review_receipt_operations')
@@ -383,12 +365,12 @@ class AVMHttpContractPart07:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_RECEIPT_OPERATIONS_READ_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_manual_review_receipts_reject_missing_action(self):
         for path in ('/api/avm/manual_review_receipts', '/api/analysis/manual_review_receipts'):
             with self.subTest(path=path):
-                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=json.dumps({'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=json.dumps({'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
                 with self.assertRaises(urllib.error.HTTPError) as ctx:
                     urllib.request.urlopen(req)
                 self.assertEqual(ctx.exception.code, 400)
@@ -398,7 +380,7 @@ class AVMHttpContractPart07:
     def test_manual_review_receipts_reject_missing_ready_signal(self):
         for path in ('/api/avm/manual_review_receipts', '/api/analysis/manual_review_receipts'):
             with self.subTest(path=path):
-                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=json.dumps({'action': 'manual_location_review', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=json.dumps({'action': 'manual_location_review', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
                 with self.assertRaises(urllib.error.HTTPError) as ctx:
                     urllib.request.urlopen(req)
                 self.assertEqual(ctx.exception.code, 400)
@@ -408,7 +390,7 @@ class AVMHttpContractPart07:
     def test_manual_review_receipts_reject_missing_status(self):
         for path in ('/api/avm/manual_review_receipts', '/api/analysis/manual_review_receipts'):
             with self.subTest(path=path):
-                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'payload': {'full_address': 'A'}}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+                req = urllib.request.Request(f'http://127.0.0.1:{self.port}{path}', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'payload': {'full_address': 'A'}}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
                 with self.assertRaises(urllib.error.HTTPError) as ctx:
                     urllib.request.urlopen(req)
                 self.assertEqual(ctx.exception.code, 400)
@@ -416,7 +398,7 @@ class AVMHttpContractPart07:
                 self.assertEqual(body['error']['code'], 'AVM_INVALID_RECEIPT_STATUS')
 
     def test_manual_review_receipts_reject_invalid_payload_shape(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': 'not-an-object'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': 'not-an-object'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -424,7 +406,7 @@ class AVMHttpContractPart07:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_RECEIPT_PAYLOAD')
 
     def test_analysis_manual_review_receipts_reject_invalid_payload_shape(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': 'not-an-object'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/analysis/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': 'not-an-object'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -432,7 +414,7 @@ class AVMHttpContractPart07:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_RECEIPT_PAYLOAD')
 
     def test_manual_review_receipts_reject_invalid_mode(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'later'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'later'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 400)
@@ -440,25 +422,19 @@ class AVMHttpContractPart07:
         self.assertEqual(body['error']['code'], 'AVM_INVALID_RECEIPT_MODE')
 
     def test_manual_review_receipts_endpoint_returns_json_error_on_upsert_failure(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'sync'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'sync'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with mock.patch.object(server_module, 'upsert_manual_review_receipt', side_effect=RuntimeError('boom')):
-            with self.assertRaises(urllib.error.HTTPError) as ctx:
-                urllib.request.urlopen(req)
-        self.assertEqual(ctx.exception.code, 500)
-        body = json.loads(ctx.exception.read().decode('utf-8'))
-        self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_RECEIPT_UPSERT_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+            with urllib.request.urlopen(req) as response:
+                self._assert_collection_job_failed(response.status, json.load(response), 'AVM_MANUAL_REVIEW_RECEIPT_UPSERT_FAILED')
 
     def test_manual_review_receipts_endpoint_returns_json_error_on_async_enqueue_failure(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'async'}).encode('utf-8'), headers={'Content-Type': 'application/json'}, method='POST')
-        fake_manager = mock.Mock()
-        fake_manager.enqueue.side_effect = RuntimeError('boom')
-        with mock.patch.object(server_module, '_get_manual_review_maintenance_manager', return_value=fake_manager):
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/avm/manual_review_receipts', data=json.dumps({'action': 'manual_location_review', 'ready_signal': 'location_artifacts_complete', 'status': 'ready_for_reentry', 'payload': {'full_address': 'A'}, 'mode': 'async'}).encode('utf-8'), headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
+        from src.collection_jobs import JobQueueFull
+        with mock.patch('src.collection_jobs.CollectionJobManager.submit', side_effect=JobQueueFull('full')):
             with self.assertRaises(urllib.error.HTTPError) as ctx:
                 urllib.request.urlopen(req)
-        self.assertEqual(ctx.exception.code, 500)
+        self.assertEqual(ctx.exception.code, 503)
         body = json.loads(ctx.exception.read().decode('utf-8'))
-        self.assertEqual(body['error']['code'], 'AVM_MANUAL_REVIEW_RECEIPT_ENQUEUE_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertEqual(body['error']['code'], 'COLLECTION_JOB_QUEUE_FULL')
 
 __all__ = ["AVMHttpContractPart07"]

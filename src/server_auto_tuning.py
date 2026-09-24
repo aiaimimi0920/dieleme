@@ -1,13 +1,19 @@
 from __future__ import annotations
 
+import logging
+
 from .server_context import *  # noqa: F401,F403
+
+logger = logging.getLogger(__name__)
 
 def auto_tuner_thread():
     """
     Background thread for automatic concurrency tuning.
     Runs every 5 minutes, analyzes error rates, and adjusts ModelSelector limits.
     """
-    from llm_helper import model_selector, MODEL_POOL
+    from src.llm_model_selector import get_model_selector
+
+    model_selector = get_model_selector()
 
     TUNING_INTERVAL = 5 * 60  # 5 minutes
     MIN_REQUESTS = 20
@@ -18,10 +24,10 @@ def auto_tuner_thread():
     STEP_SIZE = 2
     STABLE_ROUNDS = 2
 
-    stable_count = {m["name"]: 0 for m in MODEL_POOL}
+    stable_count = {m["name"]: 0 for m in model_selector.pool}
     is_stable = False
 
-    print("[AUTO-TUNER] Started (5-minute intervals)")
+    logger.info("[AUTO-TUNER] Started (5-minute intervals)")
 
     while True:
         time.sleep(TUNING_INTERVAL)
@@ -34,32 +40,32 @@ def auto_tuner_thread():
             stats = model_selector.get_stats()
             all_stable = True
 
-            print(f"\n[AUTO-TUNER] Analysis @ {time.strftime('%H:%M:%S')}")
+            logger.info("[AUTO-TUNER] Analysis @ %s", time.strftime("%H:%M:%S"))
 
             for name, s in stats.items():
                 current_limit = model_selector.limits.get(name, 5)
                 total = s["success"] + s["error"]
 
                 if total < MIN_REQUESTS:
-                    print(f"  [{name}] Requests {total} < {MIN_REQUESTS}, skipping")
+                    logger.info("  [%s] Requests %s < %s, skipping", name, total, MIN_REQUESTS)
                     continue
 
                 error_rate = (s["concurrency_error"] / total * 100) if total > 0 else 0
 
                 if error_rate < ERROR_RATE_LOW and current_limit < MAX_LIMIT:
                     new_limit = min(current_limit + STEP_SIZE, MAX_LIMIT)
-                    print(f"  [{name}] Error {error_rate:.1f}% < {ERROR_RATE_LOW}% → {current_limit} → {new_limit}")
+                    logger.info("  [%s] Error %.1f%% < %s%%; %s -> %s", name, error_rate, ERROR_RATE_LOW, current_limit, new_limit)
                     model_selector.update_limit(name, new_limit)
                     stable_count[name] = 0
                     all_stable = False
                 elif error_rate > ERROR_RATE_HIGH and current_limit > MIN_LIMIT:
                     new_limit = max(current_limit - STEP_SIZE, MIN_LIMIT)
-                    print(f"  [{name}] Error {error_rate:.1f}% > {ERROR_RATE_HIGH}% → {current_limit} → {new_limit}")
+                    logger.info("  [%s] Error %.1f%% > %s%%; %s -> %s", name, error_rate, ERROR_RATE_HIGH, current_limit, new_limit)
                     model_selector.update_limit(name, new_limit)
                     stable_count[name] = 0
                     all_stable = False
                 else:
-                    print(f"  [{name}] Error {error_rate:.1f}% OK, keeping {current_limit}")
+                    logger.info("  [%s] Error %.1f%% OK, keeping %s", name, error_rate, current_limit)
                     stable_count[name] += 1
 
             # Reset stats for next round
@@ -70,9 +76,9 @@ def auto_tuner_thread():
             # Check stability
             if min(stable_count.values()) >= STABLE_ROUNDS:
                 is_stable = True
-                print(f"[AUTO-TUNER] ✅ Stable! Final config: {model_selector.limits}")
+                logger.info("[AUTO-TUNER] Stable; final config: %s", model_selector.limits)
 
         except Exception as e:
-            print(f"[AUTO-TUNER] Error: {e}")
+            logger.exception("[AUTO-TUNER] Error")
 
 __all__ = ["auto_tuner_thread"]

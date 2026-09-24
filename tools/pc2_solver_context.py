@@ -20,7 +20,10 @@ from tools.internal_api_http import fetch_json, post_json
 
 from tools.pc2_auth_recovery import process_nas_auth_recovery_once
 
-DEFAULT_API_BASE_URL = os.environ.get("FAPAI_API_BASE_URL", "http://192.168.15.200:8001/api")
+# Remote API addresses must come from the runtime environment.  Loopback is a
+# safe development fallback and avoids embedding a deployment topology in the
+# solver image.
+DEFAULT_API_BASE_URL = os.environ.get("FAPAI_API_BASE_URL", "http://127.0.0.1:8001/api")
 
 DEFAULT_CDP_ENDPOINT = os.environ.get("FAPAI_CDP_ENDPOINT", "http://127.0.0.1:9223")
 

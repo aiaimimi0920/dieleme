@@ -34,29 +34,13 @@ def _challenge_scope_for_request(request_payload: dict[str, Any] | None) -> str:
     return _normalize_challenge_scope(_solver_request_scope_from_target_url(target_url))
 
 def _new_solver_scope_state() -> dict[str, Any]:
-    return {
-        "challenge_id": None,
-        "last_request": {},
-        "first_seen_epoch": 0.0,
-        "pause_started_epoch": 0.0,
-        "paused": False,
-        "pause_reason": None,
-        "manual_required": False,
-        "last_status": "idle",
-        "last_failure_reason": None,
-        "node_solver_blocked": False,
-        "node_solver_blocked_at_epoch": 0.0,
-        "node_solver_blocked_reason": None,
-        "node_solver_blocked_attempts": 0,
-        "force_reset_required": False,
-    }
+    return new_scope_state()
 
 def _solver_scope_state_path(scope: str) -> Path:
     normalized_scope = _normalize_challenge_scope(scope) or "unknown"
     return _solver_scope_state_root_path() / f"solver-challenge-state-{normalized_scope}.json"
 
 def _solver_scope_state_root_path() -> Path:
-    global SOLVER_SCOPE_STATE_ROOT
     configured_state_dir = str(os.getenv("FAPAI_SOLVER_STATE_DIR") or "").strip()
     if configured_state_dir:
         state_dir = configured_state_dir
@@ -73,20 +57,15 @@ def _solver_scope_state_root_path() -> Path:
         root = str(Path(state_dir).expanduser().resolve())
     except OSError:
         root = str(Path(state_dir).expanduser())
-    with SOLVER_SCOPE_LOCK:
-        if SOLVER_SCOPE_STATE_ROOT != root:
-            SOLVER_SCOPE_STATE_ROOT = root
-            SOLVER_SCOPE_STATES.clear()
-            SOLVER_SCOPE_STATES.update({scope: _new_solver_scope_state() for scope in CHALLENGE_SCOPES})
+    RUNTIME.control.bind_root(root)
     return Path(root)
 
 def _read_solver_scope_state(scope: str) -> dict[str, Any]:
     normalized_scope = _normalize_challenge_scope(scope)
     if not normalized_scope:
         return _new_solver_scope_state()
-    with SOLVER_SCOPE_LOCK:
-        state = dict(SOLVER_SCOPE_STATES.get(normalized_scope) or _new_solver_scope_state())
     state_path = _solver_scope_state_path(normalized_scope)
+    state = RUNTIME.control.scope_snapshot(normalized_scope)
     if state.get("challenge_id") and not state_path.exists():
         # Do not let an in-memory latch from a previous runtime/test leak into
         # a new state directory. Persisted latches are the source of truth for
@@ -101,8 +80,7 @@ def _read_solver_scope_state(scope: str) -> dict[str, Any]:
         # prior test/process.  This also prevents a cleared scope from keeping
         # the aggregate pause latch set after a restart.
         cleared = _new_solver_scope_state()
-        with SOLVER_SCOPE_LOCK:
-            SOLVER_SCOPE_STATES[normalized_scope] = dict(cleared)
+        RUNTIME.control.set_scope(normalized_scope, cleared)
         return cleared
     state.update(
         {
@@ -153,8 +131,7 @@ def _persist_solver_scope_state(scope: str, state: dict[str, Any]) -> str | None
         path.parent.mkdir(parents=True, exist_ok=True)
         temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         os.replace(temporary, path)
-        with SOLVER_SCOPE_LOCK:
-            SOLVER_SCOPE_STATES[normalized_scope] = dict(state)
+        RUNTIME.control.set_scope(normalized_scope, state)
     except Exception as error:
         try:
             temporary.unlink(missing_ok=True)
@@ -269,7 +246,7 @@ def _is_client_disconnect_error(error: BaseException) -> bool:
 def _collection_effectively_paused() -> bool:
     if _solver_force_unlock_flag_exists():
         return True
-    if not PAUSED:
+    if not RUNTIME.control.snapshot().paused:
         return False
     if _solver_transient_pause_active():
         return False
@@ -285,11 +262,12 @@ def _collection_scope_effectively_paused(scope: str) -> bool:
     scoped = _solver_scope_runtime_status(normalized)
     if scoped.get("paused") or scoped.get("manual_required"):
         return True
+    control = RUNTIME.control.snapshot()
     # Operator pause is intentionally global. A solver pause is scoped and
     # must not stop the other collector.
-    if PAUSED and COLLECTION_PAUSE_REASON in (None, "operator"):
+    if control.paused and control.reason in (None, "operator"):
         return True
-    if COLLECTION_PAUSE_REASON in {"manual_required"} and not any(
+    if control.reason == "manual_required" and not any(
         _solver_scope_runtime_status(candidate).get("paused")
         for candidate in CHALLENGE_SCOPES
     ):
@@ -302,42 +280,40 @@ def _set_collection_pause_state(
     *,
     scope: str | None = None,
 ) -> None:
-    global PAUSED, COLLECTION_PAUSE_REASON
     normalized_scope = _normalize_challenge_scope(scope)
-    if normalized_scope:
-        with SOLVER_SCOPE_LOCK:
-            state = dict(SOLVER_SCOPE_STATES.get(normalized_scope) or _new_solver_scope_state())
+    with RUNTIME.lock:
+        if normalized_scope:
+            _solver_scope_state_root_path()
+            state = RUNTIME.control.scope_snapshot(normalized_scope)
             state["paused"] = bool(paused)
             state["pause_reason"] = str(reason or "").strip() or None if paused else None
             if paused and not state.get("pause_started_epoch"):
                 state["pause_started_epoch"] = time.time()
             if not paused:
                 state["force_reset_required"] = False
-        _persist_solver_scope_state(normalized_scope, state)
-        if paused:
-            PAUSED = True
-            if COLLECTION_PAUSE_REASON not in {"operator", "manual_required"}:
-                COLLECTION_PAUSE_REASON = str(reason or "captcha_solver").strip() or "captcha_solver"
-        elif not any(
-            bool(_read_solver_scope_state(candidate).get("paused"))
-            for candidate in CHALLENGE_SCOPES
-        ) and COLLECTION_PAUSE_REASON in {"captcha_solver", "manual_required"}:
-            PAUSED = False
-            COLLECTION_PAUSE_REASON = None
-        return
-    PAUSED = bool(paused)
-    if PAUSED:
-        COLLECTION_PAUSE_REASON = str(reason or "").strip() or None
-    else:
-        COLLECTION_PAUSE_REASON = None
+            _persist_solver_scope_state(normalized_scope, state)
+            current = RUNTIME.control.snapshot()
+            if paused:
+                active_reason = current.reason if current.reason in {"operator", "manual_required"} else reason or "captcha_solver"
+                RUNTIME.control.set_pause(True, active_reason)
+            elif not any(
+                bool(_read_solver_scope_state(candidate).get("paused"))
+                for candidate in CHALLENGE_SCOPES
+            ) and current.reason in {"captcha_solver", "manual_required"}:
+                RUNTIME.control.set_pause(False)
+            return
+        RUNTIME.control.set_pause(paused, reason)
 
 def _solver_transient_pause_active() -> bool:
+    with RUNTIME.lock:
+        control = RUNTIME.control.snapshot()
+        execution = RUNTIME.solver.snapshot()
     return bool(
-        PAUSED
-        and COLLECTION_PAUSE_REASON == "captcha_solver"
-        and SOLVER_RUNNING
-        and SOLVER_LAST_STATUS == "running"
-        and SOLVER_LAST_FAILURE_REASON != "manual_required"
+        control.paused
+        and control.reason == "captcha_solver"
+        and execution.running
+        and execution.last_status == "running"
+        and execution.failure_reason != "manual_required"
     )
 
 def _solver_scope_runtime_status(scope: str, now: float | None = None) -> dict[str, Any]:

@@ -1,6 +1,23 @@
 from __future__ import annotations
 
-from .repository_context import *  # noqa: F401,F403
+from datetime import datetime, timedelta
+from typing import Any, Dict, Iterable, Optional
+
+from sqlalchemy import and_, case, func, not_, or_, select
+
+from src.collection.seed_scan_policy import SeedScanPolicy
+
+from .models import FapaiSeedItem, FapaiSeedOccurrence
+from .repository_context import (
+    SEED_ITEM_CLAIM_BATCH_LIMIT,
+    SEED_ITEM_STALE_FAILED_PRIORITY_SECONDS,
+    _coerce_naive_utc,
+    _cooldown_active,
+    _lease_reclaimable,
+    _resolve_collection_artifact_path,
+    _seed_claim_cursor_clause,
+    _utc_now,
+)
 
 
 class RepositoryDetailClaimMixin:
@@ -12,6 +29,7 @@ class RepositoryDetailClaimMixin:
         exclude_item_ids: Iterable[str] | None = None,
         max_item_attempts: int | None = None,
         failure_cooldown_seconds: int | None = None,
+        policy: SeedScanPolicy | None = None,
     ) -> Optional[Dict[str, Any]]:
         if not self.enabled:
             return None
@@ -56,7 +74,7 @@ class RepositoryDetailClaimMixin:
                 if (
                     row.status == "in_progress"
                     and row.detail_leased_by != worker_id
-                    and _lease_reclaimable(row.detail_lease_until, row.updated_at, now=now, lease_seconds=lease_seconds)
+                    and _lease_reclaimable(row.detail_lease_until, now=now)
                 ):
                     return 0
                 if row.status == "detail_failed" and (
@@ -89,24 +107,17 @@ class RepositoryDetailClaimMixin:
                 candidates = session.execute(candidate_query).all()
                 if not candidates:
                     break
-                locked_rows: list[FapaiSeedItem] = []
-                for candidate in candidates:
-                    candidate_item_id = str(candidate.item_id)
-                    row = session.scalars(
-                        select(FapaiSeedItem)
-                        .where(FapaiSeedItem.item_id == candidate_item_id)
-                        .with_for_update(skip_locked=True)
-                    ).first()
-                    if row is None:
-                        continue
-                    locked_rows.append(row)
+                locked_rows = session.scalars(
+                    select(FapaiSeedItem)
+                    .where(FapaiSeedItem.item_id.in_([str(candidate.item_id) for candidate in candidates]))
+                    .order_by(FapaiSeedItem.item_id)
+                    .with_for_update(skip_locked=True)
+                ).all()
                 remaining_rows: list[FapaiSeedItem] = []
                 for row in locked_rows:
                     if row.status not in {"pending_detail", "detail_failed", "in_progress"}:
                         continue
-                    if row.detail_leased_by and row.detail_leased_by != worker_id and not _lease_reclaimable(
-                        row.detail_lease_until, row.updated_at, now=now, lease_seconds=lease_seconds
-                    ):
+                    if row.detail_leased_by and row.detail_leased_by != worker_id and not _lease_reclaimable(row.detail_lease_until, now=now):
                         continue
                     attempt_count = int(row.detail_attempt_count or 0)
                     if attempt_limit is not None and attempt_count >= attempt_limit:
@@ -130,12 +141,7 @@ class RepositoryDetailClaimMixin:
                 )
                 for row in remaining_rows:
                     if row.status == "in_progress" and row.detail_leased_by != worker_id:
-                        if not _lease_reclaimable(
-                            row.detail_lease_until,
-                            row.updated_at,
-                            now=now,
-                            lease_seconds=lease_seconds,
-                        ):
+                        if not _lease_reclaimable(row.detail_lease_until, now=now):
                             continue
                     if (
                         failure_cooldown_cutoff is not None
@@ -162,9 +168,19 @@ class RepositoryDetailClaimMixin:
                     claimed_payload["source_item_id"] = source_item_id
                     if row.source_platform:
                         claimed_payload["source_platform"] = row.source_platform
+                    item_policy = self._seed_item_policy(
+                        source_platform=row.source_platform or claimed_payload.get("source_platform"),
+                        explicit_url=(
+                            row.source_url
+                            or claimed_payload.get("url")
+                            or claimed_payload.get("source_url")
+                        ),
+                        policy=policy,
+                    )
                     canonical_url = self._seed_item_url(
                         source_item_id,
                         row.source_url or claimed_payload.get("url") or claimed_payload.get("source_url"),
+                        item_policy,
                     )
                     claimed_payload["url"] = canonical_url
                     claimed_payload["source_url"] = canonical_url
@@ -295,6 +311,7 @@ class RepositoryDetailClaimMixin:
         *,
         exclude_item_ids: Iterable[str] | None = None,
         max_analysis_attempts: int | None = None,
+        policy: SeedScanPolicy | None = None,
     ) -> Optional[Dict[str, Any]]:
         if not self.enabled:
             return None
@@ -334,7 +351,7 @@ class RepositoryDetailClaimMixin:
                 if (
                     row.status == "analysis_in_progress"
                     and row.detail_leased_by != worker_id
-                    and _lease_reclaimable(row.detail_lease_until, row.updated_at, now=now, lease_seconds=lease_seconds)
+                    and _lease_reclaimable(row.detail_lease_until, now=now)
                 ):
                     return 3
                 return 4
@@ -359,45 +376,29 @@ class RepositoryDetailClaimMixin:
                 candidates = session.execute(candidate_query).all()
                 if not candidates:
                     break
-                locked_rows: list[FapaiSeedItem] = []
-                for candidate in candidates:
-                    candidate_item_id = str(candidate.item_id)
-                    row = session.scalars(
-                        select(FapaiSeedItem)
-                        .where(FapaiSeedItem.item_id == candidate_item_id)
-                        .with_for_update(skip_locked=True)
-                    ).first()
-                    if row is None:
-                        continue
-                    locked_rows.append(row)
+                locked_rows = session.scalars(
+                    select(FapaiSeedItem)
+                    .where(FapaiSeedItem.item_id.in_([str(candidate.item_id) for candidate in candidates]))
+                    .order_by(FapaiSeedItem.item_id)
+                    .with_for_update(skip_locked=True)
+                ).all()
                 remaining_rows: list[tuple[FapaiSeedItem, Dict[str, Any], Dict[str, Any], str, str, str]] = []
                 for row in locked_rows:
                     if row.status not in {"raw_detail_captured", "analysis_failed", "analysis_in_progress"}:
                         continue
-                    if row.detail_leased_by and row.detail_leased_by != worker_id and not _lease_reclaimable(
-                        row.detail_lease_until, row.updated_at, now=now, lease_seconds=lease_seconds
-                    ):
+                    if row.detail_leased_by and row.detail_leased_by != worker_id and not _lease_reclaimable(row.detail_lease_until, now=now):
                         continue
                     payload = dict(row.source_payload or {})
                     artifacts = dict(payload.get("_raw_detail_artifacts") or {})
                     detail_html_path = str(
-                        _resolve_collection_artifact_path(artifacts.get("detail_html_path")) or ""
+                        artifacts.get("detail_html_path") or ""
                     ).strip()
                     selected_json_path = str(
-                        _resolve_collection_artifact_path(artifacts.get("selected_json_path") or row.selected_json_path) or ""
+                        artifacts.get("selected_json_path") or row.selected_json_path or ""
                     ).strip()
                     description_json_path = str(
-                        _resolve_collection_artifact_path(artifacts.get("description_json_path")) or ""
+                        artifacts.get("description_json_path") or ""
                     ).strip()
-                    if not detail_html_path or not os.path.isfile(detail_html_path):
-                        row.status = "analysis_blocked"
-                        row.detail_leased_by = None
-                        row.detail_lease_until = None
-                        row.detail_last_error = (
-                            f"analysis raw detail artifact missing: detail_html_path={detail_html_path or '<missing>'}"
-                        )
-                        session.add(row)
-                        continue
                     attempt_count = int(payload.get("_analysis_attempt_count") or 0)
                     if attempt_limit is not None and attempt_count >= attempt_limit:
                         row.status = "analysis_blocked"
@@ -429,12 +430,7 @@ class RepositoryDetailClaimMixin:
                 )
                 for row, payload, artifacts, detail_html_path, selected_json_path, description_json_path in remaining_rows:
                     if row.status == "analysis_in_progress" and row.detail_leased_by != worker_id:
-                        if not _lease_reclaimable(
-                            row.detail_lease_until,
-                            row.updated_at,
-                            now=now,
-                            lease_seconds=lease_seconds,
-                        ):
+                        if not _lease_reclaimable(row.detail_lease_until, now=now):
                             continue
                     attempt_count = int(payload.get("_analysis_attempt_count") or 0)
 
@@ -453,7 +449,19 @@ class RepositoryDetailClaimMixin:
                     payload["source_item_id"] = source_item_id
                     if row.source_platform:
                         payload["source_platform"] = row.source_platform
-                    payload.setdefault("url", self._seed_item_url(source_item_id, row.source_url))
+                    item_policy = self._seed_item_policy(
+                        source_platform=row.source_platform or payload.get("source_platform"),
+                        explicit_url=row.source_url or payload.get("url") or payload.get("source_url"),
+                        policy=policy,
+                    )
+                    payload.setdefault(
+                        "url",
+                        self._seed_item_url(
+                            source_item_id,
+                            row.source_url or payload.get("url") or payload.get("source_url"),
+                            item_policy,
+                        ),
+                    )
                     payload.setdefault("source_url", payload.get("url"))
                     if row.title:
                         payload.setdefault("title", row.title)
@@ -478,4 +486,12 @@ class RepositoryDetailClaimMixin:
                 )
                 if len(candidates) < SEED_ITEM_CLAIM_BATCH_LIMIT:
                     break
+        if claimed_payload is not None:
+            # Resolve node-local paths after releasing database row locks. The
+            # analysis worker reports missing/unreadable files as retryable.
+            artifacts = dict(claimed_payload.get("_raw_detail_artifacts") or {})
+            for key in ("detail_html_path", "selected_json_path", "description_json_path"):
+                if artifacts.get(key):
+                    artifacts[key] = _resolve_collection_artifact_path(artifacts[key])
+            claimed_payload["_raw_detail_artifacts"] = artifacts
         return claimed_payload

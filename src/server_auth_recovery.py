@@ -1,16 +1,30 @@
 from __future__ import annotations
 
+import logging
+
 from .server_context import *  # noqa: F401,F403
+
+logger = logging.getLogger(__name__)
 
 def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
     current_time = time.time() if now is None else now
-    with SOLVER_LOCK:
-        active_run = bool(SOLVER_RUNNING)
-        queued = SOLVER_PENDING_TOKEN is not None
-        started_at = float(SOLVER_START_TIME or 0)
+    with RUNTIME.lock:
+        execution = RUNTIME.solver.snapshot()
+        recovery = RUNTIME.recovery.snapshot()
+        pause = RUNTIME.control.snapshot()
+        active_run = execution.running
+        queued = execution.pending_token is not None
+        started_at = float(execution.started_at or 0)
+        last_status = execution.last_status
+        last_failure_reason = execution.failure_reason
+        last_finished_at = execution.finished_at
+        last_request = recovery.last_request
+        paused = pause.paused
+        pause_reason = pause.reason
+        manual_only_flag = recovery.manual_only
+        challenge_id = recovery.challenge_id
     running = bool(active_run or queued)
     force_unlock_flag_exists = _solver_force_unlock_flag_exists()
-    last_request = dict(SOLVER_LAST_REQUEST) if isinstance(SOLVER_LAST_REQUEST, dict) else {}
     if not last_request and force_unlock_flag_exists:
         last_request = _solver_manual_flag_request()
     elapsed_seconds = max(int(current_time - started_at), 0) if active_run and started_at > 0 else 0
@@ -32,7 +46,7 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
     selected_scope = scope_statuses.get(active_scope or "", {})
     manual_required = bool(
         force_unlock_flag_exists
-        or (PAUSED and SOLVER_LAST_STATUS == "manual_required")
+        or (paused and last_status == "manual_required")
         or any(status.get("manual_required") for status in scope_statuses.values())
     )
     scoped_manual_only = bool(selected_scope.get("manual_only")) if selected_scope else False
@@ -40,7 +54,7 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
         scoped_manual_only
         or (
             active_scope not in CHALLENGE_SCOPES
-            and (SOLVER_MANUAL_ONLY or _solver_manual_flag_is_manual_only())
+            and (manual_only_flag or _solver_manual_flag_is_manual_only())
         )
         or _solver_target_requires_manual_only(last_request)
     )
@@ -62,9 +76,9 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
         "queued": queued,
         "started_at_epoch": started_at if started_at > 0 else None,
         "elapsed_seconds": elapsed_seconds,
-        "last_status": SOLVER_LAST_STATUS,
-        "last_failure_reason": SOLVER_LAST_FAILURE_REASON,
-        "last_finished_at_epoch": SOLVER_LAST_FINISHED_TIME if SOLVER_LAST_FINISHED_TIME else None,
+        "last_status": last_status,
+        "last_failure_reason": last_failure_reason,
+        "last_finished_at_epoch": last_finished_at if last_finished_at else None,
         "manual_required": manual_required,
         "manual_only": manual_only,
         "execution_mode": execution_mode,
@@ -78,15 +92,15 @@ def _captcha_solver_runtime_status(now: float | None = None) -> dict[str, Any]:
             _collection_effectively_paused()
             or any(status.get("paused") for status in scope_statuses.values())
         ),
-        "pause_reason": COLLECTION_PAUSE_REASON,
+        "pause_reason": pause_reason,
         "last_request": last_request,
         "manual_retry_enabled": _manual_solver_retry_enabled(),
         "manual_retry_interval_seconds": _manual_solver_retry_interval_seconds(),
         "solver_max_runtime_seconds": _solver_max_runtime_seconds(),
-        "manual_retry_attempts": int(SOLVER_MANUAL_RETRY_ATTEMPTS or 0),
-        "manual_retry_last_epoch": SOLVER_MANUAL_RETRY_LAST_EPOCH or None,
+        "manual_retry_attempts": recovery.retry_attempts,
+        "manual_retry_last_epoch": recovery.retry_last_epoch or None,
         "manual_retry_next_epoch": manual_retry_next_epoch,
-        "challenge_id": SOLVER_CHALLENGE_ID,
+        "challenge_id": challenge_id,
         "cookie_snapshot_refresh": _auth_cookie_snapshot_runtime_status(),
         # New consumers use these independent state machines.  The legacy
         # singleton fields above remain for older workers and API clients.
@@ -173,7 +187,7 @@ def _nas_auth_recovery_pending_detail_count() -> int:
         return 0
 
 def _nas_auth_recovery_signal() -> str | None:
-    if COLLECTION_PAUSE_REASON == "operator":
+    if RUNTIME.control.snapshot().reason == "operator":
         return None
     solver_status = _captcha_solver_runtime_status()
     if not solver_status.get("paused"):
@@ -216,7 +230,7 @@ def _sample_nas_auth_recovery() -> dict[str, Any]:
     return NAS_AUTH_RECOVERY.sample(
         _solver_detail_captured_count(),
         _nas_auth_recovery_pending_detail_count(),
-        operator_paused=COLLECTION_PAUSE_REASON == "operator",
+        operator_paused=RUNTIME.control.snapshot().reason == "operator",
         recovery_signal=_nas_auth_recovery_signal(),
         recovery_signal_stall_seconds=NAS_AUTH_RECOVERY_BLOCKED_STALL_SECONDS,
         blocked_scopes=tuple(scope for scope in CHALLENGE_SCOPES
@@ -233,7 +247,7 @@ def _nas_auth_recovery_authorized(headers: Any) -> tuple[bool, str]:
     supplied = str(headers.get("X-Fapai-Recovery-Token") or "").strip()
     if not expected:
         return False, "auth recovery token is not configured"
-    if not supplied or not hmac.compare_digest(supplied, expected):
+    if not supplied or not hmac.compare_digest(supplied.encode('utf-8'), expected.encode('utf-8')):
         return False, "auth recovery token is invalid"
     return True, ""
 
@@ -243,13 +257,13 @@ def nas_auth_recovery_watchdog_thread() -> None:
             snapshot = _sample_nas_auth_recovery()
             active = snapshot.get("active")
             if isinstance(active, dict) and active.get("status") == "requested":
-                print(
+                logger.warning(
                     "[AUTH-RECOVERY] Collection stalled; PC1 authentication "
                     f"recovery requested ({active.get('recovery_id')}, "
                     f"trigger={active.get('trigger_reason')})."
                 )
         except Exception as error:
-            print(f"[AUTH-RECOVERY] Watchdog sample failed: {error!r}")
+            logger.exception("[AUTH-RECOVERY] Watchdog sample failed")
         time.sleep(NAS_AUTH_RECOVERY_POLL_SECONDS)
 
 def _nas_auth_recovery_result(payload: dict[str, Any]) -> dict[str, Any]:
@@ -265,14 +279,14 @@ def _nas_auth_recovery_result(payload: dict[str, Any]) -> dict[str, Any]:
         def validate_and_clear(recovery):
             from src.collection.adapters.taobao_auth_target import matches_challenge_target
             scope = recovery["scope"]
-            with SOLVER_SCOPE_LOCK:
+            with RUNTIME.lock:
                 status = _solver_scope_runtime_status(scope)
                 current = str(status.get("challenge_id") or "")
                 if current and current != recovery.get("challenge_id"):
                     return "challenge_changed"
                 if not matches_challenge_target(scope, recovery.get("target_url"), status):
                     return "challenge_changed"
-                if COLLECTION_PAUSE_REASON == "operator":
+                if RUNTIME.control.snapshot().reason == "operator":
                     return "operator_pause_active"
                 return _clear_solver_manual_required_pause(scope=scope, preserve_running_state=True)
         return NAS_AUTH_RECOVERY.accept_stage_result(
@@ -283,7 +297,7 @@ def _nas_auth_recovery_result(payload: dict[str, Any]) -> dict[str, Any]:
             success=False,
             reason=reason or "pc2_recovery_failed",
         )
-    if COLLECTION_PAUSE_REASON == "operator":
+    if RUNTIME.control.snapshot().reason == "operator":
         return NAS_AUTH_RECOVERY.result(
             recovery_id,
             success=False,
@@ -314,12 +328,10 @@ def _nas_auth_recovery_result(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 def _remember_solver_auth_completion(request_payload: dict[str, Any] | None) -> None:
-    global SOLVER_LAST_AUTH_COMPLETED_TIME, SOLVER_LAST_AUTH_COMPLETED_REQUEST
-    global SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT
     request = _build_solver_request(request_payload or {})
-    SOLVER_LAST_AUTH_COMPLETED_TIME = time.time()
-    SOLVER_LAST_AUTH_COMPLETED_REQUEST = dict(request)
-    SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT = _solver_detail_captured_count()
+    completed_at = time.time()
+    captured_count = _solver_detail_captured_count()
+    RUNTIME.recovery.record_auth_completion(completed_at, request, captured_count)
 
 def _solver_request_matches_auth_source(
     completed_request: dict[str, Any],
@@ -359,11 +371,9 @@ def _remember_solver_force_reset_recovery(
     request = _build_solver_request(request_payload or {})
     if normalized_scope not in CHALLENGE_SCOPES or not request:
         return
-    with SOLVER_SCOPE_LOCK:
-        SOLVER_SCOPE_FORCE_RESET_RECOVERIES[normalized_scope] = {
-            "completed_at_epoch": time.time() if now is None else float(now),
-            "request": dict(request),
-        }
+    RUNTIME.control.remember_force_reset(
+        normalized_scope, time.time() if now is None else float(now), request,
+    )
 
 def _solver_force_reset_report_suppression(
     request_payload: dict[str, Any] | None,
@@ -375,8 +385,7 @@ def _solver_force_reset_report_suppression(
     scope = _challenge_scope_for_request(incoming)
     if scope not in CHALLENGE_SCOPES or SOLVER_FORCE_RESET_REPORT_GRACE_SECONDS <= 0:
         return None
-    with SOLVER_SCOPE_LOCK:
-        recovery = dict(SOLVER_SCOPE_FORCE_RESET_RECOVERIES.get(scope) or {})
+    recovery = RUNTIME.control.force_reset_snapshot(scope)
     completed_at = float(recovery.get("completed_at_epoch") or 0)
     completed_request = _build_solver_request(recovery.get("request") or {})
     if completed_at <= 0 or not completed_request or not incoming:
@@ -399,7 +408,8 @@ def _solver_auth_report_suppression(
     *,
     now: float | None = None,
 ) -> dict[str, Any] | None:
-    completed_at = float(SOLVER_LAST_AUTH_COMPLETED_TIME or 0)
+    recovery = RUNTIME.recovery.snapshot()
+    completed_at = recovery.completed_at
     if completed_at <= 0:
         return None
     current_time = time.time() if now is None else float(now)
@@ -411,7 +421,7 @@ def _solver_auth_report_suppression(
     if age < 0 or age > max_grace_seconds:
         return None
 
-    completed = _build_solver_request(SOLVER_LAST_AUTH_COMPLETED_REQUEST)
+    completed = _build_solver_request(recovery.completed_request)
     incoming = _build_solver_request(request_payload or {})
     if not completed or not incoming:
         return None
@@ -435,7 +445,7 @@ def _solver_auth_report_suppression(
 
     if incoming_scope != "detail":
         return None
-    baseline = SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT
+    baseline = recovery.completed_detail_count
     current_count = _solver_detail_captured_count()
     if baseline is None or current_count is None:
         return None

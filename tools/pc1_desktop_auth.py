@@ -14,6 +14,7 @@ from tools import taobao_inplace_auth_handoff as handoff
 from tools.pc1_desktop_recovery import RecoveryClient, RecoveryError, recovery_phase
 from tools.manual_auth_snapshot import completion_lock, publish_snapshot
 from tools.desktop_runtime_config import load_runtime_environment
+from src.auth_recovery_codes import CHALLENGE_CHANGED_CODE
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -179,7 +180,7 @@ def main(argv=None):
                 result = complete_challenge(client, endpoint=endpoint, output_path=output, request_id=args.request_id,
                                             challenge_id=args.challenge_id, url=args.target_url, target_id=args.target_id, scope=args.scope)
     except RecoveryError as error:
-        result = {"phase": "failed" if str(error) == "challenge_changed" else "unavailable", "code": str(error)}
+        result = {"phase": "failed" if str(error) == CHALLENGE_CHANGED_CODE else "unavailable", "code": str(error)}
     except Exception:
         result = {"phase": "unavailable", "code": "handoff_unavailable"}
     print("CROW_AUTH_RESULT=" + json.dumps(result, ensure_ascii=True))

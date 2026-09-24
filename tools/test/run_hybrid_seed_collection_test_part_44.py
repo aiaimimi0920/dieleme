@@ -224,12 +224,11 @@ def test_main_treats_unknown_intervention_required_as_missing_for_console_runtim
 def test_build_next_task_request_url_uses_collection_seed_endpoint():
     url = run_hybrid_seed_collection.build_next_task_request_url(
         "http://127.0.0.1:8001/api",
-        session_id="runner-a",
     )
 
     parsed = urlparse(url)
     assert parsed.path == "/api/collection/seeds/next_task"
-    assert parse_qs(parsed.query) == {"session_id": ["runner-a"]}
+    assert not parsed.query
 
 def test_build_browser_fallback_url_adds_sniff_worker_mode():
     url = run_hybrid_seed_collection.build_browser_fallback_url(
@@ -254,8 +253,9 @@ def test_claim_next_seed_task_uses_http_endpoint():
     assert payload == {"task": {"url": "https://sf.taobao.com/x"}, "message": "ok"}
     assert session.calls == [
         {
-            "url": "http://127.0.0.1:8001/api/collection/seeds/next_task?session_id=runner-a",
+            "url": "http://127.0.0.1:8001/api/collection/seeds/next_task",
             "timeout": 30,
+            "json": {"session_id": "runner-a"},
         }
     ]
 

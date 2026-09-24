@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Any, Callable, Dict
@@ -15,6 +16,8 @@ from .search_bootstrap import (
     load_all_location_codes,
     load_priority_codes,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class SeedCollectionService:
@@ -68,25 +71,16 @@ class SeedCollectionService:
             return
         if not (self.repository and getattr(self.repository, "enabled", False)):
             return
-        try:
-            if getattr(self.repository, "count_search_tasks", None) and self.repository.count_search_tasks() > 0:
-                return
-        except Exception:
+        if getattr(self.repository, "count_search_tasks", None) and self.repository.count_search_tasks() > 0:
             return
 
         snapshots = iter_job_snapshots(self.jobs_dir) if self.jobs_dir else []
         all_codes = load_all_location_codes(self.data_root) if self.data_root else []
         if snapshots:
-            try:
-                self.repository.import_search_task_snapshots(snapshots)
-            except Exception:
-                pass
+            self.repository.import_search_task_snapshots(snapshots)
 
         if all_codes:
-            try:
-                self.repository.ensure_seed_search_tasks(all_codes, DEFAULT_CATEGORIES, sort_param="2")
-            except Exception:
-                pass
+            self.repository.ensure_seed_search_tasks(all_codes, DEFAULT_CATEGORIES, sort_param="2")
 
     def next_task(self, session_id: str, *, paused: bool = False) -> Dict[str, Any]:
         if paused:
@@ -94,9 +88,8 @@ class SeedCollectionService:
         if not (self.repository and getattr(self.repository, "enabled", False)):
             return {"task": None, "message": "搜索任务数据库未启用"}
 
-        self._bootstrap_db_search_tasks()
-        task = None
         try:
+            self._bootstrap_db_search_tasks()
             priority_codes = load_priority_codes(self.jobs_dir) if self.jobs_dir else []
             task = self.repository.claim_search_task(
                 session_id,
@@ -105,7 +98,8 @@ class SeedCollectionService:
                 policy=self.adapter.search_task_policy,
             )
         except Exception:
-            task = None
+            logging.getLogger(__name__).exception("Seed task assignment failed")
+            raise
 
         if task:
             task.setdefault("session_id", session_id)
@@ -149,7 +143,8 @@ class SeedCollectionService:
             try:
                 return self.repository.search_task_counts()
             except Exception:
-                pass
+                logging.getLogger(__name__).exception("Seed task counts failed")
+                raise
         return {
             "search_pending": 0,
             "search_in_progress": 0,
@@ -173,14 +168,18 @@ class SeedCollectionService:
         seen_ids: Dict[str, Any],
         pending_tasks: list[str],
         archive_list_payload: Callable[[Any, datetime.datetime], str | None],
+        set_seen: Callable[[str, Dict[str, Any]], None] | None = None,
+        queue_pending: Callable[[str], bool] | None = None,
     ) -> Dict[str, Any]:
         items = data.get("items", [])
         source_page_url = data.get("source_page_url") or data.get("page_url") or data.get("url")
         list_payload_path = None
         try:
-            list_payload_path = archive_list_payload(data.get("raw_payload"), datetime.datetime.now())
+            list_payload_path = archive_list_payload(
+                data.get("raw_payload"), datetime.datetime.now(datetime.timezone.utc)
+            )
         except Exception as archive_error:
-            print(f"[LIST-PAYLOAD] Archive failed: {archive_error}")
+            logger.exception("List payload archive failed")
 
         new_count = 0
         items_by_date: Dict[str, list[Dict[str, Any]]] = {}
@@ -209,8 +208,9 @@ class SeedCollectionService:
             if existing_entry is None:
                 try:
                     db_existing_item = get_flat_item(item_id)
-                except Exception as db_existing_error:
-                    print(f"[DB] Existing item lookup failed item={item_id}: {db_existing_error}")
+                except Exception:
+                    logger.exception("Existing item lookup failed item=%s", item_id)
+                    raise
 
             event_payload = {
                 "source": "collection_seed_batch",
@@ -219,17 +219,20 @@ class SeedCollectionService:
             }
 
             if existing_entry or db_existing_item:
-                print(f"[SEED ITEM] [EXISTING] Scanned: {item.get('title', 'Unknown')} | ID: {item_id}")
+                logger.info("Seed item existing title=%s id=%s", item.get("title", "Unknown"), item_id)
                 merged = dict((existing_entry or {}).get("data", {}) or db_existing_item or {})
                 for key, value in prepared_item.items():
                     if value not in (None, "") and merged.get(key) in (None, ""):
                         merged[key] = value
                 self.adapter.sync_record(merged)
                 if existing_entry and not prefer_db_task_reads():
-                    entry = seen_ids[item_id]
+                    entry = existing_entry
                     entry["data"] = merged
-                    if not merged.get("is_processed") and item_id not in pending_tasks:
-                        pending_tasks.append(item_id)
+                    if not merged.get("is_processed"):
+                        if queue_pending is not None:
+                            queue_pending(item_id)
+                        elif item_id not in pending_tasks:
+                            pending_tasks.append(item_id)
                     target_file_path = existing_entry["file_path"]
                 else:
                     target_file_path = get_data_path(self.adapter.partition_key(merged))
@@ -240,15 +243,27 @@ class SeedCollectionService:
                     evict_runtime_item(item_id)
                 continue
 
-            print(f"[SEED ITEM] [NEW] Found: {item.get('title', 'Unknown')} | Status: {status} | URL: {item.get('url')}")
+            logger.info(
+                "Seed item new title=%s status=%s url=%s",
+                item.get("title", "Unknown"),
+                status,
+                item.get("url"),
+            )
             if item_id not in seen_ids:
                 a_date = self.adapter.partition_key(prepared_item)
                 items_by_date.setdefault(a_date, []).append(prepared_item)
                 file_path = get_data_path(a_date)
                 if not prefer_db_task_reads():
-                    seen_ids[item_id] = {"file_path": file_path, "data": prepared_item, "status": item.get("status")}
-                    if not prepared_item.get("is_processed") and item_id not in pending_tasks:
-                        pending_tasks.append(item_id)
+                    entry = {"file_path": file_path, "data": prepared_item, "status": item.get("status")}
+                    if set_seen is not None:
+                        set_seen(item_id, entry)
+                    else:
+                        seen_ids[item_id] = entry
+                    if not prepared_item.get("is_processed"):
+                        if queue_pending is not None:
+                            queue_pending(item_id)
+                        elif item_id not in pending_tasks:
+                            pending_tasks.append(item_id)
                 event_payload["source_file"] = file_path
                 persist_item_to_db(prepared_item, "sniff_saved", event_payload)
                 if prefer_db_task_reads():
@@ -259,10 +274,9 @@ class SeedCollectionService:
             file_path = get_data_path(date_str)
             current_file_data = []
             if os.path.exists(file_path):
-                try:
-                    current_file_data = json.loads(Path(file_path).read_text(encoding="utf-8"))
-                except Exception:
-                    current_file_data = []
+                current_file_data = json.loads(Path(file_path).read_text(encoding="utf-8"))
+                if not isinstance(current_file_data, list):
+                    raise ValueError("Existing seed archive must contain a list")
             current_file_data.extend(date_items)
             Path(file_path).write_text(json.dumps(current_file_data, ensure_ascii=False, indent=4), encoding="utf-8")
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from decimal import Decimal
 from pathlib import Path
 from typing import Any, Mapping
@@ -101,7 +101,7 @@ def build_canonical_payload(
     _non_empty_updates(
         provenance,
         {
-            "captured_at": provenance.get("captured_at") or captured_at or datetime.utcnow(),
+            "captured_at": provenance.get("captured_at") or captured_at or datetime.now(timezone.utc),
             "source_stage": item.get("source_stage") or item.get("detail_status") or item.get("seed_status"),
             "extractor_version": audit.get("extraction_version"),
         },

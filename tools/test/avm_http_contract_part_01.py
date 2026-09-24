@@ -7,9 +7,9 @@ class AVMHttpContractPart01:
     def test_repo_owned_python_files_compile(self):
         files = self._repo_owned_python_files()
         self.assertGreater(len(files), 0)
-        for path in files:
+        for index, path in enumerate(files):
             with self.subTest(path=str(path)):
-                py_compile.compile(str(path), doraise=True)
+                py_compile.compile(str(path), cfile=str(Path(self.tmp.name) / f'compile-{index}.pyc'), doraise=True)
 
     def test_repo_owned_python_test_inventory_is_covered_by_primary_test_dirs(self):
         self.assertEqual(self._repo_owned_python_test_files(), self._primary_repo_test_files())
@@ -23,7 +23,7 @@ class AVMHttpContractPart01:
         self.assertEqual(body['error']['details']['path'], '/api/does-not-exist')
 
     def test_unknown_api_post_returns_json_404_error(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/does-not-exist', data=b'', headers={'Content-Type': 'application/json'}, method='POST')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/does-not-exist', data=b'', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='POST')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 404)
@@ -32,7 +32,7 @@ class AVMHttpContractPart01:
         self.assertEqual(body['error']['details']['path'], '/api/does-not-exist')
 
     def test_unknown_api_delete_returns_json_404_error(self):
-        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/does-not-exist', data=b'', headers={'Content-Type': 'application/json'}, method='DELETE')
+        req = urllib.request.Request(f'http://127.0.0.1:{self.port}/api/does-not-exist', data=b'', headers={'Content-Type': 'application/json', 'X-FAPAI-Control-Token': 'test-operator'}, method='DELETE')
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             urllib.request.urlopen(req)
         self.assertEqual(ctx.exception.code, 404)
@@ -73,7 +73,7 @@ class AVMHttpContractPart01:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_HEALTH_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_status_endpoint_surfaces_calibration_guidance_and_coordinate_watchlist(self):
         avm_dir = os.path.join(self.data_dir, 'avm')
@@ -140,7 +140,7 @@ class AVMHttpContractPart01:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_STATUS_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_status_endpoint_stops_high_risk_bundle_chain_at_preview(self):
         avm_dir = os.path.join(self.data_dir, 'avm')
@@ -315,12 +315,8 @@ class AVMHttpContractPart01:
     def test_analysis_release_gate_endpoint_returns_json_error_on_operator_summary_failure(self):
         gate_payload = {'pass': False, 'evaluation': {'pass': False}, 'completeness': {'pass': True}, 'drift': {'pass': True}, 'api_smoke': {'skipped': True}, 'analysis_readiness': {'manual_review_receipt_summary': {'receipt_count': 1}}}
         with mock.patch('tools.avm_release_gate.generate_release_gate_report', return_value=gate_payload), mock.patch.object(server_module, '_avm_operator_eval_summary', side_effect=RuntimeError('boom')):
-            with self.assertRaises(urllib.error.HTTPError) as ctx:
-                urllib.request.urlopen(f'http://127.0.0.1:{self.port}/api/analysis/release_gate?window_days=7&min_sample_size=1&smoke_sample_size=0')
-        self.assertEqual(ctx.exception.code, 500)
-        body = json.loads(ctx.exception.read().decode('utf-8'))
-        self.assertEqual(body['error']['code'], 'AVM_RELEASE_GATE_SUMMARY_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+            with self._open_post('/api/analysis/release_gate', {'window_days': '7', 'min_sample_size': '1', 'smoke_sample_size': '0'}) as response:
+                self._assert_collection_job_failed(response.status, json.load(response), 'AVM_RELEASE_GATE_SUMMARY_FAILED')
 
     def test_health_endpoint_tolerates_non_object_calibration_targets_file(self):
         avm_dir = os.path.join(self.data_dir, 'avm')
@@ -423,7 +419,7 @@ class AVMHttpContractPart01:
         self.assertEqual(ctx.exception.code, 500)
         body = json.loads(ctx.exception.read().decode('utf-8'))
         self.assertEqual(body['error']['code'], 'AVM_HEALTH_FAILED')
-        self.assertEqual(body['error']['details']['error'], 'boom')
+        self.assertRegex(body['error']['details']['error_id'], r'^[a-f0-9]{16}$')
 
     def test_analysis_health_alias_surfaces_risk_validation_summary(self):
         (status, payload) = self._get_json('/api/analysis/health')

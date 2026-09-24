@@ -5,7 +5,6 @@ from collections.abc import Iterator
 import ipaddress
 from pathlib import Path
 import socket
-import time
 from typing import Any
 
 import pytest
@@ -156,9 +155,14 @@ def _deny_external_network(
 
 
 def pytest_itemcollected(item: pytest.Item) -> None:
+    from scripts.quality_suites import UNIT_FILES
     path = Path(str(item.path))
-    if path.name != _AVM_HTTP_CONTRACT:
+    if path.name in UNIT_FILES:
+        item.add_marker(pytest.mark.unit)
         item.add_marker(pytest.mark.quick)
+    if "desktop" in path.name or "collector" in path.name and "ui" in path.name:
+        item.add_marker(pytest.mark.desktop)
+    if path.name != _AVM_HTTP_CONTRACT:
         return
 
     item.add_marker(pytest.mark.integration)
@@ -197,11 +201,14 @@ def _use_fast_local_server_poll(
 ) -> Iterator[None]:
     """Isolate HTTP state and avoid the BaseServer 500 ms shutdown tax."""
 
-    if Path(str(request.node.path)).name != _AVM_HTTP_CONTRACT:
+    module_name = Path(str(request.node.path)).name
+    collection_status = module_name == "test_server_collection_api_status.py" or module_name.startswith("server_collection_api_status_test_part_")
+    if module_name != _AVM_HTTP_CONTRACT and not collection_status:
         yield
         return
 
     from src import server as server_module
+    from src.runtime_state import RuntimeState
 
     ReusableTCPServer = server_module.ReusableTCPServer
     original_serve_forever = ReusableTCPServer.serve_forever
@@ -211,38 +218,18 @@ def _use_fast_local_server_poll(
 
     monkeypatch.setattr(ReusableTCPServer, "serve_forever", serve_forever)
     isolated_names = (
+        "AUTH_COMPLETION_LOCK",
         "AUTH_COMPLETION_CONFIRMATIONS",
+        "AUTH_COMPLETION_FINALIZE_LOCK",
+        "AUTH_COOKIE_SNAPSHOT_LOCK",
         "AUTH_COOKIE_SNAPSHOT_STATE",
         "AUTH_COOKIE_SNAPSHOT_THREAD",
-        "COLLECTION_PAUSE_REASON",
-        "CURRENT_PROCESSING",
+        "DATA_LOCK",
         "DATA_DIR",
         "DISPATCHED_TASKS",
-        "LAST_REQUEST_TIME",
-        "PAUSED",
         "PENDING_TASKS",
-        "RUNTIME_INITIALIZED",
         "SEEN_IDS",
-        "SOLVER_CANCEL_EPOCH",
-        "SOLVER_CHALLENGE_ID",
-        "SOLVER_LAST_AUTH_COMPLETED_REQUEST",
-        "SOLVER_LAST_AUTH_COMPLETED_TIME",
-        "SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT",
-        "SOLVER_LAST_FAILURE_REASON",
-        "SOLVER_LAST_FINISHED_TIME",
-        "SOLVER_LAST_REQUEST",
-        "SOLVER_LAST_STATUS",
-        "SOLVER_MANUAL_ONLY",
-        "SOLVER_MANUAL_REQUIRED_EPOCH",
-        "SOLVER_MANUAL_RESUME_EPOCH",
-        "SOLVER_MANUAL_RETRY_ATTEMPTS",
-        "SOLVER_MANUAL_RETRY_LAST_EPOCH",
-        "SOLVER_PENDING_TOKEN",
-        "SOLVER_RUNNING",
-        "SOLVER_SCOPE_FORCE_RESET_RECOVERIES",
-        "SOLVER_SCOPE_STATE_ROOT",
-        "SOLVER_SCOPE_STATES",
-        "SOLVER_START_TIME",
+        "RUNTIME",
     )
     original_state = {
         name: copy.deepcopy(value) if isinstance(value, (dict, list, set)) else value
@@ -251,8 +238,15 @@ def _use_fast_local_server_poll(
     }
     runtime_root = tmp_path / "server-runtime"
     runtime_root.mkdir(parents=True, exist_ok=True)
+    if collection_status:
+        monkeypatch.chdir(runtime_root)
+        monkeypatch.delenv("FAPAI_SOLVER_STATE_DIR", raising=False)
+    neutral_runtime = RuntimeState()
     neutral_state = {
+        "AUTH_COMPLETION_LOCK": neutral_runtime.recovery.lock,
         "AUTH_COMPLETION_CONFIRMATIONS": {},
+        "AUTH_COMPLETION_FINALIZE_LOCK": neutral_runtime.recovery.finalize_lock,
+        "AUTH_COOKIE_SNAPSHOT_LOCK": neutral_runtime.cookie_snapshot.lock,
         "AUTH_COOKIE_SNAPSHOT_STATE": {
             "status": "idle",
             "completion_id": None,
@@ -262,37 +256,12 @@ def _use_fast_local_server_poll(
             "retry_queued": False,
         },
         "AUTH_COOKIE_SNAPSHOT_THREAD": None,
-        "COLLECTION_PAUSE_REASON": None,
-        "CURRENT_PROCESSING": set(),
+        "DATA_LOCK": neutral_runtime.collection.lock,
         "DATA_DIR": str(runtime_root),
         "DISPATCHED_TASKS": {},
-        "LAST_REQUEST_TIME": time.time(),
-        "PAUSED": False,
         "PENDING_TASKS": [],
-        "RUNTIME_INITIALIZED": False,
         "SEEN_IDS": {},
-        "SOLVER_CANCEL_EPOCH": 0,
-        "SOLVER_CHALLENGE_ID": None,
-        "SOLVER_LAST_AUTH_COMPLETED_REQUEST": {},
-        "SOLVER_LAST_AUTH_COMPLETED_TIME": 0.0,
-        "SOLVER_LAST_AUTH_DETAIL_CAPTURED_COUNT": None,
-        "SOLVER_LAST_FAILURE_REASON": None,
-        "SOLVER_LAST_FINISHED_TIME": 0.0,
-        "SOLVER_LAST_REQUEST": {},
-        "SOLVER_LAST_STATUS": "idle",
-        "SOLVER_MANUAL_ONLY": False,
-        "SOLVER_MANUAL_REQUIRED_EPOCH": 0.0,
-        "SOLVER_MANUAL_RESUME_EPOCH": 0.0,
-        "SOLVER_MANUAL_RETRY_ATTEMPTS": 0,
-        "SOLVER_MANUAL_RETRY_LAST_EPOCH": 0.0,
-        "SOLVER_PENDING_TOKEN": None,
-        "SOLVER_RUNNING": False,
-        "SOLVER_SCOPE_FORCE_RESET_RECOVERIES": {scope: {} for scope in server_module.CHALLENGE_SCOPES},
-        "SOLVER_SCOPE_STATE_ROOT": None,
-        "SOLVER_SCOPE_STATES": {
-            scope: server_module._new_solver_scope_state() for scope in server_module.CHALLENGE_SCOPES
-        },
-        "SOLVER_START_TIME": 0.0,
+        "RUNTIME": neutral_runtime,
     }
     for name, value in neutral_state.items():
         setattr(server_module, name, value)

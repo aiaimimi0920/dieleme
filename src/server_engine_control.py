@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from .server_context import *  # noqa: F401,F403
 from . import collection_engine_restart as _engine_control
+from .server_request_guard import _read_limited_body
 
 
 def _engine_restart_mailbox():
@@ -19,8 +20,11 @@ def _engine_restart_status():
 
 def _collection_operator_start():
     # Starting collection is not proof that an authentication challenge was solved.
-    if PAUSED and COLLECTION_PAUSE_REASON in (None, "operator"):
-        if SOLVER_LAST_STATUS == "manual_required":
+    with RUNTIME.lock:
+        control = RUNTIME.control.snapshot()
+        solver = RUNTIME.solver.snapshot()
+    if control.paused and control.reason in (None, "operator"):
+        if solver.last_status == "manual_required":
             _set_collection_pause_state(True, "manual_required")
         elif any(_solver_scope_runtime_status(scope).get("paused") for scope in CHALLENGE_SCOPES):
             _set_collection_pause_state(True, "captcha_solver")
@@ -34,10 +38,11 @@ def _server_engine_control(handler):
     role = "operator" if path == _engine_control.PREFIX else "agent"
     try:
         _engine_control.authorize(handler.headers, role)
-        length = int(handler.headers.get("Content-Length", "0"))
-        if length < 2 or length > 4096:
-            raise _engine_control.RestartError("Invalid request body length", 400)
-        payload = json.loads(handler.rfile.read(length))
+        try:
+            body = _read_limited_body(handler, max_bytes=4096, min_bytes=2)
+        except ValueError as error:
+            raise _engine_control.RestartError("Invalid request body length", 400) from error
+        payload = json.loads(body)
         if not isinstance(payload, dict):
             raise _engine_control.RestartError("Request body must be an object", 400)
         mailbox = _engine_restart_mailbox()

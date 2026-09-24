@@ -16,8 +16,8 @@ def test_build_runtime_config_defaults_to_safe_isolated_flags():
     assert config["port"] == 8011
     assert config["repo_root"] == repo_root
     assert config["data_dir"] == repo_root / "datas"
-    assert config["ensure_browser"] is False
-    assert config["start_watchdog"] is False
+    assert "ensure_browser" not in config
+    assert "start_watchdog" not in config
     assert config["start_background_processors"] is False
     assert config["start_hot_reload"] is False
     assert config["skip_load_data"] is True
@@ -42,7 +42,7 @@ def test_run_isolated_collection_api_script_can_run_print_config_from_repo_root(
     assert result.returncode == 0
     payload = json.loads(result.stdout)
     assert payload["port"] == 8011
-    assert payload["ensure_browser"] is False
+    assert "ensure_browser" not in payload
     assert payload["skip_load_data"] is True
     assert payload["collection_api_lightweight_status"] is True
 

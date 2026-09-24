@@ -28,7 +28,17 @@ impl Drop for Guard {
 fn encode(request: &SettingsRequest) -> Result<Vec<u8>, String> {
     if !matches!(
         request.action.as_str(),
-        "config" | "get" | "apply" | "restart_status" | "restart"
+        "config"
+            | "get"
+            | "apply"
+            | "restart_status"
+            | "restart"
+            | "start"
+            | "pause"
+            | "resume"
+            | "manual_update"
+            | "reanalyze"
+            | "reset_links"
     ) {
         return Err("Unsupported settings action".into());
     }
@@ -70,8 +80,16 @@ fn execute(request: SettingsRequest) -> Result<Value, String> {
     #[cfg(windows)]
     command.creation_flags(0x08000000);
     let output = super::helper_process::run(&mut command, raw, std::time::Duration::from_secs(35))
-        .map_err(|_| "设置请求未在 35 秒内完成或助手异常；请刷新状态确认，勿重复提交")?;
+        .map_err(|code| {
+            eprintln!("Settings helper failed: {code}");
+            format!("设置请求未完成（{code}）；请刷新状态确认，勿重复提交")
+        })?;
     if !output.status.success() || output.stdout.len() > 65536 {
+        eprintln!(
+            "Settings helper exit={:?}, stderr_bytes={}",
+            output.status.code(),
+            output.stderr.len()
+        );
         return Err("Settings helper returned an invalid response".into());
     }
     serde_json::from_slice(&output.stdout).map_err(|_| "Settings response is invalid".into())

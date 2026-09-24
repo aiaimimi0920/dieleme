@@ -91,10 +91,10 @@ def test_http_status_exposes_collection_stage_snapshot_from_database(tmp_path: P
     monkeypatch.setattr(server_module, "DATA_DIR", str(tmp_path / "datas"))
     Path(server_module.DATA_DIR).mkdir(parents=True, exist_ok=True)
     monkeypatch.setenv("FAPAI_DB_PREFER_RUNTIME_INDEX", "1")
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -131,10 +131,10 @@ def test_http_status_recommended_actions_can_reflect_persisted_action_effectiven
             }
         },
     )
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -178,10 +178,10 @@ def test_http_status_recommended_actions_can_surface_manual_review_fallback(tmp_
             }
         },
     )
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -244,10 +244,10 @@ def test_http_status_can_surface_recoverability_summary_and_manual_review_reason
             "fallback_usage": {"fetch_archives": {"prepare_replay": 3}},
         },
     )
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]
@@ -357,10 +357,10 @@ def test_http_status_can_surface_manual_review_receipt_ready_state(tmp_path: Pat
             ]
         },
     )
-    server_module.SEEN_IDS = {}
-    server_module.PENDING_TASKS = []
-    server_module.DISPATCHED_TASKS = {}
-    server_module.PAUSED = False
+    server_module.RUNTIME.collection.seen_ids = {}
+    server_module.RUNTIME.collection.pending_tasks = []
+    server_module.RUNTIME.collection.dispatched_tasks = {}
+    server_module.RUNTIME.control.paused = False
 
     httpd = server_module.ReusableTCPServer(("127.0.0.1", 0), server_module.DataHandler)
     port = httpd.server_address[1]

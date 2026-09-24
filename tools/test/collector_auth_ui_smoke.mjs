@@ -1,6 +1,5 @@
 // Synthetic native bridge only; never opens production browser or sends cookies.
-async (page) => {
-  const origin = "http://127.0.0.1:1436";
+export default async function authSmoke(page, { origin, artifactDir }) {
   const checks = [];
   const errors = [];
   const check = (condition, name) => { if (!condition) throw new Error(name); checks.push(name); };
@@ -10,11 +9,10 @@ async (page) => {
   await page.route("**/api/collection/overview", async (route) => {
     const response = await route.fetch();
     const payload = await response.json();
-    payload.status.captcha_solver.last_request = { target_url: "https://sf-item.taobao.com/sf_item/123456.htm" };
+    payload.status.captcha_solver.scopes.detail = { last_request: { target_url: "https://sf-item.taobao.com/sf_item/123456.htm" } };
     return route.fulfill({ json: payload });
   });
   await page.addInitScript((base) => {
-    localStorage.setItem("crow.apiBase", base);
     window.__nativeCalls = [];
     window.__nativeResult = { phase: "ready_for_human", target_id: "fixture-selected" };
     window.__TAURI_INTERNALS__ = {
@@ -33,13 +31,13 @@ async (page) => {
   await page.clock.install();
   await page.goto(origin);
   await page.locator("#items tr.item-row").first().waitFor();
-  check(await page.locator("#authButton").isEnabled(), "native auth can start without a reported PC2 challenge");
-  await page.locator("#authButton").click();
+  check(await page.locator("#detailAuthButton").isEnabled(), "native auth can start without a reported PC2 challenge");
+  await page.locator("#detailAuthButton").click();
   const dialog = page.locator("#authChallengeDialog");
   check((await dialog.locator("button").allTextContents()).map((text) => text.trim()).join() === "打开挑战页面,已完成挑战", "exactly two auth buttons");
   check(await dialog.locator("h1,h2,h3,input,iframe").count() === 0, "no secondary headings descriptions URL editor or embedded challenge");
   check(await page.evaluate(() => window.__nativeCalls.length) === 0, "dialog itself never opens browser or pauses collection");
-  await page.screenshot({ path: "output/playwright/crow-auth-dialog.png" });
+  await page.screenshot({ path: `${artifactDir}/auth-dialog.png` });
   await page.locator("#authChallengeReload").click();
   await page.locator("#authChallengeStatus").filter({ hasText: "挑战页面已打开" }).waitFor();
   check(await page.evaluate(() => window.__nativeCalls[0].action) === "open", "explicit open reaches native bridge");
@@ -73,9 +71,9 @@ async (page) => {
   await page.locator("#authChallengeResume").click();
   await page.locator("#authChallengeStatus").filter({ hasText: "正在确认采集恢复" }).waitFor();
   check(await dialog.isVisible(), "PC2 imported cookies is not yet success");
-  await page.screenshot({ path: "output/playwright/crow-auth-pending.png" });
+  await page.screenshot({ path: `${artifactDir}/auth-pending.png` });
   await page.keyboard.press("Escape");
-  await page.locator("#authButton").click();
+  await page.locator("#detailAuthButton").click();
   await page.locator("#authChallengeStatus").filter({ hasText: "正在确认采集恢复" }).waitFor();
   check(await page.evaluate(() => window.__nativeCalls.at(-1).action) === "status", "reopened dialog preserves recovery identity");
   const beforeLongWait = await page.evaluate(() => window.__nativeCalls.length);

@@ -128,7 +128,7 @@
     }
 
     function resumeServer(isAuto) {
-        fetchApi('/resume', {}, () => {
+        fetchApi('/collection/control/resume', {}, () => {
              if (!isAuto) {
                  log('✅ 服务已恢复 (Resumed)', 'success');
                  refreshGlobalStats();

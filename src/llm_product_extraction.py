@@ -2,9 +2,14 @@ from __future__ import annotations
 
 import json
 
+from src.llm_openai_compatible import chat_with_glm
+from src.llm_text_extraction import filter_content
+
 
 def build_product_extraction_prompt(content: str) -> str:
-    return f"""
+    from src.llm_evidence_prompt import EvidencePrompt
+
+    return EvidencePrompt("""
 # Role
 You archive product records from source evidence for the Crow collection engine.
 
@@ -16,9 +21,7 @@ You archive product records from source evidence for the Crow collection engine.
 5. Preserve identifiers, titles, URLs, prices, inventory, timestamps, specifications, seller data, and category data when present.
 6. Do not return credentials, cookies, access tokens, phone numbers, email addresses, or hidden form values.
 
-# Source evidence
-{content[:100000]}
-""".strip()
+""".strip(), content)
 
 
 def extract_product_data(content: str, item_id: str | None = None, *, model: str | None = None) -> str:

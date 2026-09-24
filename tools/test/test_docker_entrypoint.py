@@ -50,6 +50,16 @@ def test_default_compose_uses_docker_volumes_for_verified_persistent_state() -> 
     assert "volumes:\n  postgres_data:" in postgres_compose
 
 
+def test_collection_and_worker_node_compose_wire_worker_ca_and_token() -> None:
+    collection = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.collection.yml").read_text(encoding="utf-8")
+    worker_node = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.worker-node.yml").read_text(encoding="utf-8")
+    for compose in (collection, worker_node):
+        assert "FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}" in compose
+        assert "FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}" in compose
+    assert "FAPAI_API_BASE_URL: ${FAPAI_CENTRAL_API_BASE_URL:?set FAPAI_CENTRAL_API_BASE_URL}" in worker_node
+    assert "http://192.168.15.200:8001/api" not in worker_node
+
+
 def test_host_bind_overrides_are_explicit_opt_in() -> None:
     collection_override = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.collection.host-bind.yml").read_text(encoding="utf-8")
     postgres_override = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.postgres.host-bind.yml").read_text(encoding="utf-8")
@@ -70,7 +80,7 @@ def test_host_bind_overrides_are_explicit_opt_in() -> None:
 def test_host_bind_api_can_refresh_cookie_snapshot_used_by_workers() -> None:
     collection_override = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.collection.host-bind.yml").read_text(encoding="utf-8")
     api_block = collection_override[
-        collection_override.index("  fapaifang-api:"):
+        collection_override.index("  crow-api:"):
         collection_override.index("  fapaifang-area-followup:")
     ]
 
@@ -97,11 +107,11 @@ def test_compose_defaults_to_split_seed_and_detail_workers() -> None:
     assert "fapaifang-seed-collector:" in compose
     assert "container_name: fapaifang-seed-collector" in compose
     assert "FAPAI_RUN_MODE: seed-collector" in compose
-    assert "FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}" in compose
+    assert "FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}" in compose
     assert "fapaifang-detail-worker:" in compose
     assert "container_name: fapaifang-detail-worker" in compose
     assert "FAPAI_RUN_MODE: detail-worker" in compose
-    assert compose.count("FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://fapaifang-api:8001/api}") >= 2
+    assert compose.count("FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}") >= 2
     assert 'profiles: ["legacy"]' in compose
 
 
@@ -118,10 +128,60 @@ def test_compose_defines_separate_detail_analysis_worker() -> None:
 def test_api_service_disables_runtime_db_ddl_like_workers() -> None:
     compose = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.collection.yml").read_text(encoding="utf-8")
 
-    assert "fapaifang-api:" in compose
+    assert "crow-api:" in compose
     assert "FAPAI_DB_SCHEMA_GUARD: ${FAPAI_API_DB_SCHEMA_GUARD:-0}" in compose
     assert "FAPAI_DB_AUTO_CREATE: ${FAPAI_API_DB_AUTO_CREATE:-0}" in compose
     assert "FAPAI_DB_ENABLE_POSTGIS: ${FAPAI_API_DB_ENABLE_POSTGIS:-0}" in compose
+
+
+def test_nas_central_compose_pins_builder_base_images_to_dockerfile_digests() -> None:
+    dockerfile = docker_entrypoint.REPO_ROOT.joinpath("Dockerfile").read_text(encoding="utf-8")
+    compose = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.nas-central.yml").read_text(encoding="utf-8")
+    for line in (
+        "ARG PYTHON_BASE_IMAGE=python:3.10-slim@sha256:31dd4d9529d02d7436659061cb7564cd4733fc90e5e152709a942d53382ec8d0",
+        "ARG NODE_BASE_IMAGE=node:22-alpine@sha256:b6f26b36c8ff49624cfdac716b8ea1138d606df02586a77d364bb5536a634f85",
+    ):
+        image_name, digest = line.removeprefix("ARG ").split("=", 1)
+        assert line in dockerfile
+        assert f"{image_name}: ${{{image_name}:-{digest}}}" in compose
+
+
+def test_api_compose_exposes_optional_tls_material_without_enabling_it_by_default() -> None:
+    collection = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.collection.yml").read_text(encoding="utf-8")
+    nas = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.nas-central.yml").read_text(encoding="utf-8")
+    for compose in (collection, nas):
+        assert "FAPAI_API_TLS_CERT_FILE: ${FAPAI_API_TLS_CERT_FILE:-}" in compose
+        assert "FAPAI_API_TLS_KEY_FILE: ${FAPAI_API_TLS_KEY_FILE:-}" in compose
+    assert "FAPAI_API_TLS_CERT_FILE: ${FAPAI_API_TLS_CERT_FILE:-}" in collection
+    api_block = collection[collection.index("  crow-api:"):collection.index("  fapaifang-area-followup:")]
+    assert "target: /data/secrets" not in api_block
+    assert "FAPAI_API_TLS_CERT_FILE: ${FAPAI_API_TLS_CERT_FILE:-}" in api_block
+
+
+def test_api_services_receive_distinct_role_credential_paths() -> None:
+    collection = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.collection.yml").read_text(encoding="utf-8")
+    nas = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.nas-central.yml").read_text(encoding="utf-8")
+
+    expected = (
+        "FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}",
+        "FAPAI_ENGINE_OPERATOR_TOKEN_FILE: ${FAPAI_ENGINE_OPERATOR_TOKEN_FILE:-/data/secrets/engine-operator.token}",
+        "FAPAI_ENGINE_AGENT_TOKEN_FILE: ${FAPAI_ENGINE_AGENT_TOKEN_FILE:-/data/secrets/engine-agent.token}",
+    )
+    for compose in (collection, nas):
+        api_block = compose[compose.index("  crow-api:"):]
+        for line in expected:
+            assert line in api_block
+        if compose is collection:
+            assert "FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE:" not in api_block
+
+
+def test_collection_workers_receive_optional_ca_and_worker_credential_paths() -> None:
+    compose = docker_entrypoint.REPO_ROOT.joinpath("docker-compose.collection.yml").read_text(encoding="utf-8")
+    worker_services = compose[:compose.index("  crow-api:")]
+    worker_count = worker_services.count("FAPAI_API_BASE_URL: ${FAPAI_API_BASE_URL:-http://crow-api:8001/api}")
+    assert worker_count == 12
+    assert worker_services.count("FAPAI_API_CA_FILE: ${FAPAI_API_CA_FILE:-}") == worker_count
+    assert worker_services.count("FAPAI_COLLECTION_WORKER_TOKEN_FILE: ${FAPAI_COLLECTION_WORKER_TOKEN_FILE:-/data/secrets/collection-worker.token}") == worker_count
 
 
 def test_live_loop_command_uses_persistent_resume_state() -> None:
@@ -418,7 +478,7 @@ def test_area_followup_command_supports_apply_and_push() -> None:
             "FAPAI_OUTPUT_DIR": "/data/live",
             "FAPAI_CDP_ENDPOINT": "http://host.docker.internal:9223",
             "FAPAI_AREA_APPLY_PATCHES": "true",
-            "FAPAI_AREA_PUSH_URL": "http://fapaifang-api:8001/api/collection/details/area_result",
+            "FAPAI_AREA_PUSH_URL": "http://crow-api:8001/api/collection/details/area_result",
         }
     )
 
@@ -426,7 +486,7 @@ def test_area_followup_command_supports_apply_and_push() -> None:
     assert command[command.index("--queue") + 1] == "/data/live/area_followup_queue.json"
     assert command[command.index("--output-dir") + 1] == "/data/live"
     assert "--apply-patches" in command
-    assert command[command.index("--push-area-result") + 1] == "http://fapaifang-api:8001/api/collection/details/area_result"
+    assert command[command.index("--push-area-result") + 1] == "http://crow-api:8001/api/collection/details/area_result"
 
 
 def test_database_schema_guard_fails_fast_when_existing_table_is_missing_required_column(tmp_path) -> None:

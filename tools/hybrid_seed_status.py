@@ -3,8 +3,8 @@ from tools.hybrid_seed_context import *  # noqa: F401,F403
 from tools.hybrid_seed_normalization import *  # noqa: F401,F403
 
 
-def build_next_task_request_url(api_base: str, session_id: str) -> str:
-    return f"{api_base.rstrip('/')}/collection/seeds/next_task?session_id={session_id}"
+def build_next_task_request_url(api_base: str) -> str:
+    return f"{api_base.rstrip('/')}/collection/seeds/next_task"
 
 def claim_next_seed_task(
     *,
@@ -13,9 +13,15 @@ def claim_next_seed_task(
     http_session: requests.Session | Any | None = None,
     timeout: int = 30,
 ) -> dict[str, Any]:
-    http = http_session or requests.Session()
-    response = http.get(build_next_task_request_url(api_base, session_id), timeout=timeout)
-    return response.json()
+    from tools.internal_api_http import post_json
+
+    result = post_json(
+        build_next_task_request_url(api_base), {"session_id": session_id},
+        timeout=timeout, session=http_session,
+    )
+    if not isinstance(result, dict):
+        raise OSError("Invalid seed-task claim response")
+    return result
 
 @contextmanager
 def hybrid_collection_status_snapshot_scope():

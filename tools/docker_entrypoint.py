@@ -140,6 +140,10 @@ def build_live_command(env: Mapping[str, str]) -> list[str]:
 
 
 def build_api_command(env: Mapping[str, str]) -> list[str]:
+    cert_file = env_text(env, "FAPAI_API_TLS_CERT_FILE")
+    key_file = env_text(env, "FAPAI_API_TLS_KEY_FILE")
+    if bool(cert_file) != bool(key_file):
+        raise ValueError("Collection API TLS requires both certificate and key files")
     command = [
         sys.executable,
         "tools/run_isolated_collection_api.py",
@@ -147,6 +151,8 @@ def build_api_command(env: Mapping[str, str]) -> list[str]:
         env_text(env, "FAPAI_API_PORT", "8001") or "8001",
     ]
     append_option(command, "--db-url", env_text(env, "FAPAI_DB_URL"))
+    append_option(command, "--tls-cert-file", cert_file)
+    append_option(command, "--tls-key-file", key_file)
     raw_codes = env_text(env, "FAPAI_SEED_LOCATION_CODES")
     if raw_codes:
         for code in raw_codes.replace(";", ",").split(","):
@@ -436,7 +442,7 @@ def main() -> int:
         return 1
     command = build_command(os.environ)
     print(f"[docker-entrypoint] exec: {' '.join(command)}", flush=True)
-    return subprocess.call(command)
+    return os.execvp(command[0], command)
 
 
 if __name__ == "__main__":

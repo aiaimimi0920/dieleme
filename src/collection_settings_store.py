@@ -133,7 +133,9 @@ class SettingsStore:
 
         def complete(db, now):
             row = db.execute("SELECT * FROM requests WHERE id=?", (request_id,)).fetchone()
-            if not row or not row["claim"] or not hmac.compare_digest(str(payload["claim"]), row["claim"]):
+            supplied_claim = str(payload["claim"]).encode("utf-8")
+            stored_claim = str(row["claim"]).encode("utf-8") if row and row["claim"] else b""
+            if not row or not stored_claim or not hmac.compare_digest(supplied_claim, stored_claim):
                 raise RestartError("Invalid settings claim", 403)
             if row["result"] == result:
                 return {"ok": True, "request": self.public_request(row)}

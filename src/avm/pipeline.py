@@ -3,7 +3,7 @@ import os
 import threading
 import tempfile
 from dataclasses import asdict, dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, Optional
 
@@ -78,7 +78,7 @@ class AVMPipelineManager:
         }
 
     def _run_task(self, task_name: str, fn) -> None:
-        started = datetime.now().isoformat()
+        started = datetime.now(timezone.utc).isoformat()
         with self._lock:
             self._state["current_task"] = task_name
             self._state["tasks"].append({"name": task_name, "status": "in_progress", "started_at": started})
@@ -96,7 +96,7 @@ class AVMPipelineManager:
             for task in reversed(self._state["tasks"]):
                 if task["name"] == task_name and task["status"] == "in_progress":
                     task["status"] = status
-                    task["finished_at"] = datetime.now().isoformat()
+                    task["finished_at"] = datetime.now(timezone.utc).isoformat()
                     if isinstance(result, dict):
                         task["result"] = result
                     if error:
@@ -173,7 +173,7 @@ class AVMPipelineManager:
             with self._lock:
                 self._state["running"] = False
                 self._state["current_task"] = None
-                self._state["finished_at"] = datetime.now().isoformat()
+                self._state["finished_at"] = datetime.now(timezone.utc).isoformat()
 
     def _begin_run(self, config: AVMPipelineConfig) -> Dict[str, Any]:
         with self._lock:
@@ -184,7 +184,7 @@ class AVMPipelineManager:
 
             self._state = {
                 "running": True,
-                "started_at": datetime.now().isoformat(),
+                "started_at": datetime.now(timezone.utc).isoformat(),
                 "finished_at": None,
                 "current_task": None,
                 "tasks": [],

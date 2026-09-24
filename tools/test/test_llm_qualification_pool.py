@@ -40,7 +40,13 @@ class Session:
         self.calls.append(model)
         if model in self.failed:
             raise requests.Timeout("no raw provider error should enter state")
-        prompt = json["messages"][0]["content"]
+        messages = json["messages"]
+        if len(messages) == 2:
+            import json as json_module
+
+            prompt = INSTRUCTION + json_module.loads(messages[1]["content"])["source_evidence"]
+        else:
+            prompt = messages[0]["content"]
         answer = "production"
         for index, (source, expected) in enumerate(CASES):
             if prompt == INSTRUCTION + source:

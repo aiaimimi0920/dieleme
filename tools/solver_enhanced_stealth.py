@@ -141,7 +141,7 @@ def solve_with_enhanced_stealth(target_url):
                 if slider:
                     print(f"Found slider: {sel}")
                     break
-            except:
+            except Exception:
                 continue
 
         if not slider:
@@ -153,7 +153,7 @@ def solve_with_enhanced_stealth(target_url):
         try:
             track = driver.find_element(By.CSS_SELECTOR, '#nc_1_n1t, .nc_scale')
             distance = track.size['width'] - slider.size['width'] - 10
-        except:
+        except Exception:
             distance = 260
 
         print(f"Drag distance: {distance}px")

@@ -107,7 +107,7 @@ def test_browser_targets_are_bounded(url):
 
 
 def test_recovery_token_is_never_sent_to_an_unconfigured_api(tmp_path, monkeypatch):
-    monkeypatch.setenv("FAPAI_COLLECTOR_API_BASE", "http://192.168.15.200:8001")
+    monkeypatch.setenv("FAPAI_COLLECTOR_API_BASE", "https://crow.example:8001")
     with pytest.raises(RecoveryError, match="api_not_configured"):
         RecoveryClient("https://example.invalid", tmp_path)
 
@@ -241,7 +241,7 @@ def test_nas_serves_immutable_manual_snapshot_and_preserves_legacy_file(tmp_path
         def send_json(self, value): self.result = value
         def send_error_json(self, **value): self.result = value
     handler = Handler()
-    server._server_get_branch_14(handler, None, "", {"recovery_id": [result["recovery_id"]]})
+    server._get_auth_recovery_snapshot(handler, None, "", {"recovery_id": [result["recovery_id"]]})
     assert handler.result["ok"]
     assert json.loads(base64.b64decode(handler.result["snapshot"]))[0]["name"] == "fixture"
     assert output.read_bytes() == b"previous-session"

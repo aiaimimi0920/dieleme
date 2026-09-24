@@ -2,6 +2,7 @@ from . import collection_settings_schema as _settings_schema
 from . import collection_settings_store as _settings_store
 from . import collection_engine_restart as _settings_auth
 from .server_context import *  # noqa: F401,F403
+from .server_request_guard import _read_limited_body
 
 
 def _collection_settings_store():
@@ -19,10 +20,11 @@ def _server_collection_settings(handler, *, read=False):
         if read:
             result = store.status()
         else:
-            length = int(handler.headers.get("Content-Length", "0"))
-            if not 2 <= length <= 16384:
-                raise _settings_auth.RestartError("Invalid settings body length", 400)
-            payload = json.loads(handler.rfile.read(length))
+            try:
+                body = _read_limited_body(handler, max_bytes=16384, min_bytes=2)
+            except ValueError as error:
+                raise _settings_auth.RestartError("Invalid settings body length", 400) from error
+            payload = json.loads(body)
             if not isinstance(payload, dict):
                 raise _settings_auth.RestartError("Expected a settings object", 400)
             action = path.rsplit("/", 1)[-1]

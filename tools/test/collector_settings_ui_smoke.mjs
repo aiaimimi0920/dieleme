@@ -1,6 +1,5 @@
-// Playwright CLI run-code fixture: no production requests or credentials.
-async (page) => {
-  const origin = "http://127.0.0.1:1436";
+// Disposable settings flow: no production requests or credentials.
+export default async function settingsSmoke(page, { origin, artifactDir }) {
   const checks = [];
   const errors = [];
   const check = (value, name) => { if (!value) throw new Error(name); checks.push(name); };
@@ -61,7 +60,10 @@ async (page) => {
   await page.locator("#settingsStatus").filter({ hasText: "草稿已保存，未应用" }).waitFor();
   check(submissions.length === 0 && reads === 0, "offline save does not imply live apply");
   await page.locator("#restartToken").fill("offline-fixture-operator-token-00001");
+  await page.locator("#settingsAiKey").fill("synthetic-unsent-key");
   await page.locator("#settingsControlBase").fill("http://192.0.2.1:8001");
+  await page.locator("#settingsControlBase").blur();
+  check(await page.locator("#settingsAiKey").inputValue() === "synthetic-unsent-key", "editing control address preserves the unsubmitted AI key");
   await readOnline();
   await page.locator("#settingsStatus").filter({ hasText: "不能经远程明文" }).waitFor();
   check(reads === 0, "remote plaintext rejected before sending credentials");
@@ -94,15 +96,22 @@ async (page) => {
   await page.locator("#settingsStatusRefresh").click();
   await page.locator("#settingsStatus").filter({ hasText: "不代表 AI 推理成功" }).waitFor();
   check(await page.locator("#settingsApply").isEnabled(), "controller receipt unlocks editor, not HTTP acceptance");
-  await page.locator("#settingsAiKey").fill("discard-on-token-change");
+  await page.locator('[id="setting-workers.details"]').fill("");
+  await page.locator("#settingsStatusRefresh").click();
+  await page.locator("#settingsStatus").filter({ hasText: "不代表 AI 推理成功" }).waitFor();
+  check(await page.locator('[id="setting-workers.details"]').inputValue() === "", "status polling preserves an unfinished draft without reporting a connection failure");
+  await page.locator('[id="setting-workers.details"]').fill("2");
+  await page.locator("#settingsAiKey").fill("preserved-on-token-change");
   await page.locator("#restartToken").fill("offline-fixture-replacement-token");
+  await page.locator("#restartToken").blur();
   check(await page.locator('[id="setting-workers.details"]').isEnabled(), "authorization change preserves editable values");
-  check(await page.locator("#settingsAiKey").inputValue() === "", "authorization change clears draft secret");
+  check(await page.locator("#settingsAiKey").inputValue() === "preserved-on-token-change", "authorization change preserves the unsubmitted draft secret");
   gate = new Promise((resolve) => { releaseRead = resolve; });
   const readEntered = new Promise((resolve) => { enteredRead = resolve; });
   await readOnline();
   await readEntered;
   await page.locator("#settingsControlBase").fill(`${origin}/api`);
+  await page.locator("#settingsControlBase").blur();
   releaseRead();
   gate = null;
   await page.waitForTimeout(150);
@@ -123,13 +132,13 @@ async (page) => {
   check(submissions.length === 1, "stale draft cannot overwrite a newer live revision");
   check(await page.locator(".settings-control-address").evaluate((label) => getComputedStyle(label).display === "grid"), "settings labels override connection toolbar layout");
   await page.locator("main").evaluate((main) => { main.scrollTop = 0; });
-  await page.screenshot({ path: "output/playwright/crow-settings/settings-1120.png", fullPage: true });
+  await page.screenshot({ path: `${artifactDir}/settings-1120.png`, fullPage: true });
   await page.locator("#settingsApply").scrollIntoViewIfNeeded();
-  await page.screenshot({ path: "output/playwright/crow-settings/settings-1120-bottom.png", fullPage: true });
+  await page.screenshot({ path: `${artifactDir}/settings-1120-bottom.png`, fullPage: true });
   await page.setViewportSize({ width: 800, height: 760 });
   check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), "settings have no horizontal page overflow at 800px");
   await page.locator("main").evaluate((main) => { main.scrollTop = 0; });
-  await page.screenshot({ path: "output/playwright/crow-settings/settings-800.png", fullPage: true });
+  await page.screenshot({ path: `${artifactDir}/settings-800.png`, fullPage: true });
   check(errors.length === 0, "no browser runtime errors");
-  return { checks };
+  return { checks, browserErrors: errors };
 }

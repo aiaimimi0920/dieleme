@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import logging
+
 from .captcha_context import *  # noqa: F401,F403
+
+logger = logging.getLogger(__name__)
 
 
 class CaptchaCDPMixin:
@@ -12,6 +16,7 @@ class CaptchaCDPMixin:
         opened_url = "about:blank" if identity_first else target_url
         last_error = None
         for timeout in (5, 8, 12):
+            timeout = self._bounded_io_timeout(timeout)
             try:
                 response = requests.put(
                     f"{self.cdp_endpoint}/json/new?{quote(opened_url, safe='/:%-._~')}",
@@ -33,7 +38,7 @@ class CaptchaCDPMixin:
             except Exception as error:
                 last_error = error
         if last_error is not None:
-            print(f"[SOLVER] Failed to open target tab: {last_error}")
+            logger.warning("[SOLVER] Failed to open target tab: %s", last_error)
         return None
 
     def _connect_to_target(self, target_ws, target_title):
@@ -46,9 +51,9 @@ class CaptchaCDPMixin:
             target_ws = self._rewrite_ws_url(target_ws)
             if target_ws:
                 self.target_ws_url = target_ws
-            print(f"[SOLVER] Connecting to tab: {target_title}")
-            self.ws = websocket.create_connection(target_ws, suppress_origin=True, timeout=5)
-            self.ws.settimeout(5)
+            logger.info("[SOLVER] Connecting to tab: %s", target_title)
+            self.ws = websocket.create_connection(target_ws, suppress_origin=True, timeout=self._bounded_io_timeout(5))
+            self.ws.settimeout(self._bounded_io_timeout(5))
             # This solver uses direct Runtime.evaluate/Page commands and consumes
             # no DOM, Runtime, or Page events. Avoid subscribing those domains on
             # a live challenge page; the subscriptions are unnecessary CDP noise.
@@ -124,7 +129,7 @@ class CaptchaCDPMixin:
                 else {}
             )
             if isinstance(preflight_value, dict):
-                print(
+                logger.info(
                     "[SOLVER] Browser identity preflight "
                     f"platform={preflight_value.get('platform')} "
                     f"ua_platform={preflight_value.get('uaPlatform')} "
@@ -146,11 +151,13 @@ class CaptchaCDPMixin:
             self.ws = None
             if self._is_manual_challenge_url(self.current_target_url):
                 self.last_failure_reason = "manual_required"
-            print(f"[SOLVER] WS Connection failed: {e}")
+            logger.warning("[SOLVER] WS Connection failed: %s", e)
             return False
 
     def _send_cdp(self, method, params=None):
         if not self.ws: return None
+        if self._stop_if_cancelled():
+            return None
 
         msg = {
             "id": self.message_id,
@@ -159,27 +166,33 @@ class CaptchaCDPMixin:
         }
 
         try:
+            if getattr(self, "_solve_budget", None) is not None:
+                self.ws.settimeout(self._bounded_io_timeout(5))
             self.ws.send(json.dumps(msg))
             self.message_id += 1
             start_time = time.time()
             timeout_seconds = 12 if "captureScreenshot" in method else 5
             while time.time() - start_time < timeout_seconds:
+                if self._stop_if_cancelled():
+                    return None
                 try:
+                    if getattr(self, "_solve_budget", None) is not None:
+                        self.ws.settimeout(self._bounded_io_timeout(timeout_seconds))
                     res = self.ws.recv()
                     res_json = json.loads(res)
                     if res_json.get("id") == msg["id"]:
                         if "error" in res_json:
-                            print(f"[SOLVER] CDP Error ({method}): {res_json['error']}")
+                            logger.error("[SOLVER] CDP Error method=%s error=%s", method, res_json["error"])
                             return None
                         return res_json.get("result")
                 except websocket.WebSocketTimeoutException:
-                    print(f"[SOLVER] Timeout waiting for {method}")
+                    logger.warning("[SOLVER] Timeout waiting for %s", method)
                     return None
                 except Exception as e:
-                    print(f"[SOLVER] Error recv: {e}")
+                    logger.warning("[SOLVER] Error receiving response method=%s: %s", method, e)
                     return None
         except Exception as e:
-            print(f"[SOLVER] CDP Send Error: {e}")
+            logger.error("[SOLVER] CDP Send Error method=%s: %s", method, e)
             return None
 
         return None
@@ -189,11 +202,11 @@ class CaptchaCDPMixin:
         tabs = self._get_json("list")
         if tabs is None:
             if self.target_ws_url:
-                print("[SOLVER] CDP target list unavailable; reusing cached target websocket.")
+                logger.info("[SOLVER] CDP target list unavailable; reusing cached target websocket.")
                 if self._connect_to_target(self.target_ws_url, "cached solver target"):
                     return True
-                print("[SOLVER] Cached target websocket failed; CDP target list is unavailable.")
-            print(f"[SOLVER] CDP target list unavailable on {self.cdp_endpoint}.")
+                logger.warning("[SOLVER] Cached target websocket failed; CDP target list is unavailable.")
+            logger.warning("[SOLVER] CDP target list unavailable on %s.", self.cdp_endpoint)
             return False
 
         if self.target_ws_url:
@@ -202,10 +215,10 @@ class CaptchaCDPMixin:
                 refreshed_tabs = self._get_json("list")
                 if isinstance(refreshed_tabs, list):
                     tabs = refreshed_tabs
-            print("[SOLVER] Reusing cached target websocket.")
+            logger.info("[SOLVER] Reusing cached target websocket.")
             if self._connect_to_target(self.target_ws_url, "cached solver target"):
                 return True
-            print("[SOLVER] Cached target websocket failed; falling back to CDP discovery.")
+            logger.warning("[SOLVER] Cached target websocket failed; falling back to CDP discovery.")
 
         compaction = self._compact_cdp_pages_if_needed(
             tabs,
@@ -219,15 +232,15 @@ class CaptchaCDPMixin:
         if not tabs:
             normalized_target_url = self._normalize_target_url(self.target_url)
             if not normalized_target_url:
-                print(f"[SOLVER] No Chrome/Edge debug sessions found on port {self.port}.")
+                logger.warning("[SOLVER] No Chrome/Edge debug sessions found on port %s.", self.port)
                 return False
             opened_target = self._open_target_tab()
             if not isinstance(opened_target, dict):
-                print(f"[SOLVER] No Chrome/Edge debug sessions found on port {self.port}.")
+                logger.warning("[SOLVER] No Chrome/Edge debug sessions found on port %s.", self.port)
                 return False
             target_ws = opened_target.get("webSocketDebuggerUrl")
             target_title = str(opened_target.get("title") or "")
-            print(f"[SOLVER] [NEW] Opened requested solver target: {normalized_target_url}")
+            logger.info("[SOLVER] Opened requested solver target: %s", normalized_target_url)
             return self._connect_to_target(target_ws, target_title)
 
         pruning = self._prune_duplicate_challenge_tabs(tabs)
@@ -249,7 +262,7 @@ class CaptchaCDPMixin:
                     self._remember_target_tab(tab)
                     target_ws = tab.get("webSocketDebuggerUrl")
                     target_title = tab.get("title", "")
-                    print(f"[SOLVER] [TARGET] Found requested solver target: {url}")
+                    logger.info("[SOLVER] Found requested solver target: %s", url)
                     break
             if not target_ws and kept_challenge_target_id:
                 for tab in tabs:
@@ -258,7 +271,7 @@ class CaptchaCDPMixin:
                     self._remember_target_tab(tab)
                     target_ws = tab.get("webSocketDebuggerUrl")
                     target_title = tab.get("title", "")
-                    print("[SOLVER] Reusing the unique challenge target for this collection scope.")
+                    logger.info("[SOLVER] Reusing the unique challenge target for this collection scope.")
                     break
             if not target_ws and self.target_id:
                 for tab in tabs:
@@ -266,7 +279,7 @@ class CaptchaCDPMixin:
                         self._remember_target_tab(tab)
                         target_ws = tab.get("webSocketDebuggerUrl")
                         target_title = tab.get("title", "")
-                        print(f"[SOLVER] ♻ Recovered cached solver target by id: {self.target_id}")
+                        logger.info("[SOLVER] Recovered cached solver target by id: %s", self.target_id)
                         break
             if not target_ws:
                 for tab in tabs:
@@ -277,11 +290,11 @@ class CaptchaCDPMixin:
                         self._remember_target_tab(tab)
                         target_ws = tab.get("webSocketDebuggerUrl")
                         target_title = tab.get("title", "")
-                        print("[SOLVER] Reusing existing manual challenge target.")
+                        logger.info("[SOLVER] Reusing existing manual challenge target.")
                         break
             if not target_ws:
                 if self.target_id:
-                    print(f"[SOLVER] Cached solver target {self.target_id} no longer present; reopening requested target.")
+                    logger.info("[SOLVER] Cached solver target %s no longer present; reopening requested target.", self.target_id)
                     self.target_id = None
                     self.target_ws_url = None
                 compaction = self._compact_cdp_pages_if_needed(tabs, reserve_for_new_page=True)
@@ -291,7 +304,7 @@ class CaptchaCDPMixin:
                 if isinstance(opened_target, dict):
                     target_ws = opened_target.get("webSocketDebuggerUrl")
                     target_title = str(opened_target.get("title") or "")
-                    print(f"[SOLVER] [NEW] Opened requested solver target: {normalized_target_url}")
+                    logger.info("[SOLVER] Opened requested solver target: %s", normalized_target_url)
 
         # Priority 1: 100% targeted background worker currently solving
         if not target_ws:
@@ -304,7 +317,7 @@ class CaptchaCDPMixin:
                     self._remember_target_tab(tab)
                     target_ws = tab.get("webSocketDebuggerUrl")
                     target_title = tab.get("title", "")
-                    print(f"[SOLVER] [STAR] Found dedicated worker (solving): {url}")
+                    logger.info("[SOLVER] Found dedicated worker (solving): %s", url)
                     break
 
         # Priority 2: 100% targeted background worker in standby mode (useful if it's stuck or just transitioned)
@@ -315,7 +328,7 @@ class CaptchaCDPMixin:
                     self._remember_target_tab(tab)
                     target_ws = tab.get("webSocketDebuggerUrl")
                     target_title = tab.get("title", "")
-                    print(f"[SOLVER] [HOURGLASS] Found dedicated worker (standby): {url}")
+                    logger.info("[SOLVER] Found dedicated worker (standby): %s", url)
                     break
 
         # Priority 2.5: sec.taobao.com / login.taobao.com pages (common captcha redirect destination)
@@ -326,7 +339,7 @@ class CaptchaCDPMixin:
                     self._remember_target_tab(tab)
                     target_ws = tab.get("webSocketDebuggerUrl")
                     target_title = tab.get("title", "")
-                    print(f"[SOLVER] [LOCK] Found sec/login page (likely captcha redirect): {url}")
+                    logger.info("[SOLVER] Found sec/login page (likely captcha redirect): %s", url)
                     break
 
         # Priority 3: Fallback to old heuristic
@@ -344,11 +357,11 @@ class CaptchaCDPMixin:
                 if target_ws: break
 
         if not target_ws:
-             print("[SOLVER] [X] No relevant debug tag found.")
+             logger.warning("[SOLVER] No relevant debug tag found.")
              # Let's see what tabs are open just for debugging
-             print("[SOLVER] Currently open tabs:")
+             logger.info("[SOLVER] Currently open tabs:")
              for t in tabs[:5]:
-                 print(f"  - {t.get('title')[:30]} | {t.get('url')[:50]}")
+                 logger.info("  - %s | %s", t.get("title", "")[:30], t.get("url", "")[:50])
              return False
 
         return self._connect_to_target(target_ws, target_title)
@@ -361,6 +374,7 @@ class CaptchaCDPMixin:
             return False
         last_error = None
         for timeout in (2, 4, 6):
+            timeout = self._bounded_io_timeout(timeout)
             try:
                 response = requests.get(
                     f"{self.cdp_endpoint}/json/activate/{quote(target_id, safe='')}",
@@ -373,14 +387,14 @@ class CaptchaCDPMixin:
             except Exception as error:
                 last_error = error
         if last_error is not None:
-            print(f"[SOLVER] Failed to activate target tab {target_id}: {last_error}")
+            logger.warning("[SOLVER] Failed to activate target tab %s: %s", target_id, last_error)
         return False
 
     def _bring_to_front(self):
         """Bring the exact captcha tab forward so OS mouse input hits that tab."""
         activated = self._activate_target_tab()
         if activated:
-            time.sleep(0.15)
+            self._wait_interruptibly(0.15)
             return True
         try:
             brought_to_front = self._send_cdp("Page.bringToFront") is not None
@@ -389,10 +403,10 @@ class CaptchaCDPMixin:
                 "expression": "try { window.focus(); document.body && document.body.focus && document.body.focus(); } catch(e) {}",
                 "returnByValue": True
             }) is not None
-            time.sleep(0.15)
+            self._wait_interruptibly(0.15)
             return bool(brought_to_front or focused)
         except Exception as e:
-            print(f"[SOLVER] bringToFront failed: {e}")
+            logger.warning("[SOLVER] bringToFront failed: %s", e)
             return False
 
 

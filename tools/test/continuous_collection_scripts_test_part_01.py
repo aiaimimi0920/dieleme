@@ -168,6 +168,10 @@ def test_register_pc1_shared_auth_maintenance_registers_watchdog_and_nas_recover
     script = _script("register-pc1-shared-auth-maintenance.ps1")
 
     assert '[int]$Port = 9225' in script
+    assert '[string]$ApiBase = ""' in script
+    assert '[string]$ApiCaFile = ""' in script
+    assert 'ConvertTo-CollectionApiOrigin' in script
+    assert 'http://192.168.15.200:8001/api' not in script
     assert "register-taobao-login-watchdog-task.ps1" in script
     assert "register-pc1-nas-auth-recovery-task.ps1" in script
     assert 'Join-Path $resolvedDataRoot "secrets\\nodes\\pc2\\taobao-cookies.json"' in script
@@ -181,6 +185,7 @@ def test_register_pc1_shared_auth_maintenance_registers_watchdog_and_nas_recover
     assert '"-ProfileDir", $ProfileDir' in script
     assert '"-BrowserPath", $BrowserPath' in script
     assert '"-ExecutionTimeLimitMinutes", $NasRecoveryExecutionTimeLimitMinutes' in script
+    assert '"-ApiCaFile", $ApiCaFile' in script
     assert 'Start-ScheduledTask -TaskName "FapaiFangTaobaoLoginWatchdog"' in script
     assert "WatchdogIntervalMinutes" not in script
 
@@ -204,13 +209,29 @@ def test_pc1_nas_auth_recovery_watcher_keeps_single_window_and_publishes_only_me
     assert 'resolve-pc1-auth-python.ps1' in script
     assert 'Resolve-Pc1AuthPython' in script
     assert 'Get-FileHash -LiteralPath $OutputPath -Algorithm SHA256' in script
-    assert 'X-Fapai-Recovery-Token' in script
+    assert 'Invoke-Pc1RecoveryApi' in script
     assert 'secrets\\nas-auth-recovery.token' in script
     assert 'Move-Item -LiteralPath $temporaryPath -Destination $Path -Force' in script
-    assert '"$recoveryBase/snapshot_ready"' in script
+    assert '-Action snapshot_ready' in script
     assert 'cookie_count = $cookies.Count' in script
     assert 'cookie_value' not in script
     assert 'cookies =' not in script.split('snapshot_ready', 1)[1]
+
+
+def test_pc1_auto_resume_rejects_implicit_remote_http_default() -> None:
+    script = _script("watch-pc1-auth-auto-resume.ps1")
+
+    assert "ConvertTo-CollectionApiOrigin" in script
+    assert "An explicit HTTPS API origin or protected loopback tunnel is required" in script
+    assert "http://192.168.15.200:8001/api" not in script
+
+
+def test_recovery_trigger_rejects_implicit_remote_http_default() -> None:
+    script = _script("trigger-taobao-login-recovery-if-needed.ps1")
+
+    assert "An explicit HTTPS API origin or protected loopback tunnel is required" in script
+    assert "ConvertTo-CollectionApiOrigin" in script
+    assert "http://192.168.15.200:8001/api" not in script
 
 
 def test_register_pc1_nas_auth_recovery_task_is_interactive_single_flight() -> None:
@@ -289,7 +310,7 @@ def test_start_continuous_collection_generates_jobs_checks_login_and_starts_work
     assert "docker compose" in script
     assert "fapaifang-seed-collector" in script
     assert "fapaifang-seed-collector-2" in script
-    assert "fapaifang-api" in script
+    assert "crow-api" in script
     assert "fapaifang-detail-worker" in script
     assert "fapaifang-detail-analysis-worker" in script
     assert "fapaifang-detail-analysis-worker-3" in script

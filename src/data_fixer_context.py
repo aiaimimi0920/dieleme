@@ -27,6 +27,10 @@ import random
 
 from datetime import datetime
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 DATAS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'datas')
 
 HTTP_PORT = 5001
@@ -65,7 +69,7 @@ INFERABLE_FIELDS = {'所属小区', '最靠近商圈', '省份', '城市', '区'
 AI_AVAILABLE = False
 
 try:
-    from llm_helper import Ws_Param, MODEL_POOL, AIService
+    from llm_helper import Ws_Param, get_model_pool, AIService
     import websocket
     import ssl
 
@@ -73,6 +77,7 @@ try:
         """Standalone AI call with retry.
         Uses random model selection to leverage high concurrency capacity."""
         import time as _time
+        MODEL_POOL = get_model_pool()
         if not MODEL_POOL:
             return "Error: No AI models configured"
 
@@ -85,7 +90,7 @@ try:
             idx = random.randint(0, len(MODEL_POOL) - 1)
             config = MODEL_POOL[idx]
 
-        print(f"[AI] Using {config['name']} (pool {idx})")
+        logger.info(f"[AI] Using {config['name']} (pool {idx})")
 
         for attempt in range(max_retries):
             try:
@@ -108,7 +113,7 @@ try:
                 # Check for API error in result
                 if 'ConcurrencyOverFlow' in result or 'Error' in result[:20]:
                     wait = 10 * (2 ** attempt)  # 10s, 20s, 40s
-                    print(f"[AI_RETRY] API限流，{wait}s后重试 (attempt {attempt+1}/{max_retries})")
+                    logger.warning(f"[AI_RETRY] API限流，{wait}s后重试 (attempt {attempt+1}/{max_retries})")
                     _time.sleep(wait)
                     continue
 
@@ -121,16 +126,16 @@ try:
             except Exception as e:
                 if attempt < max_retries - 1:
                     wait = 10 * (2 ** attempt)
-                    print(f"[AI_RETRY] 异常: {e}，{wait}s后重试")
+                    logger.warning(f"[AI_RETRY] 异常: {e}，{wait}s后重试")
                     _time.sleep(wait)
                 else:
-                    print(f"[AI_FAIL] 重试{max_retries}次后仍失败: {e}")
+                    logger.error(f"[AI_FAIL] 重试{max_retries}次后仍失败: {e}")
                     return ""
 
     AI_AVAILABLE = True
-    print("[AI] Standalone AI call initialized (independent from data_receiver)")
+    logger.info("[AI] Standalone AI call initialized (independent from data_receiver)")
 except ImportError as e:
-    print(f"[WARNING] AI verification disabled: {e}")
+    logger.warning(f"[WARNING] AI verification disabled: {e}")
 
 try:
     from avm.community_resolver import apply_community_resolution, load_default_community_index, resolve_community_name
@@ -147,7 +152,7 @@ def normalize_community_fields(item):
         if resolution:
             apply_community_resolution(item, resolution)
     except Exception as exc:
-        print(f"[COMMUNITY_NORMALIZE_WARN] {exc}")
+        logger.warning(f"[COMMUNITY_NORMALIZE_WARN] {exc}")
     return item
 
 class ToolTip:

@@ -1,5 +1,10 @@
 from __future__ import annotations
+import logging
+
 from src.data_fixer_context import *  # noqa: F401,F403
+
+
+logger = logging.getLogger(__name__)
 
 
 class DataFixerAppPart04:
@@ -28,7 +33,7 @@ class DataFixerAppPart04:
                 context = item.get('context')
                 missing = item.get('missing', [])
 
-                print(f"[AI_WORKER] {'BG' if is_offline else 'UI'} | {(item.get('title') or '?')[:15]}... Missing={missing}")
+                logger.info(f"[AI_WORKER] {'BG' if is_offline else 'UI'} | {(item.get('title') or '?')[:15]}... Missing={missing}")
 
                 # --- Workflow 3: Historic Data / Partial Context (No Web Text) ---
                 if not context:
@@ -67,7 +72,7 @@ class DataFixerAppPart04:
                                         inferred[k] = v
 
                                 if inferred:
-                                    print(f"[AI_W3] Address Infer: {address} -> {inferred}")
+                                    logger.info(f"[AI_W3] Address Infer: {address} -> {inferred}")
                                     item.update(inferred)
 
                                     if row_id is not None:
@@ -89,7 +94,7 @@ class DataFixerAppPart04:
                                             reason = verify_res.get('reason') if verify_res else 'N/A'
                                             self.log(f"[离线修复] ✗ 验证拒绝: {reason}")
                         except Exception as e:
-                            print(f"[AI_W3_ERROR] {e}")
+                            logger.error(f"[AI_W3_ERROR] {e}")
 
                     # Fields like area/price can't be inferred without context
                     # Rate limit for offline tasks
@@ -108,7 +113,7 @@ class DataFixerAppPart04:
                             self.root.after(0, lambda i=item, r=row_id, kv=full_res: self._partial_update_item(i, r, kv))
                         item['stage1_done'] = True
                     except Exception as e:
-                        print(f"[AI_W1_STEP1_ERROR] {e}")
+                        logger.error(f"[AI_W1_STEP1_ERROR] {e}")
 
                 # Step 2: Gap Filling (Completing Data)
                 # Re-evaluate missing
@@ -125,7 +130,7 @@ class DataFixerAppPart04:
                 if has_missing_location:
                     address = item.get('地点')
                     if address:
-                        print(f"[AI_W1_STEP2] Inferring location fields from: {address[:30]}")
+                        logger.info(f"[AI_W1_STEP2] Inferring location fields from: {address[:30]}")
                         prompt = f"""任务：根据以下房产拍卖地址，推断该房产所属的小区名称、最靠近的商圈、以及省份/城市/区。
 
 地址：{address}
@@ -159,7 +164,7 @@ class DataFixerAppPart04:
                                             item[k] = v
                                             updates_step2[k] = v
                         except Exception as e:
-                            print(f"[AI_W1_STEP2_LOC_ERROR] {e}")
+                            logger.error(f"[AI_W1_STEP2_LOC_ERROR] {e}")
 
                 # 2.2 Area Extraction
                 area = item.get('建筑面积')
@@ -171,7 +176,7 @@ class DataFixerAppPart04:
 
                 # Update GUI with Step 2 results
                 if updates_step2:
-                     print(f"[AI_W1_STEP2] Fill gaps: {updates_step2}")
+                     logger.info(f"[AI_W1_STEP2] Fill gaps: {updates_step2}")
                      self.root.after(0, lambda i=item, r=row_id, kv=updates_step2: self._partial_update_item(i, r, kv))
 
                 # Step 3: Final Verification
@@ -182,7 +187,7 @@ class DataFixerAppPart04:
                 verify_res = self._verify_final_ai(item)
 
                 if verify_res and verify_res.get('approved'):
-                    print(f"[AI_W1_STEP3] APPROVED. Reason: {verify_res.get('reason')}")
+                    logger.info(f"[AI_W1_STEP3] APPROVED. Reason: {verify_res.get('reason')}")
                     # Auto Approve (Remove Row)
                     # We might have corrections in verify_res?
                     corrections = verify_res.get('corrections', {})
@@ -194,7 +199,7 @@ class DataFixerAppPart04:
 
                 else:
                     reason = verify_res.get('reason') if verify_res else "No Response"
-                    print(f"[AI_W1_STEP3] REJECTED/UNCERTAIN. Reason: {reason}")
+                    logger.warning(f"[AI_W1_STEP3] REJECTED/UNCERTAIN. Reason: {reason}")
                     # We already did Partial Updates in Step 1 & 2.
                     # So the data is saved in file (if _partial_update saves).
                     # Row remains in GUI for manual review.
@@ -203,7 +208,7 @@ class DataFixerAppPart04:
             except Exception as e:
                 error_msg = str(e)
                 if 'Concurrency' in error_msg or 'concurrency' in error_msg.lower():
-                    print(f"[AI_RETRY] 服务端并发限制，重新入队...")
+                    logger.warning(f"[AI_RETRY] 服务端并发限制，重新入队...")
                     self.ai_verify_queue.append({
                         'item': item,
                         'row_id': row_id,
@@ -211,7 +216,7 @@ class DataFixerAppPart04:
                     })
                     time.sleep(30)  # Wait 30s on concurrency error
                 else:
-                    print(f"[AI_WORKER_ERROR] {e}")
+                    logger.error(f"[AI_WORKER_ERROR] {e}")
 
             # Update AI stats & rate limit
             self.root.after(0, self._update_ai_stats)
@@ -237,7 +242,7 @@ class DataFixerAppPart04:
         area = 0
         try:
             area = float(item.get('建筑面积', 0) or 0)
-        except:
+        except Exception:
             pass
         if area == 0:
             missing.append('建筑面积')
@@ -264,7 +269,7 @@ class DataFixerAppPart04:
             self.ai_verify_queue.append(queue_entry)
             label = 'LowPriority'
 
-        print(f"[AI_QUEUE] Adding {label}: {(item.get('title') or '?')[:30]}... Missing: {missing}")
+        logger.info(f"[AI_QUEUE] Adding {label}: {(item.get('title') or '?')[:30]}... Missing: {missing}")
 
     def sort_by_area(self):
         """Sort displayed items by whether they have a valid area (items with area first)."""
@@ -293,7 +298,9 @@ class DataFixerAppPart04:
         self.log(f"已按面积排序 (有效面积优先)")
 
     def setup_routes(self, server):
-        @server.app.route('/api/next_task', methods=['GET'])
+        # Task retrieval advances shared collection state and must not be
+        # triggerable by browser prefetches or cross-site GET requests.
+        @server.app.route('/api/next_task', methods=['POST'])
         def get_next_task():
             return jsonify(self.get_next_task())
 

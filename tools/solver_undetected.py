@@ -43,7 +43,7 @@ def solve_with_undetected(target_url):
                 if slider:
                     print(f"Found slider: {sel}")
                     break
-            except:
+            except Exception:
                 continue
 
         if not slider:
@@ -55,7 +55,7 @@ def solve_with_undetected(target_url):
         try:
             track = driver.find_element(By.CSS_SELECTOR, '#nc_1_n1t, .nc_scale')
             track_width = track.size['width']
-        except:
+        except Exception:
             track_width = 300
 
         distance = track_width - slider.size['width'] - 10
@@ -101,7 +101,7 @@ def solve_with_undetected(target_url):
             try:
                 error_elem = driver.find_element(By.CSS_SELECTOR, '.errloading, .nc-lang-cnt')
                 print(f"Error: {error_elem.text}")
-            except:
+            except Exception:
                 pass
             print("❌ Failed")
 

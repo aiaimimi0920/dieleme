@@ -1,6 +1,11 @@
 from __future__ import annotations
 
+import logging
+
 from .captcha_context import *  # noqa: F401,F403
+
+logger = logging.getLogger(__name__)
+from .captcha_dom import eval_in_all_frames
 
 
 class CaptchaPreflightMixin:
@@ -8,16 +13,16 @@ class CaptchaPreflightMixin:
         """Close the dedicated solver page."""
         try:
             self._send_cdp("Page.close")
-            time.sleep(1)
-        except:
+            self._wait_interruptibly(1)
+        except Exception:
             pass
 
     def _reload_page(self):
         """Reload the page via CDP."""
         try:
             self._send_cdp("Page.reload", {"ignoreCache": False})
-            time.sleep(3)  # Wait for page to reload
-        except:
+            self._wait_interruptibly(3)  # Wait for page to reload
+        except Exception:
             pass
 
     def _page_challenge_summary(self):
@@ -30,7 +35,7 @@ class CaptchaPreflightMixin:
                 var title = doc.title || '';
                 var href = (doc.location && doc.location.href) ? String(doc.location.href) : '';
                 var readyState = doc.readyState || '';
-                var slider = doc.querySelector('#nc_1_n1z, #nc_2_n1z, [id^="nc_"][id$="_n1z"], #nc_1_n1t, #nc_2_n1t, [id^="nc_"][id$="_n1t"], .btn_slide, .nc_iconfont.btn_slide, .nc-slider-btn, .slider-btn');
+                var slider = doc.querySelector(__PREFLIGHT_SLIDER_SELECTOR__);
                 var hasSlider = !!(slider && slider.offsetParent !== null);
                 var lowerHref = href.toLowerCase();
                 var combined = (className + '\\n' + bodyText + '\\n' + title + '\\n' + href).toLowerCase();
@@ -45,7 +50,7 @@ class CaptchaPreflightMixin:
                 var supportedAuctionPage = (listRoute || detailRoute) && !challengeRedirect;
                 var hardBlock = combined.indexOf('baxia') !== -1 || combined.indexOf('punish') !== -1 || combined.indexOf('denyfromx5') !== -1 || challengeRedirect;
                 var errorMatch = combined.match(/error\\s*:\\s*[a-z0-9/_-]{1,64}/i);
-                var errorWidget = doc.querySelector('.errloading, [id*="_refresh1"], [id*="refresh1"]');
+                var errorWidget = doc.querySelector(__NC_ERROR_SELECTOR__);
                 var explicitFailure = combined.indexOf('验证失败') !== -1 ||
                     combined.indexOf('点击框体重试') !== -1 ||
                     combined.indexOf("oops... something's wrong") !== -1 ||
@@ -78,13 +83,9 @@ class CaptchaPreflightMixin:
                     bodyText: bodyText.slice(0, 1000)
                 };
             }
-            var summary = scan(document);
-            var frames = document.getElementsByTagName('iframe');
-            for (var i = 0; i < frames.length; i++) {
-                try {
-                    if (frames[i].offsetParent === null) continue;
-                    var doc = frames[i].contentDocument;
-                    if (!doc) continue;
+            var summary = null;
+            visitAccessibleDocuments(function(doc) {
+                    if (summary === null) { summary = scan(doc); return null; }
                     var frameSummary = scan(doc);
                     summary.hardBlock = summary.hardBlock || frameSummary.hardBlock;
                     summary.explicitFailure = summary.explicitFailure || frameSummary.explicitFailure;
@@ -97,8 +98,8 @@ class CaptchaPreflightMixin:
                     if (!summary.className && frameSummary.className) summary.className = frameSummary.className;
                     if (!summary.errorCode && frameSummary.errorCode) summary.errorCode = frameSummary.errorCode;
                     if (!summary.bodyText && frameSummary.bodyText) summary.bodyText = frameSummary.bodyText;
-                } catch (e) {}
-            }
+                    return null;
+            }, true);
             summary.validAuctionPayload = !!summary.validAuctionPayload;
             summary.challengePresent = !!(
                 summary.hasSlider ||
@@ -111,7 +112,7 @@ class CaptchaPreflightMixin:
         })()
         """
         ret = self._send_cdp("Runtime.evaluate", {
-            "expression": js_script,
+            "expression": eval_in_all_frames(js_script),
             "returnByValue": True
         })
         if ret and "result" in ret and ret["result"].get("value"):
@@ -137,6 +138,7 @@ class CaptchaPreflightMixin:
     def _close_solver_ws(self):
         if not self.ws:
             return
+        self._release_cdp_mouse()
         try:
             self.ws.close()
         except Exception:
@@ -147,7 +149,7 @@ class CaptchaPreflightMixin:
         try:
             refreshed = self._page_challenge_summary()
         except Exception as error:
-            print(f"[SOLVER] Challenge summary refresh failed: {error}")
+            logger.warning("[SOLVER] Challenge summary refresh failed: %s", error)
             return fallback if isinstance(fallback, dict) else {}
         return refreshed or fallback or {}
 
@@ -170,7 +172,7 @@ class CaptchaPreflightMixin:
         )
 
     def _preflight_already_authenticated(self):
-        print("[SOLVER] Auction page is already accessible; no captcha solve is required.")
+        logger.info("[SOLVER] Auction page is already accessible; no captcha solve is required.")
         self.last_failure_reason = None
         self._close_solver_ws()
         return {
@@ -203,14 +205,14 @@ class CaptchaPreflightMixin:
         try:
             challenge_summary = self._page_challenge_summary()
         except Exception as error:
-            print(f"[SOLVER] Challenge preflight failed: {error}")
+            logger.warning("[SOLVER] Challenge preflight failed: %s", error)
             challenge_summary = {}
 
         has_slider = bool(challenge_summary.get("hasSlider"))
         if challenge_summary.get("authenticatedPage"):
             return self._preflight_already_authenticated()
         if challenge_summary.get("loginRequired") and not has_slider:
-            print("[SOLVER] Login page detected; waiting for QR/manual login to complete.")
+            logger.info("[SOLVER] Login page detected; waiting for QR/manual login to complete.")
             if self._poll_until_authenticated():
                 return self._preflight_already_authenticated()
             challenge_summary = self._refresh_challenge_summary(challenge_summary)
@@ -218,25 +220,25 @@ class CaptchaPreflightMixin:
             if challenge_summary.get("authenticatedPage"):
                 return self._preflight_already_authenticated()
             if has_slider:
-                print("[SOLVER] Slider appeared after login wait; continuing with drag solver.")
+                logger.info("[SOLVER] Slider appeared after login wait; continuing with drag solver.")
             else:
-                print("[SOLVER] Login page detected; manual login is required.")
+                logger.warning("[SOLVER] Login page detected; manual login is required.")
                 return self._preflight_manual_required()
         if challenge_summary.get("hardBlock") and not has_slider:
             # A failed NC widget is actionable immediately. Waiting for the full
             # login-recovery window first only delays the retry by two minutes.
             if challenge_summary.get("explicitFailure"):
-                print("[SOLVER] Failed NC widget detected; trying retry-click immediately.")
+                logger.info("[SOLVER] Failed NC widget detected; trying retry-click immediately.")
                 if self._reset_failed_nc_challenge():
                     challenge_summary = self._refresh_challenge_summary(challenge_summary)
                     has_slider = bool(challenge_summary.get("hasSlider"))
                     if challenge_summary.get("authenticatedPage"):
                         return self._preflight_already_authenticated()
                     if has_slider:
-                        print("[SOLVER] Slider restored after immediate NC retry-click.")
+                        logger.info("[SOLVER] Slider restored after immediate NC retry-click.")
 
             if not has_slider:
-                print("[SOLVER] [X] Unsupported hard block detected; waiting to see if the session recovers.")
+                logger.warning("[SOLVER] Unsupported hard block detected; waiting to see if the session recovers.")
                 if self._poll_until_authenticated():
                     return self._preflight_already_authenticated()
                 challenge_summary = self._refresh_challenge_summary(challenge_summary)
@@ -244,20 +246,20 @@ class CaptchaPreflightMixin:
                 if challenge_summary.get("authenticatedPage"):
                     return self._preflight_already_authenticated()
                 if has_slider:
-                    print("[SOLVER] Slider appeared after hard-block wait; continuing with drag solver.")
+                    logger.info("[SOLVER] Slider appeared after hard-block wait; continuing with drag solver.")
 
             if not has_slider:
-                print("[SOLVER] Hard block without slider; trying NC retry-click to restore slider.")
+                logger.info("[SOLVER] Hard block without slider; trying NC retry-click to restore slider.")
                 if self._reset_failed_nc_challenge():
                     challenge_summary = self._refresh_challenge_summary(challenge_summary)
                     has_slider = bool(challenge_summary.get("hasSlider"))
                     if challenge_summary.get("authenticatedPage"):
                         return self._preflight_already_authenticated()
                     if has_slider:
-                        print("[SOLVER] Slider restored after NC retry-click; continuing with drag solver.")
+                        logger.info("[SOLVER] Slider restored after NC retry-click; continuing with drag solver.")
 
             if not has_slider:
-                print("[SOLVER] [X] Unsupported hard block detected; manual verification required.")
+                logger.warning("[SOLVER] Unsupported hard block detected; manual verification required.")
                 return self._preflight_manual_required()
 
         return {

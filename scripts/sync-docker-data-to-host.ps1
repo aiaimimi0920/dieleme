@@ -5,7 +5,7 @@ param(
     [string]$PostgresContainer = "fapaifang-postgres",
     [string]$PostgresDb = "fapaifang",
     [string]$PostgresUser = "fapaifang",
-    [string]$PostgresPassword = "fapaifang"
+    [string]$PostgresPassword = $env:FAPAI_POSTGRES_PASSWORD
 )
 
 $ErrorActionPreference = "Stop"

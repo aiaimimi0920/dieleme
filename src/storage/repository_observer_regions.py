@@ -1,6 +1,18 @@
 from __future__ import annotations
 
-from .repository_context import *  # noqa: F401,F403
+from typing import Any, Dict
+
+from sqlalchemy import case, func, select
+from sqlalchemy.orm import Session
+
+from .models import (
+    FapaiSeedItem,
+    FapaiSeedOccurrence,
+    FapaiSeedScanJob,
+    FapaiSeedScanProgress,
+)
+from .repository_context import _load_taobao_region_override_filter, _utc_now
+from .repository_seed_scan_jobs import SEED_SCAN_MAINTENANCE_BATCH_SIZE
 
 
 class RepositoryObserverRegionsMixin:
@@ -314,30 +326,68 @@ class RepositoryObserverRegionsMixin:
             return {"ok": False, "location_code": safe_location_code, "error": "location_code is required"}
         self.initialize()
         now = _utc_now()
+        reset_jobs = 0
+        reset_progress = 0
         with self.session_factory.begin() as session:
-            jobs = session.scalars(select(FapaiSeedScanJob).where(FapaiSeedScanJob.location_code == safe_location_code)).all()
-            job_keys = [job.job_key for job in jobs]
-            for job in jobs:
-                job.status = "pending"
-                job.completed_at = None
-                job.updated_at = now
-                session.add(job)
-            progress_rows = []
-            if job_keys:
-                progress_rows = session.scalars(select(FapaiSeedScanProgress).where(FapaiSeedScanProgress.job_key.in_(job_keys))).all()
-            for progress in progress_rows:
-                progress.status = "pending"
-                progress.next_page = 1
-                progress.last_success_page = None
-                progress.completed_at = None
-                progress.leased_by = None
-                progress.lease_until = None
-                progress.retry_count = 0
-                progress.last_error = None
-                progress.updated_at = now
-                session.add(progress)
-            return {
-                "ok": True,
-                "location_code": safe_location_code,
-                "reset": {"jobs": len(jobs), "progress": len(progress_rows)},
-            }
+            last_job_key: str | None = None
+            while True:
+                job_query = select(FapaiSeedScanJob).where(
+                    FapaiSeedScanJob.location_code == safe_location_code
+                )
+                if last_job_key is not None:
+                    job_query = job_query.where(FapaiSeedScanJob.job_key > last_job_key)
+                jobs = session.scalars(
+                    job_query.order_by(FapaiSeedScanJob.job_key).limit(
+                        SEED_SCAN_MAINTENANCE_BATCH_SIZE
+                    )
+                ).all()
+                if not jobs:
+                    break
+                last_job_key = jobs[-1].job_key
+                job_keys = [job.job_key for job in jobs]
+                for job in jobs:
+                    job.status = "pending"
+                    job.completed_at = None
+                    job.updated_at = now
+                    session.add(job)
+                session.flush()
+
+                last_progress_key: str | None = None
+                while job_keys:
+                    progress_query = select(FapaiSeedScanProgress).where(
+                        FapaiSeedScanProgress.job_key.in_(job_keys)
+                    )
+                    if last_progress_key is not None:
+                        progress_query = progress_query.where(
+                            FapaiSeedScanProgress.progress_key > last_progress_key
+                        )
+                    progress_rows = session.scalars(
+                        progress_query.order_by(
+                            FapaiSeedScanProgress.progress_key
+                        ).limit(SEED_SCAN_MAINTENANCE_BATCH_SIZE)
+                    ).all()
+                    if not progress_rows:
+                        break
+                    last_progress_key = progress_rows[-1].progress_key
+                    for progress in progress_rows:
+                        progress.status = "pending"
+                        progress.next_page = 1
+                        progress.last_success_page = None
+                        progress.completed_at = None
+                        progress.leased_by = None
+                        progress.lease_until = None
+                        progress.retry_count = 0
+                        progress.last_error = None
+                        progress.updated_at = now
+                        session.add(progress)
+                    session.flush()
+                    reset_progress += len(progress_rows)
+
+                reset_jobs += len(jobs)
+                # Keep each ORM window bounded while retaining one atomic transaction.
+                session.expunge_all()
+        return {
+            "ok": True,
+            "location_code": safe_location_code,
+            "reset": {"jobs": reset_jobs, "progress": reset_progress},
+        }

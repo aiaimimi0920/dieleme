@@ -34,6 +34,18 @@ def test_detail_claim_overrides_legacy_duplicate_slash_payload_url(tmp_path: Pat
     assert claimed["url"] == "https://sf-item.taobao.com/sf_item/570192626894.htm?track_id=test"
     assert claimed["source_url"] == claimed["url"]
 
+def test_detail_claim_does_not_use_worker_local_filesystem_inside_row_lock(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    _upsert_sample_seed(repo, item_id="missing-artifact")
+    missing_path = tmp_path / "worker-only" / "detail.html"
+    repo.mark_seed_raw_detail_captured("missing-artifact", detail_html_path=str(missing_path))
+
+    claimed = repo.claim_seed_raw_detail_item("detail-worker", lease_seconds=30)
+
+    assert claimed is not None
+    assert claimed["item_id"] == "missing-artifact"
+    assert claimed["_raw_detail_artifacts"]["detail_html_path"] == str(missing_path)
+
 def test_collection_observer_lists_seed_links_with_totals(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     _upsert_sample_seed(repo)

@@ -3,6 +3,7 @@ param(
     [string]$DataRoot = "",
     [string]$OutputPath = "",
     [string]$TokenPath = "",
+    [string]$ApiCaFile = "",
     [int]$Port = 9225,
     [string]$Python = "",
     [string]$ProfileDir = "",
@@ -13,6 +14,8 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+. (Join-Path $PSScriptRoot "collection-api-origin.ps1")
+. (Join-Path $PSScriptRoot "pc1-recovery-http.ps1")
 
 function Resolve-ApiBase {
     $value = if ($ApiBase) {
@@ -25,13 +28,15 @@ function Resolve-ApiBase {
         $env:FAPAI_API_BASE_URL
     }
     else {
-        "http://192.168.15.200:8001/api"
+        ""
     }
-    $value = $value.TrimEnd("/")
-    if ($value -notmatch "/api$") {
-        $value = "$value/api"
-    }
-    return $value
+    return (ConvertTo-CollectionApiOrigin $value) + "/api"
+}
+
+$apiBaseResolved = Resolve-ApiBase
+if (-not $ApiCaFile) { $ApiCaFile = $env:FAPAI_API_CA_FILE }
+if ($ApiCaFile -and -not (Test-Path -LiteralPath $ApiCaFile -PathType Leaf)) {
+    throw "Collection API CA file is unavailable."
 }
 
 function Write-Utf8NoBomFile {
@@ -82,19 +87,14 @@ function Write-State {
     Write-Utf8NoBomFile -Path $Path -Content ($State | ConvertTo-Json -Depth 6)
 }
 
-function Invoke-RecoveryPost {
+function Invoke-RecoveryRequest {
     param(
-        [Parameter(Mandatory = $true)][string]$Uri,
-        [Parameter(Mandatory = $true)]$Body,
-        [Parameter(Mandatory = $true)][hashtable]$Headers
+        [string]$Action = "status",
+        $Body = $null
     )
-    return Invoke-RestMethod `
-        -Uri $Uri `
-        -Method Post `
-        -ContentType "application/json" `
-        -Headers $Headers `
-        -Body ($Body | ConvertTo-Json -Compress -Depth 5) `
-        -TimeoutSec 20
+    return Invoke-Pc1RecoveryApi -Python $Python -ApiBase $apiBaseResolved `
+        -DataRoot $DataRoot -TokenPath $TokenPath -ApiCaFile $ApiCaFile `
+        -Action $Action -Body $Body
 }
 
 function Get-CdpTabs {
@@ -179,16 +179,12 @@ if (-not $OutputPath) {
     $OutputPath = if ($env:FAPAI_COOKIE_SNAPSHOT) { $env:FAPAI_COOKIE_SNAPSHOT } else { Join-Path $DataRoot "secrets\nodes\pc2\taobao-cookies.json" }
 }
 if (-not $TokenPath) {
-    $TokenPath = Join-Path $DataRoot "secrets\nas-auth-recovery.token"
+    $TokenPath = if ($env:FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE) {
+        $env:FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE
+    } else {
+        Join-Path $DataRoot "secrets\nas-auth-recovery.token"
+    }
 }
-if (-not (Test-Path -LiteralPath $TokenPath)) {
-    throw "NAS auth recovery token file is missing."
-}
-$recoveryToken = (Get-Content -LiteralPath $TokenPath -Raw -Encoding UTF8).Trim()
-if (-not $recoveryToken) {
-    throw "NAS auth recovery token file is empty."
-}
-$recoveryHeaders = @{ "X-Fapai-Recovery-Token" = $recoveryToken }
 if (-not $ProfileDir) {
     $ProfileDir = if ($env:FAPAI_AUTH_BROWSER_PROFILE_DIR) { $env:FAPAI_AUTH_BROWSER_PROFILE_DIR } else { Join-Path $DataRoot "chrome-cdp-profile-pc1-human-clean" }
 }
@@ -196,11 +192,9 @@ if (-not $BrowserPath) {
     $BrowserPath = if ($env:FAPAI_AUTH_BROWSER_PATH) { $env:FAPAI_AUTH_BROWSER_PATH } else { "C:\Program Files\Google\Chrome\Application\chrome.exe" }
 }
 
-$apiBaseResolved = Resolve-ApiBase
-$recoveryBase = "$apiBaseResolved/collection/auth/recovery"
 $statePath = Join-Path $DataRoot "runtime\pc1-nas-auth-recovery-state.json"
 $state = Read-State -Path $statePath
-$response = Invoke-RestMethod -Uri $recoveryBase -Method Get -Headers $recoveryHeaders -TimeoutSec 20
+$response = Invoke-RecoveryRequest
 $active = $response.auth_recovery.active
 if ($null -eq $active) {
     exit 0
@@ -216,10 +210,8 @@ if (-not $recoveryId -or $status -notin @("requested", "pc1_claimed")) {
     exit 0
 }
 if ($status -eq "requested") {
-    $claim = Invoke-RecoveryPost `
-        -Uri "$recoveryBase/claim" `
-        -Body @{ recovery_id = $recoveryId; role = "pc1"; node_id = "pc1" } `
-        -Headers $recoveryHeaders
+    $claim = Invoke-RecoveryRequest -Action claim `
+        -Body @{ recovery_id = $recoveryId; role = "pc1"; node_id = "pc1" }
     if (-not $claim.ok) {
         exit 1
     }
@@ -232,7 +224,7 @@ $recoveryUrl = if ($sameRecovery -and $state.target_url -and -not $state.target_
     [string]$state.target_url
 } else {
     try {
-        $apiStatus = Invoke-RestMethod -Uri "$apiBaseResolved/status" -TimeoutSec 20
+        $apiStatus = Invoke-RecoveryRequest -Action public_status
         Get-Pc1RecoveryTargetUrl -SolverStatus $apiStatus.captcha_solver -FallbackUrl $StartUrl
     }
     catch {
@@ -326,7 +318,7 @@ if ($probeExit -ne 0) {
         try { $probeResult = [string]$line | ConvertFrom-Json } catch { continue }
         if ($probeResult.blocking_scope -eq 'seed') {
             try {
-                $apiStatus = Invoke-RestMethod -Uri "$apiBaseResolved/status" -TimeoutSec 20
+                $apiStatus = Invoke-RecoveryRequest -Action public_status
                 Show-Pc1RecoverySeedPrompt -State $newState -StatePath $statePath -Endpoint $cdpEndpoint `
                     -SolverStatus $apiStatus.captcha_solver -FallbackUrl $StartUrl -Port $Port -ProfileDir $ProfileDir
             }
@@ -343,15 +335,13 @@ if ($cookies.Count -le 0) {
     throw "PC1 authentication snapshot is empty."
 }
 $digest = (Get-FileHash -LiteralPath $OutputPath -Algorithm SHA256).Hash.ToLowerInvariant()
-$ready = Invoke-RecoveryPost `
-    -Uri "$recoveryBase/snapshot_ready" `
+$ready = Invoke-RecoveryRequest -Action snapshot_ready `
     -Body @{
         recovery_id = $recoveryId
         sha256 = $digest
         cookie_count = $cookies.Count
         created_at_epoch = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
-    } `
-    -Headers $recoveryHeaders
+    }
 if (-not $ready.ok) {
     exit 1
 }

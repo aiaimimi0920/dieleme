@@ -1,9 +1,12 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 import json
+import logging
 import os
 import threading
+
+logger = logging.getLogger(__name__)
 
 
 PREDICTION_LOG_DIR = os.path.join(os.path.dirname(__file__), "..", "datas", "avm", "logs")
@@ -22,9 +25,13 @@ API_METRICS = {
 }
 
 
+def _utc_now() -> datetime:
+    return datetime.now(timezone.utc)
+
+
 def _daily_prediction_log_path(now=None):
     """Build daily log path: datas/avm/logs/YYYY-MM-DD.log."""
-    dt = now or datetime.now()
+    dt = now or _utc_now()
     filename = f"{dt.strftime('%Y-%m-%d')}.log"
     return os.path.join(PREDICTION_LOG_DIR, filename)
 
@@ -32,7 +39,7 @@ def _daily_prediction_log_path(now=None):
 def log_prediction_event(task_type, duration_ms, recall_count=None, final_confidence=None, success=True, failure_reason=None, item_id=None):
     """Append one JSON-line prediction record into daily AVM log."""
     record = {
-        "timestamp": datetime.now().isoformat(),
+        "timestamp": _utc_now().isoformat(),
         "task_type": task_type,
         "item_id": str(item_id) if item_id is not None else None,
         "duration_ms": round(float(duration_ms), 2) if duration_ms is not None else None,
@@ -49,7 +56,7 @@ def log_prediction_event(task_type, duration_ms, recall_count=None, final_confid
             with open(log_path, "a", encoding="utf-8") as f:
                 f.write(json.dumps(record, ensure_ascii=False) + "\n")
     except Exception as e:
-        print(f"[LOG] Failed to write prediction log: {e}")
+        logger.error("[LOG] Failed to write prediction log: %s", e)
 
 
 def record_api_metrics(success, response_time_ms):
@@ -78,4 +85,4 @@ def get_api_metrics():
     }
 
 
-__all__ = ['PREDICTION_LOG_DIR', 'PREDICTION_LOG_LOCK', 'API_METRICS_LOCK', 'API_METRICS', '_daily_prediction_log_path', 'log_prediction_event', 'record_api_metrics', 'get_api_metrics']
+__all__ = ['PREDICTION_LOG_DIR', 'PREDICTION_LOG_LOCK', 'API_METRICS_LOCK', 'API_METRICS', '_utc_now', '_daily_prediction_log_path', 'log_prediction_event', 'record_api_metrics', 'get_api_metrics']

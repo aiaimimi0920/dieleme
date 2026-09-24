@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -15,10 +16,11 @@ def write_config(root, values):
 
 
 def test_direct_bundle_loads_non_secret_paths_without_launcher_environment(tmp_path):
-    write_config(tmp_path, {"FAPAI_DATA_ROOT_HOST": "shared", "FAPAI_AUTH_LOCAL_CDP_PORT": "9227"})
+    write_config(tmp_path, {"FAPAI_DATA_ROOT_HOST": "shared", "FAPAI_AUTH_LOCAL_CDP_PORT": "9227", "FAPAI_API_CA_FILE": "certs/api-ca.pem"})
     environment = load_runtime_environment(tmp_path, {})
     assert environment["FAPAI_DATA_ROOT_HOST"] == str(tmp_path / "shared")
     assert environment["FAPAI_AUTH_LOCAL_CDP_PORT"] == "9227"
+    assert environment["FAPAI_API_CA_FILE"] == str(tmp_path / "certs" / "api-ca.pem")
     assert load_runtime_environment(tmp_path, {"FAPAI_DATA_ROOT_HOST": "explicit"})["FAPAI_DATA_ROOT_HOST"] == "explicit"
 
 
@@ -85,15 +87,40 @@ def test_open_uses_persisted_browser_profile_without_mutating_process_env(tmp_pa
 @pytest.mark.skipif(sys.platform != "win32", reason="Windows installer")
 def test_config_writer_round_trip_utf8_and_no_secret_values(tmp_path):
     script = Path(__file__).resolve().parents[2] / "scripts" / "write-collector-desktop-runtime-config.ps1"
+    (tmp_path / "api-ca.pem").write_text("CERT", encoding="utf-8")
     args = ["powershell.exe", "-NoProfile", "-NonInteractive", "-File", str(script),
             "-InstallRoot", str(tmp_path), "-DataRoot", str(tmp_path / "shared"),
-            "-AuthBrowserProfileDir", str(tmp_path / "profile")]
+            "-ApiBase", "https://crow.example:8443/api",
+            "-AuthBrowserProfileDir", str(tmp_path / "profile"),
+            "-ApiCaFile", str(tmp_path / "api-ca.pem")]
     for _ in range(2):
-        result = subprocess.run(args, capture_output=True, timeout=20)
+        result = subprocess.run(args, capture_output=True, timeout=20,
+                                env={**os.environ, "FAPAI_DESKTOP_PYTHON_PATH": sys.executable})
         assert result.returncode == 0, result.stderr.decode(errors="replace")
         raw = (tmp_path / CONFIG_NAME).read_bytes()
         assert not raw.startswith(b"\xef\xbb\xbf")
         environment = load_runtime_environment(tmp_path, {})
         assert environment["FAPAI_DATA_ROOT_HOST"] == str(tmp_path / "shared")
+        assert environment["FAPAI_COLLECTOR_API_BASE"] == "https://crow.example:8443"
         assert environment["FAPAI_NAS_AUTH_RECOVERY_TOKEN_FILE"].endswith("nas-auth-recovery.token")
+        assert environment["FAPAI_API_CA_FILE"] == str(tmp_path / "api-ca.pem")
     assert not list(tmp_path.glob(".desktop-config-*.tmp"))
+
+
+@pytest.mark.skipif(sys.platform != "win32", reason="Windows installer")
+def test_config_writer_rejects_missing_settings_credentials(tmp_path):
+    script = Path(__file__).resolve().parents[2] / "scripts" / "write-collector-desktop-runtime-config.ps1"
+    args = ["powershell.exe", "-NoProfile", "-NonInteractive", "-File", str(script),
+            "-InstallRoot", str(tmp_path), "-DataRoot", str(tmp_path / "shared"),
+            "-ApiBase", "https://crow.example:8443/api",
+            "-SettingsApiBase", "https://crow.example:18443/",
+            "-SettingsCaFile", str(tmp_path / "missing-ca.pem"),
+            "-OperatorTokenFile", str(tmp_path / "missing-token")]
+    result = subprocess.run(
+        args,
+        capture_output=True,
+        timeout=20,
+        env={**os.environ, "FAPAI_DESKTOP_PYTHON_PATH": sys.executable},
+    )
+    assert result.returncode != 0
+    assert not (tmp_path / CONFIG_NAME).exists()

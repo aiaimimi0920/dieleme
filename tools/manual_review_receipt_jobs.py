@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import copy
 import json
+import logging
 import threading
 import time
 from datetime import datetime
@@ -20,6 +21,8 @@ from tools.backfill_manual_review_control_plane_to_db import (
     ensure_manual_review_control_plane_backfilled,
     sync_manual_review_control_plane_json_backup,
 )
+
+logger = logging.getLogger(__name__)
 
 
 def _now_text() -> str:
@@ -129,7 +132,7 @@ class ManualReviewMaintenanceManager:
         try:
             sync_manual_review_control_plane_json_backup(self.state_path.parent.parent, repository=self._repository)
         except Exception as exc:
-            print(f"[MANUAL-REVIEW-BACKUP] Sync failed: {exc}")
+            logger.exception("[MANUAL-REVIEW-BACKUP] Sync failed")
 
     def _find_job(self, job_id: str) -> dict[str, Any] | None:
         for job in self._state.get("jobs") or []:
