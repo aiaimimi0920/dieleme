@@ -67,9 +67,9 @@ def test_submit_batch_writes_new_seed_file_for_new_items(tmp_path: Path):
         update_file_global=lambda *_args, **_kwargs: None,
         persist_item_to_db=lambda item, event_type, event_payload=None: persisted.append((item, event_type, event_payload)),
         evict_runtime_item=lambda item_id: None,
-        seen_ids=seen_ids,
-        pending_tasks=pending_tasks,
         archive_list_payload=lambda *_args, **_kwargs: None,
+        set_seen=lambda item_id, entry: seen_ids.__setitem__(item_id, entry),
+        queue_pending=lambda item_id: pending_tasks.append(item_id) or True,
     )
 
     assert result == {"status": "ok", "new": 1}
@@ -129,9 +129,9 @@ def test_submit_batch_propagates_existing_item_lookup_failures(tmp_path: Path) -
             update_file_global=lambda *args, **kwargs: None,
             persist_item_to_db=lambda *args, **kwargs: persisted.append(args),
             evict_runtime_item=lambda item_id: None,
-            seen_ids={},
-            pending_tasks=[],
             archive_list_payload=lambda *args, **kwargs: None,
+            set_seen=lambda *_args: None,
+            queue_pending=lambda _item_id: True,
         )
 
     assert persisted == []

@@ -1978,3 +1978,13 @@ handler 已全部改为传入 RuntimeState callback；detail service 内不再�
 
 detail service、detail dispatch、collection adapter、RuntimeState 和 quality collection
 回归 **48 passed**，有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: seed service requires RuntimeState callbacks
+
+`SeedCollectionService.submit_batch()` 已移除原始 `seen_ids` 和 `pending_tasks` 参数。
+已有条目写回和新条目入队现在必须通过 `set_seen()` 与 `queue_pending()` callback，
+生产入口由 `CollectionRuntimeIndex` 提供；seed service 内不再保留直接字典/列表写入
+fallback。相关 seed 和 source-neutral adapter 测试已改为验证 callback 合同。
+
+seed service、collection adapters、quality collection 和 seed identity 回归 **34 passed**，
+有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。

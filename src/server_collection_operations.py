@@ -265,11 +265,9 @@ def handle_seed_batch_submission(data):
             update_file_global=update_file_global,
             persist_item_to_db=persist_item_to_db,
             evict_runtime_item=_evict_runtime_item,
-            seen_ids=collection.seen_ids,
-            pending_tasks=collection.pending_tasks,
             archive_list_payload=archive_list_payload,
-            set_seen=getattr(collection, "set_seen", None),
-            queue_pending=getattr(collection, "queue_pending", None),
+            set_seen=collection.set_seen,
+            queue_pending=collection.queue_pending,
         )
 
 def extract_risk_signals(item):

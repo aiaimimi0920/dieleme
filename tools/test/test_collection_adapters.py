@@ -51,9 +51,9 @@ def test_generic_adapter_collects_arbitrary_product_seed(tmp_path: Path) -> None
         update_file_global=lambda *_args: None,
         persist_item_to_db=lambda item, *_args: persisted.append(dict(item)),
         evict_runtime_item=lambda _item_id: None,
-        seen_ids={},
-        pending_tasks=[],
         archive_list_payload=lambda *_args: None,
+        set_seen=lambda *_args: None,
+        queue_pending=lambda _item_id: True,
     )
 
     assert result == {"status": "ok", "new": 1}

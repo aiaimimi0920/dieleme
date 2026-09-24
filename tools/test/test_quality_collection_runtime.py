@@ -37,13 +37,15 @@ def test_seed_batch_submission_holds_collection_lock(monkeypatch):
         lock=ObservedLock(),
         seen_ids={},
         pending_tasks=[],
+        set_seen=lambda item_id, entry: runtime.seen_ids.__setitem__(item_id, entry),
+        queue_pending=lambda item_id: runtime.pending_tasks.append(item_id) or True,
     )
 
     class Service:
         def submit_batch(self, *_args, **kwargs):
             assert entered.is_set()
-            assert kwargs["seen_ids"] is runtime.seen_ids
-            assert kwargs["pending_tasks"] is runtime.pending_tasks
+            assert callable(kwargs["set_seen"])
+            assert callable(kwargs["queue_pending"])
             return {"status": "ok"}
 
     monkeypatch.setattr(collection_operations, "_collection_runtime_index", lambda: runtime)
@@ -75,8 +77,10 @@ def test_seed_batch_does_not_replace_unreadable_existing_archive(tmp_path, conte
             prefer_db_task_reads=lambda: False, get_seen_entry=lambda _: None,
             get_flat_item=lambda _: None, get_data_path=lambda _: str(archive),
             update_file_global=lambda *_: None, persist_item_to_db=lambda *_: None,
-            evict_runtime_item=lambda _: None, seen_ids={}, pending_tasks=[],
+            evict_runtime_item=lambda _: None,
             archive_list_payload=lambda *_: None,
+            set_seen=lambda *_args: None,
+            queue_pending=lambda _item_id: True,
         )
     assert archive.read_bytes() == contents
 

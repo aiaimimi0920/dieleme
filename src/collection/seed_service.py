@@ -165,11 +165,9 @@ class SeedCollectionService:
         update_file_global: Callable[[str, str, Dict[str, Any]], None],
         persist_item_to_db: Callable[[Dict[str, Any], str, Dict[str, Any] | None], None],
         evict_runtime_item: Callable[[str], None],
-        seen_ids: Dict[str, Any],
-        pending_tasks: list[str],
         archive_list_payload: Callable[[Any, datetime.datetime], str | None],
-        set_seen: Callable[[str, Dict[str, Any]], None] | None = None,
-        queue_pending: Callable[[str], bool] | None = None,
+        set_seen: Callable[[str, Dict[str, Any]], None],
+        queue_pending: Callable[[str], bool],
     ) -> Dict[str, Any]:
         items = data.get("items", [])
         source_page_url = data.get("source_page_url") or data.get("page_url") or data.get("url")
@@ -232,10 +230,7 @@ class SeedCollectionService:
                     else:
                         existing_entry["data"] = merged
                     if not merged.get("is_processed"):
-                        if queue_pending is not None:
-                            queue_pending(item_id)
-                        elif item_id not in pending_tasks:
-                            pending_tasks.append(item_id)
+                        queue_pending(item_id)
                     target_file_path = existing_entry["file_path"]
                 else:
                     target_file_path = get_data_path(self.adapter.partition_key(merged))
@@ -258,15 +253,9 @@ class SeedCollectionService:
                 file_path = get_data_path(a_date)
                 if not prefer_db_task_reads():
                     entry = {"file_path": file_path, "data": prepared_item, "status": item.get("status")}
-                    if set_seen is not None:
-                        set_seen(item_id, entry)
-                    else:
-                        seen_ids[item_id] = entry
+                    set_seen(item_id, entry)
                     if not prepared_item.get("is_processed"):
-                        if queue_pending is not None:
-                            queue_pending(item_id)
-                        elif item_id not in pending_tasks:
-                            pending_tasks.append(item_id)
+                        queue_pending(item_id)
                 event_payload["source_file"] = file_path
                 persist_item_to_db(prepared_item, "sniff_saved", event_payload)
                 if prefer_db_task_reads():
