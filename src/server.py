@@ -186,7 +186,12 @@ class DataHandler(http.server.SimpleHTTPRequestHandler):
         if access == 'recovery':
             authorized, _error = _nas_auth_recovery_authorized(self.headers)
             if not authorized:
-                _send_guard_error(self, {'status': 403, 'code': 'COLLECTION_AUTH_RECOVERY_FORBIDDEN', 'message': 'Authentication recovery authorization rejected', 'details': {}})
+                code = (
+                    'AUTH_RECOVERY_FORBIDDEN'
+                    if request_path == '/api/collection/auth/recovery/request'
+                    else 'COLLECTION_AUTH_RECOVERY_FORBIDDEN'
+                )
+                _send_guard_error(self, {'status': 403, 'code': code, 'message': 'Authentication recovery authorization rejected', 'details': {}})
             return authorized
         if access in {'engine', 'settings'}:
             role = _settings_schema.ROLES.get(request_path) if access == 'settings' else ('operator' if request_path == _engine_control.PREFIX else 'agent')

@@ -1879,9 +1879,8 @@ service 保留 `seen_ids` / `pending_tasks` 参数作为旧调用兼容面，但
 
 `server_collection_settings.py` 与 `server_auto_tuning.py` 已移除
 `server_context` 通配符，分别直接声明 URL/JSON 和定时器依赖。collection settings
-回归 **12 passed**，两个模块 import smoke 通过。扩展的 control-plane 组合中仍有
-一个既有 `AUTH_RECOVERY_FORBIDDEN` 与 `COLLECTION_AUTH_RECOVERY_FORBIDDEN` 错误码
-合同不一致失败，和本次 import 收口无关；没有部署或重启。
+回归 **12 passed**，两个模块 import smoke 通过；control-plane 错误码合同问题已在
+后续 recovery write-route 切片中修复。没有部署或重启。
 
 ### 2026-09-24: server facade contract coverage
 
@@ -2121,8 +2120,14 @@ JSON 与 collection processing 回归 **37 passed**，没有部署或重启。
 `server_auth_recovery.py` 已移除 `server_context` 通配符，直接声明 recovery
 coordinator、challenge scope、solver grace、token 文件、HMAC、JSON、路径和时间
 依赖。server source contract 与 RuntimeState 回归 **27 passed**，import smoke 通过。
-control-plane 组合仍有既有错误码合同失败：测试期望 `AUTH_RECOVERY_FORBIDDEN`，
-当前实际返回 `COLLECTION_AUTH_RECOVERY_FORBIDDEN`；该失败与本次 import 收口无关。
+control-plane 组合在后续 recovery write-route 切片中完成了错误码合同修复。
+
+### 2026-09-24: recovery write-route error contract corrected
+
+`POST /api/collection/auth/recovery/request` 的 recovery authorization rejection
+现在返回该路由约定的 `AUTH_RECOVERY_FORBIDDEN`；其他 recovery-protected collection
+routes 继续使用 `COLLECTION_AUTH_RECOVERY_FORBIDDEN`。control-plane error contract
+回归 **12 passed**，没有部署或重启。
 
 ### 2026-09-24: auth cookie imports made explicit
 
