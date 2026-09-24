@@ -1,6 +1,12 @@
 from __future__ import annotations
 
-from .server_context import *  # noqa: F401,F403
+import os
+import re
+import time
+from pathlib import Path
+from typing import Any, Callable
+
+from .server_context import CHALLENGE_SCOPES, DATA_DIR, REPO_ROOT, RUNTIME
 
 def _trigger_manual_solver_retry_if_due(
     *,

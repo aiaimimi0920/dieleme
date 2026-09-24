@@ -2117,6 +2117,13 @@ coordinator、challenge scope、solver grace、token 文件、HMAC、JSON、路�
 control-plane 组合仍有既有错误码合同失败：测试期望 `AUTH_RECOVERY_FORBIDDEN`，
 当前实际返回 `COLLECTION_AUTH_RECOVERY_FORBIDDEN`；该失败与本次 import 收口无关。
 
+### 2026-09-24: auth cookie imports made explicit
+
+`server_auth_cookie.py` 已移除 `server_context` 通配符，直接声明 cookie snapshot、
+solver retry、RuntimeState、共享数据根目录、正则、文件系统、时间和类型依赖。PC1
+desktop auth、NAS auth recovery 与 server source contract 回归 **53 passed**，没有
+部署或重启。
+
 ### 2026-09-24: hybrid context/runtime imports made explicit
 
 `server_hybrid_context.py` 与 `server_hybrid_runtime.py` 已移除 `server_context`
