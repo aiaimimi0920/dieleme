@@ -1,6 +1,36 @@
 from __future__ import annotations
 
-from .engine_guards import *  # noqa: F401,F403
+import math
+from typing import Any, Dict, Iterable, List
+
+from .engine_core import _calc_unit_price, distance_weight, haversine_km
+from .engine_guards import (
+    _apply_area_scale_guard,
+    _apply_evaluation_anchor,
+    _apply_locality_guard,
+    _apply_starting_price_guard,
+    _apply_uncertainty_conservative_blend,
+    _build_temporal_factor,
+    _coefficient_of_variation,
+    _exclude_future_dated_comparables,
+    _fallback_filter_and_weight,
+    _get,
+    _has_weak_market_engagement,
+    _is_low_tier_locality,
+    _normalize_record,
+    _normalized_text,
+    _resolve_radius_km,
+    _resolve_risk_discount_factor,
+    _resolve_valuation_mode,
+    _resolve_weighting,
+    _risk_adjustment,
+    _robust_unit_price,
+    _spatial_filter_and_weight,
+    _subject_attribute_adjustment,
+    _to_float,
+    _trim_outlier_samples,
+    get_active_risk_factor_overrides,
+)
 
 def predict_price(subject: Dict[str, Any], dataset: List[Dict[str, Any]], radius_km: float = 3.0) -> Dict[str, Any]:
     lat = subject.get("latitude")
