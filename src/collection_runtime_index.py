@@ -100,6 +100,10 @@ class CollectionRuntimeIndex:
         with self.lock:
             return dict(self.seen_ids), tuple(self.pending_tasks), dict(self.dispatched_tasks)
 
+    def counts_snapshot(self) -> tuple[int, int]:
+        with self.lock:
+            return len(self.seen_ids), len(self.pending_tasks)
+
     def claim_next_pending(self, now: datetime, cooldown_seconds: int) -> dict[str, object] | None:
         """Atomically choose and mark one legacy detail task."""
         with self.lock:

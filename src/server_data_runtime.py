@@ -95,7 +95,8 @@ def load_data(data_root: str | Path | None = None):
             if total_count:
                 pending_count = counts["db_pending_ids"]
                 logger.info("DB-first runtime index enabled; pending items will be cached on demand")
-                logger.info("Loaded runtime cache=%s total_db=%s pending_db=%s", len(collection.seen_ids), total_count, pending_count)
+                cached_count, _pending_count = collection.counts_snapshot()
+                logger.info("Loaded runtime cache=%s total_db=%s pending_db=%s", cached_count, total_count, pending_count)
                 return
             logger.warning("DB-first runtime index requested but repository is empty; falling back to JSON scan")
         except Exception as db_load_error:
@@ -186,7 +187,8 @@ def load_data(data_root: str | Path | None = None):
         except Exception as db_load_error:
             logger.exception("Runtime index hydration failed")
 
-    logger.info("Loaded items=%s pending_detail_tasks=%s", len(collection.seen_ids), len(collection.pending_tasks))
+    loaded_count, pending_count = collection.counts_snapshot()
+    logger.info("Loaded items=%s pending_detail_tasks=%s", loaded_count, pending_count)
 
 def cleanup_orphaned_files():
     """Rename *.processing and *.processing.failed files back to original"""

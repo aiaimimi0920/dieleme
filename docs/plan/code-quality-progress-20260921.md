@@ -1998,3 +1998,13 @@ RuntimeState callback 读取和清理 dispatch cooldown；只有旧的字典调�
 
 detail dispatch、RuntimeState、legacy UTC dispatch、quality collection 和 server facade
 回归 **44 passed**，有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: runtime count and dispatch snapshots for read-only paths
+
+`CollectionRuntimeIndex` 新增 `counts_snapshot()`。runtime loader 的 DB-first 和最终
+加载日志不再直接读取内部 seen/pending 容器；状态概览的 DB dispatch preview 也统一
+使用 `state_snapshot()`。这些只读路径保持原有日志、计数和 cooldown 行为，同时继续
+由 RuntimeState 提供一致性边界。
+
+RuntimeState、runtime JSON、quality collection 和 server facade 回归 **43 passed**，
+有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。

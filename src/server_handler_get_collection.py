@@ -221,8 +221,7 @@ def _get_status(self, parsed, request_path, query):
             db_detail_captured_ids = detail_captured_count
             next_batch = []
             now = _utc_now()
-            with runtime_index.lock:
-                dispatched_tasks = dict(runtime_index.dispatched_tasks)
+            _seen_ids, _pending_tasks, dispatched_tasks = runtime_index.state_snapshot()
             for candidate in _db_pending_task_candidates(limit=100):
                 if len(next_batch) >= 10:
                     break
