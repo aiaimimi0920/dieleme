@@ -2108,3 +2108,10 @@ CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ra
 延迟到 `main()`，避免 facade 构建期间循环导入。data fixer facade import、路线源
 码合同、浏览器 URL 和社区提示回归 **8 passed**；有效代码行 ratchet 与
 `git diff --check` 仍需在提交前运行。
+
+### 2026-09-24: server engine-control imports made explicit
+
+`server_engine_control.py` 已移除 `server_context` 通配符，直接声明 JSON、URL
+解析、挑战 scope 和 RuntimeState facade 依赖。collection engine restart、parallel
+restart 和 runtime control transport 回归 **28 passed**；提交前仍需运行有效代码行
+ratchet 与 diff 检查。没有部署或重启。

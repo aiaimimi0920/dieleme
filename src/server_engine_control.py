@@ -1,6 +1,9 @@
 from __future__ import annotations
 
-from .server_context import *  # noqa: F401,F403
+import json
+from urllib.parse import urlparse
+
+from .server_context import CHALLENGE_SCOPES, RUNTIME
 from . import collection_engine_restart as _engine_control
 from .server_request_guard import _read_limited_body
 
