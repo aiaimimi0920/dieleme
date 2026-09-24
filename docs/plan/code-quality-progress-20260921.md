@@ -2109,6 +2109,13 @@ CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ra
 码合同、浏览器 URL 和社区提示回归 **8 passed**；有效代码行 ratchet 与
 `git diff --check` 仍需在提交前运行。
 
+### 2026-09-24: hybrid context/runtime imports made explicit
+
+`server_hybrid_context.py` 与 `server_hybrid_runtime.py` 已移除 `server_context`
+通配符，直接声明 AVM calibration、analysis-stage、manual-review control-plane、
+DB repository、JSON、临时目录和路径依赖。server source contract 与 hybrid seed
+collection 回归 **48 passed**，没有部署或重启。
+
 ### 2026-09-24: collection handler and solver dispatch imports made explicit
 
 `server_handler_get_collection.py` 与 `server_solver_dispatch.py` 已移除
