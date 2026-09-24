@@ -1,6 +1,18 @@
 from __future__ import annotations
 import logging
-from src.data_fixer_context import *  # noqa: F401,F403
+import glob
+import json
+import os
+import re
+import threading
+from http.server import HTTPServer
+
+from src.data_fixer_context import (
+    AreaFixerHandler,
+    DATAS_DIR,
+    HTTP_PORT,
+    normalize_community_fields,
+)
 
 logger = logging.getLogger(__name__)
 

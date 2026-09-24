@@ -1,6 +1,16 @@
 from __future__ import annotations
 import logging
-from src.data_fixer_context import *  # noqa: F401,F403
+import json
+from datetime import datetime
+import tkinter as tk
+from tkinter import ttk
+
+from src.data_fixer_context import AI_AVAILABLE, FIELDS_SCHEMA, ToolTip
+try:
+    from src.data_fixer_context import get_model_pool
+except ImportError:
+    def get_model_pool():
+        return []
 
 logger = logging.getLogger(__name__)
 

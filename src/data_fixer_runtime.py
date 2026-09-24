@@ -1,8 +1,10 @@
 from __future__ import annotations
-from src.data_fixer_context import *  # noqa: F401,F403
+import tkinter as tk
 
 
 def main():
+    from src.data_fixer import DataFixerApp
+
     root = tk.Tk()
     app = DataFixerApp(root)
     root.mainloop()

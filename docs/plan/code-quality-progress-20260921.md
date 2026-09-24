@@ -2091,3 +2091,12 @@ CDP preflight 和 pointer backend import smoke 回归 **26 passed**，有效代�
 `captcha_solver.*` monkeypatch 入口与 mixin propagation 继续可用；solver context、
 CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ratchet 与
 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: data fixer part modules remove context wildcards
+
+`data_fixer_app_part_01.py` 至 `_05.py` 与 `data_fixer_runtime.py` 已移除
+`data_fixer_context` 通配符，改为按模块责任声明 UI、文件、AI、HTTP 和运行时依赖。
+可选 AI 依赖缺失时保留原有 disabled 行为，并将 runtime 的 `DataFixerApp` 解析
+延迟到 `main()`，避免 facade 构建期间循环导入。data fixer facade import、路线源
+码合同、浏览器 URL 和社区提示回归 **8 passed**；有效代码行 ratchet 与
+`git diff --check` 仍需在提交前运行。

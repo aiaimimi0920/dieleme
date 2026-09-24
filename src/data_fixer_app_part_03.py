@@ -1,5 +1,19 @@
 from __future__ import annotations
-from src.data_fixer_context import *  # noqa: F401,F403
+import glob
+import json
+import os
+import re
+from urllib.parse import urlsplit
+
+from src.data_fixer_context import AI_AVAILABLE, DATAS_DIR, HTTP_PORT
+try:
+    from src.data_fixer_context import get_model_pool, simple_ai_call
+except ImportError:
+    def get_model_pool():
+        return []
+
+    def simple_ai_call(*_args, **_kwargs):
+        return ""
 
 
 class DataFixerAppPart03:

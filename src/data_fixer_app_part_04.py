@@ -1,7 +1,17 @@
 from __future__ import annotations
 import logging
+import json
+import random
+import re
+import time
+from tkinter import messagebox
 
-from src.data_fixer_context import *  # noqa: F401,F403
+from src.data_fixer_context import AI_AVAILABLE, INFERABLE_FIELDS
+try:
+    from src.data_fixer_context import simple_ai_call
+except ImportError:
+    def simple_ai_call(*_args, **_kwargs):
+        return ""
 
 
 logger = logging.getLogger(__name__)

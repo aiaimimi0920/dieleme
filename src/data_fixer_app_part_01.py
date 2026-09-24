@@ -1,7 +1,16 @@
 from __future__ import annotations
 import logging
+import glob
+import json
+import os
+import random
+import threading
+from datetime import datetime
 
-from src.data_fixer_context import *  # noqa: F401,F403
+import tkinter as tk
+from tkinter import ttk
+
+from src.data_fixer_context import AI_AVAILABLE, DATAS_DIR, FIELDS_SCHEMA, INFERABLE_FIELDS, logger
 
 
 logger = logging.getLogger(__name__)
