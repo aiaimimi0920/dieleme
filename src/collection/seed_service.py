@@ -226,8 +226,11 @@ class SeedCollectionService:
                         merged[key] = value
                 self.adapter.sync_record(merged)
                 if existing_entry and not prefer_db_task_reads():
-                    entry = existing_entry
-                    entry["data"] = merged
+                    entry = {**existing_entry, "data": merged}
+                    if set_seen is not None:
+                        set_seen(item_id, entry)
+                    else:
+                        existing_entry["data"] = merged
                     if not merged.get("is_processed"):
                         if queue_pending is not None:
                             queue_pending(item_id)
@@ -249,7 +252,7 @@ class SeedCollectionService:
                 status,
                 item.get("url"),
             )
-            if item_id not in seen_ids:
+            if get_seen_entry(item_id) is None:
                 a_date = self.adapter.partition_key(prepared_item)
                 items_by_date.setdefault(a_date, []).append(prepared_item)
                 file_path = get_data_path(a_date)

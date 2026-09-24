@@ -1917,3 +1917,13 @@ RuntimeState、collection processing 和 server data runtime 回归 **18 passed*
 详情 dispatch、RuntimeState 和 collection restart 组合回归 **37 passed**，有效代码
 行 ratchet 与 `git diff --check` 通过。过期清理和旧 service 参数仍保留兼容面，
 没有部署或重启。
+
+### 2026-09-23: seed batch 使用 RuntimeState lookup/update API
+
+`SeedCollectionService.submit_batch()` 在 RuntimeState 调用路径中不再直接用
+`seen_ids` 做存在性判断，也不直接修改已缓存 entry 的 `data`。已有条目通过
+`get_seen_entry()` 查询，并优先使用 `set_seen()` 写回合并结果；旧参数仍保留给
+独立 legacy 调用。seed batch 的整体 collection lock 和 pending callback 保持不变。
+
+seed service、seed identity、collection processing 和 RuntimeState 回归 **26 passed**，
+有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
