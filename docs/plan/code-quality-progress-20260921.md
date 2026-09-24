@@ -2109,6 +2109,13 @@ CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ra
 码合同、浏览器 URL 和社区提示回归 **8 passed**；有效代码行 ratchet 与
 `git diff --check` 仍需在提交前运行。
 
+### 2026-09-24: collection handler and solver dispatch imports made explicit
+
+`server_handler_get_collection.py` 与 `server_solver_dispatch.py` 已移除
+`server_context` 通配符，直接声明 collection archive/manual-review、数据库、认证
+恢复、JSON、网络请求、线程和 executor 依赖。collection handler、solver dispatch、
+server source contract、PC2 retry 和 RuntimeState 回归 **32 passed**，没有部署或重启。
+
 ### 2026-09-24: server request-guard imports made explicit
 
 `server_request_guard.py` 已移除 `server_context` 通配符，直接声明 HMAC、JSON、环境
