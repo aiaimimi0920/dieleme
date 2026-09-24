@@ -2,10 +2,16 @@ from __future__ import annotations
 
 import sys
 import types
+import os
+import random
+import time
+
+import requests
+import websocket
 
 from . import captcha_dom
 
-from .captcha_context import *  # noqa: F401,F403
+from .captcha_context import DEFAULT_CDP_PAGE_TARGET_LIMIT, LOCAL_MOCK_VERIFY_MODES
 from .captcha_target import CaptchaTargetMixin
 from .captcha_cdp import CaptchaCDPMixin
 from .captcha_slider import CaptchaSliderMixin

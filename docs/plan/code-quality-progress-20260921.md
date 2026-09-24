@@ -2083,3 +2083,11 @@ ratchet 与 `git diff --check` 通过。没有部署或重启。
 平台分支实际使用的 `os`、`re`、`subprocess` 与 `time`。Windows/Linux 窗口定位、
 CDP preflight 和 pointer backend import smoke 回归 **26 passed**，有效代码行 ratchet
 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: captcha solver facade imports made explicit
+
+`captcha_solver.py` 已移除 `captcha_context` 通配符，显式保留 facade 兼容所需的
+`requests`、`websocket`、`time`、`os`、`random` 共享模块及 CDP/mock 常量。既有
+`captcha_solver.*` monkeypatch 入口与 mixin propagation 继续可用；solver context、
+CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ratchet 与
+`git diff --check` 通过。没有部署或重启。
