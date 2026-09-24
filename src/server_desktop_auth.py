@@ -1,5 +1,7 @@
 """Authenticated entry into the existing PC1 -> NAS -> PC2 cookie handoff."""
-from .server_context import *  # noqa: F401,F403
+import json
+
+from .server_context import NAS_AUTH_RECOVERY, RUNTIME
 from .server_request_guard import _read_limited_body
 
 

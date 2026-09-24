@@ -2116,6 +2116,13 @@ CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ra
 smoke 与 server facade/source contract 回归 **14 passed**，没有改变 token、CORS、
 request-size 或 CDP endpoint 合同；没有部署或重启。
 
+### 2026-09-24: server solver state imports made explicit
+
+`server_solver_scope.py`、`server_solver_state.py` 与 `server_desktop_auth.py` 已移除
+`server_context` 通配符，直接声明 solver scope/state 所需的 JSON、文件系统、时间、
+RuntimeState、challenge 常量和 recovery facade 依赖。server source contract、
+RuntimeState 与 legacy dispatch UTC 回归 **30 passed**，没有部署或重启。
+
 ### 2026-09-24: server engine-control imports made explicit
 
 `server_engine_control.py` 已移除 `server_context` 通配符，直接声明 JSON、URL
