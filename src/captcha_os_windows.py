@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import logging
-
-from .captcha_context import *  # noqa: F401,F403
+import os
+import re
+import subprocess
+import time
 
 logger = logging.getLogger(__name__)
 

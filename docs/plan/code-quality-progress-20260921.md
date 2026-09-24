@@ -2076,3 +2076,10 @@ context 导入。OS pointer backend、DOM preflight、fallback 和 PC2 retry 回
 
 相关验证码、pointer backend、DOM evaluation 与 PC2 回归 **133 passed**，有效代码行
 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: captcha Windows facade imports made explicit
+
+`captcha_os_windows.py` 不再依赖 `captcha_context` 通配符，直接声明窗口聚焦和
+平台分支实际使用的 `os`、`re`、`subprocess` 与 `time`。Windows/Linux 窗口定位、
+CDP preflight 和 pointer backend import smoke 回归 **26 passed**，有效代码行 ratchet
+与 `git diff --check` 通过。没有部署或重启。
