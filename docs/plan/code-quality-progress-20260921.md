@@ -2116,6 +2116,13 @@ CDP request、target limit 和 OS drag 回归 **30 passed**，有效代码行 ra
 DB repository、JSON、临时目录和路径依赖。server source contract 与 hybrid seed
 collection 回归 **48 passed**，没有部署或重启。
 
+### 2026-09-24: collection status imports made explicit
+
+`server_collection_status.py` 已移除 `server_context` 通配符，直接声明 AVM、数据库、
+认证恢复、RuntimeState、文件系统、线程、时间和可选 llm helper 依赖。collection
+status import smoke、server source contract、controller coordination 和 RuntimeState
+回归 **30 passed, 1 skipped**，没有部署或重启。
+
 ### 2026-09-24: collection handler and solver dispatch imports made explicit
 
 `server_handler_get_collection.py` 与 `server_solver_dispatch.py` 已移除
