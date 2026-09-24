@@ -2124,6 +2124,13 @@ request-size 或 CDP endpoint 合同；没有部署或重启。
 server source contract、collection controller coordination 与 HTTPS control 回归
 **19 passed, 1 skipped**，没有部署或重启。
 
+### 2026-09-24: server ingest handler imports made explicit
+
+`server_handler_ingest.py` 已移除 `server_context` 通配符，直接声明 analysis ingest
+所需的 math、文件系统、URL、RuntimeState、AVM service、数据库和 alert threshold
+依赖。ingest UTC handler、server source contract 和 import smoke 回归 **15 passed**，
+没有部署或重启。
+
 ### 2026-09-24: hybrid summary imports made explicit
 
 `server_hybrid_escalation.py`、`server_hybrid_events.py`、`server_hybrid_history.py`、
