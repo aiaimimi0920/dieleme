@@ -2123,6 +2123,13 @@ collection 回归 **48 passed**，没有部署或重启。
 status import smoke、server source contract、controller coordination 和 RuntimeState
 回归 **30 passed, 1 skipped**，没有部署或重启。
 
+### 2026-09-24: manual-review facade imports made explicit
+
+`server_manual_review.py` 已移除 `server_context` 通配符，直接声明 control-plane
+backup、receipt、analysis-stage、数据库和路径依赖。manual-review facade import、
+server source contract、control-plane backfill 与 analysis-stage planner 回归
+**69 passed**，没有部署或重启。
+
 ### 2026-09-24: collection handler and solver dispatch imports made explicit
 
 `server_handler_get_collection.py` 与 `server_solver_dispatch.py` 已移除
