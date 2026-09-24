@@ -201,7 +201,8 @@ NAS 只读检查：`/api/status`、`/api/collection/overview` 均 HTTP 200；DB 
 
 ## 续作：AVM facade 显式依赖收口
 
-`src/avm/service.py` 和 `src/avm/service_health.py` 已将 `service_context` 的通配符导入替换为显式导入。保留
+`src/avm/service.py`、`src/avm/service_health.py` 和 `src/avm/service_data.py` 已将
+`service_context` 的通配符导入替换为显式导入。保留
 AVM facade 的公共常量、类型依赖和五个可 monkeypatch 的函数，并继续由
 `_ServiceFacadeModule` 将这些 patch 同步到各 mixin 模块。这样减少隐式名称泄漏，
 同时不改变 `AVMService` 的公共导入路径和现有测试替身语义。
