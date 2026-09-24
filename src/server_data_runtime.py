@@ -318,8 +318,6 @@ def process_single_file(file_path):
         extract_avm_risk_features=llm_helper.extract_avm_risk_features,
         log_prediction_event=llm_helper.log_prediction_event,
         current_processing=RUNTIME.processing,
-        seen_ids=collection.seen_ids,
-        pending_tasks=collection.pending_tasks,
         queue_pending=collection.queue_pending,
         set_seen=collection.set_seen,
         remove_pending=collection.remove_pending,

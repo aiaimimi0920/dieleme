@@ -1957,3 +1957,14 @@ RuntimeState、detail dispatch、collection restart 和 server contract 回归 *
 
 collection runtime、RuntimeState、detail dispatch 和 server facade 回归 **41 passed**，
 有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: detail processor requires RuntimeState callbacks
+
+`DetailProcessor` 和 `DetailCollectionService.process_html_file()` 已移除
+`seen_ids` / `pending_tasks` 原始容器参数。重试、完成保存和 pending 清理现在必须
+通过 `queue_pending()`、`set_seen()` 和 `remove_pending()` callback 完成；内部不再保留
+直接 append/remove/index 写入 fallback。生产调用方已全部传入 RuntimeState callbacks，
+相关单元测试改为验证 callback 合同。
+
+collection adapter、detail service、detail dispatch 和 RuntimeState 回归 **40 passed**，
+有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。

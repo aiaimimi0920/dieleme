@@ -87,8 +87,7 @@ class DetailProcessor:
         reason: str,
         file_path: str,
         prefer_db_task_reads: Callable[[], bool],
-        pending_tasks: list[str],
-        queue_pending: Callable[[str], bool] | None = None,
+        queue_pending: Callable[[str], bool],
     ) -> bool:
         retry_path = self.retry_dir / f"item-{item_id}.html.retry"
         if retry_path.exists():
@@ -102,10 +101,7 @@ class DetailProcessor:
             encoding="utf-8",
         )
         if not prefer_db_task_reads():
-            if queue_pending is not None:
-                queue_pending(item_id)
-            elif item_id not in pending_tasks:
-                pending_tasks.append(item_id)
+            queue_pending(item_id)
         try:
             os.remove(file_path)
             (self.data_root / "html" / f"item-{item_id}.html").unlink(missing_ok=True)
@@ -124,10 +120,8 @@ class DetailProcessor:
         persist_item_to_db: Callable[[Dict[str, Any], str, Dict[str, Any] | None], None],
         evict_runtime_item: Callable[[str], None],
         prefer_db_task_reads: Callable[[], bool],
-        seen_ids: Dict[str, Any],
-        pending_tasks: list[str],
-        set_seen: Callable[[str, Dict[str, Any]], None] | None = None,
-        remove_pending: Callable[[str], None] | None = None,
+        set_seen: Callable[[str, Dict[str, Any]], None],
+        remove_pending: Callable[[str], None],
     ) -> None:
         self.adapter.finalize_detail_record(record)
         update_item_in_json(target_json_path, item_id, record)
@@ -140,14 +134,8 @@ class DetailProcessor:
             evict_runtime_item(item_id)
         else:
             entry = {"file_path": target_json_path, "data": record}
-            if set_seen is not None:
-                set_seen(item_id, entry)
-            else:
-                seen_ids[item_id] = entry
-            if remove_pending is not None:
-                remove_pending(item_id)
-            elif item_id in pending_tasks:
-                pending_tasks.remove(item_id)
+            set_seen(item_id, entry)
+            remove_pending(item_id)
         logger.info("Detail saved item=%s path=%s quality=%s", item_id, target_json_path, self.adapter.quality_summary(record))
 
     def _cleanup_success(self, *, file_path: str, item_id: str, failed_marker_path: Path) -> None:
@@ -183,11 +171,9 @@ class DetailProcessor:
         extract_avm_risk_features: Callable[[str, str | None], Dict[str, Any]],
         log_prediction_event: Callable[..., None],
         current_processing: MutableSet[str],
-        seen_ids: Dict[str, Any],
-        pending_tasks: list[str],
-        queue_pending: Callable[[str], bool] | None = None,
-        set_seen: Callable[[str, Dict[str, Any]], None] | None = None,
-        remove_pending: Callable[[str], None] | None = None,
+        queue_pending: Callable[[str], bool],
+        set_seen: Callable[[str, Dict[str, Any]], None],
+        remove_pending: Callable[[str], None],
     ) -> None:
         filename = os.path.basename(file_path)
         match = re.search(r"item-(.+?)(?:\.html|\.txt|$)", filename)
@@ -262,7 +248,6 @@ class DetailProcessor:
                     reason=retry_reason,
                     file_path=file_path,
                     prefer_db_task_reads=prefer_db_task_reads,
-                    pending_tasks=pending_tasks,
                     queue_pending=queue_pending,
                 ):
                     return
@@ -275,8 +260,6 @@ class DetailProcessor:
                     persist_item_to_db=persist_item_to_db,
                     evict_runtime_item=evict_runtime_item,
                     prefer_db_task_reads=prefer_db_task_reads,
-                    seen_ids=seen_ids,
-                    pending_tasks=pending_tasks,
                     set_seen=set_seen,
                     remove_pending=remove_pending,
                 )

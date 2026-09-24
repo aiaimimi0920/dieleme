@@ -210,8 +210,9 @@ def test_generic_adapter_processes_alphanumeric_detail_id(tmp_path: Path) -> Non
         extract_avm_risk_features=reject_avm_callback,
         log_prediction_event=lambda **_kwargs: None,
         current_processing={str(html_path)},
-        seen_ids={},
-        pending_tasks=["sku-7"],
+        queue_pending=lambda _item_id: True,
+        set_seen=lambda *_args: None,
+        remove_pending=lambda _item_id: None,
         detail_extractor=CallableDetailExtractor(
             lambda *_args, **_kwargs: json.dumps({"name": "Updated", "price": 99})
         ),
