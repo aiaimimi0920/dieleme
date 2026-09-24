@@ -212,6 +212,10 @@ AVM facade 的公共常量、类型依赖和五个可 monkeypatch 的函数，�
 `AVM_CONFIG_MANAGER` 和 `get_active_risk_factor_overrides`，避免通过预测引擎的
 通配符链泄漏整个内部模块命名空间，同时保留现有配置 monkeypatch 入口。
 
+`src/avm/engine_temporal.py` 也已改为显式声明核心时间、筛选、权重和风险依赖；
+保留供下游统计、护栏和预测模块使用的内部符号，避免在底层引擎迁移过程中改变
+预测行为。AVM engine 聚焦回归 **48 passed**。
+
 验证：AVM engine、HTTP contract 与 weighting 聚焦集合 **53 passed**；本项不包含
 FunctionType 动态克隆、其他 facade 或生产数据库迁移，剩余 facade 收口仍未完成。
 
