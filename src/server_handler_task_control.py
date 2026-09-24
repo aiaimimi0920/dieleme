@@ -39,10 +39,13 @@ def _get_item(self, parsed, request_path, query):
         except Exception:
             lookup_failed = True
             logger.exception("/api/get_item database lookup failed item=%s", item_id)
-    missing_entry = object()
-    with runtime_index.lock:
-        runtime_entry = runtime_index.seen_ids.get(item_id, missing_entry)
-    if runtime_entry is not missing_entry:
+    get_seen = getattr(runtime_index, "get_seen", None)
+    if get_seen is not None:
+        runtime_entry = get_seen(item_id)
+    else:
+        with runtime_index.lock:
+            runtime_entry = runtime_index.seen_ids.get(item_id)
+    if runtime_entry is not None:
         self.send_json(runtime_entry['data'])
     elif lookup_failed:
         self.send_error_json(status=503, code='AVM_ITEM_LOOKUP_UNAVAILABLE', message='Item storage is unavailable')

@@ -1948,3 +1948,12 @@ RuntimeState、详情 dispatch、collection restart 和 server facade 契约回�
 
 RuntimeState、detail dispatch、collection restart 和 server contract 回归 **53 passed**，
 有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: task-control item lookup uses RuntimeState read API
+
+`server_handler_task_control._get_item()` 现在优先使用 `CollectionRuntimeIndex.get_seen()`，
+将在线 RuntimeState 读取与其他 handler 统一；针对旧的轻量测试替身保留受锁 fallback。
+该改动不改变数据库优先级、404/503 错误合同或返回数据。
+
+collection runtime、RuntimeState、detail dispatch 和 server facade 回归 **41 passed**，
+有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
