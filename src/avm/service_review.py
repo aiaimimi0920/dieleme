@@ -1,6 +1,10 @@
 from __future__ import annotations
 
-from .service_context import *  # noqa: F401,F403
+import time
+from typing import Any, Dict, List, Optional
+
+from .risk_schema import RISK_FEATURE_RULES, validate_risk_features
+from .service_context import MODEL_VERSION, RISK_IMPACT_MAP
 
 
 class AVMReviewMixin:
