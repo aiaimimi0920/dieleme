@@ -74,6 +74,11 @@ def load_data(data_root: str | Path | None = None):
     """Load all json files from datas/ directory (and archives) into memory index"""
     active_data_root = os.fspath(data_root or DATA_DIR)
     collection = _collection_runtime_index()
+    # Preserve the historical facade alias when tests or maintenance callbacks
+    # replace it explicitly; normal RuntimeState calls already share identity.
+    legacy_pending = globals().get("PENDING_TASKS")
+    if isinstance(legacy_pending, list) and legacy_pending is not collection.pending_tasks:
+        collection.pending_tasks = legacy_pending
     with collection.lock:
         collection.clear()
 

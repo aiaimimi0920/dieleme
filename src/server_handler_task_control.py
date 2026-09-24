@@ -83,24 +83,10 @@ def _post_detail_tasks(self):
         else:
             logger.debug("Returned zero detail tasks")
         return
-    tasks = []
-    now = _utc_now()
-    with runtime_index.lock:
-        runtime_index.prune_processed_pending()
-        pending_count = len(runtime_index.pending_tasks)
-        total_count = len(runtime_index.seen_ids)
-        done_count = total_count - pending_count
-        for tid in runtime_index.pending_tasks:
-            last_time = _as_utc_timestamp(runtime_index.dispatched_tasks.get(tid))
-            if last_time and (now - last_time).total_seconds() < DISPATCH_COOLDOWN_SECONDS:
-                continue
-            item = runtime_index.seen_ids.get(tid, {}).get('data')
-            if not item or item.get('is_processed'):
-                continue
-            tasks.append({'id': tid, 'url': item.get('url')})
-            runtime_index.mark_dispatched(tid, now)
-            if len(tasks) >= batch_size:
-                break
+    with DATA_LOCK:
+        tasks, total_count, done_count, pending_count = runtime_index.claim_pending_batch(
+            _utc_now(), DISPATCH_COOLDOWN_SECONDS, batch_size
+        )
     self.send_json({'tasks': tasks, 'total': total_count, 'done': done_count})
     logger.info("Dispatched detail tasks count=%s batch_limit=%s pending=%s", len(tasks), batch_size, pending_count)
 

@@ -86,7 +86,7 @@ def _apply_flat_override_patch(item, patch):
 def _get_working_item(item_id, include_processed=False):
     item_id = str(item_id)
     collection = _collection_runtime_index()
-    entry = collection.seen_ids.get(item_id)
+    entry = collection.get_seen(item_id)
     if entry:
         return {
             "data": entry["data"],

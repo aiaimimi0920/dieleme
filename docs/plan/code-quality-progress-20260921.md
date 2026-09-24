@@ -1937,3 +1937,14 @@ legacy 详情任务入口则在 RuntimeState 内部一次锁操作中完成 pend
 
 RuntimeState、详情 dispatch、collection restart 和 server facade 契约回归 **45 passed**，
 有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。
+
+### 2026-09-24: handler collection reads and legacy batch claim use state APIs
+
+`_get_working_item()`、analysis screen lookup 和 detail next-visit 入口不再直接读取
+`seen_ids`；legacy visit entries 使用 RuntimeState snapshot。详情批量任务入口新增
+`claim_pending_batch()`，在共享锁内完成 pending 清理、计数、冷却检查和 dispatch 标记，
+避免 handler 自己遍历内部容器。历史 `PENDING_TASKS` 与 `DATA_LOCK` facade 接入仍保留，
+用于不破坏既有维护回调和测试边界。
+
+RuntimeState、detail dispatch、collection restart 和 server contract 回归 **53 passed**，
+有效代码行 ratchet 与 `git diff --check` 通过。没有部署或重启。

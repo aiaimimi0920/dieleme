@@ -103,3 +103,31 @@ class CollectionRuntimeIndex:
                 self.dispatched_tasks[item_id] = now
                 return dict(self.seen_ids[item_id].get("data", {}))
         return None
+
+    def claim_pending_batch(
+        self, now: datetime, cooldown_seconds: int, batch_size: int
+    ) -> tuple[list[dict[str, object]], int, int, int]:
+        """Atomically select legacy detail tasks and mark their dispatch times."""
+        with self.lock:
+            self.pending_tasks[:] = [
+                item_id for item_id in self.pending_tasks
+                if not self.seen_ids.get(item_id, {}).get("data", {}).get("is_processed")
+            ]
+            total_count = len(self.seen_ids)
+            pending_count = len(self.pending_tasks)
+            tasks: list[dict[str, object]] = []
+            for item_id in self.pending_tasks:
+                dispatched_at = self.dispatched_tasks.get(item_id)
+                if dispatched_at is not None:
+                    if dispatched_at.tzinfo is None:
+                        dispatched_at = dispatched_at.replace(tzinfo=now.tzinfo)
+                    if (now - dispatched_at).total_seconds() < cooldown_seconds:
+                        continue
+                item = self.seen_ids[item_id].get("data")
+                if not isinstance(item, dict):
+                    continue
+                tasks.append({"id": item_id, "url": item.get("url")})
+                self.dispatched_tasks[item_id] = now
+                if len(tasks) >= batch_size:
+                    break
+            return tasks, total_count, total_count - pending_count, pending_count

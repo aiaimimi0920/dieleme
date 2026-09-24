@@ -25,8 +25,7 @@ def _run_analysis_screen(payload):
             item_id = str(raw).strip()
         if not item_id:
             continue
-        with runtime_index.lock:
-            entry = runtime_index.seen_ids.get(item_id)
+        entry = runtime_index.get_seen(item_id)
         if entry is None and DB_REPOSITORY.enabled:
             try:
                 db_item = DB_REPOSITORY.get_flat_item(item_id)
@@ -303,8 +302,12 @@ def _post_detail_next_visit(self):
         return
     legacy_entries = None
     if not _prefer_db_task_reads():
-        with runtime_index.lock:
-            legacy_entries = list(runtime_index.seen_ids.items())
+        if hasattr(runtime_index, "state_snapshot"):
+            seen_ids, _pending, _dispatched = runtime_index.state_snapshot()
+        else:
+            with runtime_index.lock:
+                seen_ids = dict(runtime_index.seen_ids)
+        legacy_entries = list(seen_ids.items())
     try:
         result = _detail_collection_service().next_visit_task(
             dispatched_tasks=runtime_index.dispatched_tasks,
